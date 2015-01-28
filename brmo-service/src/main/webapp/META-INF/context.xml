@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/brmo-service">
-
-<!-- ResourceLink werkt via server.xml van tomcat
+  <!-- ResourceLink werkt via server.xml van tomcat
     1. Plaats xml blok onder <GlobalNamingResources> in server.xml van tomcat.
       
     <Resource name="jdbc/brmo/staging"
@@ -60,28 +59,7 @@
                 
     2. Plaats postgresql of oracle driver in tomcat lib
     -->
-    
-    <ResourceLink 
-        global="jdbc/brmo/staging" 
-        name="jdbc/brmo/staging"
-        type="javax.sql.Datasource"
-    />
-    
-    <ResourceLink 
-        global="jdbc/brmo/rsgb" 
-        name="jdbc/brmo/rsgb" 
-        type="javax.sql.Datasource"
-    />
-  
-    <Realm 
-        allRolesMode="authOnly" 
-        className="org.apache.catalina.realm.DataSourceRealm" 
-        dataSourceName="jdbc/brmo/staging" 
-        digest="SHA-1" 
-        roleNameCol="groep_" 
-        userCredCol="wachtwoord" 
-        userNameCol="gebruikersnaam" 
-        userRoleTable="gebruiker_groepen"
-        userTable="gebruiker_"
-    />  
+  <ResourceLink global="jdbc/brmo/staging" name="jdbc/brmo/staging" type="javax.sql.Datasource"/>
+  <ResourceLink global="jdbc/brmo/rsgb" name="jdbc/brmo/rsgb" type="javax.sql.Datasource"/>
+  <Realm allRolesMode="authOnly" className="org.apache.catalina.realm.DataSourceRealm" dataSourceName="jdbc/brmo/staging" digest="SHA-1" roleNameCol="groep_" userCredCol="wachtwoord" userNameCol="gebruikersnaam" userRoleTable="gebruiker_groepen" userTable="gebruiker_"/>
 </Context>
