@@ -1,0 +1,29 @@
+ -----
+	 Release notes
+	 -----
+	 mark
+	 -----
+	 20 jan 2015
+	 -----
+
+~~ http://maven.apache.org/doxia/references/apt-format.html
+
+${project.name} ${project.version} Release Notes
+
+  Release notes voor ${project.name} versie ${project.version}.
+
+%{toc|section=1|fromDepth=2|toDepth=2}
+
+* ${project.version} Release Notes
+
+** Enhancements
+
+  * 
+
+  []
+
+** New
+
+  * initiele versie
+
+  []

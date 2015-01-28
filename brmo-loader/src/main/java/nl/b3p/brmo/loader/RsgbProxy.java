@@ -1,0 +1,1269 @@
+package nl.b3p.brmo.loader;
+
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.io.ParseException;
+import com.vividsolutions.jts.io.WKTReader;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Savepoint;
+import java.sql.Types;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import javax.sql.DataSource;
+import javax.xml.bind.DatatypeConverter;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.stream.StreamSource;
+import nl.b3p.brmo.loader.entity.Bericht;
+import nl.b3p.brmo.loader.jdbc.ColumnMetadata;
+import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
+import nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper;
+import nl.b3p.brmo.loader.jdbc.OracleJdbcConverter;
+import nl.b3p.brmo.loader.jdbc.PostgisJdbcConverter;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.DataComfortXMLReader;
+import nl.b3p.brmo.loader.util.RsgbTransformer;
+import nl.b3p.brmo.loader.util.TableData;
+import nl.b3p.brmo.loader.util.TableRow;
+import oracle.jdbc.OracleConnection;
+import org.apache.commons.dbutils.DbUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.geotools.geometry.jts.JTSFactoryFinder;
+
+/**
+ *
+ * @author Boy de Wit
+ */
+public class RsgbProxy implements Runnable, BerichtenHandler {
+
+    private static final Log log = LogFactory.getLog(RsgbProxy.class);
+
+    private final String jobId = Thread.currentThread().getId() + System.currentTimeMillis() + "";
+
+    private final boolean alsoExecuteSql = true;
+
+    private final GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory();
+
+    private String schema = null;
+
+    private final ProgressUpdateListener listener;
+
+    private int processed;
+
+    public enum BerichtSelectMode {
+        BY_STATUS, BY_IDS, BY_LAADPROCES
+    }
+
+    private BerichtSelectMode mode;
+
+    /**
+     * De status voor BY_STATUS.
+     */
+    private Bericht.STATUS status;
+
+    /**
+     * De bericht ID's voor BY_IDS.
+     */
+    private long[] berichtIds;
+
+    /**
+     * Het ID van het laadproces vor BY_LAADPROCES.
+     */
+    private Long laadprocesId;
+
+    private enum STATEMENT_TYPE {
+        INSERT, UPDATE, SELECT, DELETE
+    }
+
+    private DatabaseMetaData dbMetadata =  null;
+    /* Map van lowercase tabelnaam naar originele case tabelnaam */
+    private Map<String, String> tables = new HashMap();
+    private Map<String, SortedSet<ColumnMetadata>> tableColumns = new HashMap();
+
+    private Connection connRsgb =  null;
+    private GeometryJdbcConverter geomToJdbc = null;
+    private boolean useSavepoints = false;
+    private Savepoint recentSavepoint = null;
+    private String herkomstMetadata = null;
+
+    private DataSource dataSourceRsgb = null;
+    private StagingProxy stagingProxy = null;
+
+    private Map<String, RsgbTransformer> rsgbTransformers = new HashMap();
+
+    public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, Bericht.STATUS status, ProgressUpdateListener listener) {
+        this.stagingProxy = stagingProxy;
+        this.dataSourceRsgb = dataSourceRsgb;
+
+        mode = BerichtSelectMode.BY_STATUS;
+        this.status = status;
+        this.listener = listener;
+    }
+
+    public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, long[] berichtIds, ProgressUpdateListener listener) {
+        this.stagingProxy = stagingProxy;
+        this.dataSourceRsgb = dataSourceRsgb;
+
+        mode = BerichtSelectMode.BY_IDS;
+        this.berichtIds = berichtIds;
+        this.listener = listener;
+    }
+
+    public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, Long laadprocesId, ProgressUpdateListener listener) {
+        this.stagingProxy = stagingProxy;
+        this.dataSourceRsgb = dataSourceRsgb;
+
+        mode = BerichtSelectMode.BY_LAADPROCES;
+        this.laadprocesId = laadprocesId;
+        this.listener = listener;
+    }
+
+    public void init() throws SQLException {
+        connRsgb = dataSourceRsgb.getConnection();
+
+        String productName = connRsgb.getMetaData().getDatabaseProductName();
+        if (productName.contains("PostgreSQL")) {
+            geomToJdbc = new PostgisJdbcConverter();
+            useSavepoints = true;
+        } else if (productName.contains("Oracle")) {
+
+            OracleConnection oc = OracleConnectionUnwrapper.unwrap(connRsgb);
+            schema = oc.getCurrentSchema();
+
+            log.debug("Oracle schema: " + schema);
+
+            geomToJdbc = new OracleJdbcConverter(oc);
+        } else {
+            throw new UnsupportedOperationException("Unknown database: " + connRsgb.getMetaData().getDatabaseProductName());
+        }
+
+        try {
+            dbMetadata = connRsgb.getMetaData();
+
+            ResultSet tablesRs = dbMetadata.getTables("", schema, "%", new String[]{"TABLE"});
+            while (tablesRs.next()) {
+                tables.put(tablesRs.getString("TABLE_NAME").toLowerCase(), tablesRs.getString("TABLE_NAME"));
+            }
+        } catch (SQLException sqlEx) {
+            throw new SQLException("Fout bij ophalen tabellen: ", sqlEx);
+        }
+    }
+
+    public void close() {
+        DbUtils.closeQuietly(connRsgb);
+    }
+
+    public void run() {
+        try {
+
+            init();
+
+            // Set all berichten to waiting
+            setWaitingStatus();
+
+            long total = stagingProxy.getBerichtenCountByJob(jobId);
+            if(listener != null) {
+                listener.total(total);
+            }
+            // Do the work by querying all berichten, berichten are passed to
+            // handle() method
+            stagingProxy.handleBerichtenByJob(jobId, total, this);
+
+        } catch (Exception e) {
+            // user is informed via status in database
+            log.error("Fout tijdens verwerken berichten", e);
+
+            if(listener != null) {
+                listener.exception(e);
+            }
+        }
+
+        close();
+    }
+
+    /**
+     * Zet alle te verwerken berichten op WAITING.
+     */
+    private void setWaitingStatus() throws SQLException {
+
+        switch(mode) {
+            case BY_STATUS:
+                stagingProxy.setBerichtenJobByStatus(status, jobId);
+                break;
+            case BY_IDS:
+                stagingProxy.setBerichtenJobByIds(berichtIds, jobId);
+                break;
+            case BY_LAADPROCES:
+                stagingProxy.setBerichtenJobByLaadproces(laadprocesId, jobId);
+                break;
+        }
+    }
+
+    public void handle(Bericht ber) throws BrmoException {
+
+        Bericht.STATUS newStatus = Bericht.STATUS.RSGB_OK;
+
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        log.debug(String.format("RSGB verwerking van %s bericht met id %s, object_ref %s", ber.getSoort(), ber.getId(), ber.getObjectRef()));
+        StringBuilder loadLog =  new StringBuilder();
+        loadLog.append(String.format("%s: start verwerking %s bericht object ref %s, met id %s, berichtdatum %s\n", dateTimeFormat.format(new Date()), ber.getSoort(), ber.getObjectRef(), ber.getId(), dateFormat.format(ber.getDatum())));
+
+        setHerkomstMetadata(ber.getSoort());
+
+        RsgbTransformer transformer;
+        try {
+            transformer = getTransformer(ber.getSoort());
+        } catch(Exception e) {
+            throw new BrmoException("Fout bij laden " + ber.getSoort() + " XSL stylesheet", e);
+        }
+
+        long startTime = 0;
+        try {
+            ber.setStatus(Bericht.STATUS.RSGB_PROCESSING);
+            ber.setOpmerking("");
+            ber.setStatusDatum(new Date());
+            stagingProxy.updateBericht(ber);
+
+            if (connRsgb.getAutoCommit()) {
+                connRsgb.setAutoCommit(false);
+            }
+
+            loadLog.append("Transformeren naar RSGB database-xml... ");
+            startTime = System.currentTimeMillis();
+            stagingProxy.updateBerichtenDbXml(Collections.singletonList(ber), transformer);
+            loadLog.append(String.format("%4.1fs\n", (System.currentTimeMillis() - startTime) / 1000.0));
+
+            // per bericht kijken of er een oud bericht is
+            Bericht oud = stagingProxy.getOldBericht(ber);
+
+            StringReader nReader = new StringReader(ber.getDbXml());
+            List<TableData> newList = DataComfortXMLReader.readDataXML(new StreamSource(nReader));
+
+            // oud bericht
+            if (oud != null) {
+                loadLog.append(String.format("Eerder bericht (id: %d) voor zelfde object gevonden van datum %s, status %s op %s\n",
+                        oud.getId(),
+                        dateFormat.format(oud.getDatum()),
+                        oud.getStatus().toString(),
+                        dateTimeFormat.format(oud.getStatusDatum())));
+
+                if(ber.getDatum().equals(oud.getDatum()) && ber.getVolgordeNummer().equals(oud.getVolgordeNummer()) ) {
+                    loadLog.append("Datum en volgordenummer van nieuw bericht hetzelfde als de oude, negeer update van dit bericht!\n");
+
+                    boolean dbXmlEquals = ber.getDbXml().equals(oud.getDbXml());
+                    if(!dbXmlEquals) {
+                        String s = String.format("Bericht %d met zelfde datum als eerder verwerkt bericht %d heeft andere db xml! Object ref %s",
+                                ber.getId(), oud.getId(), ber.getObjectRef());
+                        log.warn(s);
+                        loadLog.append("Waarschuwing: ").append(s).append("\n");
+                    }
+                } else {
+
+                    // Check of eerder bericht toevallig niet nieuwere datum
+                    if(oud.getDatum().after(ber.getDatum())) {
+                        newStatus = Bericht.STATUS.RSGB_OUTDATED;
+                        loadLog.append("Bericht bevat oudere data dan eerder verwerkt bericht, status RSGB_OUTDATED\n");
+                    } else {
+                        StringReader oReader = new StringReader(oud.getDbXml());
+                        List<TableData> oudList = DataComfortXMLReader.readDataXML(new StreamSource(oReader));
+
+                        parseNewData(oudList, newList, dateFormat.format(oud.getDatum()), loadLog);
+                        parseOldData(oudList, newList,  dateFormat.format(ber.getDatum()), dateFormat.format(oud.getDatum()), loadLog);
+                    }
+                }
+            } else {
+                loadLog.append("Geen eerder bericht voor zelfde object gevonden!\n");
+                //TODO: werkt niet als berichten voorgeladen zijn bv via DSL
+                parseNewData(null, newList, null, loadLog);
+            }
+
+            connRsgb.commit();
+            ber.setStatus(newStatus);
+
+            this.processed++;
+            if(listener != null) {
+                listener.progress(this.processed);
+            }
+
+        } catch(Throwable ex) {
+            log.error("Fout bij verwerking bericht met id " + ber.getId(), ex);
+            try {
+                connRsgb.rollback();
+            } catch(SQLException e) {
+                log.debug("Rollback exception", e);
+            }
+
+            ber.setStatus(Bericht.STATUS.RSGB_NOK);
+            loadLog.append("\nFout: ");
+            StringWriter sw = new StringWriter();
+            ex.printStackTrace(new PrintWriter(sw, true));
+            loadLog.append(sw.toString());
+
+        } finally {
+            String duration = String.format("%4.1fs", (System.currentTimeMillis() - startTime) / 1000.0);
+            loadLog.append(duration).append("\n");
+            loadLog.append("\nEind verwerking bericht");
+            ber.setOpmerking(loadLog.toString());
+            ber.setStatusDatum(new Date());
+            log.debug(String.format("Status: %s, %s", ber.getStatus().toString(), duration));
+            try {
+                stagingProxy.updateBericht(ber);
+            } catch (SQLException ex) {
+                log.error("Kan status niet updaten", ex);
+            }
+            if(recentSavepoint != null){
+                // Set savepoint to null, as it is automatically released after commit the transaction.
+                recentSavepoint = null;
+            }
+        }
+    }
+
+    private RsgbTransformer getTransformer(String brType) throws TransformerConfigurationException, ParserConfigurationException {
+        RsgbTransformer t = rsgbTransformers.get(brType);
+        if(t == null) {
+            if(brType.equals(BrmoFramework.BR_BRK)) {
+                t = new RsgbTransformer(BrmoFramework.XSL_BRK);
+            } else if(brType.equals(BrmoFramework.BR_BAG)) {
+                t = new RsgbTransformer(BrmoFramework.XSL_BAG);
+            } else {
+                throw new IllegalArgumentException("Onbekende basisregistratie: " + brType);
+            }
+            rsgbTransformers.put(brType, t);
+        }
+        return t;
+    }
+
+    private StringBuilder parseNewData(List<TableData> oldList, List<TableData> newList, String oldDate, StringBuilder loadLog) throws SQLException, ParseException, BrmoException {
+        // parse new db xml
+        loadLog.append("\nlees xml nieuw bericht");
+        if (newList != null && newList.size() > 0) {
+            for (TableData newData : newList) {
+                if (!newData.isComfortData()) {
+                    // auth data
+                    loadLog.append("\nauthentieke data");
+                    for (TableRow row : newData.getRows()) {
+                        List<String> pkColumns = getPrimaryKeys(row.getTable());
+
+                        boolean existsInOldList = doesRowExist(row, pkColumns, oldList);
+                        boolean doInsert = !existsInOldList;
+                        if (doInsert) {
+                            // er kan een record bestaan zonder dat er
+                            // een oud bericht aan ten grondslag ligt.
+                            // dan maar update maar zonder historie vastlegging.
+                            // oud record kan niet worden terugherleid.
+                            //TODO: dure check, kan het anders?
+                            doInsert = !rowExistsInDb(row, loadLog);
+                        }
+
+                        // insert hoofdtabel
+                        if (doInsert) {
+                            // normale insert in hoofdtabel
+                            loadLog.append("\nnormale toevoeging van object aan tabel: ");
+                            loadLog.append(row.getTable());
+                            createInsertSql(row, false, loadLog);
+
+                        } else {
+                            boolean inMetaDataTable = isAlreadyInMetadata(row, loadLog);
+                            // wis metadata en update hoofdtabel
+                            if (inMetaDataTable) {
+                                loadLog.append("\nwis uit metadata tabel (upgrade van comfort naar authentiek). ");
+                                deleteFromMetadata(row, loadLog);
+
+                            }
+
+                            if (existsInOldList) {
+                                // update end date old record
+                                loadLog.append("\nupdate einddatum in vorige versie object");
+                                TableRow oldRow = getMatchingRowFromTableData(row, pkColumns, oldList);
+                                String newBeginDate = getValueFromTableRow(row, row.getColumnDatumBeginGeldigheid());
+                                updateValueInTableRow(oldRow, oldRow.getColumnDatumEindeGeldigheid(), newBeginDate);
+
+                                // write old to archive table
+                                loadLog.append("\nschrijf vorige versie naar archief tabel");
+                                oldRow.setIgnoreDuplicates(true);
+                                // XXX workaround voor oud ingeladen stand zonder alleen-archief kolom
+                                if(oldRow.getTable().equals("kad_perceel")) {
+                                    if(!oldRow.getColumns().contains("sc_dat_beg_geldh")) {
+                                        oldRow.getColumns().add("sc_dat_beg_geldh");
+                                        oldRow.getValues().add(oldDate);
+                                    }
+                                }
+                                createInsertSql(oldRow, true, loadLog);
+
+                                loadLog.append("\nupdate object in tabel: ");
+                            } else {
+                                loadLog.append("\nupdate object (zonder vastlegging historie) in tabel: ");
+                            }
+                            loadLog.append(row.getTable());
+                            createUpdateSql(row, loadLog);
+
+                        }
+                    }
+                } else {
+                    // comfort data
+                    loadLog.append("\ncomfort data");
+                    String tabel = newData.getComfortSearchTable();
+                    String kolom = newData.getComfortSearchColumn();
+                    String waarde = newData.getComfortSearchValue();
+                    String datum = newData.getComfortSnapshotDate();
+
+                    for (TableRow row : newData.getRows()) {
+                        // zoek obv natural key op in rsgb
+                        loadLog.append("\nzoek comfort object obv natural key op in rsgb");
+                        boolean comfortFound = rowExistsInDb(row, loadLog);
+                        if (comfortFound) {
+                            loadLog.append("\noverschrijf bestaande comfort data in tabel: ");
+                            loadLog.append(row.getTable());
+                            createUpdateSql(row, loadLog);
+                        } else {
+                            // insert all comfort records into hoofdtabel
+                            loadLog.append("\nschrijf nieuwe comfort data naar tabel: ");
+                            loadLog.append(row.getTable());
+                            createInsertSql(row, false, loadLog);
+                        }
+
+                        loadLog.append("\nschrijf info over comfort object naar metadata tabel");
+                        createInsertMetadataSql(tabel, kolom, waarde, datum, row, loadLog);
+                    }
+                }
+            }
+        }
+        return loadLog;
+    }
+
+    private StringBuilder parseOldData(List<TableData> oldList, List<TableData> newList, String newDate, String oldDate, StringBuilder loadLog) throws SQLException, ParseException {
+
+        List<TableRow> rowsToDelete = new ArrayList();
+
+        // parse old db xml
+        loadLog.append("\nControleren te verwijderen gegevens vorig bericht...\n");
+        for (TableData oldData : oldList) {
+            if (oldData.isComfortData()) {
+                // comfort block ? do nothing
+            } else {
+                for (TableRow oldRow : oldData.getRows()) {
+                    List<String> pkColumns = getPrimaryKeys(oldRow.getTable());
+                    boolean exists = doesRowExist(oldRow, pkColumns, newList);
+                    if (!exists) {
+                        loadLog.append("Vervallen record te verwijderen: ").append(oldRow.toString(pkColumns)).append("\n");
+
+                        rowsToDelete.add(oldRow);
+                    }
+
+                }
+            }
+        }
+
+        if(!rowsToDelete.isEmpty()) {
+            loadLog.append("Verwijder rijen in omgekeerde volgorde...\n");
+
+            Collections.reverse(rowsToDelete);
+            for(TableRow rowToDelete: rowsToDelete) {
+                createDeleteSql(rowToDelete, loadLog);
+
+                updateValueInTableRow(rowToDelete, rowToDelete.getColumnDatumEindeGeldigheid(), newDate);
+
+                if(rowToDelete.getTable().equals("kad_perceel")) {
+                    if(!rowToDelete.getColumns().contains("sc_dat_beg_geldh")) {
+                        rowToDelete.getColumns().add("sc_dat_beg_geldh");
+                        rowToDelete.getValues().add(oldDate);
+                    }
+                }
+
+                createInsertSql(rowToDelete, true, loadLog);
+            }
+        }
+
+        return loadLog;
+    }
+
+    private String getValueFromTableRow(TableRow row, String column) {
+        int i = 0;
+        for (String c : row.getColumns()) {
+            if (c.equalsIgnoreCase(column)) {
+                return row.getValues().get(i);
+            }
+            i++;
+        }
+        return null;
+    }
+
+    private void updateValueInTableRow(TableRow row, String column, String newValue) {
+        int i = 0;
+        for (String c : row.getColumns()) {
+            if (c.equalsIgnoreCase(column)) {
+                row.getValues().set(i, newValue);
+                return;
+            }
+            i++;
+        }
+    }
+
+    private TableRow getMatchingRowFromTableData(TableRow row, List<String> pkColumns, List<TableData> testList) {
+        TableRow newRow = null;
+
+        for (TableData data : testList) {
+            for (TableRow testRow : data.getRows()) {
+                if (row.getTable().equals(testRow.getTable())) {
+                    int matches = 0;
+                    for (String pkColumn : pkColumns) {
+                        int rowIdx = row.getColumns().indexOf(pkColumn);
+                        int testIdx = testRow.getColumns().indexOf(pkColumn);
+
+                        String val = row.getValues().get(rowIdx);
+                        String testVal = testRow.getValues().get(testIdx);
+
+                        if (val.equals(testVal)) {
+                            matches++;
+                        }
+                    }
+
+                    if (matches == pkColumns.size()) {
+                        newRow = testRow;
+                    }
+                }
+            }
+        }
+
+        return newRow;
+    }
+
+    private boolean doesRowExist(TableRow row, List<String> pkColumns, List<TableData> testList) {
+        boolean found = false;
+
+        if (testList != null && testList.size() > 0) {
+            for (TableData data : testList) {
+                for (TableRow testRow : data.getRows()) {
+                    if (row.getTable().equals(testRow.getTable())) {
+                        int matches = 0;
+                        for (String pkColumn : pkColumns) {
+                            int rowIdx = row.getColumns().indexOf(pkColumn);
+                            int testIdx = testRow.getColumns().indexOf(pkColumn);
+
+                            String val = row.getValues().get(rowIdx);
+                            String testVal = testRow.getValues().get(testIdx);
+
+                            if (val.equals(testVal)) {
+                                matches++;
+                            }
+                        }
+
+                        if (matches == pkColumns.size()) {
+                            found = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return found;
+    }
+
+
+    private boolean createInsertSql(TableRow row, boolean useArchiveTable, StringBuilder loadLog) throws SQLException, ParseException {
+        doSavePoint(row);
+
+        StringBuilder sql = new StringBuilder("insert into ");
+
+        String tableName = null;
+        if (!useArchiveTable) {
+            tableName = row.getTable();
+        } else {
+            tableName = row.getTable() + "_archief";
+        }
+
+        sql.append(tableName);
+
+        SortedSet<ColumnMetadata> tableColumnMetadata = null;
+        tableColumnMetadata = getTableColumnMetadata(tableName);
+
+        if (tableColumnMetadata == null) {
+            return false;
+        }
+
+        // TODO maak sql op basis van alle columns en gebruik null values
+        // zodat insert voor elke tabel hetzelfde, reuse preparedstatement
+        sql.append(" (");
+        StringBuilder valuesSql = new StringBuilder(") values (");
+        List params = new ArrayList();
+        List<Boolean> isGeometry = new ArrayList();
+
+        Iterator<String> valuesIt = row.getValues().iterator();
+        for (Iterator<String> it = row.getColumns().iterator(); it.hasNext();) {
+            String column = it.next();
+            String stringValue = valuesIt.next();
+
+            if(row.isAlleenArchiefColumn(column) && !useArchiveTable) {
+                continue;
+            }
+
+            ColumnMetadata cm = findColumnMetadata(tableColumnMetadata, column);
+
+            if (cm == null) {
+                throw new IllegalArgumentException("Column not found: " + column + " in table " + tableName);
+            }
+
+            String insertValueSql = "?";
+
+            boolean isThisGeometry = false;
+            Object param = null;
+            if (stringValue != null) {
+                stringValue = stringValue.trim();
+                switch (cm.getDataType()) {
+                    case java.sql.Types.DECIMAL:
+                    case java.sql.Types.NUMERIC:
+                    case java.sql.Types.INTEGER:
+//                        try {
+                            param = new BigDecimal(stringValue);
+//                        } catch (NumberFormatException nfe) {
+//                            log.error(String.format("Cannot convert value \"%s\" to type %s for %s.%s",
+//                                    stringValue,
+//                                    cm.getTypeName(),
+//                                    tableName,
+//                                    cm.getName()));
+//                            //param = -99999;
+//                        }
+                        break;
+                    case java.sql.Types.CHAR:
+                    case java.sql.Types.VARCHAR:
+                        param = stringValue;
+                        break;
+                    case java.sql.Types.OTHER:
+                        if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
+                            param = stringValue;
+                            isThisGeometry = true;
+                            break;
+                        } else {
+                            throw new IllegalStateException(String.format("Column \"%s\" (value to insert \"%s\") type other but not geometry!", column, param));
+                        }
+                    case java.sql.Types.DATE:
+                    case java.sql.Types.TIMESTAMP:
+                        param = javax.xml.bind.DatatypeConverter.parseDateTime(stringValue);
+                        if (param != null) {
+                            Calendar cal = (Calendar) param;
+                            param = new java.sql.Date(cal.getTimeInMillis());
+                        }
+                        break;
+                    default:
+                        throw new UnsupportedOperationException(String.format("Data type %s (#%d) of column \"%s\" not supported", cm.getTypeName(), cm.getDataType(), column));
+                }
+            } else {
+                isThisGeometry = cm.getTypeName().equals("SDO_GEOMETRY");
+            }
+            params.add(param);
+            isGeometry.add(isThisGeometry);
+
+            sql.append(cm.getName());
+            valuesSql.append(insertValueSql);
+
+            if (it.hasNext()) {
+                sql.append(", ");
+                valuesSql.append(", ");
+            }
+        }
+        sql.append(valuesSql);
+        sql.append(")");
+
+        PreparedStatement stm = getPreparedStatement(row, sql.toString(), params, isGeometry, null, loadLog);
+
+        boolean result = false;
+        if (alsoExecuteSql) {
+            result = executePreparedStatement(stm, row, STATEMENT_TYPE.INSERT);
+        }
+
+        return result;
+    }
+
+    private boolean createUpdateSql(TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
+        doSavePoint(row);
+
+        StringBuilder sql = new StringBuilder("update ");
+
+        String tableName = row.getTable();
+        sql.append(tableName);
+
+        SortedSet<ColumnMetadata> tableColumnMetadata = null;
+        tableColumnMetadata = getTableColumnMetadata(tableName);
+
+        sql.append(" set ");
+
+        List params = new ArrayList();
+        List<Boolean> isGeometry = new ArrayList();
+
+        Iterator<String> valuesIt = row.getValues().iterator();
+        for (Iterator<String> it = row.getColumns().iterator(); it.hasNext();) {
+            String column = it.next();
+            String stringValue = valuesIt.next();
+
+            if(row.isAlleenArchiefColumn(column)) {
+                continue;
+            }
+
+            ColumnMetadata cm = findColumnMetadata(tableColumnMetadata, column);
+
+            if (cm == null) {
+                throw new IllegalArgumentException("Column not found: " + column + " in table " + tableName);
+            }
+
+            boolean isThisGeometry = false;
+            Object param = null;
+            if (stringValue != null) {
+                stringValue = stringValue.trim();
+                switch (cm.getDataType()) {
+                    case java.sql.Types.DECIMAL:
+                    case java.sql.Types.NUMERIC:
+                    case java.sql.Types.INTEGER:
+                        // Als een resultaat van een BR-XSL kolom een string bevat
+                        // maar de RSGB database heeft bijvoorbeeld een int, dan
+                        // moet waarschijnlijk het RSGB schema worden aangepast
+                        // (of moet een string waarde in XSL worden omgezet in int)
+
+//                        try {
+                            param = new BigDecimal(stringValue);
+//                        } catch (NumberFormatException nfe) {
+//                            log.error(String.format("Cannot convert value \"%s\" to type %s for %s.%s",
+//                                    stringValue,
+//                                    cm.getTypeName(),
+//                                    tableName,
+//                                    cm.getName()));
+//                            //param = -99999;
+//                        }
+                        break;
+                    case java.sql.Types.CHAR:
+                    case java.sql.Types.VARCHAR:
+                        param = stringValue;
+                        break;
+                    case java.sql.Types.OTHER:
+                        if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
+                            param = stringValue;
+                            isThisGeometry = true;
+                            break;
+                        } else {
+                            throw new IllegalStateException(String.format("Column \"%s\" (value to insert \"%s\") type other but not geometry!", column, param));
+                        }
+                    case java.sql.Types.DATE:
+                    case java.sql.Types.TIMESTAMP:
+                        param = javax.xml.bind.DatatypeConverter.parseDateTime(stringValue);
+                        if (param != null) {
+                            Calendar cal = (Calendar) param;
+                            param = new java.sql.Date(cal.getTimeInMillis());
+                        }
+                        break;
+                    default:
+                        throw new UnsupportedOperationException(String.format("Data type %s (#%d) of column \"%s\" not supported", cm.getTypeName(), cm.getDataType(), column));
+                }
+            } else {
+                isThisGeometry = cm.getTypeName().equals("SDO_GEOMETRY");
+            }
+            params.add(param);
+            isGeometry.add(isThisGeometry);
+
+            sql.append(cm.getName() + " = ?");
+
+            if (it.hasNext()) {
+                sql.append(", ");
+            }
+        }
+
+        // Where clause using pk columns
+        List<String> pkColumns = getPrimaryKeys(tableName);
+
+        int i = 0;
+        for (String column : pkColumns) {
+            if (i < 1) {
+                sql.append(" WHERE " + column + " = ?");
+            } else {
+                sql.append(" AND " + column + " = ?");
+            }
+            i++;
+        }
+
+        PreparedStatement stm = getPreparedStatement(row, sql.toString(), params, isGeometry, pkColumns, loadLog);
+
+        boolean result = false;
+        if (alsoExecuteSql) {
+            result = executePreparedStatement(stm, row, STATEMENT_TYPE.UPDATE);
+        }
+
+        return result;
+    }
+
+    /* Columns id, tabel, kolom, waarde, herkomst_br, datum (toestandsdatum) */
+    @SuppressWarnings("empty-statement")
+    private boolean createInsertMetadataSql(String tabel, String kolom, String waarde, String datum, TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
+
+        //set ignore duplicates for insert in metadata table
+        boolean orgIgnoreDuplicates = row.isIgnoreDuplicates();
+        row.setIgnoreDuplicates(true);
+        doSavePoint(row);
+
+        StringBuilder sql = new StringBuilder("insert into herkomst_metadata ");
+
+        sql.append("(tabel, kolom, waarde, herkomst_br, datum) VALUES ");
+        sql.append("(?, ?, ?, ?, ?)");
+
+        List params = new ArrayList();
+        List<Boolean> isGeometry = new ArrayList();
+
+        params.add(tabel);
+        params.add(kolom);
+        params.add(waarde);
+
+        if (getHerkomstMetadata() == null) {
+            throw new IllegalStateException("Herkomst is verplicht bij het invoeren van metadata!");
+        }
+        params.add(herkomstMetadata);
+
+        Date date = null;
+        Calendar calendar = javax.xml.bind.DatatypeConverter.parseDateTime(datum);
+        if (calendar != null) {
+            Calendar cal = (Calendar) calendar;
+            date = new java.sql.Date(cal.getTimeInMillis());
+        }
+
+        params.add(date);
+
+        PreparedStatement stm = getPreparedStatement(row, sql.toString(), params, isGeometry, null, loadLog);
+
+        boolean result = false;
+        if (alsoExecuteSql) {
+             result = executePreparedStatement(stm, row, STATEMENT_TYPE.INSERT);
+        }
+
+        //reset orginal setting ignore duplicates
+        //should not be necessary, as comfort data may always be ignored
+        row.setIgnoreDuplicates(orgIgnoreDuplicates);
+
+        return result;
+    }
+
+    private boolean rowExistsInDb(TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
+        StringBuilder sql = new StringBuilder("select 1 from ");
+
+        String tableName = row.getTable();
+        sql.append(tableName);
+
+        SortedSet<ColumnMetadata> tableColumnMetadata = null;
+        tableColumnMetadata = getTableColumnMetadata(tableName);
+
+        // Where clause using pk columns
+        List<String> pkColumns = getPrimaryKeys(tableName);
+
+        int i = 0;
+        for (String column : pkColumns) {
+            if (i < 1) {
+                sql.append(" WHERE " + column + " = ?");
+            } else {
+                sql.append(" AND " + column + " = ?");
+            }
+            i++;
+        }
+
+        PreparedStatement stm = getPreparedStatement(row, sql.toString(), null, null, pkColumns, loadLog);
+        boolean result = executePreparedStatement(stm, row, STATEMENT_TYPE.SELECT);
+
+        return result;
+    }
+
+    public boolean isAlreadyInMetadata(TableRow row, StringBuilder loadLog)
+            throws SQLException, ParseException, BrmoException {
+
+        if (connRsgb==null || connRsgb.isClosed()) {
+            // if used not-threaded, init() required
+            throw new BrmoException("No connection found");
+        }
+
+        StringBuilder sql = new StringBuilder("select 1 from ");
+
+        String metadataTable = "herkomst_metadata";
+        sql.append(metadataTable);
+
+        String tableName = row.getTable();
+
+        sql.append(" WHERE tabel = ?");
+
+        SortedSet<ColumnMetadata> tableColumnMetadata = null;
+        tableColumnMetadata = getTableColumnMetadata(tableName);
+
+        List params = new ArrayList();
+        List paramsGeom = new ArrayList();
+
+        params.add(tableName);
+        paramsGeom.add(false);
+
+        List<String> pkColumns = getPrimaryKeys(tableName);
+        String waarde = null;
+        for (String column : pkColumns) {
+            sql.append(" AND kolom = ?");
+            params.add(column);
+            paramsGeom.add(false);
+
+            waarde = getValueFromTableRow(row, column);
+        }
+
+        if (waarde != null) {
+            sql.append(" AND waarde = ?");
+            params.add(waarde);
+            paramsGeom.add(false);
+        }
+
+        PreparedStatement stm = getPreparedStatement(row, sql.toString(), params, paramsGeom, null, loadLog);
+        boolean result = executePreparedStatement(stm, row, STATEMENT_TYPE.SELECT);
+
+        return result;
+    }
+
+    private boolean deleteFromMetadata(TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
+        StringBuilder sql = new StringBuilder("delete from ");
+
+        String metadataTable = "herkomst_metadata";
+        sql.append(metadataTable);
+
+        String tableName = row.getTable();
+
+        sql.append(" WHERE tabel = ?");
+
+        SortedSet<ColumnMetadata> tableColumnMetadata = null;
+        tableColumnMetadata = getTableColumnMetadata(tableName);
+
+        List params = new ArrayList();
+        List paramsGeom = new ArrayList();
+
+        params.add(tableName);
+        paramsGeom.add(false);
+
+        List<String> pkColumns = getPrimaryKeys(tableName);
+        String waarde = null;
+        for (String column : pkColumns) {
+            sql.append(" AND kolom = ?");
+            params.add(column);
+            paramsGeom.add(false);
+
+            waarde = getValueFromTableRow(row, column);
+        }
+
+        if (waarde != null) {
+            sql.append(" AND waarde = ?");
+            params.add(waarde);
+            paramsGeom.add(false);
+        }
+
+        PreparedStatement stm = getPreparedStatement(row, sql.toString(), params, paramsGeom, null, loadLog);
+
+        boolean result = false;
+        if (alsoExecuteSql) {
+            result = executePreparedStatement(stm, row, STATEMENT_TYPE.DELETE);
+        }
+
+        return result;
+    }
+
+    private boolean createDeleteSql(TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
+        doSavePoint(row);
+
+        StringBuilder sql = new StringBuilder("delete from ");
+
+        String tableName = row.getTable();
+        sql.append(tableName);
+
+        SortedSet<ColumnMetadata> tableColumnMetadata = null;
+        tableColumnMetadata = getTableColumnMetadata(tableName);
+
+        // Where clause using pk columns
+        List<String> pkColumns = getPrimaryKeys(tableName);
+
+        int i = 0;
+        for (String column : pkColumns) {
+            if (i < 1) {
+                sql.append(" WHERE " + column + " = ?");
+            } else {
+                sql.append(" AND " + column + " = ?");
+            }
+            i++;
+        }
+
+        PreparedStatement stm = getPreparedStatement(row, sql.toString(), null, null, pkColumns, loadLog);;
+
+        boolean result = false;
+        if (alsoExecuteSql) {
+            result = executePreparedStatement(stm, row, STATEMENT_TYPE.DELETE);
+        }
+
+        return result;
+    }
+
+    private List<String> getPrimaryKeys(String tableName) throws SQLException {
+        List<String> pks = new ArrayList();
+
+        String origName = tables.get(tableName);
+
+        ResultSet set = dbMetadata.getPrimaryKeys("", schema, origName);
+        while (set.next()) {
+            String column = set.getString("COLUMN_NAME");
+            pks.add(column.toLowerCase());
+        }
+
+        set.close();
+
+        return pks;
+    }
+
+    private SortedSet<ColumnMetadata> getTableColumnMetadata(String table)
+            throws SQLException {
+
+        table = table.toLowerCase();
+
+        if (!tables.containsKey(table)) {
+            return null;
+        }
+
+        SortedSet<ColumnMetadata> columnMetadata = (SortedSet<ColumnMetadata>) tableColumns.get(table);
+        if (columnMetadata == null) {
+            columnMetadata = new TreeSet();
+            tableColumns.put(table, columnMetadata);
+
+            ResultSet columnsRs = dbMetadata.getColumns(null, schema, tables.get(table), "%");
+            while (columnsRs.next()) {
+                ColumnMetadata cm = new ColumnMetadata(columnsRs);
+                columnMetadata.add(cm);
+            }
+
+            columnsRs.close();
+        }
+
+        return columnMetadata;
+    }
+
+    private ColumnMetadata findColumnMetadata(SortedSet<ColumnMetadata> tableColumnMetadata,
+            String columnName) {
+
+        if (tableColumnMetadata == null || tableColumnMetadata.size() < 1) {
+            return null;
+        }
+
+        for (ColumnMetadata cm : tableColumnMetadata) {
+            if (cm.getName().toLowerCase().equals(columnName.toLowerCase())) {
+                return cm;
+            }
+        }
+
+        return null;
+    }
+
+    public String getHerkomstMetadata() {
+        return herkomstMetadata;
+    }
+
+    public void setHerkomstMetadata(String herkomstMetadata) {
+        this.herkomstMetadata = herkomstMetadata;
+    }
+
+    private void doSavePoint(TableRow row) throws SQLException {
+        if (!alsoExecuteSql) {
+            return;
+        }
+        if (useSavepoints) {
+            if (row.isIgnoreDuplicates()) {
+                if (recentSavepoint == null) {
+                    recentSavepoint = connRsgb.setSavepoint();
+                    log.debug("Created savepoint with id: " + recentSavepoint.getSavepointId());
+                } else {
+                    log.debug("No need for new savepoint, previous insert caused rollback to recent savepoint with id " + recentSavepoint.getSavepointId());
+                }
+            } else if (recentSavepoint != null) {
+                log.debug("About to insert non-recoverable row, discarding savepoint with id " + recentSavepoint.getSavepointId());
+                connRsgb.releaseSavepoint(recentSavepoint);
+                recentSavepoint = null;
+            }
+        }
+    }
+
+    private PreparedStatement getPreparedStatement(TableRow row, String sql, List params, List<Boolean> isGeometry, List<String> pkColumns, StringBuilder loadLog) throws SQLException, ParseException {
+        loadLog.append("\nSQL: ");
+        loadLog.append(sql);
+        loadLog.append(", params (");
+        loadLog.append(params == null ? "" : params.toString());
+        loadLog.append(")");
+        loadLog.append(", duplikaat negeren (");
+        loadLog.append(row.isIgnoreDuplicates() ? "ja" : "nee");
+        loadLog.append(")");
+        PreparedStatement stmt = null;
+        if (sql.contains("select")) {
+            stmt = connRsgb.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        } else {
+            stmt = connRsgb.prepareStatement(sql);
+        }
+        int counter = 0;
+        if (params != null && params.size() > 0) {
+            for (int i = 0; i < params.size(); i++) {
+                Object param = params.get(i);
+                if (isGeometry.size() > 0 && Boolean.TRUE.equals(isGeometry.get(i))) {
+                    if (geomToJdbc.convertsGeometryInsteadOfWkt()) {
+                        WKTReader reader = new WKTReader(geometryFactory);
+                        Geometry geom = param == null || ((String) param).trim().length() == 0 ? null : reader.read((String) param);
+                        stmt.setObject(i + 1, geomToJdbc.convertGeometry(geom));
+                    } else {
+                        stmt.setObject(i + 1, geomToJdbc.convertWkt((String) param));
+                    }
+                } else {
+                    stmt.setObject(i + 1, param);
+                }
+                counter = i + 1;
+            }
+        }
+        if (pkColumns != null && pkColumns.size() > 0) {
+            loadLog.append(", pkeys (");
+            for (String column : pkColumns) {
+                loadLog.append("[");
+                loadLog.append(column);
+                loadLog.append("=");
+                String val = getValueFromTableRow(row, column);
+                Object obj = getValueAsObject(row.getTable(), column, val);
+                loadLog.append(obj == null ? "" : obj.toString());
+                loadLog.append("] ");
+                stmt.setObject(counter + 1, obj);
+                counter++;
+            }
+            loadLog.append(")");
+        }
+        return stmt;
+    }
+
+    private boolean executePreparedStatement(PreparedStatement stmt, TableRow row, STATEMENT_TYPE type) throws SQLException {
+        boolean result = false;
+        try {
+            switch (type) {
+                case INSERT:
+                    {
+                        result = stmt.execute();
+                        break;
+                    }
+                case UPDATE:
+                    {
+                        int count = stmt.executeUpdate();
+                        if (count < 1) {
+                            result = false;
+                        } else {
+                            result = true;
+                        }
+                        break;
+                    }
+                case SELECT:
+                    {
+                        ResultSet results = stmt.executeQuery();
+                        int count = getRowCount(results);
+                        if (count < 1) {
+                            result = false;
+                        } else {
+                            result = true;
+                        }
+                        DbUtils.closeQuietly(results);
+                        break;
+                    }
+                case DELETE:
+                    {
+                        result = stmt.execute();
+                        break;
+                    }
+            }
+        } catch (SQLException e) {
+            String message = e.getMessage();
+            if (PostgisJdbcConverter.isDuplicateKeyViolationMessage(message) || OracleJdbcConverter.isDuplicateKeyViolationMessage(message)) {
+                if (row.isIgnoreDuplicates()) {
+                    if(recentSavepoint != null) {
+                        log.debug("Ignoring duplicate key violation by rolling back to savepoint with id " + recentSavepoint.getSavepointId());
+                        connRsgb.rollback(recentSavepoint);
+                    }
+                }
+            } else {
+                throw e;
+            }
+        } finally {
+            DbUtils.closeQuietly(stmt);
+        }
+        return result;
+    }
+
+    private Object getValueAsObject(String tableName, String column, String value) throws SQLException {
+        Object param = null;
+        SortedSet<ColumnMetadata> tableColumnMetadata = null;
+        tableColumnMetadata = getTableColumnMetadata(tableName);
+        ColumnMetadata cm = findColumnMetadata(tableColumnMetadata, column);
+        if (cm == null) {
+            throw new IllegalArgumentException("Column not found: " + column + " in table " + tableName);
+        }
+        if (value != null) {
+            value = value.trim();
+            switch (cm.getDataType()) {
+                case Types.DECIMAL:
+                case Types.NUMERIC:
+                case Types.INTEGER:
+                    param = new BigDecimal(value);
+                    //                    } catch (NumberFormatException nfe) {
+                    //                        log.error(value.format("Cannot convert value \"%s\" to type %s for %s.%s",
+                    //                                value,
+                    //                                cm.getTypeName(),
+                    //                                tableName,
+                    //                                cm.getName()));
+                    //                        //param = -99999;
+                    //                    }
+                    break;
+                case Types.CHAR:
+                case Types.VARCHAR:
+                    param = value;
+                    break;
+                case Types.OTHER:
+                    if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
+                        param = value;
+                        break;
+                    } else {
+                        throw new IllegalStateException(String.format("Column \"%s\" (value to insert \"%s\") type other but not geometry!", column, param));
+                    }
+                case Types.DATE:
+                case Types.TIMESTAMP:
+                    param = DatatypeConverter.parseDateTime(value);
+                    if (param != null) {
+                        Calendar cal = (Calendar) param;
+                        param = new java.sql.Date(cal.getTimeInMillis());
+                    }
+                    break;
+                default:
+                    throw new UnsupportedOperationException(String.format("Data type %s (#%d) of column \"%s\" not supported", cm.getTypeName(), cm.getDataType(), column));
+            }
+        }
+        return param;
+    }
+
+    private int getRowCount(ResultSet rs) throws SQLException {
+        int size = 0;
+        try {
+            if (rs != null && rs.next()) {
+                size = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            throw new SQLException("Fout ophalen row count: ", ex);
+        }
+
+        return size;
+    }
+}

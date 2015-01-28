@@ -1,0 +1,27 @@
+	 -----
+	 Developer Notes
+	 -----
+	 mprins
+	 -----
+	 20 jan 2015
+	 -----
+
+~~ http://maven.apache.org/doxia/references/apt-format.html
+
+Developer Notes
+
+%{toc|section=1|fromDepth=2|toDepth=2}
+
+* {Unit testing}
+
+  Met behulp van de commandine parameter -Dtest.persistence.unit kan een persistence unit
+  worden gekozen voor de tests, de default is een in-memory H2 database
+
++----+
+mvn -Dtest.persistence.unit=brmo.persistence.postgresql test
++----+
+
+* {Build requirements}
+
+  Om de UML klassediagrammen te genereren als onderdeel van de javadoc is
+  de Graphviz tool nodig.

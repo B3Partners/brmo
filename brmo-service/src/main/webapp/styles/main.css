@@ -1,0 +1,151 @@
+/* General css */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+h1 {
+    font-size: 15pt;
+    color: #000;
+}
+
+.header, .content, .footer {
+    width: 960px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.header {
+    background-color: #f5f5f5;
+    overflow: hidden;
+}
+
+.header h1 {
+    color: #157fcc;
+    float: left;
+    margin: 10px 0;
+}
+
+.header ul {
+    margin: 10px 0;
+    padding: 0;
+    float: right;
+    list-style: none;
+}
+
+.header li {
+    float: left;
+    margin-right: 10px;
+}
+
+.header a {
+    color: #157fcc;
+    text-decoration: none;
+}
+
+.content {
+    padding: 10px 20px 20px 20px;
+    min-height: 220px;
+    border-left: 1px solid #f5f5f5;
+    border-right: 1px solid #f5f5f5;
+}
+
+.footer {
+    border-bottom: 1px solid #f5f5f5;
+    padding: 0;
+}
+
+.grid-container {
+    padding-bottom: 10px;
+}
+
+/* Mapfile page css */
+.field_marker {
+    color: blue;
+}
+
+/* Help css */
+.helpblok {
+    display: block;
+    width: 463px;
+    border: 1px solid #000;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: #D6E9F1;
+    min-height: 220px;
+}
+
+.helpheader {
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 1.2em;
+}
+
+.helpcontent {
+    margin-left: 10px;    
+    margin-right: 5px;
+}
+
+.messagebox {
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    display: none;
+}
+
+.messagebox .header {
+    font-weight: bold;
+    background-color: transparent;
+}
+
+.messagebox .content {
+    padding-top: 5px;
+    display: none;
+}
+
+.messagebox.expanded .content {
+    display: block;
+}
+
+.messagebox .close, .messagebox .expand {
+    float: right;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 15px;
+    text-decoration: none;
+    color: #000;
+    color: rgba(0, 0, 0, .3);
+}
+
+.messagebox .close:hover, .messagebox .expand:hover {
+    color: rgba(0, 0, 0, .4);
+}
+    
+.messagebox .close {
+    font-size: 22px;
+}
+
+.messagebox.visible {
+    display: block;
+}
+
+.messagebox .expand {
+    padding-top: 1px;
+    margin-right: 10px;
+}
+
+.messagebox.error {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+}
+
+.messagebox.success {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #3c763d;
+}

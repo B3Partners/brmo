@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee          http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    <filter>
+        <display-name>Stripes Filter</display-name>
+        <filter-name>StripesFilter</filter-name>
+        <filter-class>net.sourceforge.stripes.controller.StripesFilter</filter-class>
+        <init-param>
+            <param-name>ActionResolver.Packages</param-name>
+            <param-value>nl.b3p.brmo.service.stripes</param-value>
+        </init-param>
+        <init-param>
+            <param-name>CoreInterceptor.Classes</param-name>
+            <param-value>
+                org.stripesstuff.plugin.waitpage.WaitPageInterceptor,
+                net.sourceforge.stripes.controller.BeforeAfterMethodInterceptor,
+                net.sourceforge.stripes.controller.HttpCacheInterceptor
+            </param-value>
+        </init-param>
+
+         <init-param>
+            <param-name>Extension.Packages</param-name>
+            <param-value>org.stripesstuff.stripersist</param-value>
+        </init-param>
+        <init-param>
+            <param-name>Stripersist.InitializeSettingsClass</param-name>
+            <param-value>nl.b3p.brmo.service.stripersist.DynamicStripersistInitializer</param-value>
+        </init-param>
+
+
+    </filter>
+    <filter-mapping>
+        <filter-name>StripesFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>StripesFilter</filter-name>
+        <servlet-name>StripesDispatcher</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    <listener>
+        <listener-class>nl.b3p.brmo.servlet.EntityManagerContextListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>StripesDispatcher</servlet-name>
+        <servlet-class>net.sourceforge.stripes.controller.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StripesDispatcher</servlet-name>
+        <url-pattern>*.action</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StripesDispatcher</servlet-name>
+        <url-pattern>*.wait</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StripesDispatcher</servlet-name>
+        <url-pattern>/post/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ConfigUtil</servlet-name>
+        <servlet-class>nl.b3p.brmo.service.util.ConfigUtil</servlet-class>
+        <init-param>
+            <param-name>max_upload_size</param-name>
+            <param-value>500</param-value>
+        </init-param>
+        <init-param>
+            <param-name>temp_folder</param-name>
+            <param-value>/tmp</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    <!-- Note: No authorization on url-patterns but on Stripes ActionBeans using
+      @Secure (from Stripesstuff), so when the @UrlBinding changes no url-patterns
+      need to be updated
+    -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>layout</web-resource-name>
+            <url-pattern>/styles/*</url-pattern>
+            <url-pattern>/images/*</url-pattern>
+            <url-pattern>/scripts/*</url-pattern>
+            <url-pattern>/extjs/*</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>basisregistratie upload service endpoint</web-resource-name>
+            <url-pattern>/post/*</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>all</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>roles</web-resource-name>
+            <url-pattern>/logout.jsp</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+    <login-config>
+        <!-- BASIC is useful during development with lots of redeploys, use
+             FORM for production
+        -->
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/login.jsp</form-login-page>
+            <form-error-page>/loginfail.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <role-name>Admin</role-name>
+    </security-role>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
