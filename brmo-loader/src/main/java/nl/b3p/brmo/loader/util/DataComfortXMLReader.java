@@ -22,6 +22,8 @@ import javax.xml.transform.stax.StAXSource;
 import javax.xml.transform.stream.StreamResult;
 import org.geotools.gml3.GMLConfiguration;
 import org.geotools.xml.Parser;
+import org.javasimon.SimonManager;
+import org.javasimon.Split;
 import org.xml.sax.SAXException;
 
 /**
@@ -36,6 +38,8 @@ public class DataComfortXMLReader {
     private static final int LEVEL_TABLE = 3;
 
     public static List<TableData> readDataXML(Source dataXML) throws XMLStreamException, TransformerConfigurationException, TransformerException, IOException, SAXException, ParserConfigurationException {
+        Split split = SimonManager.getStopwatch("b3p.util.datacomfortxmlreader").start();
+
         XMLInputFactory xif = XMLInputFactory.newInstance();
         XMLStreamReader xer = xif.createXMLStreamReader(dataXML);
 
@@ -169,6 +173,7 @@ public class DataComfortXMLReader {
             }
         }
 
+        split.stop();
         return list;
     }
 }

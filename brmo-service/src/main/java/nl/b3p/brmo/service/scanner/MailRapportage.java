@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2015 B3Partners B.V.
  */
 package nl.b3p.brmo.service.scanner;
 
@@ -25,7 +23,7 @@ public class MailRapportage extends AbstractExecutableProces {
 
     @Override
     public void execute() throws BrmoException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Het sturen van mail moet nog gebouwd worden.");
     }
 
 }

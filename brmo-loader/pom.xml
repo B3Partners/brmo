@@ -85,6 +85,11 @@
             <!-- Bij JNDI db verbinding moeten postgis jars in tomcat lib samen
             met postgresql jdbc driver staan -->
         </dependency>
+        <dependency>
+            <groupId>org.javasimon</groupId>
+            <artifactId>javasimon-core</artifactId>
+            <version>${javasimon.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>

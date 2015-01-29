@@ -3,23 +3,15 @@
  */
 package nl.b3p.brmo.service.scanner;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Collections;
-import java.util.concurrent.CopyOnWriteArraySet;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.sql.DataSource;
-import nl.b3p.brmo.loader.util.BrmoException;
-import nl.b3p.brmo.service.util.ConfigUtil;
 
 /**
- * A manager for a set of DirectoryScanners. The set holds zero or more scanners
- * of various type and is stored in the ServletContext.
+ * A manager for a set of ProcesExecutable.
  *
- * @see DirectoryScanner
  * @author Mark Prins
+ *
+ * @deprecated waarschijnlijk niet meer nodig... dit gaat Quartz doen
  */
 public class ProcessorContextListener implements ServletContextListener {
 

@@ -49,13 +49,6 @@ public class AutoProcessenActionBean implements ActionBean {
 
     private List<MailRapportageProces> mailProcessen = new ArrayList<MailRapportageProces>();
 
-    /**
-     * identifier van het proces waar we mee werken.
-     *
-     * @see nl.b3p.brmo.persistence.staging.AutomatischProces#getId()
-     */
-    private long procesId;
-
     @Before(stages = LifecycleStage.BindingAndValidation)
     public void load() {
         EntityManager em = Stripersist.getEntityManager();
@@ -80,7 +73,7 @@ public class AutoProcessenActionBean implements ActionBean {
     /**
      * uitlezen van de configuratie data.
      *
-     * @return
+     * @return de default resolution
      *
      */
     @DefaultHandler
@@ -117,11 +110,9 @@ public class AutoProcessenActionBean implements ActionBean {
     }
 
     /**
-     * Opslaan van de configuratie data
+     * Opslaan van de configuratie data.
      *
-     * @return
-     *
-     * @todo implement
+     * @return forward naar de default resolution
      */
     public Resolution save() {
         try {
@@ -146,10 +137,10 @@ public class AutoProcessenActionBean implements ActionBean {
     }
 
     /**
+     * Start een proces.
      *
-     * @return
+     * @return forward naar de default resolution
      *
-     * @todo implement
      */
     public Resolution startProces() {
         log.debug("Start proces met pId: " + getContext().getRequest().getParameter("pId"));
@@ -181,28 +172,36 @@ public class AutoProcessenActionBean implements ActionBean {
 
     /**
      *
+     * stopt het proces (voor zover mogelijk.)
      *
-     * @return
-     *
-     * @todo implement
+     ** @return forward naar de default resolution
      */
     public Resolution stopProces() {
-        log.debug("context: " + getContext().toString());
-        log.debug("pId" + getContext().getRequest().getParameter("pId"));
-        log.debug("proces type voor stop is : " + getContext().getRequest().getParameter(" pType"));
+        log.debug("Poging proces met pId: " + getContext().getRequest().getParameter("pId") + " te stoppen.");
 
-        getContext().getMessages().add(new SimpleError("TODO {2} is nog niet geimplementeerd...", getContext()));
+        Long id = Long.valueOf(getContext().getRequest().getParameter("pId"));
+        // ophalen proces config en starten proces
+        AutomatischProces config = Stripersist.getEntityManager().find(AutomatischProces.class, id);
+        ProcesExecutable p = AbstractExecutableProces.getProces(config);
+        if (p.isRunning()) {
+            p.stop();
+        }
+        Stripersist.getEntityManager().persist(config);
+
+        getContext().getMessages().add(new SimpleError("Proces {2} is gestopt.", id));
         return new ForwardResolution(JSP);
     }
 
     /**
+     * Verwijderd het proces.
      *
-     * @return
+     * @todo implementatie
+     * @return forward naar de default resolution
      */
     public Resolution verwijderProces() {
-        log.debug("context: " + getContext().toString());
-        log.debug("id" + getContext().getRequest().getParameter("id"));
-        log.debug("proces id voor start is : " + procesId);
+        log.debug("Poging proces met pId: " + getContext().getRequest().getParameter("pId") + " te verwijderen.");
+
+        Long id = Long.valueOf(getContext().getRequest().getParameter("pId"));
 
         getContext().getMessages().add(new SimpleError("TODO {2} is nog niet geimplementeerd...", getContext()));
         return new ForwardResolution(JSP);
@@ -249,12 +248,5 @@ public class AutoProcessenActionBean implements ActionBean {
         this.bagProcessen = bagProcessen;
     }
 
-    public long getProcesId() {
-        return procesId;
-    }
-
-    public void setProcesId(long procesId) {
-        this.procesId = procesId;
-    }
     //</editor-fold>
 }

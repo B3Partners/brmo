@@ -40,6 +40,7 @@
         <geotools.version>9.2</geotools.version>
         <postgresql.jdbc.version>9.3-1102-jdbc4</postgresql.jdbc.version>
         <oracle.jdbc.version>11.1.0.7.0</oracle.jdbc.version>
+        <javasimon.version>4.0.1</javasimon.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- om unit tests met postgres te draaien gebruik je
         -Dtest.persistence.unit=brmo.persistence.postgresql
@@ -51,6 +52,19 @@
         <maven.surefire.version>2.18.1</maven.surefire.version>
     </properties>
     <dependencyManagement />
+    <distributionManagement>
+        <site>
+        <!-- op zeker moment dit activeren zodat "mvn site" deployed naar de
+        gh-pages branch zodat de documentatie beschikbaar komt op:
+        https://b3partners.github.io/brmo/ (NB dit is een publieke site itt. de repo
+        op dit moment)
+        opties om dit voor elkaar te krijgen
+        https://github.com/github/maven-plugins of http://site.trajano.net/wagon-git/ -->
+            <id>github-pages-site</id>
+            <name>Site deployment met GitHub's site deployment plugin</name>
+            <url>site/${project.version}</url>
+        </site>
+    </distributionManagement>
     <repositories>
         <repository>
             <id>osgeo</id>
@@ -142,11 +156,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <configuration>
+                    <skipDeploy>true</skipDeploy>
                     <generateSitemap>true</generateSitemap>
                     <attach>true</attach>
                     <locales>nl</locales>
                     <outputEncoding>${project.build.sourceEncoding}</outputEncoding>
-                    <skipDeploy>true</skipDeploy>
                     <reportPlugins>
                         <plugin>
                             <groupId>org.codehaus.mojo</groupId>

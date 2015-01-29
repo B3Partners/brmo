@@ -2,13 +2,12 @@ package nl.b3p.brmo.loader;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -35,6 +34,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.javasimon.SimonManager;
+import org.javasimon.Split;
 import org.xml.sax.SAXException;
 
 /**
@@ -190,7 +191,11 @@ public class StagingProxy {
         return o instanceof BigDecimal ? ((BigDecimal)o).longValue() : (Long)o;
     }
 
-    public void handleBerichtenByJob(String jobId, long total, final BerichtenHandler handler) throws BrmoException, SQLException {
+    public void handleBerichtenByJob(final String jobId, long total, final BerichtenHandler handler) throws BrmoException, SQLException {
+        Split split = SimonManager.getStopwatch("b3p.rsgb.job").start();
+        final String dateTime = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        Split jobSplit = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime).start();
+        ((RsgbProxy)handler).setSimonNamePrefix("b3p.rsgb.job." + dateTime + ".");
         final RowProcessor processor = new StagingRowHandler();
 
         int offset = 0;
@@ -211,7 +216,9 @@ public class StagingProxy {
                 public BrmoException handle(ResultSet rs) throws SQLException {
                     while(rs.next()) {
                         try {
+                            Split berichtSplit = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".bericht").start();
                             handler.handle(processor.toBean(rs, Bericht.class));
+                            berichtSplit.stop();
                         } catch(BrmoException e) {
                             return e;
                         }
@@ -231,6 +238,8 @@ public class StagingProxy {
         if(offset < total) {
             log.warn(String.format("Minder berichten verwerkt (%d) dan verwacht (%d)!", offset, total));
         }
+        jobSplit.stop();
+        split.stop();
     }
 
 /*
@@ -252,13 +261,17 @@ public class StagingProxy {
 */
     public void updateBerichtenDbXml(List<Bericht> berichten, RsgbTransformer transformer) throws SQLException, SAXException, IOException, TransformerException  {
         for (Bericht ber : berichten) {
+            Split split = SimonManager.getStopwatch("b3p.staging.bericht.updatedbxml").start();
+
             String dbxml = transformer.transformToDbXml(ber);
             ber.setDbXml(dbxml);
             updateBericht(ber);
+            split.stop();
         }
     }
 
     public Bericht getOldBericht(Bericht nieuwBericht) throws SQLException {
+        Split split = SimonManager.getStopwatch("b3p.staging.bericht.getold").start();
 
         Bericht bericht = null;
         ResultSetHandler<List<Bericht>> h
@@ -289,10 +302,12 @@ public class StagingProxy {
             bericht = list.get(0);
         }
 
+        split.stop();
         return bericht;
     }
 
     public void updateBericht(Bericht b) throws SQLException {
+        Split split = SimonManager.getStopwatch("b3p.staging.bericht.update").start();
 
         new QueryRunner().update(getConnection(),
                 "UPDATE " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?,"
@@ -306,6 +321,7 @@ public class StagingProxy {
                 new Timestamp(b.getStatusDatum().getTime()), b.getBrXml(),
                 b.getBrOrgineelXml(), b.getDbXml(), b.getXslVersion(),
                 b.getId());
+        split.stop();
     }
 
     public void deleteByLaadProcesId(Long id) throws SQLException {

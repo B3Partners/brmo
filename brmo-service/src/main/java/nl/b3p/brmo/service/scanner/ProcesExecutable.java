@@ -14,7 +14,7 @@ public interface ProcesExecutable extends Runnable {
 
     /**
      *
-     * @deprecated("work around gebrek aan String switch in java 6")
+     * @deprecated work around gebrek aan String switch in java 6
      */
     enum ProcessingImple {
 
