@@ -24,13 +24,13 @@
     <stripes:layout-component name="contents">
         <h1>Berichten transformeren</h1>
         <p>
-            Gestart op: <fmt:formatDate pattern="HH:mm:ss" value="${actionBean.start}"/>,
+            Gestart op: <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${actionBean.start}"/>,
                 <script type="text/javascript">
-                    document.write(moment("<fmt:formatDate pattern="HH:mm:ss" value="${actionBean.start}"/>","HH:mm:ss").fromNow() + ".");
+                    document.write(moment("<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${actionBean.start}"/>","YYYY-MM-DD HH:mm:ss").fromNow() + ".");
                 </script>            
             <br>
             <c:if test="${!empty actionBean.update}">
-                Update: <fmt:formatDate pattern="HH:mm:ss" value="${actionBean.update}"/><br>
+                Update: <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${actionBean.update}"/><br>
             </c:if>
             Totaal: ${actionBean.total}<br>
             Verwerkt: ${actionBean.processed}
