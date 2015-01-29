@@ -3,43 +3,17 @@
  */
 package nl.b3p.brmo.persistence.staging;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-import org.junit.After;
-import org.junit.Before;
+import nl.b3p.brmo.persistence.TestUtil;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * test cases voor {@link nl.b3p.brmo.persistence.staging.MailRapportageProces}.
  *
  * @author Mark Prins <mark@b3partners.nl>
  */
-public class MailRapportageProcesTest {
-
-    private static final Logger logger = LoggerFactory.getLogger(MailRapportageProcesTest.class);
-
-    private EntityManager entityManager;
-
-    private static final String EEN_ADRES = "test@test.com";
-
-    private static final String[] ADRESLIJST = {"test@test.com", "test.twee@test.com"};
-
-    @Before
-    public void setUp() throws Exception {
-        final String persistenceUnit = System.getProperty("test.persistence.unit");
-        logger.debug("Testing with: {}.", persistenceUnit);
-        entityManager = Persistence.createEntityManagerFactory(persistenceUnit).createEntityManager();
-        entityManager.getTransaction().begin();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        entityManager.close();
-    }
+public class MailRapportageProcesTest extends TestUtil {
 
     /**
      * Test met een enkelvoudig adres.

@@ -3,6 +3,11 @@
  */
 package nl.b3p.brmo.persistence;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+import org.junit.After;
+import org.junit.Before;
+
 /**
  * utility methoden voor unit tests.
  *
@@ -17,5 +22,50 @@ public abstract class TestUtil {
     /**
      * een naam.
      */
-    public static final String NAAM = "Gangsta";
+    public static final String NAAM = "Gangsta's";
+
+    /**
+     * een directory.
+     */
+    public static final String DIR = "/home/mark/dev/projects/rsgb/brmo-persistence/";
+
+    /**
+     * een email adres.
+     */
+    public static final String EEN_ADRES = "test@test.com";
+
+    /**
+     * een lijst email adressen.
+     */
+    public static final String[] ADRESLIJST = {"test@test.com", "test.twee@test.com"};
+
+    protected EntityManager entityManager;
+
+    /**
+     * initialisatie van EntityManager {@link #entityManager} en starten
+     * transactie.
+     *
+     * @throws Exception if any
+     *
+     * @see #entityManager
+     */
+    @Before
+    public void setUp() throws Exception {
+        final String persistenceUnit = System.getProperty("test.persistence.unit");
+        entityManager = Persistence.createEntityManagerFactory(persistenceUnit).createEntityManager();
+        entityManager.getTransaction().begin();
+    }
+
+    /**
+     * sluiten van van EntityManager {@link #entityManager}.
+     *
+     * @throws Exception if any
+     * @see #entityManager
+     */
+    @After
+    public void close() throws Exception {
+        if (entityManager.isOpen()) {
+            entityManager.close();
+        }
+    }
 }

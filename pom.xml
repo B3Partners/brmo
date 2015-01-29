@@ -54,12 +54,12 @@
     <dependencyManagement />
     <distributionManagement>
         <site>
-        <!-- op zeker moment dit activeren zodat "mvn site" deployed naar de
-        gh-pages branch zodat de documentatie beschikbaar komt op:
-        https://b3partners.github.io/brmo/ (NB dit is een publieke site itt. de repo
-        op dit moment)
-        opties om dit voor elkaar te krijgen
-        https://github.com/github/maven-plugins of http://site.trajano.net/wagon-git/ -->
+            <!-- op zeker moment dit activeren zodat "mvn site" deployed naar de
+            gh-pages branch zodat de documentatie beschikbaar komt op:
+            https://b3partners.github.io/brmo/ (NB dit is een publieke site itt. de repo
+            op dit moment)
+            opties om dit voor elkaar te krijgen
+            https://github.com/github/maven-plugins of http://site.trajano.net/wagon-git/ -->
             <id>github-pages-site</id>
             <name>Site deployment met GitHub's site deployment plugin</name>
             <url>site/${project.version}</url>

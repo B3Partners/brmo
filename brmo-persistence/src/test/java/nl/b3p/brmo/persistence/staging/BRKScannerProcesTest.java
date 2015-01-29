@@ -3,48 +3,16 @@
  */
 package nl.b3p.brmo.persistence.staging;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-import org.junit.Before;
-import org.junit.After;
+import nl.b3p.brmo.persistence.TestUtil;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Testcase voor {@link nl.b3p.brmo.persistence.staging.BRKScannerProces}.
  *
  * @author Mark Prins <mark@b3partners.nl>
  */
-public class BRKScannerProcesTest {
-
-    private static final Logger logger = LoggerFactory.getLogger(BRKScannerProcesTest.class);
-
-    private EntityManager entityManager;
-
-    private static final String DIR = "/home/mark/dev/projects/rsgb/brmo-persistence/";
-
-    /**
-     *
-     * @throws Exception if any
-     */
-    @Before
-    public void setUp() throws Exception {
-        final String persistenceUnit = System.getProperty("test.persistence.unit");
-        logger.debug("Testing with: {}.", persistenceUnit);
-        entityManager = Persistence.createEntityManagerFactory(persistenceUnit).createEntityManager();
-        entityManager.getTransaction().begin();
-    }
-
-    /**
-     *
-     * @throws Exception if any
-     */
-    @After
-    public void close() throws Exception {
-        entityManager.close();
-    }
+public class BRKScannerProcesTest extends TestUtil {
 
     /**
      * round trip test van maken, opslaan en uitlezen van een BRKScannerProces.
@@ -62,7 +30,7 @@ public class BRKScannerProcesTest {
         assertEquals("De directory is zoals geconfigureerd.", DIR, c.getScanDirectory());
         assertEquals("Verwacht dat de parameter is zoals geconfigureerd.", "true", c.getConfig().get("isActive"));
 
-     //   entityManager.remove(p);
+        //   entityManager.remove(p);
         entityManager.getTransaction().commit();
     }
 }

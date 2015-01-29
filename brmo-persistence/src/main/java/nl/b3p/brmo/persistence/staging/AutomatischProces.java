@@ -21,8 +21,6 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.Type;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Generieke beschrijving van een automatisch proces.
@@ -35,8 +33,6 @@ import org.slf4j.LoggerFactory;
 @MappedSuperclass
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING, length = 255)
 public abstract class AutomatischProces implements Serializable {
-
-    private static final Logger logger = LoggerFactory.getLogger(AutomatischProces.class);
 
     public enum ProcessingStatus {
 

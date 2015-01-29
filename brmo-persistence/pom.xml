@@ -32,10 +32,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <!-- nodig voor hibernate -->
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.10</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -80,7 +80,7 @@
                     </execution>
                     <execution>
                         <id>test-schema-export</id>
-                        <phase>process-test-classes</phase>
+                        <phase>generate-test-resources</phase>
                         <configuration>
                             <hibernatetool destdir="${project.build.directory}/ddlscripts">
                                 <classpath>
@@ -97,6 +97,15 @@
                         </goals>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <!-- h2 wordt allen voor unit tests gebruikt, maar als deze
+                        als test scope dep wordt opgevoerd treedt er een CNFE op tijdens de build. -->
+                        <groupId>com.h2database</groupId>
+                        <artifactId>h2</artifactId>
+                        <version>1.4.185</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <plugin>
