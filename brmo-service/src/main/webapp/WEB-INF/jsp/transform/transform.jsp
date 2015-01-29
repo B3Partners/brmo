@@ -35,6 +35,8 @@
             Totaal: ${actionBean.total}<br>
             Verwerkt: ${actionBean.processed}
         </p>
+        <p>
+            <stripes:link href="/javasimon-console" target="_blank">Performance monitoring console</stripes:link>
         <p><b>
             <stripes:messages/>
             <stripes:errors/>

@@ -47,6 +47,8 @@ import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.geotools.geometry.jts.JTSFactoryFinder;
+import org.javasimon.SimonManager;
+import org.javasimon.Split;
 
 /**
  *
@@ -109,6 +111,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     private Map<String, RsgbTransformer> rsgbTransformers = new HashMap();
 
+    private String simonNamePrefix = "b3p.rsgb.";
+
     public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, Bericht.STATUS status, ProgressUpdateListener listener) {
         this.stagingProxy = stagingProxy;
         this.dataSourceRsgb = dataSourceRsgb;
@@ -134,6 +138,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         mode = BerichtSelectMode.BY_LAADPROCES;
         this.laadprocesId = laadprocesId;
         this.listener = listener;
+    }
+
+    public void setSimonNamePrefix(String prefix) {
+        this.simonNamePrefix = prefix;
     }
 
     public void init() throws SQLException {
@@ -297,7 +305,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 parseNewData(null, newList, null, loadLog);
             }
 
+            Split commit = SimonManager.getStopwatch(simonNamePrefix + "commit").start();
             connRsgb.commit();
+            commit.stop();
             ber.setStatus(newStatus);
 
             this.processed++;
@@ -354,15 +364,20 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     }
 
     private StringBuilder parseNewData(List<TableData> oldList, List<TableData> newList, String oldDate, StringBuilder loadLog) throws SQLException, ParseException, BrmoException {
+        Split split = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata").start();
+
         // parse new db xml
         loadLog.append("\nlees xml nieuw bericht");
         if (newList != null && newList.size() > 0) {
             for (TableData newData : newList) {
                 if (!newData.isComfortData()) {
+                    Split splitAuthentic = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic").start();
                     // auth data
                     loadLog.append("\nauthentieke data");
                     for (TableRow row : newData.getRows()) {
+                        Split split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.getpk").start();
                         List<String> pkColumns = getPrimaryKeys(row.getTable());
+                        split2.stop();
 
                         boolean existsInOldList = doesRowExist(row, pkColumns, oldList);
                         boolean doInsert = !existsInOldList;
@@ -372,7 +387,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                             // dan maar update maar zonder historie vastlegging.
                             // oud record kan niet worden terugherleid.
                             //TODO: dure check, kan het anders?
+                            split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.rowexistsindb").start();
                             doInsert = !rowExistsInDb(row, loadLog);
+                            split2.stop();
                         }
 
                         // insert hoofdtabel
@@ -380,14 +397,21 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                             // normale insert in hoofdtabel
                             loadLog.append("\nnormale toevoeging van object aan tabel: ");
                             loadLog.append(row.getTable());
+                            split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.insert").start();
                             createInsertSql(row, false, loadLog);
+                            split2.stop();
 
                         } else {
+                            split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.isalreadyinmetadata").start();
                             boolean inMetaDataTable = isAlreadyInMetadata(row, loadLog);
+                            split2.stop();
+
                             // wis metadata en update hoofdtabel
                             if (inMetaDataTable) {
                                 loadLog.append("\nwis uit metadata tabel (upgrade van comfort naar authentiek). ");
+                                split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.deletefrommetadata").start();
                                 deleteFromMetadata(row, loadLog);
+                                split2.stop();
 
                             }
 
@@ -408,18 +432,24 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                                         oldRow.getValues().add(oldDate);
                                     }
                                 }
+                                split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.archive").start();
                                 createInsertSql(oldRow, true, loadLog);
+                                split2.stop();
 
                                 loadLog.append("\nupdate object in tabel: ");
                             } else {
                                 loadLog.append("\nupdate object (zonder vastlegging historie) in tabel: ");
                             }
                             loadLog.append(row.getTable());
+                            split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.update").start();
                             createUpdateSql(row, loadLog);
-
+                            split2.stop();
                         }
                     }
+                    splitAuthentic.stop();
                 } else {
+                    Split splitComfort = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort").start();
+
                     // comfort data
                     loadLog.append("\ncomfort data");
                     String tabel = newData.getComfortSearchTable();
@@ -430,24 +460,34 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                     for (TableRow row : newData.getRows()) {
                         // zoek obv natural key op in rsgb
                         loadLog.append("\nzoek comfort object obv natural key op in rsgb");
+                        Split split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.exists").start();
                         boolean comfortFound = rowExistsInDb(row, loadLog);
+                        split2.stop();
                         if (comfortFound) {
                             loadLog.append("\noverschrijf bestaande comfort data in tabel: ");
                             loadLog.append(row.getTable());
+                            split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.update").start();
                             createUpdateSql(row, loadLog);
+                            split2.stop();
                         } else {
                             // insert all comfort records into hoofdtabel
                             loadLog.append("\nschrijf nieuwe comfort data naar tabel: ");
                             loadLog.append(row.getTable());
+                            split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.insert").start();
                             createInsertSql(row, false, loadLog);
+                            split2.stop();
                         }
 
                         loadLog.append("\nschrijf info over comfort object naar metadata tabel");
+                        split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.metadata").start();
                         createInsertMetadataSql(tabel, kolom, waarde, datum, row, loadLog);
+                        split2.stop();
                     }
+                    splitComfort.stop();
                 }
             }
         }
+        split.stop();
         return loadLog;
     }
 
@@ -479,7 +519,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
             Collections.reverse(rowsToDelete);
             for(TableRow rowToDelete: rowsToDelete) {
+                Split split = SimonManager.getStopwatch(simonNamePrefix + "parseolddata.delete").start();
                 createDeleteSql(rowToDelete, loadLog);
+                split.stop();
 
                 updateValueInTableRow(rowToDelete, rowToDelete.getColumnDatumEindeGeldigheid(), newDate);
 
@@ -490,7 +532,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                     }
                 }
 
+                split = SimonManager.getStopwatch(simonNamePrefix + "parseolddata.archive").start();
                 createInsertSql(rowToDelete, true, loadLog);
+                split.stop();
             }
         }
 

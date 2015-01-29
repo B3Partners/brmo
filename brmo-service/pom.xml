@@ -13,6 +13,7 @@
         <java.version>1.6</java.version>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <javasimon.version>4.0.1</javasimon.version>
     </properties>
 
     <dependencies>
@@ -90,6 +91,11 @@
             <groupId>org.stripesstuff</groupId>
             <artifactId>stripersist</artifactId>
             <version>1.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.javasimon</groupId>
+            <artifactId>javasimon-console-embed</artifactId>
+            <version>${javasimon.version}</version>
         </dependency>
     </dependencies>
     <repositories>
