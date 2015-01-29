@@ -17,13 +17,13 @@
 
         <stripes:messages />
         <stripes:errors />
-        
+
         <h3>BRK scanners</h3>
 
         <stripes:form partial="true" action="">
-            <p><stripes:button name="toevoegen" value="Toevoegen" disabled="true" onclick="alert('TODO formulier invoegen');"/></p>
+            <p><stripes:button name="toevoegen" value="Toevoegen" onclick="alert('TODO formulier invoegen');"/></p>
         </stripes:form>
-        <c:when test="${not empty actionBean.brkProcessen}">
+        <c:if test="${not empty actionBean.brkProcessen}">
             <c:forEach items="${actionBean.brkProcessen}" varStatus="i" var="brk" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean" focus="">
                     <fieldset>
@@ -45,18 +45,18 @@
                     <stripes:submit name="verwijderProces" value="Verwijderen" disabled="true" />
                 </stripes:form>
             </c:forEach>
-        </c:when>
+        </c:if>
 
         <h3>BAG scanners</h3>
 
         <stripes:form partial="true" action="">
             <p><stripes:button name="toevoegen" value="Toevoegen" disabled="true" onclick="alert('TODO formulier invoegen');"/></p>
         </stripes:form>
-        <c:when test="${not empty actionBean.bagProcessen}">
+        <c:if test="${not empty actionBean.bagProcessen}">
             <c:forEach items="${actionBean.bagProcessen}" varStatus="j" var="bag" >
                 <p>weer eentje ${j}</p>
             </c:forEach>
-        </c:when>
+        </c:if>
 
 
         <h3>Notificaties</h3>
@@ -64,9 +64,9 @@
         <stripes:form partial="true" action="">
             <p><stripes:button name="toevoegen" value="Toevoegen" disabled="true" onclick="alert('TODO formulier invoegen');"/></p>
         </stripes:form>
-        <c:when test="${not empty actionBean.mailProcessen}">
+        <c:if test="${not empty actionBean.mailProcessen}">
             content
-        </c:when>
+        </c:if>
 
 
 
