@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>nl.b3p</groupId>
     <artifactId>brmo-service</artifactId>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
     <packaging>war</packaging>
-
+    <parent>
+        <groupId>nl.b3p</groupId>
+        <artifactId>brmo</artifactId>
+        <version>1.1-SNAPSHOT</version>
+    </parent>
     <name>brmo-service</name>
-
     <properties>
-        <java.version>1.6</java.version>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.json</groupId>
@@ -32,16 +31,6 @@
             <version>2.4</version>
         </dependency>
         <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
-        <dependency>
             <groupId>net.sourceforge.stripes</groupId>
             <artifactId>stripes</artifactId>
             <version>1.5.8</version>
@@ -50,6 +39,11 @@
             <groupId>org.stripesstuff</groupId>
             <artifactId>stripesstuff</artifactId>
             <version>0.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.stripesstuff</groupId>
+            <artifactId>stripersist</artifactId>
+            <version>1.0.3</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -65,20 +59,20 @@
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>brmo-persistence</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>brmo-loader</artifactId>
-            <version>1.0</version>
+            <version>${project.parent.version}</version>
             <exclusions>
-                <exclusion>
-                    <artifactId>postgresql</artifactId>
-                    <groupId>postgresql</groupId>
-                </exclusion>
                 <exclusion>
                     <groupId>com.oracle</groupId>
                     <artifactId>ojdbc5</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>org.postgresql</artifactId>
+                    <groupId>postgresql</groupId>
                 </exclusion>
                 <exclusion>
                     <groupId>org.postgis</groupId>
@@ -86,15 +80,10 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>org.stripesstuff</groupId>
-            <artifactId>stripersist</artifactId>
-            <version>1.0.3</version>
-        </dependency>
     </dependencies>
     <repositories>
         <repository>
-            <id>org.flamingo-mc</id>
+            <id>local.repo</id>
             <name>stripersist Repository</name>
             <url>file://${project.basedir}/../repo</url>
         </repository>
@@ -104,10 +93,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
                     <compilerArguments>
                         <endorseddirs>${endorsed.dir}</endorseddirs>
                     </compilerArguments>
@@ -116,7 +102,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
@@ -124,7 +109,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.6</version>
                 <executions>
                     <execution>
                         <phase>validate</phase>
@@ -148,5 +132,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

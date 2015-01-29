@@ -4,7 +4,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
@@ -13,3 +12,4 @@ hs_err_pid*
 /brmo-loader/target/
 /brmo-persistence/target/
 /brmo-service/target/
+/target/

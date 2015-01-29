@@ -1,131 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>nl.b3p</groupId>
     <artifactId>brmo-loader</artifactId>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-
+    <parent>
+        <groupId>nl.b3p</groupId>
+        <artifactId>brmo</artifactId>
+        <version>1.1-SNAPSHOT</version>
+    </parent>
     <name>brmo-loader</name>
-    
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <geotools.version>9.2</geotools.version>
-    </properties>
-    
     <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.10</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>commons-dbutils</groupId>
             <artifactId>commons-dbutils</artifactId>
             <version>1.6</version>
-            <type>jar</type>
         </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.1.3</version>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>         
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>commons-cli</groupId>
             <artifactId>commons-cli</artifactId>
             <version>1.2</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.1</version>
-            <type>jar</type>
         </dependency>
-        
         <dependency>
-            <groupId>postgresql</groupId>
+            <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>9.0-801.jdbc3</version>
-            <!-- Bij JNDI db verbinding moeten postgis jars in tomcat lib samen 
-                 met postgresql jdbc driver staan -->
-        </dependency>  
-        <!-- 
+            <version>${postgresql.jdbc.version}</version>
+            <!-- Bij JNDI db verbinding moeten postgis jars in tomcat lib samen
+            met postgresql jdbc driver staan -->
+        </dependency>
+        <!--
             Bij gebruik van oracle met maven moet je de oracle jdbc driver
             handmatig toevoegen aan je locale mvn repo (licentie blabla): Dit
             kan met: mvn install:install-file
             -Dfile=/mnt/x_b3p_install/Databases/JDBC\ drivers/ojdbc5.jar
             -DgroupId=com.oracle -DartifactId=ojdbc5 -Dversion=11.1.0.7.0
-            -Dpackaging=jar -DgeneratePom=true       
-        -->        
+            -Dpackaging=jar -DgeneratePom=true
+        -->
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc5</artifactId>
-            <version>11.1.0.7.0</version>
-            <type>jar</type>
+            <version>${oracle.jdbc.version}</version>
             <!-- Bij JNDI db verbinding moeten Oracle jars in tomcat lib staan -->
         </dependency>
         <dependency>
             <groupId>com.vividsolutions</groupId>
             <artifactId>jts</artifactId>
             <version>1.13</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.geotools</groupId>
             <artifactId>gt-main</artifactId>
             <version>${geotools.version}</version>
-            <type>jar</type>
-        </dependency>    
+        </dependency>
         <dependency>
             <groupId>org.geotools</groupId>
             <artifactId>gt-epsg-hsql</artifactId>
             <version>${geotools.version}</version>
-            <type>jar</type>
-        </dependency>            
+        </dependency>
         <dependency>
             <groupId>org.geotools.xsd</groupId>
             <artifactId>gt-xsd-gml3</artifactId>
             <version>${geotools.version}</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.geotools.jdbc</groupId>
             <artifactId>gt-jdbc-oracle</artifactId>
             <version>${geotools.version}</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.postgis</groupId>
             <artifactId>postgis-jdbc</artifactId>
             <version>1.3.3</version>
-            <type>jar</type>
-            <!-- Bij JNDI db verbinding moeten postgis jars in tomcat lib samen 
-                 met postgresql jdbc driver staan -->
+            <!-- Bij JNDI db verbinding moeten postgis jars in tomcat lib samen
+            met postgresql jdbc driver staan -->
         </dependency>
     </dependencies>
-    
-   <repositories>
-        <repository>
-            <id>osgeo</id>
-            <name>Open Source Geospatial Foundation Repository</name>
-            <url>http://download.osgeo.org/webdav/geotools/</url>
-        </repository>
-    </repositories>    
-
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -161,16 +121,15 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.7</version>
                 <executions>
                     <execution>
                         <id>pack</id>
                         <phase>package</phase>
                         <configuration>
                             <target>
-                                <zip destfile="${build.directory}/${project.build.finalName}.zip">
-                                    <zipfileset dir="${build.directory}" includes="lib/**" />
-                                    <zipfileset dir="${build.directory}" includes="${project.build.finalName}.jar" />
+                                <zip destfile="${project.build.directory}/${project.build.finalName}.zip">
+                                    <zipfileset dir="${project.build.directory}" includes="lib/**" />
+                                    <zipfileset dir="${project.build.directory}" includes="${project.build.finalName}.jar" />
                                     <zipfileset dir="${basedir}" includes="readme.txt" />
                                 </zip>
                             </target>
