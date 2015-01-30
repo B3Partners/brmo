@@ -176,6 +176,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     }
 
     public void close() {
+        for(PreparedStatement stmt: checkRowExistsStatements.values()) {
+            DbUtils.closeQuietly(stmt);
+        }
+
         DbUtils.closeQuietly(connRsgb);
     }
 
@@ -901,32 +905,55 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return result;
     }
 
+
+    private final Map <String,PreparedStatement> checkRowExistsStatements = new HashMap();
+
     private boolean rowExistsInDb(TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
-        StringBuilder sql = new StringBuilder("select 1 from ");
 
         String tableName = row.getTable();
-        sql.append(tableName);
-
-        SortedSet<ColumnMetadata> tableColumnMetadata = null;
-        tableColumnMetadata = getTableColumnMetadata(tableName);
-
-        // Where clause using pk columns
         List<String> pkColumns = getPrimaryKeys(tableName);
 
-        int i = 0;
-        for (String column : pkColumns) {
-            if (i < 1) {
-                sql.append(" WHERE " + column + " = ?");
-            } else {
-                sql.append(" AND " + column + " = ?");
-            }
-            i++;
+        List params = new ArrayList();
+        for(String column: pkColumns) {
+            String val = getValueFromTableRow(row, column);
+            Object obj = getValueAsObject(row.getTable(), column, val);
+            params.add(obj);
         }
 
-        PreparedStatement stm = getPreparedStatement(row, sql.toString(), null, null, pkColumns, loadLog);
-        boolean result = executePreparedStatement(stm, row, STATEMENT_TYPE.SELECT);
+        loadLog.append("\ncontroleer ").append(tableName).append(" op primary key: ").append(params.toString());
 
-        return result;
+        PreparedStatement stm = checkRowExistsStatements.get(tableName);
+
+        if(stm == null) {
+            StringBuilder sql = new StringBuilder("select 1 from ")
+                    .append(tableName);
+
+            boolean first = true;
+            for(String column: pkColumns) {
+                if(first) {
+                    sql.append(" where ").append(column).append(" = ?");
+                    first = false;
+                } else {
+                    sql.append(" and ").append(column).append(" = ?");
+                }
+            }
+
+            stm = connRsgb.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            checkRowExistsStatements.put(tableName, stm);
+        } else {
+            stm.clearParameters();
+        }
+
+        int i = 1;
+        for(Object p: params) {
+            stm.setObject(i++, p);
+        }
+        ResultSet rs = stm.executeQuery();
+        boolean exists = rs.next();
+        rs.close();
+        loadLog.append(", rij bestaat: ").append(exists ? "ja" : "nee");
+
+        return exists;
     }
 
     public boolean isAlreadyInMetadata(TableRow row, StringBuilder loadLog)
