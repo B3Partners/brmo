@@ -1056,8 +1056,16 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return result;
     }
 
+    private final Map<String,List<String>> primaryKeyCache = new HashMap();
+
     private List<String> getPrimaryKeys(String tableName) throws SQLException {
-        List<String> pks = new ArrayList();
+
+        List<String> pks = primaryKeyCache.get(tableName);
+        if(pks != null) {
+            return pks;
+        }
+
+        pks = new ArrayList();
 
         String origName = tables.get(tableName);
 
@@ -1068,6 +1076,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
 
         set.close();
+        primaryKeyCache.put(tableName, pks);
 
         return pks;
     }
