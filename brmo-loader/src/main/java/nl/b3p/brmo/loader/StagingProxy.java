@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -57,6 +58,9 @@ public class StagingProxy {
     }
 
     public void closeStagingProxy() {
+        if(getOldBerichtStatement != null) {
+            DbUtils.closeQuietly(getOldBerichtStatement);
+        }
         DbUtils.closeQuietly(connStaging);
     }
 
@@ -261,40 +265,51 @@ public class StagingProxy {
 */
     public void updateBerichtenDbXml(List<Bericht> berichten, RsgbTransformer transformer) throws SQLException, SAXException, IOException, TransformerException  {
         for (Bericht ber : berichten) {
-            Split split = SimonManager.getStopwatch("b3p.staging.bericht.updatedbxml").start();
-
             String dbxml = transformer.transformToDbXml(ber);
+            Split split = SimonManager.getStopwatch("b3p.staging.bericht.updatedbxml").start();
             ber.setDbXml(dbxml);
             updateBericht(ber);
             split.stop();
         }
     }
 
+    private PreparedStatement getOldBerichtStatement;
+
     public Bericht getOldBericht(Bericht nieuwBericht) throws SQLException {
+        // TODO use JPA entities
+
         Split split = SimonManager.getStopwatch("b3p.staging.bericht.getold").start();
 
         Bericht bericht = null;
         ResultSetHandler<List<Bericht>> h
                 = new BeanListHandler(Bericht.class, new StagingRowHandler());
 
-        String sql = null;
+        if(getOldBerichtStatement == null) {
+            String sql = null;
 
-        if (dbType.contains("postgres")) {
-            sql = "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE"
-                + " object_ref = ? AND status = ?"
-                + " ORDER BY datum desc limit 1";
+            if (dbType.contains("postgres")) {
+                sql = "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE"
+                    + " object_ref = ? AND status = ?"
+                    + " ORDER BY datum desc limit 1";
+            }
+
+            if (dbType.contains("oracle")) {
+                sql = "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE"
+                    + " object_ref = ? AND status = ? "
+                    + " ORDER BY datum desc";
+            }
+
+            getOldBerichtStatement = getConnection().prepareStatement(sql);
+        } else {
+            getOldBerichtStatement.clearParameters();
         }
 
-        if (dbType.contains("oracle")) {
-            sql = "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE"
-                + " object_ref = ? AND status = ? "
-                + " ORDER BY datum desc";
-        }
+        getOldBerichtStatement.setString(1, nieuwBericht.getObjectRef());
+        getOldBerichtStatement.setString(2, Bericht.STATUS.RSGB_OK.toString());
 
-        List<Bericht> list = new QueryRunner().query(getConnection(), sql, h,
-                nieuwBericht.getObjectRef(),
-                Bericht.STATUS.RSGB_OK.toString()
-        );
+        ResultSet rs = getOldBerichtStatement.executeQuery();
+        List<Bericht> list = h.handle(rs);
+        rs.close();
 
         if(!list.isEmpty()) {
             // XXX voor Oracle ROWNUM over subquery is efficienter, nu worden
@@ -307,6 +322,8 @@ public class StagingProxy {
     }
 
     public void updateBericht(Bericht b) throws SQLException {
+        // TODO use JPA entities
+
         Split split = SimonManager.getStopwatch("b3p.staging.bericht.update").start();
 
         new QueryRunner().update(getConnection(),
