@@ -24,7 +24,9 @@ public class MailRapportageProcesTest extends TestUtil {
         m.setMailAdressen(EEN_ADRES);
         entityManager.persist(m);
         assertEquals("Verwacht dat opgeslagen email adres identiek is.",
-                EEN_ADRES, m.getMailAdressen()[0]);
+                EEN_ADRES, m.getMailAdressenArray()[0]);
+        assertEquals("Verwacht dat opgeslagen email adres identiek is.",
+                EEN_ADRES, m.getMailAdressen());
 
         entityManager.remove(m);
         entityManager.getTransaction().commit();
@@ -40,7 +42,7 @@ public class MailRapportageProcesTest extends TestUtil {
         entityManager.persist(m);
 
         assertArrayEquals("Verwacht dat opgeslagen email adressen identiek zijn.",
-                ADRESLIJST, m.getMailAdressen());
+                ADRESLIJST, m.getMailAdressenArray());
 
         entityManager.remove(m);
         entityManager.getTransaction().commit();

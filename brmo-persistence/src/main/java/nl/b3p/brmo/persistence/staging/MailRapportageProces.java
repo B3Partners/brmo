@@ -13,17 +13,32 @@ import javax.persistence.Entity;
 @Entity
 public class MailRapportageProces extends AutomatischProces {
 
-    private static final String DELIM = ",";
+    public static final String DELIM = ",";
+    /**
+     * de sleutel {@value EMAIL}.
+     */
+    public static final String EMAIL = "email";
+    /**
+     * de sleutel {@value PIDS}.
+     */
+    public static final String PIDS = "pIDS";
 
-    private static final String EMAIL = "email";
+    /**
+     * haalt de lijst van email adressen op.
+     *
+     * @return string met adressen
+     */
+    public String getMailAdressen() {
+        return this.getConfig().get(EMAIL);
+    }
 
     /**
      * haalt de lijst van email adressen op.
      *
      * @return array van string met adressen
      */
-    public String[] getMailAdressen() {
-        final String adreslijst = this.getConfig().get(EMAIL);
+    public String[] getMailAdressenArray() {
+        final String adreslijst = this.getMailAdressen();
         if (adreslijst != null) {
             return adreslijst.split(DELIM);
         } else {
@@ -32,24 +47,29 @@ public class MailRapportageProces extends AutomatischProces {
     }
 
     /**
-     *
-     * @param enkeladres een enkel adres
-     */
-    public void setMailAdressen(String enkeladres) {
-        this.setMailAdressen(new String[]{enkeladres});
-    }
-
-    /**
+     * wordt gebruikt om opslag van mailadressen te normaliseren.
      *
      * @param adressen een lijst adressen
      */
     public void setMailAdressen(String... adressen) {
         StringBuilder sb = new StringBuilder();
         for (String adres : adressen) {
-            sb.append(adres).append(DELIM);
+            sb.append(adres.trim()).append(DELIM);
         }
         sb.setLength(sb.length() - 1);
         this.getConfig().put(EMAIL, sb.toString());
     }
 
+    /**
+     * voor stripes formulier input...
+     *
+     * @param adres een (lijst) adres(sen)
+     */
+    public void setMailAdressen(String adres) {
+        if (adres.contains(DELIM)) {
+            this.setMailAdressen(adres.split(DELIM));
+        } else {
+            this.getConfig().put(EMAIL, adres.trim());
+        }
+    }
 }
