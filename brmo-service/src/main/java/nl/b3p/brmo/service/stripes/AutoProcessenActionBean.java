@@ -21,10 +21,12 @@ import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.validation.SimpleError;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.NULL;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ONBEKEND;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
 import nl.b3p.brmo.persistence.staging.MailRapportageProces;
+import static nl.b3p.brmo.persistence.staging.MailRapportageProces.PIDS;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
 import org.apache.commons.logging.Log;
@@ -49,6 +51,9 @@ public class AutoProcessenActionBean implements ActionBean {
 
     private List<MailRapportageProces> mailProcessen = new ArrayList<MailRapportageProces>();
 
+    /**
+     * ophalen van de automatisch proces entities.
+     */
     @Before(stages = LifecycleStage.BindingAndValidation)
     public void load() {
         EntityManager em = Stripersist.getEntityManager();
@@ -78,34 +83,58 @@ public class AutoProcessenActionBean implements ActionBean {
      */
     @DefaultHandler
     public Resolution view() {
-        try {
-
-            if (log.isDebugEnabled()) {
-                // TODO als er geen is maken we een lege aan
-                if (brkProcessen.isEmpty()) {
-                    EntityManager em = Stripersist.getEntityManager();
-                    BRKScannerProces b = new BRKScannerProces();
-                    b.setScanDirectory("scan directory");
-                    b.setArchiefDirectory("Archief directory");
-                    b.setStatus(ONBEKEND);
-                    em.persist(b);
-                    brkProcessen.add(b);
-                    em.getTransaction().commit();
-                }
-
-                for (BRKScannerProces p : brkProcessen) {
-                    log.debug("  proces id: " + p.getId());
-                    log.debug("     status: " + p.getStatus());
-                    log.debug("   scan dir: " + p.getScanDirectory());
-                    log.debug("archief dir: " + p.getArchiefDirectory());
-                }
+        // DEV-ONLY als er geen is maken we een een paar lege processen aan
+        if (log.isDebugEnabled()) {
+            EntityManager em = Stripersist.getEntityManager();
+            if (brkProcessen.isEmpty()) {
+                BRKScannerProces b = new BRKScannerProces();
+                b.setScanDirectory("scan directory");
+                b.setStatus(ONBEKEND);
+                em.persist(b);
+                brkProcessen.add(b);
             }
+            if (bagProcessen.isEmpty()) {
+                BAGScannerProces b = new BAGScannerProces();
+                b.setScanDirectory("scan directory");
+                b.setStatus(ONBEKEND);
+                em.persist(b);
+                bagProcessen.add(b);
+            }
+            if (mailProcessen.isEmpty()) {
+                MailRapportageProces m = new MailRapportageProces();
+                String[] adressen = {"somewhere@on.the.internet.nl", "somewhere_else@on.the.internet.nl"};
+                m.setMailAdressen(adressen);
+                m.getConfig().put(PIDS, bagProcessen.get(0).getId().toString());
+                m.getConfig().put(PIDS, brkProcessen.get(0).getId().toString());
+                m.setStatus(NULL);
+                em.persist(m);
+                mailProcessen.add(m);
+            }
+            em.getTransaction().commit();
 
-            //... etcetera ...
-        } catch (Exception ex) {
-            log.error("TODO foutmelding", ex);
+            log.debug("=============== bekende BRK processen ===============");
+            for (BRKScannerProces p : brkProcessen) {
+                log.debug("  proces id: " + p.getId());
+                log.debug("     status: " + p.getStatus());
+                log.debug("   scan dir: " + p.getScanDirectory());
+                log.debug("archief dir: " + p.getArchiefDirectory());
+            }
+            log.debug("=============== bekende BAG processen ===============");
+            for (BAGScannerProces p : bagProcessen) {
+                log.debug("  proces id: " + p.getId());
+                log.debug("     status: " + p.getStatus());
+                log.debug("   scan dir: " + p.getScanDirectory());
+                log.debug("archief dir: " + p.getArchiefDirectory());
+            }
+            log.debug("=============== bekende MAIL processen===============");
+            for (MailRapportageProces p : mailProcessen) {
+                log.debug("  proces id: " + p.getId());
+                log.debug("     status: " + p.getStatus());
+                log.debug("   adressen: " + p.getMailAdressen());
+                log.debug("  processen: " + p.getConfig().get(PIDS));
+            }
         }
-        // andere config items lezen??
+
         return new ForwardResolution(JSP);
     }
 
@@ -118,18 +147,18 @@ public class AutoProcessenActionBean implements ActionBean {
         try {
             EntityManager em = Stripersist.getEntityManager();
             for (BRKScannerProces brk : this.brkProcessen) {
-                em.persist(brk);
+                em.merge(brk);
             }
             for (BAGScannerProces bag : this.bagProcessen) {
-                em.persist(bag);
+                em.merge(bag);
             }
             for (MailRapportageProces mail : this.mailProcessen) {
-                em.persist(mail);
+                em.merge(mail);
             }
             em.getTransaction().commit();
-            getContext().getMessages().add(new SimpleMessage("Proces is succesvol opgeslagen."));
+            getContext().getMessages().add(new SimpleMessage("Processen zijn succesvol opgeslagen."));
         } catch (Throwable t) {
-            getContext().getMessages().add(new SimpleError("Er is een fout opgetreden tijdens het opslaan van de configuratie gegevens. {2}", t.getMessage()));
+            getContext().getMessages().add(new SimpleError("Er is een fout opgetreden tijdens het opslaan van de configuratie gegevens. {0}", t.getMessage()));
             log.error("Er is een fout opgetreden tijdens opslaan van configuratie gegevens.", t);
         }
         // return to the form
@@ -143,30 +172,32 @@ public class AutoProcessenActionBean implements ActionBean {
      *
      */
     public Resolution startProces() {
-        log.debug("Start proces met pId: " + getContext().getRequest().getParameter("pId"));
+        log.debug("Poging proces met pId: " + getContext().getRequest().getParameter("pId") + " te starten.");
 
         Long id = null;
         try {
             id = Long.valueOf(getContext().getRequest().getParameter("pId"));
+            final EntityManager em = Stripersist.getEntityManager();
             // ophalen proces config en starten proces
-            AutomatischProces config = Stripersist.getEntityManager().find(AutomatischProces.class, id);
+            AutomatischProces config = em.find(AutomatischProces.class, id);
             ProcesExecutable p = AbstractExecutableProces.getProces(config);
             p.execute();
-            Stripersist.getEntityManager().persist(config);
+            em.merge(config);
+            em.getTransaction().commit();
         } catch (NumberFormatException t) {
             getContext().getMessages().add(
-                    new SimpleError("Er is een fout opgetreden tijdens het parsen van de proces id {2}. {3}",
+                    new SimpleError("Er is een fout opgetreden tijdens het parsen van de proces id {0}. {1}",
                             id, t.getMessage()));
             log.error("Er is een fout opgetreden tijdens het parsen van de proces id.", t);
         } catch (BrmoException t) {
             getContext().getMessages().add(
-                    new SimpleError("Er is een fout opgetreden tijdens het starten of uitvoeren van proces {2}. {3}",
+                    new SimpleError("Er is een fout opgetreden tijdens het starten of uitvoeren van proces {0}. {1}",
                             id, t.getMessage()));
             log.error("Er is een fout opgetreden tijdens het starten of uitvoeren van het proces.", t);
-        } finally {
-
         }
-        // terug naar de pagina of een overzicht van lopende processen?
+
+        getContext().getMessages().add(
+                new SimpleMessage("Het proces met ID {0} is afgerond.", id));
         return new ForwardResolution(JSP);
     }
 
@@ -180,15 +211,16 @@ public class AutoProcessenActionBean implements ActionBean {
         log.debug("Poging proces met pId: " + getContext().getRequest().getParameter("pId") + " te stoppen.");
 
         Long id = Long.valueOf(getContext().getRequest().getParameter("pId"));
-        // ophalen proces config en starten proces
-        AutomatischProces config = Stripersist.getEntityManager().find(AutomatischProces.class, id);
+        final EntityManager em = Stripersist.getEntityManager();
+        AutomatischProces config = em.find(AutomatischProces.class, id);
         ProcesExecutable p = AbstractExecutableProces.getProces(config);
         if (p.isRunning()) {
             p.stop();
         }
-        Stripersist.getEntityManager().persist(config);
+        em.merge(config);
+        em.getTransaction().commit();
 
-        getContext().getMessages().add(new SimpleError("Proces {2} is gestopt.", id));
+        getContext().getMessages().add(new SimpleError("Proces {0} is gestopt.", id));
         return new ForwardResolution(JSP);
     }
 
@@ -202,8 +234,14 @@ public class AutoProcessenActionBean implements ActionBean {
         log.debug("Poging proces met pId: " + getContext().getRequest().getParameter("pId") + " te verwijderen.");
 
         Long id = Long.valueOf(getContext().getRequest().getParameter("pId"));
+        final EntityManager em = Stripersist.getEntityManager();
+        AutomatischProces config = em.find(AutomatischProces.class, id);
+        em.remove(config);
+        em.getTransaction().commit();
+        // reload om de arraylists met entities te verversen
+        this.load();
 
-        getContext().getMessages().add(new SimpleError("TODO {2} is nog niet geimplementeerd...", getContext()));
+        getContext().getMessages().add(new SimpleMessage("Het proces met ID {0} is verwijderd.", id));;
         return new ForwardResolution(JSP);
     }
 

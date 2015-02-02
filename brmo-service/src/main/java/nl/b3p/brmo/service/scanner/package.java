@@ -2,7 +2,7 @@
  * Copyright (C) 2015 B3Partners B.V.
  */
 /**
- * Directoryscanner package.
+ * Package voor automatische processen.
  *
  *
  * @author Mark Prins
