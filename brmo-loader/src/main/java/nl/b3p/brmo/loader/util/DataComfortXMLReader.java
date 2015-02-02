@@ -37,10 +37,21 @@ public class DataComfortXMLReader {
     private static final int LEVEL_COMFORT = 2;
     private static final int LEVEL_TABLE = 3;
 
-    public static List<TableData> readDataXML(Source dataXML) throws XMLStreamException, TransformerConfigurationException, TransformerException, IOException, SAXException, ParserConfigurationException {
+    private final TransformerFactory tf = TransformerFactory.newInstance();
+    private final XMLInputFactory xif = XMLInputFactory.newInstance();
+    private final GeometryFactory gf;
+    private final Parser gmlParser;
+
+    public DataComfortXMLReader() {
+        GMLConfiguration gml = new org.geotools.gml3.GMLConfiguration();
+        gf = new GeometryFactory(new PrecisionModel(), 28992);
+        gml.getContext().registerComponentInstance(gf);
+        gmlParser = new Parser(gml);
+    }
+
+    public List<TableData> readDataXML(Source dataXML) throws XMLStreamException, TransformerConfigurationException, TransformerException, IOException, SAXException, ParserConfigurationException {
         Split split = SimonManager.getStopwatch("b3p.util.datacomfortxmlreader").start();
 
-        XMLInputFactory xif = XMLInputFactory.newInstance();
         XMLStreamReader xer = xif.createXMLStreamReader(dataXML);
 
         int level = LEVEL_ROOT;
@@ -48,11 +59,6 @@ public class DataComfortXMLReader {
         TableData data = null;
         TableRow row = null;
         boolean inComfortData = false;
-
-        GMLConfiguration gml = new org.geotools.gml3.GMLConfiguration();
-        GeometryFactory gf = new GeometryFactory(new PrecisionModel(), 28992);
-        gml.getContext().registerComponentInstance(gf);
-        Parser parser = new Parser(gml);
 
         root:
         while (xer.hasNext()) {
@@ -140,12 +146,13 @@ public class DataComfortXMLReader {
                         // Detecteer XML elementen of text
                         xer.next();
                         if (xer.isStartElement()) {
-                            TransformerFactory tf = TransformerFactory.newInstance();
+                            Split split2 = SimonManager.getStopwatch("b3p.util.datacomfortxmlreader.parsegml").start();
+
                             Transformer transformer = tf.newTransformer();
                             StringWriter sw = new StringWriter();
                             transformer.transform(new StAXSource(xer), new StreamResult(sw));
 
-                            Geometry geom = (Geometry) parser.parse(new StringReader(sw.toString()));
+                            Geometry geom = (Geometry) gmlParser.parse(new StringReader(sw.toString()));
                             //TODO Hack, alles naar multi variant of niet, nu POINT en MULTIPOLYGON
                             //tijdelijk elke POLYGON omzetten naar MULTIPOLYGON
                             if (geom instanceof Polygon) {
@@ -156,6 +163,7 @@ public class DataComfortXMLReader {
                             row.getValues().add(geom.toString());
 
                             //System.out.println("Sub elements " + tag + ": " + sw.toString());
+                            split2.stop();
                         } else if (xer.isCharacters()) {
                             StringBuilder t = new StringBuilder();
                             do {
