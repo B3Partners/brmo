@@ -16,7 +16,6 @@
                 net.sourceforge.stripes.controller.HttpCacheInterceptor
             </param-value>
         </init-param>
-
         <init-param>
             <param-name>Extension.Packages</param-name>
             <param-value>org.stripesstuff.stripersist</param-value>
@@ -36,9 +35,6 @@
         <servlet-name>StripesDispatcher</servlet-name>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
-    <listener>
-        <listener-class>nl.b3p.brmo.servlet.EntityManagerContextListener</listener-class>
-    </listener>
     <servlet>
         <servlet-name>StripesDispatcher</servlet-name>
         <servlet-class>net.sourceforge.stripes.controller.DispatcherServlet</servlet-class>
