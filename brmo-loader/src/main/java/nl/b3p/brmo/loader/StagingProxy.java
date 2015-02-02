@@ -268,7 +268,7 @@ public class StagingProxy {
             String dbxml = transformer.transformToDbXml(ber);
             Split split = SimonManager.getStopwatch("b3p.staging.bericht.updatedbxml").start();
             ber.setDbXml(dbxml);
-            updateBericht(ber);
+            //updateBericht(ber);
             split.stop();
         }
     }
@@ -337,6 +337,21 @@ public class StagingProxy {
                 b.getSoort(), b.getOpmerking(), b.getStatus().toString(),
                 new Timestamp(b.getStatusDatum().getTime()), b.getBrXml(),
                 b.getBrOrgineelXml(), b.getDbXml(), b.getXslVersion(),
+                b.getId());
+        split.stop();
+    }
+
+    public void updateBerichtProcessing(Bericht b) throws SQLException {
+        // TODO use JPA entities
+
+        Split split = SimonManager.getStopwatch("b3p.staging.bericht.update").start();
+
+        new QueryRunner().update(getConnection(),
+                "UPDATE " + BrmoFramework.BERICHT_TABLE + " set opmerking = ?,"
+                + " status = ?, status_datum = ?, db_xml = ?"
+                + " WHERE id = ?",
+                b.getOpmerking(), b.getStatus().toString(),
+                new Timestamp(b.getStatusDatum().getTime()), b.getDbXml(),
                 b.getId());
         split.stop();
     }
