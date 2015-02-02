@@ -96,6 +96,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     }
 
     private DatabaseMetaData dbMetadata =  null;
+    private String databaseProductName;
     /* Map van lowercase tabelnaam naar originele case tabelnaam */
     private Map<String, String> tables = new HashMap();
     private Map<String, SortedSet<ColumnMetadata>> tableColumns = new HashMap();
@@ -147,11 +148,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     public void init() throws SQLException {
         connRsgb = dataSourceRsgb.getConnection();
 
-        String productName = connRsgb.getMetaData().getDatabaseProductName();
-        if (productName.contains("PostgreSQL")) {
+        databaseProductName = connRsgb.getMetaData().getDatabaseProductName();
+        if (databaseProductName.contains("PostgreSQL")) {
             geomToJdbc = new PostgisJdbcConverter();
             useSavepoints = true;
-        } else if (productName.contains("Oracle")) {
+        } else if (databaseProductName.contains("Oracle")) {
 
             OracleConnection oc = OracleConnectionUnwrapper.unwrap(connRsgb);
             schema = oc.getCurrentSchema();
@@ -179,7 +180,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         for(PreparedStatement stmt: checkRowExistsStatements.values()) {
             DbUtils.closeQuietly(stmt);
         }
-
+        if(insertMetadataStatement != null) {
+            DbUtils.closeQuietly(insertMetadataStatement);
+        }
         DbUtils.closeQuietly(connRsgb);
     }
 
@@ -856,31 +859,23 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return result;
     }
 
+    private static PreparedStatement insertMetadataStatement;
+
     /* Columns id, tabel, kolom, waarde, herkomst_br, datum (toestandsdatum) */
-    @SuppressWarnings("empty-statement")
     private boolean createInsertMetadataSql(String tabel, String kolom, String waarde, String datum, TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
 
-        //set ignore duplicates for insert in metadata table
-        boolean orgIgnoreDuplicates = row.isIgnoreDuplicates();
-        row.setIgnoreDuplicates(true);
-        doSavePoint(row);
+        if(insertMetadataStatement == null) {
+            StringBuilder sql = new StringBuilder("insert into herkomst_metadata (tabel, kolom, waarde, herkomst_br, datum) ")
+                    .append("select ?, ?, ?, ?, ? ")
+                    .append(databaseProductName.contains("Oracle") ? "from dual" : "")
+                    .append(" where not exists (")
+                    .append("  select 1 from herkomst_metadata where tabel = ? and kolom = ? and waarde = ? and herkomst_br = ? and datum = ?")
+                    .append(")");
 
-        StringBuilder sql = new StringBuilder("insert into herkomst_metadata ");
-
-        sql.append("(tabel, kolom, waarde, herkomst_br, datum) VALUES ");
-        sql.append("(?, ?, ?, ?, ?)");
-
-        List params = new ArrayList();
-        List<Boolean> isGeometry = new ArrayList();
-
-        params.add(tabel);
-        params.add(kolom);
-        params.add(waarde);
-
-        if (getHerkomstMetadata() == null) {
-            throw new IllegalStateException("Herkomst is verplicht bij het invoeren van metadata!");
+            insertMetadataStatement = connRsgb.prepareStatement(sql.toString());
+        } else {
+            insertMetadataStatement.clearParameters();
         }
-        params.add(herkomstMetadata);
 
         Date date = null;
         Calendar calendar = javax.xml.bind.DatatypeConverter.parseDateTime(datum);
@@ -889,20 +884,22 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             date = new java.sql.Date(cal.getTimeInMillis());
         }
 
-        params.add(date);
+        insertMetadataStatement.setString(1, tabel);
+        insertMetadataStatement.setString(2, kolom);
+        insertMetadataStatement.setString(3, waarde);
+        insertMetadataStatement.setString(4, getHerkomstMetadata());
+        insertMetadataStatement.setObject(5, date);
+        insertMetadataStatement.setString(6, tabel);
+        insertMetadataStatement.setString(7, kolom);
+        insertMetadataStatement.setString(8, waarde);
+        insertMetadataStatement.setString(9, getHerkomstMetadata());
+        insertMetadataStatement.setObject(10, date);
 
-        PreparedStatement stm = getPreparedStatement(row, sql.toString(), params, isGeometry, null, loadLog);
-
-        boolean result = false;
-        if (alsoExecuteSql) {
-             result = executePreparedStatement(stm, row, STATEMENT_TYPE.INSERT);
-        }
-
-        //reset orginal setting ignore duplicates
-        //should not be necessary, as comfort data may always be ignored
-        row.setIgnoreDuplicates(orgIgnoreDuplicates);
-
-        return result;
+        loadLog.append(String.format("\nConditioneel toevoegen herkomst metadata tabel=%s, kolom=%s, waarde=%s, herkomst_br=%s, datum=%s",
+                tabel, kolom, waarde, getHerkomstMetadata(), datum));
+        insertMetadataStatement.execute();
+        loadLog.append(": record geinsert: ").append(insertMetadataStatement.getUpdateCount() == 1 ? "ja" : "nee (rij bestond al)");
+        return insertMetadataStatement.getUpdateCount() == 1;
     }
 
 
