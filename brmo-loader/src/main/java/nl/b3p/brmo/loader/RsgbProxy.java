@@ -186,6 +186,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         DbUtils.closeQuietly(connRsgb);
     }
 
+    @Override
     public void run() {
         try {
 
@@ -374,13 +375,13 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         Split split = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata").start();
 
         // parse new db xml
-        loadLog.append("\nlees xml nieuw bericht");
+        loadLog.append("\nVerwerk nieuw bericht");
         if (newList != null && newList.size() > 0) {
             for (TableData newData : newList) {
                 if (!newData.isComfortData()) {
                     Split splitAuthentic = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic").start();
                     // auth data
-                    loadLog.append("\nauthentieke data");
+                    loadLog.append("\n\nAuthentieke data");
                     for (TableRow row : newData.getRows()) {
                         Split split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.getpk").start();
                         List<String> pkColumns = getPrimaryKeys(row.getTable());
@@ -402,25 +403,29 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                         // insert hoofdtabel
                         if (doInsert) {
                             // normale insert in hoofdtabel
-                            loadLog.append("\nnormale toevoeging van object aan tabel: ");
+                            loadLog.append("\nNormale toevoeging van object aan tabel: ");
                             loadLog.append(row.getTable());
                             split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.insert").start();
                             createInsertSql(row, false, loadLog);
                             split2.stop();
 
                         } else {
-                            split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.isalreadyinmetadata").start();
-                            boolean inMetaDataTable = isAlreadyInMetadata(row, loadLog);
-                            split2.stop();
+                            // XXX kan momenteel niet werken; herkomst_metadata heeft alleen
+                            // superclass records.
+                            // Logisch ook niet mogelijk dat comfort data opeens authentiek wordt
+                            // momenteel (pas bij Basisregistratie Personen / NHR)
+
+                            //split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.isalreadyinmetadata").start();
+                            //boolean inMetaDataTable = isAlreadyInMetadata(row, loadLog);
+                            //split2.stop();
 
                             // wis metadata en update hoofdtabel
-                            if (inMetaDataTable) {
-                                loadLog.append("\nwis uit metadata tabel (upgrade van comfort naar authentiek). ");
-                                split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.deletefrommetadata").start();
-                                deleteFromMetadata(row, loadLog);
-                                split2.stop();
-
-                            }
+                            //if (inMetaDataTable) {
+                            //    loadLog.append("\nwis uit metadata tabel (upgrade van comfort naar authentiek). ");
+                            //    split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.deletefrommetadata").start();
+                            //    deleteFromMetadata(row, loadLog);
+                            //    split2.stop();
+                            //}
 
                             if (existsInOldList) {
                                 // update end date old record
@@ -457,40 +462,46 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 } else {
                     Split splitComfort = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort").start();
 
+                    // TODO: select herkomst_br/datum uit herkomst_metadata voor tabel,kolom,waarde
+                    // indien niet bestaat: nieuwe comfort data, alles unconditional insert
+                    // indien wel bestaat en herkomst_br/datum identiek: gegevens uit stand al geinsert, negeer
+                    // indien wel bestaat en herkomst_br/datum anders: update en insert nieuwe herkomst
+
                     // comfort data
-                    loadLog.append("\ncomfort data");
+                    String subclass = newData.getRows().get(newData.getRows().size()-1).getTable();
                     String tabel = newData.getComfortSearchTable();
                     String kolom = newData.getComfortSearchColumn();
                     String waarde = newData.getComfortSearchValue();
                     String datum = newData.getComfortSnapshotDate();
 
+                    loadLog.append(String.format("\n\nComfort data voor %s (superclass: %s, %s=%s), controleer aanwezigheid in superclass tabel",
+                            subclass, tabel, kolom, waarde));
+
+                    Split split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.exists").start();
+                    boolean comfortFound = rowExistsInDb(newData.getRows().get(0), loadLog);
+                    split2.stop();
+
                     for (TableRow row : newData.getRows()) {
                         // zoek obv natural key op in rsgb
-                        loadLog.append("\nzoek comfort object obv natural key op in rsgb");
-                        Split split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.exists").start();
-                        boolean comfortFound = rowExistsInDb(row, loadLog);
-                        split2.stop();
                         if (comfortFound) {
-                            loadLog.append("\noverschrijf bestaande comfort data in tabel: ");
-                            loadLog.append(row.getTable());
                             split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.update").start();
                             createUpdateSql(row, loadLog);
                             split2.stop();
                         } else {
                             // insert all comfort records into hoofdtabel
-                            loadLog.append("\nschrijf nieuwe comfort data naar tabel: ");
-                            loadLog.append(row.getTable());
                             split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.insert").start();
                             createInsertSql(row, false, loadLog);
                             split2.stop();
                         }
-
-                        loadLog.append("\nschrijf info over comfort object naar metadata tabel");
-                        split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.metadata").start();
-                        createInsertMetadataSql(tabel, kolom, waarde, datum, row, loadLog);
-                        split2.stop();
                     }
+
+                    // Voeg herkomst van metadata toe, alleen voor superclass tabel!
+                    split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.metadata").start();
+                    createInsertMetadataSql(tabel, kolom, waarde, datum, loadLog);
+                    split2.stop();
+
                     splitComfort.stop();
+                    loadLog.append("\n");
                 }
             }
         }
@@ -859,10 +870,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return result;
     }
 
-    private static PreparedStatement insertMetadataStatement;
+    private PreparedStatement insertMetadataStatement;
 
     /* Columns id, tabel, kolom, waarde, herkomst_br, datum (toestandsdatum) */
-    private boolean createInsertMetadataSql(String tabel, String kolom, String waarde, String datum, TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
+    private boolean createInsertMetadataSql(String tabel, String kolom, String waarde, String datum, StringBuilder loadLog) throws SQLException, ParseException {
 
         if(insertMetadataStatement == null) {
             StringBuilder sql = new StringBuilder("insert into herkomst_metadata (tabel, kolom, waarde, herkomst_br, datum) ")
@@ -902,7 +913,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return insertMetadataStatement.getUpdateCount() == 1;
     }
 
-
     private final Map <String,PreparedStatement> checkRowExistsStatements = new HashMap();
 
     private boolean rowExistsInDb(TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
@@ -917,7 +927,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             params.add(obj);
         }
 
-        loadLog.append("\ncontroleer ").append(tableName).append(" op primary key: ").append(params.toString());
+        loadLog.append("\nControleer ").append(tableName).append(" op primary key: ").append(params.toString());
 
         PreparedStatement stm = checkRowExistsStatements.get(tableName);
 
