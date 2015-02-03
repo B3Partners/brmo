@@ -21,16 +21,44 @@
         <h3>BRK scanners</h3>
 
         <script language="javascript">
+            var nextBrk = 0, nextBag = 0, nextMail = 0;
             function addBRKScanner() {
-                alert('TODO BRKScanner formulier invoegen');
+                var formHTML = '<form><fieldset><label>Scan directory<input name="brkProcessen[' +
+                        nextBrk + '].scanDirectory" value="" class="longTxt" type="text"></label><br>' +
+                        '<label>Archief directory<input name="brkProcessen[' +
+                        nextBrk + '].archiefDirectory" class="longTxt" type="text"></label></fieldset>' +
+                        '<input name="addNew" value="Opslaan" type="submit"/><input value="Annuleren" type="reset"/></form>';
+                var btn = document.getElementById('brkScannerAdd');
+                btn.insertAdjacentHTML('afterend', formHTML);
+            }
+
+            function addBAGScanner() {
+                var formHTML = '<form><fieldset><label>Scan directory<input name="bagProcessen[' +
+                        nextBag + '].scanDirectory" value="" class="longTxt" type="text"></label><br>' +
+                        '<label>Archief directory<input name="bagProcessen[' +
+                        nextBag + '].archiefDirectory" class="longTxt" type="text"></label></fieldset>' +
+                        '<input name="addNew" value="Opslaan" type="submit"/><input value="Annuleren" type="reset"/></form>';
+                var btn = document.getElementById('bagScannerAdd');
+                btn.insertAdjacentHTML('afterend', formHTML);
+            }
+
+            function addMailRapportage() {
+                var formHTML = '<form><fieldset><label>Geaddresseerde(n)<input name = "mailProcessen[' +
+                        nextMail + '].mailAdressen" value="" class="longTxt" type="text"></label>' +
+                        '<label>Proces ID\'s voor rapportage<input name="mailProcessen[' +
+                        nextMail + '].config.pIDS" value="" class="longTxt" type="text"></label></fieldset>' +
+                        '<input name="addNew" value="Opslaan" type="submit"/><input value="Annuleren" type="reset"/></form>';
+                var btn = document.getElementById('mailRapportAdd');
+                btn.insertAdjacentHTML('afterend', formHTML);
             }
         </script>
 
         <stripes:form partial="true" action="">
-            <p><stripes:button name="toevoegen" value="Toevoegen" onclick="addBRKScanner();"/></p>
+            <stripes:button name="toevoegen" value="Toevoegen" onclick="addBRKScanner();" id="brkScannerAdd"/>
         </stripes:form>
 
         <c:if test="${not empty actionBean.brkProcessen}">
+            <script language="javascript">nextBrk =<c:out value="${fn:length(actionBean.brkProcessen)}"/>;</script>
             <c:forEach items="${actionBean.brkProcessen}" varStatus="i" var="brk" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
@@ -56,17 +84,12 @@
 
         <h3>BAG scanners</h3>
 
-        <script language="javascript">
-            function addBAGScanner() {
-                alert('TODO BAGScanner formulier invoegen');
-            }
-        </script>
-
         <stripes:form partial="true" action="">
-            <p><stripes:button name="toevoegen" value="Toevoegen" onclick="addBAGScanner();"/></p>
+            <stripes:button name="toevoegen" value="Toevoegen" onclick="addBAGScanner();"  id="bagScannerAdd"/>
         </stripes:form>
 
         <c:if test="${not empty actionBean.bagProcessen}">
+            <script language="javascript">nextBag =<c:out value="${fn:length(actionBean.bagProcessen)}"/>;</script>
             <c:forEach items="${actionBean.bagProcessen}" varStatus="j" var="bag" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
@@ -90,20 +113,14 @@
             </c:forEach>
         </c:if>
 
-
         <h3>Notificaties</h3>
 
-        <script language="javascript">
-            function addMailRapportage() {
-                alert('TODO MailRapportage formulier invoegen');
-            }
-        </script>
-
         <stripes:form partial="true" action="">
-            <p><stripes:button name="toevoegen" value="Toevoegen" onclick="addMailRapportage();"/></p>
+            <stripes:button name="toevoegen" value="Toevoegen" onclick="addMailRapportage();"  id="mailRapportAdd"/>
         </stripes:form>
 
         <c:if test="${not empty actionBean.mailProcessen}">
+            <script language="javascript">nextMail =<c:out value="${fn:length(actionBean.mailProcessen)}"/>;</script>
             <c:forEach items="${actionBean.mailProcessen}" varStatus="i" var="mail" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
