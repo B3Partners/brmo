@@ -83,35 +83,7 @@ public class AutoProcessenActionBean implements ActionBean {
      */
     @DefaultHandler
     public Resolution view() {
-        // DEV-ONLY als er geen is maken we een een paar lege processen aan
         if (log.isDebugEnabled()) {
-            EntityManager em = Stripersist.getEntityManager();
-            if (brkProcessen.isEmpty()) {
-                BRKScannerProces b = new BRKScannerProces();
-                b.setScanDirectory("scan directory");
-                b.setStatus(ONBEKEND);
-                em.persist(b);
-                brkProcessen.add(b);
-            }
-            if (bagProcessen.isEmpty()) {
-                BAGScannerProces b = new BAGScannerProces();
-                b.setScanDirectory("scan directory");
-                b.setStatus(ONBEKEND);
-                em.persist(b);
-                bagProcessen.add(b);
-            }
-            if (mailProcessen.isEmpty()) {
-                MailRapportageProces m = new MailRapportageProces();
-                String[] adressen = {"somewhere@on.the.internet.nl", "somewhere_else@on.the.internet.nl"};
-                m.setMailAdressen(adressen);
-                m.getConfig().put(PIDS, bagProcessen.get(0).getId().toString());
-                m.getConfig().put(PIDS, brkProcessen.get(0).getId().toString());
-                m.setStatus(NULL);
-                em.persist(m);
-                mailProcessen.add(m);
-            }
-            em.getTransaction().commit();
-
             log.debug("=============== bekende BRK processen ===============");
             for (BRKScannerProces p : brkProcessen) {
                 log.debug("  proces id: " + p.getId());
@@ -145,24 +117,44 @@ public class AutoProcessenActionBean implements ActionBean {
      */
     public Resolution save() {
         try {
-            EntityManager em = Stripersist.getEntityManager();
-            for (BRKScannerProces brk : this.brkProcessen) {
-                em.merge(brk);
-            }
-            for (BAGScannerProces bag : this.bagProcessen) {
-                em.merge(bag);
-            }
-            for (MailRapportageProces mail : this.mailProcessen) {
-                em.merge(mail);
-            }
-            em.getTransaction().commit();
+            this.saveAll();
             getContext().getMessages().add(new SimpleMessage("Processen zijn succesvol opgeslagen."));
         } catch (Throwable t) {
             getContext().getMessages().add(new SimpleError("Er is een fout opgetreden tijdens het opslaan van de configuratie gegevens. {0}", t.getMessage()));
             log.error("Er is een fout opgetreden tijdens opslaan van configuratie gegevens.", t);
         }
-        // return to the form
         return new ForwardResolution(JSP);
+    }
+
+    /**
+     * Opslaan van de configuratie data en forceren van herladen van de data uit. oa. zodat de pID bekend wordt.
+     *
+     * @return forward naar de default resolution
+     */
+    public Resolution addNew() {
+        try {
+            this.saveAll();
+            this.load();
+            getContext().getMessages().add(new SimpleMessage("Het nieuwe proces is succesvol opgeslagen."));
+        } catch (Throwable t) {
+            getContext().getMessages().add(new SimpleError("Er is een fout opgetreden tijdens het opslaan van de configuratie gegevens. {0}", t.getMessage()));
+            log.error("Er is een fout opgetreden tijdens opslaan van configuratie gegevens.", t);
+        }
+        return new ForwardResolution(JSP);
+    }
+
+    private void saveAll() {
+        EntityManager em = Stripersist.getEntityManager();
+        for (BRKScannerProces brk : this.brkProcessen) {
+            em.merge(brk);
+        }
+        for (BAGScannerProces bag : this.bagProcessen) {
+            em.merge(bag);
+        }
+        for (MailRapportageProces mail : this.mailProcessen) {
+            em.merge(mail);
+        }
+        em.getTransaction().commit();
     }
 
     /**
