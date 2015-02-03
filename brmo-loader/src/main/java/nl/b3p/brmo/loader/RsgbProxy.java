@@ -110,8 +110,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     private DataSource dataSourceRsgb = null;
     private StagingProxy stagingProxy = null;
 
-    private boolean enableTransformPipeline = false;
-    private int transformPipelineCapacity = 25;
+    private boolean enablePipeline = false;
+    private int pipelineCapacity = 25;
 
     private Map<String, RsgbTransformer> rsgbTransformers = new HashMap();
 
@@ -150,12 +150,12 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         this.simonNamePrefix = prefix;
     }
 
-    public void setEnableTransformPipeline(boolean enableTransformPipeline) {
-        this.enableTransformPipeline = enableTransformPipeline;
+    public void setEnablePipeline(boolean enablePipeline) {
+        this.enablePipeline = enablePipeline;
     }
 
-    public void setTransformPipelineCapacity(int transformPipelineCapacity) {
-        this.transformPipelineCapacity = transformPipelineCapacity;
+    public void setPipelineCapacity(int pipelineCapacity) {
+        this.pipelineCapacity = pipelineCapacity;
     }
 
     public void init() throws SQLException {
@@ -220,7 +220,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
             // Do the work by querying all berichten, berichten are passed to
             // handle() method
-            stagingProxy.handleBerichtenByJob(jobId, total, this, enableTransformPipeline, transformPipelineCapacity);
+            stagingProxy.handleBerichtenByJob(jobId, total, this, enablePipeline, pipelineCapacity);
 
         } catch (Exception e) {
             // user is informed via status in database
@@ -252,6 +252,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
     }
 
+    @Override
     public void updateProcessingResult(Bericht ber) {
         ber.setStatusDatum(new Date());
         try {

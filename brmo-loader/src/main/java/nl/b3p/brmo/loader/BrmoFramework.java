@@ -38,8 +38,8 @@ public class BrmoFramework {
     private StagingProxy stagingProxy = null;
     private DataSource dataSourceRsgb = null;
 
-    private boolean enableTransformPipeline = false;
-    private Integer transformPipelineCapacity;
+    private boolean enablePipeline = false;
+    private Integer pipelineCapacity;
 
     public BrmoFramework(DataSource dataSourceStaging, DataSource dataSourceRsgb) throws BrmoException {
         if (dataSourceStaging != null) {
@@ -52,12 +52,12 @@ public class BrmoFramework {
         this.dataSourceRsgb = dataSourceRsgb;
     }
 
-    public void setEnableTransformPipeline(boolean enableTransformPipeline) {
-        this.enableTransformPipeline = enableTransformPipeline;
+    public void setEnablePipeline(boolean enablePipeline) {
+        this.enablePipeline = enablePipeline;
     }
 
-    public void setTransformPipelineCapacity(int transformPipelineCapacity) {
-        this.transformPipelineCapacity = transformPipelineCapacity;
+    public void setTransformPipelineCapacity(int pipelineCapacity) {
+        this.pipelineCapacity = pipelineCapacity;
     }
 
     public void closeBrmoFramework() {
@@ -77,9 +77,9 @@ public class BrmoFramework {
 
     public Thread toRsgb(Bericht.STATUS status, ProgressUpdateListener listener) throws BrmoException {
         RsgbProxy rsgbProxy = new RsgbProxy(dataSourceRsgb, stagingProxy, status, listener);
-        rsgbProxy.setEnableTransformPipeline(enableTransformPipeline);
-        if(transformPipelineCapacity != null) {
-            rsgbProxy.setTransformPipelineCapacity(transformPipelineCapacity);
+        rsgbProxy.setEnablePipeline(enablePipeline);
+        if(pipelineCapacity != null) {
+            rsgbProxy.setPipelineCapacity(pipelineCapacity);
         }
         Thread t = new Thread(rsgbProxy);
         t.start();
@@ -92,9 +92,9 @@ public class BrmoFramework {
 
     public Thread toRsgb(Long laadProcesId, ProgressUpdateListener listener) throws BrmoException  {
         RsgbProxy rsgbProxy = new RsgbProxy(dataSourceRsgb, stagingProxy, laadProcesId, listener);
-        rsgbProxy.setEnableTransformPipeline(enableTransformPipeline);
-        if(transformPipelineCapacity != null) {
-            rsgbProxy.setTransformPipelineCapacity(transformPipelineCapacity);
+        rsgbProxy.setEnablePipeline(enablePipeline);
+        if(pipelineCapacity != null) {
+            rsgbProxy.setPipelineCapacity(pipelineCapacity);
         }
         Thread t = new Thread(rsgbProxy);
         t.start();
@@ -107,9 +107,9 @@ public class BrmoFramework {
 
     public Thread toRsgb(long[] ids, ProgressUpdateListener listener) throws BrmoException  {
         RsgbProxy rsgbProxy = new RsgbProxy(dataSourceRsgb, stagingProxy, ids, listener);
-        rsgbProxy.setEnableTransformPipeline(enableTransformPipeline);
-        if(transformPipelineCapacity != null) {
-            rsgbProxy.setTransformPipelineCapacity(transformPipelineCapacity);
+        rsgbProxy.setEnablePipeline(enablePipeline);
+        if(pipelineCapacity != null) {
+            rsgbProxy.setPipelineCapacity(pipelineCapacity);
         }
         Thread t = new Thread(rsgbProxy);
         t.start();

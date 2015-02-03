@@ -85,7 +85,7 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
             brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb);
 
             boolean enableTransformPipeline = "true".equals(getContext().getServletContext().getInitParameter("pipelining.enabled"));
-            brmo.setEnableTransformPipeline(enableTransformPipeline);
+            brmo.setEnablePipeline(enableTransformPipeline);
             if(enableTransformPipeline) {
                 String capacityString = getContext().getServletContext().getInitParameter("pipelining.capacity");
                 if(capacityString != null) {

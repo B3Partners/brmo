@@ -1,5 +1,6 @@
 package nl.b3p.brmo.loader;
 
+import nl.b3p.brmo.loader.pipeline.ProcessDbXmlPipeline;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -20,6 +21,8 @@ import javax.xml.transform.TransformerException;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.BerichtenSorter;
 import nl.b3p.brmo.loader.entity.LaadProces;
+import nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork;
+import nl.b3p.brmo.loader.pipeline.BerichtWorkUnit;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
@@ -36,7 +39,6 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.io.input.CountingInputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.mutable.MutableInt;
-import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.javasimon.SimonManager;
@@ -199,16 +201,16 @@ public class StagingProxy {
         return o instanceof BigDecimal ? ((BigDecimal)o).longValue() : (Long)o;
     }
 
-    public void handleBerichtenByJob(final String jobId, long total, final BerichtenHandler handler, final boolean enableTransformPipeline, int transformPipelineCapacity) throws BrmoException, SQLException {
+    public void handleBerichtenByJob(final String jobId, long total, final BerichtenHandler handler, final boolean enablePipeline, int transformPipelineCapacity) throws BrmoException, SQLException {
         Split split = SimonManager.getStopwatch("b3p.rsgb.job").start();
         final String dateTime = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         Split jobSplit = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime).start();
         ((RsgbProxy)handler).setSimonNamePrefix("b3p.rsgb.job." + dateTime + ".");
         final RowProcessor processor = new StagingRowHandler();
 
-        final BlockingQueue<Pair<Bericht,List<TableData>>> queue = new LinkedBlockingQueue(transformPipelineCapacity);
-        final TransformPipelineReader pipelineReader = new TransformPipelineReader(queue, handler);
-        if(enableTransformPipeline) {
+        final BlockingQueue<BerichtWorkUnit> queue = new LinkedBlockingQueue(transformPipelineCapacity);
+        final ProcessDbXmlPipeline pipelineReader = new ProcessDbXmlPipeline(queue, handler);
+        if(enablePipeline) {
             pipelineReader.start();
         }
         int offset = 0;
@@ -231,17 +233,22 @@ public class StagingProxy {
                     while(rs.next()) {
                         try {
                             Bericht bericht = processor.toBean(rs, Bericht.class);
+                            BerichtWorkUnit workUnit = new BerichtWorkUnit(bericht);
 
-                            if(enableTransformPipeline) {
+                            if(enablePipeline) {
                                 // XXX BrmoException handling!! zoals handle()
                                 List<TableData> tableData = handler.transformToTableData(bericht);
                                 if(tableData == null) {
                                     // Exception during transform
+
+                                    // updateProcessingResult() is aangeroepen
                                     continue;
                                 }
+                                workUnit.setTableData(tableData);
+                                workUnit.setTypeOfWork(BerichtTypeOfWork.PROCESS_DBXML);
                                 Split pipelinePut = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".pipeline.put").start();
                                 try {
-                                    queue.put(Pair.of(bericht, tableData));
+                                    queue.put(workUnit);
                                 } catch(InterruptedException e) {
                                     log.error("Interrupted", e);
                                 }
@@ -270,7 +277,7 @@ public class StagingProxy {
         if(offset < total) {
             log.warn(String.format("Minder berichten verwerkt (%d) dan verwacht (%d)!", offset, total));
         }
-        if(enableTransformPipeline) {
+        if(enablePipeline) {
             pipelineReader.stopWhenQueueEmpty();
             try {
                 pipelineReader.join();
