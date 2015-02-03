@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import javax.sql.DataSource;
 import javax.xml.transform.TransformerException;
 import nl.b3p.brmo.loader.entity.Bericht;
@@ -21,6 +23,7 @@ import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
+import nl.b3p.brmo.loader.util.TableData;
 import nl.b3p.brmo.loader.xml.BagMutatieXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.BrmoXMLReader;
@@ -33,6 +36,7 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.io.input.CountingInputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.mutable.MutableInt;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.javasimon.SimonManager;
@@ -195,13 +199,18 @@ public class StagingProxy {
         return o instanceof BigDecimal ? ((BigDecimal)o).longValue() : (Long)o;
     }
 
-    public void handleBerichtenByJob(final String jobId, long total, final BerichtenHandler handler) throws BrmoException, SQLException {
+    public void handleBerichtenByJob(final String jobId, long total, final BerichtenHandler handler, final boolean enableTransformPipeline, int transformPipelineCapacity) throws BrmoException, SQLException {
         Split split = SimonManager.getStopwatch("b3p.rsgb.job").start();
         final String dateTime = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         Split jobSplit = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime).start();
         ((RsgbProxy)handler).setSimonNamePrefix("b3p.rsgb.job." + dateTime + ".");
         final RowProcessor processor = new StagingRowHandler();
 
+        final BlockingQueue<Pair<Bericht,List<TableData>>> queue = new LinkedBlockingQueue(transformPipelineCapacity);
+        final TransformPipelineReader pipelineReader = new TransformPipelineReader(queue, handler);
+        if(enableTransformPipeline) {
+            pipelineReader.start();
+        }
         int offset = 0;
         int batch = 25;
         final MutableInt processed = new MutableInt(0);
@@ -217,12 +226,31 @@ public class StagingProxy {
 
             processed.setValue(0);
             BrmoException e = new QueryRunner().query(getConnection(), sql, new ResultSetHandler<BrmoException>() {
+                @Override
                 public BrmoException handle(ResultSet rs) throws SQLException {
                     while(rs.next()) {
                         try {
-                            Split berichtSplit = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".bericht").start();
-                            handler.handle(processor.toBean(rs, Bericht.class));
-                            berichtSplit.stop();
+                            Bericht bericht = processor.toBean(rs, Bericht.class);
+
+                            if(enableTransformPipeline) {
+                                // XXX BrmoException handling!! zoals handle()
+                                List<TableData> tableData = handler.transformToTableData(bericht);
+                                if(tableData == null) {
+                                    // Exception during transform
+                                    continue;
+                                }
+                                Split pipelinePut = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".pipeline.put").start();
+                                try {
+                                    queue.put(Pair.of(bericht, tableData));
+                                } catch(InterruptedException e) {
+                                    log.error("Interrupted", e);
+                                }
+                                pipelinePut.stop();
+                            } else {
+                                Split berichtSplit = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".bericht").start();
+                                handler.handle(bericht, null);
+                                berichtSplit.stop();
+                            }
                         } catch(BrmoException e) {
                             return e;
                         }
@@ -241,6 +269,13 @@ public class StagingProxy {
         } while(processed.intValue() > 0 && offset < total);
         if(offset < total) {
             log.warn(String.format("Minder berichten verwerkt (%d) dan verwacht (%d)!", offset, total));
+        }
+        if(enableTransformPipeline) {
+            pipelineReader.stopWhenQueueEmpty();
+            try {
+                pipelineReader.join();
+            } catch(InterruptedException e) {
+            }
         }
         jobSplit.stop();
         split.stop();
@@ -265,8 +300,8 @@ public class StagingProxy {
 */
     public void updateBerichtenDbXml(List<Bericht> berichten, RsgbTransformer transformer) throws SQLException, SAXException, IOException, TransformerException  {
         for (Bericht ber : berichten) {
+            Split split = SimonManager.getStopwatch("b3p.staging.bericht.dbxml.transform").start();
             String dbxml = transformer.transformToDbXml(ber);
-            Split split = SimonManager.getStopwatch("b3p.staging.bericht.updatedbxml").start();
             ber.setDbXml(dbxml);
             //updateBericht(ber);
             split.stop();

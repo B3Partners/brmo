@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee          http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    <context-param>
+        <description>Gebruik multithreaded XSL transformatie/GML parse pipeline</description>
+        <param-name>pipelining.enabled</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <description>Capaciteit van de pipeline (aantal getransformeerde berichten)</description>
+        <param-name>pipelining.capacity</param-name>
+        <param-value>100</param-value>
+    </context-param>
     <filter>
         <display-name>Stripes Filter</display-name>
         <filter-name>StripesFilter</filter-name>
