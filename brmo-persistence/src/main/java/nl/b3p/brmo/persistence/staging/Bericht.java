@@ -70,12 +70,25 @@ public class Bericht implements Serializable {
 
     private String xsl_version;
 
-    public static enum STATUS {
-        STAGING_OK, STAGING_NOK, RSGB_WAITING, RSGB_PROCESSING, RSGB_OK, RSGB_OUTDATED, RSGB_NOK, ARCHIVE
-    };
+    public enum STATUS {
+
+        STAGING_OK("STAGING_OK"),
+        STAGING_NOK("STAGING_NOK"),
+        RSGB_WAITING("RSGB_WAITING"),
+        RSGB_PROCESSING("RSGB_PROCESSING"),
+        RSGB_OK("RSGB_OK"),
+        RSGB_OUTDATED("RSGB_OUTDATED"),
+        RSGB_NOK("RSGB_NOK"),
+        ARCHIVE("ARCHIVE");
+
+        private String status;
+
+        STATUS(String status) {
+            this.status = status;
+        }
+    }
 
     public Bericht() {
-
     }
 
     public Bericht(String br_xml) {
