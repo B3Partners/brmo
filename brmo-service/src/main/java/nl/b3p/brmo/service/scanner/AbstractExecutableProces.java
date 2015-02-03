@@ -99,8 +99,8 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
      * @param soort het type registratie, bijvoorbeeld
      * {@code BrmoFramework.BR_BRK}
      *
-     * @return {@code true} als het bestand een duplicaat betreft, anders {
-     * @false}
+     * @return {@code true} als het bestand een duplicaat betreft, anders
+     *          {@code false}
      *
      */
     protected boolean isDuplicaat(File input, String soort) {
