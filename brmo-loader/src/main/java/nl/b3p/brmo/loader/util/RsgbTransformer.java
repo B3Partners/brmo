@@ -17,8 +17,6 @@ import javax.xml.transform.stream.StreamSource;
 import nl.b3p.brmo.loader.entity.Bericht;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.javasimon.SimonManager;
-import org.javasimon.Split;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -35,8 +33,6 @@ public class RsgbTransformer {
     public RsgbTransformer(String pathToXsl)
             throws TransformerConfigurationException, ParserConfigurationException {
 
-        Split init = SimonManager.getStopwatch("b3p.rsgb.transformer.init").start();
-
         Source xsl = new StreamSource(this.getClass().getResourceAsStream(pathToXsl));
         TransformerFactory tf = TransformerFactory.newInstance();
         this.t = tf.newTemplates(xsl);
@@ -44,17 +40,13 @@ public class RsgbTransformer {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
         this.db = dbf.newDocumentBuilder();
-        init.stop();
     }
 
     public String transformToDbXml(Bericht bericht) throws SAXException, IOException, TransformerConfigurationException, TransformerException {
-        Split transform = SimonManager.getStopwatch("b3p.rsgb.transformer.transform").start();
-
         StringWriter sw = new StringWriter();
         Document d = db.parse( new InputSource(new StringReader(bericht.getBrXml())));
         t.newTransformer().transform(new DOMSource(d), new StreamResult(sw));
 
-        transform.stop();
         return sw.toString();
     }
 }

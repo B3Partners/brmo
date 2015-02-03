@@ -110,9 +110,14 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     private DataSource dataSourceRsgb = null;
     private StagingProxy stagingProxy = null;
 
+    private boolean enableTransformPipeline = false;
+    private int transformPipelineCapacity = 25;
+
     private Map<String, RsgbTransformer> rsgbTransformers = new HashMap();
 
     private String simonNamePrefix = "b3p.rsgb.";
+
+    private DataComfortXMLReader dbXmlReader = new DataComfortXMLReader();
 
     public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, Bericht.STATUS status, ProgressUpdateListener listener) {
         this.stagingProxy = stagingProxy;
@@ -143,6 +148,14 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     public void setSimonNamePrefix(String prefix) {
         this.simonNamePrefix = prefix;
+    }
+
+    public void setEnableTransformPipeline(boolean enableTransformPipeline) {
+        this.enableTransformPipeline = enableTransformPipeline;
+    }
+
+    public void setTransformPipelineCapacity(int transformPipelineCapacity) {
+        this.transformPipelineCapacity = transformPipelineCapacity;
     }
 
     public void init() throws SQLException {
@@ -207,7 +220,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
             // Do the work by querying all berichten, berichten are passed to
             // handle() method
-            stagingProxy.handleBerichtenByJob(jobId, total, this);
+            stagingProxy.handleBerichtenByJob(jobId, total, this, enableTransformPipeline, transformPipelineCapacity);
 
         } catch (Exception e) {
             // user is informed via status in database
@@ -239,7 +252,52 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
     }
 
-    public void handle(Bericht ber) throws BrmoException {
+    @Override
+    public List<TableData> transformToTableData(Bericht ber) throws BrmoException {
+        RsgbTransformer transformer;
+        try {
+            transformer = getTransformer(ber.getSoort());
+        } catch(Exception e) {
+            throw new BrmoException("Fout bij laden " + ber.getSoort() + " XSL stylesheet", e);
+        }
+        try {
+            StringBuilder loadLog = new StringBuilder();
+            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            loadLog.append(String.format("%s: In pipeline transformeren %s bericht object ref %s, met id %s, berichtdatum %s\n", dateTimeFormat.format(new Date()), ber.getSoort(), ber.getObjectRef(), ber.getId(), dateFormat.format(ber.getDatum())));
+
+            long startTime = System.currentTimeMillis();
+            stagingProxy.updateBerichtenDbXml(Collections.singletonList(ber), transformer);
+
+            Split split = SimonManager.getStopwatch("b3p.staging.bericht.dbxml.read").start();
+            StringReader nReader = new StringReader(ber.getDbXml());
+            List<TableData> data = dbXmlReader.readDataXML(new StreamSource(nReader));
+            split.stop();
+
+            loadLog.append(String.format("Transformeren naar RSGB database-xml en lezen resultaat: %4.1fs\n\n", (System.currentTimeMillis() - startTime) / 1000.0));
+            ber.setOpmerking(loadLog.toString());
+            return data;
+        } catch(Exception e) {
+            updateBerichtException(ber, e);
+            ber.setStatusDatum(new Date());
+            try {
+                stagingProxy.updateBericht(ber);
+            } catch (SQLException ex) {
+                log.error("Kan status niet updaten", ex);
+            }
+            return null;
+        }
+    }
+
+    public void updateBerichtException(Bericht ber, Throwable e) {
+        ber.setStatus(Bericht.STATUS.RSGB_NOK);
+        StringWriter sw = new StringWriter();
+        e.printStackTrace(new PrintWriter(sw, true));
+        ber.setOpmerking(ber.getOpmerking() + "\nFout: " + sw.toString());
+    }
+
+    @Override
+    public void handle(Bericht ber, List<TableData> pretransformedTableData) throws BrmoException {
 
         Bericht.STATUS newStatus = Bericht.STATUS.RSGB_OK;
 
@@ -247,19 +305,16 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         log.debug(String.format("RSGB verwerking van %s bericht met id %s, object_ref %s", ber.getSoort(), ber.getId(), ber.getObjectRef()));
-        StringBuilder loadLog =  new StringBuilder();
+        StringBuilder loadLog;
+        if(pretransformedTableData == null) {
+            loadLog = new StringBuilder();
+        } else {
+            loadLog = new StringBuilder(ber.getOpmerking());
+        }
         loadLog.append(String.format("%s: start verwerking %s bericht object ref %s, met id %s, berichtdatum %s\n", dateTimeFormat.format(new Date()), ber.getSoort(), ber.getObjectRef(), ber.getId(), dateFormat.format(ber.getDatum())));
 
         setHerkomstMetadata(ber.getSoort());
 
-        RsgbTransformer transformer;
-        try {
-            transformer = getTransformer(ber.getSoort());
-        } catch(Exception e) {
-            throw new BrmoException("Fout bij laden " + ber.getSoort() + " XSL stylesheet", e);
-        }
-
-        DataComfortXMLReader dbXmlReader = new DataComfortXMLReader();
         long startTime = 0;
         try {
             ber.setStatus(Bericht.STATUS.RSGB_PROCESSING);
@@ -272,16 +327,19 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 connRsgb.setAutoCommit(false);
             }
 
-            loadLog.append("Transformeren naar RSGB database-xml... ");
-            startTime = System.currentTimeMillis();
-            stagingProxy.updateBerichtenDbXml(Collections.singletonList(ber), transformer);
-            loadLog.append(String.format("%4.1fs\n", (System.currentTimeMillis() - startTime) / 1000.0));
+            List<TableData> newList;
+            if(pretransformedTableData != null) {
+                loadLog.append("Bericht was al getransformeerd in pipeline\n");
+                newList = pretransformedTableData;
+            } else {
+                loadLog.append("Transformeren naar RSGB database-xml en lezen resultaat... ");
+                startTime = System.currentTimeMillis();
+                newList = transformToTableData(ber);
+                loadLog.append(String.format("%4.1fs\n", (System.currentTimeMillis() - startTime) / 1000.0));
+            }
 
             // per bericht kijken of er een oud bericht is
             Bericht oud = stagingProxy.getOldBericht(ber);
-
-            StringReader nReader = new StringReader(ber.getDbXml());
-            List<TableData> newList = dbXmlReader.readDataXML(new StreamSource(nReader));
 
             // oud bericht
             if (oud != null) {
@@ -338,20 +396,19 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             } catch(SQLException e) {
                 log.debug("Rollback exception", e);
             }
-
-            ber.setStatus(Bericht.STATUS.RSGB_NOK);
-            loadLog.append("\nFout: ");
-            StringWriter sw = new StringWriter();
-            ex.printStackTrace(new PrintWriter(sw, true));
-            loadLog.append(sw.toString());
+            ber.setOpmerking(loadLog.toString());
+            loadLog = null;
+            updateBerichtException(ber, ex);
 
         } finally {
+            if(loadLog == null) {
+                loadLog = new StringBuilder(ber.getOpmerking());
+            }
             String duration = String.format("%4.1fs", (System.currentTimeMillis() - startTime) / 1000.0);
             loadLog.append(duration).append("\n");
             loadLog.append("\nEind verwerking bericht");
             ber.setOpmerking(loadLog.toString());
             ber.setStatusDatum(new Date());
-            log.debug(String.format("Status: %s, %s", ber.getStatus().toString(), duration));
             try {
                 stagingProxy.updateBericht(ber);
             } catch (SQLException ex) {
