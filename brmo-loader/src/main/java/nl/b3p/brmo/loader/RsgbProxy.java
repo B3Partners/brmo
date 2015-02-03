@@ -252,6 +252,15 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
     }
 
+    public void updateProcessingResult(Bericht ber) {
+        ber.setStatusDatum(new Date());
+        try {
+            stagingProxy.updateBericht(ber);
+        } catch (SQLException ex) {
+            log.error("Kan status niet updaten", ex);
+        }
+    }
+
     @Override
     public List<TableData> transformToTableData(Bericht ber) throws BrmoException {
         RsgbTransformer transformer;
@@ -279,12 +288,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             return data;
         } catch(Exception e) {
             updateBerichtException(ber, e);
-            ber.setStatusDatum(new Date());
-            try {
-                stagingProxy.updateBericht(ber);
-            } catch (SQLException ex) {
-                log.error("Kan status niet updaten", ex);
-            }
+            updateProcessingResult(ber);
             return null;
         }
     }
@@ -408,12 +412,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             loadLog.append(duration).append("\n");
             loadLog.append("\nEind verwerking bericht");
             ber.setOpmerking(loadLog.toString());
-            ber.setStatusDatum(new Date());
-            try {
-                stagingProxy.updateBericht(ber);
-            } catch (SQLException ex) {
-                log.error("Kan status niet updaten", ex);
-            }
+            updateProcessingResult(ber);
             if(recentSavepoint != null){
                 // Set savepoint to null, as it is automatically released after commit the transaction.
                 recentSavepoint = null;
