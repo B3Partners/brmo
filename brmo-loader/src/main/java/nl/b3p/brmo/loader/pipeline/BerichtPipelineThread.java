@@ -70,13 +70,15 @@ public abstract class BerichtPipelineThread extends Thread {
             if(workUnit == null) {
                 continue;
             }
+            int queueSize = queue.size();
             if(log.isDebugEnabled()) {
                 log.info(String.format("processing %s for work unit bericht id %d, %s (queue size %d)",
                         workUnit.getTypeOfWork().toString(),
                         workUnit.getBericht().getId(),
                         workUnit.getBericht().getObjectRef(),
-                        queue.size()));
+                        queueSize));
             }
+            SimonManager.getCounter(stopwatchPrefix + ".queuesize").set(queueSize);
             try {
                 work(workUnit);
             } catch(Exception e) {

@@ -120,4 +120,13 @@ public class TableRow {
 
         return str.toString();
     }
+
+    public String getColumnValue(String column) {
+        int i = columns.indexOf(column);
+        if(i == -1) {
+            return null;
+        } else {
+            return values.get(i);
+        }
+    }
 }

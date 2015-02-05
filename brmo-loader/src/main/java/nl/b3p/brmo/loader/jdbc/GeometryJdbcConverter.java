@@ -10,7 +10,8 @@ import java.sql.SQLException;
  */
 public interface GeometryJdbcConverter {
     public boolean convertsGeometryInsteadOfWkt();
-    
+
     public Object convertGeometry(Geometry geom) throws SQLException;
     public Object convertWkt(String wkt) throws SQLException;
+//    public String convertToWkt(Object geom) throws SQLException;
 }

@@ -16,6 +16,8 @@ public class BerichtWorkUnit {
 
     private List<TableData> tableData;
 
+    private Runnable runAfterWork;
+
     public BerichtWorkUnit(Bericht bericht) {
         this.bericht = bericht;
     }
@@ -42,5 +44,13 @@ public class BerichtWorkUnit {
 
     public void setTableData(List<TableData> tableData) {
         this.tableData = tableData;
+    }
+
+    public Runnable getRunAfterWork() {
+        return runAfterWork;
+    }
+
+    public void setRunAfterWork(Runnable runAfterWork) {
+        this.runAfterWork = runAfterWork;
     }
 }

@@ -16,10 +16,12 @@ public class PostgisJdbcConverter implements GeometryJdbcConverter {
         return false;
     }
 
+    @Override
     public Object convertGeometry(Geometry geom) throws SQLException {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public Object convertWkt(String wkt) throws SQLException {
         return new PGgeometry("SRID=28992;" + wkt);
     }

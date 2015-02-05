@@ -302,7 +302,16 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     }
 
     @Override
-    public void handle(Bericht ber, List<TableData> pretransformedTableData) throws BrmoException {
+    public void updateBerichtProcessing(Bericht ber) throws Exception {
+        ber.setStatus(Bericht.STATUS.RSGB_PROCESSING);
+        ber.setOpmerking("");
+        ber.setStatusDatum(new Date());
+        ber.setDbXml(null);
+        stagingProxy.updateBerichtProcessing(ber);
+    }
+
+    @Override
+    public void handle(Bericht ber, List<TableData> pretransformedTableData, boolean updateResult) throws BrmoException {
 
         Bericht.STATUS newStatus = Bericht.STATUS.RSGB_OK;
 
@@ -322,11 +331,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         long startTime = 0;
         try {
-            ber.setStatus(Bericht.STATUS.RSGB_PROCESSING);
-            ber.setOpmerking("");
-            ber.setStatusDatum(new Date());
-            ber.setDbXml(null);
-            stagingProxy.updateBerichtProcessing(ber);
 
             if (connRsgb.getAutoCommit()) {
                 connRsgb.setAutoCommit(false);
@@ -413,7 +417,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             loadLog.append(duration).append("\n");
             loadLog.append("\nEind verwerking bericht");
             ber.setOpmerking(loadLog.toString());
-            updateProcessingResult(ber);
+
+            if(updateResult) {
+                updateProcessingResult(ber);
+            }
+
             if(recentSavepoint != null){
                 // Set savepoint to null, as it is automatically released after commit the transaction.
                 recentSavepoint = null;
@@ -441,133 +449,156 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         // parse new db xml
         loadLog.append("\nVerwerk nieuw bericht");
-        if (newList != null && newList.size() > 0) {
-            for (TableData newData : newList) {
-                if (!newData.isComfortData()) {
-                    Split splitAuthentic = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic").start();
-                    // auth data
-                    loadLog.append("\n");
-                    for (TableRow row : newData.getRows()) {
-                        Split split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.getpk").start();
-                        List<String> pkColumns = getPrimaryKeys(row.getTable());
+        if (newList == null || newList.isEmpty()) {
+            split.stop();
+            return loadLog;
+        }
+
+        String lastExistingBrondocumentId = null;
+        for (TableData newData : newList) {
+            if (!newData.isComfortData()) {
+                Split splitAuthentic = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic").start();
+                // auth data
+                loadLog.append("\n");
+                for (TableRow row : newData.getRows()) {
+
+                    // Controleer op al bestaand stukdeel
+                    if(lastExistingBrondocumentId != null && "brondocument".equalsIgnoreCase(row.getTable())
+                        && lastExistingBrondocumentId.equals(row.getColumnValue("tabel_identificatie"))) {
+                        loadLog.append("\nOverslaan stukdeel voor stuk ").append(lastExistingBrondocumentId);
+                        SimonManager.getCounter(simonNamePrefix + "parsenewdata.authentic.skipstukdeel").increase();
+                        continue;
+                    } else {
+                        lastExistingBrondocumentId = null;
+                    }
+
+                    Split split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.getpk").start();
+                    List<String> pkColumns = getPrimaryKeys(row.getTable());
+                    split2.stop();
+
+                    boolean existsInOldList = doesRowExist(row, pkColumns, oldList);
+                    boolean doInsert = !existsInOldList;
+                    if (doInsert) {
+                        // er kan een record bestaan zonder dat er
+                        // een oud bericht aan ten grondslag ligt.
+                        // dan maar update maar zonder historie vastlegging.
+                        // oud record kan niet worden terugherleid.
+                        //TODO: dure check, kan het anders?
+                        split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.rowexistsindb").start();
+                        doInsert = !rowExistsInDb(row, loadLog);
                         split2.stop();
+                    }
 
-                        boolean existsInOldList = doesRowExist(row, pkColumns, oldList);
-                        boolean doInsert = !existsInOldList;
-                        if (doInsert) {
-                            // er kan een record bestaan zonder dat er
-                            // een oud bericht aan ten grondslag ligt.
-                            // dan maar update maar zonder historie vastlegging.
-                            // oud record kan niet worden terugherleid.
-                            //TODO: dure check, kan het anders?
-                            split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.rowexistsindb").start();
-                            doInsert = !rowExistsInDb(row, loadLog);
-                            split2.stop();
+                    // insert hoofdtabel
+                    if (doInsert) {
+                        // normale insert in hoofdtabel
+                        loadLog.append("\nNormale toevoeging van object aan tabel: ");
+                        loadLog.append(row.getTable());
+                        split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.insert").start();
+                        createInsertSql(row, false, loadLog);
+                        split2.stop();
+                    } else {
+                        // XXX kan momenteel niet werken; herkomst_metadata heeft alleen
+                        // superclass records.
+                        // Logisch ook niet mogelijk dat comfort data opeens authentiek wordt
+                        // momenteel (pas bij Basisregistratie Personen / NHR)
+
+                        //split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.isalreadyinmetadata").start();
+                        //boolean inMetaDataTable = isAlreadyInMetadata(row, loadLog);
+                        //split2.stop();
+
+                        // wis metadata en update hoofdtabel
+                        //if (inMetaDataTable) {
+                        //    loadLog.append("\nwis uit metadata tabel (upgrade van comfort naar authentiek). ");
+                        //    split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.deletefrommetadata").start();
+                        //    deleteFromMetadata(row, loadLog);
+                        //    split2.stop();
+                        //}
+
+                        if("brondocument".equalsIgnoreCase(row.getTable())) {
+                            // Nooit stukdeel wat al bestaat updaten, en ook alle
+                            // volgende stukdelen niet
+
+                            lastExistingBrondocumentId = row.getColumnValue("tabel_identificatie");
+                            loadLog.append("\nRij voor stukdeel ").append(lastExistingBrondocumentId).append(" bestaat al, geen update");
+                            continue;
                         }
 
-                        // insert hoofdtabel
-                        if (doInsert) {
-                            // normale insert in hoofdtabel
-                            loadLog.append("\nNormale toevoeging van object aan tabel: ");
-                            loadLog.append(row.getTable());
-                            split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.insert").start();
-                            createInsertSql(row, false, loadLog);
-                            split2.stop();
+                        if (existsInOldList) {
+                            // update end date old record
+                            loadLog.append("\nupdate einddatum in vorige versie object");
+                            TableRow oldRow = getMatchingRowFromTableData(row, pkColumns, oldList);
+                            String newBeginDate = getValueFromTableRow(row, row.getColumnDatumBeginGeldigheid());
+                            updateValueInTableRow(oldRow, oldRow.getColumnDatumEindeGeldigheid(), newBeginDate);
 
-                        } else {
-                            // XXX kan momenteel niet werken; herkomst_metadata heeft alleen
-                            // superclass records.
-                            // Logisch ook niet mogelijk dat comfort data opeens authentiek wordt
-                            // momenteel (pas bij Basisregistratie Personen / NHR)
-
-                            //split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.isalreadyinmetadata").start();
-                            //boolean inMetaDataTable = isAlreadyInMetadata(row, loadLog);
-                            //split2.stop();
-
-                            // wis metadata en update hoofdtabel
-                            //if (inMetaDataTable) {
-                            //    loadLog.append("\nwis uit metadata tabel (upgrade van comfort naar authentiek). ");
-                            //    split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.deletefrommetadata").start();
-                            //    deleteFromMetadata(row, loadLog);
-                            //    split2.stop();
-                            //}
-
-                            if (existsInOldList) {
-                                // update end date old record
-                                loadLog.append("\nupdate einddatum in vorige versie object");
-                                TableRow oldRow = getMatchingRowFromTableData(row, pkColumns, oldList);
-                                String newBeginDate = getValueFromTableRow(row, row.getColumnDatumBeginGeldigheid());
-                                updateValueInTableRow(oldRow, oldRow.getColumnDatumEindeGeldigheid(), newBeginDate);
-
-                                // write old to archive table
-                                loadLog.append("\nschrijf vorige versie naar archief tabel");
-                                oldRow.setIgnoreDuplicates(true);
-                                // XXX workaround voor oud ingeladen stand zonder alleen-archief kolom
-                                if(oldRow.getTable().equals("kad_perceel")) {
-                                    if(!oldRow.getColumns().contains("sc_dat_beg_geldh")) {
-                                        oldRow.getColumns().add("sc_dat_beg_geldh");
-                                        oldRow.getValues().add(oldDate);
-                                    }
+                            // write old to archive table
+                            loadLog.append("\nschrijf vorige versie naar archief tabel");
+                            oldRow.setIgnoreDuplicates(true);
+                            // XXX workaround voor oud ingeladen stand zonder alleen-archief kolom
+                            if(oldRow.getTable().equals("kad_perceel")) {
+                                if(!oldRow.getColumns().contains("sc_dat_beg_geldh")) {
+                                    oldRow.getColumns().add("sc_dat_beg_geldh");
+                                    oldRow.getValues().add(oldDate);
                                 }
-                                split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.archive").start();
-                                createInsertSql(oldRow, true, loadLog);
-                                split2.stop();
-
-                                loadLog.append("\nupdate object in tabel: ");
-                            } else {
-                                loadLog.append("\nupdate object (zonder vastlegging historie) in tabel: ");
                             }
-                            loadLog.append(row.getTable());
-                            split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.update").start();
-                            createUpdateSql(row, loadLog);
+                            split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.archive").start();
+                            createInsertSql(oldRow, true, loadLog);
                             split2.stop();
-                        }
-                    }
-                    splitAuthentic.stop();
-                } else {
-                    Split splitComfort = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort").start();
 
-                    // TODO: select herkomst_br/datum uit herkomst_metadata voor tabel,kolom,waarde
-                    // indien niet bestaat: nieuwe comfort data, alles unconditional insert
-                    // indien wel bestaat en herkomst_br/datum identiek: gegevens uit stand al geinsert, negeer
-                    // indien wel bestaat en herkomst_br/datum anders: update en insert nieuwe herkomst
-
-                    // comfort data
-                    String subclass = newData.getRows().get(newData.getRows().size()-1).getTable();
-                    String tabel = newData.getComfortSearchTable();
-                    String kolom = newData.getComfortSearchColumn();
-                    String waarde = newData.getComfortSearchValue();
-                    String datum = newData.getComfortSnapshotDate();
-
-                    loadLog.append(String.format("\n\nComfort data voor %s (superclass: %s, %s=%s), controleer aanwezigheid in superclass tabel",
-                            subclass, tabel, kolom, waarde));
-
-                    Split split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.exists").start();
-                    boolean comfortFound = rowExistsInDb(newData.getRows().get(0), loadLog);
-                    split2.stop();
-
-                    for (TableRow row : newData.getRows()) {
-                        // zoek obv natural key op in rsgb
-                        if (comfortFound) {
-                            split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.update").start();
-                            createUpdateSql(row, loadLog);
-                            split2.stop();
+                            loadLog.append("\nupdate object in tabel: ");
                         } else {
-                            // insert all comfort records into hoofdtabel
-                            split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.insert").start();
-                            createInsertSql(row, false, loadLog);
-                            split2.stop();
+                            loadLog.append("\nupdate object (zonder vastlegging historie) in tabel: ");
                         }
+                        loadLog.append(row.getTable());
+                        split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.update." + row.getTable()).start();
+                        createUpdateSql(row, loadLog);
+                        split2.stop();
                     }
-
-                    // Voeg herkomst van metadata toe, alleen voor superclass tabel!
-                    split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.metadata").start();
-                    createInsertMetadataSql(tabel, kolom, waarde, datum, loadLog);
-                    split2.stop();
-
-                    splitComfort.stop();
-                    loadLog.append("\n");
                 }
+                splitAuthentic.stop();
+            } else {
+                Split splitComfort = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort").start();
+
+                // TODO: select herkomst_br/datum uit herkomst_metadata voor tabel,kolom,waarde
+                // indien niet bestaat: nieuwe comfort data, alles unconditional insert
+                // indien wel bestaat en herkomst_br/datum identiek: gegevens uit stand al geinsert, negeer
+                // indien wel bestaat en herkomst_br/datum anders: update en insert nieuwe herkomst
+
+                // comfort data
+                String subclass = newData.getRows().get(newData.getRows().size()-1).getTable();
+                String tabel = newData.getComfortSearchTable();
+                String kolom = newData.getComfortSearchColumn();
+                String waarde = newData.getComfortSearchValue();
+                String datum = newData.getComfortSnapshotDate();
+
+                loadLog.append(String.format("\n\nComfort data voor %s (superclass: %s, %s=%s), controleer aanwezigheid in superclass tabel",
+                        subclass, tabel, kolom, waarde));
+
+                Split split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.exists").start();
+                boolean comfortFound = rowExistsInDb(newData.getRows().get(0), loadLog);
+                split2.stop();
+
+                for (TableRow row : newData.getRows()) {
+                    // zoek obv natural key op in rsgb
+                    if (comfortFound) {
+                        split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.update").start();
+                        createUpdateSql(row, loadLog);
+                        split2.stop();
+                    } else {
+                        // insert all comfort records into hoofdtabel
+                        split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.insert").start();
+                        createInsertSql(row, false, loadLog);
+                        split2.stop();
+                    }
+                }
+
+                // Voeg herkomst van metadata toe, alleen voor superclass tabel!
+                split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.metadata").start();
+                createInsertMetadataSql(tabel, kolom, waarde, datum, loadLog);
+                split2.stop();
+
+                splitComfort.stop();
+                loadLog.append("\n");
             }
         }
         split.stop();
@@ -1099,6 +1130,67 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return exists;
     }
 
+    private final Map <String,PreparedStatement> getTableRowStatements = new HashMap();
+
+    // Momenteel niet in gebruik. Veel updates vinden nu niet plaats nu brondocumenten
+    // al een specifieke optimalisatie hebben.
+    private TableRow getTableRowFromDb(TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
+
+        String tableName = row.getTable();
+        List<String> pkColumns = getPrimaryKeys(tableName);
+
+        List params = new ArrayList();
+        for(String column: pkColumns) {
+            String val = getValueFromTableRow(row, column);
+            Object obj = getValueAsObject(row.getTable(), column, val);
+            params.add(obj);
+        }
+
+        loadLog.append("\nControleer ").append(tableName).append(" op primary key: ").append(params.toString());
+
+        PreparedStatement stm = checkRowExistsStatements.get(tableName);
+
+        if(stm == null) {
+            StringBuilder sql = new StringBuilder("select * from ")
+                    .append(tableName);
+
+            boolean first = true;
+            for(String column: pkColumns) {
+                if(first) {
+                    sql.append(" where ").append(column).append(" = ?");
+                    first = false;
+                } else {
+                    sql.append(" and ").append(column).append(" = ?");
+                }
+            }
+
+            stm = connRsgb.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            checkRowExistsStatements.put(tableName, stm);
+        } else {
+            stm.clearParameters();
+        }
+
+        int i = 1;
+        for(Object p: params) {
+            stm.setObject(i++, p);
+        }
+        ResultSet rs = stm.executeQuery();
+        boolean exists = rs.next();
+        TableRow existing = null;
+        if(exists) {
+            existing = new TableRow();
+            existing.setTable(tableName);
+            for(ColumnMetadata columnMd: getTableColumnMetadata(row.getTable())) {
+                existing.getColumns().add(columnMd.getName());
+                existing.getValues().add(getValueAsString(columnMd, rs.getObject(columnMd.getName())));
+            }
+        }
+        rs.close();
+        loadLog.append(", rij bestaat: ").append(exists ? "ja" : "nee");
+
+        return existing;
+    }
+
     public boolean isAlreadyInMetadata(TableRow row, StringBuilder loadLog)
             throws SQLException, ParseException, BrmoException {
 
@@ -1475,6 +1567,38 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
         }
         return param;
+    }
+
+    // Momenteel niet in gebruik (zie getTableRowFromDb), werkt ook nog niet met geometrie.
+    private String getValueAsString(ColumnMetadata cm, Object object) throws SQLException {
+        String value = null;
+        if(object != null) {
+            switch (cm.getDataType()) {
+                case Types.DECIMAL:
+                case Types.NUMERIC:
+                case Types.INTEGER:
+                case Types.CHAR:
+                case Types.VARCHAR:
+                    value = object.toString();
+                    break;
+                case Types.OTHER:
+                    if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
+                        // XXX need to convert geometry back to WKT...
+                        throw new UnsupportedOperationException();
+                    } else {
+                        throw new IllegalStateException(String.format("Column \"%s\" (value to convert \"%s\") type other but not geometry!", cm.getName(), object));
+                    }
+                case Types.DATE:
+                case Types.TIMESTAMP:
+                    //Calendar cal = new GregorianCalendar();
+                    //cal.setTime(new Date(((java.sql.Date)object).getTime()));
+                    // XXX format calendar
+                    //value = format(cal);
+                    break;
+                default:
+                    throw new UnsupportedOperationException(String.format("Data type %s (#%d) of column \"%s\" not supported", cm.getTypeName(), cm.getDataType(), cm.getName()));            }
+        }
+        return value;
     }
 
     private int getRowCount(ResultSet rs) throws SQLException {

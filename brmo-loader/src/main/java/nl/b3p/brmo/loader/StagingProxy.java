@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 import javax.sql.DataSource;
 import javax.xml.transform.TransformerException;
 import nl.b3p.brmo.loader.entity.Bericht;
@@ -23,6 +21,7 @@ import nl.b3p.brmo.loader.entity.BerichtenSorter;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork;
 import nl.b3p.brmo.loader.pipeline.BerichtWorkUnit;
+import nl.b3p.brmo.loader.pipeline.UpdateResultPipeline;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
@@ -201,87 +200,128 @@ public class StagingProxy {
         return o instanceof BigDecimal ? ((BigDecimal)o).longValue() : (Long)o;
     }
 
-    public void handleBerichtenByJob(final String jobId, long total, final BerichtenHandler handler, final boolean enablePipeline, int transformPipelineCapacity) throws BrmoException, SQLException {
+    public void handleBerichtenByJob(final String jobId, long total, final BerichtenHandler handler, final boolean enablePipeline, int transformPipelineCapacity) throws Exception {
         Split split = SimonManager.getStopwatch("b3p.rsgb.job").start();
         final String dateTime = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         Split jobSplit = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime).start();
         ((RsgbProxy)handler).setSimonNamePrefix("b3p.rsgb.job." + dateTime + ".");
         final RowProcessor processor = new StagingRowHandler();
 
-        final BlockingQueue<BerichtWorkUnit> queue = new LinkedBlockingQueue(transformPipelineCapacity);
-        final ProcessDbXmlPipeline pipelineReader = new ProcessDbXmlPipeline(queue, handler);
+        final ProcessDbXmlPipeline processDbXmlPipeline = new ProcessDbXmlPipeline(handler, transformPipelineCapacity, "b3p.rsgb.job." + dateTime + ".pipeline");
+        final UpdateResultPipeline updateResultPipeline = new UpdateResultPipeline(handler, transformPipelineCapacity, "b3p.rsgb.job." + dateTime + ".pipeline");
         if(enablePipeline) {
-            pipelineReader.start();
+            processDbXmlPipeline.start();
+            updateResultPipeline.start();
         }
         int offset = 0;
-        int batch = 25;
+        int batch = 250;
         final MutableInt processed = new MutableInt(0);
-        do {
-            log.debug(String.format("Ophalen berichten batch voor job %s, offset %d, limit %d", jobId, offset, batch));
-            String sql = "select * from " + BrmoFramework.BERICHT_TABLE + " where job_id = ? order by " + BerichtenSorter.SQL_ORDER_BY;
+        boolean abort = false;
+        try {
+            do {
+                log.debug(String.format("Ophalen berichten batch voor job %s, offset %d, limit %d", jobId, offset, batch));
+                String sql = "select * from " + BrmoFramework.BERICHT_TABLE + " where job_id = ? order by " + BerichtenSorter.SQL_ORDER_BY;
 
-            if(dbType.contains("oracle")) {
-                sql = buildPaginationSqlOracle(sql, offset, batch);
-            } else {
-                sql = sql + " limit " + batch + " offset " + offset;
-            }
-
-            processed.setValue(0);
-            BrmoException e = new QueryRunner().query(getConnection(), sql, new ResultSetHandler<BrmoException>() {
-                @Override
-                public BrmoException handle(ResultSet rs) throws SQLException {
-                    while(rs.next()) {
-                        try {
-                            Bericht bericht = processor.toBean(rs, Bericht.class);
-                            BerichtWorkUnit workUnit = new BerichtWorkUnit(bericht);
-
-                            if(enablePipeline) {
-                                // XXX BrmoException handling!! zoals handle()
-                                List<TableData> tableData = handler.transformToTableData(bericht);
-                                if(tableData == null) {
-                                    // Exception during transform
-
-                                    // updateProcessingResult() is aangeroepen
-                                    continue;
-                                }
-                                workUnit.setTableData(tableData);
-                                workUnit.setTypeOfWork(BerichtTypeOfWork.PROCESS_DBXML);
-                                Split pipelinePut = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".pipeline.put").start();
-                                try {
-                                    queue.put(workUnit);
-                                } catch(InterruptedException e) {
-                                    log.error("Interrupted", e);
-                                }
-                                pipelinePut.stop();
-                            } else {
-                                Split berichtSplit = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".bericht").start();
-                                handler.handle(bericht, null);
-                                berichtSplit.stop();
-                            }
-                        } catch(BrmoException e) {
-                            return e;
-                        }
-                        processed.increment();
-                    }
-                    return null;
+                if(dbType.contains("oracle")) {
+                    sql = buildPaginationSqlOracle(sql, offset, batch);
+                } else {
+                    sql = sql + " limit " + batch + " offset " + offset;
                 }
-            }, jobId);
 
-            offset += processed.intValue();
+                processed.setValue(0);
+                final Split getBerichten = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".staging.berichten.getbatch").start();
+                Exception e = new QueryRunner().query(getConnection(), sql, new ResultSetHandler<Exception>() {
+                    @Override
+                    public Exception handle(ResultSet rs) throws SQLException {
+                        getBerichten.stop();
+                        final Split processResultSet = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".staging.berichten.processresultset").start();
 
-            // If handler threw exception processing row, rethrow it
-            if(e != null) {
-                throw e;
+                        while(rs.next()) {
+                            try {
+                                Bericht bericht = processor.toBean(rs, Bericht.class);
+                                final BerichtWorkUnit workUnit = new BerichtWorkUnit(bericht);
+
+                                handler.updateBerichtProcessing(bericht);
+
+                                if(enablePipeline) {
+
+                                    List<TableData> tableData = handler.transformToTableData(bericht);
+                                    if(tableData == null) {
+                                        // Exception during transform
+
+                                        // updateProcessingResult() is aangeroepen, geen updateResultPipeline
+                                        continue;
+                                    }
+                                    workUnit.setTableData(tableData);
+                                    workUnit.setTypeOfWork(BerichtTypeOfWork.PROCESS_DBXML);
+                                    Split pipelinePut = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".pipeline.processdbxml.put").start();
+                                    try {
+                                        workUnit.setRunAfterWork(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                // Executed in processDbXmlPipeline thread
+
+                                                workUnit.setTypeOfWork(BerichtTypeOfWork.UPDATE_RESULT);
+                                                Split pipelinePut = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".pipeline.updateresult.put").start();
+                                                try {
+                                                    updateResultPipeline.getQueue().put(workUnit);
+                                                } catch(InterruptedException e) {
+                                                    log.error("Interrupted", e);
+                                                }
+                                                pipelinePut.stop();
+                                            }
+                                        });
+                                        processDbXmlPipeline.getQueue().put(workUnit);
+                                    } catch(InterruptedException e) {
+                                        log.error("Interrupted", e);
+                                    }
+                                    pipelinePut.stop();
+                                } else {
+                                    Split berichtSplit = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".bericht").start();
+                                    handler.handle(bericht, null, true);
+                                    berichtSplit.stop();
+                                }
+                            } catch(Exception e) {
+                                return e;
+                            }
+                            processed.increment();
+                        }
+                        processResultSet.stop();
+                        return null;
+                    }
+                }, jobId);
+
+                offset += processed.intValue();
+
+                // If handler threw exception processing row, rethrow it
+                if(e != null) {
+                    throw e;
+                }
+            } while(processed.intValue() > 0 && offset < total);
+            if(offset < total) {
+                log.warn(String.format("Minder berichten verwerkt (%d) dan verwacht (%d)!", offset, total));
             }
-        } while(processed.intValue() > 0 && offset < total);
-        if(offset < total) {
-            log.warn(String.format("Minder berichten verwerkt (%d) dan verwacht (%d)!", offset, total));
-        }
-        if(enablePipeline) {
-            pipelineReader.stopWhenQueueEmpty();
-            try {
-                pipelineReader.join();
-            } catch(InterruptedException e) {
+        } catch(Exception t) {
+            abort = true;
+            throw t;
+        } finally {
+            if(enablePipeline) {
+                if(abort) {
+                    // Let threads stop by themselves, don't join
+                    processDbXmlPipeline.setAbortFlag();
+                    updateResultPipeline.setAbortFlag();
+                } else {
+                    processDbXmlPipeline.stopWhenQueueEmpty();
+                    try {
+                        processDbXmlPipeline.join();
+                    } catch(InterruptedException e) {
+                    }
+                    updateResultPipeline.stopWhenQueueEmpty();
+                    try {
+                        updateResultPipeline.join();
+                    } catch(InterruptedException e) {
+                    }
+                }
             }
         }
         jobSplit.stop();
@@ -386,7 +426,7 @@ public class StagingProxy {
     public void updateBerichtProcessing(Bericht b) throws SQLException {
         // TODO use JPA entities
 
-        Split split = SimonManager.getStopwatch("b3p.staging.bericht.update").start();
+        Split split = SimonManager.getStopwatch("b3p.staging.bericht.updateprocessing").start();
 
         new QueryRunner().update(getConnection(),
                 "UPDATE " + BrmoFramework.BERICHT_TABLE + " set opmerking = ?,"
