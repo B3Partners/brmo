@@ -12,6 +12,7 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
+import nl.b3p.brmo.service.util.ConfigUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -30,6 +31,13 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
         this.config = config;
     }
 
+    /**
+     * @throws BrmoException als de directory niet lees/blader/schrijfbaar is
+     *
+     * @deprecated deze methode gebruikt nog de
+     * BrmoFramework(ConfigUtil.getDataSourceStaging(), null) methode, maar moet
+     * over op JPA natuurlijk
+     */
     @Override
     public void execute() throws BrmoException {
         switch (config.getStatus()) {
@@ -77,8 +85,9 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                         sb.append(msg).append(LOG_NEWLINE);
                     } else {
                         // 1: laadt in staging
-                        //  BrmoFramework brmo = new BrmoFramework();
-                        //  brmo.loadFromFile(BrmoFramework.BR_BRK, f.getAbsolutePath());
+                        // TODO gebruik JPA
+                        BrmoFramework brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
+                        brmo.loadFromFile(BrmoFramework.BR_BAG, f.getAbsolutePath());
                         msg = String.format("Bestand %s is geladen.", f);
                         log.info(msg);
                         sb.append(msg).append(LOG_NEWLINE);
