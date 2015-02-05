@@ -4,11 +4,11 @@
     <stripes:layout-component name="title">BRMO Processen</stripes:layout-component>
     <stripes:layout-component name="html_head">
         <stripes:layout-component name="html_head">
-            <%-- HEAD sectie --%>
+            <%-- TODO naar aparte stylesheet --%>
             <style>
                 .longTxt{width: 100%;}
             </style>
-
+            <script type="text/javascript" src="${contextPath}/scripts/processen.js"></script>
         </stripes:layout-component>
     </stripes:layout-component>
 
@@ -20,45 +20,12 @@
         <stripes:errors />
         <h3>BRK scanners</h3>
 
-        <script language="javascript">
-            var nextBrk = 0, nextBag = 0, nextMail = 0;
-            function addBRKScanner() {
-                var formHTML = '<form><fieldset><label>Scan directory<input name="brkProcessen[' +
-                        nextBrk + '].scanDirectory" value="" class="longTxt" type="text"></label><br>' +
-                        '<label>Archief directory<input name="brkProcessen[' +
-                        nextBrk + '].archiefDirectory" class="longTxt" type="text"></label></fieldset>' +
-                        '<input name="addNew" value="Opslaan" type="submit"/><input value="Annuleren" type="reset"/></form>';
-                var btn = document.getElementById('brkScannerAdd');
-                btn.insertAdjacentHTML('afterend', formHTML);
-            }
-
-            function addBAGScanner() {
-                var formHTML = '<form><fieldset><label>Scan directory<input name="bagProcessen[' +
-                        nextBag + '].scanDirectory" value="" class="longTxt" type="text"></label><br>' +
-                        '<label>Archief directory<input name="bagProcessen[' +
-                        nextBag + '].archiefDirectory" class="longTxt" type="text"></label></fieldset>' +
-                        '<input name="addNew" value="Opslaan" type="submit"/><input value="Annuleren" type="reset"/></form>';
-                var btn = document.getElementById('bagScannerAdd');
-                btn.insertAdjacentHTML('afterend', formHTML);
-            }
-
-            function addMailRapportage() {
-                var formHTML = '<form><fieldset><label>Geaddresseerde(n)<input name = "mailProcessen[' +
-                        nextMail + '].mailAdressen" value="" class="longTxt" type="text"></label>' +
-                        '<label>Proces ID\'s voor rapportage<input name="mailProcessen[' +
-                        nextMail + '].config.pIDS" value="" class="longTxt" type="text"></label></fieldset>' +
-                        '<input name="addNew" value="Opslaan" type="submit"/><input value="Annuleren" type="reset"/></form>';
-                var btn = document.getElementById('mailRapportAdd');
-                btn.insertAdjacentHTML('afterend', formHTML);
-            }
-        </script>
-
         <stripes:form partial="true" action="">
             <stripes:button name="toevoegen" value="Toevoegen" onclick="addBRKScanner();" id="brkScannerAdd"/>
         </stripes:form>
 
         <c:if test="${not empty actionBean.brkProcessen}">
-            <script language="javascript">nextBrk =<c:out value="${fn:length(actionBean.brkProcessen)}"/>;</script>
+            <script language="javascript">nextBrk=<c:out value="${fn:length(actionBean.brkProcessen)}"/>;</script>
             <c:forEach items="${actionBean.brkProcessen}" varStatus="i" var="brk" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
@@ -89,7 +56,7 @@
         </stripes:form>
 
         <c:if test="${not empty actionBean.bagProcessen}">
-            <script language="javascript">nextBag =<c:out value="${fn:length(actionBean.bagProcessen)}"/>;</script>
+            <script language="javascript">nextBag=<c:out value="${fn:length(actionBean.bagProcessen)}"/>;</script>
             <c:forEach items="${actionBean.bagProcessen}" varStatus="j" var="bag" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
@@ -120,7 +87,7 @@
         </stripes:form>
 
         <c:if test="${not empty actionBean.mailProcessen}">
-            <script language="javascript">nextMail =<c:out value="${fn:length(actionBean.mailProcessen)}"/>;</script>
+            <script language="javascript">nextMail=<c:out value="${fn:length(actionBean.mailProcessen)}"/>;</script>
             <c:forEach items="${actionBean.mailProcessen}" varStatus="i" var="mail" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
