@@ -57,7 +57,7 @@
 
         <c:if test="${not empty actionBean.bagProcessen}">
             <script language="javascript">nextBag=<c:out value="${fn:length(actionBean.bagProcessen)}"/>;</script>
-            <c:forEach items="${actionBean.bagProcessen}" varStatus="j" var="bag" >
+            <c:forEach items="${actionBean.bagProcessen}" varStatus="i" var="bag" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
                         <legend>Scanner ID: ${bag.id} , status: ${bag.status}, laatste run: ${bag.lastrun}</legend>
