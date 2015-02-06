@@ -28,7 +28,7 @@ import org.stripesstuff.stripersist.Stripersist;
 public abstract class AbstractExecutableProces implements ProcesExecutable {
 
     private static final Log log = LogFactory.getLog(AbstractExecutableProces.class);
-    
+
     volatile boolean active = false;
 
     /**
@@ -94,19 +94,20 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
     }
 
     /**
-     * bepaal of het bestand een duplicaat is op basis van de bestandsnaam en soort.
+     * bepaal of het bestand een duplicaat is op basis van de bestandsnaam en
+     * soort.
      *
-     * De flow in
-     *
+     * De flow in      <code>
      * loadFromFile(bericht)
      * -> stagingProxy.loadBr(InputStream stream, String type, String fileName,...)
-     * -> snapshot reader van de input stream parsed het bericht in een BrkSnapshotXMLReader
-     *       of BagMutatieXMLReader die bericht voor bericht uitgelezen kunnen worden
+     * -> snapshot reader van de input stream parsed het bericht in een BrkSnapshotXMLReader of BagMutatieXMLReader die
+     *       bericht voor bericht uitgelezen kunnen worden
      * -> bepaal of laadproces bestaat stagingProxy.laadProcesExists(filenaam/datum)
      * -> laadproces in database maken stagingProxy.writeLaadProces(bestand_naam/bestand_datum/soort/gebied/opmerking/status/status_datum/contact_email)
      * -> uitlezen xml bericht als
      * -> !stagingProxy.berichtExists(laadprocesid/object_ref/datum/volgordenummer)
      * -> stagingProxy.writeBericht(b)
+     * </code>
      *
      * @param input een input bestand
      * @param soort het type registratie, bijvoorbeeld
@@ -117,7 +118,8 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
      *
      */
     protected boolean isDuplicaatLaadProces(File input, String soort) {
-        final String name = input.getName();
+        log.debug("Controle voor duplicaat laadproces, soort: '" + soort + "', bestand: " + input.getName());
+        final String name = input.getAbsolutePath();
         EntityManager em = Stripersist.getEntityManager();
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<LaadProces> criteriaQuery = criteriaBuilder.createQuery(LaadProces.class);

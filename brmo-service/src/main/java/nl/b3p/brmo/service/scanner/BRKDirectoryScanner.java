@@ -87,7 +87,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                         // 1: laadt in staging
                         // TODO gebruik JPA
                         BrmoFramework brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
-                        brmo.loadFromFile(BrmoFramework.BR_BAG, f.getAbsolutePath());
+                        brmo.loadFromFile(BrmoFramework.BR_BRK, f.getAbsolutePath());
                         msg = String.format("Bestand %s is geladen.", f);
                         log.info(msg);
                         sb.append(msg).append(LOG_NEWLINE);

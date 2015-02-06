@@ -21,6 +21,7 @@ import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.validation.SimpleError;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.NULL;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ONBEKEND;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
@@ -120,7 +121,9 @@ public class AutoProcessenActionBean implements ActionBean {
             this.saveAll();
             getContext().getMessages().add(new SimpleMessage("Processen zijn succesvol opgeslagen."));
         } catch (Throwable t) {
-            getContext().getMessages().add(new SimpleError("Er is een fout opgetreden tijdens het opslaan van de configuratie gegevens. {0}", t.getMessage()));
+            getContext().getMessages().add(
+                    new SimpleError("Er is een fout opgetreden tijdens het opslaan van de configuratie gegevens. {2}",
+                            t.getMessage()));
             log.error("Er is een fout opgetreden tijdens opslaan van configuratie gegevens.", t);
         }
         return new ForwardResolution(JSP);
@@ -138,7 +141,9 @@ public class AutoProcessenActionBean implements ActionBean {
             this.load();
             getContext().getMessages().add(new SimpleMessage("Het nieuwe proces is succesvol opgeslagen."));
         } catch (Throwable t) {
-            getContext().getMessages().add(new SimpleError("Er is een fout opgetreden tijdens het opslaan van de configuratie gegevens. {0}", t.getMessage()));
+            getContext().getMessages().add(
+                    new SimpleError("Er is een fout opgetreden tijdens het opslaan van de configuratie gegevens. {2}",
+                            t.getMessage()));
             log.error("Er is een fout opgetreden tijdens opslaan van configuratie gegevens.", t);
         }
         return new ForwardResolution(JSP);
@@ -168,34 +173,35 @@ public class AutoProcessenActionBean implements ActionBean {
         log.debug("Poging proces met pId: " + getContext().getRequest().getParameter("pId") + " te starten.");
 
         Long id = null;
+        AutomatischProces config = null;
+        final EntityManager em = Stripersist.getEntityManager();
         try {
             id = Long.valueOf(getContext().getRequest().getParameter("pId"));
-            final EntityManager em = Stripersist.getEntityManager();
             // ophalen proces config en starten proces
-            AutomatischProces config = em.find(AutomatischProces.class, id);
+            config = em.find(AutomatischProces.class, id);
             ProcesExecutable p = AbstractExecutableProces.getProces(config);
             if (p.isRunning()) {
                 getContext().getMessages().add(
-                        new SimpleError("Proces met id {0} draait al.", id));
+                        new SimpleMessage("Proces met id {0} draait al.", id));
             } else {
                 p.execute();
-                em.merge(config);
-                em.getTransaction().commit();
+                getContext().getMessages().add(
+                        new SimpleMessage("Het proces met ID {0} is afgerond.", id));
             }
         } catch (NumberFormatException t) {
             getContext().getMessages().add(
-                    new SimpleError("Er is een fout opgetreden tijdens het parsen van de proces id {0}. {1}",
-                            id, t.getMessage()));
+                    new SimpleError("Er is een fout opgetreden tijdens het parsen van de proces id {2}.", id));
             log.error("Er is een fout opgetreden tijdens het parsen van de proces id.", t);
         } catch (BrmoException t) {
             getContext().getMessages().add(
-                    new SimpleError("Er is een fout opgetreden tijdens het starten of uitvoeren van proces {0}. {1}",
+                    new SimpleError("Er is een fout opgetreden tijdens het starten of uitvoeren van proces met id {2}. {3}",
                             id, t.getMessage()));
             log.error("Er is een fout opgetreden tijdens het starten of uitvoeren van het proces.", t);
+            config.setStatus(ERROR);
+        } finally {
+            em.merge(config);
+            em.getTransaction().commit();
         }
-
-        getContext().getMessages().add(
-                new SimpleMessage("Het proces met ID {0} is afgerond.", id));
         return new ForwardResolution(JSP);
     }
 
@@ -218,7 +224,7 @@ public class AutoProcessenActionBean implements ActionBean {
         em.merge(config);
         em.getTransaction().commit();
 
-        getContext().getMessages().add(new SimpleError("Proces {0} is gestopt.", id));
+        getContext().getMessages().add(new SimpleMessage("Proces {0} is gestopt.", id));
         return new ForwardResolution(JSP);
     }
 
