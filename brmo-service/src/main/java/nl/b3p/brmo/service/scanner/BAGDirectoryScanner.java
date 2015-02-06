@@ -81,7 +81,7 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                     msg = String.format("Bestand %s is gevonden in %s.", f, scanDirectory);
                     log.info(msg);
                     sb.append(msg).append(LOG_NEWLINE);
-                    if (this.isDuplicaat(f, BrmoFramework.BR_BAG)) {
+                    if (this.isDuplicaatLaadProces(f, BrmoFramework.BR_BAG)) {
                         msg = String.format("Bestand %s is een duplicaat en wordt overgeslagen.", f);
                         log.info(msg);
                         sb.append(msg).append(LOG_NEWLINE);

@@ -459,6 +459,15 @@ public class StagingProxy {
         return berichten;
     }
 
+    /**
+     * Laadt het bestand uit de stream in de database.
+     *
+     * @param stream input
+     * @param type type registratie, bijv. {@value BrmoFramework.BR_BRK}
+     * @param fileName naam van het bestand (ter identificatie)
+     * @param listener progress listener
+     * @throws Exception
+     */
     public void loadBr(InputStream stream, String type, String fileName, ProgressUpdateListener listener) throws Exception {
 
         CountingInputStream cis = new CountingInputStream(stream);
@@ -512,6 +521,14 @@ public class StagingProxy {
         }
     }
 
+    /**
+     * bepaal of bericht bestaat aan de hand van laadprocesid, object_ref,
+     * datum en volgordenummer.
+     * 
+     * @param b
+     * @return
+     * @throws SQLException
+     */
     public boolean berichtExists(Bericht b) throws SQLException {
         Object o = new QueryRunner().query(getConnection(),
                 "SELECT 1 FROM " + BrmoFramework.BERICHT_TABLE + " WHERE"
@@ -538,6 +555,14 @@ public class StagingProxy {
                 b.getBrOrgineelXml(), b.getDbXml(), b.getXslVersion());
      }
 
+    /**
+     * Bepaal aan de hand van bestandsnaam en bestandsdatum van het laadproces
+     * of dit al bestaat.
+     *
+     * @param lp
+     * @return
+     * @throws SQLException
+     */
     private boolean laadProcesExists(LaadProces lp) throws SQLException {
         Object o = new QueryRunner().query(getConnection(),
                 "select 1 from laadproces where bestand_naam = ? and"

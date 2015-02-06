@@ -127,7 +127,8 @@ public class AutoProcessenActionBean implements ActionBean {
     }
 
     /**
-     * Opslaan van de configuratie data en forceren van herladen van de data uit. oa. zodat de pID bekend wordt.
+     * Opslaan van de configuratie data en forceren van herladen van de data
+     * uit. oa. zodat de pID bekend wordt.
      *
      * @return forward naar de default resolution
      */
@@ -173,9 +174,14 @@ public class AutoProcessenActionBean implements ActionBean {
             // ophalen proces config en starten proces
             AutomatischProces config = em.find(AutomatischProces.class, id);
             ProcesExecutable p = AbstractExecutableProces.getProces(config);
-            p.execute();
-            em.merge(config);
-            em.getTransaction().commit();
+            if (p.isRunning()) {
+                getContext().getMessages().add(
+                        new SimpleError("Proces met id {0} draait al.", id));
+            } else {
+                p.execute();
+                em.merge(config);
+                em.getTransaction().commit();
+            }
         } catch (NumberFormatException t) {
             getContext().getMessages().add(
                     new SimpleError("Er is een fout opgetreden tijdens het parsen van de proces id {0}. {1}",

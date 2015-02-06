@@ -28,7 +28,8 @@ import org.stripesstuff.stripersist.Stripersist;
 public abstract class AbstractExecutableProces implements ProcesExecutable {
 
     private static final Log log = LogFactory.getLog(AbstractExecutableProces.class);
-    volatile boolean active = true;
+    
+    volatile boolean active = false;
 
     /**
      * newline string ({@value LOG_NEWLINE}) voor de logberichten.
@@ -93,17 +94,29 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
     }
 
     /**
-     * bepaal of het bestand een duplicaat is op basis van de bestandsnaam.
+     * bepaal of het bestand een duplicaat is op basis van de bestandsnaam en soort.
+     *
+     * De flow in
+     *
+     * loadFromFile(bericht)
+     * -> stagingProxy.loadBr(InputStream stream, String type, String fileName,...)
+     * -> snapshot reader van de input stream parsed het bericht in een BrkSnapshotXMLReader
+     *       of BagMutatieXMLReader die bericht voor bericht uitgelezen kunnen worden
+     * -> bepaal of laadproces bestaat stagingProxy.laadProcesExists(filenaam/datum)
+     * -> laadproces in database maken stagingProxy.writeLaadProces(bestand_naam/bestand_datum/soort/gebied/opmerking/status/status_datum/contact_email)
+     * -> uitlezen xml bericht als
+     * -> !stagingProxy.berichtExists(laadprocesid/object_ref/datum/volgordenummer)
+     * -> stagingProxy.writeBericht(b)
      *
      * @param input een input bestand
      * @param soort het type registratie, bijvoorbeeld
      * {@code BrmoFramework.BR_BRK}
      *
      * @return {@code true} als het bestand een duplicaat betreft, anders
-     *          {@code false}
+     * {@code false}
      *
      */
-    protected boolean isDuplicaat(File input, String soort) {
+    protected boolean isDuplicaatLaadProces(File input, String soort) {
         final String name = input.getName();
         EntityManager em = Stripersist.getEntityManager();
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -114,6 +127,7 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
         Predicate _soort = criteriaBuilder.equal(from.get("soort"), soort);
         criteriaQuery.where(criteriaBuilder.and(_bestand_naam, _soort));
         TypedQuery<LaadProces> typedQuery = em.createQuery(select);
+
         return !typedQuery.getResultList().isEmpty();
     }
 }
