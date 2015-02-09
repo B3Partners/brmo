@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:GbaPersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-gba-persoon-ref/v20120201" xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20120201" xmlns:bagadres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-bag-adres/v20120201" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:gba="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-gba-persoon/v20120901" xmlns:gml="http://www.opengis.net/gml" xmlns:ko="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20120701" xmlns:nen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-NEN3610-2011/v20120201" xmlns:nhr="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-nhr-rechtspersoon/v20120201" xmlns:pers="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon/v20120201" xmlns:recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20120201" xmlns:rechtref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20120201" xmlns:snp="http://www.kadaster.nl/schemas/brk-levering/snapshot/v20120901" xmlns:typ="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <data>
+    <comfort search-column="identif" search-table="subject" search-value="NL.KAD.Persoon.123456" snapshot-date="2014-11-28">
+      <subject>
+        <identif>NL.KAD.Persoon.123456</identif>
+        <clazz>INGESCHREVEN NATUURLIJK PERSOON</clazz>
+      </subject>
+      <prs>
+        <sc_identif>NL.KAD.Persoon.123456</sc_identif>
+        <clazz>INGESCHREVEN NATUURLIJK PERSOON</clazz>
+      </prs>
+      <nat_prs>
+        <clazz>INGESCHREVEN NATUURLIJK PERSOON</clazz>
+        <sc_identif>NL.KAD.Persoon.123456</sc_identif>
+        <nm_geslachtsnaam>Akbas</nm_geslachtsnaam>
+        <nm_voornamen>Sait</nm_voornamen>
+        <nm_voorvoegsel_geslachtsnaam/>
+        <geslachtsaand>M</geslachtsaand>
+        <aand_naamgebruik>E</aand_naamgebruik>
+      </nat_prs>
+      <ingeschr_nat_prs>
+        <sc_identif>NL.KAD.Persoon.123456</sc_identif>
+        <gb_geboorteplaats>ergens</gb_geboorteplaats>
+        <gb_geboortedatum>asdadasd</gb_geboortedatum>
+        <ol_overlijdensdatum/>
+        <va_loc_beschrijving>Ergens 212, 1234VP A</va_loc_beschrijving>
+      </ingeschr_nat_prs>
+    </comfort>
+    <comfort search-column="identif" search-table="subject" search-value="NL.KAD.Persoon.dd1122334455" snapshot-date="2014-11-28">
+      <subject>
+        <identif>NL.KAD.Persoon.dd1122334455</identif>
+        <clazz>INGESCHREVEN NATUURLIJK PERSOON</clazz>
+      </subject>
+      <prs>
+        <sc_identif>NL.KAD.Persoon.dd1122334455</sc_identif>
+        <clazz>INGESCHREVEN NATUURLIJK PERSOON</clazz>
+      </prs>
+      <nat_prs>
+        <clazz>INGESCHREVEN NATUURLIJK PERSOON</clazz>
+        <sc_identif>NL.KAD.Persoon.dd1122334455</sc_identif>
+        <nm_geslachtsnaam>??</nm_geslachtsnaam>
+        <nm_voornamen>??</nm_voornamen>
+        <nm_voorvoegsel_geslachtsnaam/>
+        <geslachtsaand>V</geslachtsaand>
+        <aand_naamgebruik>?</aand_naamgebruik>
+      </nat_prs>
+      <ingeschr_nat_prs>
+        <sc_identif>NL.KAD.Persoon.dd1122334455</sc_identif>
+        <gb_geboorteplaats>VLAARDINGEN</gb_geboorteplaats>
+        <gb_geboortedatum>213123</gb_geboortedatum>
+        <ol_overlijdensdatum/>
+        <va_loc_beschrijving>Ergens 12, 1234 PV, A</va_loc_beschrijving>
+      </ingeschr_nat_prs>
+    </comfort>
+    <kad_onrrnd_zk column-dat-beg-geldh="dat_beg_geldh" column-datum-einde-geldh="datum_einde_geldh">
+      <dat_beg_geldh>2014-11-11</dat_beg_geldh>
+      <datum_einde_geldh/>
+      <kad_identif>987123463</kad_identif>
+      <clazz>KADASTRAAL PERCEEL</clazz>
+      <ks_bedrag>9999999</ks_bedrag>
+      <ks_koopjaar>2014</ks_koopjaar>
+      <ks_meer_onroerendgoed>J</ks_meer_onroerendgoed>
+      <cu_aard_bebouwing/>
+      <cu_aard_cultuur_onbebouwd/>
+    </kad_onrrnd_zk>
+    <benoemd_obj_kad_onrrnd_zk ignore-duplicates="yes">
+      <fk_nn_lh_tgo_identif>0622010000100524</fk_nn_lh_tgo_identif>
+      <fk_nn_rh_koz_kad_identif>987123463</fk_nn_rh_koz_kad_identif>
+    </benoemd_obj_kad_onrrnd_zk>
+    <kad_onrrnd_zk_his_rel>
+      <fk_sc_lh_koz_kad_identif>987123463</fk_sc_lh_koz_kad_identif>
+      <fk_sc_rh_koz_kad_identif>20980181640006</fk_sc_rh_koz_kad_identif>
+      <aard>Vernummering</aard>
+      <overgangsgrootte>127</overgangsgrootte>
+    </kad_onrrnd_zk_his_rel>
+    <kad_perceel>
+      <sc_dat_beg_geldh alleen-archief="true">2014-11-28</sc_dat_beg_geldh>
+      <sc_kad_identif>987123463</sc_kad_identif>
+      <ka_kad_gemeentecode>VDG00</ka_kad_gemeentecode>
+      <ka_sectie>H</ka_sectie>
+      <ka_perceelnummer>222</ka_perceelnummer>
+      <begrenzing_perceel>
+        <gml:Surface xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20120701" xmlns:Snapshot="http://www.kadaster.nl/schemas/brk-levering/snapshot/v20120901" srsName="urn:ogc:def:crs:EPSG::28992">
+          <gml:patches>
+            <gml:PolygonPatch>
+              <gml:exterior>
+                <gml:LinearRing>
+                  <gml:posList count="5" srsDimension="2">81474.107 435763.208 81494.621 435754.815 81496.789 435760.118 81476.274 435768.512 81474.107 435763.208</gml:posList>
+                </gml:LinearRing>
+              </gml:exterior>
+            </gml:PolygonPatch>
+          </gml:patches>
+        </gml:Surface>
+      </begrenzing_perceel>
+      <grootte_perceel>127</grootte_perceel>
+      <aand_soort_grootte>1</aand_soort_grootte>
+      <omschr_deelperceel/>
+      <plaatscoordinaten_perceel>
+        <gml:Point xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20120701" xmlns:Snapshot="http://www.kadaster.nl/schemas/brk-levering/snapshot/v20120901" srsName="urn:ogc:def:crs:EPSG::28992">
+          <gml:pos>81491.384 435759.249</gml:pos>
+        </gml:Point>
+      </plaatscoordinaten_perceel>
+    </kad_perceel>
+    
+    <zak_recht>
+      <kadaster_identif>NL.KAD.Tenaamstelling.AKR1.23123</kadaster_identif>
+      <ar_teller>1</ar_teller>
+      <ar_noemer>2</ar_noemer>
+      <fk_7koz_kad_identif>987123463</fk_7koz_kad_identif>
+      <fk_3avr_aand>2</fk_3avr_aand>
+      <indic_betrokken_in_splitsing>Nee</indic_betrokken_in_splitsing>
+      <fk_8pes_sc_identif xmlns:NhrRechtspersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-nhr-rechtspersoon-ref/v20120201" xmlns:PersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20120201">NL.KAD.Persoon.123456</fk_8pes_sc_identif>
+    </zak_recht>
+    <brondocument xmlns:StukRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20120201" ignore-duplicates="yes">
+      <identificatie>NL.KAD.Stukdeel.AKR1.897231564456</identificatie>
+      <tabel>ZAK_RECHT</tabel>
+      <tabel_identificatie>NL.KAD.Tenaamstelling.AKR1.23123</tabel_identificatie>
+      <omschrijving>isGebaseerdOp Tenaamstelling</omschrijving>
+      <ref_id>987123463</ref_id>
+    </brondocument>
+    <zak_recht>
+      <kadaster_identif>NL.KAD.Tenaamstelling.AKR1.1397</kadaster_identif>
+      <ar_teller>1</ar_teller>
+      <ar_noemer>2</ar_noemer>
+      <fk_7koz_kad_identif>987123463</fk_7koz_kad_identif>
+      <fk_3avr_aand>2</fk_3avr_aand>
+      <indic_betrokken_in_splitsing>Nee</indic_betrokken_in_splitsing>
+      <fk_8pes_sc_identif xmlns:NhrRechtspersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-nhr-rechtspersoon-ref/v20120201" xmlns:PersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20120201">NL.KAD.Persoon.dd1122334455</fk_8pes_sc_identif>
+    </zak_recht>
+    <brondocument xmlns:StukRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20120201" ignore-duplicates="yes">
+      <identificatie>NL.KAD.Stukdeel.AKR1.897231564456</identificatie>
+      <tabel>ZAK_RECHT</tabel>
+      <tabel_identificatie>NL.KAD.Tenaamstelling.AKR1.1397</tabel_identificatie>
+      <omschrijving>isGebaseerdOp Tenaamstelling</omschrijving>
+      <ref_id>987123463</ref_id>
+    </brondocument>
+    <zak_recht>
+      <kadaster_identif>NL.KAD.ZakelijkRecht.AKR1.2778973</kadaster_identif>
+      <fk_7koz_kad_identif>987123463</fk_7koz_kad_identif>
+      <fk_3avr_aand>2</fk_3avr_aand>
+      <indic_betrokken_in_splitsing>Nee</indic_betrokken_in_splitsing>
+    </zak_recht>
+    <kad_onrrnd_zk_aantek column-dat-beg-geldh="begindatum_aantek_kad_obj">
+      <fk_4koz_kad_identif>987123463</fk_4koz_kad_identif>
+      <begindatum_aantek_kad_obj>2014-11-28</begindatum_aantek_kad_obj>
+      <kadaster_identif_aantek>NL.KAD.Aantekening.AKR1.5555</kadaster_identif_aantek>
+      <aard_aantek_kad_obj>Locatiegegevens ontleend aan Basisregistraties Adressen en Gebouwen</aard_aantek_kad_obj>
+      <eindd_aantek_kad_obj/>
+      <beschrijving_aantek_kad_obj/>
+    </kad_onrrnd_zk_aantek>
+    <brondocument xmlns:StukRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20120201" ignore-duplicates="yes">
+      <identificatie>NL.KAD.Stukdeel.AKR1.100000004121544</identificatie>
+      <tabel>KAD_ONRRND_ZAAK_AANTEK</tabel>
+      <tabel_identificatie>NL.KAD.Aantekening.AKR1.5555</tabel_identificatie>
+      <omschrijving>isGebaseerdOp Aantekening</omschrijving>
+      <ref_id>987123463</ref_id>
+    </brondocument>
+    <kad_onrrnd_zk_aantek column-dat-beg-geldh="begindatum_aantek_kad_obj">
+      <fk_4koz_kad_identif>987123463</fk_4koz_kad_identif>
+      <begindatum_aantek_kad_obj>2014-11-28</begindatum_aantek_kad_obj>
+      <kadaster_identif_aantek>NL.KAD.Aantekening.AKR1.32</kadaster_identif_aantek>
+      <aard_aantek_kad_obj>Kwalitatieve verplichting</aard_aantek_kad_obj>
+      <eindd_aantek_kad_obj/>
+      <beschrijving_aantek_kad_obj/>
+    </kad_onrrnd_zk_aantek>
+    <brondocument xmlns:StukRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20120201" ignore-duplicates="yes">
+      <identificatie>NL.KAD.Stukdeel.AKR1.6489</identificatie>
+      <tabel>KAD_ONRRND_ZAAK_AANTEK</tabel>
+      <tabel_identificatie>NL.KAD.Aantekening.AKR1.32</tabel_identificatie>
+      <omschrijving>isGebaseerdOp Aantekening</omschrijving>
+      <ref_id>987123463</ref_id>
+    </brondocument>
+  </data>
+</root>
