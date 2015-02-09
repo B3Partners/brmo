@@ -36,7 +36,7 @@ public abstract class AutomatischProces implements Serializable {
 
     public enum ProcessingStatus {
 
-        PROCESSING("processing"), WAITING("waiting"), ONBEKEND("onbekend"), NULL(""), ERROR("error");
+        PROCESSING("PROCESSING"), WAITING("WAITING"), ONBEKEND("ONBEKEND"), NULL(""), ERROR("ERROR");
 
         private String status;
 

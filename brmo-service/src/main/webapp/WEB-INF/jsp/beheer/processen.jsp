@@ -1,5 +1,6 @@
 <%@include file="/WEB-INF/taglibs.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus"%>
 <stripes:layout-render name="/WEB-INF/jsp/layout/default.jsp">
     <stripes:layout-component name="title">BRMO Processen</stripes:layout-component>
     <stripes:layout-component name="html_head">
@@ -29,7 +30,7 @@
             <c:forEach items="${actionBean.brkProcessen}" varStatus="i" var="brk" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
-                        <legend>Scanner ID: ${brk.id} , status: ${brk.status}, laatste run: ${brk.lastrun}</legend>
+                        <legend>Scanner taak: ${brk.id} , status: ${brk.status}, laatste run: ${brk.lastrun}</legend>
                         <stripes:hidden name="brkProcessen[${i.index}].id" formatType="number"/>
                         <%-- pID wordt gebruikt voor start, stop en verwijder proces --%>
                         <stripes:hidden name="pId" value="${brk.id}" formatType="number"/>
@@ -60,7 +61,7 @@
             <c:forEach items="${actionBean.bagProcessen}" varStatus="j" var="bag" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
-                        <legend>Scanner ID: ${bag.id} , status: ${bag.status}, laatste run: ${bag.lastrun}</legend>
+                        <legend>Scanner taak: ${bag.id} , status: ${bag.status}, laatste run: ${bag.lastrun}</legend>
                         <stripes:hidden name="bagProcessen[${i.index}].id" formatType="number"/>
                         <%-- pID wordt gebruikt voor start, stop en verwijder proces --%>
                         <stripes:hidden name="pId" value="${bag.id}" formatType="number"/>
@@ -87,11 +88,12 @@
         </stripes:form>
 
         <c:if test="${not empty actionBean.mailProcessen}">
+            <c:set var="statusValues" value="<%=ProcessingStatus.values()%>"/>
             <script language="javascript">nextMail=<c:out value="${fn:length(actionBean.mailProcessen)}"/>;</script>
             <c:forEach items="${actionBean.mailProcessen}" varStatus="i" var="mail" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
-                        <legend>Scanner ID: ${mail.id} , status: ${mail.status}, laatste run: ${mail.lastrun}</legend>
+                        <legend>Rapportage taak: ${mail.id} , status: ${mail.status}, laatste run: ${mail.lastrun}</legend>
                         <stripes:hidden name="mailProcessen[${i.index}].id" formatType="number"/>
                         <%-- pID wordt gebruikt voor start, stop en verwijder proces --%>
                         <stripes:hidden name="pId" value="${mail.id}" formatType="number"/>
@@ -100,6 +102,12 @@
                         </stripes:label>
                         <stripes:label name="">Proces ID's voor rapportage
                             <stripes:text name="mailProcessen[${i.index}].config.pIDS" value="${mail.config.pIDS}" class="longTxt"/>
+                        </stripes:label>
+                        <stripes:label name="">Proces status voor rapportage
+                            <stripes:select name="mailProcessen[${i.index}].config.forStatus">
+                                <stripes:option value="">Alle</stripes:option>
+                                <stripes:options-collection collection="${statusValues}"/>
+                            </stripes:select>
                         </stripes:label>
                     </fieldset>
                     <stripes:submit name="save" value="Opslaan" />
