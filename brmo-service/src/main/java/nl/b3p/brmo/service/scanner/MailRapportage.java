@@ -109,7 +109,7 @@ public class MailRapportage extends AbstractExecutableProces {
             log.info(logMsg);
             sb.append(logMsg).append(LOG_NEWLINE);
             config.setStatus(WAITING);
-            config.setSamenvatting(sb.toString());
+            config.updateSamenvattingEnLogfile(sb.toString());
             config.setLastrun(new Date());
         } catch (MessagingException ex) {
             log.error(ex);
