@@ -49,9 +49,9 @@ public class MailRapportage extends AbstractExecutableProces {
     }
 
     /**
-     * de inhoud van dit bericht bestaat uit de samenvattingen en de status van
-     * de geselecteerde processen, indien niets geselecteerd rapporage van
-     * alles.
+     * De inhoud van dit bericht bestaat uit de samenvattingen en de status van
+     * de geselecteerde processen, indien niets geselecteerd rapportage van
+     * alles behalve het eigen proces.
      *
      * @throws BrmoException als er een fout optreed in het opzoeken van de
      * mailserver (indi) of het versturen van de mail
@@ -71,13 +71,13 @@ public class MailRapportage extends AbstractExecutableProces {
             Session session = (Session) env.lookup("mail/session");
             Message msg = new MimeMessage(session);
             msg.setFrom(/* 'mail.from' property uit jndi session object */);
-
-            String subject = String.format("BRMO rapport: %d (taken: %s)",
+            msg.setSentDate(new Date());
+            String subject = String.format("BRMO rapport: %d voor status: %s (taken: %s)",
                     config.getId(),
+                    (config.getForStatus() == null ? "alle" : config.getForStatus()),
                     (config.getConfig().get(MailRapportageProces.PIDS) == null ? "alle" : config.getConfig().get(MailRapportageProces.PIDS))
             );
             msg.setSubject(subject);
-            msg.setSentDate(new Date());
 
             // ontvangers
             String[] adressen = this.config.getMailAdressenArray();
@@ -91,19 +91,21 @@ public class MailRapportage extends AbstractExecutableProces {
             List<AutomatischProces> processen = this.getProcessen();
             // bericht mailText samenstellen, filter op status
             for (AutomatischProces p : processen) {
-                logMsg = String.format("Rapportage van proces %d met samenvatting:\n %s", p.getId(), p.getSamenvatting());
-                log.debug(logMsg);
+                logMsg = String.format("Rapportage van taak %d met status:" + LOG_NEWLINE + " %s", p.getId(), p.getStatus());
+                log.info(logMsg);
                 sb.append(logMsg).append(LOG_NEWLINE);
-                mailText.append("Rapport van taak:   ").append(p.getId()).append(LOG_NEWLINE);
+                mailText.append("Rapport van taak:   ").append(p.getId());
+                mailText.append(", type: ").append(p.getClass().getSimpleName()).append(LOG_NEWLINE);
                 mailText.append("Status van de taak: ").append(p.getStatus()).append(LOG_NEWLINE);
                 mailText.append("Samenvatting: ").append(LOG_NEWLINE);
-                mailText.append(p.getSamenvatting()).append(LOG_NEWLINE).append(LOG_NEWLINE);
+                mailText.append(p.getSamenvatting()).append(LOG_NEWLINE);
+                mailText.append("---------------------------------").append(LOG_NEWLINE);
             }
             log.debug(mailText.toString());
             msg.setText(mailText.toString());
             Transport.send(msg);
 
-            logMsg = String.format("Klaar met run op %tc", Calendar.getInstance());
+            logMsg = String.format("Klaar met taak %d op %tc", config.getId(),Calendar.getInstance());
             log.info(logMsg);
             sb.append(logMsg).append(LOG_NEWLINE);
             config.setStatus(WAITING);
@@ -123,8 +125,10 @@ public class MailRapportage extends AbstractExecutableProces {
     }
 
     /**
+     * Haalt de lijst met processen op uit de database.
      *
      * @return lijst met te rapporten processen
+     * @todo Eventueel andere mail rapportage processen ook uitsluiten?
      */
     private List<AutomatischProces> getProcessen() {
         // unit test in nl.b3p.brmo.persistence.staging.MailRapportageProcesTest#testRapportageLijst()
@@ -151,13 +155,15 @@ public class MailRapportage extends AbstractExecutableProces {
             Predicate in = from.get("id").in(pidLijst);
             predicates.add(in);
         }
+        // TODO eventueel filter op dtype
         // niet het eigen proces rapporteren
         Predicate notIn = from.get("id").in(this.config.getId()).not();
         predicates.add(notIn);
 
         cq.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
-        // sorteer p ststus zodat error bovenaan staat
+        // sorteer op status, daarna op datum zodat errors bovenaan staan
         cq.orderBy(cb.asc(from.get("status")));
+        cq.orderBy(cb.asc(from.get("lastrun")));
 
         return em.createQuery(cq).getResultList();
     }
