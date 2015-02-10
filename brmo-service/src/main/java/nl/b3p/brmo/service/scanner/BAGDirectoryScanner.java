@@ -9,6 +9,7 @@ import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
@@ -86,20 +87,24 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                         log.info(msg);
                         sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                     } else {
-                        // 1: laadt in staging.
-                        // TODO gebruik JPA
-                        BrmoFramework brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
-                        brmo.loadFromFile(BrmoFramework.BR_BAG, f.getAbsolutePath());
-                        msg = String.format("Bestand %s is geladen.", f);
-                        log.info(msg);
-                        sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
-
-                        if (isArchiving) {
-                            // 2: verplaats naar archief (NB mogelijk platform afhankelijk)
-                            f.renameTo(new File(archiefDirectory, f.getName()));
-                            msg = String.format("Bestand %s is naar archief %s verplaatst.", f, archiefDirectory);
+                        try {
+                            // 1: laadt in staging.
+                            // TODO gebruik JPA
+                            BrmoFramework brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
+                            brmo.loadFromFile(BrmoFramework.BR_BAG, f.getAbsolutePath());
+                            msg = String.format("Bestand %s is geladen.", f);
                             log.info(msg);
                             sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
+
+                            if (isArchiving) {
+                                // 2: verplaats naar archief (NB mogelijk platform afhankelijk)
+                                f.renameTo(new File(archiefDirectory, f.getName()));
+                                msg = String.format("Bestand %s is naar archief %s verplaatst.", f, archiefDirectory);
+                                log.info(msg);
+                                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
+                            }
+                        } catch (BrmoDuplicaatLaadprocesException duplicaat) {
+                            log.info(duplicaat.getLocalizedMessage());
                         }
                     }
                 }

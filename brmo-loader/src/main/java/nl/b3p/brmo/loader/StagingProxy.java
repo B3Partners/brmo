@@ -22,6 +22,7 @@ import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork;
 import nl.b3p.brmo.loader.pipeline.BerichtWorkUnit;
 import nl.b3p.brmo.loader.pipeline.UpdateResultPipeline;
+import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
@@ -490,10 +491,10 @@ public class StagingProxy {
         lp.setStatusDatum(new Date());
 
         if (laadProcesExists(lp)) {
-            throw new BrmoException("Laadproces al gerund voor dit bestand");
+            throw new BrmoDuplicaatLaadprocesException("Laadproces al gerund voor bestand "+ fileName);
         }
         lp = writeLaadProces(lp);
-
+        boolean isBerichtGeschreven = false;
         while (brmoXMLReader.hasNext()) {
             Bericht b = null;
             String prevObjectRef = null;
@@ -506,6 +507,7 @@ public class StagingProxy {
 
                 if (!berichtExists(b)) {
                     writeBericht(b);
+                    isBerichtGeschreven = true;
                 }
 
                 if (listener != null) {
@@ -519,12 +521,15 @@ public class StagingProxy {
                 }
             }
         }
+        if (!isBerichtGeschreven) {
+            this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_DUPLICAAT);
+        }
     }
 
     /**
      * bepaal of bericht bestaat aan de hand van laadprocesid, object_ref,
      * datum en volgordenummer.
-     * 
+     *
      * @param b
      * @return
      * @throws SQLException
@@ -532,9 +537,11 @@ public class StagingProxy {
     public boolean berichtExists(Bericht b) throws SQLException {
         Object o = new QueryRunner().query(getConnection(),
                 "SELECT 1 FROM " + BrmoFramework.BERICHT_TABLE + " WHERE"
-                + " laadprocesid = ? AND object_ref = ? AND datum = ?"
+                // + " laadprocesid = ? AND"
+                + " object_ref = ? AND datum = ?"
                 + " AND volgordenummer = ?", new ScalarHandler(),
-                b.getLaadProcesId(), b.getObjectRef(),
+                // b.getLaadProcesId(),
+                b.getObjectRef(),
                 new Timestamp(b.getDatum().getTime()),
                 b.getVolgordeNummer());
 
