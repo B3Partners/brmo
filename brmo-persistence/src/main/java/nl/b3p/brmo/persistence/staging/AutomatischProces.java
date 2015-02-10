@@ -33,6 +33,10 @@ import org.hibernate.annotations.Type;
 @MappedSuperclass
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING, length = 255)
 public abstract class AutomatischProces implements Serializable {
+    /**
+     * newline string ({@value LOG_NEWLINE}) voor de logberichten en samenvatting.
+     */
+    public static final String LOG_NEWLINE = "\n";
 
     public enum ProcessingStatus {
 

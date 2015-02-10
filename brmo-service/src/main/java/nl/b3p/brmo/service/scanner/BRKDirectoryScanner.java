@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
@@ -48,7 +49,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                 config.setStatus(PROCESSING);
                 String msg = String.format("De BRK scanner met ID %d is gestart op %tc.", config.getId(), Calendar.getInstance());
                 log.info(msg);
-                sb.append(msg).append(LOG_NEWLINE);
+                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                 this.active = true;
 
                 // validatie van de directories, kunnen we lezen/bladeren en evt. schrijven?
@@ -78,11 +79,11 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                     }
                     msg = String.format("Bestand %s is gevonden in %s.", f, scanDirectory);
                     log.info(msg);
-                    sb.append(msg).append(LOG_NEWLINE);
+                    sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                     if (this.isDuplicaatLaadProces(f, BrmoFramework.BR_BRK)) {
                         msg = String.format("Bestand %s is een duplicaat en wordt overgeslagen.", f);
                         log.info(msg);
-                        sb.append(msg).append(LOG_NEWLINE);
+                        sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                     } else {
                         // 1: laadt in staging
                         // TODO gebruik JPA
@@ -90,14 +91,14 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                         brmo.loadFromFile(BrmoFramework.BR_BRK, f.getAbsolutePath());
                         msg = String.format("Bestand %s is geladen.", f);
                         log.info(msg);
-                        sb.append(msg).append(LOG_NEWLINE);
+                        sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
 
                         if (isArchiving) {
                             // 2: verplaats naar archief (NB mogelijk platform afhankelijk)
                             f.renameTo(new File(archiefDirectory, f.getName()));
                             msg = String.format("Bestand %s is naar archief %s verplaatst.", f, archiefDirectory);
                             log.info(msg);
-                            sb.append(msg).append(LOG_NEWLINE);
+                            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                         }
                     }
                 }

@@ -25,7 +25,6 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
 import static nl.b3p.brmo.persistence.staging.MailRapportageProces.PIDS;
-import static nl.b3p.brmo.service.scanner.AbstractExecutableProces.LOG_NEWLINE;
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
@@ -52,7 +51,7 @@ public class MailRapportage extends AbstractExecutableProces {
         config.setStatus(PROCESSING);
         String logMsg = String.format("De mail rapportage met ID %d is gestart op %tc.", config.getId(), Calendar.getInstance());
         log.info(logMsg);
-        sb.append(logMsg).append(LOG_NEWLINE);
+        sb.append(logMsg).append(AutomatischProces.LOG_NEWLINE);
 
         log.error("Het sturen van mail moet nog gebouwd worden.");
         try {
@@ -95,8 +94,8 @@ public class MailRapportage extends AbstractExecutableProces {
             // bericht inhoud samenstellen
             for (AutomatischProces p : processen) {
                 log.debug("bericht maken voor pid: " + p.getId() + " met samenvatting: " + p.getSamenvatting());
-                inhoud.append("Rapport van taak: ").append(p.getId()).append(LOG_NEWLINE);
-                inhoud.append(p.getSamenvatting()).append(LOG_NEWLINE);
+                inhoud.append("Rapport van taak: ").append(p.getId()).append(AutomatischProces.LOG_NEWLINE);
+                inhoud.append(p.getSamenvatting()).append(AutomatischProces.LOG_NEWLINE);
             }
 
 //            msg.setText(inhoud.toString());
@@ -104,7 +103,7 @@ public class MailRapportage extends AbstractExecutableProces {
             config.setStatus(WAITING);
             logMsg = String.format("Klaar met run op %tc", Calendar.getInstance());
             log.info(logMsg);
-            sb.append(logMsg).append(LOG_NEWLINE);
+            sb.append(logMsg).append(AutomatischProces.LOG_NEWLINE);
             config.setSamenvatting(sb.toString());
             config.setLastrun(new Date());
         } catch (MessagingException ex) {

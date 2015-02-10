@@ -53,7 +53,7 @@ public class AutoProcessenActionBean implements ActionBean {
     private List<MailRapportageProces> mailProcessen = new ArrayList<MailRapportageProces>();
 
     /**
-     * ophalen van de automatisch proces entities.
+     * ophalen van alle automatisch proces entities.
      */
     @Before(stages = LifecycleStage.BindingAndValidation)
     public void load() {
@@ -231,7 +231,6 @@ public class AutoProcessenActionBean implements ActionBean {
     /**
      * Verwijderd het proces.
      *
-     * @todo implementatie
      * @return forward naar de default resolution
      */
     public Resolution verwijderProces() {
@@ -242,14 +241,14 @@ public class AutoProcessenActionBean implements ActionBean {
         AutomatischProces config = em.find(AutomatischProces.class, id);
         em.remove(config);
         em.getTransaction().commit();
-        // reload om de arraylists met entities te verversen
+        // reload om de arraylists met proces entities te verversen
         this.load();
 
         getContext().getMessages().add(new SimpleMessage("Het proces met ID {0} is verwijderd.", id));;
         return new ForwardResolution(JSP);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="getters and setters">
+   // <editor-fold defaultstate="collapsed" desc="getters and setters">
     /**
      * {@inheritDoc }
      */

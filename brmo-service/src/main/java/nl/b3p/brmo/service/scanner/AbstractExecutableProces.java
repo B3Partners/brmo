@@ -32,11 +32,6 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
     volatile boolean active = false;
 
     /**
-     * newline string ({@value LOG_NEWLINE}) voor de logberichten.
-     */
-    public static final String LOG_NEWLINE = "\n";
-
-    /**
      * ProcesExecutable factory.
      *
      * @param config the type of {@code ProcesExecutable} to create.

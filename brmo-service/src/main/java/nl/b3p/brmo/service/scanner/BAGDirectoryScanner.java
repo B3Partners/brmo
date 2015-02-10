@@ -10,11 +10,11 @@ import java.util.Calendar;
 import java.util.Date;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
-import static nl.b3p.brmo.service.scanner.AbstractExecutableProces.LOG_NEWLINE;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,7 +50,7 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                 config.setStatus(PROCESSING);
                 String msg = String.format("De BAG scanner met ID %d is gestart op %tc.", config.getId(), Calendar.getInstance());
                 log.info(msg);
-                sb.append(msg).append(LOG_NEWLINE);
+                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                 this.active = true;
 
                 // validatie van de directories, kunnen we lezen/bladeren en evt. schrijven?
@@ -80,11 +80,11 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                     }
                     msg = String.format("Bestand %s is gevonden in %s.", f, scanDirectory);
                     log.info(msg);
-                    sb.append(msg).append(LOG_NEWLINE);
+                    sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                     if (this.isDuplicaatLaadProces(f, BrmoFramework.BR_BAG)) {
                         msg = String.format("Bestand %s is een duplicaat en wordt overgeslagen.", f);
                         log.info(msg);
-                        sb.append(msg).append(LOG_NEWLINE);
+                        sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                     } else {
                         // 1: laadt in staging.
                         // TODO gebruik JPA
@@ -92,14 +92,14 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                         brmo.loadFromFile(BrmoFramework.BR_BAG, f.getAbsolutePath());
                         msg = String.format("Bestand %s is geladen.", f);
                         log.info(msg);
-                        sb.append(msg).append(LOG_NEWLINE);
+                        sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
 
                         if (isArchiving) {
                             // 2: verplaats naar archief (NB mogelijk platform afhankelijk)
                             f.renameTo(new File(archiefDirectory, f.getName()));
                             msg = String.format("Bestand %s is naar archief %s verplaatst.", f, archiefDirectory);
                             log.info(msg);
-                            sb.append(msg).append(LOG_NEWLINE);
+                            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                         }
                     }
                 }
