@@ -76,9 +76,35 @@ public abstract class AutomatischProces implements Serializable {
     private String samenvatting;
 
     /**
-     * pad naar de laatste logfile.
+     * logfile
      */
+    @Lob
+    @Type(type = "org.hibernate.type.StringClobType")
     private String logfile;
+
+    /**
+     * update samenvatting en logfile in één keer, waarbij de logfile aangevuld
+     * wordt met de samenvatting.
+     *
+     * @param samenvatting de nieuwe samenvatting
+     * @todo auto-truncate van de clob? oracle CLOB is maximaal 4 GB - 1) *
+     * DB_BLOCK_SIZE
+     * (http://docs.oracle.com/cd/B19306_01/server.102/b14237/limits001.htm#i287903)
+     * ,posgres CLOB (text type) is maximaal limitless
+     * (http://www.postgresql.org/docs/9.3/static/datatype-character.html)
+     */
+    public void updateSamenvattingEnLogfile(String samenvatting) {
+        if (samenvatting == null) {
+            samenvatting = "";
+        }
+        this.setSamenvatting(samenvatting);
+        if (this.logfile == null) {
+            this.setLogfile(samenvatting);
+        } else {
+            this.setLogfile(this.logfile + samenvatting);
+        }
+
+    }
 
     // <editor-fold defaultstate="collapsed" desc="getters and setters">
     public Map<String, String> getConfig() {
