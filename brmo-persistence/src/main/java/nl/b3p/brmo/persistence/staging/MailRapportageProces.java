@@ -24,6 +24,12 @@ public class MailRapportageProces extends AutomatischProces {
     public static final String PIDS = "pIDS";
 
     /**
+     * de sleutel {@value FOR_STATUS}. Geldige waarden komen uit de verzameling
+     * van {@link AutomatischProces#status }
+     */
+    public static final String FOR_STATUS = "forStatus";
+
+    /**
      * haalt de lijst van email adressen op.
      *
      * @return string met adressen
@@ -70,6 +76,18 @@ public class MailRapportageProces extends AutomatischProces {
             this.setMailAdressen(adres.split(DELIM));
         } else {
             this.getConfig().put(EMAIL, adres.trim());
+        }
+    }
+
+    public void setForStatus(ProcessingStatus status) {
+        this.getConfig().put(FOR_STATUS, status.name());
+    }
+
+    public ProcessingStatus getForStatus() {
+        if (this.getConfig().get(FOR_STATUS) == null) {
+            return null;
+        } else {
+            return ProcessingStatus.valueOf(this.getConfig().get(FOR_STATUS));
         }
     }
 }
