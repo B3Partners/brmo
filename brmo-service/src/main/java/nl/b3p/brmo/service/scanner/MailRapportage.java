@@ -72,11 +72,10 @@ public class MailRapportage extends AbstractExecutableProces {
             Message msg = new MimeMessage(session);
             msg.setFrom(/* 'mail.from' property uit jndi session object */);
             msg.setSentDate(new Date());
-            String subject = String.format("BRMO rapport: %d voor status: %s (taken: %s)",
-                    config.getId(),
-                    (config.getForStatus() == null ? "alle" : config.getForStatus()),
-                    (config.getConfig().get(MailRapportageProces.PIDS) == null ? "alle" : config.getConfig().get(MailRapportageProces.PIDS))
-            );
+            // subject
+            String sForStatus = (config.getForStatus() == null ? "alle" : config.getForStatus().toString());
+            String sPIDS = (config.getConfig().get(MailRapportageProces.PIDS) == null ? "alle" : config.getConfig().get(MailRapportageProces.PIDS));
+            String subject = String.format("BRMO rapport: %d voor status: %s (taken: %s)", config.getId(), sForStatus, sPIDS);
             msg.setSubject(subject);
 
             // ontvangers
@@ -89,23 +88,29 @@ public class MailRapportage extends AbstractExecutableProces {
 
             StringBuilder mailText = new StringBuilder();
             List<AutomatischProces> processen = this.getProcessen();
-            // bericht mailText samenstellen, filter op status
+            // bericht mailText samenstellen
             for (AutomatischProces p : processen) {
-                logMsg = String.format("Rapportage van taak %d met status:" + LOG_NEWLINE + " %s", p.getId(), p.getStatus());
+                logMsg = String.format("Rapportage van taak %d met status: %s", p.getId(), p.getStatus());
                 log.info(logMsg);
                 sb.append(logMsg).append(LOG_NEWLINE);
-                mailText.append("Rapport van taak:   ").append(p.getId());
-                mailText.append(", type: ").append(p.getClass().getSimpleName()).append(LOG_NEWLINE);
+
+                mailText.append("Rapport van taak: ").append(p.getId())
+                        .append(", type: ").append(p.getClass().getSimpleName()).append(LOG_NEWLINE);
                 mailText.append("Status van de taak: ").append(p.getStatus()).append(LOG_NEWLINE);
                 mailText.append("Samenvatting: ").append(LOG_NEWLINE);
                 mailText.append(p.getSamenvatting()).append(LOG_NEWLINE);
                 mailText.append("---------------------------------").append(LOG_NEWLINE);
             }
+            if (processen.isEmpty()) {
+                mailText.append("Er waren geen automatische processen die voldeden aan de opgegeven voorwaarden: ").append(LOG_NEWLINE);
+                mailText.append(" - Status: ").append(sForStatus).append(LOG_NEWLINE);
+                mailText.append(" - Taken: ").append(sPIDS).append(LOG_NEWLINE);
+            }
             log.debug(mailText.toString());
             msg.setText(mailText.toString());
             Transport.send(msg);
 
-            logMsg = String.format("Klaar met taak %d op %tc", config.getId(),Calendar.getInstance());
+            logMsg = String.format("Klaar met taak %d op %tc", config.getId(), Calendar.getInstance());
             log.info(logMsg);
             sb.append(logMsg).append(LOG_NEWLINE);
             config.setStatus(WAITING);
