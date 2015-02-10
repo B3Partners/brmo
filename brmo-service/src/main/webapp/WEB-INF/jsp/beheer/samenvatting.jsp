@@ -17,8 +17,13 @@
         <p>
             Laatste run op: <fmt:formatDate  pattern="${timeFormat}" value="${p.lastrun}"/>, met status: ${p.status}.
         </p>
+        <h3>Samenvatting</h3>
         <p>
             ${fn:replace(p.samenvatting, actionBean.newLine, "<br />")}
+        </p>
+        <h3>Logfile</h3>
+        <p>
+            ${fn:replace(p.logfile, actionBean.newLine, "<br />")}
         </p>
     </stripes:layout-component>
 </stripes:layout-render>

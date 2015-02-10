@@ -108,7 +108,7 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                 sb.append(msg);
                 this.active = false;
                 config.setStatus(WAITING);
-                config.setSamenvatting(sb.toString());
+                config.updateSamenvattingEnLogfile(sb.toString());
                 config.setLastrun(new Date());
                 break;
             default:
