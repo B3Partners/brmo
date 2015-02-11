@@ -61,5 +61,28 @@
     -->
   <ResourceLink global="jdbc/brmo/staging" name="jdbc/brmo/staging" type="javax.sql.Datasource"/>
   <ResourceLink global="jdbc/brmo/rsgb" name="jdbc/brmo/rsgb" type="javax.sql.Datasource"/>
+
+  <!-- For Tomcat: define JavaMail resource in server.xml. See:
+    http://tomcat.apache.org/tomcat-6.0-doc/jndi-resources-howto.html#JavaMail_Sessions
+    Don't forget to put mail.jar in the Tomcat lib directory.
+    To configure your mail server, use attributes like "mail.smtp.host" for
+    the Resource element. See Appendix A of the JavaMail spec for which
+    attributes you can use, possibly accessible at
+    http://www.oracle.com/technetwork/java/javamail/index-141777.html
+    <Server ...>
+        ...
+        <GlobalNamingResources>
+            <Resource name="mail/session"
+                    auth="Container"
+                    type="javax.mail.Session"
+                    mail.smtp.host="smtp.b3partners.nl"
+                    mail.from="brmo-no-reply@b3partners.nl"
+            />
+        </GlobalNamingResources>
+        ...
+    </Server>
+    -->
+  <ResourceLink global="mail/session" name="mail/session" type="javax.mail.Session"/>
+
   <Realm allRolesMode="authOnly" className="org.apache.catalina.realm.DataSourceRealm" dataSourceName="jdbc/brmo/staging" digest="SHA-1" roleNameCol="groep_" userCredCol="wachtwoord" userNameCol="gebruikersnaam" userRoleTable="gebruiker_groepen" userTable="gebruiker_"/>
 </Context>
