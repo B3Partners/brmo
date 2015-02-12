@@ -46,6 +46,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
             case NULL:
             case ONBEKEND:
             case WAITING:
+            case ERROR:
                 StringBuilder sb = new StringBuilder();
                 config.setStatus(PROCESSING);
                 String msg = String.format("De BRK scanner met ID %d is gestart op %tc.", config.getId(), Calendar.getInstance());
@@ -117,7 +118,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                 break;
 
             default:
-                log.info(String.format("De BRK scanner met ID %d is niet gestart vanwege de status %s.", config.getId(), config.getStatus()));
+                log.warn(String.format("De BRK scanner met ID %d is niet gestart vanwege de status %s.", config.getId(), config.getStatus()));
         }
     }
 }

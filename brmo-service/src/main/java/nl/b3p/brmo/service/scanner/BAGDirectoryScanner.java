@@ -47,6 +47,7 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
             case NULL:
             case ONBEKEND:
             case WAITING:
+            case ERROR:
                 StringBuilder sb = new StringBuilder();
                 config.setStatus(PROCESSING);
                 String msg = String.format("De BAG scanner met ID %d is gestart op %tc.", config.getId(), Calendar.getInstance());
@@ -117,7 +118,7 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                 config.setLastrun(new Date());
                 break;
             default:
-                log.info(String.format("De BAG scanner met ID %d is niet gestart vanwege de status %s.", config.getId(), config.getStatus()));
+                log.warn(String.format("De BAG scanner met ID %d is niet gestart vanwege de status %s.", config.getId(), config.getStatus()));
         }
     }
 
