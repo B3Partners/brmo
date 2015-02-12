@@ -102,7 +102,8 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
                     t = brmo.toRsgb(this);
                     break;
                 case BY_LAADPROCES:
-                    t = brmo.toRsgb(selectedIds[0], this);
+                    long[] selectedberichtIDs = brmo.getBerichtIDsByLaadProcesId(selectedIds);
+                    t = brmo.toRsgb(selectedberichtIDs, this);
                     break;
             }
 

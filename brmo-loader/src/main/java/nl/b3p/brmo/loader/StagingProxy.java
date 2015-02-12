@@ -34,6 +34,7 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.RowProcessor;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.io.input.CountingInputStream;
 import org.apache.commons.lang3.StringUtils;
@@ -345,6 +346,29 @@ public class StagingProxy {
         return berichten;
     }
 */
+    public List<Long> getBerichtIDsByLaadProcesId(long[] lpIds) throws SQLException {
+        StringBuilder q = new StringBuilder("select id from " + BrmoFramework.BERICHT_TABLE + " where laadprocesid in (");
+        for (int i = 0; i < lpIds.length; i++) {
+            if (i != 0) {
+                q.append(",");
+            }
+            q.append(lpIds[i]);
+        }
+        q.append(")");
+
+        List<Long> berichtIDs = new QueryRunner().query(getConnection(),
+                q.toString(),
+                new ColumnListHandler<Long>("id"));
+
+        // weirdness!, berichtIDs blijkt BigDecimal te bevatten... iig met oracle
+        ArrayList<Long> _ids = new ArrayList<Long>();
+        for (Object l : berichtIDs) {
+            // log.debug("element " + l + " class naam: " + l.getClass().getName());
+            _ids.add(((BigDecimal) l).longValue());
+        }
+        return _ids;
+    }
+
     public void updateBerichtenDbXml(List<Bericht> berichten, RsgbTransformer transformer) throws SQLException, SAXException, IOException, TransformerException  {
         for (Bericht ber : berichten) {
             Split split = SimonManager.getStopwatch("b3p.staging.bericht.dbxml.transform").start();

@@ -53,6 +53,10 @@ public class LaadProcesActionBean implements ActionBean {
         return new ForwardResolution("/WEB-INF/jsp/laadproces/list.jsp");
     }
 
+    /**
+     * @deprecated (mark vraagt) kan deze methode niet gewoon weg?
+     * @return
+     */
     public Resolution run() {
         if (selectedIds != null) {
             BrmoFramework brmo = null;

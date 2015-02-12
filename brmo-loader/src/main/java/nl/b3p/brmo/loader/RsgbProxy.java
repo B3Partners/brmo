@@ -128,6 +128,13 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         this.listener = listener;
     }
 
+    /**
+     *
+     * @param dataSourceRsgb
+     * @param stagingProxy
+     * @param berichtIds array van berichtIds
+     * @param listener
+     */
     public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, long[] berichtIds, ProgressUpdateListener listener) {
         this.stagingProxy = stagingProxy;
         this.dataSourceRsgb = dataSourceRsgb;
