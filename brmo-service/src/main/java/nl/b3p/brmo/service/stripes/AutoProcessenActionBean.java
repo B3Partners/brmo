@@ -22,8 +22,6 @@ import net.sourceforge.stripes.validation.SimpleError;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.NULL;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ONBEKEND;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
 import nl.b3p.brmo.persistence.staging.MailRapportageProces;
@@ -131,7 +129,7 @@ public class AutoProcessenActionBean implements ActionBean {
 
     /**
      * Opslaan van de configuratie data en forceren van herladen van de data
-     * uit. oa. zodat de pID bekend wordt.
+     * uit. oa. zodat de PID bekend wordt.
      *
      * @return forward naar de default resolution
      */
@@ -170,31 +168,31 @@ public class AutoProcessenActionBean implements ActionBean {
      *
      */
     public Resolution startProces() {
-        log.debug("Poging proces met pId: " + getContext().getRequest().getParameter("pId") + " te starten.");
+        log.debug("Poging proces met PID: " + getContext().getRequest().getParameter("PID") + " te starten.");
 
         Long id = null;
         AutomatischProces config = null;
         final EntityManager em = Stripersist.getEntityManager();
         try {
-            id = Long.valueOf(getContext().getRequest().getParameter("pId"));
+            id = Long.valueOf(getContext().getRequest().getParameter("PID"));
             // ophalen proces config en starten proces
             config = em.find(AutomatischProces.class, id);
             ProcesExecutable p = AbstractExecutableProces.getProces(config);
             if (p.isRunning()) {
                 getContext().getMessages().add(
-                        new SimpleMessage("Proces met id {0} draait al.", id));
+                        new SimpleMessage("De taak met id {0,number,#} draait al.", id));
             } else {
                 p.execute();
                 getContext().getMessages().add(
-                        new SimpleMessage("Het proces met ID {0} is afgerond.", id));
+                        new SimpleMessage("De taak met id {0,number,#} is afgerond.", id));
             }
         } catch (NumberFormatException t) {
             getContext().getMessages().add(
-                    new SimpleError("Er is een fout opgetreden tijdens het parsen van de proces id {2}.", id));
-            log.error("Er is een fout opgetreden tijdens het parsen van de proces id.", t);
+                    new SimpleError("Er is een fout opgetreden tijdens het parsen van de taak id {2,number,#}.", id));
+            log.error("Er is een fout opgetreden tijdens het parsen van de taak id.", t);
         } catch (BrmoException t) {
             getContext().getMessages().add(
-                    new SimpleError("Er is een fout opgetreden tijdens het starten of uitvoeren van proces met id {2}. {3}",
+                    new SimpleError("Er is een fout opgetreden tijdens het starten of uitvoeren van proces met id {2,number,#}. {3}",
                             id, t.getMessage()));
             log.error("Er is een fout opgetreden tijdens het starten of uitvoeren van het proces.", t);
             config.setStatus(ERROR);
@@ -212,9 +210,9 @@ public class AutoProcessenActionBean implements ActionBean {
      ** @return forward naar de default resolution
      */
     public Resolution stopProces() {
-        log.debug("Poging proces met pId: " + getContext().getRequest().getParameter("pId") + " te stoppen.");
+        log.debug("Poging proces met PID: " + getContext().getRequest().getParameter("PID") + " te stoppen.");
 
-        Long id = Long.valueOf(getContext().getRequest().getParameter("pId"));
+        Long id = Long.valueOf(getContext().getRequest().getParameter("PID"));
         final EntityManager em = Stripersist.getEntityManager();
         AutomatischProces config = em.find(AutomatischProces.class, id);
         ProcesExecutable p = AbstractExecutableProces.getProces(config);
@@ -224,7 +222,7 @@ public class AutoProcessenActionBean implements ActionBean {
         em.merge(config);
         em.getTransaction().commit();
 
-        getContext().getMessages().add(new SimpleMessage("Proces {0} is gestopt.", id));
+        getContext().getMessages().add(new SimpleMessage("Proces {0,number,#} is gestopt.", id));
         return new ForwardResolution(JSP);
     }
 
@@ -234,9 +232,9 @@ public class AutoProcessenActionBean implements ActionBean {
      * @return forward naar de default resolution
      */
     public Resolution verwijderProces() {
-        log.debug("Poging proces met pId: " + getContext().getRequest().getParameter("pId") + " te verwijderen.");
+        log.debug("Poging proces met PID: " + getContext().getRequest().getParameter("PID") + " te verwijderen.");
 
-        Long id = Long.valueOf(getContext().getRequest().getParameter("pId"));
+        Long id = Long.valueOf(getContext().getRequest().getParameter("PID"));
         final EntityManager em = Stripersist.getEntityManager();
         AutomatischProces config = em.find(AutomatischProces.class, id);
         em.remove(config);
@@ -244,11 +242,11 @@ public class AutoProcessenActionBean implements ActionBean {
         // reload om de arraylists met proces entities te verversen
         this.load();
 
-        getContext().getMessages().add(new SimpleMessage("Het proces met ID {0} is verwijderd.", id));;
+        getContext().getMessages().add(new SimpleMessage("Het proces met ID {0,number,#} is verwijderd.", id));;
         return new ForwardResolution(JSP);
     }
 
-   // <editor-fold defaultstate="collapsed" desc="getters and setters">
+    // <editor-fold defaultstate="collapsed" desc="getters and setters">
     /**
      * {@inheritDoc }
      */

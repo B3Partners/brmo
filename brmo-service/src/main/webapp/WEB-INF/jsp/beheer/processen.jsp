@@ -11,13 +11,13 @@
         <script type="text/javascript" src="${contextPath}/scripts/processen.js"></script>
     </stripes:layout-component>
 
-
     <stripes:layout-component name="contents">
 
         <h2>Automatische processen</h2>
 
         <stripes:messages />
         <stripes:errors />
+
         <h3>BRK scanners</h3>
 
         <stripes:form partial="true" action="">
@@ -37,8 +37,8 @@
                             </stripes:link>
                         </legend>
                         <stripes:hidden name="brkProcessen[${i.index}].id" formatType="number"/>
-                        <%-- pID wordt gebruikt voor start, stop en verwijder proces --%>
-                        <stripes:hidden name="pId" value="${brk.id}" formatType="number"/>
+                        <%-- PID wordt gebruikt voor start, stop en verwijder proces --%>
+                        <input type="hidden" name="PID" value="${brk.id}"/>
                         <stripes:label name="">Scan directory
                             <stripes:text name="brkProcessen[${i.index}].scanDirectory" value="${brk.scanDirectory}" class="longTxt"/>
                         </stripes:label>
@@ -74,8 +74,8 @@
                             </stripes:link>
                         </legend>
                         <stripes:hidden name="bagProcessen[${i.index}].id" formatType="number"/>
-                        <%-- pID wordt gebruikt voor start, stop en verwijder proces --%>
-                        <stripes:hidden name="pId" value="${bag.id}" formatType="number"/>
+                        <%-- PID wordt gebruikt voor start, stop en verwijder proces --%>
+                        <input type="hidden" name="PID" value="${bag.id}"/>
                         <stripes:label name="">Scan directory
                             <stripes:text name="bagProcessen[${i.index}].scanDirectory" value="${bag.scanDirectory}" class="longTxt" />
                         </stripes:label>
@@ -92,7 +92,7 @@
             </c:forEach>
         </c:if>
 
-        <h3>Notificaties</h3>
+        <h3>Email Notificaties</h3>
 
         <stripes:form partial="true" action="">
             <stripes:button name="toevoegen" value="Toevoegen" onclick="addMailRapportage();"  id="mailRapportAdd"/>
@@ -112,8 +112,8 @@
                             </stripes:link>
                         </legend>
                         <stripes:hidden name="mailProcessen[${i.index}].id" formatType="number"/>
-                        <%-- pID wordt gebruikt voor start, stop en verwijder proces --%>
-                        <stripes:hidden name="pId" value="${mail.id}" formatType="number"/>
+                        <%-- PID wordt gebruikt voor start, stop en verwijder proces --%>
+                        <input type="hidden" name="PID" value="${mail.id}"/>
                         <stripes:label name="">Geaddresseerde(n)
                             <stripes:text name="mailProcessen[${i.index}].mailAdressen" value="${mail.config.email}" class="longTxt"/>
                         </stripes:label>
