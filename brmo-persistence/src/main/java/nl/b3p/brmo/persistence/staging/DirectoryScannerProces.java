@@ -10,17 +10,11 @@ import javax.persistence.Transient;
  *
  * @author Mark Prins <mark@b3partners.nl>
  */
-abstract /* package-private */ class DirectoryScannerProces extends AutomatischProces {
+public abstract class DirectoryScannerProces extends AutomatischProces {
 
     private static final String SCAN_DIRECTORY = "scandirectory";
 
     private static final String ARCHIEF_DIRECTORY = "archiefdirectory";
-
-    // deze zijn er ter genoegdoening van de reflection api van Stripes
-    @Transient
-    private volatile String scanDirectory;
-    @Transient
-    private volatile String archiefDirectory;
 
     /**
      * Zoekt de geconfigureerde scan directory op.
