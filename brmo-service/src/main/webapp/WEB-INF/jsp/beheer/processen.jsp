@@ -1,5 +1,6 @@
 <%@include file="/WEB-INF/taglibs.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus"%>
 <stripes:layout-render name="/WEB-INF/jsp/layout/default.jsp">
     <stripes:layout-component name="title">BRMO Processen</stripes:layout-component>
     <stripes:layout-component name="html_head">
@@ -24,12 +25,12 @@
         </stripes:form>
 
         <c:if test="${not empty actionBean.brkProcessen}">
-            <script>nextBrk =<c:out value="${fn:length(actionBean.brkProcessen)}"/>;</script>
+            <script>nextBrk=<c:out value="${fn:length(actionBean.brkProcessen)}"/>;</script>
             <c:forEach items="${actionBean.brkProcessen}" varStatus="i" var="brk" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
                         <legend>
-                            Scanner ID: ${brk.id} , status: ${brk.status},
+                            Scanner taak: ${brk.id} , status: ${brk.status},
                             <stripes:link beanclass="nl.b3p.brmo.service.stripes.SamenvattingActionBean">
                                 <stripes:param name="procesId" value="${brk.id}" />
                                 laatste run: <fmt:formatDate  pattern="${timeFormat}" value="${brk.lastrun}"/>
@@ -61,12 +62,12 @@
         </stripes:form>
 
         <c:if test="${not empty actionBean.bagProcessen}">
-            <script>nextBag =<c:out value="${fn:length(actionBean.bagProcessen)}"/>;</script>
+            <script>nextBag=<c:out value="${fn:length(actionBean.bagProcessen)}"/>;</script>
             <c:forEach items="${actionBean.bagProcessen}" varStatus="i" var="bag" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
                         <legend>
-                            Scanner ID: ${bag.id} , status:${bag.status},
+                            Scanner taak: ${bag.id} , status:${bag.status},
                             <stripes:link beanclass="nl.b3p.brmo.service.stripes.SamenvattingActionBean">
                                 <stripes:param name="procesId" value="${bag.id}" />
                                 laatste run: <fmt:formatDate  pattern="${timeFormat}" value="${bag.lastrun}"/>
@@ -98,12 +99,13 @@
         </stripes:form>
 
         <c:if test="${not empty actionBean.mailProcessen}">
-            <script>nextMail =<c:out value="${fn:length(actionBean.mailProcessen)}"/>;</script>
+            <c:set var="statusValues" value="<%=ProcessingStatus.values()%>"/>
+            <script>nextMail=<c:out value="${fn:length(actionBean.mailProcessen)}"/>;</script>
             <c:forEach items="${actionBean.mailProcessen}" varStatus="i" var="mail" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
                         <legend>
-                            Scanner ID: ${mail.id} , status: ${mail.status},
+                            Rapportage taak: ${mail.id} , status: ${mail.status},
                             <stripes:link beanclass="nl.b3p.brmo.service.stripes.SamenvattingActionBean">
                                 <stripes:param name="procesId" value="${mail.id}" />
                                 laatste run: <fmt:formatDate  pattern="${timeFormat}" value="${mail.lastrun}"/>
@@ -117,6 +119,12 @@
                         </stripes:label>
                         <stripes:label name="">Proces ID's voor rapportage
                             <stripes:text name="mailProcessen[${i.index}].config.pIDS" value="${mail.config.pIDS}" class="longTxt"/>
+                        </stripes:label>
+                        <stripes:label name="">Proces status voor rapportage
+                            <stripes:select name="mailProcessen[${i.index}].config.forStatus">
+                                <stripes:option value="">Alle</stripes:option>
+                                <stripes:options-collection collection="${statusValues}"/>
+                            </stripes:select>
                         </stripes:label>
                     </fieldset>
                     <stripes:submit name="save" value="Opslaan" />
