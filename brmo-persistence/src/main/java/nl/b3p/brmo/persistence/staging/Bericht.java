@@ -8,6 +8,8 @@ import java.util.Date;
 import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.Type;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -46,7 +48,8 @@ public class Bericht implements Serializable {
     @Type(type = "org.hibernate.type.StringClobType")
     private String opmerking;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private STATUS status;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date status_datum;
@@ -66,6 +69,31 @@ public class Bericht implements Serializable {
     private String db_xml;
 
     private String xsl_version;
+
+    public enum STATUS {
+
+        STAGING_OK("STAGING_OK"),
+        STAGING_NOK("STAGING_NOK"),
+        RSGB_WAITING("RSGB_WAITING"),
+        RSGB_PROCESSING("RSGB_PROCESSING"),
+        RSGB_OK("RSGB_OK"),
+        RSGB_OUTDATED("RSGB_OUTDATED"),
+        RSGB_NOK("RSGB_NOK"),
+        ARCHIVE("ARCHIVE");
+
+        private String status;
+
+        STATUS(String status) {
+            this.status = status;
+        }
+    }
+
+    public Bericht() {
+    }
+
+    public Bericht(String br_xml) {
+        this.br_xml = br_xml;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="getters and setters">
     public Long getId() {
@@ -124,11 +152,11 @@ public class Bericht implements Serializable {
         this.opmerking = opmerking;
     }
 
-    public String getStatus() {
+    public STATUS getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(STATUS status) {
         this.status = status;
     }
 

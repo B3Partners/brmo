@@ -13,6 +13,9 @@ import nl.b3p.brmo.loader.util.BrmoException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * @deprecated voorkeur gaat uit naar gebruik van JPA interfaces
+ */
 public class ConfigUtil implements Servlet {
 
     private static final Log log = LogFactory.getLog(ConfigUtil.class);
@@ -23,25 +26,25 @@ public class ConfigUtil implements Servlet {
 
     private static DataSource datasourceStaging = null;
     private static DataSource datasourceRsgb = null;
-    
+
     public static Integer MAX_UPLOAD_SIZE;
     public static String TEMP_FOLDER;
 
     public void init(ServletConfig config) throws ServletException {
         String tempSize = config.getInitParameter("max_upload_size");
-        
-        if (tempSize != null && !tempSize.isEmpty()) {          
+
+        if (tempSize != null && !tempSize.isEmpty()) {
             MAX_UPLOAD_SIZE = new Integer(tempSize) * 1024;
         } else {
             MAX_UPLOAD_SIZE = 500 * 1024;
         }
-        
+
         String tempFolder = config.getInitParameter("temp_folder");
-        if (tempFolder != null && !tempFolder.isEmpty()) {          
+        if (tempFolder != null && !tempFolder.isEmpty()) {
             TEMP_FOLDER = tempFolder;
         } else {
             TEMP_FOLDER = "/tmp";
-        }    
+        }
     }
 
     public static DataSource getDataSourceStaging() throws BrmoException {
@@ -59,7 +62,7 @@ public class ConfigUtil implements Servlet {
 
         return ds;
     }
-    
+
     public static DataSource getDataSourceRsgb() throws BrmoException {
         DataSource ds = null;
         try {
@@ -77,11 +80,11 @@ public class ConfigUtil implements Servlet {
     }
 
     public ServletConfig getServletConfig() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void service(ServletRequest sr, ServletResponse sr1) throws ServletException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public String getServletInfo() {

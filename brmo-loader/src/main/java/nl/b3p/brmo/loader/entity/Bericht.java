@@ -3,7 +3,8 @@ package nl.b3p.brmo.loader.entity;
 import java.util.Date;
 
 /**
- *
+ * @deprecated gebruik de JPA versie
+ * @see nl.b3p.brmo.persistence.staging.Bericht
  * @author Boy de Wit
  */
 public class Bericht {
