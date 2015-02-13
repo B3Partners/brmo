@@ -1,6 +1,7 @@
 package nl.b3p.brmo.service.stripes;
 
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import net.sourceforge.stripes.action.ActionBean;
@@ -18,6 +19,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.stripesstuff.stripersist.Stripersist;
 
 /**
  *
@@ -131,9 +133,15 @@ public class BerichtenActionBean implements ActionBean {
 
     public Resolution saveRecord() {
         JSONObject item = this.getChangedItem();
-        /**
-         * @TODO: save the changed item
-         */
+
+        final EntityManager em = Stripersist.getEntityManager();
+        nl.b3p.brmo.persistence.staging.Bericht bericht = em.find(nl.b3p.brmo.persistence.staging.Bericht.class, item.getLong("id"));
+        // TODO status enum in Bericht maken
+        bericht.setStatus(item.getString("status"));
+        // TODO / VRAAG moeten we ook iets aan de log van het bericht doen?
+        em.merge(bericht);
+        em.getTransaction().commit();
+
         final JSONObject jsonResponse = new JSONObject();
         jsonResponse.put("success", true);
         return new StreamingResolution("application/json") {
