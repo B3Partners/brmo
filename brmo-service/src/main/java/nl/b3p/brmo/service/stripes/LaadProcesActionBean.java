@@ -211,7 +211,7 @@ public class LaadProcesActionBean implements ActionBean {
 
         final EntityManager em = Stripersist.getEntityManager();
         nl.b3p.brmo.persistence.staging.LaadProces _lp = em.find(nl.b3p.brmo.persistence.staging.LaadProces.class, item.getLong("id"));
-        _lp.setStatus(item.getString("status"));
+        _lp.setStatus(nl.b3p.brmo.persistence.staging.LaadProces.STATUS.valueOf(item.getString("status")));
         em.merge(_lp);
         em.getTransaction().commit();
 

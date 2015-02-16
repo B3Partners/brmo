@@ -136,9 +136,9 @@ public class BerichtenActionBean implements ActionBean {
 
         final EntityManager em = Stripersist.getEntityManager();
         nl.b3p.brmo.persistence.staging.Bericht bericht = em.find(nl.b3p.brmo.persistence.staging.Bericht.class, item.getLong("id"));
-        // TODO status enum in Bericht maken
-        bericht.setStatus(item.getString("status"));
-        // TODO / VRAAG moeten we ook iets aan de log van het bericht doen?
+        bericht.setStatus(nl.b3p.brmo.persistence.staging.Bericht.STATUS.valueOf(item.getString("status")));
+        // TODO / VRAAG moeten we ook iets aan de log/opmerking van het bericht doen?
+        // bericht.setOpmerking("");
         em.merge(bericht);
         em.getTransaction().commit();
 
