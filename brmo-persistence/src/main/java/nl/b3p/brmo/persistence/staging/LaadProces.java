@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -42,12 +44,26 @@ public class LaadProces implements Serializable {
     @Type(type = "org.hibernate.type.StringClobType")
     private String opmerking;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private STATUS status;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date status_datum;
 
     private String contact_email;
+
+    public static enum STATUS {
+
+        STAGING_OK, STAGING_NOK, ARCHIVE
+    };
+
+        public LaadProces() {
+    }
+
+    public LaadProces(String bestand_naam, String soort) {
+        this.bestand_naam = bestand_naam;
+        this.soort = soort;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="getters and setters">
     public Long getId() {
@@ -98,11 +114,11 @@ public class LaadProces implements Serializable {
         this.opmerking = opmerking;
     }
 
-    public String getStatus() {
+    public STATUS getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(STATUS status) {
         this.status = status;
     }
 

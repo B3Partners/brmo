@@ -17,12 +17,13 @@ public class LaadProcesTest extends TestUtil {
     @Test
     public void shouldStoreLaadProces() {
         LaadProces p = new LaadProces();
+        p.setStatus(LaadProces.STATUS.STAGING_OK);
         entityManager.persist(p);
         Bericht b = new Bericht();
         b.setLaadprocesid(p);
+        b.setStatus(Bericht.STATUS.STAGING_OK);
         entityManager.persist(b);
         entityManager.getTransaction().commit();
-
     }
 
     @Test
