@@ -10,9 +10,10 @@
         <module>brmo-loader</module>
         <module>brmo-service</module>
         <module>brmo-proxyservice</module>
+        <module>brmo-digikoppeling</module>
     </modules>
     <name>BRMO</name>
-    <description>B3Parteners BRMO applicatie</description>
+    <description>B3Partners BRMO applicatie</description>
     <inceptionYear>2014</inceptionYear>
     <licenses>
         <license>
