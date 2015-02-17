@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2015 B3Partners B.V.
  */
 package nl.b3p.brmo.service.proxy;
 
@@ -9,9 +7,6 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +16,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * Endpoint servlet welke geposte bestanden doorstuurt naar de BRMO. Voorbeeld:
+ * {@code curl -X POST -H "Content-Type: application/xml" http://localhost:8084/brmo-proxyservice/brkproxy -d  @'/testbestanden/BRK_KLEIN_SNAPSHOT.xml'}
  *
  * @author Mark Prins <mark@b3partners.nl>
  */
