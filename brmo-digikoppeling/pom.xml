@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>nl.b3p</groupId>
+    <artifactId>brmo-service</artifactId>
+    <version>1.1-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <parent>
+        <groupId>nl.b3p</groupId>
+        <artifactId>brmo</artifactId>
+        <version>1.1-SNAPSHOT</version>
+    </parent>
+    <name>brmo-digikoppeling</name>
+    <dependencies />
+    <build>
+        <defaultGoal>compile</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <!-- 2.0 is getagged dd 9 feb 2015 op codehaus maar nog niet naar central gesynced -->
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- 2.0  addGeneratedAnnotation>true</addGeneratedAnnotation -->
+                    <sources>
+                        <source>src/main/xsd/digipoort-koppelvlak-1.2.xsd</source>
+                    </sources>
+                    <packageName>nl.b3p.brmo.digipoort.koppelvlakservices._1_2</packageName>
+                    <!-- in 2.0 wordt dit xsdPathWithinArtifact -->
+                    <includeSchemasOutputPath>META-INF/jaxb/xsd</includeSchemasOutputPath>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
