@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Endpoint servlet welke geposte bestanden opslaat in een directory conform de
@@ -20,6 +22,8 @@ import org.apache.commons.io.FileUtils;
  * @author Mark Prins <mark@b3partners.nl>
  */
 public class BerichtEndpointFileServlet extends HttpServlet {
+
+    private static final Log log = LogFactory.getLog(BerichtEndpointFileServlet.class);
 
     private static final String SAVE_DIR = "save_dir";
     private File saveDir;
@@ -42,9 +46,10 @@ public class BerichtEndpointFileServlet extends HttpServlet {
             throw new ServletException("De directory '" + _saveDir + "' is niet schrijfbaar.");
         }
         try {
-            this.maxUploadSize = Integer.parseInt(this.getInitParameter(MAX_UPLOAD_SIZE));
+            this.maxUploadSize = Integer.parseInt(this.getInitParameter(MAX_UPLOAD_SIZE)) * 1024;
         } catch (NumberFormatException nfe) {
-            this.maxUploadSize = 500;
+            this.maxUploadSize = 500 * 1024;
+            log.warn("De maximale upload size is ingesteld op 500KB (default).");
         }
     }
 
@@ -59,13 +64,15 @@ public class BerichtEndpointFileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getContentLength() > this.maxUploadSize * 1024) {
-            throw new ServletException("'max_upload_size' is overschreden.");
+        if (request.getContentLength() > this.maxUploadSize) {
+            throw new ServletException("De 'max_upload_size' is overschreden.");
         }
 
         File _tmpfile = new File(FileUtils.getTempDirectory(), this.getFileName());
         FileUtils.copyInputStreamToFile(request.getInputStream(), _tmpfile);
         FileUtils.moveToDirectory(_tmpfile, this.saveDir, true);
+        log.info(String.format("Aangeboden bestand '%s' opgeslagen in directory: %s.",
+                _tmpfile.getName(), this.saveDir));
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
