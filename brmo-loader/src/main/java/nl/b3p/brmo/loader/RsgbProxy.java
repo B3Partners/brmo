@@ -74,7 +74,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         BY_STATUS, BY_IDS, BY_LAADPROCES
     }
 
-    private BerichtSelectMode mode;
+    private final BerichtSelectMode mode;
 
     /**
      * De status voor BY_STATUS.
@@ -89,7 +89,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     /**
      * Het ID van het laadproces vor BY_LAADPROCES.
      */
-    private Long laadprocesId;
+    private long[] laadprocesIds;
 
     private enum STATEMENT_TYPE {
         INSERT, UPDATE, SELECT, DELETE
@@ -128,21 +128,23 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         this.listener = listener;
     }
 
-    public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, long[] berichtIds, ProgressUpdateListener listener) {
+    /**
+     *
+     * @param dataSourceRsgb
+     * @param stagingProxy
+     * @param berichtIds array van berichtIds
+     * @param listener
+     */
+    public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, BerichtSelectMode mode, long[] ids, ProgressUpdateListener listener) {
         this.stagingProxy = stagingProxy;
         this.dataSourceRsgb = dataSourceRsgb;
 
-        mode = BerichtSelectMode.BY_IDS;
-        this.berichtIds = berichtIds;
-        this.listener = listener;
-    }
-
-    public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, Long laadprocesId, ProgressUpdateListener listener) {
-        this.stagingProxy = stagingProxy;
-        this.dataSourceRsgb = dataSourceRsgb;
-
-        mode = BerichtSelectMode.BY_LAADPROCES;
-        this.laadprocesId = laadprocesId;
+        this.mode = mode;
+        if(mode == BerichtSelectMode.BY_LAADPROCES) {
+            this.laadprocesIds = ids;
+        } else if(mode == BerichtSelectMode.BY_IDS) {
+            this.berichtIds = ids;
+        }
         this.listener = listener;
     }
 
@@ -247,7 +249,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 stagingProxy.setBerichtenJobByIds(berichtIds, jobId);
                 break;
             case BY_LAADPROCES:
-                stagingProxy.setBerichtenJobByLaadproces(laadprocesId, jobId);
+                stagingProxy.setBerichtenJobByLaadprocessen(laadprocesIds, jobId);
                 break;
         }
     }
