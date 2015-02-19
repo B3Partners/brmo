@@ -274,7 +274,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             StringBuilder loadLog = new StringBuilder();
             SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            loadLog.append(String.format("%s: In pipeline transformeren %s bericht object ref %s, met id %s, berichtdatum %s\n", dateTimeFormat.format(new Date()), ber.getSoort(), ber.getObjectRef(), ber.getId(), dateFormat.format(ber.getDatum())));
+            loadLog.append(String.format("%s: transformeren %s bericht object ref %s, met id %s, berichtdatum %s\n", dateTimeFormat.format(new Date()), ber.getSoort(), ber.getObjectRef(), ber.getId(), dateFormat.format(ber.getDatum())));
 
             long startTime = System.currentTimeMillis();
             stagingProxy.updateBerichtenDbXml(Collections.singletonList(ber), transformer);
