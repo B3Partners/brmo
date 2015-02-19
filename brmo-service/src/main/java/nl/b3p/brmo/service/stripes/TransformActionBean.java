@@ -15,6 +15,7 @@ import net.sourceforge.stripes.action.SimpleMessage;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.ProgressUpdateListener;
 import nl.b3p.brmo.loader.RsgbProxy;
+import nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
@@ -96,14 +97,13 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
             Thread t = null;
             switch(mode) {
                 case BY_IDS:
-                    t = brmo.toRsgb(selectedIds, this);
+                    t = brmo.toRsgb(BerichtSelectMode.BY_IDS, selectedIds, this);
                     break;
                 case BY_STATUS:
                     t = brmo.toRsgb(this);
                     break;
                 case BY_LAADPROCES:
-                    long[] selectedberichtIDs = brmo.getBerichtIDsByLaadProcesId(selectedIds);
-                    t = brmo.toRsgb(selectedberichtIDs, this);
+                    t = brmo.toRsgb(BerichtSelectMode.BY_LAADPROCES, selectedIds, this);
                     break;
             }
 
