@@ -53,46 +53,6 @@ public class LaadProcesActionBean implements ActionBean {
         return new ForwardResolution("/WEB-INF/jsp/laadproces/list.jsp");
     }
 
-    /**
-     * @deprecated (mark vraagt) kan deze methode niet gewoon weg?
-     * @return
-     */
-    public Resolution run() {
-        if (selectedIds != null) {
-            BrmoFramework brmo = null;
-            try {
-                DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
-                DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();
-                brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb);
-
-                for (Long id : selectedIds) {
-                    brmo.toRsgb(id);
-                }
-
-            } catch (BrmoException e) {
-
-                log.error("Fout", e);
-                return new ErrorResolution(500, "Er is een onherstelbare fout opgetreden. "
-                            + "Contacteer uw applicatiebeheerder: "
-                            + e.getLocalizedMessage());
-
-            } finally {
-                if (brmo != null) {
-                    brmo.closeBrmoFramework();
-                }
-            }
-        }
-
-        final JSONObject jsonResponse = new JSONObject();
-        jsonResponse.put("success", true);
-        return new StreamingResolution("application/json") {
-            @Override
-            public void stream(HttpServletResponse response) throws Exception {
-                response.getWriter().print(jsonResponse.toString());
-            }
-        };
-    }
-
     public Resolution delete() {
         if (selectedIds != null) {
 
