@@ -5,25 +5,17 @@ package nl.b3p.brmo.digikoppeling;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.DatatypeConverter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 import nl.b3p.brmo.digipoort.koppelvlakservices._1_2.AfleverRequest;
 import nl.b3p.brmo.digipoort.koppelvlakservices._1_2.AfleverResponse;
-import nl.b3p.brmo.digipoort.koppelvlakservices._1_2.BerichtInhoudType;
+import nl.b3p.brmo.digipoort.koppelvlakservices._1_2.FoutType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -60,49 +52,33 @@ public class DigileveringEbMSAfleverService extends HttpServlet {
             Unmarshaller u = jc.createUnmarshaller();
             verzoek = (AfleverRequest) u.unmarshal(in);
 
-            handleRequest(verzoek, antwoord);
+            log.info(String.format("AfleverRequest (type %s) ontvangen met kenmerk %s.",
+                    verzoek.getBerichtsoort(), verzoek.getBerichtkenmerk()));
+            
+            if (verzoek.getBerichtsoort().equalsIgnoreCase("BAG")) {
+                BAGAfleverRequestHandler h = new BAGAfleverRequestHandler();
+                h.handle(verzoek, antwoord);
+                // }else if( TODO andere berichten...){
+            } else {
+                // foutmelding genereren
+                String msg = String.format("Er is een niet ondersteunde AfleverRequest (type %s) gestuurd.", verzoek.getBerichtsoort());
+                log.warn(msg);
+                FoutType t = new FoutType();
+                t.setFoutbeschrijving(msg);
+                t.setFoutcode(AfleverRequestHandling.STATUSCODE.ERROR.toString());
+                antwoord.setStatusFoutcode(t);
+            }
 
             // antwoord terug sturen
             Marshaller m = jc.createMarshaller();
             m.marshal(antwoord, response.getOutputStream());
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.flushBuffer();
 
         } catch (JAXBException ex) {
             log.error(ex);
             throw new ServletException(ex);
         }
-    }
-
-    /**
-     * afhandelen van het aflever verzoek.
-     *
-     * @param verzoek
-     * @param antwoord
-     */
-    private void handleRequest(AfleverRequest verzoek, AfleverResponse antwoord) {
-        // inhoud ophalen
-        antwoord.setTijdstempelAfgeleverd(XMLUtil.getNow());
-
-        BerichtInhoudType t = verzoek.getBerichtInhoud();
-        String bNaam = t.getBestandsnaam();
-        String mType = t.getMimeType();
-        byte[] inhoud = t.getInhoud();
-
-        // TODO "iets" doen met bericht in het verzoek
-        if (mType.equalsIgnoreCase("application/xml")) {
-
-        } else if (mType.equalsIgnoreCase("application/base64")) {
-            try {
-                inhoud = DatatypeConverter.parseBase64Binary(new String(inhoud, "UTF-8"));
-            } catch (UnsupportedEncodingException ex) {
-                // TODO
-            }
-        }
-
-        // TODO antwoord aanpassen...
-        antwoord.setKenmerk(verzoek.getKenmerk());
-        antwoord.setBerichtsoort(verzoek.getBerichtsoort());
-        antwoord.setBerichtkenmerk(verzoek.getBerichtkenmerk());
-        antwoord.setTijdstempelStatus(XMLUtil.getNow());
     }
 
 }
