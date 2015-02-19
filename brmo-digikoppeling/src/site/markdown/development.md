@@ -3,7 +3,7 @@
 Digilevering draait op Digikoppeling, een ebMS implementatie. Er worden gebeurtenis
 berichten door Digilevering verstrekt aan het afnemer (klant) systeem.
 Welke gebeurtenissen er precies aan de afnemer worden verstrekt is
-afhankelijk van de CPA (abonnement).
+afhankelijk van de CPA (Collaboration Protocol Agreement).
 
 Vooralsnog zijn de volgende berichten van belang voor de implementatie:
 
@@ -23,7 +23,9 @@ Compliance test kan worden uitgevoerd tegen: https://www.ebms.cv.osb.overheid.nl
 
 ## documentatie
 
-  - [Koppelvlak specificatie digilevering](pdf/koppelvlakspecificaties/121801_Koppelvlakspecificatie.pdf) (van https://www.logius.nl/ondersteuning/digilevering/)
+  - [Koppelvlak specificatie digilevering](pdf/121801_Koppelvlakspecificatie.pdf) (van https://www.logius.nl/ondersteuning/digilevering/)
+  - [Koppelvlakbeschrijving Digipoort Digikoppeling WUS 2.0 (overheden) v1.2](pdf/Koppelvlakbeschrijving%20Digikoppeling%20ebMS_1.2.pdf) (via https://www.logius.nl/ondersteuning/gegevensuitwisseling/koppelvlak-ebms-overheden/)
+  - [Servicebeschrijving ebMS 2.0 Afleveren v1.2](pdf/Servicebeschrijving%20DigiPoort%20ebMS%202%200%20Afleveren_v1.2.pdf) (via https://www.logius.nl/ondersteuning/gegevensuitwisseling/koppelvlak-ebms-overheden/)
 
 
 ## links
