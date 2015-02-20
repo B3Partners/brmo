@@ -86,27 +86,16 @@ public class BrmoFramework {
         return t;
     }
 
-    public Thread toRsgb(Long laadProcesId) throws BrmoException  {
-        return toRsgb(laadProcesId, null);
-    }
-
-    public Thread toRsgb(Long laadProcesId, ProgressUpdateListener listener) throws BrmoException  {
-        RsgbProxy rsgbProxy = new RsgbProxy(dataSourceRsgb, stagingProxy, laadProcesId, listener);
-        rsgbProxy.setEnablePipeline(enablePipeline);
-        if(pipelineCapacity != null) {
-            rsgbProxy.setPipelineCapacity(pipelineCapacity);
-        }
-        Thread t = new Thread(rsgbProxy);
-        t.start();
-        return t;
-    }
-
-    public Thread toRsgb(long[] ids) throws BrmoException  {
-        return toRsgb(ids, null);
-    }
-
-    public Thread toRsgb(long[] ids, ProgressUpdateListener listener) throws BrmoException  {
-        RsgbProxy rsgbProxy = new RsgbProxy(dataSourceRsgb, stagingProxy, ids, listener);
+    /**
+     *
+     * @param mode geeft aan wat ids zijn (laadprocessen of berichten)
+     * @param ids array van ids
+     * @param listener
+     * @return
+     * @throws BrmoException
+     */
+    public Thread toRsgb(RsgbProxy.BerichtSelectMode mode, long[] ids, ProgressUpdateListener listener) throws BrmoException  {
+        RsgbProxy rsgbProxy = new RsgbProxy(dataSourceRsgb, stagingProxy, mode, ids, listener);
         rsgbProxy.setEnablePipeline(enablePipeline);
         if(pipelineCapacity != null) {
             rsgbProxy.setPipelineCapacity(pipelineCapacity);
@@ -266,15 +255,7 @@ public class BrmoFramework {
 
         return id;
     }
-/*
-    public List<Bericht> getBerichtenByLaadProcesId(long id) throws BrmoException {
-        try {
-            return stagingProxy.getBerichtenByLaadProcesId(id);
-        } catch (SQLException ex) {
-            throw new BrmoException(ex);
-        }
-    }
-*/
+
     public Bericht getBerichtById(long id) throws BrmoException {
         try {
             return stagingProxy.getBerichtById(id);
