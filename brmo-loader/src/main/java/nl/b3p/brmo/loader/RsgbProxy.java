@@ -117,7 +117,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     private String simonNamePrefix = "b3p.rsgb.";
 
-    private DataComfortXMLReader dbXmlReader = new DataComfortXMLReader();
+    private final DataComfortXMLReader dbXmlReader = new DataComfortXMLReader();
+
+    // Gebruik andere instantie voor lezen oude berichten, gebeurt gelijktijdig
+    // in andere thread als lezen van dbxml van berichten om te verwerken
+    private final DataComfortXMLReader oldDbXmlReader = new DataComfortXMLReader();
 
     public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, Bericht.STATUS status, ProgressUpdateListener listener) {
         this.stagingProxy = stagingProxy;
@@ -376,7 +380,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                         loadLog.append("Bericht bevat oudere data dan eerder verwerkt bericht, status RSGB_OUTDATED\n");
                     } else {
                         StringReader oReader = new StringReader(oud.getDbXml());
-                        List<TableData> oudList = dbXmlReader.readDataXML(new StreamSource(oReader));
+                        List<TableData> oudList = oldDbXmlReader.readDataXML(new StreamSource(oReader));
 
                         parseNewData(oudList, newList, dateFormat.format(oud.getDatum()), loadLog);
                         parseOldData(oudList, newList,  dateFormat.format(ber.getDatum()), dateFormat.format(oud.getDatum()), loadLog);
