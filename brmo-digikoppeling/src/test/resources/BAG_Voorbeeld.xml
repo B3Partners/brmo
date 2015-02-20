@@ -1,0 +1,1750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="bag-snapshot-to-rsgb-xml-v1.xsl"?>
+<root>
+	<soapenv:Body xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+		<ns10:VerstrekkingAanAfnemer xmlns:ns10="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd">
+			<datumtijdstempelDigilevering>2014-05-21T11:21:24.236Z</datumtijdstempelDigilevering>
+			<datumtijdstempelLV>2014-05-06T16:07:16.000Z</datumtijdstempelLV>
+			<kenmerkDigilevering>07d78677-6846-4c53-8a13-71247d1fe556@digilevering.nl</kenmerkDigilevering>
+			<kenmerkLV>52286666</kenmerkLV>
+			<versieBerichttype>1.0</versieBerichttype>
+			<abonnement>
+				<naam>BAG_perftest_SKP</naam>
+				<versie>0.1</versie>
+			</abonnement>
+			<basisregistratie>LV BAG</basisregistratie>
+			<gebeurtenissoort>
+				<naam>Mutatiebericht</naam>
+				<versie>01</versie>
+			</gebeurtenissoort>
+			<gebeurtenisinhoud>
+				<ns9:Bag-gebeurtenis xmlns:ns9="http://www.kadaster.nl/schemas/bag-digilevering/gebeurtenis-mutaties/v20111101">
+					<ns2:gebeurtenisselectie xmlns:ns2="http://www.kadaster.nl/schemas/bag-digilevering/selecties/v20111101">
+						<Schemanaam>digilevering.xsd</Schemanaam>
+						<Schemaversie>0.4</Schemaversie>
+					</ns2:gebeurtenisselectie>
+					<inhoud>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:09.961810</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>0</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Nieuw>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047548</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93145.637 463712.283 93137.599 463710.658 93138.695 463705.229 93143.831 463706.266 93146.73 463706.876 93145.637 463712.283</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1984</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20130506</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">TG B 2013-003M</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Nieuw>
+						</ns3:Mutatie-product>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:09.961810</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>1</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Origineel>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047548</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93145.37 463712.503 93137.26 463710.856 93138.019 463707.111 93138.351 463705.465 93146.463 463707.099 93146.43 463707.262 93146.128 463708.757 93145.37 463712.503</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1984</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2010111600000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20101116</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">BW10.1195</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Origineel>
+							<ns3:Wijziging>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047548</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93145.37 463712.503 93137.26 463710.856 93138.019 463707.111 93138.351 463705.465 93146.463 463707.099 93146.43 463707.262 93146.128 463708.757 93145.37 463712.503</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1984</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2010111600000000</ns7:begindatumTijdvakGeldigheid>
+										<ns7:einddatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:einddatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20101116</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">BW10.1195</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Wijziging>
+						</ns3:Mutatie-product>
+					</inhoud>
+				</ns9:Bag-gebeurtenis>
+			</gebeurtenisinhoud>
+		</ns10:VerstrekkingAanAfnemer>
+	</soapenv:Body>
+	<soapenv:Body xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+		<ns10:VerstrekkingAanAfnemer xmlns:ns10="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd">
+			<datumtijdstempelDigilevering>2014-05-21T11:21:23.094Z</datumtijdstempelDigilevering>
+			<datumtijdstempelLV>2014-05-06T16:07:16.000Z</datumtijdstempelLV>
+			<kenmerkDigilevering>70536b26-3a99-4646-9dea-dfd9a7d1ae60@digilevering.nl</kenmerkDigilevering>
+			<kenmerkLV>52286644</kenmerkLV>
+			<versieBerichttype>1.0</versieBerichttype>
+			<abonnement>
+				<naam>BAG_perftest_SKP</naam>
+				<versie>0.1</versie>
+			</abonnement>
+			<basisregistratie>LV BAG</basisregistratie>
+			<gebeurtenissoort>
+				<naam>Mutatiebericht</naam>
+				<versie>01</versie>
+			</gebeurtenissoort>
+			<gebeurtenisinhoud>
+				<ns9:Bag-gebeurtenis xmlns:ns9="http://www.kadaster.nl/schemas/bag-digilevering/gebeurtenis-mutaties/v20111101">
+					<ns2:gebeurtenisselectie xmlns:ns2="http://www.kadaster.nl/schemas/bag-digilevering/selecties/v20111101">
+						<Schemanaam>digilevering.xsd</Schemanaam>
+						<Schemaversie>0.4</Schemaversie>
+					</ns2:gebeurtenisselectie>
+					<inhoud>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:09.764670</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>0</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Nieuw>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000048639</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93624.951 463133.392 93623.53 463133.41 93622.752 463133.43 93622.754 463128.801 93624.961 463128.743 93624.951 463133.392</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1984</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20130506</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">TG B 2013-003M</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Nieuw>
+						</ns3:Mutatie-product>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:09.764670</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>1</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Origineel>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000048639</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93622.752 463133.43 93622.752 463128.832 93624.951 463128.773 93624.951 463133.392 93623.53 463133.41 93622.752 463133.43</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1984</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2009061500000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20090615</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">005578</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Origineel>
+							<ns3:Wijziging>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000048639</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93622.752 463133.43 93622.752 463128.832 93624.951 463128.773 93624.951 463133.392 93623.53 463133.41 93622.752 463133.43</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1984</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2009061500000000</ns7:begindatumTijdvakGeldigheid>
+										<ns7:einddatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:einddatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20090615</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">005578</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Wijziging>
+						</ns3:Mutatie-product>
+					</inhoud>
+				</ns9:Bag-gebeurtenis>
+			</gebeurtenisinhoud>
+		</ns10:VerstrekkingAanAfnemer>
+	</soapenv:Body>
+	<soapenv:Body xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+		<ns10:VerstrekkingAanAfnemer xmlns:ns10="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd">
+			<datumtijdstempelDigilevering>2014-05-21T11:21:23.147Z</datumtijdstempelDigilevering>
+			<datumtijdstempelLV>2014-05-06T16:07:16.000Z</datumtijdstempelLV>
+			<kenmerkDigilevering>43bb58c5-ab4e-48c7-bcae-cc35c96dbfc4@digilevering.nl</kenmerkDigilevering>
+			<kenmerkLV>52286648</kenmerkLV>
+			<versieBerichttype>1.0</versieBerichttype>
+			<abonnement>
+				<naam>BAG_perftest_SKP</naam>
+				<versie>0.1</versie>
+			</abonnement>
+			<basisregistratie>LV BAG</basisregistratie>
+			<gebeurtenissoort>
+				<naam>Mutatiebericht</naam>
+				<versie>01</versie>
+			</gebeurtenissoort>
+			<gebeurtenisinhoud>
+				<ns9:Bag-gebeurtenis xmlns:ns9="http://www.kadaster.nl/schemas/bag-digilevering/gebeurtenis-mutaties/v20111101">
+					<ns2:gebeurtenisselectie xmlns:ns2="http://www.kadaster.nl/schemas/bag-digilevering/selecties/v20111101">
+						<Schemanaam>digilevering.xsd</Schemanaam>
+						<Schemaversie>0.4</Schemaversie>
+					</ns2:gebeurtenisselectie>
+					<inhoud>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:09.155478</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>0</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Nieuw>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000048292</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93523.062 463316.392 93523.489 463324.131 93519.67 463324.407 93516.598 463324.644 93516.065 463314.849 93515.912 463310.723 93515.798 463306.523 93522.265 463306.171 93522.478 463312.56 93522.849 463312.527 93522.96 463314.541 93523.062 463316.392</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1750</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20130506</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">TG B 2013-003M</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Nieuw>
+						</ns3:Mutatie-product>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:09.155478</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>1</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Origineel>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000048292</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93523.062 463316.392 93523.489 463324.131 93519.67 463324.407 93517.15 463324.59 93516.598 463324.644 93515.913 463312.057 93515.912 463310.723 93515.764 463306.525 93522.265 463306.171 93522.34 463308.42 93522.499 463310.365 93522.678 463312.542 93522.849 463312.527 93523.062 463316.392</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1750</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2002072900000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20020729</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">010726</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Origineel>
+							<ns3:Wijziging>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000048292</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93523.062 463316.392 93523.489 463324.131 93519.67 463324.407 93517.15 463324.59 93516.598 463324.644 93515.913 463312.057 93515.912 463310.723 93515.764 463306.525 93522.265 463306.171 93522.34 463308.42 93522.499 463310.365 93522.678 463312.542 93522.849 463312.527 93523.062 463316.392</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1750</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2002072900000000</ns7:begindatumTijdvakGeldigheid>
+										<ns7:einddatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:einddatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20020729</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">010726</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Wijziging>
+						</ns3:Mutatie-product>
+					</inhoud>
+				</ns9:Bag-gebeurtenis>
+			</gebeurtenisinhoud>
+		</ns10:VerstrekkingAanAfnemer>
+	</soapenv:Body>
+	<soapenv:Body xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+		<ns10:VerstrekkingAanAfnemer xmlns:ns10="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd">
+			<datumtijdstempelDigilevering>2014-05-21T11:21:24.335Z</datumtijdstempelDigilevering>
+			<datumtijdstempelLV>2014-05-06T16:06:46.000Z</datumtijdstempelLV>
+			<kenmerkDigilevering>11308e17-96e3-4fa9-b42c-313df9dc9cd6@digilevering.nl</kenmerkDigilevering>
+			<kenmerkLV>52285886</kenmerkLV>
+			<versieBerichttype>1.0</versieBerichttype>
+			<abonnement>
+				<naam>BAG_perftest_SKP</naam>
+				<versie>0.1</versie>
+			</abonnement>
+			<basisregistratie>LV BAG</basisregistratie>
+			<gebeurtenissoort>
+				<naam>Mutatiebericht</naam>
+				<versie>01</versie>
+			</gebeurtenissoort>
+			<gebeurtenisinhoud>
+				<ns9:Bag-gebeurtenis xmlns:ns9="http://www.kadaster.nl/schemas/bag-digilevering/gebeurtenis-mutaties/v20111101">
+					<ns2:gebeurtenisselectie xmlns:ns2="http://www.kadaster.nl/schemas/bag-digilevering/selecties/v20111101">
+						<Schemanaam>digilevering.xsd</Schemanaam>
+						<Schemaversie>0.4</Schemaversie>
+					</ns2:gebeurtenisselectie>
+					<inhoud>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T16:04:13.545998</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>0</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Nieuw>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000033919</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93735.013 464787.437 93721.54 464790.21 93720.8 464787.02 93720.71 464786.97 93721.67 464785.79 93729.99 464784.07 93730.46 464786.12 93734.52 464785.22 93735.013 464787.437</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1910</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20130506</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">TG B 2013-003M</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Nieuw>
+						</ns3:Mutatie-product>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T16:04:13.545998</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>1</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Origineel>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000033919</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93722.015 464790.447 93721.275 464787.257 93722.145 464786.027 93730.465 464784.307 93730.935 464786.357 93734.995 464785.457 93735.488 464787.674 93722.015 464790.447</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1910</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">1980010100000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">19800101</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">016872</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Origineel>
+							<ns3:Wijziging>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000033919</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93722.015 464790.447 93721.275 464787.257 93722.145 464786.027 93730.465 464784.307 93730.935 464786.357 93734.995 464785.457 93735.488 464787.674 93722.015 464790.447</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1910</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">1980010100000000</ns7:begindatumTijdvakGeldigheid>
+										<ns7:einddatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:einddatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">19800101</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">016872</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Wijziging>
+						</ns3:Mutatie-product>
+					</inhoud>
+				</ns9:Bag-gebeurtenis>
+			</gebeurtenisinhoud>
+		</ns10:VerstrekkingAanAfnemer>
+	</soapenv:Body>
+	<soapenv:Body xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+		<ns10:VerstrekkingAanAfnemer xmlns:ns10="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd">
+			<datumtijdstempelDigilevering>2014-05-21T11:21:21.927Z</datumtijdstempelDigilevering>
+			<datumtijdstempelLV>2014-05-06T16:07:16.000Z</datumtijdstempelLV>
+			<kenmerkDigilevering>4866f63d-c5c7-409a-a02c-11f42b4855bb@digilevering.nl</kenmerkDigilevering>
+			<kenmerkLV>52286650</kenmerkLV>
+			<versieBerichttype>1.0</versieBerichttype>
+			<abonnement>
+				<naam>BAG_perftest_SKP</naam>
+				<versie>0.1</versie>
+			</abonnement>
+			<basisregistratie>LV BAG</basisregistratie>
+			<gebeurtenissoort>
+				<naam>Mutatiebericht</naam>
+				<versie>01</versie>
+			</gebeurtenissoort>
+			<gebeurtenisinhoud>
+				<ns9:Bag-gebeurtenis xmlns:ns9="http://www.kadaster.nl/schemas/bag-digilevering/gebeurtenis-mutaties/v20111101">
+					<ns2:gebeurtenisselectie xmlns:ns2="http://www.kadaster.nl/schemas/bag-digilevering/selecties/v20111101">
+						<Schemanaam>digilevering.xsd</Schemanaam>
+						<Schemaversie>0.4</Schemaversie>
+					</ns2:gebeurtenisselectie>
+					<inhoud>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:09.191533</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>0</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Nieuw>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000048235</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">94379.566 463356.671 94372.836 463356.942 94372.877 463359.615 94369.543 463359.751 94369.51 463357.076 94367.599 463357.153 94367.718 463361.068 94366.384 463361.127 94366.322 463357.204 94360.96 463357.42 94360.69 463347.47 94398.651 463346.26 94398.952 463355.891 94398.49 463355.91 94395.897 463356.014 94395.945 463357.593 94392.903 463357.674 94392.952 463358.867 94389.626 463359.034 94389.562 463356.269 94382.672 463356.546 94382.729 463359.256 94379.652 463359.328 94379.566 463356.671</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1986</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20130506</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">TG B 2013-003M</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Nieuw>
+						</ns3:Mutatie-product>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:09.191533</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>1</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Origineel>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000048235</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">94398.952 463355.891 94398.49 463355.91 94395.897 463356.014 94395.945 463357.593 94392.903 463357.674 94392.952 463358.867 94389.626 463359.034 94389.562 463356.269 94382.672 463356.546 94382.729 463359.256 94379.652 463359.328 94379.566 463356.671 94372.836 463356.942 94372.877 463359.615 94369.543 463359.751 94369.51 463357.076 94367.599 463357.153 94367.718 463361.068 94366.384 463361.127 94366.322 463357.204 94361.952 463357.38 94361.78 463352.41 94361.609 463347.441 94398.651 463346.26 94398.952 463355.891</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1986</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2010082600000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20100826</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">BW10.0851</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Origineel>
+							<ns3:Wijziging>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000048235</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">94398.952 463355.891 94398.49 463355.91 94395.897 463356.014 94395.945 463357.593 94392.903 463357.674 94392.952 463358.867 94389.626 463359.034 94389.562 463356.269 94382.672 463356.546 94382.729 463359.256 94379.652 463359.328 94379.566 463356.671 94372.836 463356.942 94372.877 463359.615 94369.543 463359.751 94369.51 463357.076 94367.599 463357.153 94367.718 463361.068 94366.384 463361.127 94366.322 463357.204 94361.952 463357.38 94361.78 463352.41 94361.609 463347.441 94398.651 463346.26 94398.952 463355.891</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1986</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2010082600000000</ns7:begindatumTijdvakGeldigheid>
+										<ns7:einddatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:einddatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20100826</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">BW10.0851</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Wijziging>
+						</ns3:Mutatie-product>
+					</inhoud>
+				</ns9:Bag-gebeurtenis>
+			</gebeurtenisinhoud>
+		</ns10:VerstrekkingAanAfnemer>
+	</soapenv:Body>
+	<soapenv:Body xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+		<ns10:VerstrekkingAanAfnemer xmlns:ns10="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd">
+			<datumtijdstempelDigilevering>2014-05-21T11:21:23.212Z</datumtijdstempelDigilevering>
+			<datumtijdstempelLV>2014-05-06T16:07:16.000Z</datumtijdstempelLV>
+			<kenmerkDigilevering>14c5eddb-0833-4019-80b1-bb8caf511bc5@digilevering.nl</kenmerkDigilevering>
+			<kenmerkLV>52286654</kenmerkLV>
+			<versieBerichttype>1.0</versieBerichttype>
+			<abonnement>
+				<naam>BAG_perftest_SKP</naam>
+				<versie>0.1</versie>
+			</abonnement>
+			<basisregistratie>LV BAG</basisregistratie>
+			<gebeurtenissoort>
+				<naam>Mutatiebericht</naam>
+				<versie>01</versie>
+			</gebeurtenissoort>
+			<gebeurtenisinhoud>
+				<ns9:Bag-gebeurtenis xmlns:ns9="http://www.kadaster.nl/schemas/bag-digilevering/gebeurtenis-mutaties/v20111101">
+					<ns2:gebeurtenisselectie xmlns:ns2="http://www.kadaster.nl/schemas/bag-digilevering/selecties/v20111101">
+						<Schemanaam>digilevering.xsd</Schemanaam>
+						<Schemaversie>0.4</Schemaversie>
+					</ns2:gebeurtenisselectie>
+					<inhoud>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:09.300742</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>0</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Nieuw>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047934</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93371.261 463836.191 93370.69 463836.13 93367.348 463835.357 93368.353 463830.963 93369.501 463831.239 93372.243 463831.897 93371.261 463836.191</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1641</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20130506</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">TG B 2013-003M</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Nieuw>
+						</ns3:Mutatie-product>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:09.300742</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>1</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Origineel>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047934</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93371.261 463836.191 93370.69 463836.13 93367.405 463835.37 93368.353 463830.963 93369.501 463831.239 93372.052 463831.851 93371.261 463836.191</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1641</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2010082600000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20100826</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">BW10.0851</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Origineel>
+							<ns3:Wijziging>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047934</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93371.261 463836.191 93370.69 463836.13 93367.405 463835.37 93368.353 463830.963 93369.501 463831.239 93372.052 463831.851 93371.261 463836.191</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1641</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2010082600000000</ns7:begindatumTijdvakGeldigheid>
+										<ns7:einddatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:einddatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20100826</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">BW10.0851</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Wijziging>
+						</ns3:Mutatie-product>
+					</inhoud>
+				</ns9:Bag-gebeurtenis>
+			</gebeurtenisinhoud>
+		</ns10:VerstrekkingAanAfnemer>
+	</soapenv:Body>
+	<soapenv:Body xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+		<ns10:VerstrekkingAanAfnemer xmlns:ns10="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd">
+			<datumtijdstempelDigilevering>2014-05-21T11:21:24.230Z</datumtijdstempelDigilevering>
+			<datumtijdstempelLV>2014-05-06T16:07:17.000Z</datumtijdstempelLV>
+			<kenmerkDigilevering>9f7c7315-ae3f-49e1-8778-a1a6d94bad7f@digilevering.nl</kenmerkDigilevering>
+			<kenmerkLV>52286669</kenmerkLV>
+			<versieBerichttype>1.0</versieBerichttype>
+			<abonnement>
+				<naam>BAG_perftest_SKP</naam>
+				<versie>0.1</versie>
+			</abonnement>
+			<basisregistratie>LV BAG</basisregistratie>
+			<gebeurtenissoort>
+				<naam>Mutatiebericht</naam>
+				<versie>01</versie>
+			</gebeurtenissoort>
+			<gebeurtenisinhoud>
+				<ns9:Bag-gebeurtenis xmlns:ns9="http://www.kadaster.nl/schemas/bag-digilevering/gebeurtenis-mutaties/v20111101">
+					<ns2:gebeurtenisselectie xmlns:ns2="http://www.kadaster.nl/schemas/bag-digilevering/selecties/v20111101">
+						<Schemanaam>digilevering.xsd</Schemanaam>
+						<Schemaversie>0.4</Schemaversie>
+					</ns2:gebeurtenisselectie>
+					<inhoud>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:10.651510</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>0</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Nieuw>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047428</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93500.254 463413.037 93498.64 463422.18 93498.14 463422.1 93497.623 463425.031 93489.8 463423.5 93478.2 463421.23 93477.6 463423.36 93473.16 463422.48 93472.71 463424.74 93471.035 463424.415 93472.211 463418.348 93467.919 463417.208 93463.839 463416.125 93465.94 463406.34 93469.352 463407.001 93469.093 463408.327 93475.86 463409.559 93475.999 463408.29 93480.28 463409.12 93481.35 463403.06 93481.812 463403.146 93488.22 463404.34 93488.7 463403.32 93490.4 463402.99 93492.61 463404.09 93492.8 463405.19 93501.232 463406.792 93501.039 463408.022 93500.254 463413.037</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1650</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20130506</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">TG B 2013-003M</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Nieuw>
+						</ns3:Mutatie-product>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:10.651510</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>1</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Origineel>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047428</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93497.623 463425.031 93489.8 463423.5 93491.18 463416.44 93491.139 463416.432 93489.8 463423.28 93478.242 463421.019 93478.2 463421.23 93477.6 463423.36 93473.16 463422.48 93472.71 463424.74 93471.035 463424.416 93471.24 463423.357 93471.271 463423.201 93472.211 463418.348 93467.919 463417.208 93463.839 463416.125 93465.94 463406.34 93469.352 463407.001 93469.093 463408.327 93475.86 463409.559 93475.999 463408.29 93480.28 463409.12 93481.35 463403.06 93488.22 463404.34 93488.7 463403.32 93490.4 463402.99 93492.61 463404.09 93492.8 463405.19 93500.0 463406.53 93501.232 463406.792 93500.0 463414.66 93498.64 463422.18 93498.14 463422.1 93497.623 463425.031</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1650</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2011062900000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20110629</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">DIV-2011-11081</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Origineel>
+							<ns3:Wijziging>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047428</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93497.623 463425.031 93489.8 463423.5 93491.18 463416.44 93491.139 463416.432 93489.8 463423.28 93478.242 463421.019 93478.2 463421.23 93477.6 463423.36 93473.16 463422.48 93472.71 463424.74 93471.035 463424.416 93471.24 463423.357 93471.271 463423.201 93472.211 463418.348 93467.919 463417.208 93463.839 463416.125 93465.94 463406.34 93469.352 463407.001 93469.093 463408.327 93475.86 463409.559 93475.999 463408.29 93480.28 463409.12 93481.35 463403.06 93488.22 463404.34 93488.7 463403.32 93490.4 463402.99 93492.61 463404.09 93492.8 463405.19 93500.0 463406.53 93501.232 463406.792 93500.0 463414.66 93498.64 463422.18 93498.14 463422.1 93497.623 463425.031</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1650</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2011062900000000</ns7:begindatumTijdvakGeldigheid>
+										<ns7:einddatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:einddatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20110629</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">DIV-2011-11081</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Wijziging>
+						</ns3:Mutatie-product>
+					</inhoud>
+				</ns9:Bag-gebeurtenis>
+			</gebeurtenisinhoud>
+		</ns10:VerstrekkingAanAfnemer>
+	</soapenv:Body>
+	<soapenv:Body xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+		<ns10:VerstrekkingAanAfnemer xmlns:ns10="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd">
+			<datumtijdstempelDigilevering>2014-05-21T11:21:25.382Z</datumtijdstempelDigilevering>
+			<datumtijdstempelLV>2014-05-06T16:06:47.000Z</datumtijdstempelLV>
+			<kenmerkDigilevering>c3fb9d58-a766-48b5-a2de-16bf8caab62f@digilevering.nl</kenmerkDigilevering>
+			<kenmerkLV>52285888</kenmerkLV>
+			<versieBerichttype>1.0</versieBerichttype>
+			<abonnement>
+				<naam>BAG_perftest_SKP</naam>
+				<versie>0.1</versie>
+			</abonnement>
+			<basisregistratie>LV BAG</basisregistratie>
+			<gebeurtenissoort>
+				<naam>Mutatiebericht</naam>
+				<versie>01</versie>
+			</gebeurtenissoort>
+			<gebeurtenisinhoud>
+				<ns9:Bag-gebeurtenis xmlns:ns9="http://www.kadaster.nl/schemas/bag-digilevering/gebeurtenis-mutaties/v20111101">
+					<ns2:gebeurtenisselectie xmlns:ns2="http://www.kadaster.nl/schemas/bag-digilevering/selecties/v20111101">
+						<Schemanaam>digilevering.xsd</Schemanaam>
+						<Schemaversie>0.4</Schemaversie>
+					</ns2:gebeurtenisselectie>
+					<inhoud>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T16:04:13.554962</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>0</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Nieuw>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000033940</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93590.476 464761.036 93591.726 464760.855 93592.158 464764.294 93579.752 464766.169 93578.973 464760.605 93584.805 464759.74 93584.428 464757.292 93589.859 464756.571 93590.476 464761.036</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1936</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20130506</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">TG B 2013-003M</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Nieuw>
+						</ns3:Mutatie-product>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T16:04:13.554962</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>1</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Origineel>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000033940</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93578.973 464760.605 93584.805 464759.74 93584.428 464757.292 93589.859 464756.571 93590.476 464761.036 93591.729 464760.876 93592.203 464764.654 93590.299 464764.866 93590.26 464764.581 93579.752 464766.169 93578.973 464760.605</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1936</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">1987010100000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">19870101</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">086809</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Origineel>
+							<ns3:Wijziging>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000033940</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93578.973 464760.605 93584.805 464759.74 93584.428 464757.292 93589.859 464756.571 93590.476 464761.036 93591.729 464760.876 93592.203 464764.654 93590.299 464764.866 93590.26 464764.581 93579.752 464766.169 93578.973 464760.605</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1936</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">1987010100000000</ns7:begindatumTijdvakGeldigheid>
+										<ns7:einddatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:einddatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">19870101</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">086809</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Wijziging>
+						</ns3:Mutatie-product>
+					</inhoud>
+				</ns9:Bag-gebeurtenis>
+			</gebeurtenisinhoud>
+		</ns10:VerstrekkingAanAfnemer>
+	</soapenv:Body>
+	<soapenv:Body xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+		<ns10:VerstrekkingAanAfnemer xmlns:ns10="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd">
+			<datumtijdstempelDigilevering>2014-05-21T11:21:25.533Z</datumtijdstempelDigilevering>
+			<datumtijdstempelLV>2014-05-06T16:07:17.000Z</datumtijdstempelLV>
+			<kenmerkDigilevering>9d888ee2-0a91-414a-ba57-a45256ebbb58@digilevering.nl</kenmerkDigilevering>
+			<kenmerkLV>52286676</kenmerkLV>
+			<versieBerichttype>1.0</versieBerichttype>
+			<abonnement>
+				<naam>BAG_perftest_SKP</naam>
+				<versie>0.1</versie>
+			</abonnement>
+			<basisregistratie>LV BAG</basisregistratie>
+			<gebeurtenissoort>
+				<naam>Mutatiebericht</naam>
+				<versie>01</versie>
+			</gebeurtenissoort>
+			<gebeurtenisinhoud>
+				<ns9:Bag-gebeurtenis xmlns:ns9="http://www.kadaster.nl/schemas/bag-digilevering/gebeurtenis-mutaties/v20111101">
+					<ns2:gebeurtenisselectie xmlns:ns2="http://www.kadaster.nl/schemas/bag-digilevering/selecties/v20111101">
+						<Schemanaam>digilevering.xsd</Schemanaam>
+						<Schemaversie>0.4</Schemaversie>
+					</ns2:gebeurtenisselectie>
+					<inhoud>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:10.174043</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>0</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Nieuw>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047388</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">94637.44 463259.967 94630.75 463263.28 94630.27 463262.32 94629.91 463262.49 94627.338 463257.224 94634.536 463253.764 94637.09 463259.0 94637.0 463259.05 94637.44 463259.967</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1933</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20130506</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">TG B 2013-003M</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Nieuw>
+						</ns3:Mutatie-product>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:10.174043</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>1</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Origineel>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047388</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">94627.338 463257.224 94634.536 463253.764 94637.44 463259.967 94630.75 463263.28 94630.27 463262.32 94629.91 463262.49 94627.338 463257.224</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1933</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">1933010100000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">19330101</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">001072</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Origineel>
+							<ns3:Wijziging>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047388</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">94627.338 463257.224 94634.536 463253.764 94637.44 463259.967 94630.75 463263.28 94630.27 463262.32 94629.91 463262.49 94627.338 463257.224</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1933</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">1933010100000000</ns7:begindatumTijdvakGeldigheid>
+										<ns7:einddatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:einddatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">19330101</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">001072</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Wijziging>
+						</ns3:Mutatie-product>
+					</inhoud>
+				</ns9:Bag-gebeurtenis>
+			</gebeurtenisinhoud>
+		</ns10:VerstrekkingAanAfnemer>
+	</soapenv:Body>
+	<soapenv:Body xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+		<ns10:VerstrekkingAanAfnemer xmlns:ns10="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd">
+			<datumtijdstempelDigilevering>2014-05-21T11:21:25.395Z</datumtijdstempelDigilevering>
+			<datumtijdstempelLV>2014-05-06T16:07:16.000Z</datumtijdstempelLV>
+			<kenmerkDigilevering>6e545e95-7d45-4307-82c8-dfa6e92d1b53@digilevering.nl</kenmerkDigilevering>
+			<kenmerkLV>52286667</kenmerkLV>
+			<versieBerichttype>1.0</versieBerichttype>
+			<abonnement>
+				<naam>BAG_perftest_SKP</naam>
+				<versie>0.1</versie>
+			</abonnement>
+			<basisregistratie>LV BAG</basisregistratie>
+			<gebeurtenissoort>
+				<naam>Mutatiebericht</naam>
+				<versie>01</versie>
+			</gebeurtenissoort>
+			<gebeurtenisinhoud>
+				<ns9:Bag-gebeurtenis xmlns:ns9="http://www.kadaster.nl/schemas/bag-digilevering/gebeurtenis-mutaties/v20111101">
+					<ns2:gebeurtenisselectie xmlns:ns2="http://www.kadaster.nl/schemas/bag-digilevering/selecties/v20111101">
+						<Schemanaam>digilevering.xsd</Schemanaam>
+						<Schemaversie>0.4</Schemaversie>
+					</ns2:gebeurtenisselectie>
+					<inhoud>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:09.981497</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>0</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Nieuw>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047542</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93140.149 463739.425 93132.118 463737.802 93133.214 463732.373 93141.247 463733.997 93140.149 463739.425</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1984</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20130506</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">TG B 2013-003M</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Nieuw>
+						</ns3:Mutatie-product>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:09.981497</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>1</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Origineel>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047542</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93131.814 463737.728 93132.458 463734.558 93132.883 463732.469 93140.998 463734.118 93140.576 463736.206 93139.937 463739.379 93131.814 463737.728</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1984</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2010111600000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20101116</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">BW10.1195</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Origineel>
+							<ns3:Wijziging>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047542</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93131.814 463737.728 93132.458 463734.558 93132.883 463732.469 93140.998 463734.118 93140.576 463736.206 93139.937 463739.379 93131.814 463737.728</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1984</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2010111600000000</ns7:begindatumTijdvakGeldigheid>
+										<ns7:einddatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:einddatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20101116</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">BW10.1195</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Wijziging>
+						</ns3:Mutatie-product>
+					</inhoud>
+				</ns9:Bag-gebeurtenis>
+			</gebeurtenisinhoud>
+		</ns10:VerstrekkingAanAfnemer>
+	</soapenv:Body>
+	<soapenv:Body xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+		<ns10:VerstrekkingAanAfnemer xmlns:ns10="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd">
+			<datumtijdstempelDigilevering>2014-05-21T11:21:25.897Z</datumtijdstempelDigilevering>
+			<datumtijdstempelLV>2014-05-06T16:07:17.000Z</datumtijdstempelLV>
+			<kenmerkDigilevering>494f0df7-a572-4ab6-b84c-5e583c2964d1@digilevering.nl</kenmerkDigilevering>
+			<kenmerkLV>52286668</kenmerkLV>
+			<versieBerichttype>1.0</versieBerichttype>
+			<abonnement>
+				<naam>BAG_perftest_SKP</naam>
+				<versie>0.1</versie>
+			</abonnement>
+			<basisregistratie>LV BAG</basisregistratie>
+			<gebeurtenissoort>
+				<naam>Mutatiebericht</naam>
+				<versie>01</versie>
+			</gebeurtenissoort>
+			<gebeurtenisinhoud>
+				<ns9:Bag-gebeurtenis xmlns:ns9="http://www.kadaster.nl/schemas/bag-digilevering/gebeurtenis-mutaties/v20111101">
+					<ns2:gebeurtenisselectie xmlns:ns2="http://www.kadaster.nl/schemas/bag-digilevering/selecties/v20111101">
+						<Schemanaam>digilevering.xsd</Schemanaam>
+						<Schemaversie>0.4</Schemaversie>
+					</ns2:gebeurtenisselectie>
+					<inhoud>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:10.157430</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>0</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Nieuw>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047432</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93268.02 463483.77 93267.971 463484.107 93265.874 463483.78 93263.575 463483.477 93261.221 463483.064 93261.061 463483.027 93258.971 463482.715 93257.68 463482.55 93257.78 463481.8 93254.82 463481.41 93252.671 463481.067 93247.904 463480.386 93244.525 463479.904 93239.87 463479.24 93242.15 463467.81 93248.78 463468.97 93248.19 463472.0 93256.87 463473.71 93256.78 463475.584 93268.87 463477.86 93268.02 463483.77</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1800</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20130506</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">TG B 2013-003M</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Nieuw>
+						</ns3:Mutatie-product>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:10.157430</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>1</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Origineel>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047432</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93244.525 463479.904 93239.87 463479.24 93242.15 463467.81 93248.78 463468.97 93248.19 463472.0 93256.87 463473.71 93256.78 463475.584 93268.87 463477.86 93268.02 463483.77 93267.971 463484.107 93265.874 463483.78 93263.575 463483.477 93261.221 463483.064 93261.061 463483.027 93258.971 463482.715 93257.997 463482.573 93257.68 463482.55 93257.78 463481.8 93254.82 463481.41 93252.671 463481.067 93250.517 463480.759 93250.081 463480.697 93247.904 463480.386 93246.727 463480.228 93245.614 463480.059 93244.525 463479.904</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+											<ns5:interior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93250.274 463479.342 93250.556 463476.994 93248.895 463476.794 93248.511 463475.787 93247.433 463475.582 93246.91 463478.938 93250.274 463479.342</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:interior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1800</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">1964010100000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">19640101</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">007985</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Origineel>
+							<ns3:Wijziging>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047432</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93244.525 463479.904 93239.87 463479.24 93242.15 463467.81 93248.78 463468.97 93248.19 463472.0 93256.87 463473.71 93256.78 463475.584 93268.87 463477.86 93268.02 463483.77 93267.971 463484.107 93265.874 463483.78 93263.575 463483.477 93261.221 463483.064 93261.061 463483.027 93258.971 463482.715 93257.997 463482.573 93257.68 463482.55 93257.78 463481.8 93254.82 463481.41 93252.671 463481.067 93250.517 463480.759 93250.081 463480.697 93247.904 463480.386 93246.727 463480.228 93245.614 463480.059 93244.525 463479.904</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+											<ns5:interior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93250.274 463479.342 93250.556 463476.994 93248.895 463476.794 93248.511 463475.787 93247.433 463475.582 93246.91 463478.938 93250.274 463479.342</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:interior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1800</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">1964010100000000</ns7:begindatumTijdvakGeldigheid>
+										<ns7:einddatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:einddatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">19640101</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">007985</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Wijziging>
+						</ns3:Mutatie-product>
+					</inhoud>
+				</ns9:Bag-gebeurtenis>
+			</gebeurtenisinhoud>
+		</ns10:VerstrekkingAanAfnemer>
+	</soapenv:Body>
+	<soapenv:Body xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+		<ns10:VerstrekkingAanAfnemer xmlns:ns10="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd">
+			<datumtijdstempelDigilevering>2014-05-21T11:21:25.689Z</datumtijdstempelDigilevering>
+			<datumtijdstempelLV>2014-05-06T16:07:17.000Z</datumtijdstempelLV>
+			<kenmerkDigilevering>c9fc63ef-90c1-4843-9d16-15c123393833@digilevering.nl</kenmerkDigilevering>
+			<kenmerkLV>52286686</kenmerkLV>
+			<versieBerichttype>1.0</versieBerichttype>
+			<abonnement>
+				<naam>BAG_perftest_SKP</naam>
+				<versie>0.1</versie>
+			</abonnement>
+			<basisregistratie>LV BAG</basisregistratie>
+			<gebeurtenissoort>
+				<naam>Mutatiebericht</naam>
+				<versie>01</versie>
+			</gebeurtenissoort>
+			<gebeurtenisinhoud>
+				<ns9:Bag-gebeurtenis xmlns:ns9="http://www.kadaster.nl/schemas/bag-digilevering/gebeurtenis-mutaties/v20111101">
+					<ns2:gebeurtenisselectie xmlns:ns2="http://www.kadaster.nl/schemas/bag-digilevering/selecties/v20111101">
+						<Schemanaam>digilevering.xsd</Schemanaam>
+						<Schemaversie>0.4</Schemaversie>
+					</ns2:gebeurtenisselectie>
+					<inhoud>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:10.283129</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>0</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Nieuw>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047351</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">95163.889 463398.414 95159.61 463399.436 95158.167 463389.876 95157.317 463385.683 95161.735 463384.745 95161.935 463386.014 95163.889 463398.414</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1915</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20130506</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">TG B 2013-003M</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Nieuw>
+						</ns3:Mutatie-product>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:10.283129</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>1</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Origineel>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047351</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">95159.61 463399.436 95158.167 463389.876 95157.348 463385.966 95157.298 463385.544 95161.714 463384.668 95161.928 463386.007 95163.889 463398.414 95159.61 463399.436</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1915</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2011062900000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20110629</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">DIV-2011-11081</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Origineel>
+							<ns3:Wijziging>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047351</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">95159.61 463399.436 95158.167 463389.876 95157.348 463385.966 95157.298 463385.544 95161.714 463384.668 95161.928 463386.007 95163.889 463398.414 95159.61 463399.436</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1915</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2011062900000000</ns7:begindatumTijdvakGeldigheid>
+										<ns7:einddatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:einddatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20110629</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">DIV-2011-11081</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Wijziging>
+						</ns3:Mutatie-product>
+					</inhoud>
+				</ns9:Bag-gebeurtenis>
+			</gebeurtenisinhoud>
+		</ns10:VerstrekkingAanAfnemer>
+	</soapenv:Body>
+	<soapenv:Body xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+		<ns10:VerstrekkingAanAfnemer xmlns:ns10="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd">
+			<datumtijdstempelDigilevering>2014-05-21T11:21:24.271Z</datumtijdstempelDigilevering>
+			<datumtijdstempelLV>2014-05-06T16:07:16.000Z</datumtijdstempelLV>
+			<kenmerkDigilevering>e0ba49b5-ea0e-487f-9d23-af16bf18f816@digilevering.nl</kenmerkDigilevering>
+			<kenmerkLV>52286661</kenmerkLV>
+			<versieBerichttype>1.0</versieBerichttype>
+			<abonnement>
+				<naam>BAG_perftest_SKP</naam>
+				<versie>0.1</versie>
+			</abonnement>
+			<basisregistratie>LV BAG</basisregistratie>
+			<gebeurtenissoort>
+				<naam>Mutatiebericht</naam>
+				<versie>01</versie>
+			</gebeurtenissoort>
+			<gebeurtenisinhoud>
+				<ns9:Bag-gebeurtenis xmlns:ns9="http://www.kadaster.nl/schemas/bag-digilevering/gebeurtenis-mutaties/v20111101">
+					<ns2:gebeurtenisselectie xmlns:ns2="http://www.kadaster.nl/schemas/bag-digilevering/selecties/v20111101">
+						<Schemanaam>digilevering.xsd</Schemanaam>
+						<Schemaversie>0.4</Schemaversie>
+					</ns2:gebeurtenisselectie>
+					<inhoud>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:09.472538</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>0</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Nieuw>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047696</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93820.956 462886.385 93827.045 462885.694 93827.283 462887.784 93811.827 462889.723 93811.215 462884.367 93820.601 462883.253 93820.956 462886.385</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1931</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20130506</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">TG B 2013-003M</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Nieuw>
+						</ns3:Mutatie-product>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:09.472538</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>1</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Origineel>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047696</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93820.384 462886.45 93827.009 462885.699 93827.254 462887.855 93811.815 462889.614 93811.215 462884.367 93811.208 462884.303 93820.063 462883.311 93820.384 462886.45</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1931</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">1978010100000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">19780101</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">014106</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Origineel>
+							<ns3:Wijziging>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047696</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93820.384 462886.45 93827.009 462885.699 93827.254 462887.855 93811.815 462889.614 93811.215 462884.367 93811.208 462884.303 93820.063 462883.311 93820.384 462886.45</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1931</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">1978010100000000</ns7:begindatumTijdvakGeldigheid>
+										<ns7:einddatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:einddatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">19780101</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">014106</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Wijziging>
+						</ns3:Mutatie-product>
+					</inhoud>
+				</ns9:Bag-gebeurtenis>
+			</gebeurtenisinhoud>
+		</ns10:VerstrekkingAanAfnemer>
+	</soapenv:Body>
+	<soapenv:Body xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+		<ns10:VerstrekkingAanAfnemer xmlns:ns10="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd">
+			<datumtijdstempelDigilevering>2014-05-21T11:21:25.623Z</datumtijdstempelDigilevering>
+			<datumtijdstempelLV>2014-05-06T16:07:16.000Z</datumtijdstempelLV>
+			<kenmerkDigilevering>6f34f1d4-b888-4297-8bf4-539a1cfc2317@digilevering.nl</kenmerkDigilevering>
+			<kenmerkLV>52286662</kenmerkLV>
+			<versieBerichttype>1.0</versieBerichttype>
+			<abonnement>
+				<naam>BAG_perftest_SKP</naam>
+				<versie>0.1</versie>
+			</abonnement>
+			<basisregistratie>LV BAG</basisregistratie>
+			<gebeurtenissoort>
+				<naam>Mutatiebericht</naam>
+				<versie>01</versie>
+			</gebeurtenissoort>
+			<gebeurtenisinhoud>
+				<ns9:Bag-gebeurtenis xmlns:ns9="http://www.kadaster.nl/schemas/bag-digilevering/gebeurtenis-mutaties/v20111101">
+					<ns2:gebeurtenisselectie xmlns:ns2="http://www.kadaster.nl/schemas/bag-digilevering/selecties/v20111101">
+						<Schemanaam>digilevering.xsd</Schemanaam>
+						<Schemaversie>0.4</Schemaversie>
+					</ns2:gebeurtenisselectie>
+					<inhoud>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:09.520269</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>0</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Nieuw>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047695</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93822.358 462883.044 93820.601 462883.253 93811.215 462884.367 93810.588 462878.885 93819.548 462877.798 93821.724 462877.552 93822.358 462883.044</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1931</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20130506</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">TG B 2013-003M</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Nieuw>
+						</ns3:Mutatie-product>
+						<ns3:Mutatie-product xmlns:ns3="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+							<ns3:Verwerking>
+								<ns3:TijdstipVerwerking>2013-05-10T17:01:09.520269</ns3:TijdstipVerwerking>
+								<ns3:ObjectType>PND</ns3:ObjectType>
+								<ns3:VolgnrVerwerking>1</ns3:VolgnrVerwerking>
+							</ns3:Verwerking>
+							<ns3:Origineel>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047695</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93822.45 462883.039 93820.063 462883.311 93811.208 462884.303 93810.588 462878.885 93819.392 462877.763 93821.768 462877.505 93822.45 462883.039</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1931</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2002102500000000</ns7:begindatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20021025</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">020760</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Origineel>
+							<ns3:Wijziging>
+								<ns4:Pand xmlns:ns4="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+									<ns4:identificatie>0546100000047695</ns4:identificatie>
+									<ns4:aanduidingRecordInactief>N</ns4:aanduidingRecordInactief>
+									<ns4:aanduidingRecordCorrectie>0</ns4:aanduidingRecordCorrectie>
+									<ns4:officieel>N</ns4:officieel>
+									<ns4:pandGeometrie>
+										<ns5:Polygon xmlns:ns5="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+											<ns5:exterior>
+												<ns5:LinearRing>
+													<ns5:posList srsDimension="2">93822.45 462883.039 93820.063 462883.311 93811.208 462884.303 93810.588 462878.885 93819.392 462877.763 93821.768 462877.505 93822.45 462883.039</ns5:posList>
+												</ns5:LinearRing>
+											</ns5:exterior>
+										</ns5:Polygon>
+									</ns4:pandGeometrie>
+									<ns4:bouwjaar>1931</ns4:bouwjaar>
+									<ns4:pandstatus>Pand in gebruik</ns4:pandstatus>
+									<ns4:tijdvakgeldigheid>
+										<ns7:begindatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2002102500000000</ns7:begindatumTijdvakGeldigheid>
+										<ns7:einddatumTijdvakGeldigheid xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2013050600000000</ns7:einddatumTijdvakGeldigheid>
+									</ns4:tijdvakgeldigheid>
+									<ns4:inOnderzoek>N</ns4:inOnderzoek>
+									<ns4:bron>
+										<ns7:documentdatum xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20021025</ns7:documentdatum>
+										<ns7:documentnummer xmlns:ns7="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">020760</ns7:documentnummer>
+									</ns4:bron>
+								</ns4:Pand>
+							</ns3:Wijziging>
+						</ns3:Mutatie-product>
+					</inhoud>
+				</ns9:Bag-gebeurtenis>
+			</gebeurtenisinhoud>
+		</ns10:VerstrekkingAanAfnemer>
+	</soapenv:Body>
+</root>

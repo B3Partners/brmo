@@ -16,10 +16,21 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>xmlunit</groupId>
+            <artifactId>xmlunit</artifactId>
+            <version>1.6</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
@@ -28,7 +39,8 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
-                <!-- 2.0 is getagged dd 9 feb 2015 op codehaus maar nog niet naar central gesynced -->
+                <!-- 2.0 is getagged dd 9 feb 2015 op codehaus maar nog niet naar
+                central gesynced vanwege regressies -->
                 <version>1.6</version>
                 <executions>
                     <execution>
@@ -40,10 +52,6 @@
                 </executions>
                 <configuration>
                     <!-- 2.0  addGeneratedAnnotation>true</addGeneratedAnnotation -->
-                    <sources>
-                        <source>src/main/xsd/digipoort-koppelvlak-1.2.xsd</source>
-                    </sources>
-                    <packageName>nl.b3p.brmo.digipoort.koppelvlakservices._1_2</packageName>
                     <!-- in 2.0 wordt dit xsdPathWithinArtifact -->
                     <includeSchemasOutputPath>META-INF/jaxb/xsd</includeSchemasOutputPath>
                 </configuration>

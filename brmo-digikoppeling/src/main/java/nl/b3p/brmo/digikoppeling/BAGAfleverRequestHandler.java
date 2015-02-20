@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import javax.xml.bind.DatatypeConverter;
 import nl.b3p.brmo.digipoort.koppelvlakservices._1_2.AfleverRequest;
 import nl.b3p.brmo.digipoort.koppelvlakservices._1_2.AfleverResponse;
 import nl.b3p.brmo.digipoort.koppelvlakservices._1_2.BerichtInhoudType;
@@ -22,6 +21,12 @@ import org.apache.commons.logging.LogFactory;
 public class BAGAfleverRequestHandler implements AfleverRequestHandling {
 
     private static final Log log = LogFactory.getLog(BAGAfleverRequestHandler.class);
+
+    private final String directory;
+
+    public BAGAfleverRequestHandler(String directory) {
+        this.directory = directory;
+    }
 
     /**
      * Afhandelen van het aflever verzoek. dwz uitpakken van de payload en
@@ -45,19 +50,16 @@ public class BAGAfleverRequestHandler implements AfleverRequestHandling {
             String mType = t.getMimeType();
             byte[] inhoud = t.getInhoud();
 
-            // TODO "iets" doen met bericht in het verzoek
-            if (mType.equalsIgnoreCase("application/xml")) {
-
-            } else if (mType.equalsIgnoreCase("application/base64")) {
-                inhoud = DatatypeConverter.parseBase64Binary(new String(inhoud, "UTF-8"));
-            }
-            File payload = new File("/tmp/", bNaam);
+            // bericht inhoud opslaan
+            File payload = new File(this.directory, bNaam);
             FileWriter fw = new FileWriter(payload);
             fw.write(new String(inhoud));
             fw.close();
 
             // TODO antwoord aanpassen...
-            antwoord.setStatusdetails(String.format("Er zijn %d bytes opgeslagen in bestand %s.", payload.length(), payload.getName()));
+            String msg = String.format("Er zijn %d bytes opgeslagen in bestand %s.", payload.length(), payload.getName());
+            log.info(msg);
+            antwoord.setStatusdetails(msg);
             antwoord.setStatuscode(STATUSCODE.SUCCESS.toString());
             antwoord.setTijdstempelStatus(XMLUtil.getNow());
 
@@ -72,8 +74,7 @@ public class BAGAfleverRequestHandler implements AfleverRequestHandling {
             t.setFoutbeschrijving(ex.getLocalizedMessage());
             t.setFoutcode(STATUSCODE.ERROR.toString());
             antwoord.setStatusFoutcode(t);
-
         }
-
     }
+
 }
