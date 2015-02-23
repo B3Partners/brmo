@@ -18,6 +18,9 @@ import org.junit.Test;
  */
 public final class XMLUtilTest {
 
+    /**
+     * round-trip unit test.
+     */
     @Test
     public void testDates() {
         Date earlier = XMLUtil.getDate(XMLUtil.getNow());

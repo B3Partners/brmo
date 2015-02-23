@@ -38,13 +38,14 @@ public class BAGAfleverRequestHandlerTest {
 
     /**
      * Test of handle method, of class BAGAfleverRequestHandler.
+     *
+     * @todo implementatie
      */
     @Test
-    @Ignore
+    @Ignore("implementeren als duidelijk is wat precies in het antwoord moet zitten..")
     public void testHandle() {
         instance.handle(verzoek, antwoord);
 
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 

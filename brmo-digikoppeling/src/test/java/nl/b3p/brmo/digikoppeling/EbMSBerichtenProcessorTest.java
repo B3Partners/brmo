@@ -134,7 +134,6 @@ public class EbMSBerichtenProcessorTest {
                 ERROR.toString(),
                 "//*[local-name()='afleverFault'][1]/*[local-name()='foutcode']",
                 FileUtils.readFileToString(f, "UTF-8"));
-
     }
 
 }
