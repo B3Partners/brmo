@@ -28,6 +28,8 @@ Compliance test kan worden uitgevoerd tegen: https://www.ebms.cv.osb.overheid.nl
   - [Koppelvlak specificatie digilevering](pdf/121801_Koppelvlakspecificatie.pdf) (van https://www.logius.nl/ondersteuning/digilevering/)
   - [Koppelvlakbeschrijving Digipoort Digikoppeling WUS 2.0 (overheden) v1.2](pdf/Koppelvlakbeschrijving%20Digikoppeling%20ebMS_1.2.pdf) (via https://www.logius.nl/ondersteuning/gegevensuitwisseling/koppelvlak-ebms-overheden/)
   - [Servicebeschrijving ebMS 2.0 Afleveren v1.2](pdf/Servicebeschrijving%20DigiPoort%20ebMS%202%200%20Afleveren_v1.2.pdf) (via https://www.logius.nl/ondersteuning/gegevensuitwisseling/koppelvlak-ebms-overheden/)
+  - [Handleiding CPA creatievoorziening](pdf/Handleiding_CPA_creatievoorziening_v1.3_.pdf) (via https://www.cpa.serviceregister.overheid.nl/Handleiding_CPA_creatievoorziening_v1.3_.pdf)
+  - [Best Practices ebMS Digikoppeling 2.0](pdf/Fase2_Digikoppeling_2.0_Best_Practices_ebMS_v1.6.pdf)
 
 
 ## links
@@ -35,7 +37,7 @@ Compliance test kan worden uitgevoerd tegen: https://www.ebms.cv.osb.overheid.nl
   - https://www.logius.nl/ondersteuning/digilevering/
   - https://www.logius.nl/ondersteuning/gegevensuitwisseling/koppelvlak-ebms-overheden/
   - https://www.logius.nl/ondersteuning/gegevensuitwisseling/koppelvlak-wus-overheden/
-  - CPA creatie website: https://www.cpa.serviceregister.overheid.nl/ en [handleiding](https://www.cpa.serviceregister.overheid.nl/Handleiding_CPA_creatievoorziening_v1.3_.pdf)
+  - CPA creatie website: https://www.cpa.serviceregister.overheid.nl/
   - CPA "afnemer" aanvragen op de "Digikoppeling Compliancevoorziening ebMS" website: https://www.ebms.cv.osb.overheid.nl/cv-1p1/
   - https://digistandaarden.pleio.nl/
   
