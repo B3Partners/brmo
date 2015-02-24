@@ -532,13 +532,13 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
                         if (existsInOldList) {
                             // update end date old record
-                            loadLog.append("\nupdate einddatum in vorige versie object");
+                            loadLog.append("\nUpdate einddatum in vorige versie object");
                             TableRow oldRow = getMatchingRowFromTableData(row, pkColumns, oldList);
                             String newBeginDate = getValueFromTableRow(row, row.getColumnDatumBeginGeldigheid());
                             updateValueInTableRow(oldRow, oldRow.getColumnDatumEindeGeldigheid(), newBeginDate);
 
                             // write old to archive table
-                            loadLog.append("\nschrijf vorige versie naar archief tabel");
+                            loadLog.append("\nSchrijf vorige versie naar archief tabel");
                             oldRow.setIgnoreDuplicates(true);
                             // XXX workaround voor oud ingeladen stand zonder alleen-archief kolom
                             if(oldRow.getTable().equals("kad_perceel")) {
@@ -551,9 +551,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                             createInsertSql(oldRow, true, loadLog);
                             split2.stop();
 
-                            loadLog.append("\nupdate object in tabel: ");
+                            loadLog.append("\nUpdate object in tabel: ");
                         } else {
-                            loadLog.append("\nupdate object (zonder vastlegging historie) in tabel: ");
+                            loadLog.append("\nUpdate object (zonder vastlegging historie) in tabel: ");
                         }
                         loadLog.append(row.getTable());
                         split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.update." + row.getTable()).start();
@@ -653,6 +653,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 }
 
                 split = SimonManager.getStopwatch(simonNamePrefix + "parseolddata.archive").start();
+                rowToDelete.setIgnoreDuplicates(true);
                 createInsertSql(rowToDelete, true, loadLog);
                 split.stop();
             }
@@ -745,9 +746,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     private final Map<String,PreparedStatement> insertSqlPreparedStatements = new HashMap();
 
-    private boolean createInsertSql(TableRow row, boolean useArchiveTable, StringBuilder loadLog) throws SQLException, ParseException {
-
-        //doSavePoint(row);
+    private void createInsertSql(TableRow row, boolean useArchiveTable, StringBuilder loadLog) throws SQLException, ParseException {
 
         StringBuilder sql = new StringBuilder("insert into ");
 
@@ -764,13 +763,18 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         tableColumnMetadata = getTableColumnMetadata(tableName);
 
         if (tableColumnMetadata == null) {
-            return false;
+            if(useArchiveTable) {
+                // Wanneer archief tabellen niet zijn aangemaakt negeren
+                return;
+            } else {
+                throw new IllegalStateException("Kan tabel metadata niet vinden voor tabel " + tableName);
+            }
         }
 
         // TODO maak sql op basis van alle columns en gebruik null values
         // zodat insert voor elke tabel hetzelfde, reuse preparedstatement
         sql.append(" (");
-        StringBuilder valuesSql = new StringBuilder(") values (");
+        StringBuilder valuesSql = new StringBuilder();
         List params = new ArrayList();
         List<Boolean> isGeometry = new ArrayList();
 
@@ -847,8 +851,40 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 valuesSql.append(", ");
             }
         }
-        sql.append(valuesSql);
-        sql.append(")");
+
+        boolean conditionalInsert = row.isIgnoreDuplicates();
+
+        if(!conditionalInsert) {
+            sql.append(") values (");
+            sql.append(valuesSql);
+            sql.append(")");
+        } else {
+            sql.append(") select ");
+            sql.append(valuesSql);
+            if(databaseProductName.contains("Oracle")) {
+                sql.append("from dual");
+            }
+            sql.append(" where not exists (select 1 from ");
+            sql.append(tableName);
+            sql.append(" where ");
+
+            boolean first = true;
+            for(String column: getPrimaryKeys(tableName)) {
+                if(first) {
+                    first = false;
+                } else {
+                    sql.append(" and ");
+                }
+                sql.append(column);
+                sql.append(" = ? ");
+
+                String val = getValueFromTableRow(row, column);
+                Object obj = getValueAsObject(tableName, column, val);
+                params.add(obj);
+                isGeometry.add(false);
+            }
+            sql.append(")");
+        }
 
         PreparedStatement stm = insertSqlPreparedStatements.get(sql.toString());
         if(stm == null) {
@@ -880,7 +916,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
         }
 
-        return stm.execute();
+        loadLog.append("\nAantal nieuw/gewijzigde records: ");
+        int updates = stm.executeUpdate();
+        loadLog.append(updates);
     }
 
     private final Map<String,PreparedStatement> updateSqlPreparedStatements = new HashMap();
