@@ -68,7 +68,7 @@ public class MailRapportageProcesTest extends TestUtil {
         BAGScannerProces p = new BAGScannerProces();
         p.setScanDirectory(DIR);
         p.setArchiefDirectory(DIR);
-        p.getConfig().put("isActive", "true");
+        p.getConfig().put("isActive", new ClobElement("true"));
         p.setStatus(AutomatischProces.ProcessingStatus.ERROR);
         p.setSamenvatting(NAAM_BESCHIJVING);
         entityManager.persist(p);
@@ -76,7 +76,7 @@ public class MailRapportageProcesTest extends TestUtil {
 
         BRKScannerProces p2 = new BRKScannerProces();
         p2.setScanDirectory(DIR);
-        p2.getConfig().put("isActive", "true");
+        p2.getConfig().put("isActive", new ClobElement("true"));
         p2.setStatus(AutomatischProces.ProcessingStatus.ERROR);
         p2.setSamenvatting(NAAM_BESCHIJVING);
         entityManager.persist(p2);
@@ -84,7 +84,7 @@ public class MailRapportageProcesTest extends TestUtil {
 
         BRKScannerProces p3 = new BRKScannerProces();
         p3.setScanDirectory(DIR);
-        p3.getConfig().put("isActive", "false");
+        p3.getConfig().put("isActive", new ClobElement("true"));
         p3.setStatus(AutomatischProces.ProcessingStatus.WAITING);
         p3.setSamenvatting(NAAM_BESCHIJVING);
         entityManager.persist(p3);
@@ -93,7 +93,7 @@ public class MailRapportageProcesTest extends TestUtil {
         MailRapportageProces m = new MailRapportageProces();
         m.setMailAdressen(ADRESLIJST);
         m.setForStatus(AutomatischProces.ProcessingStatus.ERROR);
-        m.getConfig().put(MailRapportageProces.PIDS, pId + "," + pId2 + "," + pId3);
+        m.getConfig().put(MailRapportageProces.PIDS, new ClobElement(pId + "," + pId2 + "," + pId3));
         entityManager.persist(m);
 
         List<Predicate> predicates = new ArrayList<Predicate>();
@@ -107,7 +107,7 @@ public class MailRapportageProcesTest extends TestUtil {
             predicates.add(where);
         }
         // id in... filter
-        String pids = m.getConfig().get(MailRapportageProces.PIDS);
+        String pids = m.getConfig().get(MailRapportageProces.PIDS).getValue();
         if (pids != null) {
             List<Long> pidLijst = new ArrayList<Long>();
             Matcher match = (Pattern.compile("[0-9]+")).matcher(pids);

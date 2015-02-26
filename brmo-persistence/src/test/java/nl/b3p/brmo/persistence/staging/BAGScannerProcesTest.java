@@ -22,7 +22,7 @@ public class BAGScannerProcesTest extends TestUtil {
         BAGScannerProces p = new BAGScannerProces();
         p.setScanDirectory(DIR);
         p.setArchiefDirectory(DIR);
-        p.getConfig().put("isActive", "true");
+        p.getConfig().put("isActive", new ClobElement("true"));
         entityManager.persist(p);
 
         final long id = p.getId();
@@ -30,7 +30,7 @@ public class BAGScannerProcesTest extends TestUtil {
 
         assertEquals("Verwacht dat de scan directory is zoals geconfigureerd.", DIR, c.getScanDirectory());
         assertEquals("Verwacht dat de archief directory is zoals geconfigureerd.", DIR, c.getArchiefDirectory());
-        assertEquals("Verwacht dat de parameter is zoals geconfigureerd.", "true", c.getConfig().get("isActive"));
+        assertEquals("Verwacht dat de parameter is zoals geconfigureerd.", "true", c.getConfig().get("isActive").getValue());
 
         entityManager.remove(p);
         entityManager.getTransaction().commit();

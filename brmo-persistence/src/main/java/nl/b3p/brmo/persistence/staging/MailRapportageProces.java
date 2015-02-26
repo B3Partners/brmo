@@ -35,7 +35,7 @@ public class MailRapportageProces extends AutomatischProces {
      * @return string met adressen
      */
     public String getMailAdressen() {
-        return this.getConfig().get(EMAIL);
+        return this.getConfig().get(EMAIL).getValue();
     }
 
     /**
@@ -63,7 +63,7 @@ public class MailRapportageProces extends AutomatischProces {
             sb.append(adres.trim()).append(DELIM);
         }
         sb.setLength(sb.length() - 1);
-        this.getConfig().put(EMAIL, sb.toString());
+        this.getConfig().put(EMAIL, new ClobElement(sb.toString()));
     }
 
     /**
@@ -75,19 +75,19 @@ public class MailRapportageProces extends AutomatischProces {
         if (adres.contains(DELIM)) {
             this.setMailAdressen(adres.split(DELIM));
         } else {
-            this.getConfig().put(EMAIL, adres.trim());
+            this.getConfig().put(EMAIL, new ClobElement(adres.trim()));
         }
     }
 
     public void setForStatus(ProcessingStatus status) {
-        this.getConfig().put(FOR_STATUS, status.name());
+        this.getConfig().put(FOR_STATUS, new ClobElement(status.name()));
     }
 
     public ProcessingStatus getForStatus() {
         if (this.getConfig().get(FOR_STATUS) == null) {
             return null;
         } else {
-            return ProcessingStatus.valueOf(this.getConfig().get(FOR_STATUS));
+            return ProcessingStatus.valueOf(this.getConfig().get(FOR_STATUS).getValue());
         }
     }
 }
