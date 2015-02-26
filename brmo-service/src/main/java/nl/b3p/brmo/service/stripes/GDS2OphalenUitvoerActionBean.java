@@ -16,6 +16,7 @@ import nl.b3p.brmo.persistence.staging.ProgressUpdateListener;
 import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import org.stripesstuff.plugin.waitpage.WaitPage;
 import org.stripesstuff.stripersist.EntityTypeConverter;
+import org.stripesstuff.stripersist.Stripersist;
 
 /**
  *
@@ -38,6 +39,10 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
     private boolean complete;
 
     private String status;
+
+    private String label;
+
+    private String log = "";
 
     private Date start;
 
@@ -84,6 +89,7 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
 
     @Override
     public void addLog(String log) {
+        this.log += log + "\n";
     }
 
     @DefaultHandler
@@ -96,8 +102,14 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
             return new ForwardResolution(JSP);
         }
 
-        proces.execute(this);
-        completed();
+        proces = Stripersist.getEntityManager().find(GDS2OphaalProces.class, proces.getId());
+
+        try {
+            proces.execute(this);
+            completed();
+        } finally {
+            Stripersist.getEntityManager().getTransaction().rollback();
+        }
 
         return new ForwardResolution(JSP);
     }
@@ -111,6 +123,14 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
     @Override
     public void setContext(ActionBeanContext context) {
         this.context = context;
+    }
+
+    public String getLog() {
+        return log;
+    }
+
+    public void setLog(String log) {
+        this.log = log;
     }
 
     public long getTotal() {
@@ -185,5 +205,12 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
         this.status = status;
     }
 
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
     // </editor-fold>
 }

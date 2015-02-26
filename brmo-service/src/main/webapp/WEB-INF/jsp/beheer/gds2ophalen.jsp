@@ -57,17 +57,19 @@
                 <table>
                     <tr><td>Label:</td><td><stripes:text name="config['label']"/></td></tr>
                     <tr><td>Afleveringsendpoint:</td><td><stripes:text name="config['delivery_endpoint']" size="80"/></td></tr>
-                    <tr><td>GDS2 endpoint (leeg is standaard):</td><td><stripes:text name="config['gds2_endpoint']" size="80"/></td></tr>
-                    <tr><td>GDS2 HTTP BASIC username:</td><td><stripes:text name="config['gds2_username']"/> (optioneel)</td></tr>
-                    <tr><td>GDS2 HTTP BASIC wachtwoord:</td><td><stripes:text name="config['gds2_password']"/> (optioneel)</td></tr>
-                    <tr><td valign="top">GDS2 public key:</td><td><stripes:textarea rows="4" cols="80" name="config['gds2_pubkey']"/></td></tr>
-                    <tr><td valign="top">GDS2 private key:</td><td><stripes:textarea rows="4" cols="80" name="config['gds2_pubkey']"/></td></tr>
+                    <%--tr><td>GDS2 endpoint (leeg is standaard):</td><td><stripes:text name="config['gds2_endpoint']" size="80"/></td></tr--%>
+                    <%--tr><td>GDS2 HTTP BASIC username:</td><td><stripes:text name="config['gds2_username']"/> (optioneel)</td></tr--%>
+                    <%--tr><td>GDS2 HTTP BASIC wachtwoord:</td><td><stripes:text name="config['gds2_password']"/> (optioneel)</td></tr--%>
+                    <%--tr><td valign="top">GDS2 public key:</td><td><stripes:textarea rows="4" cols="80" name="config['gds2_pubkey']"/></td></tr--%>
+                    <%--tr><td valign="top">GDS2 private key:</td><td><stripes:textarea rows="4" cols="80" name="config['gds2_pubkey']"/></td></tr--%>
+                    <tr><td>Pad naar keystore:</td><td><stripes:text name="config['keystore_path']" size="80"/></td></tr>
+                    <tr><td>Wachtwoord keystore:</td><td><stripes:password name="config['keystore_password']" size="20"/></td></tr>
                 </table>
                 
                 <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.GDS2OphalenUitvoerActionBean">
                     <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
                 </stripes:url>
-                <stripes:button name="execute" onclick="window.open('${url}');">Uitvoeren</stripes:button>
+                    <stripes:button name="execute" onclick="if(confirm('Let op! Proces moet eerst zijn opgeslagen. Verder gaan?')) window.open('${url}');">Uitvoeren</stripes:button>
             </c:if>
         </stripes:form>
     </stripes:layout-component>

@@ -51,5 +51,8 @@
             <b>Proces afgebroken vanwege een exception:</b>
             <pre><c:out value="${actionBean.exceptionStacktrace}"/></pre>
         </c:if>
+        <p/>
+        Log:<br/>
+        <pre><c:out value="${actionBean.log}"/></pre>
     </stripes:layout-component>
 </stripes:layout-render>
