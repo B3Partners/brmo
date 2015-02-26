@@ -90,4 +90,9 @@ public class MailRapportageProces extends AutomatischProces {
             return ProcessingStatus.valueOf(this.getConfig().get(FOR_STATUS).getValue());
         }
     }
+
+    @Override
+    public void execute(ProgressUpdateListener listener) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

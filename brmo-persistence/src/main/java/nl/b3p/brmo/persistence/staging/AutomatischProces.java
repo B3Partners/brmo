@@ -107,6 +107,35 @@ public abstract class AutomatischProces implements Serializable {
 
     }
 
+    public void execute() {
+        execute(new ProgressUpdateListener() {
+
+            @Override
+            public void total(long total) {
+            }
+
+            @Override
+            public void progress(long progress) {
+            }
+
+            @Override
+            public void exception(Throwable t) {
+            }
+
+            @Override
+            public void updateStatus(String status) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void addLog(String log) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+    }
+
+    public abstract void execute(ProgressUpdateListener listener);
+
     // <editor-fold defaultstate="collapsed" desc="getters and setters">
     public Map<String, ClobElement> getConfig() {
         return config;
