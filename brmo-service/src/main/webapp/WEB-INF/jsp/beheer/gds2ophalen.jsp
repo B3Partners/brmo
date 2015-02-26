@@ -62,6 +62,7 @@
                     <%--tr><td>GDS2 HTTP BASIC wachtwoord:</td><td><stripes:text name="config['gds2_password']"/> (optioneel)</td></tr--%>
                     <%--tr><td valign="top">GDS2 public key:</td><td><stripes:textarea rows="4" cols="80" name="config['gds2_pubkey']"/></td></tr--%>
                     <%--tr><td valign="top">GDS2 private key:</td><td><stripes:textarea rows="4" cols="80" name="config['gds2_pubkey']"/></td></tr--%>
+                    <tr><td>Contractnummer:</td><td><stripes:text name="config['gds2_contractnummer']" size="10"/></td></tr>
                     <tr><td>Pad naar keystore:</td><td><stripes:text name="config['keystore_path']" size="80"/></td></tr>
                     <tr><td>Wachtwoord keystore:</td><td><stripes:password name="config['keystore_password']" size="20"/></td></tr>
                 </table>

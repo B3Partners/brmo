@@ -37,7 +37,7 @@
             Status: ${actionBean.status}
         </p>
         <p>
-            <stripes:link href="/javasimon-console" target="_blank">Performance monitoring console</stripes:link>
+            <%--stripes:link href="/javasimon-console" target="_blank">Performance monitoring console</stripes:link--%>
         <p><b>
             <stripes:messages/>
             <stripes:errors/>

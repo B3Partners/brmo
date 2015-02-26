@@ -108,7 +108,9 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
             proces.execute(this);
             completed();
         } finally {
-            Stripersist.getEntityManager().getTransaction().rollback();
+            if(Stripersist.getEntityManager().getTransaction().isActive()) {
+                Stripersist.getEntityManager().getTransaction().rollback();
+            }
         }
 
         return new ForwardResolution(JSP);
