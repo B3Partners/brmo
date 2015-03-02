@@ -4,13 +4,11 @@
 <stripes:layout-render name="/WEB-INF/jsp/layout/default.jsp">
     <stripes:layout-component name="title">BRMO Processen</stripes:layout-component>
     <stripes:layout-component name="html_head">
-        <stripes:layout-component name="html_head">
-            <%-- TODO naar aparte stylesheet --%>
-            <style>
-                .longTxt{width: 100%;}
-            </style>
-            <script type="text/javascript" src="${contextPath}/scripts/processen.js"></script>
-        </stripes:layout-component>
+        <%-- TODO naar aparte stylesheet --%>
+        <style>
+            .longTxt{width: 100%;}
+        </style>
+        <script type="text/javascript" src="${contextPath}/scripts/processen.js"></script>
     </stripes:layout-component>
 
     <stripes:layout-component name="contents">
@@ -19,6 +17,7 @@
 
         <stripes:messages />
         <stripes:errors />
+
         <h3>BRK scanners</h3>
 
         <stripes:form partial="true" action="">
@@ -26,14 +25,20 @@
         </stripes:form>
 
         <c:if test="${not empty actionBean.brkProcessen}">
-            <script language="javascript">nextBrk=<c:out value="${fn:length(actionBean.brkProcessen)}"/>;</script>
+            <script>nextBrk=<c:out value="${fn:length(actionBean.brkProcessen)}"/>;</script>
             <c:forEach items="${actionBean.brkProcessen}" varStatus="i" var="brk" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
-                        <legend>Scanner taak: ${brk.id} , status: ${brk.status}, laatste run: ${brk.lastrun}</legend>
+                        <legend>
+                            Scanner taak: ${brk.id} , status: ${brk.status},
+                            <stripes:link beanclass="nl.b3p.brmo.service.stripes.SamenvattingActionBean">
+                                <stripes:param name="procesId" value="${brk.id}" />
+                                laatste run: <fmt:formatDate  pattern="${timeFormat}" value="${brk.lastrun}"/>
+                            </stripes:link>
+                        </legend>
                         <stripes:hidden name="brkProcessen[${i.index}].id" formatType="number"/>
-                        <%-- pID wordt gebruikt voor start, stop en verwijder proces --%>
-                        <stripes:hidden name="pId" value="${brk.id}" formatType="number"/>
+                        <%-- PID wordt gebruikt voor start, stop en verwijder proces --%>
+                        <input type="hidden" name="PID" value="${brk.id}"/>
                         <stripes:label name="">Scan directory
                             <stripes:text name="brkProcessen[${i.index}].scanDirectory" value="${brk.scanDirectory}" class="longTxt"/>
                         </stripes:label>
@@ -57,14 +62,20 @@
         </stripes:form>
 
         <c:if test="${not empty actionBean.bagProcessen}">
-            <script language="javascript">nextBag=<c:out value="${fn:length(actionBean.bagProcessen)}"/>;</script>
-            <c:forEach items="${actionBean.bagProcessen}" varStatus="j" var="bag" >
+            <script>nextBag=<c:out value="${fn:length(actionBean.bagProcessen)}"/>;</script>
+            <c:forEach items="${actionBean.bagProcessen}" varStatus="i" var="bag" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
-                        <legend>Scanner taak: ${bag.id} , status: ${bag.status}, laatste run: ${bag.lastrun}</legend>
+                        <legend>
+                            Scanner taak: ${bag.id} , status:${bag.status},
+                            <stripes:link beanclass="nl.b3p.brmo.service.stripes.SamenvattingActionBean">
+                                <stripes:param name="procesId" value="${bag.id}" />
+                                laatste run: <fmt:formatDate  pattern="${timeFormat}" value="${bag.lastrun}"/>
+                            </stripes:link>
+                        </legend>
                         <stripes:hidden name="bagProcessen[${i.index}].id" formatType="number"/>
-                        <%-- pID wordt gebruikt voor start, stop en verwijder proces --%>
-                        <stripes:hidden name="pId" value="${bag.id}" formatType="number"/>
+                        <%-- PID wordt gebruikt voor start, stop en verwijder proces --%>
+                        <input type="hidden" name="PID" value="${bag.id}"/>
                         <stripes:label name="">Scan directory
                             <stripes:text name="bagProcessen[${i.index}].scanDirectory" value="${bag.scanDirectory}" class="longTxt" />
                         </stripes:label>
@@ -81,7 +92,7 @@
             </c:forEach>
         </c:if>
 
-        <h3>Notificaties</h3>
+        <h3>Email Notificaties</h3>
 
         <stripes:form partial="true" action="">
             <stripes:button name="toevoegen" value="Toevoegen" onclick="addMailRapportage();"  id="mailRapportAdd"/>
@@ -89,14 +100,20 @@
 
         <c:if test="${not empty actionBean.mailProcessen}">
             <c:set var="statusValues" value="<%=ProcessingStatus.values()%>"/>
-            <script language="javascript">nextMail=<c:out value="${fn:length(actionBean.mailProcessen)}"/>;</script>
+            <script>nextMail=<c:out value="${fn:length(actionBean.mailProcessen)}"/>;</script>
             <c:forEach items="${actionBean.mailProcessen}" varStatus="i" var="mail" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
-                        <legend>Rapportage taak: ${mail.id} , status: ${mail.status}, laatste run: ${mail.lastrun}</legend>
+                        <legend>
+                            Rapportage taak: ${mail.id} , status: ${mail.status},
+                            <stripes:link beanclass="nl.b3p.brmo.service.stripes.SamenvattingActionBean">
+                                <stripes:param name="procesId" value="${mail.id}" />
+                                laatste run: <fmt:formatDate  pattern="${timeFormat}" value="${mail.lastrun}"/>
+                            </stripes:link>
+                        </legend>
                         <stripes:hidden name="mailProcessen[${i.index}].id" formatType="number"/>
-                        <%-- pID wordt gebruikt voor start, stop en verwijder proces --%>
-                        <stripes:hidden name="pId" value="${mail.id}" formatType="number"/>
+                        <%-- PID wordt gebruikt voor start, stop en verwijder proces --%>
+                        <input type="hidden" name="PID" value="${mail.id}"/>
                         <stripes:label name="">Geaddresseerde(n)
                             <stripes:text name="mailProcessen[${i.index}].mailAdressen" value="${mail.config.email}" class="longTxt"/>
                         </stripes:label>

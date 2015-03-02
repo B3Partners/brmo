@@ -7,7 +7,7 @@ import java.util.Date;
  * @author Boy de Wit
  */
 public class LaadProces {
-    
+
     private Long id;
     private String bestandNaam;
     private Date bestandDatum;
@@ -17,14 +17,14 @@ public class LaadProces {
     private LaadProces.STATUS status;
     private Date statusDatum;
     private String contactEmail;
-    
+
     public static enum STATUS {
-        STAGING_OK, STAGING_NOK, ARCHIVE
+        STAGING_OK, STAGING_NOK, ARCHIVE, STAGING_DUPLICAAT
     };
-    
-    public LaadProces() {        
+
+    public LaadProces() {
     }
-    
+
     public LaadProces(String bestandNaam, String soort) {
         this.bestandNaam = bestandNaam;
         this.soort = soort;

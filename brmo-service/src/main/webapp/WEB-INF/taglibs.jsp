@@ -5,3 +5,4 @@
 <%@taglib prefix="stripes" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="timeFormat" value="dd MMM yyyy 'om' HH:mm:ss" />
