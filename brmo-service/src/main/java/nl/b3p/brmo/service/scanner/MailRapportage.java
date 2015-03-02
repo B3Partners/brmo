@@ -74,7 +74,8 @@ public class MailRapportage extends AbstractExecutableProces {
             msg.setSentDate(new Date());
             // subject
             String sForStatus = (config.getForStatus() == null ? "alle" : config.getForStatus().toString());
-            String sPIDS = (config.getConfig().get(MailRapportageProces.PIDS) == null ? "alle" : config.getConfig().get(MailRapportageProces.PIDS));
+            String sPIDS = (config.getConfig().get(MailRapportageProces.PIDS) == null ?
+                    "alle" : config.getConfig().get(MailRapportageProces.PIDS).getValue());
             String subject = String.format("BRMO rapport: %d voor status: %s (taken: %s)", config.getId(), sForStatus, sPIDS);
             msg.setSubject(subject);
 
@@ -150,7 +151,7 @@ public class MailRapportage extends AbstractExecutableProces {
             predicates.add(where);
         }
         // processen in... filter
-        String pids = this.config.getConfig().get(MailRapportageProces.PIDS);
+        String pids = this.config.getConfig().get(MailRapportageProces.PIDS).getValue();
         if (pids != null) {
             List<Long> pidLijst = new ArrayList<Long>();
             Matcher match = (Pattern.compile("[0-9]+")).matcher(pids);
