@@ -34,9 +34,15 @@ Ext.define('B3P.brmo.LaadProces', {
                     {text: "bestand_naam", dataIndex: 'bestand_naam', flex: 1},
                     {text: "bestand_datum", dataIndex: 'bestand_datum'},
                     {text: "soort", dataIndex: 'soort', filter: 'string'},
-                    {text: "status", dataIndex: 'status', filter: 'string', flex: 1}
+                    {text: "status", dataIndex: 'status', filter: 'string',
+                        editor: {
+                            xtype: 'combobox',
+                            store: ['STAGING_OK']
+                        },
+                        flex: 1}
                 ],
                 gridUrl: config.gridurl,
+                gridSaveUrl: config.gridsaveurl,
                 actionUrl: config.deleteurl,
                 buttonTitle: 'Verwijderen',
                 gridId: 'laadproces-grid',

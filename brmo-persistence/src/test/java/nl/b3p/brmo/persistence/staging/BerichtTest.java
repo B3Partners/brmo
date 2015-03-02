@@ -17,6 +17,7 @@ public class BerichtTest extends TestUtil {
     @Test
     public void shouldStoreBericht() {
         Bericht b = new Bericht();
+        b.setStatus(Bericht.STATUS.RSGB_OK);
         entityManager.persist(b);
         entityManager.getTransaction().commit();
     }

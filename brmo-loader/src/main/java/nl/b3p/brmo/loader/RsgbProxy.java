@@ -74,7 +74,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         BY_STATUS, BY_IDS, BY_LAADPROCES
     }
 
-    private BerichtSelectMode mode;
+    private final BerichtSelectMode mode;
 
     /**
      * De status voor BY_STATUS.
@@ -89,7 +89,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     /**
      * Het ID van het laadproces vor BY_LAADPROCES.
      */
-    private Long laadprocesId;
+    private long[] laadprocesIds;
 
     private enum STATEMENT_TYPE {
         INSERT, UPDATE, SELECT, DELETE
@@ -117,7 +117,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     private String simonNamePrefix = "b3p.rsgb.";
 
-    private DataComfortXMLReader dbXmlReader = new DataComfortXMLReader();
+    private final DataComfortXMLReader dbXmlReader = new DataComfortXMLReader();
+
+    // Gebruik andere instantie voor lezen oude berichten, gebeurt gelijktijdig
+    // in andere thread als lezen van dbxml van berichten om te verwerken
+    private final DataComfortXMLReader oldDbXmlReader = new DataComfortXMLReader();
 
     public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, Bericht.STATUS status, ProgressUpdateListener listener) {
         this.stagingProxy = stagingProxy;
@@ -128,21 +132,23 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         this.listener = listener;
     }
 
-    public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, long[] berichtIds, ProgressUpdateListener listener) {
+    /**
+     *
+     * @param dataSourceRsgb
+     * @param stagingProxy
+     * @param berichtIds array van berichtIds
+     * @param listener
+     */
+    public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, BerichtSelectMode mode, long[] ids, ProgressUpdateListener listener) {
         this.stagingProxy = stagingProxy;
         this.dataSourceRsgb = dataSourceRsgb;
 
-        mode = BerichtSelectMode.BY_IDS;
-        this.berichtIds = berichtIds;
-        this.listener = listener;
-    }
-
-    public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, Long laadprocesId, ProgressUpdateListener listener) {
-        this.stagingProxy = stagingProxy;
-        this.dataSourceRsgb = dataSourceRsgb;
-
-        mode = BerichtSelectMode.BY_LAADPROCES;
-        this.laadprocesId = laadprocesId;
+        this.mode = mode;
+        if(mode == BerichtSelectMode.BY_LAADPROCES) {
+            this.laadprocesIds = ids;
+        } else if(mode == BerichtSelectMode.BY_IDS) {
+            this.berichtIds = ids;
+        }
         this.listener = listener;
     }
 
@@ -247,7 +253,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 stagingProxy.setBerichtenJobByIds(berichtIds, jobId);
                 break;
             case BY_LAADPROCES:
-                stagingProxy.setBerichtenJobByLaadproces(laadprocesId, jobId);
+                stagingProxy.setBerichtenJobByLaadprocessen(laadprocesIds, jobId);
                 break;
         }
     }
@@ -274,7 +280,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             StringBuilder loadLog = new StringBuilder();
             SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            loadLog.append(String.format("%s: In pipeline transformeren %s bericht object ref %s, met id %s, berichtdatum %s\n", dateTimeFormat.format(new Date()), ber.getSoort(), ber.getObjectRef(), ber.getId(), dateFormat.format(ber.getDatum())));
+            loadLog.append(String.format("%s: transformeren %s bericht object ref %s, met id %s, berichtdatum %s\n", dateTimeFormat.format(new Date()), ber.getSoort(), ber.getObjectRef(), ber.getId(), dateFormat.format(ber.getDatum())));
 
             long startTime = System.currentTimeMillis();
             stagingProxy.updateBerichtenDbXml(Collections.singletonList(ber), transformer);
@@ -376,7 +382,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                         loadLog.append("Bericht bevat oudere data dan eerder verwerkt bericht, status RSGB_OUTDATED\n");
                     } else {
                         StringReader oReader = new StringReader(oud.getDbXml());
-                        List<TableData> oudList = dbXmlReader.readDataXML(new StreamSource(oReader));
+                        List<TableData> oudList = oldDbXmlReader.readDataXML(new StreamSource(oReader));
 
                         parseNewData(oudList, newList, dateFormat.format(oud.getDatum()), loadLog);
                         parseOldData(oudList, newList,  dateFormat.format(ber.getDatum()), dateFormat.format(oud.getDatum()), loadLog);
@@ -526,13 +532,13 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
                         if (existsInOldList) {
                             // update end date old record
-                            loadLog.append("\nupdate einddatum in vorige versie object");
+                            loadLog.append("\nUpdate einddatum in vorige versie object");
                             TableRow oldRow = getMatchingRowFromTableData(row, pkColumns, oldList);
                             String newBeginDate = getValueFromTableRow(row, row.getColumnDatumBeginGeldigheid());
                             updateValueInTableRow(oldRow, oldRow.getColumnDatumEindeGeldigheid(), newBeginDate);
 
                             // write old to archive table
-                            loadLog.append("\nschrijf vorige versie naar archief tabel");
+                            loadLog.append("\nSchrijf vorige versie naar archief tabel");
                             oldRow.setIgnoreDuplicates(true);
                             // XXX workaround voor oud ingeladen stand zonder alleen-archief kolom
                             if(oldRow.getTable().equals("kad_perceel")) {
@@ -545,9 +551,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                             createInsertSql(oldRow, true, loadLog);
                             split2.stop();
 
-                            loadLog.append("\nupdate object in tabel: ");
+                            loadLog.append("\nUpdate object in tabel: ");
                         } else {
-                            loadLog.append("\nupdate object (zonder vastlegging historie) in tabel: ");
+                            loadLog.append("\nUpdate object (zonder vastlegging historie) in tabel: ");
                         }
                         loadLog.append(row.getTable());
                         split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.update." + row.getTable()).start();
@@ -647,6 +653,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 }
 
                 split = SimonManager.getStopwatch(simonNamePrefix + "parseolddata.archive").start();
+                rowToDelete.setIgnoreDuplicates(true);
                 createInsertSql(rowToDelete, true, loadLog);
                 split.stop();
             }
@@ -739,9 +746,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     private final Map<String,PreparedStatement> insertSqlPreparedStatements = new HashMap();
 
-    private boolean createInsertSql(TableRow row, boolean useArchiveTable, StringBuilder loadLog) throws SQLException, ParseException {
-
-        //doSavePoint(row);
+    private void createInsertSql(TableRow row, boolean useArchiveTable, StringBuilder loadLog) throws SQLException, ParseException {
 
         StringBuilder sql = new StringBuilder("insert into ");
 
@@ -758,13 +763,18 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         tableColumnMetadata = getTableColumnMetadata(tableName);
 
         if (tableColumnMetadata == null) {
-            return false;
+            if(useArchiveTable) {
+                // Wanneer archief tabellen niet zijn aangemaakt negeren
+                return;
+            } else {
+                throw new IllegalStateException("Kan tabel metadata niet vinden voor tabel " + tableName);
+            }
         }
 
         // TODO maak sql op basis van alle columns en gebruik null values
         // zodat insert voor elke tabel hetzelfde, reuse preparedstatement
         sql.append(" (");
-        StringBuilder valuesSql = new StringBuilder(") values (");
+        StringBuilder valuesSql = new StringBuilder();
         List params = new ArrayList();
         List<Boolean> isGeometry = new ArrayList();
 
@@ -841,8 +851,40 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 valuesSql.append(", ");
             }
         }
-        sql.append(valuesSql);
-        sql.append(")");
+
+        boolean conditionalInsert = row.isIgnoreDuplicates();
+
+        if(!conditionalInsert) {
+            sql.append(") values (");
+            sql.append(valuesSql);
+            sql.append(")");
+        } else {
+            sql.append(") select ");
+            sql.append(valuesSql);
+            if(databaseProductName.contains("Oracle")) {
+                sql.append("from dual");
+            }
+            sql.append(" where not exists (select 1 from ");
+            sql.append(tableName);
+            sql.append(" where ");
+
+            boolean first = true;
+            for(String column: getPrimaryKeys(tableName)) {
+                if(first) {
+                    first = false;
+                } else {
+                    sql.append(" and ");
+                }
+                sql.append(column);
+                sql.append(" = ? ");
+
+                String val = getValueFromTableRow(row, column);
+                Object obj = getValueAsObject(tableName, column, val);
+                params.add(obj);
+                isGeometry.add(false);
+            }
+            sql.append(")");
+        }
 
         PreparedStatement stm = insertSqlPreparedStatements.get(sql.toString());
         if(stm == null) {
@@ -874,7 +916,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
         }
 
-        return stm.execute();
+        loadLog.append("\nAantal nieuw/gewijzigde records: ");
+        int updates = stm.executeUpdate();
+        loadLog.append(updates);
     }
 
     private final Map<String,PreparedStatement> updateSqlPreparedStatements = new HashMap();

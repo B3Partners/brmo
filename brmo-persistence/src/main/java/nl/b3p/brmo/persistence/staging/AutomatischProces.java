@@ -59,8 +59,9 @@ public abstract class AutomatischProces implements Serializable {
      * @note Tabel "automatisch_proces_config" in de database.
      */
     @ElementCollection
-    @JoinTable(joinColumns = @JoinColumn(name = "proces_id"))
-    private Map<String, String> config = new HashMap<String, String>();
+    @JoinTable(joinColumns=@JoinColumn(name="proces_id"))
+    // Element wrapper required because of http://opensource.atlassian.com/projects/hibernate/browse/JPA-11
+    private Map<String,ClobElement> config = new HashMap<String,ClobElement>();
 
     /**
      * laatste run tijdtip vasthouden ten behoeve van logging en rapportage.
@@ -115,11 +116,11 @@ public abstract class AutomatischProces implements Serializable {
     }
 
     // <editor-fold defaultstate="collapsed" desc="getters and setters">
-    public Map<String, String> getConfig() {
+    public Map<String, ClobElement> getConfig() {
         return config;
     }
 
-    public void setConfig(Map<String, String> config) {
+    public void setConfig(Map<String, ClobElement> config) {
         this.config = config;
     }
 

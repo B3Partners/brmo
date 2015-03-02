@@ -187,9 +187,17 @@ public class StagingProxy {
         new QueryRunner().update(getConnection(), q.toString(), Bericht.STATUS.RSGB_WAITING.toString(), jobId);
     }
 
-    public void setBerichtenJobByLaadproces(long laadprocesId, String jobId) throws SQLException {
-        new QueryRunner().update(getConnection(), "update " + BrmoFramework.BERICHT_TABLE + " set status = ?, job_id = ? where laadprocesid = ? and status = ?",
-                Bericht.STATUS.RSGB_WAITING.toString(), jobId, laadprocesId, Bericht.STATUS.STAGING_OK.toString());
+    public void setBerichtenJobByLaadprocessen(long[] laadprocesIds, String jobId) throws SQLException {
+
+        StringBuilder q = new StringBuilder("update " + BrmoFramework.BERICHT_TABLE + " set status = ?, job_id = ? where laadprocesid in (");
+        for (int i = 0; i < laadprocesIds.length; i++) {
+            if(i != 0) {
+                q.append(",");
+            }
+            q.append(laadprocesIds[i]);
+        }
+        q.append(") and status = ?");
+        new QueryRunner().update(getConnection(), q.toString(), Bericht.STATUS.RSGB_WAITING.toString(), jobId, Bericht.STATUS.STAGING_OK.toString());
     }
 
     public long getBerichtenCountByJob(String jobId) throws SQLException {
@@ -346,6 +354,7 @@ public class StagingProxy {
         return berichten;
     }
 */
+    
     public void updateBerichtenDbXml(List<Bericht> berichten, RsgbTransformer transformer) throws SQLException, SAXException, IOException, TransformerException  {
         for (Bericht ber : berichten) {
             Split split = SimonManager.getStopwatch("b3p.staging.bericht.dbxml.transform").start();

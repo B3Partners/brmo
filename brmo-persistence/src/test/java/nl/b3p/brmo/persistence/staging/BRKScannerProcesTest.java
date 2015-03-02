@@ -22,14 +22,14 @@ public class BRKScannerProcesTest extends TestUtil {
     public void roundtrip() {
         BRKScannerProces p = new BRKScannerProces();
         p.setScanDirectory(DIR);
-        p.getConfig().put("isActive", "true");
+        p.getConfig().put("isActive", new ClobElement("true"));
         entityManager.persist(p);
 
         final long id = p.getId();
 
         BRKScannerProces c = entityManager.find(BRKScannerProces.class, id);
         assertEquals("De directory is zoals geconfigureerd.", DIR, c.getScanDirectory());
-        assertEquals("Verwacht dat de parameter is zoals geconfigureerd.", "true", c.getConfig().get("isActive"));
+        assertEquals("Verwacht dat de parameter is zoals geconfigureerd.", "true", c.getConfig().get("isActive").getValue());
 
         entityManager.remove(c);
         entityManager.getTransaction().commit();

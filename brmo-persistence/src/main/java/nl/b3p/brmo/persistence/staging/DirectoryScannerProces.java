@@ -22,7 +22,7 @@ public abstract class DirectoryScannerProces extends AutomatischProces {
      * @return de naam van de directory voor deze configuratie of null
      */
     public String getScanDirectory() {
-        return this.getConfig().get(SCAN_DIRECTORY);
+        return this.getConfig().get(SCAN_DIRECTORY).getValue();
     }
 
     /**
@@ -31,7 +31,7 @@ public abstract class DirectoryScannerProces extends AutomatischProces {
      * @return de naam van de directory voor deze configuratie of null
      */
     public String getArchiefDirectory() {
-        return this.getConfig().get(ARCHIEF_DIRECTORY);
+        return this.getConfig().get(ARCHIEF_DIRECTORY).getValue();
     }
 
     /**
@@ -40,7 +40,7 @@ public abstract class DirectoryScannerProces extends AutomatischProces {
      * @param scandirectory
      */
     public void setScanDirectory(String scanDirectory) {
-        this.getConfig().put(SCAN_DIRECTORY, scanDirectory);
+        this.getConfig().put(SCAN_DIRECTORY, new ClobElement(scanDirectory));
     }
 
     /**
@@ -49,6 +49,6 @@ public abstract class DirectoryScannerProces extends AutomatischProces {
      * @param archiefdirectory
      */
     public void setArchiefDirectory(String archiefDirectory) {
-        this.getConfig().put(ARCHIEF_DIRECTORY, archiefDirectory);
+        this.getConfig().put(ARCHIEF_DIRECTORY, new ClobElement(archiefDirectory));
     }
 }

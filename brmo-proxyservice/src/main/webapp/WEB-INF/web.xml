@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    <display-name>brmo-proxyservices</display-name>
+    <description/>
+    <servlet>
+        <servlet-name>BRKBerichtEndpointServlet</servlet-name>
+        <servlet-class>nl.b3p.brmo.service.proxy.BerichtEndpointFileServlet</servlet-class>
+        <init-param>
+            <param-name>save_dir</param-name>
+            <param-value>/tmp/brk/</param-value>
+            <description>directory waar bestande tercht komen</description>
+        </init-param>
+        <init-param>
+            <param-name>max_upload_size</param-name>
+            <param-value>500</param-value>
+            <description>max upload size in KB</description>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>BerichtEndpointProxyServlet</servlet-name>
+        <servlet-class>nl.b3p.brmo.service.proxy.BerichtEndpointProxyServlet</servlet-class>
+                <init-param>
+            <param-name>max_upload_size</param-name>
+            <param-value>500</param-value>
+            <description>max upload size in KB</description>
+        </init-param>
+         <init-param>
+            <param-name>proxy_for_url</param-name>
+            <param-value>http://localhost:8084/brmo-service/post/brk</param-value>
+            <description>BRMO endpoint waarnaartoe door-gepost wordt</description>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BRKBerichtEndpointServlet</servlet-name>
+        <url-pattern>/brkbericht</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BerichtEndpointProxyServlet</servlet-name>
+        <url-pattern>/brkproxy</url-pattern>
+    </servlet-mapping>
+</web-app>
