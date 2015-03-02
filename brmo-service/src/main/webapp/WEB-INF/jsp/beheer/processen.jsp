@@ -40,11 +40,11 @@
                         <%-- PID wordt gebruikt voor start, stop en verwijder proces --%>
                         <input type="hidden" name="PID" value="${brk.id}"/>
                         <stripes:label name="">Scan directory
-                            <stripes:text name="brkProcessen[${i.index}].scanDirectory" value="${brk.scanDirectory}" class="longTxt"/>
+                            <stripes:text name="brkProcessen[${i.index}].scanDirectory" value="${brk.config.scanDirectory}" class="longTxt"/>
                         </stripes:label>
                         <br />
                         <stripes:label name="">Archief directory
-                            <stripes:text name="brkProcessen[${i.index}].archiefDirectory" value="${brk.archiefDirectory}" class="longTxt"/>
+                            <stripes:text name="brkProcessen[${i.index}].archiefDirectory" value="${brk.config.archiefDirectory}" class="longTxt"/>
                         </stripes:label>
                     </fieldset>
                     <stripes:submit name="save" value="Opslaan" />
@@ -77,11 +77,11 @@
                         <%-- PID wordt gebruikt voor start, stop en verwijder proces --%>
                         <input type="hidden" name="PID" value="${bag.id}"/>
                         <stripes:label name="">Scan directory
-                            <stripes:text name="bagProcessen[${i.index}].scanDirectory" value="${bag.scanDirectory}" class="longTxt" />
+                            <stripes:text name="bagProcessen[${i.index}].scanDirectory" value="${bag.config.scanDirectory}" class="longTxt" />
                         </stripes:label>
                         <br />
                         <stripes:label name="">Archief directory
-                            <stripes:text name="bagProcessen[${i.index}].archiefDirectory" value="${bag.archiefDirectory}" class="longTxt" />
+                            <stripes:text name="bagProcessen[${i.index}].archiefDirectory" value="${bag.config.archiefDirectory}" class="longTxt" />
                         </stripes:label>
                     </fieldset>
                     <stripes:submit name="save" value="Opslaan" />
