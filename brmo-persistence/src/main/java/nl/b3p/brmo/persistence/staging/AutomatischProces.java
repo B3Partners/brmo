@@ -34,6 +34,12 @@ import org.hibernate.annotations.Type;
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING, length = 255)
 public abstract class AutomatischProces implements Serializable {
 
+    /**
+     * newline string ({@value LOG_NEWLINE}) voor de logberichten en
+     * samenvatting.
+     */
+    public static final String LOG_NEWLINE = "\n";
+
     public enum ProcessingStatus {
 
         PROCESSING("PROCESSING"), WAITING("WAITING"), ONBEKEND("ONBEKEND"), NULL(""), ERROR("ERROR");
@@ -102,7 +108,9 @@ public abstract class AutomatischProces implements Serializable {
         if (this.logfile == null) {
             this.setLogfile(samenvatting);
         } else {
-            this.setLogfile(this.logfile + samenvatting);
+            this.setLogfile(this.logfile + LOG_NEWLINE
+                    // +"----------------"+ LOG_NEWLINE
+                    + samenvatting);
         }
 
     }
