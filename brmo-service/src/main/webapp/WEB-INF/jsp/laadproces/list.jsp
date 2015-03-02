@@ -19,7 +19,8 @@
             Ext.create('B3P.brmo.LaadProces', {
                 gridurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.LaadProcesActionBean" event="getGridData"/>',
                 deleteurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.LaadProcesActionBean" event="delete"/>',
-                transformurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.TransformActionBean" event="transformSelectedLaadprocessen"/>'
+                transformurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.TransformActionBean" event="transformSelectedLaadprocessen"/>',
+                gridsaveurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.LaadProcesActionBean" event="saveRecord"/>'
             });
         </script>
     </stripes:layout-component>

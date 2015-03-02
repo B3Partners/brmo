@@ -1,6 +1,7 @@
 package nl.b3p.brmo.service.stripes;
 
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import net.sourceforge.stripes.action.ActionBean;
@@ -19,6 +20,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.stripesstuff.stripersist.Stripersist;
 
 /**
  *
@@ -45,8 +47,8 @@ public class LaadProcesActionBean implements ActionBean {
     private String dir;
     @Validate
     private JSONArray filter;
-
-//    private String result;
+    @Validate
+    private JSONObject changedItem;
 
     @DefaultHandler
     public Resolution list() {
@@ -168,6 +170,25 @@ public class LaadProcesActionBean implements ActionBean {
         return json;
     }
 
+    public Resolution saveRecord() {
+        JSONObject item = this.getChangedItem();
+
+        final EntityManager em = Stripersist.getEntityManager();
+        nl.b3p.brmo.persistence.staging.LaadProces _lp = em.find(nl.b3p.brmo.persistence.staging.LaadProces.class, item.getLong("id"));
+        _lp.setStatus(nl.b3p.brmo.persistence.staging.LaadProces.STATUS.valueOf(item.getString("status")));
+        em.merge(_lp);
+        em.getTransaction().commit();
+
+        final JSONObject jsonResponse = new JSONObject();
+        jsonResponse.put("success", true);
+        return new StreamingResolution("application/json") {
+            @Override
+            public void stream(HttpServletResponse response) throws Exception {
+                response.getWriter().print(jsonResponse.toString());
+            }
+        };
+    }
+
     public ActionBeanContext getContext() {
         return context;
     }
@@ -240,11 +261,11 @@ public class LaadProcesActionBean implements ActionBean {
         this.filter = filter;
     }
 
-//    public String getResult() {
-//        return result;
-//    }
-//
-//    public void setResult(String result) {
-//        this.result = result;
-//    }
+    public JSONObject getChangedItem() {
+        return changedItem;
+    }
+
+    public void setChangedItem(JSONObject changedItem) {
+        this.changedItem = changedItem;
+    }
 }
