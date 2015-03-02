@@ -93,13 +93,6 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>local.repo</id>
-            <name>stripersist Repository</name>
-            <url>file://${project.basedir}/../repo</url>
-        </repository>
-    </repositories>
     <build>
         <plugins>
             <plugin>
