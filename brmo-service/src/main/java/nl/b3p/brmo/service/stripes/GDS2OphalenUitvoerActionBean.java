@@ -12,8 +12,11 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.validation.Validate;
-import nl.b3p.brmo.persistence.staging.ProgressUpdateListener;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
 import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
+import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
+import nl.b3p.brmo.service.scanner.ProcesExecutable;
 import org.stripesstuff.plugin.waitpage.WaitPage;
 import org.stripesstuff.stripersist.EntityTypeConverter;
 import org.stripesstuff.stripersist.Stripersist;
@@ -23,11 +26,12 @@ import org.stripesstuff.stripersist.Stripersist;
  * @author Matthijs Laan
  */
 public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateListener {
+
     private static final String JSP = "/WEB-INF/jsp/beheer/gds2ophalenuitvoeren.jsp";
 
     private ActionBeanContext context;
 
-    @Validate(converter=EntityTypeConverter.class)
+    @Validate(converter = EntityTypeConverter.class)
     private GDS2OphaalProces proces;
 
     private double progress;
@@ -68,8 +72,8 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
     @Override
     public void progress(long progress) {
         this.processed = progress;
-        if(this.total != 0) {
-            this.progress = (100.0/this.total) * this.processed;
+        if (this.total != 0) {
+            this.progress = (100.0 / this.total) * this.processed;
         }
         this.update = new Date();
     }
@@ -93,22 +97,23 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
     }
 
     @DefaultHandler
-    @WaitPage(path=JSP, delay=1000, refresh=1000)
+    @WaitPage(path = JSP, delay = 1000, refresh = 1000)
     public Resolution execute() {
 
-        if(proces == null) {
+        if (proces == null) {
             getContext().getMessages().add(new SimpleMessage("Proces ongeldig!"));
             completed();
             return new ForwardResolution(JSP);
         }
 
-        proces = Stripersist.getEntityManager().find(GDS2OphaalProces.class, proces.getId());
+        AutomatischProces config = Stripersist.getEntityManager().find(AutomatischProces.class, proces.getId());
+        ProcesExecutable proces = AbstractExecutableProces.getProces(config);
 
         try {
             proces.execute(this);
             completed();
         } finally {
-            if(Stripersist.getEntityManager().getTransaction().isActive()) {
+            if (Stripersist.getEntityManager().getTransaction().isActive()) {
                 Stripersist.getEntityManager().getTransaction().rollback();
             }
         }

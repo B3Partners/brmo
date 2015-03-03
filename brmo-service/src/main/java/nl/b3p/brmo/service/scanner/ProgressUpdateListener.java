@@ -1,5 +1,5 @@
 
-package nl.b3p.brmo.persistence.staging;
+package nl.b3p.brmo.service.scanner;
 
 /**
  *

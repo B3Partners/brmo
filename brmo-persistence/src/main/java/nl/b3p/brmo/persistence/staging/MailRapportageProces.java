@@ -91,8 +91,4 @@ public class MailRapportageProces extends AutomatischProces {
         }
     }
 
-    @Override
-    public void execute(ProgressUpdateListener listener) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

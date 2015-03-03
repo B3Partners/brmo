@@ -44,7 +44,7 @@ public abstract class AutomatischProces implements Serializable {
 
         PROCESSING("PROCESSING"), WAITING("WAITING"), ONBEKEND("ONBEKEND"), NULL(""), ERROR("ERROR");
 
-        private String status;
+        private final String status;
 
         ProcessingStatus(String status) {
             this.status = status;
@@ -59,9 +59,9 @@ public abstract class AutomatischProces implements Serializable {
      * @note Tabel "automatisch_proces_config" in de database.
      */
     @ElementCollection
-    @JoinTable(joinColumns=@JoinColumn(name="proces_id"))
+    @JoinTable(joinColumns = @JoinColumn(name = "proces_id"))
     // Element wrapper required because of http://opensource.atlassian.com/projects/hibernate/browse/JPA-11
-    private Map<String,ClobElement> config = new HashMap<String,ClobElement>();
+    private Map<String, ClobElement> config = new HashMap<String, ClobElement>();
 
     /**
      * laatste run tijdtip vasthouden ten behoeve van logging en rapportage.
@@ -114,35 +114,6 @@ public abstract class AutomatischProces implements Serializable {
         }
 
     }
-
-    public void execute() {
-        execute(new ProgressUpdateListener() {
-
-            @Override
-            public void total(long total) {
-            }
-
-            @Override
-            public void progress(long progress) {
-            }
-
-            @Override
-            public void exception(Throwable t) {
-            }
-
-            @Override
-            public void updateStatus(String status) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void addLog(String log) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        });
-    }
-
-    public abstract void execute(ProgressUpdateListener listener);
 
     // <editor-fold defaultstate="collapsed" desc="getters and setters">
     public Map<String, ClobElement> getConfig() {
