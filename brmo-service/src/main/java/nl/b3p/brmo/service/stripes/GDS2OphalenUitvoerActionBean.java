@@ -93,6 +93,8 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
 
     @Override
     public void addLog(String log) {
+        this.proces.addLogLine(log);
+        Stripersist.getEntityManager().merge(this.proces);
         this.log += log + "\n";
     }
 
@@ -107,10 +109,10 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
         }
 
         AutomatischProces config = Stripersist.getEntityManager().find(AutomatischProces.class, proces.getId());
-        ProcesExecutable proces = AbstractExecutableProces.getProces(config);
+        ProcesExecutable _proces = AbstractExecutableProces.getProces(config);
 
         try {
-            proces.execute(this);
+            _proces.execute(this);
             completed();
         } finally {
             if (Stripersist.getEntityManager().getTransaction().isActive()) {

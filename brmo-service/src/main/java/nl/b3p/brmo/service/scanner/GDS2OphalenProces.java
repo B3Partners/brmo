@@ -27,6 +27,8 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Transient;
 import javax.xml.ws.BindingProvider;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.LOG_NEWLINE;
 import nl.b3p.gds2.Main;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbopvragen.v20130701.BestandenlijstGbOpvragenType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20130701.AfgifteGBType;
@@ -77,6 +79,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
         try {
             l.updateStatus("Initialiseren...");
+            this.config.setStatus(AutomatischProces.ProcessingStatus.PROCESSING);
+            Stripersist.getEntityManager().flush();
 
             Gds2AfgifteServiceV20130701 gds2 = new Gds2AfgifteServiceV20130701Service().getAGds2AfgifteServiceV20130701();
 
@@ -175,8 +179,19 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             l.addLog("Aantal afgiftes: " + (afgiftes == null ? "<fout>" : afgiftes.size()));
             l.addLog("Aantal afgiftes grote bestanden: " + (afgiftesGb == null ? "<fout>" : afgiftesGb.size()));
 
+            this.config.setSamenvatting("Aantal afgiftes die al waren verwerkt: " + filterAlVerwerkt + LOG_NEWLINE
+                    + "Aantal afgiftes geladen: " + aantalGeladen + LOG_NEWLINE
+                    + "Aantal afgiftes: " + (afgiftes == null ? "<fout>" : afgiftes.size()) + LOG_NEWLINE
+                    + "Aantal afgiftes grote bestanden: " + (afgiftesGb == null ? "<fout>" : afgiftesGb.size()));
+
+            this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);
         } catch (Exception e) {
+            this.config.setStatus(AutomatischProces.ProcessingStatus.ERROR);
             l.exception(e);
+        } finally {
+            this.config.setLastrun(new Date());
+            Stripersist.getEntityManager().merge(this.config);
+            Stripersist.getEntityManager().getTransaction().commit();
         }
     }
 
@@ -198,6 +213,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     private void laadAfgifte(AfgifteGBType a, String url) throws MalformedURLException, IOException {
         l.updateStatus("Downloaden " + url);
         l.addLog("Downloaden " + url);
+
         URLConnection connection = new URL(url).openConnection();
         InputStream input = (InputStream) connection.getContent();
 
@@ -237,6 +253,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
         Stripersist.getEntityManager().persist(lp);
         Stripersist.getEntityManager().persist(b);
+        Stripersist.getEntityManager().merge(this.config);
         Stripersist.getEntityManager().getTransaction().commit();
     }
 }

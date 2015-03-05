@@ -115,6 +115,15 @@ public abstract class AutomatischProces implements Serializable {
 
     }
 
+    /**
+     * Voeg een regel toe aan de log en de samenvatting.
+     *
+     * @param line toe te voegen regel
+     */
+    public void addLogLine(String line) {
+        this.setLogfile(this.getLogfile() + LOG_NEWLINE + line);
+    }
+
     // <editor-fold defaultstate="collapsed" desc="getters and setters">
     public Map<String, ClobElement> getConfig() {
         return config;
