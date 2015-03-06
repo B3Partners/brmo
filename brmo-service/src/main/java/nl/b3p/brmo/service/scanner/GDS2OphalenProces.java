@@ -11,6 +11,7 @@ import com.sun.xml.ws.developer.JAXWSProperties;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -19,6 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.net.ssl.KeyManagerFactory;
@@ -29,6 +32,7 @@ import javax.persistence.Transient;
 import javax.xml.ws.BindingProvider;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.LOG_NEWLINE;
+import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.gds2.Main;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbopvragen.v20130701.BestandenlijstGbOpvragenType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20130701.AfgifteGBType;
@@ -50,7 +54,7 @@ import org.stripesstuff.stripersist.Stripersist;
 
 /**
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author Matthijs Laan
  */
 public class GDS2OphalenProces extends AbstractExecutableProces {
 
@@ -83,6 +87,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             Stripersist.getEntityManager().flush();
 
             Gds2AfgifteServiceV20130701 gds2 = new Gds2AfgifteServiceV20130701Service().getAGds2AfgifteServiceV20130701();
+            BindingProvider bp = (BindingProvider) gds2;
+            Map<String, Object> ctxt = bp.getRequestContext();
 
             BestandenlijstOpvragenRequest request = new BestandenlijstOpvragenRequest();
             BestandenlijstOpvragenType verzoek = new BestandenlijstOpvragenType();
@@ -98,10 +104,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             criteria.getBestandKenmerken().setContractnummer(contractnummer);
             verzoekGb.setAfgifteSelectieCriteria(criteria);
 
-            BindingProvider bp = (BindingProvider) gds2;
-
-            Map<String, Object> ctxt = bp.getRequestContext();
-
             //ctxt.put(BindingProvider.USERNAME_PROPERTY, username);
             //ctxt.put(BindingProvider.PASSWORD_PROPERTY, password);
             String endpoint = (String) ctxt.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
@@ -110,10 +112,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             //ctxt.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,  "http://localhost:8088/AfgifteService");
             //l.addLog("Endpoint protocol gewijzigd naar mock");
             l.updateStatus("Laden keys...");
-
             l.addLog("Loading keystore");
             KeyStore ks = KeyStore.getInstance("jks");
-
             ks.load(Main.class.getResourceAsStream("/pkioverheid.jks"), "changeit".toCharArray());
 
             l.addLog("Initializing TrustManagerFactory");
@@ -130,7 +130,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             kmf.init(ks, "changeit".toCharArray());
 
             l.updateStatus("Opzetten SSL context...");
-
             l.addLog("Initializing SSLContext");
             context = SSLContext.getInstance("TLS", "SunJSSE");
             context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
@@ -139,15 +138,38 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
             l.updateStatus("Uitvoeren SOAP request naar Kadaster...");
 
-            // loop over opvragen todat responseGb.getAntwoord().getMeerAfgiftesbeschikbaar() != 'J'
-
             BestandenlijstGBOpvragenResponse responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
+            List<AfgifteGBType> afgiftesGb = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB();
+
+            // loop over opvragen todat responseGb.getAntwoord().getMeerAfgiftesbeschikbaar()
+            // opletten; in de xsd staat een default value van 'J' voor meerAfgiftesbeschikbaar
+            boolean hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
+            log.debug("Zijn er meer afgiftes? " + hasMore);
+            /*
+             Indicatie nog niet gerapporteerd:
+             Met deze indicatie wordt aangegeven of uitsluitend de nog niet
+             gerapporteerde bestanden moeten worden opgenomen in de lijst, of
+             dat alle beschikbare bestanden worden genoemd.
+             Niet gerapporteerd betekent in dit geval ‘niet eerder opgevraagd in
+             deze bestandenlijst’.
+             Als deze indicator wordt gebruikt, dan worden na terugmelding van de
+             bestandenlijst de bijbehorende bestanden gemarkeerd als zijnde
+             ‘gerapporteerd’ in het systeem van GDS.
+             */
+            int moreCount = 0;
+//            while (hasMore) {
+//                l.updateStatus("Uitvoeren SOAP request naar Kadaster voor meer afgiftes..." + moreCount++);
+//                requestGb.getVerzoek().getAfgifteSelectieCriteria().setNogNietGerapporteerd(true);
+//                responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
+//                afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB());
+//                hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
+//                log.debug("Nog meer afgiftes? " + hasMore);
+//            }
+
+            l.total(afgiftesGb.size());
 
             int filterAlVerwerkt = 0;
             int aantalGeladen = 0;
-
-            List<AfgifteGBType> afgiftesGb = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB();
-            l.total(afgiftesGb.size());
             int progress = 0;
             for (AfgifteGBType a : afgiftesGb) {
                 String url = null;
@@ -171,9 +193,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             }
 
             l.addLog("Meer afgiftes beschikbaar: " + responseGb.getAntwoord().getMeerAfgiftesbeschikbaar());
-
             BestandenlijstOpvragenResponse response = gds2.bestandenlijstOpvragen(request);
-
             List<AfgifteType> afgiftes = response.getAntwoord().getBestandenLijst().getAfgifte();
 
             l.addLog("\n\n**** resultaat ****\n");
@@ -254,9 +274,46 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         }
         b.setBr_xml(IOUtils.toString(zip, "UTF-8"));
 
+        doorsturenBericht(b.getBr_xml());
+
         Stripersist.getEntityManager().persist(lp);
         Stripersist.getEntityManager().persist(b);
         Stripersist.getEntityManager().merge(this.config);
         Stripersist.getEntityManager().getTransaction().commit();
+    }
+
+    /**
+     * Post de xml naar de geconfigureerde url.
+     *
+     * @param send te versturen
+     */
+    private void doorsturenBericht(String send) {
+        String _msg;
+        String _url = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
+        try {
+            if (_url == null || _url.length() < 1) {
+                return;
+            }
+            URL url = new URL(_url);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Length", "" + send.length());
+            conn.setRequestProperty("Content-Type", "application/octet-stream");
+            int copied = IOUtils.copy(IOUtils.toInputStream(send, "UTF-8"), conn.getOutputStream());
+            _msg = String.format("Bericht doorgestuurd, response status: %d: %s (%d bytes).", conn.getResponseCode(), conn.getResponseMessage(), copied);
+            this.config.addLogLine(_msg);
+            l.addLog(_msg);
+            log.info(_msg);
+            conn.disconnect();
+        } catch (MalformedURLException ex) {
+            _msg = String.format("De url '%s' voor 'delivery_endpoint' is misvormd, controleer de configuratie.", _url);
+            this.config.addLogLine(_msg);
+            log.error(_msg, ex);
+        } catch (IOException ex) {
+            _msg = String.format("Het doorsturen naar '%s' is mislukt. Misschien is de enpoint down.", _url);
+            this.config.addLogLine(_msg);
+            log.error(_msg, ex);
+        }
     }
 }
