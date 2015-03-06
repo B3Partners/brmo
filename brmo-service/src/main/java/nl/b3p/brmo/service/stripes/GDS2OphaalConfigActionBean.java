@@ -17,10 +17,12 @@ import nl.b3p.brmo.persistence.staging.ClobElement;
 /**
  *
  * @author Matthijs Laan
+ *
+ * @deprecated gebruik {@link AutoProcessenActionBean}
  */
 @StrictBinding
 public class GDS2OphaalConfigActionBean implements ActionBean {
-    private static final Log log = LogFactory.getLog(AutoProcessenActionBean.class);
+    private static final Log log = LogFactory.getLog(GDS2OphaalConfigActionBean.class);
 
     private static final String JSP = "/WEB-INF/jsp/beheer/gds2ophalen.jsp";
 

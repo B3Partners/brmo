@@ -7,6 +7,8 @@
         <%-- TODO naar aparte stylesheet --%>
         <style>
             .longTxt{width: 100%;}
+            .halfTxt{width: 50%;}
+            form{padding-top: 1em;}
         </style>
         <script type="text/javascript" src="${contextPath}/scripts/processen.js"></script>
     </stripes:layout-component>
@@ -18,14 +20,14 @@
         <stripes:messages />
         <stripes:errors />
 
-        <h3>BRK scanners</h3>
+        <h3>BRK directory scanners</h3>
 
         <stripes:form partial="true" action="">
             <stripes:button name="toevoegen" value="Toevoegen" onclick="addBRKScanner();" id="brkScannerAdd"/>
         </stripes:form>
 
         <c:if test="${not empty actionBean.brkProcessen}">
-            <script>nextBrk=<c:out value="${fn:length(actionBean.brkProcessen)}"/>;</script>
+            <script>nextBrk =<c:out value="${fn:length(actionBean.brkProcessen)}"/>;</script>
             <c:forEach items="${actionBean.brkProcessen}" varStatus="i" var="brk" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
@@ -39,6 +41,10 @@
                         <stripes:hidden name="brkProcessen[${i.index}].id" formatType="number"/>
                         <%-- PID wordt gebruikt voor start, stop en verwijder proces --%>
                         <input type="hidden" name="PID" value="${brk.id}"/>
+                        <stripes:label name="">Label
+                            <stripes:text name="brkProcessen[${i.index}].config.label" value="${brk.config.label}" class="halfTxt"/>
+                        </stripes:label>
+                        <br />
                         <stripes:label name="">Scan directory
                             <stripes:text name="brkProcessen[${i.index}].scanDirectory" value="${brk.config.scanDirectory}" class="longTxt"/>
                         </stripes:label>
@@ -55,14 +61,14 @@
             </c:forEach>
         </c:if>
 
-        <h3>BAG scanners</h3>
+        <h3>BAG directory scanners</h3>
 
         <stripes:form partial="true" action="">
             <stripes:button name="toevoegen" value="Toevoegen" onclick="addBAGScanner();"  id="bagScannerAdd"/>
         </stripes:form>
 
         <c:if test="${not empty actionBean.bagProcessen}">
-            <script>nextBag=<c:out value="${fn:length(actionBean.bagProcessen)}"/>;</script>
+            <script>nextBag =<c:out value="${fn:length(actionBean.bagProcessen)}"/>;</script>
             <c:forEach items="${actionBean.bagProcessen}" varStatus="i" var="bag" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
@@ -76,6 +82,10 @@
                         <stripes:hidden name="bagProcessen[${i.index}].id" formatType="number"/>
                         <%-- PID wordt gebruikt voor start, stop en verwijder proces --%>
                         <input type="hidden" name="PID" value="${bag.id}"/>
+                        <stripes:label name="">Label
+                            <stripes:text name="bagProcessen[${i.index}].config.label" value="${bag.config.label}" class="halfTxt"/>
+                        </stripes:label>
+                        <br />
                         <stripes:label name="">Scan directory
                             <stripes:text name="bagProcessen[${i.index}].scanDirectory" value="${bag.config.scanDirectory}" class="longTxt" />
                         </stripes:label>
@@ -100,7 +110,7 @@
 
         <c:if test="${not empty actionBean.mailProcessen}">
             <c:set var="statusValues" value="<%=ProcessingStatus.values()%>"/>
-            <script>nextMail=<c:out value="${fn:length(actionBean.mailProcessen)}"/>;</script>
+            <script>nextMail =<c:out value="${fn:length(actionBean.mailProcessen)}"/>;</script>
             <c:forEach items="${actionBean.mailProcessen}" varStatus="i" var="mail" >
                 <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
                     <fieldset>
@@ -114,6 +124,10 @@
                         <stripes:hidden name="mailProcessen[${i.index}].id" formatType="number"/>
                         <%-- PID wordt gebruikt voor start, stop en verwijder proces --%>
                         <input type="hidden" name="PID" value="${mail.id}"/>
+                        <stripes:label name="">Label
+                            <stripes:text name="mailProcessen[${i.index}].config.label" value="${mail.config.label}" class="halfTxt"/>
+                        </stripes:label>
+                        <br />
                         <stripes:label name="">Geaddresseerde(n)
                             <stripes:text name="mailProcessen[${i.index}].mailAdressen" value="${mail.config.email}" class="longTxt"/>
                         </stripes:label>
@@ -135,5 +149,55 @@
             </c:forEach>
         </c:if>
 
+
+        <h3>Ophalen GDS2 leveringen</h3>
+
+        <stripes:form partial="true" action="">
+            <stripes:button name="toevoegen" value="Toevoegen" onclick="addGDS2Ophalen();"  id="gds2OphalenAdd"/>
+        </stripes:form>
+
+        <c:if test="${not empty actionBean.gds2Processen}">
+            <script>nextGDS =<c:out value="${fn:length(actionBean.gds2Processen)}"/>;</script>
+            <c:forEach items="${actionBean.gds2Processen}" varStatus="i" var="gds" >
+                <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
+                    <fieldset>
+                        <legend>
+                            GDS2 levering taak: ${gds.id} , status: ${gds.status},
+                            <stripes:link beanclass="nl.b3p.brmo.service.stripes.SamenvattingActionBean">
+                                <stripes:param name="procesId" value="${gds.id}" />
+                                laatste run: <fmt:formatDate  pattern="${timeFormat}" value="${gds.lastrun}"/>
+                            </stripes:link>
+                        </legend>
+                        <stripes:hidden name="gds2Processen[${i.index}].id" formatType="number"/>
+                        <%-- PID wordt gebruikt voor start, stop en verwijder proces --%>
+                        <input type="hidden" name="PID" value="${gds.id}"/>
+                        <stripes:label name="">Label
+                            <stripes:text name="gds2Processen[${i.index}].config.label" value="${gds.config.label}" class="halfTxt"/>
+                        </stripes:label>
+                        <br />
+                        <stripes:label name="">Afleveringsendpoint
+                            <stripes:text name="gds2Processen[${i.index}].config.delivery_endpoint"  class="longTxt"/>
+                        </stripes:label>
+                        <stripes:label name="">Contractnummer
+                            <stripes:text name="gds2Processen[${i.index}].config.gds2_contractnummer" size="20" />
+                        </stripes:label>
+                        <br/>
+                        <stripes:label name="">Pad naar keystore:
+                            <stripes:text name="gds2Processen[${i.index}].config.keystore_path" size="80"/>
+                        </stripes:label>
+                        <stripes:label name="">Wachtwoord
+                            <stripes:password name="gds2Processen[${i.index}].config.keystore_password" size="20"/>
+                        </stripes:label>
+                    </fieldset>
+                    <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.GDS2OphalenUitvoerActionBean">
+                        <stripes:param name="proces">${gds.id}</stripes:param>
+                    </stripes:url>
+                    <stripes:submit name="save" value="Opslaan" />
+                    <stripes:button name="execute" onclick="if(confirm('Let op! Proces moet eerst zijn opgeslagen. Verder gaan?')) window.open('${url}');">Start</stripes:button>
+                    <stripes:submit name="stopProces" value="Stop" disabled="true" />
+                    <stripes:submit name="verwijderProces" value="Verwijderen" />
+                </stripes:form>
+            </c:forEach>
+        </c:if>
     </stripes:layout-component>
 </stripes:layout-render>

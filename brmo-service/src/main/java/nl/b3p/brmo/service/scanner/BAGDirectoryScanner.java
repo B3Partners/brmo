@@ -28,7 +28,7 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
 
     private static final Log log = LogFactory.getLog(BAGDirectoryScanner.class);
 
-    private BAGScannerProces config;
+    private final BAGScannerProces config;
 
     public BAGDirectoryScanner(BAGScannerProces config) {
         this.config = config;

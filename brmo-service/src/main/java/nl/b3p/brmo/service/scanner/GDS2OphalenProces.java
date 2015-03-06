@@ -138,6 +138,9 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             ctxt.put(JAXWSProperties.SSL_SOCKET_FACTORY, context.getSocketFactory());
 
             l.updateStatus("Uitvoeren SOAP request naar Kadaster...");
+
+            // loop over opvragen todat responseGb.getAntwoord().getMeerAfgiftesbeschikbaar() != 'J'
+
             BestandenlijstGBOpvragenResponse responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
 
             int filterAlVerwerkt = 0;

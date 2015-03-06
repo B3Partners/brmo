@@ -24,6 +24,7 @@ import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
+import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.persistence.staging.MailRapportageProces;
 import static nl.b3p.brmo.persistence.staging.MailRapportageProces.PIDS;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
@@ -50,6 +51,8 @@ public class AutoProcessenActionBean implements ActionBean {
 
     private List<MailRapportageProces> mailProcessen = new ArrayList<MailRapportageProces>();
 
+    private List<GDS2OphaalProces> gds2Processen = new ArrayList<GDS2OphaalProces>();
+
     /**
      * ophalen van alle automatisch proces entities.
      */
@@ -60,18 +63,19 @@ public class AutoProcessenActionBean implements ActionBean {
 
         CriteriaQuery brkCrit = cb.createQuery(BRKScannerProces.class);
         Root<BRKScannerProces> brkRoot = brkCrit.from(BRKScannerProces.class);
-        TypedQuery<BRKScannerProces> qBrk = em.createQuery(brkCrit);
-        brkProcessen = qBrk.getResultList();
+        brkProcessen = em.createQuery(brkCrit).getResultList();
 
         CriteriaQuery bagCrit = cb.createQuery(BAGScannerProces.class);
         Root<BAGScannerProces> bagRoot = bagCrit.from(BAGScannerProces.class);
-        TypedQuery<BAGScannerProces> qBag = em.createQuery(bagCrit);
-        bagProcessen = qBag.getResultList();
+        bagProcessen = em.createQuery(bagCrit).getResultList();
 
         CriteriaQuery mailCrit = cb.createQuery(MailRapportageProces.class);
         Root<MailRapportageProces> mRoot = mailCrit.from(MailRapportageProces.class);
-        TypedQuery<MailRapportageProces> qMail = em.createQuery(mailCrit);
-        mailProcessen = qMail.getResultList();
+        mailProcessen = em.createQuery(mailCrit).getResultList();
+
+        CriteriaQuery gdsCrit = cb.createQuery(GDS2OphaalProces.class);
+        Root<GDS2OphaalProces> gRoot = gdsCrit.from(GDS2OphaalProces.class);
+        gds2Processen = em.createQuery(gdsCrit).getResultList();
     }
 
     /**
@@ -82,30 +86,6 @@ public class AutoProcessenActionBean implements ActionBean {
      */
     @DefaultHandler
     public Resolution view() {
-        if (log.isDebugEnabled()) {
-            log.debug("=============== bekende BRK processen ===============");
-            for (BRKScannerProces p : brkProcessen) {
-                log.debug("  proces id: " + p.getId());
-                log.debug("     status: " + p.getStatus());
-                log.debug("   scan dir: " + p.getScanDirectory());
-                log.debug("archief dir: " + p.getArchiefDirectory());
-            }
-            log.debug("=============== bekende BAG processen ===============");
-            for (BAGScannerProces p : bagProcessen) {
-                log.debug("  proces id: " + p.getId());
-                log.debug("     status: " + p.getStatus());
-                log.debug("   scan dir: " + p.getScanDirectory());
-                log.debug("archief dir: " + p.getArchiefDirectory());
-            }
-            log.debug("=============== bekende MAIL processen===============");
-            for (MailRapportageProces p : mailProcessen) {
-                log.debug("  proces id: " + p.getId());
-                log.debug("     status: " + p.getStatus());
-                log.debug("   adressen: " + p.getMailAdressen());
-                log.debug("  processen: " + p.getConfig().get(PIDS));
-            }
-        }
-
         return new ForwardResolution(JSP);
     }
 
@@ -157,6 +137,9 @@ public class AutoProcessenActionBean implements ActionBean {
         }
         for (MailRapportageProces mail : this.mailProcessen) {
             em.merge(mail);
+        }
+        for (GDS2OphaalProces gds : this.gds2Processen) {
+            em.merge(gds);
         }
         em.getTransaction().commit();
     }
@@ -242,7 +225,7 @@ public class AutoProcessenActionBean implements ActionBean {
         // reload om de arraylists met proces entities te verversen
         this.load();
 
-        getContext().getMessages().add(new SimpleMessage("Het proces met ID {0,number,#} is verwijderd.", id));;
+        getContext().getMessages().add(new SimpleMessage("Het proces met ID {0,number,#} is verwijderd.", id));
         return new ForwardResolution(JSP);
     }
 
@@ -261,6 +244,14 @@ public class AutoProcessenActionBean implements ActionBean {
     @Override
     public ActionBeanContext getContext() {
         return this.context;
+    }
+
+    public List<GDS2OphaalProces> getGds2Processen() {
+        return gds2Processen;
+    }
+
+    public void setGds2Processen(List<GDS2OphaalProces> gds2Processen) {
+        this.gds2Processen = gds2Processen;
     }
 
     public List<BRKScannerProces> getBrkProcessen() {

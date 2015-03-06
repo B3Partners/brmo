@@ -32,6 +32,7 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.LOG_NEWLINE;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+import nl.b3p.brmo.persistence.staging.ClobElement;
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
@@ -150,7 +151,7 @@ public class MailRapportage extends AbstractExecutableProces {
             predicates.add(where);
         }
         // processen in... filter
-        String pids = this.config.getConfig().get(MailRapportageProces.PIDS).getValue();
+        String pids = ClobElement.nullSafeGet(this.config.getConfig().get(MailRapportageProces.PIDS));
         if (pids != null) {
             List<Long> pidLijst = new ArrayList<Long>();
             Matcher match = (Pattern.compile("[0-9]+")).matcher(pids);
@@ -173,7 +174,7 @@ public class MailRapportage extends AbstractExecutableProces {
         return em.createQuery(cq).getResultList();
     }
 
-       @Override
+    @Override
     public void execute(ProgressUpdateListener listener) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

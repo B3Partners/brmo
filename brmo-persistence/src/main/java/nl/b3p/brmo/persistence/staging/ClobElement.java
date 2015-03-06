@@ -1,5 +1,6 @@
 package nl.b3p.brmo.persistence.staging;
 
+import java.io.Serializable;
 import javax.persistence.Embeddable;
 import javax.persistence.Lob;
 import org.apache.commons.lang3.StringUtils;
@@ -10,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 
 @Embeddable
-public class ClobElement {
+public class ClobElement implements Serializable {
     @Lob
     @org.hibernate.annotations.Type(type="org.hibernate.type.StringClobType")
     private String value;

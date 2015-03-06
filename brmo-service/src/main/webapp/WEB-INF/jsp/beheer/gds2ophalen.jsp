@@ -3,6 +3,20 @@
     <stripes:layout-component name="title">Ophalen GDS2 leveringen</stripes:layout-component>
     <stripes:layout-component name="contents">
 
+
+        <%--
+
+
+
+
+        niet meer gebruiken, gebruik processen.jsp
+
+
+
+
+
+        --%>
+
         <% pageContext.setAttribute("newLine", "\n");%>
 
         <h2>Ophalen GDS2 leveringen</h2>
@@ -16,7 +30,7 @@
 
         <c:set var="l" value="${actionBean.processen}"/>
         <c:if test="${empty l}">
-            <i>Nog geen processen gedefinieerd.</i>
+            <em>Nog geen processen gedefinieerd.</em>
         </c:if>
 
         <c:if test="${!empty l}">
@@ -44,7 +58,7 @@
                             <td><c:out value="${fn:replace(p.samenvatting, newLine, '<br />')}" escapeXml="false"/></td>
                             <td>
                                 <stripes:link beanclass="nl.b3p.brmo.service.stripes.SamenvattingActionBean">
-                                    <stripes:param name="procesId" value="${p.id}"/>log
+                                    <stripes:param name="procesId" value="${p.id}"/>log file
                                 </stripes:link>
                             </td>
                         </tr>
@@ -57,7 +71,6 @@
 
         <stripes:form beanclass="nl.b3p.brmo.service.stripes.GDS2OphaalConfigActionBean">
             <stripes:hidden name="proces"/>
-            ${actionBean.context.eventName}<br/>
             <c:set var="_new" value="${actionBean.context.eventName == 'add'}"/>
             <c:set var="edit" value="${actionBean.context.eventName == 'view' && !empty actionBean.proces}"/>
 
