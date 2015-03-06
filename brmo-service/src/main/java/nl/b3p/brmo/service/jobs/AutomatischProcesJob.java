@@ -1,0 +1,43 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package nl.b3p.brmo.service.jobs;
+
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import nl.b3p.brmo.persistence.staging.BRKScannerProces;
+import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
+import nl.b3p.brmo.service.scanner.BRKDirectoryScanner;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.quartz.Job;
+import org.stripesstuff.stripersist.Stripersist;
+
+/**
+ *
+ * @author Mark Prins <mark@b3partners.nl>
+ */
+public class AutomatischProcesJob implements Job {
+
+    private static final Log log = LogFactory.getLog(AutomatischProcesJob.class);
+
+    @Override
+    public void execute(JobExecutionContext context) throws JobExecutionException {
+        long id = context.getJobDetail().getJobDataMap().getLongValue("id");
+        log.debug("Poging gepland automatisch proces met id: " + id+" te starten.");
+
+        try {
+            Stripersist.requestInit();
+            AutomatischProces p = Stripersist.getEntityManager().find(AutomatischProces.class, id);
+            p.addLogLine("Job restart door scheduler.");
+            AbstractExecutableProces.getProces(p).execute();
+            p.addLogLine("Geplande taak afgerond.");
+            Stripersist.getEntityManager().flush();
+        } catch (Exception ex) {
+            log.error(ex);
+        }
+    }
+}

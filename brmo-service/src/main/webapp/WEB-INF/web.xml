@@ -10,6 +10,23 @@
         <param-name>pipelining.capacity</param-name>
         <param-value>100</param-value>
     </context-param>
+    <!-- see http://quartz-scheduler.org/api/2.2.0/org/quartz/ee/servlet/QuartzInitializerListener.html -->
+    <context-param>
+        <param-name>quartz:shutdown-on-unload</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>quartz:wait-on-shutdown</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>quartz:start-on-load</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>quartz:start-delay-seconds</param-name>
+        <param-value>10</param-value>
+    </context-param>
     <filter>
         <display-name>Stripes Filter</display-name>
         <filter-name>StripesFilter</filter-name>
@@ -87,6 +104,10 @@
         <servlet-name>SimonConsoleServlet</servlet-name>
         <url-pattern>/javasimon-console/*</url-pattern>
     </servlet-mapping>
+    <listener>
+        <description>Quartz listener</description>
+        <listener-class>org.quartz.ee.servlet.QuartzInitializerListener</listener-class>
+    </listener>
     <!-- Note: No authorization on url-patterns but on Stripes ActionBeans using
       @Secure (from Stripesstuff), so when the @UrlBinding changes no url-patterns
       need to be updated
