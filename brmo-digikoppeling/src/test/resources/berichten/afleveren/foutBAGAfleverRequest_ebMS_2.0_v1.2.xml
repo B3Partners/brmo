@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:afleverRequest xsi:schemaLocation="http://logius.nl/digipoort/koppelvlakservices/1.2/ ../digipoort-koppelvlak-1.2.xsd"
+                    xmlns:tns="http://logius.nl/digipoort/koppelvlakservices/1.2/"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <tns:kenmerk>dc7f1a22-60cd-4312-823a-89688c2bdd36</tns:kenmerk>
+    <tns:berichtsoort>Omzetbelasting</tns:berichtsoort>
+    <tns:berichtkenmerk>6bfdfdd0-622b-473b-a09a-c1c57f4fa3f1</tns:berichtkenmerk>
+    <tns:aanleverkenmerk>dc7f1a22-60cd-4312-823a-89688c2bdd36</tns:aanleverkenmerk>
+    <tns:tijdstempelAangeleverd>2011-11-22T09:30:47.0Z</tns:tijdstempelAangeleverd>
+    <tns:identiteitBelanghebbende>
+        <tns:nummer>001000044B37</tns:nummer>
+        <tns:type>Fi</tns:type>
+    </tns:identiteitBelanghebbende>
+    <tns:rolBelanghebbende>bedrijf</tns:rolBelanghebbende>
+    <tns:identiteitAanleveraar>
+        <tns:nummer>00000002003214394002</tns:nummer>
+        <tns:type>KvK</tns:type>
+    </tns:identiteitAanleveraar>
+    <tns:identiteitOntvanger>
+        <tns:nummer>00000002003214394002</tns:nummer>
+        <tns:type>OIN</tns:type>
+    </tns:identiteitOntvanger>
+    <tns:rolOntvanger>overheid</tns:rolOntvanger>
+    <tns:berichtInhoud>
+        <tns:mimeType>application/xml</tns:mimeType>
+        <tns:bestandsnaam>update.xml</tns:bestandsnaam>
+        <tns:inhoud>WEJSTCBJbnN0YW50aWU=</tns:inhoud>
+    </tns:berichtInhoud>
+</tns:afleverRequest>

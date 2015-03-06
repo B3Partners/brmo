@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jxb:bindings version="2.0" xmlns:jxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <jxb:bindings schemaLocation="../xsd/digipoort-koppelvlak-1.2.xsd">
+        <jxb:globalBindings />
+        <jxb:schemaBindings>
+            <jxb:package name="nl.b3p.brmo.digipoort.koppelvlakservices._1_2">
+                <jxb:javadoc>
+                    <![CDATA[<body>
+                        Generated package nl.b3p.brmo.digipoort.koppelvlakservices._1_2.
+                    </body>]]>
+                </jxb:javadoc>
+            </jxb:package>
+        </jxb:schemaBindings>
+        <jxb:bindings node="//xs:element[@name='aanleverFault']">
+            <jxb:class name="AanleverFault"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xs:element[@name='afleverFault']">
+            <jxb:class name="AfleverFault"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xs:element[@name='zetStatusFault']">
+            <jxb:class name="ZetStatusFault"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xs:element[@name='statusinformatieFault']">
+            <jxb:class name="StatusinformatieFault"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xs:element[@name='ophaalFault']">
+            <jxb:class name="OphaalFault"/>
+        </jxb:bindings>
+    </jxb:bindings>
+</jxb:bindings>
