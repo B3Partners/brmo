@@ -74,7 +74,29 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
     @Override
     public void execute() throws BrmoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.execute(new ProgressUpdateListener() {
+            /* doet bijna niks listener */
+            @Override
+            public void total(long total) {
+            }
+
+            @Override
+            public void progress(long progress) {
+            }
+
+            @Override
+            public void exception(Throwable t) {
+            }
+
+            @Override
+            public void updateStatus(String status) {
+            }
+
+            @Override
+            public void addLog(String log) {
+                config.addLogLine(log);
+            }
+        });
     }
 
     @Override

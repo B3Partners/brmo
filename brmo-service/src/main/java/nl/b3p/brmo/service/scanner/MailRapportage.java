@@ -176,6 +176,11 @@ public class MailRapportage extends AbstractExecutableProces {
 
     @Override
     public void execute(ProgressUpdateListener listener) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            this.execute();
+        } catch (BrmoException ex) {
+            log.error(ex);
+        }
+
     }
 }

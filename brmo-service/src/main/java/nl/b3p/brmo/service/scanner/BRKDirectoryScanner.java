@@ -115,6 +115,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                 config.setStatus(WAITING);
                 config.updateSamenvattingEnLogfile(sb.toString());
                 config.setLastrun(new Date());
+
                 break;
 
             default:
@@ -124,6 +125,10 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
 
     @Override
     public void execute(ProgressUpdateListener listener) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                try {
+            this.execute();
+        } catch (BrmoException ex) {
+            log.error(ex);
+        }
     }
 }

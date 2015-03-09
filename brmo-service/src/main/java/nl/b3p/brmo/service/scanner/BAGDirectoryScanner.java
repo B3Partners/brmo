@@ -116,6 +116,7 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                 config.setStatus(WAITING);
                 config.updateSamenvattingEnLogfile(sb.toString());
                 config.setLastrun(new Date());
+
                 break;
             default:
                 log.warn(String.format("De BAG scanner met ID %d is niet gestart vanwege de status %s.", config.getId(), config.getStatus()));
@@ -124,7 +125,11 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
 
     @Override
     public void execute(ProgressUpdateListener listener) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            this.execute();
+        } catch (BrmoException ex) {
+            log.error(ex);
+        }
     }
 
 }
