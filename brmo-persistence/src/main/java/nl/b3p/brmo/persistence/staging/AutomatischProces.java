@@ -90,6 +90,11 @@ public abstract class AutomatischProces implements Serializable {
     private String logfile;
 
     /**
+     * cron expressie voor planning.
+     */
+    private String cron_expressie;
+
+    /**
      * update samenvatting en logfile in één keer, waarbij de logfile aangevuld
      * wordt met de samenvatting.
      *
@@ -171,6 +176,14 @@ public abstract class AutomatischProces implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCron_expressie() {
+        return cron_expressie;
+    }
+
+    public void setCron_expressie(String cron_expressie) {
+        this.cron_expressie = cron_expressie;
     }
 
     //</editor-fold>

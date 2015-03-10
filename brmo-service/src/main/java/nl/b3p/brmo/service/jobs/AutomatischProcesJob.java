@@ -30,15 +30,16 @@ public class AutomatischProcesJob implements Job {
 
         try {
             Stripersist.requestInit();
-            EntityManager em =Stripersist.getEntityManager();
+            EntityManager em = Stripersist.getEntityManager();
             AutomatischProces p = em.find(AutomatischProces.class, id);
-            p.addLogLine("Job restart door scheduler.");
+            p.addLogLine("Geplande taak gestart.");
             AbstractExecutableProces.getProces(p).execute();
             p.addLogLine("Geplande taak afgerond.");
             em.merge(p);
-            em.flush();
+            em.getTransaction().commit();
+            log.debug("Gepland automatisch proces met " + id + " is afgerond.");
         } catch (Exception ex) {
-            log.error(ex);
+            log.error("Fout tijdens starten of uitvoeren van automatische proces met id: " + id, ex);
         }
     }
 }

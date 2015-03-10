@@ -52,6 +52,9 @@
                         <stripes:label name="">Archief directory
                             <stripes:text name="brkProcessen[${i.index}].archiefDirectory" value="${brk.config.archiefDirectory}" class="longTxt"/>
                         </stripes:label>
+                        <stripes:label name="">Planning (cron expressie)
+                            <stripes:text name="brkProcessen[${i.index}].cron_expressie" value="${brk.cron_expressie}" class="halfTxt"/>
+                        </stripes:label>
                     </fieldset>
                     <stripes:submit name="save" value="Opslaan" />
                     <stripes:submit name="startProces" value="Start" />
@@ -92,6 +95,9 @@
                         <br />
                         <stripes:label name="">Archief directory
                             <stripes:text name="bagProcessen[${i.index}].archiefDirectory" value="${bag.config.archiefDirectory}" class="longTxt" />
+                        </stripes:label>
+                        <stripes:label name="">Planning (cron expressie)
+                            <stripes:text name="bagProcessen[${i.index}].cron_expressie" value="${bag.cron_expressie}" class="halfTxt"/>
                         </stripes:label>
                     </fieldset>
                     <stripes:submit name="save" value="Opslaan" />
@@ -140,6 +146,10 @@
                                 <stripes:options-collection collection="${statusValues}"/>
                             </stripes:select>
                         </stripes:label>
+                        <br/>
+                        <stripes:label name="">Planning (cron expressie)
+                            <stripes:text name="mailProcessen[${i.index}].cron_expressie" value="${mail.cron_expressie}" class="halfTxt"/>
+                        </stripes:label>
                     </fieldset>
                     <stripes:submit name="save" value="Opslaan" />
                     <stripes:submit name="startProces" value="Start" />
@@ -187,6 +197,9 @@
                         </stripes:label>
                         <stripes:label name="">Wachtwoord
                             <stripes:password name="gds2Processen[${i.index}].config.keystore_password" size="20"/>
+                        </stripes:label>
+                        <stripes:label name="">Planning (cron expressie)
+                            <stripes:text name="gds2Processen[${i.index}].cron_expressie" value="${gds2.cron_expressie}" class="halfTxt"/>
                         </stripes:label>
                     </fieldset>
                     <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.GDS2OphalenUitvoerActionBean">

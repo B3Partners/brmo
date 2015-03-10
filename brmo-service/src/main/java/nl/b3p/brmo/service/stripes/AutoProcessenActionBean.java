@@ -27,10 +27,17 @@ import nl.b3p.brmo.persistence.staging.BRKScannerProces;
 import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.persistence.staging.MailRapportageProces;
 import static nl.b3p.brmo.persistence.staging.MailRapportageProces.PIDS;
+import nl.b3p.brmo.service.jobs.GeplandeTakenInit;
+import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.QUARTZ_FACTORY_KEY;
+import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.SCHEDULER_NAME;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.quartz.JobKey;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.impl.StdSchedulerFactory;
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
@@ -98,6 +105,7 @@ public class AutoProcessenActionBean implements ActionBean {
         try {
             this.saveAll();
             getContext().getMessages().add(new SimpleMessage("Processen zijn succesvol opgeslagen."));
+            updateJobSchedule(Long.valueOf(getContext().getRequest().getParameter("PID")));
         } catch (Throwable t) {
             getContext().getMessages().add(
                     new SimpleError("Er is een fout opgetreden tijdens het opslaan van de configuratie gegevens. {2}",
@@ -227,6 +235,27 @@ public class AutoProcessenActionBean implements ActionBean {
 
         getContext().getMessages().add(new SimpleMessage("Het proces met ID {0,number,#} is verwijderd.", id));
         return new ForwardResolution(JSP);
+    }
+
+    /**
+     * vervang de job door een aangepaste job.
+     *
+     * @param id
+     * @throws SchedulerException
+     */
+    private void updateJobSchedule(long id) throws SchedulerException {
+        final EntityManager em = Stripersist.getEntityManager();
+        AutomatischProces p = em.find(AutomatischProces.class, id);
+        log.debug("Update scheduled job:" + p.getId());
+
+        StdSchedulerFactory factory = (StdSchedulerFactory) getContext().getServletContext().getAttribute(QUARTZ_FACTORY_KEY);
+        //Scheduler scheduler = factory.getScheduler();
+        Scheduler scheduler = factory.getScheduler(SCHEDULER_NAME);
+log.debug(scheduler);
+        scheduler.deleteJob(new JobKey(GeplandeTakenInit.JOBKEY_PREFIX + p.getId()));
+        if (p.getCron_expressie() != null) {
+            GeplandeTakenInit.addJobDetails(scheduler, p);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="getters and setters">
