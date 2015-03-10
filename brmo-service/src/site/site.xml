@@ -1,5 +1,4 @@
 <project xsi:schemaLocation="http://maven.apache.org/DECORATION/1.3.0 http://maven.apache.org/xsd/decoration-1.3.0.xsd"
-         name="${project.name} ${project.version}"
          xmlns="http://maven.apache.org/DECORATION/1.3.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          name="${project.name} ${project.version}">
@@ -28,6 +27,10 @@
     <menu name="Information">
       <item name="Home" href="/index.html" />
       <item name="Release notes" href="/releasenotes.html" />
+    </menu>
+    <menu name="Configuratie">
+        <item name="Mail" href="/mail-configuratie.html" />
+        <item name="Planning" href="/planning-configuratie.html" />
     </menu>
     <menu ref="parent" />
     <menu ref="modules" />

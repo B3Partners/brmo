@@ -12,4 +12,4 @@ Op dit moment kunnen cron expressies worden gebruikt om taken te plannen.
 |ieder uur			|`0 0 0/1 * * ?` |
 
 
-Een handige tool is te vinden op [cronmaker.com](http://www.cronmaker.com/)
+Een handige tool om cron expressie te maken is te vinden op [cronmaker.com](http://www.cronmaker.com/)
