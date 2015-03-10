@@ -6,7 +6,6 @@ package nl.b3p.brmo.service.stripes;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -24,9 +23,9 @@ import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
+import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
 import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.persistence.staging.MailRapportageProces;
-import static nl.b3p.brmo.persistence.staging.MailRapportageProces.PIDS;
 import nl.b3p.brmo.service.jobs.GeplandeTakenInit;
 import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.QUARTZ_FACTORY_KEY;
 import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.SCHEDULER_NAME;
@@ -60,6 +59,8 @@ public class AutoProcessenActionBean implements ActionBean {
 
     private List<GDS2OphaalProces> gds2Processen = new ArrayList<GDS2OphaalProces>();
 
+    private List<BerichtTransformatieProces> brmoProcessen = new ArrayList<BerichtTransformatieProces>();
+
     /**
      * ophalen van alle automatisch proces entities.
      */
@@ -83,6 +84,10 @@ public class AutoProcessenActionBean implements ActionBean {
         CriteriaQuery gdsCrit = cb.createQuery(GDS2OphaalProces.class);
         Root<GDS2OphaalProces> gRoot = gdsCrit.from(GDS2OphaalProces.class);
         gds2Processen = em.createQuery(gdsCrit).getResultList();
+
+        CriteriaQuery brmoCrit = cb.createQuery(BerichtTransformatieProces.class);
+        Root<GDS2OphaalProces> bRoot = brmoCrit.from(BerichtTransformatieProces.class);
+        brmoProcessen = em.createQuery(brmoCrit).getResultList();
     }
 
     /**
@@ -148,6 +153,9 @@ public class AutoProcessenActionBean implements ActionBean {
         }
         for (GDS2OphaalProces gds : this.gds2Processen) {
             em.merge(gds);
+        }
+        for (BerichtTransformatieProces brmo : this.brmoProcessen) {
+            em.merge(brmo);
         }
         em.getTransaction().commit();
     }
@@ -251,7 +259,7 @@ public class AutoProcessenActionBean implements ActionBean {
         StdSchedulerFactory factory = (StdSchedulerFactory) getContext().getServletContext().getAttribute(QUARTZ_FACTORY_KEY);
         //Scheduler scheduler = factory.getScheduler();
         Scheduler scheduler = factory.getScheduler(SCHEDULER_NAME);
-log.debug(scheduler);
+        log.debug(scheduler);
         scheduler.deleteJob(new JobKey(GeplandeTakenInit.JOBKEY_PREFIX + p.getId()));
         if (p.getCron_expressie() != null) {
             GeplandeTakenInit.addJobDetails(scheduler, p);
@@ -305,6 +313,14 @@ log.debug(scheduler);
 
     public void setBagProcessen(List<BAGScannerProces> bagProcessen) {
         this.bagProcessen = bagProcessen;
+    }
+
+    public List<BerichtTransformatieProces> getBrmoProcessen() {
+        return brmoProcessen;
+    }
+
+    public void setBrmoProcessen(List<BerichtTransformatieProces> brmoProcessen) {
+        this.brmoProcessen = brmoProcessen;
     }
 
     //</editor-fold>

@@ -159,6 +159,50 @@
             </c:forEach>
         </c:if>
 
+        <h3>BRMO Bericht Transformatie processen</h3>
+        <stripes:form partial="true" action="">
+            <stripes:button name="toevoegen" value="Toevoegen" onclick="transformatieAdd();"  id="transformatieAdd"/>
+        </stripes:form>
+
+        <c:if test="${not empty actionBean.brmoProcessen}">
+            <script>nextBRMO =<c:out value="${fn:length(actionBean.brmoProcessen)}"/>;</script>
+            <c:forEach items="${actionBean.brmoProcessen}" varStatus="i" var="brmo" >
+                <stripes:form beanclass="nl.b3p.brmo.service.stripes.AutoProcessenActionBean">
+                    <fieldset>
+                        <legend>
+                            BRMO Transformatie taak: ${brmo.id} , status: ${brmo.status},
+                            <stripes:link beanclass="nl.b3p.brmo.service.stripes.SamenvattingActionBean">
+                                <stripes:param name="procesId" value="${brmo.id}" />
+                                laatste run: <fmt:formatDate  pattern="${timeFormat}" value="${brmo.lastrun}"/>
+                            </stripes:link>
+                        </legend>
+                        <stripes:hidden name="brmoProcessen[${i.index}].id" formatType="number"/>
+                        <stripes:hidden name="brmoProcessen[${i.index}].config.transformAll" value="true" />
+                        <%-- PID wordt gebruikt voor start, stop en verwijder proces --%>
+                        <input type="hidden" name="PID" value="${brmo.id}"/>
+                        <stripes:label name="">Label
+                            <stripes:text name="brmoProcessen[${i.index}].config.label" value="${brmo.config.label}" class="halfTxt"/>
+                        </stripes:label>
+                        <br/>
+                         <stripes:label name="">Planning (cron expressie)
+                            <stripes:text name="brmoProcessen[${i.index}].cron_expressie" value="${brmo.cron_expressie}" class="halfTxt"/>
+                        </stripes:label>
+                    </fieldset>
+
+                    <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.TransformActionBean">
+                        <stripes:param name="transformAll">true</stripes:param>
+                    </stripes:url>
+                    <stripes:submit name="save" value="Opslaan" />
+                    <stripes:button name="execute" onclick="if(confirm('Alle berichten worden getransformeerd. Verder gaan?')) window.open('${url}');">Start</stripes:button>
+                    <stripes:submit name="stopProces" value="Stop" disabled="true" />
+                    <stripes:submit name="verwijderProces" value="Verwijderen" />
+                </stripes:form>
+            </c:forEach>
+
+
+        </c:if>
+
+
 
         <h3>Ophalen GDS2 leveringen</h3>
 

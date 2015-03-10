@@ -2,7 +2,7 @@
  * formulieren voor de automatische processen.
  */
 // iteratie variabelen, worden eventueel aangepast door de processen iteraties
-var nextBrk = 0, nextBag = 0, nextMail = 0, nextGDS = 0;
+var nextBrk = 0, nextBag = 0, nextMail = 0, nextGDS = 0, nextBRMO = 0;
 function addBRKScanner() {
     var formHTML = '<form><fieldset>' +
             '<label>Label' +
@@ -60,5 +60,18 @@ function addGDS2Ophalen() {
             '</label></fieldset>' +
             '<input name="addNew" value="Opslaan" type="submit" /><input value="Annuleren" type="reset"/></form>';
     var btn = document.getElementById('gds2OphalenAdd');
+    btn.insertAdjacentHTML('afterend', formHTML);
+}
+
+function transformatieAdd() {
+    var formHTML = '<form><fieldset>' +
+            '<label>Label' +
+            '<input name="brmoProcessen[' + nextBRMO + '].config.label" value="" class="halfTxt" />' +
+            '</label><br/><label>Planning (cron expressie)' +
+            '<input name="brmoProcessen[' + nextBRMO + '].cron_expressie" value="" class="halfTxt" />' +
+            '</label></fieldset>' +
+            '<input name="brmoProcessen[' + nextBRMO + '].config.transformAll" value="true" type="hidden" />'+
+            '<input name="addNew" value="Opslaan" type="submit" /><input value="Annuleren" type="reset"/></form>';
+    var btn = document.getElementById('transformatieAdd');
     btn.insertAdjacentHTML('afterend', formHTML);
 }
