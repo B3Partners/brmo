@@ -5,19 +5,15 @@ package nl.b3p.brmo.service.jobs;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.QUARTZ_FACTORY_KEY;
 import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.SCHEDULER_NAME;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
+import org.quartz.impl.StdSchedulerFactory;
 
 /**
  *
  * @author Mark Prins <mark@b3partners.nl>
  */
 public class GeplandeTakenContextListener implements ServletContextListener {
-
-    private static final Log log = LogFactory.getLog(GeplandeTakenContextListener.class);
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -27,14 +23,15 @@ public class GeplandeTakenContextListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        Scheduler scheduler = (Scheduler) sce.getServletContext().getAttribute(SCHEDULER_NAME);
         try {
-            if (scheduler != null) {
-                scheduler.shutdown();
+            StdSchedulerFactory f = (StdSchedulerFactory) sce.getServletContext().
+                    getAttribute(QUARTZ_FACTORY_KEY);
+            sce.getServletContext().removeAttribute(QUARTZ_FACTORY_KEY);
+            if (f != null) {
+                f.getScheduler(SCHEDULER_NAME).shutdown();
             }
-        } catch (SchedulerException ex) {
-            log.error(ex);
+        } catch (Exception ex) {
+            // sce.getServletContext().log(ex);
         }
-        sce.getServletContext().removeAttribute(SCHEDULER_NAME);
     }
 }

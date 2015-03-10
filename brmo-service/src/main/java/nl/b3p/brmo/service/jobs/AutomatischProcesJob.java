@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2015 B3Partners B.V.
  */
 package nl.b3p.brmo.service.jobs;
 
@@ -16,6 +14,7 @@ import org.quartz.Job;
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
+ * Start door quartz beheerde automatische processen.
  *
  * @author Mark Prins <mark@b3partners.nl>
  */

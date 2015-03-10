@@ -20,7 +20,15 @@
         <stripes:messages />
         <stripes:errors />
 
-        <h3>BRK directory scanners</h3>
+        <ul id="skiplinks">
+            <li><a href="#brk">BRK directory scanners</a></li>
+            <li><a href="#bag">BAG directory scanners</a></li>
+            <li><a href="#email">Email Notificaties</a></li>
+            <li><a href="#brmo">BRMO Bericht Transformatie processen</a></li>
+            <li><a href="#gds2">Ophalen GDS2 leveringen</a></li>
+        </ul>
+
+        <h3 id="brk">BRK directory scanners</h3>
 
         <stripes:form partial="true" action="">
             <stripes:button name="toevoegen" value="Toevoegen" onclick="addBRKScanner();" id="brkScannerAdd"/>
@@ -64,7 +72,9 @@
             </c:forEach>
         </c:if>
 
-        <h3>BAG directory scanners</h3>
+        <p><a href="#skiplinks">naar boven</a></p>
+
+        <h3 id="bag">BAG directory scanners</h3>
 
         <stripes:form partial="true" action="">
             <stripes:button name="toevoegen" value="Toevoegen" onclick="addBAGScanner();"  id="bagScannerAdd"/>
@@ -108,7 +118,9 @@
             </c:forEach>
         </c:if>
 
-        <h3>Email Notificaties</h3>
+        <p><a href="#skiplinks">naar boven</a></p>
+
+        <h3 id="email">Email Notificaties</h3>
 
         <stripes:form partial="true" action="">
             <stripes:button name="toevoegen" value="Toevoegen" onclick="addMailRapportage();"  id="mailRapportAdd"/>
@@ -159,7 +171,10 @@
             </c:forEach>
         </c:if>
 
-        <h3>BRMO Bericht Transformatie processen</h3>
+        <p><a href="#skiplinks">naar boven</a></p>
+
+        <h3 id="brmo">BRMO Bericht Transformatie processen</h3>
+
         <stripes:form partial="true" action="">
             <stripes:button name="toevoegen" value="Toevoegen" onclick="transformatieAdd();"  id="transformatieAdd"/>
         </stripes:form>
@@ -198,13 +213,11 @@
                     <stripes:submit name="verwijderProces" value="Verwijderen" />
                 </stripes:form>
             </c:forEach>
-
-
         </c:if>
 
+        <p><a href="#skiplinks">naar boven</a></p>
 
-
-        <h3>Ophalen GDS2 leveringen</h3>
+        <h3 id="gds2">Ophalen GDS2 leveringen</h3>
 
         <stripes:form partial="true" action="">
             <stripes:button name="toevoegen" value="Toevoegen" onclick="addGDS2Ophalen();"  id="gds2OphalenAdd"/>
@@ -256,5 +269,6 @@
                 </stripes:form>
             </c:forEach>
         </c:if>
+
     </stripes:layout-component>
 </stripes:layout-render>

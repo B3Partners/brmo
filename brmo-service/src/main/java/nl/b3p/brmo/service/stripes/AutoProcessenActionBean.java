@@ -158,6 +158,7 @@ public class AutoProcessenActionBean implements ActionBean {
             em.merge(brmo);
         }
         em.getTransaction().commit();
+        load();
     }
 
     /**
@@ -257,10 +258,12 @@ public class AutoProcessenActionBean implements ActionBean {
         log.debug("Update scheduled job:" + p.getId());
 
         StdSchedulerFactory factory = (StdSchedulerFactory) getContext().getServletContext().getAttribute(QUARTZ_FACTORY_KEY);
-        //Scheduler scheduler = factory.getScheduler();
         Scheduler scheduler = factory.getScheduler(SCHEDULER_NAME);
-        log.debug(scheduler);
-        scheduler.deleteJob(new JobKey(GeplandeTakenInit.JOBKEY_PREFIX + p.getId()));
+
+        JobKey key = new JobKey(GeplandeTakenInit.JOBKEY_PREFIX + p.getId());
+        log.debug("Jobkey voor id " + id + " gevonden?" + scheduler.checkExists(key));
+
+        scheduler.deleteJob(key);
         if (p.getCron_expressie() != null) {
             GeplandeTakenInit.addJobDetails(scheduler, p);
         }

@@ -34,6 +34,10 @@ import org.quartz.impl.StdSchedulerFactory;
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
+ * Initialiseer de Quartz scheduler. Vanwege gebruik van de Stripersist entity
+ * manager kan dat pas na initialisatie van de Stripes stack en dat gebeurt in
+ * een ServletFilter, dus deze servlet moet een auto-start optie krijgen in
+ * web.xml waardoor dat na het Filter gebeurt.
  *
  * @author Mark Prins <mark@b3partners.nl>
  */
@@ -101,9 +105,8 @@ public class GeplandeTakenInit implements Servlet {
         props.put("org.quartz.scheduler.skipUpdateCheck", "true");
 
         StdSchedulerFactory factory = new StdSchedulerFactory(props);
-
         scheduler = factory.getScheduler();
-        scheduler.startDelayed(60);
+        scheduler.start();
 
         Stripersist.requestInit();
         EntityManager entityManager = Stripersist.getEntityManager();
@@ -132,7 +135,6 @@ public class GeplandeTakenInit implements Servlet {
      * @throws SchedulerException
      */
     public static void addJobDetails(Scheduler scheduler, AutomatischProces p) throws SchedulerException {
-
         try {
             CronExpression cron = new CronExpression(p.getCron_expressie());
 
