@@ -7,7 +7,7 @@
         <%-- TODO naar aparte stylesheet --%>
         <style>
             .longTxt{width: 100%;}
-            .halfTxt{width: 50%;}
+            .halfTxt{width: 50%;margin-left: 1em;}
             form{padding-top: 1em;}
         </style>
         <script type="text/javascript" src="${contextPath}/scripts/processen.js"></script>
@@ -184,7 +184,7 @@
                             <stripes:text name="brmoProcessen[${i.index}].config.label" value="${brmo.config.label}" class="halfTxt"/>
                         </stripes:label>
                         <br/>
-                         <stripes:label name="">Planning (cron expressie)
+                        <stripes:label name="">Planning (cron expressie)
                             <stripes:text name="brmoProcessen[${i.index}].cron_expressie" value="${brmo.cron_expressie}" class="halfTxt"/>
                         </stripes:label>
                     </fieldset>
