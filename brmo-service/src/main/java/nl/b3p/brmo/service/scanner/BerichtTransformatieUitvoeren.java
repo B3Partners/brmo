@@ -1,10 +1,11 @@
+/*
+ * Copyright (C) 2015 B3Partners B.V.
+ */
 package nl.b3p.brmo.service.scanner;
 
-import javax.persistence.Transient;
+import java.util.Date;
 import javax.sql.DataSource;
-import net.sourceforge.stripes.action.SimpleMessage;
 import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.loader.RsgbProxy;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
@@ -15,6 +16,10 @@ import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
+ * Transformatie van berichten in een automatisch proces gebruikmakend van
+ * BrmoFramework.
+ *
+ * @see nl.b3p.brmo.loader.BrmoFramework
  *
  * @author Mark Prins <mark@b3partners.nl>
  */
@@ -44,6 +49,7 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
 
             @Override
             public void exception(Throwable t) {
+                config.addLogLine("Fout :" + t.getLocalizedMessage());
             }
 
             @Override
@@ -62,6 +68,7 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
         this.l = listener;
 
         l.updateStatus("Initialiseren...");
+        l.addLog("Initialiseren...");
         this.config.setStatus(AutomatischProces.ProcessingStatus.PROCESSING);
         Stripersist.getEntityManager().flush();
 
@@ -73,11 +80,26 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
             brmo.setEnablePipeline(true);
             brmo.setTransformPipelineCapacity(100);
 
-            Thread t = brmo.toRsgb((nl.b3p.brmo.loader.ProgressUpdateListener) this.l);
+            Thread t = brmo.toRsgb(new nl.b3p.brmo.loader.ProgressUpdateListener() {
+                @Override
+                public void total(long total) {
+                    l.total(total);
+                }
+
+                @Override
+                public void progress(long progress) {
+                    l.progress(progress);
+                }
+
+                @Override
+                public void exception(Throwable t) {
+                    l.exception(t);
+                }
+            });
             t.join();
 
+            l.addLog("Bericht transformatie is afgerond.");
             this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);
-
         } catch (Throwable t) {
             log.error("Fout bij transformeren berichten naar RSGB", t);
             String m = "Fout bij transformeren berichten naar RSGB: " + ExceptionUtils.getMessage(t);
@@ -86,14 +108,13 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
             }
             this.config.addLogLine(m);
             this.config.setStatus(AutomatischProces.ProcessingStatus.ERROR);
-
         } finally {
             if (brmo != null) {
                 brmo.closeBrmoFramework();
             }
-            
+            this.config.setLastrun(new Date());
             Stripersist.getEntityManager().merge(this.config);
-            Stripersist.getEntityManager().getTransaction().commit();
+            Stripersist.getEntityManager().flush();
         }
 
     }
