@@ -17,8 +17,6 @@ import nl.b3p.brmo.persistence.staging.ClobElement;
 /**
  *
  * @author Matthijs Laan
- *
- * @deprecated gebruik {@link AutoProcessenActionBean}
  */
 @StrictBinding
 public class GDS2OphaalConfigActionBean implements ActionBean {
