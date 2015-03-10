@@ -8,20 +8,27 @@ import nl.b3p.brmo.persistence.staging.Bericht;
 import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.persistence.staging.LaadProces;
 import com.sun.xml.ws.developer.JAXWSProperties;
-import java.io.FileInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.security.KeyFactory;
 import java.security.KeyStore;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.net.ssl.KeyManagerFactory;
@@ -30,6 +37,7 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Transient;
 import javax.xml.ws.BindingProvider;
+import net.sourceforge.stripes.util.Base64;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.LOG_NEWLINE;
 import nl.b3p.brmo.persistence.staging.ClobElement;
@@ -99,6 +107,41 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         });
     }
 
+    private static final String PEM_KEY_START = "-----BEGIN PRIVATE KEY-----";
+    private static final String PEM_KEY_END = "-----END PRIVATE KEY-----";
+
+    private static PrivateKey getPrivateKeyFromPEM(String pem) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        pem = pem.replaceAll("\n","").trim();
+        if(!pem.startsWith(PEM_KEY_START)) {
+            throw new IllegalArgumentException("Private key moet beginnen met " + PEM_KEY_START);
+        }
+        if(!pem.endsWith(PEM_KEY_END)) {
+            throw new IllegalArgumentException("Private key moet eindigen met " + PEM_KEY_END);
+        }
+        pem = pem.replace(PEM_KEY_START, "").replace(PEM_KEY_END, "");
+
+        byte[] decoded = Base64.decode(pem);
+
+        KeyFactory kf = KeyFactory.getInstance("RSA");
+        PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(decoded);
+        return kf.generatePrivate(spec);
+    }
+
+    private static final String PEM_CERT_START = "-----BEGIN CERTIFICATE-----";
+    private static final String PEM_CERT_END = "-----END CERTIFICATE-----";
+
+    private static Certificate getCertificateFromPEM(String pem) throws CertificateException, UnsupportedEncodingException {
+        pem = pem.replaceAll("\n","").trim();
+        if(!pem.startsWith(PEM_CERT_START)) {
+            throw new IllegalArgumentException("Certificaat moet beginnen met " + PEM_CERT_START);
+        }
+        if(!pem.endsWith(PEM_CERT_END)) {
+            throw new IllegalArgumentException("Certificaat moet eindigen met " + PEM_CERT_END);
+        }
+
+        return CertificateFactory.getInstance("X509").generateCertificate(new ByteArrayInputStream(pem.getBytes("US-ASCII")));
+    }
+
     @Override
     public void execute(ProgressUpdateListener listener) {
         this.l = listener;
@@ -145,11 +188,15 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             l.addLog("Initializing KeyManagerFactory");
             KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
             ks = KeyStore.getInstance("jks");
-            String keystore = this.config.getConfig().get("keystore_path").getValue();
-            String pass = this.config.getConfig().get("keystore_password").getValue();
-            ks.load(new FileInputStream(keystore), pass.toCharArray());
 
-            kmf.init(ks, "changeit".toCharArray());
+            char[] thePassword = "changeit".toCharArray();
+
+            PrivateKey privateKey = getPrivateKeyFromPEM(this.config.getConfig().get("gds2_privkey").getValue());
+            Certificate certificate = getCertificateFromPEM(this.config.getConfig().get("gds2_pubkey").getValue());
+            ks.load(null);
+            ks.setKeyEntry("thekey", privateKey, thePassword, new Certificate[] { certificate });
+
+            kmf.init(ks, thePassword);
 
             l.updateStatus("Opzetten SSL context...");
             l.addLog("Initializing SSLContext");
