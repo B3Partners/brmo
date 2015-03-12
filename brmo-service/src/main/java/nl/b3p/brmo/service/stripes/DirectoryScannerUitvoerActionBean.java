@@ -14,28 +14,29 @@ import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SimpleMessage;
+import net.sourceforge.stripes.action.StrictBinding;
 import net.sourceforge.stripes.validation.Validate;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
-import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
-import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
+import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
 import org.stripesstuff.plugin.waitpage.WaitPage;
 import org.stripesstuff.stripersist.EntityTypeConverter;
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
  *
- * @author Matthijs Laan
+ * @author Mark Prins <mark@b3partners.nl>
  */
-public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateListener {
+@StrictBinding
+public class DirectoryScannerUitvoerActionBean implements ActionBean, ProgressUpdateListener {
 
-    private static final String JSP = "/WEB-INF/jsp/beheer/gds2ophalenuitvoeren.jsp";
-
-    private ActionBeanContext context;
+    private static final String JSP = "/WEB-INF/jsp/beheer/dirscanuitvoeren.jsp";
 
     @Validate(converter = EntityTypeConverter.class)
-    private GDS2OphaalProces proces;
+    private AutomatischProces proces;
+
+    private ActionBeanContext context;
 
     private double progress;
 
@@ -57,6 +58,30 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
 
     private String exceptionStacktrace;
 
+    @DefaultHandler
+    @WaitPage(path = JSP, delay = 1000, refresh = 1000)
+    public Resolution execute() {
+        if (proces == null) {
+            getContext().getMessages().add(new SimpleMessage("Proces ongeldig!"));
+            completed();
+            return new ForwardResolution(JSP);
+        }
+        // opnieuw laden van config omdat de waitpage de entity detached
+        proces = Stripersist.getEntityManager().find(AutomatischProces.class, proces.getId());
+        ProcesExecutable exeProces = AbstractExecutableProces.getProces(proces);
+        try {
+            exeProces.execute(this);
+            completed();
+        } catch (Exception e) {
+            exception(e);
+        } finally {
+            Stripersist.getEntityManager().merge(proces);
+            Stripersist.getEntityManager().getTransaction().commit();
+        }
+
+        return new ForwardResolution(JSP);
+    }
+
     @Before
     public void before() {
         start = new Date();
@@ -65,6 +90,8 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
     @After
     public void completed() {
         complete = true;
+        proces.setLastrun(this.update);
+        this.proces.setStatus(AutomatischProces.ProcessingStatus.WAITING);
     }
 
     @Override
@@ -87,6 +114,7 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
         PrintWriter pw = new PrintWriter(sw);
         t.printStackTrace(new PrintWriter(sw));
         this.exceptionStacktrace = sw.toString();
+        this.proces.setStatus(AutomatischProces.ProcessingStatus.ERROR);
     }
 
     @Override
@@ -101,32 +129,6 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
         this.log += log + "\n";
     }
 
-    @DefaultHandler
-    @WaitPage(path = JSP, delay = 1000, refresh = 1000)
-    public Resolution execute() {
-
-        if (proces == null) {
-            getContext().getMessages().add(new SimpleMessage("Proces ongeldig!"));
-            completed();
-            return new ForwardResolution(JSP);
-        }
-        // opnieuw laden van config omdat de waitpage de entity detached
-        proces = (GDS2OphaalProces) Stripersist.getEntityManager().find(AutomatischProces.class, proces.getId());
-        ProcesExecutable exeProces = AbstractExecutableProces.getProces(proces);
-
-        try {
-            exeProces.execute(this);
-            completed();
-        } finally {
-            if (Stripersist.getEntityManager().getTransaction().isActive()) {
-                Stripersist.getEntityManager().getTransaction().rollback();
-            }
-        }
-
-        return new ForwardResolution(JSP);
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="getters en setters">
     @Override
     public ActionBeanContext getContext() {
         return context;
@@ -137,12 +139,20 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
         this.context = context;
     }
 
-    public String getLog() {
-        return log;
+    public AutomatischProces getProces() {
+        return proces;
     }
 
-    public void setLog(String log) {
-        this.log = log;
+    public void setProces(AutomatischProces proces) {
+        this.proces = proces;
+    }
+
+    public double getProgress() {
+        return progress;
+    }
+
+    public void setProgress(double progress) {
+        this.progress = progress;
     }
 
     public long getTotal() {
@@ -169,6 +179,30 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
         this.complete = complete;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getLog() {
+        return log;
+    }
+
+    public void setLog(String log) {
+        this.log = log;
+    }
+
     public Date getStart() {
         return start;
     }
@@ -185,14 +219,6 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
         this.update = update;
     }
 
-    public double getProgress() {
-        return progress;
-    }
-
-    public void setProgress(double progress) {
-        this.progress = progress;
-    }
-
     public String getExceptionStacktrace() {
         return exceptionStacktrace;
     }
@@ -201,28 +227,4 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
         this.exceptionStacktrace = exceptionStacktrace;
     }
 
-    public GDS2OphaalProces getProces() {
-        return proces;
-    }
-
-    public void setProces(GDS2OphaalProces proces) {
-        this.proces = proces;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-    // </editor-fold>
 }

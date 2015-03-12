@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.ElementCollection;
@@ -92,7 +93,7 @@ public abstract class AutomatischProces implements Serializable {
     /**
      * cron expressie voor planning.
      */
-    private String cron_expressie;
+    private String cronExpressie;
 
     /**
      * update samenvatting en logfile in één keer, waarbij de logfile aangevuld
@@ -178,12 +179,12 @@ public abstract class AutomatischProces implements Serializable {
         this.id = id;
     }
 
-    public String getCron_expressie() {
-        return cron_expressie;
+    public String getCronExpressie() {
+        return cronExpressie;
     }
 
-    public void setCron_expressie(String cron_expressie) {
-        this.cron_expressie = cron_expressie;
+    public void setCronExpressie(String cronExpressie) {
+        this.cronExpressie = cronExpressie;
     }
 
     //</editor-fold>

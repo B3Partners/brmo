@@ -181,6 +181,5 @@ public class MailRapportage extends AbstractExecutableProces {
         } catch (BrmoException ex) {
             log.error(ex);
         }
-
     }
 }

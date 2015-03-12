@@ -114,14 +114,11 @@ public class GeplandeTakenInit implements Servlet {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<AutomatischProces> cq = cb.createQuery(AutomatischProces.class);
         Root<AutomatischProces> from = cq.from(AutomatischProces.class);
-        cq.where(cb.isNotNull(from.get("cron_expressie")));
+        cq.where(cb.isNotNull(from.get("cronExpressie")));
         List<AutomatischProces> procList = entityManager.
                 createQuery(cq).getResultList();
 
         for (AutomatischProces p : procList) {
-            String _msg = String.format("toevoegen van proces: %d met cron expressie %s",
-                    p.getId(), p.getCron_expressie());
-            log.debug(_msg);
             addJobDetails(scheduler, p);
         }
         this.getServletConfig().getServletContext().setAttribute(QUARTZ_FACTORY_KEY, factory);
@@ -136,7 +133,7 @@ public class GeplandeTakenInit implements Servlet {
      */
     public static void addJobDetails(Scheduler scheduler, AutomatischProces p) throws SchedulerException {
         try {
-            CronExpression cron = new CronExpression(p.getCron_expressie());
+            CronExpression cron = new CronExpression(p.getCronExpressie());
 
             JobDetail job = JobBuilder.newJob(AutomatischProcesJob.class)
                     .usingJobData("id", p.getId())
@@ -151,8 +148,11 @@ public class GeplandeTakenInit implements Servlet {
                     .build();
             scheduler.scheduleJob(job, trigger);
 
+            log.info(String.format("Proces: %d met cron expressie %s is toegevoegd (of bijgewerkt).",
+                    p.getId(), p.getCronExpressie()));
         } catch (ParseException ex) {
-            log.error("Ongeldige cron expressie voor proces met id: " + p.getId(), ex);
+            log.warn(String.format("Ongeldige cron expressie voor proces met %d. Het proces is niet ingepland.",
+                    p.getId()), ex);
         }
     }
 

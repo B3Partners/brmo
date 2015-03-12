@@ -42,7 +42,6 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
      *
      */
     public static ProcesExecutable getProces(AutomatischProces config) {
-        // in java 7 zou deze switch met een string kunnen worden uitgevoerd, nu is er een hulp enum nodig
         ProcessingImple imple = ProcessingImple.valueOf(config.getClass().getSimpleName());
         switch (imple) {
             case BAGScannerProces:
