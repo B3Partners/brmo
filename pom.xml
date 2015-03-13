@@ -32,7 +32,8 @@
         <developerConnection>scm:git:git@github.com:B3Partners/brmo.git</developerConnection>
         <connection>scm:git:git@github.com:B3Partners/brmo.git</connection>
         <url>https://github.com/B3Partners/brmo/</url>
-    </scm>
+      <tag>HEAD</tag>
+  </scm>
     <issueManagement>
         <system>Github</system>
         <url>https://github.com/B3Partners/brmo/issues</url>
@@ -67,12 +68,14 @@
             <name>Site deployment met GitHub's site deployment plugin</name>
             <url>site/${project.version}</url>
         </site>
+        <snapshotRepository />
         <repository>
             <!-- TODO vervangen door centrale locatie -->
-            <id>user.local</id>
+            <id>user.local.release</id>
             <layout>default</layout>
             <name>local file repo</name>
             <url>file:///mnt/v_b3p_projecten/BRMO/maven-releases/</url>
+            <uniqueVersion>false</uniqueVersion>
         </repository>
     </distributionManagement>
     <repositories>
@@ -174,7 +177,6 @@
                     <skipDeploy>true</skipDeploy>
                     <generateSitemap>true</generateSitemap>
                     <attach>true</attach>
-                    <locales>nl</locales>
                     <outputEncoding>${project.build.sourceEncoding}</outputEncoding>
                     <reportPlugins>
                         <plugin>
