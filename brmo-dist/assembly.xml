@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+    <id>bin</id>
+    <formats>
+        <!--format>tar.gz</format -->
+        <format>zip</format>
+        <!--format>tar.bz2</format-->
+        <!--format>dir</format -->
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <dependencySets>
+        <dependencySet>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <useProjectArtifact>${project.groupId}:brmo-proxyservice</useProjectArtifact>
+            <outputDirectory>wars</outputDirectory>
+            <unpack>false</unpack>
+            <excludes>
+                <!-- expliciet exclude vanwege dat dit deps zijn in parent pom -->
+                <exclude>commons-logging:commons-logging</exclude>
+                <exclude>log4j:log4j</exclude>
+            </excludes>
+            <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
+        </dependencySet>
+    </dependencySets>
+    <fileSets>
+        <fileSet>
+            <directory>../${project.basedir}/brmo-persistence/target/ddlscripts/</directory>
+            <outputDirectory>/db</outputDirectory>
+            <includes>
+                <include>**/*oracle.sql</include>
+                <include>**/*postgresql.sql</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>../${project.basedir}/brmo-persistence</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>**/db/*.sql</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>
