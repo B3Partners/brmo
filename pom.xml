@@ -28,8 +28,8 @@
         <url>http://www.b3partners.nl/</url>
     </organization>
     <scm>
-        <developerConnection>scm:git@github.com:B3Partners/brmo.git</developerConnection>
-        <connection>scm:git@github.com:B3Partners/brmo.git</connection>
+        <developerConnection>scm:git:git@github.com:B3Partners/brmo.git</developerConnection>
+        <connection>scm:git:git@github.com:B3Partners/brmo.git</connection>
         <url>https://github.com/B3Partners/brmo/</url>
     </scm>
     <issueManagement>
