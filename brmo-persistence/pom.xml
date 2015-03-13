@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo-persistence</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.1</version>
     </parent>
     <name>brmo-persistence</name>
     <description>JPA artifact voor de brmo.</description>
@@ -81,20 +81,20 @@
                         <configuration>
                             <hibernatetool destdir="${project.build.directory}/ddlscripts">
                                 <classpath>
-                                    <path location="target"/>
+                                    <path location="target" />
                                 </classpath>
                                 <!-- om drop en create scripts afzonderlijk te krijgen draaien we hbm2ddl 2x -->
                                 <hbm2ddl export="false" drop="false" create="true" outputfilename="create-brmo-persistence-postgresql.sql" format="true">
-                                    <jpaconfiguration persistenceUnit="brmo.persistence.postgresql"/>
+                                    <jpaconfiguration persistenceUnit="brmo.persistence.postgresql" />
                                 </hbm2ddl>
                                 <hbm2ddl export="false" drop="true" create="false" outputfilename="drop-brmo-persistence-postgresql.sql" format="true">
-                                    <jpaconfiguration persistenceUnit="brmo.persistence.postgresql"/>
+                                    <jpaconfiguration persistenceUnit="brmo.persistence.postgresql" />
                                 </hbm2ddl>
                                 <hbm2ddl export="false" drop="false" create="true" outputfilename="create-brmo-persistence-oracle.sql" format="true">
-                                    <jpaconfiguration persistenceUnit="brmo.persistence.oracle"/>
+                                    <jpaconfiguration persistenceUnit="brmo.persistence.oracle" />
                                 </hbm2ddl>
                                 <hbm2ddl export="false" drop="true" create="false" outputfilename="drop-brmo-persistence-oracle.sql" format="true">
-                                    <jpaconfiguration persistenceUnit="brmo.persistence.oracle"/>
+                                    <jpaconfiguration persistenceUnit="brmo.persistence.oracle" />
                                 </hbm2ddl>
                             </hibernatetool>
                         </configuration>
@@ -108,11 +108,11 @@
                         <configuration>
                             <hibernatetool destdir="${project.build.directory}/ddlscripts">
                                 <classpath>
-                                    <path location="target"/>
+                                    <path location="target" />
                                 </classpath>
                                 <!-- voor de unit tests met H2 -->
                                 <hbm2ddl export="true" drop="true" create="true" outputfilename="brmo-persistence-h2.sql" format="true">
-                                    <jpaconfiguration persistenceUnit="brmo.persistence.h2"/>
+                                    <jpaconfiguration persistenceUnit="brmo.persistence.h2" />
                                 </hbm2ddl>
                             </hibernatetool>
                         </configuration>
