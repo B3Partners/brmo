@@ -111,11 +111,11 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     private static final String PEM_KEY_END = "-----END PRIVATE KEY-----";
 
     private static PrivateKey getPrivateKeyFromPEM(String pem) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        pem = pem.replaceAll("\n","").trim();
-        if(!pem.startsWith(PEM_KEY_START)) {
+        pem = pem.replaceAll("\n", "").trim();
+        if (!pem.startsWith(PEM_KEY_START)) {
             throw new IllegalArgumentException("Private key moet beginnen met " + PEM_KEY_START);
         }
-        if(!pem.endsWith(PEM_KEY_END)) {
+        if (!pem.endsWith(PEM_KEY_END)) {
             throw new IllegalArgumentException("Private key moet eindigen met " + PEM_KEY_END);
         }
         pem = pem.replace(PEM_KEY_START, "").replace(PEM_KEY_END, "");
@@ -131,11 +131,11 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     private static final String PEM_CERT_END = "-----END CERTIFICATE-----";
 
     private static Certificate getCertificateFromPEM(String pem) throws CertificateException, UnsupportedEncodingException {
-        pem = pem.replaceAll("\n","").trim();
-        if(!pem.startsWith(PEM_CERT_START)) {
+        pem = pem.replaceAll("\n", "").trim();
+        if (!pem.startsWith(PEM_CERT_START)) {
             throw new IllegalArgumentException("Certificaat moet beginnen met " + PEM_CERT_START);
         }
-        if(!pem.endsWith(PEM_CERT_END)) {
+        if (!pem.endsWith(PEM_CERT_END)) {
             throw new IllegalArgumentException("Certificaat moet eindigen met " + PEM_CERT_END);
         }
 
@@ -194,7 +194,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             PrivateKey privateKey = getPrivateKeyFromPEM(this.config.getConfig().get("gds2_privkey").getValue());
             Certificate certificate = getCertificateFromPEM(this.config.getConfig().get("gds2_pubkey").getValue());
             ks.load(null);
-            ks.setKeyEntry("thekey", privateKey, thePassword, new Certificate[] { certificate });
+            ks.setKeyEntry("thekey", privateKey, thePassword, new Certificate[]{certificate});
 
             kmf.init(ks, thePassword);
 
@@ -226,14 +226,14 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
              ‘gerapporteerd’ in het systeem van GDS.
              */
             int moreCount = 0;
-//            while (hasMore) {
-//                l.updateStatus("Uitvoeren SOAP request naar Kadaster voor meer afgiftes..." + moreCount++);
-//                requestGb.getVerzoek().getAfgifteSelectieCriteria().setNogNietGerapporteerd(true);
-//                responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
-//                afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB());
-//                hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
-//                log.debug("Nog meer afgiftes? " + hasMore);
-//            }
+            while (hasMore) {
+                l.updateStatus("Uitvoeren SOAP request naar Kadaster voor meer afgiftes..." + moreCount++);
+                requestGb.getVerzoek().getAfgifteSelectieCriteria().setNogNietGerapporteerd(true);
+                responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
+                afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB());
+                hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
+                log.debug("Nog meer afgiftes? " + hasMore);
+            }
 
             l.total(afgiftesGb.size());
 
