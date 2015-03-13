@@ -32,6 +32,7 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.LOG_NEWLINE;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+import nl.b3p.brmo.persistence.staging.ClobElement;
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
@@ -74,8 +75,7 @@ public class MailRapportage extends AbstractExecutableProces {
             msg.setSentDate(new Date());
             // subject
             String sForStatus = (config.getForStatus() == null ? "alle" : config.getForStatus().toString());
-            String sPIDS = (config.getConfig().get(MailRapportageProces.PIDS) == null ?
-                    "alle" : config.getConfig().get(MailRapportageProces.PIDS).getValue());
+            String sPIDS = (config.getConfig().get(MailRapportageProces.PIDS) == null ? "alle" : config.getConfig().get(MailRapportageProces.PIDS).getValue());
             String subject = String.format("BRMO rapport: %d voor status: %s (taken: %s)", config.getId(), sForStatus, sPIDS);
             msg.setSubject(subject);
 
@@ -151,7 +151,7 @@ public class MailRapportage extends AbstractExecutableProces {
             predicates.add(where);
         }
         // processen in... filter
-        String pids = this.config.getConfig().get(MailRapportageProces.PIDS).getValue();
+        String pids = ClobElement.nullSafeGet(this.config.getConfig().get(MailRapportageProces.PIDS));
         if (pids != null) {
             List<Long> pidLijst = new ArrayList<Long>();
             Matcher match = (Pattern.compile("[0-9]+")).matcher(pids);
@@ -172,5 +172,14 @@ public class MailRapportage extends AbstractExecutableProces {
         cq.orderBy(cb.asc(from.get("lastrun")));
 
         return em.createQuery(cq).getResultList();
+    }
+
+    @Override
+    public void execute(ProgressUpdateListener listener) {
+        try {
+            this.execute();
+        } catch (BrmoException ex) {
+            log.error(ex);
+        }
     }
 }

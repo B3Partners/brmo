@@ -1,0 +1,230 @@
+/*
+ * Copyright (C) 2015 B3Partners B.V.
+ */
+package nl.b3p.brmo.service.stripes;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import net.sourceforge.stripes.action.ActionBean;
+import net.sourceforge.stripes.action.ActionBeanContext;
+import net.sourceforge.stripes.action.Before;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.DontValidate;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.RedirectResolution;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.SimpleMessage;
+import net.sourceforge.stripes.action.StrictBinding;
+import net.sourceforge.stripes.controller.LifecycleStage;
+import net.sourceforge.stripes.validation.SimpleError;
+import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidateNestedProperties;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import nl.b3p.brmo.persistence.staging.BAGScannerProces;
+import nl.b3p.brmo.persistence.staging.BRKScannerProces;
+import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
+import nl.b3p.brmo.persistence.staging.ClobElement;
+import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
+import nl.b3p.brmo.persistence.staging.MailRapportageProces;
+import nl.b3p.brmo.service.jobs.GeplandeTakenInit;
+import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.QUARTZ_FACTORY_KEY;
+import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.SCHEDULER_NAME;
+import nl.b3p.brmo.service.scanner.ProcesExecutable;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.quartz.JobKey;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.impl.StdSchedulerFactory;
+import org.stripesstuff.stripersist.EntityTypeConverter;
+import org.stripesstuff.stripersist.Stripersist;
+
+/**
+ *
+ * @author Mark Prins <mark@b3partners.nl>
+ */
+@StrictBinding
+public class OphaalConfigActionBean implements ActionBean {
+
+    private static final Log log = LogFactory.getLog(GDS2OphaalConfigActionBean.class);
+
+    private static final String JSP = "/WEB-INF/jsp/beheer/processenophalen.jsp";
+
+    private ActionBeanContext context;
+
+    private List<AutomatischProces> processen = new ArrayList();
+
+    @Validate(converter = EntityTypeConverter.class)
+    @ValidateNestedProperties({
+        @Validate(field = "cronExpressie")
+    })
+    private AutomatischProces proces;
+
+    @Validate
+    private ProcesExecutable.ProcessingImple type;
+
+    @Validate
+    private Map<String, ClobElement> config = new HashMap<String, ClobElement>();
+
+    @Before(stages = LifecycleStage.BindingAndValidation)
+    public void load() {
+        processen = Stripersist.getEntityManager().createQuery("from AutomatischProces p order by type(p),p.id").getResultList();
+    }
+
+    @DefaultHandler
+    public Resolution view() {
+        if (proces != null) {
+            config = proces.getConfig();
+        }
+
+        return new ForwardResolution(JSP);
+    }
+
+    @DontValidate
+    public Resolution cancel() {
+        return new RedirectResolution(OphaalConfigActionBean.class);
+    }
+
+    @DontValidate
+    public Resolution delete() {
+        if (proces != null) {
+            Stripersist.getEntityManager().remove(proces);
+            load();
+            Stripersist.getEntityManager().getTransaction().commit();
+            proces = null;
+            getContext().getMessages().add(new SimpleMessage("Proces is verwijderd"));
+        }
+        return new ForwardResolution(JSP);
+    }
+
+    @DontValidate
+    public Resolution add() {
+        return new ForwardResolution(JSP);
+    }
+
+    public Resolution save() {
+        if (proces == null) {
+            proces = getProces(type);
+        }
+
+        proces.getConfig().clear();
+        proces.getConfig().putAll(config);
+
+        Stripersist.getEntityManager().persist(proces);
+        load();
+        Stripersist.getEntityManager().getTransaction().commit();
+        getContext().getMessages().add(new SimpleMessage("Proces is opgeslagen"));
+
+        try {
+            this.updateJobSchedule(proces);
+
+        } catch (SchedulerException ex) {
+            getContext().getMessages().add(
+                    new SimpleError("Er is een fout opgetreden tijdens inplannen van de taak. {2}",
+                            ex.getMessage()));
+        }
+
+        return new ForwardResolution(JSP).addParameter("proces", proces.getId());
+    }
+
+    /**
+     * ProcesExecutable factory.
+     *
+     * @param type the type of {@code AutomatischProces} to create.
+     * @return an instance of the specified type
+     *
+     */
+    private AutomatischProces getProces(ProcesExecutable.ProcessingImple type) {
+        switch (type) {
+            case BAGScannerProces:
+                return new BAGScannerProces();
+            case BRKScannerProces:
+                return new BRKScannerProces();
+            case MailRapportageProces:
+                return new MailRapportageProces();
+            case GDS2OphaalProces:
+                return new GDS2OphaalProces();
+            case BerichtTransformatieProces:
+                return new BerichtTransformatieProces();
+            default:
+                throw new IllegalArgumentException(type.name() + " is is geen ondersteund proces type...");
+        }
+    }
+
+    private ProcesExecutable.ProcessingImple getType(AutomatischProces p) {
+        return ProcesExecutable.ProcessingImple.valueOf(p.getClass().getSimpleName());
+    }
+
+    /**
+     * vervang de job door een aangepaste job of plaats een nieuwe job mocht
+     * deze nog niet bestaan.
+     *
+     * @param id
+     * @throws SchedulerException
+     */
+    private void updateJobSchedule(AutomatischProces p) throws SchedulerException {
+        log.debug("Update scheduled job:" + p.getId());
+
+        StdSchedulerFactory factory = (StdSchedulerFactory) getContext().getServletContext()
+                .getAttribute(QUARTZ_FACTORY_KEY);
+        Scheduler scheduler = factory.getScheduler(SCHEDULER_NAME);
+        JobKey key = new JobKey(GeplandeTakenInit.JOBKEY_PREFIX + p.getId());
+        log.debug("Jobkey voor id " + p.getId() + " gevonden?" + scheduler.checkExists(key));
+
+        scheduler.deleteJob(key);
+        if (p.getCronExpressie() != null) {
+            GeplandeTakenInit.addJobDetails(scheduler, p);
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="getters en setters">
+    @Override
+    public ActionBeanContext getContext() {
+        return context;
+    }
+
+    @Override
+    public void setContext(ActionBeanContext context) {
+        this.context = context;
+    }
+
+    public List<AutomatischProces> getProcessen() {
+        return processen;
+    }
+
+    public void setProcessen(List<AutomatischProces> processen) {
+        this.processen = processen;
+    }
+
+    public AutomatischProces getProces() {
+        return proces;
+    }
+
+    public void setProces(AutomatischProces proces) {
+        this.proces = proces;
+        this.type = getType(proces);
+    }
+
+    public Map<String, ClobElement> getConfig() {
+        return config;
+    }
+
+    public void setConfig(Map<String, ClobElement> config) {
+        this.config = config;
+    }
+
+    public ProcesExecutable.ProcessingImple getType() {
+        return type;
+    }
+
+    public void setType(ProcesExecutable.ProcessingImple type) {
+        this.type = type;
+        this.proces = getProces(type);
+    }
+    // </editor-fold>
+}

@@ -21,6 +21,14 @@
         <p>
             ${fn:replace(p.samenvatting, actionBean.newLine, "<br />")}
         </p>
+
+        <stripes:form partial="true" action="">
+            <stripes:url beanclass="nl.b3p.brmo.service.stripes.SamenvattingActionBean" var="_url" event="eraseLog">
+                <stripes:param name="proces" value="${p}" />
+            </stripes:url>
+            <stripes:button name="eraseLog" value="Log wissen" onclick="if(confirm('Let op! Dit is onherroepelijk. Verder gaan?')) window.location='${_url}';"/>
+        </stripes:form>
+
         <h3>Logfile</h3>
         <p>
             ${fn:replace(p.logfile, actionBean.newLine, "<br />")}

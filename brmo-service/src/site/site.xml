@@ -28,6 +28,10 @@
       <item name="Home" href="/index.html" />
       <item name="Release notes" href="/releasenotes.html" />
     </menu>
+    <menu name="Configuratie">
+        <item name="Mail" href="/mail-configuratie.html" />
+        <item name="Planning" href="/planning-configuratie.html" />
+    </menu>
     <menu ref="parent" />
     <menu ref="modules" />
     <menu ref="reports" />

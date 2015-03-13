@@ -16,6 +16,7 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
+import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,7 +29,7 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
 
     private static final Log log = LogFactory.getLog(BAGDirectoryScanner.class);
 
-    private BAGScannerProces config;
+    private final BAGScannerProces config;
 
     public BAGDirectoryScanner(BAGScannerProces config) {
         this.config = config;
@@ -116,9 +117,19 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                 config.setStatus(WAITING);
                 config.updateSamenvattingEnLogfile(sb.toString());
                 config.setLastrun(new Date());
+
                 break;
             default:
                 log.warn(String.format("De BAG scanner met ID %d is niet gestart vanwege de status %s.", config.getId(), config.getStatus()));
+        }
+    }
+
+    @Override
+    public void execute(ProgressUpdateListener listener) {
+        try {
+            this.execute();
+        } catch (BrmoException ex) {
+            log.error(ex);
         }
     }
 

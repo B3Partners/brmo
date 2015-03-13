@@ -14,6 +14,8 @@ import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
+import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
+import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.persistence.staging.LaadProces;
 import nl.b3p.brmo.persistence.staging.MailRapportageProces;
 import org.apache.commons.logging.Log;
@@ -40,7 +42,6 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
      *
      */
     public static ProcesExecutable getProces(AutomatischProces config) {
-        // in java 7 zou deze switch met een string kunnen worden uitgevoerd, nu is er een hulp enum nodig
         ProcessingImple imple = ProcessingImple.valueOf(config.getClass().getSimpleName());
         switch (imple) {
             case BAGScannerProces:
@@ -49,6 +50,10 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
                 return new BRKDirectoryScanner((BRKScannerProces) config);
             case MailRapportageProces:
                 return new MailRapportage((MailRapportageProces) config);
+            case GDS2OphaalProces:
+                return new GDS2OphalenProces((GDS2OphaalProces) config);
+            case BerichtTransformatieProces:
+                return new BerichtTransformatieUitvoeren((BerichtTransformatieProces) config);
             default:
                 throw new IllegalArgumentException(imple.name() + " is is geen ondersteund proces...");
         }

@@ -3,8 +3,6 @@
  */
 package nl.b3p.brmo.persistence.staging;
 
-import javax.persistence.Transient;
-
 /**
  * Levert een aantal gedeelde methoden voor directory gebaseerde processen.
  *
@@ -22,7 +20,7 @@ public abstract class DirectoryScannerProces extends AutomatischProces {
      * @return de naam van de directory voor deze configuratie of null
      */
     public String getScanDirectory() {
-        return this.getConfig().get(SCAN_DIRECTORY).getValue();
+        return ClobElement.nullSafeGet(this.getConfig().get(SCAN_DIRECTORY));
     }
 
     /**
@@ -31,24 +29,32 @@ public abstract class DirectoryScannerProces extends AutomatischProces {
      * @return de naam van de directory voor deze configuratie of null
      */
     public String getArchiefDirectory() {
-        return this.getConfig().get(ARCHIEF_DIRECTORY).getValue();
+        return ClobElement.nullSafeGet(this.getConfig().get(ARCHIEF_DIRECTORY));
     }
 
     /**
      * Stelt de te scannen directory in.
      *
-     * @param scandirectory
+     * @param scanDirectory te scannen directory
      */
     public void setScanDirectory(String scanDirectory) {
-        this.getConfig().put(SCAN_DIRECTORY, new ClobElement(scanDirectory));
+        if (scanDirectory == null) {
+            this.getConfig().put(SCAN_DIRECTORY, null);
+        } else {
+            this.getConfig().put(SCAN_DIRECTORY, new ClobElement(scanDirectory));
+        }
     }
 
     /**
      * Stelt de te gebruiken archief directory in.
      *
-     * @param archiefdirectory
+     * @param archiefDirectory te gebruiken archief directory
      */
     public void setArchiefDirectory(String archiefDirectory) {
-        this.getConfig().put(ARCHIEF_DIRECTORY, new ClobElement(archiefDirectory));
+        if (archiefDirectory == null) {
+            this.getConfig().put(ARCHIEF_DIRECTORY, null);
+        } else {
+            this.getConfig().put(ARCHIEF_DIRECTORY, new ClobElement(archiefDirectory));
+        }
     }
 }

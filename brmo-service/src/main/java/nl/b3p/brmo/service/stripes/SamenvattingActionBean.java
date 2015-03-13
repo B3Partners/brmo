@@ -5,12 +5,14 @@
  */
 package nl.b3p.brmo.service.stripes;
 
+import java.util.Date;
 import javax.persistence.EntityManager;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.SimpleMessage;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import org.stripesstuff.stripersist.Stripersist;
 
@@ -33,9 +35,20 @@ public class SamenvattingActionBean implements ActionBean {
 
     @DefaultHandler
     public Resolution view() {
-        EntityManager em = Stripersist.getEntityManager();
-        proces = em.find(AutomatischProces.class, procesId);
+        if (proces == null) {
+            proces = Stripersist.getEntityManager().find(AutomatischProces.class, procesId);
+        }
+        return new ForwardResolution(JSP);
+    }
 
+    public Resolution eraseLog() {
+        if (proces != null) {
+            proces.setLogfile("");
+            proces.updateSamenvattingEnLogfile("Logfile is gewist op: " + new Date());
+            Stripersist.getEntityManager().merge(proces);
+            Stripersist.getEntityManager().getTransaction().commit();
+            getContext().getMessages().add(new SimpleMessage("Proces log is geleegd"));
+        }
         return new ForwardResolution(JSP);
     }
 
@@ -72,7 +85,7 @@ public class SamenvattingActionBean implements ActionBean {
         this.procesId = procesId;
     }
 
-    public String getNewLine(){
+    public String getNewLine() {
         return this.newLine;
     }
     //</editor-fold>

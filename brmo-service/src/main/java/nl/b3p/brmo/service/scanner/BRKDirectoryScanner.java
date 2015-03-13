@@ -115,10 +115,20 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                 config.setStatus(WAITING);
                 config.updateSamenvattingEnLogfile(sb.toString());
                 config.setLastrun(new Date());
+
                 break;
 
             default:
                 log.warn(String.format("De BRK scanner met ID %d is niet gestart vanwege de status %s.", config.getId(), config.getStatus()));
+        }
+    }
+
+    @Override
+    public void execute(ProgressUpdateListener listener) {
+                try {
+            this.execute();
+        } catch (BrmoException ex) {
+            log.error(ex);
         }
     }
 }

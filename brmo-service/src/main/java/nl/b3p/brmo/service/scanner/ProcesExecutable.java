@@ -14,11 +14,11 @@ public interface ProcesExecutable extends Runnable {
 
     /**
      *
-     * @deprecated work around gebrek aan String switch in java 6
+     *
      */
     enum ProcessingImple {
 
-        BAGScannerProces, BRKScannerProces, MailRapportageProces;
+        BAGScannerProces, BRKScannerProces, MailRapportageProces, GDS2OphaalProces, BerichtTransformatieProces;
     }
 
     /**
@@ -28,6 +28,13 @@ public interface ProcesExecutable extends Runnable {
      * proces.
      */
     void execute() throws BrmoException;
+
+    /**
+     * Voert de taak uit en rapporteert de voortgang.
+     *
+     * @param listener voortgangs listener
+     */
+    void execute(ProgressUpdateListener listener);
 
     /**
      * probeert het lopende proces te stoppen.

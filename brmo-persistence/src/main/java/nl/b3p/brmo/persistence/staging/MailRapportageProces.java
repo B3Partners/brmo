@@ -35,7 +35,7 @@ public class MailRapportageProces extends AutomatischProces {
      * @return string met adressen
      */
     public String getMailAdressen() {
-        return this.getConfig().get(EMAIL).getValue();
+        return ClobElement.nullSafeGet(this.getConfig().get(EMAIL));
     }
 
     /**
@@ -72,7 +72,9 @@ public class MailRapportageProces extends AutomatischProces {
      * @param adres een (lijst) adres(sen)
      */
     public void setMailAdressen(String adres) {
-        if (adres.contains(DELIM)) {
+        if (adres == null) {
+            this.getConfig().put(EMAIL, null);
+        } else if (adres.contains(DELIM)) {
             this.setMailAdressen(adres.split(DELIM));
         } else {
             this.getConfig().put(EMAIL, new ClobElement(adres.trim()));
@@ -80,7 +82,11 @@ public class MailRapportageProces extends AutomatischProces {
     }
 
     public void setForStatus(ProcessingStatus status) {
-        this.getConfig().put(FOR_STATUS, new ClobElement(status.name()));
+        if (status == null) {
+            this.getConfig().put(FOR_STATUS, null);
+        } else {
+            this.getConfig().put(FOR_STATUS, new ClobElement(status.name()));
+        }
     }
 
     public ProcessingStatus getForStatus() {

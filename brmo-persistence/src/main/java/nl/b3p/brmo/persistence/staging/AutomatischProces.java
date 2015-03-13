@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.ElementCollection;
@@ -44,7 +45,7 @@ public abstract class AutomatischProces implements Serializable {
 
         PROCESSING("PROCESSING"), WAITING("WAITING"), ONBEKEND("ONBEKEND"), NULL(""), ERROR("ERROR");
 
-        private String status;
+        private final String status;
 
         ProcessingStatus(String status) {
             this.status = status;
@@ -59,9 +60,9 @@ public abstract class AutomatischProces implements Serializable {
      * @note Tabel "automatisch_proces_config" in de database.
      */
     @ElementCollection
-    @JoinTable(joinColumns=@JoinColumn(name="proces_id"))
+    @JoinTable(joinColumns = @JoinColumn(name = "proces_id"))
     // Element wrapper required because of http://opensource.atlassian.com/projects/hibernate/browse/JPA-11
-    private Map<String,ClobElement> config = new HashMap<String,ClobElement>();
+    private Map<String, ClobElement> config = new HashMap<String, ClobElement>();
 
     /**
      * laatste run tijdtip vasthouden ten behoeve van logging en rapportage.
@@ -90,6 +91,11 @@ public abstract class AutomatischProces implements Serializable {
     private String logfile;
 
     /**
+     * cron expressie voor planning.
+     */
+    private String cronExpressie;
+
+    /**
      * update samenvatting en logfile in één keer, waarbij de logfile aangevuld
      * wordt met de samenvatting.
      *
@@ -113,6 +119,15 @@ public abstract class AutomatischProces implements Serializable {
                     + samenvatting);
         }
 
+    }
+
+    /**
+     * Voeg een regel toe aan de log en de samenvatting.
+     *
+     * @param line toe te voegen regel
+     */
+    public void addLogLine(String line) {
+        this.setLogfile(this.getLogfile() + LOG_NEWLINE + line);
     }
 
     // <editor-fold defaultstate="collapsed" desc="getters and setters">
@@ -162,6 +177,14 @@ public abstract class AutomatischProces implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCronExpressie() {
+        return cronExpressie;
+    }
+
+    public void setCronExpressie(String cronExpressie) {
+        this.cronExpressie = cronExpressie;
     }
 
     //</editor-fold>
