@@ -29,6 +29,7 @@
                             <descriptors>
                                 <descriptor>assembly.xml</descriptor>
                             </descriptors>
+                            <attach>true</attach>
                         </configuration>
                     </execution>
                 </executions>

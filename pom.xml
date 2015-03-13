@@ -67,6 +67,13 @@
             <name>Site deployment met GitHub's site deployment plugin</name>
             <url>site/${project.version}</url>
         </site>
+        <repository>
+            <!-- TODO vervangen door centrale locatie -->
+            <id>user.local</id>
+            <layout>default</layout>
+            <name>local file repo</name>
+            <url>file:///mnt/v_b3p_projecten/BRMO/maven-releases/</url>
+        </repository>
     </distributionManagement>
     <repositories>
         <repository>
