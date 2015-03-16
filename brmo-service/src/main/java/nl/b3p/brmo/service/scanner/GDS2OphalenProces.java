@@ -26,6 +26,7 @@ import java.security.cert.CertificateFactory;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -167,6 +168,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             String contractnummer = this.config.getConfig().get("gds2_contractnummer").getValue();
             criteria.setBestandKenmerken(new BestandKenmerkenType());
             criteria.getBestandKenmerken().setContractnummer(contractnummer);
+            criteria.setNogNietGerapporteerd(true);
             verzoekGb.setAfgifteSelectieCriteria(criteria);
 
             //ctxt.put(BindingProvider.USERNAME_PROPERTY, username);
@@ -208,7 +210,9 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             l.updateStatus("Uitvoeren SOAP request naar Kadaster...");
 
             BestandenlijstGBOpvragenResponse responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
-            List<AfgifteGBType> afgiftesGb = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB();
+
+            List<AfgifteGBType> afgiftesGb = new ArrayList<AfgifteGBType>();
+            afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB());
 
             // loop over opvragen todat responseGb.getAntwoord().getMeerAfgiftesbeschikbaar()
             // opletten; in de xsd staat een default value van 'J' voor meerAfgiftesbeschikbaar
@@ -228,7 +232,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             int moreCount = 0;
             while (hasMore) {
                 l.updateStatus("Uitvoeren SOAP request naar Kadaster voor meer afgiftes..." + moreCount++);
-                requestGb.getVerzoek().getAfgifteSelectieCriteria().setNogNietGerapporteerd(true);
                 responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
                 afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB());
                 hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
