@@ -20,6 +20,7 @@
 </td>
 </tr>
 <tr><td>Contractnummer:</td><td><stripes:text name="config['gds2_contractnummer']" size="10"/></td></tr>
+<tr><td>Al gerapporteerde afgiftes:</td><td><label><stripes:checkbox name="config['gds2_al_gerapporteerde_afgiftes']"/>Ook downloaden</label></td></tr>
 <%--tr><td>Pad naar keystore:</td><td><stripes:text name="config['keystore_path']" size="80"/></td></tr--%>
 <%--tr><td>Wachtwoord keystore:</td><td><stripes:password name="config['keystore_password']" size="20"/></td></tr--%>
 <tr>

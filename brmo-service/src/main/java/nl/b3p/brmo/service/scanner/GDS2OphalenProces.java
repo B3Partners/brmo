@@ -168,7 +168,10 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             String contractnummer = this.config.getConfig().get("gds2_contractnummer").getValue();
             criteria.setBestandKenmerken(new BestandKenmerkenType());
             criteria.getBestandKenmerken().setContractnummer(contractnummer);
-            criteria.setNogNietGerapporteerd(true);
+            String alGerapporteerd = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_al_gerapporteerde_afgiftes"));
+            if(!"true".equals(alGerapporteerd)) {
+                criteria.setNogNietGerapporteerd(true);
+            }
             verzoekGb.setAfgifteSelectieCriteria(criteria);
 
             //ctxt.put(BindingProvider.USERNAME_PROPERTY, username);
@@ -232,6 +235,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             int moreCount = 0;
             while (hasMore) {
                 l.updateStatus("Uitvoeren SOAP request naar Kadaster voor meer afgiftes..." + moreCount++);
+                criteria.setNogNietGerapporteerd(true);
                 responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
                 afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB());
                 hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
