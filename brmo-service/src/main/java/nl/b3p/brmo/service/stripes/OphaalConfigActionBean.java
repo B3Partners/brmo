@@ -3,13 +3,11 @@
  */
 package nl.b3p.brmo.service.stripes;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.EntityManager;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.Before;
@@ -24,6 +22,7 @@ import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.validation.SimpleError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
+import net.sourceforge.stripes.validation.ValidationMethod;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
@@ -37,6 +36,7 @@ import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.SCHEDULER_NAME;
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.quartz.CronExpression;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
@@ -122,7 +122,6 @@ public class OphaalConfigActionBean implements ActionBean {
 
         try {
             this.updateJobSchedule(proces);
-
         } catch (SchedulerException ex) {
             getContext().getMessages().add(
                     new SimpleError("Er is een fout opgetreden tijdens inplannen van de taak. {2}",
@@ -179,6 +178,24 @@ public class OphaalConfigActionBean implements ActionBean {
         scheduler.deleteJob(key);
         if (p.getCronExpressie() != null) {
             GeplandeTakenInit.addJobDetails(scheduler, p);
+        }
+    }
+
+    /**
+     * validatie van de cron expressie van een proces voorafgaand aan save.
+     */
+    @ValidationMethod(on = "save")
+    public void validateCronExpressie() {
+        if (proces != null) {
+            String expr = proces.getCronExpressie();
+            try {
+                if (expr != null) {
+                    CronExpression cron = new CronExpression(expr);
+                }
+            } catch (ParseException ex) {
+                getContext().getValidationErrors().add("cronExpressie",
+                        new SimpleError("{0} {2} is ongeldig.", expr));
+            }
         }
     }
 
