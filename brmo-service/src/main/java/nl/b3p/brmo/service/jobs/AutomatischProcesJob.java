@@ -3,7 +3,9 @@
  */
 package nl.b3p.brmo.service.jobs;
 
+import java.util.Date;
 import javax.persistence.EntityManager;
+import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import org.apache.commons.logging.Log;
@@ -24,21 +26,32 @@ public class AutomatischProcesJob implements Job {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        long id = context.getJobDetail().getJobDataMap().getLongValue("id");
-        log.debug("Poging gepland automatisch proces met id: " + id + " te starten.");
-
+        Long id = null;
         try {
+            id = context.getJobDetail().getJobDataMap().getLongValue("id");
+            log.debug("Poging gepland automatisch proces met id: " + id + " te starten.");
             Stripersist.requestInit();
             EntityManager em = Stripersist.getEntityManager();
             AutomatischProces p = em.find(AutomatischProces.class, id);
-            p.addLogLine("Geplande taak gestart.");
-            AbstractExecutableProces.getProces(p).execute();
-            p.addLogLine("Geplande taak afgerond.");
-            em.merge(p);
-            em.getTransaction().commit();
-            log.debug("Gepland automatisch proces met " + id + " is afgerond.");
-        } catch (Exception ex) {
+            if (p != null) {
+                p.addLogLine(String.format("Geplande taak gestart op %tc.", new Date()));
+                AbstractExecutableProces.getProces(p).execute();
+                p.addLogLine(String.format("Geplande taak afgerond op %tc.", new Date()));
+                p.setLastrun(new Date());
+                em.merge(p);
+                em.flush();
+                log.debug("Gepland automatisch proces met " + id + " is afgerond.");
+            } else {
+                log.warn("Automatisch proces met id:" + id + " bestaat niet.");
+            }
+        } catch (ClassCastException cce) {
+            log.warn("Geen geldige ID gevonden in de jobdata map.", cce);
+        } catch (BrmoException ex) {
             log.error("Fout tijdens starten of uitvoeren van automatische proces met id: " + id, ex);
+        } finally {
+            if (Stripersist.getEntityManager().getTransaction().isActive()) {
+                Stripersist.getEntityManager().getTransaction().commit();
+            }
         }
     }
 }
