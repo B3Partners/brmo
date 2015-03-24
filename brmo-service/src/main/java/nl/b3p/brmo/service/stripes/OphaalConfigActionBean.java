@@ -96,6 +96,7 @@ public class OphaalConfigActionBean implements ActionBean {
             Stripersist.getEntityManager().remove(proces);
             load();
             Stripersist.getEntityManager().getTransaction().commit();
+            deleteScheduledJob(proces);
             proces = null;
             getContext().getMessages().add(new SimpleMessage("Proces is verwijderd"));
         }
@@ -160,10 +161,11 @@ public class OphaalConfigActionBean implements ActionBean {
     }
 
     /**
-     * vervang de job door een aangepaste job of plaats een nieuwe job mocht
-     * deze nog niet bestaan.
+     * Vervang de proces job door een aangepaste job of plaats een nieuwe job mocht
+     * deze nog niet bestaan. Als de cron expressie {@code null} is wordt de job
+     * verwijderd uit de scheduler.
      *
-     * @param id
+     * @param p bij te werken proces
      * @throws SchedulerException
      */
     private void updateJobSchedule(AutomatischProces p) throws SchedulerException {
@@ -173,11 +175,26 @@ public class OphaalConfigActionBean implements ActionBean {
                 .getAttribute(QUARTZ_FACTORY_KEY);
         Scheduler scheduler = factory.getScheduler(SCHEDULER_NAME);
         JobKey key = new JobKey(GeplandeTakenInit.JOBKEY_PREFIX + p.getId());
-        log.debug("Jobkey voor id " + p.getId() + " gevonden?" + scheduler.checkExists(key));
+        log.debug("Jobkey voor id " + p.getId() + " gevonden? " + scheduler.checkExists(key));
 
         scheduler.deleteJob(key);
         if (p.getCronExpressie() != null) {
             GeplandeTakenInit.addJobDetails(scheduler, p);
+        }
+    }
+
+    /**
+     * verwijder een proces job uit de scheduler door update met een {@code null} cron
+     * schedule.
+     *
+     * @param p te verwijderen proces
+     */
+    private void deleteScheduledJob(AutomatischProces p) {
+        try {
+            p.setCronExpressie(null);
+            updateJobSchedule(p);
+        } catch (SchedulerException se) {
+            log.warn("Ingeplande taak uit de planner halen is mislukt", se);
         }
     }
 
