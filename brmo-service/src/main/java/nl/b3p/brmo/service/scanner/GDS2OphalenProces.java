@@ -95,6 +95,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
             @Override
             public void exception(Throwable t) {
+                config.addLogLine("Fout :" + t.getLocalizedMessage());
+                log.error(t);
             }
 
             @Override
@@ -169,7 +171,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             criteria.setBestandKenmerken(new BestandKenmerkenType());
             criteria.getBestandKenmerken().setContractnummer(contractnummer);
             String alGerapporteerd = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_al_gerapporteerde_afgiftes"));
-            if(!"true".equals(alGerapporteerd)) {
+            if (!"true".equals(alGerapporteerd)) {
                 criteria.setNogNietGerapporteerd(true);
             }
             verzoekGb.setAfgifteSelectieCriteria(criteria);

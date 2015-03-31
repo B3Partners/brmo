@@ -50,6 +50,7 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
             @Override
             public void exception(Throwable t) {
                 config.addLogLine("Fout :" + t.getLocalizedMessage());
+                log.error(t);
             }
 
             @Override
