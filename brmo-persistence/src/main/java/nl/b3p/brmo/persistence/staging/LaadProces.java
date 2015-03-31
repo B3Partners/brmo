@@ -54,7 +54,7 @@ public class LaadProces implements Serializable {
 
     public static enum STATUS {
 
-        STAGING_OK, STAGING_NOK, ARCHIVE
+        STAGING_OK, STAGING_NOK, ARCHIVE, STAGING_DUPLICAAT
     };
 
         public LaadProces() {

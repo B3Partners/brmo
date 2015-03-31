@@ -43,7 +43,6 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
     @Override
     public void execute() throws BrmoException {
         switch (config.getStatus()) {
-            case NULL:
             case ONBEKEND:
             case WAITING:
             case ERROR:

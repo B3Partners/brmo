@@ -43,7 +43,7 @@ public abstract class AutomatischProces implements Serializable {
 
     public enum ProcessingStatus {
 
-        PROCESSING("PROCESSING"), WAITING("WAITING"), ONBEKEND("ONBEKEND"), NULL(""), ERROR("ERROR");
+        PROCESSING("PROCESSING"), WAITING("WAITING"), ONBEKEND("ONBEKEND"), ERROR("ERROR");
 
         private final String status;
 
@@ -74,7 +74,7 @@ public abstract class AutomatischProces implements Serializable {
      * status van de laatste run.
      */
     @Enumerated(EnumType.STRING)
-    private ProcessingStatus status = ProcessingStatus.NULL;
+    private ProcessingStatus status = ProcessingStatus.WAITING;
 
     /**
      * samenvatting van de laatste run.
