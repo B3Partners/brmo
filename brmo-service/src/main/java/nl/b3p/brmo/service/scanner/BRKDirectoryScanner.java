@@ -57,6 +57,8 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                 final File scanDirectory = new File(this.config.getScanDirectory());
                 if (!scanDirectory.isDirectory() || !scanDirectory.canExecute() || !scanDirectory.canWrite()) {
                     config.setStatus(ERROR);
+                    config.addLogLine(String.format("FOUT: De scan directory '%s' is geen executable directory", scanDirectory));
+                    config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
                     this.active = false;
                     throw new BrmoException(String.format("De scan directory '%s' is geen executable directory", scanDirectory));
                 }
@@ -68,6 +70,8 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                     archiefDirectory.mkdirs();
                     if (!archiefDirectory.isDirectory() || !archiefDirectory.canWrite()) {
                         config.setStatus(ERROR);
+                        config.addLogLine(String.format("FOUT: De archief directory '%s' is geen beschrijfbare directory", archiefDirectory));
+                        config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
                         this.active = false;
                         throw new BrmoException(String.format("De archief directory '%s' is geen beschrijfbare directory", archiefDirectory));
                     }
@@ -124,7 +128,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
 
     @Override
     public void execute(ProgressUpdateListener listener) {
-                try {
+        try {
             this.execute();
         } catch (BrmoException ex) {
             log.error(ex);

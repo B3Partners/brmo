@@ -16,7 +16,6 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
-import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -59,6 +58,8 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                 final File scanDirectory = new File(this.config.getScanDirectory());
                 if (!scanDirectory.isDirectory() || !scanDirectory.canExecute() || !scanDirectory.canWrite()) {
                     config.setStatus(ERROR);
+                    config.addLogLine(String.format("FOUT: De scan directory '%s' is geen executable directory", scanDirectory));
+                    config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
                     this.active = false;
                     throw new BrmoException(String.format("De scan directory '%s' is geen executable directory", scanDirectory));
                 }
@@ -70,6 +71,8 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                     archiefDirectory.mkdirs();
                     if (!archiefDirectory.isDirectory() || !archiefDirectory.canWrite()) {
                         config.setStatus(ERROR);
+                        config.addLogLine(String.format("FOUT: De archief directory '%s' is geen beschrijfbare directory", archiefDirectory));
+                        config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
                         this.active = false;
                         throw new BrmoException(String.format("De archief directory '%s' is geen beschrijfbare directory", archiefDirectory));
                     }

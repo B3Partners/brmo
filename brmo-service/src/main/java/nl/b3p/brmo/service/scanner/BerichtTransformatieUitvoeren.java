@@ -38,9 +38,9 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
     @Override
     public void execute() throws BrmoException {
         this.execute(new ProgressUpdateListener() {
-            /* een doet bijna niks listener */
             @Override
             public void total(long total) {
+                config.addLogLine("Totaal aantal te transformeren berichten: " + total);
             }
 
             @Override
@@ -49,7 +49,7 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
 
             @Override
             public void exception(Throwable t) {
-                config.addLogLine("Fout :" + t.getLocalizedMessage());
+                config.addLogLine("FOUT: " + t.getLocalizedMessage());
                 log.error(t);
             }
 
@@ -99,15 +99,17 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
             });
             t.join();
 
-            l.addLog("Bericht transformatie is afgerond.");
             this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);
+            this.config.setSamenvatting("Bericht transformatie is afgerond.");
+
+            l.addLog("Bericht transformatie is afgerond.");
         } catch (Throwable t) {
             log.error("Fout bij transformeren berichten naar RSGB", t);
             String m = "Fout bij transformeren berichten naar RSGB: " + ExceptionUtils.getMessage(t);
             if (t.getCause() != null) {
                 m += ", oorzaak: " + ExceptionUtils.getRootCauseMessage(t);
             }
-            this.config.addLogLine(m);
+            this.config.updateSamenvattingEnLogfile(m);
             this.config.setStatus(AutomatischProces.ProcessingStatus.ERROR);
         } finally {
             if (brmo != null) {

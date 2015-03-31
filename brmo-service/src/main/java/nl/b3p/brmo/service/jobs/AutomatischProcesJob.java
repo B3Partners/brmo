@@ -31,15 +31,14 @@ public class AutomatischProcesJob implements Job {
             id = context.getJobDetail().getJobDataMap().getLongValue("id");
             log.debug("Poging gepland automatisch proces met id: " + id + " te starten.");
             Stripersist.requestInit();
-            EntityManager em = Stripersist.getEntityManager();
-            AutomatischProces p = em.find(AutomatischProces.class, id);
+            AutomatischProces p = Stripersist.getEntityManager().find(AutomatischProces.class, id);
             if (p != null) {
                 p.addLogLine(String.format("Geplande taak gestart op %tc.", new Date()));
                 AbstractExecutableProces.getProces(p).execute();
                 p.addLogLine(String.format("Geplande taak afgerond op %tc.", new Date()));
                 p.setLastrun(new Date());
-                em.merge(p);
-                em.flush();
+                Stripersist.getEntityManager().merge(p);
+                Stripersist.getEntityManager().flush();
                 log.debug("Gepland automatisch proces met " + id + " is afgerond.");
             } else {
                 log.warn("Automatisch proces met id:" + id + " bestaat niet.");

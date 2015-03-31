@@ -87,6 +87,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             /* doet bijna niks listener */
             @Override
             public void total(long total) {
+                config.addLogLine("Totaal aantal opgehaalde berichten: " + total);
             }
 
             @Override
@@ -95,7 +96,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
             @Override
             public void exception(Throwable t) {
-                config.addLogLine("Fout :" + t.getLocalizedMessage());
+                config.addLogLine("FOUT:" + t.getLocalizedMessage());
                 log.error(t);
             }
 
@@ -286,11 +287,13 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                     + "Aantal afgiftes grote bestanden: " + (afgiftesGb == null ? "<fout>" : afgiftesGb.size()));
 
             this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);
+            this.config.setLastrun(new Date());
         } catch (Exception e) {
+            this.config.setLastrun(new Date());
+            this.config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
             this.config.setStatus(AutomatischProces.ProcessingStatus.ERROR);
             l.exception(e);
         } finally {
-            this.config.setLastrun(new Date());
             Stripersist.getEntityManager().merge(this.config);
             Stripersist.getEntityManager().getTransaction().commit();
         }
