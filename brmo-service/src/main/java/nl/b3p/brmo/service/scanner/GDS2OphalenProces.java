@@ -236,7 +236,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
              ‘gerapporteerd’ in het systeem van GDS.
              */
             int moreCount = 0;
-            while (hasMore) {
+            String dontGetMoreConfig = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_niet_gerapporteerde_afgiftes_niet_ophalen"));
+            while (hasMore && !"true".equals(dontGetMoreConfig)) {
                 l.updateStatus("Uitvoeren SOAP request naar Kadaster voor meer afgiftes..." + moreCount++);
                 criteria.setNogNietGerapporteerd(true);
                 responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
@@ -294,8 +295,14 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             this.config.setStatus(AutomatischProces.ProcessingStatus.ERROR);
             l.exception(e);
         } finally {
-            Stripersist.getEntityManager().merge(this.config);
-            Stripersist.getEntityManager().getTransaction().commit();
+            if(Stripersist.getEntityManager().getTransaction().getRollbackOnly()) {
+                // XXX bij rollback only wordt status niet naar ERROR gezet vanwege
+                // rollback, zou in aparte transactie moeten
+                Stripersist.getEntityManager().getTransaction().rollback();
+            } else {
+                Stripersist.getEntityManager().merge(this.config);
+                Stripersist.getEntityManager().getTransaction().commit();
+            }
         }
     }
 
@@ -335,6 +342,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         lp.setStatus(LaadProces.STATUS.STAGING_OK);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         lp.setOpmerking("GDS2 download van " + url + " op " + sdf.format(new Date()));
+        lp.setAutomatischProces(Stripersist.getEntityManager().find(AutomatischProces.class, config.getId()));
 
         Bericht b = new Bericht();
         b.setLaadprocesid(lp);
@@ -355,7 +363,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         }
         b.setBr_xml(IOUtils.toString(zip, "UTF-8"));
 
-        doorsturenBericht(b.getBr_xml());
+        doorsturenBericht(b);
 
         Stripersist.getEntityManager().persist(lp);
         Stripersist.getEntityManager().persist(b);
@@ -368,7 +376,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
      *
      * @param send te versturen
      */
-    private void doorsturenBericht(String send) {
+    private void doorsturenBericht(Bericht b) {
         String _msg;
         String _url = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
         try {
@@ -379,19 +387,22 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
             conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Length", "" + send.length());
+            conn.setRequestProperty("Content-Length", "" + b.getBr_xml().length());
             conn.setRequestProperty("Content-Type", "application/octet-stream");
-            int copied = IOUtils.copy(IOUtils.toInputStream(send, "UTF-8"), conn.getOutputStream());
+            int copied = IOUtils.copy(IOUtils.toInputStream(b.getBr_xml(), "UTF-8"), conn.getOutputStream());
             _msg = String.format("Bericht doorgestuurd, response status: %d: %s (%d bytes).", conn.getResponseCode(), conn.getResponseMessage(), copied);
             this.config.addLogLine(_msg);
             l.addLog(_msg);
             log.info(_msg);
             conn.disconnect();
+            b.setStatus(Bericht.STATUS.STAGING_FORWARDED);
         } catch (MalformedURLException ex) {
+            b.setStatus(Bericht.STATUS.STAGING_NOK);
             _msg = String.format("De url '%s' voor 'delivery_endpoint' is misvormd, controleer de configuratie.", _url);
             this.config.addLogLine(_msg);
             log.error(_msg, ex);
         } catch (IOException ex) {
+            b.setStatus(Bericht.STATUS.STAGING_NOK);
             _msg = String.format("Het doorsturen naar '%s' is mislukt. Misschien is de enpoint down.", _url);
             this.config.addLogLine(_msg);
             log.error(_msg, ex);

@@ -93,6 +93,11 @@ public class OphaalConfigActionBean implements ActionBean {
     @DontValidate
     public Resolution delete() {
         if (proces != null) {
+
+            Stripersist.getEntityManager().createQuery("update LaadProces set automatischProces = null where automatischProces = :this")
+                    .setParameter("this", proces)
+                    .executeUpdate();
+
             Stripersist.getEntityManager().remove(proces);
             load();
             Stripersist.getEntityManager().getTransaction().commit();

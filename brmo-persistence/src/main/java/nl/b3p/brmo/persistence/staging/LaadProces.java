@@ -12,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -51,6 +52,9 @@ public class LaadProces implements Serializable {
     private Date status_datum;
 
     private String contact_email;
+
+    @ManyToOne
+    private AutomatischProces automatischProces;
 
     public static enum STATUS {
 
@@ -137,5 +141,13 @@ public class LaadProces implements Serializable {
     public void setContact_email(String contact_email) {
         this.contact_email = contact_email;
     }
-//</editor-fold>
+
+    public AutomatischProces getAutomatischProces() {
+        return automatischProces;
+    }
+
+    public void setAutomatischProces(AutomatischProces automatischProces) {
+        this.automatischProces = automatischProces;
+    }
+    // </editor-fold>
 }
