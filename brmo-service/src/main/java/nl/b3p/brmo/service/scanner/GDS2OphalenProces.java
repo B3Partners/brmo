@@ -9,11 +9,9 @@ import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.persistence.staging.LaadProces;
 import com.sun.xml.ws.developer.JAXWSProperties;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.KeyFactory;
@@ -40,6 +38,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Transient;
 import javax.xml.ws.BindingProvider;
 import net.sourceforge.stripes.util.Base64;
+import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.LOG_NEWLINE;
 import nl.b3p.brmo.persistence.staging.ClobElement;
@@ -332,7 +331,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         }
     }
 
-    private void laadAfgifte(AfgifteGBType a, String url) throws MalformedURLException, IOException {
+    private void laadAfgifte(AfgifteGBType a, String url) throws Exception {
         String msg = "Downloaden " + url;
         l.updateStatus(msg);
         l.addLog(msg);
@@ -380,6 +379,9 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             return;
         }
         b.setBr_xml(IOUtils.toString(zip, "UTF-8"));
+
+        BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_xml().getBytes("UTF-8")));
+        b.setObject_ref(reader.next().getObjectRef());
 
         doorsturenBericht(this.config, l, b, ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint")));
 
