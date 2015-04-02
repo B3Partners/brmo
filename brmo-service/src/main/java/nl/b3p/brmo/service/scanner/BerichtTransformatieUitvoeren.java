@@ -69,7 +69,7 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
         this.l = listener;
 
         l.updateStatus("Initialiseren...");
-        l.addLog("Initialiseren...");
+        l.addLog(String.format("Initialiseren... %tc", new Date()));
         this.config.setStatus(AutomatischProces.ProcessingStatus.PROCESSING);
         Stripersist.getEntityManager().flush();
 
@@ -101,7 +101,7 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
 
             this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);
             this.config.setSamenvatting("Bericht transformatie is afgerond.");
-
+            this.config.setLastrun(new Date());
             l.addLog("Bericht transformatie is afgerond.");
         } catch (Throwable t) {
             log.error("Fout bij transformeren berichten naar RSGB", t);
@@ -111,11 +111,11 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
             }
             this.config.updateSamenvattingEnLogfile(m);
             this.config.setStatus(AutomatischProces.ProcessingStatus.ERROR);
+            this.config.setLastrun(new Date());
         } finally {
             if (brmo != null) {
                 brmo.closeBrmoFramework();
             }
-            this.config.setLastrun(new Date());
             Stripersist.getEntityManager().merge(this.config);
             Stripersist.getEntityManager().flush();
         }
