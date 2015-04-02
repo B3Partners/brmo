@@ -51,7 +51,7 @@ import org.stripesstuff.stripersist.Stripersist;
 @StrictBinding
 public class OphaalConfigActionBean implements ActionBean {
 
-    private static final Log log = LogFactory.getLog(GDS2OphaalConfigActionBean.class);
+    private static final Log log = LogFactory.getLog(OphaalConfigActionBean.class);
 
     private static final String JSP = "/WEB-INF/jsp/beheer/processenophalen.jsp";
 
