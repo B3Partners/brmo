@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
@@ -325,6 +326,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         l.updateStatus("Downloaden " + url);
         l.addLog("Downloaden " + url);
 
+        HttpsURLConnection.setDefaultSSLSocketFactory(context.getSocketFactory());
         URLConnection connection = new URL(url).openConnection();
         InputStream input = (InputStream) connection.getContent();
 
