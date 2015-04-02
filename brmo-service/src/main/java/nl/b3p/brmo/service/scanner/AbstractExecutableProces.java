@@ -14,6 +14,7 @@ import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
+import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
 import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
 import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.persistence.staging.LaadProces;
@@ -54,6 +55,8 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
                 return new GDS2OphalenProces((GDS2OphaalProces) config);
             case BerichtTransformatieProces:
                 return new BerichtTransformatieUitvoeren((BerichtTransformatieProces) config);
+            case BerichtDoorstuurProces:
+                return new BerichtDoorsturenProces((BerichtDoorstuurProces)config);
             default:
                 throw new IllegalArgumentException(imple.name() + " is is geen ondersteund proces...");
         }

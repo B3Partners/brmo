@@ -34,7 +34,7 @@
                             onmouseout="this.style.background = '${bgcol}';"
                             onclick="javascript: window.location.href = '${url}';"
                             tabindex="0">
-                            <td>${p.getClass().getSimpleName()} (${p.id})</td>
+                            <td><%= pageContext.getAttribute("p").getClass().getSimpleName() %> (${p.id})</td>
                             <td><c:out value="${p.config['label']}"/></td>
                             <td style="white-space: nowrap"><fmt:formatDate pattern="dd-MM-yyyy HH:mm:ss" value="${p.lastrun}"/></td>
                             <td><c:out value="${p.status}"/></td>
@@ -111,6 +111,13 @@
                         </stripes:url>
                     </c:when>
 
+                    <c:when test="${actionBean.type eq 'BerichtDoorstuurProces'}">
+                        <jsp:include page="editberichtdoorsturenproces.jsp" />
+                        <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.BerichtDoorsturenUitvoerActionBean">
+                            <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
+                        </stripes:url>
+                    </c:when>
+                    
                     <c:otherwise>
                         <p>Onbekende input</p>
                     </c:otherwise>

@@ -381,7 +381,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         }
         b.setBr_xml(IOUtils.toString(zip, "UTF-8"));
 
-        doorsturenBericht(b);
+        doorsturenBericht(this.config, l, b, ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint")));
 
         Stripersist.getEntityManager().persist(lp);
         Stripersist.getEntityManager().persist(b);
@@ -394,36 +394,37 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
      *
      * @param send te versturen
      */
-    private void doorsturenBericht(Bericht b) {
-        String _msg;
-        String _url = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
+    public static boolean doorsturenBericht(AutomatischProces proces, ProgressUpdateListener l, Bericht b, String endpoint) {
+        String msg;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         try {
-            if (_url == null || _url.length() < 1) {
-                return;
+            if (endpoint == null || endpoint.length() < 1) {
+                return false;
             }
-            URL url = new URL(_url);
+            URL url = new URL(endpoint);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Length", "" + b.getBr_xml().length());
             conn.setRequestProperty("Content-Type", "application/octet-stream");
             int copied = IOUtils.copy(IOUtils.toInputStream(b.getBr_xml(), "UTF-8"), conn.getOutputStream());
-            _msg = String.format("Bericht doorgestuurd, response status: %d: %s (%d bytes).", conn.getResponseCode(), conn.getResponseMessage(), copied);
-            this.config.addLogLine(_msg);
-            l.addLog(_msg);
-            log.info(_msg);
+            msg = String.format("Bericht doorgestuurd, response status: %d: %s (%d bytes).", conn.getResponseCode(), conn.getResponseMessage(), copied);
+            proces.addLogLine(msg);
+            l.addLog(msg);
+            log.info(msg);
             conn.disconnect();
+            b.setOpmerking("Bericht op " + sdf.format(new Date()) + " doorgestuurd naar " + endpoint);
             b.setStatus(Bericht.STATUS.STAGING_FORWARDED);
-        } catch (MalformedURLException ex) {
+            return true;
+        } catch (Exception e) {
+            msg = String.format("Fout bij doorsturen bericht op %s naar endpoint %s: %s",
+                    sdf.format(new Date()), endpoint, e.getClass() + ": " + e.getMessage());
+            b.setOpmerking(msg);
             b.setStatus(Bericht.STATUS.STAGING_NOK);
-            _msg = String.format("De url '%s' voor 'delivery_endpoint' is misvormd, controleer de configuratie.", _url);
-            this.config.addLogLine(_msg);
-            log.error(_msg, ex);
-        } catch (IOException ex) {
-            b.setStatus(Bericht.STATUS.STAGING_NOK);
-            _msg = String.format("Het doorsturen naar '%s' is mislukt. Misschien is de enpoint down.", _url);
-            this.config.addLogLine(_msg);
-            log.error(_msg, ex);
+            proces.addLogLine(msg);
+            l.addLog(msg);
+            log.error(msg, e);
+            return false;
         }
     }
 }
