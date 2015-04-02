@@ -58,6 +58,7 @@ import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20130701
 import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20130701.BestandenlijstOpvragenResponse;
 import nl.logius.digikoppeling.gb._2010._10.DataReference;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
@@ -85,10 +86,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     @Override
     public void execute() throws BrmoException {
         this.execute(new ProgressUpdateListener() {
-            /* doet bijna niks listener */
             @Override
             public void total(long total) {
-                config.addLogLine("Totaal aantal opgehaalde berichten: " + total);
             }
 
             @Override
@@ -97,7 +96,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
             @Override
             public void exception(Throwable t) {
-                config.addLogLine("FOUT:" + t.getLocalizedMessage());
                 log.error(t);
             }
 
@@ -107,7 +105,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
             @Override
             public void addLog(String log) {
-                config.addLogLine(log);
             }
         });
     }
@@ -153,6 +150,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
         try {
             l.updateStatus("Initialiseren...");
+            l.addLog(String.format("Initialiseren... %tc",new Date()));
             this.config.setStatus(AutomatischProces.ProcessingStatus.PROCESSING);
             Stripersist.getEntityManager().flush();
 
@@ -209,6 +207,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
             l.updateStatus("Opzetten SSL context...");
             l.addLog("Initializing SSLContext");
+            this.config.addLogLine("Initializing SSLContext");
             context = SSLContext.getInstance("TLS", "SunJSSE");
             context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
             SSLContext.setDefault(context);
@@ -248,6 +247,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             }
 
             l.total(afgiftesGb.size());
+            config.addLogLine("Totaal aantal opgehaalde berichten: " + afgiftesGb.size());
 
             int filterAlVerwerkt = 0;
             int aantalGeladen = 0;
@@ -274,6 +274,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             }
 
             l.addLog("Meer afgiftes beschikbaar: " + responseGb.getAntwoord().getMeerAfgiftesbeschikbaar());
+            this.config.addLogLine("Meer afgiftes beschikbaar: " + responseGb.getAntwoord().getMeerAfgiftesbeschikbaar());
+
             BestandenlijstOpvragenResponse response = gds2.bestandenlijstOpvragen(request);
             List<AfgifteType> afgiftes = response.getAntwoord().getBestandenLijst().getAfgifte();
 
@@ -281,9 +283,10 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             l.addLog("Aantal afgiftes die al waren verwerkt: " + filterAlVerwerkt);
             l.addLog("Aantal afgiftes geladen: " + aantalGeladen);
             l.addLog("Aantal afgiftes: " + (afgiftes == null ? "<fout>" : afgiftes.size()));
-            l.addLog("Aantal afgiftes grote bestanden: " + (afgiftesGb == null ? "<fout>" : afgiftesGb.size()));
+            l.addLog("Aantal afgiftes grote bestanden: " + (afgiftesGb == null ? "<fout>" : afgiftesGb.size())
+                + LOG_NEWLINE);
 
-            this.config.setSamenvatting("Aantal afgiftes die al waren verwerkt: " + filterAlVerwerkt + LOG_NEWLINE
+            this.config.updateSamenvattingEnLogfile("Aantal afgiftes die al waren verwerkt: " + filterAlVerwerkt + LOG_NEWLINE
                     + "Aantal afgiftes geladen: " + aantalGeladen + LOG_NEWLINE
                     + "Aantal afgiftes: " + (afgiftes == null ? "<fout>" : afgiftes.size()) + LOG_NEWLINE
                     + "Aantal afgiftes grote bestanden: " + (afgiftesGb == null ? "<fout>" : afgiftesGb.size()));
@@ -291,9 +294,16 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);
             this.config.setLastrun(new Date());
         } catch (Exception e) {
+            log.error("Fout bij ophalen van GDS2 berichten", e);
             this.config.setLastrun(new Date());
             this.config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
             this.config.setStatus(AutomatischProces.ProcessingStatus.ERROR);
+            String m = "Fout bij ophalen van GDS2 berichten: " + ExceptionUtils.getMessage(e);
+            if (e.getCause() != null) {
+                m += ", oorzaak: " + ExceptionUtils.getRootCauseMessage(e);
+            }
+            this.config.addLogLine(m);
+            Stripersist.getEntityManager().flush();
             l.exception(e);
         } finally {
             if(Stripersist.getEntityManager().getTransaction().getRollbackOnly()) {
@@ -323,8 +333,10 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     }
 
     private void laadAfgifte(AfgifteGBType a, String url) throws MalformedURLException, IOException {
-        l.updateStatus("Downloaden " + url);
-        l.addLog("Downloaden " + url);
+        String msg = "Downloaden " + url;
+        l.updateStatus(msg);
+        l.addLog(msg);
+        this.config.addLogLine(msg);
 
         HttpsURLConnection.setDefaultSSLSocketFactory(context.getSocketFactory());
         URLConnection connection = new URL(url).openConnection();
@@ -356,11 +368,15 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         ZipInputStream zip = new ZipInputStream(input);
         ZipEntry entry = zip.getNextEntry();
         while (entry != null && !entry.getName().toLowerCase().endsWith(".xml")) {
-            l.addLog("Overslaan zip entry geen XML: " + entry.getName());
+            msg = "Overslaan zip entry geen XML: " + entry.getName();
+            l.addLog(msg);
+            this.config.addLogLine(msg);
             entry = zip.getNextEntry();
         }
         if (entry == null) {
-            l.addLog("Geen geschikt XML bestand gevonden in zip bestand!");
+            msg = "Geen geschikt XML bestand gevonden in zip bestand!";
+            l.addLog(msg);
+            this.config.addLogLine(msg);
             return;
         }
         b.setBr_xml(IOUtils.toString(zip, "UTF-8"));
