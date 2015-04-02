@@ -26,6 +26,7 @@ import net.sourceforge.stripes.validation.ValidationMethod;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
+import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
 import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
 import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
@@ -121,6 +122,15 @@ public class OphaalConfigActionBean implements ActionBean {
         proces.getConfig().clear();
         proces.getConfig().putAll(config);
 
+        if(proces instanceof BerichtDoorstuurProces) {
+            String id = ClobElement.nullSafeGet(config.get("gds2_ophaalproces_id"));
+            GDS2OphaalProces p = Stripersist.getEntityManager().find(GDS2OphaalProces.class, Long.parseLong(id));
+            if(p != null) {
+                String label = ClobElement.nullSafeGet(p.getConfig().get("label"));
+                proces.getConfig().put("label", new ClobElement("Doorsturen " + label + " afgiftes"));
+            }
+        }
+
         Stripersist.getEntityManager().persist(proces);
         load();
         Stripersist.getEntityManager().getTransaction().commit();
@@ -156,6 +166,8 @@ public class OphaalConfigActionBean implements ActionBean {
                 return new GDS2OphaalProces();
             case BerichtTransformatieProces:
                 return new BerichtTransformatieProces();
+            case BerichtDoorstuurProces:
+                return new BerichtDoorstuurProces();
             default:
                 throw new IllegalArgumentException(type.name() + " is is geen ondersteund proces type...");
         }
