@@ -6,7 +6,6 @@ package nl.b3p.brmo.service.scanner;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
@@ -14,26 +13,18 @@ import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.persistence.NoResultException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-import javax.xml.xpath.XPathFactoryConfigurationException;
 
 import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.xml.BagMutatieXMLReader;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
 import nl.b3p.brmo.persistence.staging.Bericht;
 import nl.b3p.brmo.persistence.staging.LaadProces;
 import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
-import nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20130701.AfgifteGBType;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,8 +33,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.stripesstuff.stripersist.Stripersist;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
 /**
  *
@@ -234,6 +223,20 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
         ZipInputStream zip = new ZipInputStream(input);
         ZipEntry entry = zip.getNextEntry();
 
+        BagMutatieXMLReader bagreader = new BagMutatieXMLReader();
+
+        while(entry != null && !entry.getName().toLowerCase().endsWith(".xml")) {
+                        log.warn("Overslaan zip entry geen XML: " + entry.getName());
+                        entry = zip.getNextEntry();
+                    }
+                    if(entry == null) {
+                        throw new BrmoException("Geen geschikt XML bestand gevonden in zip bestand " + fileName);
+                    }
+                    log.info("Lezen XML bestand uit zip: " + entry.getName());
+                    stagingProxy.loadBr(zip, type, fileName, null);
+    }
+
+
         while (entry != null && !entry.getName().toLowerCase().endsWith(".xml")) {
             msg = "Overslaan zip entry geen XML: " + entry.getName();
             listener.addLog(msg);
@@ -251,7 +254,6 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
         if (isArchiving) {
             // store/archive item locally
             // TODO saveToFile();
-
         }
 
         Stripersist.getEntityManager().persist(lp);
