@@ -9,6 +9,7 @@ import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.persistence.staging.LaadProces;
 import com.sun.xml.ws.developer.JAXWSProperties;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -47,7 +48,6 @@ import nl.b3p.gds2.Main;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbopvragen.v20130701.BestandenlijstGbOpvragenType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20130701.AfgifteGBType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstopvragen.v20130701.BestandenlijstOpvragenType;
-import nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.afgifte.v20130701.AfgifteType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20130701.AfgifteSelectieCriteriaType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20130701.BestandKenmerkenType;
 import nl.kadaster.schemas.gds2.service.afgifte.v20130701.Gds2AfgifteServiceV20130701;
@@ -55,7 +55,6 @@ import nl.kadaster.schemas.gds2.service.afgifte.v20130701.Gds2AfgifteServiceV201
 import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstgbopvragen.v20130701.BestandenlijstGBOpvragenRequest;
 import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstgbopvragen.v20130701.BestandenlijstGBOpvragenResponse;
 import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20130701.BestandenlijstOpvragenRequest;
-import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20130701.BestandenlijstOpvragenResponse;
 import nl.logius.digikoppeling.gb._2010._10.DataReference;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -147,6 +146,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     @Override
     public void execute(ProgressUpdateListener listener) {
         this.l = listener;
+
+        List<Bericht> geladenBerichten = new ArrayList();
 
         try {
             l.updateStatus("Initialiseren...");
@@ -252,6 +253,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             int filterAlVerwerkt = 0;
             int aantalGeladen = 0;
             int progress = 0;
+
             for (AfgifteGBType a : afgiftesGb) {
                 String url = null;
 
@@ -266,7 +268,10 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                     if (isAfgifteAlGeladen(a, url)) {
                         filterAlVerwerkt++;
                     } else {
-                        laadAfgifte(a, url);
+                        Bericht b = laadAfgifte(a, url);
+                        if(b != null) {
+                            geladenBerichten.add(b);
+                        }
                         aantalGeladen++;
                     }
                 }
@@ -276,23 +281,24 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             l.addLog("Meer afgiftes beschikbaar: " + responseGb.getAntwoord().getMeerAfgiftesbeschikbaar());
             this.config.addLogLine("Meer afgiftes beschikbaar: " + responseGb.getAntwoord().getMeerAfgiftesbeschikbaar());
 
-            BestandenlijstOpvragenResponse response = gds2.bestandenlijstOpvragen(request);
-            List<AfgifteType> afgiftes = response.getAntwoord().getBestandenLijst().getAfgifte();
+            String doorsturenUrl = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
+            if(doorsturenUrl != null && !geladenBerichten.isEmpty()) {
+                for(Bericht b: geladenBerichten) {
+                    doorsturenBericht(this.config, l, b, doorsturenUrl);
+                }
+            }
 
             l.addLog("\n\n**** resultaat ****\n");
             l.addLog("Aantal afgiftes die al waren verwerkt: " + filterAlVerwerkt);
-            l.addLog("Aantal afgiftes geladen: " + aantalGeladen);
-            l.addLog("Aantal afgiftes: " + (afgiftes == null ? "<fout>" : afgiftes.size()));
-            l.addLog("Aantal afgiftes grote bestanden: " + (afgiftesGb == null ? "<fout>" : afgiftesGb.size())
-                + LOG_NEWLINE);
+            l.addLog("\nAantal afgiftes geladen: " + aantalGeladen + "\n");
 
             this.config.updateSamenvattingEnLogfile("Aantal afgiftes die al waren verwerkt: " + filterAlVerwerkt + LOG_NEWLINE
-                    + "Aantal afgiftes geladen: " + aantalGeladen + LOG_NEWLINE
-                    + "Aantal afgiftes: " + (afgiftes == null ? "<fout>" : afgiftes.size()) + LOG_NEWLINE
-                    + "Aantal afgiftes grote bestanden: " + (afgiftesGb == null ? "<fout>" : afgiftesGb.size()));
+                    + "Aantal afgiftes geladen: " + aantalGeladen);
 
             this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);
             this.config.setLastrun(new Date());
+            Stripersist.getEntityManager().merge(this.config);
+            Stripersist.getEntityManager().getTransaction().commit();
         } catch (Exception e) {
             log.error("Fout bij ophalen van GDS2 berichten", e);
             this.config.setLastrun(new Date());
@@ -303,16 +309,12 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 m += ", oorzaak: " + ExceptionUtils.getRootCauseMessage(e);
             }
             this.config.addLogLine(m);
-            Stripersist.getEntityManager().flush();
             l.exception(e);
         } finally {
             if(Stripersist.getEntityManager().getTransaction().getRollbackOnly()) {
                 // XXX bij rollback only wordt status niet naar ERROR gezet vanwege
                 // rollback, zou in aparte transactie moeten
                 Stripersist.getEntityManager().getTransaction().rollback();
-            } else {
-                Stripersist.getEntityManager().merge(this.config);
-                Stripersist.getEntityManager().getTransaction().commit();
             }
         }
     }
@@ -332,15 +334,34 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         }
     }
 
-    private void laadAfgifte(AfgifteGBType a, String url) throws Exception {
+    private Bericht laadAfgifte(AfgifteGBType a, String url) throws Exception {
         String msg = "Downloaden " + url;
         l.updateStatus(msg);
         l.addLog(msg);
         this.config.addLogLine(msg);
 
         HttpsURLConnection.setDefaultSSLSocketFactory(context.getSocketFactory());
-        URLConnection connection = new URL(url).openConnection();
-        InputStream input = (InputStream) connection.getContent();
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+        int attempt = 0;
+        while(true) {
+            try {
+                URLConnection connection = new URL(url).openConnection();
+                InputStream input = (InputStream) connection.getContent();
+                IOUtils.copy(input, bos);
+                break;
+            } catch(Exception e) {
+                attempt++;
+                if(attempt == 5) {
+                    l.addLog("Fout bij laatste poging downloaden afgifte: " + e.getClass().getName() + ": " + e.getMessage());
+                    throw e;
+                } else {
+                    l.addLog("Fout bij poging " + attempt + " om afgifte te downloaden: " + e.getClass().getName() + ": " + e.getMessage());
+                    Thread.sleep(1000);
+                }
+            }
+        }
 
         LaadProces lp = new LaadProces();
         lp.setBestand_naam(getLaadprocesBestansanaam(a));
@@ -365,7 +386,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         b.setStatus(Bericht.STATUS.STAGING_OK);
         b.setStatus_datum(new Date());
 
-        ZipInputStream zip = new ZipInputStream(input);
+        ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(bos.toByteArray()));
         ZipEntry entry = zip.getNextEntry();
         while (entry != null && !entry.getName().toLowerCase().endsWith(".xml")) {
             msg = "Overslaan zip entry geen XML: " + entry.getName();
@@ -377,21 +398,19 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             msg = "Geen geschikt XML bestand gevonden in zip bestand!";
             l.addLog(msg);
             this.config.addLogLine(msg);
-            return;
+            return null;
         }
-        b.setBr_xml(IOUtils.toString(zip, "UTF-8"));
+        b.setBr_orgineel_xml(IOUtils.toString(zip, "UTF-8"));
 
-        BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_xml().getBytes("UTF-8")));
-        BrkBericht brk =reader.next();
-        b.setObject_ref(brk.getObjectRef());
-        b.setVolgordenummer(brk.getVolgordeNummer());
-
-        doorsturenBericht(this.config, l, b, ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint")));
+        BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes("UTF-8")));
+        BrkBericht bericht = reader.next();
+        b.setObject_ref(bericht.getObjectRef());
+        b.setBr_xml(bericht.getBrXml());
+        b.setVolgordenummer(bericht.getVolgordeNummer());
 
         Stripersist.getEntityManager().persist(lp);
         Stripersist.getEntityManager().persist(b);
-        Stripersist.getEntityManager().merge(this.config);
-        Stripersist.getEntityManager().getTransaction().commit();
+        return b;
     }
 
     /**
@@ -410,17 +429,25 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
             conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Length", "" + b.getBr_xml().length());
+            conn.setRequestProperty("Content-Length", "" + b.getBr_orgineel_xml().length());
             conn.setRequestProperty("Content-Type", "application/octet-stream");
-            int copied = IOUtils.copy(IOUtils.toInputStream(b.getBr_xml(), "UTF-8"), conn.getOutputStream());
-            msg = String.format("Bericht doorgestuurd, response status: %d: %s (%d bytes).", conn.getResponseCode(), conn.getResponseMessage(), copied);
+            IOUtils.copy(IOUtils.toInputStream(b.getBr_orgineel_xml(), "UTF-8"), conn.getOutputStream());
+            conn.disconnect();
+            if(conn.getResponseCode() != 200) {
+                msg = String.format("HTTP foutcode bij doorsturen bericht %s op %s naar endpoint %s: %s",
+                        b.getObject_ref(),
+                        sdf.format(new Date()), endpoint, conn.getResponseCode() + ": " + conn.getResponseMessage());
+                b.setStatus(Bericht.STATUS.STAGING_NOK);
+            } else {
+                msg = "Bericht " + b.getObject_ref() + " op " + sdf.format(new Date()) + " doorgestuurd naar " + endpoint;
+                b.setStatus(Bericht.STATUS.STAGING_FORWARDED);
+            }
+            b.setOpmerking(msg);
             proces.addLogLine(msg);
             l.addLog(msg);
             log.info(msg);
-            conn.disconnect();
-            b.setOpmerking("Bericht op " + sdf.format(new Date()) + " doorgestuurd naar " + endpoint);
-            b.setStatus(Bericht.STATUS.STAGING_FORWARDED);
-            return true;
+
+            return b.getStatus() == Bericht.STATUS.STAGING_FORWARDED;
         } catch (Exception e) {
             msg = String.format("Fout bij doorsturen bericht op %s naar endpoint %s: %s",
                     sdf.format(new Date()), endpoint, e.getClass() + ": " + e.getMessage());

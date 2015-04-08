@@ -67,7 +67,7 @@
         <servlet-class>nl.b3p.brmo.service.util.ConfigUtil</servlet-class>
         <init-param>
             <param-name>max_upload_size</param-name>
-            <param-value>500</param-value>
+            <param-value>5000</param-value>
         </init-param>
         <init-param>
             <param-name>temp_folder</param-name>
