@@ -38,6 +38,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Transient;
 import javax.xml.ws.BindingProvider;
 import net.sourceforge.stripes.util.Base64;
+import nl.b3p.brmo.loader.entity.BrkBericht;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.LOG_NEWLINE;
@@ -381,7 +382,9 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         b.setBr_xml(IOUtils.toString(zip, "UTF-8"));
 
         BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_xml().getBytes("UTF-8")));
-        b.setObject_ref(reader.next().getObjectRef());
+        BrkBericht brk =reader.next();
+        b.setObject_ref(brk.getObjectRef());
+        b.setVolgordenummer(brk.getVolgordeNummer());
 
         doorsturenBericht(this.config, l, b, ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint")));
 
