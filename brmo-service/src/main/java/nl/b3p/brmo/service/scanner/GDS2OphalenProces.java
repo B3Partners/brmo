@@ -151,7 +151,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
         try {
             l.updateStatus("Initialiseren...");
-            l.addLog(String.format("Initialiseren... %tc",new Date()));
+            l.addLog(String.format("Initialiseren... %tc", new Date()));
             this.config.setStatus(AutomatischProces.ProcessingStatus.PROCESSING);
             Stripersist.getEntityManager().flush();
 
@@ -242,7 +242,19 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 l.updateStatus("Uitvoeren SOAP request naar Kadaster voor meer afgiftes..." + moreCount++);
                 criteria.setNogNietGerapporteerd(true);
                 responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
-                afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB());
+
+                List<AfgifteGBType> afgiftes = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB();
+                for (AfgifteGBType t : afgiftes) {
+                    // lijst urls naar aparte logfile loggen
+                    if (t.getDigikoppelingExternalDatareferences() != null
+                            && t.getDigikoppelingExternalDatareferences().getDataReference() != null) {
+                        for (DataReference dr : t.getDigikoppelingExternalDatareferences().getDataReference()) {
+                            log.info("GSD2url: "+dr.getTransport().getLocation().getSenderUrl().getValue());
+                            break;
+                        }
+                    }
+                }
+                afgiftesGb.addAll(afgiftes);
                 hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
                 log.debug("Nog meer afgiftes? " + hasMore);
             }
@@ -269,7 +281,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                         filterAlVerwerkt++;
                     } else {
                         Bericht b = laadAfgifte(a, url);
-                        if(b != null) {
+                        if (b != null) {
                             geladenBerichten.add(b);
                         }
                         aantalGeladen++;
@@ -282,8 +294,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             this.config.addLogLine("Meer afgiftes beschikbaar: " + responseGb.getAntwoord().getMeerAfgiftesbeschikbaar());
 
             String doorsturenUrl = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
-            if(doorsturenUrl != null && !geladenBerichten.isEmpty()) {
-                for(Bericht b: geladenBerichten) {
+            if (doorsturenUrl != null && !geladenBerichten.isEmpty()) {
+                for (Bericht b : geladenBerichten) {
                     doorsturenBericht(this.config, l, b, doorsturenUrl);
                 }
             }
@@ -311,7 +323,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             this.config.addLogLine(m);
             l.exception(e);
         } finally {
-            if(Stripersist.getEntityManager().getTransaction().getRollbackOnly()) {
+            if (Stripersist.getEntityManager().getTransaction().getRollbackOnly()) {
                 // XXX bij rollback only wordt status niet naar ERROR gezet vanwege
                 // rollback, zou in aparte transactie moeten
                 Stripersist.getEntityManager().getTransaction().rollback();
@@ -345,15 +357,15 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
         int attempt = 0;
-        while(true) {
+        while (true) {
             try {
                 URLConnection connection = new URL(url).openConnection();
                 InputStream input = (InputStream) connection.getContent();
                 IOUtils.copy(input, bos);
                 break;
-            } catch(Exception e) {
+            } catch (Exception e) {
                 attempt++;
-                if(attempt == 5) {
+                if (attempt == 5) {
                     l.addLog("Fout bij laatste poging downloaden afgifte: " + e.getClass().getName() + ": " + e.getMessage());
                     throw e;
                 } else {
@@ -410,6 +422,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
         Stripersist.getEntityManager().persist(lp);
         Stripersist.getEntityManager().persist(b);
+        Stripersist.getEntityManager().getTransaction().commit();
         return b;
     }
 
@@ -433,7 +446,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             conn.setRequestProperty("Content-Type", "application/octet-stream");
             IOUtils.copy(IOUtils.toInputStream(b.getBr_orgineel_xml(), "UTF-8"), conn.getOutputStream());
             conn.disconnect();
-            if(conn.getResponseCode() != 200) {
+            if (conn.getResponseCode() != 200) {
                 msg = String.format("HTTP foutcode bij doorsturen bericht %s op %s naar endpoint %s: %s",
                         b.getObject_ref(),
                         sdf.format(new Date()), endpoint, conn.getResponseCode() + ": " + conn.getResponseMessage());
