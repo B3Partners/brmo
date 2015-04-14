@@ -71,12 +71,16 @@ public class DirectoryScannerUitvoerActionBean implements ActionBean, ProgressUp
         ProcesExecutable exeProces = AbstractExecutableProces.getProces(proces);
         try {
             exeProces.execute(this);
-            completed();
+            this.proces.setStatus(AutomatischProces.ProcessingStatus.WAITING);
         } catch (Exception e) {
+            this.proces.setStatus(AutomatischProces.ProcessingStatus.ERROR);
+            Stripersist.getEntityManager().merge(this.proces);
             exception(e);
         } finally {
-            Stripersist.getEntityManager().merge(proces);
-            Stripersist.getEntityManager().getTransaction().commit();
+            completed();
+            if (Stripersist.getEntityManager().getTransaction().isActive()) {
+                Stripersist.getEntityManager().getTransaction().commit();
+            }
         }
 
         return new ForwardResolution(JSP);
@@ -91,7 +95,6 @@ public class DirectoryScannerUitvoerActionBean implements ActionBean, ProgressUp
     public void completed() {
         complete = true;
         proces.setLastrun(this.update);
-        this.proces.setStatus(AutomatischProces.ProcessingStatus.WAITING);
     }
 
     @Override
@@ -114,7 +117,6 @@ public class DirectoryScannerUitvoerActionBean implements ActionBean, ProgressUp
         PrintWriter pw = new PrintWriter(sw);
         t.printStackTrace(new PrintWriter(sw));
         this.exceptionStacktrace = sw.toString();
-        this.proces.setStatus(AutomatischProces.ProcessingStatus.ERROR);
     }
 
     @Override
