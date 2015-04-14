@@ -28,4 +28,10 @@
     <td><stripes:label name="">Planning (cron expressie)</stripes:label></td>
     <td><stripes:text name="proces.cronExpressie"/></td>
 </tr>
+<tr>
+    <td>datum vanaf (dd-MM-yyyy formaat)</td><td><stripes:text name="config['vanafdatum']"/></td>
+</tr>
+<tr>
+    <td>datum tot (dd-MM-yyyy formaat of "nu")</td><td><stripes:text name="config['totdatum']"/></td>
+</tr>
 </table>

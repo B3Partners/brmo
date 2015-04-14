@@ -24,11 +24,17 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.net.ssl.HttpsURLConnection;
@@ -37,6 +43,9 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Transient;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.BindingProvider;
 import net.sourceforge.stripes.util.Base64;
 import nl.b3p.brmo.loader.entity.BrkBericht;
@@ -50,6 +59,7 @@ import nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20130
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstopvragen.v20130701.BestandenlijstOpvragenType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20130701.AfgifteSelectieCriteriaType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20130701.BestandKenmerkenType;
+import nl.kadaster.schemas.gds2.afgifte_proces.v20130701.FilterDatumTijdType;
 import nl.kadaster.schemas.gds2.service.afgifte.v20130701.Gds2AfgifteServiceV20130701;
 import nl.kadaster.schemas.gds2.service.afgifte.v20130701.Gds2AfgifteServiceV20130701Service;
 import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstgbopvragen.v20130701.BestandenlijstGBOpvragenRequest;
@@ -175,6 +185,21 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             if (!"true".equals(alGerapporteerd)) {
                 criteria.setNogNietGerapporteerd(true);
             }
+
+            // datum tijd parsen
+            XMLGregorianCalendar vanaf = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("vanafdatum")));
+            XMLGregorianCalendar tot = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("totdatum")));
+            if (vanaf != null && tot != null) {
+                FilterDatumTijdType d = new FilterDatumTijdType();
+                d.setDatumTijdVanaf(vanaf);
+                d.setDatumTijdTot(tot);
+                l.addLog("Datum vanaf: " + vanaf);
+                l.addLog("Datum tot: " + tot);
+                this.config.addLogLine("Datum vanaf: " + vanaf);
+                this.config.addLogLine("Datum tot: " + tot);
+                criteria.setPeriode(d);
+            }
+
             verzoekGb.setAfgifteSelectieCriteria(criteria);
 
             //ctxt.put(BindingProvider.USERNAME_PROPERTY, username);
@@ -225,6 +250,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             // opletten; in de xsd staat een default value van 'J' voor meerAfgiftesbeschikbaar
             boolean hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
             log.debug("Zijn er meer afgiftes? " + hasMore);
+
             /*
              Indicatie nog niet gerapporteerd:
              Met deze indicatie wordt aangegeven of uitsluitend de nog niet
@@ -249,7 +275,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                     if (t.getDigikoppelingExternalDatareferences() != null
                             && t.getDigikoppelingExternalDatareferences().getDataReference() != null) {
                         for (DataReference dr : t.getDigikoppelingExternalDatareferences().getDataReference()) {
-                            log.info("GSD2url: "+dr.getTransport().getLocation().getSenderUrl().getValue());
+                            log.info("GSD2url: " + dr.getTransport().getLocation().getSenderUrl().getValue());
                             break;
                         }
                     }
@@ -471,5 +497,40 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             log.error(msg, e);
             return false;
         }
+    }
+
+    /**
+     * parse datum uit string.
+     *
+     * @param dateStr datum in dd-MM-yyyy formaat
+     * @return datum of null in geval van een parse fout
+     */
+    private XMLGregorianCalendar getDatumTijd(String dateStr) {
+        if (dateStr == null) {
+            return null;
+        }
+        Date date;
+        final DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+
+        if (dateStr.equalsIgnoreCase("nu")) {
+            date = new Date();
+        } else {
+            try {
+                date = format.parse(dateStr);
+            } catch (ParseException ex) {
+                log.error(ex);
+                return null;
+            }
+        }
+        
+        try {
+            GregorianCalendar gregory = new GregorianCalendar();
+            gregory.setTime(date);
+            return DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory);
+        } catch (DatatypeConfigurationException ex) {
+            log.error(ex);
+            return null;
+        }
+
     }
 }
