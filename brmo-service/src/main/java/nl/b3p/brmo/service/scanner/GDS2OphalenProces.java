@@ -88,6 +88,11 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     @Transient
     private SSLContext context;
 
+    private static final String PEM_KEY_START = "-----BEGIN PRIVATE KEY-----";
+    private static final String PEM_KEY_END = "-----END PRIVATE KEY-----";
+    private static final String PEM_CERT_START = "-----BEGIN CERTIFICATE-----";
+    private static final String PEM_CERT_END = "-----END CERTIFICATE-----";
+
     GDS2OphalenProces(GDS2OphaalProces config) {
         this.config = config;
     }
@@ -118,9 +123,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         });
     }
 
-    private static final String PEM_KEY_START = "-----BEGIN PRIVATE KEY-----";
-    private static final String PEM_KEY_END = "-----END PRIVATE KEY-----";
-
     private static PrivateKey getPrivateKeyFromPEM(String pem) throws NoSuchAlgorithmException, InvalidKeySpecException {
         pem = pem.replaceAll("\n", "").trim();
         if (!pem.startsWith(PEM_KEY_START)) {
@@ -138,9 +140,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         return kf.generatePrivate(spec);
     }
 
-    private static final String PEM_CERT_START = "-----BEGIN CERTIFICATE-----";
-    private static final String PEM_CERT_END = "-----END CERTIFICATE-----";
-
     private static Certificate getCertificateFromPEM(String pem) throws CertificateException, UnsupportedEncodingException {
         pem = pem.replaceAll("\n", "").trim();
         if (!pem.startsWith(PEM_CERT_START)) {
@@ -149,7 +148,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         if (!pem.endsWith(PEM_CERT_END)) {
             throw new IllegalArgumentException("Certificaat moet eindigen met " + PEM_CERT_END);
         }
-
         return CertificateFactory.getInstance("X509").generateCertificate(new ByteArrayInputStream(pem.getBytes("US-ASCII")));
     }
 
@@ -157,17 +155,11 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     public void execute(ProgressUpdateListener listener) {
         this.l = listener;
 
-        List<Bericht> geladenBerichten = new ArrayList();
-
         try {
             l.updateStatus("Initialiseren...");
             l.addLog(String.format("Initialiseren... %tc", new Date()));
             this.config.setStatus(AutomatischProces.ProcessingStatus.PROCESSING);
             Stripersist.getEntityManager().flush();
-
-            Gds2AfgifteServiceV20130701 gds2 = new Gds2AfgifteServiceV20130701Service().getAGds2AfgifteServiceV20130701();
-            BindingProvider bp = (BindingProvider) gds2;
-            Map<String, Object> ctxt = bp.getRequestContext();
 
             BestandenlijstOpvragenRequest request = new BestandenlijstOpvragenRequest();
             BestandenlijstOpvragenType verzoek = new BestandenlijstOpvragenType();
@@ -181,12 +173,13 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             String contractnummer = this.config.getConfig().get("gds2_contractnummer").getValue();
             criteria.setBestandKenmerken(new BestandKenmerkenType());
             criteria.getBestandKenmerken().setContractnummer(contractnummer);
+
             String alGerapporteerd = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_al_gerapporteerde_afgiftes"));
             if (!"true".equals(alGerapporteerd)) {
                 criteria.setNogNietGerapporteerd(true);
             }
 
-            // datum tijd parsen
+            // datum tijd parsen/instellen
             XMLGregorianCalendar vanaf = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("vanafdatum")));
             XMLGregorianCalendar tot = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("totdatum")));
             if (vanaf != null && tot != null) {
@@ -198,58 +191,33 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 this.config.addLogLine("Datum vanaf: " + vanaf);
                 this.config.addLogLine("Datum tot: " + tot);
                 criteria.setPeriode(d);
+                // forceer nog niet gerapporteerd
+                criteria.setNogNietGerapporteerd(false);
             }
-
             verzoekGb.setAfgifteSelectieCriteria(criteria);
 
-            //ctxt.put(BindingProvider.USERNAME_PROPERTY, username);
-            //ctxt.put(BindingProvider.PASSWORD_PROPERTY, password);
-            String endpoint = (String) ctxt.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
-            l.addLog("Kadaster endpoint: " + endpoint);
-
-            //ctxt.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,  "http://localhost:8088/AfgifteService");
-            //l.addLog("Endpoint protocol gewijzigd naar mock");
-            l.updateStatus("Laden keys...");
-            l.addLog("Loading keystore");
-            KeyStore ks = KeyStore.getInstance("jks");
-            ks.load(Main.class.getResourceAsStream("/pkioverheid.jks"), "changeit".toCharArray());
-
-            l.addLog("Initializing TrustManagerFactory");
-            TrustManagerFactory tmf = TrustManagerFactory.getInstance("PKIX");
-            tmf.init(ks);
-
-            l.addLog("Initializing KeyManagerFactory");
-            KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-            ks = KeyStore.getInstance("jks");
-
-            char[] thePassword = "changeit".toCharArray();
-
-            PrivateKey privateKey = getPrivateKeyFromPEM(this.config.getConfig().get("gds2_privkey").getValue());
-            Certificate certificate = getCertificateFromPEM(this.config.getConfig().get("gds2_pubkey").getValue());
-            ks.load(null);
-            ks.setKeyEntry("thekey", privateKey, thePassword, new Certificate[]{certificate});
-
-            kmf.init(ks, thePassword);
-
-            l.updateStatus("Opzetten SSL context...");
-            l.addLog("Initializing SSLContext");
-            this.config.addLogLine("Initializing SSLContext");
-            context = SSLContext.getInstance("TLS", "SunJSSE");
-            context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
-            SSLContext.setDefault(context);
-            ctxt.put(JAXWSProperties.SSL_SOCKET_FACTORY, context.getSocketFactory());
-
+            Gds2AfgifteServiceV20130701 gds2 = initGDS2();
             l.updateStatus("Uitvoeren SOAP request naar Kadaster...");
-
             BestandenlijstGBOpvragenResponse responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
 
-            List<AfgifteGBType> afgiftesGb = new ArrayList<AfgifteGBType>();
-            afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB());
-
-            // loop over opvragen todat responseGb.getAntwoord().getMeerAfgiftesbeschikbaar()
             // opletten; in de xsd staat een default value van 'J' voor meerAfgiftesbeschikbaar
             boolean hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
-            log.debug("Zijn er meer afgiftes? " + hasMore);
+            int aantalInAntwoord = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB().size();
+            // TODO
+            // voor tijds interval request
+            // als er meer afgiftes zijn of het aantal > 2000 moet het interval in twee gedeeld
+            // en de bestandenlijst request opnieuw net zolang tot dat niet meer het geval is
+            if (hasMore || aantalInAntwoord > 2000) {
+                // split periode
+                //criteria.getPeriode().setDatumTijdTot(nieuwe tot);
+                //criteria.getPeriode().setDatumTijdVanaf( nieuwe vanaf);
+                // responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
+                // opnieuw controle, evt. split, ...
+            }
+
+            // Mark denkt: misschien een Set<AfgifteGBType> van maken, dan zijn er geen duplicaten om te verwerken
+            List<AfgifteGBType> afgiftesGb = new ArrayList<AfgifteGBType>();
+            afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB());
 
             /*
              Indicatie nog niet gerapporteerd:
@@ -288,55 +256,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             l.total(afgiftesGb.size());
             config.addLogLine("Totaal aantal opgehaalde berichten: " + afgiftesGb.size());
 
-            int filterAlVerwerkt = 0;
-            int aantalGeladen = 0;
-            int progress = 0;
+            verwerkAfgiftes(responseGb, afgiftesGb);
 
-            for (AfgifteGBType a : afgiftesGb) {
-                String url = null;
-
-                if (a.getDigikoppelingExternalDatareferences() != null
-                        && a.getDigikoppelingExternalDatareferences().getDataReference() != null) {
-                    for (DataReference dr : a.getDigikoppelingExternalDatareferences().getDataReference()) {
-                        url = dr.getTransport().getLocation().getSenderUrl().getValue();
-                        break;
-                    }
-                }
-                if (url != null) {
-                    if (isAfgifteAlGeladen(a, url)) {
-                        filterAlVerwerkt++;
-                    } else {
-                        Bericht b = laadAfgifte(a, url);
-                        if (b != null) {
-                            geladenBerichten.add(b);
-                        }
-                        aantalGeladen++;
-                    }
-                }
-                l.progress(++progress);
-            }
-
-            l.addLog("Meer afgiftes beschikbaar: " + responseGb.getAntwoord().getMeerAfgiftesbeschikbaar());
-            this.config.addLogLine("Meer afgiftes beschikbaar: " + responseGb.getAntwoord().getMeerAfgiftesbeschikbaar());
-
-            String doorsturenUrl = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
-            if (doorsturenUrl != null && !geladenBerichten.isEmpty()) {
-                for (Bericht b : geladenBerichten) {
-                    doorsturenBericht(this.config, l, b, doorsturenUrl);
-                }
-            }
-
-            l.addLog("\n\n**** resultaat ****\n");
-            l.addLog("Aantal afgiftes die al waren verwerkt: " + filterAlVerwerkt);
-            l.addLog("\nAantal afgiftes geladen: " + aantalGeladen + "\n");
-
-            this.config.updateSamenvattingEnLogfile("Aantal afgiftes die al waren verwerkt: " + filterAlVerwerkt + LOG_NEWLINE
-                    + "Aantal afgiftes geladen: " + aantalGeladen);
-
-            this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);
-            this.config.setLastrun(new Date());
-            Stripersist.getEntityManager().merge(this.config);
-            Stripersist.getEntityManager().getTransaction().commit();
         } catch (Exception e) {
             log.error("Fout bij ophalen van GDS2 berichten", e);
             this.config.setLastrun(new Date());
@@ -511,7 +432,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         }
         Date date;
         final DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-
         if (dateStr.equalsIgnoreCase("nu")) {
             date = new Date();
         } else {
@@ -522,7 +442,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 return null;
             }
         }
-        
+
         try {
             GregorianCalendar gregory = new GregorianCalendar();
             gregory.setTime(date);
@@ -531,6 +451,105 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             log.error(ex);
             return null;
         }
+    }
 
+    /**
+     * verwerk de afgiftes in de response en stuur eventueel door.
+     *
+     * @param responseGb
+     * @param afgiftesGb
+     * @throws Exception
+     */
+    private void verwerkAfgiftes(BestandenlijstGBOpvragenResponse responseGb, List<AfgifteGBType> afgiftesGb) throws Exception {
+        int filterAlVerwerkt = 0;
+        int aantalGeladen = 0;
+        int progress = 0;
+        List<Bericht> geladenBerichten = new ArrayList();
+
+        for (AfgifteGBType a : afgiftesGb) {
+            String url = null;
+            if (a.getDigikoppelingExternalDatareferences() != null
+                    && a.getDigikoppelingExternalDatareferences().getDataReference() != null) {
+                for (DataReference dr : a.getDigikoppelingExternalDatareferences().getDataReference()) {
+                    url = dr.getTransport().getLocation().getSenderUrl().getValue();
+                    break;
+                }
+            }
+            if (url != null) {
+                if (isAfgifteAlGeladen(a, url)) {
+                    filterAlVerwerkt++;
+                } else {
+                    Bericht b = laadAfgifte(a, url);
+                    if (b != null) {
+                        geladenBerichten.add(b);
+                    }
+                    aantalGeladen++;
+                }
+            }
+            l.progress(++progress);
+        }
+
+        l.addLog("Meer afgiftes beschikbaar: " + responseGb.getAntwoord().getMeerAfgiftesbeschikbaar());
+        this.config.addLogLine("Meer afgiftes beschikbaar: " + responseGb.getAntwoord().getMeerAfgiftesbeschikbaar());
+
+        String doorsturenUrl = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
+        if (doorsturenUrl != null && !geladenBerichten.isEmpty()) {
+            for (Bericht b : geladenBerichten) {
+                doorsturenBericht(this.config, l, b, doorsturenUrl);
+            }
+        }
+
+        l.addLog("\n\n**** resultaat ****\n");
+        l.addLog("Aantal afgiftes die al waren verwerkt: " + filterAlVerwerkt);
+        l.addLog("\nAantal afgiftes geladen: " + aantalGeladen + "\n");
+
+        this.config.updateSamenvattingEnLogfile("Aantal afgiftes die al waren verwerkt: " + filterAlVerwerkt + LOG_NEWLINE
+                + "Aantal afgiftes geladen: " + aantalGeladen);
+
+        this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);
+        this.config.setLastrun(new Date());
+        Stripersist.getEntityManager().merge(this.config);
+        Stripersist.getEntityManager().getTransaction().commit();
+    }
+
+    private Gds2AfgifteServiceV20130701 initGDS2() throws Exception {
+        Gds2AfgifteServiceV20130701 gds2 = new Gds2AfgifteServiceV20130701Service().getAGds2AfgifteServiceV20130701();
+        BindingProvider bp = (BindingProvider) gds2;
+        Map<String, Object> ctxt = bp.getRequestContext();
+        //ctxt.put(BindingProvider.USERNAME_PROPERTY, username);
+        //ctxt.put(BindingProvider.PASSWORD_PROPERTY, password);
+        String endpoint = (String) ctxt.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
+        l.addLog("Kadaster endpoint: " + endpoint);
+
+        //ctxt.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,  "http://localhost:8088/AfgifteService");
+        //l.addLog("Endpoint protocol gewijzigd naar mock");
+        l.updateStatus("Laden keys...");
+        l.addLog("Loading keystore");
+        KeyStore ks = KeyStore.getInstance("jks");
+        ks.load(Main.class.getResourceAsStream("/pkioverheid.jks"), "changeit".toCharArray());
+
+        l.addLog("Initializing TrustManagerFactory");
+        TrustManagerFactory tmf = TrustManagerFactory.getInstance("PKIX");
+        tmf.init(ks);
+
+        l.addLog("Initializing KeyManagerFactory");
+        KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+        ks = KeyStore.getInstance("jks");
+        char[] thePassword = "changeit".toCharArray();
+        PrivateKey privateKey = getPrivateKeyFromPEM(this.config.getConfig().get("gds2_privkey").getValue());
+        Certificate certificate = getCertificateFromPEM(this.config.getConfig().get("gds2_pubkey").getValue());
+        ks.load(null);
+        ks.setKeyEntry("thekey", privateKey, thePassword, new Certificate[]{certificate});
+        kmf.init(ks, thePassword);
+
+        l.updateStatus("Opzetten SSL context...");
+        l.addLog("Initializing SSLContext");
+        this.config.addLogLine("Initializing SSLContext");
+        context = SSLContext.getInstance("TLS", "SunJSSE");
+        context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+        SSLContext.setDefault(context);
+        ctxt.put(JAXWSProperties.SSL_SOCKET_FACTORY, context.getSocketFactory());
+
+        return gds2;
     }
 }
