@@ -235,6 +235,13 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
      * @throws Exception
      */
     private void laadBestand(String sUrl, String naam, File archiefDirectory) throws Exception {
+
+//        if(log.isDebugEnabled()){
+//            if(!sUrl.equalsIgnoreCase("http://mirror.openstreetmap.nl/bag/mutatie/9999MUT02012015-03012015.zip")){
+//                return;
+//            }
+//        }
+
         String msg = "Downloaden " + sUrl;
         listener.updateStatus(msg);
         listener.addLog(msg);
@@ -293,8 +300,8 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
                 log.info(msg);
 
                 // bagreader met een string voeden om voortijdig sluiten van de inputstream te voorkomen
-                String xml = IOUtils.toString(zis, "UTF-8");
-                BagMutatieXMLReader bagreader = new BagMutatieXMLReader(new ByteArrayInputStream(xml.getBytes("UTF-8")));
+                byte[] xml = IOUtils.toByteArray(zis);
+                BagMutatieXMLReader bagreader = new BagMutatieXMLReader(new ByteArrayInputStream(xml));
                 if (bagreader.hasNext()) {
                     // het komt voor dat er geen mutaties zijn in de xml
                     while (bagreader.hasNext()) {

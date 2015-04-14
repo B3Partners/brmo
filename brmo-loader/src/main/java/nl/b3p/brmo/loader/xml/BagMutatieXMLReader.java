@@ -71,6 +71,16 @@ public class BagMutatieXMLReader extends BrmoXMLReader {
         init();
     }
 
+//    public static void main(String[] args) throws Exception {
+//        BagMutatieXMLReader b = new BagMutatieXMLReader(new FileInputStream("/home/mark/dev/projects/brmo/brmo-service/Untitled Folder/9999MUT02012015-03012015/9999MUT02012015-03012015-000006.xml"));
+//        while (b.hasNext()) {
+//            BagBericht bag = b.next();
+//            System.out.println("datum: " + bag.getDatum()
+//                    + "\nobj ref: " + bag.getObjectRef());
+//        }
+//
+//    }
+
     @Override
     public void init() {
         try {
@@ -96,6 +106,9 @@ public class BagMutatieXMLReader extends BrmoXMLReader {
 
     @Override
     public boolean hasNext() throws Exception {
+        if (nextBericht != null) {
+            return true;
+        }
         try {
             while (streamReader.hasNext()) {
                 if (streamReader.isStartElement()) {
@@ -107,9 +120,9 @@ public class BagMutatieXMLReader extends BrmoXMLReader {
 
                         Document d = builder.parse(new InputSource(new StringReader(sw.toString())));
                         NodeList children = d.getDocumentElement().getChildNodes();
-                        for(int i = 0; i < children.getLength(); i++) {
+                        for (int i = 0; i < children.getLength(); i++) {
                             Node child = children.item(i);
-                            if("Nieuw".equals(child.getLocalName())) {
+                            if ("Nieuw".equals(child.getLocalName())) {
                                 // Mutatie-product met Nieuw als child element gevonden
 
                                 nextBericht = new BagBericht(sw.toString());
