@@ -28,13 +28,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.net.ssl.HttpsURLConnection;
@@ -180,83 +177,104 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             }
 
             // datum tijd parsen/instellen
-            XMLGregorianCalendar vanaf = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("vanafdatum")));
-            XMLGregorianCalendar tot = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("totdatum")));
-            if (vanaf != null && tot != null) {
-                FilterDatumTijdType d = new FilterDatumTijdType();
-                d.setDatumTijdVanaf(vanaf);
-                d.setDatumTijdTot(tot);
-                l.addLog("Datum vanaf: " + vanaf);
-                l.addLog("Datum tot: " + tot);
-                this.config.addLogLine("Datum vanaf: " + vanaf);
-                this.config.addLogLine("Datum tot: " + tot);
-                criteria.setPeriode(d);
-                // forceer nog niet gerapporteerd
-                criteria.setNogNietGerapporteerd(false);
-            }
-            verzoekGb.setAfgifteSelectieCriteria(criteria);
-
-            Gds2AfgifteServiceV20130701 gds2 = initGDS2();
-            l.updateStatus("Uitvoeren SOAP request naar Kadaster...");
-            BestandenlijstGBOpvragenResponse responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
-
-            // opletten; in de xsd staat een default value van 'J' voor meerAfgiftesbeschikbaar
-            boolean hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
-            int aantalInAntwoord = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB().size();
-            // TODO
-            // voor tijds interval request
-            // als er meer afgiftes zijn of het aantal > 2000 moet het interval in twee gedeeld
-            // en de bestandenlijst request opnieuw net zolang tot dat niet meer het geval is
-            if (hasMore || aantalInAntwoord > 2000) {
-                // split periode
-                //criteria.getPeriode().setDatumTijdTot(nieuwe tot);
-                //criteria.getPeriode().setDatumTijdVanaf( nieuwe vanaf);
-                // responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
-                // opnieuw controle, evt. split, ...
+            GregorianCalendar vanaf = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("vanafdatum")));
+            GregorianCalendar tot = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("totdatum")));
+            GregorianCalendar currentDay = null;
+            boolean parseblePeriod = false;
+            if (vanaf != null && tot != null && vanaf.before(tot)) {
+                parseblePeriod = true;
+                currentDay = vanaf;
+                //Volgens Kadaster werkt dit ook icm periode
+                //criteria.setNogNietGerapporteerd(false);
             }
 
             // Mark denkt: misschien een Set<AfgifteGBType> van maken, dan zijn er geen duplicaten om te verwerken
             List<AfgifteGBType> afgiftesGb = new ArrayList<AfgifteGBType>();
-            afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB());
 
-            /*
-             Indicatie nog niet gerapporteerd:
-             Met deze indicatie wordt aangegeven of uitsluitend de nog niet
-             gerapporteerde bestanden moeten worden opgenomen in de lijst, of
-             dat alle beschikbare bestanden worden genoemd.
-             Niet gerapporteerd betekent in dit geval ‘niet eerder opgevraagd in
-             deze bestandenlijst’.
-             Als deze indicator wordt gebruikt, dan worden na terugmelding van de
-             bestandenlijst de bijbehorende bestanden gemarkeerd als zijnde
-             ‘gerapporteerd’ in het systeem van GDS.
-             */
-            int moreCount = 0;
-            String dontGetMoreConfig = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_niet_gerapporteerde_afgiftes_niet_ophalen"));
-            while (hasMore && !"true".equals(dontGetMoreConfig)) {
-                l.updateStatus("Uitvoeren SOAP request naar Kadaster voor meer afgiftes..." + moreCount++);
-                criteria.setNogNietGerapporteerd(true);
-                responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
+            boolean morePeriods2Process = false;
+            do {
+                l.addLog("\n*** start periode ***");
+                if (parseblePeriod) {
+                    FilterDatumTijdType d = new FilterDatumTijdType();
+                    d.setDatumTijdVanaf(getXMLDatumTijd(currentDay));
+                    l.addLog(String.format("Datum vanaf: %tc", currentDay.getTime()));
+                    this.config.addLogLine(String.format("Datum vanaf: %tc", currentDay.getTime()));
+                    //maak periode van precies 1 dag door currentDay vooruit te zetten
+                    //indien meer dan 2000 gewoon ophalen via hasMore test in antwoord
+                    currentDay.add(GregorianCalendar.DAY_OF_MONTH, 1);
+                    d.setDatumTijdTot(getXMLDatumTijd(currentDay));
+                    l.addLog(String.format("Datum tot: %tc", currentDay.getTime()));
+                    this.config.addLogLine(String.format("Datum tot: %tc", currentDay.getTime()));
+                     criteria.setPeriode(d);
 
-                List<AfgifteGBType> afgiftes = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB();
-                for (AfgifteGBType t : afgiftes) {
-                    // lijst urls naar aparte logfile loggen
-                    if (t.getDigikoppelingExternalDatareferences() != null
-                            && t.getDigikoppelingExternalDatareferences().getDataReference() != null) {
-                        for (DataReference dr : t.getDigikoppelingExternalDatareferences().getDataReference()) {
-                            log.info("GSD2url: " + dr.getTransport().getLocation().getSenderUrl().getValue());
-                            break;
-                        }
+                    //bereken of er nog meer dagen in de gevraagde periode zitten
+                    if (currentDay.before(tot)) {
+                        morePeriods2Process = true;
+                    } else {
+                        morePeriods2Process = false;
                     }
                 }
-                afgiftesGb.addAll(afgiftes);
-                hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
-                log.debug("Nog meer afgiftes? " + hasMore);
-            }
+
+                verzoekGb.setAfgifteSelectieCriteria(criteria);
+
+                Gds2AfgifteServiceV20130701 gds2 = initGDS2();
+                l.updateStatus("Uitvoeren SOAP request naar Kadaster...");
+                BestandenlijstGBOpvragenResponse responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
+
+                int aantalInAntwoord = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB().size();
+                l.addLog("Aantal in antwoord: " + aantalInAntwoord);
+                this.config.addLogLine("Aantal in antwoord: " + aantalInAntwoord);
+                // opletten; in de xsd staat een default value van 'J' voor meerAfgiftesbeschikbaar
+                boolean hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
+                l.addLog("Meer afgiftes beschikbaar: " + hasMore);
+                this.config.addLogLine("Meer afgiftes beschikbaar: " + hasMore);
+ 
+                afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB());
+
+                /*
+                 Indicatie nog niet gerapporteerd:
+                 Met deze indicatie wordt aangegeven of uitsluitend de nog niet
+                 gerapporteerde bestanden moeten worden opgenomen in de lijst, of
+                 dat alle beschikbare bestanden worden genoemd.
+                 Niet gerapporteerd betekent in dit geval ‘niet eerder opgevraagd in
+                 deze bestandenlijst’.
+                 Als deze indicator wordt gebruikt, dan worden na terugmelding van de
+                 bestandenlijst de bijbehorende bestanden gemarkeerd als zijnde
+                 ‘gerapporteerd’ in het systeem van GDS.
+                 */
+                int moreCount = 0;
+                String dontGetMoreConfig = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_niet_gerapporteerde_afgiftes_niet_ophalen"));
+                while (hasMore && !"true".equals(dontGetMoreConfig)) {
+                    l.updateStatus("Uitvoeren SOAP request naar Kadaster voor meer afgiftes..." + moreCount++);
+                    criteria.setNogNietGerapporteerd(true);
+                    responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
+
+                    List<AfgifteGBType> afgiftes = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB();
+                    for (AfgifteGBType t : afgiftes) {
+                        // lijst urls naar aparte logfile loggen
+                        if (t.getDigikoppelingExternalDatareferences() != null
+                                && t.getDigikoppelingExternalDatareferences().getDataReference() != null) {
+                            for (DataReference dr : t.getDigikoppelingExternalDatareferences().getDataReference()) {
+                                log.info("GSD2url: " + dr.getTransport().getLocation().getSenderUrl().getValue());
+                                break;
+                            }
+                        }
+                    }
+                    afgiftesGb.addAll(afgiftes);
+                    aantalInAntwoord = afgiftes.size();
+                    l.addLog("Aantal in antwoord: " + aantalInAntwoord);
+                    this.config.addLogLine("Aantal in antwoord: " + aantalInAntwoord);
+                    hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
+                    l.addLog("Nog meer afgiftes beschikbaar: " + hasMore);
+                    this.config.addLogLine("Nog meer afgiftes beschikbaar: " + hasMore);
+                }
+
+            } while (morePeriods2Process);
 
             l.total(afgiftesGb.size());
             config.addLogLine("Totaal aantal opgehaalde berichten: " + afgiftesGb.size());
 
-            verwerkAfgiftes(responseGb, afgiftesGb);
+            verwerkAfgiftes(afgiftesGb);
 
         } catch (Exception e) {
             log.error("Fout bij ophalen van GDS2 berichten", e);
@@ -426,7 +444,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
      * @param dateStr datum in dd-MM-yyyy formaat
      * @return datum of null in geval van een parse fout
      */
-    private XMLGregorianCalendar getDatumTijd(String dateStr) {
+    private GregorianCalendar getDatumTijd(String dateStr) {
         if (dateStr == null) {
             return null;
         }
@@ -442,10 +460,16 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 return null;
             }
         }
+        
+        GregorianCalendar gregory = new GregorianCalendar();
+        gregory.setTime(date);
 
+        return gregory;
+    }
+    
+    private XMLGregorianCalendar getXMLDatumTijd(GregorianCalendar gregory) {
         try {
-            GregorianCalendar gregory = new GregorianCalendar();
-            gregory.setTime(date);
+
             return DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory);
         } catch (DatatypeConfigurationException ex) {
             log.error(ex);
@@ -460,7 +484,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
      * @param afgiftesGb
      * @throws Exception
      */
-    private void verwerkAfgiftes(BestandenlijstGBOpvragenResponse responseGb, List<AfgifteGBType> afgiftesGb) throws Exception {
+    private void verwerkAfgiftes(List<AfgifteGBType> afgiftesGb) throws Exception {
         int filterAlVerwerkt = 0;
         int aantalGeladen = 0;
         int progress = 0;
@@ -488,9 +512,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             }
             l.progress(++progress);
         }
-
-        l.addLog("Meer afgiftes beschikbaar: " + responseGb.getAntwoord().getMeerAfgiftesbeschikbaar());
-        this.config.addLogLine("Meer afgiftes beschikbaar: " + responseGb.getAntwoord().getMeerAfgiftesbeschikbaar());
 
         String doorsturenUrl = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
         if (doorsturenUrl != null && !geladenBerichten.isEmpty()) {
