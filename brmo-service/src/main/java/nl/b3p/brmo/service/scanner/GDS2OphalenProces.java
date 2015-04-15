@@ -181,6 +181,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             GregorianCalendar tot = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("totdatum")));
             GregorianCalendar currentDay = null;
             boolean parseblePeriod = false;
+            int maxNumOfLoops = 180; // maximale bewaartijd van Kadaster
+            int loopNum = 0;
             if (vanaf != null && tot != null && vanaf.before(tot)) {
                 parseblePeriod = true;
                 currentDay = vanaf;
@@ -195,6 +197,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             do {
                 l.addLog("\n*** start periode ***");
                 if (parseblePeriod) {
+                    loopNum++;
                     FilterDatumTijdType d = new FilterDatumTijdType();
                     d.setDatumTijdVanaf(getXMLDatumTijd(currentDay));
                     l.addLog(String.format("Datum vanaf: %tc", currentDay.getTime()));
@@ -208,7 +211,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                      criteria.setPeriode(d);
 
                     //bereken of er nog meer dagen in de gevraagde periode zitten
-                    if (currentDay.before(tot)) {
+
+                    if (currentDay.before(tot) && loopNum<maxNumOfLoops) {
                         morePeriods2Process = true;
                     } else {
                         morePeriods2Process = false;
@@ -275,7 +279,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             config.addLogLine("Totaal aantal opgehaalde berichten: " + afgiftesGb.size());
 
             verwerkAfgiftes(afgiftesGb);
-
+            
         } catch (Exception e) {
             log.error("Fout bij ophalen van GDS2 berichten", e);
             this.config.setLastrun(new Date());
@@ -293,6 +297,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 // rollback, zou in aparte transactie moeten
                 Stripersist.getEntityManager().getTransaction().rollback();
             }
+            l.updateStatus("Uitvoeren SOAP request naar Kadaster afgerond");
         }
     }
 
