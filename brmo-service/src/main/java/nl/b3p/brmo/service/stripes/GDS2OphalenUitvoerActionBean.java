@@ -96,8 +96,6 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
 
     @Override
     public void addLog(String log) {
-        this.proces.addLogLine(log);
-        Stripersist.getEntityManager().merge(this.proces);
         this.log += log + "\n";
     }
 
