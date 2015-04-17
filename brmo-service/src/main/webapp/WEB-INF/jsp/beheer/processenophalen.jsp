@@ -97,6 +97,13 @@
                         </stripes:url>
                     </c:when>
 
+                    <c:when test="${actionBean.type eq 'WebMirrorBAGScannerProces'}">
+                        <jsp:include page="editwebdirscannerproces.jsp" />
+                        <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean">
+                            <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
+                        </stripes:url>
+                    </c:when>
+
                     <c:when test="${actionBean.type eq 'GDS2OphaalProces'}">
                         <jsp:include page="editgds2proces.jsp" />
                         <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.GDS2OphalenUitvoerActionBean">

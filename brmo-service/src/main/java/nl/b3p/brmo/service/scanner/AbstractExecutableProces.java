@@ -19,6 +19,7 @@ import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
 import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.persistence.staging.LaadProces;
 import nl.b3p.brmo.persistence.staging.MailRapportageProces;
+import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
@@ -57,6 +58,9 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
                 return new BerichtTransformatieUitvoeren((BerichtTransformatieProces) config);
             case BerichtDoorstuurProces:
                 return new BerichtDoorsturenProces((BerichtDoorstuurProces)config);
+            case WebMirrorBAGScannerProces:
+                return new WebMirrorBAGDirectoryScanner((WebMirrorBAGScannerProces) config);
+
             default:
                 throw new IllegalArgumentException(imple.name() + " is is geen ondersteund proces...");
         }

@@ -31,10 +31,12 @@ import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
 import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.persistence.staging.MailRapportageProces;
+import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
 import nl.b3p.brmo.service.jobs.GeplandeTakenInit;
 import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.QUARTZ_FACTORY_KEY;
 import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.SCHEDULER_NAME;
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
+import static nl.b3p.brmo.service.scanner.ProcesExecutable.ProcessingImple.WebMirrorBAGScannerProces;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.quartz.CronExpression;
@@ -168,6 +170,8 @@ public class OphaalConfigActionBean implements ActionBean {
                 return new BerichtTransformatieProces();
             case BerichtDoorstuurProces:
                 return new BerichtDoorstuurProces();
+            case WebMirrorBAGScannerProces:
+                return new WebMirrorBAGScannerProces();
             default:
                 throw new IllegalArgumentException(type.name() + " is is geen ondersteund proces type...");
         }
