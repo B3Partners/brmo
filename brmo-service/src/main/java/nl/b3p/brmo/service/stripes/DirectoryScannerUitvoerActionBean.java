@@ -126,8 +126,9 @@ public class DirectoryScannerUitvoerActionBean implements ActionBean, ProgressUp
 
     @Override
     public void addLog(String log) {
-        this.proces.addLogLine(log);
-        Stripersist.getEntityManager().merge(this.proces);
+        // voorkom dubbele log uitvoer
+       // this.proces.addLogLine(log);
+       // Stripersist.getEntityManager().merge(this.proces);
         this.log += log + "\n";
     }
 

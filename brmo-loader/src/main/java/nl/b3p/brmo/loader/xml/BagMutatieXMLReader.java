@@ -1,5 +1,9 @@
+/*
+ * Copyright (C) 2015 B3Partners B.V.
+ */
 package nl.b3p.brmo.loader.xml;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -24,11 +28,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 /**
  * reader of BAG mutatie files
  *
  * @author Boy de Wit
+ * @author Mark Prins <mark@b3partners.nl>
  */
 public class BagMutatieXMLReader extends BrmoXMLReader {
 
@@ -55,6 +61,7 @@ public class BagMutatieXMLReader extends BrmoXMLReader {
             ParserConfigurationException {
 
         streamReader = factory.createXMLStreamReader(in);
+
         TransformerFactory tf = TransformerFactory.newInstance();
         transformer = tf.newTransformer();
 
@@ -66,20 +73,11 @@ public class BagMutatieXMLReader extends BrmoXMLReader {
 
         DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance();
         dbfactory.setNamespaceAware(true);
+        dbfactory.setNamespaceAware(true);
         builder = dbfactory.newDocumentBuilder();
 
         init();
     }
-
-//    public static void main(String[] args) throws Exception {
-//        BagMutatieXMLReader b = new BagMutatieXMLReader(new FileInputStream("/home/mark/dev/projects/brmo/brmo-service/Untitled Folder/9999MUT02012015-03012015/9999MUT02012015-03012015-000006.xml"));
-//        while (b.hasNext()) {
-//            BagBericht bag = b.next();
-//            System.out.println("datum: " + bag.getDatum()
-//                    + "\nobj ref: " + bag.getObjectRef());
-//        }
-//
-//    }
 
     @Override
     public void init() {
@@ -96,7 +94,6 @@ public class BagMutatieXMLReader extends BrmoXMLReader {
                         setDatumAsString(streamReader.getElementText());
                     }
                 }
-
                 streamReader.next();
             }
         } catch (XMLStreamException ex) {
@@ -105,33 +102,30 @@ public class BagMutatieXMLReader extends BrmoXMLReader {
     }
 
     @Override
-    public boolean hasNext() throws Exception {
+    public boolean hasNext() throws SAXException, IOException, TransformerException {
         if (nextBericht != null) {
             return true;
         }
         try {
             while (streamReader.hasNext()) {
-                if (streamReader.isStartElement()) {
-                    if (streamReader.getLocalName().equals(MUTATIE_PRODUCT)) {
-                        // parse en check voor "Nieuw" element en niet "Origineel"/"Wijziging"
+                if (streamReader.isStartElement() && streamReader.getLocalName().equals(MUTATIE_PRODUCT)) {
+                    // parse en check voor "Nieuw" element en niet "Origineel"/"Wijziging"
+                    StringWriter sw = new StringWriter();
+                    transformer.transform(new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));
 
-                        StringWriter sw = new StringWriter();
-                        transformer.transform(new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));
-
-                        Document d = builder.parse(new InputSource(new StringReader(sw.toString())));
-                        NodeList children = d.getDocumentElement().getChildNodes();
-                        for (int i = 0; i < children.getLength(); i++) {
-                            Node child = children.item(i);
-                            if ("Nieuw".equals(child.getLocalName())) {
-                                // Mutatie-product met Nieuw als child element gevonden
-
-                                nextBericht = new BagBericht(sw.toString());
-                                return true;
-                            }
+                    Document d = builder.parse(new InputSource(new StringReader(sw.toString())));
+                    NodeList children = d.getDocumentElement().getChildNodes();
+                    for (int i = 0; i < children.getLength(); i++) {
+                        Node child = children.item(i);
+                        if ("Nieuw".equals(child.getLocalName())) {
+                            // Mutatie-product met Nieuw als child element gevonden
+                            nextBericht = new BagBericht(sw.toString());
+                            return true;
                         }
                     }
+                } else {
+                    streamReader.next();
                 }
-                streamReader.next();
             }
         } catch (XMLStreamException ex) {
             log.error("Error while streaming XML", ex);
