@@ -109,18 +109,17 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
             String expression = this.config.getConfig().get("csspath").getValue();
             Elements links = doc.select(expression);
 
-            // verwijder een eventuele parent directory link
+            // verwijder een eventuele parent directory link uit de set links
             URI uri = new URI(url);
             URI parent = uri.getPath().endsWith("/") ? uri.resolve("..") : uri.resolve(".");
             if (parent.toString().equalsIgnoreCase(links.first().attr("abs:href"))) {
-                msg = String.format("Overslaan van (parent) link %s.", parent);
+                msg = String.format("Overslaan van (parent) link %s", parent);
                 listener.updateStatus(msg);
                 listener.addLog(msg);
                 config.addLogLine(msg);
                 log.info(msg);
                 links.remove(links.first());
             }
-
             int items = links.size();
             listener.total(items);
 
@@ -340,7 +339,11 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
 
         Stripersist.getEntityManager().merge(lp);
         Stripersist.getEntityManager().merge(this.config);
+        // om geheugen problemen te vookomen bij runs met veel downloads en berichten
+        // een flush/commit/clear forceren
+        Stripersist.getEntityManager().flush();
         Stripersist.getEntityManager().getTransaction().commit();
+        Stripersist.getEntityManager().clear();
     }
 
     /**
