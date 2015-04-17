@@ -5,10 +5,10 @@ package nl.b3p.brmo.service.scanner;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
@@ -18,7 +18,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.persistence.NoResultException;
 import nl.b3p.brmo.loader.entity.BagBericht;
-
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.xml.BagMutatieXMLReader;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
@@ -39,19 +38,14 @@ import org.jsoup.select.Elements;
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
+ * Proces dat een web directory uitleest voor BAG mutaties in zipfiles.
  *
+ * @see http://mirror.openstreetmap.nl/bag/mutatie/
  * @author Mark Prins <mark@b3partners.nl>
  */
 public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
 
     private static final Log log = LogFactory.getLog(WebMirrorBAGDirectoryScanner.class);
-
-    /**
-     * true als we de bericht lokaal opslaan.
-     */
-    private boolean isArchiving;
-
-    private File archiefDirectory;
 
     /**
      * proces data.
@@ -97,46 +91,38 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
         String msg = String.format("Initialiseren... %tc", new Date());
         listener.updateStatus(msg);
         listener.addLog(msg);
+        config.addLogLine(msg);
         config.setStatus(AutomatischProces.ProcessingStatus.PROCESSING);
         Stripersist.getEntityManager().flush();
 
-        final String aDir = this.config.getArchiefDirectory();
-        isArchiving = (aDir != null);
-        if (isArchiving) {
-            archiefDirectory = new File(aDir);
-            archiefDirectory.mkdirs();
-            if (!archiefDirectory.isDirectory() || !archiefDirectory.canWrite()) {
-                config.setStatus(ERROR);
-                config.addLogLine(String.format("FOUT: De archief directory '%s' is geen beschrijfbare directory", archiefDirectory));
-                config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
-            }
-        }
         try {
-            String expression = this.config.getConfig().get("csspath").getValue();
-            // http get page
             String url = this.config.getScanDirectory();
-
             msg = String.format("Ophalen van de lijst van links van %s.", url);
             listener.addLog(msg);
             config.addLogLine(msg);
-
-            msg = "Ophalen en parsen van de lijst.";
+            Document doc = Jsoup.connect(url).timeout(5000).followRedirects(true).ignoreHttpErrors(false).get();
+            msg = "De lijst met download links is succesvol opgehaald.";
+            listener.updateStatus(msg);
             listener.addLog(msg);
             config.addLogLine(msg);
-            Document doc = Jsoup.connect(url).timeout(5000).followRedirects(true).ignoreHttpErrors(false).get();
-            msg = "De lijst is succesvol opgehaald.";
-            listener.updateStatus(msg);
 
+            String expression = this.config.getConfig().get("csspath").getValue();
             Elements links = doc.select(expression);
+
+            // verwijder een eventuele parent directory link
+            URI uri = new URI(url);
+            URI parent = uri.getPath().endsWith("/") ? uri.resolve("..") : uri.resolve(".");
+            if (parent.toString().equalsIgnoreCase(links.first().attr("abs:href"))) {
+                msg = String.format("Overslaan van (parent) link %s.", parent);
+                listener.updateStatus(msg);
+                listener.addLog(msg);
+                config.addLogLine(msg);
+                log.info(msg);
+                links.remove(links.first());
+            }
+
             int items = links.size();
             listener.total(items);
-
-            // XXX
-            // TODO dit is alleen voor ontwikkel om het aantal urls te beperken to een handvol
-            if (log.isDebugEnabled()) {
-                items = 6;
-            }
-            // XXX
 
             String berichtUrl, bestandsnaam;
             int progress = 0, aantalGeladen = 0, filterAlVerwerkt = 0;
@@ -146,11 +132,15 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
 
                 if (isBestandAlGeladen(berichtUrl)) {
                     filterAlVerwerkt++;
-                    msg = bestandsnaam + " is al verwerkt.";
+                    msg = bestandsnaam + " is al geladen.";
                     listener.addLog(msg);
+                    if (log.isDebugEnabled()) {
+                        // omdat dit anders misschien wat verbose wordt in de logfile...
+                        config.addLogLine(msg);
+                        log.info(msg);
+                    }
                 } else {
-                    // store bericht
-                    laadBestand(berichtUrl, bestandsnaam, archiefDirectory);
+                    laadBestand(berichtUrl, bestandsnaam);
                     aantalGeladen++;
                 }
                 listener.progress(++progress);
@@ -160,12 +150,11 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
             listener.updateStatus(msg);
             listener.addLog(msg);
             listener.addLog("\n**** resultaat ****\n");
-            listener.addLog("Aantal url's die al waren verwerkt: " + filterAlVerwerkt);
+            listener.addLog("Aantal url's die al waren geladen: " + filterAlVerwerkt);
             listener.addLog("Aantal url's geladen: " + aantalGeladen + "\n");
 
-            config.updateSamenvattingEnLogfile(msg + "\nAantal url's die al waren verwerkt: "
-                    + filterAlVerwerkt + "\nAantal url's geladen: " + aantalGeladen);
-
+            config.updateSamenvattingEnLogfile(msg + "\nAantal url's die al waren geladen: "
+                    + filterAlVerwerkt + "\nAantal url's opgehaald: " + aantalGeladen);
             config.setStatus(WAITING);
             this.config.setLastrun(new Date());
             Stripersist.getEntityManager().merge(this.config);
@@ -173,20 +162,24 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
         } catch (MalformedURLException ex) {
             log.error(ex);
             config.addLogLine(ex.getLocalizedMessage());
+            config.setStatus(ERROR);
             listener.exception(ex);
         } catch (HttpStatusException ex) {
             msg = String.format("Er is een fout opgetreden bij het uitlezen van de url %s. Status code %s",
                     ex.getUrl(), ex.getStatusCode());
             log.error(msg);
             config.addLogLine(msg);
+            config.setStatus(ERROR);
             listener.exception(ex);
         } catch (SocketTimeoutException ex) {
             log.error(ex);
             config.addLogLine(ex.getLocalizedMessage());
+            config.setStatus(ERROR);
             listener.exception(ex);
         } catch (IOException ex) {
             log.error(ex);
             config.addLogLine(ex.getLocalizedMessage());
+            config.setStatus(ERROR);
             listener.exception(ex);
         } catch (Exception ex) {
             log.error(ex);
@@ -198,9 +191,10 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
             }
             log.error(m, ex);
             this.config.updateSamenvattingEnLogfile(m);
-            this.config.setStatus(AutomatischProces.ProcessingStatus.ERROR);
+            config.setStatus(ERROR);
         } finally {
             config.setLastrun(new Date());
+            Stripersist.getEntityManager().merge(this.config);
             if (Stripersist.getEntityManager().getTransaction().getRollbackOnly()) {
                 // XXX bij rollback only wordt status niet naar ERROR gezet vanwege
                 // rollback, zou in aparte transactie moeten
@@ -234,14 +228,7 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
      * @param archiefDirectory
      * @throws Exception
      */
-    private void laadBestand(String sUrl, String naam, File archiefDirectory) throws Exception {
-
-//        if(log.isDebugEnabled()){
-//            if(!sUrl.equalsIgnoreCase("http://mirror.openstreetmap.nl/bag/mutatie/9999MUT02012015-03012015.zip")){
-//                return;
-//            }
-//        }
-
+    private void laadBestand(String sUrl, String naam) throws Exception {
         String msg = "Downloaden " + sUrl;
         listener.updateStatus(msg);
         listener.addLog(msg);
@@ -264,12 +251,19 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
         ZipEntry entry = zis.getNextEntry();
 
         if (entry == null) {
-            msg = "  Geen geschikt bestand gevonden in download!";
+            msg = String.format("  Geen geschikt bestand gevonden in download %s.", sUrl);
             listener.addLog(msg);
             config.addLogLine(msg);
+
+            if (isArchivingOK()) {
+                // zip toch opslaan
+                File out = new File(this.config.getArchiefDirectory(), naam);
+                FileUtils.writeByteArrayToFile(out, zipFile);
+            }
             return;
         }
 
+        // maak een laadproces aan van de zipfile
         LaadProces lp = new LaadProces();
         lp.setBestand_naam(sUrl);
         lp.setSoort("bag");
@@ -279,12 +273,16 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
         lp.setOpmerking("WebMirror download van " + url + " op " + sdf.format(new Date()));
         lp.setAutomatischProces(Stripersist.getEntityManager().find(AutomatischProces.class, config.getId()));
         // datum uit bestandsnaam halen 9999MUT01012015-02012015.zip
-        SimpleDateFormat praseFmt = new SimpleDateFormat("ddMMyyyy");
+        SimpleDateFormat sdFmt = new SimpleDateFormat("ddMMyyyy");
         String d = naam.substring("9999MUT01012015-".length(), "9999MUT01012015-02012015".length());
-        Date date = praseFmt.parse(d);
-        lp.setBestand_datum(date);
+        lp.setBestand_datum(sdFmt.parse(d));
         Stripersist.getEntityManager().persist(lp);
 
+        // haal de berichten uit xml bestand(en) in de zipfile
+        byte[] xml;
+        BagMutatieXMLReader bagreader;
+        BagBericht bag;
+        Bericht b;
         while (entry != null) {
             if (!entry.getName().toLowerCase().endsWith(".xml")) {
                 msg = "Overslaan zip entry geen XML: " + entry.getName();
@@ -299,23 +297,23 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
                 config.addLogLine(msg);
                 log.info(msg);
 
-                // bagreader met een string voeden om voortijdig sluiten van de inputstream te voorkomen
-                byte[] xml = IOUtils.toByteArray(zis);
-                BagMutatieXMLReader bagreader = new BagMutatieXMLReader(new ByteArrayInputStream(xml));
+                // bagreader met een byte[] voeden om voortijdig sluiten van de (zip)inputstream te voorkomen
+                xml = IOUtils.toByteArray(zis);
+                bagreader = new BagMutatieXMLReader(new ByteArrayInputStream(xml));
                 if (bagreader.hasNext()) {
                     // het komt voor dat er geen mutaties zijn in de xml
                     while (bagreader.hasNext()) {
-                        Bericht b = new Bericht();
-                        BagBericht bag = bagreader.next();
-
+                        b = new Bericht();
                         b.setLaadprocesid(lp);
                         b.setSoort("bag");
                         b.setStatus(Bericht.STATUS.STAGING_OK);
                         b.setStatus_datum(new Date());
-                        msg = String.format("Bericht uit bestand %s (zip file: %s)", entry.getName(), naam);
+                        msg = String.format("Bericht uit bestand %s (zip file: %s)",
+                                entry.getName(), naam);
                         b.setOpmerking(msg);
                         listener.updateStatus(msg);
 
+                        bag = bagreader.next();
                         b.setBr_xml(bag.getBrXml());
                         b.setVolgordenummer(bag.getVolgordeNummer());
                         b.setObject_ref(bag.getObjectRef());
@@ -323,7 +321,8 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
                         Stripersist.getEntityManager().persist(b);
                     }
                 } else {
-                    msg = String.format("  Geen mutatie berichten in bestand %s (%d Kb) gevonden.", entry.getName(), entry.getSize()/1024);
+                    msg = String.format("  Geen mutatie berichten in bestand %s (%d Kb) gevonden.",
+                            entry.getName(), entry.getSize() / 1024);
                     listener.addLog(msg);
                     config.addLogLine(msg);
                     log.warn(msg);
@@ -331,18 +330,48 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
             }
             entry = zis.getNextEntry();
         }
+        IOUtils.closeQuietly(zis);
 
-        if (isArchiving) {
-            // TODO store/archive item locally
-            File out = new File(archiefDirectory, naam);
+        if (isArchivingOK()) {
+            // zip opslaan
+            File out = new File(this.config.getArchiefDirectory(), naam);
             FileUtils.writeByteArrayToFile(out, zipFile);
         }
-
-        IOUtils.closeQuietly(zis);
 
         Stripersist.getEntityManager().merge(lp);
         Stripersist.getEntityManager().merge(this.config);
         Stripersist.getEntityManager().getTransaction().commit();
     }
 
+    /**
+     * Bepaal of de zipfile kan worden opgeslagen in de geconfigureerde
+     * directory. Als de directory niet bestaat wordt deze aangemaakt.
+     *
+     * @return true als we de zipfile lokaal kunnen opslaan.
+     */
+    private boolean isArchivingOK() {
+        final String aDir = this.config.getArchiefDirectory();
+        boolean isArchiving = (aDir != null);
+        if (isArchiving) {
+            final File archiefDirectory = new File(aDir);
+            try {
+                archiefDirectory.mkdirs();
+                if (!archiefDirectory.isDirectory() || !archiefDirectory.canWrite()) {
+                    config.setStatus(ERROR);
+                    String msg = String.format("FOUT: De archief directory '%s' is geen beschrijfbare directory, zipfiles worden niet gearchiveerd.", archiefDirectory);
+                    listener.addLog(msg);
+                    config.addLogLine(msg);
+                    isArchiving = false;
+                }
+            } catch (SecurityException e) {
+                String msg = String.format("SecurityException voor archief directory '%s', zipfiles worden niet gearchiveerd.", archiefDirectory);
+                listener.addLog(msg);
+                config.addLogLine(msg);
+                log.error(msg, e);
+                isArchiving = false;
+            }
+        }
+        log.debug("Archief directory ingesteld op " + aDir);
+        return isArchiving;
+    }
 }

@@ -1,10 +1,10 @@
-## Geplande taken configuratie
+# Geplande taken configuratie
 
 De BRMO service gebruikt de [Quartz Scheduler](http://quartz-scheduler.org/) om taken te plannen.
 
 Op dit moment kunnen cron expressies worden gebruikt om taken te plannen.
 
-### Een aantal voorbeelden:
+## Een aantal voorbeelden:
 
 |schema		|expressie |
 |---|---|
