@@ -476,7 +476,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         Stripersist.getEntityManager().persist(lp);
         Stripersist.getEntityManager().persist(b);
         Stripersist.getEntityManager().getTransaction().commit();
-        Stripersist.getEntityManager().clear();
         return b;
     }
 
@@ -619,8 +618,12 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);
         this.config.setLastrun(new Date());
         Stripersist.getEntityManager().merge(this.config);
+        // om geheugen problemen te vookomen bij runs met veel downloads en berichten
+        // een flush/commit/clear forceren
+        Stripersist.getEntityManager().flush();
         Stripersist.getEntityManager().getTransaction().commit();
         Stripersist.getEntityManager().clear();
+
     }
 
     private Gds2AfgifteServiceV20130701 initGDS2() throws Exception {
