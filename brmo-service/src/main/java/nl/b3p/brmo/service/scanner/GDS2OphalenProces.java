@@ -28,8 +28,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
@@ -179,40 +181,111 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             // datum tijd parsen/instellen
             GregorianCalendar vanaf = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("vanafdatum")));
             GregorianCalendar tot = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("totdatum")));
-            GregorianCalendar currentDay = null;
+            
+            GregorianCalendar currentMoment = null;
             boolean parseblePeriod = false;
-            int maxNumOfLoops = 180; // maximale bewaartijd van Kadaster
+            int loopType = Calendar.DAY_OF_MONTH;
+            int loopMax = 180;
             int loopNum = 0;
+            boolean reducePeriod = false;
+            boolean increasePeriod = false;
+            
             if (vanaf != null && tot != null && vanaf.before(tot)) {
                 parseblePeriod = true;
-                currentDay = vanaf;
-                //Volgens Kadaster werkt dit ook icm periode
-                //criteria.setNogNietGerapporteerd(false);
+                currentMoment = vanaf;
             }
 
             // Mark denkt: misschien een Set<AfgifteGBType> van maken, dan zijn er geen duplicaten om te verwerken
             List<AfgifteGBType> afgiftesGb = new ArrayList<AfgifteGBType>();
 
+            Gds2AfgifteServiceV20130701 gds2 = initGDS2();
+            l.updateStatus("Uitvoeren SOAP request naar Kadaster...");
+
             boolean morePeriods2Process = false;
             do {
                 l.addLog("\n*** start periode ***");
+                //zet periode in criteria indien gewenst
                 if (parseblePeriod) {
-                    loopNum++;
+
+                    //check of de periodeduur verkleind moet worden
+                    if (reducePeriod) {
+                        switch (loopType) {
+                            case Calendar.DAY_OF_MONTH:
+                                currentMoment.add(loopType, -1);
+                                loopType = Calendar.HOUR_OF_DAY;
+                                l.addLog("* Verklein loop periode naar uur");
+                                this.config.addLogLine("Verklein loop periode naar uur");
+                                break;
+                            case Calendar.HOUR_OF_DAY:
+                                currentMoment.add(loopType, -1);
+                                loopType = Calendar.MINUTE;
+                                l.addLog("* Verklein loop periode naar minuut");
+                                this.config.addLogLine("Verklein loop periode naar minuut");
+                                break;
+                            case Calendar.MINUTE:
+                            default:
+                                /**
+                                 * Hier kom je alleen als binnen een minuut meer
+                                 * dan 2000 berichten zijn aangamaakt en het vinkje
+                                 * ook "al rapporteerde berichten ophalen" staat aan.
+                                 */
+                                l.addLog("Niet alle gevraagde berichten zijn opgehaald");
+                                this.config.addLogLine("Niet alle gevraagde berichten zijn opgehaald");
+                        }
+                        reducePeriod = false;
+                    }
+                    
+                    //check of de periodeduur vergroot moet worden
+                    if (increasePeriod) {
+                        switch (loopType) {
+                             case Calendar.HOUR_OF_DAY:
+                                loopType = Calendar.DAY_OF_MONTH;
+                                l.addLog("* Vergroot loop periode naar dag");
+                                this.config.addLogLine("Vergroot loop periode naar dag");
+                                break;
+                            case Calendar.MINUTE:
+                                loopType = Calendar.HOUR_OF_DAY;
+                                l.addLog("* Vergroot loop periode naar uur");
+                                this.config.addLogLine("Vergroot loop periode naar uur");
+                                break;
+                            case Calendar.DAY_OF_MONTH:
+                            default:
+                                //not possible
+                        }
+                        increasePeriod = false;
+                    }
+                    
                     FilterDatumTijdType d = new FilterDatumTijdType();
-                    d.setDatumTijdVanaf(getXMLDatumTijd(currentDay));
-                    l.addLog(String.format("Datum vanaf: %tc", currentDay.getTime()));
-                    this.config.addLogLine(String.format("Datum vanaf: %tc", currentDay.getTime()));
-                    //maak periode van precies 1 dag door currentDay vooruit te zetten
-                    //indien meer dan 2000 gewoon ophalen via hasMore test in antwoord
-                    currentDay.add(GregorianCalendar.DAY_OF_MONTH, 1);
-                    d.setDatumTijdTot(getXMLDatumTijd(currentDay));
-                    l.addLog(String.format("Datum tot: %tc", currentDay.getTime()));
-                    this.config.addLogLine(String.format("Datum tot: %tc", currentDay.getTime()));
-                     criteria.setPeriode(d);
+                    d.setDatumTijdVanaf(getXMLDatumTijd(currentMoment));
+                    l.addLog(String.format("Datum vanaf: %tc", currentMoment.getTime()));
+                    this.config.addLogLine(String.format("Datum vanaf: %tc", currentMoment.getTime()));
+                    currentMoment.add(loopType, 1);
+                    d.setDatumTijdTot(getXMLDatumTijd(currentMoment));
+                    l.addLog(String.format("Datum tot: %tc", currentMoment.getTime()));
+                    this.config.addLogLine(String.format("Datum tot: %tc", currentMoment.getTime()));
+                    criteria.setPeriode(d);
 
-                    //bereken of er nog meer dagen in de gevraagde periode zitten
+                    switch (loopType) {
+                        case Calendar.HOUR_OF_DAY:
+                            //0-23
+                            if (currentMoment.get(loopType) == 0) {
+                                increasePeriod = true;
+                            }
+                            break;
+                       case Calendar.MINUTE:
+                            //0-59
+                            if (currentMoment.get(loopType) == 0) {
+                                increasePeriod = true;
+                            }
+                            break;
+                        case Calendar.DAY_OF_MONTH:
+                        default:
+                            //alleen dagen tellen, uur en minuut altijd helemaal
+                            loopNum++;
+                    }
 
-                    if (currentDay.before(tot) && loopNum<maxNumOfLoops) {
+                    //bereken of einde van periode bereikt is
+                    if (currentMoment.before(tot) && loopNum < loopMax) {
                         morePeriods2Process = true;
                     } else {
                         morePeriods2Process = false;
@@ -220,9 +293,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 }
 
                 verzoekGb.setAfgifteSelectieCriteria(criteria);
-
-                Gds2AfgifteServiceV20130701 gds2 = initGDS2();
-                l.updateStatus("Uitvoeren SOAP request naar Kadaster...");
                 BestandenlijstGBOpvragenResponse responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
 
                 int aantalInAntwoord = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB().size();
@@ -233,21 +303,34 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 l.addLog("Meer afgiftes beschikbaar: " + hasMore);
                 this.config.addLogLine("Meer afgiftes beschikbaar: " + hasMore);
  
+                /**
+                 * Als "al gerapporteerde berichten" moeten worden opgehaald en er zitten
+                 * dan 2000 berichten in het antwoord dan heeft het geen zin om meer
+                 * keer de berichten op te halen, je krijgt telkens de zelfde.
+                 * 
+                */
+                if (hasMore && "true".equals(alGerapporteerd)) {
+                    reducePeriod = true;
+                    morePeriods2Process = true;
+                    continue;
+                }
+                
                 afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB());
 
-                /*
-                 Indicatie nog niet gerapporteerd:
-                 Met deze indicatie wordt aangegeven of uitsluitend de nog niet
-                 gerapporteerde bestanden moeten worden opgenomen in de lijst, of
-                 dat alle beschikbare bestanden worden genoemd.
-                 Niet gerapporteerd betekent in dit geval ‘niet eerder opgevraagd in
-                 deze bestandenlijst’.
-                 Als deze indicator wordt gebruikt, dan worden na terugmelding van de
-                 bestandenlijst de bijbehorende bestanden gemarkeerd als zijnde
-                 ‘gerapporteerd’ in het systeem van GDS.
-                 */
+                /**
+                 * Indicatie nog niet gerapporteerd:
+                 * Met deze indicatie wordt aangegeven of uitsluitend de nog niet
+                 * gerapporteerde bestanden moeten worden opgenomen in de lijst, of
+                 * dat alle beschikbare bestanden worden genoemd.
+                 * Niet gerapporteerd betekent in dit geval ‘niet eerder opgevraagd in
+                 * deze bestandenlijst’.
+                 * Als deze indicator wordt gebruikt, dan worden na terugmelding van de
+                 * bestandenlijst de bijbehorende bestanden gemarkeerd als zijnde
+                 * ‘gerapporteerd’ in het systeem van GDS.
+                */
                 int moreCount = 0;
                 String dontGetMoreConfig = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_niet_gerapporteerde_afgiftes_niet_ophalen"));
+                
                 while (hasMore && !"true".equals(dontGetMoreConfig)) {
                     l.updateStatus("Uitvoeren SOAP request naar Kadaster voor meer afgiftes..." + moreCount++);
                     criteria.setNogNietGerapporteerd(true);
@@ -393,6 +476,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         Stripersist.getEntityManager().persist(lp);
         Stripersist.getEntityManager().persist(b);
         Stripersist.getEntityManager().getTransaction().commit();
+        Stripersist.getEntityManager().clear();
         return b;
     }
 
@@ -536,6 +620,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         this.config.setLastrun(new Date());
         Stripersist.getEntityManager().merge(this.config);
         Stripersist.getEntityManager().getTransaction().commit();
+        Stripersist.getEntityManager().clear();
     }
 
     private Gds2AfgifteServiceV20130701 initGDS2() throws Exception {
