@@ -34,6 +34,11 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
     private static final String soort = "brk";
 
     private static final String KAD_OBJ_SNAP = "KadastraalObjectSnapshot";
+    // gebied
+    private static final String PRODUCTSPECIFICATIE = "productSpecificatie";
+    private static final String KENMERKNAAM = "kenmerknaam";
+    private static final String KENMERKWAARDE = "kenmerkwaarde"; 
+    // burgerlijke gemeente
     private static final String BRK_DATUM = "BRKDatum";
     private static final String GEMEENTE = "naamBurgerlijkeGemeente";
     private static final String MUTATIE = "Mutatie";
@@ -78,6 +83,8 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
         mutatieGegevens = null;
         boolean inGemeente = false;
         boolean inWas = false;
+        boolean inProductSpecificatie = false;
+        String inProductSpecificatieNaam = null;
         while (streamReader.hasNext()) {
             if (streamReader.isStartElement()) {
                 if (!inWas && streamReader.getLocalName().equals(KAD_OBJ_SNAP)) {
@@ -85,15 +92,24 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
                     // hou streamReader op dit start element voor next()
                     break;
                 }
-
                 if (streamReader.getLocalName().equals(BRK_DATUM)) {
                     // GemeenteGebaseerdeStand:BRKDatum:BRKDatum of Mutatie:BRKDatum
                     setDatumAsString(streamReader.getElementText());
+                } else if (streamReader.getLocalName().equals(PRODUCTSPECIFICATIE)) {
+                    inProductSpecificatie = true;
+                } else if (inProductSpecificatie && streamReader.getLocalName().equals(KENMERKNAAM)) {
+                    inProductSpecificatieNaam = streamReader.getElementText();
+                } else if (inProductSpecificatie && streamReader.getLocalName().equals(KENMERKWAARDE)) {
+                    if ("Peildatum".equals(inProductSpecificatieNaam)) {
+                        setDatumAsString(streamReader.getElementText());
+                    } else if ("Gebiednummer".equals(inProductSpecificatieNaam)) {
+                        setGebied(streamReader.getElementText());
+                    }
                 } else if (streamReader.getLocalName().equals(GEMEENTE)) {
                     inGemeente = true;
                 } else if (inGemeente && streamReader.getLocalName().equals("waarde")) {
                     setGebied(streamReader.getElementText());
-                } else if(streamReader.getLocalName().equals("Mutatie")) {
+                } else if(streamReader.getLocalName().equals(MUTATIE)) {
                     inMutatie = true;
                     mutatieGegevens = new MutatieGegevens();
                 } else if(inMutatie && streamReader.getLocalName().equals("volgnummerKadastraalObjectDatum")) {
@@ -118,13 +134,17 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
                     mutatieGegevens.isMutatieZonderWordt = false;
                 }
             } else if (streamReader.isEndElement()) {
+                if(streamReader.getLocalName().equals(PRODUCTSPECIFICATIE)) {
+                    inProductSpecificatie = false;
+                    inProductSpecificatieNaam = null;
+                }
                 if(streamReader.getLocalName().equals(GEMEENTE)) {
                     inGemeente = false;
                 }
-                if(streamReader.getLocalName().equals("was")) {
+                if(streamReader.getLocalName().equals(MUTATIE)) {
                     inWas = false;
                 }
-                if(inMutatie && streamReader.getLocalName().equals("Mutatie")) {
+                if(inMutatie && streamReader.getLocalName().equals(MUTATIE)) {
                     break;
                 }
             }

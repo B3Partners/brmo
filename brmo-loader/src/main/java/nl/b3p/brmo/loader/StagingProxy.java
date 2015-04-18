@@ -491,6 +491,10 @@ public class StagingProxy {
             throw new UnsupportedOperationException("Ongeldige basisregistratie: " + type);
         }
 
+        if (brmoXMLReader.getBestandsDatum()==null) {
+            throw new BrmoException("Header van bestand bevat geen datum, verkeerd formaat?");
+        }
+
         LaadProces lp = new LaadProces();
         lp.setBestandNaam(fileName);
         lp.setBestandDatum(brmoXMLReader.getBestandsDatum());
@@ -593,7 +597,7 @@ public class StagingProxy {
         if (lp == null) {
             return null;
         }
-
+        
         new QueryRunner().update(getConnection(),
                 "INSERT INTO " + BrmoFramework.LAADPROCES_TABEL + "(bestand_naam,"
                 + "bestand_datum, soort, gebied, opmerking, status,"
