@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo-service</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.2</version>
     <packaging>war</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
-        <version>1.2-SNAPSHOT</version>
+        <version>1.2</version>
     </parent>
     <name>brmo-service</name>
     <properties>
