@@ -202,11 +202,10 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             l.updateStatus("Uitvoeren SOAP request naar Kadaster...");
 
             boolean morePeriods2Process = false;
-            do {
+            do /* while morePeriods2Process is true */ {
                 l.addLog("\n*** start periode ***");
                 //zet periode in criteria indien gewenst
                 if (parseblePeriod) {
-
                     //check of de periodeduur verkleind moet worden
                     if (reducePeriod) {
                         switch (loopType) {
@@ -224,7 +223,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                                 break;
                             case Calendar.MINUTE:
                             default:
-                                /**
+                                /*
                                  * Hier kom je alleen als binnen een minuut meer
                                  * dan 2000 berichten zijn aangamaakt en het
                                  * vinkje ook "al rapporteerde berichten
@@ -304,22 +303,29 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 l.addLog("Meer afgiftes beschikbaar: " + hasMore);
                 this.config.addLogLine("Meer afgiftes beschikbaar: " + hasMore);
 
-                /**
+                /*
                  * Als "al gerapporteerde berichten" moeten worden opgehaald en
                  * er zitten dan 2000 berichten in het antwoord dan heeft het
                  * geen zin om meer keer de berichten op te halen, je krijgt
-                 * telkens de zelfde.
-                 *
+                 * telkens dezelfde.
                  */
                 if (hasMore && "true".equals(alGerapporteerd)) {
                     reducePeriod = true;
                     morePeriods2Process = true;
-                    continue;
+                    // als er geen parsable periode is
+                    // (geen periode ingevuld en alGerapporteerd is true
+                    // dan moet morePeriods2Process false worden om een
+                    // eindloze while loop te voorkomen
+                    if (!parseblePeriod) {
+                        morePeriods2Process = false;
+                    } else {
+                        continue;
+                    }
                 }
 
                 afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB());
 
-                /**
+                /*
                  * Indicatie nog niet gerapporteerd: Met deze indicatie wordt
                  * aangegeven of uitsluitend de nog niet gerapporteerde
                  * bestanden moeten worden opgenomen in de lijst, of dat alle
