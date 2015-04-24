@@ -10,6 +10,7 @@ import nl.b3p.brmo.persistence.staging.LaadProces;
 import com.sun.xml.ws.developer.JAXWSProperties;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -31,7 +32,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
@@ -181,7 +181,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             // datum tijd parsen/instellen
             GregorianCalendar vanaf = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("vanafdatum")));
             GregorianCalendar tot = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("totdatum")));
-            
+
             GregorianCalendar currentMoment = null;
             boolean parseblePeriod = false;
             int loopType = Calendar.DAY_OF_MONTH;
@@ -189,7 +189,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             int loopNum = 0;
             boolean reducePeriod = false;
             boolean increasePeriod = false;
-            
+
             if (vanaf != null && tot != null && vanaf.before(tot)) {
                 parseblePeriod = true;
                 currentMoment = vanaf;
@@ -226,19 +226,20 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                             default:
                                 /**
                                  * Hier kom je alleen als binnen een minuut meer
-                                 * dan 2000 berichten zijn aangamaakt en het vinkje
-                                 * ook "al rapporteerde berichten ophalen" staat aan.
+                                 * dan 2000 berichten zijn aangamaakt en het
+                                 * vinkje ook "al rapporteerde berichten
+                                 * ophalen" staat aan.
                                  */
                                 l.addLog("Niet alle gevraagde berichten zijn opgehaald");
                                 this.config.addLogLine("Niet alle gevraagde berichten zijn opgehaald");
                         }
                         reducePeriod = false;
                     }
-                    
+
                     //check of de periodeduur vergroot moet worden
                     if (increasePeriod) {
                         switch (loopType) {
-                             case Calendar.HOUR_OF_DAY:
+                            case Calendar.HOUR_OF_DAY:
                                 loopType = Calendar.DAY_OF_MONTH;
                                 l.addLog("* Vergroot loop periode naar dag");
                                 this.config.addLogLine("Vergroot loop periode naar dag");
@@ -250,11 +251,11 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                                 break;
                             case Calendar.DAY_OF_MONTH:
                             default:
-                                //not possible
+                            //not possible
                         }
                         increasePeriod = false;
                     }
-                    
+
                     FilterDatumTijdType d = new FilterDatumTijdType();
                     d.setDatumTijdVanaf(getXMLDatumTijd(currentMoment));
                     l.addLog(String.format("Datum vanaf: %tc", currentMoment.getTime()));
@@ -272,7 +273,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                                 increasePeriod = true;
                             }
                             break;
-                       case Calendar.MINUTE:
+                        case Calendar.MINUTE:
                             //0-59
                             if (currentMoment.get(loopType) == 0) {
                                 increasePeriod = true;
@@ -302,35 +303,36 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 boolean hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
                 l.addLog("Meer afgiftes beschikbaar: " + hasMore);
                 this.config.addLogLine("Meer afgiftes beschikbaar: " + hasMore);
- 
+
                 /**
-                 * Als "al gerapporteerde berichten" moeten worden opgehaald en er zitten
-                 * dan 2000 berichten in het antwoord dan heeft het geen zin om meer
-                 * keer de berichten op te halen, je krijgt telkens de zelfde.
-                 * 
-                */
+                 * Als "al gerapporteerde berichten" moeten worden opgehaald en
+                 * er zitten dan 2000 berichten in het antwoord dan heeft het
+                 * geen zin om meer keer de berichten op te halen, je krijgt
+                 * telkens de zelfde.
+                 *
+                 */
                 if (hasMore && "true".equals(alGerapporteerd)) {
                     reducePeriod = true;
                     morePeriods2Process = true;
                     continue;
                 }
-                
+
                 afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB());
 
                 /**
-                 * Indicatie nog niet gerapporteerd:
-                 * Met deze indicatie wordt aangegeven of uitsluitend de nog niet
-                 * gerapporteerde bestanden moeten worden opgenomen in de lijst, of
-                 * dat alle beschikbare bestanden worden genoemd.
-                 * Niet gerapporteerd betekent in dit geval ‘niet eerder opgevraagd in
-                 * deze bestandenlijst’.
-                 * Als deze indicator wordt gebruikt, dan worden na terugmelding van de
-                 * bestandenlijst de bijbehorende bestanden gemarkeerd als zijnde
-                 * ‘gerapporteerd’ in het systeem van GDS.
-                */
+                 * Indicatie nog niet gerapporteerd: Met deze indicatie wordt
+                 * aangegeven of uitsluitend de nog niet gerapporteerde
+                 * bestanden moeten worden opgenomen in de lijst, of dat alle
+                 * beschikbare bestanden worden genoemd. Niet gerapporteerd
+                 * betekent in dit geval ‘niet eerder opgevraagd in deze
+                 * bestandenlijst’. Als deze indicator wordt gebruikt, dan
+                 * worden na terugmelding van de bestandenlijst de bijbehorende
+                 * bestanden gemarkeerd als zijnde ‘gerapporteerd’ in het
+                 * systeem van GDS.
+                 */
                 int moreCount = 0;
                 String dontGetMoreConfig = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_niet_gerapporteerde_afgiftes_niet_ophalen"));
-                
+
                 while (hasMore && !"true".equals(dontGetMoreConfig)) {
                     l.updateStatus("Uitvoeren SOAP request naar Kadaster voor meer afgiftes..." + moreCount++);
                     criteria.setNogNietGerapporteerd(true);
@@ -362,7 +364,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             config.addLogLine("Totaal aantal opgehaalde berichten: " + afgiftesGb.size());
 
             verwerkAfgiftes(afgiftesGb);
-            
+
         } catch (Exception e) {
             log.error("Fout bij ophalen van GDS2 berichten", e);
             this.config.setLastrun(new Date());
@@ -379,6 +381,9 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 // XXX bij rollback only wordt status niet naar ERROR gezet vanwege
                 // rollback, zou in aparte transactie moeten
                 Stripersist.getEntityManager().getTransaction().rollback();
+            } else {
+                Stripersist.getEntityManager().merge(this.config);
+                Stripersist.getEntityManager().getTransaction().commit();
             }
             l.updateStatus("Uitvoeren SOAP request naar Kadaster afgerond");
         }
@@ -467,6 +472,13 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         }
         b.setBr_orgineel_xml(IOUtils.toString(zip, "UTF-8"));
 
+        if (log.isDebugEnabled()) {
+            // dump xml bestand naar /tmp/ voordat de xml wordt geparsed
+            String fName = "/tmp/" + lp.getBestand_naam() + ".xml";
+            log.debug("Dump xml bericht naar: " + fName);
+            IOUtils.write(b.getBr_orgineel_xml(), new FileWriter(fName));
+        }
+
         BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes("UTF-8")));
         BrkBericht bericht = reader.next();
         b.setObject_ref(bericht.getObjectRef());
@@ -550,13 +562,13 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 return null;
             }
         }
-        
+
         GregorianCalendar gregory = new GregorianCalendar();
         gregory.setTime(date);
 
         return gregory;
     }
-    
+
     private XMLGregorianCalendar getXMLDatumTijd(GregorianCalendar gregory) {
         try {
 

@@ -37,7 +37,7 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
     // gebied
     private static final String PRODUCTSPECIFICATIE = "productSpecificatie";
     private static final String KENMERKNAAM = "kenmerknaam";
-    private static final String KENMERKWAARDE = "kenmerkwaarde"; 
+    private static final String KENMERKWAARDE = "kenmerkwaarde";
     // burgerlijke gemeente
     private static final String BRK_DATUM = "BRKDatum";
     private static final String GEMEENTE = "naamBurgerlijkeGemeente";
@@ -141,7 +141,7 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
                 if(streamReader.getLocalName().equals(GEMEENTE)) {
                     inGemeente = false;
                 }
-                if(streamReader.getLocalName().equals(MUTATIE)) {
+                if(streamReader.getLocalName().equals("was")) {
                     inWas = false;
                 }
                 if(inMutatie && streamReader.getLocalName().equals(MUTATIE)) {
@@ -165,7 +165,6 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
 
     @Override
     public BrkBericht next() throws TransformerException, XMLStreamException {
-
         BrkBericht b;
 
         if(mutatieGegevens != null && mutatieGegevens.isMutatieZonderWordt) {
