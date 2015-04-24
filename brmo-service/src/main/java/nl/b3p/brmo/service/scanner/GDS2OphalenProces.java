@@ -493,6 +493,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
         Stripersist.getEntityManager().persist(lp);
         Stripersist.getEntityManager().persist(b);
+        Stripersist.getEntityManager().merge(this.config);
         Stripersist.getEntityManager().flush();
         Stripersist.getEntityManager().getTransaction().commit();
         Stripersist.getEntityManager().clear();
