@@ -19,6 +19,7 @@ import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
 import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
+import nl.b3p.brmo.service.scanner.GDS2OphalenProces;
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
 import org.stripesstuff.plugin.waitpage.WaitPage;
 import org.stripesstuff.stripersist.EntityTypeConverter;
@@ -97,6 +98,7 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
     @Override
     public void addLog(String log) {
         this.log += log + "\n";
+        GDS2OphalenProces.getLog().info(log);
     }
 
     @DefaultHandler

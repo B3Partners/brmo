@@ -96,6 +96,10 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         this.config = config;
     }
 
+    public static Log getLog() {
+        return log;
+    }
+
     @Override
     public void execute() throws BrmoException {
         this.execute(new ProgressUpdateListener() {
@@ -118,6 +122,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
             @Override
             public void addLog(String log) {
+                GDS2OphalenProces.log.info(log);
             }
         });
     }
