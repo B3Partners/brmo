@@ -3,13 +3,16 @@
 	<xsl:template match="/">
 		<root>
 			<data>
-				<!-- loop door bep:Nieuw elementen -->
-				<xsl:for-each select="//bep:Mutatie-product/bep:Nieuw">
-					<xsl:apply-templates select="."/>
-				</xsl:for-each>
-			</data>
+                <xsl:apply-templates select="*"/>
+            </data>
 		</root>
 	</xsl:template>
+    <xsl:template match="bep:Mutatie-product">
+        <!-- loop door bep:Nieuw elementen -->
+        <xsl:for-each select="bep:Nieuw">
+            <xsl:apply-templates select="."/>
+        </xsl:for-each>
+    </xsl:template>
 	<!-- Template Pand
 <bag:Pand>
 	<bag:identificatie>aaaaaaaaaaaaaaaa</bag:identificatie>
@@ -427,15 +430,12 @@
 				<xsl:value-of select="bag:woonplaatsNaam"/>
 			</naam_nen>
 			<geom>
-				<xsl:copy-of select="bag:standplaatsGeometrie/gml:Polygon"/>
+				<xsl:copy-of select="bag:woonplaatsGeometrie/gml:Polygon"/>
 			</geom>
 			<status>
 				<xsl:value-of select="bag:woonplaatsStatus"/>
 			</status>
-			<fk_7gem_code>
-				<xsl:value-of select="'via omrekentabel'"/>
-			</fk_7gem_code>
-			<geom/>
+			<fk_7gem_code/> <!-- via 05_update_wnplts_gemcode.sql -->
 		</wnplts>
 		<brondocument ignore-duplicates="yes">
 			<tabel>
@@ -643,9 +643,6 @@
 			<type_openb_rmte>
 				<xsl:value-of select="bag:openbareRuimteType"/>
 			</type_openb_rmte>
-			<fk_7gem_code>
-				<xsl:value-of select="bag:gerelateerdeWoonplaats/bag:identificatie"/>
-			</fk_7gem_code>
 		</gem_openb_rmte>
 		<openb_rmte>
 			<identifcode>
