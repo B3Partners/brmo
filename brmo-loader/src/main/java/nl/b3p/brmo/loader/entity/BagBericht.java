@@ -8,29 +8,47 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import nl.b3p.brmo.loader.xml.BagXMLReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
-/**
- *
- * @author Boy de Wit
- */
 public class BagBericht extends Bericht {
 
-    private final String soort = "bag";
-    private String objectRef;
-    private Date datum;
-    private Integer volgordeNummer;
-
+    private Document doc;
     private boolean xpathEvaluated = false;
 
     private static final Log log = LogFactory.getLog(BagBericht.class);
 
+    private static XPathExpression mutTijdstipVerwerking = null, mutVolgnr = null, mutObjectType = null;
+    private static XPathExpression idXPath = null;
+
+    static {
+        XPathFactory xPathfactory = XPathFactory.newInstance();
+        XPath xpath = xPathfactory.newXPath();
+
+        try {
+            mutTijdstipVerwerking = xpath.compile("/*[local-name() = 'Mutatie-product']/*[local-name()= 'Verwerking' or local-name()='Verwerking']/*[local-name() = 'TijdstipVerwerking']/text()");
+            mutVolgnr = xpath.compile("/*[local-name() = 'Mutatie-product']/*[local-name()= 'Verwerking' or local-name()='Verwerking']/*[local-name() = 'VolgnrVerwerking']/text()");
+            mutObjectType = xpath.compile("/*[local-name() = 'Mutatie-product']/*[local-name()= 'Verwerking' or local-name()='Verwerking']/*[local-name() = 'ObjectType']/text()");
+            idXPath = xpath.compile("//*[local-name() = 'identificatie']/text()");
+        } catch (XPathExpressionException ex) {
+            log.fatal("Fout bij initialiseren XPath expressies", ex);
+        }
+    }
+
     public BagBericht(String brXml) {
         super(brXml);
+        setSoort("bag");
+    }
+
+    public BagBericht(String brXml, Document doc) {
+        super(brXml);
+        setSoort("bag");
+        this.doc = doc;
     }
 
     private void evaluateXPath() {
@@ -40,40 +58,40 @@ public class BagBericht extends Bericht {
 
         xpathEvaluated = true;
         try {
+            String objectType;
 
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(new InputSource(new StringReader(getBrXml())));
-
-            XPathFactory xPathfactory = XPathFactory.newInstance();
-            XPath xpath = xPathfactory.newXPath();
-
-            XPathExpression expr = xpath.compile("/Mutatie-product/*[local-name()= 'Verwerking' or local-name()='Verwerking']/TijdstipVerwerking/text()");
-            String datum = expr.evaluate(doc);
-            setDatumAsString(datum);
-
-            expr = xpath.compile("/Mutatie-product/*[local-name()= 'Verwerking' or local-name()='Verwerking']/VolgnrVerwerking/text()");
-            volgordeNummer = new Integer(expr.evaluate(doc));
-
-            expr = xpath.compile("/Mutatie-product/*[local-name()= 'Verwerking' or local-name()='Verwerking']/ObjectType/text()");
-            objectRef = expr.evaluate(doc);
-
-            expr = xpath.compile("/Mutatie-product/*[local-name()= 'Nieuw/*' or local-name()='Nieuw']/*/identificatie/text()");
-            String nieuw = expr.evaluate(doc);
-
-            expr = xpath.compile("/Mutatie-product/*[local-name()= 'Wijziging/*' or local-name()='Wijziging']/*/identificatie/text()");
-            String wijz = expr.evaluate(doc);
-
-            expr = xpath.compile("/Mutatie-product/*[local-name()= 'Origineel/*' or local-name()='Origineel']/*/identificatie/text()");
-            String org = expr.evaluate(doc);
-
-            if (nieuw != null && !nieuw.isEmpty()) {
-                objectRef += ":" + nieuw;
-            } else if (wijz != null && !wijz.isEmpty()) {
-                objectRef += ":" + wijz;
-            } else if (org != null && !org.isEmpty()) {
-                objectRef += ":" + org;
+            if(doc == null) {
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder builder = factory.newDocumentBuilder();
+                doc = builder.parse(new InputSource(new StringReader(getBrXml())));
             }
+
+            if(doc.getDocumentElement().getLocalName().equals(BagXMLReader.MUTATIE_PRODUCT)) {
+                String d = mutTijdstipVerwerking.evaluate(doc);
+                setDatumAsString(d);
+
+                setVolgordeNummer(new Integer(mutVolgnr.evaluate(doc)));
+                objectType = mutObjectType.evaluate(doc);
+
+            } else if(BagXMLReader.lvcProductToObjectType.containsKey(doc.getDocumentElement().getLocalName())) {
+                // Levering
+
+                setVolgordeNummer(0);
+
+                String n = doc.getDocumentElement().getLocalName();
+
+                objectType = BagXMLReader.lvcProductToObjectType.get(n);
+                if(objectType == null) {
+                    throw new IllegalArgumentException("Onbekend BAG product: " + n);
+                }
+            } else {
+                throw new IllegalArgumentException("Onbekend BAG bericht: verwacht "
+                        + BagXMLReader.MUTATIE_PRODUCT + " of " + BagXMLReader.lvcProductToObjectType.keySet().toString()
+                        + " maar \"" + doc.getDocumentElement().getLocalName() + "\" gevonden");
+            }
+
+            String id = idXPath.evaluate(doc);
+            setObjectRef(objectType + ":" + id);
 
         } catch (Exception e) {
             log.error("Error while getting bag referentie", e);
@@ -87,9 +105,9 @@ public class BagBericht extends Bericht {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'.'");
         try {
-            datum = sdf.parse(d);
+            setDatum(sdf.parse(d));
         } catch (ParseException pe) {
-            log.error("Error while parsing date: " + datum, pe);
+            log.error("Error while parsing date: " + d, pe);
         }
     }
 
@@ -97,20 +115,20 @@ public class BagBericht extends Bericht {
     public String getObjectRef() {
         evaluateXPath();
 
-        return objectRef;
+        return super.getObjectRef();
     }
 
     @Override
     public Date getDatum() {
         evaluateXPath();
 
-        return datum;
+        return super.getDatum();
     }
 
     @Override
     public Integer getVolgordeNummer() {
         evaluateXPath();
 
-        return volgordeNummer;
+        return super.getVolgordeNummer();
     }
 }

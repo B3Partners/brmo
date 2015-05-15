@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.Date;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -36,9 +38,9 @@ import org.xml.sax.SAXException;
  * @author Boy de Wit
  * @author Mark Prins <mark@b3partners.nl>
  */
-public class BagMutatieXMLReader extends BrmoXMLReader {
+public class BagXMLReader extends BrmoXMLReader {
 
-    private static final Log log = LogFactory.getLog(BagMutatieXMLReader.class);
+    private static final Log log = LogFactory.getLog(BagXMLReader.class);
 
     private final XMLInputFactory factory = XMLInputFactory.newInstance();
     private final XMLStreamReader streamReader;
@@ -48,14 +50,30 @@ public class BagMutatieXMLReader extends BrmoXMLReader {
 
     // soort laadproces
     private String soort = "bag";
-    private Date bestandsDatum;
 
-    private final String MUTATIE_PRODUCT = "Mutatie-product";
-    private final String DATUM_TIJD_LV = "datumtijdstempelLV";
+    public static final String MUTATIE_PRODUCT = "Mutatie-product";
+    public static final String LVC_PRODUCT = "LVC-product";
+    private static final String DATUM_TIJD_LV = "datumtijdstempelLV";
+    private static final String STAND_PEILDATUM = "StandPeildatum";
 
     private BagBericht nextBericht = null;
 
-    public BagMutatieXMLReader(InputStream in)
+    public static final Map<String,String> lvcProductToObjectType;
+
+    static {
+        Map<String,String> m = new HashMap();
+        m.put("Standplaats", "STA");
+        m.put("Ligplaats", "LIG");
+        m.put("Nummeraanduiding", "NUM");
+        m.put("OpenbareRuimte", "OPR");
+        m.put("Pand", "PND");
+        m.put("Verblijfsobject", "VBO");
+        m.put("Standplaats", "STA");
+        m.put("Woonplaats", "WPL");
+        lvcProductToObjectType = Collections.unmodifiableMap(m);
+    }
+
+    public BagXMLReader(InputStream in)
             throws XMLStreamException,
             TransformerConfigurationException,
             ParserConfigurationException {
@@ -86,12 +104,15 @@ public class BagMutatieXMLReader extends BrmoXMLReader {
                 if (streamReader.isStartElement()) {
                     String localName = streamReader.getLocalName();
 
-                    if (localName.equals(MUTATIE_PRODUCT)) {
+                    if (localName.equals(MUTATIE_PRODUCT) || localName.equals(LVC_PRODUCT)) {
                         break;
                     }
 
                     if (localName.equals(DATUM_TIJD_LV)) {
                         setDatumAsString(streamReader.getElementText());
+                    }
+                    if(localName.equals(STAND_PEILDATUM)) {
+                        setDatumAsString(streamReader.getElementText(), "yyyyMMdd");
                     }
                 }
                 streamReader.next();
@@ -111,6 +132,8 @@ public class BagMutatieXMLReader extends BrmoXMLReader {
                 if (streamReader.isStartElement() && streamReader.getLocalName().equals(MUTATIE_PRODUCT)) {
                     // parse en check voor "Nieuw" element en niet "Origineel"/"Wijziging"
                     StringWriter sw = new StringWriter();
+
+                    // Hiermee wordt de StreamReader het volgende product geforward
                     transformer.transform(new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));
 
                     Document d = builder.parse(new InputSource(new StringReader(sw.toString())));
@@ -119,12 +142,27 @@ public class BagMutatieXMLReader extends BrmoXMLReader {
                         Node child = children.item(i);
                         if ("Nieuw".equals(child.getLocalName())) {
                             // Mutatie-product met Nieuw als child element gevonden
-                            nextBericht = new BagBericht(sw.toString());
+                            // Origineel/Wijziging kunnen overgeslagen worden omdat er altijd een Nieuw
+                            // element voor hetzelfde object is. In de BRMO wordt de historie zelf
+                            // bijgehouden dus zijn de wijzigingen niet interessant
+                            nextBericht = new BagBericht(sw.toString(), d);
                             return true;
                         }
                     }
+                } else if(streamReader.isStartElement() && lvcProductToObjectType.containsKey(streamReader.getLocalName())) {
+                    StringWriter sw = new StringWriter();
+                    // Hiermee wordt de StreamReader het volgende product geforward
+                    transformer.transform(new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));
+                    Document d = builder.parse(new InputSource(new StringReader(sw.toString())));
+
+                    nextBericht = new BagBericht(sw.toString(), d);
+
+                    // Bij een levering zit er geen datum in een "Verwerking" element,
+                    // pak peildatum van stand
+                    nextBericht.setDatum(getBestandsDatum());
+                    return true;
                 } else {
-                    streamReader.next();
+                    streamReader.nextTag();
                 }
             }
         } catch (XMLStreamException ex) {

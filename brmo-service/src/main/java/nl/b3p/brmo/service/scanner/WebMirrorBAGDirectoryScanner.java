@@ -19,7 +19,7 @@ import java.util.zip.ZipInputStream;
 import javax.persistence.NoResultException;
 import nl.b3p.brmo.loader.entity.BagBericht;
 import nl.b3p.brmo.loader.util.BrmoException;
-import nl.b3p.brmo.loader.xml.BagMutatieXMLReader;
+import nl.b3p.brmo.loader.xml.BagXMLReader;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
@@ -279,7 +279,7 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
 
         // haal de berichten uit xml bestand(en) in de zipfile
         byte[] xml;
-        BagMutatieXMLReader bagreader;
+        BagXMLReader bagreader;
         BagBericht bag;
         Bericht b;
         while (entry != null) {
@@ -298,7 +298,7 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
 
                 // bagreader met een byte[] voeden om voortijdig sluiten van de (zip)inputstream te voorkomen
                 xml = IOUtils.toByteArray(zis);
-                bagreader = new BagMutatieXMLReader(new ByteArrayInputStream(xml));
+                bagreader = new BagXMLReader(new ByteArrayInputStream(xml));
                 if (bagreader.hasNext()) {
                     // het komt voor dat er geen mutaties zijn in de xml
                     while (bagreader.hasNext()) {

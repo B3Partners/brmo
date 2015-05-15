@@ -3,8 +3,8 @@
 <stripes:layout-render name="/WEB-INF/jsp/layout/default.jsp">
     <stripes:layout-component name="title">BRMO Bestand</stripes:layout-component>
     <stripes:layout-component name="contents">
-        <h1>Bestand uploaden</h1>
-        Maximale grootte 10 MB.
+        <h1>Bestand uploaden via browser</h1>
+        Maximale grootte 10 MB, in XML formaat (of meerdere XML bestanden in ZIP bestand).
         <stripes:messages/>
         <stripes:errors/>
         <stripes:form beanclass="nl.b3p.brmo.service.stripes.BasisregistratieFileUploadActionBean" focus="">
@@ -26,8 +26,8 @@
             </table>
             <p><stripes:submit name="upload" value="Inladen" /></p>
         </stripes:form>
-        <h1>Bestand inladen van server</h1>
-        Gebruik voor grote bestanden (zoals BRK standen).
+        <h1>Bestand inladen van bestandssysteem server</h1>
+        Gebruik voor grote bestanden (zoals grote standen). ZIP-bestanden met meerdere XML bestanden erin worden ondersteund.
         <stripes:form beanclass="nl.b3p.brmo.service.stripes.BasisregistratieBigFileLoadActionBean" focus="">
             <table>
                 <tr>

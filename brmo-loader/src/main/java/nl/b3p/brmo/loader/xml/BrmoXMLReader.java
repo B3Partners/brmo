@@ -30,13 +30,18 @@ public abstract class BrmoXMLReader {
     public abstract boolean hasNext() throws Exception;
     public abstract Bericht next() throws Exception;
 
-    public void setDatumAsString(String brkDatumString) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    public void setDatumAsString(String brkDatumString, String simpleDateFormat) {
+        SimpleDateFormat sdf = new SimpleDateFormat(simpleDateFormat);
         try {
             bestandsDatum = sdf.parse(brkDatumString);
         } catch (ParseException pe) {
-            log.error("Error while parsing date: " + brkDatumString, pe);
+            log.error("Fout bij parsen BRK datum \"" + brkDatumString + "\" met formaat " + simpleDateFormat, pe);
         }
+    }
+
+    public void setDatumAsString(String brkDatumString) {
+        setDatumAsString(brkDatumString, "yyyy-MM-dd");
+
     }
 
     public String getBestandsNaam() {
