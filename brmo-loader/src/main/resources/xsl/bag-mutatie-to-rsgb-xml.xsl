@@ -318,20 +318,6 @@
 </bag:Nummeraanduiding>
 -->
 	<xsl:template match="bag:Nummeraanduiding">
-		<nummeraand>
-			<sc_identif>
-				<xsl:value-of select="bag:identificatie"/>
-			</sc_identif>
-			<indic_geconst>
-				<xsl:value-of select="bag:officieel"/>
-			</indic_geconst>
-			<indic_hoofdadres>
-				<xsl:value-of select="'?'"/>
-			</indic_hoofdadres>
-			<status>
-				<xsl:value-of select="bag:nummeraanduidingStatus"/>
-			</status>
-		</nummeraand>
 		<addresseerb_obj_aand>
 			<dat_beg_geldh>
 				<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:einddatumTijdvakGeldigheid">
@@ -353,7 +339,7 @@
 				<xsl:value-of select="bag:huisletter"/>
 			</huisletter>
 			<huinummer>
-				<xsl:value-of select="bag:huisletter"/>
+				<xsl:value-of select="bag:huisnummer"/>
 			</huinummer>
 			<huinummertoevoeging>
 				<xsl:value-of select="bag:huisnummertoevoeging"/>
@@ -367,7 +353,21 @@
 			<fk_7opr_identifcode>
 				<xsl:value-of select="bag:gerelateerdeOpenbareRuimte/bag:identificatie"/>
 			</fk_7opr_identifcode>
-		</addresseerb_obj_aand>
+		</addresseerb_obj_aand>        
+		<nummeraand>
+			<sc_identif>
+				<xsl:value-of select="bag:identificatie"/>
+			</sc_identif>
+			<indic_geconst>
+				<xsl:value-of select="bag:officieel"/>
+			</indic_geconst>
+			<indic_hoofdadres>
+				<xsl:value-of select="'?'"/>
+			</indic_hoofdadres>
+			<status>
+				<xsl:value-of select="bag:nummeraanduidingStatus"/>
+			</status>
+		</nummeraand>
 		<brondocument ignore-duplicates="yes">
 			<tabel>
 				<xsl:value-of select="'nummeraand'"/>
