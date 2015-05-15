@@ -803,16 +803,17 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                     case java.sql.Types.DECIMAL:
                     case java.sql.Types.NUMERIC:
                     case java.sql.Types.INTEGER:
-//                        try {
+                        try {
                             param = new BigDecimal(stringValue);
-//                        } catch (NumberFormatException nfe) {
-//                            log.error(String.format("Cannot convert value \"%s\" to type %s for %s.%s",
-//                                    stringValue,
-//                                    cm.getTypeName(),
-//                                    tableName,
-//                                    cm.getName()));
-//                            //param = -99999;
-//                        }
+                        } catch (NumberFormatException nfe) {
+                            throw new NumberFormatException(
+                                String.format("Cannot convert value \"%s\" to type %s for %s.%s",
+                                        stringValue,
+                                        cm.getTypeName(),
+                                        tableName,
+                                        cm.getName()));
+                            //param = -99999;
+                        }
                         break;
                     case java.sql.Types.CHAR:
                     case java.sql.Types.VARCHAR:
