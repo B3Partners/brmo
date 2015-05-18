@@ -106,7 +106,12 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                             msg = String.format("Bestand %s is geladen.", f);
                             log.info(msg);
                             sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
-
+                        } catch (BrmoDuplicaatLaadprocesException duplicaat) {
+                            log.info(duplicaat.getLocalizedMessage());
+                        } catch (BrmoException brmo) {
+                            // log message maar ga door met verwerking, bijvoorbeeld om een "leeg" bericht/laadproces over te slaan
+                            log.error(brmo.getLocalizedMessage());
+                        } finally {
                             if (isArchiving) {
                                 // 2: verplaats naar archief (NB mogelijk platform afhankelijk)
                                 f.renameTo(new File(archiefDirectory, f.getName()));
@@ -114,11 +119,6 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                                 log.info(msg);
                                 sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                             }
-                        } catch (BrmoDuplicaatLaadprocesException duplicaat) {
-                            log.info(duplicaat.getLocalizedMessage());
-                        } catch (BrmoException brmo) {
-                            // log message maar ga door met verwerking, bijvoorbeeld om een leeg bericht over te slaan
-                            log.error(brmo.getLocalizedMessage());
                         }
                     }
                 }
@@ -130,6 +130,7 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                 config.updateSamenvattingEnLogfile(sb.toString());
                 config.setLastrun(new Date());
                 break;
+
             default:
                 log.warn(String.format("De BAG scanner met ID %d is niet gestart vanwege de status %s.", config.getId(), config.getStatus()));
         }
