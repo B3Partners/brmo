@@ -55,6 +55,7 @@ public class BagXMLReader extends BrmoXMLReader {
     public static final String MUTATIE_PRODUCT = "Mutatie-product";
     public static final String LVC_PRODUCT = "LVC-product";
     private static final String DATUM_TIJD_LV = "datumtijdstempelLV";
+    private static final String MUTATIE_DATUMTOT = "MutatiedatumTot";
     private static final String STAND_PEILDATUM = "StandPeildatum";
     private static final String STAND_TECHNISCHEDATUM = "StandTechnischeDatum";
 
@@ -103,6 +104,7 @@ public class BagXMLReader extends BrmoXMLReader {
     public void init() {
         String technischeDatum = null;
         String peilDatum = null;
+        String mutatieDatumTot = null;
         try {
             while (streamReader.hasNext()) {
                 if (streamReader.isStartElement()) {
@@ -121,6 +123,9 @@ public class BagXMLReader extends BrmoXMLReader {
                     if(localName.equals(STAND_PEILDATUM)) {
                         peilDatum = streamReader.getElementText();
                     }
+                    if(localName.equals(MUTATIE_DATUMTOT)) {
+                        mutatieDatumTot = streamReader.getElementText();
+                    }
                 }
                 streamReader.next();
             }
@@ -131,6 +136,8 @@ public class BagXMLReader extends BrmoXMLReader {
             setDatumAsString(peilDatum, "yyyyMMdd");
         } else if(technischeDatum != null) {
             setDatumAsString(technischeDatum, "yyyyMMdd");
+        } else if(mutatieDatumTot != null) {
+            setDatumAsString(mutatieDatumTot, "yyyy-MM-dd");
         } else {
             setBestandsDatum(new Date());
         }
