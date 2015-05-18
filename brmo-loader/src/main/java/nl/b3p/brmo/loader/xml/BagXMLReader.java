@@ -183,7 +183,7 @@ public class BagXMLReader extends BrmoXMLReader {
                     nextBericht.setDatum(getBestandsDatum());
                     return true;
                 } else {
-                    streamReader.nextTag();
+                    streamReader.next();
                 }
             }
         } catch (XMLStreamException ex) {
