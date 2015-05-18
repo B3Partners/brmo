@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
@@ -55,6 +56,7 @@ public class BagXMLReader extends BrmoXMLReader {
     public static final String LVC_PRODUCT = "LVC-product";
     private static final String DATUM_TIJD_LV = "datumtijdstempelLV";
     private static final String STAND_PEILDATUM = "StandPeildatum";
+    private static final String STAND_TECHNISCHEDATUM = "StandTechnischeDatum";
 
     private BagBericht nextBericht = null;
 
@@ -99,6 +101,8 @@ public class BagXMLReader extends BrmoXMLReader {
 
     @Override
     public void init() {
+        String technischeDatum = null;
+        String peilDatum = null;
         try {
             while (streamReader.hasNext()) {
                 if (streamReader.isStartElement()) {
@@ -111,14 +115,24 @@ public class BagXMLReader extends BrmoXMLReader {
                     if (localName.equals(DATUM_TIJD_LV)) {
                         setDatumAsString(streamReader.getElementText());
                     }
+                    if(localName.equals(STAND_TECHNISCHEDATUM)) {
+                        technischeDatum = streamReader.getElementText();
+                    }
                     if(localName.equals(STAND_PEILDATUM)) {
-                        setDatumAsString(streamReader.getElementText(), "yyyyMMdd");
+                        peilDatum = streamReader.getElementText();
                     }
                 }
                 streamReader.next();
             }
         } catch (XMLStreamException ex) {
             log.error("Error while streaming XML", ex);
+        }
+        if(peilDatum != null) {
+            setDatumAsString(peilDatum, "yyyyMMdd");
+        } else if(technischeDatum != null) {
+            setDatumAsString(technischeDatum, "yyyyMMdd");
+        } else {
+            setBestandsDatum(new Date());
         }
     }
 
