@@ -55,7 +55,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
 
                 // validatie van de directories, kunnen we lezen/bladeren en evt. schrijven?
                 final File scanDirectory = new File(this.config.getScanDirectory());
-                if (!scanDirectory.isDirectory() || !scanDirectory.canExecute() || !scanDirectory.canWrite()) {
+                if (!scanDirectory.isDirectory() || !scanDirectory.canExecute()) {
                     config.setStatus(ERROR);
                     config.addLogLine(String.format("FOUT: De scan directory '%s' is geen executable directory", scanDirectory));
                     config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
@@ -74,6 +74,13 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                         config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
                         this.active = false;
                         throw new BrmoException(String.format("De archief directory '%s' is geen beschrijfbare directory", archiefDirectory));
+                    }
+                    if(!scanDirectory.canWrite()){
+                        config.setStatus(ERROR);
+                        config.addLogLine(String.format("FOUT: De scan directory '%s' is geen beschrijfbare directory", scanDirectory));
+                        config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
+                        this.active = false;
+                        throw new BrmoException(String.format("De scan directory '%s' is geen beschrijfbare directory", scanDirectory));
                     }
                 }
 

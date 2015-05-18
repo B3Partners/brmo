@@ -56,7 +56,7 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
 
                 // validatie van de directories, kunnen we lezen/bladeren en evt. schrijven?
                 final File scanDirectory = new File(this.config.getScanDirectory());
-                if (!scanDirectory.isDirectory() || !scanDirectory.canExecute() || !scanDirectory.canWrite()) {
+                if (!scanDirectory.isDirectory() || !scanDirectory.canExecute()) {
                     config.setStatus(ERROR);
                     config.addLogLine(String.format("FOUT: De scan directory '%s' is geen executable directory", scanDirectory));
                     config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
@@ -75,6 +75,13 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                         config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
                         this.active = false;
                         throw new BrmoException(String.format("De archief directory '%s' is geen beschrijfbare directory", archiefDirectory));
+                    }
+                    if (!scanDirectory.canWrite()) {
+                        config.setStatus(ERROR);
+                        config.addLogLine(String.format("FOUT: De scan directory '%s' is geen beschrijfbare directory", scanDirectory));
+                        config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
+                        this.active = false;
+                        throw new BrmoException(String.format("De scan directory '%s' is geen beschrijfbare directory", scanDirectory));
                     }
                 }
 
@@ -109,6 +116,9 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                             }
                         } catch (BrmoDuplicaatLaadprocesException duplicaat) {
                             log.info(duplicaat.getLocalizedMessage());
+                        } catch (BrmoException brmo) {
+                            // log message maar ga door met verwerking, bijvoorbeeld om een leeg bericht over te slaan
+                            log.error(brmo.getLocalizedMessage());
                         }
                     }
                 }
@@ -119,7 +129,6 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                 config.setStatus(WAITING);
                 config.updateSamenvattingEnLogfile(sb.toString());
                 config.setLastrun(new Date());
-
                 break;
             default:
                 log.warn(String.format("De BAG scanner met ID %d is niet gestart vanwege de status %s.", config.getId(), config.getStatus()));
@@ -127,7 +136,8 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
     }
 
     @Override
-    public void execute(ProgressUpdateListener listener) {
+    public void execute(ProgressUpdateListener listener
+    ) {
         try {
             this.execute();
         } catch (BrmoException ex) {
