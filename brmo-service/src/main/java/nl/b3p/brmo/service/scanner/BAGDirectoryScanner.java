@@ -11,6 +11,7 @@ import java.util.Date;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
@@ -98,9 +99,9 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                         log.info(msg);
                         sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                     } else {
+                        // TODO gebruik JPA
                         try {
                             // 1: laadt in staging.
-                            // TODO gebruik JPA
                             BrmoFramework brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
                             brmo.loadFromFile(BrmoFramework.BR_BAG, f.getAbsolutePath());
                             msg = String.format("Bestand %s is geladen.", f);
@@ -108,9 +109,11 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                             sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                         } catch (BrmoDuplicaatLaadprocesException duplicaat) {
                             log.info(duplicaat.getLocalizedMessage());
-                        } catch (BrmoException brmo) {
-                            // log message maar ga door met verwerking, bijvoorbeeld om een "leeg" bericht/laadproces over te slaan
-                            log.error(brmo.getLocalizedMessage());
+                            sb.append(duplicaat.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
+                        } catch (BrmoLeegBestandException leegEx) {
+                            // log message maar ga door met verwerking, om een "leeg" bestand bericht/laadproces over te slaan
+                            log.warn(leegEx.getLocalizedMessage());
+                            sb.append(leegEx.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
                         } finally {
                             if (isArchiving) {
                                 // 2: verplaats naar archief (NB mogelijk platform afhankelijk)
@@ -129,6 +132,7 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                 config.setStatus(WAITING);
                 config.updateSamenvattingEnLogfile(sb.toString());
                 config.setLastrun(new Date());
+
                 break;
 
             default:

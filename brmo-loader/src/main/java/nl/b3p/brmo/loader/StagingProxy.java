@@ -24,6 +24,7 @@ import nl.b3p.brmo.loader.pipeline.BerichtWorkUnit;
 import nl.b3p.brmo.loader.pipeline.UpdateResultPipeline;
 import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
 import nl.b3p.brmo.loader.util.TableData;
@@ -510,7 +511,7 @@ public class StagingProxy {
         boolean isBerichtGeschreven = false;
 
         if(!brmoXMLReader.hasNext()) {
-            throw new BrmoException("Leeg bestand, geen berichten gevonden in "+ fileName);
+            throw new BrmoLeegBestandException("Leeg bestand, geen berichten gevonden in "+ fileName);
         }
         int berichten = 0;
         while (brmoXMLReader.hasNext()) {
