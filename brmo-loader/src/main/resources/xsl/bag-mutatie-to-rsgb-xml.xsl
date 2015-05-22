@@ -414,9 +414,6 @@
 			<naam>
 				<xsl:value-of select="bag:woonplaatsNaam"/>
 			</naam>
-			<naam_nen>
-				<xsl:value-of select="bag:woonplaatsNaam"/>
-			</naam_nen>
 			<geom>
 				<xsl:copy-of select="bag:woonplaatsGeometrie/gml:Polygon"/>
 			</geom>
