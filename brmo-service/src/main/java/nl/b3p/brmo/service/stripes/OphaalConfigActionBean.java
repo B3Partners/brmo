@@ -113,7 +113,7 @@ public class OphaalConfigActionBean implements ActionBean {
 
     @DontValidate
     public Resolution add() {
-        return new ForwardResolution(JSP);
+        return new ForwardResolution(JSP).addParameter("type", type);
     }
 
     public Resolution save() {

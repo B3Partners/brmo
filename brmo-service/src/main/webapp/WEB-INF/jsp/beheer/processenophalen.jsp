@@ -54,9 +54,15 @@
 
         <stripes:form beanclass="nl.b3p.brmo.service.stripes.OphaalConfigActionBean">
 
-            <stripes:hidden name="proces"/>
             <c:set var="_new" value="${actionBean.context.eventName == 'add'}"/>
             <c:set var="edit" value="${actionBean.context.eventName == 'view' && !empty actionBean.proces}"/>
+
+            <c:if test="${_new}">
+                <stripes:hidden name="type"/>
+            </c:if>
+            <c:if test="${edit}">
+                <stripes:hidden name="proces"/>
+            </c:if>
 
             <c:if test="${edit || _new}">
                 <stripes:submit name="save">Opslaan</stripes:submit>
@@ -74,7 +80,6 @@
             </c:if>
 
             <c:if test="${edit || _new}">
-                <stripes:hidden name="type" />
                 <c:choose>
                     <c:when test="${actionBean.type eq 'MailRapportageProces'}">
                         <jsp:include page="editmailproces.jsp" />
@@ -124,7 +129,7 @@
                             <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
                         </stripes:url>
                     </c:when>
-                    
+
                     <c:otherwise>
                         <p>Onbekende input</p>
                     </c:otherwise>
