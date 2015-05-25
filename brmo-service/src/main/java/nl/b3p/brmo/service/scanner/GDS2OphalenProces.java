@@ -464,7 +464,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         b.setLaadprocesid(lp);
         b.setDatum(lp.getBestand_datum());
         b.setSoort("brk");
-        b.setStatus(Bericht.STATUS.STAGING_OK);
         b.setStatus_datum(new Date());
 
         ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(bos.toByteArray()));
@@ -492,7 +491,19 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
         BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes("UTF-8")));
         BrkBericht bericht = reader.next();
-        b.setObject_ref(bericht.getObjectRef());
+        
+        //Als objectRef niet opgehaald kan worden,dan kan het
+        //bericht niet verwerkt worden.
+        String objectRef = bericht.getObjectRef();
+        if (objectRef!=null && !objectRef.isEmpty()) {
+            b.setObject_ref(bericht.getObjectRef());
+            b.setStatus(Bericht.STATUS.STAGING_OK);
+            b.setOpmerking("Klaar voor verwerking.");
+        } else {
+            b.setStatus(Bericht.STATUS.STAGING_NOK);
+            b.setOpmerking("Object Ref niet gevonden in bericht-xml, neem contact op met leverancier.");
+        }
+        
         b.setBr_xml(bericht.getBrXml());
         b.setVolgordenummer(bericht.getVolgordeNummer());
 
