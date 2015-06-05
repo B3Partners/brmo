@@ -49,8 +49,8 @@ public class BerichtEndpointFileServlet extends HttpServlet {
         try {
             this.maxUploadSize = Integer.parseInt(this.getInitParameter(MAX_UPLOAD_SIZE)) * 1024;
         } catch (NumberFormatException nfe) {
-            this.maxUploadSize = 500 * 1024;
-            log.warn("De maximale upload size is ingesteld op 500KB (default).");
+            this.maxUploadSize = 25 * 1024 * 1024;
+            log.warn("De maximale upload size is ingesteld op 25 MB (default).");
         }
     }
 

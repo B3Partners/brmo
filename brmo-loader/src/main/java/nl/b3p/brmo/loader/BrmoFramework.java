@@ -13,6 +13,7 @@ import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.io.input.CountingInputStream;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -177,15 +178,15 @@ public class BrmoFramework {
                     };
                     zip = new ZipInputStream(zipCis);
                     ZipEntry entry = zip.getNextEntry();
-                    while(entry != null && !entry.getName().toLowerCase().endsWith(".xml")) {
-                        log.warn("Overslaan zip entry geen XML: " + entry.getName());
+                    while(entry != null) {
+                        if(!entry.getName().toLowerCase().endsWith(".xml")) {
+                            log.warn("Overslaan zip entry geen XML: " + entry.getName());
+                        } else {
+                            log.info("Lezen XML bestand uit zip: " + entry.getName());
+                            stagingProxy.loadBr(new CloseShieldInputStream(zip), type, fileName + "/" + entry.getName(), null);
+                        }
                         entry = zip.getNextEntry();
                     }
-                    if(entry == null) {
-                        throw new BrmoException("Geen geschikt XML bestand gevonden in zip bestand " + fileName);
-                    }
-                    log.info("Lezen XML bestand uit zip: " + entry.getName());
-                    stagingProxy.loadBr(zip, type, fileName, null);
                 } catch(Exception e) {
                     if(e instanceof BrmoException) {
                         throw e;

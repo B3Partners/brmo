@@ -3,13 +3,16 @@
 	<xsl:template match="/">
 		<root>
 			<data>
-				<!-- loop door bep:Nieuw elementen -->
-				<xsl:for-each select="//bep:Mutatie-product/bep:Nieuw">
-					<xsl:apply-templates select="."/>
-				</xsl:for-each>
-			</data>
+                <xsl:apply-templates select="*"/>
+            </data>
 		</root>
 	</xsl:template>
+    <xsl:template match="bep:Mutatie-product">
+        <!-- loop door bep:Nieuw elementen -->
+        <xsl:for-each select="bep:Nieuw">
+            <xsl:apply-templates select="."/>
+        </xsl:for-each>
+    </xsl:template>
 	<!-- Template Pand
 <bag:Pand>
 	<bag:identificatie>aaaaaaaaaaaaaaaa</bag:identificatie>
@@ -102,6 +105,37 @@
 </bag:Standplaats>
 -->
 	<xsl:template match="bag:Standplaats">
+		<xsl:variable name="bagid">
+			<xsl:value-of select="bag:identificatie"/>
+		</xsl:variable>
+		<xsl:variable name="begindate">
+			<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:begindatumTijdvakGeldigheid">
+				<xsl:call-template name="date-numeric"/>
+			</xsl:for-each>
+		</xsl:variable>        
+		<benoemd_obj>
+			<identif>
+				<xsl:value-of select="bag:identificatie"/>
+			</identif>
+			<clazz>STANDPLAATS</clazz>
+		</benoemd_obj> 
+		<benoemd_terrein>
+			<dat_beg_geldh>
+				<xsl:value-of select="$begindate"/>
+			</dat_beg_geldh>
+			<sc_identif>
+				<xsl:value-of select="$bagid"/>
+			</sc_identif>
+			<clazz>STANDPLAATS</clazz>
+			<geom>
+				<xsl:copy-of select="bag:standplaatsGeometrie/gml:Polygon"/>
+			</geom>
+			<datum_einde_geldh>
+				<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:einddatumTijdvakGeldigheid">
+					<xsl:call-template name="date-numeric"/>
+				</xsl:for-each>
+			</datum_einde_geldh>
+		</benoemd_terrein>                 
 		<standplaats>
 			<sc_identif>
 				<xsl:value-of select="bag:identificatie"/>
@@ -116,22 +150,6 @@
 				<xsl:value-of select="bag:gerelateerdeAdressen/bag:hoofdadres"/>
 			</fk_4nra_sc_identif>
 		</standplaats>
-		<benoemd_obj>
-			<sc_identif>
-				<xsl:value-of select="bag:identificatie"/>
-			</sc_identif>
-			<clazz>
-				<xsl:value-of select="'standplaats'"/>
-			</clazz>
-		</benoemd_obj>
-		<xsl:variable name="bagid">
-			<xsl:value-of select="bag:identificatie"/>
-		</xsl:variable>
-		<xsl:variable name="begindate">
-			<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:begindatumTijdvakGeldigheid">
-				<xsl:call-template name="date-numeric"/>
-			</xsl:for-each>
-		</xsl:variable>
 		<xsl:for-each select="bag:gerelateerdeAdressen/bag:nevenadres">
 			<standplaats_nummeraand>
 				<fk_nn_lh_spl_sc_identif>
@@ -145,26 +163,6 @@
 				</fk_nn_rh_nra_sc_identif>
 			</standplaats_nummeraand>
 		</xsl:for-each>
-		<benoemd_terrein>
-			<dat_beg_geldh>
-				<xsl:value-of select="$begindate"/>
-			</dat_beg_geldh>
-			<sc_identif>
-				<xsl:value-of select="$bagid"/>
-			</sc_identif>
-			<clazz>
-				<xsl:value-of select="'standplaats'"/>
-			</clazz>
-			<geom>
-				<xsl:copy-of select="bag:standplaatsGeometrie/gml:Polygon"/>
-			</geom>
-			<datum_einde_geldh>
-				<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:einddatumTijdvakGeldigheid">
-					<xsl:call-template name="date-numeric"/>
-				</xsl:for-each>
-			</datum_einde_geldh>
-			<geom/>
-		</benoemd_terrein>
 		<brondocument ignore-duplicates="yes">
 			<tabel>
 				<xsl:value-of select="'standplaats'"/>
@@ -207,6 +205,35 @@
 </bag:Ligplaats>
 -->
 	<xsl:template match="bag:Ligplaats">
+		<xsl:variable name="bagid">
+			<xsl:value-of select="bag:identificatie"/>
+		</xsl:variable>
+		<xsl:variable name="begindate">
+			<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:begindatumTijdvakGeldigheid">
+				<xsl:call-template name="date-numeric"/>
+			</xsl:for-each>
+		</xsl:variable>        
+		<benoemd_obj>
+			<identif>
+				<xsl:value-of select="bag:identificatie"/>
+			</identif>
+			<clazz>LIGPLAATS</clazz>
+		</benoemd_obj>    
+		<benoemd_terrein>
+			<dat_beg_geldh>
+				<xsl:value-of select="$begindate"/>
+			</dat_beg_geldh>
+			<sc_identif>
+				<xsl:value-of select="$bagid"/>
+			</sc_identif>
+			<clazz>LIGPLAATS</clazz>
+			<geom>
+				<xsl:copy-of select="bag:ligplaatsGeometrie/gml:Polygon"/>
+			</geom>
+			<datum_einde_geldh>
+				<xsl:value-of select="bag:tijdvakgeldigheid/bagtype:einddatumTijdvakGeldigheid"/>
+			</datum_einde_geldh>
+		</benoemd_terrein>            
 		<ligplaats>
 			<sc_identif>
 				<xsl:value-of select="bag:identificatie"/>
@@ -221,22 +248,6 @@
 				<xsl:value-of select="bag:gerelateerdeAdressen/bag:hoofdadres"/>
 			</fk_4nra_sc_identif>
 		</ligplaats>
-		<benoemd_obj>
-			<sc_identif>
-				<xsl:value-of select="bag:identificatie"/>
-			</sc_identif>
-			<clazz>
-				<xsl:value-of select="'ligplaats'"/>
-			</clazz>
-		</benoemd_obj>
-		<xsl:variable name="bagid">
-			<xsl:value-of select="bag:identificatie"/>
-		</xsl:variable>
-		<xsl:variable name="begindate">
-			<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:begindatumTijdvakGeldigheid">
-				<xsl:call-template name="date-numeric"/>
-			</xsl:for-each>
-		</xsl:variable>
 		<xsl:for-each select="bag:gerelateerdeAdressen/bag:nevenadres">
 			<standplaats_nummeraand>
 				<fk_nn_lh_lpl_sc_identif>
@@ -250,24 +261,6 @@
 				</fk_nn_rh_nra_sc_identif>
 			</standplaats_nummeraand>
 		</xsl:for-each>
-		<benoemd_terrein>
-			<dat_beg_geldh>
-				<xsl:value-of select="$begindate"/>
-			</dat_beg_geldh>
-			<sc_identif>
-				<xsl:value-of select="$bagid"/>
-			</sc_identif>
-			<clazz>
-				<xsl:value-of select="'standplaats'"/>
-			</clazz>
-			<geom>
-				<xsl:copy-of select="bag:standplaatsGeometrie/gml:Polygon"/>
-			</geom>
-			<datum_einde_geldh>
-				<xsl:value-of select="bag:tijdvakgeldigheid/bagtype:einddatumTijdvakGeldigheid"/>
-			</datum_einde_geldh>
-			<geom/>
-		</benoemd_terrein>
 		<brondocument ignore-duplicates="yes">
 			<tabel>
 				<xsl:value-of select="'ligplaats'"/>
@@ -315,6 +308,40 @@
 </bag:Nummeraanduiding>
 -->
 	<xsl:template match="bag:Nummeraanduiding">
+		<addresseerb_obj_aand>
+			<dat_beg_geldh>
+				<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:einddatumTijdvakGeldigheid">
+					<xsl:call-template name="date-numeric"/>
+				</xsl:for-each>
+			</dat_beg_geldh>
+			<identif>
+				<xsl:value-of select="bag:identificatie"/>
+			</identif>
+			<clazz>NUMMERAANDUIDING</clazz>
+			<dat_eind_geldh>
+				<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:einddatumTijdvakGeldigheid">
+					<xsl:call-template name="date-numeric"/>
+				</xsl:for-each>
+			</dat_eind_geldh>
+			<huisletter>
+				<xsl:value-of select="bag:huisletter"/>
+			</huisletter>
+			<huinummer>
+				<xsl:value-of select="bag:huisnummer"/>
+			</huinummer>
+			<huinummertoevoeging>
+				<xsl:value-of select="bag:huisnummertoevoeging"/>
+			</huinummertoevoeging>
+			<postcode>
+				<xsl:value-of select="bag:postcode"/>
+			</postcode>
+			<fk_6wpl_identif>
+				<xsl:value-of select="bag:gerelateerdeWoonplaats/bag:identificatie"/>
+			</fk_6wpl_identif>
+			<fk_7opr_identifcode>
+				<xsl:value-of select="bag:gerelateerdeOpenbareRuimte/bag:identificatie"/>
+			</fk_7opr_identifcode>
+		</addresseerb_obj_aand>        
 		<nummeraand>
 			<sc_identif>
 				<xsl:value-of select="bag:identificatie"/>
@@ -329,42 +356,6 @@
 				<xsl:value-of select="bag:nummeraanduidingStatus"/>
 			</status>
 		</nummeraand>
-		<addresseerb_obj_aand>
-			<dat_beg_geldh>
-				<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:einddatumTijdvakGeldigheid">
-					<xsl:call-template name="date-numeric"/>
-				</xsl:for-each>
-			</dat_beg_geldh>
-			<identif>
-				<xsl:value-of select="bag:identificatie"/>
-			</identif>
-			<clazz>
-				<xsl:value-of select="'nummeraand'"/>
-			</clazz>
-			<dat_eind_geldh>
-				<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:einddatumTijdvakGeldigheid">
-					<xsl:call-template name="date-numeric"/>
-				</xsl:for-each>
-			</dat_eind_geldh>
-			<huisletter>
-				<xsl:value-of select="bag:huisletter"/>
-			</huisletter>
-			<huinummer>
-				<xsl:value-of select="bag:huisletter"/>
-			</huinummer>
-			<huinummertoevoeging>
-				<xsl:value-of select="bag:huisnummertoevoeging"/>
-			</huinummertoevoeging>
-			<postcode>
-				<xsl:value-of select="bag:postcode"/>
-			</postcode>
-			<fk_6wpl_identif>
-				<xsl:value-of select="bag:gerelateerdeWoonplaats/bag:identificatie"/>
-			</fk_6wpl_identif>
-			<fk_7opr_identifcode>
-				<xsl:value-of select="bag:gerelateerdeOpenbareRuimte/bag:identificatie"/>
-			</fk_7opr_identifcode>
-		</addresseerb_obj_aand>
 		<brondocument ignore-duplicates="yes">
 			<tabel>
 				<xsl:value-of select="'nummeraand'"/>
@@ -423,19 +414,13 @@
 			<naam>
 				<xsl:value-of select="bag:woonplaatsNaam"/>
 			</naam>
-			<naam_nen>
-				<xsl:value-of select="bag:woonplaatsNaam"/>
-			</naam_nen>
 			<geom>
-				<xsl:copy-of select="bag:standplaatsGeometrie/gml:Polygon"/>
+				<xsl:copy-of select="bag:woonplaatsGeometrie/gml:Polygon"/>
 			</geom>
 			<status>
 				<xsl:value-of select="bag:woonplaatsStatus"/>
 			</status>
-			<fk_7gem_code>
-				<xsl:value-of select="'via omrekentabel'"/>
-			</fk_7gem_code>
-			<geom/>
+			<fk_7gem_code/> <!-- via 05_update_wnplts_gemcode.sql -->
 		</wnplts>
 		<brondocument ignore-duplicates="yes">
 			<tabel>
@@ -484,6 +469,34 @@
 </bag:Verblijfsobject>
 -->
 	<xsl:template match="bag:Verblijfsobject">
+		<benoemd_obj>
+			<identif>
+				<xsl:value-of select="bag:identificatie"/>
+			</identif>
+			<clazz>VERBLIJFSOBJECT</clazz>
+		</benoemd_obj>        
+		<gebouwd_obj>
+			<dat_beg_geldh>
+				<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:begindatumTijdvakGeldigheid">
+					<xsl:call-template name="date-numeric"/>
+				</xsl:for-each>
+			</dat_beg_geldh>
+			<sc_identif>
+				<xsl:value-of select="bag:identificatie"/>
+			</sc_identif>
+			<clazz>VERBLIJFSOBJECT</clazz>
+			<datum_einde_geldh>
+				<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:einddatumTijdvakGeldigheid">
+					<xsl:call-template name="date-numeric"/>
+				</xsl:for-each>
+			</datum_einde_geldh>
+			<oppervlakte_obj>
+				<xsl:value-of select="bag:oppervlakteVerblijfsobject"/>
+			</oppervlakte_obj>
+			<puntgeom>
+				<xsl:copy-of select="bag:verblijfsobjectGeometrie/gml:Point"/>
+			</puntgeom>
+		</gebouwd_obj>
 		<verblijfsobj>
 			<sc_identif>
 				<xsl:value-of select="bag:identificatie"/>
@@ -497,47 +510,15 @@
 			<fk_11nra_sc_identif>
 				<xsl:value-of select="bag:gerelateerdeAdressen/bag:hoofdadres"/>
 			</fk_11nra_sc_identif>
-		</verblijfsobj>
-		<gebouwd_obj>
-			<dat_beg_geldh>
-				<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:begindatumTijdvakGeldigheid">
-					<xsl:call-template name="date-numeric"/>
-				</xsl:for-each>
-			</dat_beg_geldh>
-			<sc_identif>
-				<xsl:value-of select="bag:identificatie"/>
-			</sc_identif>
-			<clazz>
-				<xsl:value-of select="'verblijfsobject'"/>
-			</clazz>
-			<datum_einde_geldh>
-				<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:einddatumTijdvakGeldigheid">
-					<xsl:call-template name="date-numeric"/>
-				</xsl:for-each>
-			</datum_einde_geldh>
-			<oppervlakte_obj>
-				<xsl:value-of select="bag:oppervlakteVerblijfsobject"/>
-			</oppervlakte_obj>
-			<puntgeom>
-				<xsl:copy-of select="bag:verblijfsobjectGeometrie/gml:Point"/>
-			</puntgeom>
-		</gebouwd_obj>
-                <gebouwd_obj_gebruiksdoel>
-                    <gebruiksdoel_gebouwd_obj>
-                        <xsl:value-of select="bag:gebruiksdoelVerblijfsobject"/>
-                    </gebruiksdoel_gebouwd_obj>
-                    <fk_gbo_sc_identif>
-                        <xsl:value-of select="bag:identificatie"/>
-                    </fk_gbo_sc_identif>
-                </gebouwd_obj_gebruiksdoel>
-		<benoemd_obj>
-			<sc_identif>
-				<xsl:value-of select="bag:identificatie"/>
-			</sc_identif>
-			<clazz>
-				<xsl:value-of select="'verblijfsobject'"/>
-			</clazz>
-		</benoemd_obj>
+		</verblijfsobj>        
+        <gebouwd_obj_gebruiksdoel>
+            <gebruiksdoel_gebouwd_obj>
+                <xsl:value-of select="bag:gebruiksdoelVerblijfsobject"/>
+            </gebruiksdoel_gebouwd_obj>
+            <fk_gbo_sc_identif>
+                <xsl:value-of select="bag:identificatie"/>
+            </fk_gbo_sc_identif>
+        </gebouwd_obj_gebruiksdoel>
 		<xsl:variable name="bagid">
 			<xsl:value-of select="bag:identificatie"/>
 		</xsl:variable>
@@ -643,9 +624,6 @@
 			<type_openb_rmte>
 				<xsl:value-of select="bag:openbareRuimteType"/>
 			</type_openb_rmte>
-			<fk_7gem_code>
-				<xsl:value-of select="bag:gerelateerdeWoonplaats/bag:identificatie"/>
-			</fk_7gem_code>
 		</gem_openb_rmte>
 		<openb_rmte>
 			<identifcode>

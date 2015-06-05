@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.ElementCollection;
@@ -127,7 +126,7 @@ public abstract class AutomatischProces implements Serializable {
      * @param line toe te voegen regel
      */
     public void addLogLine(String line) {
-        this.setLogfile(this.getLogfile() + LOG_NEWLINE + line);
+        //this.setLogfile(this.getLogfile() + LOG_NEWLINE + line);
     }
 
     // <editor-fold defaultstate="collapsed" desc="getters and setters">

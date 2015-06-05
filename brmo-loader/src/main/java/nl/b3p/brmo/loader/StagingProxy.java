@@ -24,10 +24,11 @@ import nl.b3p.brmo.loader.pipeline.BerichtWorkUnit;
 import nl.b3p.brmo.loader.pipeline.UpdateResultPipeline;
 import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
 import nl.b3p.brmo.loader.util.TableData;
-import nl.b3p.brmo.loader.xml.BagMutatieXMLReader;
+import nl.b3p.brmo.loader.xml.BagXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.BrmoXMLReader;
 import org.apache.commons.dbutils.DbUtils;
@@ -354,7 +355,7 @@ public class StagingProxy {
         return berichten;
     }
 */
-    
+
     public void updateBerichtenDbXml(List<Bericht> berichten, RsgbTransformer transformer) throws SQLException, SAXException, IOException, TransformerException  {
         for (Bericht ber : berichten) {
             Split split = SimonManager.getStopwatch("b3p.staging.bericht.dbxml.transform").start();
@@ -486,9 +487,13 @@ public class StagingProxy {
         if (type.equals(BrmoFramework.BR_BRK)) {
             brmoXMLReader = new BrkSnapshotXMLReader(cis);
         } else if (type.equals(BrmoFramework.BR_BAG)) {
-            brmoXMLReader = new BagMutatieXMLReader(cis);
+            brmoXMLReader = new BagXMLReader(cis);
         } else {
             throw new UnsupportedOperationException("Ongeldige basisregistratie: " + type);
+        }
+
+        if (brmoXMLReader.getBestandsDatum()==null) {
+            throw new BrmoException("Header van bestand bevat geen datum, verkeerd formaat?");
         }
 
         LaadProces lp = new LaadProces();
@@ -504,9 +509,13 @@ public class StagingProxy {
         }
         lp = writeLaadProces(lp);
         boolean isBerichtGeschreven = false;
+
+        if(!brmoXMLReader.hasNext()) {
+            throw new BrmoLeegBestandException("Leeg bestand, geen berichten gevonden in "+ fileName);
+        }
+        int berichten = 0;
         while (brmoXMLReader.hasNext()) {
             Bericht b = null;
-            String prevObjectRef = null;
             try {
                 b = brmoXMLReader.next();
                 b.setLaadProcesId(lp.getId().intValue());
@@ -522,13 +531,16 @@ public class StagingProxy {
                 if (listener != null) {
                     listener.progress(cis.getByteCount());
                 }
-                prevObjectRef = b.getObjectRef();
+                berichten++;
             } catch (Exception e) {
                 log.error("Bericht mislukt vanwege " + e.getLocalizedMessage());
                 if(listener != null){
                     listener.exception(e);
                 }
             }
+        }
+        if(listener != null) {
+            listener.total(berichten);
         }
         if (!isBerichtGeschreven) {
             this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_DUPLICAAT);

@@ -10,6 +10,7 @@ import nl.b3p.brmo.persistence.staging.LaadProces;
 import com.sun.xml.ws.developer.JAXWSProperties;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -33,8 +34,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.net.ssl.HttpsURLConnection;
@@ -97,6 +96,10 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         this.config = config;
     }
 
+    public static Log getLog() {
+        return log;
+    }
+
     @Override
     public void execute() throws BrmoException {
         this.execute(new ProgressUpdateListener() {
@@ -119,6 +122,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
             @Override
             public void addLog(String log) {
+                GDS2OphalenProces.log.info(log);
             }
         });
     }
@@ -180,83 +184,197 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             }
 
             // datum tijd parsen/instellen
-            XMLGregorianCalendar vanaf = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("vanafdatum")));
-            XMLGregorianCalendar tot = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("totdatum")));
-            if (vanaf != null && tot != null) {
-                FilterDatumTijdType d = new FilterDatumTijdType();
-                d.setDatumTijdVanaf(vanaf);
-                d.setDatumTijdTot(tot);
-                l.addLog("Datum vanaf: " + vanaf);
-                l.addLog("Datum tot: " + tot);
-                this.config.addLogLine("Datum vanaf: " + vanaf);
-                this.config.addLogLine("Datum tot: " + tot);
-                criteria.setPeriode(d);
-                // forceer nog niet gerapporteerd
-                criteria.setNogNietGerapporteerd(false);
-            }
-            verzoekGb.setAfgifteSelectieCriteria(criteria);
+            GregorianCalendar vanaf = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("vanafdatum")));
+            GregorianCalendar tot = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("totdatum")));
 
-            Gds2AfgifteServiceV20130701 gds2 = initGDS2();
-            l.updateStatus("Uitvoeren SOAP request naar Kadaster...");
-            BestandenlijstGBOpvragenResponse responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
+            GregorianCalendar currentMoment = null;
+            boolean parseblePeriod = false;
+            int loopType = Calendar.DAY_OF_MONTH;
+            int loopMax = 180;
+            int loopNum = 0;
+            boolean reducePeriod = false;
+            boolean increasePeriod = false;
 
-            // opletten; in de xsd staat een default value van 'J' voor meerAfgiftesbeschikbaar
-            boolean hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
-            int aantalInAntwoord = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB().size();
-            // TODO
-            // voor tijds interval request
-            // als er meer afgiftes zijn of het aantal > 2000 moet het interval in twee gedeeld
-            // en de bestandenlijst request opnieuw net zolang tot dat niet meer het geval is
-            if (hasMore || aantalInAntwoord > 2000) {
-                // split periode
-                //criteria.getPeriode().setDatumTijdTot(nieuwe tot);
-                //criteria.getPeriode().setDatumTijdVanaf( nieuwe vanaf);
-                // responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
-                // opnieuw controle, evt. split, ...
+            if (vanaf != null && tot != null && vanaf.before(tot)) {
+                parseblePeriod = true;
+                currentMoment = vanaf;
             }
 
             // Mark denkt: misschien een Set<AfgifteGBType> van maken, dan zijn er geen duplicaten om te verwerken
             List<AfgifteGBType> afgiftesGb = new ArrayList<AfgifteGBType>();
-            afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB());
 
-            /*
-             Indicatie nog niet gerapporteerd:
-             Met deze indicatie wordt aangegeven of uitsluitend de nog niet
-             gerapporteerde bestanden moeten worden opgenomen in de lijst, of
-             dat alle beschikbare bestanden worden genoemd.
-             Niet gerapporteerd betekent in dit geval ‘niet eerder opgevraagd in
-             deze bestandenlijst’.
-             Als deze indicator wordt gebruikt, dan worden na terugmelding van de
-             bestandenlijst de bijbehorende bestanden gemarkeerd als zijnde
-             ‘gerapporteerd’ in het systeem van GDS.
-             */
-            int moreCount = 0;
-            String dontGetMoreConfig = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_niet_gerapporteerde_afgiftes_niet_ophalen"));
-            while (hasMore && !"true".equals(dontGetMoreConfig)) {
-                l.updateStatus("Uitvoeren SOAP request naar Kadaster voor meer afgiftes..." + moreCount++);
-                criteria.setNogNietGerapporteerd(true);
-                responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
+            Gds2AfgifteServiceV20130701 gds2 = initGDS2();
+            l.updateStatus("Uitvoeren SOAP request naar Kadaster...");
 
-                List<AfgifteGBType> afgiftes = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB();
-                for (AfgifteGBType t : afgiftes) {
-                    // lijst urls naar aparte logfile loggen
-                    if (t.getDigikoppelingExternalDatareferences() != null
-                            && t.getDigikoppelingExternalDatareferences().getDataReference() != null) {
-                        for (DataReference dr : t.getDigikoppelingExternalDatareferences().getDataReference()) {
-                            log.info("GSD2url: " + dr.getTransport().getLocation().getSenderUrl().getValue());
-                            break;
+            boolean morePeriods2Process = false;
+            do /* while morePeriods2Process is true */ {
+                l.addLog("\n*** start periode ***");
+                //zet periode in criteria indien gewenst
+                if (parseblePeriod) {
+                    //check of de periodeduur verkleind moet worden
+                    if (reducePeriod) {
+                        switch (loopType) {
+                            case Calendar.DAY_OF_MONTH:
+                                currentMoment.add(loopType, -1);
+                                loopType = Calendar.HOUR_OF_DAY;
+                                l.addLog("* Verklein loop periode naar uur");
+                                this.config.addLogLine("Verklein loop periode naar uur");
+                                break;
+                            case Calendar.HOUR_OF_DAY:
+                                currentMoment.add(loopType, -1);
+                                loopType = Calendar.MINUTE;
+                                l.addLog("* Verklein loop periode naar minuut");
+                                this.config.addLogLine("Verklein loop periode naar minuut");
+                                break;
+                            case Calendar.MINUTE:
+                            default:
+                                /*
+                                 * Hier kom je alleen als binnen een minuut meer
+                                 * dan 2000 berichten zijn aangamaakt en het
+                                 * vinkje ook "al rapporteerde berichten
+                                 * ophalen" staat aan.
+                                 */
+                                l.addLog("Niet alle gevraagde berichten zijn opgehaald");
+                                this.config.addLogLine("Niet alle gevraagde berichten zijn opgehaald");
                         }
+                        reducePeriod = false;
+                    }
+
+                    //check of de periodeduur vergroot moet worden
+                    if (increasePeriod) {
+                        switch (loopType) {
+                            case Calendar.HOUR_OF_DAY:
+                                loopType = Calendar.DAY_OF_MONTH;
+                                l.addLog("* Vergroot loop periode naar dag");
+                                this.config.addLogLine("Vergroot loop periode naar dag");
+                                break;
+                            case Calendar.MINUTE:
+                                loopType = Calendar.HOUR_OF_DAY;
+                                l.addLog("* Vergroot loop periode naar uur");
+                                this.config.addLogLine("Vergroot loop periode naar uur");
+                                break;
+                            case Calendar.DAY_OF_MONTH:
+                            default:
+                            //not possible
+                        }
+                        increasePeriod = false;
+                    }
+
+                    FilterDatumTijdType d = new FilterDatumTijdType();
+                    d.setDatumTijdVanaf(getXMLDatumTijd(currentMoment));
+                    l.addLog(String.format("Datum vanaf: %tc", currentMoment.getTime()));
+                    this.config.addLogLine(String.format("Datum vanaf: %tc", currentMoment.getTime()));
+                    currentMoment.add(loopType, 1);
+                    d.setDatumTijdTot(getXMLDatumTijd(currentMoment));
+                    l.addLog(String.format("Datum tot: %tc", currentMoment.getTime()));
+                    this.config.addLogLine(String.format("Datum tot: %tc", currentMoment.getTime()));
+                    criteria.setPeriode(d);
+
+                    switch (loopType) {
+                        case Calendar.HOUR_OF_DAY:
+                            //0-23
+                            if (currentMoment.get(loopType) == 0) {
+                                increasePeriod = true;
+                            }
+                            break;
+                        case Calendar.MINUTE:
+                            //0-59
+                            if (currentMoment.get(loopType) == 0) {
+                                increasePeriod = true;
+                            }
+                            break;
+                        case Calendar.DAY_OF_MONTH:
+                        default:
+                            //alleen dagen tellen, uur en minuut altijd helemaal
+                            loopNum++;
+                    }
+
+                    //bereken of einde van periode bereikt is
+                    if (currentMoment.before(tot) && loopNum < loopMax) {
+                        morePeriods2Process = true;
+                    } else {
+                        morePeriods2Process = false;
                     }
                 }
-                afgiftesGb.addAll(afgiftes);
-                hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
-                log.debug("Nog meer afgiftes? " + hasMore);
-            }
+
+                verzoekGb.setAfgifteSelectieCriteria(criteria);
+                BestandenlijstGBOpvragenResponse responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
+
+                int aantalInAntwoord = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB().size();
+                l.addLog("Aantal in antwoord: " + aantalInAntwoord);
+                this.config.addLogLine("Aantal in antwoord: " + aantalInAntwoord);
+                // opletten; in de xsd staat een default value van 'J' voor meerAfgiftesbeschikbaar
+                boolean hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
+                l.addLog("Meer afgiftes beschikbaar: " + hasMore);
+                this.config.addLogLine("Meer afgiftes beschikbaar: " + hasMore);
+
+                /*
+                 * Als "al gerapporteerde berichten" moeten worden opgehaald en
+                 * er zitten dan 2000 berichten in het antwoord dan heeft het
+                 * geen zin om meer keer de berichten op te halen, je krijgt
+                 * telkens dezelfde.
+                 */
+                if (hasMore && "true".equals(alGerapporteerd)) {
+                    reducePeriod = true;
+                    morePeriods2Process = true;
+                    // als er geen parsable periode is
+                    // (geen periode ingevuld en alGerapporteerd is true
+                    // dan moet morePeriods2Process false worden om een
+                    // eindloze while loop te voorkomen
+                    if (!parseblePeriod) {
+                        morePeriods2Process = false;
+                    } else {
+                        continue;
+                    }
+                }
+
+                afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB());
+
+                /*
+                 * Indicatie nog niet gerapporteerd: Met deze indicatie wordt
+                 * aangegeven of uitsluitend de nog niet gerapporteerde
+                 * bestanden moeten worden opgenomen in de lijst, of dat alle
+                 * beschikbare bestanden worden genoemd. Niet gerapporteerd
+                 * betekent in dit geval ‘niet eerder opgevraagd in deze
+                 * bestandenlijst’. Als deze indicator wordt gebruikt, dan
+                 * worden na terugmelding van de bestandenlijst de bijbehorende
+                 * bestanden gemarkeerd als zijnde ‘gerapporteerd’ in het
+                 * systeem van GDS.
+                 */
+                int moreCount = 0;
+                String dontGetMoreConfig = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_niet_gerapporteerde_afgiftes_niet_ophalen"));
+
+                while (hasMore && !"true".equals(dontGetMoreConfig)) {
+                    l.updateStatus("Uitvoeren SOAP request naar Kadaster voor meer afgiftes..." + moreCount++);
+                    criteria.setNogNietGerapporteerd(true);
+                    responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
+
+                    List<AfgifteGBType> afgiftes = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB();
+                    for (AfgifteGBType t : afgiftes) {
+                        // lijst urls naar aparte logfile loggen
+                        if (t.getDigikoppelingExternalDatareferences() != null
+                                && t.getDigikoppelingExternalDatareferences().getDataReference() != null) {
+                            for (DataReference dr : t.getDigikoppelingExternalDatareferences().getDataReference()) {
+                                log.info("GSD2url: " + dr.getTransport().getLocation().getSenderUrl().getValue());
+                                break;
+                            }
+                        }
+                    }
+                    afgiftesGb.addAll(afgiftes);
+                    aantalInAntwoord = afgiftes.size();
+                    l.addLog("Aantal in antwoord: " + aantalInAntwoord);
+                    this.config.addLogLine("Aantal in antwoord: " + aantalInAntwoord);
+                    hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
+                    l.addLog("Nog meer afgiftes beschikbaar: " + hasMore);
+                    this.config.addLogLine("Nog meer afgiftes beschikbaar: " + hasMore);
+                }
+
+            } while (morePeriods2Process);
 
             l.total(afgiftesGb.size());
             config.addLogLine("Totaal aantal opgehaalde berichten: " + afgiftesGb.size());
 
-            verwerkAfgiftes(responseGb, afgiftesGb);
+            verwerkAfgiftes(afgiftesGb);
 
         } catch (Exception e) {
             log.error("Fout bij ophalen van GDS2 berichten", e);
@@ -274,7 +392,11 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 // XXX bij rollback only wordt status niet naar ERROR gezet vanwege
                 // rollback, zou in aparte transactie moeten
                 Stripersist.getEntityManager().getTransaction().rollback();
+            } else {
+                Stripersist.getEntityManager().merge(this.config);
+                Stripersist.getEntityManager().getTransaction().commit();
             }
+            l.updateStatus("Uitvoeren SOAP request naar Kadaster afgerond");
         }
     }
 
@@ -342,7 +464,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         b.setLaadprocesid(lp);
         b.setDatum(lp.getBestand_datum());
         b.setSoort("brk");
-        b.setStatus(Bericht.STATUS.STAGING_OK);
         b.setStatus_datum(new Date());
 
         ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(bos.toByteArray()));
@@ -361,15 +482,37 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         }
         b.setBr_orgineel_xml(IOUtils.toString(zip, "UTF-8"));
 
+        if (log.isDebugEnabled()) {
+            // dump xml bestand naar /tmp/ voordat de xml wordt geparsed
+            String fName = "/tmp/" + lp.getBestand_naam() + ".xml";
+            log.debug("Dump xml bericht naar: " + fName);
+            IOUtils.write(b.getBr_orgineel_xml(), new FileWriter(fName));
+        }
+
         BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes("UTF-8")));
         BrkBericht bericht = reader.next();
-        b.setObject_ref(bericht.getObjectRef());
+        
+        //Als objectRef niet opgehaald kan worden,dan kan het
+        //bericht niet verwerkt worden.
+        String objectRef = bericht.getObjectRef();
+        if (objectRef!=null && !objectRef.isEmpty()) {
+            b.setObject_ref(bericht.getObjectRef());
+            b.setStatus(Bericht.STATUS.STAGING_OK);
+            b.setOpmerking("Klaar voor verwerking.");
+        } else {
+            b.setStatus(Bericht.STATUS.STAGING_NOK);
+            b.setOpmerking("Object Ref niet gevonden in bericht-xml, neem contact op met leverancier.");
+        }
+        
         b.setBr_xml(bericht.getBrXml());
         b.setVolgordenummer(bericht.getVolgordeNummer());
 
         Stripersist.getEntityManager().persist(lp);
         Stripersist.getEntityManager().persist(b);
+        Stripersist.getEntityManager().merge(this.config);
+        Stripersist.getEntityManager().flush();
         Stripersist.getEntityManager().getTransaction().commit();
+        Stripersist.getEntityManager().clear();
         return b;
     }
 
@@ -426,7 +569,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
      * @param dateStr datum in dd-MM-yyyy formaat
      * @return datum of null in geval van een parse fout
      */
-    private XMLGregorianCalendar getDatumTijd(String dateStr) {
+    private GregorianCalendar getDatumTijd(String dateStr) {
         if (dateStr == null) {
             return null;
         }
@@ -443,9 +586,15 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             }
         }
 
+        GregorianCalendar gregory = new GregorianCalendar();
+        gregory.setTime(date);
+
+        return gregory;
+    }
+
+    private XMLGregorianCalendar getXMLDatumTijd(GregorianCalendar gregory) {
         try {
-            GregorianCalendar gregory = new GregorianCalendar();
-            gregory.setTime(date);
+
             return DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory);
         } catch (DatatypeConfigurationException ex) {
             log.error(ex);
@@ -460,7 +609,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
      * @param afgiftesGb
      * @throws Exception
      */
-    private void verwerkAfgiftes(BestandenlijstGBOpvragenResponse responseGb, List<AfgifteGBType> afgiftesGb) throws Exception {
+    private void verwerkAfgiftes(List<AfgifteGBType> afgiftesGb) throws Exception {
         int filterAlVerwerkt = 0;
         int aantalGeladen = 0;
         int progress = 0;
@@ -489,9 +638,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             l.progress(++progress);
         }
 
-        l.addLog("Meer afgiftes beschikbaar: " + responseGb.getAntwoord().getMeerAfgiftesbeschikbaar());
-        this.config.addLogLine("Meer afgiftes beschikbaar: " + responseGb.getAntwoord().getMeerAfgiftesbeschikbaar());
-
         String doorsturenUrl = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
         if (doorsturenUrl != null && !geladenBerichten.isEmpty()) {
             for (Bericht b : geladenBerichten) {
@@ -509,7 +655,12 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);
         this.config.setLastrun(new Date());
         Stripersist.getEntityManager().merge(this.config);
+        // om geheugen problemen te vookomen bij runs met veel downloads en berichten
+        // een flush/commit/clear forceren
+        Stripersist.getEntityManager().flush();
         Stripersist.getEntityManager().getTransaction().commit();
+        Stripersist.getEntityManager().clear();
+
     }
 
     private Gds2AfgifteServiceV20130701 initGDS2() throws Exception {

@@ -3,39 +3,50 @@
     <display-name>brmo-proxyservices</display-name>
     <description/>
     <servlet>
-        <servlet-name>BRKBerichtEndpointServlet</servlet-name>
+        <servlet-name>BRK_file</servlet-name>
         <servlet-class>nl.b3p.brmo.service.proxy.BerichtEndpointFileServlet</servlet-class>
         <init-param>
             <param-name>save_dir</param-name>
-            <param-value>/tmp/brk/</param-value>
+            <param-value>/var/opt/brmo/brk/</param-value>
             <description>directory waar bestande tercht komen</description>
-        </init-param>
-        <init-param>
-            <param-name>max_upload_size</param-name>
-            <param-value>500</param-value>
-            <description>max upload size in KB</description>
         </init-param>
     </servlet>
     <servlet>
-        <servlet-name>BerichtEndpointProxyServlet</servlet-name>
-        <servlet-class>nl.b3p.brmo.service.proxy.BerichtEndpointProxyServlet</servlet-class>
-                <init-param>
-            <param-name>max_upload_size</param-name>
-            <param-value>500</param-value>
-            <description>max upload size in KB</description>
+        <servlet-name>BAG_file</servlet-name>
+        <servlet-class>nl.b3p.brmo.service.proxy.BerichtEndpointFileServlet</servlet-class>
+        <init-param>
+            <param-name>save_dir</param-name>
+            <param-value>/var/opt/brmo/bag</param-value>
+            <description>directory waar bestande tercht komen</description>
         </init-param>
-         <init-param>
+    </servlet>    
+    <servlet>
+        <servlet-name>BRK_proxy</servlet-name>
+        <servlet-class>nl.b3p.brmo.service.proxy.BerichtEndpointProxyServlet</servlet-class>
+        <init-param>
             <param-name>proxy_for_url</param-name>
             <param-value>http://localhost:8084/brmo-service/post/brk</param-value>
             <description>BRMO endpoint waarnaartoe door-gepost wordt</description>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>BAG_proxy</servlet-name>
+        <servlet-class>nl.b3p.brmo.service.proxy.BerichtEndpointProxyServlet</servlet-class>
+        <init-param>
+            <param-name>proxy_for_url</param-name>
+            <param-value>http://localhost:8084/brmo-service/post/bag</param-value>
+            <description>BRMO endpoint waarnaartoe door-gepost wordt</description>
+        </init-param>
+    </servlet>    
+    
     <servlet-mapping>
-        <servlet-name>BRKBerichtEndpointServlet</servlet-name>
-        <url-pattern>/brkbericht</url-pattern>
+        <servlet-name>BRK_file</servlet-name>
+        <!--servlet-name>BRK_proxy</servlet-name-->
+        <url-pattern>/post/brk</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>BerichtEndpointProxyServlet</servlet-name>
-        <url-pattern>/brkproxy</url-pattern>
-    </servlet-mapping>
+        <servlet-name>BAG_file</servlet-name>
+        <!--servlet-name>BAG_proxy</servlet-name-->
+        <url-pattern>/post/bag</url-pattern>
+    </servlet-mapping>       
 </web-app>

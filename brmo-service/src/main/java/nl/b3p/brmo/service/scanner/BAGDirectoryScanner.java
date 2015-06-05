@@ -11,6 +11,7 @@ import java.util.Date;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
@@ -56,7 +57,7 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
 
                 // validatie van de directories, kunnen we lezen/bladeren en evt. schrijven?
                 final File scanDirectory = new File(this.config.getScanDirectory());
-                if (!scanDirectory.isDirectory() || !scanDirectory.canExecute() || !scanDirectory.canWrite()) {
+                if (!scanDirectory.isDirectory() || !scanDirectory.canExecute()) {
                     config.setStatus(ERROR);
                     config.addLogLine(String.format("FOUT: De scan directory '%s' is geen executable directory", scanDirectory));
                     config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
@@ -76,6 +77,13 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                         this.active = false;
                         throw new BrmoException(String.format("De archief directory '%s' is geen beschrijfbare directory", archiefDirectory));
                     }
+                    if (!scanDirectory.canWrite()) {
+                        config.setStatus(ERROR);
+                        config.addLogLine(String.format("FOUT: De scan directory '%s' is geen beschrijfbare directory", scanDirectory));
+                        config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
+                        this.active = false;
+                        throw new BrmoException(String.format("De scan directory '%s' is geen beschrijfbare directory", scanDirectory));
+                    }
                 }
 
                 File files[] = scanDirectory.listFiles();
@@ -91,15 +99,22 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                         log.info(msg);
                         sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                     } else {
+                        // TODO gebruik JPA
                         try {
                             // 1: laadt in staging.
-                            // TODO gebruik JPA
                             BrmoFramework brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
                             brmo.loadFromFile(BrmoFramework.BR_BAG, f.getAbsolutePath());
                             msg = String.format("Bestand %s is geladen.", f);
                             log.info(msg);
                             sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
-
+                        } catch (BrmoDuplicaatLaadprocesException duplicaat) {
+                            log.info(duplicaat.getLocalizedMessage());
+                            sb.append(duplicaat.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
+                        } catch (BrmoLeegBestandException leegEx) {
+                            // log message maar ga door met verwerking, om een "leeg" bestand bericht/laadproces over te slaan
+                            log.warn(leegEx.getLocalizedMessage());
+                            sb.append(leegEx.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
+                        } finally {
                             if (isArchiving) {
                                 // 2: verplaats naar archief (NB mogelijk platform afhankelijk)
                                 f.renameTo(new File(archiefDirectory, f.getName()));
@@ -107,8 +122,6 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                                 log.info(msg);
                                 sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                             }
-                        } catch (BrmoDuplicaatLaadprocesException duplicaat) {
-                            log.info(duplicaat.getLocalizedMessage());
                         }
                     }
                 }
@@ -121,13 +134,15 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                 config.setLastrun(new Date());
 
                 break;
+
             default:
                 log.warn(String.format("De BAG scanner met ID %d is niet gestart vanwege de status %s.", config.getId(), config.getStatus()));
         }
     }
 
     @Override
-    public void execute(ProgressUpdateListener listener) {
+    public void execute(ProgressUpdateListener listener
+    ) {
         try {
             this.execute();
         } catch (BrmoException ex) {

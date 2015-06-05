@@ -29,7 +29,7 @@
     <td><stripes:text name="proces.cronExpressie"/></td>
 </tr>
 <tr>
-    <td>datum vanaf (dd-MM-yyyy formaat, al gerapporteerde afgiftes worden ook opgehaald)</td>
+    <td>datum vanaf (dd-MM-yyyy formaat)</td>
     <td><stripes:text name="config['vanafdatum']"/></td>
 </tr>
 <tr>
