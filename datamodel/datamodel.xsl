@@ -37,6 +37,7 @@
 				<script>brk_views.sql</script>
 				<script>brondocument_indices.sql</script>
 				<script>appartements_rechten.sql</script>
+				<script>gebruiksdoel_primary_key.sql</script>
 			</extra-scripts>		
 		</schema>
 	</xsl:template>
