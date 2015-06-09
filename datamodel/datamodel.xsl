@@ -38,6 +38,13 @@
 				<script>brondocument_indices.sql</script>
 				<script>appartements_rechten.sql</script>
 				<script>gebruiksdoel_primary_key.sql</script>
+				<script>insert_aard_recht_verkort.sql</script>
+				<script>insert_aard_verkregen_recht</script>
+				<!-- volgende scripts hebben nog geen geometrie
+				buurt en wijk hebben een alter script -->
+				<script>insert_buurt.sql</script>
+				<script>insert_wijk.sql</script>
+				<script>insert_gemeente.sql</script>
 			</extra-scripts>		
 		</schema>
 	</xsl:template>
