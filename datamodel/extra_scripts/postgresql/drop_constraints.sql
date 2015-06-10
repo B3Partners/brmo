@@ -3,7 +3,7 @@
 --zodat BAG verwijderd en weer opnieuw geladen kan worden
 alter table benoemd_obj_kad_onrrnd_zk drop constraint fk_tgo_koz_nn_lh;
 alter table ander_nat_prs drop constraint fk_anp_as_3;
-alter table bgr_terr_dl drop constraint fk_btd_as_8;
+alter table begr_terr_dl drop constraint fk_btd_as_8;
 alter table gem_openb_rmte drop constraint fk_gor_as_7;
 alter table huishouden drop constraint fk_hhd_as_7;
 alter table huishouden drop constraint fk_hhd_as_4;
