@@ -29,28 +29,22 @@
 			<xsl:call-template name="process-referentielijsten"/>
 			
 			<extra-scripts>
-				<script>metagegevens_brondocument.sql</script>
-				<script>woz_waarde.sql</script>
-				<script>drop_constraints.sql</script>
-				<script>herkomst_metadata.sql</script>
-				<script>bag_views.sql</script>
-				<script>brk_views.sql</script>
-				<script>brondocument_indices.sql</script>
-				<script>appartements_rechten.sql</script>
-				<script>gebruiksdoel_primary_key.sql</script>
-				<script>insert_aard_recht_verkort.sql</script>
-				<script>insert_aard_verkregen_recht</script>
-				<!-- volgende scripts hebben nog geen geometrie
+				<script>101_herkomst_metadata.sql</script>
+				<script>102_metagegevens_brondocument.sql</script>
+				<script>103_woz_waarde.sql</script>
+				<script>104_brondocument_indices.sql</script>
+				<script>105_appartements_rechten.sql</script>
+				<script>106_bag_views.sql</script>
+				<script>107_brk_views.sql</script>
+				<script>108_insert_aard_recht_verkort.sql</script>
+				<script>109_insert_aard_verkregen_recht</script>
+				<script>110_gebruiksdoel_primary_key.sql</script>
+				<!-- volgende scripts hebben nog geen geometrie,
 				buurt en wijk hebben een alter script -->
-				<script>insert_buurt.sql</script>
-				<script>insert_wijk.sql</script>
-				<script>insert_gemeente.sql</script>
-				<!-- de volgende views zijn speciaal voor/door
-				de provincies ontwikkeld -->
-				<!--script>00_drop_oude_views_v0.8_2015-06-10.sql</script -->
-				<script>01_create_pv_views_v0.8_2015-06-10.sql</script>
-				<script>02_create_pm_tables_v0.8_2015-06-10.sql</script>
-				<script>03_create_pv_map_infoviews_v0.8_2015-06-10.sql</script>
+				<script>111_insert_gemeente.sql</script>
+				<script>112_insert_buurt.sql</script>
+				<script>113_insert_wijk.sql</script>
+				<script>114_drop_constraints.sql</script>
 			</extra-scripts>		
 		</schema>
 	</xsl:template>
