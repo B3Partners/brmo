@@ -37,6 +37,20 @@
 				<script>brk_views.sql</script>
 				<script>brondocument_indices.sql</script>
 				<script>appartements_rechten.sql</script>
+				<script>gebruiksdoel_primary_key.sql</script>
+				<script>insert_aard_recht_verkort.sql</script>
+				<script>insert_aard_verkregen_recht</script>
+				<!-- volgende scripts hebben nog geen geometrie
+				buurt en wijk hebben een alter script -->
+				<script>insert_buurt.sql</script>
+				<script>insert_wijk.sql</script>
+				<script>insert_gemeente.sql</script>
+				<!-- de volgende views zijn speciaal voor/door
+				de provincies ontwikkeld -->
+				<!--script>00_drop_oude_views_v0.8_2015-06-10.sql</script -->
+				<script>01_create_pv_views_v0.8_2015-06-10.sql</script>
+				<script>02_create_pm_tables_v0.8_2015-06-10.sql</script>
+				<script>03_create_pv_map_infoviews_v0.8_2015-06-10.sql</script>
 			</extra-scripts>		
 		</schema>
 	</xsl:template>
