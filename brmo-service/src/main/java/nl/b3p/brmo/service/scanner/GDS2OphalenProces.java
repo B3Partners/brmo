@@ -491,7 +491,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
         BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes("UTF-8")));
         BrkBericht bericht = reader.next();
-        
+
         //Als objectRef niet opgehaald kan worden,dan kan het
         //bericht niet verwerkt worden.
         String objectRef = bericht.getObjectRef();
@@ -503,7 +503,10 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             b.setStatus(Bericht.STATUS.STAGING_NOK);
             b.setOpmerking("Object Ref niet gevonden in bericht-xml, neem contact op met leverancier.");
         }
-        
+
+        if(bericht.getDatum() != null) {
+            b.setDatum(bericht.getDatum());
+        }
         b.setBr_xml(bericht.getBrXml());
         b.setVolgordenummer(bericht.getVolgordeNummer());
 
