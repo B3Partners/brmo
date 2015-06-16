@@ -1,7 +1,7 @@
 INSERT INTO gemeente (code, naam) VALUES (1930, 'Nissewaard');
 INSERT INTO gemeente (code, naam) VALUES (1931, 'Krimpenerwaard');
 INSERT INTO gemeente (code, naam) VALUES (55, 'Boarnsterhim');
-INSERT INTO gemeente (code, naam) VALUES (51, 'Skarsterlân');
+INSERT INTO gemeente (code, naam) VALUES (51, 'SkarsterlÃ¢n');
 INSERT INTO gemeente (code, naam) VALUES (15, 'Grootegast');
 INSERT INTO gemeente (code, naam) VALUES (17, 'Haren');
 INSERT INTO gemeente (code, naam) VALUES (22, 'Leek');
@@ -81,7 +81,7 @@ INSERT INTO gemeente (code, naam) VALUES (140, 'Littenseradiel');
 INSERT INTO gemeente (code, naam) VALUES (1908, 'Menameradiel');
 INSERT INTO gemeente (code, naam) VALUES (88, 'Schiermonnikoog');
 INSERT INTO gemeente (code, naam) VALUES (90, 'Smallingerland');
-INSERT INTO gemeente (code, naam) VALUES (1900, 'Súdwest-Fryslân');
+INSERT INTO gemeente (code, naam) VALUES (1900, 'SÃºdwest-FryslÃ¢n');
 INSERT INTO gemeente (code, naam) VALUES (96, 'Vlieland');
 INSERT INTO gemeente (code, naam) VALUES (1680, 'Aa en Hunze');
 INSERT INTO gemeente (code, naam) VALUES (106, 'Assen');
