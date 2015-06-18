@@ -12,6 +12,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileWriter;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -489,26 +491,33 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             IOUtils.write(b.getBr_orgineel_xml(), new FileWriter(fName));
         }
 
-        BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes("UTF-8")));
-        BrkBericht bericht = reader.next();
+        try {
+            BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes("UTF-8")));
+            BrkBericht bericht = reader.next();
 
-        //Als objectRef niet opgehaald kan worden,dan kan het
-        //bericht niet verwerkt worden.
-        String objectRef = bericht.getObjectRef();
-        if (objectRef!=null && !objectRef.isEmpty()) {
-            b.setObject_ref(bericht.getObjectRef());
-            b.setStatus(Bericht.STATUS.STAGING_OK);
-            b.setOpmerking("Klaar voor verwerking.");
-        } else {
+            if(bericht.getDatum() != null) {
+                b.setDatum(bericht.getDatum());
+            }
+            b.setBr_xml(bericht.getBrXml());
+            b.setVolgordenummer(bericht.getVolgordeNummer());
+
+            //Als objectRef niet opgehaald kan worden,dan kan het
+            //bericht niet verwerkt worden.
+            String objectRef = bericht.getObjectRef();
+            if (objectRef!=null && !objectRef.isEmpty()) {
+                b.setObject_ref(bericht.getObjectRef());
+                b.setStatus(Bericht.STATUS.STAGING_OK);
+                b.setOpmerking("Klaar voor verwerking.");
+            } else {
+                b.setStatus(Bericht.STATUS.STAGING_NOK);
+                b.setOpmerking("Object Ref niet gevonden in bericht-xml, neem contact op met leverancier.");
+            }
+        } catch(Exception e) {
             b.setStatus(Bericht.STATUS.STAGING_NOK);
-            b.setOpmerking("Object Ref niet gevonden in bericht-xml, neem contact op met leverancier.");
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            b.setOpmerking("Fout bij parsen BRK bericht: " + sw.toString());
         }
-
-        if(bericht.getDatum() != null) {
-            b.setDatum(bericht.getDatum());
-        }
-        b.setBr_xml(bericht.getBrXml());
-        b.setVolgordenummer(bericht.getVolgordeNummer());
 
         Stripersist.getEntityManager().persist(lp);
         Stripersist.getEntityManager().persist(b);
