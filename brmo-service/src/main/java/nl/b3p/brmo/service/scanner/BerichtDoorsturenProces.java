@@ -90,6 +90,7 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
                         Bericht b = Stripersist.getEntityManager().find(Bericht.class, pkid);
                         if (GDS2OphalenProces.doorsturenBericht(proces, l, b, url)) {
                             doorgestuurd++;
+                            this.l.progress(doorgestuurd);
                         } else {
                             fouten++;
                         }
