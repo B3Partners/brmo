@@ -23,7 +23,7 @@ public class Bericht {
     private String xslVersion;
 
     public static enum STATUS {
-        STAGING_OK, STAGING_NOK, RSGB_WAITING, RSGB_PROCESSING, RSGB_OK, RSGB_OUTDATED, RSGB_NOK, ARCHIVE
+        STAGING_OK, STAGING_NOK, STAGING_FORWARDED, RSGB_WAITING, RSGB_PROCESSING, RSGB_OK, RSGB_OUTDATED, RSGB_NOK, ARCHIVE
     };
 
     public Bericht(String brXml) {
