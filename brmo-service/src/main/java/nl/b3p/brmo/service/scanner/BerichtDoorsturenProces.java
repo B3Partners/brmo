@@ -59,6 +59,7 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
             }
         });
     }
+
     @Override
     public void execute(ProgressUpdateListener listener) {
         this.l = listener;
@@ -67,28 +68,27 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
             l.updateStatus("Laden berichten...");
             this.config.setStatus(AutomatischProces.ProcessingStatus.PROCESSING);
 
-
             String id = ClobElement.nullSafeGet(config.getConfig().get("gds2_ophaalproces_id"));
             GDS2OphaalProces proces = Stripersist.getEntityManager().find(GDS2OphaalProces.class, Long.parseLong(id));
 
-            List berichten = Stripersist.getEntityManager().createQuery("select b from Bericht b join b.laadprocesid l where b.status in ('STAGING_OK', 'STAGING_NOK') and l.automatischProces = :proces")
+            List<Long> berichtIDs = Stripersist.getEntityManager().createQuery("select b.id from Bericht b join b.laadprocesid l where b.status in ('STAGING_OK', 'STAGING_NOK') and l.automatischProces = :proces")
                     .setParameter("proces", proces)
                     .getResultList();
 
-            if(berichten.isEmpty()) {
+            if (berichtIDs.isEmpty()) {
                 this.config.setSamenvatting("Geen berichten om door te sturen");
             } else {
-                this.l.total(berichten.size());
+                this.l.total(berichtIDs.size());
 
                 String url = ClobElement.nullSafeGet(proces.getConfig().get("delivery_endpoint"));
 
-                if(url == null) {
+                if (url == null) {
                     this.config.setSamenvatting("GDS2 ophaal proces heeft geen afleveringsendpoint");
                 } else {
                     int doorgestuurd = 0, fouten = 0;
-                    for(Object o: berichten) {
-                        Bericht b = (Bericht)o;
-                        if(GDS2OphalenProces.doorsturenBericht(proces, l, (Bericht)b, url)) {
+                    for (Long pkid : berichtIDs) {
+                        Bericht b = Stripersist.getEntityManager().find(Bericht.class, pkid);
+                        if (GDS2OphalenProces.doorsturenBericht(proces, l, b, url)) {
                             doorgestuurd++;
                         } else {
                             fouten++;
@@ -109,7 +109,7 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
             this.config.setStatus(AutomatischProces.ProcessingStatus.ERROR);
             l.exception(e);
         } finally {
-            if(Stripersist.getEntityManager().getTransaction().getRollbackOnly()) {
+            if (Stripersist.getEntityManager().getTransaction().getRollbackOnly()) {
                 // XXX bij rollback only wordt status niet naar ERROR gezet vanwege
                 // rollback, zou in aparte transactie moeten
                 Stripersist.getEntityManager().getTransaction().rollback();
