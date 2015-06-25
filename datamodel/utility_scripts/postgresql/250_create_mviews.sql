@@ -1,5 +1,5 @@
 ﻿/*
-	materialized views, minimaal postgresel 9.3 vereist
+	materialized views, minimaal postgresql 9.3 vereist
 */
 
 create materialized view 			m_adres_totaal as select * from v_adres_totaal;

@@ -1,6 +1,6 @@
 /*
 Views for visualizing the BAG data.
-24-06-2015
+25-06-2015
 */
 -- DROP VIEWS
 DROP VIEW v_adres_totaal;
@@ -23,7 +23,8 @@ CREATE OR REPLACE VIEW
     (
         fid,
         pand_id,
-        gemeente_naam,
+        gemeente,
+        woonplaats,
         straatnaam,
         huisnummer,
         huisletter,
@@ -37,7 +38,8 @@ CREATE OR REPLACE VIEW
 SELECT
     vbo.sc_identif              AS fid,
     fkpand.fk_nn_rh_pnd_identif AS pand_id,
-    gem.naam                    AS gemeente_naam,
+    gem.naam                    AS gemeente,
+    wp.naam                    	AS woonplaats,
     geor.naam_openb_rmte        AS straatnaam,
     addrobj.huinummer						AS huisnummer,
     addrobj.huisletter,
@@ -114,7 +116,8 @@ CREATE OR REPLACE VIEW
     (
         fid,
         pand_id,
-        gemeente_naam,
+        gemeente,
+        woonplaats,
         straatnaam,
         huisnummer,
         huisletter,
@@ -128,7 +131,8 @@ CREATE OR REPLACE VIEW
 SELECT
     fid,
     pand_id,
-    gemeente_naam,
+    gemeente,
+    woonplaats,
     straatnaam,
     huisnummer,
     huisletter,
@@ -150,7 +154,8 @@ CREATE OR REPLACE VIEW
     (
         fid,
         pand_id,
-        gemeente_naam,
+        gemeente,
+        woonplaats,
         straatnaam,
         huisnummer,
         huisletter,
@@ -164,7 +169,8 @@ CREATE OR REPLACE VIEW
 SELECT
     fid,
     pand_id,
-    gemeente_naam,
+    gemeente,
+    woonplaats,
     straatnaam,
     huisnummer,
     huisletter,
@@ -294,6 +300,7 @@ CREATE OR REPLACE VIEW
     (
         fid,
         gemeente,
+        woonplaats,
         straatnaam,
         huisnummer,
         huisletter,
@@ -306,6 +313,7 @@ CREATE OR REPLACE VIEW
 SELECT
     vbo.sc_identif       AS fid,
     gem.naam             AS gemeente,
+    wp.naam              AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -369,6 +377,7 @@ CREATE VIEW
     (
         fid,
         gemeente,
+        woonplaats,
         straatnaam,
         huisnummer,
         huisletter,
@@ -381,6 +390,7 @@ CREATE VIEW
 SELECT
     lpa.sc_identif       AS fid,
     gem.naam             AS gemeente,
+    wp.naam              AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -442,6 +452,7 @@ CREATE VIEW
     (
         fid,
         gemeente,
+        woonplaats,
         straatnaam,
         huisnummer,
         huisletter,
@@ -454,6 +465,7 @@ CREATE VIEW
 SELECT
     spl.sc_identif       AS fid,
     gem.naam             AS gemeente,
+    wp.naam              AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -520,6 +532,7 @@ CREATE VIEW
         huisnummer_toev,
         postcode,
         gemeente,
+        woonplaats,
         the_geom
     ) AS
     (
@@ -531,6 +544,7 @@ CREATE VIEW
             huisnummer_toev,
             postcode,
             gemeente,
+        		woonplaats,
             the_geom
         FROM
             v_adres
@@ -543,6 +557,7 @@ CREATE VIEW
             huisnummer_toev,
             postcode,
             gemeente,
+        		woonplaats,
             centroide AS the_geom
         FROM
             v_adres_ligplaats
@@ -555,6 +570,7 @@ CREATE VIEW
             huisnummer_toev,
             postcode,
             gemeente,
+        		woonplaats,
             centroide AS the_geom
         FROM
             v_adres_standplaats
