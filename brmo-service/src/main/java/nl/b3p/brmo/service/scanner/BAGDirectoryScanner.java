@@ -100,9 +100,10 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                         sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                     } else {
                         // TODO gebruik JPA
+                        BrmoFramework brmo = null;
                         try {
                             // 1: laadt in staging.
-                            BrmoFramework brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
+                            brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
                             brmo.loadFromFile(BrmoFramework.BR_BAG, f.getAbsolutePath());
                             msg = String.format("Bestand %s is geladen.", f);
                             log.info(msg);
@@ -115,6 +116,9 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                             log.warn(leegEx.getLocalizedMessage());
                             sb.append(leegEx.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
                         } finally {
+                            if (brmo != null) {
+                                brmo.closeBrmoFramework();
+                            }
                             if (isArchiving) {
                                 // 2: verplaats naar archief (NB mogelijk platform afhankelijk)
                                 f.renameTo(new File(archiefDirectory, f.getName()));
