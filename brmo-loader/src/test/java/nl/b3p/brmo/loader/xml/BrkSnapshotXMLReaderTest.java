@@ -5,13 +5,12 @@
  */
 package nl.b3p.brmo.loader.xml;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import nl.b3p.brmo.loader.entity.BrkBericht;
-import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.input.CloseShieldInputStream;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assume.assumeNotNull;
@@ -124,9 +123,7 @@ public class BrkSnapshotXMLReaderTest {
         try {
             ZipEntry entry = zis.getNextEntry();
             while (entry != null) {
-                // brkreader met een byte[] voeden om voortijdig sluiten van de (zip)inputstream te voorkomen
-                byte[] xml = IOUtils.toByteArray(zis);
-                BrkSnapshotXMLReader brkreader = new BrkSnapshotXMLReader(new ByteArrayInputStream(xml));
+                BrkSnapshotXMLReader brkreader = new BrkSnapshotXMLReader(new CloseShieldInputStream(zis));
 
                 assertEquals("De bestandsnaam moet kloppen.", mutXmlsInZip[0], entry.getName());
                 while (brkreader.hasNext()) {
@@ -156,9 +153,7 @@ public class BrkSnapshotXMLReaderTest {
         try {
             ZipEntry entry = zis.getNextEntry();
             while (entry != null) {
-                // brkreader met een byte[] voeden om voortijdig sluiten van de (zip)inputstream te voorkomen
-                byte[] xml = IOUtils.toByteArray(zis);
-                BrkSnapshotXMLReader brkreader = new BrkSnapshotXMLReader(new ByteArrayInputStream(xml));
+                BrkSnapshotXMLReader brkreader = new BrkSnapshotXMLReader(new CloseShieldInputStream(zis));
 
                 assertEquals("De bestandsnaam moet kloppen.", standXmlsInZip[0], entry.getName());
                 while (brkreader.hasNext()) {
@@ -182,25 +177,5 @@ public class BrkSnapshotXMLReaderTest {
 //        BrkSnapshotXMLReader bReader;
 //        bReader = new BrkSnapshotXMLReader(BrkSnapshotXMLReader.class.getResourceAsStream(lvcEmpty));
 //        assertTrue(!bReader.hasNext());
-//    }
-//    /**
-//     * Test next() methode met leeg levering bestand.
-//     *
-//     * @throws Exception if any
-//     */
-//    @Test
-//    public void testLvcSmallXML() throws Exception {
-//        BrkSnapshotXMLReader bReader;
-//        bReader = new BrkSnapshotXMLReader(BrkSnapshotXMLReader.class.getResourceAsStream(lvcSmall));
-//        assertTrue(bReader.hasNext());
-//        BrkBericht brk = bReader.next();
-//        assertEquals("STA:0197200000050628", brk.getObjectRef());
-//        assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2014-07-01"),
-//                brk.getDatum());
-//        assertTrue(bReader.hasNext());
-//        brk = bReader.next();
-//        assertEquals("STA:0197200000050631", brk.getObjectRef());
-//        assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2014-07-01"),
-//                brk.getDatum());
 //    }
 }

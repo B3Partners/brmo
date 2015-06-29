@@ -98,15 +98,15 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                         log.info(msg);
                         sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                     } else {
+                        BrmoFramework brmo = null;
                         try {
                             // 1: laadt in staging
                             // TODO gebruik JPA
-                            BrmoFramework brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
+                            brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
                             brmo.loadFromFile(BrmoFramework.BR_BRK, f.getAbsolutePath());
                             msg = String.format("Bestand %s is geladen.", f);
                             log.info(msg);
                             sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
-
                         } catch (BrmoDuplicaatLaadprocesException duplicaat) {
                             log.info(duplicaat.getLocalizedMessage());
                             sb.append(duplicaat.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
@@ -115,6 +115,9 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                             log.warn(leegEx.getLocalizedMessage());
                             sb.append(leegEx.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
                         } finally {
+                            if (brmo != null) {
+                                brmo.closeBrmoFramework();
+                            }
                             if (isArchiving) {
                                 // 2: verplaats naar archief (NB mogelijk platform afhankelijk)
                                 f.renameTo(new File(archiefDirectory, f.getName()));
