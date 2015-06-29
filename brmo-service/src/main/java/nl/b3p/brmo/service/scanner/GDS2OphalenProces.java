@@ -548,14 +548,16 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             conn.setRequestProperty("Content-Type", "application/octet-stream");
             IOUtils.copy(IOUtils.toInputStream(b.getBr_orgineel_xml(), "UTF-8"), conn.getOutputStream());
             conn.disconnect();
-            if (conn.getResponseCode() != 200) {
+            if ((conn.getResponseCode() == HttpURLConnection.HTTP_OK)
+                    || (conn.getResponseCode() == HttpURLConnection.HTTP_CREATED)
+                    || (conn.getResponseCode() == HttpURLConnection.HTTP_ACCEPTED)) {
+                msg = "Bericht " + b.getObject_ref() + " op " + sdf.format(new Date()) + " doorgestuurd naar " + endpoint;
+                b.setStatus(Bericht.STATUS.STAGING_FORWARDED);
+            } else {
                 msg = String.format("HTTP foutcode bij doorsturen bericht %s op %s naar endpoint %s: %s",
                         b.getObject_ref(),
                         sdf.format(new Date()), endpoint, conn.getResponseCode() + ": " + conn.getResponseMessage());
                 b.setStatus(Bericht.STATUS.STAGING_NOK);
-            } else {
-                msg = "Bericht " + b.getObject_ref() + " op " + sdf.format(new Date()) + " doorgestuurd naar " + endpoint;
-                b.setStatus(Bericht.STATUS.STAGING_FORWARDED);
             }
             b.setOpmerking(msg);
             proces.addLogLine(msg);
