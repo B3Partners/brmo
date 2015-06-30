@@ -3,6 +3,8 @@
  */
 package nl.b3p.brmo.service.jobs;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Date;
 import javax.persistence.EntityManager;
 import nl.b3p.brmo.loader.util.BrmoException;
@@ -27,11 +29,12 @@ public class AutomatischProcesJob implements Job {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         Long id = null;
+        AutomatischProces p = null;
         try {
             id = context.getJobDetail().getJobDataMap().getLongValue("id");
             log.debug("Poging gepland automatisch proces met id: " + id + " te starten.");
             Stripersist.requestInit();
-            AutomatischProces p = Stripersist.getEntityManager().find(AutomatischProces.class, id);
+            p = Stripersist.getEntityManager().find(AutomatischProces.class, id);
             if (p != null) {
                 p.addLogLine(String.format("Geplande taak gestart op %tc.", new Date()));
                 AbstractExecutableProces.getProces(p).execute();
@@ -46,6 +49,13 @@ public class AutomatischProcesJob implements Job {
         } catch (ClassCastException cce) {
             log.warn("Geen geldige ID gevonden in de jobdata map.", cce);
         } catch (BrmoException ex) {
+            if (p != null) {
+                StringWriter sw = new StringWriter();
+                ex.printStackTrace(new PrintWriter(sw));
+                p.setStatus(AutomatischProces.ProcessingStatus.ERROR);
+                p.updateSamenvattingEnLogfile(String.format("Fout tijdens starten of uitvoeren van automatische proces met id %s: %s ", id, sw.toString()));
+                Stripersist.getEntityManager().merge(p);
+            }
             log.error("Fout tijdens starten of uitvoeren van automatische proces met id: " + id, ex);
         } finally {
             if (Stripersist.getEntityManager().getTransaction().isActive()) {
