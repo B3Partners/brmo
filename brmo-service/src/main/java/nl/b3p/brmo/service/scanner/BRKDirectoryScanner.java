@@ -84,17 +84,19 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
     public void execute(ProgressUpdateListener listener) {
         this.listener = listener;
         config.setStatus(PROCESSING);
+        StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE + config.getLogfile());
+
         String msg = String.format("De BRK scanner met ID %d is gestart op %tc.", config.getId(), Calendar.getInstance());
         log.info(msg);
         listener.addLog(msg);
-        config.addLogLine(msg);
+        sb.append(msg);
 
         // validatie van de directories, kunnen we lezen/bladeren en evt. schrijven?
         final File scanDirectory = new File(this.config.getScanDirectory());
         if (!scanDirectory.isDirectory() || !scanDirectory.canExecute()) {
             config.setStatus(ERROR);
             msg = String.format("De scan directory '%s' is geen executable directory", scanDirectory);
-            config.addLogLine(msg);
+            config.setLogfile(msg);
             config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
             this.listener.exception(new BrmoException(msg));
             return;
@@ -110,7 +112,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                 config.setStatus(ERROR);
                 msg = String.format("De archief directory '%s' is geen beschrijfbare directory, er worden geen bestanden gearchiveerd.",
                         archiefDirectory);
-                config.addLogLine(msg);
+                sb.append(msg);
                 config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
                 log.error(msg);
                 this.listener.exception(new BrmoException(msg));
@@ -120,12 +122,13 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                 config.setStatus(ERROR);
                 msg = String.format("De scan directory '%s' is geen beschrijfbare directory, er worden geen bestanden gearchiveerd.",
                         scanDirectory);
-                config.addLogLine(msg);
+                sb.append(msg);
                 config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
                 log.error(msg);
                 this.listener.exception(new BrmoException(msg));
             }
         }
+        config.setLogfile(sb.toString());
 
         File files[] = scanDirectory.listFiles(new FilenameFilter() {
             @Override
@@ -137,7 +140,6 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
 
         processXMLFiles(files, scanDirectory, archiefDirectory);
 
-        Stripersist.getEntityManager().merge(this.config);
         Stripersist.getEntityManager().flush();
         Stripersist.getEntityManager().getTransaction().commit();
         Stripersist.getEntityManager().clear();
@@ -167,7 +169,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
             msg = String.format("Bestand %s is gevonden in %s.", f, scanDirectory);
             log.info(msg);
             listener.addLog(msg);
-            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
+            sb.append(AutomatischProces.LOG_NEWLINE).append(msg).append(AutomatischProces.LOG_NEWLINE);
             if (this.isDuplicaatLaadProces(f, BrmoFramework.BR_BRK)) {
                 msg = String.format("  Bestand %s is een duplicaat en wordt overgeslagen.", f);
                 listener.addLog(msg);
@@ -226,7 +228,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                     Stripersist.getEntityManager().merge(this.config);
 
                     aantalGeladen++;
-                    msg = String.format("  Bestand %s is geladen. Status: %s", f, b.getStatus());
+                    msg = String.format("  Bestand %s is geladen en heeft status: %s", f, b.getStatus());
                     log.info(msg);
                     this.listener.addLog(msg);
                     sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
@@ -264,5 +266,6 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
         config.updateSamenvattingEnLogfile("Aantal bestanden die al waren verwerkt: "
                 + filterAlVerwerkt + AutomatischProces.LOG_NEWLINE
                 + "Aantal bestanden geladen: " + aantalGeladen + AutomatischProces.LOG_NEWLINE);
+        Stripersist.getEntityManager().merge(config);
     }
 }
