@@ -190,7 +190,9 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                     b.setDatum(lp.getBestand_datum());
                     b.setSoort(BrmoFramework.BR_BRK);
                     b.setStatus_datum(new Date());
-                    b.setBr_orgineel_xml(FileUtils.readFileToString(f, "UTF-8"));
+                    String fileContent = FileUtils.readFileToString(f, "UTF-8");
+                    fileContent = fileContent.replaceAll("\u0000.*", "");
+                    b.setBr_orgineel_xml(fileContent);
 
                     try {
                         BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(
@@ -228,7 +230,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                     Stripersist.getEntityManager().merge(this.config);
 
                     aantalGeladen++;
-                    msg = String.format("  Bestand %s is geladen en heeft status: %s", f, b.getStatus());
+                    msg = String.format("  Bestand %s is geladen en heeft status: %s. (Leverde bericht id: %s, met status: %s.)", f, lp.getStatus(), b.getId(), b.getStatus());
                     log.info(msg);
                     this.listener.addLog(msg);
                     sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
