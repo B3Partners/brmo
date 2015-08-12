@@ -4,7 +4,17 @@
 	<xsl:import href="datamodel_ddl.xsl"/>
 	
 	<xsl:variable name="dbtype">oracle</xsl:variable>
-	
+
+	<xsl:variable name="geom-types">
+		<geom rsgb="polygon" db="POLYGON"/>
+		<geom rsgb="multipolygon" db="MULTIPOLYGON"/>
+		<geom rsgb="point" db="POINT"/>
+		<geom rsgb="multipoint" db="MULTIPOINT"/>
+		<geom rsgb="linestring" db="LINE"/>
+		<geom rsgb="multilinestring" db="MULTILINE"/>
+		<geom rsgb="geometry" db="COLLECTION"/>
+	</xsl:variable>
+
 	<xsl:function name="db:type">
 		<xsl:param name="type"/>
 		<xsl:value-of select="fn:replace(fn:replace($type,'varchar','varchar2'),'default','varchar2(255)')"/>
@@ -29,7 +39,7 @@
 			<xsl:text>);&#13;</xsl:text>
 			
 			<xsl:text>alter table </xsl:text><xsl:value-of select="$table"/><xsl:text> add(</xsl:text><xsl:value-of select="$column"/><xsl:text> sdo_geometry );&#13;</xsl:text>
-			<xsl:text>CREATE INDEX </xsl:text><xsl:value-of select="fn:substring(concat($table,'_',$column),1,25)"/><xsl:value-of select="$pos"/><xsl:text>_idx ON </xsl:text><xsl:value-of select="$table"/><xsl:text> (</xsl:text><xsl:value-of select="$column"/><xsl:text>) INDEXTYPE IS MDSYS.SPATIAL_INDEX;&#13;</xsl:text>
+			<xsl:text>CREATE INDEX </xsl:text><xsl:value-of select="fn:substring(concat($table,'_',$column),1,25)"/><xsl:value-of select="$pos"/><xsl:text>_idx ON </xsl:text><xsl:value-of select="$table"/><xsl:text> (</xsl:text><xsl:value-of select="$column"/><xsl:text>) INDEXTYPE IS MDSYS.SPATIAL_INDEX PARAMETERS ( 'LAYER_GTYPE=</xsl:text><xsl:value-of select="$geom-types/geom[@rsgb=$type]/@db"/><xsl:text>');&#13;</xsl:text>			
 		<!-- evt create index <table>_idx00 on table(column) indextype is mdsys.spatial_index; -->
 	</xsl:function>		
 </xsl:stylesheet>

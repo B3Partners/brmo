@@ -37,7 +37,7 @@
 				<script>106_bag_views.sql</script>
 				<script>107_brk_views.sql</script>
 				<script>108_insert_aard_recht_verkort.sql</script>
-				<script>109_insert_aard_verkregen_recht</script>
+				<script>109_insert_aard_verkregen_recht.sql</script>
 				<script>110_gebruiksdoel_primary_key.sql</script>
 				<!-- volgende scripts hebben nog geen geometrie,
 				buurt en wijk hebben een alter script -->

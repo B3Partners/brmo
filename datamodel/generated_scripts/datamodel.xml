@@ -1,0 +1,2641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:b3p="http://www.b3partners.nl/" xmlns:fn="http://www.w3.org/2005/xpath-functions">
+	<table name="sbi_activiteit" desc="RSGB referentielijst SBI ACTIVITEIT" fullname="SBI ACTIVITEIT">
+		<column name="omschr" fullname="Omschrijving" type="varchar(60)" desc="Referentielijst property SBI ACTIVITEIT.Omschrijving" key="false"/>
+		<column name="sbi_code" fullname="SBI code" type="varchar(6)" desc="Referentielijst property SBI ACTIVITEIT.SBI code" key="true"/>
+	</table>
+	<table name="aard_recht_verkort" desc="RSGB referentielijst AARD RECHT VERKORT" fullname="AARD RECHT VERKORT">
+		<column name="aand" fullname="Aanduiding aard recht verkort" type="varchar(4)" desc="Referentielijst property AARD RECHT VERKORT.Aanduiding aard recht verkort" key="true"/>
+		<column name="omschr" fullname="Omschrijving aard recht verkort" type="varchar(100)" desc="Referentielijst property AARD RECHT VERKORT.Omschrijving aard recht verkort" key="false"/>
+	</table>
+	<table name="aard_verkregen_recht" desc="RSGB referentielijst AARD VERKREGEN RECHT" fullname="AARD VERKREGEN RECHT">
+		<column name="aand" fullname="Aanduiding aard verkregen recht" type="varchar(6)" desc="Referentielijst property AARD VERKREGEN RECHT.Aanduiding aard verkregen recht" key="true"/>
+		<column name="omschr_aard_verkregenr_recht" fullname="Omschrijving aard verkregenr recht" type="varchar(200)" desc="Referentielijst property AARD VERKREGEN RECHT.Omschrijving aard verkregenr recht" key="false"/>
+	</table>
+	<table name="academische_titel" desc="RSGB referentielijst ACADEMISCHE TITEL" fullname="ACADEMISCHE TITEL">
+		<column name="code" fullname="Academische titelcode" type="varchar(3)" desc="Referentielijst property ACADEMISCHE TITEL.Academische titelcode" key="true"/>
+		<column name="dat_beg_geldh_titel" fullname="Datum begin geldigheid titel" type="varchar(19)" desc="Referentielijst property ACADEMISCHE TITEL.Datum begin geldigheid titel" key="false"/>
+		<column name="datum_einde_geldh_titel" fullname="Datum einde geldigheid titel" type="varchar(19)" desc="Referentielijst property ACADEMISCHE TITEL.Datum einde geldigheid titel" key="false"/>
+		<column name="omschr" fullname="Omschrijving academische titel" type="varchar(80)" desc="Referentielijst property ACADEMISCHE TITEL.Omschrijving academische titel" key="false"/>
+		<column name="positie_tov_naam" fullname="Positie academische titel tov naam" type="varchar(1)" desc="Referentielijst property ACADEMISCHE TITEL.Positie academische titel tov naam" key="false"/>
+	</table>
+	<table name="land" desc="RSGB referentielijst LAND" fullname="LAND">
+		<column name="eindd" fullname="Einddatum land" type="varchar(19)" desc="Referentielijst property LAND.Einddatum land" key="false"/>
+		<column name="ingangsdatum" fullname="Ingangsdatum land" type="varchar(19)" desc="Referentielijst property LAND.Ingangsdatum land" key="false"/>
+		<column name="code" fullname="Landcode" type="decimal(4,0)" desc="Referentielijst property LAND.Landcode" key="false"/>
+		<column name="code_iso" fullname="Landcode ISO" type="varchar(2)" desc="Referentielijst property LAND.Landcode ISO" key="true"/>
+		<column name="naam" fullname="Landnaam" type="varchar(40)" desc="Referentielijst property LAND.Landnaam" key="false"/>
+	</table>
+	<table name="nation" desc="RSGB referentielijst NATIONALITEIT" fullname="NATIONALITEIT">
+		<column name="begindatum_geldh" fullname="Begindatum geldigheid nationaliteit" type="varchar(19)" desc="Referentielijst property NATIONALITEIT.Begindatum geldigheid nationaliteit" key="false"/>
+		<column name="eindd_geldh" fullname="Einddatum geldigheid nationaliteit" type="varchar(19)" desc="Referentielijst property NATIONALITEIT.Einddatum geldigheid nationaliteit" key="false"/>
+		<column name="code" fullname="Nationaliteitcode" type="decimal(4,0)" desc="Referentielijst property NATIONALITEIT.Nationaliteitcode" key="true"/>
+		<column name="omschr" fullname="Nationaliteitomschrijving" type="varchar(42)" desc="Referentielijst property NATIONALITEIT.Nationaliteitomschrijving" key="false"/>
+	</table>
+	<table name="rsdocsoort" desc="RSGB referentielijst REISDOCUMENTSOORT" fullname="REISDOCUMENTSOORT">
+		<column name="begindatum_geldh" fullname="Begindatum geldigheid reisdocumentsoort" type="varchar(19)" desc="Referentielijst property REISDOCUMENTSOORT.Begindatum geldigheid reisdocumentsoort" key="false"/>
+		<column name="eindd_geldh" fullname="Einddatum geldigheid reisdocumentsoort" type="varchar(19)" desc="Referentielijst property REISDOCUMENTSOORT.Einddatum geldigheid reisdocumentsoort" key="false"/>
+		<column name="rsdoccode" fullname="Reisdocumentcode" type="varchar(2)" desc="Referentielijst property REISDOCUMENTSOORT.Reisdocumentcode" key="true"/>
+		<column name="rsdocomschr" fullname="Reisdocumentomschrijving" type="varchar(80)" desc="Referentielijst property REISDOCUMENTSOORT.Reisdocumentomschrijving" key="false"/>
+	</table>
+	<table name="addresseerb_obj_aand" desc="RSGB class ADRESSEERBAAR OBJECT AANDUIDING. Directe superclass van: NUMMERAANDUIDING, OVERIGE ADRESSEERBAAR OBJECT AANDUIDING" fullname="ADRESSEERBAAR OBJECT AANDUIDING">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid addresserbaar object aanduiding" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Identificatie adresseerbaar object aanduiding" type="varchar(16)" key="true" desc="[PK] AN16"/>
+		<!-- Aanduiding subclass -->
+		<column name="clazz" type="varchar(255)" desc="Aanduiding subclass"/>
+		<!-- Simple properties -->
+		<column name="dat_eind_geldh" fullname="Datum einde geldigheid addresserbaar object aanduiding" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="huisletter" fullname="Huisletter" type="varchar(1)" desc="AN1"/>
+		<column name="huinummer" fullname="Huisnummer" type="decimal(5,0)" desc="N5"/>
+		<column name="huinummertoevoeging" fullname="Huisnummertoevoeging" type="varchar(4)" desc="AN4"/>
+		<column name="postcode" fullname="Postcode" type="varchar(6)" desc="AN6"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_6wpl_identif" type="varchar(4)" desc="[FK] AN4, FK naar wnplts.identif: &#34;ligt in&#34;"/>
+		<foreign-key name="fk_aoa_as_6" columns="fk_6wpl_identif" ref-table="wnplts" ref-columns="identif"/>
+		<column name="fk_7opr_identifcode" type="varchar(16)" desc="[FK] AN16, FK naar openb_rmte.identifcode: &#34;ligt aan&#34;"/>
+		<foreign-key name="fk_aoa_as_7" columns="fk_7opr_identifcode" ref-table="openb_rmte" ref-columns="identifcode"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="ander_btnlnds_niet_nat_prs" desc="RSGB class ANDER BUITENLANDS NIET-NATUURLIJK PERSOON. Subclass van: NIET-NATUURLIJK PERSOON -&gt; PERSOON -&gt; SUBJECT" fullname="ANDER BUITENLANDS NIET-NATUURLIJK PERSOON">
+		<!-- Primary key(s) -->
+		<column superclass-archief="" name="sc_identif" fullname="Identificatie" type="varchar(32)" key="true" desc="[PK] AN32, FK naar niet_nat_prs.sc_identif"/>
+		<foreign-key name="fk_ann_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="niet_nat_prs" ref-columns="sc_identif"/>
+		<!-- Simple properties -->
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="ander_nat_prs" desc="RSGB class ANDER NATUURLIJK PERSOON. Subclass van: NATUURLIJK PERSOON -&gt; PERSOON -&gt; SUBJECT" fullname="ANDER NATUURLIJK PERSOON">
+		<!-- Primary key(s) -->
+		<column superclass-archief="" name="sc_identif" fullname="Identificatie" type="varchar(32)" key="true" desc="[PK] AN32, FK naar nat_prs.sc_identif"/>
+		<foreign-key name="fk_anp_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="nat_prs" ref-columns="sc_identif"/>
+		<!-- Simple properties -->
+		<column name="geboortedatum" fullname="Geboortedatum" type="decimal(8,0)" desc="N8"/>
+		<column name="overlijdensdatum" fullname="Overlijdensdatum" type="decimal(8,0)" desc="N8"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_3aoa_identif" type="varchar(16)" desc="[FK] AN16, FK naar addresseerb_obj_aand.identif: &#34;heeft als bezoekadres&#34;"/>
+		<foreign-key name="fk_anp_as_3" columns="fk_3aoa_identif" ref-table="addresseerb_obj_aand" ref-columns="identif"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="app_re" desc="RSGB class APPARTEMENTSRECHT. Subclass van: KADASTRALE ONROERENDE ZAAK" fullname="APPARTEMENTSRECHT">
+		<!-- Primary key(s) -->
+		<column superclass-archief="true" name="sc_dat_beg_geldh" fullname="Datum begin geldigheid kadastrale onroerende zaak" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum, FK naar kad_onrrnd_zk.dat_beg_geldh"/>
+		<column superclass-archief="" name="sc_kad_identif" fullname="Kadastrale identificatie" type="decimal(15,0)" key="true" desc="[PK] N15, FK naar kad_onrrnd_zk.kad_identif"/>
+		<foreign-key name="fk_apr_sc" columns="sc_kad_identif" desc="Foreign key naar superclass" ref-table="kad_onrrnd_zk" ref-columns="kad_identif"/>
+		<!-- Simple properties -->
+		<!-- Association properties 1 - * -->
+		<column name="fk_2nnp_sc_identif" type="varchar(32)" desc="[FK] AN32, FK naar niet_nat_prs.sc_identif (is FK naar superclass SUBJECT): &#34;maakt deel uit van appartementencomplex met als vereniging van eigenaars&#34;"/>
+		<foreign-key name="fk_apr_as_2" columns="fk_2nnp_sc_identif" ref-table="niet_nat_prs" ref-columns="sc_identif"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<column name="ka_appartementsindex" fullname="Appartementsindex" type="varchar(4)" desc="Groepsattribuut Kadastrale aanduiding APPARTEMENTSRECHT.Appartementsindex"/>
+		<column name="ka_kad_gemeentecode" fullname="Kadastrale gemeentecode" type="varchar(5)" desc="Groepsattribuut Kadastrale aanduiding APPARTEMENTSRECHT.Kadastrale gemeentecode"/>
+		<column name="ka_perceelnummer" fullname="Perceelnummer" type="varchar(15)" desc="Groepsattribuut Kadastrale aanduiding APPARTEMENTSRECHT.Perceelnummer"/>
+		<column name="ka_sectie" fullname="Sectie" type="varchar(255)" desc="Groepsattribuut Kadastrale aanduiding APPARTEMENTSRECHT.Sectie"/>
+		<!-- Referentielijsten -->
+	</table>
+	<table name="begr_terr_dl" desc="RSGB class BEGROEID TERREINDEEL. Directe superclass van: BEGROEID TERREINVAKONDERDEEL" fullname="BEGROEID TERREINDEEL">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid begroeid terreindeel" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Identificatie begroeid terreindeel" type="varchar(255)" key="true" desc="[PK] NEN3610ID"/>
+		<!-- Aanduiding subclass -->
+		<column name="clazz" type="varchar(255)" desc="Aanduiding subclass"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid begroeid terreindeel" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="fysiek_voork_begr_terrein" fullname="Fysiek voorkomen begroeid terrein" type="varchar(20)" desc="AN20"/>
+		<column name="geom" fullname="Geometrie begroeid terreindeel" type="multipolygon" desc="GM_Surface"/>
+		<column name="kruinlijngeom" fullname="Kruinlijneometrie begroeid terreindeel" type="linestring" desc="GM_Curve"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging begroeid terreindeel" type="decimal(1,0)" desc="N1"/>
+		<column name="status" fullname="Status begroeid terreindeel" type="varchar(8)" desc="A8"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_8opr_identifcode" type="varchar(16)" desc="[FK] AN16, FK naar openb_rmte.identifcode: &#34;maakt deel uit van&#34;"/>
+		<foreign-key name="fk_btd_as_8" columns="fk_8opr_identifcode" ref-table="openb_rmte" ref-columns="identifcode"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="begr_terreinvakonderd" desc="RSGB class BEGROEID TERREINVAKONDERDEEL. Subclass van: BEGROEID TERREINDEEL" fullname="BEGROEID TERREINVAKONDERDEEL">
+		<!-- Primary key(s) -->
+		<column superclass-archief="true" name="sc_dat_beg_geldh" fullname="Datum begin geldigheid begroeid terreindeel" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum, FK naar begr_terr_dl.dat_beg_geldh"/>
+		<column superclass-archief="" name="sc_identif" fullname="Identificatie begroeid terreindeel" type="varchar(255)" key="true" desc="[PK] NEN3610ID, FK naar begr_terr_dl.identif"/>
+		<foreign-key name="fk_btv_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="begr_terr_dl" ref-columns="identif"/>
+		<!-- Simple properties -->
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<column name="fk_1btd_identif" type="varchar(255)" desc="[FK] NEN3610ID, FK naar begr_terr_dl.identif"/>
+		<foreign-key name="fk_btv_1n_1" columns="fk_1btd_identif" ref-table="begr_terr_dl" ref-columns="identif"/>
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="benoemd_obj" desc="RSGB class BENOEMD OBJECT. Directe superclass van: BENOEMD TERREIN, GEBOUWD OBJECT" fullname="BENOEMD OBJECT">
+		<!-- Primary key(s) -->
+		<column name="identif" fullname="Benoemd object identificatie" type="varchar(16)" key="true" desc="[PK] AN16"/>
+		<!-- Aanduiding subclass -->
+		<column name="clazz" type="varchar(255)" desc="Aanduiding subclass"/>
+		<!-- Simple properties -->
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="benoemd_terrein" desc="RSGB class BENOEMD TERREIN. Subclass van: BENOEMD OBJECT. Directe superclass van: LIGPLAATS, OVERIG TERREIN, STANDPLAATS" fullname="BENOEMD TERREIN">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid benoemd terrein" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column superclass-archief="" name="sc_identif" fullname="Benoemd object identificatie" type="varchar(16)" key="true" desc="[PK] AN16, FK naar benoemd_obj.identif"/>
+		<foreign-key name="fk_btr_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="benoemd_obj" ref-columns="identif"/>
+		<!-- Aanduiding subclass -->
+		<column name="clazz" type="varchar(255)" desc="Aanduiding subclass"/>
+		<!-- Simple properties -->
+		<column name="geom" fullname="Benoemd terrein geometrie" type="multipolygon" desc="GM_Surface"/>
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid benoemd terrein" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="brugconstructie_element" desc="RSGB class BRUGCONSTRUCTIE ELEMENT. Subclass van: KUNSTWERKDEEL" fullname="BRUGCONSTRUCTIE ELEMENT">
+		<!-- Primary key(s) -->
+		<column superclass-archief="true" name="sc_dat_beg_geldh" fullname="Datum begin geldigheid kunstwerkdeel" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum, FK naar kunstwerkdeel.dat_beg_geldh"/>
+		<column superclass-archief="" name="sc_identif" fullname="Identificatie kunstwerkdeel" type="varchar(255)" key="true" desc="[PK] NEN3610ID, FK naar kunstwerkdeel.identif"/>
+		<foreign-key name="fk_bce_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="kunstwerkdeel" ref-columns="identif"/>
+		<!-- Simple properties -->
+		<column name="type" fullname="Type brugconstructie element" type="varchar(40)" desc="AN40"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="buurt" desc="RSGB class BUURT" fullname="BUURT">
+		<!-- Primary key(s) -->
+		<column name="code" fullname="Buurtcode" type="decimal(2,0)" key="true" desc="[PK] N2"/>
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid buurt" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<!-- Simple properties -->
+		<column name="geom" fullname="Buurtgeometrie" type="multipolygon" desc="GM_Surface"/>
+		<column name="naam" fullname="Buurtnaam" type="varchar(40)" desc="AN40"/>
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid buurt" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="identif_imgeobrt" fullname="Identificatie IMGeoBRT" type="varchar(255)" desc="NEN3610ID"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging buurt" type="decimal(1,0)" desc="N1"/>
+		<column name="status" fullname="Status buurt" type="varchar(8)" desc="A8"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="functioneel_gebied" desc="RSGB class FUNCTIONEEL GEBIED" fullname="FUNCTIONEEL GEBIED">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid functioneel gebied" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Identificatie functioneel gebied" type="varchar(255)" key="true" desc="[PK] NEN3610ID"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid functioneel gebied" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="geom" fullname="Geometrie functioneel gebied" type="multipolygon" desc="GM_Surface"/>
+		<column name="naam" fullname="Naam functioneel gebied" type="varchar(40)" desc="AN40"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging functioneel gebied" type="decimal(1,0)" desc="N1"/>
+		<column name="status" fullname="Status functioneel gebied" type="varchar(8)" desc="A8"/>
+		<column name="type" fullname="Type functioneel gebied" type="varchar(255)" desc="[geen RSGB type]"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="gebouwd_obj" desc="RSGB class GEBOUWD OBJECT. Subclass van: BENOEMD OBJECT. Directe superclass van: OVERIG GEBOUWD OBJECT, VERBLIJFSOBJECT" fullname="GEBOUWD OBJECT">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid gebouwd object" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column superclass-archief="" name="sc_identif" fullname="Benoemd object identificatie" type="varchar(16)" key="true" desc="[PK] AN16, FK naar benoemd_obj.identif"/>
+		<foreign-key name="fk_gbo_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="benoemd_obj" ref-columns="identif"/>
+		<!-- Aanduiding subclass -->
+		<column name="clazz" type="varchar(255)" desc="Aanduiding subclass"/>
+		<!-- Simple properties -->
+		<column name="bouwk_best_act" fullname="Bouwkundige bestemming actueel" type="varchar(255)" desc="[Enumeratie]"/>
+		<column name="bruto_inhoud" fullname="Bruto inhoud" type="decimal(6,0)" desc="N6"/>
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid gebouwd object" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="vlakgeom" fullname="Gebouwd object vlakgeometrie" type="multipolygon" desc="GM_Surface"/>
+		<column name="puntgeom" fullname="Gebouwd objectpuntgeometrie" type="point" desc="GM_Point"/>
+		<column name="inwwijze_oppervlakte" fullname="Inwinningswijze oppervlakte" type="varchar(24)" desc="AN24"/>
+		<column name="oppervlakte_obj" fullname="Oppervlakte (verblijfs)object" type="decimal(6,0)" desc="N6"/>
+		<column name="status_voortgang_bouw" fullname="Status voortgang bouw" type="integer" desc="long"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="gebouwinstallatie" desc="RSGB class GEBOUWINSTALLATIE" fullname="GEBOUWINSTALLATIE">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid gebouwinstallatie" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Identificatie gebouwinstallatie" type="varchar(255)" key="true" desc="[PK] NEN3610ID"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid gebouwinstallatie" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="geom" fullname="Geometrie gebouwinstallatie" type="multipolygon" desc="GM_Surface"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging gebouwinstallatie" type="decimal(1,0)" desc="N1"/>
+		<column name="status" fullname="Status gebouwinstallatie" type="varchar(8)" desc="A8"/>
+		<column name="type" fullname="Type gebouwinstallatie" type="varchar(40)" desc="AN40"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="gemeente" desc="RSGB class GEMEENTE" fullname="GEMEENTE">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid gemeente" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="code" fullname="Gemeentecode" type="decimal(4,0)" key="true" desc="[PK] N4"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid gemeente" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="geom" fullname="Gemeentegeometrie" type="multipolygon" desc="GM_Surface"/>
+		<column name="naam" fullname="Gemeentenaam" type="varchar(40)" desc="AN40"/>
+		<column name="naam_nen" fullname="Gemeentenaam NEN" type="varchar(24)" desc="AN24"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="gem_openb_rmte" desc="RSGB class GEMEENTELIJKE OPENBARE RUIMTE" fullname="GEMEENTELIJKE OPENBARE RUIMTE">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid gemeentelijke openbare ruimte" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identifcode" fullname="Identificatiecode gemeentelijke openbare ruimte" type="varchar(16)" key="true" desc="[PK] AN16"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid gemeentelijke openbare ruimte" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="indic_geconst_openb_rmte" fullname="Indicatie geconstateerde openbare ruimte" type="varchar(1)" desc="AN1"/>
+		<column name="naam_openb_rmte" fullname="Naam openbare ruimte" type="varchar(80)" desc="AN80"/>
+		<column name="status_openb_rmte" fullname="Status openbare ruimte" type="varchar(80)" desc="AN80"/>
+		<column name="straatnaam" fullname="Straatnaam" type="varchar(24)" desc="AN24"/>
+		<column name="type_openb_rmte" fullname="Type openbare ruimte" type="varchar(40)" desc="AN40"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_7gem_code" type="decimal(4,0)" desc="[FK] N4, FK naar gemeente.code: &#34;ligt in&#34;"/>
+		<foreign-key name="fk_gor_as_7" columns="fk_7gem_code" ref-table="gemeente" ref-columns="code"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="huishouden" desc="RSGB class HUISHOUDEN" fullname="HUISHOUDEN">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid huishouden" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="nummer" fullname="Huishoudennummer" type="decimal(12,0)" key="true" desc="[PK] N12"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid huishouden" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="grootte" fullname="Huishoudengrootte" type="decimal(2,0)" desc="N2"/>
+		<column name="soort" fullname="Huishoudensoort" type="decimal(2,0)" desc="N2"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_4vbo_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar verblijfsobj.sc_identif (is FK naar superclass BENOEMD OBJECT): &#34;is gehuisvest in&#34;"/>
+		<foreign-key name="fk_hhd_as_4" columns="fk_4vbo_sc_identif" ref-table="verblijfsobj" ref-columns="sc_identif"/>
+		<column name="fk_5lpl_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar ligplaats.sc_identif (is FK naar superclass BENOEMD OBJECT): &#34;is gehuisvest op&#34;"/>
+		<foreign-key name="fk_hhd_as_5" columns="fk_5lpl_sc_identif" ref-table="ligplaats" ref-columns="sc_identif"/>
+		<column name="fk_7spl_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar standplaats.sc_identif (is FK naar superclass BENOEMD OBJECT): &#34;is gehuisvest op&#34;"/>
+		<foreign-key name="fk_hhd_as_7" columns="fk_7spl_sc_identif" ref-table="standplaats" ref-columns="sc_identif"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="ingeschr_niet_nat_prs" desc="RSGB class INGESCHREVEN NIET-NATUURLIJK PERSOON. Subclass van: NIET-NATUURLIJK PERSOON -&gt; PERSOON -&gt; SUBJECT" fullname="INGESCHREVEN NIET-NATUURLIJK PERSOON">
+		<!-- Primary key(s) -->
+		<column superclass-archief="" name="sc_identif" fullname="Identificatie" type="varchar(32)" key="true" desc="[PK] AN32, FK naar niet_nat_prs.sc_identif"/>
+		<foreign-key name="fk_inn_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="niet_nat_prs" ref-columns="sc_identif"/>
+		<!-- Simple properties -->
+		<column name="typering" fullname="Ingeschreven niet-natuurlijk persoon typering" type="varchar(35)" desc="AN35"/>
+		<column name="ovrg_privaatr_rechtsvorm" fullname="Overige privaatrechtelijk rechtsvorm" type="varchar(200)" desc="AN200"/>
+		<column name="publiekrechtelijke_rechtsvorm" fullname="Publiekrechtelijke rechtsvorm" type="varchar(40)" desc="AN40"/>
+		<column name="rechtstoestand" fullname="Rechtstoestand" type="varchar(30)" desc="AN30"/>
+		<column name="rechtsvorm" fullname="Rechtsvorm" type="varchar(50)" desc="AN50"/>
+		<column name="statutaire_zetel" fullname="Statutaire zetel" type="varchar(40)" desc="AN40"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_7aoa_identif" type="varchar(16)" desc="[FK] AN16, FK naar addresseerb_obj_aand.identif: &#34;heeft als bezoekadres&#34;"/>
+		<foreign-key name="fk_inn_as_7" columns="fk_7aoa_identif" ref-table="addresseerb_obj_aand" ref-columns="identif"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="ingeschr_nat_prs" desc="RSGB class INGESCHREVEN NATUURLIJK PERSOON. Subclass van: NATUURLIJK PERSOON -&gt; PERSOON -&gt; SUBJECT. Directe superclass van: INGEZETENE, NIET-INGEZETENE" fullname="INGESCHREVEN NATUURLIJK PERSOON">
+		<!-- Primary key(s) -->
+		<column superclass-archief="" name="sc_identif" fullname="Identificatie" type="varchar(32)" key="true" desc="[PK] AN32, FK naar nat_prs.sc_identif"/>
+		<foreign-key name="fk_inp_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="nat_prs" ref-columns="sc_identif"/>
+		<!-- Aanduiding subclass -->
+		<column name="clazz" type="varchar(255)" desc="Aanduiding subclass"/>
+		<!-- Simple properties -->
+		<column name="a_nummer" fullname="A-nummer" type="decimal(10,0)" desc="N10"/>
+		<column name="btnlnds_rsdoc" fullname="Buitenlands reisdocument" type="decimal(1,0)" desc="N1"/>
+		<column name="burgerlijke_staat" fullname="Burgerlijke staat" type="decimal(1,0)" desc="N1"/>
+		<column name="dat_beg_geldh_verblijfpl" fullname="Datum begin geldigheid verblijfplaats" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="datum_inschrijving_in_gemeente" fullname="Datum inschrijving in gemeente" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="datum_opschorting_bijhouding" fullname="Datum opschorting bijhouding" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="datum_verkr_nation" fullname="Datum verkrijging nationaliteit" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="datum_verlies_nation" fullname="Datum verlies nationaliteit" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="datum_vertrek_uit_nederland" fullname="Datum vertrek uit Nederland" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="datum_vestg_in_nederland" fullname="Datum vestiging in Nederland" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="gemeente_van_inschrijving" fullname="Gemeente van inschrijving" type="decimal(4,0)" desc="N4"/>
+		<column name="handelingsbekwaam" fullname="Handelingsbekwaam" type="varchar(3)" desc="AN3"/>
+		<column name="indic_geheim" fullname="Indicatie geheim" type="decimal(1,0)" desc="N1"/>
+		<column name="rechtstoestand" fullname="Rechtstoestand" type="varchar(22)" desc="AN22"/>
+		<column name="reden_opschorting_bijhouding" fullname="Reden opschorting bijhouding" type="varchar(1)" desc="AN1"/>
+		<column name="signalering_rsdoc" fullname="Signalering reisdocument" type="decimal(1,0)" desc="N1"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_26lpl_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar ligplaats.sc_identif (is FK naar superclass BENOEMD OBJECT): &#34;verblijft op&#34;"/>
+		<foreign-key name="fk_inp_as_26" columns="fk_26lpl_sc_identif" ref-table="ligplaats" ref-columns="sc_identif"/>
+		<column name="fk_27nra_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &#34;is ingeschreven op&#34;"/>
+		<foreign-key name="fk_inp_as_27" columns="fk_27nra_sc_identif" ref-table="nummeraand" ref-columns="sc_identif"/>
+		<column name="fk_28wpl_identif" type="varchar(4)" desc="[FK] AN4, FK naar wnplts.identif: &#34;verblijft op locatie in&#34;"/>
+		<foreign-key name="fk_inp_as_28" columns="fk_28wpl_identif" ref-table="wnplts" ref-columns="identif"/>
+		<column name="fk_29spl_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar standplaats.sc_identif (is FK naar superclass BENOEMD OBJECT): &#34;verblijft op&#34;"/>
+		<foreign-key name="fk_inp_as_29" columns="fk_29spl_sc_identif" ref-table="standplaats" ref-columns="sc_identif"/>
+		<column name="fk_30vbo_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar verblijfsobj.sc_identif (is FK naar superclass BENOEMD OBJECT): &#34;verblijft in&#34;"/>
+		<foreign-key name="fk_inp_as_30" columns="fk_30vbo_sc_identif" ref-table="verblijfsobj" ref-columns="sc_identif"/>
+		<!-- Association properties * - 1 -->
+		<column name="fk_1rsd_nummer" type="varchar(9)" desc="[FK] AN9, FK naar rsdoc.nummer"/>
+		<foreign-key name="fk_inp_1n_1" columns="fk_1rsd_nummer" ref-table="rsdoc" ref-columns="nummer"/>
+		<!-- Groepsattributen -->
+		<column name="gb_geboortedatum" fullname="Geboortedatum" type="decimal(8,0)" desc="Groepsattribuut Geboorte INGESCHREVEN NATUURLIJK PERSOON.Geboortedatum"/>
+		<column name="fk_gb_lnd_code_iso" type="varchar(2)" desc="[FK] A2, FK naar land.code_iso: &#34;Groepsattribuut referentielijst Geboorteland&#34;"/>
+		<foreign-key name="fk_inp_gb_2" columns="fk_gb_lnd_code_iso" ref-table="land" ref-columns="code_iso"/>
+		<column name="gb_geboorteplaats" fullname="Geboorteplaats" type="varchar(40)" desc="Groepsattribuut Geboorte INGESCHREVEN NATUURLIJK PERSOON.Geboorteplaats"/>
+		<column name="nt_aand_bijzonder_nlschap" fullname="Aanduiding bijzonder Nederlanderschap" type="varchar(1)" desc="Groepsattribuut Nederlandse nationaliteit INGESCHREVEN NATUURLIJK PERSOON.Aanduiding bijzonder Nederlanderschap"/>
+		<column name="fk_nt_nat_code" type="decimal(4,0)" desc="[FK] N4, FK naar nation.code: &#34;Groepsattribuut referentielijst Nationaliteit&#34;"/>
+		<foreign-key name="fk_inp_nt_2" columns="fk_nt_nat_code" ref-table="nation" ref-columns="code"/>
+		<column name="nt_reden_verkr_nlse_nation" fullname="Reden verkrijging Nederlandse nationaliteit" type="decimal(3,0)" desc="Groepsattribuut Nederlandse nationaliteit INGESCHREVEN NATUURLIJK PERSOON.Reden verkrijging Nederlandse nationaliteit"/>
+		<column name="nt_reden_verlies_nlse_nation" fullname="Reden verlies Nederlandse nationaliteit" type="decimal(3,0)" desc="Groepsattribuut Nederlandse nationaliteit INGESCHREVEN NATUURLIJK PERSOON.Reden verlies Nederlandse nationaliteit"/>
+		<column name="fk_ol_lnd_code_iso" type="varchar(2)" desc="[FK] A2, FK naar land.code_iso: &#34;Groepsattribuut referentielijst Land overlijden&#34;"/>
+		<foreign-key name="fk_inp_ol_1" columns="fk_ol_lnd_code_iso" ref-table="land" ref-columns="code_iso"/>
+		<column name="ol_overlijdensdatum" fullname="Overlijdensdatum" type="decimal(8,0)" desc="Groepsattribuut Overlijden INGESCHREVEN NATUURLIJK PERSOON.Overlijdensdatum"/>
+		<column name="ol_overlijdensplaats" fullname="Overlijdensplaats" type="varchar(40)" desc="Groepsattribuut Overlijden INGESCHREVEN NATUURLIJK PERSOON.Overlijdensplaats"/>
+		<column name="va_adresherkomst" fullname="Adresherkomst" type="varchar(1)" desc="Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.Adresherkomst"/>
+		<column name="va_loc_beschrijving" fullname="Locatie beschrijving" type="varchar(255)" desc="Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.Locatie beschrijving"/>
+		<column name="fk_va_3_vbo_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar verblijfsobj.sc_identif (is FK naar superclass BENOEMD OBJECT): &#34;Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.verblijfsobject&#34;"/>
+		<foreign-key name="fk_inp_va_as_3" columns="fk_va_3_vbo_sc_identif" ref-table="verblijfsobj" ref-columns="sc_identif"/>
+		<column name="fk_va_4_spl_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar standplaats.sc_identif (is FK naar superclass BENOEMD OBJECT): &#34;Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.standplaats&#34;"/>
+		<foreign-key name="fk_inp_va_as_4" columns="fk_va_4_spl_sc_identif" ref-table="standplaats" ref-columns="sc_identif"/>
+		<column name="fk_va_5_nra_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &#34;Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.nummeraanduiding&#34;"/>
+		<foreign-key name="fk_inp_va_as_5" columns="fk_va_5_nra_sc_identif" ref-table="nummeraand" ref-columns="sc_identif"/>
+		<column name="fk_va_6_wpl_identif" type="varchar(4)" desc="[FK] AN4, FK naar wnplts.identif: &#34;Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.woonplaats&#34;"/>
+		<foreign-key name="fk_inp_va_as_6" columns="fk_va_6_wpl_identif" ref-table="wnplts" ref-columns="identif"/>
+		<column name="fk_va_7_lpl_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar ligplaats.sc_identif (is FK naar superclass BENOEMD OBJECT): &#34;Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.ligplaats&#34;"/>
+		<foreign-key name="fk_inp_va_as_7" columns="fk_va_7_lpl_sc_identif" ref-table="ligplaats" ref-columns="sc_identif"/>
+		<!-- Referentielijsten -->
+		<column name="fk_3nat_code" type="decimal(4,0)" desc="[FK] N4, FK naar nation.code: &#34;Referentielijst INGESCHREVEN NATUURLIJK PERSOON.Buitenlandse nationaliteit&#34;"/>
+		<foreign-key name="fk_inp_rl_3" columns="fk_3nat_code" ref-table="nation" ref-columns="code"/>
+		<column name="fk_16lnd_code_iso" type="varchar(2)" desc="[FK] A2, FK naar land.code_iso: &#34;Referentielijst INGESCHREVEN NATUURLIJK PERSOON.Land vanwaar ingeschreven&#34;"/>
+		<foreign-key name="fk_inp_rl_16" columns="fk_16lnd_code_iso" ref-table="land" ref-columns="code_iso"/>
+		<column name="fk_17lnd_code_iso" type="varchar(2)" desc="[FK] A2, FK naar land.code_iso: &#34;Referentielijst INGESCHREVEN NATUURLIJK PERSOON.Land waarnaar vertrokken&#34;"/>
+		<foreign-key name="fk_inp_rl_17" columns="fk_17lnd_code_iso" ref-table="land" ref-columns="code_iso"/>
+	</table>
+	<table name="ingezetene" desc="RSGB class INGEZETENE. Subclass van: INGESCHREVEN NATUURLIJK PERSOON -&gt; NATUURLIJK PERSOON -&gt; PERSOON -&gt; SUBJECT" fullname="INGEZETENE">
+		<!-- Primary key(s) -->
+		<column superclass-archief="" name="sc_identif" fullname="Identificatie" type="varchar(32)" key="true" desc="[PK] AN32, FK naar ingeschr_nat_prs.sc_identif"/>
+		<foreign-key name="fk_ing_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="ingeschr_nat_prs" ref-columns="sc_identif"/>
+		<!-- Simple properties -->
+		<column name="datum_verkr_verblijfstitel" fullname="Datum verkrijging verblijfstitel" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="datum_verlies_verblijfstitel" fullname="Datum verlies verblijfstitel" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="indic_blokkering" fullname="Indicatie blokkering" type="varchar(1)" desc="AN1"/>
+		<column name="indic_curateleregister" fullname="Indicatie curateleregister" type="decimal(1,0)" desc="N1"/>
+		<column name="indic_gezag_minderjarige" fullname="Indicatie gezag minderjarige" type="varchar(2)" desc="AN2"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_8vbt_aand" type="decimal(2,0)" desc="[FK] N2, FK naar verblijfstitel.aand: &#34;heeft&#34;"/>
+		<foreign-key name="fk_ing_as_8" columns="fk_8vbt_aand" ref-table="verblijfstitel" ref-columns="aand"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<column name="ek_aand_euro_kiesr" fullname="Aanduiding Europees kiesrecht" type="decimal(1,0)" desc="Groepsattribuut Europees kiesrecht INGEZETENE.Aanduiding Europees kiesrecht"/>
+		<column name="ek_verw_eindd_uitsl_euro_kiesr" fullname="Verwachte einddatum uitsluiting Europees kiesrecht" type="decimal(8,0)" desc="Groepsattribuut Europees kiesrecht INGEZETENE.Verwachte einddatum uitsluiting Europees kiesrecht"/>
+		<column name="uk_aand_uitgesloten_kiesr" fullname="Aanduiding uitgesloten kiesrecht" type="varchar(1)" desc="Groepsattribuut Uitsluiting kiesrecht INGEZETENE.Aanduiding uitgesloten kiesrecht"/>
+		<column name="uk_verw_eindd_uitsl_kiesr" fullname="Verwachte einddatum uitsluiting kiesrecht" type="decimal(8,0)" desc="Groepsattribuut Uitsluiting kiesrecht INGEZETENE.Verwachte einddatum uitsluiting kiesrecht"/>
+		<!-- Referentielijsten -->
+	</table>
+	<table name="inrichtingselement" desc="RSGB class INRICHTINGSELEMENT" fullname="INRICHTINGSELEMENT">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid inrichtingselement" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Identificatie inrichtingselement" type="varchar(255)" key="true" desc="[PK] NEN3610ID"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid inrichtingselement" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="geom" fullname="Geometrie inrichtingselement" type="geometry" desc="PuntLijnVlak"/>
+		<column name="typering" fullname="Inrichtingselementtypering" type="varchar(40)" desc="AN40"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging inrichtingselement" type="decimal(1,0)" desc="N1"/>
+		<column name="status" fullname="Status inrichtingselement" type="varchar(8)" desc="AN8"/>
+		<column name="type" fullname="Type inrichtingselement" type="varchar(30)" desc="AN30"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="kad_perceel" desc="RSGB class KADASTRAAL PERCEEL. Subclass van: KADASTRALE ONROERENDE ZAAK" fullname="KADASTRAAL PERCEEL">
+		<!-- Primary key(s) -->
+		<column superclass-archief="true" name="sc_dat_beg_geldh" fullname="Datum begin geldigheid kadastrale onroerende zaak" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum, FK naar kad_onrrnd_zk.dat_beg_geldh"/>
+		<column superclass-archief="" name="sc_kad_identif" fullname="Kadastrale identificatie" type="decimal(15,0)" key="true" desc="[PK] N15, FK naar kad_onrrnd_zk.kad_identif"/>
+		<foreign-key name="fk_kdp_sc" columns="sc_kad_identif" desc="Foreign key naar superclass" ref-table="kad_onrrnd_zk" ref-columns="kad_identif"/>
+		<!-- Simple properties -->
+		<column name="aand_soort_grootte" fullname="Aanduiding soort grootte" type="char(1)" desc="boolean"/>
+		<column name="begrenzing_perceel" fullname="Begrenzing perceel" type="multipolygon" desc="GM_Surface"/>
+		<column name="grootte_perceel" fullname="Grootte perceel" type="decimal(8,0)" desc="N8"/>
+		<column name="omschr_deelperceel" fullname="Omschrijving deelperceel" type="varchar(1120)" desc="AN1120"/>
+		<column name="plaatscoordinaten_perceel" fullname="Plaatscoördinaten perceel" type="point" desc="GM_Point"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_7kdp_sc_kad_identif" type="decimal(15,0)" desc="[FK] N15, FK naar kad_perceel.sc_kad_identif (is FK naar superclass KADASTRALE ONROERENDE ZAAK): &#34;ligt binnen&#34;"/>
+		<foreign-key name="fk_kdp_as_7" columns="fk_7kdp_sc_kad_identif" ref-table="kad_perceel" ref-columns="sc_kad_identif"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<column name="ka_deelperceelnummer" fullname="Deelperceelnummer" type="varchar(4)" desc="Groepsattribuut Kadastrale aanduiding KADASTRAAL PERCEEL.Deelperceelnummer"/>
+		<column name="ka_kad_gemeentecode" fullname="Kadastrale gemeentecode" type="varchar(5)" desc="Groepsattribuut Kadastrale aanduiding KADASTRAAL PERCEEL.Kadastrale gemeentecode"/>
+		<column name="ka_perceelnummer" fullname="Perceelnummer" type="varchar(5)" desc="Groepsattribuut Kadastrale aanduiding KADASTRAAL PERCEEL.Perceelnummer"/>
+		<column name="ka_sectie" fullname="Sectie" type="varchar(255)" desc="Groepsattribuut Kadastrale aanduiding KADASTRAAL PERCEEL.Sectie"/>
+		<!-- Referentielijsten -->
+	</table>
+	<table name="kad_gemeente" desc="RSGB class KADASTRALE GEMEENTE" fullname="KADASTRALE GEMEENTE">
+		<!-- Primary key(s) -->
+		<column name="code" fullname="Kadastrale gemeentecode" type="varchar(5)" key="true" desc="[PK] AN5"/>
+		<!-- Simple properties -->
+		<column name="indic_vervallen" fullname="Indicatie vervallen" type="char(1)" desc="boolean"/>
+		<column name="naam" fullname="naam" type="varchar(40)" desc="AN40"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="kad_onrrnd_zk" desc="RSGB class KADASTRALE ONROERENDE ZAAK. Directe superclass van: APPARTEMENTSRECHT, KADASTRAAL PERCEEL" fullname="KADASTRALE ONROERENDE ZAAK">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid kadastrale onroerende zaak" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="kad_identif" fullname="Kadastrale identificatie" type="decimal(15,0)" key="true" desc="[PK] N15"/>
+		<!-- Aanduiding subclass -->
+		<column name="clazz" type="varchar(255)" desc="Aanduiding subclass"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid kadastrale onroerende zaak" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="typering" fullname="Kadastrale onroerende zaak typering" type="varchar(1)" desc="AN1"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_7kdg_code" type="varchar(5)" desc="[FK] AN5, FK naar kad_gemeente.code: &#34;ligt in&#34;"/>
+		<foreign-key name="fk_koz_as_7" columns="fk_7kdg_code" ref-table="kad_gemeente" ref-columns="code"/>
+		<column name="fk_10pes_sc_identif" type="varchar(32)" desc="[FK] AN32, FK naar prs.sc_identif (is FK naar superclass SUBJECT): &#34;heeft als voornaamste zakelijk gerechtigde&#34;"/>
+		<foreign-key name="fk_koz_as_10" columns="fk_10pes_sc_identif" ref-table="prs" ref-columns="sc_identif"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<column name="cu_aard_bebouwing" fullname="Aard bebouwing" type="varchar(255)" desc="Groepsattribuut Cultuur onbebouwd KADASTRALE ONROERENDE ZAAK.Aard bebouwing"/>
+		<column name="cu_aard_cultuur_onbebouwd" fullname="Aard cultuur onbebouwd" type="varchar(65)" desc="Groepsattribuut Cultuur onbebouwd KADASTRALE ONROERENDE ZAAK.Aard cultuur onbebouwd"/>
+		<column name="cu_meer_culturen" fullname="Meer culturen" type="char(1)" desc="Groepsattribuut Cultuur onbebouwd KADASTRALE ONROERENDE ZAAK.Meer culturen"/>
+		<column name="ks_aard_bedrag" fullname="Aard bedrag" type="varchar(255)" desc="Groepsattribuut Koopsom KADASTRALE ONROERENDE ZAAK.Aard bedrag"/>
+		<column name="ks_bedrag" fullname="Bedrag" type="decimal(9,0)" desc="Groepsattribuut Koopsom KADASTRALE ONROERENDE ZAAK.Bedrag"/>
+		<column name="ks_koopjaar" fullname="Koopjaar" type="integer" desc="Groepsattribuut Koopsom KADASTRALE ONROERENDE ZAAK.Koopjaar"/>
+		<column name="ks_meer_onroerendgoed" fullname="Meer onroerendgoed" type="char(1)" desc="Groepsattribuut Koopsom KADASTRALE ONROERENDE ZAAK.Meer onroerendgoed"/>
+		<column name="ks_transactiedatum" fullname="Transactiedatum" type="timestamp" desc="Groepsattribuut Koopsom KADASTRALE ONROERENDE ZAAK.Transactiedatum"/>
+		<column name="ks_valutasoort" fullname="Valutasoort" type="varchar(255)" desc="Groepsattribuut Koopsom KADASTRALE ONROERENDE ZAAK.Valutasoort"/>
+		<column name="lr_aand_aard_liproject" fullname="Aanduiding aard LIproject" type="varchar(1)" desc="Groepsattribuut Landinrichtingsrente KADASTRALE ONROERENDE ZAAK.Aanduiding aard LIproject"/>
+		<column name="lr_aard_bedrag" fullname="Aard bedrag" type="varchar(255)" desc="Groepsattribuut Landinrichtingsrente KADASTRALE ONROERENDE ZAAK.Aard bedrag"/>
+		<column name="lr_bedrag" fullname="Bedrag" type="varchar(255)" desc="Groepsattribuut Landinrichtingsrente KADASTRALE ONROERENDE ZAAK.Bedrag"/>
+		<column name="lr_eindjaar" fullname="Eindjaar" type="integer" desc="Groepsattribuut Landinrichtingsrente KADASTRALE ONROERENDE ZAAK.Eindjaar"/>
+		<column name="lr_valutasoort" fullname="Valutasoort" type="varchar(3)" desc="Groepsattribuut Landinrichtingsrente KADASTRALE ONROERENDE ZAAK.Valutasoort"/>
+		<column name="lo_cultuur_bebouwd" fullname="Cultuur bebouwd" type="varchar(65)" desc="Groepsattribuut Locatie onroerende zaak KADASTRALE ONROERENDE ZAAK.Cultuur bebouwd"/>
+		<column name="lo_loc__omschr" fullname="Locatie- omschrijving" type="varchar(40)" desc="Groepsattribuut Locatie onroerende zaak KADASTRALE ONROERENDE ZAAK.Locatie- omschrijving"/>
+		<!-- Referentielijsten -->
+	</table>
+	<table name="kad_onrrnd_zk_aantek" desc="RSGB class KADASTRALE ONROERENDE ZAAK AANTEKENING" fullname="KADASTRALE ONROERENDE ZAAK AANTEKENING">
+		<!-- Primary key(s) -->
+		<column name="begindatum_aantek_kad_obj" fullname="Begindatum aantekening kadastraal object" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="kadaster_identif_aantek" fullname="Kadaster identificatie aantekening" type="varchar(255)" key="true" desc="[PK] AN255"/>
+		<!-- Simple properties -->
+		<column name="aard_aantek_kad_obj" fullname="Aard aantekening kadastraal object" type="varchar(255)" desc="[Enumeratie]"/>
+		<column name="beschrijving_aantek_kad_obj" fullname="Beschrijving aantekening kadastraal object" type="varchar(124)" desc="AN124"/>
+		<column name="eindd_aantek_kad_obj" fullname="Einddatum aantekening kadastraal object" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_4koz_kad_identif" type="decimal(15,0)" desc="[FK] N15, FK naar kad_onrrnd_zk.kad_identif: &#34;behoort bij&#34;"/>
+		<foreign-key name="fk_kza_as_4" columns="fk_4koz_kad_identif" ref-table="kad_onrrnd_zk" ref-columns="kad_identif"/>
+		<column name="fk_5pes_sc_identif" type="varchar(32)" desc="[FK] AN32, FK naar prs.sc_identif (is FK naar superclass SUBJECT): &#34;heeft betrokken&#34;"/>
+		<foreign-key name="fk_kza_as_5" columns="fk_5pes_sc_identif" ref-table="prs" ref-columns="sc_identif"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="kunstwerkdeel" desc="RSGB class KUNSTWERKDEEL. Directe superclass van: BRUGCONSTRUCTIE ELEMENT" fullname="KUNSTWERKDEEL">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid kunstwerkdeel" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Identificatie kunstwerkdeel" type="varchar(255)" key="true" desc="[PK] NEN3610ID"/>
+		<!-- Aanduiding subclass -->
+		<column name="clazz" type="varchar(255)" desc="Aanduiding subclass"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid kunstwerkdeel" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="geom" fullname="Geometrie kunstwerkdeel" type="geometry" desc="LijnVlak"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging kunstwerkdeel" type="decimal(1,0)" desc="N1"/>
+		<column name="status" fullname="Status kunstwerkdeel" type="varchar(8)" desc="A8"/>
+		<column name="type_kunstwerk" fullname="Type kunstwerk" type="varchar(40)" desc="AN40"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="ligplaats" desc="RSGB class LIGPLAATS. Subclass van: BENOEMD TERREIN -&gt; BENOEMD OBJECT" fullname="LIGPLAATS">
+		<!-- Primary key(s) -->
+		<column superclass-archief="true" name="sc_dat_beg_geldh" fullname="Datum begin geldigheid benoemd terrein" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum, FK naar benoemd_terrein.dat_beg_geldh"/>
+		<column superclass-archief="" name="sc_identif" fullname="Benoemd object identificatie" type="varchar(16)" key="true" desc="[PK] AN16, FK naar benoemd_terrein.sc_identif"/>
+		<foreign-key name="fk_lpl_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="benoemd_terrein" ref-columns="sc_identif"/>
+		<!-- Simple properties -->
+		<column name="indic_geconst" fullname="Indicatie geconstateerde ligplaats" type="varchar(1)" desc="AN1"/>
+		<column name="status" fullname="Ligplaatsstatus" type="varchar(80)" desc="AN80"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_4nra_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &#34;heeft als hoofdadres&#34;"/>
+		<foreign-key name="fk_lpl_as_4" columns="fk_4nra_sc_identif" ref-table="nummeraand" ref-columns="sc_identif"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="maatschapp_activiteit" desc="RSGB class MAATSCHAPPELIJKE ACTIVITEIT" fullname="MAATSCHAPPELIJKE ACTIVITEIT">
+		<!-- Primary key(s) -->
+		<column name="kvk_nummer" fullname="KvK-nummer" type="decimal(8,0)" key="true" desc="[PK] N8"/>
+		<!-- Simple properties -->
+		<column name="datum_aanvang" fullname="Datum aanvang" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="datum_einde_geldig" fullname="Datum einde geldig (beeindiging)" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_3ond_kvk_nummer" type="decimal(8,0)" desc="[FK] N8, FK naar ondrnmng.kvk_nummer: &#34;manifesteert zich als&#34;"/>
+		<foreign-key name="fk_mac_as_3" columns="fk_3ond_kvk_nummer" ref-table="ondrnmng" ref-columns="kvk_nummer"/>
+		<column name="fk_4pes_sc_identif" type="varchar(32)" desc="[FK] AN32, FK naar prs.sc_identif (is FK naar superclass SUBJECT): &#34;heeft als eigenaar&#34;"/>
+		<foreign-key name="fk_mac_as_4" columns="fk_4pes_sc_identif" ref-table="prs" ref-columns="sc_identif"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="nat_prs" desc="RSGB class NATUURLIJK PERSOON. Subclass van: PERSOON -&gt; SUBJECT. Directe superclass van: ANDER NATUURLIJK PERSOON, INGESCHREVEN NATUURLIJK PERSOON" fullname="NATUURLIJK PERSOON">
+		<!-- Primary key(s) -->
+		<column superclass-archief="" name="sc_identif" fullname="Identificatie" type="varchar(32)" key="true" desc="[PK] AN32, FK naar prs.sc_identif"/>
+		<foreign-key name="fk_nps_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="prs" ref-columns="sc_identif"/>
+		<!-- Aanduiding subclass -->
+		<column name="clazz" type="varchar(255)" desc="Aanduiding subclass"/>
+		<!-- Simple properties -->
+		<column name="aand_naamgebruik" fullname="Aanduiding naamgebruik" type="varchar(1)" desc="AN1"/>
+		<column name="geslachtsaand" fullname="Geslachtsaanduiding" type="varchar(1)" desc="AN1"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<column name="nm_adellijke_titel_predikaat" fullname="Adellijke titel/ predikaat" type="varchar(10)" desc="Groepsattribuut Naam NATUURLIJK PERSOON.Adellijke titel/ predikaat"/>
+		<column name="nm_geslachtsnaam" fullname="Geslachtsnaam" type="varchar(200)" desc="Groepsattribuut Naam NATUURLIJK PERSOON.Geslachtsnaam"/>
+		<column name="nm_voornamen" fullname="Voornamen" type="varchar(200)" desc="Groepsattribuut Naam NATUURLIJK PERSOON.Voornamen"/>
+		<column name="nm_voorvoegsel_geslachtsnaam" fullname="Voorvoegsel geslachtsnaam" type="varchar(10)" desc="Groepsattribuut Naam NATUURLIJK PERSOON.Voorvoegsel geslachtsnaam"/>
+		<column name="na_aanhef_aanschrijving" fullname="Aanhef aanschrijving" type="varchar(50)" desc="Groepsattribuut Naam aanschrijving NATUURLIJK PERSOON.Aanhef aanschrijving"/>
+		<column name="na_geslachtsnaam_aanschrijving" fullname="Geslachtsnaam aanschrijving" type="varchar(200)" desc="Groepsattribuut Naam aanschrijving NATUURLIJK PERSOON.Geslachtsnaam aanschrijving"/>
+		<column name="na_voorletters_aanschrijving" fullname="Voorletters aanschrijving" type="varchar(20)" desc="Groepsattribuut Naam aanschrijving NATUURLIJK PERSOON.Voorletters aanschrijving"/>
+		<column name="na_voornamen_aanschrijving" fullname="Voornamen aanschrijving" type="varchar(200)" desc="Groepsattribuut Naam aanschrijving NATUURLIJK PERSOON.Voornamen aanschrijving"/>
+		<!-- Referentielijsten -->
+		<column name="fk_2acd_code" type="varchar(3)" desc="[FK] AN3, FK naar academische_titel.code: &#34;Referentielijst NATUURLIJK PERSOON.Academische titel&#34;"/>
+		<foreign-key name="fk_nps_rl_2" columns="fk_2acd_code" ref-table="academische_titel" ref-columns="code"/>
+	</table>
+	<table name="niet_ingezetene" desc="RSGB class NIET-INGEZETENE. Subclass van: INGESCHREVEN NATUURLIJK PERSOON -&gt; NATUURLIJK PERSOON -&gt; PERSOON -&gt; SUBJECT" fullname="NIET-INGEZETENE">
+		<!-- Primary key(s) -->
+		<column superclass-archief="" name="sc_identif" fullname="Identificatie" type="varchar(32)" key="true" desc="[PK] AN32, FK naar ingeschr_nat_prs.sc_identif"/>
+		<foreign-key name="fk_nin_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="ingeschr_nat_prs" ref-columns="sc_identif"/>
+		<!-- Simple properties -->
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="niet_nat_prs" desc="RSGB class NIET-NATUURLIJK PERSOON. Subclass van: PERSOON -&gt; SUBJECT. Directe superclass van: ANDER BUITENLANDS NIET-NATUURLIJK PERSOON, INGESCHREVEN NIET-NATUURLIJK PERSOON" fullname="NIET-NATUURLIJK PERSOON">
+		<!-- Primary key(s) -->
+		<column superclass-archief="" name="sc_identif" fullname="Identificatie" type="varchar(32)" key="true" desc="[PK] AN32, FK naar prs.sc_identif"/>
+		<foreign-key name="fk_nnp_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="prs" ref-columns="sc_identif"/>
+		<!-- Aanduiding subclass -->
+		<column name="clazz" type="varchar(255)" desc="Aanduiding subclass"/>
+		<!-- Simple properties -->
+		<column name="naam" fullname="(Statutaire) Naam" type="varchar(500)" desc="AN500"/>
+		<column name="datum_aanvang" fullname="Datum aanvang" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="datum_beeindiging" fullname="Datum beeindiging" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="verkorte_naam" fullname="Verkorte naam" type="varchar(45)" desc="AN45"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="nummeraand" desc="RSGB class NUMMERAANDUIDING. Subclass van: ADRESSEERBAAR OBJECT AANDUIDING" fullname="NUMMERAANDUIDING">
+		<!-- Primary key(s) -->
+		<column superclass-archief="true" name="sc_dat_beg_geldh" fullname="Datum begin geldigheid addresserbaar object aanduiding" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum, FK naar addresseerb_obj_aand.dat_beg_geldh"/>
+		<column superclass-archief="" name="sc_identif" fullname="Identificatie adresseerbaar object aanduiding" type="varchar(16)" key="true" desc="[PK] AN16, FK naar addresseerb_obj_aand.identif"/>
+		<foreign-key name="fk_nra_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="addresseerb_obj_aand" ref-columns="identif"/>
+		<!-- Simple properties -->
+		<column name="indic_geconst" fullname="Indicatie geconstateerde nummeraanduiding" type="varchar(1)" desc="AN1"/>
+		<column name="indic_hoofdadres" fullname="Indicatie hoofdadres" type="char(1)" desc="boolean"/>
+		<column name="status" fullname="Nummeraanduidingstatus" type="varchar(80)" desc="AN80"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="onbegr_terr_dl" desc="RSGB class ONBEGROEID TERREINDEEL. Directe superclass van: ONBEGROEID TERREINVAKONDERDEEL" fullname="ONBEGROEID TERREINDEEL">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid onbegroeid terreindeel" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Identificatie onbegroeid terreindeel" type="varchar(255)" key="true" desc="[PK] NEN3610ID"/>
+		<!-- Aanduiding subclass -->
+		<column name="clazz" type="varchar(255)" desc="Aanduiding subclass"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid onbegroeid terreindeel" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="fysiek_voork_onbegr_terrein" fullname="Fysiek voorkomen onbegroeid terrein" type="varchar(20)" desc="AN20"/>
+		<column name="geom" fullname="Geometrie onbegroeid terreindeel" type="multipolygon" desc="GM_Surface"/>
+		<column name="kruinlijngeom" fullname="Kruinlijngeometrie onbegroeid terreindeel" type="linestring" desc="GM_Curve"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging onbegroeid terreindeel" type="decimal(1,0)" desc="N1"/>
+		<column name="status" fullname="Status onbegroeid terreindeel" type="varchar(8)" desc="A8"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_8opr_identifcode" type="varchar(16)" desc="[FK] AN16, FK naar openb_rmte.identifcode: &#34;maakt deel uit van&#34;"/>
+		<foreign-key name="fk_obt_as_8" columns="fk_8opr_identifcode" ref-table="openb_rmte" ref-columns="identifcode"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="onbegr_terreinvakonderd" desc="RSGB class ONBEGROEID TERREINVAKONDERDEEL. Subclass van: ONBEGROEID TERREINDEEL" fullname="ONBEGROEID TERREINVAKONDERDEEL">
+		<!-- Primary key(s) -->
+		<column superclass-archief="true" name="sc_dat_beg_geldh" fullname="Datum begin geldigheid onbegroeid terreindeel" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum, FK naar onbegr_terr_dl.dat_beg_geldh"/>
+		<column superclass-archief="" name="sc_identif" fullname="Identificatie onbegroeid terreindeel" type="varchar(255)" key="true" desc="[PK] NEN3610ID, FK naar onbegr_terr_dl.identif"/>
+		<foreign-key name="fk_otv_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="onbegr_terr_dl" ref-columns="identif"/>
+		<!-- Simple properties -->
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<column name="fk_1obt_identif" type="varchar(255)" desc="[FK] NEN3610ID, FK naar onbegr_terr_dl.identif"/>
+		<foreign-key name="fk_otv_1n_1" columns="fk_1obt_identif" ref-table="onbegr_terr_dl" ref-columns="identif"/>
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="ondrnmng" desc="RSGB class ONDERNEMING" fullname="ONDERNEMING">
+		<!-- Primary key(s) -->
+		<column name="kvk_nummer" fullname="KvK-nummer" type="decimal(8,0)" key="true" desc="[PK] N8"/>
+		<!-- Simple properties -->
+		<column name="datum_aanvang" fullname="Datum aanvang" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="datum_einde" fullname="Datum einde" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_4mac_kvk_nummer" type="decimal(8,0)" desc="[FK] N8, FK naar maatschapp_activiteit.kvk_nummer: &#34;is voortgezet door&#34;"/>
+		<foreign-key name="fk_ond_as_4" columns="fk_4mac_kvk_nummer" ref-table="maatschapp_activiteit" ref-columns="kvk_nummer"/>
+		<!-- Association properties * - 1 -->
+		<column name="fk_1ond_kvk_nummer" type="decimal(8,0)" desc="[FK] N8, FK naar ondrnmng.kvk_nummer"/>
+		<foreign-key name="fk_ond_1n_1" columns="fk_1ond_kvk_nummer" ref-table="ondrnmng" ref-columns="kvk_nummer"/>
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="ondersteunend_wegdeel" desc="RSGB class ONDERSTEUNEND WEGDEEL" fullname="ONDERSTEUNEND WEGDEEL">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid ondersteunend wegdeel" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Identificatie ondersteunend wegdeel" type="varchar(255)" key="true" desc="[PK] NEN3610ID"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid ondersteunend wegdeel" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="functie" fullname="Functie ondersteunend wegdeel" type="varchar(25)" desc="AN25"/>
+		<column name="geom" fullname="Geometrie ondersteunend wegdeel" type="multipolygon" desc="GM_Surface"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging ondersteunend wegdeel" type="decimal(1,0)" desc="N1"/>
+		<column name="status" fullname="Status ondersteunend wegdeel" type="varchar(8)" desc="A8"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_6opr_identifcode" type="varchar(16)" desc="[FK] AN16, FK naar openb_rmte.identifcode: &#34;maakt deel uit van&#34;"/>
+		<foreign-key name="fk_owd_as_6" columns="fk_6opr_identifcode" ref-table="openb_rmte" ref-columns="identifcode"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="openb_rmte" desc="RSGB class OPENBARE RUIMTE" fullname="OPENBARE RUIMTE">
+		<!-- Primary key(s) -->
+		<column name="identifcode" fullname="Identificatiecode openbare ruimte" type="varchar(16)" key="true" desc="[PK] AN16"/>
+		<!-- Simple properties -->
+		<column name="huisnrrange_on_even_nummers" fullname="Huisnummerrange even en oneven nummers" type="varchar(11)" desc="AN11 (NNNNN-NNNNN)"/>
+		<column name="huisnrrange_even_nummers" fullname="Huisnummerrange even nummers" type="varchar(11)" desc="AN11 (NNNNN-NNNNN)"/>
+		<column name="huisnrrange_oneven_nummers" fullname="Huisnummerrange oneven nummers" type="varchar(11)" desc="AN11 (NNNNN-NNNNN)"/>
+		<column name="identif_bgtopr" fullname="Identificatie BGTOPR" type="varchar(255)" desc="NEN3610ID"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="ovrg_addresseerb_obj_aand" desc="RSGB class OVERIGE ADRESSEERBAAR OBJECT AANDUIDING. Subclass van: ADRESSEERBAAR OBJECT AANDUIDING" fullname="OVERIGE ADRESSEERBAAR OBJECT AANDUIDING">
+		<!-- Primary key(s) -->
+		<column superclass-archief="true" name="sc_dat_beg_geldh" fullname="Datum begin geldigheid addresserbaar object aanduiding" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum, FK naar addresseerb_obj_aand.dat_beg_geldh"/>
+		<column superclass-archief="" name="sc_identif" fullname="Identificatie adresseerbaar object aanduiding" type="varchar(16)" key="true" desc="[PK] AN16, FK naar addresseerb_obj_aand.identif"/>
+		<foreign-key name="fk_oao_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="addresseerb_obj_aand" ref-columns="identif"/>
+		<!-- Simple properties -->
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="overig_bouwwerk" desc="RSGB class OVERIG BOUWWERK" fullname="OVERIG BOUWWERK">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid overig bouwwerk" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Identificatie overig bouwwerk" type="varchar(255)" key="true" desc="[PK] NEN3610ID"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid overig bouwwerk" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="geom" fullname="Geometrie overig bouwwerk" type="multipolygon" desc="GM_Surface"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging overig bouwwerk" type="decimal(1,0)" desc="N1"/>
+		<column name="status" fullname="Status overig bouwwerk" type="varchar(8)" desc="A8"/>
+		<column name="type" fullname="Type overig bouwwerk" type="varchar(40)" desc="AN40"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="overig_gebouwd_obj" desc="RSGB class OVERIG GEBOUWD OBJECT. Subclass van: GEBOUWD OBJECT -&gt; BENOEMD OBJECT" fullname="OVERIG GEBOUWD OBJECT">
+		<!-- Primary key(s) -->
+		<column superclass-archief="true" name="sc_dat_beg_geldh" fullname="Datum begin geldigheid gebouwd object" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum, FK naar gebouwd_obj.dat_beg_geldh"/>
+		<column superclass-archief="" name="sc_identif" fullname="Benoemd object identificatie" type="varchar(16)" key="true" desc="[PK] AN16, FK naar gebouwd_obj.sc_identif"/>
+		<foreign-key name="fk_ogo_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="gebouwd_obj" ref-columns="sc_identif"/>
+		<!-- Simple properties -->
+		<column name="bouwjaar" fullname="Bouwjaar" type="decimal(4,0)" desc="N4"/>
+		<column name="loc_aand" fullname="Overig gebouwd object locatie-aanduiding" type="varchar(40)" desc="AN40"/>
+		<column name="type" fullname="Overig gebouwd object type" type="varchar(40)" desc="AN40"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_4oao_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar ovrg_addresseerb_obj_aand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &#34;heeft als officieel adres&#34;"/>
+		<foreign-key name="fk_ogo_as_4" columns="fk_4oao_sc_identif" ref-table="ovrg_addresseerb_obj_aand" ref-columns="sc_identif"/>
+		<column name="fk_5nra_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &#34;heeft locatie-adres i.c.m.&#34;"/>
+		<foreign-key name="fk_ogo_as_5" columns="fk_5nra_sc_identif" ref-table="nummeraand" ref-columns="sc_identif"/>
+		<column name="fk_6opr_identifcode" type="varchar(16)" desc="[FK] AN16, FK naar openb_rmte.identifcode: &#34;heeft straatadres i.c.m.&#34;"/>
+		<foreign-key name="fk_ogo_as_6" columns="fk_6opr_identifcode" ref-table="openb_rmte" ref-columns="identifcode"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="ovrg_scheiding" desc="RSGB class OVERIGE SCHEIDING" fullname="OVERIGE SCHEIDING">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid overige scheiding" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Identificatie overige scheiding" type="varchar(255)" key="true" desc="[PK] NEN3610ID"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid overige scheiding" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="geom" fullname="Geometrie overige scheiding" type="geometry" desc="LijnVlak"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging overige scheiding" type="decimal(1,0)" desc="N1"/>
+		<column name="status" fullname="Status overige scheiding" type="varchar(8)" desc="A8"/>
+		<column name="type" fullname="Type overige scheiding" type="varchar(40)" desc="AN40"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="overig_terrein" desc="RSGB class OVERIG TERREIN. Subclass van: BENOEMD TERREIN -&gt; BENOEMD OBJECT" fullname="OVERIG TERREIN">
+		<!-- Primary key(s) -->
+		<column superclass-archief="true" name="sc_dat_beg_geldh" fullname="Datum begin geldigheid benoemd terrein" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum, FK naar benoemd_terrein.dat_beg_geldh"/>
+		<column superclass-archief="" name="sc_identif" fullname="Benoemd object identificatie" type="varchar(16)" key="true" desc="[PK] AN16, FK naar benoemd_terrein.sc_identif"/>
+		<foreign-key name="fk_otr_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="benoemd_terrein" ref-columns="sc_identif"/>
+		<!-- Simple properties -->
+		<!-- Association properties 1 - * -->
+		<column name="fk_2oao_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar ovrg_addresseerb_obj_aand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &#34;heeft als officieel adres&#34;"/>
+		<foreign-key name="fk_otr_as_2" columns="fk_2oao_sc_identif" ref-table="ovrg_addresseerb_obj_aand" ref-columns="sc_identif"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="pand" desc="RSGB class PAND" fullname="PAND">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid pand" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Pandidentificatie" type="varchar(16)" key="true" desc="[PK] AN16"/>
+		<!-- Simple properties -->
+		<column name="bruto_inhoud" fullname="Bruto inhoud pand" type="decimal(6,0)" desc="N6"/>
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid pand" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="hoogste_bouwlaag" fullname="Hoogste bouwlaag pand" type="decimal(3,0)" desc="N3"/>
+		<column name="identif_bgtpnd" fullname="Identificatie BGTPND" type="varchar(255)" desc="NEN3610ID"/>
+		<column name="indic_geconstateerd" fullname="Indicatie geconstateerd pand" type="varchar(1)" desc="AN1"/>
+		<column name="inwwijze_geom_bovenaanzicht" fullname="Inwinningswijze geometrie bovenaanzicht" type="varchar(24)" desc="AN24"/>
+		<column name="inwwijze_geom_maaiveld" fullname="Inwinningswijze geometrie maaiveld" type="varchar(24)" desc="AN24"/>
+		<column name="laagste_bouwlaag" fullname="Laagste bouwlaag pand" type="decimal(3,0)" desc="N3"/>
+		<column name="oorspronkelijk_bouwjaar" fullname="Oorspronkelijk bouwjaar pand" type="decimal(4,0)" desc="N4"/>
+		<column name="oppervlakte" fullname="Oppervlakte pand" type="decimal(6,0)" desc="N6"/>
+		<column name="geom_bovenaanzicht" fullname="Pandgeometrie bovenaanzicht" type="multipolygon" desc="GM_Surface"/>
+		<column name="geom_maaiveld" fullname="Pandgeometrie maaiveld" type="multipolygon" desc="GM_MultiSurface"/>
+		<column name="status" fullname="Pandstatus" type="varchar(80)" desc="AN80"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging pand" type="decimal(1,0)" desc="N1"/>
+		<column name="status_voortgang_bouw" fullname="Status voortgang bouw" type="varchar(24)" desc="AN24"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_16brt_code" type="decimal(2,0)" desc="[FK] N2, FK naar buurt.code: &#34;zonder verblijfsobject ligt in&#34;"/>
+		<foreign-key name="fk_pnd_as_16" columns="fk_16brt_code" ref-table="buurt" ref-columns="code"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="prs" desc="RSGB class PERSOON. Subclass van: SUBJECT. Directe superclass van: NATUURLIJK PERSOON, NIET-NATUURLIJK PERSOON" fullname="PERSOON">
+		<!-- Primary key(s) -->
+		<column superclass-archief="" name="sc_identif" fullname="Identificatie" type="varchar(32)" key="true" desc="[PK] AN32, FK naar subject.identif"/>
+		<foreign-key name="fk_pes_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="subject" ref-columns="identif"/>
+		<!-- Aanduiding subclass -->
+		<column name="clazz" type="varchar(255)" desc="Aanduiding subclass"/>
+		<!-- Simple properties -->
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="rsdoc" desc="RSGB class REISDOCUMENT" fullname="REISDOCUMENT">
+		<!-- Primary key(s) -->
+		<column name="nummer" fullname="Reisdocumentnummer" type="varchar(9)" key="true" desc="[PK] AN9"/>
+		<!-- Simple properties -->
+		<column name="aand_inhouding_of_vermissing" fullname="Aanduiding inhouding of vermissing" type="varchar(1)" desc="AN1"/>
+		<column name="autoriteit_uitgifte" fullname="Autoriteit uitgifte" type="varchar(6)" desc="AN6"/>
+		<column name="datum_inhouding_of_vermissing" fullname="Datum inhouding of vermissing" type="decimal(8,0)" desc="N8"/>
+		<column name="datum_uitgifte" fullname="Datum uitgifte" type="decimal(8,0)" desc="N8"/>
+		<column name="eindd_geldh_document" fullname="Einddatum geldigheid document" type="decimal(8,0)" desc="N8"/>
+		<column name="lengte_houder" fullname="Lengte houder" type="decimal(8,0)" desc="N8"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+		<column name="fk_7rds_rsdoccode" type="varchar(2)" desc="[FK] A2, FK naar rsdocsoort.rsdoccode: &#34;Referentielijst REISDOCUMENT.Soort&#34;"/>
+		<foreign-key name="fk_rsd_rl_7" columns="fk_7rds_rsdoccode" ref-table="rsdocsoort" ref-columns="rsdoccode"/>
+	</table>
+	<table name="scheiding" desc="RSGB class SCHEIDING" fullname="SCHEIDING">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid scheiding" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Identificatie scheiding" type="varchar(255)" key="true" desc="[PK] NEN3610ID"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid scheiding" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="geom" fullname="Geometrie scheiding" type="geometry" desc="LijnVlak"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging scheiding" type="decimal(1,0)" desc="N1"/>
+		<column name="status" fullname="Status scheiding" type="varchar(8)" desc="A8"/>
+		<column name="type" fullname="Type scheiding" type="varchar(40)" desc="AN40"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="spoor" desc="RSGB class SPOOR" fullname="SPOOR">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid spoor" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Identificatie spoor" type="varchar(255)" key="true" desc="[PK] NEN3610ID"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid spoor" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="functie" fullname="Functie spoor" type="varchar(25)" desc="AN25"/>
+		<column name="geom" fullname="Geometrie spoor" type="linestring" desc="GM_Curve"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging spoor" type="decimal(1,0)" desc="N1"/>
+		<column name="status" fullname="Status spoor" type="varchar(8)" desc="A8"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="stadsdeel" desc="RSGB class STADSDEEL" fullname="STADSDEEL">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid stadsdeel" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Identificatie stadsdeel" type="varchar(255)" key="true" desc="[PK] NEN3610ID"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid stadsdeel" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging stadsdeel" type="decimal(1,0)" desc="N1"/>
+		<column name="geom" fullname="Stadsdeelgeometrie" type="multipolygon" desc="GM_Surface"/>
+		<column name="naam" fullname="Stadsdeelnaam" type="varchar(40)" desc="AN40"/>
+		<column name="status" fullname="Status stadsdeel" type="varchar(8)" desc="A8"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="standplaats" desc="RSGB class STANDPLAATS. Subclass van: BENOEMD TERREIN -&gt; BENOEMD OBJECT" fullname="STANDPLAATS">
+		<!-- Primary key(s) -->
+		<column superclass-archief="true" name="sc_dat_beg_geldh" fullname="Datum begin geldigheid benoemd terrein" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum, FK naar benoemd_terrein.dat_beg_geldh"/>
+		<column superclass-archief="" name="sc_identif" fullname="Benoemd object identificatie" type="varchar(16)" key="true" desc="[PK] AN16, FK naar benoemd_terrein.sc_identif"/>
+		<foreign-key name="fk_spl_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="benoemd_terrein" ref-columns="sc_identif"/>
+		<!-- Simple properties -->
+		<column name="indic_geconst" fullname="Indicatie geconstateerde standplaats" type="varchar(1)" desc="AN1"/>
+		<column name="status" fullname="Standplaatsstatus" type="varchar(80)" desc="AN80"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_4nra_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &#34;heeft als hoofdadres&#34;"/>
+		<foreign-key name="fk_spl_as_4" columns="fk_4nra_sc_identif" ref-table="nummeraand" ref-columns="sc_identif"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="subject" desc="RSGB class SUBJECT. Directe superclass van: PERSOON, VESTIGING" fullname="SUBJECT">
+		<!-- Primary key(s) -->
+		<column name="identif" fullname="Identificatie" type="varchar(32)" key="true" desc="[PK] AN32"/>
+		<!-- Aanduiding subclass -->
+		<column name="clazz" type="varchar(255)" desc="Aanduiding subclass"/>
+		<!-- Simple properties -->
+		<column name="adres_binnenland" fullname="Adres binnenland" type="varchar(257)" desc="AN257"/>
+		<column name="adres_buitenland" fullname="Adres buitenland" type="varchar(149)" desc="AN149"/>
+		<column name="emailadres" fullname="Emailadres" type="varchar(254)" desc="AN254"/>
+		<column name="fax_nummer" fullname="Fax-nummer" type="varchar(20)" desc="AN20"/>
+		<column name="kvk_nummer" fullname="KvK-nummer" type="decimal(8,0)" desc="N8"/>
+		<column name="naam" fullname="Naam" type="varchar(500)" desc="AN500"/>
+		<column name="typering" fullname="Subjecttypering" type="varchar(50)" desc="AN50"/>
+		<column name="telefoonnummer" fullname="Telefoonnummer" type="varchar(20)" desc="AN20"/>
+		<column name="website_url" fullname="Website-URL" type="varchar(200)" desc="AN200"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_13wpl_identif" type="varchar(4)" desc="[FK] AN4, FK naar wnplts.identif: &#34;heeft als correspondentieadres&#34;"/>
+		<foreign-key name="fk_sub_as_13" columns="fk_13wpl_identif" ref-table="wnplts" ref-columns="identif"/>
+		<column name="fk_14aoa_identif" type="varchar(16)" desc="[FK] AN16, FK naar addresseerb_obj_aand.identif: &#34;heeft als factuuradres&#34;"/>
+		<foreign-key name="fk_sub_as_14" columns="fk_14aoa_identif" ref-table="addresseerb_obj_aand" ref-columns="identif"/>
+		<column name="fk_15aoa_identif" type="varchar(16)" desc="[FK] AN16, FK naar addresseerb_obj_aand.identif: &#34;heeft als correspondentieadres&#34;"/>
+		<foreign-key name="fk_sub_as_15" columns="fk_15aoa_identif" ref-table="addresseerb_obj_aand" ref-columns="identif"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<column name="pa_postadres_postcode" fullname="Postadres postcode" type="varchar(6)" desc="Groepsattribuut Postadres SUBJECT.Postadres postcode"/>
+		<column name="pa_postadrestype" fullname="Postadrestype" type="varchar(1)" desc="Groepsattribuut Postadres SUBJECT.Postadrestype"/>
+		<column name="pa_postbus__of_antwoordnummer" fullname="Postbus- of antwoordnummer" type="decimal(5,0)" desc="Groepsattribuut Postadres SUBJECT.Postbus- of antwoordnummer"/>
+		<column name="fk_pa_4_wpl_identif" type="varchar(4)" desc="[FK] AN4, FK naar wnplts.identif: &#34;Groepsattribuut Postadres SUBJECT.woonplaats&#34;"/>
+		<foreign-key name="fk_sub_pa_as_4" columns="fk_pa_4_wpl_identif" ref-table="wnplts" ref-columns="identif"/>
+		<column name="rn_bankrekeningnummer" fullname="Bankrekeningnummer" type="decimal(10,0)" desc="Groepsattribuut Rekeningnummer SUBJECT.Bankrekeningnummer"/>
+		<column name="rn_bic" fullname="BIC" type="varchar(11)" desc="Groepsattribuut Rekeningnummer SUBJECT.BIC"/>
+		<column name="rn_iban" fullname="IBAN" type="varchar(34)" desc="Groepsattribuut Rekeningnummer SUBJECT.IBAN"/>
+		<column name="vb_adres_buitenland_1" fullname="Adres buitenland 1" type="varchar(35)" desc="Groepsattribuut Verblijf buitenland SUBJECT.Adres buitenland 1"/>
+		<column name="vb_adres_buitenland_2" fullname="Adres buitenland 2" type="varchar(35)" desc="Groepsattribuut Verblijf buitenland SUBJECT.Adres buitenland 2"/>
+		<column name="vb_adres_buitenland_3" fullname="Adres buitenland 3" type="varchar(35)" desc="Groepsattribuut Verblijf buitenland SUBJECT.Adres buitenland 3"/>
+		<column name="fk_vb_lnd_code_iso" type="varchar(2)" desc="[FK] A2, FK naar land.code_iso: &#34;Groepsattribuut referentielijst Land verblijfadres&#34;"/>
+		<foreign-key name="fk_sub_vb_4" columns="fk_vb_lnd_code_iso" ref-table="land" ref-columns="code_iso"/>
+		<!-- Referentielijsten -->
+	</table>
+	<table name="verblijfsobj" desc="RSGB class VERBLIJFSOBJECT. Subclass van: GEBOUWD OBJECT -&gt; BENOEMD OBJECT" fullname="VERBLIJFSOBJECT">
+		<!-- Primary key(s) -->
+		<column superclass-archief="true" name="sc_dat_beg_geldh" fullname="Datum begin geldigheid gebouwd object" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum, FK naar gebouwd_obj.dat_beg_geldh"/>
+		<column superclass-archief="" name="sc_identif" fullname="Benoemd object identificatie" type="varchar(16)" key="true" desc="[PK] AN16, FK naar gebouwd_obj.sc_identif"/>
+		<foreign-key name="fk_vbo_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="gebouwd_obj" ref-columns="sc_identif"/>
+		<!-- Simple properties -->
+		<column name="aantal_kamers" fullname="Aantal kamers" type="decimal(2,0)" desc="N2"/>
+		<column name="hoogste_bouwlaag" fullname="Hoogste bouwlaag verblijfsobject" type="decimal(3,0)" desc="N3"/>
+		<column name="indic_geconstateerd" fullname="Indicatie geconstateerd verblijfsobject" type="varchar(1)" desc="AN1"/>
+		<column name="laagste_bouwlaag" fullname="Laagste bouwlaag verblijfsobject" type="decimal(3,0)" desc="N3"/>
+		<column name="ontsluiting_verdieping" fullname="Ontsluiting verdieping" type="varchar(3)" desc="AN3"/>
+		<column name="soort_woonobj" fullname="Soort woonobject" type="decimal(1,0)" desc="N1"/>
+		<column name="toegang_bouwlaag" fullname="Toegang bouwlaag verblijfsobject" type="decimal(3,0)" desc="N3"/>
+		<column name="status" fullname="Verblijfsobjectstatus" type="varchar(80)" desc="AN80"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_11nra_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &#34;heeft als hoofdadres&#34;"/>
+		<foreign-key name="fk_vbo_as_11" columns="fk_11nra_sc_identif" ref-table="nummeraand" ref-columns="sc_identif"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="verblijfstitel" desc="RSGB class VERBLIJFSTITEL" fullname="VERBLIJFSTITEL">
+		<!-- Primary key(s) -->
+		<column name="aand" fullname="Aanduiding verblijfstitel" type="decimal(2,0)" key="true" desc="[PK] N2"/>
+		<column name="begindatum_geldh" fullname="Begindatum geldigheid verblijfstitel" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<!-- Simple properties -->
+		<column name="eindd_geldh" fullname="Einddatum geldigheid verblijfstitel" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="omschr" fullname="Verblijfstitelomschrijving" type="varchar(100)" desc="AN100"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="vestg" desc="RSGB class VESTIGING. Subclass van: SUBJECT" fullname="VESTIGING">
+		<!-- Primary key(s) -->
+		<column superclass-archief="" name="sc_identif" fullname="Identificatie" type="varchar(32)" key="true" desc="[PK] AN32, FK naar subject.identif"/>
+		<foreign-key name="fk_ves_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="subject" ref-columns="identif"/>
+		<!-- Simple properties -->
+		<column name="activiteit_omschr" fullname="Activiteit omschrijving" type="varchar(2000)" desc="AN2000"/>
+		<column name="datum_aanvang" fullname="Datum aanvang" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="datum_beeindiging" fullname="Datum beeindiging" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="datum_voortzetting" fullname="Datum voortzetting" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="fulltime_werkzame_mannen" fullname="Fulltime werkzame mannen" type="decimal(5,0)" desc="N5"/>
+		<column name="fulltime_werkzame_vrouwen" fullname="Fulltime werkzame vrouwen" type="decimal(5,0)" desc="N5"/>
+		<column name="parttime_werkzame_mannen" fullname="Parttime werkzame mannen" type="decimal(5,0)" desc="N5"/>
+		<column name="parttime_werkzame_vrouwen" fullname="Parttime werkzame vrouwen" type="decimal(5,0)" desc="N5"/>
+		<column name="toevoeging_adres" fullname="Toevoeging adres" type="varchar(100)" desc="AN100"/>
+		<column name="verkorte_naam" fullname="Verkorte naam" type="varchar(45)" desc="AN45"/>
+		<column name="typering" fullname="Vestigingtypering" type="varchar(26)" desc="AN26"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_15ond_kvk_nummer" type="decimal(8,0)" desc="[FK] N8, FK naar ondrnmng.kvk_nummer: &#34;betreft uitoefening van activiteiten door&#34;"/>
+		<foreign-key name="fk_ves_as_15" columns="fk_15ond_kvk_nummer" ref-table="ondrnmng" ref-columns="kvk_nummer"/>
+		<column name="fk_16tgo_identif" type="varchar(16)" desc="[FK] AN16, FK naar benoemd_obj.identif: &#34;heeft hoofdlocatie in of op&#34;"/>
+		<foreign-key name="fk_ves_as_16" columns="fk_16tgo_identif" ref-table="benoemd_obj" ref-columns="identif"/>
+		<column name="fk_17mac_kvk_nummer" type="decimal(8,0)" desc="[FK] N8, FK naar maatschapp_activiteit.kvk_nummer: &#34;betreft uitoefening van activiteiten door&#34;"/>
+		<foreign-key name="fk_ves_as_17" columns="fk_17mac_kvk_nummer" ref-table="maatschapp_activiteit" ref-columns="kvk_nummer"/>
+		<column name="fk_18ves_sc_identif" type="varchar(32)" desc="[FK] AN32, FK naar vestg.sc_identif (is FK naar superclass SUBJECT): &#34;is samengevoegd met&#34;"/>
+		<foreign-key name="fk_ves_as_18" columns="fk_18ves_sc_identif" ref-table="vestg" ref-columns="sc_identif"/>
+		<column name="fk_19mac_kvk_nummer" type="decimal(8,0)" desc="[FK] N8, FK naar maatschapp_activiteit.kvk_nummer: &#34;is hoofdvestiging van&#34;"/>
+		<foreign-key name="fk_ves_as_19" columns="fk_19mac_kvk_nummer" ref-table="maatschapp_activiteit" ref-columns="kvk_nummer"/>
+		<column name="fk_20aoa_identif" type="varchar(16)" desc="[FK] AN16, FK naar addresseerb_obj_aand.identif: &#34;heeft als locatie-adres&#34;"/>
+		<foreign-key name="fk_ves_as_20" columns="fk_20aoa_identif" ref-table="addresseerb_obj_aand" ref-columns="identif"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<column name="sa_indic_hoofdactiviteit" fullname="Indicatie hoofdactiviteit" type="varchar(3)" desc="Groepsattribuut SBI activiteit VESTIGING.Indicatie hoofdactiviteit"/>
+		<column name="fk_sa_sbi_activiteit_sbi_code" type="varchar(6)" desc="[FK] AN6, FK naar sbi_activiteit.sbi_code: &#34;Groepsattribuut referentielijst SBI activiteit&#34;"/>
+		<foreign-key name="fk_ves_sa_2" columns="fk_sa_sbi_activiteit_sbi_code" ref-table="sbi_activiteit" ref-columns="sbi_code"/>
+		<!-- Referentielijsten -->
+	</table>
+	<table name="vrijstaand_vegetatie_obj" desc="RSGB class VRIJSTAAND VEGETATIE OBJECT" fullname="VRIJSTAAND VEGETATIE OBJECT">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid vrijstaand vegetatie object" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Identificatie vrijstaand vegetatie object" type="varchar(255)" key="true" desc="[PK] NEN3610ID"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid vrijstaand vegetatie object" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="geom" fullname="Geometrie vrijstaand vegetatie object" type="multipolygon" desc="GM_Surface"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging vrijstaand vegetatie object" type="decimal(1,0)" desc="N1"/>
+		<column name="status" fullname="Status vrijstaand vegetatie object" type="varchar(8)" desc="A8"/>
+		<column name="type" fullname="Type vrijstaand vegetatie object" type="varchar(40)" desc="AN40"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="waterdeel" desc="RSGB class WATERDEEL. Directe superclass van: WATERVAKONDERDEEL" fullname="WATERDEEL">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid waterdeel" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Identificatie waterdeel" type="varchar(255)" key="true" desc="[PK] NEN3610ID"/>
+		<!-- Aanduiding subclass -->
+		<column name="clazz" type="varchar(255)" desc="Aanduiding subclass"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid waterdeel" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="droogvallend" fullname="Droogvallend" type="varchar(1)" desc="AN1"/>
+		<column name="geom" fullname="Geometrie waterdeel" type="multipolygon" desc="GM_Surface"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging waterdeel" type="decimal(1,0)" desc="N1"/>
+		<column name="status" fullname="Status waterdeel" type="varchar(8)" desc="A8"/>
+		<column name="type" fullname="Type waterdeel" type="varchar(40)" desc="AN40"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_7opr_identifcode" type="varchar(16)" desc="[FK] AN16, FK naar openb_rmte.identifcode: &#34;maakt deel uit van&#34;"/>
+		<foreign-key name="fk_wad_as_7" columns="fk_7opr_identifcode" ref-table="openb_rmte" ref-columns="identifcode"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="watervakonderdeel" desc="RSGB class WATERVAKONDERDEEL. Subclass van: WATERDEEL" fullname="WATERVAKONDERDEEL">
+		<!-- Primary key(s) -->
+		<column superclass-archief="true" name="sc_dat_beg_geldh" fullname="Datum begin geldigheid waterdeel" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum, FK naar waterdeel.dat_beg_geldh"/>
+		<column superclass-archief="" name="sc_identif" fullname="Identificatie waterdeel" type="varchar(255)" key="true" desc="[PK] NEN3610ID, FK naar waterdeel.identif"/>
+		<foreign-key name="fk_wav_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="waterdeel" ref-columns="identif"/>
+		<!-- Simple properties -->
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<column name="fk_1wad_identif" type="varchar(255)" desc="[FK] NEN3610ID, FK naar waterdeel.identif"/>
+		<foreign-key name="fk_wav_1n_1" columns="fk_1wad_identif" ref-table="waterdeel" ref-columns="identif"/>
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="waterschap" desc="RSGB class WATERSCHAP" fullname="WATERSCHAP">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid waterschap" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Identificatie waterschap" type="varchar(255)" key="true" desc="[PK] NEN3610ID"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid waterschap" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging waterschap" type="decimal(1,0)" desc="N1"/>
+		<column name="status" fullname="Status waterschap" type="varchar(8)" desc="A8"/>
+		<column name="geom" fullname="Waterschapgeometrie" type="multipolygon" desc="GM_Surface"/>
+		<column name="naam" fullname="Waterschapnaam" type="varchar(40)" desc="AN40"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="wegdeel" desc="RSGB class WEGDEEL. Directe superclass van: WEGVAKONDERDEEL" fullname="WEGDEEL">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid wegdeel" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Identificatie wegdeel" type="varchar(255)" key="true" desc="[PK] NEN3610ID"/>
+		<!-- Aanduiding subclass -->
+		<column name="clazz" type="varchar(255)" desc="Aanduiding subclass"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid wegdeel" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="functie" fullname="Functie wegdeel" type="varchar(25)" desc="AN25"/>
+		<column name="fysiek_voork" fullname="Fysiek voorkomen wegdeel" type="varchar(20)" desc="AN20"/>
+		<column name="geom" fullname="Geometrie wegdeel" type="multipolygon" desc="GM_Surface"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging wegdeel" type="decimal(1,0)" desc="N1"/>
+		<column name="status" fullname="Status wegdeel" type="varchar(8)" desc="A8"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_8opr_identifcode" type="varchar(16)" desc="[FK] AN16, FK naar openb_rmte.identifcode: &#34;maakt deel uit van&#34;"/>
+		<foreign-key name="fk_wgd_as_8" columns="fk_8opr_identifcode" ref-table="openb_rmte" ref-columns="identifcode"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="wegvakonderdeel" desc="RSGB class WEGVAKONDERDEEL. Subclass van: WEGDEEL" fullname="WEGVAKONDERDEEL">
+		<!-- Primary key(s) -->
+		<column superclass-archief="true" name="sc_dat_beg_geldh" fullname="Datum begin geldigheid wegdeel" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum, FK naar wegdeel.dat_beg_geldh"/>
+		<column superclass-archief="" name="sc_identif" fullname="Identificatie wegdeel" type="varchar(255)" key="true" desc="[PK] NEN3610ID, FK naar wegdeel.identif"/>
+		<foreign-key name="fk_wvd_sc" columns="sc_identif" desc="Foreign key naar superclass" ref-table="wegdeel" ref-columns="identif"/>
+		<!-- Simple properties -->
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<column name="fk_1wgd_identif" type="varchar(255)" desc="[FK] NEN3610ID, FK naar wegdeel.identif"/>
+		<foreign-key name="fk_wvd_1n_1" columns="fk_1wgd_identif" ref-table="wegdeel" ref-columns="identif"/>
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="wijk" desc="RSGB class WIJK" fullname="WIJK">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid wijk" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="code" fullname="Wijkcode" type="decimal(2,0)" key="true" desc="[PK] N2"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid wijk" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="identif_imgeowyk" fullname="Identificatie IMGeoWYK" type="varchar(255)" desc="NEN3610ID"/>
+		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging wijk" type="decimal(1,0)" desc="N1"/>
+		<column name="status" fullname="Status wijk" type="varchar(8)" desc="A8"/>
+		<column name="geom" fullname="Wijkgeometrie" type="multipolygon" desc="GM_Surface"/>
+		<column name="naam" fullname="Wijknaam" type="varchar(40)" desc="AN40"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="wnplts" desc="RSGB class WOONPLAATS" fullname="WOONPLAATS">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid woonplaats" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="identif" fullname="Woonplaatsidentificatie" type="varchar(4)" key="true" desc="[PK] AN4"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid woonplaats" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="indic_geconst" fullname="Indicatie geconstateerde woonplaats" type="varchar(1)" desc="AN1"/>
+		<column name="geom" fullname="Woonplaatsgeometrie" type="multipolygon" desc="GM_Surface"/>
+		<column name="naam" fullname="Woonplaatsnaam" type="varchar(80)" desc="AN80"/>
+		<column name="naam_nen" fullname="Woonplaatsnaam NEN" type="varchar(24)" desc="AN24"/>
+		<column name="status" fullname="Woonplaatsstatus" type="varchar(80)" desc="AN80"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_7gem_code" type="decimal(4,0)" desc="[FK] N4, FK naar gemeente.code: &#34;ligt in&#34;"/>
+		<foreign-key name="fk_wpl_as_7" columns="fk_7gem_code" ref-table="gemeente" ref-columns="code"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="woz_deelobj" desc="RSGB class WOZ-DEELOBJECT" fullname="WOZ-DEELOBJECT">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh_deelobj" fullname="Datum begin geldigheid deelobject" type="decimal(8,0)" key="true" desc="[PK] N8" archief="true"/>
+		<column name="nummer" fullname="Nummer WOZ-deelobject" type="decimal(6,0)" key="true" desc="[PK] N6"/>
+		<!-- Simple properties -->
+		<column name="code" fullname="Code WOZ-deelobject" type="varchar(4)" desc="AN4"/>
+		<column name="datum_einde_geldh_deelobj" fullname="Datum einde geldigheid deelobject" type="decimal(8,0)" desc="N8"/>
+		<column name="status" fullname="Status WOZ-deelobject" type="decimal(2,0)" desc="N2"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_4pnd_identif" type="varchar(16)" desc="[FK] AN16, FK naar pand.identif: &#34;bestaat uit&#34;"/>
+		<foreign-key name="fk_wdo_as_4" columns="fk_4pnd_identif" ref-table="pand" ref-columns="identif"/>
+		<column name="fk_5tgo_identif" type="varchar(16)" desc="[FK] AN16, FK naar benoemd_obj.identif: &#34;bestaat uit&#34;"/>
+		<foreign-key name="fk_wdo_as_5" columns="fk_5tgo_identif" ref-table="benoemd_obj" ref-columns="identif"/>
+		<column name="fk_6woz_nummer" type="decimal(12,0)" desc="[FK] N12, FK naar woz_obj.nummer: &#34;is onderdeel van&#34;"/>
+		<foreign-key name="fk_wdo_as_6" columns="fk_6woz_nummer" ref-table="woz_obj" ref-columns="nummer"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="woz_obj" desc="RSGB class WOZ-OBJECT" fullname="WOZ-OBJECT">
+		<!-- Primary key(s) -->
+		<column name="dat_beg_geldh" fullname="Datum begin geldigheid WOZ-object" type="varchar(19)" key="true" desc="[PK] OnvolledigeDatum" archief="true"/>
+		<column name="nummer" fullname="WOZ-objectnummer" type="decimal(12,0)" key="true" desc="[PK] N12"/>
+		<!-- Simple properties -->
+		<column name="datum_einde_geldh" fullname="Datum einde geldigheid WOZ-object" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="gebruikscode" fullname="Gebruikscode" type="decimal(2,0)" desc="N2"/>
+		<column name="geom" fullname="Geometrie WOZ-object" type="multipolygon" desc="GM_Surface"/>
+		<column name="grondoppervlakte" fullname="Grondoppervlakte" type="decimal(11,0)" desc="N11"/>
+		<column name="soort_obj_code" fullname="Soort-object-code" type="decimal(4,0)" desc="N4"/>
+		<column name="status" fullname="Status WOZ-object" type="decimal(2,0)" desc="N2"/>
+		<column name="vastgestelde_waarde" fullname="Vastgestelde waarde" type="decimal(11,0)" desc="N11"/>
+		<column name="waardepeildatum" fullname="Waardepeildatum" type="date" desc="Datum"/>
+		<!-- Association properties 1 - * -->
+		<association-error>Geen association info en geen superklasse!</association-error>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="woz_waarde" desc="RSGB class WOZ-WAARDE" fullname="WOZ-WAARDE">
+		<!-- Primary key(s) -->
+		<column name="waardepeildatum" fullname="Waardepeildatum" type="decimal(8,0)" key="true" desc="[PK] N8" archief="true"/>
+		<!-- Simple properties -->
+		<column name="status_beschikking" fullname="Status beschikking" type="decimal(2,0)" desc="N2"/>
+		<column name="toestandspeildatum" fullname="Toestandspeildatum" type="decimal(8,0)" desc="N8"/>
+		<column name="vastgestelde_waarde" fullname="Vastgestelde waarde" type="decimal(11,0)" desc="N11"/>
+		<!-- Association properties 1 - * -->
+		<!-- Association properties * - 1 -->
+		<column name="fk_1woz_nummer" type="decimal(12,0)" desc="[FK] N12, FK naar woz_obj.nummer"/>
+		<foreign-key name="fk_wrd_1n_1" columns="fk_1woz_nummer" ref-table="woz_obj" ref-columns="nummer"/>
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="zak_recht" desc="RSGB class ZAKELIJK RECHT" fullname="ZAKELIJK RECHT">
+		<!-- Primary key(s) -->
+		<column name="kadaster_identif" fullname="Kadaster identificatie zakelijk recht" type="varchar(255)" key="true" desc="[PK] "/>
+		<!-- Simple properties -->
+		<column name="eindd_recht" fullname="Einddatum recht" type="varchar(255)" desc="[geen RSGB type]"/>
+		<column name="indic_betrokken_in_splitsing" fullname="Indicatie betrokken in splitsing" type="varchar(255)" desc="[geen RSGB type]"/>
+		<column name="ingangsdatum_recht" fullname="Ingangsdatum recht" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_7koz_kad_identif" type="decimal(15,0)" desc="[FK] N15, FK naar kad_onrrnd_zk.kad_identif: &#34;betreft&#34;"/>
+		<foreign-key name="fk_zkr_as_7" columns="fk_7koz_kad_identif" ref-table="kad_onrrnd_zk" ref-columns="kad_identif"/>
+		<column name="fk_8pes_sc_identif" type="varchar(32)" desc="[FK] AN32, FK naar prs.sc_identif (is FK naar superclass SUBJECT): &#34;heeft als gerechtigde&#34;"/>
+		<foreign-key name="fk_zkr_as_8" columns="fk_8pes_sc_identif" ref-table="prs" ref-columns="sc_identif"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<column name="ar_noemer" fullname="Noemer" type="decimal(8,0)" desc="Groepsattribuut Aandeel in recht ZAKELIJK RECHT.Noemer"/>
+		<column name="ar_teller" fullname="Teller" type="decimal(8,0)" desc="Groepsattribuut Aandeel in recht ZAKELIJK RECHT.Teller"/>
+		<!-- Referentielijsten -->
+		<column name="fk_2aard_recht_verkort_aand" type="varchar(4)" desc="[FK] AN4, FK naar aard_recht_verkort.aand: &#34;Referentielijst ZAKELIJK RECHT.Aanduiding aard recht verkort&#34;"/>
+		<foreign-key name="fk_zkr_rl_2" columns="fk_2aard_recht_verkort_aand" ref-table="aard_recht_verkort" ref-columns="aand"/>
+		<column name="fk_3avr_aand" type="varchar(6)" desc="[FK] AN6, FK naar aard_verkregen_recht.aand: &#34;Referentielijst ZAKELIJK RECHT.Aanduiding aard verkregen recht&#34;"/>
+		<foreign-key name="fk_zkr_rl_3" columns="fk_3avr_aand" ref-table="aard_verkregen_recht" ref-columns="aand"/>
+	</table>
+	<table name="zak_recht_aantek" desc="RSGB class ZAKELIJK RECHT AANTEKENING" fullname="ZAKELIJK RECHT AANTEKENING">
+		<!-- Primary key(s) -->
+		<column name="kadaster_identif_aantek_recht" fullname="Kadaster identificatie aantekening recht" type="varchar(255)" key="true" desc="[PK] "/>
+		<!-- Simple properties -->
+		<column name="aard_aantek_recht" fullname="Aard aantekening recht" type="varchar(255)" desc="[geen RSGB type]"/>
+		<column name="begindatum_aantek_recht" fullname="Begindatum aantekening recht" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="beschrijving_aantek_recht" fullname="Beschrijving aantekening recht" type="varchar(255)" desc="[geen RSGB type]"/>
+		<column name="eindd_aantek_recht" fullname="Einddatum aantekening recht" type="varchar(255)" desc="[geen RSGB type]"/>
+		<!-- Association properties 1 - * -->
+		<column name="fk_5zkr_kadaster_identif" type="varchar(255)" desc="[FK] , FK naar zak_recht.kadaster_identif: &#34;behoort bij&#34;"/>
+		<foreign-key name="fk_zra_as_5" columns="fk_5zkr_kadaster_identif" ref-table="zak_recht" ref-columns="kadaster_identif"/>
+		<column name="fk_6pes_sc_identif" type="varchar(32)" desc="[FK] AN32, FK naar prs.sc_identif (is FK naar superclass SUBJECT): &#34;heeft betrokken&#34;"/>
+		<foreign-key name="fk_zra_as_6" columns="fk_6pes_sc_identif" ref-table="prs" ref-columns="sc_identif"/>
+		<!-- Association properties * - 1 -->
+		<!-- Groepsattributen -->
+		<!-- Referentielijsten -->
+	</table>
+	<table name="gebouwd_obj_gebruiksdoel" desc="RSGB class voor een-op-meer kolom GEBOUWD OBJECT Gebruiksdoel gebouwd object" fullname="GEBOUWD OBJECTGebruiksdoel gebouwd object">
+		<column name="gebruiksdoel_gebouwd_obj" fullname="Gebruiksdoel gebouwd object" type="varchar(80)" desc="AN80"/>
+		<column name="fk_gbo_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar gebouwd_obj.sc_identif (is FK naar superclass BENOEMD OBJECT)"/>
+		<foreign-key name="fk_gbo7" columns="fk_gbo_sc_identif" ref-table="gebouwd_obj" ref-columns="sc_identif"/>
+	</table>
+	<table name="overig_terrein_gebruiksdoel" desc="RSGB class voor een-op-meer kolom OVERIG TERREIN Gebruiksdoel overig terrein" fullname="OVERIG TERREINGebruiksdoel overig terrein">
+		<column name="gebruiksdoel_overig_terrein" fullname="Gebruiksdoel overig terrein" type="varchar(80)" desc="AN80"/>
+		<column name="fk_otr_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar overig_terrein.sc_identif (is FK naar superclass BENOEMD OBJECT)"/>
+		<foreign-key name="fk_otr1" columns="fk_otr_sc_identif" ref-table="overig_terrein" ref-columns="sc_identif"/>
+	</table>
+	<table name="vestg_naam" desc="RSGB class voor een-op-meer kolom VESTIGING (Handels)naam" fullname="VESTIGING(Handels)naam">
+		<column name="naam" fullname="(Handels)naam" type="varchar(500)" desc="AN500"/>
+		<column name="fk_ves_sc_identif" type="varchar(32)" desc="[FK] AN32, FK naar vestg.sc_identif (is FK naar superclass SUBJECT)"/>
+		<foreign-key name="fk_ves1" columns="fk_ves_sc_identif" ref-table="vestg" ref-columns="sc_identif"/>
+	</table>
+	<table name="functionaris" desc="RSGB superclass FUNCTIONARIS" fullname="FUNCTIONARIS">
+		<!-- De foreign keys naar de classes. -->
+		<!--Beschrijving: eigenaar-->
+		<column key="true" name="fk_sc_lh_pes_sc_identif" type="varchar(32)" desc="[FK] AN32, FK naar prs.sc_identif (is FK naar superclass SUBJECT)"/>
+		<column key="true" name="fk_sc_rh_pes_sc_identif" type="varchar(32)" desc="[FK] AN32, FK naar prs.sc_identif (is FK naar superclass SUBJECT)"/>
+		<foreign-key name="fk_functionaris_sc_lh" columns="fk_sc_lh_pes_sc_identif" ref-table="prs" ref-columns="sc_identif"/>
+		<foreign-key name="fk_functionaris_sc_rh" columns="fk_sc_rh_pes_sc_identif" ref-table="prs" ref-columns="sc_identif"/>
+		<!-- De gewone kolommen -->
+		<column name="beperking_bev_in_euros" fullname="Beperking bevoegdheid  in euros" type="decimal(18,0)" desc="N18"/>
+		<column name="bv_beperking_in_geld" fullname="Beperking in geld" type="decimal(18,0)" desc="Groepsattribuut Beperkte volmacht FUNCTIONARIS.Beperking in geld"/>
+		<column name="bv_omschr_ovrg_beperkingen" fullname="Omschrijving overige beperkingen" type="varchar(2000)" desc="Groepsattribuut Beperkte volmacht FUNCTIONARIS.Omschrijving overige beperkingen"/>
+		<column name="bv_ovrg_volmacht" fullname="Overige volmacht" type="varchar(3)" desc="Groepsattribuut Beperkte volmacht FUNCTIONARIS.Overige volmacht"/>
+		<column name="bv_soort_handeling" fullname="Soort handeling" type="varchar(35)" desc="Groepsattribuut Beperkte volmacht FUNCTIONARIS.Soort handeling"/>
+		<column name="bev_met_andere_prsn" fullname="Bevoegdheid met andere personen" type="varchar(3)" desc="AN3"/>
+		<column name="datum_toetr" fullname="Datum toetreding" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="datum_uittreding" fullname="Datum uittreding" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="functie" fullname="Functie" type="varchar(80)" desc="AN80"/>
+		<column name="functionaristypering" fullname="Functionaristypering" type="varchar(35)" desc="AN35"/>
+		<column name="indic_statutair_volmacht" fullname="Indicatie statutair volmacht" type="varchar(3)" desc="AN3"/>
+		<column name="ovrg_beperking_bev" fullname="Overige beperking bevoegdheid" type="varchar(3)" desc="AN3"/>
+		<column name="soort_bev" fullname="Soort Bevoegdheid" type="varchar(30)" desc="AN30"/>
+		<column name="volledig_beperkt_volmacht" fullname="Volledig Beperkt volmacht" type="varchar(1)" desc="AN1"/>
+	</table>
+	<table name="huishoudenrel" desc="RSGB superclass HUISHOUDENRELATIE" fullname="HUISHOUDENRELATIE">
+		<!-- De foreign keys naar de classes. -->
+		<!--Beschrijving: relatie-->
+		<column key="true" name="fk_sc_lh_inp_sc_identif" type="varchar(32)" desc="[FK] AN32, FK naar ingeschr_nat_prs.sc_identif (is FK naar superclass SUBJECT)"/>
+		<column key="true" name="fk_sc_rh_hhd_nummer" type="decimal(12,0)" desc="[FK] N12, FK naar huishouden.nummer"/>
+		<foreign-key name="fk_huishoudenrel_sc_lh" columns="fk_sc_lh_inp_sc_identif" ref-table="ingeschr_nat_prs" ref-columns="sc_identif"/>
+		<foreign-key name="fk_huishoudenrel_sc_rh" columns="fk_sc_rh_hhd_nummer" ref-table="huishouden" ref-columns="nummer"/>
+		<!-- De gewone kolommen -->
+		<column name="huishoudenrelcode" fullname="Huishoudenrelatiecode" type="decimal(1,0)" desc="N1"/>
+	</table>
+	<table name="huw_ger_partn" desc="RSGB superclass HUWELIJK/GEREGISTREERD PARTNERSCHAP" fullname="HUWELIJK/GEREGISTREERD PARTNERSCHAP">
+		<!-- De foreign keys naar de classes. -->
+		<!--Beschrijving: partner-->
+		<column key="true" name="fk_sc_lh_inp_sc_identif" type="varchar(32)" desc="[FK] AN32, FK naar ingeschr_nat_prs.sc_identif (is FK naar superclass SUBJECT)"/>
+		<column key="true" name="fk_sc_rh_inp_sc_identif" type="varchar(32)" desc="[FK] AN32, FK naar ingeschr_nat_prs.sc_identif (is FK naar superclass SUBJECT)"/>
+		<foreign-key name="fk_huw_ger_partn_sc_lh" columns="fk_sc_lh_inp_sc_identif" ref-table="ingeschr_nat_prs" ref-columns="sc_identif"/>
+		<foreign-key name="fk_huw_ger_partn_sc_rh" columns="fk_sc_rh_inp_sc_identif" ref-table="ingeschr_nat_prs" ref-columns="sc_identif"/>
+		<!-- De gewone kolommen -->
+		<column name="hs_datum_aangaan" fullname="Datum huwelijkssluiting/aangaan geregistreerd partnerschap" type="decimal(8,0)" desc="Groepsattribuut Sluiting/aangaan HUWELIJK/GEREGISTREERD PARTNERSCHAP.Datum huwelijkssluiting/aangaan geregistreerd partnerschap"/>
+		<column name="fk_hs_lnd_code_iso" type="varchar(2)" desc="[FK] A2, FK naar land.code_iso: &#34;Groepsattribuut referentielijst Land huwelijkssluiting/aangaan geregistreerd partnerschap&#34;"/>
+		<foreign-key name="fk_huw_ger_partn_hs_2" columns="fk_hs_lnd_code_iso" ref-table="land" ref-columns="code_iso"/>
+		<column name="hs_plaats" fullname="Plaats huwelijkssluiting/aangaan geregistreerd partnerschap" type="varchar(40)" desc="Groepsattribuut Sluiting/aangaan HUWELIJK/GEREGISTREERD PARTNERSCHAP.Plaats huwelijkssluiting/aangaan geregistreerd partnerschap"/>
+		<column name="ho_datum_ontb_huw_ger_partn" fullname="Datum ontbinding huwelijk/geregistreerd partnerschap" type="decimal(8,0)" desc="Groepsattribuut Ontbinding HUWELIJK/GEREGISTREERD PARTNERSCHAP.Datum ontbinding huwelijk/geregistreerd partnerschap"/>
+		<column name="fk_ho_lnd_code_iso" type="varchar(2)" desc="[FK] A2, FK naar land.code_iso: &#34;Groepsattribuut referentielijst Land ontbinding huwelijk/geregistreerd partnerschap&#34;"/>
+		<foreign-key name="fk_huw_ger_partn_ho_2" columns="fk_ho_lnd_code_iso" ref-table="land" ref-columns="code_iso"/>
+		<column name="ho_plaats_ontb_huw_ger_partn" fullname="Plaats ontbinding huwelijk/geregistreerd partnerschap" type="varchar(40)" desc="Groepsattribuut Ontbinding HUWELIJK/GEREGISTREERD PARTNERSCHAP.Plaats ontbinding huwelijk/geregistreerd partnerschap"/>
+		<column name="ho_reden_ontb_huw_ger_partn" fullname="Reden ontbinding huwelijk/geregistreerd partnerschap" type="varchar(1)" desc="Groepsattribuut Ontbinding HUWELIJK/GEREGISTREERD PARTNERSCHAP.Reden ontbinding huwelijk/geregistreerd partnerschap"/>
+		<column name="soort_verbintenis" fullname="Soort verbintenis" type="varchar(1)" desc="AN1"/>
+	</table>
+	<table name="kad_onrrnd_zk_his_rel" desc="RSGB superclass KADASTRALE ONROERENDE ZAAK HISTORIE RELATIE" fullname="KADASTRALE ONROERENDE ZAAK HISTORIE RELATIE">
+		<!-- De foreign keys naar de classes. -->
+		<!--Beschrijving: oorsprong-->
+		<column key="true" name="fk_sc_lh_koz_kad_identif" type="decimal(15,0)" desc="[FK] N15, FK naar kad_onrrnd_zk.kad_identif"/>
+		<column key="true" name="fk_sc_rh_koz_kad_identif" type="decimal(15,0)" desc="[FK] N15, FK naar kad_onrrnd_zk.kad_identif"/>
+		<foreign-key name="fk_kad_onrrnd_zk_his_rel_sc_lh" columns="fk_sc_lh_koz_kad_identif" ref-table="kad_onrrnd_zk" ref-columns="kad_identif"/>
+		<foreign-key name="fk_kad_onrrnd_zk_his_rel_sc_rh" columns="fk_sc_rh_koz_kad_identif" ref-table="kad_onrrnd_zk" ref-columns="kad_identif"/>
+		<!-- De gewone kolommen -->
+		<column name="aard" fullname="Aard" type="varchar(255)" desc=""/>
+		<column name="overgangsgrootte" fullname="Overgangsgrootte" type="varchar(255)" desc=""/>
+	</table>
+	<table name="locaand_adres" desc="RSGB superclass LOCATIEAANDUIDING ADRES" fullname="LOCATIEAANDUIDING ADRES">
+		<!-- De foreign keys naar de classes. -->
+		<!--Beschrijving: locatieaanduiding-->
+		<column key="true" name="fk_sc_lh_aoa_identif" type="varchar(16)" desc="[FK] AN16, FK naar addresseerb_obj_aand.identif"/>
+		<column key="true" name="fk_sc_rh_woz_nummer" type="decimal(12,0)" desc="[FK] N12, FK naar woz_obj.nummer"/>
+		<foreign-key name="fk_locaand_adres_sc_lh" columns="fk_sc_lh_aoa_identif" ref-table="addresseerb_obj_aand" ref-columns="identif"/>
+		<foreign-key name="fk_locaand_adres_sc_rh" columns="fk_sc_rh_woz_nummer" ref-table="woz_obj" ref-columns="nummer"/>
+		<!-- De gewone kolommen -->
+		<column name="locomschr" fullname="Locatieomschrijving" type="varchar(40)" desc="AN40"/>
+	</table>
+	<table name="locaand_openb_rmte" desc="RSGB superclass LOCATIEAANDUIDING OPENBARE RUIMTE" fullname="LOCATIEAANDUIDING OPENBARE RUIMTE">
+		<!-- De foreign keys naar de classes. -->
+		<!--Beschrijving: openbare ruimte-->
+		<column key="true" name="fk_sc_lh_opr_identifcode" type="varchar(16)" desc="[FK] AN16, FK naar openb_rmte.identifcode"/>
+		<column key="true" name="fk_sc_rh_woz_nummer" type="decimal(12,0)" desc="[FK] N12, FK naar woz_obj.nummer"/>
+		<foreign-key name="fk_locaand_openb_rmte_sc_lh" columns="fk_sc_lh_opr_identifcode" ref-table="openb_rmte" ref-columns="identifcode"/>
+		<foreign-key name="fk_locaand_openb_rmte_sc_rh" columns="fk_sc_rh_woz_nummer" ref-table="woz_obj" ref-columns="nummer"/>
+		<!-- De gewone kolommen -->
+		<column name="locomschr" fullname="Locatieomschrijving" type="varchar(40)" desc="AN40"/>
+	</table>
+	<table name="ouder_kind_rel" desc="RSGB superclass OUDER-KIND-RELATIE" fullname="OUDER-KIND-RELATIE">
+		<!-- De foreign keys naar de classes. -->
+		<!--Beschrijving: ouder-->
+		<column key="true" name="fk_sc_lh_inp_sc_identif" type="varchar(32)" desc="[FK] AN32, FK naar ingeschr_nat_prs.sc_identif (is FK naar superclass SUBJECT)"/>
+		<column key="true" name="fk_sc_rh_inp_sc_identif" type="varchar(32)" desc="[FK] AN32, FK naar ingeschr_nat_prs.sc_identif (is FK naar superclass SUBJECT)"/>
+		<foreign-key name="fk_ouder_kind_rel_sc_lh" columns="fk_sc_lh_inp_sc_identif" ref-table="ingeschr_nat_prs" ref-columns="sc_identif"/>
+		<foreign-key name="fk_ouder_kind_rel_sc_rh" columns="fk_sc_rh_inp_sc_identif" ref-table="ingeschr_nat_prs" ref-columns="sc_identif"/>
+		<!-- De gewone kolommen -->
+		<column name="datum_einde_fam_recht_betr" fullname="Datum einde familierechtelijke betrekking" type="varchar(19)" desc="OnvolledigeDatum"/>
+		<column name="datum_ingang_fam_recht_betr" fullname="Datum ingang familierechtelijke betrekking" type="decimal(8,0)" desc="N8"/>
+		<column name="ouder_aand" fullname="Ouder-aanduiding" type="varchar(6)" desc="AN6"/>
+	</table>
+	<table name="woz_belang" desc="RSGB superclass WOZ-BELANG" fullname="WOZ-BELANG">
+		<!-- De foreign keys naar de classes. -->
+		<!--Beschrijving: belanghebbende-->
+		<column key="true" name="fk_sc_lh_sub_identif" type="varchar(32)" desc="[FK] AN32, FK naar subject.identif"/>
+		<column key="true" name="fk_sc_rh_woz_nummer" type="decimal(12,0)" desc="[FK] N12, FK naar woz_obj.nummer"/>
+		<foreign-key name="fk_woz_belang_sc_lh" columns="fk_sc_lh_sub_identif" ref-table="subject" ref-columns="identif"/>
+		<foreign-key name="fk_woz_belang_sc_rh" columns="fk_sc_rh_woz_nummer" ref-table="woz_obj" ref-columns="nummer"/>
+		<!-- De gewone kolommen -->
+		<column name="aand_eigenaargebruiker" fullname="Aanduiding eigenaar/gebruiker" type="varchar(1)" desc="AN1"/>
+	</table>
+	<!-- Een * op * relatie -->
+	<table name="app_re_kad_perceel" desc="N - N relatie: APPARTEMENTSRECHT &#34;maakt deel uit van appartementencomplex dat staat op&#34; KADASTRAAL PERCEEL" fullname="perceel">
+		<!-- Left hand side of association -->
+		<column key="true" name="fk_nn_lh_apr_sc_kad_identif" type="decimal(15,0)" desc="[FK] N15, FK naar app_re.sc_kad_identif (is FK naar superclass KADASTRALE ONROERENDE ZAAK)"/>
+		<column key="true" archief="true" name="fk_nn_lh_apr_sc_dat_beg_geldh" type="varchar(19)" desc="[FK] OnvolledigeDatum, FK naar app_re.sc_dat_beg_geldh (is FK naar superclass KADASTRALE ONROERENDE ZAAK)"/>
+		<foreign-key name="fk_apr_kdp_nn_lh" columns="fk_nn_lh_apr_sc_kad_identif" ref-table="app_re" ref-columns="sc_kad_identif"/>
+		<foreign-key archief="true" name="fk_apr_kdp_nn_lh" columns="fk_nn_lh_apr_sc_dat_beg_geldh,fk_nn_lh_apr_sc_kad_identif" ref-table="app_re" ref-columns="sc_dat_beg_geldh,sc_kad_identif"/>
+		<!-- Right hand side of association -->
+		<column key="true" name="fk_nn_rh_kdp_sc_kad_identif" type="decimal(15,0)" desc="[FK] N15, FK naar kad_perceel.sc_kad_identif (is FK naar superclass KADASTRALE ONROERENDE ZAAK)"/>
+		<foreign-key name="fk_apr_kdp_nn_rh" columns="fk_nn_rh_kdp_sc_kad_identif" ref-table="kad_perceel" ref-columns="sc_kad_identif"/>
+	</table>
+	<!-- * - 1: BEGROEID TERREINDEEL - BEGROEID TERREINVAKONDERDEEL-->
+	<!-- Een * op * relatie -->
+	<table name="benoemd_obj_kad_onrrnd_zk" desc="N - N relatie: BENOEMD OBJECT &#34;staat op of heeft ruimtelijke overlap met&#34; KADASTRALE ONROERENDE ZAAK" fullname="">
+		<!-- Left hand side of association -->
+		<column key="true" name="fk_nn_lh_tgo_identif" type="varchar(16)" desc="[FK] AN16, FK naar benoemd_obj.identif"/>
+		<foreign-key name="fk_tgo_koz_nn_lh" columns="fk_nn_lh_tgo_identif" ref-table="benoemd_obj" ref-columns="identif"/>
+		<!-- Right hand side of association -->
+		<column key="true" name="fk_nn_rh_koz_kad_identif" type="decimal(15,0)" desc="[FK] N15, FK naar kad_onrrnd_zk.kad_identif"/>
+		<foreign-key name="fk_tgo_koz_nn_rh" columns="fk_nn_rh_koz_kad_identif" ref-table="kad_onrrnd_zk" ref-columns="kad_identif"/>
+	</table>
+	<!-- Een * op * relatie -->
+	<table name="benoemd_terrein_benoemd_terrei" desc="N - N relatie: BENOEMD TERREIN &#34;is ontstaan uit / overgegaan in&#34; BENOEMD TERREIN" fullname="">
+		<!-- Left hand side of association -->
+		<column key="true" name="fk_nn_lh_btr_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar benoemd_terrein.sc_identif (is FK naar superclass BENOEMD OBJECT)"/>
+		<column key="true" archief="true" name="fk_nn_lh_btr_dat_beg_geldh" type="varchar(19)" desc="[FK] OnvolledigeDatum, FK naar benoemd_terrein.dat_beg_geldh"/>
+		<foreign-key name="fk_btr_btr_nn_lh" columns="fk_nn_lh_btr_sc_identif" ref-table="benoemd_terrein" ref-columns="sc_identif"/>
+		<foreign-key archief="true" name="fk_btr_btr_nn_lh" columns="fk_nn_lh_btr_dat_beg_geldh,fk_nn_lh_btr_sc_identif" ref-table="benoemd_terrein" ref-columns="dat_beg_geldh,sc_identif"/>
+		<!-- Right hand side of association -->
+		<column key="true" name="fk_nn_rh_btr_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar benoemd_terrein.sc_identif (is FK naar superclass BENOEMD OBJECT)"/>
+		<foreign-key name="fk_btr_btr_nn_rh" columns="fk_nn_rh_btr_sc_identif" ref-table="benoemd_terrein" ref-columns="sc_identif"/>
+	</table>
+	<!-- Een * op * relatie -->
+	<table name="gemeente_gemeente" desc="N - N relatie: GEMEENTE &#34;is overgegaan in&#34; GEMEENTE" fullname="nieuwe gemeente">
+		<!-- Left hand side of association -->
+		<column key="true" name="fk_nn_lh_gem_code" type="decimal(4,0)" desc="[FK] N4, FK naar gemeente.code"/>
+		<column key="true" archief="true" name="fk_nn_lh_gem_dat_beg_geldh" type="varchar(19)" desc="[FK] OnvolledigeDatum, FK naar gemeente.dat_beg_geldh"/>
+		<foreign-key name="fk_gem_gem_nn_lh" columns="fk_nn_lh_gem_code" ref-table="gemeente" ref-columns="code"/>
+		<foreign-key archief="true" name="fk_gem_gem_nn_lh" columns="fk_nn_lh_gem_dat_beg_geldh,fk_nn_lh_gem_code" ref-table="gemeente" ref-columns="dat_beg_geldh,code"/>
+		<!-- Right hand side of association -->
+		<column key="true" name="fk_nn_rh_gem_code" type="decimal(4,0)" desc="[FK] N4, FK naar gemeente.code"/>
+		<foreign-key name="fk_gem_gem_nn_rh" columns="fk_nn_rh_gem_code" ref-table="gemeente" ref-columns="code"/>
+	</table>
+	<!-- Een * op * relatie -->
+	<table name="kad_onrrnd_zk_kad_onrrnd_zk" desc="N - N relatie: KADASTRALE ONROERENDE ZAAK &#34;is hoofdperceel bij mandelige&#34; KADASTRALE ONROERENDE ZAAK" fullname="">
+		<!-- Left hand side of association -->
+		<column key="true" name="fk_nn_lh_koz_kad_identif" type="decimal(15,0)" desc="[FK] N15, FK naar kad_onrrnd_zk.kad_identif"/>
+		<column key="true" archief="true" name="fk_nn_lh_koz_dat_beg_geldh" type="varchar(19)" desc="[FK] OnvolledigeDatum, FK naar kad_onrrnd_zk.dat_beg_geldh"/>
+		<foreign-key name="fk_koz_koz_nn_lh" columns="fk_nn_lh_koz_kad_identif" ref-table="kad_onrrnd_zk" ref-columns="kad_identif"/>
+		<foreign-key archief="true" name="fk_koz_koz_nn_lh" columns="fk_nn_lh_koz_dat_beg_geldh,fk_nn_lh_koz_kad_identif" ref-table="kad_onrrnd_zk" ref-columns="dat_beg_geldh,kad_identif"/>
+		<!-- Right hand side of association -->
+		<column key="true" name="fk_nn_rh_koz_kad_identif" type="decimal(15,0)" desc="[FK] N15, FK naar kad_onrrnd_zk.kad_identif"/>
+		<foreign-key name="fk_koz_koz_nn_rh" columns="fk_nn_rh_koz_kad_identif" ref-table="kad_onrrnd_zk" ref-columns="kad_identif"/>
+	</table>
+	<!-- Een * op * relatie -->
+	<table name="ligplaats_nummeraand" desc="N - N relatie: LIGPLAATS &#34;heeft als nevenadressen&#34; NUMMERAANDUIDING" fullname="nevenadres">
+		<!-- Left hand side of association -->
+		<column key="true" name="fk_nn_lh_lpl_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar ligplaats.sc_identif (is FK naar superclass BENOEMD OBJECT)"/>
+		<column key="true" archief="true" name="fk_nn_lh_lpl_sc_dat_beg_geldh" type="varchar(19)" desc="[FK] OnvolledigeDatum, FK naar ligplaats.sc_dat_beg_geldh (is FK naar superclass BENOEMD TERREIN)"/>
+		<foreign-key name="fk_lpl_nra_nn_lh" columns="fk_nn_lh_lpl_sc_identif" ref-table="ligplaats" ref-columns="sc_identif"/>
+		<foreign-key archief="true" name="fk_lpl_nra_nn_lh" columns="fk_nn_lh_lpl_sc_dat_beg_geldh,fk_nn_lh_lpl_sc_identif" ref-table="ligplaats" ref-columns="sc_dat_beg_geldh,sc_identif"/>
+		<!-- Right hand side of association -->
+		<column key="true" name="fk_nn_rh_nra_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING)"/>
+		<foreign-key name="fk_lpl_nra_nn_rh" columns="fk_nn_rh_nra_sc_identif" ref-table="nummeraand" ref-columns="sc_identif"/>
+	</table>
+	<!-- * - 1: ONBEGROEID TERREINDEEL - ONBEGROEID TERREINVAKONDERDEEL-->
+	<!-- * - 1: ONDERNEMING - ONDERNEMING-->
+	<!-- Een * op * relatie -->
+	<table name="openb_rmte_gem_openb_rmte" desc="N - N relatie: OPENBARE RUIMTE &#34;maakt deel uit van&#34; GEMEENTELIJKE OPENBARE RUIMTE" fullname="gemeentelijke openbare ruimte">
+		<!-- Left hand side of association -->
+		<column key="true" name="fk_nn_lh_opr_identifcode" type="varchar(16)" desc="[FK] AN16, FK naar openb_rmte.identifcode"/>
+		<foreign-key name="fk_opr_gor_nn_lh" columns="fk_nn_lh_opr_identifcode" ref-table="openb_rmte" ref-columns="identifcode"/>
+		<!-- Right hand side of association -->
+		<column key="true" name="fk_nn_rh_gor_identifcode" type="varchar(16)" desc="[FK] AN16, FK naar gem_openb_rmte.identifcode"/>
+		<foreign-key name="fk_opr_gor_nn_rh" columns="fk_nn_rh_gor_identifcode" ref-table="gem_openb_rmte" ref-columns="identifcode"/>
+	</table>
+	<!-- Een * op * relatie -->
+	<table name="openb_rmte_wnplts" desc="N - N relatie: OPENBARE RUIMTE &#34;ligt in&#34; WOONPLAATS" fullname="woonplaats">
+		<!-- Left hand side of association -->
+		<column key="true" name="fk_nn_lh_opr_identifcode" type="varchar(16)" desc="[FK] AN16, FK naar openb_rmte.identifcode"/>
+		<foreign-key name="fk_opr_wpl_nn_lh" columns="fk_nn_lh_opr_identifcode" ref-table="openb_rmte" ref-columns="identifcode"/>
+		<!-- Right hand side of association -->
+		<column key="true" name="fk_nn_rh_wpl_identif" type="varchar(4)" desc="[FK] AN4, FK naar wnplts.identif"/>
+		<foreign-key name="fk_opr_wpl_nn_rh" columns="fk_nn_rh_wpl_identif" ref-table="wnplts" ref-columns="identif"/>
+	</table>
+	<!-- * - 1: REISDOCUMENT - INGESCHREVEN NATUURLIJK PERSOON-->
+	<!-- Een * op * relatie -->
+	<table name="rsdoc_ingeschr_nat_prs" desc="N - N relatie: REISDOCUMENT &#34;heeft als houder&#34; INGESCHREVEN NATUURLIJK PERSOON" fullname="houder">
+		<!-- Left hand side of association -->
+		<column key="true" name="fk_nn_lh_rsd_nummer" type="varchar(9)" desc="[FK] AN9, FK naar rsdoc.nummer"/>
+		<foreign-key name="fk_rsd_inp_nn_lh" columns="fk_nn_lh_rsd_nummer" ref-table="rsdoc" ref-columns="nummer"/>
+		<!-- Right hand side of association -->
+		<column key="true" name="fk_nn_rh_inp_sc_identif" type="varchar(32)" desc="[FK] AN32, FK naar ingeschr_nat_prs.sc_identif (is FK naar superclass SUBJECT)"/>
+		<foreign-key name="fk_rsd_inp_nn_rh" columns="fk_nn_rh_inp_sc_identif" ref-table="ingeschr_nat_prs" ref-columns="sc_identif"/>
+	</table>
+	<!-- Een * op * relatie -->
+	<table name="standplaats_nummeraand" desc="N - N relatie: STANDPLAATS &#34;heeft als nevenadressen&#34; NUMMERAANDUIDING" fullname="nevenadres">
+		<!-- Left hand side of association -->
+		<column key="true" name="fk_nn_lh_spl_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar standplaats.sc_identif (is FK naar superclass BENOEMD OBJECT)"/>
+		<column key="true" archief="true" name="fk_nn_lh_spl_sc_dat_beg_geldh" type="varchar(19)" desc="[FK] OnvolledigeDatum, FK naar standplaats.sc_dat_beg_geldh (is FK naar superclass BENOEMD TERREIN)"/>
+		<foreign-key name="fk_spl_nra_nn_lh" columns="fk_nn_lh_spl_sc_identif" ref-table="standplaats" ref-columns="sc_identif"/>
+		<foreign-key archief="true" name="fk_spl_nra_nn_lh" columns="fk_nn_lh_spl_sc_dat_beg_geldh,fk_nn_lh_spl_sc_identif" ref-table="standplaats" ref-columns="sc_dat_beg_geldh,sc_identif"/>
+		<!-- Right hand side of association -->
+		<column key="true" name="fk_nn_rh_nra_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING)"/>
+		<foreign-key name="fk_spl_nra_nn_rh" columns="fk_nn_rh_nra_sc_identif" ref-table="nummeraand" ref-columns="sc_identif"/>
+	</table>
+	<!-- Een * op * relatie -->
+	<table name="verblijfsobj_pand" desc="N - N relatie: VERBLIJFSOBJECT &#34;maakt deel uit van&#34; PAND" fullname="pand">
+		<!-- Left hand side of association -->
+		<column key="true" name="fk_nn_lh_vbo_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar verblijfsobj.sc_identif (is FK naar superclass BENOEMD OBJECT)"/>
+		<column key="true" archief="true" name="fk_nn_lh_vbo_sc_dat_beg_geldh" type="varchar(19)" desc="[FK] OnvolledigeDatum, FK naar verblijfsobj.sc_dat_beg_geldh (is FK naar superclass GEBOUWD OBJECT)"/>
+		<foreign-key name="fk_vbo_pnd_nn_lh" columns="fk_nn_lh_vbo_sc_identif" ref-table="verblijfsobj" ref-columns="sc_identif"/>
+		<foreign-key archief="true" name="fk_vbo_pnd_nn_lh" columns="fk_nn_lh_vbo_sc_dat_beg_geldh,fk_nn_lh_vbo_sc_identif" ref-table="verblijfsobj" ref-columns="sc_dat_beg_geldh,sc_identif"/>
+		<!-- Right hand side of association -->
+		<column key="true" name="fk_nn_rh_pnd_identif" type="varchar(16)" desc="[FK] AN16, FK naar pand.identif"/>
+		<foreign-key name="fk_vbo_pnd_nn_rh" columns="fk_nn_rh_pnd_identif" ref-table="pand" ref-columns="identif"/>
+	</table>
+	<!-- Een * op * relatie -->
+	<table name="verblijfsobj_nummeraand" desc="N - N relatie: VERBLIJFSOBJECT &#34;heeft als nevenadres(sen)&#34; NUMMERAANDUIDING" fullname="nevenadres">
+		<!-- Left hand side of association -->
+		<column key="true" name="fk_nn_lh_vbo_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar verblijfsobj.sc_identif (is FK naar superclass BENOEMD OBJECT)"/>
+		<column key="true" archief="true" name="fk_nn_lh_vbo_sc_dat_beg_geldh" type="varchar(19)" desc="[FK] OnvolledigeDatum, FK naar verblijfsobj.sc_dat_beg_geldh (is FK naar superclass GEBOUWD OBJECT)"/>
+		<foreign-key name="fk_vbo_nra_nn_lh" columns="fk_nn_lh_vbo_sc_identif" ref-table="verblijfsobj" ref-columns="sc_identif"/>
+		<foreign-key archief="true" name="fk_vbo_nra_nn_lh" columns="fk_nn_lh_vbo_sc_dat_beg_geldh,fk_nn_lh_vbo_sc_identif" ref-table="verblijfsobj" ref-columns="sc_dat_beg_geldh,sc_identif"/>
+		<!-- Right hand side of association -->
+		<column key="true" name="fk_nn_rh_nra_sc_identif" type="varchar(16)" desc="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING)"/>
+		<foreign-key name="fk_vbo_nra_nn_rh" columns="fk_nn_rh_nra_sc_identif" ref-table="nummeraand" ref-columns="sc_identif"/>
+	</table>
+	<!-- Een * op * relatie -->
+	<table name="vestg_benoemd_obj" desc="N - N relatie: VESTIGING &#34;heeft nevenlocatie in of op&#34; BENOEMD OBJECT" fullname="benoemd object">
+		<!-- Left hand side of association -->
+		<column key="true" name="fk_nn_lh_ves_sc_identif" type="varchar(32)" desc="[FK] AN32, FK naar vestg.sc_identif (is FK naar superclass SUBJECT)"/>
+		<foreign-key name="fk_ves_tgo_nn_lh" columns="fk_nn_lh_ves_sc_identif" ref-table="vestg" ref-columns="sc_identif"/>
+		<!-- Right hand side of association -->
+		<column key="true" name="fk_nn_rh_tgo_identif" type="varchar(16)" desc="[FK] AN16, FK naar benoemd_obj.identif"/>
+		<foreign-key name="fk_ves_tgo_nn_rh" columns="fk_nn_rh_tgo_identif" ref-table="benoemd_obj" ref-columns="identif"/>
+	</table>
+	<!-- * - 1: WATERDEEL - WATERVAKONDERDEEL-->
+	<!-- * - 1: WEGDEEL - WEGVAKONDERDEEL-->
+	<!-- * - 1: WOZ-OBJECT - WOZ-WAARDE-->
+	<!--Create the table for containing all the meta_enumerations values-->
+	<table name="meta_enumeratie_waardes" desc="RSGB class meta_enumeratie_waardes" fullname="meta_enumeratie_waardes">
+		<column name="naam" key="true" fullname="naam" type="varchar(255)" desc="naam van de enum"/>
+		<column name="waarde" key="true" fullname="waarde" type="varchar(255)" desc="waarde van de enum"/>
+	</table>
+	<!--Create the inserts for the enumeration values-->
+	<inserts>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Aard aantekening kadastraal object</value>
+				<value>koopovereenkomst waarvan de inschrijving resulteert in een koperbescherming volgens artikel 7:3 BW</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Aard aantekening kadastraal object</value>
+				<value>koopovereenkomst of voorovereenkomst tot koop waarvan de inschrijving resulteert in koperbescherming volgens artikel 10 Wvg</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Aard aantekening kadastraal object</value>
+				<value>vervallen van de koopovereenkomst of voorovereenkomst tot koop die zijn ingeschreven op grond van artikel 7:3 of artikel 10 Wvg</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Aard aantekening kadastraal object</value>
+				<value>voorwaardelijke verkrijging</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Aard aantekening kadastraal object</value>
+				<value>erfdienstbaarheid</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Aard aantekening kadastraal object</value>
+				<value>kwalitatieve verplichting alsin art 6:25 BW</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Aard aantekening kadastraal object</value>
+				<value>onderbewindstelling van een grondstuk</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Aard aantekening kadastraal object</value>
+				<value>publiekrechtelijke beperking</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>doeleinden voor wonen</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>eensgezinswoning</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>bejaardenwoning</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>recreatiewoning</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>meergezinswoning</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>dienstwoning</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>zorgwoonverblijf</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>aanleunwoonverblijf</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>bejaardenwoonverblijf (in bejaardenoord, centrale keuken)</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>jongerenwooneenheid</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>gehandicaptenwooneenheid</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>doeleinden voor niet-wonen</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>doeleinden voor handel, horeca en bedrijf</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>detailhandel</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>cafe/bar/restaurant</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>hotel/logies</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>kantoor</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>opslag en distributie</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>fabricage en productie</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>onderhoud en reparatie</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>laboratoria</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>overige doeleinden voor niet-wonen</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>doeleinden voor cultuur</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>wijk-/buurt-/verenigingsactiviteiten</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>congres</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>theater en concert</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>musea</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>expositie</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>bioscoop</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>bibliotheek</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>overige doeleinden voor cultuur</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>doeleinden voor recreatie</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>sport buiten</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>sport binnen</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>recreatie</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>zwembad</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>dierenverzorging</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>natuur en landschap</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>overige doeleinden voor recreatie</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>doeleinden voor agrarisch bedrijf</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>akkerbouw</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>veeteelt</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>tuinbouw</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>gemengd bedrijf</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>overige doeleinden voor agrarisch bedrijf</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>doeleinden voor onderwijs</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>kinderopvang</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>basisschool</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>algemeen voortgezet onderwijs</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>hoger beroepsonderwijs</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>academisch onderwijs</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>bijzonder onderwijs</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>vrijetijds onderwijs</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>overige doeleinden voor onderwijs</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>doeleinden voor gezondheidszorg</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>ziekenhuis</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>polikliniek</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>praktijkruimte</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>verpleegtehuis</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>verzorgingstehuis en bejaardentehuis</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>dagverblijf</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>wijkverzorging</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>psychiatrische inrichting</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>overige doeleinden voor gezondheidszorg</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>doeleinden voor verkeer</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>stalling (fietsen/auto's)</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>wegverkeer</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>spoorwegverkeer</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>luchtvaart</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>scheepvaart</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>overige doeleinden voor verkeer</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>doeleinden voor nutsvoorzieningen</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>waternuts doeleinden</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>gas</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>elektriciteit</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>CAI</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>telecommunicatie</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>waterschaps en waterverdediging</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>overige doeleinden voor nutsvoorzieningen</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>andere doeleinden van openbaar nut</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>gemeentehuis</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>politie</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>brandweer</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>gevangenis/gesticht</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>begraafplaats/crematorium</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>godsdienst (kerk, klooster e.d.)</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>defensie</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+				<value>overige andere doeleinden van openbaar nut</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Huishoudensoort</value>
+				<value>institutioneel huishouden</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Huishoudensoort</value>
+				<value>alleenstaand (inclusief andere personen die in hetzelfde object wonen, maar een eigen huishouding voeren)</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Huishoudensoort</value>
+				<value>2 personen, vaste partners, geen thuiswonende kinderen</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Huishoudensoort</value>
+				<value>2 personen, vaste partners, een of meer thuiswonende kinderen</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Huishoudensoort</value>
+				<value>eenoudergezin, ouder met een of meer thuiswonende kinderen</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie_waardes">
+			<columns>
+				<column>naam</column>
+				<column>waarde</column>
+			</columns>
+			<values>
+				<value>Huishoudensoort</value>
+				<value>overig particulier huishouden (samenwoning van personen die geen partnerrelatie onderhouden of een ouder-kindrelatie hebben, maar wel gezamenlijk een huishouding voeren)</value>
+			</values>
+		</insert>
+	</inserts>
+	<!--Create the table for containing all the meta_enumerations-->
+	<table name="meta_enumeratie" desc="RSGB class meta_enumeratie" fullname="meta_enumeratie">
+		<column name="tabel" fullname="tabel" type="varchar(255)" desc="[PK] tabel" key="true"/>
+		<column name="kolom" fullname="kolom" type="varchar(255)" desc="[PK] kolom" key="true"/>
+		<column name="enumeratie" fullname="enumeratie" type="varchar(255)" desc="enumeratie"/>
+	</table>
+	<!--Create the inserts for the enumerations-->
+	<inserts>
+		<insert table="meta_enumeratie">
+			<columns>
+				<column>tabel</column>
+				<column>kolom</column>
+				<column>enumeratie</column>
+			</columns>
+			<values>
+				<value>gebouwd_obj</value>
+				<value>bouwk_best_act</value>
+				<value>Bouwkundige bestemming actueel GEBOUWD OBJECT</value>
+			</values>
+		</insert>
+		<insert table="meta_enumeratie">
+			<columns>
+				<column>tabel</column>
+				<column>kolom</column>
+				<column>enumeratie</column>
+			</columns>
+			<values>
+				<value>kad_onrrnd_zk_aantek</value>
+				<value>aard_aantek_kad_obj</value>
+				<value>Aard aantekening kadastraal object</value>
+			</values>
+		</insert>
+	</inserts>
+	<!--Create the table for containing all the referentielijsten values-->
+	<table name="meta_referentielijsten" desc="RSGB class meta_referentielijsten" fullname="meta_referentielijsten">
+		<column name="tabel" fullname="tabel" type="varchar(255)" desc="[PK] tabel" key="true"/>
+		<column name="kolom" fullname="kolom" type="varchar(255)" desc="[PK] kolom" key="true"/>
+		<column name="referentielijst" fullname="referentielijst" type="varchar(255)" desc="referentielijst"/>
+	</table>
+	<!--Create the inserts for the referentielijsten-->
+	<inserts>
+		<insert table="meta_referentielijsten">
+			<columns>
+				<column>tabel</column>
+				<column>kolom</column>
+				<column>referentielijst</column>
+			</columns>
+			<values>
+				<value>ingeschr_nat_prs</value>
+				<value>btnlndse_nation</value>
+				<value>NATIONALITEIT</value>
+			</values>
+		</insert>
+		<insert table="meta_referentielijsten">
+			<columns>
+				<column>tabel</column>
+				<column>kolom</column>
+				<column>referentielijst</column>
+			</columns>
+			<values>
+				<value>ingeschr_nat_prs</value>
+				<value>land_vanwaar_ingeschr</value>
+				<value>LAND</value>
+			</values>
+		</insert>
+		<insert table="meta_referentielijsten">
+			<columns>
+				<column>tabel</column>
+				<column>kolom</column>
+				<column>referentielijst</column>
+			</columns>
+			<values>
+				<value>ingeschr_nat_prs</value>
+				<value>land_waarnaar_vertrokken</value>
+				<value>LAND</value>
+			</values>
+		</insert>
+		<insert table="meta_referentielijsten">
+			<columns>
+				<column>tabel</column>
+				<column>kolom</column>
+				<column>referentielijst</column>
+			</columns>
+			<values>
+				<value>nat_prs</value>
+				<value>academische_titel</value>
+				<value>ACADEMISCHE TITEL</value>
+			</values>
+		</insert>
+		<insert table="meta_referentielijsten">
+			<columns>
+				<column>tabel</column>
+				<column>kolom</column>
+				<column>referentielijst</column>
+			</columns>
+			<values>
+				<value>rsdoc</value>
+				<value>soort</value>
+				<value>REISDOCUMENTSOORT</value>
+			</values>
+		</insert>
+		<insert table="meta_referentielijsten">
+			<columns>
+				<column>tabel</column>
+				<column>kolom</column>
+				<column>referentielijst</column>
+			</columns>
+			<values>
+				<value>zak_recht</value>
+				<value>aand_aard_recht_verkort</value>
+				<value>AARD RECHT VERKORT</value>
+			</values>
+		</insert>
+		<insert table="meta_referentielijsten">
+			<columns>
+				<column>tabel</column>
+				<column>kolom</column>
+				<column>referentielijst</column>
+			</columns>
+			<values>
+				<value>zak_recht</value>
+				<value>aand_aard_verkregen_recht</value>
+				<value>AARD VERKREGEN RECHT</value>
+			</values>
+		</insert>
+	</inserts>
+	<extra-scripts>
+		<script>101_herkomst_metadata.sql</script>
+		<script>102_metagegevens_brondocument.sql</script>
+		<script>103_woz_waarde.sql</script>
+		<script>104_brondocument_indices.sql</script>
+		<script>105_appartements_rechten.sql</script>
+		<script>106_bag_views.sql</script>
+		<script>107_brk_views.sql</script>
+		<script>108_insert_aard_recht_verkort.sql</script>
+		<script>109_insert_aard_verkregen_recht.sql</script>
+		<script>110_gebruiksdoel_primary_key.sql</script>
+		<script>111_insert_gemeente.sql</script>
+		<script>112_insert_buurt.sql</script>
+		<script>113_insert_wijk.sql</script>
+		<script>114_drop_constraints.sql</script>
+	</extra-scripts>
+</schema>

@@ -5,6 +5,16 @@
 	
 	<xsl:variable name="dbtype">postgresql</xsl:variable>
 	
+	<xsl:variable name="geom-types">
+		<geom rsgb="polygon" db="POLYGON"/>
+		<geom rsgb="multipolygon" db="MULTIPOLYGON"/>
+		<geom rsgb="point" db="POINT"/>
+		<geom rsgb="multipoint" db="MULTIPOINT"/>
+		<geom rsgb="linestring" db="LINESTRING"/>
+		<geom rsgb="multilinestring" db="MULTILINESTRING"/>
+		<geom rsgb="geometry" db="GEOMETRY"/>
+	</xsl:variable>
+	
 	<xsl:function name="db:type">
 		<xsl:param name="type"/>
 		<xsl:value-of select="fn:replace(fn:replace($type,'varchar','character varying'),'default','character varying(255)')"/>
@@ -20,8 +30,7 @@
 		<xsl:param name="column"/>	
 		<xsl:param name="type"/>
 		<xsl:param name="pos"/>
-		<xsl:variable name="geom-type" select="$geom-types/geom[@rsgb=$type]/@postgis"/>
-		<xsl:text>select addgeometrycolumn('</xsl:text><xsl:value-of select="$table"/><xsl:text>', '</xsl:text><xsl:value-of select="$column"/><xsl:text>', 28992, '</xsl:text><xsl:value-of select="fn:upper-case($type)"/><xsl:text>', 2);&#13;</xsl:text>
+		<xsl:text>select addgeometrycolumn('</xsl:text><xsl:value-of select="$table"/><xsl:text>', '</xsl:text><xsl:value-of select="$column"/><xsl:text>', 28992, '</xsl:text><xsl:value-of select="$geom-types/geom[@rsgb=$type]/@db"/><xsl:text>', 2);&#13;</xsl:text>
 		<xsl:text>create index </xsl:text><xsl:value-of select="$table"/><xsl:text>_</xsl:text><xsl:value-of select="$column"/><xsl:text>_idx on </xsl:text><xsl:value-of select="$table"/><xsl:text> USING GIST (</xsl:text><xsl:value-of select="$column"/><xsl:text>);&#13;</xsl:text>
 	</xsl:function>		
 </xsl:stylesheet>
