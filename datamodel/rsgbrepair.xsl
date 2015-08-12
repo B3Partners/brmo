@@ -84,6 +84,12 @@
 			<xsl:text>repair.xsl: Vestigingsnummer  -  verwijderd omdat pk van tabel wordt gebruikt hiervoor</xsl:text>
 		</xsl:comment>
 	</xsl:template>
+	<!-- Property elementType="Objecttype - Property" id="EAID_dst1F44A8_B55B_40e6_A5CB_CC8555D9635D" name="buurt" -->	
+	<xsl:template match="*[@elementType='Objecttype - Property' and @id='EAID_dst1F44A8_B55B_40e6_A5CB_CC8555D9635D']">
+		<xsl:comment>
+			<xsl:text>repair.xsl: buurt  -  verwijderd</xsl:text>
+		</xsl:comment>
+	</xsl:template>
 	<!--Property elementType="Objecttype - Property" id="EAID_dst5BF648_C231_4744_ADA9_63521891E583" name="buurt"  -->
 	<xsl:template match="*[@elementType='Objecttype - Property' and @id='EAID_dst5BF648_C231_4744_ADA9_63521891E583']">
 		<xsl:comment>

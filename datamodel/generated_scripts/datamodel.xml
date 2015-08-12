@@ -784,8 +784,6 @@
 		<column name="relve_hoogteligging" fullname="Relatieve hoogteligging pand" type="decimal(1,0)" desc="N1"/>
 		<column name="status_voortgang_bouw" fullname="Status voortgang bouw" type="varchar(24)" desc="AN24"/>
 		<!-- Association properties 1 - * -->
-		<column name="fk_16brt_code" type="decimal(2,0)" desc="[FK] N2, FK naar buurt.code: &#34;zonder verblijfsobject ligt in&#34;"/>
-		<foreign-key name="fk_pnd_as_16" columns="fk_16brt_code" ref-table="buurt" ref-columns="code"/>
 		<!-- Association properties * - 1 -->
 		<!-- Groepsattributen -->
 		<!-- Referentielijsten -->

@@ -1,902 +1,797 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<identifiers xmlns:xs="http://www.w3.org/2001/XMLSchema"
-             xmlns:fn="http://www.w3.org/2005/xpath-functions"
-             xmlns:b3p="http://www.b3partners.nl/">
-   <class name="ADRESSEERBAAR OBJECT AANDUIDING" table="addresseerb_obj_aand">
-      <property name="Datum begin geldigheid addresserbaar object aanduiding"
-                column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid addresserbaar object aanduiding"
-                column="dat_eind_geldh"/>
-      <property name="Huisletter" column="huisletter"/>
-      <property name="Huisnummer" column="huinummer"/>
-      <property name="Huisnummertoevoeging" column="huinummertoevoeging"/>
-      <property name="Identificatie adresseerbaar object aanduiding" column="identif"/>
-      <property name="Postcode" column="postcode"/>
-      <property name="woonplaats" column="wnplts"/>
-      <property name="huisnummer" column="huinummer"/>
-   </class>
-   <class name="ANDER BUITENLANDS NIET-NATUURLIJK PERSOON"
-          table="ander_btnlnds_niet_nat_prs"/>
-   <class name="ANDER NATUURLIJK PERSOON" table="ander_nat_prs">
-      <property name="Geboortedatum" column="geboortedatum"/>
-      <property name="Overlijdensdatum" column="overlijdensdatum"/>
-      <property name="bezoekadres" column="bezoekadres"/>
-   </class>
-   <class name="APPARTEMENTSRECHT" table="app_re">
-      <property name="Kadastrale aanduiding" column="kad_aand"/>
-      <property name="beheerder" column="beheerder"/>
-      <property name="perceel" column="perceel"/>
-   </class>
-   <class name="BEGROEID TERREINDEEL" table="begr_terr_dl">
-      <property name="Datum begin geldigheid begroeid terreindeel"
-                column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid begroeid terreindeel"
-                column="datum_einde_geldh"/>
-      <property name="Fysiek voorkomen begroeid terrein"
-                column="fysiek_voork_begr_terrein"/>
-      <property name="Geometrie begroeid terreindeel" column="geom"/>
-      <property name="Identificatie begroeid terreindeel" column="identif"/>
-      <property name="Kruinlijneometrie begroeid terreindeel" column="kruinlijngeom"/>
-      <property name="Relatieve hoogteligging begroeid terreindeel"
-                column="relve_hoogteligging"/>
-      <property name="Status begroeid terreindeel" column="status"/>
-      <property name="begroeid terreinvakonderdeel" column="begr_terreinvakonderd"/>
-      <property name="openbare ruimte" column="openb_rmte"/>
-   </class>
-   <class name="BEGROEID TERREINVAKONDERDEEL" table="begr_terreinvakonderd"/>
-   <class name="BENOEMD OBJECT" table="benoemd_obj">
-      <property name="Benoemd object identificatie" column="identif"/>
-      <property name="" column=""/>
-   </class>
-   <class name="BENOEMD TERREIN" table="benoemd_terrein">
-      <property name="Benoemd terrein geometrie" column="geom"/>
-      <property name="Datum begin geldigheid benoemd terrein" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid benoemd terrein"
-                column="datum_einde_geldh"/>
-      <property name="" column=""/>
-   </class>
-   <class name="BRUGCONSTRUCTIE ELEMENT" table="brugconstructie_element">
-      <property name="Type brugconstructie element" column="type"/>
-   </class>
-   <class name="BUURT" table="buurt">
-      <property name="Buurtcode" column="code"/>
-      <property name="Buurtgeometrie" column="geom"/>
-      <property name="Buurtnaam" column="naam"/>
-      <property name="Datum begin geldigheid buurt" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid buurt" column="datum_einde_geldh"/>
-      <property name="Identificatie IMGeoBRT" column="identif_imgeobrt"/>
-      <property name="Relatieve hoogteligging buurt" column="relve_hoogteligging"/>
-      <property name="Status buurt" column="status"/>
-   </class>
-   <class name="FUNCTIONEEL GEBIED" table="functioneel_gebied">
-      <property name="Datum begin geldigheid functioneel gebied" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid functioneel gebied"
-                column="datum_einde_geldh"/>
-      <property name="Geometrie functioneel gebied" column="geom"/>
-      <property name="Identificatie functioneel gebied" column="identif"/>
-      <property name="Naam functioneel gebied" column="naam"/>
-      <property name="Relatieve hoogteligging functioneel gebied"
-                column="relve_hoogteligging"/>
-      <property name="Status functioneel gebied" column="status"/>
-      <property name="Type functioneel gebied" column="type"/>
-   </class>
-   <class name="GEBOUWD OBJECT" table="gebouwd_obj">
-      <property name="Bouwkundige bestemming actueel" column="bouwk_best_act"/>
-      <property name="Bruto inhoud" column="bruto_inhoud"/>
-      <property name="Datum begin geldigheid gebouwd object" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid gebouwd object" column="datum_einde_geldh"/>
-      <property name="Gebouwd object vlakgeometrie" column="vlakgeom"/>
-      <property name="Gebouwd objectpuntgeometrie" column="puntgeom"/>
-      <property name="Gebruiksdoel gebouwd object" column="gebruiksdoel"/>
-      <property name="Inwinningswijze oppervlakte" column="inwwijze_oppervlakte"/>
-      <property name="Oppervlakte (verblijfs)object" column="oppervlakte_obj"/>
-      <property name="Status voortgang bouw" column="status_voortgang_bouw"/>
-   </class>
-   <class name="GEBOUWINSTALLATIE" table="gebouwinstallatie">
-      <property name="Datum begin geldigheid gebouwinstallatie" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid gebouwinstallatie"
-                column="datum_einde_geldh"/>
-      <property name="Geometrie gebouwinstallatie" column="geom"/>
-      <property name="Identificatie gebouwinstallatie" column="identif"/>
-      <property name="Relatieve hoogteligging gebouwinstallatie"
-                column="relve_hoogteligging"/>
-      <property name="Status gebouwinstallatie" column="status"/>
-      <property name="Type gebouwinstallatie" column="type"/>
-   </class>
-   <class name="GEMEENTE" table="gemeente">
-      <property name="Datum begin geldigheid gemeente" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid gemeente" column="datum_einde_geldh"/>
-      <property name="Gemeentecode" column="code"/>
-      <property name="Gemeentegeometrie" column="geom"/>
-      <property name="Gemeentenaam" column="naam"/>
-      <property name="Gemeentenaam NEN" column="naam_nen"/>
-      <property name="nieuwe gemeente" column="nieuwe"/>
-   </class>
-   <class name="GEMEENTELIJKE OPENBARE RUIMTE" table="gem_openb_rmte">
-      <property name="Datum begin geldigheid gemeentelijke openbare ruimte"
-                column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid gemeentelijke openbare ruimte"
-                column="datum_einde_geldh"/>
-      <property name="Identificatiecode gemeentelijke openbare ruimte"
-                column="identifcode"/>
-      <property name="Indicatie geconstateerde openbare ruimte"
-                column="indic_geconst_openb_rmte"/>
-      <property name="Naam openbare ruimte" column="naam_openb_rmte"/>
-      <property name="Status openbare ruimte" column="status_openb_rmte"/>
-      <property name="Straatnaam" column="straatnaam"/>
-      <property name="Type openbare ruimte" column="type_openb_rmte"/>
-      <property name="gemeente" column="gemeente"/>
-   </class>
-   <class name="HUISHOUDEN" table="huishouden">
-      <property name="Datum begin geldigheid huishouden" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid huishouden" column="datum_einde_geldh"/>
-      <property name="Huishoudengrootte" column="grootte"/>
-      <property name="Huishoudennummer" column="nummer"/>
-      <property name="Huishoudensoort" column="soort"/>
-      <property name="verblijfsobject" column="verblijfsobj"/>
-      <property name="ligplaats" column="ligplaats"/>
-      <property name="relatie" column="rel"/>
-      <property name="standplaats" column="standplaats"/>
-   </class>
-   <class name="INGESCHREVEN NIET-NATUURLIJK PERSOON"
-          table="ingeschr_niet_nat_prs">
-      <property name="Ingeschreven niet-natuurlijk persoon typering" column="typering"/>
-      <property name="Overige privaatrechtelijk rechtsvorm"
-                column="ovrg_privaatr_rechtsvorm"/>
-      <property name="Publiekrechtelijke rechtsvorm"
-                column="publiekrechtelijke_rechtsvorm"/>
-      <property name="Rechtstoestand" column="rechtstoestand"/>
-      <property name="Rechtsvorm" column="rechtsvorm"/>
-      <property name="Statutaire zetel" column="statutaire_zetel"/>
-      <property name="bezoekadres" column="bezoekadres"/>
-   </class>
-   <class name="INGESCHREVEN NATUURLIJK PERSOON" table="ingeschr_nat_prs">
-      <property name="A-nummer" column="a_nummer"/>
-      <property name="Buitenlands reisdocument" column="btnlnds_rsdoc"/>
-      <property name="Buitenlandse nationaliteit" column="btnlndse_nation"/>
-      <property name="Burgerlijke staat" column="burgerlijke_staat"/>
-      <property name="Datum begin geldigheid verblijfplaats"
-                column="dat_beg_geldh_verblijfpl"/>
-      <property name="Datum inschrijving in gemeente"
-                column="datum_inschrijving_in_gemeente"/>
-      <property name="Datum opschorting bijhouding"
-                column="datum_opschorting_bijhouding"/>
-      <property name="Datum verkrijging nationaliteit" column="datum_verkr_nation"/>
-      <property name="Datum verlies nationaliteit" column="datum_verlies_nation"/>
-      <property name="Datum vertrek uit Nederland" column="datum_vertrek_uit_nederland"/>
-      <property name="Datum vestiging in Nederland" column="datum_vestg_in_nederland"/>
-      <property name="Geboorte" column="geboorte"/>
-      <property name="Gemeente van inschrijving" column="gemeente_van_inschrijving"/>
-      <property name="Handelingsbekwaam" column="handelingsbekwaam"/>
-      <property name="Indicatie geheim" column="indic_geheim"/>
-      <property name="Land vanwaar ingeschreven" column="land_vanwaar_ingeschr"/>
-      <property name="Land waarnaar vertrokken" column="land_waarnaar_vertrokken"/>
-      <property name="Nationaliteit" column="nation"/>
-      <property name="Overlijden" column="overlijden"/>
-      <property name="Rechtstoestand" column="rechtstoestand"/>
-      <property name="Reden opschorting bijhouding"
-                column="reden_opschorting_bijhouding"/>
-      <property name="Signalering reisdocument" column="signalering_rsdoc"/>
-      <property name="Verblijfadres" column="verblijfadres"/>
-      <property name="ouder" column="ouder"/>
-      <property name="partner" column="partner"/>
-      <property name="" column=""/>
-      <property name="" column=""/>
-      <property name="" column=""/>
-      <property name="" column=""/>
-      <property name="" column=""/>
-   </class>
-   <class name="INGEZETENE" table="ingezetene">
-      <property name="Datum verkrijging verblijfstitel"
-                column="datum_verkr_verblijfstitel"/>
-      <property name="Datum verlies verblijfstitel"
-                column="datum_verlies_verblijfstitel"/>
-      <property name="Europees kiesrecht" column="euro_kiesr"/>
-      <property name="Indicatie blokkering" column="indic_blokkering"/>
-      <property name="Indicatie curateleregister" column="indic_curateleregister"/>
-      <property name="Indicatie gezag minderjarige" column="indic_gezag_minderjarige"/>
-      <property name="Uitsluiting kiesrecht" column="uitsl_kiesr"/>
-      <property name="verblijfstitel" column="verblijfstitel"/>
-   </class>
-   <class name="INRICHTINGSELEMENT" table="inrichtingselement">
-      <property name="Datum begin geldigheid inrichtingselement" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid inrichtingselement"
-                column="datum_einde_geldh"/>
-      <property name="Geometrie inrichtingselement" column="geom"/>
-      <property name="Identificatie inrichtingselement" column="identif"/>
-      <property name="Inrichtingselementtypering" column="typering"/>
-      <property name="Relatieve hoogteligging inrichtingselement"
-                column="relve_hoogteligging"/>
-      <property name="Status inrichtingselement" column="status"/>
-      <property name="Type inrichtingselement" column="type"/>
-   </class>
-   <class name="KADASTRAAL PERCEEL" table="kad_perceel">
-      <property name="Aanduiding soort grootte" column="aand_soort_grootte"/>
-      <property name="Begrenzing perceel" column="begrenzing_perceel"/>
-      <property name="Grootte perceel" column="grootte_perceel"/>
-      <property name="Kadastrale aanduiding" column="kad_aand"/>
-      <property name="Omschrijving deelperceel" column="omschr_deelperceel"/>
-      <property name="Plaatscoördinaten perceel" column="plaatscoordinaten_perceel"/>
-      <property name="" column=""/>
-   </class>
-   <class name="KADASTRALE GEMEENTE" table="kad_gemeente">
-      <property name="Indicatie vervallen" column="indic_vervallen"/>
-      <property name="Kadastrale gemeentecode" column="code"/>
-      <property name="naam" column="naam"/>
-   </class>
-   <class name="KADASTRALE ONROERENDE ZAAK" table="kad_onrrnd_zk">
-      <property name="Cultuur onbebouwd" column="cultuur_onbebouwd"/>
-      <property name="Datum begin geldigheid kadastrale onroerende zaak"
-                column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid kadastrale onroerende zaak"
-                column="datum_einde_geldh"/>
-      <property name="Kadastrale identificatie" column="kad_identif"/>
-      <property name="Kadastrale onroerende zaak typering" column="typering"/>
-      <property name="Koopsom" column="koopsom"/>
-      <property name="Landinrichtingsrente" column="landinrichtingsrente"/>
-      <property name="Locatie onroerende zaak" column="loc_onrrnd_zk"/>
-      <property name="gemeente" column="gemeente"/>
-      <property name="" column=""/>
-      <property name="oorsprong" column="oorsprong"/>
-      <property name="voornaamste zakelijk gerechtigde"
-                column="voornaamste_zak_gerechtigde"/>
-   </class>
-   <class name="KADASTRALE ONROERENDE ZAAK AANTEKENING"
-          table="kad_onrrnd_zk_aantek">
-      <property name="Aard aantekening kadastraal object" column="aard_aantek_kad_obj"/>
-      <property name="Begindatum aantekening kadastraal object"
-                column="begindatum_aantek_kad_obj"/>
-      <property name="Beschrijving aantekening kadastraal object"
-                column="beschrijving_aantek_kad_obj"/>
-      <property name="Einddatum aantekening kadastraal object"
-                column="eindd_aantek_kad_obj"/>
-      <property name="Kadaster identificatie aantekening"
-                column="kadaster_identif_aantek"/>
-      <property name="onroerende zaak" column="onrrnd_zk"/>
-      <property name="rechtspersoon" column="rechtsprs"/>
-   </class>
-   <class name="KUNSTWERKDEEL" table="kunstwerkdeel">
-      <property name="Datum begin geldigheid kunstwerkdeel" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid kunstwerkdeel" column="datum_einde_geldh"/>
-      <property name="Geometrie kunstwerkdeel" column="geom"/>
-      <property name="Identificatie kunstwerkdeel" column="identif"/>
-      <property name="Relatieve hoogteligging kunstwerkdeel"
-                column="relve_hoogteligging"/>
-      <property name="Status kunstwerkdeel" column="status"/>
-      <property name="Type kunstwerk" column="type_kunstwerk"/>
-   </class>
-   <class name="LIGPLAATS" table="ligplaats">
-      <property name="Indicatie geconstateerde ligplaats" column="indic_geconst"/>
-      <property name="Ligplaatsstatus" column="status"/>
-      <property name="nevenadres" column="nevenadres"/>
-      <property name="hoofdadres" column="hoofdadres"/>
-   </class>
-   <class name="MAATSCHAPPELIJKE ACTIVITEIT" table="maatschapp_activiteit">
-      <property name="Datum aanvang" column="datum_aanvang"/>
-      <property name="Datum einde geldig (beeindiging)" column="datum_einde_geldig"/>
-      <property name="KvK-nummer" column="kvk_nummer"/>
-      <property name="" column=""/>
-      <property name="eigenaar" column="eigenaar"/>
-   </class>
-   <class name="NATUURLIJK PERSOON" table="nat_prs">
-      <property name="Aanduiding naamgebruik" column="aand_naamgebruik"/>
-      <property name="Academische titel" column="academische_titel"/>
-      <property name="Geslachtsaanduiding" column="geslachtsaand"/>
-      <property name="Naam" column="naam"/>
-      <property name="Naam aanschrijving" column="naam_aanschrijving"/>
-   </class>
-   <class name="NIET-INGEZETENE" table="niet_ingezetene"/>
-   <class name="NIET-NATUURLIJK PERSOON" table="niet_nat_prs">
-      <property name="(Statutaire) Naam" column="naam"/>
-      <property name="Datum aanvang" column="datum_aanvang"/>
-      <property name="Datum beeindiging" column="datum_beeindiging"/>
-      <property name="Verkorte naam" column="verkorte_naam"/>
-   </class>
-   <class name="NUMMERAANDUIDING" table="nummeraand">
-      <property name="Indicatie geconstateerde nummeraanduiding" column="indic_geconst"/>
-      <property name="Indicatie hoofdadres" column="indic_hoofdadres"/>
-      <property name="Nummeraanduidingstatus" column="status"/>
-   </class>
-   <class name="ONBEGROEID TERREINDEEL" table="onbegr_terr_dl">
-      <property name="Datum begin geldigheid onbegroeid terreindeel"
-                column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid onbegroeid terreindeel"
-                column="datum_einde_geldh"/>
-      <property name="Fysiek voorkomen onbegroeid terrein"
-                column="fysiek_voork_onbegr_terrein"/>
-      <property name="Geometrie onbegroeid terreindeel" column="geom"/>
-      <property name="Identificatie onbegroeid terreindeel" column="identif"/>
-      <property name="Kruinlijngeometrie onbegroeid terreindeel" column="kruinlijngeom"/>
-      <property name="Relatieve hoogteligging onbegroeid terreindeel"
-                column="relve_hoogteligging"/>
-      <property name="Status onbegroeid terreindeel" column="status"/>
-      <property name="onbegroeid terreinvakonderdeel" column="onbegr_terreinvakonderd"/>
-      <property name="openbare ruimte" column="openb_rmte"/>
-   </class>
-   <class name="ONBEGROEID TERREINVAKONDERDEEL" table="onbegr_terreinvakonderd"/>
-   <class name="ONDERNEMING" table="ondrnmng">
-      <property name="Datum aanvang" column="datum_aanvang"/>
-      <property name="Datum einde" column="datum_einde"/>
-      <property name="KvK-nummer" column="kvk_nummer"/>
-      <property name="bestaande onderneming" column="best"/>
-      <property name="andere maatschappelijke activiteit"
-                column="andere_maatschapp_activiteit"/>
-   </class>
-   <class name="ONDERSTEUNEND WEGDEEL" table="ondersteunend_wegdeel">
-      <property name="Datum begin geldigheid ondersteunend wegdeel"
-                column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid ondersteunend wegdeel"
-                column="datum_einde_geldh"/>
-      <property name="Functie ondersteunend wegdeel" column="functie"/>
-      <property name="Geometrie ondersteunend wegdeel" column="geom"/>
-      <property name="Identificatie ondersteunend wegdeel" column="identif"/>
-      <property name="Relatieve hoogteligging ondersteunend wegdeel"
-                column="relve_hoogteligging"/>
-      <property name="Status ondersteunend wegdeel" column="status"/>
-      <property name="openbare ruimte" column="openb_rmte"/>
-   </class>
-   <class name="OPENBARE RUIMTE" table="openb_rmte">
-      <property name="Huisnummerrange even en oneven nummers"
-                column="huisnrrange_on_even_nummers"/>
-      <property name="Huisnummerrange even nummers" column="huisnrrange_even_nummers"/>
-      <property name="Huisnummerrange oneven nummers"
-                column="huisnrrange_oneven_nummers"/>
-      <property name="Identificatie BGTOPR" column="identif_bgtopr"/>
-      <property name="Identificatiecode openbare ruimte" column="identifcode"/>
-      <property name="gemeentelijke openbare ruimte" column="gem"/>
-      <property name="woonplaats" column="wnplts"/>
-   </class>
-   <class name="OVERIGE ADRESSEERBAAR OBJECT AANDUIDING"
-          table="ovrg_addresseerb_obj_aand"/>
-   <class name="OVERIG BOUWWERK" table="overig_bouwwerk">
-      <property name="Datum begin geldigheid overig bouwwerk" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid overig bouwwerk"
-                column="datum_einde_geldh"/>
-      <property name="Geometrie overig bouwwerk" column="geom"/>
-      <property name="Identificatie overig bouwwerk" column="identif"/>
-      <property name="Relatieve hoogteligging overig bouwwerk"
-                column="relve_hoogteligging"/>
-      <property name="Status overig bouwwerk" column="status"/>
-      <property name="Type overig bouwwerk" column="type"/>
-   </class>
-   <class name="OVERIG GEBOUWD OBJECT" table="overig_gebouwd_obj">
-      <property name="Bouwjaar" column="bouwjaar"/>
-      <property name="Overig gebouwd object locatie-aanduiding" column="loc_aand"/>
-      <property name="Overig gebouwd object type" column="type"/>
-      <property name="adres" column="adres"/>
-      <property name="locatieadres" column="locadres"/>
-      <property name="openbare ruimte" column="openb_rmte"/>
-   </class>
-   <class name="OVERIGE SCHEIDING" table="ovrg_scheiding">
-      <property name="Datum begin geldigheid overige scheiding" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid overige scheiding"
-                column="datum_einde_geldh"/>
-      <property name="Geometrie overige scheiding" column="geom"/>
-      <property name="Identificatie overige scheiding" column="identif"/>
-      <property name="Relatieve hoogteligging overige scheiding"
-                column="relve_hoogteligging"/>
-      <property name="Status overige scheiding" column="status"/>
-      <property name="Type overige scheiding" column="type"/>
-   </class>
-   <class name="OVERIG TERREIN" table="overig_terrein">
-      <property name="Gebruiksdoel overig terrein" column="gebruiksdoel"/>
-      <property name="adres" column="adres"/>
-   </class>
-   <class name="PAND" table="pand">
-      <property name="Bruto inhoud pand" column="bruto_inhoud"/>
-      <property name="Datum begin geldigheid pand" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid pand" column="datum_einde_geldh"/>
-      <property name="Hoogste bouwlaag pand" column="hoogste_bouwlaag"/>
-      <property name="Identificatie BGTPND" column="identif_bgtpnd"/>
-      <property name="Indicatie geconstateerd pand" column="indic_geconstateerd"/>
-      <property name="Inwinningswijze geometrie bovenaanzicht"
-                column="inwwijze_geom_bovenaanzicht"/>
-      <property name="Inwinningswijze geometrie maaiveld"
-                column="inwwijze_geom_maaiveld"/>
-      <property name="Laagste bouwlaag pand" column="laagste_bouwlaag"/>
-      <property name="Oorspronkelijk bouwjaar pand" column="oorspronkelijk_bouwjaar"/>
-      <property name="Oppervlakte pand" column="oppervlakte"/>
-      <property name="Pandgeometrie bovenaanzicht" column="geom_bovenaanzicht"/>
-      <property name="Pandgeometrie maaiveld" column="geom_maaiveld"/>
-      <property name="Pandidentificatie" column="identif"/>
-      <property name="Pandstatus" column="status"/>
-      <property name="Relatieve hoogteligging pand" column="relve_hoogteligging"/>
-      <property name="Status voortgang bouw" column="status_voortgang_bouw"/>
-      <property name="buurt" column="buurt"/>
-   </class>
-   <class name="PERSOON" table="prs">
-      <property name="eigenaar" column="eigenaar"/>
-   </class>
-   <class name="REISDOCUMENT" table="rsdoc">
-      <property name="Aanduiding inhouding of vermissing"
-                column="aand_inhouding_of_vermissing"/>
-      <property name="Autoriteit uitgifte" column="autoriteit_uitgifte"/>
-      <property name="Datum inhouding of vermissing"
-                column="datum_inhouding_of_vermissing"/>
-      <property name="Datum uitgifte" column="datum_uitgifte"/>
-      <property name="Einddatum geldigheid document" column="eindd_geldh_document"/>
-      <property name="Lengte houder" column="lengte_houder"/>
-      <property name="Reisdocumentnummer" column="nummer"/>
-      <property name="Soort" column="soort"/>
-      <property name="bijgeschrevene" column="bijgeschrevene"/>
-      <property name="houder" column="houder"/>
-   </class>
-   <class name="SCHEIDING" table="scheiding">
-      <property name="Datum begin geldigheid scheiding" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid scheiding" column="datum_einde_geldh"/>
-      <property name="Geometrie scheiding" column="geom"/>
-      <property name="Identificatie scheiding" column="identif"/>
-      <property name="Relatieve hoogteligging scheiding" column="relve_hoogteligging"/>
-      <property name="Status scheiding" column="status"/>
-      <property name="Type scheiding" column="type"/>
-   </class>
-   <class name="SPOOR" table="spoor">
-      <property name="Datum begin geldigheid spoor" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid spoor" column="datum_einde_geldh"/>
-      <property name="Functie spoor" column="functie"/>
-      <property name="Geometrie spoor" column="geom"/>
-      <property name="Identificatie spoor" column="identif"/>
-      <property name="Relatieve hoogteligging spoor" column="relve_hoogteligging"/>
-      <property name="Status spoor" column="status"/>
-   </class>
-   <class name="STADSDEEL" table="stadsdeel">
-      <property name="Datum begin geldigheid stadsdeel" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid stadsdeel" column="datum_einde_geldh"/>
-      <property name="Identificatie stadsdeel" column="identif"/>
-      <property name="Relatieve hoogteligging stadsdeel" column="relve_hoogteligging"/>
-      <property name="Stadsdeelgeometrie" column="geom"/>
-      <property name="Stadsdeelnaam" column="naam"/>
-      <property name="Status stadsdeel" column="status"/>
-   </class>
-   <class name="STANDPLAATS" table="standplaats">
-      <property name="Indicatie geconstateerde standplaats" column="indic_geconst"/>
-      <property name="Standplaatsstatus" column="status"/>
-      <property name="nevenadres" column="nevenadres"/>
-      <property name="hoofdadres" column="hoofdadres"/>
-   </class>
-   <class name="SUBJECT" table="subject">
-      <property name="Adres binnenland" column="adres_binnenland"/>
-      <property name="Adres buitenland" column="adres_buitenland"/>
-      <property name="Emailadres" column="emailadres"/>
-      <property name="Fax-nummer" column="fax_nummer"/>
-      <property name="Identificatie" column="identif"/>
-      <property name="KvK-nummer" column="kvk_nummer"/>
-      <property name="Naam" column="naam"/>
-      <property name="Postadres" column="postadres"/>
-      <property name="Rekeningnummer" column="rekeningnummer"/>
-      <property name="Subjecttypering" column="typering"/>
-      <property name="Telefoonnummer" column="telefoonnummer"/>
-      <property name="Verblijf buitenland" column="verblijf_buitenland"/>
-      <property name="Website-URL" column="website_url"/>
-      <property name="" column=""/>
-      <property name="factuuradres" column="factuuradres"/>
-      <property name="correspondentieadres" column="correspondentieadres"/>
-   </class>
-   <class name="VERBLIJFSOBJECT" table="verblijfsobj">
-      <property name="Aantal kamers" column="aantal_kamers"/>
-      <property name="Hoogste bouwlaag verblijfsobject" column="hoogste_bouwlaag"/>
-      <property name="Indicatie geconstateerd verblijfsobject"
-                column="indic_geconstateerd"/>
-      <property name="Laagste bouwlaag verblijfsobject" column="laagste_bouwlaag"/>
-      <property name="Ontsluiting verdieping" column="ontsluiting_verdieping"/>
-      <property name="Soort woonobject" column="soort_woonobj"/>
-      <property name="Toegang bouwlaag verblijfsobject" column="toegang_bouwlaag"/>
-      <property name="Verblijfsobjectstatus" column="status"/>
-      <property name="pand" column="pand"/>
-      <property name="nevenadres" column="nevenadres"/>
-      <property name="hoofdadres" column="hoofdadres"/>
-   </class>
-   <class name="VERBLIJFSTITEL" table="verblijfstitel">
-      <property name="Aanduiding verblijfstitel" column="aand"/>
-      <property name="Begindatum geldigheid verblijfstitel" column="begindatum_geldh"/>
-      <property name="Einddatum geldigheid verblijfstitel" column="eindd_geldh"/>
-      <property name="Verblijfstitelomschrijving" column="omschr"/>
-   </class>
-   <class name="VESTIGING" table="vestg">
-      <property name="(Handels)naam" column="naam"/>
-      <property name="Activiteit omschrijving" column="activiteit_omschr"/>
-      <property name="Datum aanvang" column="datum_aanvang"/>
-      <property name="Datum beeindiging" column="datum_beeindiging"/>
-      <property name="Datum voortzetting" column="datum_voortzetting"/>
-      <property name="Fulltime werkzame mannen" column="fulltime_werkzame_mannen"/>
-      <property name="Fulltime werkzame vrouwen" column="fulltime_werkzame_vrouwen"/>
-      <property name="Parttime werkzame mannen" column="parttime_werkzame_mannen"/>
-      <property name="Parttime werkzame vrouwen" column="parttime_werkzame_vrouwen"/>
-      <property name="SBI Activiteit" column="sbi_activiteit"/>
-      <property name="Toevoeging adres" column="toevoeging_adres"/>
-      <property name="Verkorte naam" column="verkorte_naam"/>
-      <property name="Vestigingtypering" column="typering"/>
-      <property name="benoemd object" column="benoemd_obj"/>
-      <property name="activiteit" column="activiteit"/>
-      <property name="benoemd object" column="benoemd_obj"/>
-      <property name="activiteit" column="activiteit"/>
-      <property name="samengoevoegde vestiging" column="samengoevoegde"/>
-      <property name="activiteit" column="activiteit"/>
-      <property name="locatieadres" column="locadres"/>
-   </class>
-   <class name="VRIJSTAAND VEGETATIE OBJECT" table="vrijstaand_vegetatie_obj">
-      <property name="Datum begin geldigheid vrijstaand vegetatie object"
-                column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid vrijstaand vegetatie object"
-                column="datum_einde_geldh"/>
-      <property name="Geometrie vrijstaand vegetatie object" column="geom"/>
-      <property name="Identificatie vrijstaand vegetatie object" column="identif"/>
-      <property name="Relatieve hoogteligging vrijstaand vegetatie object"
-                column="relve_hoogteligging"/>
-      <property name="Status vrijstaand vegetatie object" column="status"/>
-      <property name="Type vrijstaand vegetatie object" column="type"/>
-   </class>
-   <class name="WATERDEEL" table="waterdeel">
-      <property name="Datum begin geldigheid waterdeel" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid waterdeel" column="datum_einde_geldh"/>
-      <property name="Droogvallend" column="droogvallend"/>
-      <property name="Geometrie waterdeel" column="geom"/>
-      <property name="Identificatie waterdeel" column="identif"/>
-      <property name="Relatieve hoogteligging waterdeel" column="relve_hoogteligging"/>
-      <property name="Status waterdeel" column="status"/>
-      <property name="Type waterdeel" column="type"/>
-      <property name="openbare ruimte" column="openb_rmte"/>
-      <property name="watervakonderdeel" column="watervakonderdeel"/>
-   </class>
-   <class name="WATERVAKONDERDEEL" table="watervakonderdeel"/>
-   <class name="WATERSCHAP" table="waterschap">
-      <property name="Datum begin geldigheid waterschap" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid waterschap" column="datum_einde_geldh"/>
-      <property name="Identificatie waterschap" column="identif"/>
-      <property name="Relatieve hoogteligging waterschap" column="relve_hoogteligging"/>
-      <property name="Status waterschap" column="status"/>
-      <property name="Waterschapgeometrie" column="geom"/>
-      <property name="Waterschapnaam" column="naam"/>
-   </class>
-   <class name="WEGDEEL" table="wegdeel">
-      <property name="Datum begin geldigheid wegdeel" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid wegdeel" column="datum_einde_geldh"/>
-      <property name="Functie wegdeel" column="functie"/>
-      <property name="Fysiek voorkomen wegdeel" column="fysiek_voork"/>
-      <property name="Geometrie wegdeel" column="geom"/>
-      <property name="Identificatie wegdeel" column="identif"/>
-      <property name="Relatieve hoogteligging wegdeel" column="relve_hoogteligging"/>
-      <property name="Status wegdeel" column="status"/>
-      <property name="wegvakonderdeel" column="wegvakonderdeel"/>
-      <property name="openbare ruimte" column="openb_rmte"/>
-   </class>
-   <class name="WEGVAKONDERDEEL" table="wegvakonderdeel"/>
-   <class name="WIJK" table="wijk">
-      <property name="Datum begin geldigheid wijk" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid wijk" column="datum_einde_geldh"/>
-      <property name="Identificatie IMGeoWYK" column="identif_imgeowyk"/>
-      <property name="Relatieve hoogteligging wijk" column="relve_hoogteligging"/>
-      <property name="Status wijk" column="status"/>
-      <property name="Wijkcode" column="code"/>
-      <property name="Wijkgeometrie" column="geom"/>
-      <property name="Wijknaam" column="naam"/>
-   </class>
-   <class name="WOONPLAATS" table="wnplts">
-      <property name="Datum begin geldigheid woonplaats" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid woonplaats" column="datum_einde_geldh"/>
-      <property name="Indicatie geconstateerde woonplaats" column="indic_geconst"/>
-      <property name="Woonplaatsgeometrie" column="geom"/>
-      <property name="Woonplaatsidentificatie" column="identif"/>
-      <property name="Woonplaatsnaam" column="naam"/>
-      <property name="Woonplaatsnaam NEN" column="naam_nen"/>
-      <property name="Woonplaatsstatus" column="status"/>
-      <property name="gemeente" column="gemeente"/>
-   </class>
-   <class name="WOZ-DEELOBJECT" table="woz_deelobj">
-      <property name="Code WOZ-deelobject" column="code"/>
-      <property name="Datum begin geldigheid deelobject" column="dat_beg_geldh_deelobj"/>
-      <property name="Datum einde geldigheid deelobject"
-                column="datum_einde_geldh_deelobj"/>
-      <property name="Nummer WOZ-deelobject" column="nummer"/>
-      <property name="Status WOZ-deelobject" column="status"/>
-      <property name="pand" column="pand"/>
-      <property name="benoemd object" column="benoemd_obj"/>
-      <property name="deelobject" column="deelobj"/>
-   </class>
-   <class name="WOZ-OBJECT" table="woz_obj">
-      <property name="Datum begin geldigheid WOZ-object" column="dat_beg_geldh"/>
-      <property name="Datum einde geldigheid WOZ-object" column="datum_einde_geldh"/>
-      <property name="Gebruikscode" column="gebruikscode"/>
-      <property name="Geometrie WOZ-object" column="geom"/>
-      <property name="Grondoppervlakte" column="grondoppervlakte"/>
-      <property name="Soort-object-code" column="soort_obj_code"/>
-      <property name="Status WOZ-object" column="status"/>
-      <property name="Vastgestelde waarde" column="vastgestelde_waarde"/>
-      <property name="Waardepeildatum" column="waardepeildatum"/>
-      <property name="WOZ-objectnummer" column="nummer"/>
-      <property name="openbare ruimte" column="openb_rmte"/>
-      <property name="belanghebbende" column="belanghebbende"/>
-      <property name="waarde" column="waarde"/>
-      <property name="locatieaanduiding" column="locaand"/>
-      <property name="onroerende zaak" column="onrrnd_zk"/>
-   </class>
-   <class name="WOZ-WAARDE" table="woz_waarde">
-      <property name="Status beschikking" column="status_beschikking"/>
-      <property name="Toestandspeildatum" column="toestandspeildatum"/>
-      <property name="Vastgestelde waarde" column="vastgestelde_waarde"/>
-      <property name="Waardepeildatum" column="waardepeildatum"/>
-   </class>
-   <class name="ZAKELIJK RECHT" table="zak_recht">
-      <property name="Aandeel in recht" column="aandeel_in_recht"/>
-      <property name="Aanduiding aard recht verkort" column="aand_aard_recht_verkort"/>
-      <property name="Aanduiding aard verkregen recht"
-                column="aand_aard_verkregen_recht"/>
-      <property name="Einddatum recht" column="eindd_recht"/>
-      <property name="Indicatie betrokken in splitsing"
-                column="indic_betrokken_in_splitsing"/>
-      <property name="Ingangsdatum recht" column="ingangsdatum_recht"/>
-      <property name="Kadaster identificatie zakelijk recht" column="kadaster_identif"/>
-      <property name="onroerende zaak" column="onrrnd_zk"/>
-      <property name="gerechtigde" column="gerechtigde"/>
-   </class>
-   <class name="ZAKELIJK RECHT AANTEKENING" table="zak_recht_aantek">
-      <property name="Aard aantekening recht" column="aard_aantek_recht"/>
-      <property name="Begindatum aantekening recht" column="begindatum_aantek_recht"/>
-      <property name="Beschrijving aantekening recht"
-                column="beschrijving_aantek_recht"/>
-      <property name="Einddatum aantekening recht" column="eindd_aantek_recht"/>
-      <property name="Kadaster identificatie aantekening recht"
-                column="kadaster_identif_aantek_recht"/>
-      <property name="zakelijk recht" column="zak_recht"/>
-      <property name="rechtspersoon" column="rechtsprs"/>
-   </class>
-   <class name="SBI ACTIVITEIT" table="sbi_activiteit">
-      <property name="Omschrijving" column="omschr"/>
-      <property name="SBI code" column="sbi_code"/>
-   </class>
-   <class name="AARD RECHT VERKORT" table="aard_recht_verkort">
-      <property name="Aanduiding aard recht verkort" column="aand"/>
-      <property name="Omschrijving aard recht verkort" column="omschr"/>
-   </class>
-   <class name="AARD VERKREGEN RECHT" table="aard_verkregen_recht">
-      <property name="Aanduiding aard verkregen recht" column="aand"/>
-      <property name="Omschrijving aard verkregenr recht"
-                column="omschr_aard_verkregenr_recht"/>
-   </class>
-   <class name="ACADEMISCHE TITEL" table="academische_titel">
-      <property name="Academische titelcode" column="code"/>
-      <property name="Datum begin geldigheid titel" column="dat_beg_geldh_titel"/>
-      <property name="Datum einde geldigheid titel" column="datum_einde_geldh_titel"/>
-      <property name="Omschrijving academische titel" column="omschr"/>
-      <property name="Positie academische titel tov naam" column="positie_tov_naam"/>
-   </class>
-   <class name="LAND" table="land">
-      <property name="Einddatum land" column="eindd"/>
-      <property name="Ingangsdatum land" column="ingangsdatum"/>
-      <property name="Landcode" column="code"/>
-      <property name="Landcode ISO" column="code_iso"/>
-      <property name="Landnaam" column="naam"/>
-   </class>
-   <class name="NATIONALITEIT" table="nation">
-      <property name="Begindatum geldigheid nationaliteit" column="begindatum_geldh"/>
-      <property name="Einddatum geldigheid nationaliteit" column="eindd_geldh"/>
-      <property name="Nationaliteitcode" column="code"/>
-      <property name="Nationaliteitomschrijving" column="omschr"/>
-   </class>
-   <class name="REISDOCUMENTSOORT" table="rsdocsoort">
-      <property name="Begindatum geldigheid reisdocumentsoort"
-                column="begindatum_geldh"/>
-      <property name="Einddatum geldigheid reisdocumentsoort" column="eindd_geldh"/>
-      <property name="Reisdocumentcode" column="rsdoccode"/>
-      <property name="Reisdocumentomschrijving" column="rsdocomschr"/>
-   </class>
-   <class name="Aandeel in recht ZAKELIJK RECHT"
-          table="aandeel_in_recht_zak_recht">
-      <property name="Noemer" column="noemer"/>
-      <property name="Teller" column="teller"/>
-   </class>
-   <class name="Beperkte volmacht FUNCTIONARIS"
-          table="beperkte_volmacht_functionaris">
-      <property name="Beperking in geld" column="beperking_in_geld"/>
-      <property name="Omschrijving overige beperkingen"
-                column="omschr_ovrg_beperkingen"/>
-      <property name="Overige volmacht" column="ovrg_volmacht"/>
-      <property name="Soort handeling" column="soort_handeling"/>
-   </class>
-   <class name="Cultuur onbebouwd KADASTRALE ONROERENDE ZAAK"
-          table="cultuur_onbebouwd_kad_onrrnd_zk">
-      <property name="Aard bebouwing" column="aard_bebouwing"/>
-      <property name="Aard cultuur onbebouwd" column="aard_cultuur_onbebouwd"/>
-      <property name="Meer culturen" column="meer_culturen"/>
-   </class>
-   <class name="Europees kiesrecht INGEZETENE" table="euro_kiesr_ingezetene">
-      <property name="Aanduiding Europees kiesrecht" column="aand_euro_kiesr"/>
-      <property name="Verwachte einddatum uitsluiting Europees kiesrecht"
-                column="verw_eindd_uitsl_euro_kiesr"/>
-   </class>
-   <class name="Geboorte INGESCHREVEN NATUURLIJK PERSOON"
-          table="geboorte_ingeschr_nat_prs">
-      <property name="Geboortedatum" column="geboortedatum"/>
-      <property name="Geboorteland" column="geboorteland"/>
-      <property name="Geboorteplaats" column="geboorteplaats"/>
-   </class>
-   <class name="Kadastrale aanduiding APPARTEMENTSRECHT" table="kad_aand_app_re">
-      <property name="Appartementsindex" column="appartementsindex"/>
-      <property name="Kadastrale gemeentecode" column="kad_gemeentecode"/>
-      <property name="Perceelnummer" column="perceelnummer"/>
-      <property name="Sectie" column="sectie"/>
-   </class>
-   <class name="Kadastrale aanduiding KADASTRAAL PERCEEL"
-          table="kad_aand_kad_perceel">
-      <property name="Deelperceelnummer" column="deelperceelnummer"/>
-      <property name="Kadastrale gemeentecode" column="kad_gemeentecode"/>
-      <property name="Perceelnummer" column="perceelnummer"/>
-      <property name="Sectie" column="sectie"/>
-   </class>
-   <class name="Koopsom KADASTRALE ONROERENDE ZAAK" table="koopsom_kad_onrrnd_zk">
-      <property name="Aard bedrag" column="aard_bedrag"/>
-      <property name="Bedrag" column="bedrag"/>
-      <property name="Koopjaar" column="koopjaar"/>
-      <property name="Meer onroerendgoed" column="meer_onroerendgoed"/>
-      <property name="Transactiedatum" column="transactiedatum"/>
-      <property name="Valutasoort" column="valutasoort"/>
-   </class>
-   <class name="Landinrichtingsrente KADASTRALE ONROERENDE ZAAK"
-          table="landinrichtingsrente_kad_onrrnd_zk">
-      <property name="Aanduiding aard LIproject" column="aand_aard_liproject"/>
-      <property name="Aard bedrag" column="aard_bedrag"/>
-      <property name="Bedrag" column="bedrag"/>
-      <property name="Eindjaar" column="eindjaar"/>
-      <property name="Valutasoort" column="valutasoort"/>
-   </class>
-   <class name="Locatie onroerende zaak KADASTRALE ONROERENDE ZAAK"
-          table="loc_onrrnd_zk_kad_onrrnd_zk">
-      <property name="Cultuur bebouwd" column="cultuur_bebouwd"/>
-      <property name="Locatie- omschrijving" column="loc__omschr"/>
-   </class>
-   <class name="Naam NATUURLIJK PERSOON" table="naam_nat_prs">
-      <property name="Adellijke titel/ predikaat" column="adellijke_titel_predikaat"/>
-      <property name="Geslachtsnaam" column="geslachtsnaam"/>
-      <property name="Voornamen" column="voornamen"/>
-      <property name="Voorvoegsel geslachtsnaam" column="voorvoegsel_geslachtsnaam"/>
-   </class>
-   <class name="Naam aanschrijving NATUURLIJK PERSOON"
-          table="naam_aanschrijving_nat_prs">
-      <property name="Aanhef aanschrijving" column="aanhef_aanschrijving"/>
-      <property name="Geslachtsnaam aanschrijving" column="geslachtsnaam_aanschrijving"/>
-      <property name="Voorletters aanschrijving" column="voorletters_aanschrijving"/>
-      <property name="Voornamen aanschrijving" column="voornamen_aanschrijving"/>
-   </class>
-   <class name="Nederlandse nationaliteit INGESCHREVEN NATUURLIJK PERSOON"
-          table="nlse_nation_ingeschr_nat_prs">
-      <property name="Aanduiding bijzonder Nederlanderschap"
-                column="aand_bijzonder_nlschap"/>
-      <property name="Nationaliteit" column="nation"/>
-      <property name="Reden verkrijging Nederlandse nationaliteit"
-                column="reden_verkr_nlse_nation"/>
-      <property name="Reden verlies Nederlandse nationaliteit"
-                column="reden_verlies_nlse_nation"/>
-   </class>
-   <class name="Ontbinding HUWELIJK/GEREGISTREERD PARTNERSCHAP"
-          table="ontb_huw_ger_partn">
-      <property name="Datum ontbinding huwelijk/geregistreerd partnerschap"
-                column="datum_ontb_huw_ger_partn"/>
-      <property name="Land ontbinding huwelijk/geregistreerd partnerschap"
-                column="land_ontb_huw_ger_partn"/>
-      <property name="Plaats ontbinding huwelijk/geregistreerd partnerschap"
-                column="plaats_ontb_huw_ger_partn"/>
-      <property name="Reden ontbinding huwelijk/geregistreerd partnerschap"
-                column="reden_ontb_huw_ger_partn"/>
-   </class>
-   <class name="Overlijden INGESCHREVEN NATUURLIJK PERSOON"
-          table="overlijden_ingeschr_nat_prs">
-      <property name="Land overlijden" column="land_overlijden"/>
-      <property name="Overlijdensdatum" column="overlijdensdatum"/>
-      <property name="Overlijdensplaats" column="overlijdensplaats"/>
-   </class>
-   <class name="Postadres SUBJECT" table="postadres_subject">
-      <property name="Postadres postcode" column="postadres_postcode"/>
-      <property name="Postadrestype" column="postadrestype"/>
-      <property name="Postbus- of antwoordnummer" column="postbus__of_antwoordnummer"/>
-      <property name="woonplaats" column="wnplts"/>
-   </class>
-   <class name="Rekeningnummer SUBJECT" table="rekeningnummer_subject">
-      <property name="Bankrekeningnummer" column="bankrekeningnummer"/>
-      <property name="BIC" column="bic"/>
-      <property name="IBAN" column="iban"/>
-   </class>
-   <class name="SBI activiteit VESTIGING" table="sbi_activiteit_vestg">
-      <property name="Indicatie hoofdactiviteit" column="indic_hoofdactiviteit"/>
-      <property name="SBI activiteit" column="sbi_activiteit"/>
-   </class>
-   <class name="Sluiting/aangaan HUWELIJK/GEREGISTREERD PARTNERSCHAP"
-          table="sluitingaangaan_huw_ger_partn">
-      <property name="Datum huwelijkssluiting/aangaan geregistreerd partnerschap"
-                column="datum_aangaan"/>
-      <property name="Land huwelijkssluiting/aangaan geregistreerd partnerschap"
-                column="land"/>
-      <property name="Plaats huwelijkssluiting/aangaan geregistreerd partnerschap"
-                column="plaats"/>
-   </class>
-   <class name="Uitsluiting kiesrecht INGEZETENE" table="uitsl_kiesr_ingezetene">
-      <property name="Aanduiding uitgesloten kiesrecht" column="aand_uitgesloten_kiesr"/>
-      <property name="Verwachte einddatum uitsluiting kiesrecht"
-                column="verw_eindd_uitsl_kiesr"/>
-   </class>
-   <class name="Verblijf buitenland SUBJECT" table="verblijf_buitenland_subject">
-      <property name="Adres buitenland 1" column="adres_buitenland_1"/>
-      <property name="Adres buitenland 2" column="adres_buitenland_2"/>
-      <property name="Adres buitenland 3" column="adres_buitenland_3"/>
-      <property name="Land verblijfadres" column="land_verblijfadres"/>
-   </class>
-   <class name="Verblijfadres INGESCHREVEN NATUURLIJK PERSOON"
-          table="verblijfadres_ingeschr_nat_prs">
-      <property name="Adresherkomst" column="adresherkomst"/>
-      <property name="Locatie beschrijving" column="loc_beschrijving"/>
-      <property name="verblijfsobject" column="verblijfsobj"/>
-      <property name="standplaats" column="standplaats"/>
-      <property name="nummeraanduiding" column="nummeraand"/>
-      <property name="woonplaats" column="wnplts"/>
-      <property name="ligplaats" column="ligplaats"/>
-   </class>
-   <class name="FUNCTIONARIS" table="functionaris">
-      <property name="Beperking bevoegdheid  in euros" column="beperking_bev_in_euros"/>
-      <property name="Beperkte volmacht" column="beperkte_volmacht"/>
-      <property name="Bevoegdheid met andere personen" column="bev_met_andere_prsn"/>
-      <property name="Datum toetreding" column="datum_toetr"/>
-      <property name="Datum uittreding" column="datum_uittreding"/>
-      <property name="Functie" column="functie"/>
-      <property name="Functionaristypering" column="functionaristypering"/>
-      <property name="Indicatie statutair volmacht" column="indic_statutair_volmacht"/>
-      <property name="Overige beperking bevoegdheid" column="ovrg_beperking_bev"/>
-      <property name="Soort Bevoegdheid" column="soort_bev"/>
-      <property name="Volledig Beperkt volmacht" column="volledig_beperkt_volmacht"/>
-   </class>
-   <class name="HUISHOUDENRELATIE" table="huishoudenrel">
-      <property name="Huishoudenrelatiecode" column="huishoudenrelcode"/>
-   </class>
-   <class name="HUWELIJK/GEREGISTREERD PARTNERSCHAP" table="huw_ger_partn">
-      <property name="Huwelijkssluiting/aangaan geregistreerd partnerschap"
-                column="hwlkssluitingaangaan_ger_prtnschp"/>
-      <property name="Ontbinding huwelijk/geregistreerd partnerschap"
-                column="ontb_huw_ger_partn"/>
-      <property name="Soort verbintenis" column="soort_verbintenis"/>
-   </class>
-   <class name="KADASTRALE ONROERENDE ZAAK HISTORIE RELATIE"
-          table="kad_onrrnd_zk_his_rel">
-      <property name="Aard" column="aard"/>
-      <property name="Overgangsgrootte" column="overgangsgrootte"/>
-   </class>
-   <class name="LOCATIEAANDUIDING ADRES" table="locaand_adres">
-      <property name="Locatieomschrijving" column="locomschr"/>
-   </class>
-   <class name="LOCATIEAANDUIDING OPENBARE RUIMTE" table="locaand_openb_rmte">
-      <property name="Locatieomschrijving" column="locomschr"/>
-   </class>
-   <class name="OUDER-KIND-RELATIE" table="ouder_kind_rel">
-      <property name="Datum einde familierechtelijke betrekking"
-                column="datum_einde_fam_recht_betr"/>
-      <property name="Datum ingang familierechtelijke betrekking"
-                column="datum_ingang_fam_recht_betr"/>
-      <property name="Ouder-aanduiding" column="ouder_aand"/>
-   </class>
-   <class name="WOZ-BELANG" table="woz_belang">
-      <property name="Aanduiding eigenaar/gebruiker" column="aand_eigenaargebruiker"/>
-   </class>
-   <class name="GEBOUWD OBJECTBouwkundige bestemming actueel"
-          table="gebouwd_obj_bouwk_best_act">
-      <property name="Bouwkundige bestemming actueel" column="bouwk_best_act"/>
-   </class>
-   <class name="GEBOUWD OBJECTGebruiksdoel gebouwd object"
-          table="gebouwd_obj_gebruiksdoel">
-      <property name="Gebruiksdoel gebouwd object" column="gebruiksdoel_gebouwd_obj"/>
-   </class>
-   <class name="INGESCHREVEN NATUURLIJK PERSOONBuitenlandse nationaliteit"
-          table="ingeschr_nat_prs_btnlndse_nat">
-      <property name="Buitenlandse nationaliteit" column="btnlndse_nation"/>
-   </class>
-   <class name="KADASTRALE ONROERENDE ZAAKLocatie onroerende zaak"
-          table="kad_onrrnd_zk_loc_onrrnd_zk">
-      <property name="Locatie onroerende zaak" column="loc_onrrnd_zk"/>
-   </class>
-   <class name="OVERIG TERREINGebruiksdoel overig terrein"
-          table="overig_terrein_gebruiksdoel">
-      <property name="Gebruiksdoel overig terrein" column="gebruiksdoel_overig_terrein"/>
-   </class>
-   <class name="VESTIGING(Handels)naam" table="vestg_naam">
-      <property name="(Handels)naam" column="naam"/>
-   </class>
-   <class name="VESTIGINGSBI Activiteit" table="vestg_sbi_activiteit">
-      <property name="SBI Activiteit" column="sbi_activiteit"/>
-   </class>
+<identifiers xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:b3p="http://www.b3partners.nl/">
+	<class name="ADRESSEERBAAR OBJECT AANDUIDING" table="addresseerb_obj_aand">
+		<property name="Datum begin geldigheid addresserbaar object aanduiding" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid addresserbaar object aanduiding" column="dat_eind_geldh"/>
+		<property name="Huisletter" column="huisletter"/>
+		<property name="Huisnummer" column="huinummer"/>
+		<property name="Huisnummertoevoeging" column="huinummertoevoeging"/>
+		<property name="Identificatie adresseerbaar object aanduiding" column="identif"/>
+		<property name="Postcode" column="postcode"/>
+		<property name="woonplaats" column="wnplts"/>
+		<property name="huisnummer" column="huinummer"/>
+	</class>
+	<class name="ANDER BUITENLANDS NIET-NATUURLIJK PERSOON" table="ander_btnlnds_niet_nat_prs"/>
+	<class name="ANDER NATUURLIJK PERSOON" table="ander_nat_prs">
+		<property name="Geboortedatum" column="geboortedatum"/>
+		<property name="Overlijdensdatum" column="overlijdensdatum"/>
+		<property name="bezoekadres" column="bezoekadres"/>
+	</class>
+	<class name="APPARTEMENTSRECHT" table="app_re">
+		<property name="Kadastrale aanduiding" column="kad_aand"/>
+		<property name="beheerder" column="beheerder"/>
+		<property name="perceel" column="perceel"/>
+	</class>
+	<class name="BEGROEID TERREINDEEL" table="begr_terr_dl">
+		<property name="Datum begin geldigheid begroeid terreindeel" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid begroeid terreindeel" column="datum_einde_geldh"/>
+		<property name="Fysiek voorkomen begroeid terrein" column="fysiek_voork_begr_terrein"/>
+		<property name="Geometrie begroeid terreindeel" column="geom"/>
+		<property name="Identificatie begroeid terreindeel" column="identif"/>
+		<property name="Kruinlijneometrie begroeid terreindeel" column="kruinlijngeom"/>
+		<property name="Relatieve hoogteligging begroeid terreindeel" column="relve_hoogteligging"/>
+		<property name="Status begroeid terreindeel" column="status"/>
+		<property name="begroeid terreinvakonderdeel" column="begr_terreinvakonderd"/>
+		<property name="openbare ruimte" column="openb_rmte"/>
+	</class>
+	<class name="BEGROEID TERREINVAKONDERDEEL" table="begr_terreinvakonderd"/>
+	<class name="BENOEMD OBJECT" table="benoemd_obj">
+		<property name="Benoemd object identificatie" column="identif"/>
+		<property name="" column=""/>
+	</class>
+	<class name="BENOEMD TERREIN" table="benoemd_terrein">
+		<property name="Benoemd terrein geometrie" column="geom"/>
+		<property name="Datum begin geldigheid benoemd terrein" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid benoemd terrein" column="datum_einde_geldh"/>
+		<property name="" column=""/>
+	</class>
+	<class name="BRUGCONSTRUCTIE ELEMENT" table="brugconstructie_element">
+		<property name="Type brugconstructie element" column="type"/>
+	</class>
+	<class name="BUURT" table="buurt">
+		<property name="Buurtcode" column="code"/>
+		<property name="Buurtgeometrie" column="geom"/>
+		<property name="Buurtnaam" column="naam"/>
+		<property name="Datum begin geldigheid buurt" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid buurt" column="datum_einde_geldh"/>
+		<property name="Identificatie IMGeoBRT" column="identif_imgeobrt"/>
+		<property name="Relatieve hoogteligging buurt" column="relve_hoogteligging"/>
+		<property name="Status buurt" column="status"/>
+	</class>
+	<class name="FUNCTIONEEL GEBIED" table="functioneel_gebied">
+		<property name="Datum begin geldigheid functioneel gebied" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid functioneel gebied" column="datum_einde_geldh"/>
+		<property name="Geometrie functioneel gebied" column="geom"/>
+		<property name="Identificatie functioneel gebied" column="identif"/>
+		<property name="Naam functioneel gebied" column="naam"/>
+		<property name="Relatieve hoogteligging functioneel gebied" column="relve_hoogteligging"/>
+		<property name="Status functioneel gebied" column="status"/>
+		<property name="Type functioneel gebied" column="type"/>
+	</class>
+	<class name="GEBOUWD OBJECT" table="gebouwd_obj">
+		<property name="Bouwkundige bestemming actueel" column="bouwk_best_act"/>
+		<property name="Bruto inhoud" column="bruto_inhoud"/>
+		<property name="Datum begin geldigheid gebouwd object" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid gebouwd object" column="datum_einde_geldh"/>
+		<property name="Gebouwd object vlakgeometrie" column="vlakgeom"/>
+		<property name="Gebouwd objectpuntgeometrie" column="puntgeom"/>
+		<property name="Gebruiksdoel gebouwd object" column="gebruiksdoel"/>
+		<property name="Inwinningswijze oppervlakte" column="inwwijze_oppervlakte"/>
+		<property name="Oppervlakte (verblijfs)object" column="oppervlakte_obj"/>
+		<property name="Status voortgang bouw" column="status_voortgang_bouw"/>
+	</class>
+	<class name="GEBOUWINSTALLATIE" table="gebouwinstallatie">
+		<property name="Datum begin geldigheid gebouwinstallatie" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid gebouwinstallatie" column="datum_einde_geldh"/>
+		<property name="Geometrie gebouwinstallatie" column="geom"/>
+		<property name="Identificatie gebouwinstallatie" column="identif"/>
+		<property name="Relatieve hoogteligging gebouwinstallatie" column="relve_hoogteligging"/>
+		<property name="Status gebouwinstallatie" column="status"/>
+		<property name="Type gebouwinstallatie" column="type"/>
+	</class>
+	<class name="GEMEENTE" table="gemeente">
+		<property name="Datum begin geldigheid gemeente" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid gemeente" column="datum_einde_geldh"/>
+		<property name="Gemeentecode" column="code"/>
+		<property name="Gemeentegeometrie" column="geom"/>
+		<property name="Gemeentenaam" column="naam"/>
+		<property name="Gemeentenaam NEN" column="naam_nen"/>
+		<property name="nieuwe gemeente" column="nieuwe"/>
+	</class>
+	<class name="GEMEENTELIJKE OPENBARE RUIMTE" table="gem_openb_rmte">
+		<property name="Datum begin geldigheid gemeentelijke openbare ruimte" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid gemeentelijke openbare ruimte" column="datum_einde_geldh"/>
+		<property name="Identificatiecode gemeentelijke openbare ruimte" column="identifcode"/>
+		<property name="Indicatie geconstateerde openbare ruimte" column="indic_geconst_openb_rmte"/>
+		<property name="Naam openbare ruimte" column="naam_openb_rmte"/>
+		<property name="Status openbare ruimte" column="status_openb_rmte"/>
+		<property name="Straatnaam" column="straatnaam"/>
+		<property name="Type openbare ruimte" column="type_openb_rmte"/>
+		<property name="gemeente" column="gemeente"/>
+	</class>
+	<class name="HUISHOUDEN" table="huishouden">
+		<property name="Datum begin geldigheid huishouden" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid huishouden" column="datum_einde_geldh"/>
+		<property name="Huishoudengrootte" column="grootte"/>
+		<property name="Huishoudennummer" column="nummer"/>
+		<property name="Huishoudensoort" column="soort"/>
+		<property name="verblijfsobject" column="verblijfsobj"/>
+		<property name="ligplaats" column="ligplaats"/>
+		<property name="relatie" column="rel"/>
+		<property name="standplaats" column="standplaats"/>
+	</class>
+	<class name="INGESCHREVEN NIET-NATUURLIJK PERSOON" table="ingeschr_niet_nat_prs">
+		<property name="Ingeschreven niet-natuurlijk persoon typering" column="typering"/>
+		<property name="Overige privaatrechtelijk rechtsvorm" column="ovrg_privaatr_rechtsvorm"/>
+		<property name="Publiekrechtelijke rechtsvorm" column="publiekrechtelijke_rechtsvorm"/>
+		<property name="Rechtstoestand" column="rechtstoestand"/>
+		<property name="Rechtsvorm" column="rechtsvorm"/>
+		<property name="Statutaire zetel" column="statutaire_zetel"/>
+		<property name="bezoekadres" column="bezoekadres"/>
+	</class>
+	<class name="INGESCHREVEN NATUURLIJK PERSOON" table="ingeschr_nat_prs">
+		<property name="A-nummer" column="a_nummer"/>
+		<property name="Buitenlands reisdocument" column="btnlnds_rsdoc"/>
+		<property name="Buitenlandse nationaliteit" column="btnlndse_nation"/>
+		<property name="Burgerlijke staat" column="burgerlijke_staat"/>
+		<property name="Datum begin geldigheid verblijfplaats" column="dat_beg_geldh_verblijfpl"/>
+		<property name="Datum inschrijving in gemeente" column="datum_inschrijving_in_gemeente"/>
+		<property name="Datum opschorting bijhouding" column="datum_opschorting_bijhouding"/>
+		<property name="Datum verkrijging nationaliteit" column="datum_verkr_nation"/>
+		<property name="Datum verlies nationaliteit" column="datum_verlies_nation"/>
+		<property name="Datum vertrek uit Nederland" column="datum_vertrek_uit_nederland"/>
+		<property name="Datum vestiging in Nederland" column="datum_vestg_in_nederland"/>
+		<property name="Geboorte" column="geboorte"/>
+		<property name="Gemeente van inschrijving" column="gemeente_van_inschrijving"/>
+		<property name="Handelingsbekwaam" column="handelingsbekwaam"/>
+		<property name="Indicatie geheim" column="indic_geheim"/>
+		<property name="Land vanwaar ingeschreven" column="land_vanwaar_ingeschr"/>
+		<property name="Land waarnaar vertrokken" column="land_waarnaar_vertrokken"/>
+		<property name="Nationaliteit" column="nation"/>
+		<property name="Overlijden" column="overlijden"/>
+		<property name="Rechtstoestand" column="rechtstoestand"/>
+		<property name="Reden opschorting bijhouding" column="reden_opschorting_bijhouding"/>
+		<property name="Signalering reisdocument" column="signalering_rsdoc"/>
+		<property name="Verblijfadres" column="verblijfadres"/>
+		<property name="ouder" column="ouder"/>
+		<property name="partner" column="partner"/>
+		<property name="" column=""/>
+		<property name="" column=""/>
+		<property name="" column=""/>
+		<property name="" column=""/>
+		<property name="" column=""/>
+	</class>
+	<class name="INGEZETENE" table="ingezetene">
+		<property name="Datum verkrijging verblijfstitel" column="datum_verkr_verblijfstitel"/>
+		<property name="Datum verlies verblijfstitel" column="datum_verlies_verblijfstitel"/>
+		<property name="Europees kiesrecht" column="euro_kiesr"/>
+		<property name="Indicatie blokkering" column="indic_blokkering"/>
+		<property name="Indicatie curateleregister" column="indic_curateleregister"/>
+		<property name="Indicatie gezag minderjarige" column="indic_gezag_minderjarige"/>
+		<property name="Uitsluiting kiesrecht" column="uitsl_kiesr"/>
+		<property name="verblijfstitel" column="verblijfstitel"/>
+	</class>
+	<class name="INRICHTINGSELEMENT" table="inrichtingselement">
+		<property name="Datum begin geldigheid inrichtingselement" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid inrichtingselement" column="datum_einde_geldh"/>
+		<property name="Geometrie inrichtingselement" column="geom"/>
+		<property name="Identificatie inrichtingselement" column="identif"/>
+		<property name="Inrichtingselementtypering" column="typering"/>
+		<property name="Relatieve hoogteligging inrichtingselement" column="relve_hoogteligging"/>
+		<property name="Status inrichtingselement" column="status"/>
+		<property name="Type inrichtingselement" column="type"/>
+	</class>
+	<class name="KADASTRAAL PERCEEL" table="kad_perceel">
+		<property name="Aanduiding soort grootte" column="aand_soort_grootte"/>
+		<property name="Begrenzing perceel" column="begrenzing_perceel"/>
+		<property name="Grootte perceel" column="grootte_perceel"/>
+		<property name="Kadastrale aanduiding" column="kad_aand"/>
+		<property name="Omschrijving deelperceel" column="omschr_deelperceel"/>
+		<property name="Plaatscoördinaten perceel" column="plaatscoordinaten_perceel"/>
+		<property name="" column=""/>
+	</class>
+	<class name="KADASTRALE GEMEENTE" table="kad_gemeente">
+		<property name="Indicatie vervallen" column="indic_vervallen"/>
+		<property name="Kadastrale gemeentecode" column="code"/>
+		<property name="naam" column="naam"/>
+	</class>
+	<class name="KADASTRALE ONROERENDE ZAAK" table="kad_onrrnd_zk">
+		<property name="Cultuur onbebouwd" column="cultuur_onbebouwd"/>
+		<property name="Datum begin geldigheid kadastrale onroerende zaak" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid kadastrale onroerende zaak" column="datum_einde_geldh"/>
+		<property name="Kadastrale identificatie" column="kad_identif"/>
+		<property name="Kadastrale onroerende zaak typering" column="typering"/>
+		<property name="Koopsom" column="koopsom"/>
+		<property name="Landinrichtingsrente" column="landinrichtingsrente"/>
+		<property name="Locatie onroerende zaak" column="loc_onrrnd_zk"/>
+		<property name="gemeente" column="gemeente"/>
+		<property name="" column=""/>
+		<property name="oorsprong" column="oorsprong"/>
+		<property name="voornaamste zakelijk gerechtigde" column="voornaamste_zak_gerechtigde"/>
+	</class>
+	<class name="KADASTRALE ONROERENDE ZAAK AANTEKENING" table="kad_onrrnd_zk_aantek">
+		<property name="Aard aantekening kadastraal object" column="aard_aantek_kad_obj"/>
+		<property name="Begindatum aantekening kadastraal object" column="begindatum_aantek_kad_obj"/>
+		<property name="Beschrijving aantekening kadastraal object" column="beschrijving_aantek_kad_obj"/>
+		<property name="Einddatum aantekening kadastraal object" column="eindd_aantek_kad_obj"/>
+		<property name="Kadaster identificatie aantekening" column="kadaster_identif_aantek"/>
+		<property name="onroerende zaak" column="onrrnd_zk"/>
+		<property name="rechtspersoon" column="rechtsprs"/>
+	</class>
+	<class name="KUNSTWERKDEEL" table="kunstwerkdeel">
+		<property name="Datum begin geldigheid kunstwerkdeel" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid kunstwerkdeel" column="datum_einde_geldh"/>
+		<property name="Geometrie kunstwerkdeel" column="geom"/>
+		<property name="Identificatie kunstwerkdeel" column="identif"/>
+		<property name="Relatieve hoogteligging kunstwerkdeel" column="relve_hoogteligging"/>
+		<property name="Status kunstwerkdeel" column="status"/>
+		<property name="Type kunstwerk" column="type_kunstwerk"/>
+	</class>
+	<class name="LIGPLAATS" table="ligplaats">
+		<property name="Indicatie geconstateerde ligplaats" column="indic_geconst"/>
+		<property name="Ligplaatsstatus" column="status"/>
+		<property name="nevenadres" column="nevenadres"/>
+		<property name="hoofdadres" column="hoofdadres"/>
+	</class>
+	<class name="MAATSCHAPPELIJKE ACTIVITEIT" table="maatschapp_activiteit">
+		<property name="Datum aanvang" column="datum_aanvang"/>
+		<property name="Datum einde geldig (beeindiging)" column="datum_einde_geldig"/>
+		<property name="KvK-nummer" column="kvk_nummer"/>
+		<property name="" column=""/>
+		<property name="eigenaar" column="eigenaar"/>
+	</class>
+	<class name="NATUURLIJK PERSOON" table="nat_prs">
+		<property name="Aanduiding naamgebruik" column="aand_naamgebruik"/>
+		<property name="Academische titel" column="academische_titel"/>
+		<property name="Geslachtsaanduiding" column="geslachtsaand"/>
+		<property name="Naam" column="naam"/>
+		<property name="Naam aanschrijving" column="naam_aanschrijving"/>
+	</class>
+	<class name="NIET-INGEZETENE" table="niet_ingezetene"/>
+	<class name="NIET-NATUURLIJK PERSOON" table="niet_nat_prs">
+		<property name="(Statutaire) Naam" column="naam"/>
+		<property name="Datum aanvang" column="datum_aanvang"/>
+		<property name="Datum beeindiging" column="datum_beeindiging"/>
+		<property name="Verkorte naam" column="verkorte_naam"/>
+	</class>
+	<class name="NUMMERAANDUIDING" table="nummeraand">
+		<property name="Indicatie geconstateerde nummeraanduiding" column="indic_geconst"/>
+		<property name="Indicatie hoofdadres" column="indic_hoofdadres"/>
+		<property name="Nummeraanduidingstatus" column="status"/>
+	</class>
+	<class name="ONBEGROEID TERREINDEEL" table="onbegr_terr_dl">
+		<property name="Datum begin geldigheid onbegroeid terreindeel" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid onbegroeid terreindeel" column="datum_einde_geldh"/>
+		<property name="Fysiek voorkomen onbegroeid terrein" column="fysiek_voork_onbegr_terrein"/>
+		<property name="Geometrie onbegroeid terreindeel" column="geom"/>
+		<property name="Identificatie onbegroeid terreindeel" column="identif"/>
+		<property name="Kruinlijngeometrie onbegroeid terreindeel" column="kruinlijngeom"/>
+		<property name="Relatieve hoogteligging onbegroeid terreindeel" column="relve_hoogteligging"/>
+		<property name="Status onbegroeid terreindeel" column="status"/>
+		<property name="onbegroeid terreinvakonderdeel" column="onbegr_terreinvakonderd"/>
+		<property name="openbare ruimte" column="openb_rmte"/>
+	</class>
+	<class name="ONBEGROEID TERREINVAKONDERDEEL" table="onbegr_terreinvakonderd"/>
+	<class name="ONDERNEMING" table="ondrnmng">
+		<property name="Datum aanvang" column="datum_aanvang"/>
+		<property name="Datum einde" column="datum_einde"/>
+		<property name="KvK-nummer" column="kvk_nummer"/>
+		<property name="bestaande onderneming" column="best"/>
+		<property name="andere maatschappelijke activiteit" column="andere_maatschapp_activiteit"/>
+	</class>
+	<class name="ONDERSTEUNEND WEGDEEL" table="ondersteunend_wegdeel">
+		<property name="Datum begin geldigheid ondersteunend wegdeel" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid ondersteunend wegdeel" column="datum_einde_geldh"/>
+		<property name="Functie ondersteunend wegdeel" column="functie"/>
+		<property name="Geometrie ondersteunend wegdeel" column="geom"/>
+		<property name="Identificatie ondersteunend wegdeel" column="identif"/>
+		<property name="Relatieve hoogteligging ondersteunend wegdeel" column="relve_hoogteligging"/>
+		<property name="Status ondersteunend wegdeel" column="status"/>
+		<property name="openbare ruimte" column="openb_rmte"/>
+	</class>
+	<class name="OPENBARE RUIMTE" table="openb_rmte">
+		<property name="Huisnummerrange even en oneven nummers" column="huisnrrange_on_even_nummers"/>
+		<property name="Huisnummerrange even nummers" column="huisnrrange_even_nummers"/>
+		<property name="Huisnummerrange oneven nummers" column="huisnrrange_oneven_nummers"/>
+		<property name="Identificatie BGTOPR" column="identif_bgtopr"/>
+		<property name="Identificatiecode openbare ruimte" column="identifcode"/>
+		<property name="gemeentelijke openbare ruimte" column="gem"/>
+		<property name="woonplaats" column="wnplts"/>
+	</class>
+	<class name="OVERIGE ADRESSEERBAAR OBJECT AANDUIDING" table="ovrg_addresseerb_obj_aand"/>
+	<class name="OVERIG BOUWWERK" table="overig_bouwwerk">
+		<property name="Datum begin geldigheid overig bouwwerk" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid overig bouwwerk" column="datum_einde_geldh"/>
+		<property name="Geometrie overig bouwwerk" column="geom"/>
+		<property name="Identificatie overig bouwwerk" column="identif"/>
+		<property name="Relatieve hoogteligging overig bouwwerk" column="relve_hoogteligging"/>
+		<property name="Status overig bouwwerk" column="status"/>
+		<property name="Type overig bouwwerk" column="type"/>
+	</class>
+	<class name="OVERIG GEBOUWD OBJECT" table="overig_gebouwd_obj">
+		<property name="Bouwjaar" column="bouwjaar"/>
+		<property name="Overig gebouwd object locatie-aanduiding" column="loc_aand"/>
+		<property name="Overig gebouwd object type" column="type"/>
+		<property name="adres" column="adres"/>
+		<property name="locatieadres" column="locadres"/>
+		<property name="openbare ruimte" column="openb_rmte"/>
+	</class>
+	<class name="OVERIGE SCHEIDING" table="ovrg_scheiding">
+		<property name="Datum begin geldigheid overige scheiding" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid overige scheiding" column="datum_einde_geldh"/>
+		<property name="Geometrie overige scheiding" column="geom"/>
+		<property name="Identificatie overige scheiding" column="identif"/>
+		<property name="Relatieve hoogteligging overige scheiding" column="relve_hoogteligging"/>
+		<property name="Status overige scheiding" column="status"/>
+		<property name="Type overige scheiding" column="type"/>
+	</class>
+	<class name="OVERIG TERREIN" table="overig_terrein">
+		<property name="Gebruiksdoel overig terrein" column="gebruiksdoel"/>
+		<property name="adres" column="adres"/>
+	</class>
+	<class name="PAND" table="pand">
+		<property name="Bruto inhoud pand" column="bruto_inhoud"/>
+		<property name="Datum begin geldigheid pand" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid pand" column="datum_einde_geldh"/>
+		<property name="Hoogste bouwlaag pand" column="hoogste_bouwlaag"/>
+		<property name="Identificatie BGTPND" column="identif_bgtpnd"/>
+		<property name="Indicatie geconstateerd pand" column="indic_geconstateerd"/>
+		<property name="Inwinningswijze geometrie bovenaanzicht" column="inwwijze_geom_bovenaanzicht"/>
+		<property name="Inwinningswijze geometrie maaiveld" column="inwwijze_geom_maaiveld"/>
+		<property name="Laagste bouwlaag pand" column="laagste_bouwlaag"/>
+		<property name="Oorspronkelijk bouwjaar pand" column="oorspronkelijk_bouwjaar"/>
+		<property name="Oppervlakte pand" column="oppervlakte"/>
+		<property name="Pandgeometrie bovenaanzicht" column="geom_bovenaanzicht"/>
+		<property name="Pandgeometrie maaiveld" column="geom_maaiveld"/>
+		<property name="Pandidentificatie" column="identif"/>
+		<property name="Pandstatus" column="status"/>
+		<property name="Relatieve hoogteligging pand" column="relve_hoogteligging"/>
+		<property name="Status voortgang bouw" column="status_voortgang_bouw"/>
+	</class>
+	<class name="PERSOON" table="prs">
+		<property name="eigenaar" column="eigenaar"/>
+	</class>
+	<class name="REISDOCUMENT" table="rsdoc">
+		<property name="Aanduiding inhouding of vermissing" column="aand_inhouding_of_vermissing"/>
+		<property name="Autoriteit uitgifte" column="autoriteit_uitgifte"/>
+		<property name="Datum inhouding of vermissing" column="datum_inhouding_of_vermissing"/>
+		<property name="Datum uitgifte" column="datum_uitgifte"/>
+		<property name="Einddatum geldigheid document" column="eindd_geldh_document"/>
+		<property name="Lengte houder" column="lengte_houder"/>
+		<property name="Reisdocumentnummer" column="nummer"/>
+		<property name="Soort" column="soort"/>
+		<property name="bijgeschrevene" column="bijgeschrevene"/>
+		<property name="houder" column="houder"/>
+	</class>
+	<class name="SCHEIDING" table="scheiding">
+		<property name="Datum begin geldigheid scheiding" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid scheiding" column="datum_einde_geldh"/>
+		<property name="Geometrie scheiding" column="geom"/>
+		<property name="Identificatie scheiding" column="identif"/>
+		<property name="Relatieve hoogteligging scheiding" column="relve_hoogteligging"/>
+		<property name="Status scheiding" column="status"/>
+		<property name="Type scheiding" column="type"/>
+	</class>
+	<class name="SPOOR" table="spoor">
+		<property name="Datum begin geldigheid spoor" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid spoor" column="datum_einde_geldh"/>
+		<property name="Functie spoor" column="functie"/>
+		<property name="Geometrie spoor" column="geom"/>
+		<property name="Identificatie spoor" column="identif"/>
+		<property name="Relatieve hoogteligging spoor" column="relve_hoogteligging"/>
+		<property name="Status spoor" column="status"/>
+	</class>
+	<class name="STADSDEEL" table="stadsdeel">
+		<property name="Datum begin geldigheid stadsdeel" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid stadsdeel" column="datum_einde_geldh"/>
+		<property name="Identificatie stadsdeel" column="identif"/>
+		<property name="Relatieve hoogteligging stadsdeel" column="relve_hoogteligging"/>
+		<property name="Stadsdeelgeometrie" column="geom"/>
+		<property name="Stadsdeelnaam" column="naam"/>
+		<property name="Status stadsdeel" column="status"/>
+	</class>
+	<class name="STANDPLAATS" table="standplaats">
+		<property name="Indicatie geconstateerde standplaats" column="indic_geconst"/>
+		<property name="Standplaatsstatus" column="status"/>
+		<property name="nevenadres" column="nevenadres"/>
+		<property name="hoofdadres" column="hoofdadres"/>
+	</class>
+	<class name="SUBJECT" table="subject">
+		<property name="Adres binnenland" column="adres_binnenland"/>
+		<property name="Adres buitenland" column="adres_buitenland"/>
+		<property name="Emailadres" column="emailadres"/>
+		<property name="Fax-nummer" column="fax_nummer"/>
+		<property name="Identificatie" column="identif"/>
+		<property name="KvK-nummer" column="kvk_nummer"/>
+		<property name="Naam" column="naam"/>
+		<property name="Postadres" column="postadres"/>
+		<property name="Rekeningnummer" column="rekeningnummer"/>
+		<property name="Subjecttypering" column="typering"/>
+		<property name="Telefoonnummer" column="telefoonnummer"/>
+		<property name="Verblijf buitenland" column="verblijf_buitenland"/>
+		<property name="Website-URL" column="website_url"/>
+		<property name="" column=""/>
+		<property name="factuuradres" column="factuuradres"/>
+		<property name="correspondentieadres" column="correspondentieadres"/>
+	</class>
+	<class name="VERBLIJFSOBJECT" table="verblijfsobj">
+		<property name="Aantal kamers" column="aantal_kamers"/>
+		<property name="Hoogste bouwlaag verblijfsobject" column="hoogste_bouwlaag"/>
+		<property name="Indicatie geconstateerd verblijfsobject" column="indic_geconstateerd"/>
+		<property name="Laagste bouwlaag verblijfsobject" column="laagste_bouwlaag"/>
+		<property name="Ontsluiting verdieping" column="ontsluiting_verdieping"/>
+		<property name="Soort woonobject" column="soort_woonobj"/>
+		<property name="Toegang bouwlaag verblijfsobject" column="toegang_bouwlaag"/>
+		<property name="Verblijfsobjectstatus" column="status"/>
+		<property name="pand" column="pand"/>
+		<property name="nevenadres" column="nevenadres"/>
+		<property name="hoofdadres" column="hoofdadres"/>
+	</class>
+	<class name="VERBLIJFSTITEL" table="verblijfstitel">
+		<property name="Aanduiding verblijfstitel" column="aand"/>
+		<property name="Begindatum geldigheid verblijfstitel" column="begindatum_geldh"/>
+		<property name="Einddatum geldigheid verblijfstitel" column="eindd_geldh"/>
+		<property name="Verblijfstitelomschrijving" column="omschr"/>
+	</class>
+	<class name="VESTIGING" table="vestg">
+		<property name="(Handels)naam" column="naam"/>
+		<property name="Activiteit omschrijving" column="activiteit_omschr"/>
+		<property name="Datum aanvang" column="datum_aanvang"/>
+		<property name="Datum beeindiging" column="datum_beeindiging"/>
+		<property name="Datum voortzetting" column="datum_voortzetting"/>
+		<property name="Fulltime werkzame mannen" column="fulltime_werkzame_mannen"/>
+		<property name="Fulltime werkzame vrouwen" column="fulltime_werkzame_vrouwen"/>
+		<property name="Parttime werkzame mannen" column="parttime_werkzame_mannen"/>
+		<property name="Parttime werkzame vrouwen" column="parttime_werkzame_vrouwen"/>
+		<property name="SBI Activiteit" column="sbi_activiteit"/>
+		<property name="Toevoeging adres" column="toevoeging_adres"/>
+		<property name="Verkorte naam" column="verkorte_naam"/>
+		<property name="Vestigingtypering" column="typering"/>
+		<property name="benoemd object" column="benoemd_obj"/>
+		<property name="activiteit" column="activiteit"/>
+		<property name="benoemd object" column="benoemd_obj"/>
+		<property name="activiteit" column="activiteit"/>
+		<property name="samengoevoegde vestiging" column="samengoevoegde"/>
+		<property name="activiteit" column="activiteit"/>
+		<property name="locatieadres" column="locadres"/>
+	</class>
+	<class name="VRIJSTAAND VEGETATIE OBJECT" table="vrijstaand_vegetatie_obj">
+		<property name="Datum begin geldigheid vrijstaand vegetatie object" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid vrijstaand vegetatie object" column="datum_einde_geldh"/>
+		<property name="Geometrie vrijstaand vegetatie object" column="geom"/>
+		<property name="Identificatie vrijstaand vegetatie object" column="identif"/>
+		<property name="Relatieve hoogteligging vrijstaand vegetatie object" column="relve_hoogteligging"/>
+		<property name="Status vrijstaand vegetatie object" column="status"/>
+		<property name="Type vrijstaand vegetatie object" column="type"/>
+	</class>
+	<class name="WATERDEEL" table="waterdeel">
+		<property name="Datum begin geldigheid waterdeel" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid waterdeel" column="datum_einde_geldh"/>
+		<property name="Droogvallend" column="droogvallend"/>
+		<property name="Geometrie waterdeel" column="geom"/>
+		<property name="Identificatie waterdeel" column="identif"/>
+		<property name="Relatieve hoogteligging waterdeel" column="relve_hoogteligging"/>
+		<property name="Status waterdeel" column="status"/>
+		<property name="Type waterdeel" column="type"/>
+		<property name="openbare ruimte" column="openb_rmte"/>
+		<property name="watervakonderdeel" column="watervakonderdeel"/>
+	</class>
+	<class name="WATERVAKONDERDEEL" table="watervakonderdeel"/>
+	<class name="WATERSCHAP" table="waterschap">
+		<property name="Datum begin geldigheid waterschap" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid waterschap" column="datum_einde_geldh"/>
+		<property name="Identificatie waterschap" column="identif"/>
+		<property name="Relatieve hoogteligging waterschap" column="relve_hoogteligging"/>
+		<property name="Status waterschap" column="status"/>
+		<property name="Waterschapgeometrie" column="geom"/>
+		<property name="Waterschapnaam" column="naam"/>
+	</class>
+	<class name="WEGDEEL" table="wegdeel">
+		<property name="Datum begin geldigheid wegdeel" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid wegdeel" column="datum_einde_geldh"/>
+		<property name="Functie wegdeel" column="functie"/>
+		<property name="Fysiek voorkomen wegdeel" column="fysiek_voork"/>
+		<property name="Geometrie wegdeel" column="geom"/>
+		<property name="Identificatie wegdeel" column="identif"/>
+		<property name="Relatieve hoogteligging wegdeel" column="relve_hoogteligging"/>
+		<property name="Status wegdeel" column="status"/>
+		<property name="wegvakonderdeel" column="wegvakonderdeel"/>
+		<property name="openbare ruimte" column="openb_rmte"/>
+	</class>
+	<class name="WEGVAKONDERDEEL" table="wegvakonderdeel"/>
+	<class name="WIJK" table="wijk">
+		<property name="Datum begin geldigheid wijk" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid wijk" column="datum_einde_geldh"/>
+		<property name="Identificatie IMGeoWYK" column="identif_imgeowyk"/>
+		<property name="Relatieve hoogteligging wijk" column="relve_hoogteligging"/>
+		<property name="Status wijk" column="status"/>
+		<property name="Wijkcode" column="code"/>
+		<property name="Wijkgeometrie" column="geom"/>
+		<property name="Wijknaam" column="naam"/>
+	</class>
+	<class name="WOONPLAATS" table="wnplts">
+		<property name="Datum begin geldigheid woonplaats" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid woonplaats" column="datum_einde_geldh"/>
+		<property name="Indicatie geconstateerde woonplaats" column="indic_geconst"/>
+		<property name="Woonplaatsgeometrie" column="geom"/>
+		<property name="Woonplaatsidentificatie" column="identif"/>
+		<property name="Woonplaatsnaam" column="naam"/>
+		<property name="Woonplaatsnaam NEN" column="naam_nen"/>
+		<property name="Woonplaatsstatus" column="status"/>
+		<property name="gemeente" column="gemeente"/>
+	</class>
+	<class name="WOZ-DEELOBJECT" table="woz_deelobj">
+		<property name="Code WOZ-deelobject" column="code"/>
+		<property name="Datum begin geldigheid deelobject" column="dat_beg_geldh_deelobj"/>
+		<property name="Datum einde geldigheid deelobject" column="datum_einde_geldh_deelobj"/>
+		<property name="Nummer WOZ-deelobject" column="nummer"/>
+		<property name="Status WOZ-deelobject" column="status"/>
+		<property name="pand" column="pand"/>
+		<property name="benoemd object" column="benoemd_obj"/>
+		<property name="deelobject" column="deelobj"/>
+	</class>
+	<class name="WOZ-OBJECT" table="woz_obj">
+		<property name="Datum begin geldigheid WOZ-object" column="dat_beg_geldh"/>
+		<property name="Datum einde geldigheid WOZ-object" column="datum_einde_geldh"/>
+		<property name="Gebruikscode" column="gebruikscode"/>
+		<property name="Geometrie WOZ-object" column="geom"/>
+		<property name="Grondoppervlakte" column="grondoppervlakte"/>
+		<property name="Soort-object-code" column="soort_obj_code"/>
+		<property name="Status WOZ-object" column="status"/>
+		<property name="Vastgestelde waarde" column="vastgestelde_waarde"/>
+		<property name="Waardepeildatum" column="waardepeildatum"/>
+		<property name="WOZ-objectnummer" column="nummer"/>
+		<property name="openbare ruimte" column="openb_rmte"/>
+		<property name="belanghebbende" column="belanghebbende"/>
+		<property name="waarde" column="waarde"/>
+		<property name="locatieaanduiding" column="locaand"/>
+		<property name="onroerende zaak" column="onrrnd_zk"/>
+	</class>
+	<class name="WOZ-WAARDE" table="woz_waarde">
+		<property name="Status beschikking" column="status_beschikking"/>
+		<property name="Toestandspeildatum" column="toestandspeildatum"/>
+		<property name="Vastgestelde waarde" column="vastgestelde_waarde"/>
+		<property name="Waardepeildatum" column="waardepeildatum"/>
+	</class>
+	<class name="ZAKELIJK RECHT" table="zak_recht">
+		<property name="Aandeel in recht" column="aandeel_in_recht"/>
+		<property name="Aanduiding aard recht verkort" column="aand_aard_recht_verkort"/>
+		<property name="Aanduiding aard verkregen recht" column="aand_aard_verkregen_recht"/>
+		<property name="Einddatum recht" column="eindd_recht"/>
+		<property name="Indicatie betrokken in splitsing" column="indic_betrokken_in_splitsing"/>
+		<property name="Ingangsdatum recht" column="ingangsdatum_recht"/>
+		<property name="Kadaster identificatie zakelijk recht" column="kadaster_identif"/>
+		<property name="onroerende zaak" column="onrrnd_zk"/>
+		<property name="gerechtigde" column="gerechtigde"/>
+	</class>
+	<class name="ZAKELIJK RECHT AANTEKENING" table="zak_recht_aantek">
+		<property name="Aard aantekening recht" column="aard_aantek_recht"/>
+		<property name="Begindatum aantekening recht" column="begindatum_aantek_recht"/>
+		<property name="Beschrijving aantekening recht" column="beschrijving_aantek_recht"/>
+		<property name="Einddatum aantekening recht" column="eindd_aantek_recht"/>
+		<property name="Kadaster identificatie aantekening recht" column="kadaster_identif_aantek_recht"/>
+		<property name="zakelijk recht" column="zak_recht"/>
+		<property name="rechtspersoon" column="rechtsprs"/>
+	</class>
+	<class name="SBI ACTIVITEIT" table="sbi_activiteit">
+		<property name="Omschrijving" column="omschr"/>
+		<property name="SBI code" column="sbi_code"/>
+	</class>
+	<class name="AARD RECHT VERKORT" table="aard_recht_verkort">
+		<property name="Aanduiding aard recht verkort" column="aand"/>
+		<property name="Omschrijving aard recht verkort" column="omschr"/>
+	</class>
+	<class name="AARD VERKREGEN RECHT" table="aard_verkregen_recht">
+		<property name="Aanduiding aard verkregen recht" column="aand"/>
+		<property name="Omschrijving aard verkregenr recht" column="omschr_aard_verkregenr_recht"/>
+	</class>
+	<class name="ACADEMISCHE TITEL" table="academische_titel">
+		<property name="Academische titelcode" column="code"/>
+		<property name="Datum begin geldigheid titel" column="dat_beg_geldh_titel"/>
+		<property name="Datum einde geldigheid titel" column="datum_einde_geldh_titel"/>
+		<property name="Omschrijving academische titel" column="omschr"/>
+		<property name="Positie academische titel tov naam" column="positie_tov_naam"/>
+	</class>
+	<class name="LAND" table="land">
+		<property name="Einddatum land" column="eindd"/>
+		<property name="Ingangsdatum land" column="ingangsdatum"/>
+		<property name="Landcode" column="code"/>
+		<property name="Landcode ISO" column="code_iso"/>
+		<property name="Landnaam" column="naam"/>
+	</class>
+	<class name="NATIONALITEIT" table="nation">
+		<property name="Begindatum geldigheid nationaliteit" column="begindatum_geldh"/>
+		<property name="Einddatum geldigheid nationaliteit" column="eindd_geldh"/>
+		<property name="Nationaliteitcode" column="code"/>
+		<property name="Nationaliteitomschrijving" column="omschr"/>
+	</class>
+	<class name="REISDOCUMENTSOORT" table="rsdocsoort">
+		<property name="Begindatum geldigheid reisdocumentsoort" column="begindatum_geldh"/>
+		<property name="Einddatum geldigheid reisdocumentsoort" column="eindd_geldh"/>
+		<property name="Reisdocumentcode" column="rsdoccode"/>
+		<property name="Reisdocumentomschrijving" column="rsdocomschr"/>
+	</class>
+	<class name="Aandeel in recht ZAKELIJK RECHT" table="aandeel_in_recht_zak_recht">
+		<property name="Noemer" column="noemer"/>
+		<property name="Teller" column="teller"/>
+	</class>
+	<class name="Beperkte volmacht FUNCTIONARIS" table="beperkte_volmacht_functionaris">
+		<property name="Beperking in geld" column="beperking_in_geld"/>
+		<property name="Omschrijving overige beperkingen" column="omschr_ovrg_beperkingen"/>
+		<property name="Overige volmacht" column="ovrg_volmacht"/>
+		<property name="Soort handeling" column="soort_handeling"/>
+	</class>
+	<class name="Cultuur onbebouwd KADASTRALE ONROERENDE ZAAK" table="cultuur_onbebouwd_kad_onrrnd_zk">
+		<property name="Aard bebouwing" column="aard_bebouwing"/>
+		<property name="Aard cultuur onbebouwd" column="aard_cultuur_onbebouwd"/>
+		<property name="Meer culturen" column="meer_culturen"/>
+	</class>
+	<class name="Europees kiesrecht INGEZETENE" table="euro_kiesr_ingezetene">
+		<property name="Aanduiding Europees kiesrecht" column="aand_euro_kiesr"/>
+		<property name="Verwachte einddatum uitsluiting Europees kiesrecht" column="verw_eindd_uitsl_euro_kiesr"/>
+	</class>
+	<class name="Geboorte INGESCHREVEN NATUURLIJK PERSOON" table="geboorte_ingeschr_nat_prs">
+		<property name="Geboortedatum" column="geboortedatum"/>
+		<property name="Geboorteland" column="geboorteland"/>
+		<property name="Geboorteplaats" column="geboorteplaats"/>
+	</class>
+	<class name="Kadastrale aanduiding APPARTEMENTSRECHT" table="kad_aand_app_re">
+		<property name="Appartementsindex" column="appartementsindex"/>
+		<property name="Kadastrale gemeentecode" column="kad_gemeentecode"/>
+		<property name="Perceelnummer" column="perceelnummer"/>
+		<property name="Sectie" column="sectie"/>
+	</class>
+	<class name="Kadastrale aanduiding KADASTRAAL PERCEEL" table="kad_aand_kad_perceel">
+		<property name="Deelperceelnummer" column="deelperceelnummer"/>
+		<property name="Kadastrale gemeentecode" column="kad_gemeentecode"/>
+		<property name="Perceelnummer" column="perceelnummer"/>
+		<property name="Sectie" column="sectie"/>
+	</class>
+	<class name="Koopsom KADASTRALE ONROERENDE ZAAK" table="koopsom_kad_onrrnd_zk">
+		<property name="Aard bedrag" column="aard_bedrag"/>
+		<property name="Bedrag" column="bedrag"/>
+		<property name="Koopjaar" column="koopjaar"/>
+		<property name="Meer onroerendgoed" column="meer_onroerendgoed"/>
+		<property name="Transactiedatum" column="transactiedatum"/>
+		<property name="Valutasoort" column="valutasoort"/>
+	</class>
+	<class name="Landinrichtingsrente KADASTRALE ONROERENDE ZAAK" table="landinrichtingsrente_kad_onrrnd_zk">
+		<property name="Aanduiding aard LIproject" column="aand_aard_liproject"/>
+		<property name="Aard bedrag" column="aard_bedrag"/>
+		<property name="Bedrag" column="bedrag"/>
+		<property name="Eindjaar" column="eindjaar"/>
+		<property name="Valutasoort" column="valutasoort"/>
+	</class>
+	<class name="Locatie onroerende zaak KADASTRALE ONROERENDE ZAAK" table="loc_onrrnd_zk_kad_onrrnd_zk">
+		<property name="Cultuur bebouwd" column="cultuur_bebouwd"/>
+		<property name="Locatie- omschrijving" column="loc__omschr"/>
+	</class>
+	<class name="Naam NATUURLIJK PERSOON" table="naam_nat_prs">
+		<property name="Adellijke titel/ predikaat" column="adellijke_titel_predikaat"/>
+		<property name="Geslachtsnaam" column="geslachtsnaam"/>
+		<property name="Voornamen" column="voornamen"/>
+		<property name="Voorvoegsel geslachtsnaam" column="voorvoegsel_geslachtsnaam"/>
+	</class>
+	<class name="Naam aanschrijving NATUURLIJK PERSOON" table="naam_aanschrijving_nat_prs">
+		<property name="Aanhef aanschrijving" column="aanhef_aanschrijving"/>
+		<property name="Geslachtsnaam aanschrijving" column="geslachtsnaam_aanschrijving"/>
+		<property name="Voorletters aanschrijving" column="voorletters_aanschrijving"/>
+		<property name="Voornamen aanschrijving" column="voornamen_aanschrijving"/>
+	</class>
+	<class name="Nederlandse nationaliteit INGESCHREVEN NATUURLIJK PERSOON" table="nlse_nation_ingeschr_nat_prs">
+		<property name="Aanduiding bijzonder Nederlanderschap" column="aand_bijzonder_nlschap"/>
+		<property name="Nationaliteit" column="nation"/>
+		<property name="Reden verkrijging Nederlandse nationaliteit" column="reden_verkr_nlse_nation"/>
+		<property name="Reden verlies Nederlandse nationaliteit" column="reden_verlies_nlse_nation"/>
+	</class>
+	<class name="Ontbinding HUWELIJK/GEREGISTREERD PARTNERSCHAP" table="ontb_huw_ger_partn">
+		<property name="Datum ontbinding huwelijk/geregistreerd partnerschap" column="datum_ontb_huw_ger_partn"/>
+		<property name="Land ontbinding huwelijk/geregistreerd partnerschap" column="land_ontb_huw_ger_partn"/>
+		<property name="Plaats ontbinding huwelijk/geregistreerd partnerschap" column="plaats_ontb_huw_ger_partn"/>
+		<property name="Reden ontbinding huwelijk/geregistreerd partnerschap" column="reden_ontb_huw_ger_partn"/>
+	</class>
+	<class name="Overlijden INGESCHREVEN NATUURLIJK PERSOON" table="overlijden_ingeschr_nat_prs">
+		<property name="Land overlijden" column="land_overlijden"/>
+		<property name="Overlijdensdatum" column="overlijdensdatum"/>
+		<property name="Overlijdensplaats" column="overlijdensplaats"/>
+	</class>
+	<class name="Postadres SUBJECT" table="postadres_subject">
+		<property name="Postadres postcode" column="postadres_postcode"/>
+		<property name="Postadrestype" column="postadrestype"/>
+		<property name="Postbus- of antwoordnummer" column="postbus__of_antwoordnummer"/>
+		<property name="woonplaats" column="wnplts"/>
+	</class>
+	<class name="Rekeningnummer SUBJECT" table="rekeningnummer_subject">
+		<property name="Bankrekeningnummer" column="bankrekeningnummer"/>
+		<property name="BIC" column="bic"/>
+		<property name="IBAN" column="iban"/>
+	</class>
+	<class name="SBI activiteit VESTIGING" table="sbi_activiteit_vestg">
+		<property name="Indicatie hoofdactiviteit" column="indic_hoofdactiviteit"/>
+		<property name="SBI activiteit" column="sbi_activiteit"/>
+	</class>
+	<class name="Sluiting/aangaan HUWELIJK/GEREGISTREERD PARTNERSCHAP" table="sluitingaangaan_huw_ger_partn">
+		<property name="Datum huwelijkssluiting/aangaan geregistreerd partnerschap" column="datum_aangaan"/>
+		<property name="Land huwelijkssluiting/aangaan geregistreerd partnerschap" column="land"/>
+		<property name="Plaats huwelijkssluiting/aangaan geregistreerd partnerschap" column="plaats"/>
+	</class>
+	<class name="Uitsluiting kiesrecht INGEZETENE" table="uitsl_kiesr_ingezetene">
+		<property name="Aanduiding uitgesloten kiesrecht" column="aand_uitgesloten_kiesr"/>
+		<property name="Verwachte einddatum uitsluiting kiesrecht" column="verw_eindd_uitsl_kiesr"/>
+	</class>
+	<class name="Verblijf buitenland SUBJECT" table="verblijf_buitenland_subject">
+		<property name="Adres buitenland 1" column="adres_buitenland_1"/>
+		<property name="Adres buitenland 2" column="adres_buitenland_2"/>
+		<property name="Adres buitenland 3" column="adres_buitenland_3"/>
+		<property name="Land verblijfadres" column="land_verblijfadres"/>
+	</class>
+	<class name="Verblijfadres INGESCHREVEN NATUURLIJK PERSOON" table="verblijfadres_ingeschr_nat_prs">
+		<property name="Adresherkomst" column="adresherkomst"/>
+		<property name="Locatie beschrijving" column="loc_beschrijving"/>
+		<property name="verblijfsobject" column="verblijfsobj"/>
+		<property name="standplaats" column="standplaats"/>
+		<property name="nummeraanduiding" column="nummeraand"/>
+		<property name="woonplaats" column="wnplts"/>
+		<property name="ligplaats" column="ligplaats"/>
+	</class>
+	<class name="FUNCTIONARIS" table="functionaris">
+		<property name="Beperking bevoegdheid  in euros" column="beperking_bev_in_euros"/>
+		<property name="Beperkte volmacht" column="beperkte_volmacht"/>
+		<property name="Bevoegdheid met andere personen" column="bev_met_andere_prsn"/>
+		<property name="Datum toetreding" column="datum_toetr"/>
+		<property name="Datum uittreding" column="datum_uittreding"/>
+		<property name="Functie" column="functie"/>
+		<property name="Functionaristypering" column="functionaristypering"/>
+		<property name="Indicatie statutair volmacht" column="indic_statutair_volmacht"/>
+		<property name="Overige beperking bevoegdheid" column="ovrg_beperking_bev"/>
+		<property name="Soort Bevoegdheid" column="soort_bev"/>
+		<property name="Volledig Beperkt volmacht" column="volledig_beperkt_volmacht"/>
+	</class>
+	<class name="HUISHOUDENRELATIE" table="huishoudenrel">
+		<property name="Huishoudenrelatiecode" column="huishoudenrelcode"/>
+	</class>
+	<class name="HUWELIJK/GEREGISTREERD PARTNERSCHAP" table="huw_ger_partn">
+		<property name="Huwelijkssluiting/aangaan geregistreerd partnerschap" column="hwlkssluitingaangaan_ger_prtnschp"/>
+		<property name="Ontbinding huwelijk/geregistreerd partnerschap" column="ontb_huw_ger_partn"/>
+		<property name="Soort verbintenis" column="soort_verbintenis"/>
+	</class>
+	<class name="KADASTRALE ONROERENDE ZAAK HISTORIE RELATIE" table="kad_onrrnd_zk_his_rel">
+		<property name="Aard" column="aard"/>
+		<property name="Overgangsgrootte" column="overgangsgrootte"/>
+	</class>
+	<class name="LOCATIEAANDUIDING ADRES" table="locaand_adres">
+		<property name="Locatieomschrijving" column="locomschr"/>
+	</class>
+	<class name="LOCATIEAANDUIDING OPENBARE RUIMTE" table="locaand_openb_rmte">
+		<property name="Locatieomschrijving" column="locomschr"/>
+	</class>
+	<class name="OUDER-KIND-RELATIE" table="ouder_kind_rel">
+		<property name="Datum einde familierechtelijke betrekking" column="datum_einde_fam_recht_betr"/>
+		<property name="Datum ingang familierechtelijke betrekking" column="datum_ingang_fam_recht_betr"/>
+		<property name="Ouder-aanduiding" column="ouder_aand"/>
+	</class>
+	<class name="WOZ-BELANG" table="woz_belang">
+		<property name="Aanduiding eigenaar/gebruiker" column="aand_eigenaargebruiker"/>
+	</class>
+	<class name="GEBOUWD OBJECTBouwkundige bestemming actueel" table="gebouwd_obj_bouwk_best_act">
+		<property name="Bouwkundige bestemming actueel" column="bouwk_best_act"/>
+	</class>
+	<class name="GEBOUWD OBJECTGebruiksdoel gebouwd object" table="gebouwd_obj_gebruiksdoel">
+		<property name="Gebruiksdoel gebouwd object" column="gebruiksdoel_gebouwd_obj"/>
+	</class>
+	<class name="INGESCHREVEN NATUURLIJK PERSOONBuitenlandse nationaliteit" table="ingeschr_nat_prs_btnlndse_nat">
+		<property name="Buitenlandse nationaliteit" column="btnlndse_nation"/>
+	</class>
+	<class name="KADASTRALE ONROERENDE ZAAKLocatie onroerende zaak" table="kad_onrrnd_zk_loc_onrrnd_zk">
+		<property name="Locatie onroerende zaak" column="loc_onrrnd_zk"/>
+	</class>
+	<class name="OVERIG TERREINGebruiksdoel overig terrein" table="overig_terrein_gebruiksdoel">
+		<property name="Gebruiksdoel overig terrein" column="gebruiksdoel_overig_terrein"/>
+	</class>
+	<class name="VESTIGING(Handels)naam" table="vestg_naam">
+		<property name="(Handels)naam" column="naam"/>
+	</class>
+	<class name="VESTIGINGSBI Activiteit" table="vestg_sbi_activiteit">
+		<property name="SBI Activiteit" column="sbi_activiteit"/>
+	</class>
 </identifiers>
