@@ -863,7 +863,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             sql.append(") select ");
             sql.append(valuesSql);
             if(databaseProductName.contains("Oracle")) {
-                sql.append("from dual");
+                sql.append(" from dual");
             }
             sql.append(" where not exists (select 1 from ");
             sql.append(tableName);

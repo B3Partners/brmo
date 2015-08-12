@@ -1,11 +1,10 @@
 package nl.b3p.brmo.loader.xml;
 
-import java.io.ByteArrayInputStream;
 import java.text.SimpleDateFormat;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import nl.b3p.brmo.loader.entity.BagBericht;
-import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.input.CloseShieldInputStream;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
@@ -125,9 +124,7 @@ public class BagXMLReaderTest {
         try {
             ZipEntry entry = zis.getNextEntry();
             while (entry != null) {
-                // bagreader met een byte[] voeden om voortijdig sluiten van de (zip)inputstream te voorkomen
-                byte[] xml = IOUtils.toByteArray(zis);
-                BagXMLReader bagreader = new BagXMLReader(new ByteArrayInputStream(xml));
+                BagXMLReader bagreader = new BagXMLReader(new CloseShieldInputStream(zis));
 
                 while (bagreader.hasNext()) {
                     BagBericht bag = bagreader.next();
@@ -173,6 +170,5 @@ public class BagXMLReaderTest {
         assertEquals("STA:0197200000050631", bag.getObjectRef());
         assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2014-07-01"),
                 bag.getDatum());
-
     }
 }

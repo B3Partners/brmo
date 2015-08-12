@@ -149,6 +149,13 @@ public class BrmoFramework {
         }
     }
 
+    /**
+     * @see #loadFromFile(java.lang.String, java.lang.String,
+     * nl.b3p.brmo.loader.ProgressUpdateListener)
+     * @param type
+     * @param fileName
+     * @throws BrmoException
+     */
     public void loadFromFile(String type, String fileName) throws BrmoException {
         try {
             loadFromFile(type, fileName, null);
@@ -157,6 +164,14 @@ public class BrmoFramework {
         }
     }
 
+    /**
+     * NB na gebruik zelf de database verbinding sluiten / opruimen met {@link #closeBrmoFramework()}
+     *
+     * @param type
+     * @param fileName
+     * @param listener
+     * @throws BrmoException
+     */
     public void loadFromFile(String type, String fileName, final ProgressUpdateListener listener) throws BrmoException {
         try {
             if(fileName.toLowerCase().endsWith(".zip")) {

@@ -5,7 +5,9 @@ package nl.b3p.brmo.service.scanner;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URI;
@@ -26,8 +28,8 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
 import nl.b3p.brmo.persistence.staging.Bericht;
 import nl.b3p.brmo.persistence.staging.LaadProces;
 import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.input.TeeInputStream;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -244,21 +246,19 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
         conn.setReadTimeout(60 * 1000);
         conn.connect();
 
-        byte[] zipFile = IOUtils.toByteArray(conn.getInputStream());
-
-        ZipInputStream zis = new ZipInputStream(new ByteArrayInputStream(zipFile));
+        InputStream zipData = conn.getInputStream();
+        if (isArchivingOK()) {
+            FileOutputStream archiveFile = new FileOutputStream(
+                    new File(this.config.getArchiefDirectory(), naam));
+            zipData = new TeeInputStream(zipData, archiveFile, true);
+        }
+        ZipInputStream zis = new ZipInputStream(zipData);
         ZipEntry entry = zis.getNextEntry();
 
         if (entry == null) {
             msg = String.format("  Geen geschikt bestand gevonden in download %s.", sUrl);
             listener.addLog(msg);
             config.addLogLine(msg);
-
-            if (isArchivingOK()) {
-                // zip toch opslaan
-                File out = new File(this.config.getArchiefDirectory(), naam);
-                FileUtils.writeByteArrayToFile(out, zipFile);
-            }
             return;
         }
 
@@ -330,12 +330,6 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
             entry = zis.getNextEntry();
         }
         IOUtils.closeQuietly(zis);
-
-        if (isArchivingOK()) {
-            // zip opslaan
-            File out = new File(this.config.getArchiefDirectory(), naam);
-            FileUtils.writeByteArrayToFile(out, zipFile);
-        }
 
         Stripersist.getEntityManager().merge(lp);
         Stripersist.getEntityManager().merge(this.config);

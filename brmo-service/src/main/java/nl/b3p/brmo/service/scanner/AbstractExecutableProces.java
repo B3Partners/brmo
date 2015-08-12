@@ -126,7 +126,7 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
      */
     protected boolean isDuplicaatLaadProces(File input, String soort) {
         log.debug("Controle voor duplicaat laadproces, soort: '" + soort + "', bestand: " + input.getName());
-        final String name = input.getAbsolutePath();
+        final String name = getBestandsNaam(input);
         EntityManager em = Stripersist.getEntityManager();
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<LaadProces> criteriaQuery = criteriaBuilder.createQuery(LaadProces.class);
@@ -138,5 +138,16 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
         TypedQuery<LaadProces> typedQuery = em.createQuery(select);
 
         return !typedQuery.getResultList().isEmpty();
+    }
+
+    /**
+     * bepaal bestandnaam.
+     *
+     * @param f
+     * @return de naam van het bestand tbv oa. duplicaat controle
+     * @see #isDuplicaatLaadProces(java.io.File, java.lang.String)
+     */
+    protected String getBestandsNaam(File f) {
+        return f.getAbsolutePath();
     }
 }

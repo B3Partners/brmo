@@ -6,6 +6,7 @@
 package nl.b3p.brmo.service.scanner;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import nl.b3p.brmo.loader.BrmoFramework;
@@ -18,6 +19,7 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
 import nl.b3p.brmo.service.util.ConfigUtil;
+import org.apache.commons.io.comparator.NameFileComparator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -87,6 +89,7 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                 }
 
                 File files[] = scanDirectory.listFiles();
+                Arrays.sort(files, NameFileComparator.NAME_COMPARATOR);
                 for (File f : files) {
                     if (f.isDirectory()) {
                         continue;
@@ -100,10 +103,11 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                         sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                     } else {
                         // TODO gebruik JPA
+                        BrmoFramework brmo = null;
                         try {
                             // 1: laadt in staging.
-                            BrmoFramework brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
-                            brmo.loadFromFile(BrmoFramework.BR_BAG, f.getAbsolutePath());
+                            brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
+                            brmo.loadFromFile(BrmoFramework.BR_BAG, getBestandsNaam(f));
                             msg = String.format("Bestand %s is geladen.", f);
                             log.info(msg);
                             sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
@@ -115,6 +119,9 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                             log.warn(leegEx.getLocalizedMessage());
                             sb.append(leegEx.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
                         } finally {
+                            if (brmo != null) {
+                                brmo.closeBrmoFramework();
+                            }
                             if (isArchiving) {
                                 // 2: verplaats naar archief (NB mogelijk platform afhankelijk)
                                 f.renameTo(new File(archiefDirectory, f.getName()));
