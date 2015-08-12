@@ -84,7 +84,7 @@
 			<xsl:text>repair.xsl: Vestigingsnummer  -  verwijderd omdat pk van tabel wordt gebruikt hiervoor</xsl:text>
 		</xsl:comment>
 	</xsl:template>
-	<!-- Property elementType="Objecttype - Property" id="EAID_dst1F44A8_B55B_40e6_A5CB_CC8555D9635D" name="buurt" -->	
+	<!-- Property elementType="Objecttype - Property" id="EAID_dst1F44A8_B55B_40e6_A5CB_CC8555D9635D" name="buurt" -->
 	<xsl:template match="*[@elementType='Objecttype - Property' and @id='EAID_dst1F44A8_B55B_40e6_A5CB_CC8555D9635D']">
 		<xsl:comment>
 			<xsl:text>repair.xsl: buurt  -  verwijderd</xsl:text>
@@ -180,6 +180,46 @@
 		</xsl:comment>
 		<xsl:copy>
 			<xsl:attribute name="typeName" select="'AN255'"/>
+			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
+		</xsl:copy>
+	</xsl:template>
+	<!--Property elementType="Objecttype - Property" id="EAID_FD278EEF_C833_4de3_A369_14F5310E9764" name="Wijkcode" type="EAJava_N2" typeName="N2"/-->
+	<xsl:template match="*[@elementType='Objecttype - Property' and @id='EAID_FD278EEF_C833_4de3_A369_14F5310E9764']">
+		<xsl:comment>
+			<xsl:text>repair.xsl: Wijkcode -  kolom vergroot van 2 naar 6</xsl:text>
+		</xsl:comment>
+		<xsl:copy>
+			<xsl:attribute name="typeName" select="'N6'"/>
+			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
+		</xsl:copy>
+	</xsl:template>
+	<!--Property elementType="Objecttype - Property" id="EAID_7DEE95C6_32D0_4f59_8144_62AA14014261" name="Wijknaam" type="EAJava_AN40" typeName="AN40"/-->
+	<xsl:template match="*[@elementType='Objecttype - Property' and @id='EAID_7DEE95C6_32D0_4f59_8144_62AA14014261']">
+		<xsl:comment>
+			<xsl:text>repair.xsl: Wijknaam -  kolom vergroot van 40 naar 80</xsl:text>
+		</xsl:comment>
+		<xsl:copy>
+			<xsl:attribute name="typeName" select="'AN80'"/>
+			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
+		</xsl:copy>
+	</xsl:template>
+	<!--Property elementType="Objecttype - Property" id="EAID_F0191663_C96D_45aa_8F58_78CF4C280F29" name="Buurtcode" type="EAJava_N2" typeName="N2"/-->
+	<xsl:template match="*[@elementType='Objecttype - Property' and @id='EAID_F0191663_C96D_45aa_8F58_78CF4C280F29']">
+		<xsl:comment>
+			<xsl:text>repair.xsl: Buurtcode -  kolom vergroot van 2 naar 8</xsl:text>
+		</xsl:comment>
+		<xsl:copy>
+			<xsl:attribute name="typeName" select="'N8'"/>
+			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
+		</xsl:copy>
+	</xsl:template>
+	<!--Property elementType="Objecttype - Property" id="EAID_824CBA3D_D469_49c8_949C_FFB30EF57C86" name="Buurtnaam" type="EAJava_AN40" typeName="AN40"/-->
+	<xsl:template match="*[@elementType='Objecttype - Property' and @id='EAID_824CBA3D_D469_49c8_949C_FFB30EF57C86']">
+		<xsl:comment>
+			<xsl:text>repair.xsl: Buurtnaam -  kolom vergroot van 40 naar 80</xsl:text>
+		</xsl:comment>
+		<xsl:copy>
+			<xsl:attribute name="typeName" select="'AN80'"/>
 			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
 		</xsl:copy>
 	</xsl:template>
