@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="windows-1252"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:uml="http://www.omg.org/spec/UML/20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:thecustomprofile="http://www.sparxsystems.com/profiles/thecustomprofile/1.0" xmlns:RGB="http://www.sparxsystems.com/profiles/RGB/1.0">
-	<xsl:output method="xml" version="1.0" encoding="windows-1252" indent="yes"/>
+	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
 	<xsl:template match="/xmi:XMI">
 		<xsl:element name="RSGB">
 			<xsl:element name="Metadata_definities">
@@ -40,7 +40,7 @@
 						<xsl:attribute name="Indicatie_authentiek"><xsl:value-of select="@Indicatie_authentiek"/></xsl:attribute>
 						<xsl:attribute name="Indicatie_formele_historie"><xsl:value-of select="@Indicatie_formele_historie"/></xsl:attribute>
 						<xsl:attribute name="Indicatie_in_onderzoek"><xsl:value-of select="@Indicatie_in_onderzoek"/></xsl:attribute>
-						<xsl:attribute name="Indicatie_materiële_historie"><xsl:value-of select="@Indicatie_materiële_historie"/></xsl:attribute>
+						<xsl:attribute name="Indicatie_materiÃ«le_historie"><xsl:value-of select="@Indicatie_materiÃ«le_historie"/></xsl:attribute>
 						<xsl:attribute name="Kwaliteitsbegrip"><xsl:value-of select="@Kwaliteitsbegrip"/></xsl:attribute>
 						<xsl:attribute name="Naam_terugrelatie"><xsl:value-of select="@Naam_terugrelatie"/></xsl:attribute>
 						<xsl:attribute name="Populatie"><xsl:value-of select="@Populatie"/></xsl:attribute>
@@ -67,7 +67,7 @@
 						<xsl:attribute name="Indicatie_authentiek"><xsl:value-of select="@Indicatie_authentiek"/></xsl:attribute>
 						<xsl:attribute name="Indicatie_formele_historie"><xsl:value-of select="@Indicatie_formele_historie"/></xsl:attribute>
 						<xsl:attribute name="Indicatie_in_onderzoek"><xsl:value-of select="@Indicatie_in_onderzoek"/></xsl:attribute>
-						<xsl:attribute name="Indicatie_materiële_historie"><xsl:value-of select="@Indicatie_materiële_historie"/></xsl:attribute>
+						<xsl:attribute name="Indicatie_materiÃ«le_historie"><xsl:value-of select="@Indicatie_materiÃ«le_historie"/></xsl:attribute>
 						<xsl:attribute name="Kwaliteitsbegrip"><xsl:value-of select="@Kwaliteitsbegrip"/></xsl:attribute>
 						<xsl:attribute name="Naam_terugrelatie"><xsl:value-of select="@Naam_terugrelatie"/></xsl:attribute>
 						<xsl:attribute name="Populatie"><xsl:value-of select="@Populatie"/></xsl:attribute>
@@ -94,7 +94,7 @@
 						<xsl:attribute name="Indicatie_authentiek"><xsl:value-of select="@Indicatie_authentiek"/></xsl:attribute>
 						<xsl:attribute name="Indicatie_formele_historie"><xsl:value-of select="@Indicatie_formele_historie"/></xsl:attribute>
 						<xsl:attribute name="Indicatie_in_onderzoek"><xsl:value-of select="@Indicatie_in_onderzoek"/></xsl:attribute>
-						<xsl:attribute name="Indicatie_materiële_historie"><xsl:value-of select="@Indicatie_materiële_historie"/></xsl:attribute>
+						<xsl:attribute name="Indicatie_materiÃ«le_historie"><xsl:value-of select="@Indicatie_materiÃ«le_historie"/></xsl:attribute>
 						<xsl:attribute name="Kwaliteitsbegrip"><xsl:value-of select="@Kwaliteitsbegrip"/></xsl:attribute>
 						<xsl:attribute name="Naam_terugrelatie"><xsl:value-of select="@Naam_terugrelatie"/></xsl:attribute>
 						<xsl:attribute name="Populatie"><xsl:value-of select="@Populatie"/></xsl:attribute>
