@@ -3,17 +3,17 @@ Views for visualizing the BAG data.
 25-06-2015
 */
 -- DROP VIEWS
-DROP VIEW v_adres_totaal;
-DROP VIEW v_adres_standplaats;
-DROP VIEW v_adres_ligplaats;
-DROP VIEW v_adres;
-DROP VIEW v_ligplaats;
-DROP VIEW v_standplaats;
-DROP VIEW v_pand_gebruik_niet_ingemeten;
-DROP VIEW v_pand_in_gebruik;
-DROP VIEW v_verblijfsobject;
-DROP VIEW v_verblijfsobject_gevormd;
-DROP VIEW v_verblijfsobject_alles;
+-- DROP VIEW v_adres_totaal;
+-- DROP VIEW v_adres_standplaats;
+-- DROP VIEW v_adres_ligplaats;
+-- DROP VIEW v_adres;
+-- DROP VIEW v_ligplaats;
+-- DROP VIEW v_standplaats;
+-- DROP VIEW v_pand_gebruik_niet_ingemeten;
+-- DROP VIEW v_pand_in_gebruik;
+-- DROP VIEW v_verblijfsobject;
+-- DROP VIEW v_verblijfsobject_gevormd;
+-- DROP VIEW v_verblijfsobject_alles;
 
 -------------------------------------------------
 -- v_verblijfsobject_alles
