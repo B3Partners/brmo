@@ -1,11 +1,23 @@
 package nl.b3p.brmo.tool;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 import javax.sql.DataSource;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.LaadProces;
@@ -68,7 +80,11 @@ public class Main {
             .withType(Integer.class) // XXX werkt niet
             .create("delete"),
             OptionBuilder.withDescription("Inladen alle klaargezette berichten naar de rsgb.")
-            .create("torsgb")
+            .create("torsgb"),
+            OptionBuilder.withDescription("Maak van berichten uit staging gezipte xml-files in de opgegeven directory. Dit zijn BRK mutaties van GDS2 processen")
+            .withArgName("output directory")
+            .hasArgs(1)
+            .create("getmutations"),
         });
 
         outDbOpts = Arrays.asList(new Option[]{
@@ -198,6 +214,8 @@ public class Main {
                 }
 
                 code = toRsgb(ds, dsOut);
+            }else if(cl.hasOption("getmutations")){
+                code = getMutations(ds,cl.getOptionValues("getmutations"));
             }
         } catch (Exception e) {
             e.printStackTrace(System.err);
@@ -249,6 +267,72 @@ public class Main {
         }
         brmo.closeBrmoFramework();
         return 0;
+    }
+
+    private static int getMutations(DataSource ds, String[] opts){
+        Connection con = null;
+        String dir = opts[0];
+        try {
+            con = ds.getConnection();
+
+            Statement stmt = con.createStatement();
+            String autoProcessen = "select id FROM automatisch_proces where dtype = 'GDS2OphaalProces'";
+            ResultSet rs = stmt.executeQuery(autoProcessen);
+            while(rs.next()){
+                Long id = rs.getLong(1);
+                String processen = "select id,bestand_naam from laadproces where automatisch_proces = " + id;
+                Statement laadprocesStmt = con.createStatement();
+                ResultSet lpRs = laadprocesStmt.executeQuery(processen);
+                while(lpRs.next()){
+                    Long lpId = lpRs.getLong(1);
+                    String bestandsNaam = lpRs.getString(2);
+                    String berichten = "select id, br_orgineel_xml, object_ref from bericht where laadprocesid = " + lpId;
+                    Statement berichtStmt = con.createStatement();
+                    ResultSet berRs = berichtStmt.executeQuery(berichten);
+                    while(berRs.next()){
+                        System.out.println("Bericht " + id + " - " + bestandsNaam);
+                        String xml = berRs.getString("br_orgineel_xml");
+                        writeXML(xml,bestandsNaam,dir);
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            System.err.println("Fout bij ophalen berichten/laadprocessen/automagische processen: " +ex.getLocalizedMessage() );
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    System.err.println("Kan verbinding niet sluiten.");
+                }
+            }
+        }
+        return 0;
+    }
+
+    private static void writeXML(String xml, String filename, String directory){
+        ZipOutputStream out = null;
+        try {
+            final File f = new File(directory + "/" + filename +".zip");
+            out = new ZipOutputStream(new FileOutputStream(f));
+            ZipEntry e = new ZipEntry(filename);
+            out.putNextEntry(e);
+            byte[] data = xml.getBytes();
+            out.write(data, 0, data.length);
+            out.closeEntry();
+            out.close();
+        } catch (FileNotFoundException ex) {
+            System.err.println("File not found" + ex.getLocalizedMessage());
+        } catch (IOException ex) {
+            System.err.println("IOException " + ex.getLocalizedMessage());
+        } finally {
+            try {
+                out.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 
     private static int load(DataSource ds, String[] opts) throws BrmoException {
