@@ -80,11 +80,6 @@
     </distributionManagement>
     <repositories>
         <repository>
-            <id>local.repo</id>
-            <name>stripersist Repository</name>
-            <url>file://${project.basedir}/repo</url>
-        </repository>
-        <repository>
             <id>osgeo</id>
             <name>Open Source Geospatial Foundation Repository</name>
             <url>http://download.osgeo.org/webdav/geotools/</url>
@@ -93,6 +88,22 @@
             <id>boundless</id>
             <name>Boundless Maven Repository</name>
             <url>http://repo.boundlessgeo.com/main</url>
+        </repository>
+        <repository>
+            <id>releases</id>
+            <name>Releases hosted by B3Partners</name>
+            <url>http://repo.b3p.nl/nexus/content/repositories/releases/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>3rdparty</id>
+            <name>3rd party artifacts hosted by B3Partners</name>
+            <url>http://repo.b3p.nl/nexus/content/repositories/thirdparty/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
     <dependencies>
