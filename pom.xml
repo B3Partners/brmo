@@ -352,6 +352,14 @@
                     </reportPlugins>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.2</version>
+                <configuration>
+                    <pushChanges>true</pushChanges>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
