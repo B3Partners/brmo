@@ -68,15 +68,24 @@
             <name>Site deployment met GitHub's site deployment plugin</name>
             <url>site/${project.version}</url>
         </site>
-        <snapshotRepository />
-        <repository>
-            <!-- TODO vervangen door centrale locatie -->
+        <!-- repository>
+            vervangen door centrale B3P repository
             <id>user.local.release</id>
             <layout>default</layout>
             <name>local file repo</name>
             <url>file:///mnt/v_b3p_projecten/BRMO/maven-releases/</url>
             <uniqueVersion>false</uniqueVersion>
+        </repository -->
+        <repository>
+            <id>repo.b3p.nl</id>
+            <name>B3Partners releases repository</name>
+            <url>http://repo.b3p.nl/nexus/content/repositories/releases/</url>
         </repository>
+        <snapshotRepository>
+            <id>repo.b3p.nl</id>
+            <name>B3Partners snapshots repository</name>
+            <url>http://repo.b3p.nl/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
     <repositories>
         <repository>
