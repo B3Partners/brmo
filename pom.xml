@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo</artifactId>
-    <version>1.2.7-SNAPSHOT</version>
+    <version>1.2.8-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
         <module>brmo-persistence</module>
@@ -68,22 +68,26 @@
             <name>Site deployment met GitHub's site deployment plugin</name>
             <url>site/${project.version}</url>
         </site>
-        <snapshotRepository />
-        <repository>
-            <!-- TODO vervangen door centrale locatie -->
+        <!-- repository>
+            vervangen door centrale B3P repository
             <id>user.local.release</id>
             <layout>default</layout>
             <name>local file repo</name>
             <url>file:///mnt/v_b3p_projecten/BRMO/maven-releases/</url>
             <uniqueVersion>false</uniqueVersion>
+        </repository -->
+        <repository>
+            <id>repo.b3p.nl</id>
+            <name>B3Partners releases repository</name>
+            <url>http://repo.b3p.nl/nexus/content/repositories/releases/</url>
         </repository>
+        <snapshotRepository>
+            <id>repo.b3p.nl</id>
+            <name>B3Partners snapshots repository</name>
+            <url>http://repo.b3p.nl/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
     <repositories>
-        <repository>
-            <id>local.repo</id>
-            <name>stripersist Repository</name>
-            <url>file://${project.basedir}/repo</url>
-        </repository>
         <repository>
             <id>osgeo</id>
             <name>Open Source Geospatial Foundation Repository</name>
@@ -93,6 +97,22 @@
             <id>boundless</id>
             <name>Boundless Maven Repository</name>
             <url>http://repo.boundlessgeo.com/main</url>
+        </repository>
+        <repository>
+            <id>releases</id>
+            <name>Releases hosted by B3Partners</name>
+            <url>http://repo.b3p.nl/nexus/content/repositories/releases/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>3rdparty</id>
+            <name>3rd party artifacts hosted by B3Partners</name>
+            <url>http://repo.b3p.nl/nexus/content/repositories/thirdparty/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
     <dependencies>
@@ -330,6 +350,14 @@
                             </configuration>
                         </plugin>
                     </reportPlugins>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.2</version>
+                <configuration>
+                    <pushChanges>true</pushChanges>
                 </configuration>
             </plugin>
         </plugins>

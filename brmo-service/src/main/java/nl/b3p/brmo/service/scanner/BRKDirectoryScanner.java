@@ -160,6 +160,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
         int aantalGeladen = 0;
         int progress = 0;
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        final int commitPageSize = 1000;
 
         listener.total(files.length);
         for (File f : files) {
@@ -234,6 +235,14 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                     log.info(msg);
                     this.listener.addLog(msg);
                     sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
+
+                    if (aantalGeladen % commitPageSize == 0) {
+                        log.debug("Tussentijds opslaan van berichten, 'commitPageSize' is bereikt");
+                        Stripersist.getEntityManager().flush();
+                        Stripersist.getEntityManager().getTransaction().commit();
+                        Stripersist.getEntityManager().clear();
+                    }
+
                 } catch (IOException io) {
                     // mogelijk bij openen en lezen xml bestand
                     log.error(io.getLocalizedMessage());

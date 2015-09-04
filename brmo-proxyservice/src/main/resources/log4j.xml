@@ -4,6 +4,7 @@
     <appender name="fileAppender" class="org.apache.log4j.FileAppender">
         <param name="File" value="${catalina.base}/logs/brmo-proxy-service.log"/>
         <param name="Threshold" value="debug" />
+        <param name="Append" value="true" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="BRMO-PROXY: %5p %d{HH:mm:ss} (%C#%M:%L) - %m%n" />
         </layout>
