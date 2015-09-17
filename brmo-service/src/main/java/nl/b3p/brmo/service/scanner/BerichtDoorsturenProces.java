@@ -63,7 +63,7 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
     @Override
     public void execute(ProgressUpdateListener listener) {
         this.l = listener;
-
+        final int commitPageSize = 1000;
         try {
             l.updateStatus("Laden berichten...");
             this.config.setStatus(AutomatischProces.ProcessingStatus.PROCESSING);
@@ -85,7 +85,7 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
                 if (url == null) {
                     this.config.setSamenvatting("GDS2 ophaal proces heeft geen afleveringsendpoint");
                 } else {
-                    int doorgestuurd = 0, fouten = 0;
+                    int doorgestuurd = 0, fouten = 0, verwerkt = 0;
                     for (Long pkid : berichtIDs) {
                         Bericht b = Stripersist.getEntityManager().find(Bericht.class, pkid);
                         if (GDS2OphalenProces.doorsturenBericht(proces, l, b, url)) {
@@ -95,6 +95,14 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
                             fouten++;
                         }
                         Stripersist.getEntityManager().merge(b);
+                        verwerkt++;
+                        if (verwerkt % commitPageSize == 0) {
+                            log.debug("Tussentijds opslaan van berichten, 'commitPageSize' is bereikt, totaal aantal verwerkt :"
+                                    + verwerkt);
+                            Stripersist.getEntityManager().flush();
+                            Stripersist.getEntityManager().getTransaction().commit();
+                            Stripersist.getEntityManager().clear();
+                        }
                     }
                     this.config.setSamenvatting("Berichten doorgestuurd: " + doorgestuurd + ", fouten: " + fouten);
                 }
