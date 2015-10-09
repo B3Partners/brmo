@@ -48,12 +48,6 @@
 			<xsl:text>repair.xsl: Ligplaatsidentificatie  -  verwijderd omdat pk van tabel wordt gebruikt hiervoor</xsl:text>
 		</xsl:comment>
 	</xsl:template>
-	<!--Property elementType="Objecttype - Property" id="EAID_9F3C1B2D_08AF_4e79_92DF_1D11C4F3225E" name="Burgerservicenummer"-->
-	<xsl:template match="*[@elementType='Objecttype - Property' and @id='EAID_9F3C1B2D_08AF_4e79_92DF_1D11C4F3225E']">
-		<xsl:comment>
-			<xsl:text>repair.xsl: Burgerservicenummer  -  verwijderd omdat pk van tabel wordt gebruikt hiervoor</xsl:text>
-		</xsl:comment>
-	</xsl:template>
 	<!--Property elementType="Objecttype - Property" id="EAID_A037EC08_F127_4278_8979_49778229089C" name="Identificatiecode overig adresseerbaar object aanduiding"-->
 	<xsl:template match="*[@elementType='Objecttype - Property' and @id='EAID_A037EC08_F127_4278_8979_49778229089C']">
 		<xsl:comment>
