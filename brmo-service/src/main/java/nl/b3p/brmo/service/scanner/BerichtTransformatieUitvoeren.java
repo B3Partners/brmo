@@ -25,7 +25,7 @@ import org.stripesstuff.stripersist.Stripersist;
  */
 public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
 
-    private static final Log log = LogFactory.getLog(GDS2OphalenProces.class);
+    private static final Log log = LogFactory.getLog(BerichtTransformatieUitvoeren.class);
 
     private final BerichtTransformatieProces config;
 
@@ -119,6 +119,5 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
             Stripersist.getEntityManager().merge(this.config);
             Stripersist.getEntityManager().flush();
         }
-
     }
 }
