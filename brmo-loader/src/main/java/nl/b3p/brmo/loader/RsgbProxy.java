@@ -30,6 +30,7 @@ import javax.sql.DataSource;
 import javax.xml.bind.DatatypeConverter;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.jdbc.ColumnMetadata;
@@ -37,6 +38,7 @@ import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper;
 import nl.b3p.brmo.loader.jdbc.OracleJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.PostgisJdbcConverter;
+import nl.b3p.brmo.loader.updates.UpdateProcess;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.DataComfortXMLReader;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
@@ -49,6 +51,7 @@ import org.apache.commons.logging.LogFactory;
 import org.geotools.geometry.jts.JTSFactoryFinder;
 import org.javasimon.SimonManager;
 import org.javasimon.Split;
+import org.w3c.dom.Node;
 
 /**
  *
@@ -71,10 +74,12 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     private int processed;
 
     public enum BerichtSelectMode {
-        BY_STATUS, BY_IDS, BY_LAADPROCES
+        BY_STATUS, BY_IDS, BY_LAADPROCES, FOR_UPDATE
     }
 
     private final BerichtSelectMode mode;
+
+    private final UpdateProcess updateProcess;
 
     /**
      * De status voor BY_STATUS.
@@ -130,6 +135,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         mode = BerichtSelectMode.BY_STATUS;
         this.status = status;
         this.listener = listener;
+        this.updateProcess = null;
     }
 
     /**
@@ -149,6 +155,16 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         } else if(mode == BerichtSelectMode.BY_IDS) {
             this.berichtIds = ids;
         }
+        this.listener = listener;
+        this.updateProcess = null;
+    }
+
+    public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, UpdateProcess updateProcess, ProgressUpdateListener listener) {
+        this.stagingProxy = stagingProxy;
+        this.dataSourceRsgb = dataSourceRsgb;
+
+        this.mode = BerichtSelectMode.FOR_UPDATE;
+        this.updateProcess = updateProcess;
         this.listener = listener;
     }
 
@@ -255,11 +271,17 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             case BY_LAADPROCES:
                 stagingProxy.setBerichtenJobByLaadprocessen(laadprocesIds, jobId);
                 break;
+            case FOR_UPDATE:
+                stagingProxy.setBerichtenJobForUpdate(jobId, updateProcess.getSoort());
+                break;
         }
     }
 
     @Override
     public void updateProcessingResult(Bericht ber) {
+        if(updateProcess != null) {
+            return;
+        }
         ber.setStatusDatum(new Date());
         try {
             stagingProxy.updateBericht(ber);
@@ -270,6 +292,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     @Override
     public List<TableData> transformToTableData(Bericht ber) throws BrmoException {
+        if(updateProcess != null) {
+            return transformUpdateTableData(ber);
+        }
+
         RsgbTransformer transformer;
         try {
             transformer = getTransformer(ber.getSoort());
@@ -300,6 +326,28 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
     }
 
+    public List<TableData> transformUpdateTableData(Bericht ber) throws BrmoException {
+
+        RsgbTransformer transformer = rsgbTransformers.get(updateProcess.getName());
+
+        if(transformer == null) {
+            try {
+                transformer = new RsgbTransformer(updateProcess.getXsl());
+            } catch(Exception e) {
+                throw new BrmoException("Fout bij laden XSL stylesheet: " + updateProcess.getXsl(), e);
+            }
+            rsgbTransformers.put(updateProcess.getName(), transformer);
+        }
+        try {
+            Node dbxml = transformer.transformToDbXmlNode(ber);
+            List<TableData> data = dbXmlReader.readDataXML(new DOMSource(dbxml));
+            return data;
+        } catch(Exception e) {
+            log.error("Fout bij transformeren bericht #" + ber.getId() + " voor update", e);
+            throw new BrmoException("Fout bij transformeren bericht #" + ber.getId() + " voor update: " + e.getClass() + ": " + e.getMessage());
+        }
+    }
+
     public void updateBerichtException(Bericht ber, Throwable e) {
         ber.setStatus(Bericht.STATUS.RSGB_NOK);
         StringWriter sw = new StringWriter();
@@ -309,6 +357,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     @Override
     public void updateBerichtProcessing(Bericht ber) throws Exception {
+        if(updateProcess != null) {
+            return;
+        }
         ber.setStatus(Bericht.STATUS.RSGB_PROCESSING);
         ber.setOpmerking("");
         ber.setStatusDatum(new Date());
@@ -318,6 +369,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     @Override
     public void handle(Bericht ber, List<TableData> pretransformedTableData, boolean updateResult) throws BrmoException {
+
+        if(updateProcess != null) {
+            update(ber, pretransformedTableData);
+            return;
+        }
 
         Bericht.STATUS newStatus = Bericht.STATUS.RSGB_OK;
 
@@ -431,6 +487,44 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             if(recentSavepoint != null){
                 // Set savepoint to null, as it is automatically released after commit the transaction.
                 recentSavepoint = null;
+            }
+        }
+    }
+
+    public void update(Bericht ber, List<TableData> pretransformedTableData) throws BrmoException {
+
+        try {
+
+            if (connRsgb.getAutoCommit()) {
+                connRsgb.setAutoCommit(false);
+            }
+
+            List<TableData> newList;
+            if(pretransformedTableData != null) {
+                newList = pretransformedTableData;
+            } else {
+                newList = transformUpdateTableData(ber);
+            }
+
+            for (TableData newData : newList) {
+                for (TableRow row : newData.getRows()) {
+                    createUpdateSql(row, new StringBuilder());
+                }
+            }
+
+            connRsgb.commit();
+
+            this.processed++;
+            if(listener != null) {
+                listener.progress(this.processed);
+            }
+
+        } catch(Throwable ex) {
+            log.error("Fout bij updaten bericht met id " + ber.getId(), ex);
+            try {
+                connRsgb.rollback();
+            } catch(SQLException e) {
+                log.debug("Rollback exception", e);
             }
         }
     }

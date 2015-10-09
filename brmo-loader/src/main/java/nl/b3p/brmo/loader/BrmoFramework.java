@@ -10,6 +10,7 @@ import java.util.zip.ZipInputStream;
 import javax.sql.DataSource;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
+import nl.b3p.brmo.loader.updates.UpdateProcess;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
 import org.apache.commons.io.IOUtils;
@@ -105,6 +106,18 @@ public class BrmoFramework {
         t.start();
         return t;
     }
+
+    public Thread toRsgb(UpdateProcess updateProcess, ProgressUpdateListener listener) throws BrmoException  {
+        RsgbProxy rsgbProxy = new RsgbProxy(dataSourceRsgb, stagingProxy, updateProcess, listener);
+        rsgbProxy.setEnablePipeline(enablePipeline);
+        if(pipelineCapacity != null) {
+            rsgbProxy.setPipelineCapacity(pipelineCapacity);
+        }
+        Thread t = new Thread(rsgbProxy);
+        t.start();
+        return t;
+    }
+
 /*
     // XXX methode wordt niet gebruikt
     public void toDbXml(Long id) throws BrmoException  {
