@@ -1873,6 +1873,11 @@
    <table name="ingeschr_nat_prs"
           desc="RSGB class INGESCHREVEN NATUURLIJK PERSOON. Subclass van: NATUURLIJK PERSOON -&gt; PERSOON -&gt; SUBJECT. Directe superclass van: INGEZETENE, NIET-INGEZETENE"
           fullname="INGESCHREVEN NATUURLIJK PERSOON"><!-- Primary key(s) -->
+      <column name="bsn"
+              fullname="Burgerservicenummer"
+              type="decimal(9,0)"
+              key="true"
+              desc="[PK] N9"/>
       <column superclass-archief=""
               name="sc_identif"
               fullname="Identificatie"
@@ -2115,16 +2120,22 @@
           desc="RSGB class INGEZETENE. Subclass van: INGESCHREVEN NATUURLIJK PERSOON -&gt; NATUURLIJK PERSOON -&gt; PERSOON -&gt; SUBJECT"
           fullname="INGEZETENE"><!-- Primary key(s) -->
       <column superclass-archief=""
+              name="sc_bsn"
+              fullname="Burgerservicenummer"
+              type="decimal(9,0)"
+              key="true"
+              desc="[PK] N9, FK naar ingeschr_nat_prs.bsn"/>
+      <column superclass-archief=""
               name="sc_identif"
               fullname="Identificatie"
               type="varchar(32)"
               key="true"
               desc="[PK] AN32, FK naar ingeschr_nat_prs.sc_identif"/>
       <foreign-key name="fk_ing_sc"
-                   columns="sc_identif"
+                   columns="sc_bsn,sc_identif"
                    desc="Foreign key naar superclass"
                    ref-table="ingeschr_nat_prs"
-                   ref-columns="sc_identif"/>
+                   ref-columns="bsn,sc_identif"/>
       <!-- Simple properties -->
       <column name="datum_verkr_verblijfstitel"
               fullname="Datum verkrijging verblijfstitel"
@@ -2652,16 +2663,22 @@
           desc="RSGB class NIET-INGEZETENE. Subclass van: INGESCHREVEN NATUURLIJK PERSOON -&gt; NATUURLIJK PERSOON -&gt; PERSOON -&gt; SUBJECT"
           fullname="NIET-INGEZETENE"><!-- Primary key(s) -->
       <column superclass-archief=""
+              name="sc_bsn"
+              fullname="Burgerservicenummer"
+              type="decimal(9,0)"
+              key="true"
+              desc="[PK] N9, FK naar ingeschr_nat_prs.bsn"/>
+      <column superclass-archief=""
               name="sc_identif"
               fullname="Identificatie"
               type="varchar(32)"
               key="true"
               desc="[PK] AN32, FK naar ingeschr_nat_prs.sc_identif"/>
       <foreign-key name="fk_nin_sc"
-                   columns="sc_identif"
+                   columns="sc_bsn,sc_identif"
                    desc="Foreign key naar superclass"
                    ref-table="ingeschr_nat_prs"
-                   ref-columns="sc_identif"/>
+                   ref-columns="bsn,sc_identif"/>
       <!-- Simple properties -->
       <!-- Association properties 1 - * -->
       <!-- Association properties * - 1 -->
@@ -4479,6 +4496,10 @@
           desc="RSGB superclass HUISHOUDENRELATIE"
           fullname="HUISHOUDENRELATIE"><!-- De foreign keys naar de classes. --><!--Beschrijving: relatie-->
       <column key="true"
+              name="fk_sc_lh_inp_bsn"
+              type="decimal(9,0)"
+              desc="[FK] N9, FK naar ingeschr_nat_prs.bsn"/>
+      <column key="true"
               name="fk_sc_lh_inp_sc_identif"
               type="varchar(32)"
               desc="[FK] AN32, FK naar ingeschr_nat_prs.sc_identif (is FK naar superclass SUBJECT)"/>
@@ -4487,9 +4508,9 @@
               type="decimal(12,0)"
               desc="[FK] N12, FK naar huishouden.nummer"/>
       <foreign-key name="fk_huishoudenrel_sc_lh"
-                   columns="fk_sc_lh_inp_sc_identif"
+                   columns="fk_sc_lh_inp_bsn,fk_sc_lh_inp_sc_identif"
                    ref-table="ingeschr_nat_prs"
-                   ref-columns="sc_identif"/>
+                   ref-columns="bsn,sc_identif"/>
       <foreign-key name="fk_huishoudenrel_sc_rh"
                    columns="fk_sc_rh_hhd_nummer"
                    ref-table="huishouden"
@@ -4504,21 +4525,29 @@
           desc="RSGB superclass HUWELIJK/GEREGISTREERD PARTNERSCHAP"
           fullname="HUWELIJK/GEREGISTREERD PARTNERSCHAP"><!-- De foreign keys naar de classes. --><!--Beschrijving: partner-->
       <column key="true"
+              name="fk_sc_lh_inp_bsn"
+              type="decimal(9,0)"
+              desc="[FK] N9, FK naar ingeschr_nat_prs.bsn"/>
+      <column key="true"
               name="fk_sc_lh_inp_sc_identif"
               type="varchar(32)"
               desc="[FK] AN32, FK naar ingeschr_nat_prs.sc_identif (is FK naar superclass SUBJECT)"/>
+      <column key="true"
+              name="fk_sc_rh_inp_bsn"
+              type="decimal(9,0)"
+              desc="[FK] N9, FK naar ingeschr_nat_prs.bsn"/>
       <column key="true"
               name="fk_sc_rh_inp_sc_identif"
               type="varchar(32)"
               desc="[FK] AN32, FK naar ingeschr_nat_prs.sc_identif (is FK naar superclass SUBJECT)"/>
       <foreign-key name="fk_huw_ger_partn_sc_lh"
-                   columns="fk_sc_lh_inp_sc_identif"
+                   columns="fk_sc_lh_inp_bsn,fk_sc_lh_inp_sc_identif"
                    ref-table="ingeschr_nat_prs"
-                   ref-columns="sc_identif"/>
+                   ref-columns="bsn,sc_identif"/>
       <foreign-key name="fk_huw_ger_partn_sc_rh"
-                   columns="fk_sc_rh_inp_sc_identif"
+                   columns="fk_sc_rh_inp_bsn,fk_sc_rh_inp_sc_identif"
                    ref-table="ingeschr_nat_prs"
-                   ref-columns="sc_identif"/>
+                   ref-columns="bsn,sc_identif"/>
       <!-- De gewone kolommen -->
       <column name="hs_datum_aangaan"
               fullname="Datum huwelijkssluiting/aangaan geregistreerd partnerschap"
@@ -4639,21 +4668,29 @@
           desc="RSGB superclass OUDER-KIND-RELATIE"
           fullname="OUDER-KIND-RELATIE"><!-- De foreign keys naar de classes. --><!--Beschrijving: ouder-->
       <column key="true"
+              name="fk_sc_lh_inp_bsn"
+              type="decimal(9,0)"
+              desc="[FK] N9, FK naar ingeschr_nat_prs.bsn"/>
+      <column key="true"
               name="fk_sc_lh_inp_sc_identif"
               type="varchar(32)"
               desc="[FK] AN32, FK naar ingeschr_nat_prs.sc_identif (is FK naar superclass SUBJECT)"/>
+      <column key="true"
+              name="fk_sc_rh_inp_bsn"
+              type="decimal(9,0)"
+              desc="[FK] N9, FK naar ingeschr_nat_prs.bsn"/>
       <column key="true"
               name="fk_sc_rh_inp_sc_identif"
               type="varchar(32)"
               desc="[FK] AN32, FK naar ingeschr_nat_prs.sc_identif (is FK naar superclass SUBJECT)"/>
       <foreign-key name="fk_ouder_kind_rel_sc_lh"
-                   columns="fk_sc_lh_inp_sc_identif"
+                   columns="fk_sc_lh_inp_bsn,fk_sc_lh_inp_sc_identif"
                    ref-table="ingeschr_nat_prs"
-                   ref-columns="sc_identif"/>
+                   ref-columns="bsn,sc_identif"/>
       <foreign-key name="fk_ouder_kind_rel_sc_rh"
-                   columns="fk_sc_rh_inp_sc_identif"
+                   columns="fk_sc_rh_inp_bsn,fk_sc_rh_inp_sc_identif"
                    ref-table="ingeschr_nat_prs"
-                   ref-columns="sc_identif"/>
+                   ref-columns="bsn,sc_identif"/>
       <!-- De gewone kolommen -->
       <column name="datum_einde_fam_recht_betr"
               fullname="Datum einde familierechtelijke betrekking"
@@ -4937,13 +4974,17 @@
                    ref-columns="nummer"/>
       <!-- Right hand side of association -->
       <column key="true"
+              name="fk_nn_rh_inp_bsn"
+              type="decimal(9,0)"
+              desc="[FK] N9, FK naar ingeschr_nat_prs.bsn"/>
+      <column key="true"
               name="fk_nn_rh_inp_sc_identif"
               type="varchar(32)"
               desc="[FK] AN32, FK naar ingeschr_nat_prs.sc_identif (is FK naar superclass SUBJECT)"/>
       <foreign-key name="fk_rsd_inp_nn_rh"
-                   columns="fk_nn_rh_inp_sc_identif"
+                   columns="fk_nn_rh_inp_bsn,fk_nn_rh_inp_sc_identif"
                    ref-table="ingeschr_nat_prs"
-                   ref-columns="sc_identif"/>
+                   ref-columns="bsn,sc_identif"/>
    </table>
    <!-- Een * op * relatie -->
    <table name="standplaats_nummeraand"
