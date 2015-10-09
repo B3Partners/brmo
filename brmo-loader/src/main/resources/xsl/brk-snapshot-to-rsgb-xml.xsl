@@ -574,6 +574,9 @@
 				<xsl:with-param name="id" select="$persoon/pers:identificatie"/>
 			</xsl:call-template>
 		</sc_identif>
+				<bsn>
+					<xsl:value-of select="$persoon/gba:BSN"/>
+				</bsn>
         <gb_geboorteplaats>
             <xsl:value-of select="$persoon/gba:geboorte/gba:geboorteplaats"/>
         </gb_geboorteplaats>
