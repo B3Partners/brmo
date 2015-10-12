@@ -56,6 +56,9 @@
         <maven.surefire.version>2.18.1</maven.surefire.version>
     </properties>
     <dependencyManagement />
+    <prerequisites>
+        <maven>3.2.5</maven>
+    </prerequisites>
     <distributionManagement>
         <site>
             <!-- op zeker moment dit activeren zodat "mvn site" deployed naar de
@@ -68,14 +71,6 @@
             <name>Site deployment met GitHub's site deployment plugin</name>
             <url>site/${project.version}</url>
         </site>
-        <!-- repository>
-            vervangen door centrale B3P repository
-            <id>user.local.release</id>
-            <layout>default</layout>
-            <name>local file repo</name>
-            <url>file:///mnt/v_b3p_projecten/BRMO/maven-releases/</url>
-            <uniqueVersion>false</uniqueVersion>
-        </repository -->
         <repository>
             <id>repo.b3p.nl</id>
             <name>B3Partners releases repository</name>
@@ -96,20 +91,12 @@
         <repository>
             <id>boundless</id>
             <name>Boundless Maven Repository</name>
-            <url>http://repo.boundlessgeo.com/main</url>
+            <url>https://boundless.artifactoryonline.com/boundless/main/</url>
         </repository>
         <repository>
-            <id>releases</id>
+            <id>B3Partners</id>
             <name>Releases hosted by B3Partners</name>
-            <url>http://repo.b3p.nl/nexus/content/repositories/releases/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>3rdparty</id>
-            <name>3rd party artifacts hosted by B3Partners</name>
-            <url>http://repo.b3p.nl/nexus/content/repositories/thirdparty/</url>
+            <url>http://repo.b3p.nl/nexus/content/repositories/public/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -119,7 +106,7 @@
         of:
         https://www.oracle.com/webapps/maven/register/register.html
         -->
-        <!-- lijkt niet goed te werken met maven 3.3.3, voorlopig zelfs installeren; 
+        <!-- lijkt niet goed te werken met maven 3.3.3, voorlopig zelf installeren; 
         zie brmo-loader/pom.xml 
         <repository>
             <id>maven.oracle.com</id>
@@ -216,6 +203,11 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>hibernate3-maven-plugin</artifactId>
                     <version>3.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>pl.project13.maven</groupId>
+                    <artifactId>git-commit-id-plugin</artifactId>
+                    <version>2.2.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
