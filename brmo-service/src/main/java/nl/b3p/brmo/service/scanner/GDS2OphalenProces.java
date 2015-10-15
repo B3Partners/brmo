@@ -319,6 +319,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 if (hasMore && "true".equals(alGerapporteerd)) {
                     reducePeriod = true;
                     morePeriods2Process = true;
+                    increasePeriod = false;
                     // als er geen parsable periode is
                     // (geen periode ingevuld en alGerapporteerd is true
                     // dan moet morePeriods2Process false worden om een
