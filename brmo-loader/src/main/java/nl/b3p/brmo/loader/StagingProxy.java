@@ -242,6 +242,7 @@ public class StagingProxy {
                 } else {
                     sql = sql + " limit " + batch + " offset " + offset;
                 }
+                log.debug("SQL voor ophalen berichten batch: " + sql);
 
                 processed.setValue(0);
                 final Split getBerichten = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".staging.berichten.getbatch").start();
