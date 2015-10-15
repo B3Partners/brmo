@@ -118,6 +118,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     private boolean enablePipeline = false;
     private int pipelineCapacity = 25;
 
+    private boolean pmdKnownBroken = false;
+
     private Map<String, RsgbTransformer> rsgbTransformers = new HashMap();
 
     private String simonNamePrefix = "b3p.rsgb.";
@@ -178,6 +180,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     public void setPipelineCapacity(int pipelineCapacity) {
         this.pipelineCapacity = pipelineCapacity;
+    }
+
+    public void setPmdKnownBroken(boolean pmdKnownBroken) {
+        this.pmdKnownBroken = pmdKnownBroken;
     }
 
     public void init() throws SQLException {
@@ -242,7 +248,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
             // Do the work by querying all berichten, berichten are passed to
             // handle() method
-            stagingProxy.handleBerichtenByJob(jobId, total, this, enablePipeline, pipelineCapacity);
+            stagingProxy.handleBerichtenByJob(jobId, total, this, enablePipeline, pipelineCapacity, pmdKnownBroken);
 
         } catch (Exception e) {
             // user is informed via status in database

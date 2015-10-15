@@ -215,7 +215,7 @@ public class StagingProxy {
         return o instanceof BigDecimal ? ((BigDecimal)o).longValue() : (Long)o;
     }
 
-    public void handleBerichtenByJob(final String jobId, long total, final BerichtenHandler handler, final boolean enablePipeline, int transformPipelineCapacity) throws Exception {
+    public void handleBerichtenByJob(final String jobId, long total, final BerichtenHandler handler, final boolean enablePipeline, int transformPipelineCapacity, final boolean pmdKnownBroken) throws Exception {
         Split split = SimonManager.getStopwatch("b3p.rsgb.job").start();
         final String dateTime = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         Split jobSplit = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime).start();
@@ -246,7 +246,7 @@ public class StagingProxy {
 
                 processed.setValue(0);
                 final Split getBerichten = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".staging.berichten.getbatch").start();
-                Exception e = new QueryRunner().query(getConnection(), sql, new ResultSetHandler<Exception>() {
+                Exception e = new QueryRunner(pmdKnownBroken).query(getConnection(), sql, new ResultSetHandler<Exception>() {
                     @Override
                     public Exception handle(ResultSet rs) throws SQLException {
                         getBerichten.stop();

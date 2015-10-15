@@ -27,6 +27,8 @@ public class ConfigUtil implements Servlet {
     public static Integer MAX_UPLOAD_SIZE;
     public static String TEMP_FOLDER;
 
+    public static boolean PMD_KNOWN_BROKEN = false;
+
     public void init(ServletConfig config) throws ServletException {
         String tempSize = config.getInitParameter("max_upload_size");
         
@@ -41,7 +43,9 @@ public class ConfigUtil implements Servlet {
             TEMP_FOLDER = tempFolder;
         } else {
             TEMP_FOLDER = "/tmp";
-        }    
+        }
+
+        PMD_KNOWN_BROKEN = "true".equals(config.getServletContext().getInitParameter("database.pmdKnownBroken"));
     }
 
     public static DataSource getDataSourceStaging() throws BrmoException {
