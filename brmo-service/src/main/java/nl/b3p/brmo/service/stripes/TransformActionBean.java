@@ -93,6 +93,8 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
                     brmo.setTransformPipelineCapacity(Integer.parseInt(capacityString));
                 }
             }
+            boolean pmdKnownBroken = "true".equals(getContext().getServletContext().getInitParameter("database.pmdKnownBroken"));
+            brmo.setPmdKnownBroken(pmdKnownBroken);
 
             Thread t = null;
             switch(mode) {

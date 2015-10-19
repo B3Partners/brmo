@@ -43,6 +43,8 @@ public class BrmoFramework {
     private boolean enablePipeline = false;
     private Integer pipelineCapacity;
 
+    private boolean pmdKnownBroken = false;
+
     public BrmoFramework(DataSource dataSourceStaging, DataSource dataSourceRsgb) throws BrmoException {
         if (dataSourceStaging != null) {
             try {
@@ -52,6 +54,10 @@ public class BrmoFramework {
             }
         }
         this.dataSourceRsgb = dataSourceRsgb;
+    }
+
+    public void setPmdKnownBroken(boolean pmdKnownBroken) {
+        this.pmdKnownBroken = pmdKnownBroken;
     }
 
     public void setEnablePipeline(boolean enablePipeline) {
@@ -83,6 +89,7 @@ public class BrmoFramework {
         if(pipelineCapacity != null) {
             rsgbProxy.setPipelineCapacity(pipelineCapacity);
         }
+        rsgbProxy.setPmdKnownBroken(pmdKnownBroken);
         Thread t = new Thread(rsgbProxy);
         t.start();
         return t;
@@ -102,6 +109,7 @@ public class BrmoFramework {
         if(pipelineCapacity != null) {
             rsgbProxy.setPipelineCapacity(pipelineCapacity);
         }
+        rsgbProxy.setPmdKnownBroken(pmdKnownBroken);
         Thread t = new Thread(rsgbProxy);
         t.start();
         return t;
@@ -113,6 +121,7 @@ public class BrmoFramework {
         if(pipelineCapacity != null) {
             rsgbProxy.setPipelineCapacity(pipelineCapacity);
         }
+        rsgbProxy.setPmdKnownBroken(pmdKnownBroken);
         Thread t = new Thread(rsgbProxy);
         t.start();
         return t;

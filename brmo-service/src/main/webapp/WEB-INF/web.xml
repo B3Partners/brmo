@@ -10,6 +10,13 @@
         <param-name>pipelining.capacity</param-name>
         <param-value>100</param-value>
     </context-param>
+    <context-param>
+        <description>Zet op true als de database driver geen 
+            java.sql.ParameterMetaData#getParameterType(int) ondersteund. 
+            zie: https://github.com/B3Partners/brmo/issues/89</description>
+        <param-name>database.pmdKnownBroken</param-name>
+        <param-value>false</param-value>
+    </context-param>
     <filter>
         <display-name>Stripes Filter</display-name>
         <filter-name>StripesFilter</filter-name>

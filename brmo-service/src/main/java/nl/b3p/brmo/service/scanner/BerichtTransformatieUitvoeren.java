@@ -80,6 +80,7 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
             brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb);
             brmo.setEnablePipeline(true);
             brmo.setTransformPipelineCapacity(100);
+            brmo.setPmdKnownBroken(ConfigUtil.PMD_KNOWN_BROKEN);
 
             Thread t = brmo.toRsgb(new nl.b3p.brmo.loader.ProgressUpdateListener() {
                 @Override
