@@ -892,7 +892,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             Object param = null;
             if (stringValue != null) {
                 stringValue = stringValue.trim();
-                // #94
+// issue #94 oracle geeft een struct terug, dus geomtrie type eerder bepalen
                 if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
                     param = stringValue;
                     isThisGeometry = true;
@@ -917,7 +917,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                         case java.sql.Types.VARCHAR:
                             param = stringValue;
                             break;
-// issue #94
+// issue #94 oracle geeft een struct terug, dus geomtrie type eerder bepalen
 //                        case java.sql.Types.OTHER:
 //                            if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
 //                                param = stringValue;
@@ -1065,7 +1065,12 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             Object param = null;
             if (stringValue != null) {
                 stringValue = stringValue.trim();
-                switch (cm.getDataType()) {
+// issue #94 oracle geeft een struct terug, dus geomtrie type eerder bepalen
+                if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
+                    param = stringValue;
+                    isThisGeometry = true;
+                } else {
+                    switch (cm.getDataType()) {
                     case java.sql.Types.DECIMAL:
                     case java.sql.Types.NUMERIC:
                     case java.sql.Types.INTEGER:
@@ -1088,15 +1093,16 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                     case java.sql.Types.CHAR:
                     case java.sql.Types.VARCHAR:
                         param = stringValue;
-                        break;
-                    case java.sql.Types.OTHER:
-                        if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
-                            param = stringValue;
-                            isThisGeometry = true;
                             break;
-                        } else {
-                            throw new IllegalStateException(String.format("Column \"%s\" (value to insert \"%s\") type other but not geometry!", column, param));
-                        }
+// issue #94 oracle geeft een struct terug, dus geomtrie type eerder bepalen
+//                    case java.sql.Types.OTHER:
+//                        if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
+//                            param = stringValue;
+//                            isThisGeometry = true;
+//                            break;
+//                        } else {
+//                            throw new IllegalStateException(String.format("Column \"%s\" (value to insert \"%s\") type other but not geometry!", column, param));
+//                        }
                     case java.sql.Types.DATE:
                     case java.sql.Types.TIMESTAMP:
                         param = javax.xml.bind.DatatypeConverter.parseDateTime(stringValue);
@@ -1107,6 +1113,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                         break;
                     default:
                         throw new UnsupportedOperationException(String.format("Data type %s (#%d) of column \"%s\" not supported", cm.getTypeName(), cm.getDataType(), column));
+                    }
                 }
             } else {
                 isThisGeometry = cm.getTypeName().equals("SDO_GEOMETRY");
@@ -1279,8 +1286,17 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     private final Map<String, PreparedStatement> getTableRowStatements = new HashMap();
 
-    // Momenteel niet in gebruik. Veel updates vinden nu niet plaats nu brondocumenten
-    // al een specifieke optimalisatie hebben.
+    /**
+     *
+     * @param row
+     * @param loadLog
+     * @return
+     * @throws SQLException
+     * @throws ParseException
+     *
+     * @deprecated Momenteel niet in gebruik. Veel updates vinden nu niet plaats
+     * nu brondocumenten al een specifieke optimalisatie hebben.
+     */
     private TableRow getTableRowFromDb(TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
 
         String tableName = row.getTable();
@@ -1672,6 +1688,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
         if (value != null) {
             value = value.trim();
+// issue #94 oracle geeft een struct terug, dus geomtrie type eerder bepalen
+            if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
+                param = value;
+            } else {
             switch (cm.getDataType()) {
                 case Types.DECIMAL:
                 case Types.NUMERIC:
@@ -1690,13 +1710,14 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 case Types.VARCHAR:
                     param = value;
                     break;
-                case Types.OTHER:
-                    if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
-                        param = value;
-                        break;
-                    } else {
-                        throw new IllegalStateException(String.format("Column \"%s\" (value to insert \"%s\") type other but not geometry!", column, param));
-                    }
+// issue #94 oracle geeft een struct terug, dus geomtrie type eerder bepalen
+//                case Types.OTHER:
+//                    if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
+//                        param = value;
+//                        break;
+//                    } else {
+//                        throw new IllegalStateException(String.format("Column \"%s\" (value to insert \"%s\") type other but not geometry!", column, param));
+//                    }
                 case Types.DATE:
                 case Types.TIMESTAMP:
                     param = DatatypeConverter.parseDateTime(value);
@@ -1707,12 +1728,21 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                     break;
                 default:
                     throw new UnsupportedOperationException(String.format("Data type %s (#%d) of column \"%s\" not supported", cm.getTypeName(), cm.getDataType(), column));
+                }
             }
         }
         return param;
     }
 
-    // Momenteel niet in gebruik (zie getTableRowFromDb), werkt ook nog niet met geometrie.
+    /**
+     * Momenteel niet in gebruik
+     * ({@link #getTableRowFromDb(nl.b3p.brmo.loader.util.TableRow, java.lang.StringBuilder)}),
+     * werkt ook nog niet met geometrie.
+     *
+     * @see #getTableRowFromDb(nl.b3p.brmo.loader.util.TableRow,
+     * java.lang.StringBuilder)
+     * @deprecated
+     */
     private String getValueAsString(ColumnMetadata cm, Object object) throws SQLException {
         String value = null;
         if (object != null) {
@@ -1725,12 +1755,16 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                     value = object.toString();
                     break;
                 case Types.OTHER:
-                    if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
-                        // XXX need to convert geometry back to WKT...
-                        throw new UnsupportedOperationException();
-                    } else {
-                        throw new IllegalStateException(String.format("Column \"%s\" (value to convert \"%s\") type other but not geometry!", cm.getName(), object));
-                    }
+// het enige dat deze code mogelijk zou doen is een fout opwerpen wat zinloos is omdat er geen niets met `value` wordt gedaan
+// related to #94
+//                    if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
+//                        // XXX need to convert geometry back to WKT...
+//                        throw new UnsupportedOperationException();
+//                    } else {
+//                        throw new IllegalStateException(String.format("Column \"%s\" (value to convert \"%s\") type other but not geometry!", cm.getName(), object));
+//                    }
+                case Types.STRUCT:
+                // oracle 12 kan een struct voor geometrie geven
                 case Types.DATE:
                 case Types.TIMESTAMP:
                     //Calendar cal = new GregorianCalendar();
