@@ -1,7 +1,9 @@
 package nl.b3p.brmo.soap.brk;
 
 import java.util.Date;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
@@ -12,7 +14,7 @@ public class BrkInfoResponse {
     private boolean bevatGevoeligeInfo = true;
     private Date timestamp;
 
-    private KadOnrndZkInfoResponse kadOnrndZk;
+    private List<KadOnrndZkInfoResponse> kadOnrndZk = null;
 
     public BrkInfoResponse() {
         
@@ -51,15 +53,21 @@ public class BrkInfoResponse {
     /**
      * @return the kadOnrndZk
      */
-    public KadOnrndZkInfoResponse getKadOnrndZk() {
+    @XmlElement
+    public List<KadOnrndZkInfoResponse> getKadOnrndZk() {
         return kadOnrndZk;
     }
 
     /**
      * @param kadOnrndZk the kadOnrndZk to set
      */
-    public void setKadOnrndZk(KadOnrndZkInfoResponse kadOnrndZk) {
+    public void setKadOnrndZk(List<KadOnrndZkInfoResponse> kadOnrndZk) {
         this.kadOnrndZk = kadOnrndZk;
     }
     
+    public List<KadOnrndZkInfoResponse> addKadOnrndZk(KadOnrndZkInfoResponse koz) {
+        kadOnrndZk.add(koz);
+        return kadOnrndZk;
+    }
+
 }

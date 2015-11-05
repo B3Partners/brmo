@@ -31,7 +31,7 @@ public class ClientApp {
                 koz.setSectie("L");
                 req.setKadOnrndZk(koz);
                 BrkInfoResponse result = port.getBrkInfo(req);
-                System.out.printf ("Result = %s\n",result.getKadOnrndZk().getIdentificatie());
+                System.out.printf ("Result = %s\n",result.getKadOnrndZk().get(0).getIdentificatie());
             } catch (BrkInfoException_Exception ex) {
                 System.out.printf ("<p>Exception: %s\n", ex.getFaultInfo ().getDetail ());
             }

@@ -12,10 +12,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType
 public class BrkInfoRequest {
 
-    private boolean subjectsToevoegen = false;
-    private boolean adressenToevoegen = false;
+    private Boolean subjectsToevoegen = false;
+    private Boolean adressenToevoegen = false;
     private Integer maxAantalResultaten; // = Integer.parseInt("15");
-    private boolean gevoeligeInfoOphalen = false;
+    private Boolean gevoeligeInfoOphalen = false;
 
     private String zoekgebied;
     private Integer bufferLengte;
@@ -26,28 +26,8 @@ public class BrkInfoRequest {
 
     private PerceelAdresInfoRequest perceelAdres;
 
-    private String identificatie;
+     public BrkInfoRequest() {
 
-    public BrkInfoRequest() {
-
-    }
-
-    public BrkInfoRequest(String identificatie) {
-        this.identificatie = identificatie;
-    }
-
-    /**
-     * @return the identificatie
-     */
-    public String getIdentificatie() {
-        return identificatie;
-    }
-
-    /**
-     * @param identificatie the identificatie to set
-     */
-    public void setIdentificatie(String identificatie) {
-        this.identificatie = identificatie;
     }
 
     /**
@@ -56,15 +36,15 @@ public class BrkInfoRequest {
      *
      * @return the subjectsToevoegen
      */
-    @XmlAttribute(required = false)
-    public boolean isSubjectsToevoegen() {
+    @XmlAttribute
+    public Boolean getSubjectsToevoegen() {
         return subjectsToevoegen;
     }
 
     /**
      * @param subjectsToevoegen the subjectsToevoegen to set
      */
-    public void setSubjectsToevoegen(boolean subjectsToevoegen) {
+    public void setSubjectsToevoegen(Boolean subjectsToevoegen) {
         this.subjectsToevoegen = subjectsToevoegen;
     }
 
@@ -73,15 +53,15 @@ public class BrkInfoRequest {
      *
      * @return the adressenToevoegen
      */
-    @XmlAttribute(required = false)
-    public boolean isAdressenToevoegen() {
+    @XmlAttribute
+    public Boolean getAdressenToevoegen() {
         return adressenToevoegen;
     }
 
     /**
      * @param adressenToevoegen the adressenToevoegen to set
      */
-    public void setAdressenToevoegen(boolean adressenToevoegen) {
+    public void setAdressenToevoegen(Boolean adressenToevoegen) {
         this.adressenToevoegen = adressenToevoegen;
     }
 
@@ -91,7 +71,7 @@ public class BrkInfoRequest {
      *
      * @return the maxAantalResultaten
      */
-    @XmlAttribute(required = false)
+    @XmlAttribute
     public Integer getMaxAantalResultaten() {
         return maxAantalResultaten;
     }
@@ -109,15 +89,15 @@ public class BrkInfoRequest {
      *
      * @return the gevoeligeInfoOphalen
      */
-    @XmlAttribute(required = false)
-    public boolean isGevoeligeInfoOphalen() {
+    @XmlAttribute
+    public Boolean getGevoeligeInfoOphalen() {
         return gevoeligeInfoOphalen;
     }
 
     /**
      * @param gevoeligeInfoOphalen the gevoeligeInfoOphalen to set
      */
-    public void setGevoeligeInfoOphalen(boolean gevoeligeInfoOphalen) {
+    public void setGevoeligeInfoOphalen(Boolean gevoeligeInfoOphalen) {
         this.gevoeligeInfoOphalen = gevoeligeInfoOphalen;
     }
 

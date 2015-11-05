@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -22,30 +23,35 @@ public class BrkInfo {
     private static final String JNDI_NAME = "java:comp/env";
     private static final String JDBC_NAME_RSGB = "jdbc/brmo/rsgb";
 
-    public static ArrayList<Integer> findKozIDs(String appReVolgnummer, String gemeenteNaam, String gemeentecode,
-            Integer huisnummer, Integer identificatie, String perceelnummer,
-            String postcode, String sectie, String straatNaam,
-            String subjectNaam, String zoekgebied) throws Exception {
-        
+    public static final String APPREVOLGNUMMER = "appReVolgnummer";
+    public static final String GEMEENTENAAM = "gemeenteNaam";
+    public static final String GEMEENTECODE = "gemeentecode";
+    public static final String HUISNUMMER = "huisnummer";
+    public static final String IDENTIFICATIE = "identificatie";
+    public static final String PERCEELNUMMER = "perceelnummer";
+    public static final String POSTCODE = "postcode";
+    public static final String SECTIE = "sectie";
+    public static final String STRAATNAAM = "straatNaam";
+    public static final String SUBJECTNAAM = "subjectNaam";
+    public static final String ZOEKGEBIED = "zoekgebied";
+    
+    public static final String MAXAANTALRESULTATEN = "MaxAantalResultaten";
+    public static final String ADRESSENTOEVOEGEN = "AdressenToevoegen";
+    public static final String GEVOELIGEINFOOPHALEN = "GevoeligeInfoOphalen";
+    public static final String SUBJECTSTOEVOEGEN = "SubjectsToevoegen";
+
+    public static ArrayList<Integer> findKozIDs(Map<String,Object> searchContext) throws Exception {
+
         DataSource ds = getDataSourceRsgb();
         Connection connRsgb = ds.getConnection();
 
-        String sql = createSelectSQL(
-            appReVolgnummer, gemeenteNaam, gemeentecode,
-            huisnummer, identificatie, perceelnummer,
-            postcode, sectie, straatNaam,
-            subjectNaam, zoekgebied);
+        String sql = createSelectSQL(searchContext);
 
         PreparedStatement stm = connRsgb.prepareStatement(sql);
-        
-        stm = addParamsSQL(stm,
-            appReVolgnummer, gemeenteNaam, gemeentecode,
-            huisnummer, identificatie, perceelnummer,
-            postcode, sectie, straatNaam,
-            subjectNaam, zoekgebied);
-        
+
+        stm = addParamsSQL(stm, searchContext);
         ResultSet rs = stm.executeQuery();
-        
+
         ArrayList<Integer> ids = new ArrayList<Integer>();
         while (rs.next()) {
             Integer id = rs.getInt("identificatie");
@@ -194,11 +200,7 @@ public class BrkInfo {
         return sql.toString();
     }
 
-    private static String createSelectSQL(
-            String appReVolgnummer, String gemeenteNaam, String gemeentecode,
-            Integer huisnummer, Integer identificatie, String perceelnummer,
-            String postcode, String sectie, String straatNaam,
-            String subjectNaam, String zoekgebied) {
+    private static String createSelectSQL(Map<String,Object> searchContext) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT DISTINCT");
         sql.append("    kad_onrrnd_zk.kad_identif AS identificatie");
@@ -280,42 +282,44 @@ public class BrkInfo {
         boolean first = true;
         String condition = "";
         condition = "    kad_onrrnd_zk.kad_identif = ?"; //1 int
-        first = addTerm(first, identificatie, sql, condition);
+        first = addTerm(first, searchContext.get(IDENTIFICATIE), sql, condition);
 
         condition = "   (    nat_prs.nm_geslachtsnaam = ?"
                 + "    OR niet_nat_prs.naam = ?)"; //2 string
-        first = addTerm(first, subjectNaam, sql, condition);
+        first = addTerm(first, searchContext.get(SUBJECTNAAM), sql, condition);
 
         condition = "kad_perceel.begrenzing_perceel = ?"; //4 geom->wkt
-        first = addTerm(first, zoekgebied, sql, condition);
+        first = addTerm(first, searchContext.get(ZOEKGEBIED), sql, condition);
 
         condition = "app_re.ka_appartementsindex = ?"; //5 string
-        first = addTerm(first, appReVolgnummer, sql, condition);
+        first = addTerm(first, searchContext.get(APPREVOLGNUMMER), sql, condition);
 
         condition = "   (    app_re.ka_kad_gemeentecode = ?"
                 + "    OR kad_perceel.ka_kad_gemeentecode = ?)"; //6 string
-        first = addTerm(first, gemeentecode, sql, condition);
+        first = addTerm(first, searchContext.get(GEMEENTECODE), sql, condition);
 
         condition = "   (    app_re.ka_perceelnummer = ?"
                 + "    OR kad_perceel.ka_perceelnummer = ?)"; //7 string
-        first = addTerm(first, perceelnummer, sql, condition);
+        first = addTerm(first, searchContext.get(PERCEELNUMMER), sql, condition);
 
         condition = "   (    app_re.ka_sectie = ?"
                 + "    OR kad_perceel.ka_sectie = ?)"; //8 string
-        first = addTerm(first, sectie, sql, condition);
+        first = addTerm(first, searchContext.get(SECTIE), sql, condition);
 
         condition = "wnplts.naam = ?"; //9 string is woonplaats!
-        first = addTerm(first, gemeenteNaam, sql, condition);
+        first = addTerm(first, searchContext.get(GEMEENTENAAM), sql, condition);
 
         condition = "gem_openb_rmte.straatnaam = ?"; //10 string geeft null!
-        first = addTerm(first, straatNaam, sql, condition);
+        first = addTerm(first, searchContext.get(STRAATNAAM) , sql, condition);
 
         condition = "addresseerb_obj_aand.huinummer = ?"; //11 int
-        first = addTerm(first, huisnummer, sql, condition);
+        first = addTerm(first, searchContext.get(HUISNUMMER), sql, condition);
 
         condition = "addresseerb_obj_aand.postcode = ?"; //12 string
-        addTerm(first, postcode, sql, condition);
+        addTerm(first, searchContext.get(POSTCODE), sql, condition);
 
+        //TODO limit toevoegen
+        
         return sql.toString();
     }
 
@@ -331,27 +335,24 @@ public class BrkInfo {
     }
 
     private static PreparedStatement addParamsSQL(PreparedStatement stm,
-            String appReVolgnummer, String gemeenteNaam, String gemeentecode,
-            Integer huisnummer, Integer identificatie, String perceelnummer,
-            String postcode, String sectie, String straatNaam,
-            String subjectNaam, String zoekgebied) throws SQLException {
-
+            Map<String,Object> searchContext) throws SQLException {
+ 
         int index = 1;
-        index = addParam(index, identificatie, stm);
-        index = addParam(index, subjectNaam, stm);
-        index = addParam(index, subjectNaam, stm);
-        index = addParam(index, zoekgebied, stm);
-        index = addParam(index, appReVolgnummer, stm);
-        index = addParam(index, gemeentecode, stm);
-        index = addParam(index, gemeentecode, stm);
-        index = addParam(index, perceelnummer, stm);
-        index = addParam(index, perceelnummer, stm);
-        index = addParam(index, sectie, stm);
-        index = addParam(index, sectie, stm);
-        index = addParam(index, gemeenteNaam, stm);
-        index = addParam(index, straatNaam, stm);
-        index = addParam(index, huisnummer, stm);
-        addParam(index, postcode, stm);
+        index = addParam(index, searchContext.get(IDENTIFICATIE), stm);
+        index = addParam(index, searchContext.get(SUBJECTNAAM), stm);
+        index = addParam(index, searchContext.get(SUBJECTNAAM), stm);
+        index = addParam(index, searchContext.get(ZOEKGEBIED), stm);
+        index = addParam(index, searchContext.get(APPREVOLGNUMMER), stm);
+        index = addParam(index, searchContext.get(GEMEENTECODE), stm);
+        index = addParam(index, searchContext.get(GEMEENTECODE), stm);
+        index = addParam(index, searchContext.get(PERCEELNUMMER), stm);
+        index = addParam(index, searchContext.get(PERCEELNUMMER), stm);
+        index = addParam(index, searchContext.get(SECTIE), stm);
+        index = addParam(index, searchContext.get(SECTIE), stm);
+        index = addParam(index, searchContext.get(GEMEENTENAAM), stm);
+        index = addParam(index, searchContext.get(STRAATNAAM) , stm);
+        index = addParam(index, searchContext.get(HUISNUMMER), stm);
+        addParam(index, searchContext.get(POSTCODE), stm);
 
         return stm;
     }
