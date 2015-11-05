@@ -187,6 +187,11 @@ public class TableRowInserter {
             Object param = null;
             if(stringValue != null) {
                 stringValue = stringValue.trim();
+// issue #94 oracle geeft een struct terug, dus geomtrie type eerder bepalen
+                if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
+                    param = stringValue;
+                    isThisGeometry = true;
+                } else {
                 switch(cm.getDataType()) {
                     case java.sql.Types.DECIMAL:
                     case java.sql.Types.NUMERIC:
@@ -206,14 +211,15 @@ public class TableRowInserter {
                     case java.sql.Types.VARCHAR:
                         param = stringValue;
                         break;
-                    case java.sql.Types.OTHER:
-                        if(cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
-                            param = stringValue;
-                            isThisGeometry = true;
-                            break;
-                        } else {
-                            throw new IllegalStateException(String.format("Column \"%s\" (value to insert \"%s\") type other but not geometry!", column, param));
-                        }
+// issue #94 oracle geeft een struct terug, dus geomtrie type eerder bepalen
+//                    case java.sql.Types.OTHER:
+//                        if(cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
+//                            param = stringValue;
+//                            isThisGeometry = true;
+//                            break;
+//                        } else {
+//                            throw new IllegalStateException(String.format("Column \"%s\" (value to insert \"%s\") type other but not geometry!", column, param));
+//                        }
                     case java.sql.Types.DATE:
                     case java.sql.Types.TIMESTAMP:
                         param = javax.xml.bind.DatatypeConverter.parseDateTime(stringValue);
@@ -224,6 +230,7 @@ public class TableRowInserter {
                         break;
                     default:
                         throw new UnsupportedOperationException(String.format("Data type %s (#%d) of column \"%s\" not supported", cm.getTypeName(), cm.getDataType(), column));
+                    }
                 }
             } else {
                 isThisGeometry = cm.getTypeName().equals("SDO_GEOMETRY");

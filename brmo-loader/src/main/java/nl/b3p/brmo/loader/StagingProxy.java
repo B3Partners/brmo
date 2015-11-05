@@ -176,6 +176,11 @@ public class StagingProxy {
                 Bericht.STATUS.RSGB_WAITING.toString(), jobId, status.toString());
     }
 
+    public void setBerichtenJobForUpdate(String jobId, String soort) throws SQLException {
+        new QueryRunner().update(getConnection(), "update " + BrmoFramework.BERICHT_TABLE + " set job_id = ? where status = ? and soort = ?",
+                jobId, Bericht.STATUS.RSGB_OK.toString(), soort);
+    }
+
     public void setBerichtenJobByIds(long[] ids, String jobId) throws SQLException {
         StringBuilder q = new StringBuilder("update " + BrmoFramework.BERICHT_TABLE + " set status = ?, job_id = ? where id in (");
         for (int i = 0; i < ids.length; i++) {
@@ -237,6 +242,7 @@ public class StagingProxy {
                 } else {
                     sql = sql + " limit " + batch + " offset " + offset;
                 }
+                log.debug("SQL voor ophalen berichten batch: " + sql);
 
                 processed.setValue(0);
                 final Split getBerichten = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".staging.berichten.getbatch").start();

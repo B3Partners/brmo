@@ -11,6 +11,7 @@ import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -18,6 +19,7 @@ import nl.b3p.brmo.loader.entity.Bericht;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -48,5 +50,12 @@ public class RsgbTransformer {
         t.newTransformer().transform(new DOMSource(d), new StreamResult(sw));
 
         return sw.toString();
+    }
+
+    public Node transformToDbXmlNode(Bericht bericht) throws SAXException, IOException, TransformerConfigurationException, TransformerException {
+        Document d = db.parse( new InputSource(new StringReader(bericht.getBrXml())));
+        DOMResult r = new DOMResult();
+        t.newTransformer().transform(new DOMSource(d), r);
+        return r.getNode();
     }
 }

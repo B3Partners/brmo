@@ -1,1 +1,1 @@
-ALTER TABLE ingeschr_nat_prs ADD COLUMN bsn decimal(9,0);
+ALTER TABLE ingeschr_nat_prs ADD bsn decimal(9,0);

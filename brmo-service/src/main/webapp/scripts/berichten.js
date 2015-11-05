@@ -91,6 +91,14 @@ Ext.define('B3P.brmo.Berichten', {
                     window.open(config.runallurl);
                 }
             });
+            Ext.create('Ext.Button', {
+                text: 'Snelle updates...',
+                renderTo: 'button-run-updates',
+                handler: function() {
+                    window.open(config.runupdatesurl);
+                }
+            });
+
         });
         this.logUrl = config.logurl;
     }

@@ -319,6 +319,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 if (hasMore && "true".equals(alGerapporteerd)) {
                     reducePeriod = true;
                     morePeriods2Process = true;
+                    increasePeriod = false;
                     // als er geen parsable periode is
                     // (geen periode ingevuld en alGerapporteerd is true
                     // dan moet morePeriods2Process false worden om een
@@ -531,7 +532,11 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     /**
      * Post de xml naar de geconfigureerde url.
      *
-     * @param send te versturen
+     * @param proces proces waarvoor doorgetuurd wordt
+     * @param l update listener
+     * @param b door te sturen bericht
+     * @param endpoint url waarnaartoe wordt gepost
+     * @return {@code true} als succesvol doorgestuurd
      */
     public static boolean doorsturenBericht(AutomatischProces proces, ProgressUpdateListener l, Bericht b, String endpoint) {
         String msg;
@@ -656,6 +661,10 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         if (doorsturenUrl != null && !geladenBerichten.isEmpty()) {
             for (Bericht b : geladenBerichten) {
                 doorsturenBericht(this.config, l, b, doorsturenUrl);
+                Stripersist.getEntityManager().merge(b);
+                Stripersist.getEntityManager().merge(this.config);
+                Stripersist.getEntityManager().flush();
+                Stripersist.getEntityManager().getTransaction().commit();
             }
         }
 

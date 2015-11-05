@@ -27,7 +27,7 @@
     <fileSets>
         <fileSet>
             <directory>../${project.basedir}/brmo-persistence/target/ddlscripts/</directory>
-            <outputDirectory>/db/staging</outputDirectory>
+            <outputDirectory>db/staging</outputDirectory>
             <includes>
                 <include>**/*oracle.sql</include>
                 <include>**/*postgresql.sql</include>
@@ -35,7 +35,7 @@
         </fileSet>
          <fileSet>
             <directory>../${project.basedir}/datamodel/generated_scripts/</directory>
-            <outputDirectory>/db/rsgb</outputDirectory>
+            <outputDirectory>db/rsgb</outputDirectory>
             <includes>
                 <include>**/*oracle.sql</include>
                 <include>**/*postgresql.sql</include>
@@ -43,7 +43,7 @@
         </fileSet>
         <fileSet>
             <directory>../${project.basedir}/brmo-persistence/db/</directory>
-            <outputDirectory>/db/staging/</outputDirectory>
+            <outputDirectory>db/staging/</outputDirectory>
             <includes>
                 <include>**/*.sql</include>
             </includes>

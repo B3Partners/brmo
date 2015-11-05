@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo-service</artifactId>
-    <version>1.2.9-SNAPSHOT</version>
+    <version>1.2.11-SNAPSHOT</version>
     <packaging>war</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
-        <version>1.2.9-SNAPSHOT</version>
+        <version>1.2.11-SNAPSHOT</version>
     </parent>
     <name>brmo-service</name>
     <properties>
@@ -18,43 +18,35 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20140107</version>
         </dependency>
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>1.3.1</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.4</version>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.stripes</groupId>
             <artifactId>stripes</artifactId>
-            <version>1.5.8</version>
         </dependency>
         <dependency>
             <groupId>org.stripesstuff</groupId>
             <artifactId>stripesstuff</artifactId>
-            <version>0.4.1</version>
         </dependency>
         <dependency>
             <groupId>org.stripesstuff</groupId>
             <artifactId>stripersist</artifactId>
-            <version>1.0.3</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>nl.b3p</groupId>
@@ -83,35 +75,28 @@
         <dependency>
             <groupId>org.javasimon</groupId>
             <artifactId>javasimon-console-embed</artifactId>
-            <version>${javasimon.version}</version>
         </dependency>
         <dependency>
-            <!-- de volledige mail api dient door de servlet containet te worden geleverd. -->
+            <!-- de volledige mail api dient door de servlet container te worden geleverd. -->
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
-            <version>1.5.2</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
-            <version>2.2.1</version>
         </dependency>
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz-jobs</artifactId>
-            <version>2.2.1</version>
         </dependency>
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.8.1</version>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-rt</artifactId>
-            <version>2.2.8</version>
-            <type>jar</type>
         </dependency>
     </dependencies>
     <build>
@@ -157,8 +142,6 @@
                                 <artifactItem>
                                     <groupId>javax</groupId>
                                     <artifactId>javaee-endorsed-api</artifactId>
-                                    <version>7.0</version>
-                                    <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
@@ -168,12 +151,11 @@
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
-                <version>2.1.15</version>
                 <executions>
                     <execution>
                         <goals>
                             <goal>revision</goal>
-                         </goals>
+                        </goals>
                     </execution>
                 </executions>
                 <configuration>

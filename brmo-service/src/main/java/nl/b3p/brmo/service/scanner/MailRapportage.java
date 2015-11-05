@@ -76,7 +76,8 @@ public class MailRapportage extends AbstractExecutableProces {
             // subject
             String sForStatus = (config.getForStatus() == null ? "alle" : config.getForStatus().toString());
             String sPIDS = (config.getConfig().get(MailRapportageProces.PIDS) == null ? "alle" : config.getConfig().get(MailRapportageProces.PIDS).getValue());
-            String subject = String.format("BRMO rapport: %d voor status: %s (taken: %s)", config.getId(), sForStatus, sPIDS);
+            String label = (ClobElement.nullSafeGet(config.getConfig().get("label")) == null ? "" : config.getConfig().get("label").getValue());
+            String subject = String.format("BRMO rapport: %d (%s) voor status: %s (taken: %s)", config.getId(), label, sForStatus, sPIDS);
             msg.setSubject(subject);
 
             // ontvangers
@@ -95,7 +96,7 @@ public class MailRapportage extends AbstractExecutableProces {
                 log.info(logMsg);
                 sb.append(logMsg).append(LOG_NEWLINE);
 
-                mailText.append("Rapport van taak: ").append(p.getId())
+                mailText.append("Rapport van taak: ").append(p.getId()).append(" ").append(label)
                         .append(", type: ").append(p.getClass().getSimpleName()).append(LOG_NEWLINE);
                 mailText.append("Status van de taak: ").append(p.getStatus()).append(LOG_NEWLINE);
                 mailText.append("Samenvatting: ").append(LOG_NEWLINE);
