@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
@@ -375,7 +376,8 @@ public class KadOnrndZkInfoResponse {
         return sql;
     }
        
-    public static KadOnrndZkInfoResponse getRecord(Long id) throws Exception {
+    public static KadOnrndZkInfoResponse getRecord(Long id, 
+            Map<String, Object> searchContext) throws Exception {
         
         DataSource ds = BrkInfo.getDataSourceRsgb();
         Connection connRsgb = ds.getConnection();
@@ -421,9 +423,12 @@ public class KadOnrndZkInfoResponse {
                 koz.setOmschr_deelperceel(rs.getString("omschr_deelperceel"));
             }
             
-            koz.setRechten(RechtenResponse.getRechtenByKoz(id));
-            koz.setAdressen(null);
-            koz.setRelaties(null);
+            koz.setRechten(RechtenResponse.getRechtenByKoz(id, searchContext));
+            Boolean at = (Boolean) searchContext.get(BrkInfo.ADRESSENTOEVOEGEN);
+            if (at != null && at) {
+                koz.setAdressen(AdressenResponse.getAdressenByKoz(id, searchContext));
+            }
+//            koz.setRelaties(null);
             
             rs.close();
         } else {

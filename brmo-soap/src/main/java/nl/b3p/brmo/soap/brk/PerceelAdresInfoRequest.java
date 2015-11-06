@@ -12,7 +12,7 @@ public class PerceelAdresInfoRequest {
     private String straatNaam;
     private Integer huisnummer;
     private String postcode;
-    private String gemeenteNaam;
+    private String woonplaatsNaam;
     
 
     public PerceelAdresInfoRequest() {
@@ -79,21 +79,17 @@ public class PerceelAdresInfoRequest {
     }
 
     /**
-     * Officiele gemeentenaam
-     * 
-     * @return the gemeenteNaam
+     * @return the woonplaatsNaam
      */
-    public String getGemeenteNaam() {
-        return gemeenteNaam;
+    public String getWoonplaatsNaam() {
+        return woonplaatsNaam;
     }
 
     /**
-     * Officiele gemeentenaam
-     * 
-     * @param gemeenteNaam the gemeenteNaam to set
+     * @param woonplaatsNaam the woonplaatsNaam to set
      */
-    public void setGemeenteNaam(String gemeenteNaam) {
-        this.gemeenteNaam = gemeenteNaam;
+    public void setWoonplaatsNaam(String woonplaatsNaam) {
+        this.woonplaatsNaam = woonplaatsNaam;
     }
-    
+
 }

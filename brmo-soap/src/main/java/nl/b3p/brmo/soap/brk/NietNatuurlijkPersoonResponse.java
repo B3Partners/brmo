@@ -3,6 +3,7 @@ package nl.b3p.brmo.soap.brk;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Map;
 import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
@@ -102,7 +103,8 @@ public class NietNatuurlijkPersoonResponse {
         return sql;
      }
    
-    public static NietNatuurlijkPersoonResponse getRecordById(String id) throws Exception {
+    public static NietNatuurlijkPersoonResponse getRecordById(String id, 
+            Map<String, Object> searchContext) throws Exception {
         
         DataSource ds = BrkInfo.getDataSourceRsgb();
         Connection connRsgb = ds.getConnection();

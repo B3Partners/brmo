@@ -138,50 +138,6 @@ public class BrkInfo {
         return sql;
     }
 
-    private static StringBuilder createFullColumnsSQL() {
-        StringBuilder sql = new StringBuilder();
-        sql.append("    app_re.ka_sectie,");
-        sql.append("    app_re.ka_perceelnummer,");
-        sql.append("    app_re.ka_kad_gemeentecode,");
-        sql.append("    app_re.ka_appartementsindex,");
-        sql.append("    kad_perceel.ka_sectie,");
-        sql.append("    kad_perceel.ka_perceelnummer,");
-        sql.append("    kad_perceel.ka_kad_gemeentecode,");
-        sql.append("    kad_perceel.ka_deelperceelnummer,");
-        sql.append("    kad_onrrnd_zk.dat_beg_geldh,");
-        sql.append("    kad_onrrnd_zk.datum_einde_geldh,");
-        sql.append("    kad_onrrnd_zk.kad_identif,");
-        sql.append("    kad_perceel.aand_soort_grootte,");
-        sql.append("    kad_onrrnd_zk.cu_aard_cultuur_onbebouwd,");
-        sql.append("    kad_onrrnd_zk.lr_bedrag,");
-        sql.append("    kad_perceel.begrenzing_perceel,");
-        sql.append("    kad_perceel.grootte_perceel,");
-        sql.append("    kad_onrrnd_zk.ks_koopjaar,");
-        sql.append("    kad_onrrnd_zk.ks_meer_onroerendgoed,");
-        sql.append("    kad_perceel.omschr_deelperceel,");
-        sql.append("    zak_recht.indic_betrokken_in_splitsing,");
-        sql.append("    zak_recht.ar_noemer,");
-        sql.append("    zak_recht.ar_teller,");
-        sql.append("    zak_recht.fk_3avr_aand,");
-        sql.append("    nat_prs.geslachtsaand,");
-        sql.append("    nat_prs.nm_geslachtsnaam,");
-        sql.append("    nat_prs.nm_voornamen,");
-        sql.append("    nat_prs.nm_voorvoegsel_geslachtsnaam,");
-        sql.append("    ander_nat_prs.geboortedatum,");
-        sql.append("    ander_nat_prs.overlijdensdatum,");
-        sql.append("    ingeschr_nat_prs.gb_geboortedatum,");
-        sql.append("    ingeschr_nat_prs.bsn,");
-        sql.append("    ingeschr_nat_prs.gb_geboorteplaats,");
-        sql.append("    ingeschr_nat_prs.va_loc_beschrijving,");
-        sql.append("    ingeschr_niet_nat_prs.rechtsvorm,");
-        sql.append("    ingeschr_niet_nat_prs.statutaire_zetel,");
-        sql.append("    addresseerb_obj_aand.huinummer,");
-        sql.append("    addresseerb_obj_aand.postcode,");
-        sql.append("    gem_openb_rmte.naam_openb_rmte,");
-        sql.append("    wnplts.naam");
-        return sql;
-    }
-
     private static StringBuilder createFromSQL() {
         StringBuilder sql = new StringBuilder();
         sql.append("    kad_onrrnd_zk ");
@@ -410,8 +366,8 @@ public class BrkInfo {
         }
         PerceelAdresInfoRequest pa = request.getPerceelAdres();
         if (pa != null) {
-            if (pa.getGemeenteNaam() != null) {
-                searchContext.put(BrkInfo.WOONPLAATS, pa.getGemeenteNaam());
+            if (pa.getWoonplaatsNaam() != null) {
+                searchContext.put(BrkInfo.WOONPLAATS, pa.getWoonplaatsNaam());
             }
             if (pa.getHuisnummer() != null) {
                 searchContext.put(BrkInfo.HUISNUMMER, pa.getHuisnummer());
@@ -440,13 +396,22 @@ public class BrkInfo {
         return searchContext;
     }
 
-    public static BrkInfoResponse createResponse(List<Long> ids) throws Exception {
+    public static BrkInfoResponse createResponse(List<Long> ids, 
+            Map<String, Object> searchContext) throws Exception {
         BrkInfoResponse result = new BrkInfoResponse();
-        result.setBevatGevoeligeInfo(false);
+        
+        Boolean at = (Boolean) searchContext.get(BrkInfo.SUBJECTSTOEVOEGEN);
+        if (at != null && at) {
+            at = (Boolean) searchContext.get(BrkInfo.GEVOELIGEINFOOPHALEN);
+            if (at != null && at) {
+                result.setBevatGevoeligeInfo(true);
+            }
+        }
         result.setTimestamp(new Date());
 
         for (Long id : ids) {
-            KadOnrndZkInfoResponse koz = KadOnrndZkInfoResponse.getRecord(id);
+            KadOnrndZkInfoResponse koz 
+                    = KadOnrndZkInfoResponse.getRecord(id, searchContext);
             result.addKadOnrndZk(koz);
         }
 

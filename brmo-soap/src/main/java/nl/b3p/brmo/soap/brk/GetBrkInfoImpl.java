@@ -44,7 +44,13 @@ public class GetBrkInfoImpl {
                             +", pas uw voorwaarden aan!");
         }
         
-        BrkInfoResponse result = BrkInfo.createResponse(ids);
+        BrkInfoResponse result = null;
+        try {
+            result = BrkInfo.createResponse(ids, searchContext);
+        } catch (Exception ex) {
+            throw new BrkInfoException("Database reported errors", ex.getLocalizedMessage());
+        }
+        
         return result;
     }
 

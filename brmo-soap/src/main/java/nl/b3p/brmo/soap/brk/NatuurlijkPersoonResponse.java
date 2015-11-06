@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
@@ -223,7 +224,8 @@ public class NatuurlijkPersoonResponse {
         return sql;
      }
    
-    public static NatuurlijkPersoonResponse getRecordById(String id) throws Exception {
+    public static NatuurlijkPersoonResponse getRecordById(String id, 
+            Map<String, Object> searchContext) throws Exception {
         
         DataSource ds = BrkInfo.getDataSourceRsgb();
         Connection connRsgb = ds.getConnection();
@@ -242,7 +244,11 @@ public class NatuurlijkPersoonResponse {
 
         NatuurlijkPersoonResponse np = new NatuurlijkPersoonResponse();
         if (rs.next()) {
-            np.setBsn(rs.getString("bsn"));
+            
+            Boolean gi = (Boolean)searchContext.get(BrkInfo.GEVOELIGEINFOOPHALEN);
+            if (gi!=null && gi) {
+                np.setBsn(rs.getString("bsn"));
+            }
             np.setGeboortedatum(rs.getDate("gb_geboortedatum"));
             np.setGeboorteplaats(rs.getString("gb_geboorteplaats"));
             np.setGeslachtsaanduiding(rs.getString("geslachtsaand"));

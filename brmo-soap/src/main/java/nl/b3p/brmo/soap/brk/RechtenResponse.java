@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
 import nl.b3p.brmo.soap.db.BrkInfo;
@@ -54,7 +55,8 @@ public class RechtenResponse {
         return sql;
      }
    
-    public static RechtenResponse getRechtenByKoz(Long kozId) throws Exception {
+    public static RechtenResponse getRechtenByKoz(Long kozId, 
+            Map<String, Object> searchContext) throws Exception {
         
         DataSource ds = BrkInfo.getDataSourceRsgb();
         Connection connRsgb = ds.getConnection();
@@ -89,16 +91,18 @@ public class RechtenResponse {
             zkRecht.setNoemer(rs.getInt("ar_noemer"));
             zkRecht.setTeller(rs.getInt("ar_teller"));
             
-            String pid = rs.getString("fk_8pes_sc_identif");
-            NatuurlijkPersoonResponse np = 
-                    NatuurlijkPersoonResponse.getRecordById(pid);
-            zkRecht.setNatuurlijkPersoon(np);
-            if (np==null) {
-                NietNatuurlijkPersoonResponse nnp = 
-                    NietNatuurlijkPersoonResponse.getRecordById(pid);
-                zkRecht.setNietNatuurlijkPersoon(nnp);
+            Boolean st = (Boolean) searchContext.get(BrkInfo.SUBJECTSTOEVOEGEN);
+            if (st != null && st) {
+                String pid = rs.getString("fk_8pes_sc_identif");
+                NatuurlijkPersoonResponse np
+                        = NatuurlijkPersoonResponse.getRecordById(pid, searchContext);
+                zkRecht.setNatuurlijkPersoon(np);
+                if (np == null) {
+                    NietNatuurlijkPersoonResponse nnp
+                            = NietNatuurlijkPersoonResponse.getRecordById(pid, searchContext);
+                    zkRecht.setNietNatuurlijkPersoon(nnp);
+                }
             }
-            
             zrl.add(zkRecht);
 
         }
