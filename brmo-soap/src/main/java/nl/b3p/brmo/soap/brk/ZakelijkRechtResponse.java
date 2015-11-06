@@ -15,8 +15,8 @@ public class ZakelijkRechtResponse {
     private boolean indicatieBetrokkenInSplitsing;
     private String aardVerkregenRecht;
     
-    private NatPersonenResponse natuurlijkPersonen;
-    private NietNatPersonenResponse nietNatuurlijkPersonen;
+    private NatuurlijkPersoonResponse natuurlijkPersoon;
+    private NietNatuurlijkPersoonResponse nietNatuurlijkPersoon;
 
 
     /**
@@ -77,33 +77,33 @@ public class ZakelijkRechtResponse {
     public void setAardVerkregenRecht(String aardVerkregenRecht) {
         this.aardVerkregenRecht = aardVerkregenRecht;
     }
-
+    
     /**
      * @return the natuurlijkPersoon
      */
-    public NatPersonenResponse getNatuurlijkPersonen() {
-        return natuurlijkPersonen;
+    public NatuurlijkPersoonResponse getNatuurlijkPersoon() {
+        return natuurlijkPersoon;
     }
 
     /**
-     * @param natuurlijkPersonen the natuurlijkPersonen to set
+     * @param natuurlijkPersoon the natuurlijkPersoon to set
      */
-    public void setNatuurlijkPersonen(NatPersonenResponse natuurlijkPersonen) {
-        this.natuurlijkPersonen = natuurlijkPersonen;
+    public void setNatuurlijkPersoon(NatuurlijkPersoonResponse natuurlijkPersoon) {
+        this.natuurlijkPersoon = natuurlijkPersoon;
     }
 
     /**
-     * @return the nietNatuurlijkPersonen
+     * @return the nietNatuurlijkPersoon
      */
-    public NietNatPersonenResponse getNietNatuurlijkPersonen() {
-        return nietNatuurlijkPersonen;
+    public NietNatuurlijkPersoonResponse getNietNatuurlijkPersoon() {
+        return nietNatuurlijkPersoon;
     }
 
     /**
-     * @param nietNatuurlijkPersonen the nietNatuurlijkPersonen to set
+     * @param nietNatuurlijkPersoon the nietNatuurlijkPersoon to set
      */
-    public void setNietNatuurlijkPersonen(NietNatPersonenResponse nietNatuurlijkPersonen) {
-        this.nietNatuurlijkPersonen = nietNatuurlijkPersonen;
+    public void setNietNatuurlijkPersoon(NietNatuurlijkPersoonResponse nietNatuurlijkPersoon) {
+        this.nietNatuurlijkPersoon = nietNatuurlijkPersoon;
     }
 
-}
+ }

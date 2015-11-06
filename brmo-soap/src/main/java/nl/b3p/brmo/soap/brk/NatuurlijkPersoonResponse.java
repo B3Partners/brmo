@@ -1,8 +1,15 @@
 package nl.b3p.brmo.soap.brk;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Date;
+import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import nl.b3p.brmo.soap.db.BrkInfo;
+import static nl.b3p.brmo.soap.db.BrkInfo.getDbType;
 
 /**
  *
@@ -178,4 +185,77 @@ public class NatuurlijkPersoonResponse {
         this.voorvoegsel = voorvoegsel;
     }
 
+   
+    private static StringBuilder createFullColumnsSQL() {
+        StringBuilder sql = new StringBuilder();
+        sql.append("    nat_prs.geslachtsaand,");
+        sql.append("    nat_prs.nm_geslachtsnaam,");
+        sql.append("    nat_prs.nm_voornamen,");
+        sql.append("    nat_prs.nm_voorvoegsel_geslachtsnaam,");
+        sql.append("    ander_nat_prs.geboortedatum,");
+        sql.append("    ander_nat_prs.overlijdensdatum,");
+        sql.append("    ingeschr_nat_prs.gb_geboortedatum,");
+        sql.append("    ingeschr_nat_prs.bsn,");
+        sql.append("    ingeschr_nat_prs.gb_geboorteplaats,");
+        sql.append("    ingeschr_nat_prs.va_loc_beschrijving,");
+        return sql;
+    }
+
+    private static StringBuilder createFromSQL() {
+        StringBuilder sql = new StringBuilder();
+        sql.append("    nat_prs ");
+        sql.append("LEFT OUTER JOIN ");
+        sql.append("    ander_nat_prs ");
+        sql.append("ON ");
+        sql.append("    ( ");
+        sql.append("        nat_prs.sc_identif = ander_nat_prs.sc_identif) ");
+        sql.append("LEFT OUTER JOIN ");
+        sql.append("    ingeschr_nat_prs ");
+        sql.append("ON ");
+        sql.append("    ( ");
+        sql.append("        nat_prs.sc_identif = ingeschr_nat_prs.sc_identif) ");
+        return sql;
+    }
+    
+     private static StringBuilder createWhereSQL() {
+        StringBuilder sql = new StringBuilder();
+        sql.append("    nat_prs.sc_identif = ? ");
+        return sql;
+     }
+   
+    public static NatuurlijkPersoonResponse getRecordById(String id) throws Exception {
+        
+        DataSource ds = BrkInfo.getDataSourceRsgb();
+        Connection connRsgb = ds.getConnection();
+
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT ");
+        sql.append(createFullColumnsSQL());
+        sql.append("FROM ");
+        sql.append(createFromSQL());
+        sql.append("WHERE ");
+        sql.append(createWhereSQL());
+
+        PreparedStatement stm = connRsgb.prepareStatement(sql.toString());
+        stm.setString(1, id);
+        ResultSet rs = stm.executeQuery();
+
+        NatuurlijkPersoonResponse np = new NatuurlijkPersoonResponse();
+        if (rs.next()) {
+            np.setBsn(rs.getString("bsn"));
+            np.setGeboortedatum(rs.getDate("gb_geboortedatum"));
+            np.setGeboorteplaats(rs.getString("gb_geboorteplaats"));
+            np.setGeslachtsaanduiding(rs.getString("geslachtsaand"));
+            np.setGeslachtsnaam(rs.getString("nm_geslachtsnaam"));
+            np.setLocatieBeschrijving(rs.getString("va_loc_beschrijving"));
+            np.setOverlijdensdatum(rs.getDate("overlijdensdatum"));
+            np.setVoornamen(rs.getString("nm_voornamen"));
+            np.setVoorvoegsel(rs.getString("nm_voorvoegsel_geslachtsnaam"));
+            rs.close();
+        } else {
+            return null;
+        }
+       
+        return np;
+    }
 }

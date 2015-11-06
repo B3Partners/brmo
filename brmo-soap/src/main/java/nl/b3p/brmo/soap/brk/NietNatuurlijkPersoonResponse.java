@@ -1,7 +1,12 @@
 package nl.b3p.brmo.soap.brk;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import nl.b3p.brmo.soap.db.BrkInfo;
 
 /**
  *
@@ -70,6 +75,61 @@ public class NietNatuurlijkPersoonResponse {
      */
     public void setNaam(String naam) {
         this.naam = naam;
+    }
+    
+    private static StringBuilder createFullColumnsSQL() {
+        StringBuilder sql = new StringBuilder();
+        sql.append("    niet_nat_prs.naam,");
+        sql.append("    ingeschr_niet_nat_prs.rechtsvorm,");
+        sql.append("    ingeschr_niet_nat_prs.statutaire_zetel,");
+        return sql;
+    }
+
+    private static StringBuilder createFromSQL() {
+        StringBuilder sql = new StringBuilder();
+        sql.append("    niet_nat_prs ");
+        sql.append("LEFT OUTER JOIN ");
+        sql.append("    ingeschr_niet_nat_prs ");
+        sql.append("ON ");
+        sql.append("    ( ");
+        sql.append("        niet_nat_prs.sc_identif = ingeschr_niet_nat_prs.sc_identif) ");
+        return sql;
+    }
+    
+     private static StringBuilder createWhereSQL() {
+        StringBuilder sql = new StringBuilder();
+        sql.append("    niet_nat_prs.sc_identif = ? ");
+        return sql;
+     }
+   
+    public static NietNatuurlijkPersoonResponse getRecordById(String id) throws Exception {
+        
+        DataSource ds = BrkInfo.getDataSourceRsgb();
+        Connection connRsgb = ds.getConnection();
+
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT ");
+        sql.append(createFullColumnsSQL());
+        sql.append("FROM ");
+        sql.append(createFromSQL());
+        sql.append("WHERE ");
+        sql.append(createWhereSQL());
+
+        PreparedStatement stm = connRsgb.prepareStatement(sql.toString());
+        stm.setString(1, id);
+        ResultSet rs = stm.executeQuery();
+
+        NietNatuurlijkPersoonResponse nnp = new NietNatuurlijkPersoonResponse();
+        if (rs.next()) {
+            nnp.setNaam(rs.getString("naam"));
+            nnp.setRechtsvorm(rs.getString("rechtsvorm"));
+            nnp.setStatutaireZetel(rs.getString("statutaire_zetel"));
+            rs.close();
+        } else {
+            return null;
+        }
+       
+        return nnp;
     }
 
 }

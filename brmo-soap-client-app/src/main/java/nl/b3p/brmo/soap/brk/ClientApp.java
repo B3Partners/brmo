@@ -27,13 +27,20 @@ public class ClientApp {
 
                  BrkInfoRequest req = new BrkInfoRequest();
                 req.setGevoeligeInfoOphalen(true);
-                KadOnrndZkInfoRequest koz = new KadOnrndZkInfoRequest();
-                koz.setSectie("L");
-                req.setKadOnrndZk(koz);
-                BrkInfoResponse result = port.getBrkInfo(req);
+                
+//                KadOnrndZkInfoRequest koz = new KadOnrndZkInfoRequest();
+////                koz.setSectie("L");
+//                koz.setIdentificatie("46750051270000");
+//                req.setKadOnrndZk(koz);
+               
+                PerceelAdresInfoRequest pa = new PerceelAdresInfoRequest();
+                pa.setPostcode("8378J");
+                req.setPerceelAdres(pa);
+
+                 BrkInfoResponse result = port.getBrkInfo(req);
                 System.out.printf ("Result = %s\n",result.getKadOnrndZk().get(0).getIdentificatie());
             } catch (BrkInfoException_Exception ex) {
-                System.out.printf ("<p>Exception: %s\n", ex.getFaultInfo ().getDetail ());
+                System.out.printf ("Exception: %s\n", ex.getFaultInfo ().getDetail ());
             }
 
     }

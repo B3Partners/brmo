@@ -1,5 +1,6 @@
 package nl.b3p.brmo.soap.brk;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -66,6 +67,9 @@ public class BrkInfoResponse {
     }
     
     public List<KadOnrndZkInfoResponse> addKadOnrndZk(KadOnrndZkInfoResponse koz) {
+        if (kadOnrndZk==null) {
+            kadOnrndZk = new ArrayList<KadOnrndZkInfoResponse>();
+        }
         kadOnrndZk.add(koz);
         return kadOnrndZk;
     }
