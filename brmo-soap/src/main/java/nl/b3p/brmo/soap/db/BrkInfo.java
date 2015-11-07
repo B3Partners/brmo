@@ -1,5 +1,8 @@
 package nl.b3p.brmo.soap.db;
 
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.io.ParseException;
+import com.vividsolutions.jts.io.WKTReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +12,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -46,13 +51,14 @@ public class BrkInfo {
     public static final String STRAATNAAM = "straatNaam";
     public static final String SUBJECTNAAM = "subjectNaam";
     public static final String ZOEKGEBIED = "zoekgebied";
+    public static final String BUFFERLENGTE = "bufferLengte";
 
     public static final String MAXAANTALRESULTATEN = "MaxAantalResultaten";
     public static final String ADRESSENTOEVOEGEN = "AdressenToevoegen";
     public static final String GEVOELIGEINFOOPHALEN = "GevoeligeInfoOphalen";
     public static final String SUBJECTSTOEVOEGEN = "SubjectsToevoegen";
 
-    public static final Integer DBMAXRESULTS = Integer.parseInt("1000");
+    public static final Integer DBMAXRESULTS = 1000;
 
     public static ArrayList<Long> findKozIDs(Map<String, Object> searchContext) throws Exception {
 
@@ -77,7 +83,7 @@ public class BrkInfo {
     }
 
     private static StringBuilder createSelectSQL(
-            Map<String, Object> searchContext, String dbType) {
+            Map<String, Object> searchContext, String dbType) throws ParseException {
 
         Integer maxrows = (Integer) searchContext.get(MAXAANTALRESULTATEN);
         if (maxrows == null) {
@@ -90,45 +96,46 @@ public class BrkInfo {
         maxrows += 1;
 
         StringBuilder sql = new StringBuilder();
-        if (dbType.equals(DB_POSTGRES)) {
-            sql.append("SELECT DISTINCT ");
-            sql.append(createIdColumnSQL());
-            sql.append("FROM ");
-            sql.append(createFromSQL());
-            sql.append("WHERE ");
-            sql.append(createWhereSQL(searchContext, dbType));
-            sql.append("LIMIT ");
-            sql.append(maxrows);
-            return sql;
-        } else if (dbType.equals(DB_ORACLE)) {
-            sql.append("SELECT DISTINCT ");
-            sql.append(createIdColumnSQL());
-            sql.append("FROM ");
-            sql.append(createFromSQL());
-            sql.append("WHERE ");
-            sql.append(createWhereSQL(searchContext, dbType));
-            StringBuilder tempSql = new StringBuilder();
-            tempSql.append("SELECT * FROM ( ");
-            tempSql.append(sql);
-            tempSql.append(" ) WHERE ROWNUM <= ");
-            tempSql.append(maxrows);
-            sql = tempSql;
-            return sql;
-        } else if (dbType.equals(DB_MSSQL)) {
-            sql.append("SELECT ");
-            sql.append("TOP ");
-            sql.append("( ");
-            sql.append(maxrows);
-            sql.append(") ");
-            sql.append("DISTINCT ");
-            sql.append(createIdColumnSQL());
-            sql.append("FROM ");
-            sql.append(createFromSQL());
-            sql.append("WHERE ");
-            sql.append(createWhereSQL(searchContext, dbType));
-            return sql;
-        } else {
-            throw new UnsupportedOperationException("Unknown database!");
+        switch (dbType) {
+            case DB_POSTGRES:
+                sql.append("SELECT DISTINCT ");
+                sql.append(createIdColumnSQL());
+                sql.append("FROM ");
+                sql.append(createFromSQL());
+                sql.append("WHERE ");
+                sql.append(createWhereSQL(searchContext, dbType));
+                sql.append("LIMIT ");
+                sql.append(maxrows);
+                return sql;
+            case DB_ORACLE:
+                sql.append("SELECT DISTINCT ");
+                sql.append(createIdColumnSQL());
+                sql.append("FROM ");
+                sql.append(createFromSQL());
+                sql.append("WHERE ");
+                sql.append(createWhereSQL(searchContext, dbType));
+                StringBuilder tempSql = new StringBuilder();
+                tempSql.append("SELECT * FROM ( ");
+                tempSql.append(sql);
+                tempSql.append(" ) WHERE ROWNUM <= ");
+                tempSql.append(maxrows);
+                sql = tempSql;
+                return sql;
+            case DB_MSSQL:
+                sql.append("SELECT ");
+                sql.append("TOP ");
+                sql.append("( ");
+                sql.append(maxrows);
+                sql.append(") ");
+                sql.append("DISTINCT ");
+                sql.append(createIdColumnSQL());
+                sql.append("FROM ");
+                sql.append(createFromSQL());
+                sql.append("WHERE ");
+                sql.append(createWhereSQL(searchContext, dbType));
+                return sql;
+            default:
+                throw new UnsupportedOperationException("Unknown database!");
         }
     }
 
@@ -217,11 +224,11 @@ public class BrkInfo {
     }
 
     private static StringBuilder createWhereSQL(
-            Map<String, Object> searchContext, String dbType) {
+            Map<String, Object> searchContext, String dbType) throws ParseException {
         StringBuilder sql = new StringBuilder();
 
         boolean first = true;
-        String condition = "";
+        String condition;
         condition = "    kad_onrrnd_zk.kad_identif = ? "; //1 Long
         first = addTerm(first, searchContext.get(IDENTIFICATIE), sql, condition);
 
@@ -229,8 +236,8 @@ public class BrkInfo {
                 + "    OR niet_nat_prs.naam like ?)"; //2 string
         first = addTerm(first, searchContext.get(SUBJECTNAAM), sql, condition);
 
-        condition = "kad_perceel.begrenzing_perceel like ? "; //4 TODO: geom<-wkt
-        first = addTerm(first, searchContext.get(ZOEKGEBIED), sql, condition);
+        //3+4 wkt en bufferlengte
+        first = addGeoTerm(first, sql, searchContext, dbType);
 
         condition = "app_re.ka_appartementsindex like ? "; //5 string
         first = addTerm(first, searchContext.get(APPREVOLGNUMMER), sql, condition);
@@ -272,6 +279,75 @@ public class BrkInfo {
         }
         return first;
     }
+    
+    private static boolean addGeoTerm(boolean first, StringBuilder sql,
+            Map<String, Object> searchContext, String dbType) throws ParseException {
+
+        String zg = (String) searchContext.get(ZOEKGEBIED);
+        WKTReader r = new WKTReader();
+        //test om injectie te voorkomen, exception indien niet geldig
+        Geometry g = r.read(zg);
+        Integer bl = (Integer) searchContext.get(BUFFERLENGTE);
+        
+        if (zg != null) {
+            String condition;
+            switch (dbType) {
+                case DB_POSTGRES:
+                    if (bl != null) {
+                        condition = "ST_Intersects(kad_perceel.begrenzing_perceel, "
+                                + "ST_Buffer(ST_GeomFromEWKT('SRID=28992;"
+                                + zg
+                                + "'), "
+                                + bl
+                                + ") ) ";
+                    } else {
+                        condition = "ST_Intersects(kad_perceel.begrenzing_perceel, "
+                                + "ST_GeomFromEWKT('SRID=28992;"
+                                + zg
+                                + "') ) ";
+                    }
+                    break;
+                case DB_ORACLE:
+                    if (bl != null) {
+                        condition = "SDO_GEOM.RELATE(kad_perceel.begrenzing_perceel, 'ANYINTERACT', "
+                                + "SDO_GEOM.SDO_BUFFER(SDO_GEOMETRY(SDO_UTIL.TO_WKTGEOMETRY("
+                                + zg
+                                + "), 28992), 2, "
+                                + bl
+                                + "), 0.005 ) ";
+                    } else {
+                        condition = "SDO_GEOM.RELATE(kad_perceel.begrenzing_perceel, 'ANYINTERACT', "
+                                + "SDO_GEOMETRY(SDO_UTIL.TO_WKTGEOMETRY("
+                                + zg
+                                + "), 28992), 0.005 ) ";
+                    }
+                    break;
+                case DB_MSSQL:
+                    if (bl != null) {
+                        condition = "kad_perceel.begrenzing_perceel.STIntersects( "
+                                + "STGeomFromText("
+                                + zg
+                                + ",28992).STBuffer("
+                                + bl
+                                + ") ) ";
+                    } else {
+                        condition = "kad_perceel.begrenzing_perceel.STIntersects( "
+                                + "STGeomFromText("
+                                + zg
+                                + ",28992) ) ";
+                        break;
+                    }
+                default:
+                    throw new UnsupportedOperationException("Unknown database!");
+            }
+            if (!first) {
+                sql.append("AND ");
+            }
+            sql.append(condition);
+            first = false;
+        }
+        return first;
+    }
 
     private static PreparedStatement addParamsSQL(PreparedStatement stm,
             Map<String, Object> searchContext, String dbType) throws SQLException {
@@ -280,7 +356,7 @@ public class BrkInfo {
         index = addParam(index, searchContext.get(IDENTIFICATIE), stm, dbType);
         index = addParam(index, searchContext.get(SUBJECTNAAM), stm, dbType);
         index = addParam(index, searchContext.get(SUBJECTNAAM), stm, dbType);
-        index = addParam(index, searchContext.get(ZOEKGEBIED), stm, dbType);
+        //bufferlengte en zoekgebied direct in de Where!
         index = addParam(index, searchContext.get(APPREVOLGNUMMER), stm, dbType);
         index = addParam(index, searchContext.get(GEMEENTECODE), stm, dbType);
         index = addParam(index, searchContext.get(GEMEENTECODE), stm, dbType);
@@ -346,6 +422,10 @@ public class BrkInfo {
         if (request.getZoekgebied() != null) {
             searchContext.put(BrkInfo.ZOEKGEBIED, request.getZoekgebied());
         }
+        if (request.getBufferLengte() != null) {
+            searchContext.put(BrkInfo.BUFFERLENGTE, request.getBufferLengte());
+        }
+
         KadOnrndZkInfoRequest koz = request.getKadOnrndZk();
         if (koz != null) {
             if (koz.getIdentificatie() != null) {

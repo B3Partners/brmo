@@ -82,7 +82,7 @@ public class NietNatuurlijkPersoonResponse {
         StringBuilder sql = new StringBuilder();
         sql.append("    niet_nat_prs.naam,");
         sql.append("    ingeschr_niet_nat_prs.rechtsvorm,");
-        sql.append("    ingeschr_niet_nat_prs.statutaire_zetel,");
+        sql.append("    ingeschr_niet_nat_prs.statutaire_zetel ");
         return sql;
     }
 

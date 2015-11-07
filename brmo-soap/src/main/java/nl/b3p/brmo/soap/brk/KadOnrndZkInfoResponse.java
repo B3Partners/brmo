@@ -3,16 +3,11 @@ package nl.b3p.brmo.soap.brk;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import nl.b3p.brmo.soap.db.BrkInfo;
-import static nl.b3p.brmo.soap.db.BrkInfo.getDataSourceRsgb;
-import static nl.b3p.brmo.soap.db.BrkInfo.getDbType;
 
 /**
  *
@@ -351,7 +346,7 @@ public class KadOnrndZkInfoResponse {
         sql.append("    kad_perceel.grootte_perceel,");
         sql.append("    kad_onrrnd_zk.ks_koopjaar,");
         sql.append("    kad_onrrnd_zk.ks_meer_onroerendgoed,");
-        sql.append("    kad_perceel.omschr_deelperceel,");
+        sql.append("    kad_perceel.omschr_deelperceel ");
         return sql;
     }
 
@@ -396,12 +391,13 @@ public class KadOnrndZkInfoResponse {
 
         KadOnrndZkInfoResponse koz = new KadOnrndZkInfoResponse();
         if (rs.next()) {
-            koz.setAandSoortGrootte(rs.getString(""));
-            koz.setAardCultuurOnbebouwd(rs.getString(""));
-            koz.setBedrag(rs.getFloat(""));
+            koz.setIdentificatie(Long.toString(rs.getLong("kad_identif")));
+            koz.setAandSoortGrootte(rs.getString("aand_soort_grootte"));
+            koz.setAardCultuurOnbebouwd(rs.getString("cu_aard_cultuur_onbebouwd"));
+            koz.setBedrag(rs.getFloat("lr_bedrag"));
             koz.setDatumBeginGeldigheid(rs.getDate("dat_beg_geldh"));
             koz.setDatumEindeGeldigheid(rs.getDate("datum_einde_geldh"));
-             koz.setKoopjaar(rs.getInt("ks_koopjaar"));
+            koz.setKoopjaar(rs.getInt("ks_koopjaar"));
             koz.setMeerOnroerendgoed(rs.getBoolean("ks_meer_onroerendgoed"));
              
             String type = "perceel";
@@ -418,7 +414,7 @@ public class KadOnrndZkInfoResponse {
                 koz.setGemeentecode(rs.getString("ka_kad_gemeentecode"));
                 koz.setPerceelnummer(rs.getString("ka_perceelnummer"));
                 koz.setSectie(rs.getString("ka_sectie"));
-                koz.setBegrenzingPerceel(rs.getString(""));
+//                koz.setBegrenzingPerceel(rs.getString("begrenzing_perceel"));
                 koz.setGroottePerceel(rs.getFloat("grootte_perceel"));
                 koz.setOmschr_deelperceel(rs.getString("omschr_deelperceel"));
             }

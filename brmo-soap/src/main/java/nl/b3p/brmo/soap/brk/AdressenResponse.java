@@ -40,7 +40,7 @@ public class AdressenResponse {
         sql.append("    addresseerb_obj_aand.huisletter,");
         sql.append("    addresseerb_obj_aand.postcode,");
         sql.append("    gem_openb_rmte.naam_openb_rmte,");
-        sql.append("    wnplts.naam");
+        sql.append("    wnplts.naam ");
         return sql;
     }
 

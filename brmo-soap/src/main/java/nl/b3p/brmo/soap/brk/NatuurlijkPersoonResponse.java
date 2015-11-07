@@ -20,8 +20,8 @@ import static nl.b3p.brmo.soap.db.BrkInfo.getDbType;
 public class NatuurlijkPersoonResponse {
 
     private String identificatie;
-    private Date geboortedatum;
-    private Date overlijdensdatum;
+    private Integer geboortedatum;
+    private Integer overlijdensdatum;
     private String bsn;
     private String geboorteplaats;
     private String locatieBeschrijving;
@@ -49,28 +49,28 @@ public class NatuurlijkPersoonResponse {
     /**
      * @return the geboortedatum
      */
-    public Date getGeboortedatum() {
+    public Integer getGeboortedatum() {
         return geboortedatum;
     }
 
     /**
      * @param geboortedatum the geboortedatum to set
      */
-    public void setGeboortedatum(Date geboortedatum) {
+    public void setGeboortedatum(Integer geboortedatum) {
         this.geboortedatum = geboortedatum;
     }
 
     /**
      * @return the overlijdensdatum
      */
-    public Date getOverlijdensdatum() {
+    public Integer getOverlijdensdatum() {
         return overlijdensdatum;
     }
 
     /**
      * @param overlijdensdatum the overlijdensdatum to set
      */
-    public void setOverlijdensdatum(Date overlijdensdatum) {
+    public void setOverlijdensdatum(Integer overlijdensdatum) {
         this.overlijdensdatum = overlijdensdatum;
     }
 
@@ -198,7 +198,7 @@ public class NatuurlijkPersoonResponse {
         sql.append("    ingeschr_nat_prs.gb_geboortedatum,");
         sql.append("    ingeschr_nat_prs.bsn,");
         sql.append("    ingeschr_nat_prs.gb_geboorteplaats,");
-        sql.append("    ingeschr_nat_prs.va_loc_beschrijving,");
+        sql.append("    ingeschr_nat_prs.va_loc_beschrijving ");
         return sql;
     }
 
@@ -249,12 +249,12 @@ public class NatuurlijkPersoonResponse {
             if (gi!=null && gi) {
                 np.setBsn(rs.getString("bsn"));
             }
-            np.setGeboortedatum(rs.getDate("gb_geboortedatum"));
+            np.setGeboortedatum(rs.getInt("gb_geboortedatum"));
             np.setGeboorteplaats(rs.getString("gb_geboorteplaats"));
             np.setGeslachtsaanduiding(rs.getString("geslachtsaand"));
             np.setGeslachtsnaam(rs.getString("nm_geslachtsnaam"));
             np.setLocatieBeschrijving(rs.getString("va_loc_beschrijving"));
-            np.setOverlijdensdatum(rs.getDate("overlijdensdatum"));
+            np.setOverlijdensdatum(rs.getInt("overlijdensdatum"));
             np.setVoornamen(rs.getString("nm_voornamen"));
             np.setVoorvoegsel(rs.getString("nm_voorvoegsel_geslachtsnaam"));
             rs.close();

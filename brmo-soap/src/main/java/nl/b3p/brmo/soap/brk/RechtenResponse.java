@@ -39,7 +39,7 @@ public class RechtenResponse {
         sql.append("    zak_recht.ar_noemer,");
         sql.append("    zak_recht.ar_teller,");
         sql.append("    zak_recht.fk_3avr_aand,");
-        sql.append("    zak_recht.fk_8pes_sc_identif");
+        sql.append("    zak_recht.fk_8pes_sc_identif ");
         return sql;
     }
 
