@@ -30,7 +30,7 @@ public class KadOnrndZkInfoResponse {
     private Date datumEindeGeldigheid;
     private Float bedrag;
     private Integer koopjaar;
-    private boolean meerOnroerendgoed = false;
+    private Boolean meerOnroerendgoed;
     private String type; // appartement of perceel
     private AdressenResponse adressen;
     private RechtenResponse rechten;
@@ -259,14 +259,14 @@ public class KadOnrndZkInfoResponse {
     /**
      * @return the meerOnroerendgoed
      */
-    public boolean isMeerOnroerendgoed() {
+    public Boolean isMeerOnroerendgoed() {
         return meerOnroerendgoed;
     }
 
     /**
      * @param meerOnroerendgoed the meerOnroerendgoed to set
      */
-    public void setMeerOnroerendgoed(boolean meerOnroerendgoed) {
+    public void setMeerOnroerendgoed(Boolean meerOnroerendgoed) {
         this.meerOnroerendgoed = meerOnroerendgoed;
     }
 
@@ -325,7 +325,7 @@ public class KadOnrndZkInfoResponse {
     public void setRelaties(RelatiesResponse relaties) {
         this.relaties = relaties;
     }
-    
+
     private static StringBuilder createFullColumnsSQL() {
         StringBuilder sql = new StringBuilder();
         sql.append("    app_re.ka_sectie AS app_re_sectie,");
@@ -363,77 +363,89 @@ public class KadOnrndZkInfoResponse {
         sql.append("ON ");
         sql.append("    ( ");
         sql.append("        kad_onrrnd_zk.kad_identif = app_re.sc_kad_identif) ");
-       return sql;
+        return sql;
     }
+
     private static StringBuilder createWhereSQL() {
         StringBuilder sql = new StringBuilder();
         sql.append("    kad_onrrnd_zk.kad_identif = ? ");
         return sql;
     }
-       
-    public static KadOnrndZkInfoResponse getRecord(Long id, 
+
+    public static KadOnrndZkInfoResponse getRecord(Long id,
             Map<String, Object> searchContext) throws Exception {
-        
+
         DataSource ds = BrkInfo.getDataSourceRsgb();
-        Connection connRsgb = ds.getConnection();
+        PreparedStatement stm = null;
+        Connection connRsgb = null;
+        ResultSet rs = null;
+        try {
+            connRsgb = ds.getConnection();
+            StringBuilder sql = new StringBuilder();
+            sql.append("SELECT ");
+            sql.append(createFullColumnsSQL());
+            sql.append("FROM ");
+            sql.append(createFromSQL());
+            sql.append("WHERE ");
+            sql.append(createWhereSQL());
 
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT ");
-        sql.append(createFullColumnsSQL());
-        sql.append("FROM ");
-        sql.append(createFromSQL());
-        sql.append("WHERE ");
-        sql.append(createWhereSQL());
+            stm = connRsgb.prepareStatement(sql.toString());
+            stm.setLong(1, id);
+            rs = stm.executeQuery();
 
-        PreparedStatement stm = connRsgb.prepareStatement(sql.toString());
-        stm.setLong(1, id);
-        ResultSet rs = stm.executeQuery();
+            KadOnrndZkInfoResponse koz = new KadOnrndZkInfoResponse();
+            if (rs.next()) {
+                koz.setIdentificatie(Long.toString(rs.getLong("kad_identif")));
+                koz.setAandSoortGrootte(rs.getString("aand_soort_grootte"));
+                koz.setAardCultuurOnbebouwd(rs.getString("cu_aard_cultuur_onbebouwd"));
+                koz.setBedrag(rs.getFloat("lr_bedrag"));
+                koz.setDatumBeginGeldigheid(rs.getDate("dat_beg_geldh"));
+                koz.setDatumEindeGeldigheid(rs.getDate("datum_einde_geldh"));
+                koz.setKoopjaar(rs.getInt("ks_koopjaar"));
+                koz.setMeerOnroerendgoed(rs.getBoolean("ks_meer_onroerendgoed"));
 
-        KadOnrndZkInfoResponse koz = new KadOnrndZkInfoResponse();
-        if (rs.next()) {
-            koz.setIdentificatie(Long.toString(rs.getLong("kad_identif")));
-            koz.setAandSoortGrootte(rs.getString("aand_soort_grootte"));
-            koz.setAardCultuurOnbebouwd(rs.getString("cu_aard_cultuur_onbebouwd"));
-            koz.setBedrag(rs.getFloat("lr_bedrag"));
-            koz.setDatumBeginGeldigheid(rs.getDate("dat_beg_geldh"));
-            koz.setDatumEindeGeldigheid(rs.getDate("datum_einde_geldh"));
-            koz.setKoopjaar(rs.getInt("ks_koopjaar"));
-            koz.setMeerOnroerendgoed(rs.getBoolean("ks_meer_onroerendgoed"));
-             
-            String type = "perceel";
-            if (rs.getString("ka_appartementsindex") != null) {
-                type = "appartement";
-            }
-            koz.setType(type);
-            if (type.equalsIgnoreCase("appartement")) {
-                koz.setGemeentecode(rs.getString("app_re_kad_gemeentecode"));
-                koz.setPerceelnummer(rs.getString("app_re_perceelnummer"));
-                koz.setSectie(rs.getString("app_re_sectie"));
-                koz.setAppReVolgnummer(rs.getString("ka_appartementsindex"));
-            } else {
-                koz.setGemeentecode(rs.getString("ka_kad_gemeentecode"));
-                koz.setPerceelnummer(rs.getString("ka_perceelnummer"));
-                koz.setSectie(rs.getString("ka_sectie"));
+                String type = "perceel";
+                if (rs.getString("ka_appartementsindex") != null) {
+                    type = "appartement";
+                }
+                koz.setType(type);
+                if (type.equalsIgnoreCase("appartement")) {
+                    koz.setGemeentecode(rs.getString("app_re_kad_gemeentecode"));
+                    koz.setPerceelnummer(rs.getString("app_re_perceelnummer"));
+                    koz.setSectie(rs.getString("app_re_sectie"));
+                    koz.setAppReVolgnummer(rs.getString("ka_appartementsindex"));
+                } else {
+                    koz.setGemeentecode(rs.getString("ka_kad_gemeentecode"));
+                    koz.setPerceelnummer(rs.getString("ka_perceelnummer"));
+                    koz.setSectie(rs.getString("ka_sectie"));
 //                koz.setBegrenzingPerceel(rs.getString("begrenzing_perceel"));
-                koz.setGroottePerceel(rs.getFloat("grootte_perceel"));
-                koz.setOmschr_deelperceel(rs.getString("omschr_deelperceel"));
-            }
-            
-            koz.setRechten(RechtenResponse.getRechtenByKoz(id, searchContext));
-            Boolean at = (Boolean) searchContext.get(BrkInfo.ADRESSENTOEVOEGEN);
-            if (at != null && at) {
-                koz.setAdressen(AdressenResponse.getAdressenByKoz(id, searchContext));
-            }
+                    koz.setGroottePerceel(rs.getFloat("grootte_perceel"));
+                    koz.setOmschr_deelperceel(rs.getString("omschr_deelperceel"));
+                }
+
+                koz.setRechten(RechtenResponse.getRechtenByKoz(id, searchContext));
+                Boolean at = (Boolean) searchContext.get(BrkInfo.ADRESSENTOEVOEGEN);
+                if (at != null && at) {
+                    koz.setAdressen(AdressenResponse.getAdressenByKoz(id, searchContext));
+                }
 //            koz.setRelaties(null);
-            
-            rs.close();
-        } else {
-            return null;
+
+            } else {
+                return null;
+            }
+            return koz;
+
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (connRsgb != null) {
+                connRsgb.close();
+            }
         }
-
-        return koz;
-
-        
-     }
+    }
 
 }

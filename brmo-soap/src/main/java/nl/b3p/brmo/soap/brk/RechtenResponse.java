@@ -32,7 +32,7 @@ public class RechtenResponse {
     public void setZakelijkRecht(List<ZakelijkRechtResponse> zakelijkRecht) {
         this.zakelijkRecht = zakelijkRecht;
     }
-    
+
     private static StringBuilder createFullColumnsSQL() {
         StringBuilder sql = new StringBuilder();
         sql.append("    zak_recht.indic_betrokken_in_splitsing,");
@@ -48,68 +48,81 @@ public class RechtenResponse {
         sql.append("    zak_recht ");
         return sql;
     }
-    
-     private static StringBuilder createWhereSQL() {
+
+    private static StringBuilder createWhereSQL() {
         StringBuilder sql = new StringBuilder();
         sql.append("    zak_recht.fk_7koz_kad_identif = ? ");
         return sql;
-     }
-   
-    public static RechtenResponse getRechtenByKoz(Long kozId, 
-            Map<String, Object> searchContext) throws Exception {
-        
-        DataSource ds = BrkInfo.getDataSourceRsgb();
-        Connection connRsgb = ds.getConnection();
-
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT ");
-        sql.append(createFullColumnsSQL());
-        sql.append("FROM ");
-        sql.append(createFromSQL());
-        sql.append("WHERE ");
-        sql.append(createWhereSQL());
-
-        PreparedStatement stm = connRsgb.prepareStatement(sql.toString());
-        stm.setObject(1, kozId);
-        ResultSet rs = stm.executeQuery();
-
-        RechtenResponse rr = null;
-        List<ZakelijkRechtResponse> zrl = null;
-        ZakelijkRechtResponse zkRecht = null;
-        while (rs.next()) {
-            if (rr==null) {
-                rr = new RechtenResponse();
-                zrl = new ArrayList<ZakelijkRechtResponse>();
-                rr.setZakelijkRecht(zrl);
-            }
-            zkRecht = new ZakelijkRechtResponse();
-            
-            zkRecht.setAardVerkregenRecht(rs.getString("fk_3avr_aand"));
-            zkRecht.setIndicatieBetrokkenInSplitsing(
-                    rs.getString("indic_betrokken_in_splitsing")
-                            .equalsIgnoreCase("nee")?false:true);
-            zkRecht.setNoemer(rs.getInt("ar_noemer"));
-            zkRecht.setTeller(rs.getInt("ar_teller"));
-            
-            Boolean st = (Boolean) searchContext.get(BrkInfo.SUBJECTSTOEVOEGEN);
-            if (st != null && st) {
-                String pid = rs.getString("fk_8pes_sc_identif");
-                NatuurlijkPersoonResponse np
-                        = NatuurlijkPersoonResponse.getRecordById(pid, searchContext);
-                zkRecht.setNatuurlijkPersoon(np);
-                if (np == null) {
-                    NietNatuurlijkPersoonResponse nnp
-                            = NietNatuurlijkPersoonResponse.getRecordById(pid, searchContext);
-                    zkRecht.setNietNatuurlijkPersoon(nnp);
-                }
-            }
-            zrl.add(zkRecht);
-
-        }
-        rs.close();
-       
-        return rr;
     }
 
+    public static RechtenResponse getRechtenByKoz(Long kozId,
+            Map<String, Object> searchContext) throws Exception {
+
+        DataSource ds = BrkInfo.getDataSourceRsgb();
+        PreparedStatement stm = null;
+        Connection connRsgb = null;
+        ResultSet rs = null;
+        try {
+            connRsgb = ds.getConnection();
+
+            StringBuilder sql = new StringBuilder();
+            sql.append("SELECT ");
+            sql.append(createFullColumnsSQL());
+            sql.append("FROM ");
+            sql.append(createFromSQL());
+            sql.append("WHERE ");
+            sql.append(createWhereSQL());
+
+            stm = connRsgb.prepareStatement(sql.toString());
+            stm.setObject(1, kozId);
+            rs = stm.executeQuery();
+
+            RechtenResponse rr = null;
+            List<ZakelijkRechtResponse> zrl = null;
+            ZakelijkRechtResponse zkRecht = null;
+            while (rs.next()) {
+                if (rr == null) {
+                    rr = new RechtenResponse();
+                    zrl = new ArrayList<ZakelijkRechtResponse>();
+                    rr.setZakelijkRecht(zrl);
+                }
+                zkRecht = new ZakelijkRechtResponse();
+
+                zkRecht.setAardVerkregenRecht(rs.getString("fk_3avr_aand"));
+                zkRecht.setIndicatieBetrokkenInSplitsing(
+                        rs.getString("indic_betrokken_in_splitsing")
+                        .equalsIgnoreCase("nee") ? false : true);
+                zkRecht.setNoemer(rs.getInt("ar_noemer"));
+                zkRecht.setTeller(rs.getInt("ar_teller"));
+
+                Boolean st = (Boolean) searchContext.get(BrkInfo.SUBJECTSTOEVOEGEN);
+                if (st != null && st) {
+                    String pid = rs.getString("fk_8pes_sc_identif");
+                    NatuurlijkPersoonResponse np
+                            = NatuurlijkPersoonResponse.getRecordById(pid, searchContext);
+                    zkRecht.setNatuurlijkPersoon(np);
+                    if (np == null) {
+                        NietNatuurlijkPersoonResponse nnp
+                                = NietNatuurlijkPersoonResponse.getRecordById(pid, searchContext);
+                        zkRecht.setNietNatuurlijkPersoon(nnp);
+                    }
+                }
+                zrl.add(zkRecht);
+
+            }
+
+            return rr;
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (connRsgb != null) {
+                connRsgb.close();
+            }
+        }
+    }
 
 }

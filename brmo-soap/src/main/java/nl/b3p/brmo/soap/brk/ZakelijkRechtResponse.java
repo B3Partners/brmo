@@ -10,9 +10,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType
 public class ZakelijkRechtResponse {
     
-    private int noemer;
-    private int teller;
-    private boolean indicatieBetrokkenInSplitsing;
+    private Integer noemer;
+    private Integer teller;
+    private Boolean indicatieBetrokkenInSplitsing;
     private String aardVerkregenRecht;
     
     private NatuurlijkPersoonResponse natuurlijkPersoon;
@@ -22,30 +22,30 @@ public class ZakelijkRechtResponse {
     /**
      * @return the noemer
      */
-    @XmlElement(required = true)
-    public int getNoemer() {
+    @XmlElement
+    public Integer getNoemer() {
         return noemer;
     }
 
     /**
      * @param noemer the noemer to set
      */
-    public void setNoemer(int noemer) {
+    public void setNoemer(Integer noemer) {
         this.noemer = noemer;
     }
 
     /**
      * @return the teller
      */
-    @XmlElement(required = true)
-    public int getTeller() {
+    @XmlElement
+    public Integer getTeller() {
         return teller;
     }
 
     /**
      * @param teller the teller to set
      */
-    public void setTeller(int teller) {
+    public void setTeller(Integer teller) {
         this.teller = teller;
     }
 
@@ -66,7 +66,7 @@ public class ZakelijkRechtResponse {
     /**
      * @return the aardVerkregenRecht
      */
-    @XmlElement(required = true)
+    @XmlElement
     public String getAardVerkregenRecht() {
         return aardVerkregenRecht;
     }

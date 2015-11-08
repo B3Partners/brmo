@@ -1,2 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" path="/brmo-soap"/>
+<Context antiJARLocking="true" path="/brmo-soap">
+    <Resource name="jdbc/brmo/rsgb"
+        auth="Container"
+        type="javax.sql.DataSource"
+        username="rsgb"
+        password="rsgb"
+        driverClassName="org.postgresql.Driver"
+        url="jdbc:postgresql://localhost:5432/rsgb"
+        maxActive="40"
+        validationQuery="select 1"
+        timeBetweenEvictionRunsMillis="30000"
+        minEvictableIdleTimeMillis="5000"
+    />
+    <Resource name="jdbc/brmo/staging"
+        auth="Container"
+        type="javax.sql.DataSource"
+        username="staging"
+        password="staging"
+        driverClassName="org.postgresql.Driver"
+        url="jdbc:postgresql://localhost:5432/staging"
+        maxActive="40"
+        validationQuery="select 1"
+        timeBetweenEvictionRunsMillis="30000"
+        minEvictableIdleTimeMillis="5000"
+    />
+    <Realm allRolesMode="authOnly" className="org.apache.catalina.realm.DataSourceRealm" dataSourceName="jdbc/brmo/staging" digest="SHA-1" roleNameCol="groep_" userCredCol="wachtwoord" userNameCol="gebruikersnaam" userRoleTable="gebruiker_groepen" userTable="gebruiker_"/>
+</Context>

@@ -24,7 +24,7 @@ public class NietNatuurlijkPersoonResponse {
     /**
      * @return the identificatie
      */
-    @XmlElement(required = true)
+    @XmlElement
     public String getIdentificatie() {
         return identificatie;
     }
@@ -77,7 +77,7 @@ public class NietNatuurlijkPersoonResponse {
     public void setNaam(String naam) {
         this.naam = naam;
     }
-    
+
     private static StringBuilder createFullColumnsSQL() {
         StringBuilder sql = new StringBuilder();
         sql.append("    niet_nat_prs.naam,");
@@ -96,42 +96,57 @@ public class NietNatuurlijkPersoonResponse {
         sql.append("        niet_nat_prs.sc_identif = ingeschr_niet_nat_prs.sc_identif) ");
         return sql;
     }
-    
-     private static StringBuilder createWhereSQL() {
+
+    private static StringBuilder createWhereSQL() {
         StringBuilder sql = new StringBuilder();
         sql.append("    niet_nat_prs.sc_identif = ? ");
         return sql;
-     }
-   
-    public static NietNatuurlijkPersoonResponse getRecordById(String id, 
+    }
+
+    public static NietNatuurlijkPersoonResponse getRecordById(String id,
             Map<String, Object> searchContext) throws Exception {
-        
+
         DataSource ds = BrkInfo.getDataSourceRsgb();
-        Connection connRsgb = ds.getConnection();
+        PreparedStatement stm = null;
+        Connection connRsgb = null;
+        ResultSet rs = null;
+        try {
+            connRsgb = ds.getConnection();
 
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT ");
-        sql.append(createFullColumnsSQL());
-        sql.append("FROM ");
-        sql.append(createFromSQL());
-        sql.append("WHERE ");
-        sql.append(createWhereSQL());
+            StringBuilder sql = new StringBuilder();
+            sql.append("SELECT ");
+            sql.append(createFullColumnsSQL());
+            sql.append("FROM ");
+            sql.append(createFromSQL());
+            sql.append("WHERE ");
+            sql.append(createWhereSQL());
 
-        PreparedStatement stm = connRsgb.prepareStatement(sql.toString());
-        stm.setString(1, id);
-        ResultSet rs = stm.executeQuery();
+            stm = connRsgb.prepareStatement(sql.toString());
+            stm.setString(1, id);
+            rs = stm.executeQuery();
 
-        NietNatuurlijkPersoonResponse nnp = new NietNatuurlijkPersoonResponse();
-        if (rs.next()) {
-            nnp.setNaam(rs.getString("naam"));
-            nnp.setRechtsvorm(rs.getString("rechtsvorm"));
-            nnp.setStatutaireZetel(rs.getString("statutaire_zetel"));
-            rs.close();
-        } else {
-            return null;
+            NietNatuurlijkPersoonResponse nnp = new NietNatuurlijkPersoonResponse();
+            if (rs.next()) {
+                nnp.setNaam(rs.getString("naam"));
+                nnp.setRechtsvorm(rs.getString("rechtsvorm"));
+                nnp.setStatutaireZetel(rs.getString("statutaire_zetel"));
+
+            } else {
+                return null;
+            }
+
+            return nnp;
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (connRsgb != null) {
+                connRsgb.close();
+            }
         }
-       
-        return nnp;
     }
 
 }

@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class BrkInfoResponse {
     
-    private boolean bevatGevoeligeInfo = true;
+    private Boolean bevatGevoeligeInfo;
     private Date timestamp;
 
     private List<KadOnrndZkInfoResponse> kadOnrndZk = null;
@@ -25,14 +25,14 @@ public class BrkInfoResponse {
      * @return the bevatGevoeligeInfo
      */
     @XmlAttribute
-    public boolean isBevatGevoeligeInfo() {
+    public Boolean isBevatGevoeligeInfo() {
         return bevatGevoeligeInfo;
     }
 
     /**
      * @param bevatGevoeligeInfo the bevatGevoeligeInfo to set
      */
-    public void setBevatGevoeligeInfo(boolean bevatGevoeligeInfo) {
+    public void setBevatGevoeligeInfo(Boolean bevatGevoeligeInfo) {
         this.bevatGevoeligeInfo = bevatGevoeligeInfo;
     }
 

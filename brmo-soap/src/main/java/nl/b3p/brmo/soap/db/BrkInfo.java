@@ -60,26 +60,42 @@ public class BrkInfo {
 
     public static final Integer DBMAXRESULTS = 1000;
 
+    private static DataSource ds = null;
+
     public static ArrayList<Long> findKozIDs(Map<String, Object> searchContext) throws Exception {
 
         DataSource ds = getDataSourceRsgb();
-        Connection connRsgb = ds.getConnection();
-        String dbType = getDbType(connRsgb);
+        PreparedStatement stm = null;
+        Connection connRsgb = null;
+        ResultSet rs = null;
+        try {
+            connRsgb = ds.getConnection();
+            String dbType = getDbType(connRsgb);
 
-        StringBuilder sql = createSelectSQL(searchContext, dbType);
+            StringBuilder sql = createSelectSQL(searchContext, dbType);
 
-        PreparedStatement stm = connRsgb.prepareStatement(sql.toString());
-        stm = addParamsSQL(stm, searchContext, dbType);
-        ResultSet rs = stm.executeQuery();
+            stm = connRsgb.prepareStatement(sql.toString());
+            stm = addParamsSQL(stm, searchContext, dbType);
+            rs = stm.executeQuery();
 
-        ArrayList<Long> ids = new ArrayList<Long>();
-        while (rs.next()) {
-            Long id = rs.getLong("identificatie");
-            ids.add(id);
+            ArrayList<Long> ids = new ArrayList<Long>();
+            while (rs.next()) {
+                Long id = rs.getLong("identificatie");
+                ids.add(id);
+            }
+
+            return ids;
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (connRsgb != null) {
+                connRsgb.close();
+            }
         }
-        rs.close();
-
-        return ids;
     }
 
     private static StringBuilder createSelectSQL(
@@ -279,73 +295,74 @@ public class BrkInfo {
         }
         return first;
     }
-    
+
     private static boolean addGeoTerm(boolean first, StringBuilder sql,
             Map<String, Object> searchContext, String dbType) throws ParseException {
 
         String zg = (String) searchContext.get(ZOEKGEBIED);
+        if (zg == null) {
+            return first;
+        }
         WKTReader r = new WKTReader();
         //test om injectie te voorkomen, exception indien niet geldig
         Geometry g = r.read(zg);
         Integer bl = (Integer) searchContext.get(BUFFERLENGTE);
-        
-        if (zg != null) {
-            String condition;
-            switch (dbType) {
-                case DB_POSTGRES:
-                    if (bl != null) {
-                        condition = "ST_Intersects(kad_perceel.begrenzing_perceel, "
-                                + "ST_Buffer(ST_GeomFromEWKT('SRID=28992;"
-                                + zg
-                                + "'), "
-                                + bl
-                                + ") ) ";
-                    } else {
-                        condition = "ST_Intersects(kad_perceel.begrenzing_perceel, "
-                                + "ST_GeomFromEWKT('SRID=28992;"
-                                + zg
-                                + "') ) ";
-                    }
+
+        String condition;
+        switch (dbType) {
+            case DB_POSTGRES:
+                if (bl != null) {
+                    condition = "ST_Intersects(kad_perceel.begrenzing_perceel, "
+                            + "ST_Buffer(ST_GeomFromEWKT('SRID=28992;"
+                            + zg
+                            + "'), "
+                            + bl
+                            + ") ) ";
+                } else {
+                    condition = "ST_Intersects(kad_perceel.begrenzing_perceel, "
+                            + "ST_GeomFromEWKT('SRID=28992;"
+                            + zg
+                            + "') ) ";
+                }
+                break;
+            case DB_ORACLE:
+                if (bl != null) {
+                    condition = "SDO_GEOM.RELATE(kad_perceel.begrenzing_perceel, 'ANYINTERACT', "
+                            + "SDO_GEOM.SDO_BUFFER(SDO_GEOMETRY(SDO_UTIL.TO_WKTGEOMETRY("
+                            + zg
+                            + "), 28992), 2, "
+                            + bl
+                            + "), 0.005 ) ";
+                } else {
+                    condition = "SDO_GEOM.RELATE(kad_perceel.begrenzing_perceel, 'ANYINTERACT', "
+                            + "SDO_GEOMETRY(SDO_UTIL.TO_WKTGEOMETRY("
+                            + zg
+                            + "), 28992), 0.005 ) ";
+                }
+                break;
+            case DB_MSSQL:
+                if (bl != null) {
+                    condition = "kad_perceel.begrenzing_perceel.STIntersects( "
+                            + "STGeomFromText("
+                            + zg
+                            + ",28992).STBuffer("
+                            + bl
+                            + ") ) ";
+                } else {
+                    condition = "kad_perceel.begrenzing_perceel.STIntersects( "
+                            + "STGeomFromText("
+                            + zg
+                            + ",28992) ) ";
                     break;
-                case DB_ORACLE:
-                    if (bl != null) {
-                        condition = "SDO_GEOM.RELATE(kad_perceel.begrenzing_perceel, 'ANYINTERACT', "
-                                + "SDO_GEOM.SDO_BUFFER(SDO_GEOMETRY(SDO_UTIL.TO_WKTGEOMETRY("
-                                + zg
-                                + "), 28992), 2, "
-                                + bl
-                                + "), 0.005 ) ";
-                    } else {
-                        condition = "SDO_GEOM.RELATE(kad_perceel.begrenzing_perceel, 'ANYINTERACT', "
-                                + "SDO_GEOMETRY(SDO_UTIL.TO_WKTGEOMETRY("
-                                + zg
-                                + "), 28992), 0.005 ) ";
-                    }
-                    break;
-                case DB_MSSQL:
-                    if (bl != null) {
-                        condition = "kad_perceel.begrenzing_perceel.STIntersects( "
-                                + "STGeomFromText("
-                                + zg
-                                + ",28992).STBuffer("
-                                + bl
-                                + ") ) ";
-                    } else {
-                        condition = "kad_perceel.begrenzing_perceel.STIntersects( "
-                                + "STGeomFromText("
-                                + zg
-                                + ",28992) ) ";
-                        break;
-                    }
-                default:
-                    throw new UnsupportedOperationException("Unknown database!");
-            }
-            if (!first) {
-                sql.append("AND ");
-            }
-            sql.append(condition);
-            first = false;
+                }
+            default:
+                throw new UnsupportedOperationException("Unknown database!");
         }
+        if (!first) {
+            sql.append("AND ");
+        }
+        sql.append(condition);
+        first = false;
         return first;
     }
 
@@ -385,7 +402,9 @@ public class BrkInfo {
     }
 
     public static DataSource getDataSourceRsgb() throws Exception {
-        DataSource ds = null;
+        if (ds != null) {
+            return ds;
+        }
         try {
             InitialContext ic = new InitialContext();
             Context xmlContext = (Context) ic.lookup(JNDI_NAME);
@@ -476,10 +495,10 @@ public class BrkInfo {
         return searchContext;
     }
 
-    public static BrkInfoResponse createResponse(List<Long> ids, 
+    public static BrkInfoResponse createResponse(List<Long> ids,
             Map<String, Object> searchContext) throws Exception {
         BrkInfoResponse result = new BrkInfoResponse();
-        
+
         Boolean at = (Boolean) searchContext.get(BrkInfo.SUBJECTSTOEVOEGEN);
         if (at != null && at) {
             at = (Boolean) searchContext.get(BrkInfo.GEVOELIGEINFOOPHALEN);
@@ -490,7 +509,7 @@ public class BrkInfo {
         result.setTimestamp(new Date());
 
         for (Long id : ids) {
-            KadOnrndZkInfoResponse koz 
+            KadOnrndZkInfoResponse koz
                     = KadOnrndZkInfoResponse.getRecord(id, searchContext);
             result.addKadOnrndZk(koz);
         }

@@ -32,7 +32,7 @@ public class AdressenResponse {
     public void setBAGAdres(List<AdresResponse> BAGAdres) {
         this.BAGAdres = BAGAdres;
     }
-    
+
     private static StringBuilder createFullColumnsSQL() {
         StringBuilder sql = new StringBuilder();
         sql.append("    addresseerb_obj_aand.huinummer,");
@@ -74,55 +74,68 @@ public class AdressenResponse {
         sql.append("        openb_rmte_wnplts.fk_nn_rh_wpl_identif = wnplts.identif) ");
         return sql;
     }
-    
-     private static StringBuilder createWhereSQL() {
+
+    private static StringBuilder createWhereSQL() {
         StringBuilder sql = new StringBuilder();
         sql.append("    benoemd_obj_kad_onrrnd_zk.fk_nn_rh_koz_kad_identif = ? ");
         return sql;
-     }
-   
-    public static AdressenResponse getAdressenByKoz(Long kozId, 
-            Map<String, Object> searchContext) throws Exception {
-        
-        DataSource ds = BrkInfo.getDataSourceRsgb();
-        Connection connRsgb = ds.getConnection();
-
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT ");
-        sql.append(createFullColumnsSQL());
-        sql.append("FROM ");
-        sql.append(createFromSQL());
-        sql.append("WHERE ");
-        sql.append(createWhereSQL());
-
-        PreparedStatement stm = connRsgb.prepareStatement(sql.toString());
-        stm.setObject(1, kozId);
-        ResultSet rs = stm.executeQuery();
-
-        AdressenResponse ar = null;
-        List<AdresResponse> arl = null;
-        AdresResponse bagAdres = null;
-        while (rs.next()) {
-            if (ar==null) {
-                ar = new AdressenResponse();
-                arl = new ArrayList<AdresResponse>();
-                ar.setBAGAdres(arl);
-            }
-            bagAdres = new AdresResponse();
-            
-            bagAdres.setWoonplaatsNaam(rs.getString("naam"));
-            bagAdres.setHuisLetter(rs.getString("huisletter"));
-            bagAdres.setHuisLetterToevoeging(rs.getString("huinummertoevoeging"));
-            bagAdres.setHuisnummer(rs.getInt("huinummer"));
-            bagAdres.setPostcode(rs.getString("postcode"));
-            bagAdres.setStraatNaam(rs.getString("naam_openb_rmte"));
-            
-            arl.add(bagAdres);
-
-        }
-        rs.close();
-       
-        return ar;
     }
+
+    public static AdressenResponse getAdressenByKoz(Long kozId,
+            Map<String, Object> searchContext) throws Exception {
+
+        DataSource ds = BrkInfo.getDataSourceRsgb();
+        PreparedStatement stm = null;
+        Connection connRsgb = null;
+        ResultSet rs = null;
+        try {
+            connRsgb = ds.getConnection();
+
+            StringBuilder sql = new StringBuilder();
+            sql.append("SELECT ");
+            sql.append(createFullColumnsSQL());
+            sql.append("FROM ");
+            sql.append(createFromSQL());
+            sql.append("WHERE ");
+            sql.append(createWhereSQL());
+
+            stm = connRsgb.prepareStatement(sql.toString());
+            stm.setObject(1, kozId);
+            rs = stm.executeQuery();
+
+            AdressenResponse ar = null;
+            List<AdresResponse> arl = null;
+            AdresResponse bagAdres = null;
+            while (rs.next()) {
+                if (ar == null) {
+                    ar = new AdressenResponse();
+                    arl = new ArrayList<AdresResponse>();
+                    ar.setBAGAdres(arl);
+                }
+                bagAdres = new AdresResponse();
+
+                bagAdres.setWoonplaatsNaam(rs.getString("naam"));
+                bagAdres.setHuisLetter(rs.getString("huisletter"));
+                bagAdres.setHuisLetterToevoeging(rs.getString("huinummertoevoeging"));
+                bagAdres.setHuisnummer(rs.getInt("huinummer"));
+                bagAdres.setPostcode(rs.getString("postcode"));
+                bagAdres.setStraatNaam(rs.getString("naam_openb_rmte"));
+
+                arl.add(bagAdres);
+            }
+ 
+            return ar;
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (connRsgb != null) {
+                connRsgb.close();
+            }
+        }
+   }
 
 }

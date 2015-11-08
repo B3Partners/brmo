@@ -3,14 +3,11 @@ package nl.b3p.brmo.soap.brk;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.Map;
 import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import nl.b3p.brmo.soap.db.BrkInfo;
-import static nl.b3p.brmo.soap.db.BrkInfo.getDbType;
 
 /**
  *
@@ -34,7 +31,7 @@ public class NatuurlijkPersoonResponse {
     /**
      * @return the identificatie
      */
-    @XmlElement(required = true)
+    @XmlElement
     public String getIdentificatie() {
         return identificatie;
     }
@@ -186,7 +183,6 @@ public class NatuurlijkPersoonResponse {
         this.voorvoegsel = voorvoegsel;
     }
 
-   
     private static StringBuilder createFullColumnsSQL() {
         StringBuilder sql = new StringBuilder();
         sql.append("    nat_prs.geslachtsaand,");
@@ -217,51 +213,65 @@ public class NatuurlijkPersoonResponse {
         sql.append("        nat_prs.sc_identif = ingeschr_nat_prs.sc_identif) ");
         return sql;
     }
-    
-     private static StringBuilder createWhereSQL() {
+
+    private static StringBuilder createWhereSQL() {
         StringBuilder sql = new StringBuilder();
         sql.append("    nat_prs.sc_identif = ? ");
         return sql;
-     }
-   
-    public static NatuurlijkPersoonResponse getRecordById(String id, 
+    }
+
+    public static NatuurlijkPersoonResponse getRecordById(String id,
             Map<String, Object> searchContext) throws Exception {
-        
+
         DataSource ds = BrkInfo.getDataSourceRsgb();
-        Connection connRsgb = ds.getConnection();
+        PreparedStatement stm = null;
+        Connection connRsgb = null;
+        ResultSet rs = null;
+        try {
+            connRsgb = ds.getConnection();
 
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT ");
-        sql.append(createFullColumnsSQL());
-        sql.append("FROM ");
-        sql.append(createFromSQL());
-        sql.append("WHERE ");
-        sql.append(createWhereSQL());
+            StringBuilder sql = new StringBuilder();
+            sql.append("SELECT ");
+            sql.append(createFullColumnsSQL());
+            sql.append("FROM ");
+            sql.append(createFromSQL());
+            sql.append("WHERE ");
+            sql.append(createWhereSQL());
 
-        PreparedStatement stm = connRsgb.prepareStatement(sql.toString());
-        stm.setString(1, id);
-        ResultSet rs = stm.executeQuery();
+            stm = connRsgb.prepareStatement(sql.toString());
+            stm.setString(1, id);
+            rs = stm.executeQuery();
 
-        NatuurlijkPersoonResponse np = new NatuurlijkPersoonResponse();
-        if (rs.next()) {
-            
-            Boolean gi = (Boolean)searchContext.get(BrkInfo.GEVOELIGEINFOOPHALEN);
-            if (gi!=null && gi) {
-                np.setBsn(rs.getString("bsn"));
+            NatuurlijkPersoonResponse np = new NatuurlijkPersoonResponse();
+            if (rs.next()) {
+
+                Boolean gi = (Boolean) searchContext.get(BrkInfo.GEVOELIGEINFOOPHALEN);
+                if (gi != null && gi) {
+                    np.setBsn(rs.getString("bsn"));
+                }
+                np.setGeboortedatum(rs.getInt("gb_geboortedatum"));
+                np.setGeboorteplaats(rs.getString("gb_geboorteplaats"));
+                np.setGeslachtsaanduiding(rs.getString("geslachtsaand"));
+                np.setGeslachtsnaam(rs.getString("nm_geslachtsnaam"));
+                np.setLocatieBeschrijving(rs.getString("va_loc_beschrijving"));
+                np.setOverlijdensdatum(rs.getInt("overlijdensdatum"));
+                np.setVoornamen(rs.getString("nm_voornamen"));
+                np.setVoorvoegsel(rs.getString("nm_voorvoegsel_geslachtsnaam"));
+            } else {
+                return null;
             }
-            np.setGeboortedatum(rs.getInt("gb_geboortedatum"));
-            np.setGeboorteplaats(rs.getString("gb_geboorteplaats"));
-            np.setGeslachtsaanduiding(rs.getString("geslachtsaand"));
-            np.setGeslachtsnaam(rs.getString("nm_geslachtsnaam"));
-            np.setLocatieBeschrijving(rs.getString("va_loc_beschrijving"));
-            np.setOverlijdensdatum(rs.getInt("overlijdensdatum"));
-            np.setVoornamen(rs.getString("nm_voornamen"));
-            np.setVoorvoegsel(rs.getString("nm_voorvoegsel_geslachtsnaam"));
-            rs.close();
-        } else {
-            return null;
+
+            return np;
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (connRsgb != null) {
+                connRsgb.close();
+            }
         }
-       
-        return np;
     }
 }
