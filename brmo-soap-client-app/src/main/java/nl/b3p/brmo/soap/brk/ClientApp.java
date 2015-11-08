@@ -12,24 +12,24 @@ public class ClientApp {
     public static void main(String[] args) {
 
         String endpoint = "";
-        String username = "";
-        String password = "";
+        String username = "admin";
+        String password = "*******";
 
         try {
             GetBrkInfoImpl port = new GetBrkInfoImplService().getGetBrkInfoImplPort();
 
             Map<String, Object> requestContext = ((BindingProvider) port).getRequestContext();
 
-//            String oldEndpoint = (String) requestContext.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
+            String oldEndpoint = (String) requestContext.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
 //            requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpoint);
-//            requestContext.put(BindingProvider.USERNAME_PROPERTY, username);
-//            requestContext.put(BindingProvider.PASSWORD_PROPERTY, password);
+            requestContext.put(BindingProvider.USERNAME_PROPERTY, username);
+            requestContext.put(BindingProvider.PASSWORD_PROPERTY, password);
             BrkInfoRequest req = new BrkInfoRequest();
             req.setGevoeligeInfoOphalen(true);
             req.setSubjectsToevoegen(true);
             req.setAdressenToevoegen(true);
-//            req.setZoekgebied("POINT(177753 576550)");
-            req.setZoekgebied("POINT(172753 571550)");
+            req.setZoekgebied("POINT(177753 576550)");
+//            req.setZoekgebied("POINT(172753 571550)");
             req.setBufferLengte(10);
 
             KadOnrndZkInfoRequest koz = new KadOnrndZkInfoRequest();
