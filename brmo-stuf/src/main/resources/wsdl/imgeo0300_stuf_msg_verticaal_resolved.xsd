@@ -1,0 +1,995 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:StUF="http://www.egem.nl/StUF/StUF0301"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.egem.nl/StUF/StUF0301"
+        elementFormDefault="qualified"
+        attributeFormDefault="unqualified"
+        version="030007">
+   <annotation>
+		    <documentation>
+			Wijzigingen vergeleken met versie 030006:
+			- In simpleType FunctieMTBVerticaal de enumeration waarde MutatieBerichtVerticaal vervangen door mtbVerticaalTerControle en mtbVerticaalTerRegistratie
+		</documentation>
+	  </annotation>
+   <annotation>
+		    <documentation>
+			Wijzigingen vergeleken met imgeo0300_stuf.xsd versie 030006:
+			-  simpleTypes BerichtcodeDi01, BerichtcodeDU01, BerichtcodeLk01, MutatiesoortT en MutatiesoortV verwijderd, omdat deze inmiddels zijn gedefinieerd binnen StUF0301
+			- simpleTypes EntiteittypeBRT, EntiteittypeKWD, EntiteittypeOPR, EntiteittypePND, EntiteittypeWGD, EntiteittypeWYK verwijderd, omdat deze inmiddels zijn gedefinieerd binnen het sectormodel bg0310.
+	</documentation>
+	  </annotation>
+   <annotation>
+		    <documentation xml:lang="nl">
+               Dit schema  correspondeert met StUF 03.01 (In gebruik) per 1 juli 2011
+               Wijzigingen vergeleken met versie 030107:
+               - ERR0184: Het attribute functie en het simpleType FunctieVrijBerichtElement toegevoegd.
+			   Wijzigingen t.b.v. patch 16 (1-7-2013) vergeleken met versie stuf0301.xsd v031008:
+			   - ERR240: 'aantalVoorkomens' en 'aardAantal' zijn als attributen deprecated.
+               - ERR267: Voor elk type bericht een simpleType toegevoegd in de vorm 'BerichtcodeXxnn' waarbij 'Xxnn' staat voor het betreffende bericht, bijv. 'BerichtcodeLk02'.
+							   Voor elke mutatiesoort een simpleType toegevoegd in de vorm 'MutatiesoortX' waarbij 'X' staat voor de betreffende mutatiesoort, bijv. 'MutatiesoortF'.
+         </documentation>
+	  </annotation>
+   <annotation>
+		    <documentation>
+			Nieuw bestand in verband met nieuwe werkwijze maken sectormodellen
+			Het schema met restrictions op de in StUF gedefinieerde simpleTypes en complexTypes gebruikt in de definitie van de basisentiteiten in bg0310.
+			Wijzigingen t.b.v. patch 16 (1-7-2013) vergeleken met versie bg0310_stuf_simpleTypes.xsd v031000:
+            - ERR267: Voor elke entiteit een simpleType toegevoegd in de vorm 'EntiteittypeXXX' waarbij 'XXX' staat voor de mnemonic van de betreffende entiteit, bijv. 'EntiteittypeAOA'.
+		</documentation>
+	  </annotation>
+   <simpleType name="FunctieMTBVerticaal">
+		    <restriction base="StUF:Functie">
+			      <enumeration value="mtbVerticaalTerControle"/>
+			      <enumeration value="mtbVerticaalTerRegistratie"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="FunctieMTS">
+		    <restriction base="StUF:Functie">
+			      <enumeration value="mutatiesignalering"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="FunctieMTO">
+		    <restriction base="StUF:Functie">
+			      <enumeration value="mutatieoproep"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="FunctieOPV">
+		    <restriction base="StUF:Functie">
+			      <enumeration value="ophaalverzoek"/>
+		    </restriction>
+	  </simpleType>
+   <complexType name="MTBVerticaal-StuurgegevensDi01">
+		
+			   <sequence>
+					    <element name="berichtcode" type="StUF:BerichtcodeDi01"/>
+					    <element name="zender" type="StUF:Systeem"/>
+					    <element name="ontvanger" type="StUF:Systeem"/>
+					    <element name="referentienummer" type="StUF:Refnummer"/>
+					    <element name="tijdstipBericht" type="StUF:Tijdstip"/>
+					    <element name="functie" type="StUF:FunctieMTBVerticaal"/>
+				  </sequence>
+		
+	  </complexType>
+   <complexType name="MTBVerticaal-StuurgegevensDu01">
+		
+			   <sequence>
+					    <element name="berichtcode" type="StUF:BerichtcodeDu01"/>
+					    <element name="zender" type="StUF:Systeem"/>
+					    <element name="ontvanger" type="StUF:Systeem"/>
+					    <element name="referentienummer" type="StUF:Refnummer"/>
+					    <element name="tijdstipBericht" type="StUF:Tijdstip"/>
+					    <element name="crossRefnummer" type="StUF:Refnummer"/>
+					    <element name="functie" type="StUF:FunctieMTBVerticaal"/>
+				  </sequence>
+		
+	  </complexType>
+   <complexType name="MTS-StuurgegevensDi01">
+		
+			   <sequence>
+					    <element name="berichtcode" type="StUF:BerichtcodeDi01"/>
+					    <element name="zender" type="StUF:Systeem"/>
+					    <element name="ontvanger" type="StUF:Systeem"/>
+					    <element name="referentienummer" type="StUF:Refnummer"/>
+					    <element name="tijdstipBericht" type="StUF:Tijdstip"/>
+					    <element name="functie" type="StUF:FunctieMTS"/>
+				  </sequence>
+		
+	  </complexType>
+   <complexType name="MTS-StuurgegevensDu01">
+		
+			   <sequence>
+					    <element name="berichtcode" type="StUF:BerichtcodeDu01"/>
+					    <element name="zender" type="StUF:Systeem"/>
+					    <element name="ontvanger" type="StUF:Systeem"/>
+					    <element name="referentienummer" type="StUF:Refnummer"/>
+					    <element name="tijdstipBericht" type="StUF:Tijdstip"/>
+					    <element name="crossRefnummer" type="StUF:Refnummer"/>
+					    <element name="functie" type="StUF:FunctieMTS"/>
+				  </sequence>
+		
+	  </complexType>
+   <complexType name="MTO-StuurgegevensDi01">
+		
+			   <sequence>
+					    <element name="berichtcode" type="StUF:BerichtcodeDi01"/>
+					    <element name="zender" type="StUF:Systeem"/>
+					    <element name="ontvanger" type="StUF:Systeem"/>
+					    <element name="referentienummer" type="StUF:Refnummer"/>
+					    <element name="tijdstipBericht" type="StUF:Tijdstip"/>
+					    <element name="functie" type="StUF:FunctieMTO"/>
+				  </sequence>
+		
+	  </complexType>
+   <complexType name="MTO-StuurgegevensDu01">
+		
+			   <sequence>
+					    <element name="berichtcode" type="StUF:BerichtcodeDu01"/>
+					    <element name="zender" type="StUF:Systeem"/>
+					    <element name="ontvanger" type="StUF:Systeem"/>
+					    <element name="referentienummer" type="StUF:Refnummer"/>
+					    <element name="tijdstipBericht" type="StUF:Tijdstip"/>
+					    <element name="crossRefnummer" type="StUF:Refnummer"/>
+					    <element name="functie" type="StUF:FunctieMTO"/>
+				  </sequence>
+		
+	  </complexType>
+   <complexType name="OPV-StuurgegevensDi01">
+		
+			   <sequence>
+					    <element name="berichtcode" type="StUF:BerichtcodeDi01"/>
+					    <element name="zender" type="StUF:Systeem"/>
+					    <element name="ontvanger" type="StUF:Systeem"/>
+					    <element name="referentienummer" type="StUF:Refnummer"/>
+					    <element name="tijdstipBericht" type="StUF:Tijdstip"/>
+					    <element name="functie" type="StUF:FunctieOPV"/>
+				  </sequence>
+		
+	  </complexType>
+   <complexType name="ParametersLk0xTV">
+		
+			   <sequence>
+					    <element name="mutatiesoort" type="StUF:MutatiesoortT"/>
+					    <element name="indicatorOvername" type="StUF:IndicatorOvernameV"/>
+				  </sequence>
+		
+	  </complexType>
+   <complexType name="ParametersLk0xVV">
+		
+			   <sequence>
+					    <element name="mutatiesoort" type="StUF:MutatiesoortV"/>
+					    <element name="indicatorOvername" type="StUF:IndicatorOvernameV"/>
+				  </sequence>
+		
+	  </complexType>
+   <complexType name="ParametersLk0xWV">
+		
+			   <sequence>
+					    <element name="mutatiesoort" type="StUF:MutatiesoortFenC"/>
+					    <element name="indicatorOvername" type="StUF:IndicatorOvernameV"/>
+				  </sequence>
+		
+	  </complexType>
+   <simpleType name="IndicatorOvernameV">
+		    <restriction base="StUF:IndicatorOvername">
+			      <enumeration value="V"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="MutatiesoortFenC">
+		    <restriction base="StUF:Mutatiesoort">
+			      <enumeration value="F"/>
+			      <enumeration value="C"/>
+		    </restriction>
+	  </simpleType>
+   <element name="Fo01Bericht">
+		    <complexType>
+			      <sequence>
+				        <element name="stuurgegevens">
+					          <complexType>
+						
+							           <sequence>
+									            <element name="berichtcode" type="StUF:Berichtcode" fixed="Fo01"/>
+									            <element name="zender" type="StUF:Systeem"/>
+									            <element name="ontvanger" type="StUF:Systeem"/>
+									            <element name="referentienummer" type="StUF:Refnummer"/>
+									            <element name="tijdstipBericht" type="StUF:Tijdstip"/>
+									            <element name="crossRefnummer" type="StUF:Refnummer"/>
+								          </sequence>
+						
+					          </complexType>
+				        </element>
+				        <element name="body" type="StUF:Foutbericht"/>
+			      </sequence>
+		    </complexType>
+	  </element>
+   <element name="Fo02Bericht">
+		    <complexType>
+			      <sequence>
+				        <element name="stuurgegevens">
+					          <complexType>
+						
+							           <sequence>
+									            <element name="berichtcode" type="StUF:Berichtcode" fixed="Fo02"/>
+								          </sequence>
+						
+					          </complexType>
+				        </element>
+				        <element name="body" type="StUF:Foutbericht"/>
+			      </sequence>
+		    </complexType>
+	  </element>
+   <element name="Fo03Bericht">
+		    <complexType>
+			      <sequence>
+				        <element name="stuurgegevens">
+					          <complexType>
+						
+							           <sequence>
+									            <element name="berichtcode" type="StUF:Berichtcode" fixed="Fo03"/>
+									            <element name="zender" type="StUF:Systeem"/>
+									            <element name="ontvanger" type="StUF:Systeem"/>
+									            <element name="referentienummer" type="StUF:Refnummer"/>
+									            <element name="tijdstipBericht" type="StUF:Tijdstip"/>
+									            <element name="crossRefnummer" type="StUF:Refnummer"/>
+								          </sequence>
+						
+					          </complexType>
+				        </element>
+				        <element name="body" type="StUF:Foutbericht"/>
+			      </sequence>
+		    </complexType>
+	  </element>
+   <element name="Bv01Bericht">
+		    <complexType>
+			      <sequence>
+				        <element name="stuurgegevens">
+					          <complexType>
+						
+							           <sequence>
+									            <element name="berichtcode" type="StUF:Berichtcode" fixed="Bv01"/>
+									            <element name="zender" type="StUF:Systeem"/>
+									            <element name="ontvanger" type="StUF:Systeem"/>
+									            <element name="referentienummer" type="StUF:Refnummer"/>
+									            <element name="tijdstipBericht" type="StUF:Tijdstip"/>
+									            <element name="crossRefnummer" type="StUF:Refnummer"/>
+								          </sequence>
+						
+					          </complexType>
+				        </element>
+				        <element name="melding"
+                     type="StUF:Melding"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+			      </sequence>
+		    </complexType>
+	  </element>
+   <element name="Bv02Bericht">
+		    <complexType>
+			      <sequence>
+				        <element name="stuurgegevens">
+					          <complexType>
+						
+							           <sequence>
+									            <element name="berichtcode" type="StUF:Berichtcode" fixed="Bv02"/>
+								          </sequence>
+						
+					          </complexType>
+				        </element>
+				        <element name="melding"
+                     type="StUF:Melding"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+			      </sequence>
+		    </complexType>
+	  </element>
+   <element name="Bv03Bericht">
+		    <complexType>
+			      <sequence>
+				        <element name="stuurgegevens">
+					          <complexType>
+						
+							           <sequence>
+									            <element name="berichtcode" type="StUF:Berichtcode" fixed="Bv03"/>
+									            <element name="zender" type="StUF:Systeem"/>
+									            <element name="ontvanger" type="StUF:Systeem"/>
+									            <element name="referentienummer" type="StUF:Refnummer"/>
+									            <element name="tijdstipBericht" type="StUF:Tijdstip"/>
+									            <element name="crossRefnummer" type="StUF:Refnummer"/>
+								          </sequence>
+						
+					          </complexType>
+				        </element>
+			      </sequence>
+		    </complexType>
+	  </element>
+   <element name="Bv04Bericht">
+		    <complexType>
+			      <sequence>
+				        <element name="stuurgegevens">
+					          <complexType>
+						
+							           <sequence>
+									            <element name="berichtcode" type="StUF:Berichtcode" fixed="Bv04"/>
+									            <element name="zender" type="StUF:Systeem"/>
+									            <element name="ontvanger" type="StUF:Systeem"/>
+									            <element name="referentienummer" type="StUF:Refnummer"/>
+									            <element name="tijdstipBericht" type="StUF:Tijdstip"/>
+									            <element name="crossRefnummer" type="StUF:Refnummer"/>
+								          </sequence>
+						
+					          </complexType>
+				        </element>
+			      </sequence>
+		    </complexType>
+	  </element>
+   <element name="Tr01Bericht">
+		    <complexType>
+			      <sequence>
+				        <element name="stuurgegevens">
+					          <complexType>
+						
+							           <sequence>
+									            <element name="berichtcode" type="StUF:Berichtcode" fixed="Tr01"/>
+									            <element name="zender" type="StUF:Systeem"/>
+									            <element name="ontvanger" type="StUF:Systeem"/>
+									            <element name="referentienummer" type="StUF:Refnummer"/>
+									            <element name="tijdstipBericht" type="StUF:Tijdstip"/>
+								          </sequence>
+						
+					          </complexType>
+				        </element>
+			      </sequence>
+		    </complexType>
+	  </element>
+   <element name="tijdstipRegistratie" type="StUF:Tijdstip-e" nillable="true"/>
+   <complexType name="Stuurgegevens">
+		    <sequence>
+			      <element name="berichtcode" type="StUF:Berichtcode"/>
+			      <element name="zender" type="StUF:Systeem" minOccurs="0"/>
+			      <element name="ontvanger" type="StUF:Systeem" minOccurs="0"/>
+			      <element name="referentienummer" type="StUF:Refnummer" minOccurs="0"/>
+			      <element name="tijdstipBericht" type="StUF:Tijdstip" minOccurs="0"/>
+			      <element name="crossRefnummer" type="StUF:Refnummer" minOccurs="0"/>
+			      <element name="entiteittype" type="StUF:Entiteittype" minOccurs="0"/>
+			      <element name="functie" type="StUF:Functie" minOccurs="0"/>
+		    </sequence>
+	  </complexType>
+   <attributeGroup name="element">
+		    <attribute ref="StUF:noValue"/>
+		    <attribute ref="StUF:exact"/>
+	  </attributeGroup>
+   <attribute name="entiteittype" type="StUF:Entiteittype"/>
+   <attribute name="exact" type="boolean" default="true"/>
+   <attribute name="functie" type="StUF:FunctieVrijBerichtElement"/>
+   <attribute name="metagegeven" type="boolean" fixed="true"/>
+   <attribute name="noValue" type="StUF:NoValue"/>
+   <attribute name="sleutelVerzendend" type="StUF:Sleutel"/>
+   <attribute name="sleutelOntvangend" type="StUF:Sleutel"/>
+   <attribute name="verwerkingssoort" type="StUF:Verwerkingssoort"/>
+   <complexType name="Foutbericht">
+		    <sequence>
+			      <element name="code" type="StUF:Foutcode"/>
+			      <element name="plek" type="StUF:Foutplek"/>
+			      <element name="omschrijving" type="StUF:Foutomschrijving"/>
+			      <element name="details" type="StUF:Foutdetails" minOccurs="0"/>
+			      <element name="detailsXML" type="StUF:FoutdetailsXML" minOccurs="0"/>
+		    </sequence>
+	  </complexType>
+   <complexType name="FoutdetailsXML">
+		    <sequence>
+			      <any namespace="##any"
+              processContents="skip"
+              minOccurs="0"
+              maxOccurs="unbounded"/>
+		    </sequence>
+	  </complexType>
+   <complexType name="StatusMetagegevenNoValue">
+		    <simpleContent>
+			      <extension base="StUF:StatusMetagegeven">
+            <attribute ref="StUF:metagegeven" use="required"/>
+            <attribute ref="StUF:noValue"/>
+         </extension>
+		    </simpleContent>
+	  </complexType>
+   <complexType name="Systeem">
+		    <sequence>
+			      <element name="organisatie" type="StUF:Organisatie" minOccurs="0"/>
+			      <element name="applicatie" type="StUF:Applicatie"/>
+			      <element name="administratie" type="StUF:Administratie" minOccurs="0"/>
+			      <element name="gebruiker" type="StUF:Gebruiker" minOccurs="0"/>
+		    </sequence>
+	  </complexType>
+   <complexType name="Tijdstip-e">
+		    <simpleContent>
+			      <extension base="StUF:Tijdstip">
+				        <attributeGroup ref="StUF:element"/>
+			      </extension>
+		    </simpleContent>
+	  </complexType>
+   <simpleType name="Administratie">
+		    <restriction base="string">
+			      <maxLength value="50"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Applicatie">
+		    <restriction base="string">
+			      <minLength value="3"/>
+			      <maxLength value="50"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Berichtcode">
+		    <restriction base="string">
+			      <enumeration value="Bv01">
+				        <annotation>
+					          <documentation>
+						Bevestigingsbericht dat als functionele respons kan worden verstuurd op een asynchroon bericht
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Bv02">
+				        <annotation>
+					          <documentation>
+						Bevestigingsbericht dat als functionele respons kan worden verstuurd op een synchroon bericht
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Bv03">
+				        <annotation>
+					          <documentation>
+						Bevestigingsbericht dat als synchrone respons wordt verstuurd op een asynchroon bericht, indien het ontvangende systeem het bericht op basis van de berichtstuurgegevens heeft gecheckt op verwerkbaarheid
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Bv04">
+				        <annotation>
+					          <documentation>
+						Bevestigingsbericht dat als respons wordt verstuurd op een asynchroon bericht, dat slechts de aflevering naar de uiteindelijke ontvanger kan garanderen, maar de verwerking niet heeft gecheckt op basis van de berichtstuurgegevens
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Di01">
+				        <annotation>
+					          <documentation>
+						Asynchroon vrij bericht dat geen respons is op een eerder verzonden vrij bericht. Het kan bijvoorbeeld gaan om een notificatie of het verzoek deel van een aysnchroon verzoek/respons patroon. De 'i' in Di01 staat daarom voor inkomend.
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Di02">
+				        <annotation>
+					          <documentation>
+						Synchroon vrij bericht waarop een respons wordt verwacht.
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Du01">
+				        <annotation>
+					          <documentation>
+						Asynchroon vrij bericht dat een respons is op een eerder verzonden vrij bericht met berichtsoort Di01.
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Du02">
+				        <annotation>
+					          <documentation>
+						Synchrone respons op een inkomend vrij bericht met berichtsoort Di02
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Fo01">
+				        <annotation>
+					          <documentation>
+						Foutbericht dat als functionele respons kan worden verstuurd op een asynchroon bericht
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Fo02">
+				        <annotation>
+					          <documentation>
+						Foutbericht dat als functionele respons kan worden verstuurd op een synchroon bericht
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Fo03">
+				        <annotation>
+					          <documentation>
+						Foutbericht dat als synchrone respons wordt verstuurd op een asynchroon bericht
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="La01">
+				        <annotation>
+					          <documentation>
+						Antwoordbericht met actuele gegevens als respons op een synchroon vraagbericht (Lv01)
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="La02">
+				        <annotation>
+					          <documentation>
+						Asynchroon antwoordbericht met actuele gegevens als respons op een asynchroon vraagbericht (Lv02)
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="La03">
+				        <annotation>
+					          <documentation>
+						Synchroon antwoordbericht met huidige gegevens op peiltijdstipMaterieel als respons op een synchroon vraagbericht (Lv03)
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="La04">
+				        <annotation>
+					          <documentation>
+						Asynchroon antwoordbericht met huidige gegevens op peiltijdstipMaterieel als respons op een asynchroon vraagbericht (Lv03)
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="La05">
+				        <annotation>
+					          <documentation>
+						Synchroon antwoordbericht met gegevens op peiltijdstipMaterieel en peiltijdstipFormeel als respons op een synchroon vraagbericht (Lv05)
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="La06">
+				        <annotation>
+					          <documentation>
+						Asynchroon antwoordbericht met gegevens op peiltijdstipMaterieel en peiltijdstipFormeel als respons op een asynchroon vraagbericht (Lv06)
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="La07">
+				        <annotation>
+					          <documentation>
+						Synchroon antwoordbericht met materiële historie en alleen gewijzigde gegevens in historie als respons op een synchroon vraagbericht (Lv07)
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="La08">
+				        <annotation>
+					          <documentation>
+						Asynchroon antwoordbericht met materiële historie en alleen gewijzigde gegevens in historie als respons op een asynchroon vraagbericht (Lv08)
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="La09">
+				        <annotation>
+					          <documentation>
+						Synchroon antwoordbericht met materiële en formele historie en alleen gewijzigde gegevens in historie als respons op een synchroon vraagbericht (Lv09)
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="La10">
+				        <annotation>
+					          <documentation>
+						Asynchroon antwoordbericht met materiële en formele historie en alleen gewijzigde gegevens in historie als respons op een asynchroon vraagbericht (Lv10)
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="La11">
+				        <annotation>
+					          <documentation>
+						Synchroon antwoordbericht met materiële historie en alle gegevens in historie als respons op een synchroon vraagbericht (Lv11)
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="La12">
+				        <annotation>
+					          <documentation>
+						Asynchroon antwoordbericht met materiële historie en alle gegevens in historie als respons op een asynchroon vraagbericht (Lv12)
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="La13">
+				        <annotation>
+					          <documentation>
+						Synchroon antwoordbericht met materiële en formele historie en alle gegevens in historie als respons op een synchroon vraagbericht (Lv13)
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="La14">
+				        <annotation>
+					          <documentation>
+						Asynchroon antwoordbericht met materiële en formele historie en alle gegevens in historie als respons op een asynchroon vraagbericht (Lv14)
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Lk01">
+				        <annotation>
+					          <documentation>
+						Asynchroon atomair kennisgevingbericht
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Lk02">
+				        <annotation>
+					          <documentation>
+						Synchroon atomair kennisgevingbericht
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Lk03">
+				        <annotation>
+					          <documentation>
+						Asynchroon samengesteld kennisgevingbericht of transactie
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Lk04">
+				        <annotation>
+					          <documentation>
+						Synchroon samengesteld kennisgevingbericht of transactie
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Lk05"/>
+			      <enumeration value="Lk06"/>
+			      <enumeration value="Lv01">
+				        <annotation>
+					          <documentation>
+						Synchroon vraagbericht naar actuele gegevens
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Lv02">
+				        <annotation>
+					          <documentation>
+						Asynchroon vraagbericht naar actuele gegevens
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Lv03">
+				        <annotation>
+					          <documentation>
+						Synchroon vraagbericht naar huidige gegevens op peiltijdstipMaterieel
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Lv04">
+				        <annotation>
+					          <documentation>
+						Asynchroon vraagbericht naar huidige gegevens op peiltijdstipMaterieel
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Lv05">
+				        <annotation>
+					          <documentation>
+						Synchroon vraagbericht naar gegevens op peiltijdstipMaterieel en peiltijdstipFormeel
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Lv06">
+				        <annotation>
+					          <documentation>
+						Asynchroon vraagbericht naar gegevens op peiltijdstipMaterieel en peiltijdstipFormeel
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Lv07">
+				        <annotation>
+					          <documentation>
+						Synchroon vraagbericht naar actuele gegevens en materiële historie met alleen gewijzigde gegevens in de historie
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Lv08">
+				        <annotation>
+					          <documentation>
+						Asynchroon vraagbericht naar actuele gegevens en materiële historie met alleen gewijzigde gegevens in de historie
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Lv09">
+				        <annotation>
+					          <documentation>
+						Synchroon vraagbericht naar actuele gegevens en materiële plus formele historie met alleen gewijzigde gegevens in de historie
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Lv10">
+				        <annotation>
+					          <documentation>
+						Asynchroon vraagbericht naar actuele gegevens en materiële plus formele historie met alleen gewijzigde gegevens in de historie
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Lv11">
+				        <annotation>
+					          <documentation>
+						Synchroon vraagbericht naar actuele gegevens en materiële historie met alle gegevens in de historie
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Lv12">
+				        <annotation>
+					          <documentation>
+						Asynchroon vraagbericht naar actuele gegevens en materiële historie met alle gegevens in de historie
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Lv13">
+				        <annotation>
+					          <documentation>
+						Synchroon vraagbericht naar actuele gegevens en materiële plus formele historie met alle gegevens in de historie
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Lv14">
+				        <annotation>
+					          <documentation>
+						Asynchroon vraagbericht naar actuele gegevens en materiële plus formele historie met alle gegevens in de historie
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Sa01">
+				        <annotation>
+					          <documentation>
+						Asynchroon synchronisatiebericht voor actuele gegevens
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Sh01">
+				        <annotation>
+					          <documentation>
+						Asynchroon synchronisatiebericht voor actuele en historische gegevens
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Sa02">
+				        <annotation>
+					          <documentation>
+						Synchroon synchronisatiebericht voor actuele gegevens
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Sh02">
+				        <annotation>
+					          <documentation>
+						Synchroon synchronisatiebericht voor actuele en historische gegevens
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Sa03">
+				        <annotation>
+					          <documentation>
+						Vraag naar een asynchroon synchronisatiebericht voor actuele gegevens
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Sh03">
+				        <annotation>
+					          <documentation>
+						Vraag naar een asynchroon synchronisatiebericht voor historische gegevens
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Sa04">
+				        <annotation>
+					          <documentation>
+						Vraag naar een synchroon synchronisatiebericht voor actuele gegevens
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Sh04">
+				        <annotation>
+					          <documentation>
+						Vraag naar een synchroon synchronisatiebericht voor historische gegevens
+					</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="Tr01">
+				        <annotation>
+					          <documentation>
+						Triggerbericht
+					</documentation>
+				        </annotation>
+			      </enumeration>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="BerichtcodeDi01">
+		    <annotation>
+			      <documentation>Berichtcode = Di01</documentation>
+		    </annotation>
+		    <restriction base="StUF:Berichtcode">
+			      <enumeration value="Di01"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="BerichtcodeDu01">
+		    <annotation>
+			      <documentation>Berichtcode = Du01</documentation>
+		    </annotation>
+		    <restriction base="StUF:Berichtcode">
+			      <enumeration value="Du01"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Entiteittype">
+		    <restriction base="string">
+			      <maxLength value="30"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Foutcode">
+		    <restriction base="string">
+			      <maxLength value="7"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Foutplek">
+		    <restriction base="string">
+			      <enumeration value="client"/>
+			      <enumeration value="server"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Foutomschrijving">
+		    <restriction base="string">
+			      <maxLength value="200"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Foutdetails">
+		    <restriction base="string">
+			      <maxLength value="1000"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Functie">
+		    <restriction base="string">
+			      <maxLength value="30"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="FunctieVrijBerichtElement">
+		    <restriction base="string">
+			      <enumeration value="antwoord"/>
+			      <enumeration value="entiteit"/>
+			      <enumeration value="selectie"/>
+			      <enumeration value="update"/>
+			      <enumeration value="zaakinfo"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Gebruiker">
+		    <restriction base="string">
+			      <maxLength value="100"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="IndicatorOvername">
+		    <restriction base="string">
+			      <enumeration value="I">
+				        <annotation>
+					          <documentation xml:lang="nl">Informatief</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="V">
+				        <annotation>
+					          <documentation xml:lang="nl">Verplicht</documentation>
+				        </annotation>
+			      </enumeration>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Melding">
+		    <restriction base="string">
+			      <maxLength value="250"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Mutatiesoort">
+		    <restriction base="StUF:Functie">
+			      <enumeration value="T">
+				        <annotation>
+					          <documentation xml:lang="nl">Toevoeging</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="W">
+				        <annotation>
+					          <documentation xml:lang="nl">Wijziging</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="V">
+				        <annotation>
+					          <documentation xml:lang="nl">Verwijdering</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="C">
+				        <annotation>
+					          <documentation xml:lang="nl">Correctie zonder opbouw formele historie</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="F">
+				        <annotation>
+					          <documentation xml:lang="nl">Correctie met opbouw formele historie</documentation>
+				        </annotation>
+			      </enumeration>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="MutatiesoortT">
+		    <annotation>
+			      <documentation>Mutatiesoort = T</documentation>
+		    </annotation>
+		    <restriction base="StUF:Mutatiesoort">
+			      <enumeration value="T"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="MutatiesoortV">
+		    <annotation>
+			      <documentation>Mutatiesoort = V</documentation>
+		    </annotation>
+		    <restriction base="StUF:Mutatiesoort">
+			      <enumeration value="V"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="NoValue">
+		    <restriction base="string">
+			      <enumeration value="nietOndersteund"/>
+			      <enumeration value="nietGeautoriseerd"/>
+			      <enumeration value="geenWaarde"/>
+			      <enumeration value="waardeOnbekend"/>
+			      <enumeration value="vastgesteldOnbekend"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Organisatie">
+		    <restriction base="string">
+			      <maxLength value="200"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Refnummer">
+		    <restriction base="string">
+			      <maxLength value="40"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Sleutel">
+		    <restriction base="string">
+			      <maxLength value="40"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="StatusMetagegeven">
+		    <restriction base="string">
+			      <enumeration value="J"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Tijdstip">
+		    <restriction base="string">
+			      <pattern value="[0-9]{8,17}"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Verwerkingssoort">
+		    <restriction base="string">
+			      <maxLength value="1"/>
+			      <enumeration value="T">
+				        <annotation>
+					          <documentation xml:lang="nl">Toevoeging</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="W">
+				        <annotation>
+					          <documentation xml:lang="nl">Wijziging of correctie</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="V">
+				        <annotation>
+					          <documentation xml:lang="nl">Verwijdering</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="E">
+				        <annotation>
+					          <documentation xml:lang="nl"> Een relatie entiteit wordt beeindigd.</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="I">
+				        <annotation>
+					          <documentation xml:lang="nl">Entiteit bevat alleen identificerende gegevens.</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="R">
+				        <annotation>
+					          <documentation xml:lang="nl">Een relatie entiteit wordt vervangen door een nieuwe relatie entiteit.</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="S">
+				        <annotation>
+					          <documentation xml:lang="nl"> De sleutel van een entiteit wordt gewijzigd.</documentation>
+				        </annotation>
+			      </enumeration>
+			      <enumeration value="O">
+				        <annotation>
+					          <documentation xml:lang="nl"> Het object in de oude entiteit wordt in het kader van een ontdubbeling samengevoegd met het object in de nieuwe entiteit. Het object in de oude entiteit komt niet voor in het zendende systeem. Objecten in een systeem worden veelal ontdubbeld als blijkt dat ze verwijzen naar hetzelfde object in de werkelijkheid.</documentation>
+				        </annotation>
+			      </enumeration>
+		    </restriction>
+	  </simpleType>
+</schema>
