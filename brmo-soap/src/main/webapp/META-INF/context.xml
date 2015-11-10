@@ -1,28 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/brmo-soap">
-    <Resource name="jdbc/brmo/rsgb"
-        auth="Container"
-        type="javax.sql.DataSource"
-        username="rsgb"
-        password="rsgb"
-        driverClassName="org.postgresql.Driver"
-        url="jdbc:postgresql://localhost:5432/rsgb"
-        maxActive="40"
-        validationQuery="select 1"
-        timeBetweenEvictionRunsMillis="30000"
-        minEvictableIdleTimeMillis="5000"
-    />
+  <!-- ResourceLink werkt via server.xml van tomcat
+    1. Plaats xml blok onder <GlobalNamingResources> in server.xml van tomcat.
+
     <Resource name="jdbc/brmo/staging"
         auth="Container"
         type="javax.sql.DataSource"
         username="staging"
-        password="staging"
+        password="**"
         driverClassName="org.postgresql.Driver"
-        url="jdbc:postgresql://localhost:5432/staging"
+        url="jdbc:postgresql://hostname/staging"
         maxActive="40"
         validationQuery="select 1"
         timeBetweenEvictionRunsMillis="30000"
         minEvictableIdleTimeMillis="5000"
     />
+    <Resource name="jdbc/brmo/rsgb"
+        auth="Container"
+        type="javax.sql.DataSource"
+        username="rsgb"
+        password="**"
+        driverClassName="org.postgresql.Driver"
+        url="jdbc:postgresql://hostname/rsgb"
+        maxActive="40"
+        validationQuery="select 1"
+        timeBetweenEvictionRunsMillis="30000"
+        minEvictableIdleTimeMillis="5000"
+    />
+
+    <Resource name="jdbc/brmo/staging"
+        auth="Container"
+        type="javax.sql.DataSource"
+        driverClassName="oracle.jdbc.driver.OracleDriver"
+        url="jdbc:oracle:thin:@hostname:1521:orcl"
+        username="brmo_staging"
+        password="**"
+        maxActive="100"
+        maxIdle="30"
+        maxWait="8000"
+        validationQuery="select 1 from dual"
+        timeBetweenEvictionRunsMillis="30000"
+        minEvictableIdleTimeMillis="5000"
+    />
+    <Resource name="jdbc/brmo/rsgb"
+        auth="Container"
+        type="javax.sql.DataSource"
+        driverClassName="oracle.jdbc.driver.OracleDriver"
+        url="jdbc:oracle:thin:@hostname:1521:orcl"
+        username="brmo_rsgb"
+        password="**"
+        maxActive="100"
+        maxIdle="30"
+        maxWait="8000"
+        validationQuery="select 1 from dual"
+        timeBetweenEvictionRunsMillis="30000"
+        minEvictableIdleTimeMillis="5000"
+    />
+
+    2. Plaats postgresql of oracle driver in tomcat lib
+    -->
+
+    <ResourceLink global="jdbc/brmo/staging" name="jdbc/brmo/staging" type="javax.sql.Datasource"/>
+    <ResourceLink global="jdbc/brmo/rsgb" name="jdbc/brmo/rsgb" type="javax.sql.Datasource"/>
+
     <Realm allRolesMode="authOnly" className="org.apache.catalina.realm.DataSourceRealm" dataSourceName="jdbc/brmo/staging" digest="SHA-1" roleNameCol="groep_" userCredCol="wachtwoord" userNameCol="gebruikersnaam" userRoleTable="gebruiker_groepen" userTable="gebruiker_"/>
 </Context>

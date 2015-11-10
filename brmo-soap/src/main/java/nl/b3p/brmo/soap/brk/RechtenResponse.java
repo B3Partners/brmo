@@ -39,19 +39,27 @@ public class RechtenResponse {
         sql.append("    zak_recht.ar_noemer,");
         sql.append("    zak_recht.ar_teller,");
         sql.append("    zak_recht.fk_3avr_aand,");
-        sql.append("    zak_recht.fk_8pes_sc_identif ");
+        sql.append("    zak_recht.fk_8pes_sc_identif, ");
+        sql.append("    aard_recht_verkort.omschr ");
         return sql;
     }
 
     private static StringBuilder createFromSQL() {
         StringBuilder sql = new StringBuilder();
         sql.append("    zak_recht ");
+        sql.append("INNER JOIN ");
+        sql.append("    aard_recht_verkort ");
+        sql.append("ON ");
+        sql.append("    ( ");
+        sql.append("        zak_recht.fk_3avr_aand = aard_recht_verkort.aand) ");
         return sql;
     }
 
     private static StringBuilder createWhereSQL() {
         StringBuilder sql = new StringBuilder();
         sql.append("    zak_recht.fk_7koz_kad_identif = ? ");
+        // alleen rechten gekoppeld aan subjecten tonen
+        sql.append("AND    fk_8pes_sc_identif is not null ");
         return sql;
     }
 
@@ -88,7 +96,8 @@ public class RechtenResponse {
                 }
                 zkRecht = new ZakelijkRechtResponse();
 
-                zkRecht.setAardVerkregenRecht(rs.getString("fk_3avr_aand"));
+//                zkRecht.setAardVerkregenRecht(rs.getString("fk_3avr_aand"));
+                zkRecht.setAardVerkregenRecht(rs.getString("omschr"));
                 zkRecht.setIndicatieBetrokkenInSplitsing(
                         rs.getString("indic_betrokken_in_splitsing")
                         .equalsIgnoreCase("nee") ? false : true);
