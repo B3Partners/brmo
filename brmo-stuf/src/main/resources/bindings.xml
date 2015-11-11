@@ -1,0 +1,2195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bindings xmlns="http://java.sun.com/xml/ns/jaxb" xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="2.0" xmlns:gml="http://www.opengis.net/gml">
+	<globalBindings>
+		<javaType name="java.util.Calendar" xmlType="xsd:date" parseMethod="javax.xml.bind.DatatypeConverter.parseDate" printMethod="javax.xml.bind.DatatypeConverter.printDate"/>
+		<javaType name="java.util.Calendar" xmlType="xsd:dateTime" parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime" printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
+	</globalBindings>
+	<bindings schemaLocation="wsdl/imgeo0300_msg_verticaal_resolved.xsd">
+		<!--schemaBindings>
+	                        <package name="nl.kadaster.bmkl"/>
+	                </schemaBindings-->
+		<bindings node="/xsd:schema">
+			<bindings node="xsd:complexType[@name='BAK-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			
+			<bindings node="xsd:complexType[@name='BAK-MTS-laatsteVersie']//xsd:element[@name='geometrie2dBak']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-TW-verticaal']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-TW-verticaal']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-TW-verticaal']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-TW-verticaal']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BAK-TW-verticaal']//xsd:element[@name='geometrie2dBak']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-MTS-laatsteVersie']//xsd:element[@name='geometrie2dBord']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-TW-verticaal']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-TW-verticaal']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-TW-verticaal']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-TW-verticaal']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRD-TW-verticaal']//xsd:element[@name='geometrie2dBord']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRT-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRT-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRT-MTS-laatsteVersie']//xsd:element[@name='lod0MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRT-MTS-laatsteVersie']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRT-MTS-laatsteVersie']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRT-MTS-laatsteVersie']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRT-MTS-laatsteVersie']//xsd:element[@name='geometrie2d']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRT-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRT-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRT-TW-verticaal']//xsd:element[@name='lod0MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRT-TW-verticaal']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRT-TW-verticaal']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRT-TW-verticaal']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRT-TW-verticaal']//xsd:element[@name='geometrie2d']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-MTS-laatsteVersie']//xsd:element[@name='plus-fysiekVoorkomen']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-MTS-laatsteVersie']//xsd:element[@name='lod0MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-MTS-laatsteVersie']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-MTS-laatsteVersie']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-MTS-laatsteVersie']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-MTS-laatsteVersie']//xsd:element[@name='lod1MultiSolid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-MTS-laatsteVersie']//xsd:element[@name='lod2MultiSolid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-MTS-laatsteVersie']//xsd:element[@name='lod3MultiSolid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-MTS-laatsteVersie']//xsd:element[@name='kruinlijnBegroeidTerreindeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-MTS-laatsteVersie']//xsd:element[@name='geometrie2dBegroeidTerreindeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-TW-verticaal']//xsd:element[@name='plus-fysiekVoorkomen']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-TW-verticaal']//xsd:element[@name='lod0MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-TW-verticaal']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-TW-verticaal']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-TW-verticaal']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-TW-verticaal']//xsd:element[@name='lod1MultiSolid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-TW-verticaal']//xsd:element[@name='lod2MultiSolid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-TW-verticaal']//xsd:element[@name='lod3MultiSolid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-TW-verticaal']//xsd:element[@name='kruinlijnBegroeidTerreindeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BTD-TW-verticaal']//xsd:element[@name='geometrie2dBegroeidTerreindeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='FUG-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='FUG-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='FUG-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='FUG-MTS-laatsteVersie']//xsd:element[@name='lod0MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='FUG-MTS-laatsteVersie']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='FUG-MTS-laatsteVersie']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='FUG-MTS-laatsteVersie']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='FUG-MTS-laatsteVersie']//xsd:element[@name='geometrie2dFunctioneelGebied']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='FUG-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='FUG-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='FUG-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='FUG-TW-verticaal']//xsd:element[@name='lod0MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='FUG-TW-verticaal']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='FUG-TW-verticaal']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='FUG-TW-verticaal']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='FUG-TW-verticaal']//xsd:element[@name='geometrie2dFunctioneelGebied']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-MTS-laatsteVersie']//xsd:element[@name='geometrie2dGebouwinstallatie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-TW-verticaal']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-TW-verticaal']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-TW-verticaal']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-TW-verticaal']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GBI-TW-verticaal']//xsd:element[@name='geometrie2dGebouwinstallatie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-MTS-laatsteVersie']//xsd:element[@name='geometrie2dInstallatie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-TW-verticaal']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-TW-verticaal']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-TW-verticaal']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-TW-verticaal']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='INS-TW-verticaal']//xsd:element[@name='geometrie2dInstallatie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-MTS-laatsteVersie']//xsd:element[@name='geometrie2dKast']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-TW-verticaal']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-TW-verticaal']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-TW-verticaal']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-TW-verticaal']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KST-TW-verticaal']//xsd:element[@name='geometrie2dKast']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-MTS-laatsteVersie']//xsd:element[@name='geometrie2dOverigeConstructie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-TW-verticaal']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-TW-verticaal']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-TW-verticaal']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-TW-verticaal']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='KWD-TW-verticaal']//xsd:element[@name='geometrie2dOverigeConstructie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-MTS-laatsteVersie']//xsd:element[@name='geometrie2dMast']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-TW-verticaal']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-TW-verticaal']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-TW-verticaal']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-TW-verticaal']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MST-TW-verticaal']//xsd:element[@name='geometrie2dMast']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-MTS-laatsteVersie']//xsd:element[@name='typeOverbruggingsdeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-MTS-laatsteVersie']//xsd:element[@name='hoortBijTypeOverbrugging']">
+				<dom/>
+			</bindings>
+			<!--bindings node="xsd:complexType[@name='OBD-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings-->
+			<bindings node="xsd:complexType[@name='OBD-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-MTS-laatsteVersie']//xsd:element[@name='lod1ImplicitRepresentation']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-MTS-laatsteVersie']//xsd:element[@name='lod2ImplicitRepresentation']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-MTS-laatsteVersie']//xsd:element[@name='lod3ImplicitRepresentation']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-MTS-laatsteVersie']//xsd:element[@name='lod0GeometrieOverbruggingsdeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-MTS-laatsteVersie']//xsd:element[@name='geometrie2dOverbruggingsdeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-TW-verticaal']//xsd:element[@name='typeOverbruggingsdeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-TW-verticaal']//xsd:element[@name='hoortBijTypeOverbrugging']">
+				<dom/>
+			</bindings>
+			<!--bindings node="xsd:complexType[@name='OBD-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings-->
+			<bindings node="xsd:complexType[@name='OBD-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-TW-verticaal']//xsd:element[@name='lod1ImplicitRepresentation']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-TW-verticaal']//xsd:element[@name='lod2ImplicitRepresentation']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-TW-verticaal']//xsd:element[@name='lod3ImplicitRepresentation']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-TW-verticaal']//xsd:element[@name='lod0GeometrieOverbruggingsdeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBD-TW-verticaal']//xsd:element[@name='geometrie2dOverbruggingsdeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-MTS-laatsteVersie']//xsd:element[@name='geometrie2dOverigeConstructie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-TW-verticaal']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-TW-verticaal']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-TW-verticaal']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-TW-verticaal']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OBW-TW-verticaal']//xsd:element[@name='geometrie2dOverigeConstructie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OCO-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OCO-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OCO-MTS-laatsteVersie']//xsd:element[@name='geometrie2d']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OCO-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OCO-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OCO-TW-verticaal']//xsd:element[@name='geometrie2d']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OPR-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OPR-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OPR-MTS-laatsteVersie']//xsd:element[@name='lod0MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OPR-MTS-laatsteVersie']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OPR-MTS-laatsteVersie']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OPR-MTS-laatsteVersie']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OPR-MTS-laatsteVersie']//xsd:element[@name='geometrie2d']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OPR-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OPR-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OPR-TW-verticaal']//xsd:element[@name='lod0MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OPR-TW-verticaal']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OPR-TW-verticaal']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OPR-TW-verticaal']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OPR-TW-verticaal']//xsd:element[@name='geometrie2d']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='ORL-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='ORL-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='ORL-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='ORL-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-MTS-laatsteVersie']//xsd:element[@name='geometrie2dOverigeConstructie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-TW-verticaal']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-TW-verticaal']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-TW-verticaal']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-TW-verticaal']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OSH-TW-verticaal']//xsd:element[@name='geometrie2dOverigeConstructie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OTD-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OTD-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OTD-MTS-laatsteVersie']//xsd:element[@name='plus-fysiekVoorkomen']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OTD-MTS-laatsteVersie']//xsd:element[@name='lod0MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OTD-MTS-laatsteVersie']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OTD-MTS-laatsteVersie']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OTD-MTS-laatsteVersie']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OTD-MTS-laatsteVersie']//xsd:element[@name='kruinlijnOnbegroeidTerreindeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OTD-MTS-laatsteVersie']//xsd:element[@name='geometrie2dOnbegroeidTerreindeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OTD-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OTD-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OTD-TW-verticaal']//xsd:element[@name='plus-fysiekVoorkomen']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OTD-TW-verticaal']//xsd:element[@name='lod0MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OTD-TW-verticaal']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OTD-TW-verticaal']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OTD-TW-verticaal']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OTD-TW-verticaal']//xsd:element[@name='kruinlijnOnbegroeidTerreindeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OTD-TW-verticaal']//xsd:element[@name='geometrie2dOnbegroeidTerreindeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWG-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWG-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWG-MTS-laatsteVersie']//xsd:element[@name='plus-functie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWG-MTS-laatsteVersie']//xsd:element[@name='plus-fysiekVoorkomen']">
+				<dom/>
+			</bindings>
+			<!--bindings node="xsd:complexType[@name='OWG-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWG-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWG-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWG-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings-->
+			<bindings node="xsd:complexType[@name='OWG-MTS-laatsteVersie']//xsd:element[@name='lod0Surface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWG-MTS-laatsteVersie']//xsd:element[@name='kruinlijnOndersteunendWegdeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWG-MTS-laatsteVersie']//xsd:element[@name='geometrie2dOndersteunendWegdeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWG-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWG-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWG-TW-verticaal']//xsd:element[@name='plus-functie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWG-TW-verticaal']//xsd:element[@name='plus-fysiekVoorkomen']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWG-TW-verticaal']//xsd:element[@name='lod0Surface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWG-TW-verticaal']//xsd:element[@name='kruinlijnOndersteunendWegdeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWG-TW-verticaal']//xsd:element[@name='geometrie2dOndersteunendWegdeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWT-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWT-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWT-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWT-MTS-laatsteVersie']//xsd:element[@name='geometrie2dOndersteunendWaterdeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWT-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWT-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWT-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='OWT-TW-verticaal']//xsd:element[@name='geometrie2dOndersteunendWaterdeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-MTS-laatsteVersie']//xsd:element[@name='geometrie2dPaal']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-TW-verticaal']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-TW-verticaal']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-TW-verticaal']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-TW-verticaal']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PAL-TW-verticaal']//xsd:element[@name='geometrie2dPaal']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PBP-MTS-laatsteVersie']//xsd:element[@name='geometrie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PBP-TW-verticaal']//xsd:element[@name='geometrie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-MTS-laatsteVersie']//xsd:element[@name='lod0footprint']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-MTS-laatsteVersie']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-MTS-laatsteVersie']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-MTS-laatsteVersie']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-MTS-laatsteVersie']//xsd:element[@name='geometrie2dGrondvlak']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-TW-verticaal']//xsd:element[@name='lod0footprint']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-TW-verticaal']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-TW-verticaal']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-TW-verticaal']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PND-TW-verticaal']//xsd:element[@name='geometrie2dGrondvlak']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-MTS-laatsteVersie']//xsd:element[@name='geometrie2dPut']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-TW-verticaal']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-TW-verticaal']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-TW-verticaal']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-TW-verticaal']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='PUT-TW-verticaal']//xsd:element[@name='geometrie2dPut']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-MTS-laatsteVersie']//xsd:element[@name='geometrie2dOverigeConstructie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-TW-verticaal']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-TW-verticaal']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-TW-verticaal']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-TW-verticaal']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SHD-TW-verticaal']//xsd:element[@name='geometrie2dOverigeConstructie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-MTS-laatsteVersie']//xsd:element[@name='geometrie2dSensor']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-TW-verticaal']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-TW-verticaal']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-TW-verticaal']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-TW-verticaal']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SNS-TW-verticaal']//xsd:element[@name='geometrie2dSensor']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SPR-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SPR-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SPR-MTS-laatsteVersie']//xsd:element[@name='plus-functie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SPR-MTS-laatsteVersie']//xsd:element[@name='lod0Curve']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SPR-MTS-laatsteVersie']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SPR-MTS-laatsteVersie']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SPR-MTS-laatsteVersie']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SPR-MTS-laatsteVersie']//xsd:element[@name='geometrie2dSpoor']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SPR-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SPR-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SPR-TW-verticaal']//xsd:element[@name='plus-functie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SPR-TW-verticaal']//xsd:element[@name='lod0Curve']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SPR-TW-verticaal']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SPR-TW-verticaal']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SPR-TW-verticaal']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SPR-TW-verticaal']//xsd:element[@name='geometrie2dSpoor']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STD-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STD-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STD-MTS-laatsteVersie']//xsd:element[@name='lod0MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STD-MTS-laatsteVersie']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STD-MTS-laatsteVersie']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STD-MTS-laatsteVersie']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STD-MTS-laatsteVersie']//xsd:element[@name='geometrie2d']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STD-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STD-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STD-TW-verticaal']//xsd:element[@name='lod0MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STD-TW-verticaal']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STD-TW-verticaal']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STD-TW-verticaal']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STD-TW-verticaal']//xsd:element[@name='geometrie2d']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-MTS-laatsteVersie']//xsd:element[@name='geometrie2dStraatmeubilair']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-TW-verticaal']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-TW-verticaal']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-TW-verticaal']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-TW-verticaal']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='STM-TW-verticaal']//xsd:element[@name='geometrie2dStraatmeubilair']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-MTS-laatsteVersie']//xsd:element[@name='lod1Solid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-MTS-laatsteVersie']//xsd:element[@name='lod2Solid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-MTS-laatsteVersie']//xsd:element[@name='lod3Solid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-MTS-laatsteVersie']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-MTS-laatsteVersie']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-MTS-laatsteVersie']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-MTS-laatsteVersie']//xsd:element[@name='lod0GeometrieTunneldeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-MTS-laatsteVersie']//xsd:element[@name='geometrie2dTunneldeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-TW-verticaal']//xsd:element[@name='lod1Solid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-TW-verticaal']//xsd:element[@name='lod2Solid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-TW-verticaal']//xsd:element[@name='lod3Solid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-TW-verticaal']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-TW-verticaal']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-TW-verticaal']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-TW-verticaal']//xsd:element[@name='lod0GeometrieTunneldeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TND-TW-verticaal']//xsd:element[@name='geometrie2dTunneldeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-MTS-laatsteVersie']//xsd:element[@name='geometrie2dVegetatieobject']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-TW-verticaal']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-TW-verticaal']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-TW-verticaal']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-TW-verticaal']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VGO-TW-verticaal']//xsd:element[@name='geometrie2dVegetatieobject']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGD-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGD-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGD-MTS-laatsteVersie']//xsd:element[@name='plus-functie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGD-MTS-laatsteVersie']//xsd:element[@name='plus-fysiekVoorkomen']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGD-MTS-laatsteVersie']//xsd:element[@name='lod0Surface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGD-MTS-laatsteVersie']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGD-MTS-laatsteVersie']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGD-MTS-laatsteVersie']//xsd:element[@name='kruinlijnWegdeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGD-MTS-laatsteVersie']//xsd:element[@name='geometrie2dWegdeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGD-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGD-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGD-TW-verticaal']//xsd:element[@name='plus-functie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGD-TW-verticaal']//xsd:element[@name='plus-fysiekVoorkomen']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGD-TW-verticaal']//xsd:element[@name='lod0Surface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGD-TW-verticaal']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGD-TW-verticaal']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGD-TW-verticaal']//xsd:element[@name='kruinlijnWegdeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGD-TW-verticaal']//xsd:element[@name='geometrie2dWegdeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-MTS-laatsteVersie']//xsd:element[@name='geometrie2dWeginrichtingselement']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-TW-verticaal']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-TW-verticaal']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-TW-verticaal']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-TW-verticaal']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WGI-TW-verticaal']//xsd:element[@name='geometrie2dWeginrichtingselement']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WSP-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WSP-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WSP-MTS-laatsteVersie']//xsd:element[@name='lod0MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WSP-MTS-laatsteVersie']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WSP-MTS-laatsteVersie']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WSP-MTS-laatsteVersie']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WSP-MTS-laatsteVersie']//xsd:element[@name='geometrie2d']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WSP-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WSP-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WSP-TW-verticaal']//xsd:element[@name='lod0MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WSP-TW-verticaal']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WSP-TW-verticaal']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WSP-TW-verticaal']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WSP-TW-verticaal']//xsd:element[@name='geometrie2d']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-MTS-laatsteVersie']//xsd:element[@name='lod0Solid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-MTS-laatsteVersie']//xsd:element[@name='lod1Solid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-MTS-laatsteVersie']//xsd:element[@name='lod2Solid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-MTS-laatsteVersie']//xsd:element[@name='lod3Solid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-MTS-laatsteVersie']//xsd:element[@name='lod0MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-MTS-laatsteVersie']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-MTS-laatsteVersie']//xsd:element[@name='lod0MultiCurve']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-MTS-laatsteVersie']//xsd:element[@name='lod1MultiCurve']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-MTS-laatsteVersie']//xsd:element[@name='geometrie2dWaterdeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-TW-verticaal']//xsd:element[@name='lod0Solid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-TW-verticaal']//xsd:element[@name='lod1Solid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-TW-verticaal']//xsd:element[@name='lod2Solid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-TW-verticaal']//xsd:element[@name='lod3Solid']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-TW-verticaal']//xsd:element[@name='lod0MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-TW-verticaal']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-TW-verticaal']//xsd:element[@name='lod0MultiCurve']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-TW-verticaal']//xsd:element[@name='lod1MultiCurve']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTD-TW-verticaal']//xsd:element[@name='geometrie2dWaterdeel']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-MTS-laatsteVersie']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-MTS-laatsteVersie']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-MTS-laatsteVersie']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-MTS-laatsteVersie']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-MTS-laatsteVersie']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-MTS-laatsteVersie']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-MTS-laatsteVersie']//xsd:element[@name='geometrie2dWaterinrichtingselement']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-TW-verticaal']//xsd:element[@name='lod0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-TW-verticaal']//xsd:element[@name='plus-type']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-TW-verticaal']//xsd:element[@name='lod1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-TW-verticaal']//xsd:element[@name='lod2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-TW-verticaal']//xsd:element[@name='lod3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-TW-verticaal']//xsd:element[@name='implicitRepresentation0Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-TW-verticaal']//xsd:element[@name='implicitRepresentation1Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-TW-verticaal']//xsd:element[@name='implicitRepresentation2Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-TW-verticaal']//xsd:element[@name='implicitRepresentation3Geometry']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WTI-TW-verticaal']//xsd:element[@name='geometrie2dWaterinrichtingselement']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WYK-MTS-laatsteVersie']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WYK-MTS-laatsteVersie']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WYK-MTS-laatsteVersie']//xsd:element[@name='lod0MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WYK-MTS-laatsteVersie']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WYK-MTS-laatsteVersie']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WYK-MTS-laatsteVersie']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WYK-MTS-laatsteVersie']//xsd:element[@name='geometrie2d']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WYK-TW-verticaal']//xsd:element[@name='lod0MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WYK-TW-verticaal']//xsd:element[@name='bgt-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WYK-TW-verticaal']//xsd:element[@name='plus-status']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WYK-TW-verticaal']//xsd:element[@name='lod1MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WYK-TW-verticaal']//xsd:element[@name='lod2MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WYK-TW-verticaal']//xsd:element[@name='lod3MultiSurface']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WYK-TW-verticaal']//xsd:element[@name='geometrie2d']">
+				<dom/>
+			</bindings>
+			
+			<bindings node="xsd:complexType[@name='Labelpositie']//xsd:element[@name='plaatsingspunt']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='Labelpositie-Toevoeging']//xsd:element[@name='plaatsingspunt']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='LijnOfPunt']//xsd:element[@name='lijn']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='LijnOfPunt']//xsd:element[@name='punt']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='LijnOfPuntOfVlak']//xsd:element[@name='lijn']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='LijnOfPuntOfVlak']//xsd:element[@name='punt']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='LijnOfPuntOfVlak']//xsd:element[@name='vlak']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='LijnOfVlak']//xsd:element[@name='lijn']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='LijnOfVlak']//xsd:element[@name='vlak']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MultiPuntOfMultiVlakOfLijnOfVlak']//xsd:element[@name='multiPunt']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MultiPuntOfMultiVlakOfLijnOfVlak']//xsd:element[@name='multiVlak']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MultiPuntOfMultiVlakOfLijnOfVlak']//xsd:element[@name='lijn']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='MultiPuntOfMultiVlakOfLijnOfVlak']//xsd:element[@name='vlak']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VlakOfMultiVlak']//xsd:element[@name='vlak']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='VlakOfMultiVlak']//xsd:element[@name='multivlak']">
+				<dom/>
+			</bindings>
+
+			<bindings node="xsd:complexType[@name='VAV-verzoek']//xsd:element[@name='geometrie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='ResponsMTB']//xsd:element[@name='laatsteVerwerkingsactie']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='CurvePropertyType-e']//xsd:element[@ref='gml:_Curve']">
+				<dom/>
+			</bindings>
+			<!--bindings node="xsd:complexType[@name='CurvePropertyType-e']//xsd:attributeGroup[@ref='gml:AssociationAttributeGroup']">
+				<dom/>
+			</bindings-->
+
+		</bindings>
+	</bindings>
+	<!--bindings schemaLocation="BMKL-1.2/KlicSimpleTypes-1.4.xsd">
+	                <schemaBindings>
+	                        <package name="nl.kadaster.klic"/>
+	                </schemaBindings>
+	        </bindings-->
+	<bindings schemaLocation="wsdl/cityGMLBase_resolved.xsd">
+	                <schemaBindings map="false"/>
+        </bindings>
+
+        <bindings schemaLocation="wsdl/gml_resolved.xsd">
+	                <schemaBindings map="false"/>
+	        </bindings>
+	       
+	        <bindings schemaLocation="wsdl/smil20_resolved.xsd">
+	                <schemaBindings map="false"/>
+	        </bindings>     
+	       
+	        <bindings schemaLocation="wsdl/smil20-language_resolved.xsd">
+	                <schemaBindings map="false"/>
+	        </bindings>
+</bindings>
