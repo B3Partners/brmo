@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:StUF="http://www.egem.nl/StUF/StUF0301"
+        xmlns:BG="http://www.egem.nl/StUF/sector/bg/0310"
+        xmlns:gml="http://www.opengis.net/gml"
+        targetNamespace="http://www.egem.nl/StUF/sector/bg/0310"
+        elementFormDefault="qualified"
+        attributeFormDefault="unqualified"
+        version="031003">
+   <import namespace="http://www.egem.nl/StUF/StUF0301"
+           schemaLocation="imgeo0300_stuf_msg_horizontaal_resolved.xsd"/>
+   <import namespace="http://www.opengis.net/gml"
+           schemaLocation="gml_resolved.xsd"/>
+   <annotation>
+		    <documentation xml:lang="nl">
+			- Nieuw bestand in verband met nieuwe werkwijze maken sectormodellen
+			- Schema met de definitie van de simpleTypes, "-e" complexTypes en metagegevens complexTypes gebruikt in de basisentiteiten voor bg0310.
+			Wijzigingen t.b.v. patch 1-7-2012 vergeleken met versie bg0310_simpleTypes.xsd v031000:
+			- ERR227: In enumeration van de complexType 'StatusWOZBeschikking' 'ambsthalve' gecorrigeerd in 'ambtshalve'.
+			- ERR224: Aan het simpleType 'RedenOpschortingBijhouding' de enumeration waarde 'R' toegevoegd.
+			Wijzigingen t.b.v. patch 1-10-2012 vergeleken met versie bg0310_simpleTypes.xsd v031001:
+			- ERR246: Update naar gmnl 3.1.1.2 .		
+			Wijzigingen t.b.v. patch 1-1-2013 vergeleken met versie bg0310_simpleTypes.xsd v031002:
+			- ERR253: Definitie van complexType 'GeometrieIMGeo-e' gewijzigd. Extend niet meer 'BG:GeometrieIMGeo' maar 'gml:SurfacePropertyType'.		
+		</documentation>
+	  </annotation>
+   <complexType name="ObjectNummering-e">
+		    <simpleContent>
+			      <extension base="BG:ObjectNummering">
+				        <attributeGroup ref="StUF:element"/>
+			      </extension>
+		    </simpleContent>
+	  </complexType>
+   <complexType name="Omschrijving200-e">
+		    <simpleContent>
+			      <extension base="BG:Omschrijving200">
+				        <attributeGroup ref="StUF:element"/>
+			      </extension>
+		    </simpleContent>
+	  </complexType>
+   <simpleType name="ObjectNummering">
+		    <restriction base="string">
+			      <length value="16"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Omschrijving200">
+		    <restriction base="string">
+			      <maxLength value="200"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Url">
+		    <restriction base="string">
+			      <maxLength value="200"/>
+		    </restriction>
+	  </simpleType>
+</schema>
