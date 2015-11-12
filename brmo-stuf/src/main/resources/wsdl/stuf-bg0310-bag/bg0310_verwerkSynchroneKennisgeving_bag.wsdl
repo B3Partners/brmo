@@ -1,0 +1,970 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:BG="http://www.egem.nl/StUF/sector/bg/0310" xmlns:StUF="http://www.egem.nl/StUF/StUF0301" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" name="bg0310-bag" targetNamespace="http://www.egem.nl/StUF/sector/bg/0310">
+	<import namespace="http://www.egem.nl/StUF/StUF0301" location="../../0301/stuf0301_types.wsdl"/>
+	<documentation>
+		<xs:documentation>
+			   Dit document definieert de operations en bindings voor het portType OntvangAsynchroon tbv het binnengemeentelijke koppelvlak BAG (NB: Er is geen service gedefinieerd, omdat deze operations opgenomen horen te worden binnen de wsdl voor een gemeentelijke procesapplicatie).
+		
+			   Versie 031000,:
+			   - ERR2326: Van alle asynchrone berichten is nu ook een synchrone variant beschikbaar.
+			
+			   Versie 031001, wijzigingen t.b.v. patch 21 (1-4-2015) vergeleken met versie 031000 zijn de volgende wijzigingen doorgevoerd:			
+			   - ERR0353: Het documentation element is voorzien van een standaard 'appinfo' structuur met daarin informatie over het schema.
+			
+		</xs:documentation>
+		<xs:appinfo>
+			<StUF:onderdeel>http://www.egem.nl/StUF/sector/bg/0310</StUF:onderdeel>
+			<StUF:patch>22</StUF:patch>
+			<StUF:patchdatum>20150701</StUF:patchdatum>
+			<StUF:schemaversie>1</StUF:schemaversie>
+		</xs:appinfo>
+	</documentation>
+	<types>
+		<xs:schema>
+			<xs:import namespace="http://www.egem.nl/StUF/sector/bg/0310" schemaLocation="bg0310_msg_BAG.xsd"/>
+		</xs:schema>
+	</types>
+	<message name="bagAGO_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bagAGO_Lk04"/>
+	</message>
+	<message name="bagAOC_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bagAOC_Lk04"/>
+	</message>
+	<message name="bagBN_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bagBN_Lk04"/>
+	</message>
+	<message name="bagCOR_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bagCOR_Lk04"/>
+	</message>
+	<message name="bagFGO_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bagFGO_Lk04"/>
+	</message>
+	<message name="bagHER_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bagHER_Lk04"/>
+	</message>
+	<message name="bagHLG_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bagHLG_Lk04"/>
+	</message>
+	<message name="bagIN_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bagIN_Lk04"/>
+	</message>
+	<message name="bagIO_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bagIO_Lk04"/>
+	</message>
+	<message name="bagMUT_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bagMUT_Lk04"/>
+	</message>
+	<message name="bagOA_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bagOA_Lk04"/>
+	</message>
+	<message name="bgrBIG_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrBIG_Lk04"/>
+	</message>
+	<message name="bgrBSLSP_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrBSLSP_Lk04"/>
+	</message>
+	<message name="bgrBSLLP_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrBSLLP_Lk04"/>
+	</message>
+	<message name="bgrCOG_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrCOG_Lk04"/>
+	</message>
+	<message name="bgrIBV_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrIBV_Lk04"/>
+	</message>
+	<message name="bgrISLLP_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrISLLP_Lk04"/>
+	</message>
+	<message name="bgrISLSP_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrISLSP_Lk04"/>
+	</message>
+	<message name="bgrISV_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrISV_Lk04"/>
+	</message>
+	<message name="bgrKVO_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrKVO_Lk04"/>
+	</message>
+	<message name="bgrMAB_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrMAB_Lk04"/>
+	</message>
+	<message name="bgrMSB_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrMSB_Lk04"/>
+	</message>
+	<message name="bgrMGB_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrMGB_Lk04"/>
+	</message>
+	<message name="bgrMGS_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrMGS_Lk04"/>
+	</message>
+	<message name="bgrOABSV_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrOABSV_Lk04"/>
+	</message>
+	<message name="bgrPNO_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrPNO_Lk04"/>
+	</message>
+	<message name="bgrSSVSAMEN_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrSSVSAMEN_Lk04"/>
+	</message>
+	<message name="bgrSSVSPLITS_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrSSVSPLITS_Lk04"/>
+	</message>
+	<message name="bgrVB_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrVB_Lk04"/>
+	</message>
+	<message name="bgrVBI_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrVBI_Lk04"/>
+	</message>
+	<message name="bgrVBN_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrVBN_Lk04"/>
+	</message>
+	<message name="bgrVOCDEEL_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrVOCDEEL_Lk04"/>
+	</message>
+	<message name="bgrVOCHEEL_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrVOCHEEL_Lk04"/>
+	</message>
+	<message name="bgrVSL_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:bgrVSL_Lk04"/>
+	</message>
+	<message name="braBOR_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:braBOR_Lk04"/>
+	</message>
+	<message name="braBWP_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:braBWP_Lk04"/>
+	</message>
+	<message name="braGHO_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:braGHO_Lk04"/>
+	</message>
+	<message name="braHNU_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:braHNU_Lk04"/>
+	</message>
+	<message name="braHOB_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:braHOB_Lk04"/>
+	</message>
+	<message name="braHOR_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:braHOR_Lk04"/>
+	</message>
+	<message name="braHWP_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:braHWP_Lk04"/>
+	</message>
+	<message name="braIOR_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:braIOR_Lk04"/>
+	</message>
+	<message name="braIWP_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:braIWP_Lk04"/>
+	</message>
+	<message name="braOHN_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:braOHN_Lk04"/>
+	</message>
+	<message name="braOPC_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:braOPC_Lk04"/>
+	</message>
+	<message name="braWGW_Lk04" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<part name="body" element="BG:braWGW_Lk04"/>
+	</message>
+	<portType name="VerwerkSynchroon" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<documentation>
+		Dit portType ondersteunt als operaties alle synchrone berichten gedefinieerd binnen het sectormodel
+	</documentation>
+		<operation name="bagAGO_Lk04">
+			<input message="BG:bagAGO_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bagAOC_Lk04">
+			<input message="BG:bagAOC_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bagBN_Lk04">
+			<input message="BG:bagBN_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bagCOR_Lk04">
+			<input message="BG:bagCOR_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bagFGO_Lk04">
+			<input message="BG:bagFGO_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bagHER_Lk04">
+			<input message="BG:bagHER_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bagHLG_Lk04">
+			<input message="BG:bagHLG_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bagIN_Lk04">
+			<input message="BG:bagIN_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bagIO_Lk04">
+			<input message="BG:bagIO_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bagMUT_Lk04">
+			<input message="BG:bagMUT_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bagOA_Lk04">
+			<input message="BG:bagOA_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrBIG_Lk04">
+			<input message="BG:bgrBIG_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrBSLSP_Lk04">
+			<input message="BG:bgrBSLSP_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrBSLLP_Lk04">
+			<input message="BG:bgrBSLLP_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrCOG_Lk04">
+			<input message="BG:bgrCOG_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrIBV_Lk04">
+			<input message="BG:bgrIBV_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrISLLP_Lk04">
+			<input message="BG:bgrISLLP_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrISLSP_Lk04">
+			<input message="BG:bgrISLSP_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrISV_Lk04">
+			<input message="BG:bgrISV_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrKVO_Lk04">
+			<input message="BG:bgrKVO_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrMAB_Lk04">
+			<input message="BG:bgrMAB_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrMSB_Lk04">
+			<input message="BG:bgrMSB_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrMGB_Lk04">
+			<input message="BG:bgrMGB_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrMGS_Lk04">
+			<input message="BG:bgrMGS_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrOABSV_Lk04">
+			<input message="BG:bgrOABSV_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrPNO_Lk04">
+			<input message="BG:bgrPNO_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrSSVSAMEN_Lk04">
+			<input message="BG:bgrSSVSAMEN_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrSSVSPLITS_Lk04">
+			<input message="BG:bgrSSVSPLITS_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrVB_Lk04">
+			<input message="BG:bgrVB_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrVBI_Lk04">
+			<input message="BG:bgrVBI_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrVBN_Lk04">
+			<input message="BG:bgrVBN_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrVOCDEEL_Lk04">
+			<input message="BG:bgrVOCDEEL_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrVOCHEEL_Lk04">
+			<input message="BG:bgrVOCHEEL_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="bgrVSL_Lk04">
+			<input message="BG:bgrVSL_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="braBOR_Lk04">
+			<input message="BG:braBOR_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="braBWP_Lk04">
+			<input message="BG:braBWP_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="braGHO_Lk04">
+			<input message="BG:braGHO_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="braHNU_Lk04">
+			<input message="BG:braHNU_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="braHOB_Lk04">
+			<input message="BG:braHOB_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="braHOR_Lk04">
+			<input message="BG:braHOR_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="braHWP_Lk04">
+			<input message="BG:braHWP_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="braIOR_Lk04">
+			<input message="BG:braIOR_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="braIWP_Lk04">
+			<input message="BG:braIWP_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="braOHN_Lk04">
+			<input message="BG:braOHN_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="braOPC_Lk04">
+			<input message="BG:braOPC_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+		<operation name="braWGW_Lk04">
+			<input message="BG:braWGW_Lk04"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+	</portType>
+	<binding name="SOAPVerwerkSynchroon" type="BG:VerwerkSynchroon" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+		<documentation>
+			Omdat de uit te wisselen berichten volledig gedefinieerd zijn in het sectormodel cq de StUF-standaard, kunnen we ze zonder verdere encoding (“literal”) opnemen in de body.
+Niet ondersteunde berichten kunnen uit de binding en portType worden verwijderd.
+		</documentation>
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="bagAGO_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bagAGO_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bagAOC_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bagAOC_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bagBN_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bagBN_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bagFGO_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bagFGO_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bagCOR_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bagCOR_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bagHER_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bagHER_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bagHLG_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bagHLG_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bagIN_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bagIN_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bagIO_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bagIO_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bagMUT_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bagMUT_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bagOA_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bagOA_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrBIG_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrBIG_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrBSLSP_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrBSLSP_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrBSLLP_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrBSLLP_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrCOG_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrCOG_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrIBV_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrIBV_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrISLLP_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrISLLP_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrISLSP_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrISLSP_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrISV_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrISV_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrKVO_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrKVO_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrMAB_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrMAB_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrMSB_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrMSB_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrMGB_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrMGB_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrMGS_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrMGS_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrOABSV_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrOABSV_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrPNO_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrPNO_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrSSVSAMEN_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrSSVSAMEN_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrSSVSPLITS_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrSSVSPLITS_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrVB_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrVB_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrVBI_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrVBI_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrVBN_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrVBN_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrVOCDEEL_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrVOCDEEL_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrVOCHEEL_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrVOCHEEL_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="bgrVSL_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/bgrVSL_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="braBOR_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/braBOR_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="braBWP_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/braBWP_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="braGHO_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/braGHO_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="braHNU_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/braHNU_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="braHOB_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/braHOB_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="braHOR_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/braHOR_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="braHWP_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/braHWP_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="braIOR_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/braIOR_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="braIWP_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/braIWP_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="braOHN_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/braOHN_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="braOPC_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/braOPC_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="braWGW_Lk04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/braWGW_Lk04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+	</binding>
+	<service name="VerwerkSsynchroon">
+		<documentation>
+	Hieronder wordt de concreet aan te roepen service voor het ontvangen van synchrone BG0310-berichten gedefinieerd. 
+		</documentation>
+		<port name="VerwerkSsynchroon" binding="BG:SOAPVerwerkSynchroon">
+			<documentation>
+				<wsi:Claim conformsTo="http://ws-i.org/profiles/basic/1.1"/>
+			</documentation>
+			<soap:address location="http://example.com/VerwerkSsynchroon"/>
+		</port>
+	</service>
+</definitions>

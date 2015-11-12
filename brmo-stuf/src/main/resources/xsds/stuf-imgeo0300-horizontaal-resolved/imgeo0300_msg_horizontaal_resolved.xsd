@@ -5038,21 +5038,35 @@
 			      </extension>
 		    </simpleContent>
 	  </complexType>
-   <complexType name="CodeType-e">
-		    <simpleContent>
-			      <extension base="gml:CodeType">
-            <attribute name="codeSpace" type="anyURI" use="required"/>
-            <attribute ref="StUF:noValue"/>
-         </extension>
-		    </simpleContent>
-	  </complexType>
-   <complexType name="CurvePropertyType-e">
-		    <complexContent>
-			      <extension base="gml:CurvePropertyType">
-				        <attributeGroup ref="StUF:element"/>
-			      </extension>
-		    </complexContent>
-	  </complexType>
+	<!--xs:complexType name="CodeType-e">
+		<xs:simpleContent>
+			<xs:extension base="gml:CodeType">
+				<xs:attribute ref="StUF:noValue"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType-->
+	<xs:complexType name="CodeType-e">
+		<xs:simpleContent>
+			<xs:extension base="string">
+				<xs:attribute name="codeSpace" type="anyURI" use="optional"/>
+				<xs:attribute ref="StUF:noValue"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>	
+	<!--xs:complexType name="CurvePropertyType-e">
+		<xs:complexContent>
+			<xs:extension base="gml:CurvePropertyType">
+				<xs:attributeGroup ref="StUF:element"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType-->
+	<xs:complexType name="CurvePropertyType-e">
+		<xs:sequence minOccurs="0">
+			<xs:element ref="gml:_Curve"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+		<xs:attributeGroup ref="StUF:element"/>
+	</xs:complexType>	
    <complexType name="date-e">
 		    <simpleContent>
 			      <extension base="date">
