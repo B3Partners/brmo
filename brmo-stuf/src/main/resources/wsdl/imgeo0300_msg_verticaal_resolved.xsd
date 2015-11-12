@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- edited with XMLSpy v2008 rel. 2 (http://www.altova.com) by chris van lith (B3partners BV) -->
+<!-- CvL 11-11-2015 enige aanpassingen vanaf regel 4300 omdat complexe object met gml onderdelen versimpeld moesten worden-->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:cit="http://www.opengis.net/citygml/2.0" xmlns:gml="http://www.opengis.net/gml" xmlns:imgeo="http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo" xmlns:StUF="http://www.egem.nl/StUF/StUF0301" xmlns:BG="http://www.egem.nl/StUF/sector/bg/0310" xmlns:gb="http://www.logius.nl/digikoppeling/gb/2010/10" xmlns:cgml="http://www.opengis.net/citygml/2.0" xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns:sch="http://www.ascc.net/xml/schematron" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:tns="http://www.logius.nl/digikoppeling/gb/2010/10" targetNamespace="http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo" elementFormDefault="qualified" attributeFormDefault="unqualified" version="030003">
 	<xs:import namespace="http://www.egem.nl/StUF/StUF0301" schemaLocation="imgeo0300_stuf_msg_verticaal_resolved.xsd"/>
 	<xs:import namespace="http://www.opengis.net/citygml/2.0" schemaLocation="cityGMLBase_resolved.xsd"/>
@@ -4297,20 +4298,35 @@
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<xs:complexType name="CodeType-e">
+	<!--xs:complexType name="CodeType-e">
 		<xs:simpleContent>
 			<xs:extension base="gml:CodeType">
 				<xs:attribute ref="StUF:noValue"/>
 			</xs:extension>
 		</xs:simpleContent>
-	</xs:complexType>
-	<xs:complexType name="CurvePropertyType-e">
+	</xs:complexType-->
+	<xs:complexType name="CodeType-e">
+		<xs:simpleContent>
+			<xs:extension base="string">
+				<xs:attribute name="codeSpace" type="anyURI" use="optional"/>
+				<xs:attribute ref="StUF:noValue"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>	
+	<!--xs:complexType name="CurvePropertyType-e">
 		<xs:complexContent>
 			<xs:extension base="gml:CurvePropertyType">
 				<xs:attributeGroup ref="StUF:element"/>
 			</xs:extension>
 		</xs:complexContent>
-	</xs:complexType>
+	</xs:complexType-->
+	<xs:complexType name="CurvePropertyType-e">
+		<xs:sequence minOccurs="0">
+			<xs:element ref="gml:_Curve"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
+		<xs:attributeGroup ref="StUF:element"/>
+	</xs:complexType>	
 	<xs:complexType name="date-e">
 		<xs:simpleContent>
 			<xs:extension base="date">
@@ -4349,11 +4365,18 @@
 			<xs:extension base="imgeo:BuurtIdentificatie"/>
 		</xs:simpleContent>
 	</xs:complexType>
-	<xs:complexType name="CodeType-r">
+	<!--xs:complexType name="CodeType-r">
 		<xs:simpleContent>
 			<xs:extension base="gml:CodeType"/>
 		</xs:simpleContent>
-	</xs:complexType>
+	</xs:complexType-->
+	<xs:complexType name="CodeType-r">
+		<xs:simpleContent>
+			<xs:extension base="string">
+				<xs:attribute name="codeSpace" type="anyURI" use="optional"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>	
 	<xs:complexType name="date-r">
 		<xs:simpleContent>
 			<xs:extension base="date"/>
