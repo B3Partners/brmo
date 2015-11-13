@@ -13,7 +13,7 @@
 	<types>
 		<xs:schema>
 			   <xs:import namespace="http://www.egem.nl/StUF/StUF0301"
-           schemaLocation="../../xsds/imgeo0300_stuf_msg_horizontaal_resolved.xsd"/>
+           schemaLocation="./imgeo0300_stuf_msg_horizontaal_resolved.xsd"/>
 			<xs:import namespace="http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo" schemaLocation="../../xsds/imgeo0300_msg_horizontaal_resolved.xsd"/>
 		</xs:schema>
 	</types>

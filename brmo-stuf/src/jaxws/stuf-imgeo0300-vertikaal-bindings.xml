@@ -4,9 +4,9 @@
 		<javaType name="java.util.Calendar" xmlType="xsd:date" parseMethod="javax.xml.bind.DatatypeConverter.parseDate" printMethod="javax.xml.bind.DatatypeConverter.printDate"/>
 		<javaType name="java.util.Calendar" xmlType="xsd:dateTime" parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime" printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
 	</globalBindings>
-	<bindings schemaLocation="wsdl/imgeo0300_msg_verticaal_resolved.xsd">
+	<bindings schemaLocation="../wsdl/imgeo0300_msg_verticaal_resolved.xsd">
 		<schemaBindings>
-	    <package name="nl.b3p.brmo.stuf.imgeo"/>
+	    <package name="nl.b3p.brmo.stuf.imgeo.vertikaal.lv"/>
 	  </schemaBindings>
 		<bindings node="/xsd:schema">
 			<!--
@@ -698,16 +698,16 @@
 			-->
 		</bindings>
 	</bindings>
-	<bindings schemaLocation="wsdl/cityGMLBase_resolved.xsd">
+	<bindings schemaLocation="../wsdl/cityGMLBase_resolved.xsd">
 		<schemaBindings map="false"/>
 	</bindings>
-	<bindings schemaLocation="wsdl/gml_resolved.xsd">
+	<bindings schemaLocation="../wsdl/gml_resolved.xsd">
 		<schemaBindings map="false"/>
 	</bindings>
-	<bindings schemaLocation="wsdl/smil20_resolved.xsd">
+	<bindings schemaLocation="../wsdl/smil20_resolved.xsd">
 		<schemaBindings map="false"/>
 	</bindings>
-	<bindings schemaLocation="wsdl/smil20-language_resolved.xsd">
+	<bindings schemaLocation="../wsdl/smil20-language_resolved.xsd">
 		<schemaBindings map="false"/>
 	</bindings>
 </bindings>

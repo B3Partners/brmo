@@ -10,8 +10,9 @@
 	<types>
 		<xs:schema>
 			   <xs:import namespace="http://www.egem.nl/StUF/StUF0301"
-           schemaLocation="../../xsds/imgeo0300_stuf_msg_verticaal_resolved.xsd"/>
-			<xs:import namespace="http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo" schemaLocation="../../xsds/imgeo0300_msg_verticaal_resolved.xsd"/>
+           schemaLocation="./imgeo0300_stuf_msg_verticaal_resolved.xsd"/>
+			<xs:import namespace="http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo" 
+				schemaLocation="./imgeo0300_msg_verticaal_resolved.xsd"/>
 		</xs:schema>
 	</types>
 	<message name="mtbSVBDi01">
@@ -28,6 +29,12 @@
 	</message>
 	<message name="opvDi01">
 		<part name="body" element="imgeo:opvDi01"/>
+	</message>
+	<message name="Bv03">
+		<part name="body" element="StUF:Bv03Bericht"/>
+	</message>
+	<message name="Fo03">
+		<part name="body" element="StUF:Fo03Bericht"/>
 	</message>
 	<portType name="OntvangAsynchroon">
 		<documentation>
