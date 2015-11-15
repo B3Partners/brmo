@@ -11,7 +11,8 @@ import javax.xml.ws.ResponseWrapper;
 import nl.b3p.brmo.soap.db.BrkInfo;
 
 @WebService(
-        targetNamespace = "http://brmo.b3p.nl/brk/1.0/soap-brk"
+        targetNamespace = "http://brmo.b3p.nl/brk/1.0/soap-brk",
+        wsdlLocation = "WEB-INF/wsdl/brkinfo.wsdl"
 )
 public class GetBrkInfoImpl {
 

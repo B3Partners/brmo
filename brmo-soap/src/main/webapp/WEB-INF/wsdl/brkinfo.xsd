@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:tns="http://brmo.b3p.nl/brk/1.0/soap-brk" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://brmo.b3p.nl/brk/1.0/soap-brk" version="1.0">
+	<xs:element name="BrkInfoException" type="tns:BrkInfoException"/>
+	<xs:element name="getBrkInfo" type="tns:getBrkInfo">
+		<xs:annotation>
+			<xs:documentation>Via dit object kan een filter ingesteld worden waarmee BRK informatie wordt opgehaald</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="getBrkInfoResponse" type="tns:getBrkInfoResponse">
+		<xs:annotation>
+			<xs:documentation>Dit object beschrijft de strctuur van het antwoord waarbinnen de informatie is opgenomen waarom gevraagd is.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="getBrkInfo">
+		<xs:annotation>
+			<xs:documentation>Dit object beschrijft de van het antwoord waarbinnen de informatie is opgenomen waarom gevraagd is.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="request" type="tns:brkInfoRequest" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="brkInfoRequest">
+		<xs:annotation>
+			<xs:documentation>Via dit object kan een filter ingesteld worden waarmee BRK informatie wordt opgehaald</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="bufferAfstand" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>De bufferafstand is een getal met als eenheid [meters]. Indien een zoekgebied is opgegeven wordt de opgegeven locatie gebufferd met de genoemde bufferafstand voordat deze wordt toegepast voor de selectie</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="kadOnrndZk" type="tns:kadOnrndZkInfoRequest" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>filtermogelijkheden welke betrekking hebben op de kadastrale onroerende zaak.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="perceelAdres" type="tns:perceelAdresInfoRequest" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>filtermogelijkheden welke betrekking hebben op het adres.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subjectNaam" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Naam waarop gezocht moet worden binnen de gerelateerde subjecten, welke als comfort informatie via de BRK beschikbaar is. Er wordt minimaal gezocht op achternaam en op bedrijfsnaam.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="zoekgebied" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Het zoekgebied is een aanduiding van de locatie als WKT. Zoeken op een klikpunt wordt hiermee ondersteund doordat een POINT opgenomen kan worden in de WKT</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="adressenToevoegen" type="xs:boolean">
+			<xs:annotation>
+				<xs:documentation>In de response moet adres info worden opgenomen (indien beschikbaar)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="gevoeligeInfoOphalen" type="xs:boolean">
+			<xs:annotation>
+				<xs:documentation> In de response mag privacygevoelige informatie (BSN nummer) worden opgenomen (of dit ook daadwerkelijk gebeurt hangt af van autorisaties)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="maxAantalResultaten" type="xs:int">
+			<xs:annotation>
+				<xs:documentation>De response mag maximaal het hier opgegeven aantal gegevensrecords worden opgenomen, default= 15, bij meer resultaten een foutmelding</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="subjectsToevoegen" type="xs:boolean">
+			<xs:annotation>
+				<xs:documentation>In de response dient subject informatie te worden opgenomen (indien beschikbaar)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="kadOnrndZkInfoRequest">
+		<xs:annotation>
+			<xs:documentation>filtermogelijkheden welke betrekking hebben op de kadastrale onroerende zaak.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="appReVolgnummer" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>In geval van een appartement kan hier het volgnummer worden opgegeven</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="gemeentecode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Afkorting voor kadastrale gemeente als gebruikt in AKR.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="identificatie" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Formeel kadasstrale object nummer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="perceelnummer" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>nummer van het perceel</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sectie" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Letter van sectie</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="perceelAdresInfoRequest">
+		<xs:annotation>
+			<xs:documentation>filtermogelijkheden welke betrekking hebben op het adres.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="huisnummer" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Huisnummer van de straat welke via de BAG koppeling aan 
+     * het perceel is gekoppeld</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="postcode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation> Postcode welke via de BAG koppeling aan het perceel is gekoppeld</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="straatNaam" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Naam van de straat welke via de BAG koppeling aan het perceel is gekoppeld</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="woonplaatsNaam" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Naam van de woonplaats welke via de BAG koppeling aan het perceel is gekoppeld</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="getBrkInfoResponse">
+		<xs:annotation>
+			<xs:documentation>Dit object beschrijft de van het antwoord waarbinnen de informatie is opgenomen waarom gevraagd is.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="return" type="tns:brkInfoResponse" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="brkInfoResponse">
+		<xs:annotation>
+			<xs:documentation>Wrapper om hoofdobject waarin antwoord staat met kenmerk gevoelige informatie en tijdstip aanmaken</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="kadOnrndZk" type="tns:kadOnrndZkInfoResponse" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Dit is het hoofdobject waarbinnen alle antwoorden worden opgenomen.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="bevatGevoeligeInfo" type="xs:boolean">
+			<xs:annotation>
+				<xs:documentation>Hier wordt aangegeven of in dit antwoord gevoelige informatie (BSN-nummers) bevat.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="timestamp" type="xs:dateTime">
+			<xs:annotation>
+				<xs:documentation>De tijdstip waarop het antwoord is aangemaakt.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="kadOnrndZkInfoResponse">
+		<xs:annotation>
+			<xs:documentation>Dit is het hoofdobject waarbinnen alle antwoorden worden opgenomen.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="aandSoortGrootte" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="aardCultuurOnbebouwd" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="adressen" type="tns:adressenResponse" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Het BAG adres dat aan dit perceel gekoppeld is.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="appReVolgnummer" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bedrag" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="begrenzingPerceel" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="datumBeginGeldigheid" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="datumEindeGeldigheid" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="gemeentecode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="groottePerceel" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="identificatie" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="koopjaar" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="meerOnroerendgoed" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="omschr_deelperceel" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="perceelnummer" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rechten" type="tns:rechtenResponse" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Alle rechten welke aan deze kadastrale onroerende zaak zijn gekoppeld.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="relaties" type="tns:relatiesResponse" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Op dit moment worden nog geen relaties gekoppeld. In de toekomst kan hier het grondperceel behorende bij een appartement opgegeven worden of de historische relaties.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sectie" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Percelen en appartmenten delen de zelfde velden. Hier wordt het type opgegeven; de waarden zijn: appartement of perceel.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="adressenResponse">
+		<xs:annotation>
+			<xs:documentation>Deel van het antwoord dat de gekoppelde adressen weergeeft.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="BAGAdres" type="tns:adresResponse" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="adresResponse">
+		<xs:annotation>
+			<xs:documentation>Deel van het antwoord dat een adres weergeeft.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="huisLetter" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="huisLetterToevoeging" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="huisnummer" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="postcode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="straatNaam" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="woonplaatsNaam" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rechtenResponse">
+		<xs:annotation>
+			<xs:documentation>Deel van het antwoord dat de gekoppelde rechten weergeeft.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="zakelijkRecht" type="tns:zakelijkRechtResponse" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="zakelijkRechtResponse">
+		<xs:annotation>
+			<xs:documentation>Deel van het antwoord dat ee spcifiek rech weergeeft.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="aardVerkregenRecht" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="indicatieBetrokkenInSplitsing" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="natuurlijkPersoon" type="tns:natuurlijkPersoonResponse" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nietNatuurlijkPersoon" type="tns:nietNatuurlijkPersoonResponse" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="noemer" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="teller" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="natuurlijkPersoonResponse">
+		<xs:annotation>
+			<xs:documentation>Deel van het antwoord dat een natuurlijk personen weergeeft</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="aanduidingNaamgebruik" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bsn" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="geboortedatum" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="geboorteplaats" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="geslachtsaanduiding" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="geslachtsnaam" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="identificatie" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="locatieBeschrijving" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="overlijdensdatum" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="voornamen" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="voorvoegsel" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nietNatuurlijkPersoonResponse">
+		<xs:annotation>
+			<xs:documentation>Deel van het antwoord dat een niet natuurllijk personen, zoals bedrijf of vereniging, weergeeft.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identificatie" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="naam" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rechtsvorm" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="statutaireZetel" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="relatiesResponse">
+		<xs:annotation>
+			<xs:documentation>Deel van het antwoord dat relaties als grondperceel of historische relaties weergeeft.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="grondPerceel" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indien dit een appartement betreft wordt hier het bijbehorende grondperceel (indien beschikbaar) getoond.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="historischeRelaties" type="tns:historischeRelatieResponse" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Historische relaties zoals ontstaansgeschiedenis.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="historischeRelatieResponse">
+		<xs:annotation>
+			<xs:documentation>Deel van het antwoord dat de historische relaties weergeeft</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="aard" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="identificatie" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="overgangsgrootte" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zie BRK informatie voor uitleg</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BrkInfoException">
+		<xs:annotation>
+			<xs:documentation>Dit object beschrijft een foutsituatie</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="detail" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Details mbt de foutmelding.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="message" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Titel van de foutmelding.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

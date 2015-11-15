@@ -18,7 +18,7 @@ public class BrkInfoRequest {
     private Boolean gevoeligeInfoOphalen = false;
 
     private String zoekgebied;
-    private Integer bufferLengte;
+    private Integer bufferAfstand;
 
     private KadOnrndZkInfoRequest kadOnrndZk;
 
@@ -84,7 +84,7 @@ public class BrkInfoRequest {
     }
 
     /**
-     * In de response mag priivacygevoelige informatie (BSN nummer) worden
+     * In de response mag privacygevoelige informatie (BSN nummer) worden
      * opgenomen (of dit ook daadwerkelijk gebeurt hangt af van autorisaties)
      *
      * @return the gevoeligeInfoOphalen
@@ -120,21 +120,21 @@ public class BrkInfoRequest {
     }
 
     /**
-     * De bufferlengte is een getal met als eenheid [meters]. Indien een
+     * De bufferafstand is een getal met als eenheid [meters]. Indien een
      * zoekgebied is opgegeven wordt de opgegeven locatie gebufferd met de
-     * genoemde bufferlengte voordat deze wordt toegepast voor de selectie
+     * genoemde bufferafstand voordat deze wordt toegepast voor de selectie
      *
-     * @return the bufferLengte
+     * @return the bufferAfstand
      */
-    public Integer getBufferLengte() {
-        return bufferLengte;
+    public Integer getBufferAfstand() {
+        return bufferAfstand;
     }
 
     /**
-     * @param bufferLengte the bufferLengte to set
+     * @param bufferAfstand the bufferAfstand to set
      */
-    public void setBufferLengte(Integer bufferLengte) {
-        this.bufferLengte = bufferLengte;
+    public void setBufferAfstand(Integer bufferAfstand) {
+        this.bufferAfstand = bufferAfstand;
     }
 
     /**

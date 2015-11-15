@@ -92,7 +92,7 @@ public class KadOnrndZkInfoRequest {
     }
 
     /**
-     * Formele kadatstrale object nummer
+     * Formeel kadasstrale object nummer
      *
      * @return the identificatie
      */

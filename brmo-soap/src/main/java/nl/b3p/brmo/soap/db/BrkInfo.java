@@ -98,6 +98,46 @@ public class BrkInfo {
         }
     }
 
+    /**
+     * Gezien de omvang van de datassets moet deze methode maar niet gebruikt worden.
+     * @param searchContext
+     * @return
+     * @throws Exception 
+     */
+    public static Integer countResults(Map<String, Object> searchContext) throws Exception {
+
+        DataSource ds = getDataSourceRsgb();
+        PreparedStatement stm = null;
+        Connection connRsgb = null;
+        ResultSet rs = null;
+        try {
+            connRsgb = ds.getConnection();
+            String dbType = getDbType(connRsgb);
+
+            StringBuilder sql = createCountSQL(searchContext, dbType);
+
+            stm = connRsgb.prepareStatement(sql.toString());
+            stm = addParamsSQL(stm, searchContext, dbType);
+            rs = stm.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("aantal");
+            }
+
+            return null;
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (connRsgb != null) {
+                connRsgb.close();
+            }
+        }
+    }
+
     private static StringBuilder createSelectSQL(
             Map<String, Object> searchContext, String dbType) throws ParseException {
 
@@ -114,8 +154,8 @@ public class BrkInfo {
         StringBuilder sql = new StringBuilder();
         switch (dbType) {
             case DB_POSTGRES:
-                sql.append("SELECT DISTINCT ");
-                sql.append(createIdColumnSQL());
+                sql.append("SELECT ");
+                sql.append("    DISTINCT kad_onrrnd_zk.kad_identif AS identificatie ");
                 sql.append("FROM ");
                 sql.append(createFromSQL());
                 sql.append("WHERE ");
@@ -124,8 +164,8 @@ public class BrkInfo {
                 sql.append(maxrows);
                 return sql;
             case DB_ORACLE:
-                sql.append("SELECT DISTINCT ");
-                sql.append(createIdColumnSQL());
+                sql.append("SELECT ");
+                sql.append("    DISTINCT kad_onrrnd_zk.kad_identif AS identificatie ");
                 sql.append("FROM ");
                 sql.append(createFromSQL());
                 sql.append("WHERE ");
@@ -143,8 +183,7 @@ public class BrkInfo {
                 sql.append("( ");
                 sql.append(maxrows);
                 sql.append(") ");
-                sql.append("DISTINCT ");
-                sql.append(createIdColumnSQL());
+                sql.append("    DISTINCT kad_onrrnd_zk.kad_identif AS identificatie ");
                 sql.append("FROM ");
                 sql.append(createFromSQL());
                 sql.append("WHERE ");
@@ -155,9 +194,16 @@ public class BrkInfo {
         }
     }
 
-    private static StringBuilder createIdColumnSQL() {
+    private static StringBuilder createCountSQL(
+            Map<String, Object> searchContext, String dbType) throws ParseException {
+
         StringBuilder sql = new StringBuilder();
-        sql.append("    kad_onrrnd_zk.kad_identif AS identificatie ");
+        sql.append("SELECT ");
+        sql.append("    COUNT(DISTINCT kad_onrrnd_zk.kad_identif) AS aantal ");
+        sql.append("FROM ");
+        sql.append(createFromSQL());
+        sql.append("WHERE ");
+        sql.append(createWhereSQL(searchContext, dbType));
         return sql;
     }
 
@@ -441,8 +487,8 @@ public class BrkInfo {
         if (request.getZoekgebied() != null) {
             searchContext.put(BrkInfo.ZOEKGEBIED, request.getZoekgebied());
         }
-        if (request.getBufferLengte() != null) {
-            searchContext.put(BrkInfo.BUFFERLENGTE, request.getBufferLengte());
+        if (request.getBufferAfstand() != null) {
+            searchContext.put(BrkInfo.BUFFERLENGTE, request.getBufferAfstand());
         }
 
         KadOnrndZkInfoRequest koz = request.getKadOnrndZk();

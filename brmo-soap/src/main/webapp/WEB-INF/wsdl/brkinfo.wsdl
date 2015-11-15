@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://brmo.b3p.nl/brk/1.0/soap-brk" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://brmo.b3p.nl/brk/1.0/soap-brk" name="GetBrkInfoImplService">
+	<types>
+            <xsd:annotation>
+                <xsd:documentation>uitleg</xsd:documentation>
+            </xsd:annotation>
+		<xsd:schema>
+			<xsd:import namespace="http://brmo.b3p.nl/brk/1.0/soap-brk" schemaLocation="brkinfo.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="getBrkInfo">
+		<part name="parameters" element="tns:getBrkInfo"/>
+	</message>
+	<message name="getBrkInfoResponse">
+		<part name="parameters" element="tns:getBrkInfoResponse"/>
+	</message>
+	<message name="BrkInfoException">
+		<part name="fault" element="tns:BrkInfoException"/>
+	</message>
+	<portType name="GetBrkInfoImpl">
+		<operation name="getBrkInfo">
+			<input wsam:Action="http://brmo.b3p.nl/brk/1.0/soap-brk/GetBrkInfoImpl/getBrkInfoRequest" message="tns:getBrkInfo"/>
+			<output wsam:Action="http://brmo.b3p.nl/brk/1.0/soap-brk/GetBrkInfoImpl/getBrkInfoResponse" message="tns:getBrkInfoResponse"/>
+			<fault message="tns:BrkInfoException" name="BrkInfoException" wsam:Action="http://brmo.b3p.nl/brk/1.0/soap-brk/GetBrkInfoImpl/getBrkInfo/Fault/BrkInfoException"/>
+		</operation>
+	</portType>
+	<binding name="GetBrkInfoImplPortBinding" type="tns:GetBrkInfoImpl">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		<operation name="getBrkInfo">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="BrkInfoException">
+				<soap:fault name="BrkInfoException" use="literal"/>
+			</fault>
+		</operation>
+	</binding>
+	<service name="GetBrkInfoImplService">
+		<port name="GetBrkInfoImplPort" binding="tns:GetBrkInfoImplPortBinding">
+			<soap:address location="http://localhost:8080/brmo-soap/GetBrkInfoImplService"/>
+		</port>
+	</service>
+</definitions>
