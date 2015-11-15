@@ -10,7 +10,9 @@ import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 import nl.b3p.brmo.soap.db.BrkInfo;
 
-@WebService
+@WebService(
+        targetNamespace = "http://brmo.b3p.nl/brk/1.0/soap-brk"
+)
 public class GetBrkInfoImpl {
 
     /**
