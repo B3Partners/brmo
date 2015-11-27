@@ -389,13 +389,11 @@ public class StagingProxy {
             if (dbType.contains("postgres")) {
                 sql = "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE"
                     + " object_ref = ? AND status = ?"
-                    + " ORDER BY datum desc limit 1";
-            }
-
-            if (dbType.contains("oracle")) {
+                    + " ORDER BY datum desc, volgordenummer desc limit 1";
+            } else  {
                 sql = "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE"
                     + " object_ref = ? AND status = ? "
-                    + " ORDER BY datum desc";
+                    + " ORDER BY datum desc, volgordenummer desc";
             }
 
             getOldBerichtStatement = getConnection().prepareStatement(sql);
