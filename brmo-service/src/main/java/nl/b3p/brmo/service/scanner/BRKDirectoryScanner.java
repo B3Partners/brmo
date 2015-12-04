@@ -84,7 +84,15 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
     public void execute(ProgressUpdateListener listener) {
         this.listener = listener;
         config.setStatus(PROCESSING);
-        StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE + config.getLogfile());
+        StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE);
+        String oldLog = config.getLogfile();
+        if (oldLog!=null) {
+            if (oldLog.length()>2000) {
+                sb.append(oldLog.substring(oldLog.length()-2000));
+            } else {
+                sb.append(oldLog);
+            }
+        }
 
         String msg = String.format("De BRK scanner met ID %d is gestart op %tc.", config.getId(), Calendar.getInstance());
         log.info(msg);
