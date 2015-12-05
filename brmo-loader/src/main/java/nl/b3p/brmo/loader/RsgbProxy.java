@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
+import java.util.TimeZone;
 import java.util.TreeSet;
 import javax.sql.DataSource;
 import javax.xml.bind.DatatypeConverter;
@@ -380,7 +381,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         Bericht.STATUS newStatus = Bericht.STATUS.RSGB_OK;
 
         SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        dateTimeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         log.debug(String.format("RSGB verwerking van %s bericht met id %s, object_ref %s", ber.getSoort(), ber.getId(), ber.getObjectRef()));
         StringBuilder loadLog;

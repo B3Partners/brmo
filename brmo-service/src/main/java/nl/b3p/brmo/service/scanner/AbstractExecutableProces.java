@@ -4,6 +4,7 @@
 package nl.b3p.brmo.service.scanner;
 
 import java.io.File;
+import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -149,5 +150,9 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
      */
     protected String getBestandsNaam(File f) {
         return f.getAbsolutePath();
+    }
+    
+    protected Date getBestandsDatum(File f) {
+        return new Date(f.lastModified());
     }
 }
