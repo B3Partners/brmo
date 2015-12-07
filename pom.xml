@@ -44,7 +44,8 @@
         <hibernate.version>3.6.10.Final</hibernate.version>
         <geotools.version>9.2</geotools.version>
         <postgresql.jdbc.version>9.3-1102-jdbc4</postgresql.jdbc.version>
-        <oracle.jdbc.version>11.2.0.3</oracle.jdbc.version>
+        <oracle.jdbc.version>11.1.0.7.0</oracle.jdbc.version>
+        <oracle.jdbc.artifactId>ojdbc5</oracle.jdbc.artifactId>
         <javasimon.version>4.0.1</javasimon.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- om unit tests met postgres te draaien gebruik je
@@ -157,7 +158,7 @@
             -->
             <dependency>
                 <groupId>com.oracle</groupId>
-                <artifactId>ojdbc6</artifactId>
+                <artifactId>${oracle.jdbc.artifactId}</artifactId>
                 <version>${oracle.jdbc.version}</version>
                 <!-- Bij JNDI db verbinding moeten Oracle jars in tomcat lib staan -->
             </dependency>
@@ -610,6 +611,10 @@
     <profiles>
         <profile>
             <id>travis-ci</id>
+            <properties>
+                <oracle.jdbc.artifactId>ojdbc6</oracle.jdbc.artifactId>
+                <oracle.jdbc.version>11.2.0.3</oracle.jdbc.version>
+            </properties>
             <repositories>
                 <repository>
                     <id>maven.oracle.com</id>

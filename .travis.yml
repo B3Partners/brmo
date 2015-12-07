@@ -37,7 +37,6 @@ before_install:
 
 install:
 # install all dependencies + artifacts without any testing,
-# this will currently fail on missing oracle ojdbc drivers
   - mvn install -Dmaven.test.skip=true -B -V -fae -q -Ptravis-ci
 
 before_script:
@@ -56,13 +55,13 @@ script:
 # run integration tests
   - mvn -e verify -B -Ptravis-ci
 
-after_success:
+# after_success:
 
-after_failure:
+# after_failure:
 
-after_script:
+# after_script:
 
-notifications:
-  email: false
+# notifications:
+#   email: false
   #  on_success: [always|never|change] # default: change
   #  on_failure: [always|never|change] # default: always
