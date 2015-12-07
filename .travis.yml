@@ -7,13 +7,12 @@ branches:
     - travis-integration
 
 addons:
-  postgresql: "9.3"
+  postgresql: "9.4"
 
 jdk:
-#  - openjdk6
-#  - openjdk7
+  - openjdk7
   - oraclejdk7
-#  - oraclejdk8
+  - oraclejdk8
 
 matrix:
   fast_finish: true
@@ -39,7 +38,7 @@ before_install:
 install:
 # install all dependencies + artifacts without any testing,
 # this will currently fail on missing oracle ojdbc drivers
-  - mvn install -Dmaven.test.skip=true -B -V -fae -q
+  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Ptravis-ci
 
 before_script:
 # dit dient na afloop van de 'install' gedaan te worden omdat de staging DB sql gegenereerd wordt door Hibernate
@@ -53,9 +52,9 @@ before_script:
 # run tests
 script:
 # run unit tests
-  - mvn -e test -B
+  - mvn -e test -B  -Ptravis-ci
 # run integration tests
-  - mvn -e verify -B
+  - mvn -e verify -B -Ptravis-ci
 
 after_success:
 
