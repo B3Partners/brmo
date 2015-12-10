@@ -3,13 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo</artifactId>
-    <version>1.2.11-SNAPSHOT</version>
+    <version>1.2.12-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
         <module>brmo-persistence</module>
         <module>brmo-loader</module>
         <module>brmo-service</module>
         <module>brmo-proxyservice</module>
+        <module>brmo-soap</module>
         <module>brmo-dist</module>
     </modules>
     <name>BRMO</name>
@@ -39,7 +40,7 @@
         <url>https://github.com/B3Partners/brmo/issues</url>
     </issueManagement>
     <properties>
-        <java.version>1.6</java.version>
+        <java.version>1.7</java.version>
         <hibernate.version>3.6.10.Final</hibernate.version>
         <geotools.version>9.2</geotools.version>
         <postgresql.jdbc.version>9.3-1102-jdbc4</postgresql.jdbc.version>

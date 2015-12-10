@@ -35,7 +35,7 @@
 			<xsl:text>MDSYS.SDO_DIM_ARRAY(&#13;</xsl:text>
 			<xsl:text>	MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),&#13;</xsl:text>
 			<xsl:text>	MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), &#13;</xsl:text>
-			<xsl:text>	90112 &#13;</xsl:text>
+			<xsl:text>	28992 &#13;</xsl:text>
 			<xsl:text>);&#13;</xsl:text>
 			
 			<xsl:text>alter table </xsl:text><xsl:value-of select="$table"/><xsl:text> add(</xsl:text><xsl:value-of select="$column"/><xsl:text> sdo_geometry );&#13;</xsl:text>

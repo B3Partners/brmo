@@ -189,6 +189,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                 try {
                     LaadProces lp = new LaadProces();
                     lp.setBestand_naam(getBestandsNaam(f));
+                    lp.setBestand_datum(getBestandsDatum(f));
                     lp.setSoort(BrmoFramework.BR_BRK);
                     lp.setStatus(LaadProces.STATUS.STAGING_OK);
                     lp.setOpmerking(String.format("Bestand geladen van %s op %s", f.getAbsolutePath(), sdf.format(new Date())));

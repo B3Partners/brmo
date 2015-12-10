@@ -6,17 +6,17 @@ Via onderstaande commando's kan het rsgb datamodel script voor oracle en postgre
 Voor het genereren van het totaal script volg je volgende stappen:
 
 ```
-java -jar lib/saxon9he.jar -s:rsgb22.xml -xsl:rsgbsst2.xsl -o:rsgb_converted.xml
+java -jar lib/saxon9he.jar -s:rsgb22.xml -xsl:rsgbsst2.xsl -o:generated_scripts/rsgb_converted.xml
 
-java -jar lib/saxon9he.jar -s:rsgb_converted.xml -xsl:rsgbrepair.xsl -o:rsgb_converted_repaired.xml
+java -jar lib/saxon9he.jar -s:generated_scripts/rsgb_converted.xml -xsl:rsgbrepair.xsl -o:generated_scripts/rsgb_converted_repaired.xml
 
-java -jar lib/saxon9he.jar -s:rsgb_converted_repaired.xml -xsl:rsgb_db_identifiers.xsl -o:rsgb_db_identifiers.xml
+java -jar lib/saxon9he.jar -s:generated_scripts/rsgb_converted_repaired.xml -xsl:rsgb_db_identifiers.xsl -o:generated_scripts/rsgb_db_identifiers.xml
 
-java -jar lib/saxon9he.jar -s:rsgb_converted_repaired.xml -xsl:datamodel.xsl -o:datamodel.xml
+java -jar lib/saxon9he.jar -s:generated_scripts/rsgb_converted_repaired.xml -xsl:datamodel.xsl -o:generated_scripts/datamodel.xml
 
-java -jar lib/saxon9he.jar -s:datamodel.xml -xsl:datamodel_postgres.xsl -o:datamodel_postgresql.sql
+java -jar lib/saxon9he.jar -s:generated_scripts/datamodel.xml -xsl:datamodel_postgres.xsl -o:generated_scripts/datamodel_postgresql.sql
 
-java -jar lib/saxon9he.jar -s:datamodel.xml -xsl:datamodel_oracle.xsl -o:datamodel_oracle.sql
+java -jar lib/saxon9he.jar -s:generated_scripts/datamodel.xml -xsl:datamodel_oracle.xsl -o:generated_scripts/datamodel_oracle.sql
 ```
 
 De scripts in de map utility_scripts worden niet opgenomen in het totaal script. Deze zijn vaak klantspecifiek en dienen naar behoefte handmatig gedraaid te worden.

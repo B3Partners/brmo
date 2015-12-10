@@ -31,7 +31,7 @@ public class OracleJdbcConverter implements GeometryJdbcConverter {
 
     @Override
     public Object convertGeometry(Geometry geom) throws SQLException {
-        return gc.toSDO(geom, 90112);
+        return gc.toSDO(geom, 28992);
     }
 
     @Override
