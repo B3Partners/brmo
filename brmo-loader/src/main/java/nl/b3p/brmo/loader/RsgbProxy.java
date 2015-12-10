@@ -380,7 +380,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         Bericht.STATUS newStatus = Bericht.STATUS.RSGB_OK;
 
-        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss:SSS");
         dateTimeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -413,9 +413,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 newList = transformToTableData(ber);
                 loadLog.append(String.format("%4.1fs\n", (System.currentTimeMillis() - startTime) / 1000.0));
             }
-
+            // nieuwe starttijd voor laden in RSGB
+            startTime = System.currentTimeMillis();
+            
             // per bericht kijken of er een oud bericht is
-            Bericht oud = stagingProxy.getOldBericht(ber);
+            Bericht oud = stagingProxy.getOldBericht(ber, loadLog);
 
             // oud bericht
             if (oud != null) {
@@ -480,9 +482,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             if (loadLog == null) {
                 loadLog = new StringBuilder(ber.getOpmerking());
             }
-            String duration = String.format("%4.1fs", (System.currentTimeMillis() - startTime) / 1000.0);
-            loadLog.append(duration).append("\n");
-            loadLog.append("\nEind verwerking bericht");
+
+            loadLog.append("\n\n");
+            loadLog.append(String.format("%s: einde verwerking, duur: %4.1fs", dateTimeFormat.format(new Date()), (System.currentTimeMillis() - startTime) / 1000.0));
             ber.setOpmerking(loadLog.toString());
 
             if (updateResult) {
@@ -582,22 +584,25 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                     split2.stop();
 
                     boolean existsInOldList = doesRowExist(row, pkColumns, oldList);
-                    boolean doInsert = !existsInOldList;
-                    if (doInsert) {
-                        // er kan een record bestaan zonder dat er
-                        // een oud bericht aan ten grondslag ligt.
-                        // dan maar update maar zonder historie vastlegging.
-                        // oud record kan niet worden terugherleid.
-                        //TODO: dure check, kan het anders?
-                        split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.rowexistsindb").start();
-                        doInsert = !rowExistsInDb(row, loadLog);
-                        split2.stop();
-                    }
+                    // er kan een record bestaan zonder dat er
+                    // een oud bericht aan ten grondslag ligt.
+                    // dan maar update maar zonder historie vastlegging.
+                    // oud record kan niet worden terugherleid.
+                    //TODO: dure check, kan het anders?
+                    split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.rowexistsindb").start();
+                    boolean doInsert = !rowExistsInDb(row, loadLog);
+                    split2.stop();
 
                     // insert hoofdtabel
                     if (doInsert) {
-                        // normale insert in hoofdtabel
-                        loadLog.append("\nNormale toevoeging van object aan tabel: ");
+                        if (existsInOldList) {
+                            // insert in hoofdtabel, terwijl er wel oud bericht beschikbaar is
+                            // dit lijkt op een fout situatie, wat te doen?
+                            loadLog.append("\nOud bericht bestaat, maar staat niet (meer) in database, daarom toevoeging van object aan tabel: ");
+                        } else {
+                            // normale insert in hoofdtabel
+                            loadLog.append("\nNormale toevoeging van object aan tabel: ");
+                        }
                         loadLog.append(row.getTable());
                         split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.insert").start();
                         createInsertSql(row, false, loadLog);
@@ -994,7 +999,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
 
         PreparedStatement stm = insertSqlPreparedStatements.get(sql.toString());
-        if (stm == null) {
+        if (stm == null || stm.isClosed()) {
             SimonManager.getCounter("b3p.rsgb.insertsql.preparestatement").increase();
             stm = connRsgb.prepareStatement(sql.toString());
             insertSqlPreparedStatements.put(sql.toString(), stm);
@@ -1023,14 +1028,29 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
         }
 
-        loadLog.append("\nAantal nieuw/gewijzigde records: ");
-        int updates = stm.executeUpdate();
-        loadLog.append(updates);
+        int count = -1;
+        try {
+            count = stm.executeUpdate();
+        } catch (SQLException e) {
+            String message = e.getMessage();
+            if (PostgisJdbcConverter.isDuplicateKeyViolationMessage(message) || OracleJdbcConverter.isDuplicateKeyViolationMessage(message)) {
+                if (row.isIgnoreDuplicates()) {
+                    if (recentSavepoint != null) {
+                        log.debug("Ignoring duplicate key violation by rolling back to savepoint with id " + recentSavepoint.getSavepointId());
+                        connRsgb.rollback(recentSavepoint);
+                    }
+                }
+            } else {
+                throw e;
+            }
+        }
+
+        loadLog.append("\nAantal toegevoegde records: " + count);
     }
 
     private final Map<String, PreparedStatement> updateSqlPreparedStatements = new HashMap();
 
-    private boolean createUpdateSql(TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
+    private void createUpdateSql(TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
         //doSavePoint(row);
 
         StringBuilder sql = new StringBuilder("update ");
@@ -1191,7 +1211,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             loadLog.append(")");
         }
 
-        return stm.executeUpdate() < 1;
+        int count = stm.executeUpdate();
+        loadLog.append("\nAantal record updates: " + count);
     }
 
     private PreparedStatement insertMetadataStatement;
@@ -1232,9 +1253,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         loadLog.append(String.format("\nConditioneel toevoegen herkomst metadata tabel=%s, kolom=%s, waarde=%s, herkomst_br=%s, datum=%s",
                 tabel, kolom, waarde, getHerkomstMetadata(), datum));
-        insertMetadataStatement.execute();
-        loadLog.append(": record geinsert: ").append(insertMetadataStatement.getUpdateCount() == 1 ? "ja" : "nee (rij bestond al)");
-        return insertMetadataStatement.getUpdateCount() == 1;
+        
+        int count = insertMetadataStatement.executeUpdate();
+        loadLog.append(": record geinsert: ").append(count > 0 ? "ja" : "nee (rij bestond al)");
+        return count > 0;
     }
 
     private final Map<String, PreparedStatement> checkRowExistsStatements = new HashMap();
@@ -1400,9 +1422,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
 
         PreparedStatement stm = getPreparedStatement(row, sql.toString(), params, paramsGeom, null, loadLog);
-        boolean result = executePreparedStatement(stm, row, STATEMENT_TYPE.SELECT);
-
-        return result;
+        ResultSet results = stm.executeQuery();
+        int count = getRowCount(results);
+        DbUtils.closeQuietly(results);
+        
+        return count > 0;
     }
 
     private boolean deleteFromMetadata(TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
@@ -1442,12 +1466,12 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         PreparedStatement stm = getPreparedStatement(row, sql.toString(), params, paramsGeom, null, loadLog);
 
-        boolean result = false;
+        int count = 1; // all ok
         if (alsoExecuteSql) {
-            result = executePreparedStatement(stm, row, STATEMENT_TYPE.DELETE);
+            count = stm.executeUpdate();
         }
 
-        return result;
+        return count > 0;
     }
 
     private boolean createDeleteSql(TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
@@ -1476,12 +1500,12 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         PreparedStatement stm = getPreparedStatement(row, sql.toString(), null, null, pkColumns, loadLog);;
 
-        boolean result = false;
+        int count = 1; // all ok
         if (alsoExecuteSql) {
-            result = executePreparedStatement(stm, row, STATEMENT_TYPE.DELETE);
+            count = stm.executeUpdate();
         }
 
-        return result;
+        return count >0;
     }
 
     private final Map<String, List<String>> primaryKeyCache = new HashMap();
@@ -1628,57 +1652,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             loadLog.append(")");
         }
         return stmt;
-    }
-
-    private boolean executePreparedStatement(PreparedStatement stmt, TableRow row, STATEMENT_TYPE type) throws SQLException {
-        boolean result = false;
-        try {
-            switch (type) {
-                case INSERT: {
-                    result = stmt.execute();
-                    break;
-                }
-                case UPDATE: {
-                    int count = stmt.executeUpdate();
-                    if (count < 1) {
-                        result = false;
-                    } else {
-                        result = true;
-                    }
-                    break;
-                }
-                case SELECT: {
-                    ResultSet results = stmt.executeQuery();
-                    int count = getRowCount(results);
-                    if (count < 1) {
-                        result = false;
-                    } else {
-                        result = true;
-                    }
-                    DbUtils.closeQuietly(results);
-                    break;
-                }
-                case DELETE: {
-                    result = stmt.execute();
-                    break;
-                }
-            }
-        } catch (SQLException e) {
-            String message = e.getMessage();
-            if (PostgisJdbcConverter.isDuplicateKeyViolationMessage(message) || OracleJdbcConverter.isDuplicateKeyViolationMessage(message)) {
-                if (row.isIgnoreDuplicates()) {
-                    if (recentSavepoint != null) {
-                        log.debug("Ignoring duplicate key violation by rolling back to savepoint with id " + recentSavepoint.getSavepointId());
-                        connRsgb.rollback(recentSavepoint);
-                    }
-                }
-            } else {
-                throw e;
-            }
-        } finally {
-            DbUtils.closeQuietly(stmt);
-        }
-        return result;
     }
 
     private Object getValueAsObject(String tableName, String column, String value) throws SQLException {
