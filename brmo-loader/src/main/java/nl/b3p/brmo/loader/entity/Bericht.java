@@ -141,4 +141,9 @@ public class Bericht {
     public void setXslVersion(String xslVersion) {
         this.xslVersion = xslVersion;
     }
+
+    @Override
+    public String toString() {
+        return "Bericht{" + "id=" + id + ", objectRef=" + objectRef + ", datum=" + datum + ", volgordeNummer=" + volgordeNummer + ", soort=" + soort + ", status=" + status + ", jobId=" + jobId + ", statusDatum=" + statusDatum + '}';
+    }
 }

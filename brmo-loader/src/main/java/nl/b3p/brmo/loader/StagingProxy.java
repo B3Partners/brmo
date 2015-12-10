@@ -374,7 +374,7 @@ public class StagingProxy {
 
     private PreparedStatement getOldBerichtStatement;
 
-    public Bericht getOldBericht(Bericht nieuwBericht) throws SQLException {
+    public Bericht getOldBericht(Bericht nieuwBericht, StringBuilder loadLog) throws SQLException {
         // TODO use JPA entities
 
         Split split = SimonManager.getStopwatch("b3p.staging.bericht.getold").start();
@@ -388,11 +388,11 @@ public class StagingProxy {
 
             if (dbType.contains("postgres")) {
                 sql = "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE"
-                    + " object_ref = ? AND status = ?"
-                    + " ORDER BY datum desc, volgordenummer desc limit 1";
+                    + " object_ref = ?"
+                    + " ORDER BY datum desc, volgordenummer desc";
             } else  {
                 sql = "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE"
-                    + " object_ref = ? AND status = ? "
+                    + " object_ref = ?"
                     + " ORDER BY datum desc, volgordenummer desc";
             }
 
@@ -402,7 +402,7 @@ public class StagingProxy {
         }
 
         getOldBerichtStatement.setString(1, nieuwBericht.getObjectRef());
-        getOldBerichtStatement.setString(2, Bericht.STATUS.RSGB_OK.toString());
+//        getOldBerichtStatement.setString(2, Bericht.STATUS.RSGB_OK.toString());
 
         ResultSet rs = getOldBerichtStatement.executeQuery();
         List<Bericht> list = h.handle(rs);
@@ -411,8 +411,17 @@ public class StagingProxy {
         if(!list.isEmpty()) {
             // XXX voor Oracle ROWNUM over subquery is efficienter, nu worden
             // alle vorige berichten opgehaald ipv alleen de laatste
-            bericht = list.get(0);
-        }
+            
+            loadLog.append("Vorige berichten gevonden:\n");
+            for(Bericht b: list) {
+                if(Bericht.STATUS.RSGB_OK.equals(b.getStatus()) && bericht == null) {
+                    loadLog.append("Recentste bericht gevonden met RSGB_OK: ").append(b).append("\n");
+                    bericht = b;
+                } else {
+                    loadLog.append("Niet geschikt bericht: ").append(b).append("\n");
+                }
+            }
+        } 
 
         split.stop();
         return bericht;
@@ -759,5 +768,9 @@ public class StagingProxy {
         }
 
         return (List<LaadProces>)new QueryRunner().query(getConnection(), sql, new BeanListHandler(LaadProces.class, new StagingRowHandler()), params.toArray());
+    }
+
+    Bericht getOldBericht(Bericht nieuwBericht) {
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 }
