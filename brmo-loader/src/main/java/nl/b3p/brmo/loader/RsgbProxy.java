@@ -421,9 +421,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
             // oud bericht
             if (oud != null) {
-                loadLog.append(String.format("Eerder bericht (id: %d) voor zelfde object gevonden van datum %s, status %s op %s\n",
+                loadLog.append(String.format("Eerder bericht (id: %d) voor zelfde object gevonden van datum %s, volgnummer %d,status %s op %s\n",
                         oud.getId(),
                         dateFormat.format(oud.getDatum()),
+                        oud.getVolgordeNummer(),
                         oud.getStatus().toString(),
                         dateTimeFormat.format(oud.getStatusDatum())));
 
@@ -432,7 +433,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
                     boolean dbXmlEquals = ber.getDbXml().equals(oud.getDbXml());
                     if (!dbXmlEquals) {
-                        String s = String.format("Bericht %d met zelfde datum als eerder verwerkt bericht %d heeft andere db xml! Object ref %s",
+                        String s = String.format("Bericht %d met zelfde datum en volgnummer als eerder verwerkt bericht %d heeft andere db xml! Object ref %s",
                                 ber.getId(), oud.getId(), ber.getObjectRef());
                         log.warn(s);
                         loadLog.append("Waarschuwing: ").append(s).append("\n");

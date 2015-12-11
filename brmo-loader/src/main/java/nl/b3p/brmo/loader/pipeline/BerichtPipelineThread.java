@@ -85,16 +85,6 @@ public abstract class BerichtPipelineThread extends Thread {
                 // Do not log stacktrace, in database bericht.opmerking
                 log.error("work method threw exception (continuing): " + e.getClass() + ": " + e.getMessage());
             }
-            try {
-                if(workUnit.getRunAfterWork() != null) {
-                    workUnit.getRunAfterWork().run();
-                    workUnit.setRunAfterWork(null);
-                }
-            } catch(Exception e) {
-                // Do not log stacktrace, in database bericht.opmerking
-                log.error("run after work method threw exception, aborting", e);
-                return;
-            }
         }
     }
 }

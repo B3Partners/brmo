@@ -21,7 +21,6 @@ import nl.b3p.brmo.loader.entity.BerichtenSorter;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork;
 import nl.b3p.brmo.loader.pipeline.BerichtWorkUnit;
-import nl.b3p.brmo.loader.pipeline.UpdateResultPipeline;
 import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
@@ -223,10 +222,8 @@ public class StagingProxy {
         final RowProcessor processor = new StagingRowHandler();
 
         final ProcessDbXmlPipeline processDbXmlPipeline = new ProcessDbXmlPipeline(handler, transformPipelineCapacity, "b3p.rsgb.job." + dateTime + ".pipeline");
-        final UpdateResultPipeline updateResultPipeline = new UpdateResultPipeline(handler, transformPipelineCapacity, "b3p.rsgb.job." + dateTime + ".pipeline");
         if(enablePipeline) {
             processDbXmlPipeline.start();
-            updateResultPipeline.start();
         }
         int offset = 0;
         int batch = 250;
@@ -271,26 +268,7 @@ public class StagingProxy {
                                     workUnit.setTableData(tableData);
                                     workUnit.setTypeOfWork(BerichtTypeOfWork.PROCESS_DBXML);
                                     Split pipelinePut = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".pipeline.processdbxml.put").start();
-                                    try {
-                                        workUnit.setRunAfterWork(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                // Executed in processDbXmlPipeline thread
-
-                                                workUnit.setTypeOfWork(BerichtTypeOfWork.UPDATE_RESULT);
-                                                Split pipelinePut = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".pipeline.updateresult.put").start();
-                                                try {
-                                                    updateResultPipeline.getQueue().put(workUnit);
-                                                } catch(InterruptedException e) {
-                                                    log.error("Interrupted", e);
-                                                }
-                                                pipelinePut.stop();
-                                            }
-                                        });
-                                        processDbXmlPipeline.getQueue().put(workUnit);
-                                    } catch(InterruptedException e) {
-                                        log.error("Interrupted", e);
-                                    }
+                                    processDbXmlPipeline.getQueue().put(workUnit);
                                     pipelinePut.stop();
                                 } else {
                                     Split berichtSplit = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".bericht").start();
@@ -325,16 +303,10 @@ public class StagingProxy {
                 if(abort) {
                     // Let threads stop by themselves, don't join
                     processDbXmlPipeline.setAbortFlag();
-                    updateResultPipeline.setAbortFlag();
                 } else {
                     processDbXmlPipeline.stopWhenQueueEmpty();
                     try {
                         processDbXmlPipeline.join();
-                    } catch(InterruptedException e) {
-                    }
-                    updateResultPipeline.stopWhenQueueEmpty();
-                    try {
-                        updateResultPipeline.join();
                     } catch(InterruptedException e) {
                     }
                 }
@@ -367,7 +339,6 @@ public class StagingProxy {
             Split split = SimonManager.getStopwatch("b3p.staging.bericht.dbxml.transform").start();
             String dbxml = transformer.transformToDbXml(ber);
             ber.setDbXml(dbxml);
-            //updateBericht(ber);
             split.stop();
         }
     }
@@ -389,10 +360,12 @@ public class StagingProxy {
             if (dbType.contains("postgres")) {
                 sql = "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE"
                     + " object_ref = ?"
+//                    + " AND status = ?"
                     + " ORDER BY datum desc, volgordenummer desc";
             } else  {
                 sql = "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE"
                     + " object_ref = ?"
+//                    + " AND status = ?"
                     + " ORDER BY datum desc, volgordenummer desc";
             }
 

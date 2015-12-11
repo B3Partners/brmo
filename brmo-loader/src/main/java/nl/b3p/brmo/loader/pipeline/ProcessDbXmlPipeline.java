@@ -14,6 +14,6 @@ public class ProcessDbXmlPipeline extends BerichtPipelineThread {
 
     @Override
     void work(BerichtWorkUnit workUnit) throws Exception {
-        handler.handle(workUnit.getBericht(), workUnit.getTableData(), false);
+        handler.handle(workUnit.getBericht(), workUnit.getTableData(), true);
     }
 }
