@@ -356,14 +356,18 @@ public class StagingProxy {
 
         if(getOldBerichtStatement == null) {
             String sql = null;
-
+               
             if (dbType.contains("postgres")) {
-                sql = "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE"
+                sql = "SELECT id, objectRef, datum, volgordeNummer, soort, status, jobId, statusDatum FROM " 
+                    + BrmoFramework.BERICHT_TABLE + " WHERE"
                     + " object_ref = ?"
 //                    + " AND status = ?"
-                    + " ORDER BY datum desc, volgordenummer desc";
+                    + " ORDER BY datum desc, volgordenummer desc"
+//                    + " LIMIT 1"  
+                    ;
             } else  {
-                sql = "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE"
+                sql = "SELECT id, objectRef, datum, volgordeNummer, soort, status, jobId, statusDatum FROM " 
+                    + BrmoFramework.BERICHT_TABLE + " WHERE"
                     + " object_ref = ?"
 //                    + " AND status = ?"
                     + " ORDER BY datum desc, volgordenummer desc";
