@@ -6,6 +6,7 @@
 package nl.b3p.brmo.service.scanner;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,6 +20,7 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
 import nl.b3p.brmo.service.util.ConfigUtil;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.comparator.NameFileComparator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -97,38 +99,48 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                     msg = String.format("Bestand %s is gevonden in %s.", f, scanDirectory);
                     log.info(msg);
                     sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
-                    if (this.isDuplicaatLaadProces(f, BrmoFramework.BR_BAG)) {
-                        msg = String.format("Bestand %s is een duplicaat en wordt overgeslagen.", f);
-                        log.info(msg);
-                        sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
-                    } else {
-                        // TODO gebruik JPA
-                        BrmoFramework brmo = null;
-                        try {
+                    // TODO gebruik JPA
+                    BrmoFramework brmo = null;
+                    try {
+                        if (this.isDuplicaatLaadProces(f, BrmoFramework.BR_BAG)) {
+                            msg = String.format("Bestand %s is een duplicaat en wordt overgeslagen.", f);
+                            log.info(msg);
+                            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
+                        } else {
                             // 1: laadt in staging.
                             brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
                             brmo.loadFromFile(BrmoFramework.BR_BAG, getBestandsNaam(f));
                             msg = String.format("Bestand %s is geladen.", f);
                             log.info(msg);
                             sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
-                        } catch (BrmoDuplicaatLaadprocesException duplicaat) {
-                            log.info(duplicaat.getLocalizedMessage());
-                            sb.append(duplicaat.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
-                        } catch (BrmoLeegBestandException leegEx) {
-                            // log message maar ga door met verwerking, om een "leeg" bestand bericht/laadproces over te slaan
-                            log.warn(leegEx.getLocalizedMessage());
-                            sb.append(leegEx.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
-                        } finally {
-                            if (brmo != null) {
-                                brmo.closeBrmoFramework();
+                        }
+                    } catch (BrmoDuplicaatLaadprocesException duplicaat) {
+                        log.info(duplicaat.getLocalizedMessage());
+                        sb.append(duplicaat.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
+                    } catch (BrmoLeegBestandException leegEx) {
+                        // log message maar ga door met verwerking, om een "leeg" bestand bericht/laadproces over te slaan
+                        log.warn(leegEx.getLocalizedMessage());
+                        sb.append(leegEx.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
+                    } finally {
+                        if (brmo != null) {
+                            brmo.closeBrmoFramework();
+                        }
+                        if (isArchiving) {
+                            // verplaats naar archief
+                            try {
+                                FileUtils.copyFileToDirectory(f, archiefDirectory);
+                                boolean succes = FileUtils.deleteQuietly(f);
+                                if (succes) {
+                                    msg = String.format("  Bestand %s is naar archief %s verplaatst.", f, archiefDirectory);
+                                } else {
+                                    msg = String.format("  Bestand %s is naar archief %s verplaatst, maar origineel kon niet verwijderd worden.", f, archiefDirectory);
+                                }
+                            } catch (IOException e) {
+                                msg = String.format("  Bestand %s is NIET naar archief %s verplaatst, oorzaak: (%s).", f, archiefDirectory, e.getLocalizedMessage());
+                                log.error(msg);
                             }
-                            if (isArchiving) {
-                                // 2: verplaats naar archief (NB mogelijk platform afhankelijk)
-                                f.renameTo(new File(archiefDirectory, f.getName()));
-                                msg = String.format("Bestand %s is naar archief %s verplaatst.", f, archiefDirectory);
-                                log.info(msg);
-                                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
-                            }
+                            log.info(msg);
+                            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                         }
                     }
                 }
@@ -152,6 +164,11 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
     ) {
         try {
             this.execute();
+            listener.total(1);
+            listener.progress(1);
+            listener.updateStatus("Onbekend - niet geimplementeerd");
+            listener.addLog("Onbkend - niet geimplementeerd");
+
         } catch (BrmoException ex) {
             log.error(ex);
         }

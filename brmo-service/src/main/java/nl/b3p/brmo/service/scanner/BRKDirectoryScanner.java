@@ -9,8 +9,6 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -266,16 +264,17 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
             if (archiefDirectory != null) {
                 // verplaats naar archief
                 try {
-                    Path source = f.toPath();
-                    Path target = archiefDirectory.toPath();
-                    Files.move(source, target.resolve(source.getFileName()));
-                    msg = String.format("  Bestand %s is naar archief %s verplaatst.", f, archiefDirectory);
+                    FileUtils.copyFileToDirectory(f, archiefDirectory);
+                    boolean succes = FileUtils.deleteQuietly(f);
+                    if (succes) {
+                        msg = String.format("  Bestand %s is naar archief %s verplaatst.", f, archiefDirectory);
+                    } else {
+                        msg = String.format("  Bestand %s is naar archief %s verplaatst, maar origineel kon niet verwijderd worden.", f, archiefDirectory); 
+                    }
                 } catch (IOException e) {
                     msg = String.format("  Bestand %s is NIET naar archief %s verplaatst, oorzaak: (%s).", f, archiefDirectory, e.getLocalizedMessage());
                     log.error(msg);
                 }
-//             } else {
-//                msg = String.format("  Bestand %s is NIET naar een archief verplaatst, omdat dit niet beschikbaar is.", f);
             }
             log.info(msg);
             this.listener.addLog(msg);
