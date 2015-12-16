@@ -344,6 +344,7 @@ public class StagingProxy {
     }
 
     private PreparedStatement getOldBerichtStatement;
+    private PreparedStatement getOldBerichtStatementById;
 
     public Bericht getOldBericht(Bericht nieuwBericht, StringBuilder loadLog) throws SQLException {
         // TODO use JPA entities
@@ -354,11 +355,12 @@ public class StagingProxy {
         ResultSetHandler<List<Bericht>> h
                 = new BeanListHandler(Bericht.class, new StagingRowHandler());
 
+        //TODO, deze extra logging weer uitzetten zodra mogelijk
         if(getOldBerichtStatement == null) {
             String sql = null;
                
             if (dbType.contains("postgres")) {
-                sql = "SELECT id, objectRef, datum, volgordeNummer, soort, status, jobId, statusDatum FROM " 
+                sql = "SELECT id, object_ref, datum, volgordenummer, soort, status, job_id, status_datum FROM " 
                     + BrmoFramework.BERICHT_TABLE + " WHERE"
                     + " object_ref = ?"
 //                    + " AND status = ?"
@@ -366,7 +368,7 @@ public class StagingProxy {
 //                    + " LIMIT 1"  
                     ;
             } else  {
-                sql = "SELECT id, objectRef, datum, volgordeNummer, soort, status, jobId, statusDatum FROM " 
+                sql = "SELECT id, object_ref, datum, volgordenummer, soort, status, job_id, status_datum FROM " 
                     + BrmoFramework.BERICHT_TABLE + " WHERE"
                     + " object_ref = ?"
 //                    + " AND status = ?"
@@ -400,6 +402,28 @@ public class StagingProxy {
             }
         } 
 
+        if (bericht != null) {
+            //bericht nu wel vullen met alle kolommen
+            if (getOldBerichtStatementById == null) {
+                String sql = "SELECT * FROM "
+                        + BrmoFramework.BERICHT_TABLE + 
+                        " WHERE id = ?";
+
+                getOldBerichtStatementById = getConnection().prepareStatement(sql);
+            } else {
+                getOldBerichtStatementById.clearParameters();
+            }
+            getOldBerichtStatementById.setLong(1, bericht.getId());
+
+            ResultSet rs2 = getOldBerichtStatementById.executeQuery();
+            List<Bericht> list2 = h.handle(rs2);
+            rs2.close();
+
+            if(!list2.isEmpty()) {
+                bericht = list2.get(0);
+            }            
+        }
+        
         split.stop();
         return bericht;
     }

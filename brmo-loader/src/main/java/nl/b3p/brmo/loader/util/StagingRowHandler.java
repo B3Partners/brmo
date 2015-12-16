@@ -1,6 +1,7 @@
 package nl.b3p.brmo.loader.util;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,38 +31,95 @@ public class StagingRowHandler extends BasicRowProcessor {
 
     @Override
     public Object toBean(ResultSet rs, Class type) throws SQLException {
+        
+        //vind beschikbare kolomnamen
+        ResultSetMetaData rsm = rs.getMetaData();
+        ArrayList<String> namesList = new ArrayList<String>();
+        for (int i = 1; i <= rsm.getColumnCount(); i++) {
+            namesList.add(rsm.getColumnLabel(i));
+        }
+
         if (type.getName().contains("LaadProces")) {
             LaadProces lp = new LaadProces();
 
-            lp.setId(rs.getLong("id"));
-            lp.setBestandNaam(rs.getString("bestand_naam"));
-            lp.setBestandDatum(rs.getDate("bestand_datum"));
-            lp.setSoort(rs.getString("soort"));
-            lp.setGebied(rs.getString("gebied"));
-            lp.setOpmerking(rs.getString("opmerking"));
-            lp.setStatus(LaadProces.STATUS.valueOf(rs.getString("status")));
-            lp.setStatusDatum(rs.getDate("status_datum"));
-            lp.setContactEmail(rs.getString("contact_email"));
+            if (namesList.contains("id")) {
+                lp.setId(rs.getLong("id"));
+            }
+            if (namesList.contains("bestand_naam")) {
+                lp.setBestandNaam(rs.getString("bestand_naam"));
+            }
+            if (namesList.contains("bestand_datum")) {
+                lp.setBestandDatum(rs.getDate("bestand_datum"));
+            }
+            if (namesList.contains("soort")) {
+                lp.setSoort(rs.getString("soort"));
+            }
+            if (namesList.contains("gebied")) {
+                lp.setGebied(rs.getString("gebied"));
+            }
+            if (namesList.contains("opmerking")) {
+                lp.setOpmerking(rs.getString("opmerking"));
+            }
+            if (namesList.contains("status")) {
+                lp.setStatus(LaadProces.STATUS.valueOf(rs.getString("status")));
+            }
+            if (namesList.contains("status_datum")) {
+                lp.setStatusDatum(rs.getDate("status_datum"));
+            }
+            if (namesList.contains("contact_email")) {
+                lp.setContactEmail(rs.getString("contact_email"));
+            }
 
             return lp;
         }
 
         if (type.getName().contains("Bericht")) {
-            Bericht b = new Bericht(rs.getString("br_xml"));
+            Bericht b = null;
+            if (namesList.contains("br_xml")) {
+                b = new Bericht(rs.getString("br_xml"));
+            } else {
+                b = new Bericht("");
+            }
 
-            b.setId(rs.getLong("id"));
-            b.setLaadProcesId(rs.getInt("laadprocesid"));
-            b.setObjectRef(rs.getString("object_ref"));
-            b.setDatum(rs.getDate("datum"));
-            b.setVolgordeNummer(rs.getInt("volgordenummer"));
-            b.setSoort(rs.getString("soort"));
-            b.setOpmerking(rs.getString("opmerking"));
-            b.setStatus(Bericht.STATUS.valueOf(rs.getString("status")));
-            b.setStatusDatum(rs.getDate("status_datum"));
-            b.setJobId(rs.getString("job_id"));
-            b.setBrOrgineelXml(rs.getString("br_orgineel_xml"));
-            b.setDbXml(rs.getString("db_xml"));
-            b.setXslVersion(rs.getString("xsl_version"));
+            if (namesList.contains("id")) {
+                b.setId(rs.getLong("id"));
+            }
+            if (namesList.contains("laadprocesid")) {
+                b.setLaadProcesId(rs.getInt("laadprocesid"));
+            }
+            if (namesList.contains("object_ref")) {
+                b.setObjectRef(rs.getString("object_ref"));
+            }
+            if (namesList.contains("datum")) {
+                b.setDatum(rs.getDate("datum"));
+            }
+            if (namesList.contains("volgordenummer")) {
+                b.setVolgordeNummer(rs.getInt("volgordenummer"));
+            }
+            if (namesList.contains("soort")) {
+                b.setSoort(rs.getString("soort"));
+            }
+            if (namesList.contains("opmerking")) {
+                b.setOpmerking(rs.getString("opmerking"));
+            }
+            if (namesList.contains("status")) {
+                b.setStatus(Bericht.STATUS.valueOf(rs.getString("status")));
+            }
+            if (namesList.contains("status_datum")) {
+                b.setStatusDatum(rs.getDate("status_datum"));
+            }
+            if (namesList.contains("job_id")) {
+                b.setJobId(rs.getString("job_id"));
+            }
+            if (namesList.contains("br_orgineel_xml")) {
+                b.setBrOrgineelXml(rs.getString("br_orgineel_xml"));
+            }
+            if (namesList.contains("db_xml")) {
+                b.setDbXml(rs.getString("db_xml"));
+            }
+            if (namesList.contains("xsl_version")) {
+                b.setXslVersion(rs.getString("xsl_version"));
+            }
 
             return b;
         }

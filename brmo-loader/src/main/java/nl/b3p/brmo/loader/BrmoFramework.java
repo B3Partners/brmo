@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * BRMO framework
  *
- * @author Boy de Wit
+ * @author Matthijs Laan
  */
 public class BrmoFramework {
 
@@ -173,7 +173,11 @@ public class BrmoFramework {
         try {
             loadFromFile(type, fileName, null);
         } catch(Exception e) {
-            throw new BrmoException("Fout bij loaden basisregistratie gegevens", e);
+            if (e instanceof BrmoException) {
+                throw (BrmoException)e;
+            } else {
+                throw new BrmoException("Fout bij loaden basisregistratie gegevens", e);
+            }
         }
     }
 
@@ -215,13 +219,7 @@ public class BrmoFramework {
                         }
                         entry = zip.getNextEntry();
                     }
-                } catch(Exception e) {
-                    if(e instanceof BrmoException) {
-                        throw e;
-                    } else {
-                        throw new BrmoException(e);
-                    }
-                } finally {
+                 } finally {
                     if(zip != null) {
                         zip.close();
                     }
@@ -240,7 +238,11 @@ public class BrmoFramework {
                 }
             }
         } catch(Exception e) {
-            throw new BrmoException("Fout bij loaden basisregistratie gegevens", e);
+            if (e instanceof BrmoException) {
+                throw (BrmoException)e;
+            } else {
+                throw new BrmoException("Fout bij loaden basisregistratie gegevens", e);
+            }
         }
     }
 
@@ -351,7 +353,11 @@ public class BrmoFramework {
             }
             return transformer;
         } catch (Exception ex) {
-            throw new BrmoException(ex);
+           if (ex instanceof BrmoException) {
+                throw (BrmoException)ex;
+            } else {
+                throw new BrmoException(ex);
+            }
         }
 
     }
