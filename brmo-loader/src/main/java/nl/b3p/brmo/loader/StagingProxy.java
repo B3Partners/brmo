@@ -522,12 +522,16 @@ public class StagingProxy {
             throw new BrmoDuplicaatLaadprocesException("Laadproces al gerund voor bestand "+ fileName);
         }
         lp = writeLaadProces(lp);
-        boolean isBerichtGeschreven = false;
 
         if(!brmoXMLReader.hasNext()) {
             throw new BrmoLeegBestandException("Leeg bestand, geen berichten gevonden in "+ fileName);
         }
+        
+        boolean isBerichtGeschreven = false;
         int berichten = 0;
+        int foutBerichten = 0;
+        String lastErrorMessage = null;
+        
         while (brmoXMLReader.hasNext()) {
             Bericht b = null;
             try {
@@ -547,17 +551,25 @@ public class StagingProxy {
                 }
                 berichten++;
             } catch (Exception e) {
-                log.error("Bericht mislukt vanwege " + e.getLocalizedMessage());
+                lastErrorMessage = "Laden bericht mislukt vanwege: " + e.getLocalizedMessage();
+                log.error(lastErrorMessage);
                 if(listener != null){
                     listener.exception(e);
                 }
+                foutBerichten++;
             }
         }
         if(listener != null) {
             listener.total(berichten);
         }
-        if (!isBerichtGeschreven) {
-            this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_DUPLICAAT);
+        if (foutBerichten > 0) {
+            String opmerking = "Laden van " + foutBerichten 
+                    + " bericht(en) mislukt, laatste melding: " 
+                    + lastErrorMessage + ", zie logs voor meer info.";
+            this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_NOK, opmerking);
+        } else if (!isBerichtGeschreven) {
+            String opmerking = "Dit bestand is waarschijnlijk al eerder geladen.";
+            this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_DUPLICAAT, opmerking);
         }
     }
 
@@ -637,9 +649,9 @@ public class StagingProxy {
         return getLaadProcesByNaturalKey(lp.getBestandNaam(), lp.getBestandDatum().getTime());
     }
 
-    private void updateLaadProcesStatus(LaadProces lp, LaadProces.STATUS status) throws SQLException{
-        new QueryRunner().update(getConnection(), "update " + BrmoFramework.LAADPROCES_TABEL + " set status = ? where id = ?",
-                        status.toString(), lp.getId());
+    private void updateLaadProcesStatus(LaadProces lp, LaadProces.STATUS status, String opmerking) throws SQLException{
+        new QueryRunner().update(getConnection(), "update " + BrmoFramework.LAADPROCES_TABEL + " set status = ?, opmerking = ? where id = ?",
+                        status.toString(), opmerking, lp.getId());
     }
 
     public void emptyStagingDb() throws SQLException {
