@@ -2,10 +2,6 @@ language: java
 
 sudo: false
 
-branches:
-  only:
-    - travis-integration
-
 addons:
   postgresql: "9.4"
 
@@ -37,7 +33,7 @@ before_install:
 
 install:
 # install all dependencies + artifacts without any testing,
-  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Ptravis-ci
+  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Ptravis-ci -pl '!brmo-dist'
 
 before_script:
 # dit dient na afloop van de 'install' gedaan te worden omdat de staging DB sql gegenereerd wordt door Hibernate
@@ -51,9 +47,9 @@ before_script:
 # run tests
 script:
 # run unit tests
-  - mvn -e test -B  -Ptravis-ci
+  - mvn -e test -B -Ptravis-ci -pl '!brmo-dist'
 # run integration tests
-  - mvn -e verify -B -Ptravis-ci
+  - mvn -e verify -B -Ptravis-ci -pl '!brmo-dist'
 
 # after_success:
 
