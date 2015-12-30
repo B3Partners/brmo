@@ -83,6 +83,12 @@
                                 <hbm2ddl export="false" drop="true" create="false" outputfilename="drop-brmo-persistence-oracle.sql" format="true">
                                     <jpaconfiguration persistenceUnit="brmo.persistence.oracle" />
                                 </hbm2ddl>
+                                <hbm2ddl export="false" drop="false" create="true" outputfilename="create-brmo-persistence-sqlserver.sql" format="true">
+                                    <jpaconfiguration persistenceUnit="brmo.persistence.sqlserver" />
+                                </hbm2ddl>
+                                <hbm2ddl export="false" drop="true" create="false" outputfilename="drop-brmo-persistence-sqlserver.sql" format="true">
+                                    <jpaconfiguration persistenceUnit="brmo.persistence.sqlserver" />
+                                </hbm2ddl>
                             </hibernatetool>
                         </configuration>
                         <goals>

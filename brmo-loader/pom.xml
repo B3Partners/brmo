@@ -79,6 +79,10 @@
             <groupId>org.javasimon</groupId>
             <artifactId>javasimon-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.geotools.jdbc</groupId>
+            <artifactId>gt-jdbc-sqlserver</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
