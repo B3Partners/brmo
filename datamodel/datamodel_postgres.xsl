@@ -4,6 +4,8 @@
 	<xsl:import href="datamodel_ddl.xsl"/>
 	
 	<xsl:variable name="dbtype">postgresql</xsl:variable>
+	<xsl:variable name="dbpkdef">primary key</xsl:variable>
+	<xsl:variable name="addcomment">true</xsl:variable>
 	
 	<xsl:variable name="geom-types">
 		<geom rsgb="polygon" db="POLYGON"/>

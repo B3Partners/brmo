@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:b3p="http://www.b3partners.nl/">
 
-	<xsl:variable name="rsgb-db-identifiers" select="document('rsgb_db_identifiers.xml')"/>
+	<xsl:variable name="rsgb-db-identifiers" select="document('generated_scripts/rsgb_db_identifiers.xml')"/>
 	
 	<xsl:function name="b3p:class-to-table">
 		<xsl:param name="class"/>

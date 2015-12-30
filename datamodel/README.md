@@ -17,6 +17,8 @@ java -jar lib/saxon9he.jar -s:generated_scripts/rsgb_converted_repaired.xml -xsl
 java -jar lib/saxon9he.jar -s:generated_scripts/datamodel.xml -xsl:datamodel_postgres.xsl -o:generated_scripts/datamodel_postgresql.sql
 
 java -jar lib/saxon9he.jar -s:generated_scripts/datamodel.xml -xsl:datamodel_oracle.xsl -o:generated_scripts/datamodel_oracle.sql
+
+java -jar lib/saxon9he.jar -s:generated_scripts/datamodel.xml -xsl:datamodel_sqlserver.xsl -o:generated_scripts/datamodel_sqlserver.sql
 ```
 
 De scripts in de map utility_scripts worden niet opgenomen in het totaal script. Deze zijn vaak klantspecifiek en dienen naar behoefte handmatig gedraaid te worden.

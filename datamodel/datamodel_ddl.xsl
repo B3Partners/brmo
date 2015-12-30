@@ -46,48 +46,54 @@
 					<xsl:value-of select="@name"/>
 					<xsl:text> </xsl:text>
 					<xsl:value-of select="db:type(@type)"/>
+					<xsl:if test="@key='true' and ($archief or (not(@archief='true') and not(@superclass-archief='true')))">
+						<xsl:text> not null</xsl:text>
+					</xsl:if>
 				</xsl:if>
 			</xsl:for-each>
 			<xsl:text>&#13;);&#13;</xsl:text>
-			<xsl:for-each select="column[fn:contains($geometryTypes,@type)]">
-				<xsl:value-of select="db:addGeometryColumn($table-name, @name, @type, position())"/>
-			</xsl:for-each>
 			<xsl:if test="column[@key='true' and ($archief or (not(@archief='true') and not(@superclass-archief='true')))]">
 				<xsl:text>alter table </xsl:text>
 				<xsl:value-of select="$table-name"/> add constraint <xsl:if test="$archief">ar_<xsl:value-of select="fn:substring(@name,1,24)"/>
 				</xsl:if>
 				<xsl:if test="not($archief)">
 					<xsl:value-of select="fn:substring(@name,1,27)"/>
-				</xsl:if>_pk primary key(<xsl:value-of select="fn:string-join(column[@key='true' and ($archief or (not(@archief='true') and not(@superclass-archief='true')))]/@name,',')"/>
+				</xsl:if>_pk <xsl:value-of select="$dbpkdef"/>(<xsl:value-of select="fn:string-join(column[@key='true' and ($archief or (not(@archief='true') and not(@superclass-archief='true')))]/@name,',')"/>
 				<xsl:text>);&#13;</xsl:text>
 			</xsl:if>
-			<xsl:if test="@desc">
-				<xsl:text>comment on table </xsl:text>
-				<xsl:value-of select="$table-name"/>
-				<xsl:text> is </xsl:text>
-				<xsl:value-of select="db:string-literal(@desc)"/>
-				<xsl:text>;&#13;</xsl:text>
-			</xsl:if>
-			<xsl:for-each select="column[(@desc or @fullname) and ($archief or (not(@archief='true') and not(@superclass-archief='true')))]">
-				<xsl:variable name="comment">
-					<xsl:choose>
-						<xsl:when test="@desc and @fullname">
-							<xsl:value-of select="@desc"/>
-							<xsl:text> - </xsl:text>
-							<xsl:value-of select="@fullname"/>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:value-of select="@desc"/>
-							<xsl:value-of select="@fullname"/>
-						</xsl:otherwise>
-					</xsl:choose>
-				</xsl:variable>
-				<xsl:text>comment on column </xsl:text>
-				<xsl:value-of select="$table-name"/>.<xsl:value-of select="@name"/>
-				<xsl:text> is </xsl:text>
-				<xsl:value-of select="db:string-literal($comment)"/>
-				<xsl:text>;&#13;</xsl:text>
+			<xsl:for-each select="column[fn:contains($geometryTypes,@type)]">
+				<xsl:value-of select="db:addGeometryColumn($table-name, @name, @type, position())"/>
 			</xsl:for-each>
+			<xsl:text>&#13;</xsl:text>
+			<xsl:if test="$addcomment='true'">
+				<xsl:if test="@desc">
+					<xsl:text>comment on table </xsl:text>
+					<xsl:value-of select="$table-name"/>
+					<xsl:text> is </xsl:text>
+					<xsl:value-of select="db:string-literal(@desc)"/>
+					<xsl:text>;&#13;</xsl:text>
+				</xsl:if>
+				<xsl:for-each select="column[(@desc or @fullname) and ($archief or (not(@archief='true') and not(@superclass-archief='true')))]">
+					<xsl:variable name="comment">
+						<xsl:choose>
+							<xsl:when test="@desc and @fullname">
+								<xsl:value-of select="@desc"/>
+								<xsl:text> - </xsl:text>
+								<xsl:value-of select="@fullname"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="@desc"/>
+								<xsl:value-of select="@fullname"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<xsl:text>comment on column </xsl:text>
+					<xsl:value-of select="$table-name"/>.<xsl:value-of select="@name"/>
+					<xsl:text> is </xsl:text>
+					<xsl:value-of select="db:string-literal($comment)"/>
+					<xsl:text>;&#13;</xsl:text>
+				</xsl:for-each>
+			</xsl:if>
 			<xsl:text>&#13;</xsl:text>
 		</xsl:if>
 	</xsl:template>
@@ -103,7 +109,12 @@
 				<xsl:value-of select="../@name"/> add constraint <xsl:value-of select="@name"/>
 				<xsl:text> foreign key (</xsl:text>
 				<xsl:value-of select="@columns"/>) references <xsl:value-of select="@ref-table"/> (<xsl:value-of select="@ref-columns"/>
-				<xsl:text>) on delete cascade;&#13;</xsl:text>
+				<xsl:text>) on delete</xsl:text>
+				<xsl:choose>
+					<xsl:when test="$dbtype='sqlserver'"><xsl:text> no action</xsl:text></xsl:when>
+					<xsl:otherwise><xsl:text> cascade</xsl:text></xsl:otherwise>
+				</xsl:choose>
+				<xsl:text>;&#13;</xsl:text>
 			</xsl:for-each>
 		</xsl:if>
 	</xsl:template>
