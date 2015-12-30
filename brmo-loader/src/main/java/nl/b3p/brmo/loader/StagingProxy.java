@@ -19,6 +19,8 @@ import javax.xml.transform.TransformerException;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.BerichtenSorter;
 import nl.b3p.brmo.loader.entity.LaadProces;
+import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
+import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
 import nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork;
 import nl.b3p.brmo.loader.pipeline.BerichtWorkUnit;
 import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
@@ -55,12 +57,11 @@ public class StagingProxy {
 
     private Connection connStaging = null;
     private DataSource dataSourceStaging =  null;
-
-    private String dbType;
+    private GeometryJdbcConverter geomToJdbc = null;
 
     public StagingProxy(DataSource dataSourceStaging) throws SQLException, BrmoException {
         this.dataSourceStaging = dataSourceStaging;
-        setDbType();
+        geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(connStaging);
     }
 
     public void closeStagingProxy() {
@@ -75,17 +76,6 @@ public class StagingProxy {
             connStaging = dataSourceStaging.getConnection();
         }
         return connStaging;
-    }
-
-    private void setDbType() throws SQLException, BrmoException {
-        String productName = getConnection().getMetaData().getDatabaseProductName();
-        if (productName.contains("PostgreSQL")) {
-            dbType = "postgres";
-        } else if (productName.contains("Oracle")) {
-            dbType = "oracle";
-        } else {
-            throw new BrmoException("Database niet ondersteund: " + productName);
-        }
     }
 
     public LaadProces getLaadProcesById(Long id) throws SQLException {
@@ -234,11 +224,7 @@ public class StagingProxy {
                 log.debug(String.format("Ophalen berichten batch voor job %s, offset %d, limit %d", jobId, offset, batch));
                 String sql = "select * from " + BrmoFramework.BERICHT_TABLE + " where job_id = ? order by " + BerichtenSorter.SQL_ORDER_BY;
 
-                if(dbType.contains("oracle")) {
-                    sql = buildPaginationSqlOracle(sql, offset, batch);
-                } else {
-                    sql = sql + " limit " + batch + " offset " + offset;
-                }
+                sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
                 log.debug("SQL voor ophalen berichten batch: " + sql);
 
                 processed.setValue(0);
@@ -357,24 +343,15 @@ public class StagingProxy {
 
         //TODO, deze extra logging weer uitzetten zodra mogelijk
         if(getOldBerichtStatement == null) {
-            String sql = null;
-               
-            if (dbType.contains("postgres")) {
-                sql = "SELECT id, object_ref, datum, volgordenummer, soort, status, job_id, status_datum FROM " 
-                    + BrmoFramework.BERICHT_TABLE + " WHERE"
-                    + " object_ref = ?"
-//                    + " AND status = ?"
-                    + " ORDER BY datum desc, volgordenummer desc"
-//                    + " LIMIT 1"  
-                    ;
-            } else  {
-                sql = "SELECT id, object_ref, datum, volgordenummer, soort, status, job_id, status_datum FROM " 
+            String sql = "SELECT id, object_ref, datum, volgordenummer, soort, status, job_id, status_datum FROM " 
                     + BrmoFramework.BERICHT_TABLE + " WHERE"
                     + " object_ref = ?"
 //                    + " AND status = ?"
                     + " ORDER BY datum desc, volgordenummer desc";
-            }
-
+            
+            // haal maar één op
+//            sql = geomToJdbc.buildPaginationSql(sql, 0, 1);
+              
             getOldBerichtStatement = getConnection().prepareStatement(sql);
         } else {
             getOldBerichtStatement.clearParameters();
@@ -663,56 +640,27 @@ public class StagingProxy {
             String dir, String filterSoort, String filterStatus) throws SQLException {
 
         List<String> params = new ArrayList();
-        String sql = "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + buildFilterSql(page, start, limit, sort, dir,
-                filterSoort, filterStatus, false, params);
+        String sql = "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + buildFilterSql(page, sort, dir,
+                filterSoort, filterStatus, params);
 
-        if (dbType.contains("oracle") && (start > 0 || limit > 0)) {
-            sql = buildPaginationSqlOracle(sql, start, limit);
-        }
+        sql = geomToJdbc.buildPaginationSql(sql, start, limit);
 
         return (List<Bericht>)new QueryRunner().query(getConnection(), sql, new BeanListHandler(Bericht.class, new StagingRowHandler()), params.toArray());
     }
 
-    /*
-     * Check http://www.oracle.com/technetwork/issue-archive/2006/06-sep/o56asktom-086197.html
-     * why just WHERE ROWNUM > x AND ROWNUM < x does not work.
-     * Using subquery with optimizer.
-    */
-    private String buildPaginationSqlOracle(String sql, int offset, int limit) {
-        StringBuilder builder = new StringBuilder();
-
-        builder.append("select * from (");
-        builder.append("select /*+ FIRST_ROWS(n) */");
-        builder.append(" a.*, ROWNUM rnum from (");
-
-        builder.append(sql);
-
-        builder.append(" ) a where ROWNUM <=");
-
-        builder.append(offset + limit);
-
-        builder.append(" )");
-
-        builder.append(" where rnum  > ");
-        builder.append(offset);
-
-        return builder.toString();
-    }
 
     public long getCountBerichten(String sort, String dir, String filterSoort, String filterStatus) throws SQLException {
 
         List<String> params = new ArrayList();
-        String sql = "SELECT count(*) FROM " + BrmoFramework.BERICHT_TABLE + buildFilterSql(0, 0, 0, null, null, filterSoort,
-                filterStatus, true, params);
+        String sql = "SELECT count(*) FROM " + BrmoFramework.BERICHT_TABLE + buildFilterSql(0, null, null, filterSoort,
+                filterStatus, params);
 
         Object o = new QueryRunner().query(getConnection(), sql, new ScalarHandler(), params.toArray());
 
         return o instanceof BigDecimal ? ((BigDecimal)o).longValue() : (Long)o;
     }
 
-    private String buildFilterSql(int page, int start, int limit, String sort,
-            String dir, String filterSoort, String filterStatus,
-            boolean useForCount, List<String> params) {
+    private String buildFilterSql(int page, String sort, String dir, String filterSoort, String filterStatus, List<String> params) {
 
         StringBuilder builder = new StringBuilder();
 
@@ -744,25 +692,14 @@ public class StagingProxy {
             builder.append(dir);
         }
 
-        // build paging part
-        if (!useForCount && start > 0 || limit > 0) {
-
-            if (dbType.contains("postgres")) {
-                builder.append(" LIMIT ");
-                builder.append(limit);
-                builder.append(" OFFSET ");
-                builder.append(start);
-            }
-        }
-
         return builder.toString();
     }
 
     public long getCountLaadProces(String sort, String dir, String filterSoort, String filterStatus) throws SQLException {
 
         List<String> params = new ArrayList();
-        String sql = "SELECT count(*) FROM " + BrmoFramework.LAADPROCES_TABEL + buildFilterSql(0, 0, 0, null, null, filterSoort,
-              filterStatus, true, params);
+        String sql = "SELECT count(*) FROM " + BrmoFramework.LAADPROCES_TABEL + buildFilterSql(0, null, null, filterSoort,
+              filterStatus, params);
 
         Object o = new QueryRunner().query(getConnection(), sql, new ScalarHandler(), params.toArray());
         return o instanceof BigDecimal ? ((BigDecimal)o).longValue() : (Long)o;
@@ -772,13 +709,10 @@ public class StagingProxy {
             String dir, String filterSoort, String filterStatus) throws SQLException {
 
         List<String> params = new ArrayList();
-        String sql = "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + buildFilterSql(
-                page, start, limit, sort, dir,
-                filterSoort, filterStatus, false,params);
-
-        if (dbType.contains("oracle") && (start > 0 || limit > 0)) {
-            sql = buildPaginationSqlOracle(sql, start, limit);
-        }
+        String sql = "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + buildFilterSql(page, sort, dir,
+                filterSoort, filterStatus,params);
+        
+        sql = geomToJdbc.buildPaginationSql(sql, start, limit);
 
         return (List<LaadProces>)new QueryRunner().query(getConnection(), sql, new BeanListHandler(LaadProces.class, new StagingRowHandler()), params.toArray());
     }

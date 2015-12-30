@@ -1,13 +1,10 @@
 package nl.b3p.brmo.loader;
 
-import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.io.ParseException;
-import com.vividsolutions.jts.io.WKTReader;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
@@ -28,7 +25,6 @@ import java.util.SortedSet;
 import java.util.TimeZone;
 import java.util.TreeSet;
 import javax.sql.DataSource;
-import javax.xml.bind.DatatypeConverter;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.dom.DOMSource;
@@ -36,16 +32,14 @@ import javax.xml.transform.stream.StreamSource;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.jdbc.ColumnMetadata;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
-import nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper;
+import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
 import nl.b3p.brmo.loader.jdbc.OracleJdbcConverter;
-import nl.b3p.brmo.loader.jdbc.PostgisJdbcConverter;
 import nl.b3p.brmo.loader.updates.UpdateProcess;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.DataComfortXMLReader;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.TableData;
 import nl.b3p.brmo.loader.util.TableRow;
-import oracle.jdbc.OracleConnection;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -65,10 +59,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     private final String jobId = Thread.currentThread().getId() + System.currentTimeMillis() + "";
 
     private final boolean alsoExecuteSql = true;
-
-    private final GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory();
-
-    private String schema = null;
 
     private final ProgressUpdateListener listener;
 
@@ -104,14 +94,12 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     }
 
     private DatabaseMetaData dbMetadata = null;
-    private String databaseProductName;
     /* Map van lowercase tabelnaam naar originele case tabelnaam */
     private Map<String, String> tables = new HashMap();
     private Map<String, SortedSet<ColumnMetadata>> tableColumns = new HashMap();
 
     private Connection connRsgb = null;
     private GeometryJdbcConverter geomToJdbc = null;
-    private boolean useSavepoints = false;
     private Savepoint recentSavepoint = null;
     private String herkomstMetadata = null;
 
@@ -186,26 +174,12 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     public void init() throws SQLException {
         connRsgb = dataSourceRsgb.getConnection();
 
-        databaseProductName = connRsgb.getMetaData().getDatabaseProductName();
-        if (databaseProductName.contains("PostgreSQL")) {
-            geomToJdbc = new PostgisJdbcConverter();
-            useSavepoints = true;
-        } else if (databaseProductName.contains("Oracle")) {
-
-            OracleConnection oc = OracleConnectionUnwrapper.unwrap(connRsgb);
-            schema = oc.getCurrentSchema();
-
-            log.debug("Oracle schema: " + schema);
-
-            geomToJdbc = new OracleJdbcConverter(oc);
-        } else {
-            throw new UnsupportedOperationException("Unknown database: " + connRsgb.getMetaData().getDatabaseProductName());
-        }
+        geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(connRsgb);
 
         try {
             dbMetadata = connRsgb.getMetaData();
 
-            ResultSet tablesRs = dbMetadata.getTables("", schema, "%", new String[]{"TABLE"});
+            ResultSet tablesRs = dbMetadata.getTables("", geomToJdbc.getSchema(), "%", new String[]{"TABLE"});
             while (tablesRs.next()) {
                 tables.put(tablesRs.getString("TABLE_NAME").toLowerCase(), tablesRs.getString("TABLE_NAME"));
             }
@@ -873,13 +847,12 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
         }
 
-        // TODO maak sql op basis van alle columns en gebruik null values
-        // zodat insert voor elke tabel hetzelfde, reuse preparedstatement
         sql.append(" (");
         StringBuilder valuesSql = new StringBuilder();
         List params = new ArrayList();
-        List<Boolean> isGeometry = new ArrayList();
 
+        // TODO maak sql op basis van alle columns en gebruik null values
+        // zodat insert voor elke tabel hetzelfde, reuse preparedstatement
         Iterator<String> valuesIt = row.getValues().iterator();
         for (Iterator<String> it = row.getColumns().iterator(); it.hasNext();) {
             String column = it.next();
@@ -890,74 +863,17 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
 
             ColumnMetadata cm = findColumnMetadata(tableColumnMetadata, column);
-
-            if (cm == null) {
-                throw new IllegalArgumentException("Column not found: " + column + " in table " + tableName);
-            }
-
-            String insertValueSql = "?";
-
-            boolean isThisGeometry = false;
-            Object param = null;
-            if (stringValue != null) {
-                stringValue = stringValue.trim();
-// issue #94 oracle geeft een struct terug, dus geomtrie type eerder bepalen
-                if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
-                    param = stringValue;
-                    isThisGeometry = true;
-                } else {
-                    switch (cm.getDataType()) {
-                        case java.sql.Types.DECIMAL:
-                        case java.sql.Types.NUMERIC:
-                        case java.sql.Types.INTEGER:
-                            try {
-                                param = new BigDecimal(stringValue);
-                            } catch (NumberFormatException nfe) {
-                                throw new NumberFormatException(
-                                        String.format("Conversie van waarde \"%s\" naar type %s voor %s.%s niet mogelijk",
-                                                stringValue,
-                                                cm.getTypeName(),
-                                                tableName,
-                                                cm.getName()));
-                                //param = -99999;
-                            }
-                            break;
-                        case java.sql.Types.CHAR:
-                        case java.sql.Types.VARCHAR:
-                            param = stringValue;
-                            break;
-// issue #94 oracle geeft een struct terug, dus geomtrie type eerder bepalen
-//                        case java.sql.Types.OTHER:
-//                            if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
-//                                param = stringValue;
-//                                isThisGeometry = true;
-//                                break;
-//                            } else {
-//                                throw new IllegalStateException(
-//                                        String.format("Column \"%s\" (value to insert \"%s\") type other but not geometry!",
-//                                                column, param));
-//                            }
-                        case java.sql.Types.DATE:
-                        case java.sql.Types.TIMESTAMP:
-                            param = javax.xml.bind.DatatypeConverter.parseDateTime(stringValue);
-                            if (param != null) {
-                                Calendar cal = (Calendar) param;
-                                param = new java.sql.Date(cal.getTimeInMillis());
-                            }
-                            break;
-                        default:
-                            throw new UnsupportedOperationException(
-                                    String.format("Data type %s (#%d) van kolom \"%s\" wordt niet ondersteund.", cm.getTypeName(), cm.getDataType(), column));
-                    }
-                }
-            } else {
-                isThisGeometry = cm.getTypeName().equals("SDO_GEOMETRY");
-            }
+            Object param = getValueAsObject(tableName, column, stringValue, cm);
             params.add(param);
-            isGeometry.add(isThisGeometry);
 
             sql.append(cm.getName());
-            valuesSql.append(insertValueSql);
+            
+            String insertValuePlaceholder = "?";
+            if (cm.getTypeName().equals(geomToJdbc.getGeomTypeName())) {
+                //waarde altijd als WKT aanbieden en placeholder per db type
+                insertValuePlaceholder = geomToJdbc.createPSGeometryPlaceholder();
+            }
+            valuesSql.append(insertValuePlaceholder);
 
             if (it.hasNext()) {
                 sql.append(", ");
@@ -974,7 +890,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         } else {
             sql.append(") select ");
             sql.append(valuesSql);
-            if (databaseProductName.contains("Oracle")) {
+            if (geomToJdbc instanceof OracleJdbcConverter) {
                 sql.append(" from dual");
             }
             sql.append(" where not exists (select 1 from ");
@@ -992,9 +908,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 sql.append(" = ? ");
 
                 String val = getValueFromTableRow(row, column);
-                Object obj = getValueAsObject(tableName, column, val);
+                Object obj = getValueAsObject(tableName, column, val, null);
                 params.add(obj);
-                isGeometry.add(false);
             }
             sql.append(")");
         }
@@ -1016,17 +931,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         for (int i = 0; i < params.size(); i++) {
             Object param = params.get(i);
-            if (isGeometry.size() > 0 && Boolean.TRUE.equals(isGeometry.get(i))) {
-                if (geomToJdbc.convertsGeometryInsteadOfWkt()) {
-                    WKTReader reader = new WKTReader(geometryFactory);
-                    Geometry geom = param == null || ((String) param).trim().length() == 0 ? null : reader.read((String) param);
-                    stm.setObject(i + 1, geomToJdbc.convertGeometry(geom));
-                } else {
-                    stm.setObject(i + 1, geomToJdbc.convertWkt((String) param));
-                }
-            } else {
-                stm.setObject(i + 1, param);
-            }
+            stm.setObject(i + 1, param);
         }
 
         int count = -1;
@@ -1034,7 +939,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             count = stm.executeUpdate();
         } catch (SQLException e) {
             String message = e.getMessage();
-            if (PostgisJdbcConverter.isDuplicateKeyViolationMessage(message) || OracleJdbcConverter.isDuplicateKeyViolationMessage(message)) {
+            if (geomToJdbc.isDuplicateKeyViolationMessage(message)) {
                 if (row.isIgnoreDuplicates()) {
                     if (recentSavepoint != null) {
                         log.debug("Ignoring duplicate key violation by rolling back to savepoint with id " + recentSavepoint.getSavepointId());
@@ -1057,15 +962,19 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         StringBuilder sql = new StringBuilder("update ");
 
         String tableName = row.getTable();
+
         sql.append(tableName);
 
         SortedSet<ColumnMetadata> tableColumnMetadata = null;
         tableColumnMetadata = getTableColumnMetadata(tableName);
 
+        if (tableColumnMetadata == null) {
+                throw new IllegalStateException("Kan tabel metadata niet vinden voor tabel " + tableName);
+        }
+
         sql.append(" set ");
 
         List params = new ArrayList();
-        List<Boolean> isGeometry = new ArrayList();
 
         // XXX does set previously set columns to NULL!
         // need statement for all columns from column metadata, not only
@@ -1080,72 +989,17 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
 
             ColumnMetadata cm = findColumnMetadata(tableColumnMetadata, column);
-
-            if (cm == null) {
-                throw new IllegalArgumentException("Column not found: " + column + " in table " + tableName);
-            }
-
-            boolean isThisGeometry = false;
-            Object param = null;
-            if (stringValue != null) {
-                stringValue = stringValue.trim();
-// issue #94 oracle geeft een struct terug, dus geomtrie type eerder bepalen
-                if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
-                    param = stringValue;
-                    isThisGeometry = true;
-                } else {
-                    switch (cm.getDataType()) {
-                    case java.sql.Types.DECIMAL:
-                    case java.sql.Types.NUMERIC:
-                    case java.sql.Types.INTEGER:
-                        // Als een resultaat van een BR-XSL kolom een string bevat
-                        // maar de RSGB database heeft bijvoorbeeld een int, dan
-                        // moet waarschijnlijk het RSGB schema worden aangepast
-                        // (of moet een string waarde in XSL worden omgezet in int)
-
-//                        try {
-                        param = new BigDecimal(stringValue);
-//                        } catch (NumberFormatException nfe) {
-//                            log.error(String.format("Cannot convert value \"%s\" to type %s for %s.%s",
-//                                    stringValue,
-//                                    cm.getTypeName(),
-//                                    tableName,
-//                                    cm.getName()));
-//                            //param = -99999;
-//                        }
-                        break;
-                    case java.sql.Types.CHAR:
-                    case java.sql.Types.VARCHAR:
-                        param = stringValue;
-                            break;
-// issue #94 oracle geeft een struct terug, dus geomtrie type eerder bepalen
-//                    case java.sql.Types.OTHER:
-//                        if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
-//                            param = stringValue;
-//                            isThisGeometry = true;
-//                            break;
-//                        } else {
-//                            throw new IllegalStateException(String.format("Column \"%s\" (value to insert \"%s\") type other but not geometry!", column, param));
-//                        }
-                    case java.sql.Types.DATE:
-                    case java.sql.Types.TIMESTAMP:
-                        param = javax.xml.bind.DatatypeConverter.parseDateTime(stringValue);
-                        if (param != null) {
-                            Calendar cal = (Calendar) param;
-                            param = new java.sql.Date(cal.getTimeInMillis());
-                        }
-                        break;
-                    default:
-                        throw new UnsupportedOperationException(String.format("Data type %s (#%d) of column \"%s\" not supported", cm.getTypeName(), cm.getDataType(), column));
-                    }
-                }
-            } else {
-                isThisGeometry = cm.getTypeName().equals("SDO_GEOMETRY");
-            }
+            Object param = getValueAsObject(tableName, column, stringValue, cm);
             params.add(param);
-            isGeometry.add(isThisGeometry);
-
-            sql.append(cm.getName() + " = ?");
+ 
+            sql.append(cm.getName());
+            sql.append(" = ");
+            String insertValuePlaceholder = "?";
+            if (cm.getTypeName().equals(geomToJdbc.getGeomTypeName())) {
+                //waarde altijd als WKT aanbieden en placeholder per db type
+                insertValuePlaceholder = geomToJdbc.createPSGeometryPlaceholder();
+            }
+            sql.append(insertValuePlaceholder);
 
             if (it.hasNext()) {
                 sql.append(", ");
@@ -1153,20 +1007,24 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
 
         // Where clause using pk columns
-        List<String> pkColumns = getPrimaryKeys(tableName);
-
-        int i = 0;
-        for (String column : pkColumns) {
-            if (i < 1) {
-                sql.append(" WHERE " + column + " = ?");
+        sql.append(" where ");
+        boolean first = true;
+        for (String column : getPrimaryKeys(tableName)) {
+            if (first) {
+                first = false;
             } else {
-                sql.append(" AND " + column + " = ?");
+                sql.append(" and ");
             }
-            i++;
+            sql.append(column);
+            sql.append(" = ? ");
+
+            String val = getValueFromTableRow(row, column);
+            Object obj = getValueAsObject(tableName, column, val, null);
+            params.add(obj);
         }
 
         PreparedStatement stm = updateSqlPreparedStatements.get(sql.toString());
-        if (stm == null) {
+        if (stm == null || stm.isClosed()) {
             SimonManager.getCounter("b3p.rsgb.updatesql.preparestatement").increase();
             stm = connRsgb.prepareStatement(sql.toString());
             updateSqlPreparedStatements.put(sql.toString(), stm);
@@ -1180,36 +1038,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         loadLog.append(params.toString());
         loadLog.append(")");
 
-        for (i = 0; i < params.size(); i++) {
+        for (int i = 0; i < params.size(); i++) {
             Object param = params.get(i);
-            if (isGeometry.size() > 0 && Boolean.TRUE.equals(isGeometry.get(i))) {
-                if (geomToJdbc.convertsGeometryInsteadOfWkt()) {
-                    WKTReader reader = new WKTReader(geometryFactory);
-                    Geometry geom = param == null || ((String) param).trim().length() == 0 ? null : reader.read((String) param);
-                    stm.setObject(i + 1, geomToJdbc.convertGeometry(geom));
-                } else {
-                    stm.setObject(i + 1, geomToJdbc.convertWkt((String) param));
-                }
-            } else {
-                stm.setObject(i + 1, param);
-            }
-        }
-
-        if (pkColumns != null && pkColumns.size() > 0) {
-            loadLog.append(", pkeys (");
-            int counter = params.size();
-            for (String column : pkColumns) {
-                loadLog.append("[");
-                loadLog.append(column);
-                loadLog.append("=");
-                String val = getValueFromTableRow(row, column);
-                Object obj = getValueAsObject(row.getTable(), column, val);
-                loadLog.append(obj == null ? "" : obj.toString());
-                loadLog.append("] ");
-                stm.setObject(counter + 1, obj);
-                counter++;
-            }
-            loadLog.append(")");
+            stm.setObject(i + 1, param);
         }
 
         int count = stm.executeUpdate();
@@ -1224,7 +1055,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         if (insertMetadataStatement == null) {
             StringBuilder sql = new StringBuilder("insert into herkomst_metadata (tabel, kolom, waarde, herkomst_br, datum) ")
                     .append("select ?, ?, ?, ?, ? ")
-                    .append(databaseProductName.contains("Oracle") ? "from dual" : "")
+                    .append(geomToJdbc instanceof OracleJdbcConverter ? "from dual" : "")
                     .append(" where not exists (")
                     .append("  select 1 from herkomst_metadata where tabel = ? and kolom = ? and waarde = ? and herkomst_br = ? and datum = ?")
                     .append(")");
@@ -1270,7 +1101,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         List params = new ArrayList();
         for (String column : pkColumns) {
             String val = getValueFromTableRow(row, column);
-            Object obj = getValueAsObject(row.getTable(), column, val);
+            Object obj = getValueAsObject(row.getTable(), column, val, null);
             params.add(obj);
         }
 
@@ -1331,7 +1162,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         List params = new ArrayList();
         for (String column : pkColumns) {
             String val = getValueFromTableRow(row, column);
-            Object obj = getValueAsObject(row.getTable(), column, val);
+            Object obj = getValueAsObject(row.getTable(), column, val, null);
             params.add(obj);
         }
 
@@ -1397,21 +1228,15 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         sql.append(" WHERE tabel = ?");
 
-        SortedSet<ColumnMetadata> tableColumnMetadata = null;
-        tableColumnMetadata = getTableColumnMetadata(tableName);
-
         List params = new ArrayList();
-        List paramsGeom = new ArrayList();
 
         params.add(tableName);
-        paramsGeom.add(false);
 
         List<String> pkColumns = getPrimaryKeys(tableName);
         String waarde = null;
         for (String column : pkColumns) {
             sql.append(" AND kolom = ?");
             params.add(column);
-            paramsGeom.add(false);
 
             waarde = getValueFromTableRow(row, column);
         }
@@ -1419,10 +1244,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         if (waarde != null) {
             sql.append(" AND waarde = ?");
             params.add(waarde);
-            paramsGeom.add(false);
         }
 
-        PreparedStatement stm = getPreparedStatement(row, sql.toString(), params, paramsGeom, null, loadLog);
+        PreparedStatement stm = getPreparedStatement(row, sql.toString(), params, null, loadLog);
         ResultSet results = stm.executeQuery();
         int count = getRowCount(results);
         DbUtils.closeQuietly(results);
@@ -1440,21 +1264,15 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         sql.append(" WHERE tabel = ?");
 
-        SortedSet<ColumnMetadata> tableColumnMetadata = null;
-        tableColumnMetadata = getTableColumnMetadata(tableName);
-
         List params = new ArrayList();
-        List paramsGeom = new ArrayList();
 
         params.add(tableName);
-        paramsGeom.add(false);
 
         List<String> pkColumns = getPrimaryKeys(tableName);
         String waarde = null;
         for (String column : pkColumns) {
             sql.append(" AND kolom = ?");
             params.add(column);
-            paramsGeom.add(false);
 
             waarde = getValueFromTableRow(row, column);
         }
@@ -1462,10 +1280,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         if (waarde != null) {
             sql.append(" AND waarde = ?");
             params.add(waarde);
-            paramsGeom.add(false);
         }
 
-        PreparedStatement stm = getPreparedStatement(row, sql.toString(), params, paramsGeom, null, loadLog);
+        PreparedStatement stm = getPreparedStatement(row, sql.toString(), params, null, loadLog);
 
         int count = 1; // all ok
         if (alsoExecuteSql) {
@@ -1499,7 +1316,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             i++;
         }
 
-        PreparedStatement stm = getPreparedStatement(row, sql.toString(), null, null, pkColumns, loadLog);;
+        PreparedStatement stm = getPreparedStatement(row, sql.toString(), null, pkColumns, loadLog);;
 
         int count = 1; // all ok
         if (alsoExecuteSql) {
@@ -1522,7 +1339,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         String origName = tables.get(tableName);
 
-        ResultSet set = dbMetadata.getPrimaryKeys("", schema, origName);
+        ResultSet set = dbMetadata.getPrimaryKeys("", geomToJdbc.getSchema(), origName);
         while (set.next()) {
             String column = set.getString("COLUMN_NAME");
             pks.add(column.toLowerCase());
@@ -1548,7 +1365,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             columnMetadata = new TreeSet();
             tableColumns.put(table, columnMetadata);
 
-            ResultSet columnsRs = dbMetadata.getColumns(null, schema, tables.get(table), "%");
+            ResultSet columnsRs = dbMetadata.getColumns(null, geomToJdbc.getSchema(), tables.get(table), "%");
             while (columnsRs.next()) {
                 ColumnMetadata cm = new ColumnMetadata(columnsRs);
                 columnMetadata.add(cm);
@@ -1588,7 +1405,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         if (!alsoExecuteSql) {
             return;
         }
-        if (useSavepoints) {
+        if (geomToJdbc.useSavepoints()) {
             if (row.isIgnoreDuplicates()) {
                 if (recentSavepoint == null) {
                     recentSavepoint = connRsgb.setSavepoint();
@@ -1604,7 +1421,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
     }
 
-    private PreparedStatement getPreparedStatement(TableRow row, String sql, List params, List<Boolean> isGeometry, List<String> pkColumns, StringBuilder loadLog) throws SQLException, ParseException {
+    private PreparedStatement getPreparedStatement(TableRow row, String sql, List params, List<String> pkColumns, StringBuilder loadLog) throws SQLException, ParseException {
         loadLog.append("\nSQL: ");
         loadLog.append(sql);
         loadLog.append(", params (");
@@ -1623,17 +1440,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         if (params != null && params.size() > 0) {
             for (int i = 0; i < params.size(); i++) {
                 Object param = params.get(i);
-                if (isGeometry.size() > 0 && Boolean.TRUE.equals(isGeometry.get(i))) {
-                    if (geomToJdbc.convertsGeometryInsteadOfWkt()) {
-                        WKTReader reader = new WKTReader(geometryFactory);
-                        Geometry geom = param == null || ((String) param).trim().length() == 0 ? null : reader.read((String) param);
-                        stmt.setObject(i + 1, geomToJdbc.convertGeometry(geom));
-                    } else {
-                        stmt.setObject(i + 1, geomToJdbc.convertWkt((String) param));
-                    }
-                } else {
-                    stmt.setObject(i + 1, param);
-                }
+                stmt.setObject(i + 1, param);
                 counter = i + 1;
             }
         }
@@ -1644,7 +1451,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 loadLog.append(column);
                 loadLog.append("=");
                 String val = getValueFromTableRow(row, column);
-                Object obj = getValueAsObject(row.getTable(), column, val);
+                Object obj = getValueAsObject(row.getTable(), column, val, null);
                 loadLog.append(obj == null ? "" : obj.toString());
                 loadLog.append("] ");
                 stmt.setObject(counter + 1, obj);
@@ -1655,59 +1462,23 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return stmt;
     }
 
-    private Object getValueAsObject(String tableName, String column, String value) throws SQLException {
+    private Object getValueAsObject(String tableName, String column, String value, ColumnMetadata cm) throws SQLException {
+
+        if (cm == null) {
+            SortedSet<ColumnMetadata> tableColumnMetadata = null;
+            tableColumnMetadata = getTableColumnMetadata(tableName);
+            cm = findColumnMetadata(tableColumnMetadata, column);
+        }
+
         Object param = null;
-        SortedSet<ColumnMetadata> tableColumnMetadata = null;
-        tableColumnMetadata = getTableColumnMetadata(tableName);
-        ColumnMetadata cm = findColumnMetadata(tableColumnMetadata, column);
         if (cm == null) {
             throw new IllegalArgumentException("Column not found: " + column + " in table " + tableName);
+        } else if (cm.getTypeName().equals(geomToJdbc.getGeomTypeName())) {
+            param = value;
+        } else if (value != null) {
+            param = geomToJdbc.convertToSQLObject(value, cm, tableName, column);
         }
-        if (value != null) {
-            value = value.trim();
-// issue #94 oracle geeft een struct terug, dus geomtrie type eerder bepalen
-            if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
-                param = value;
-            } else {
-            switch (cm.getDataType()) {
-                case Types.DECIMAL:
-                case Types.NUMERIC:
-                case Types.INTEGER:
-                    param = new BigDecimal(value);
-                    //                    } catch (NumberFormatException nfe) {
-                    //                        log.error(value.format("Cannot convert value \"%s\" to type %s for %s.%s",
-                    //                                value,
-                    //                                cm.getTypeName(),
-                    //                                tableName,
-                    //                                cm.getName()));
-                    //                        //param = -99999;
-                    //                    }
-                    break;
-                case Types.CHAR:
-                case Types.VARCHAR:
-                    param = value;
-                    break;
-// issue #94 oracle geeft een struct terug, dus geomtrie type eerder bepalen
-//                case Types.OTHER:
-//                    if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
-//                        param = value;
-//                        break;
-//                    } else {
-//                        throw new IllegalStateException(String.format("Column \"%s\" (value to insert \"%s\") type other but not geometry!", column, param));
-//                    }
-                case Types.DATE:
-                case Types.TIMESTAMP:
-                    param = DatatypeConverter.parseDateTime(value);
-                    if (param != null) {
-                        Calendar cal = (Calendar) param;
-                        param = new java.sql.Date(cal.getTimeInMillis());
-                    }
-                    break;
-                default:
-                    throw new UnsupportedOperationException(String.format("Data type %s (#%d) of column \"%s\" not supported", cm.getTypeName(), cm.getDataType(), column));
-                }
-            }
-        }
+
         return param;
     }
 
