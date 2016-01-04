@@ -34,7 +34,7 @@ public class StagingRowHandler extends BasicRowProcessor {
         
         //vind beschikbare kolomnamen
         ResultSetMetaData rsm = rs.getMetaData();
-        ArrayList<String> namesList = new ArrayList<String>();
+        IgnoreCaseStringList namesList = new IgnoreCaseStringList();
         for (int i = 1; i <= rsm.getColumnCount(); i++) {
             namesList.add(rsm.getColumnLabel(i));
         }
@@ -126,4 +126,19 @@ public class StagingRowHandler extends BasicRowProcessor {
 
         return null;
     }
+    
+    class IgnoreCaseStringList extends ArrayList<String> {
+
+        @Override
+        public boolean contains(Object o) {
+            String paramStr = (String) o;
+            for (String s : this) {
+                if (paramStr.equalsIgnoreCase(s)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
 }
