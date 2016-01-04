@@ -61,6 +61,7 @@ public class StagingProxy {
 
     public StagingProxy(DataSource dataSourceStaging) throws SQLException, BrmoException {
         this.dataSourceStaging = dataSourceStaging;
+        this.connStaging = getConnection();
         geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(connStaging);
     }
 

@@ -1,12 +1,9 @@
 
 package nl.b3p.brmo.loader.jdbc;
 
-import com.vividsolutions.jts.geom.Geometry;
 import java.sql.SQLException;
-import oracle.jdbc.OracleConnection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.geotools.data.oracle.sdo.GeometryConverter;
 
 /**
  *
@@ -45,7 +42,7 @@ public class MssqlJdbcConverter extends GeometryJdbcConverter {
 
     @Override
     public String getSchema() {
-        return null;
+        return "dbo";
     }
 
     @Override

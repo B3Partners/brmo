@@ -1,9 +1,7 @@
 
 package nl.b3p.brmo.loader.jdbc;
 
-import com.vividsolutions.jts.geom.Geometry;
 import java.sql.SQLException;
-import org.postgis.PGgeometry;
 
 /**
  *
