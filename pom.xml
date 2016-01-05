@@ -48,6 +48,7 @@
         <oracle.jdbc.artifactId>ojdbc5</oracle.jdbc.artifactId>
         <javasimon.version>4.0.1</javasimon.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- om unit tests met postgres te draaien gebruik je
         -Dtest.persistence.unit=brmo.persistence.postgresql
         voor oracle:
@@ -56,7 +57,7 @@
         -->
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
         <test.h2.version>1.4.190</test.h2.version>
-        <maven.surefire.version>2.19</maven.surefire.version>
+        <maven.surefire.version>2.19.1</maven.surefire.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -405,6 +406,32 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven.surefire.version}</version>
+                    <configuration>
+                        <excludes>
+                            <exclude>**/*IntegrationTest.java</exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven.surefire.version}</version>
+                    <configuration>
+                        <includes>
+                            <include>**/*IntegrationTest.java</include>
+                        </includes>
+                        <systemPropertyVariables />
+                        <trimStackTrace>false</trimStackTrace>
+                        <useFile>false</useFile>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>integration-test</goal>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -435,6 +462,16 @@
                     <groupId>pl.project13.maven</groupId>
                     <artifactId>git-commit-id-plugin</artifactId>
                     <version>2.2.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>properties-maven-plugin</artifactId>
+                    <version>1.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>2.2</version>
                 </plugin>
             </plugins>
         </pluginManagement>

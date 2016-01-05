@@ -98,6 +98,12 @@
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-rt</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -179,4 +185,105 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>travis-ci</id>
+            <properties>
+                <test.persistence.unit>brmo.persistence.postgresql</test.persistence.unit>
+                <postgresql.jdbc.version>9.4.1207</postgresql.jdbc.version>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>${postgresql.jdbc.version}</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <filters>
+                    <filter>${project.basedir}/src/test/resources/postgres.properties</filter>
+                </filters>
+                <!--<resources></resources>-->
+                <testResources>
+                    <testResource>
+                        <directory>${project.basedir}/src/test/tomcatconf/</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                    <testResource>
+                        <directory>${project.basedir}/src/test/resources/</directory>
+                    </testResource>
+                </testResources>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>properties-maven-plugin</artifactId>
+                        <configuration>
+                            <files>
+                                <file>${project.basedir}/src/test/resources/postgres.properties</file>
+                            </files>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>read-project-properties</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <configuration>
+                            <port>9090</port>
+                            <!-- Note: dit bestand wordt neergezet tijdens 'test' phase. 
+                            Om Tomcat standalone te draaien gebruik je
+                            'mvn clean test tomcat7:run -Ptravis-ci' -->
+                            <contextFile>${project.build.directory}/test-classes/testcontext.xml</contextFile>-->
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>tomcat-run</id>
+                                <goals>
+                                    <goal>run-war-only</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <fork>true</fork>
+                                    <skip>${maven.test.skip}</skip>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>tomcat-shutdown</id>
+                                <goals>
+                                    <goal>shutdown</goal>
+                                </goals>
+                                <phase>post-integration-test</phase>
+                                <configuration>
+                                    <skip>${maven.test.skip}</skip>
+                                    <skipErrorOnShutdown>true</skipErrorOnShutdown>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>javax.mail</groupId>
+                                <artifactId>mail</artifactId>
+                                <version>1.4.7</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.postgresql</groupId>
+                                <artifactId>postgresql</artifactId>
+                                <version>${postgresql.jdbc.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration></configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
