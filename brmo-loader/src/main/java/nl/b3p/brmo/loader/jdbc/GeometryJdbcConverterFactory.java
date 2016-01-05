@@ -28,7 +28,7 @@ public class GeometryJdbcConverterFactory {
             } catch (SQLException ex) {
                 throw new UnsupportedOperationException("Cannot get connection: " + databaseProductName, ex);
             }
-        } else if (databaseProductName.contains("Mssql")) {
+        } else if (databaseProductName.contains("Microsoft SQL Server")) {
             return new MssqlJdbcConverter();
         } else {
             throw new UnsupportedOperationException("Unknown database: " + databaseProductName);

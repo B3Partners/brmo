@@ -1,9 +1,16 @@
 
 package nl.b3p.brmo.loader.jdbc;
 
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.io.ParseException;
 import java.sql.SQLException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.geolatte.geom.Geometry;
+import org.geolatte.geom.codec.Wkt;
+import org.geolatte.geom.codec.db.sqlserver.Encoders;
+import org.geotools.geometry.jts.JTSFactoryFinder;
+
 
 /**
  *
@@ -12,21 +19,6 @@ import org.apache.commons.logging.LogFactory;
 public class MssqlJdbcConverter extends GeometryJdbcConverter {
 
     private static final Log log = LogFactory.getLog(MssqlJdbcConverter.class);
-
-//    @Override
-//    public boolean convertsGeometryInsteadOfWkt() {
-//        return true;
-//    }
-//
-//    @Override
-//    public Object convertGeometry(Geometry geom) throws SQLException {
-//        throw new UnsupportedOperationException();
-//    }
-//
-//    @Override
-//    public Object convertWkt(String wkt) throws SQLException {
-//        throw new UnsupportedOperationException();
-//    }
 
     @Override
     public boolean isDuplicateKeyViolationMessage(String message) {
@@ -37,7 +29,19 @@ public class MssqlJdbcConverter extends GeometryJdbcConverter {
 
     @Override
     public String createPSGeometryPlaceholder() throws SQLException {
-        return "geometry::STGeomFromText(?, 28992)";
+        //return "geometry::STGeomFromText(?, 28992)";
+        return "?";
+    }
+
+    @Override
+    public Object convertToNativeGeometryObject(String param) throws SQLException, ParseException {
+        // return param;
+        if (param == null || param.trim().length() == 0) {
+            return null;
+        }
+        Geometry geom = Wkt.fromWkt("SRID=28992; " + param);
+        byte[] ret = Encoders.encode(geom);
+        return ret;
     }
 
     @Override
@@ -89,6 +93,12 @@ public class MssqlJdbcConverter extends GeometryJdbcConverter {
     @Override
     public boolean useSavepoints() {
         return false;
+    }
+
+    @Override
+    public boolean isPmdKnownBroken() {
+        //return true; // microsoft driver
+        return false; // jtds driver
     }
 
 }

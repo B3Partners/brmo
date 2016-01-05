@@ -93,7 +93,10 @@ public class BerichtenActionBean implements ActionBean {
 
             count = brmo.getCountBerichten(sort, dir, filterSoort, filterStatus);
 
-            berichten = brmo.getBerichten(page, start, limit, sort, dir, filterSoort,
+            berichten = brmo.getBerichten(page, start, limit, 
+                    (sort==null || sort.trim().isEmpty())?"id":sort, 
+                    (dir==null || dir.trim().isEmpty())?"asc":dir, 
+                    filterSoort,
                     filterStatus);
 
         } finally {

@@ -1,7 +1,7 @@
 
 package nl.b3p.brmo.loader.jdbc;
 
-import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.io.ParseException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -11,16 +11,19 @@ import java.util.Calendar;
  * @author Matthijs Laan
  */
 public abstract class GeometryJdbcConverter {
-//    public boolean convertsGeometryInsteadOfWkt();
-//
-//    public Object convertGeometry(Geometry geom) throws SQLException;
-//    public Object convertWkt(String wkt) throws SQLException;
+    //definieer placeholder als ? wanneer object naar native geometry wordt 
+    //geconverteerd
+    //defineer placeholder via native wkt-import functie als geometry als 
+    //wkt-string wordt doorgegeven
+    public abstract Object convertToNativeGeometryObject(String param) throws SQLException, ParseException;
     public abstract String createPSGeometryPlaceholder() throws SQLException;
+    
     public abstract String getSchema();
     public abstract String getGeomTypeName();
     public abstract boolean isDuplicateKeyViolationMessage(String message);
     public abstract String buildPaginationSql(String sql, int offset, int limit);
     public abstract boolean useSavepoints();
+    public abstract boolean isPmdKnownBroken();
     
     static public Object convertToSQLObject(String stringValue, ColumnMetadata cm, 
             String tableName, String column) {

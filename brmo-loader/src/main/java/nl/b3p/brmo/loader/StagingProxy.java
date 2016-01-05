@@ -85,7 +85,7 @@ public class StagingProxy {
         ResultSetHandler<List<LaadProces>> h
                 = new BeanListHandler(LaadProces.class, new StagingRowHandler());
 
-        processen = new QueryRunner().query(getConnection(),
+        processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + " WHERE id = ?", h, id);
 
         if (processen != null && processen.size() == 1) {
@@ -100,7 +100,7 @@ public class StagingProxy {
         ResultSetHandler<List<Bericht>> h
                 = new BeanListHandler(Bericht.class, new StagingRowHandler());
 
-        berichten = new QueryRunner().query(getConnection(),
+        berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE id = ?", h, id);
 
         if (berichten != null && berichten.size() == 1) {
@@ -115,7 +115,7 @@ public class StagingProxy {
         ResultSetHandler<List<LaadProces>> h
                 = new BeanListHandler(LaadProces.class, new StagingRowHandler());
 
-        processen = new QueryRunner().query(getConnection(),
+        processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + " WHERE bestand_naam = ?", h, name);
 
         if (processen != null && processen.size() == 1) {
@@ -130,7 +130,7 @@ public class StagingProxy {
         ResultSetHandler<List<LaadProces>> h
                 = new BeanListHandler(LaadProces.class, new StagingRowHandler());
 
-        processen = new QueryRunner().query(getConnection(),
+        processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + " WHERE bestand_naam = ?"
                         + " AND bestand_datum = ?", h,
                         name,
@@ -148,7 +148,7 @@ public class StagingProxy {
         ResultSetHandler<List<Bericht>> h
                 = new BeanListHandler(Bericht.class, new StagingRowHandler());
 
-        processen = new QueryRunner().query(getConnection(),
+        processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE bestand_naam = ?"
                         + " AND bestand_datum = ?", h,
                         name,
@@ -162,12 +162,12 @@ public class StagingProxy {
     }
 
     public void setBerichtenJobByStatus(Bericht.STATUS status, String jobId) throws SQLException {
-        new QueryRunner().update(getConnection(), "update " + BrmoFramework.BERICHT_TABLE + " set status = ?, job_id = ? where status = ?",
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "update " + BrmoFramework.BERICHT_TABLE + " set status = ?, job_id = ? where status = ?",
                 Bericht.STATUS.RSGB_WAITING.toString(), jobId, status.toString());
     }
 
     public void setBerichtenJobForUpdate(String jobId, String soort) throws SQLException {
-        new QueryRunner().update(getConnection(), "update " + BrmoFramework.BERICHT_TABLE + " set job_id = ? where status = ? and soort = ?",
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "update " + BrmoFramework.BERICHT_TABLE + " set job_id = ? where status = ? and soort = ?",
                 jobId, Bericht.STATUS.RSGB_OK.toString(), soort);
     }
 
@@ -180,7 +180,7 @@ public class StagingProxy {
             q.append(ids[i]);
         }
         q.append(")");
-        new QueryRunner().update(getConnection(), q.toString(), Bericht.STATUS.RSGB_WAITING.toString(), jobId);
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), q.toString(), Bericht.STATUS.RSGB_WAITING.toString(), jobId);
     }
 
     public void setBerichtenJobByLaadprocessen(long[] laadprocesIds, String jobId) throws SQLException {
@@ -193,16 +193,21 @@ public class StagingProxy {
             q.append(laadprocesIds[i]);
         }
         q.append(") and status = ?");
-        new QueryRunner().update(getConnection(), q.toString(), Bericht.STATUS.RSGB_WAITING.toString(), jobId, Bericht.STATUS.STAGING_OK.toString());
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), q.toString(), Bericht.STATUS.RSGB_WAITING.toString(), jobId, Bericht.STATUS.STAGING_OK.toString());
     }
 
     public long getBerichtenCountByJob(String jobId) throws SQLException {
-        Object o = new QueryRunner().query(getConnection(),
+        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "select count(*) from " + BrmoFramework.BERICHT_TABLE + " where job_id = ?",
                 new ScalarHandler(),
                 jobId);
 
-        return o instanceof BigDecimal ? ((BigDecimal)o).longValue() : (Long)o;
+        if (o instanceof BigDecimal) {
+            return ((BigDecimal)o).longValue();
+        } else if(o instanceof Integer) {
+            return ((Integer)o).longValue();
+        }
+        return (Long)o;
     }
 
     public void handleBerichtenByJob(final String jobId, long total, final BerichtenHandler handler, final boolean enablePipeline, int transformPipelineCapacity) throws Exception {
@@ -230,7 +235,7 @@ public class StagingProxy {
 
                 processed.setValue(0);
                 final Split getBerichten = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".staging.berichten.getbatch").start();
-                Exception e = new QueryRunner().query(getConnection(), sql, new ResultSetHandler<Exception>() {
+                Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new ResultSetHandler<Exception>() {
                     @Override
                     public Exception handle(ResultSet rs) throws SQLException {
                         getBerichten.stop();
@@ -307,7 +312,7 @@ public class StagingProxy {
     public List<Bericht> getBerichtenByStatus(Bericht.STATUS status) throws SQLException {
         List<Bericht> berichten;
         ResultSetHandler<List<Bericht>> hb = new BeanListHandler(Bericht.class, new StagingRowHandler());
-        berichten = new QueryRunner().query(getConnection(), "select * from " + BrmoFramework.BERICHT_TABLE + " where status = ?", hb, status.toString());
+        berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), "select * from " + BrmoFramework.BERICHT_TABLE + " where status = ?", hb, status.toString());
         Collections.sort(berichten ,new BerichtenSorter());
         return berichten;
     }
@@ -315,7 +320,7 @@ public class StagingProxy {
     public List<Bericht> getBerichtenByLaadProcesId(Long id) throws SQLException {
         List<Bericht> berichten;
         ResultSetHandler<List<Bericht>> hb = new BeanListHandler(Bericht.class, new StagingRowHandler());
-        berichten = new QueryRunner().query(getConnection(), "select * from " + BrmoFramework.BERICHT_TABLE + " where laadprocesid = ?", hb, id);
+        berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), "select * from " + BrmoFramework.BERICHT_TABLE + " where laadprocesid = ?", hb, id);
         Collections.sort(berichten ,new BerichtenSorter());
         return berichten;
     }
@@ -411,7 +416,7 @@ public class StagingProxy {
 
         Split split = SimonManager.getStopwatch("b3p.staging.bericht.update").start();
 
-        new QueryRunner().update(getConnection(),
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
                 "UPDATE " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?,"
                 + " datum = ?, volgordenummer = ?, soort = ?, opmerking = ?,"
                 + " status = ?, status_datum = ?, br_xml = ?,"
@@ -431,7 +436,7 @@ public class StagingProxy {
 
         Split split = SimonManager.getStopwatch("b3p.staging.bericht.updateprocessing").start();
 
-        new QueryRunner().update(getConnection(),
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
                 "UPDATE " + BrmoFramework.BERICHT_TABLE + " set opmerking = ?,"
                 + " status = ?, status_datum = ?, db_xml = ?"
                 + " WHERE id = ?",
@@ -442,23 +447,23 @@ public class StagingProxy {
     }
 
     public void deleteByLaadProcesId(Long id) throws SQLException {
-        new QueryRunner().update(getConnection(), "DELETE FROM " + BrmoFramework.BERICHT_TABLE
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "DELETE FROM " + BrmoFramework.BERICHT_TABLE
                 + " WHERE laadprocesid = ?", id);
-        new QueryRunner().update(getConnection(), "DELETE FROM " + BrmoFramework.LAADPROCES_TABEL
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "DELETE FROM " + BrmoFramework.LAADPROCES_TABEL
                 + " WHERE id = ?", id);
     }
 
     public List<LaadProces> getLaadProcessen() throws SQLException {
         List<LaadProces> list;
         ResultSetHandler<List<LaadProces>> h = new BeanListHandler(LaadProces.class, new StagingRowHandler());
-        list = new QueryRunner().query(getConnection(), "select * from " + BrmoFramework.LAADPROCES_TABEL, h);
+        list = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), "select * from " + BrmoFramework.LAADPROCES_TABEL, h);
         return list;
     }
 
     public List<Bericht> getBerichten() throws SQLException {
         List<Bericht> berichten;
         ResultSetHandler<List<Bericht>> h = new BeanListHandler(Bericht.class, new StagingRowHandler());
-        berichten = new QueryRunner().query(getConnection(), "select * from " + BrmoFramework.BERICHT_TABLE, h);
+        berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), "select * from " + BrmoFramework.BERICHT_TABLE, h);
         return berichten;
     }
 
@@ -560,7 +565,7 @@ public class StagingProxy {
      * @throws SQLException
      */
     public boolean berichtExists(Bericht b) throws SQLException {
-        Object o = new QueryRunner().query(getConnection(),
+        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "SELECT 1 FROM " + BrmoFramework.BERICHT_TABLE + " WHERE"
                 // + " laadprocesid = ? AND"
                 + " object_ref = ? AND datum = ?"
@@ -574,7 +579,7 @@ public class StagingProxy {
     }
 
     public void writeBericht(Bericht b) throws SQLException {
-        new QueryRunner().update(getConnection(),
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
                 "INSERT INTO " + BrmoFramework.BERICHT_TABLE + "(laadprocesid, object_ref,"
                 + " datum, volgordenummer, soort, opmerking, status,"
                 + " status_datum, br_xml, br_orgineel_xml, db_xml,"
@@ -596,7 +601,7 @@ public class StagingProxy {
      * @throws SQLException
      */
     private boolean laadProcesExists(LaadProces lp) throws SQLException {
-        Object o = new QueryRunner().query(getConnection(),
+        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "select 1 from laadproces where bestand_naam = ? and"
                 + " bestand_datum = ?", new ScalarHandler(),
                 lp.getBestandNaam(),
@@ -610,11 +615,12 @@ public class StagingProxy {
             return null;
         }
 
-        new QueryRunner().update(getConnection(),
-                "INSERT INTO " + BrmoFramework.LAADPROCES_TABEL + "(bestand_naam,"
+        String sql = "INSERT INTO " + BrmoFramework.LAADPROCES_TABEL + "(bestand_naam,"
                 + "bestand_datum, soort, gebied, opmerking, status,"
                 + "status_datum, contact_email) VALUES"
-                + " (?,?,?,?,?,?,?,?)",
+                + " (?,?,?,?,?,?,?,?)";
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
+                sql,
                 lp.getBestandNaam(),
                 new Timestamp(lp.getBestandDatum().getTime()),
                 lp.getSoort(),
@@ -623,30 +629,36 @@ public class StagingProxy {
                 lp.getStatus().toString(),
                 new Timestamp(lp.getStatusDatum().getTime()),
                 lp.getContactEmail());
-
-        return getLaadProcesByNaturalKey(lp.getBestandNaam(), lp.getBestandDatum().getTime());
+                
+         return getLaadProcesByNaturalKey(lp.getBestandNaam(), lp.getBestandDatum().getTime());
     }
 
     private void updateLaadProcesStatus(LaadProces lp, LaadProces.STATUS status, String opmerking) throws SQLException{
-        new QueryRunner().update(getConnection(), "update " + BrmoFramework.LAADPROCES_TABEL + " set status = ?, opmerking = ? where id = ?",
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "update " + BrmoFramework.LAADPROCES_TABEL + " set status = ?, opmerking = ? where id = ?",
                         status.toString(), opmerking, lp.getId());
     }
 
     public void emptyStagingDb() throws SQLException {
-        new QueryRunner().update(getConnection(), "DELETE FROM " + BrmoFramework.BERICHT_TABLE);
-        new QueryRunner().update(getConnection(), "DELETE FROM " + BrmoFramework.LAADPROCES_TABEL);
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "DELETE FROM " + BrmoFramework.BERICHT_TABLE);
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "DELETE FROM " + BrmoFramework.LAADPROCES_TABEL);
     }
 
     public List<Bericht> getBerichten(int page, int start, int limit, String sort,
             String dir, String filterSoort, String filterStatus) throws SQLException {
 
         List<String> params = new ArrayList();
+        if (sort==null || sort.trim().isEmpty()) {
+            sort = "id";
+        }
+        if (dir==null || dir.trim().isEmpty()) {
+            sort = "asc";
+        }
         String sql = "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + buildFilterSql(page, sort, dir,
                 filterSoort, filterStatus, params);
 
         sql = geomToJdbc.buildPaginationSql(sql, start, limit);
 
-        return (List<Bericht>)new QueryRunner().query(getConnection(), sql, new BeanListHandler(Bericht.class, new StagingRowHandler()), params.toArray());
+        return (List<Bericht>)new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new BeanListHandler(Bericht.class, new StagingRowHandler()), params.toArray());
     }
 
 
@@ -656,9 +668,14 @@ public class StagingProxy {
         String sql = "SELECT count(*) FROM " + BrmoFramework.BERICHT_TABLE + buildFilterSql(0, null, null, filterSoort,
                 filterStatus, params);
 
-        Object o = new QueryRunner().query(getConnection(), sql, new ScalarHandler(), params.toArray());
+        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new ScalarHandler(), params.toArray());
 
-        return o instanceof BigDecimal ? ((BigDecimal)o).longValue() : (Long)o;
+        if (o instanceof BigDecimal) {
+            return ((BigDecimal)o).longValue();
+        } else if(o instanceof Integer) {
+            return ((Integer)o).longValue();
+        }
+        return (Long)o;
     }
 
     private String buildFilterSql(int page, String sort, String dir, String filterSoort, String filterStatus, List<String> params) {
@@ -702,20 +719,31 @@ public class StagingProxy {
         String sql = "SELECT count(*) FROM " + BrmoFramework.LAADPROCES_TABEL + buildFilterSql(0, null, null, filterSoort,
               filterStatus, params);
 
-        Object o = new QueryRunner().query(getConnection(), sql, new ScalarHandler(), params.toArray());
-        return o instanceof BigDecimal ? ((BigDecimal)o).longValue() : (Long)o;
+        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new ScalarHandler(), params.toArray());
+        if (o instanceof BigDecimal) {
+            return ((BigDecimal)o).longValue();
+        } else if(o instanceof Integer) {
+            return ((Integer)o).longValue();
+        }
+        return (Long)o;
     }
 
     public List<LaadProces> getLaadprocessen(int page, int start, int limit, String sort,
             String dir, String filterSoort, String filterStatus) throws SQLException {
 
         List<String> params = new ArrayList();
+        if (sort==null || sort.trim().isEmpty()) {
+            sort = "id";
+        }
+        if (dir==null || dir.trim().isEmpty()) {
+            sort = "asc";
+        }
         String sql = "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + buildFilterSql(page, sort, dir,
                 filterSoort, filterStatus,params);
         
         sql = geomToJdbc.buildPaginationSql(sql, start, limit);
 
-        return (List<LaadProces>)new QueryRunner().query(getConnection(), sql, new BeanListHandler(LaadProces.class, new StagingRowHandler()), params.toArray());
+        return (List<LaadProces>)new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new BeanListHandler(LaadProces.class, new StagingRowHandler()), params.toArray());
     }
 
     Bericht getOldBericht(Bericht nieuwBericht) {

@@ -83,6 +83,11 @@
             <groupId>org.geotools.jdbc</groupId>
             <artifactId>gt-jdbc-sqlserver</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.geolatte</groupId>
+            <artifactId>geolatte-geom</artifactId>
+            <version>1.0.1</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>

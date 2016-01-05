@@ -179,7 +179,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         try {
             dbMetadata = connRsgb.getMetaData();
 
-            ResultSet tablesRs = dbMetadata.getTables("", geomToJdbc.getSchema(), "%", new String[]{"TABLE"});
+            ResultSet tablesRs = dbMetadata.getTables(null, geomToJdbc.getSchema(), "%", new String[]{"TABLE"});
             while (tablesRs.next()) {
                 tables.put(tablesRs.getString("TABLE_NAME").toLowerCase(), tablesRs.getString("TABLE_NAME"));
             }
@@ -1339,7 +1339,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         String origName = tables.get(tableName);
 
-        ResultSet set = dbMetadata.getPrimaryKeys("", geomToJdbc.getSchema(), origName);
+        ResultSet set = dbMetadata.getPrimaryKeys(null, geomToJdbc.getSchema(), origName);
         while (set.next()) {
             String column = set.getString("COLUMN_NAME");
             pks.add(column.toLowerCase());
@@ -1462,7 +1462,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return stmt;
     }
 
-    private Object getValueAsObject(String tableName, String column, String value, ColumnMetadata cm) throws SQLException {
+    private Object getValueAsObject(String tableName, String column, String value, ColumnMetadata cm) throws SQLException, ParseException {
 
         if (cm == null) {
             SortedSet<ColumnMetadata> tableColumnMetadata = null;
@@ -1474,9 +1474,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         if (cm == null) {
             throw new IllegalArgumentException("Column not found: " + column + " in table " + tableName);
         } else if (cm.getTypeName().equals(geomToJdbc.getGeomTypeName())) {
-            param = value;
+            param = geomToJdbc.convertToNativeGeometryObject(value);
         } else if (value != null) {
-            param = geomToJdbc.convertToSQLObject(value, cm, tableName, column);
+            param = GeometryJdbcConverter.convertToSQLObject(value, cm, tableName, column);
         }
 
         return param;

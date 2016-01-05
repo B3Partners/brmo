@@ -1,11 +1,16 @@
 
 package nl.b3p.brmo.loader.jdbc;
 
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.io.ParseException;
+import com.vividsolutions.jts.io.WKTReader;
 import java.sql.SQLException;
 import oracle.jdbc.OracleConnection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.geotools.data.oracle.sdo.GeometryConverter;
+import org.geotools.geometry.jts.JTSFactoryFinder;
 
 /**
  *
@@ -14,6 +19,8 @@ import org.geotools.data.oracle.sdo.GeometryConverter;
 public class OracleJdbcConverter extends GeometryJdbcConverter {
 
     private static final Log log = LogFactory.getLog(OracleJdbcConverter.class);
+    
+    private final GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory();
 
     private GeometryConverter gc;
     private String schema;
@@ -24,21 +31,6 @@ public class OracleJdbcConverter extends GeometryJdbcConverter {
         gc = new GeometryConverter(oc, null);
     }
 
-//    @Override
-//    public boolean convertsGeometryInsteadOfWkt() {
-//        return true;
-//    }
-//
-//    @Override
-//    public Object convertGeometry(Geometry geom) throws SQLException {
-//        return gc.toSDO(geom, 28992);
-//    }
-//
-//    @Override
-//    public Object convertWkt(String wkt) throws SQLException {
-//        throw new UnsupportedOperationException();
-//    }
-
     @Override
     public boolean isDuplicateKeyViolationMessage(String message) {
         return message!=null && message.startsWith("ORA-00001:");
@@ -46,8 +38,18 @@ public class OracleJdbcConverter extends GeometryJdbcConverter {
 
     @Override
     public String createPSGeometryPlaceholder() throws SQLException {
-        return "SDO_GEOMETRY(?, 28992)";
+        // return "SDO_GEOMETRY(?, 28992)";
+        return "?";
     }
+    
+    @Override
+    public Object convertToNativeGeometryObject(String param) throws SQLException, ParseException {
+        // return param;
+        WKTReader reader = new WKTReader(geometryFactory);
+        Geometry geom = param == null || param.trim().length() == 0 ? null : reader.read(param);
+        return gc.toSDO(geom, 28992);
+    }
+
 
     /**
      * @return the schema
@@ -99,6 +101,11 @@ public class OracleJdbcConverter extends GeometryJdbcConverter {
 
     @Override
     public boolean useSavepoints() {
+        return false;
+    }
+
+    @Override
+    public boolean isPmdKnownBroken() {
         return false;
     }
 

@@ -1,28 +1,15 @@
 
 package nl.b3p.brmo.loader.jdbc;
 
+import com.vividsolutions.jts.io.ParseException;
 import java.sql.SQLException;
+import org.postgis.PGgeometry;
 
 /**
  *
  * @author Matthijs Laan
  */
 public class PostgisJdbcConverter extends GeometryJdbcConverter {
-
-//    @Override
-//    public boolean convertsGeometryInsteadOfWkt() {
-//        return false;
-//    }
-//
-//    @Override
-//    public Object convertGeometry(Geometry geom) throws SQLException {
-//        throw new UnsupportedOperationException();
-//    }
-//
-//    @Override
-//    public Object convertWkt(String wkt) throws SQLException {
-//        return new PGgeometry("SRID=28992;" + wkt);
-//    }
 
     @Override
     public boolean isDuplicateKeyViolationMessage(String message) {
@@ -31,7 +18,14 @@ public class PostgisJdbcConverter extends GeometryJdbcConverter {
 
     @Override
     public String createPSGeometryPlaceholder() throws SQLException {
-        return "ST_GeomFromText(?, 28992)";
+        //return "ST_GeomFromText(?, 28992)";
+        return "?";
+    }
+   
+    @Override
+    public Object convertToNativeGeometryObject(String param) throws SQLException, ParseException {
+        //return param;
+        return new PGgeometry("SRID=28992;" + param);
     }
 
     @Override
@@ -57,6 +51,11 @@ public class PostgisJdbcConverter extends GeometryJdbcConverter {
     @Override
     public boolean useSavepoints() {
         return true;
+    }
+
+     @Override
+    public boolean isPmdKnownBroken() {
+        return false;
     }
 
 }

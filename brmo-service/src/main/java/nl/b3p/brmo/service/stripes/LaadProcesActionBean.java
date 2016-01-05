@@ -124,7 +124,10 @@ public class LaadProcesActionBean implements ActionBean {
 
             count = brmo.getCountLaadProcessen(sort, dir, filterSoort, filterStatus);
 
-            processen = brmo.getLaadprocessen(page, start, limit, sort, dir, filterSoort,
+            processen = brmo.getLaadprocessen(page, start, limit, 
+                    (sort==null || sort.trim().isEmpty())?"id":sort, 
+                    (dir==null || dir.trim().isEmpty())?"asc":dir, 
+                    filterSoort,
                     filterStatus);
 
             for (LaadProces proces : processen) {
