@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -60,6 +61,9 @@ public abstract class AutomatischProces implements Serializable {
      */
     @ElementCollection
     @JoinTable(joinColumns = @JoinColumn(name = "proces_id"))
+    //volgende annotatie wordt nu niet uitgevoerd, mogelijk volgende hibernate versie
+    //dit is alleen nodig voor sql server, script faalt bij maken primary key
+    @MapKeyJoinColumn(nullable=false)
     // Element wrapper required because of http://opensource.atlassian.com/projects/hibernate/browse/JPA-11
     private Map<String, ClobElement> config = new HashMap<String, ClobElement>();
 
