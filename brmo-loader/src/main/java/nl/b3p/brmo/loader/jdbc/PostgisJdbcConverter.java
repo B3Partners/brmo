@@ -25,6 +25,9 @@ public class PostgisJdbcConverter extends GeometryJdbcConverter {
     @Override
     public Object convertToNativeGeometryObject(String param) throws SQLException, ParseException {
         //return param;
+        if (param == null || param.trim().length() == 0) {
+            return null;
+        }
         return new PGgeometry("SRID=28992;" + param);
     }
 
