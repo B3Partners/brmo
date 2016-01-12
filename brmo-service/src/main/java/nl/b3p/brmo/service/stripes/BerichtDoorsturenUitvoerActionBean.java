@@ -97,7 +97,7 @@ public class BerichtDoorsturenUitvoerActionBean implements ActionBean, ProgressU
     @Override
     public void addLog(String log) {
         this.proces.addLogLine(log);
-        Stripersist.getEntityManager().merge(this.proces);
+        //aangezien addLogLine een null-op is Stripersist.getEntityManager().merge(this.proces);
         this.log += log + "\n";
     }
 

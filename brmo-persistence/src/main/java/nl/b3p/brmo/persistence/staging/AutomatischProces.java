@@ -121,7 +121,10 @@ public abstract class AutomatischProces implements Serializable {
     }
 
     /**
-     * Voeg een regel toe aan de log en de samenvatting.
+     * Voeg een regel toe aan de log en de samenvatting. <strong>DOET
+     * NIETS</strong> op dit moment.
+     *
+     * @todo make this work
      *
      * @param line toe te voegen regel
      */
