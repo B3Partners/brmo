@@ -15,13 +15,13 @@ public class OracleConnectionUnwrapper {
     private static final Log log = LogFactory.getLog(OracleConnectionUnwrapper.class);
 
     public static OracleConnection unwrap(Connection c) throws SQLException {
-        log.info("Unwrapping Oracle connection, isWrapperFor(OracleConnection.class): " + c.isWrapperFor(OracleConnection.class));
-        log.info("Connection class: " + c.getClass().getName());
+        log.debug("Unwrapping Oracle connection, isWrapperFor(OracleConnection.class): " + c.isWrapperFor(OracleConnection.class));
+        log.debug("Connection class: " + c.getClass().getName());
         // Sometimes isWrapperFor() does not work for certain JDBC drivers. The
         // MetaData connection is always unwrapped, trick learned from Spring's
         // org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor
         Connection mdC = c.getMetaData().getConnection();
-        log.info("MetaData connection class: " + mdC.getClass().getName());
+        log.debug("MetaData connection class: " + mdC.getClass().getName());
 
         OracleConnection oc;
 

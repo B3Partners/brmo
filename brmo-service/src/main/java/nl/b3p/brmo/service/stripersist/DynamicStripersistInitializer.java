@@ -70,7 +70,7 @@ public class DynamicStripersistInitializer implements InitializeSettings {
             try {
                 Connection conn = ds.getConnection();
                 try {
-                    databaseProductName = conn.getMetaData().getDatabaseProductName();
+                    databaseProductName = conn.getMetaData().getDatabaseProductName().replace(" ", "");
                 } finally {
                     conn.close();
                 }

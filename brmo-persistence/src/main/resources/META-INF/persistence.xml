@@ -33,7 +33,7 @@
         
     </persistence-unit>
     
-    <persistence-unit name="brmo.persistence.sqlserver" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="brmo.persistence.microsoftsqlserver" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <non-jta-data-source>java:comp/env/jdbc/brmo/staging</non-jta-data-source>
         <mapping-file>META-INF/orm-sqlserver.xml</mapping-file>
