@@ -23,6 +23,8 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
 
     private final BerichtDoorstuurProces config;
 
+    private final int defaultCommitPageSize = 1000;
+
     @Transient
     private ProgressUpdateListener l;
 
@@ -63,10 +65,11 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
     @Override
     public void execute(ProgressUpdateListener listener) {
         this.l = listener;
-        final int commitPageSize = 1000;
         try {
             l.updateStatus("Laden berichten...");
             this.config.setStatus(AutomatischProces.ProcessingStatus.PROCESSING);
+
+            int commitPageSize = this.getCommitPageSize();
 
             String id = ClobElement.nullSafeGet(config.getConfig().get("gds2_ophaalproces_id"));
             GDS2OphaalProces proces = Stripersist.getEntityManager().find(GDS2OphaalProces.class, Long.parseLong(id));
@@ -127,5 +130,21 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
                 Stripersist.getEntityManager().getTransaction().commit();
             }
         }
+    }
+
+    private int getCommitPageSize() {
+        int commitPageSize;
+        try {
+            String s = ClobElement.nullSafeGet(config.getConfig().get("commitPageSize"));
+            commitPageSize = Integer.parseInt(s);
+            if (commitPageSize < 1 || commitPageSize > defaultCommitPageSize) {
+                commitPageSize = defaultCommitPageSize;
+            }
+        } catch (NumberFormatException nfe) {
+            commitPageSize = defaultCommitPageSize;
+        }
+
+        log.debug("Instellen van commit page size op: " + commitPageSize);
+        return commitPageSize;
     }
 }
