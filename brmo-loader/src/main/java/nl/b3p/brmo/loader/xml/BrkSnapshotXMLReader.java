@@ -185,7 +185,7 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
 
             transformer.transform(new StAXSource(streamReader), new StAXResult(writer));
             b = new BrkBericht(sw.toString());
-            b.setVolgordeNummer(mutatieGegevens != null ? mutatieGegevens.volgnummerKadastraalObjectDatum : 0);
+            b.setVolgordeNummer(mutatieGegevens != null ? mutatieGegevens.volgnummerKadastraalObjectDatum : -1);
         }
         positionToNext();
         return b;

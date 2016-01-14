@@ -1,6 +1,5 @@
 package nl.b3p.brmo.loader;
 
-import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.io.ParseException;
 import java.io.PrintWriter;
 import java.io.StringReader;
@@ -43,7 +42,6 @@ import nl.b3p.brmo.loader.util.TableRow;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.geotools.geometry.jts.JTSFactoryFinder;
 import org.javasimon.SimonManager;
 import org.javasimon.Split;
 import org.w3c.dom.Node;
@@ -391,8 +389,15 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             startTime = System.currentTimeMillis();
             
             // per bericht kijken of er een oud bericht is
-            Bericht oud = stagingProxy.getOldBericht(ber, loadLog);
-
+            Bericht oud = null;
+            if (ber.getVolgordeNummer() >= 0) {
+                //maar alleen als een mutatie wordt verwerkt
+                //indien standlevering dan volgnummer = -1
+                oud = stagingProxy.getOldBericht(ber, loadLog);
+            } else {
+                loadLog.append("Standverwerking, dus nieuwere gegevens worden overschreven en oude gegevens worden niet verwijderd!\n");    
+            }
+            
             // oud bericht
             if (oud != null) {
                 loadLog.append(String.format("Eerder bericht (id: %d) voor zelfde object gevonden van datum %s, volgnummer %d,status %s op %s\n",
@@ -526,7 +531,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return t;
     }
 
-    private StringBuilder parseNewData(List<TableData> oldList, List<TableData> newList, String oldDate, StringBuilder loadLog) throws SQLException, ParseException, BrmoException {
+    private StringBuilder parseNewData(List<TableData> oldList, 
+            List<TableData> newList, String oldDate, 
+            StringBuilder loadLog) throws SQLException, ParseException, BrmoException {
         Split split = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata").start();
 
         // parse new db xml
@@ -559,13 +566,16 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                     split2.stop();
 
                     boolean existsInOldList = doesRowExist(row, pkColumns, oldList);
-                    // er kan een record bestaan zonder dat er
-                    // een oud bericht aan ten grondslag ligt.
-                    // dan maar update maar zonder historie vastlegging.
-                    // oud record kan niet worden terugherleid.
-                    //TODO: dure check, kan het anders?
                     split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.rowexistsindb").start();
-                    boolean doInsert = !rowExistsInDb(row, loadLog);
+                    boolean doInsert = !existsInOldList;
+                    if (!doInsert) {
+                        // er kan een record bestaan zonder dat er
+                        // een oud bericht aan ten grondslag ligt.
+                        // dan maar update maar zonder historie vastlegging.
+                        // oud record kan niet worden terugherleid.
+                        //TODO: dure check, kan het anders?
+                        doInsert = !rowExistsInDb(row, loadLog);
+                    }
                     split2.stop();
 
                     // insert hoofdtabel

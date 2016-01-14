@@ -176,12 +176,31 @@ public class BagXMLReader extends BrmoXMLReader {
                     transformer.transform(new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));
                     Document d = builder.parse(new InputSource(new StringReader(sw.toString())));
 
-                    nextBericht = new BagBericht(sw.toString(), d);
+                    //alleen laden als tijdvakgeldigheid/einddatumTijdvakGeldigheid niet bestaat
+                    NodeList children = d.getDocumentElement().getChildNodes();
+                    for (int i = 0; i < children.getLength(); i++) {
+                        Node child = children.item(i);
+                        if ("tijdvakgeldigheid".equals(child.getLocalName())) {
+                            NodeList grandchildren = child.getChildNodes();
+                            boolean valid = true;
+                            for (int j = 0; j < grandchildren.getLength(); j++) {
+                                Node grandchild = grandchildren.item(j);
+                                if ("einddatumTijdvakGeldigheid".equals(grandchild.getLocalName())) {
+                                    valid = false;
+                                    break;
+                                }
+                            }
+                            if (valid) {
+                                nextBericht = new BagBericht(sw.toString(), d);
 
-                    // Bij een levering zit er geen datum in een "Verwerking" element,
-                    // pak peildatum van stand
-                    nextBericht.setDatum(getBestandsDatum());
-                    return true;
+                                // Bij een levering zit er geen datum in een "Verwerking" element,
+                                // pak peildatum van stand
+                                nextBericht.setDatum(getBestandsDatum());
+                                return true;
+
+                            }
+                        }
+                    }
                 } else {
                     streamReader.next();
                 }

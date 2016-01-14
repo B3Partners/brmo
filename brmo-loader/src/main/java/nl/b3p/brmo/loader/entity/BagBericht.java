@@ -76,7 +76,7 @@ public class BagBericht extends Bericht {
             } else if(BagXMLReader.lvcProductToObjectType.containsKey(doc.getDocumentElement().getLocalName())) {
                 // Levering
 
-                setVolgordeNummer(0);
+                setVolgordeNummer(-1);
 
                 String n = doc.getDocumentElement().getLocalName();
 

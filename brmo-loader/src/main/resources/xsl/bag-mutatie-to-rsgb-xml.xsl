@@ -597,7 +597,7 @@
 	<xsl:template match="bag:OpenbareRuimte">
 		<gem_openb_rmte>
 			<dat_beg_geldh>
-				<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:begindatumTijdvakGeldighei">
+				<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:begindatumTijdvakGeldigheid">
 					<xsl:call-template name="date-numeric"/>
 				</xsl:for-each>
 			</dat_beg_geldh>
