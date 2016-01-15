@@ -40,6 +40,11 @@ Ext.define('B3P.common.GridSelection', {
     constructor: function(config) {
         // Reference to object
         var me = this;
+        var gridItemId = Ext.id();
+        var pagerItemId = Ext.id();
+        var maxResults = -1;
+        var movingBack = 0;
+        var pageSize = 20;
         // Ext function to initialize configuration
         this.initConfig(config);
         // Create the data model
@@ -59,8 +64,8 @@ Ext.define('B3P.common.GridSelection', {
         // Create the store
         this.store = Ext.create('Ext.data.Store', {
             model: model,
-            autoLoad: true,
-            pageSize: 20,
+            autoLoad: false,
+            pageSize: pageSize,
             remoteSort: true,
             remoteFilter: true,
             proxy: {
@@ -79,7 +84,7 @@ Ext.define('B3P.common.GridSelection', {
                 simpleSortMode: true
             },
             listeners: {
-                load: function(store) {
+                load: function(store, records) {
                     if(!me.config.autoRefresh) {
                         return;
                     }
@@ -87,12 +92,51 @@ Ext.define('B3P.common.GridSelection', {
                     me.refreshTimer = setTimeout(function() {
                         store.load();
                     }, me.config.autoRefreshTime);
+
+                    var pager = Ext.ComponentQuery.query("#" + pagerItemId)[0];
+                    /**
+                     * We will disable the 'last page' button of the pagertoolbar when we have a virtual total
+                     */
+                    if(store.getProxy().getReader().rawData.hasOwnProperty('virtualtotal') && store.getProxy().getReader().rawData.virtualtotal) {
+                        // Kind of hack to disable 'last page' button, property will be used on 'afterlayout' event on pager, see below
+                        pager.hideLastButton = true;
+                    }
+                    /**
+                     * When the store hits the end of a resultset (total is unknown at the beginning)
+                     * the total is stored and set to correct number after each load
+                     */
+                    if(maxResults !== -1) {
+                        store.totalCount = maxResults;
+                        if(pager) {
+                            pager.onLoad();  // triggers correct total
+                        }
+                    }
+                    /**
+                     * total is not 0 but there are not records (resultset has exactly x pages of pageSize)
+                     * store total and move to previous page
+                     */
+                    if(store.totalCount !== 0 && records.length === 0) {
+                        maxResults = store.totalCount;
+                        if(store.currentPage !== 0 && movingBack < 4) {
+                            movingBack++;
+                            store.loadPage(parseInt(store.totalCount / pageSize, 10));
+                        }
+                    }
+                    /**
+                     * the number of results are less than the pageSize so we are at the end of the set
+                     */
+                    if(store.totalCount !== 0 && records.length < pageSize) {
+                        maxResults = store.totalCount;
+                    }
+
+                    setTimeout(function(){ Ext.ComponentQuery.query("#" + gridItemId)[0].updateLayout(); }, 0);
                 }
             }
         });
         // Create grid
         this.grid = Ext.create('Ext.grid.Panel', {
             store: this.store,
+            itemId: gridItemId,
             selType: 'checkboxmodel',
             plugins: [{
                 ptype: 'gridfilters'
@@ -108,10 +152,18 @@ Ext.define('B3P.common.GridSelection', {
             ],
             columns: this.config.columns,
             dockedItems: [{
+                itemId: pagerItemId,
                 xtype: 'pagingtoolbar',
                 store: this.store,
                 dock: 'bottom',
-                displayInfo: true
+                displayInfo: true,
+                listeners: {
+                    afterlayout: function() {
+                        if(this.hideLastButton) {
+                            this.child('#last').disable();
+                        }
+                    }
+                }
             }],
             renderTo: this.config.gridId,
             listeners: {
@@ -130,6 +182,7 @@ Ext.define('B3P.common.GridSelection', {
                 }
             }
         });
+        this.reloadGrid();
         this.grid.getSelectionModel().setSelectionMode('SIMPLE');
         // Create action button
         Ext.create('Ext.Button', {
