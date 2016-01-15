@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import javax.persistence.Transient;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.BrkBericht;
 import nl.b3p.brmo.loader.util.BrmoException;
@@ -23,6 +24,7 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
 import nl.b3p.brmo.persistence.staging.Bericht;
+import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.persistence.staging.LaadProces;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.comparator.NameFileComparator;
@@ -41,6 +43,9 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
 
     private final BRKScannerProces config;
 
+    private final int defaultCommitPageSize = 1000;
+
+    @Transient
     private ProgressUpdateListener listener;
 
     public BRKDirectoryScanner(BRKScannerProces config) {
@@ -168,7 +173,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
         int aantalGeladen = 0;
         int progress = 0;
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        final int commitPageSize = 1000;
+        int commitPageSize = this.getCommitPageSize();
 
         listener.total(files.length);
         for (File f : files) {
@@ -246,7 +251,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                     sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
 
                     if (aantalGeladen % commitPageSize == 0) {
-                        log.debug("Tussentijds opslaan van berichten, 'commitPageSize' is bereikt");
+                        log.info("Tussentijds opslaan van berichten, 'commitPageSize' is bereikt");
                         Stripersist.getEntityManager().flush();
                         Stripersist.getEntityManager().getTransaction().commit();
                         Stripersist.getEntityManager().clear();
@@ -297,5 +302,21 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                 + filterAlVerwerkt + AutomatischProces.LOG_NEWLINE
                 + "Aantal bestanden geladen: " + aantalGeladen + AutomatischProces.LOG_NEWLINE);
         Stripersist.getEntityManager().merge(config);
+    }
+
+    private int getCommitPageSize() {
+        int commitPageSize;
+        try {
+            String s = ClobElement.nullSafeGet(config.getConfig().get("commitPageSize"));
+            commitPageSize = Integer.parseInt(s);
+            if (commitPageSize < 1 || commitPageSize > defaultCommitPageSize) {
+                commitPageSize = defaultCommitPageSize;
+            }
+        } catch (NumberFormatException nfe) {
+            commitPageSize = defaultCommitPageSize;
+        }
+
+        log.debug("Instellen van commit page size op: " + commitPageSize);
+        return commitPageSize;
     }
 }
