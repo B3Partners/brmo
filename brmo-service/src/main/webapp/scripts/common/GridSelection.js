@@ -84,15 +84,17 @@ Ext.define('B3P.common.GridSelection', {
                 simpleSortMode: true
             },
             listeners: {
-                load: function(store, records) {
-                    if(!me.config.autoRefresh) {
+                load: function(store, records, successful) {
+                    if(!successful) {
+                        me.setMessage('error', "Fout bij ophalen van gegevens, auto refresh functie gestopt");
                         return;
                     }
-                    me.refreshTimer && clearTimeout(me.refreshTimer);
-                    me.refreshTimer = setTimeout(function() {
-                        store.load();
-                    }, me.config.autoRefreshTime);
-
+                    if(me.config.autoRefresh) {
+                        me.refreshTimer && clearTimeout(me.refreshTimer);
+                        me.refreshTimer = setTimeout(function() {
+                            store.load();
+                        }, me.config.autoRefreshTime);   
+                    }
                     var pager = Ext.ComponentQuery.query("#" + pagerItemId)[0];
                     /**
                      * We will disable the 'last page' button of the pagertoolbar when we have a virtual total
