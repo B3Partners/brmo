@@ -82,11 +82,13 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
                 this.config.setSamenvatting("Geen berichten om door te sturen");
             } else {
                 this.l.total(berichtIDs.size());
+                log.info(String.format("Er zijn %s berichten om door te sturen.", berichtIDs.size()));
 
                 String url = ClobElement.nullSafeGet(proces.getConfig().get("delivery_endpoint"));
 
                 if (url == null) {
                     this.config.setSamenvatting("GDS2 ophaal proces heeft geen afleveringsendpoint");
+                    log.warn("GDS2 ophaal proces heeft geen afleveringsendpoint.");
                 } else {
                     int doorgestuurd = 0, fouten = 0, verwerkt = 0;
                     for (Long pkid : berichtIDs) {
@@ -100,8 +102,8 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
                         Stripersist.getEntityManager().merge(b);
                         verwerkt++;
                         if (verwerkt % commitPageSize == 0) {
-                            log.debug("Tussentijds opslaan van berichten, 'commitPageSize' is bereikt, totaal aantal verwerkt :"
-                                    + verwerkt);
+                            log.info(String.format("Tussentijds opslaan van berichten, 'commitPageSize' (%s) is bereikt, totaal aantal verwerkt : %s",
+                                    commitPageSize, verwerkt));
                             Stripersist.getEntityManager().flush();
                             Stripersist.getEntityManager().getTransaction().commit();
                             Stripersist.getEntityManager().clear();
