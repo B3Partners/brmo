@@ -949,12 +949,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             count = stm.executeUpdate();
         } catch (SQLException e) {
             String message = e.getMessage();
-            if (geomToJdbc.isDuplicateKeyViolationMessage(message)) {
-                if (row.isIgnoreDuplicates()) {
-                    if (recentSavepoint != null) {
-                        log.debug("Ignoring duplicate key violation by rolling back to savepoint with id " + recentSavepoint.getSavepointId());
-                        connRsgb.rollback(recentSavepoint);
-                    }
+            if (geomToJdbc.isDuplicateKeyViolationMessage(message) && row.isIgnoreDuplicates()) {
+                if (recentSavepoint != null) {
+                    log.debug("Ignoring duplicate key violation by rolling back to savepoint with id " + recentSavepoint.getSavepointId());
+                    connRsgb.rollback(recentSavepoint);
                 }
             } else {
                 throw e;

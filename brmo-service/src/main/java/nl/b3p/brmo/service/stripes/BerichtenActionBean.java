@@ -110,6 +110,10 @@ public class BerichtenActionBean implements ActionBean {
         }
 
         final JSONObject grid = new JSONObject();
+        if (count<0)  {
+            grid.put("virtualtotal", true);
+            count = 0l;
+        }
         grid.put("total", count);
         grid.put("items", jsoNBerichten);
 

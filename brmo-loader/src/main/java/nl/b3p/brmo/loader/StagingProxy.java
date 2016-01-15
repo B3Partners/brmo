@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +22,7 @@ import nl.b3p.brmo.loader.entity.BerichtenSorter;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
+import nl.b3p.brmo.loader.jdbc.PostgisJdbcConverter;
 import nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork;
 import nl.b3p.brmo.loader.pipeline.BerichtWorkUnit;
 import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
@@ -665,17 +667,70 @@ public class StagingProxy {
     public long getCountBerichten(String sort, String dir, String filterSoort, String filterStatus) throws SQLException {
 
         List<String> params = new ArrayList();
-        String sql = "SELECT count(*) FROM " + BrmoFramework.BERICHT_TABLE + buildFilterSql(0, null, null, filterSoort,
-                filterStatus, params);
-
-        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new ScalarHandler(), params.toArray());
-
-        if (o instanceof BigDecimal) {
-            return ((BigDecimal)o).longValue();
-        } else if(o instanceof Integer) {
-            return ((Integer)o).longValue();
+        String filter = buildFilterSql(0, null, null, filterSoort,filterStatus, params);
+        
+        String sql;
+        // gebruik estimate voor postgresql indien geen filter
+        if (StringUtils.isBlank(filter) && geomToJdbc instanceof PostgisJdbcConverter) {
+            sql = "SELECT reltuples::BIGINT AS estimate FROM pg_class WHERE relname= '" + BrmoFramework.BERICHT_TABLE + "'";
+        } else {
+            sql = "SELECT count(*) FROM " + BrmoFramework.BERICHT_TABLE + filter;
         }
-        return (Long)o;
+ 
+        ResultSet rs = null;
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = getConnection().prepareStatement(sql);
+            pstmt.setQueryTimeout(60); //seconds to wait
+            if (!params.isEmpty()) {
+                for (int i = 0; i < params.size(); i++) {
+                    if (params.get(i) != null) {
+                        pstmt.setObject(i + 1, params.get(i));
+                    } else {
+                        pstmt.setNull(i + 1, Types.VARCHAR);
+                    }
+                }
+            }
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                Object o = rs.getObject(1);
+                if (o instanceof BigDecimal) {
+                    return ((BigDecimal) o).longValue();
+                } else if (o instanceof Integer) {
+                    return ((Integer) o).longValue();
+                }
+                return (Long) o;
+            } else {
+                return -1;
+            }
+        } catch (Exception e) {
+            return -1;
+        } finally {
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                //ignore
+            }
+            try {
+                if (pstmt != null && !pstmt.isClosed()) {
+                    pstmt.close();
+                }
+            } catch (SQLException e) {
+                //ignore
+            }
+        }
+
+
+//        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new ScalarHandler(), params.toArray());
+//
+//        if (o instanceof BigDecimal) {
+//            return ((BigDecimal)o).longValue();
+//        } else if(o instanceof Integer) {
+//            return ((Integer)o).longValue();
+//        }
+//        return (Long)o;
     }
 
     private String buildFilterSql(int page, String sort, String dir, String filterSoort, String filterStatus, List<String> params) {
