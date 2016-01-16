@@ -688,7 +688,11 @@ public class StagingProxy {
         PreparedStatement pstmt = null;
         try {
             pstmt = getConnection().prepareStatement(sql);
-            pstmt.setQueryTimeout(60); //seconds to wait
+            try {
+                pstmt.setQueryTimeout(60); //seconds to wait
+            } catch (Exception e){
+                // not implemented
+            } 
             if (!params.isEmpty()) {
                 for (int i = 0; i < params.size(); i++) {
                     if (params.get(i) != null) {
