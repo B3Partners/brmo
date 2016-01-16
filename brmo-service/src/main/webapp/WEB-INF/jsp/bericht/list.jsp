@@ -15,12 +15,14 @@
         <div id="berichten-grid" class="grid-container"></div>                
         <div id="button-run"></div>
         <div id="button-run-all"></div>
+        <div id="button-run-all-stand"></div>
         <div id="button-run-updates"></div>        
         <script type="text/javascript">
             var b3pberichten = Ext.create('B3P.brmo.Berichten', {
                 gridurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.BerichtenActionBean" event="getGridData"/>',
                 runurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.TransformActionBean" event="transformSelected"/>',
                 runallurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.TransformActionBean" event="transformAll"/>',
+                runallstandurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.TransformActionBean" event="transformAllStand"/>',
                 runupdatesurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.UpdatesActionBean" event="form"/>',
                 gridsaveurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.BerichtenActionBean" event="saveRecord"/>',
                 logurl : '<stripes:url beanclass="nl.b3p.brmo.service.stripes.BerichtenActionBean" event="log"/>'

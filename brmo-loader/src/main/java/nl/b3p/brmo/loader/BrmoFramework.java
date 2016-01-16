@@ -43,6 +43,8 @@ public class BrmoFramework {
     private boolean enablePipeline = false;
     private Integer pipelineCapacity;
 
+    private boolean orderBerichten = true;
+
     public BrmoFramework(DataSource dataSourceStaging, DataSource dataSourceRsgb) throws BrmoException {
         if (dataSourceStaging != null) {
             try {
@@ -60,6 +62,10 @@ public class BrmoFramework {
 
     public void setTransformPipelineCapacity(int pipelineCapacity) {
         this.pipelineCapacity = pipelineCapacity;
+    }
+    
+    public void setOrderBerichten(boolean orderBerichten) {
+        this.orderBerichten = orderBerichten;
     }
 
     public void closeBrmoFramework() {

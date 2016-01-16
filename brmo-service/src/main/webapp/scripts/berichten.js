@@ -92,6 +92,13 @@ Ext.define('B3P.brmo.Berichten', {
                 }
             });
             Ext.create('Ext.Button', {
+                text: 'Versneld transformeren naar RSGB (alleen stand)',
+                renderTo: 'button-run-all-stand',
+                handler: function() {
+                    window.open(config.runallstandurl);
+                }
+            });
+            Ext.create('Ext.Button', {
                 text: 'Snelle updates...',
                 renderTo: 'button-run-updates',
                 handler: function() {

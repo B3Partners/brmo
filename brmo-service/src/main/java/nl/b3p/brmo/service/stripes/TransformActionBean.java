@@ -78,7 +78,7 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
         this.exceptionStacktrace = sw.toString();
     }
 
-    private Resolution doTransform(RsgbProxy.BerichtSelectMode mode) {
+    private Resolution doTransform(RsgbProxy.BerichtSelectMode mode, boolean orderBerichten) {
         BrmoFramework brmo = null;
         try {
             DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
@@ -93,7 +93,8 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
                     brmo.setTransformPipelineCapacity(Integer.parseInt(capacityString));
                 }
             }
-
+            brmo.setOrderBerichten(orderBerichten);
+            
             Thread t = null;
             switch(mode) {
                 case BY_IDS:
@@ -130,17 +131,22 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
 
     @WaitPage(path=JSP, delay=1000, refresh=1000)
     public Resolution transformSelected() {
-        return doTransform(RsgbProxy.BerichtSelectMode.BY_IDS);
+        return doTransform(RsgbProxy.BerichtSelectMode.BY_IDS, true);
     }
 
     @WaitPage(path=JSP, delay=1000, refresh=1000)
     public Resolution transformAll() {
-        return doTransform(RsgbProxy.BerichtSelectMode.BY_STATUS);
+        return doTransform(RsgbProxy.BerichtSelectMode.BY_STATUS, true);
+    }
+
+    @WaitPage(path=JSP, delay=1000, refresh=1000)
+    public Resolution transformAllStand() {
+        return doTransform(RsgbProxy.BerichtSelectMode.BY_STATUS, false);
     }
 
     @WaitPage(path=JSP, delay=1000, refresh=1000)
     public Resolution transformSelectedLaadprocessen() {
-        return doTransform(RsgbProxy.BerichtSelectMode.BY_LAADPROCES);
+        return doTransform(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, true);
     }
 
     // <editor-fold defaultstate="collapsed" desc="getters en setters">

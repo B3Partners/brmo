@@ -106,6 +106,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     private boolean enablePipeline = false;
     private int pipelineCapacity = 25;
+    
+    private boolean orderBerichten = true;
 
     private Map<String, RsgbTransformer> rsgbTransformers = new HashMap();
 
@@ -169,6 +171,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         this.pipelineCapacity = pipelineCapacity;
     }
 
+    public void setOrderBerichten(boolean orderBerichten) {
+        this.orderBerichten = orderBerichten;
+    }
+
     public void init() throws SQLException {
         connRsgb = dataSourceRsgb.getConnection();
 
@@ -209,15 +215,13 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             init();
 
             // Set all berichten to waiting
-            setWaitingStatus();
-
-            long total = stagingProxy.getBerichtenCountByJob(jobId);
+            long total = setWaitingStatus();
             if (listener != null) {
                 listener.total(total);
             }
             // Do the work by querying all berichten, berichten are passed to
             // handle() method
-            stagingProxy.handleBerichtenByJob(jobId, total, this, enablePipeline, pipelineCapacity);
+            stagingProxy.handleBerichtenByJob(jobId, total, this, enablePipeline, pipelineCapacity, orderBerichten);
 
         } catch (Exception e) {
             // user is informed via status in database
@@ -234,21 +238,19 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     /**
      * Zet alle te verwerken berichten op WAITING.
      */
-    private void setWaitingStatus() throws SQLException {
+    private long setWaitingStatus() throws SQLException {
 
         switch (mode) {
             case BY_STATUS:
-                stagingProxy.setBerichtenJobByStatus(status, jobId);
-                break;
+                return stagingProxy.setBerichtenJobByStatus(status, jobId);
             case BY_IDS:
-                stagingProxy.setBerichtenJobByIds(berichtIds, jobId);
-                break;
+                return stagingProxy.setBerichtenJobByIds(berichtIds, jobId);
             case BY_LAADPROCES:
-                stagingProxy.setBerichtenJobByLaadprocessen(laadprocesIds, jobId);
-                break;
+                return stagingProxy.setBerichtenJobByLaadprocessen(laadprocesIds, jobId);
             case FOR_UPDATE:
-                stagingProxy.setBerichtenJobForUpdate(jobId, updateProcess.getSoort());
-                break;
+                return stagingProxy.setBerichtenJobForUpdate(jobId, updateProcess.getSoort());
+            default:
+                return -1l;
         }
     }
 
