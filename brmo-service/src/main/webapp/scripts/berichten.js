@@ -106,6 +106,13 @@ Ext.define('B3P.brmo.Berichten', {
                 }
             });
             Ext.create('Ext.Button', {
+                text: 'Export mutatie-bestanden',
+                renderTo: 'button-export-mutaties',
+                handler: function() {
+                    window.open(config.exportmutatiesurl);
+                }
+            });
+            Ext.create('Ext.Button', {
                 text: 'Snelle updates...',
                 renderTo: 'button-run-updates',
                 handler: function() {

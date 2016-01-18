@@ -710,7 +710,7 @@ public class StagingProxy {
             try {
                 pstmt.setQueryTimeout(60); //seconds to wait
             } catch (Exception e){
-                // not implemented
+                log.warn("Driver does not support setQueryTimeout, please update driver.");
             } 
             if (!params.isEmpty()) {
                 for (int i = 0; i < params.size(); i++) {

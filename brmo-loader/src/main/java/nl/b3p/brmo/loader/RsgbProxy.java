@@ -368,9 +368,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         Bericht.STATUS newStatus = Bericht.STATUS.RSGB_OK;
 
         SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss:SSS");
-        dateTimeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+//        dateTimeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+//        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         log.debug(String.format("RSGB verwerking van %s bericht met id %s, object_ref %s", ber.getSoort(), ber.getId(), ber.getObjectRef()));
         StringBuilder loadLog;
