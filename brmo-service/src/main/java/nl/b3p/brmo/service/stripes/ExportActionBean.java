@@ -1,5 +1,7 @@
 package nl.b3p.brmo.service.stripes;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.Connection;
@@ -8,21 +10,25 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
+import java.util.zip.ZipOutputStream;
 import javax.sql.DataSource;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.validation.Validate;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.ProgressUpdateListener;
+import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.exports.ExportProcess;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
-import nl.b3p.brmo.persistence.staging.Bericht;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.RowProcessor;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.logging.Log;
@@ -166,7 +172,7 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
 
         // XXX move to configuration file
         exportProcesses = Arrays.asList(new ExportProcess[]{
-            new ExportProcess("Exporteren BRK mutaties", BrmoFramework.BR_BRK, "/tmp")
+            new ExportProcess("Exporteren BRK mutaties", BrmoFramework.BR_BRK, "/tmp/brkmutaties")
         });
     }
 
@@ -223,12 +229,19 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
         final Connection conn = dataSourceStaging.getConnection();
         final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
         final RowProcessor processor = new StagingRowHandler();
+        
+        final File exportDir = new File(locatie);
+        FileUtils.forceMkdir(exportDir);
 
         do {
             log.debug(String.format("Ophalen mutatieberichten batch met offset %d, limit %d", offset, batch));
             String sql = "select * from " + BrmoFramework.BERICHT_TABLE + " where br_orgineel_xml is not null order by id ";
             sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
             log.debug("SQL voor ophalen berichten batch: " + sql);
+            
+            
+            final File f = new File(exportDir, "batch" + offset + ".zip");
+            final ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));
 
             processed.setValue(0);
             Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler<Exception>() {
@@ -238,9 +251,26 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
                     while (rs.next()) {
                         try {
                             Bericht bericht = processor.toBean(rs, Bericht.class);
-            
-                            //TODO schrijf naar bestand
+                            //NL.KAD.OnroerendeZaak:
+                            StringBuilder sb = new StringBuilder(bericht.getObjectRef().substring(22));
+                            sb.append("_");
+                            sb.append(bericht.getDatum().getTime());
+                            sb.append("_");
+                            sb.append(bericht.getVolgordeNummer());
+                            sb.append(".xml");
+
                             
+                            ZipEntry e = new ZipEntry(sb.toString());
+                            try {
+                                out.putNextEntry(e);
+                                byte[] data = bericht.getBrOrgineelXml().getBytes("utf-8");
+                                out.write(data, 0, data.length);
+                            } catch (ZipException ze) {
+                                log.info(ze.getLocalizedMessage());
+                            } finally {
+                                out.closeEntry();
+                            }
+
                         } catch (Exception e) {
                             return e;
                         }
@@ -249,7 +279,9 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
                     return null;
                 }
             });
-
+            if (out != null) {
+                out.close();
+            }
             offset += processed.intValue();
 
             progress(offset);
