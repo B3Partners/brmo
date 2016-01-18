@@ -54,7 +54,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     private static final Log log = LogFactory.getLog(RsgbProxy.class);
 
-    private final String jobId = Thread.currentThread().getId() + System.currentTimeMillis() + "";
+    private String jobId;
 
     private final boolean alsoExecuteSql = true;
 
@@ -64,7 +64,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     public enum BerichtSelectMode {
 
-        BY_STATUS, BY_IDS, BY_LAADPROCES, FOR_UPDATE
+        BY_STATUS, BY_IDS, BY_LAADPROCES, FOR_UPDATE, RETRY_WAITING
     }
 
     private final BerichtSelectMode mode;
@@ -120,6 +120,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     private final DataComfortXMLReader oldDbXmlReader = new DataComfortXMLReader();
 
     public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, Bericht.STATUS status, ProgressUpdateListener listener) {
+        this.jobId = Thread.currentThread().getId() + System.currentTimeMillis() + "";
         this.stagingProxy = stagingProxy;
         this.dataSourceRsgb = dataSourceRsgb;
 
@@ -133,10 +134,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
      *
      * @param dataSourceRsgb
      * @param stagingProxy
-     * @param berichtIds array van berichtIds
+     * @param mode
      * @param listener
      */
     public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, BerichtSelectMode mode, long[] ids, ProgressUpdateListener listener) {
+        this.jobId = Thread.currentThread().getId() + System.currentTimeMillis() + "";
         this.stagingProxy = stagingProxy;
         this.dataSourceRsgb = dataSourceRsgb;
 
@@ -151,12 +153,20 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     }
 
     public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, UpdateProcess updateProcess, ProgressUpdateListener listener) {
+        this.jobId = Thread.currentThread().getId() + System.currentTimeMillis() + "";
         this.stagingProxy = stagingProxy;
         this.dataSourceRsgb = dataSourceRsgb;
 
         this.mode = BerichtSelectMode.FOR_UPDATE;
         this.updateProcess = updateProcess;
         this.listener = listener;
+    }
+
+    /**
+     * @param jobId the jobId to set
+     */
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
     }
 
     public void setSimonNamePrefix(String prefix) {
@@ -249,6 +259,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 return stagingProxy.setBerichtenJobByLaadprocessen(laadprocesIds, jobId);
             case FOR_UPDATE:
                 return stagingProxy.setBerichtenJobForUpdate(jobId, updateProcess.getSoort());
+            case RETRY_WAITING:
+                jobId = stagingProxy.getWaitingJobId();
+                return stagingProxy.getBerichtenCountByJob(jobId);
             default:
                 return -1l;
         }
@@ -434,7 +447,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                     }
                 }
             } else {
-                loadLog.append("Geen eerder bericht voor zelfde object gevonden!\n");
                 //TODO: werkt niet als berichten voorgeladen zijn bv via DSL
                 parseNewData(null, newList, null, loadLog);
             }

@@ -162,6 +162,23 @@ public class StagingProxy {
 
         return null;
     }
+    
+    public String getWaitingJobId() throws SQLException {
+        List<Bericht> berichten;
+        ResultSetHandler<List<Bericht>> h
+                = new BeanListHandler(Bericht.class, new StagingRowHandler());
+
+        String sql = "select * from " + BrmoFramework.BERICHT_TABLE + " where status = 'RSGB_WAITING' ";
+        sql = geomToJdbc.buildPaginationSql(sql, 0, 1);
+        berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),sql, h);
+
+
+        if (berichten != null && berichten.size() == 1) {
+            return berichten.get(0).getJobId();
+        }
+        
+        return null;
+    }
 
     public long setBerichtenJobByStatus(Bericht.STATUS status, String jobId) throws SQLException {
         return new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "update " + BrmoFramework.BERICHT_TABLE + " set status = ?, job_id = ? where status = ?",
@@ -199,17 +216,24 @@ public class StagingProxy {
     }
 
     public long getBerichtenCountByJob(String jobId) throws SQLException {
-        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
-                "select count(*) from " + BrmoFramework.BERICHT_TABLE + " where job_id = ?",
-                new ScalarHandler(),
-                jobId);
+        //Deze query wordt alleen aangeroepen bij een herstel-run op WAITING berichten
+        //normaal wordt het aantal bepaald via de return value van het update-script 
+        //voor postgresql is dit zo traag dat we -1 terug geven, dan geen voortgang indicatie
+        if (geomToJdbc instanceof PostgisJdbcConverter) {
+            return -1l;
+        } else {
+            Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
+                    "select count(*) from " + BrmoFramework.BERICHT_TABLE + " where job_id = ?",
+                    new ScalarHandler(),
+                    jobId);
 
-        if (o instanceof BigDecimal) {
-            return ((BigDecimal)o).longValue();
-        } else if(o instanceof Integer) {
-            return ((Integer)o).longValue();
+            if (o instanceof BigDecimal) {
+                return ((BigDecimal) o).longValue();
+            } else if (o instanceof Integer) {
+                return ((Integer) o).longValue();
+            }
+            return (Long) o;
         }
-        return (Long)o;
     }
 
     public void handleBerichtenByJob(final String jobId, long total, final BerichtenHandler handler, final boolean enablePipeline, int transformPipelineCapacity, boolean orderBerichten) throws Exception {
@@ -225,13 +249,14 @@ public class StagingProxy {
         }
         int offset = 0;
         int batch = 250;
+        boolean noTotal = (total < 0);
         final MutableInt processed = new MutableInt(0);
         final boolean doOrderBerichten = orderBerichten;
         boolean abort = false;
         try {
             do {
-                log.debug(String.format("Ophalen STAGING_OK berichten batch voor job %s, offset %d, limit %d", jobId, offset, batch));
-                String sql = "select * from " + BrmoFramework.BERICHT_TABLE + " where job_id = ? and status = 'STAGING_OK' ";
+                log.debug(String.format("Ophalen RSGB_WAITING berichten batch voor job %s, offset %d, limit %d", jobId, offset, batch));
+                String sql = "select * from " + BrmoFramework.BERICHT_TABLE + " where job_id = ? and status = 'RSGB_WAITING' ";
                 if (orderBerichten) {
                     sql += " order by " + BerichtenSorter.SQL_ORDER_BY;
                 }
@@ -292,8 +317,8 @@ public class StagingProxy {
                 if(e != null) {
                     throw e;
                 }
-            } while(processed.intValue() > 0 && offset < total);
-            if(offset < total) {
+            } while(processed.intValue() > 0 && (offset < total || noTotal));
+            if(offset < total && !noTotal) {
                 log.warn(String.format("Minder berichten verwerkt (%d) dan verwacht (%d)!", offset, total));
             }
         } catch(Exception t) {
@@ -356,16 +381,13 @@ public class StagingProxy {
         ResultSetHandler<List<Bericht>> h
                 = new BeanListHandler(Bericht.class, new StagingRowHandler());
 
-        //TODO, deze extra logging weer uitzetten zodra mogelijk
         if(getOldBerichtStatement == null) {
             String sql = "SELECT id, object_ref, datum, volgordenummer, soort, status, job_id, status_datum FROM " 
                     + BrmoFramework.BERICHT_TABLE + " WHERE"
                     + " object_ref = ?"
-//                    + " AND status = ?"
+                    + " AND status = ?"
                     + " ORDER BY datum desc, volgordenummer desc";
-            
-            // haal maar één op
-//            sql = geomToJdbc.buildPaginationSql(sql, 0, 1);
+            sql = geomToJdbc.buildPaginationSql(sql, 0, 1);
               
             getOldBerichtStatement = getConnection().prepareStatement(sql);
         } else {
@@ -373,17 +395,14 @@ public class StagingProxy {
         }
 
         getOldBerichtStatement.setString(1, nieuwBericht.getObjectRef());
-//        getOldBerichtStatement.setString(2, Bericht.STATUS.RSGB_OK.toString());
+        getOldBerichtStatement.setString(2, Bericht.STATUS.RSGB_OK.toString());
 
         ResultSet rs = getOldBerichtStatement.executeQuery();
         List<Bericht> list = h.handle(rs);
         rs.close();
 
         if(!list.isEmpty()) {
-            // XXX voor Oracle ROWNUM over subquery is efficienter, nu worden
-            // alle vorige berichten opgehaald ipv alleen de laatste
-            
-            loadLog.append("Vorige berichten gevonden:\n");
+            loadLog.append("Vorig bericht gevonden:\n");
             for(Bericht b: list) {
                 if(Bericht.STATUS.RSGB_OK.equals(b.getStatus()) && bericht == null) {
                     loadLog.append("Recentste bericht gevonden met RSGB_OK: ").append(b).append("\n");

@@ -103,6 +103,9 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
                 case BY_STATUS:
                     t = brmo.toRsgb(this);
                     break;
+                case RETRY_WAITING:
+                    t = brmo.toRsgb(BerichtSelectMode.RETRY_WAITING, null, this);
+                    break;
                 case BY_LAADPROCES:
                     t = brmo.toRsgb(BerichtSelectMode.BY_LAADPROCES, selectedIds, this);
                     break;
@@ -142,6 +145,11 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
     @WaitPage(path=JSP, delay=1000, refresh=1000)
     public Resolution transformAllStand() {
         return doTransform(RsgbProxy.BerichtSelectMode.BY_STATUS, false);
+    }
+    
+    @WaitPage(path=JSP, delay=1000, refresh=1000)
+    public Resolution transformRetryStand() {
+        return doTransform(RsgbProxy.BerichtSelectMode.RETRY_WAITING, false);
     }
 
     @WaitPage(path=JSP, delay=1000, refresh=1000)

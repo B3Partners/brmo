@@ -6,6 +6,9 @@
             <c:when test="${actionBean.complete}">
                 Klaar - Berichten transformeren
             </c:when>
+            <c:when test="${actionBean.total le 0}">
+                [Voortgang onbekend] Bezig met transformeren...
+            </c:when>
             <c:otherwise>
                 [<fmt:formatNumber maxFractionDigits="1" value="${actionBean.progress}"/>%] Bezig met transformeren...
             </c:otherwise>
@@ -32,8 +35,16 @@
             <c:if test="${!empty actionBean.update}">
                 Update: <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${actionBean.update}"/><br>
             </c:if>
-            Totaal: ${actionBean.total}<br>
-            Verwerkt: ${actionBean.processed}
+                Totaal: 
+            <c:choose>
+                    <c:when test="${actionBean.total le 0}">
+                        Onbekend
+                    </c:when>
+                    <c:otherwise>
+                        ${actionBean.total}
+                    </c:otherwise>
+            </c:choose><br>
+                Verwerkt: ${actionBean.processed}
         </p>
         <p>
             <stripes:link href="/javasimon-console" target="_blank">Performance monitoring console</stripes:link>
@@ -42,9 +53,17 @@
             <stripes:errors/>
         </b></p>
         <p>
-        <c:if test="${!actionBean.complete}">
-            Voortgang: <fmt:formatNumber maxFractionDigits="1" value="${actionBean.progress}"/>%
-        </c:if>
+        <c:choose>
+            <c:when test="${actionBean.complete}">
+                Klaar - Berichten transformeren
+            </c:when>
+            <c:when test="${actionBean.total le 0}">
+                [Voortgang onbekend] Bezig met transformeren...
+            </c:when>
+            <c:otherwise>
+                [<fmt:formatNumber maxFractionDigits="1" value="${actionBean.progress}"/>%] Bezig met transformeren...
+            </c:otherwise>
+        </c:choose>
         </p>
         <c:if test="${!empty actionBean.exceptionStacktrace}">
             <b>Proces afgebroken vanwege een exception:</b>

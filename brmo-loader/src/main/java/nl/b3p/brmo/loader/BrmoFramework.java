@@ -89,6 +89,7 @@ public class BrmoFramework {
         if(pipelineCapacity != null) {
             rsgbProxy.setPipelineCapacity(pipelineCapacity);
         }
+        rsgbProxy.setOrderBerichten(orderBerichten);
         Thread t = new Thread(rsgbProxy);
         t.start();
         return t;
@@ -108,6 +109,7 @@ public class BrmoFramework {
         if(pipelineCapacity != null) {
             rsgbProxy.setPipelineCapacity(pipelineCapacity);
         }
+        rsgbProxy.setOrderBerichten(orderBerichten);
         Thread t = new Thread(rsgbProxy);
         t.start();
         return t;
@@ -119,6 +121,7 @@ public class BrmoFramework {
         if(pipelineCapacity != null) {
             rsgbProxy.setPipelineCapacity(pipelineCapacity);
         }
+        rsgbProxy.setOrderBerichten(orderBerichten);
         Thread t = new Thread(rsgbProxy);
         t.start();
         return t;
