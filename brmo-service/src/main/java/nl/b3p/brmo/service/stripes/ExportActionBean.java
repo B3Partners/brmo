@@ -251,24 +251,35 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
                     while (rs.next()) {
                         try {
                             Bericht bericht = processor.toBean(rs, Bericht.class);
-                            //NL.KAD.OnroerendeZaak:
-                            StringBuilder sb = new StringBuilder(bericht.getObjectRef().substring(22));
-                            sb.append("_");
-                            sb.append(bericht.getDatum().getTime());
-                            sb.append("_");
-                            sb.append(bericht.getVolgordeNummer());
-                            sb.append(".xml");
+                            if (bericht != null) {
+                                StringBuilder sb = new StringBuilder();
+                                if (bericht.getObjectRef() != null) {
+                                    //substring om NL.KAD.OnroerendeZaak: eraf te strippen
+                                    sb.append(bericht.getObjectRef().substring(22));
+                                } else {
+                                    sb.append("O");
+                                    sb.append((new Date()).getTime());
+                                }
+                                sb.append("_");
+                                if (bericht.getDatum() != null) {
+                                    sb.append(bericht.getDatum().getTime());
+                                } else {
+                                    sb.append((new Date()).getTime());
+                                }
+                                sb.append("_");
+                                sb.append(bericht.getVolgordeNummer());
+                                sb.append(".xml");
 
-                            
-                            ZipEntry e = new ZipEntry(sb.toString());
-                            try {
-                                out.putNextEntry(e);
-                                byte[] data = bericht.getBrOrgineelXml().getBytes("utf-8");
-                                out.write(data, 0, data.length);
-                            } catch (ZipException ze) {
-                                log.info(ze.getLocalizedMessage());
-                            } finally {
-                                out.closeEntry();
+                                ZipEntry e = new ZipEntry(sb.toString());
+                                try {
+                                    out.putNextEntry(e);
+                                    byte[] data = bericht.getBrOrgineelXml().getBytes("utf-8");
+                                    out.write(data, 0, data.length);
+                                } catch (ZipException ze) {
+                                    log.info(ze.getLocalizedMessage());
+                                } finally {
+                                    out.closeEntry();
+                                }
                             }
 
                         } catch (Exception e) {
