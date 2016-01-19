@@ -405,7 +405,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             
             // per bericht kijken of er een oud bericht is
             Bericht oud = null;
-            if (ber.getVolgordeNummer() >= 0) {
+            if (orderBerichten || (ber.getVolgordeNummer() >= 0)) {
                 //maar alleen als een mutatie wordt verwerkt
                 //indien standlevering dan volgnummer = -1
                 oud = stagingProxy.getOldBericht(ber, loadLog);
