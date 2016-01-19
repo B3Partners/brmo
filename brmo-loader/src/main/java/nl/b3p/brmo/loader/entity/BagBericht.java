@@ -103,7 +103,7 @@ public class BagBericht extends Bericht {
             return;
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'.'");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'.'");
         try {
             setDatum(sdf.parse(d));
         } catch (ParseException pe) {

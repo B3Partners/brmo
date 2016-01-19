@@ -186,6 +186,7 @@ public class BagXMLReader extends BrmoXMLReader {
                             for (int j = 0; j < grandchildren.getLength(); j++) {
                                 Node grandchild = grandchildren.item(j);
                                 if ("einddatumTijdvakGeldigheid".equals(grandchild.getLocalName())) {
+                                    // check datum toekomst
                                     valid = false;
                                     break;
                                 }
@@ -200,6 +201,16 @@ public class BagXMLReader extends BrmoXMLReader {
 
                             }
                         }
+                        // status ingetrokken verwijderen
+//                        woonplaatsen met status 'Woonplaats ingetrokken'
+//                        openbare ruimten met status 'Naamgeving ingetrokken'
+//                        nummeraanduidingen met status 'Naamgeving ingetrokken'
+//                        stand- en ligplaatsen met status 'Plaats ingetrokken'
+//                        verblijfsobjecten met status 'Niet gerealiseerd verblijfsobject' of 'Verblijfsobject ingetrokken'
+//                        panden met status 'Niet gerealiseerd pand' of 'Pand gesloopt'
+                        
+                        
+                        // aanduidingRecordInactief J verwijderen
                     }
                 } else {
                     streamReader.next();
