@@ -261,6 +261,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 return stagingProxy.setBerichtenJobForUpdate(jobId, updateProcess.getSoort());
             case RETRY_WAITING:
                 jobId = stagingProxy.getWaitingJobId();
+                stagingProxy.setBerichtenJobByStatus(Bericht.STATUS.RSGB_PROCESSING, jobId);
                 return stagingProxy.getBerichtenCountByJob(jobId);
             default:
                 return -1l;

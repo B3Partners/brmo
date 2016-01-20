@@ -84,6 +84,7 @@ Ext.define('B3P.brmo.Berichten', {
                     window.open(config.runurl + "&" + p);
                 }
             });
+            /*
             Ext.create('Ext.Button', {
                 text: 'Alles transformeren naar RSGB',
                 renderTo: 'button-run-all',
@@ -98,6 +99,7 @@ Ext.define('B3P.brmo.Berichten', {
                     window.open(config.runallstandurl);
                 }
             });
+            */
             Ext.create('Ext.Button', {
                 text: 'WAITING-berichten nogmaals transformeren naar RSGB (alleen stand)',
                 renderTo: 'button-retry-stand',
