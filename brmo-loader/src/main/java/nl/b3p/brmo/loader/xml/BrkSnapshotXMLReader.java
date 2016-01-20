@@ -169,8 +169,8 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
 
         if(mutatieGegevens != null && mutatieGegevens.isMutatieZonderWordt) {
             // Vervallen perceel
+            b = new BrkBericht("<empty/>");
 
-            b = new BrkBericht("<Snapshot:KadastraalObjectSnapshot xmlns:Snapshot=\"http://www.kadaster.nl/schemas/brk-levering/snapshot/v20120901\"/>");
             b.setVervallenInfo(mutatieGegevens.mutatieObjectRef, getBestandsDatum());
             b.setVolgordeNummer(mutatieGegevens.volgnummerKadastraalObjectDatum);
         } else {

@@ -1,8 +1,6 @@
 package nl.b3p.brmo.loader.entity;
 
 import java.io.StringReader;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,6 +11,7 @@ import javax.xml.xpath.XPathFactory;
 import nl.b3p.brmo.loader.xml.BagXMLReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -103,12 +102,10 @@ public class BagBericht extends Bericht {
             return;
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'.'");
-        try {
-            setDatum(sdf.parse(d));
-        } catch (ParseException pe) {
-            log.error("Error while parsing date: " + d, pe);
-        }
+        //gebruik joda omdat er microseconden in bron staan
+        DateTime date = new DateTime(d);
+        Date date2 = new Date(date.getMillis());
+        setDatum(date2);
     }
 
     @Override

@@ -14,12 +14,14 @@
         <div id="comment-div"></div>
         <div id="laadproces-grid" class="grid-container"></div>
         <div id="button-transform"></div>
+        <div id="button-transform-stand"></div>
         <div id="button-delete"></div>
         <script type="text/javascript">
             Ext.create('B3P.brmo.LaadProces', {
                 gridurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.LaadProcesActionBean" event="getGridData"/>',
                 deleteurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.LaadProcesActionBean" event="delete"/>',
                 transformurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.TransformActionBean" event="transformSelectedLaadprocessen"/>',
+                transformstandurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.TransformActionBean" event="transformSelectedLaadprocessenStand"/>',
                 gridsaveurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.LaadProcesActionBean" event="saveRecord"/>'
             });
         </script>

@@ -69,6 +69,26 @@ Ext.define('B3P.brmo.LaadProces', {
                     window.open(config.transformurl + "&" + p);
                 }
             });
-        });
+            Ext.create('Ext.Button', {
+                text: 'Selectie versneld transformeren naar RSGB (alleen stand)',
+                renderTo: 'button-transform-stand',
+                handler: function() {
+                    var ids = gridSelection.grid.getSelection();
+                    console.log("ids: ", ids);
+                    if(ids.length === 0) {
+                        Ext.Msg.alert('Selectie transformeren', 'Geen laadprocessen geselecteerd!');
+                        return;
+                    }
+                    var p = "";
+                    for(var i = 0; i < ids.length; i++) {
+                        if(p !== "") {
+                            p += "&";
+                        }
+                        p += "selectedIds=" + ids[i].id;
+                    }
+                    window.open(config.transformstandurl + "&" + p);
+                }
+            });
+         });
     }
 });

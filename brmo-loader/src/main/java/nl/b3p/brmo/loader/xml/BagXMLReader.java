@@ -65,7 +65,6 @@ public class BagXMLReader extends BrmoXMLReader {
 
     static {
         Map<String,String> m = new HashMap();
-        m.put("Standplaats", "STA");
         m.put("Ligplaats", "LIG");
         m.put("Nummeraanduiding", "NUM");
         m.put("OpenbareRuimte", "OPR");
@@ -158,59 +157,16 @@ public class BagXMLReader extends BrmoXMLReader {
                     transformer.transform(new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));
 
                     Document d = builder.parse(new InputSource(new StringReader(sw.toString())));
-                    NodeList children = d.getDocumentElement().getChildNodes();
-                    for (int i = 0; i < children.getLength(); i++) {
-                        Node child = children.item(i);
-                        if ("Nieuw".equals(child.getLocalName())) {
-                            // Mutatie-product met Nieuw als child element gevonden
-                            // Origineel/Wijziging kunnen overgeslagen worden omdat er altijd een Nieuw
-                            // element voor hetzelfde object is. In de BRMO wordt de historie zelf
-                            // bijgehouden dus zijn de wijzigingen niet interessant
-                            nextBericht = new BagBericht(sw.toString(), d);
-                            return true;
-                        }
+                    if (createMutatieBagBericht(sw.toString(), d)) {
+                        return true;
                     }
-                } else if(streamReader.isStartElement() && lvcProductToObjectType.containsKey(streamReader.getLocalName())) {
+                 } else if(streamReader.isStartElement() && lvcProductToObjectType.containsKey(streamReader.getLocalName())) {
                     StringWriter sw = new StringWriter();
                     // Hiermee wordt de StreamReader het volgende product geforward
                     transformer.transform(new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));
                     Document d = builder.parse(new InputSource(new StringReader(sw.toString())));
-
-                    //alleen laden als tijdvakgeldigheid/einddatumTijdvakGeldigheid niet bestaat
-                    NodeList children = d.getDocumentElement().getChildNodes();
-                    for (int i = 0; i < children.getLength(); i++) {
-                        Node child = children.item(i);
-                        if ("tijdvakgeldigheid".equals(child.getLocalName())) {
-                            NodeList grandchildren = child.getChildNodes();
-                            boolean valid = true;
-                            for (int j = 0; j < grandchildren.getLength(); j++) {
-                                Node grandchild = grandchildren.item(j);
-                                if ("einddatumTijdvakGeldigheid".equals(grandchild.getLocalName())) {
-                                    // check datum toekomst
-                                    valid = false;
-                                    break;
-                                }
-                            }
-                            if (valid) {
-                                nextBericht = new BagBericht(sw.toString(), d);
-
-                                // Bij een levering zit er geen datum in een "Verwerking" element,
-                                // pak peildatum van stand
-                                nextBericht.setDatum(getBestandsDatum());
-                                return true;
-
-                            }
-                        }
-                        // status ingetrokken verwijderen
-//                        woonplaatsen met status 'Woonplaats ingetrokken'
-//                        openbare ruimten met status 'Naamgeving ingetrokken'
-//                        nummeraanduidingen met status 'Naamgeving ingetrokken'
-//                        stand- en ligplaatsen met status 'Plaats ingetrokken'
-//                        verblijfsobjecten met status 'Niet gerealiseerd verblijfsobject' of 'Verblijfsobject ingetrokken'
-//                        panden met status 'Niet gerealiseerd pand' of 'Pand gesloopt'
-                        
-                        
-                        // aanduidingRecordInactief J verwijderen
+                    if (createStandBagBericht(sw.toString(), d)) {
+                        return true;
                     }
                 } else {
                     streamReader.next();
@@ -227,5 +183,111 @@ public class BagXMLReader extends BrmoXMLReader {
         BagBericht b = nextBericht;
         nextBericht = null;
         return b;
+    }
+    
+    private boolean createStandBagBericht(String brXml, Document d) {
+        if (isBerichtActueel(d.getDocumentElement())) {
+            nextBericht = new BagBericht(brXml, d);
+            // Bij een levering zit er geen datum in een "Verwerking" element,
+            // pak peildatum van stand
+            nextBericht.setDatum(getBestandsDatum());
+            return true;
+        }
+        return false;
+    }
+   
+    private boolean createMutatieBagBericht(String brXml, Document d) {
+        NodeList children = d.getDocumentElement().getChildNodes();
+        for (int i = 0; i < children.getLength(); i++) {
+            Node child = children.item(i);
+            // Mutatie-product met Nieuw als child element gevonden
+            // Origineel/Wijziging kunnen overgeslagen worden omdat er altijd een Nieuw
+            // element voor hetzelfde object is. In de BRMO wordt de historie zelf
+            // bijgehouden dus zijn de wijzigingen niet interessant
+            if ("Nieuw".equals(child.getLocalName())) {
+                NodeList grandchildren = child.getChildNodes();
+                for (int j = 0; j < grandchildren.getLength(); j++) {
+                    Node grandchild = grandchildren.item(j);
+                    if (grandchild.getNodeType() == Node.ELEMENT_NODE) {
+                        if (isBerichtActueel(grandchild)) {
+                            nextBericht = new BagBericht(brXml, d);
+                        } else {
+                            // maak leeg bericht
+                            nextBericht = new BagBericht("<empty/>", d);
+                        }
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean isBerichtActueel(Node n) {
+        String soort = n.getLocalName();
+        NodeList children = n.getChildNodes();
+        for (int i = 0; i < children.getLength(); i++) {
+            Node child = children.item(i);
+            if ("tijdvakgeldigheid".equals(child.getLocalName())) {
+                NodeList grandchildren = child.getChildNodes();
+                for (int j = 0; j < grandchildren.getLength(); j++) {
+                    Node grandchild = grandchildren.item(j);
+                    if ("einddatumTijdvakGeldigheid".equals(grandchild.getLocalName())) {
+                        // check datum toekomst ????
+                        return false;
+                    }
+                }
+            }
+            // aanduidingRecordInactief J verwijderen
+            if ("aanduidingRecordInactief".equals(child.getLocalName())) {
+                if (child.getTextContent().equalsIgnoreCase("J")) {
+                    return false;
+                }
+            }
+            // status ingetrokken verwijderen
+            if ("ligplaatsstatus".equals(child.getLocalName())) {
+                if (child.getTextContent().equalsIgnoreCase("Plaats ingetrokken")) {
+                    return false;
+                }
+            }
+            if ("standplaatsstatus".equals(child.getLocalName())) {
+                if (child.getTextContent().equalsIgnoreCase("Plaats ingetrokken")) {
+                    return false;
+                }
+            }
+            // nummeraanduidingen met status 'Naamgeving ingetrokken'
+            if ("nummeraanduidingstatus".equals(child.getLocalName())) {
+                if (child.getTextContent().equalsIgnoreCase("Naamgeving ingetrokken")) {
+                    return false;
+                }
+            }
+            // openbare ruimten met status 'Naamgeving ingetrokken'
+            if ("openbareruimtestatus".equals(child.getLocalName())) {
+                if (child.getTextContent().equalsIgnoreCase("Naamgeving ingetrokken")) {
+                    return false;
+                }
+            }
+            // panden met status 'Niet gerealiseerd pand' of 'Pand gesloopt'
+            if ("pandstatus".equals(child.getLocalName())) {
+                if (child.getTextContent().equalsIgnoreCase("Pand gesloopt")
+                        || child.getTextContent().equalsIgnoreCase("Niet gerealiseerd pand")) {
+                    return false;
+                }
+            }
+            // verblijfsobjecten met status 'Niet gerealiseerd verblijfsobject' of 'Verblijfsobject ingetrokken'
+            if ("verblijfsobjectstatus".equals(child.getLocalName())) {
+                if (child.getTextContent().equalsIgnoreCase("Verblijfsobject ingetrokken")
+                        || child.getTextContent().equalsIgnoreCase("Niet gerealiseerd verblijfsobject")) {
+                    return false;
+                }
+            }
+            // woonplaatsen met status 'Woonplaats ingetrokken'
+            if ("woonplaatsstatus".equals(child.getLocalName())) {
+                if (child.getTextContent().equalsIgnoreCase("Woonplaats ingetrokken")) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

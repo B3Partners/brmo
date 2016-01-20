@@ -44,7 +44,7 @@ Ext.define('B3P.common.GridSelection', {
         var pagerItemId = Ext.id();
         var maxResults = -1;
         var movingBack = 0;
-        var pageSize = 20;
+        var pageSize = 40;
         // Ext function to initialize configuration
         this.initConfig(config);
         // Create the data model

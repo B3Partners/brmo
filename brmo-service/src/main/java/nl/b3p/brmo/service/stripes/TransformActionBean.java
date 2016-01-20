@@ -156,6 +156,11 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
     public Resolution transformSelectedLaadprocessen() {
         return doTransform(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, true);
     }
+    
+    @WaitPage(path=JSP, delay=1000, refresh=1000)
+    public Resolution transformSelectedLaadprocessenStand() {
+        return doTransform(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, false);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="getters en setters">
     public ActionBeanContext getContext() {

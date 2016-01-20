@@ -410,7 +410,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 //indien standlevering dan volgnummer = -1
                 oud = stagingProxy.getOldBericht(ber, loadLog);
             } else {
-                loadLog.append("Standverwerking, dus nieuwere gegevens worden overschreven en oude gegevens worden niet verwijderd!\n");    
+                loadLog.append("Standverwerking, gegevens worden alleen toegevoegd als ze nog niet bestaan!\n");    
             }
             
             // oud bericht
