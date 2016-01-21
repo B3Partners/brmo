@@ -1,5 +1,6 @@
 package nl.b3p.brmo.service.stripes;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -7,6 +8,8 @@ import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +27,7 @@ import nl.b3p.brmo.loader.exports.ExportProcess;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
+import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
@@ -46,6 +50,9 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
 
     private static final String JSP = "/WEB-INF/jsp/transform/exports.jsp";
     private static final String JSP_PROGRESS = "/WEB-INF/jsp/transform/exportsprogress.jsp";
+    
+    private static final String MUTOPEN = "<?xml version=\"1.0\"?><Mutatie:Mutatie xmlns:Mutatie=\"http://www.kadaster.nl/schemas/brk-levering/product-mutatie/v20120901\"><Mutatie:BRKDatum>%s</Mutatie:BRKDatum><Mutatie:volgnummerKadastraalObjectDatum>%s</Mutatie:volgnummerKadastraalObjectDatum><Mutatie:wordt>";
+    private static final String MUTCLOSE = "</Mutatie:wordt></Mutatie:Mutatie>";
 
     private ActionBeanContext context;
 
@@ -61,6 +68,8 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
     private Date start;
     private Date update;
     private String exceptionStacktrace;
+    
+    private boolean repairFirst = false;
 
     // <editor-fold defaultstate="collapsed" desc="getters en setters">
     @Override
@@ -172,7 +181,8 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
 
         // XXX move to configuration file
         exportProcesses = Arrays.asList(new ExportProcess[]{
-            new ExportProcess("Exporteren BRK mutaties", BrmoFramework.BR_BRK, "/tmp/brkmutaties")
+            new ExportProcess("Exporteren BRK mutaties", BrmoFramework.BR_BRK, "/tmp/brkmutaties"),
+            new ExportProcess("Repareren BRK mutaties", BrmoFramework.BR_BRK, null)
         });
     }
 
@@ -202,9 +212,12 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
 
         // Get berichten
         try {
-
-            exportMutatieBerichten(process.getExportpad());
-
+            if (process.getName().equals("Exporteren BRK mutaties")) {
+                exportMutatieBerichten(process.getExportpad());
+            } else if (process.getName().equals("Repareren BRK mutaties")) {
+                repairMutatieBerichten();
+            }
+            
             if (this.exceptionStacktrace == null) {
                 getContext().getMessages().add(new SimpleMessage("Export afgerond."));
             }
@@ -220,8 +233,8 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
         }
         return new ForwardResolution(JSP_PROGRESS);
     }
-
-    public void exportMutatieBerichten(String locatie) throws Exception {
+    
+    public void repairMutatieBerichten() throws Exception {
         int offset = 0;
         int batch = 250;
         final MutableInt processed = new MutableInt(0);
@@ -230,16 +243,102 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
         final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
         final RowProcessor processor = new StagingRowHandler();
         
+
+        do {
+            log.debug(String.format("Ophalen mutatieberichten batch met offset %d, limit %d", offset, batch));
+            String sql = "select * from " + BrmoFramework.BERICHT_TABLE + " where volgordenummer >= 0 order by id ";
+            sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
+            log.debug("SQL voor ophalen berichten batch: " + sql);
+            
+            
+            processed.setValue(0);
+            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler<Exception>() {
+                @Override
+                public Exception handle(ResultSet rs) throws SQLException {
+
+                    while (rs.next()) {
+                        try {
+                            Bericht bericht = processor.toBean(rs, Bericht.class);
+                            if (bericht != null && bericht.getSoort().equalsIgnoreCase("brk")) {
+                                
+                                StringBuilder message = new StringBuilder();
+                                if (bericht.getBrOrgineelXml()!=null && !bericht.getBrOrgineelXml().isEmpty()) {
+                                    message.append(bericht.getBrOrgineelXml());
+                                } else {
+                                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                    message.append(String.format(MUTOPEN, dateFormat.format(bericht.getDatum()), bericht.getVolgordeNummer()));
+                                    if (bericht.getBrXml().toString().startsWith("<?xml version=\"1.0\"")) {
+                                        // strip <?xml version="1.0"?>
+                                        message.append(bericht.getBrXml().substring(21));
+                                    } else {
+                                        message.append(bericht.getBrXml());
+                                    }
+                                    message.append(MUTCLOSE);
+                                }
+
+                                BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(message.toString().getBytes("UTF-8")));
+                                Bericht brk = reader.next();
+                                if (brk.getDatum() != null && brk.getObjectRef() != null && brk.getVolgordeNummer() != null) {
+                                    bericht.setDatum(brk.getDatum());
+                                    bericht.setObjectRef(brk.getObjectRef());
+                                    bericht.setVolgordeNummer(brk.getVolgordeNummer());
+                                }
+
+                                if (bericht.getBrOrgineelXml() != null && !bericht.getBrOrgineelXml().isEmpty()) {
+                                    if (brk.getDatum() != null && brk.getObjectRef() != null && brk.getVolgordeNummer() != null) {
+                                        new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                                .update(conn, "update " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?, datum = ?, volgordenummer = ? where id = ?",
+                                                        bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), bericht.getId());
+                                    }
+                                } else {
+                                    new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                            .update(conn, "update " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?, datum = ?, volgordenummer = ?, br_orgineel_xml = ? where id = ?",
+                                                    bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), message.toString(), bericht.getId());
+                                }
+                            }
+                        } catch (Exception e) {
+                            return e;
+                        }
+                        processed.increment();
+                    }
+                    return null;
+                }
+            });
+            offset += processed.intValue();
+
+            progress(offset);
+
+            // If handler threw exception processing row, rethrow it
+            if (e != null) {
+                throw e;
+            }
+        } while (processed.intValue() > 0);
+
+    }
+
+    public void exportMutatieBerichten(String locatie) throws Exception {
+        
+        if (repairFirst) {
+            repairMutatieBerichten();
+        }
+        
+        int offset = 0;
+        int batch = 1000;
+        final MutableInt processed = new MutableInt(0);
+        final DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
+        final Connection conn = dataSourceStaging.getConnection();
+        final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+        final RowProcessor processor = new StagingRowHandler();
+
         final File exportDir = new File(locatie);
         FileUtils.forceMkdir(exportDir);
 
         do {
             log.debug(String.format("Ophalen mutatieberichten batch met offset %d, limit %d", offset, batch));
-            String sql = "select * from " + BrmoFramework.BERICHT_TABLE + " where br_orgineel_xml is not null order by id ";
+            String sql = "select * from " + BrmoFramework.BERICHT_TABLE + " where volgordenummer >= 0 order by object_ref, datum, volgordenummer ";
             sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
             log.debug("SQL voor ophalen berichten batch: " + sql);
-            
-            
+
             final File f = new File(exportDir, "batch" + offset + ".zip");
             final ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));
 
@@ -269,7 +368,7 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
                                 sb.append("_");
                                 sb.append(bericht.getVolgordeNummer());
                                 sb.append(".xml");
-
+                                
                                 ZipEntry e = new ZipEntry(sb.toString());
                                 try {
                                     out.putNextEntry(e);
