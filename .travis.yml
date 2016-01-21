@@ -1,6 +1,63 @@
-sudo: false
 language: java
 
-branches:
-  only:
-    - travis-integration
+sudo: false
+
+addons:
+  postgresql: "9.4"
+
+jdk:
+  - openjdk7
+  - oraclejdk7
+  - oraclejdk8
+
+matrix:
+  fast_finish: true
+
+cache:
+  directories:
+  - $HOME/.m2
+
+before_install:
+# set up STAGING
+  - psql --version
+  - psql -U postgres -a -c "CREATE ROLE staging LOGIN PASSWORD 'staging' SUPERUSER CREATEDB;"
+  - psql -U postgres -a -c "CREATE ROLE rsgb LOGIN PASSWORD 'rsgb' SUPERUSER CREATEDB;"
+  - psql -U postgres -c 'create database staging;'
+  - psql -U postgres -c 'create database rsgb;'
+  - psql -U postgres -d rsgb -c 'create extension postgis;'
+  - ls -l ./datamodel/generated_scripts/
+# set up RSGB
+  - travis_wait psql -U postgres -w -d rsgb -a -f ./datamodel/generated_scripts/datamodel_postgresql.sql
+  - ls -l ./datamodel/utility_scripts/
+#  - psql -U postgres -d rsgb -a -f ./datamodel/utility_scripts/111a_update_gemeente_geom.sql
+#  - psql -U postgres -d rsgb -a -f ./datamodel/utility_scripts/113a_update_wijk_geom.sql
+
+install:
+  # install all dependencies + artifacts without any testing, create staging db scripts
+  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Ptravis-ci -pl '!brmo-dist'
+
+before_script:
+# dit dient na afloop van de 'install' gedaan te worden omdat de staging DB sql gegenereerd wordt door Hibernate
+  - ls -l ./brmo-persistence/target/ddlscripts/
+  - psql -U postgres -d staging -a -f ./brmo-persistence/target/ddlscripts/create-brmo-persistence-postgresql.sql
+  - ls -l ./brmo-persistence/db/
+  - psql -U postgres -d staging -a -f ./brmo-persistence/db/01_create_indexes.sql
+  - psql -U postgres -d staging -a -f ./brmo-persistence/db/02_insert_default_user.sql
+
+# run tests
+script:
+# run unit tests
+  - mvn -e test -B -Ptravis-ci -pl '!brmo-dist'
+# run integration tests
+  - mvn -e verify -B -Ptravis-ci -pl '!brmo-dist'
+
+# after_success:
+
+# after_failure:
+
+# after_script:
+
+# notifications:
+#   email: false
+  #  on_success: [always|never|change] # default: change
+  #  on_failure: [always|never|change] # default: always
