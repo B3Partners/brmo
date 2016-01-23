@@ -65,7 +65,7 @@
         -->
         <dependency>
             <groupId>com.oracle</groupId>
-            <artifactId>ojdbc5</artifactId>
+            <artifactId>${oracle.jdbc.artifactId}</artifactId>
             <!-- Bij JNDI db verbinding moeten Oracle jars in tomcat lib staan -->
             <scope>provided</scope>
         </dependency>
