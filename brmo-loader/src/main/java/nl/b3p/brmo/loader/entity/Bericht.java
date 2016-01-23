@@ -9,8 +9,8 @@ import java.util.Date;
 public class Bericht {
     private Long id;
     private Integer laadProcesId;
-    private String objectRef;
-    private Date datum;
+    protected String objectRef;
+    protected Date datum;
     private Integer volgordeNummer;
     private String soort;
     private String opmerking;

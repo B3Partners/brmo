@@ -21,8 +21,6 @@ import org.xml.sax.InputSource;
 public class BrkBericht extends Bericht {
 
     private final String soort = "brk";
-    private String objectRef;
-    private Date datum;
     private boolean xpathEvaluated = false;
 
     private static final Log log = LogFactory.getLog(BrkBericht.class);
@@ -44,6 +42,13 @@ public class BrkBericht extends Bericht {
         }
 
         xpathEvaluated = true;
+        
+        if (objectRef!=null && datum!=null) {
+            //al uit de header gehaald
+            return;
+        }
+
+        // dit moet dus een standberciht zijn
         try {
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -52,14 +57,13 @@ public class BrkBericht extends Bericht {
 
             XPathFactory xPathfactory = XPathFactory.newInstance();
             XPath xpath = xPathfactory.newXPath();
-
+            
             XPathExpression expr = xpath.compile("/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/identificatie/namespace/text()");
             objectRef = expr.evaluate(doc);
 
             expr = xpath.compile("/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/identificatie/lokaalId/text()");
             objectRef += ":" + expr.evaluate(doc);
 
-            //TODO nodelist gebruiken omdat 2x voor kan komen.
             expr = xpath.compile("/KadastraalObjectSnapshot/*[local-name()= 'toestandsdatum' or local-name()='toestandsdatum']/text()");
             setDatumAsString(expr.evaluate(doc));
         } catch (Exception e) {

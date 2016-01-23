@@ -51,7 +51,16 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
     private static final String JSP = "/WEB-INF/jsp/transform/exports.jsp";
     private static final String JSP_PROGRESS = "/WEB-INF/jsp/transform/exportsprogress.jsp";
     
-    private static final String MUTOPEN = "<?xml version=\"1.0\"?><Mutatie:Mutatie xmlns:Mutatie=\"http://www.kadaster.nl/schemas/brk-levering/product-mutatie/v20120901\"><Mutatie:BRKDatum>%s</Mutatie:BRKDatum><Mutatie:volgnummerKadastraalObjectDatum>%s</Mutatie:volgnummerKadastraalObjectDatum><Mutatie:wordt>";
+    private static final String MUTOPEN = "<?xml version=\"1.0\"?><Mutatie:Mutatie "
+            + "xmlns:Mutatie=\"http://www.kadaster.nl/schemas/brk-levering/product-mutatie/v20120901\" "
+            + "xmlns:KadastraalObjectRef=\"http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject-ref/v20120201\" "
+            + "xmlns:xlink=\"http://www.w3.org/1999/xlink\">"
+            + "<Mutatie:BRKDatum>%s</Mutatie:BRKDatum>"
+            + "<Mutatie:volgnummerKadastraalObjectDatum>%s</Mutatie:volgnummerKadastraalObjectDatum>"
+            + "<Mutatie:kadastraalObject><Mutatie:AanduidingKadastraalObject><Mutatie:kadastraalObject>"
+            + "<KadastraalObjectRef:PerceelRef xlink:href=\"%s\"/>"
+            + "</Mutatie:kadastraalObject></Mutatie:AanduidingKadastraalObject></Mutatie:kadastraalObject>"
+            + "<Mutatie:wordt>";
     private static final String MUTCLOSE = "</Mutatie:wordt></Mutatie:Mutatie>";
 
     private ActionBeanContext context;
@@ -266,7 +275,10 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
                                     message.append(bericht.getBrOrgineelXml());
                                 } else {
                                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                                    message.append(String.format(MUTOPEN, dateFormat.format(bericht.getDatum()), bericht.getVolgordeNummer()));
+                                    message.append(String.format(MUTOPEN, 
+                                            dateFormat.format(bericht.getDatum()), 
+                                            bericht.getVolgordeNummer(),
+                                            bericht.getObjectRef()));
                                     if (bericht.getBrXml().toString().startsWith("<?xml version=\"1.0\"")) {
                                         // strip <?xml version="1.0"?>
                                         message.append(bericht.getBrXml().substring(21));
@@ -283,17 +295,16 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
                                     bericht.setObjectRef(brk.getObjectRef());
                                     bericht.setVolgordeNummer(brk.getVolgordeNummer());
                                 }
-
-                                if (bericht.getBrOrgineelXml() != null && !bericht.getBrOrgineelXml().isEmpty()) {
-                                    if (brk.getDatum() != null && brk.getObjectRef() != null && brk.getVolgordeNummer() != null) {
+                                if (brk.getDatum() != null && brk.getObjectRef() != null && brk.getVolgordeNummer() != null) {
+                                    if (bericht.getBrOrgineelXml() != null && !bericht.getBrOrgineelXml().isEmpty()) {
                                         new QueryRunner(geomToJdbc.isPmdKnownBroken())
                                                 .update(conn, "update " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?, datum = ?, volgordenummer = ? where id = ?",
                                                         bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), bericht.getId());
+                                    } else {
+                                        new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                                .update(conn, "update " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?, datum = ?, volgordenummer = ?, br_orgineel_xml = ? where id = ?",
+                                                        bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), message.toString(), bericht.getId());
                                     }
-                                } else {
-                                    new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                                            .update(conn, "update " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?, datum = ?, volgordenummer = ?, br_orgineel_xml = ? where id = ?",
-                                                    bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), message.toString(), bericht.getId());
                                 }
                             }
                         } catch (Exception e) {
