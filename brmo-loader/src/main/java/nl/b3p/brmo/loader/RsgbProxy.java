@@ -190,15 +190,20 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(connRsgb);
 
+        ResultSet tablesRs = null;
         try {
             dbMetadata = connRsgb.getMetaData();
 
-            ResultSet tablesRs = dbMetadata.getTables(null, geomToJdbc.getSchema(), "%", new String[]{"TABLE"});
+            tablesRs = dbMetadata.getTables(null, geomToJdbc.getSchema(), "%", new String[]{"TABLE"});
             while (tablesRs.next()) {
                 tables.put(tablesRs.getString("TABLE_NAME").toLowerCase(), tablesRs.getString("TABLE_NAME"));
             }
         } catch (SQLException sqlEx) {
             throw new SQLException("Fout bij ophalen tabellen: ", sqlEx);
+        } finally {
+            if (tablesRs!=null && !tablesRs.isClosed()) {
+                tablesRs.close();
+            }
         }
     }
 

@@ -248,7 +248,7 @@ public class StagingProxy {
             processDbXmlPipeline.start();
         }
         int offset = 0;
-        int batch = 250;
+        int batch = 50;
         boolean noTotal = (total < 0);
         final MutableInt processed = new MutableInt(0);
         final boolean doOrderBerichten = orderBerichten;
@@ -551,18 +551,21 @@ public class StagingProxy {
                 b.setStatus(Bericht.STATUS.STAGING_OK);
                 b.setStatusDatum(new Date());
                 b.setSoort(type);
-
+                
+                if (b.getDatum()==null) {
+                    throw new BrmoException("Datum bericht is null");
+                }
                 if (!berichtExists(b)) {
                     writeBericht(b);
                     isBerichtGeschreven = true;
                 }
-
                 if (listener != null) {
                     listener.progress(cis.getByteCount());
                 }
                 berichten++;
             } catch (Exception e) {
-                lastErrorMessage = "Laden bericht mislukt vanwege: " + e.getLocalizedMessage();
+                lastErrorMessage = String.format("Laden bericht uit %s mislukt vanwege: %s", 
+                        fileName, e.getLocalizedMessage());
                 log.error(lastErrorMessage);
                 if(listener != null){
                     listener.exception(e);

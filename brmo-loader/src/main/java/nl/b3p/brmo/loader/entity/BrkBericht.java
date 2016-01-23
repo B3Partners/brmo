@@ -59,6 +59,7 @@ public class BrkBericht extends Bericht {
             expr = xpath.compile("/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/identificatie/lokaalId/text()");
             objectRef += ":" + expr.evaluate(doc);
 
+            //TODO nodelist gebruiken omdat 2x voor kan komen.
             expr = xpath.compile("/KadastraalObjectSnapshot/*[local-name()= 'toestandsdatum' or local-name()='toestandsdatum']/text()");
             setDatumAsString(expr.evaluate(doc));
         } catch (Exception e) {

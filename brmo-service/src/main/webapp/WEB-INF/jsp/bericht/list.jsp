@@ -14,8 +14,8 @@
         <div id="comment-div"></div>
         <div id="berichten-grid" class="grid-container"></div>                
         <div id="button-run"></div>
-        <!--div id="button-run-all"></div>
-        <div id="button-run-all-stand"></div -->
+        <div id="button-run-all"></div>
+        <div id="button-run-all-stand"></div>
         <div id="button-retry-stand"></div>
         <div id="button-export-mutaties"></div>
         <div id="button-run-updates"></div>        
