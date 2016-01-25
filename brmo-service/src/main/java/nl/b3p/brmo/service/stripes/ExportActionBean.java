@@ -334,7 +334,7 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
         }
         
         int offset = 0;
-        int batch = 1000;
+        int batch = 5000;
         final MutableInt processed = new MutableInt(0);
         final DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
         final Connection conn = dataSourceStaging.getConnection();
@@ -361,38 +361,58 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
                     while (rs.next()) {
                         try {
                             Bericht bericht = processor.toBean(rs, Bericht.class);
-                            if (bericht != null) {
-                                StringBuilder sb = new StringBuilder();
-                                if (bericht.getObjectRef() != null) {
-                                    //substring om NL.KAD.OnroerendeZaak: eraf te strippen
-                                    sb.append(bericht.getObjectRef().substring(22));
-                                } else {
-                                    sb.append("O");
-                                    sb.append((new Date()).getTime());
-                                }
-                                sb.append("_");
-                                if (bericht.getDatum() != null) {
-                                    sb.append(bericht.getDatum().getTime());
-                                } else {
-                                    sb.append((new Date()).getTime());
-                                }
-                                sb.append("_");
-                                sb.append(bericht.getVolgordeNummer());
-                                sb.append(".xml");
-                                
-                                ZipEntry e = new ZipEntry(sb.toString());
-                                try {
-                                    out.putNextEntry(e);
-                                    byte[] data = bericht.getBrOrgineelXml().getBytes("utf-8");
-                                    out.write(data, 0, data.length);
-                                } catch (ZipException ze) {
-                                    log.info(ze.getLocalizedMessage());
-                                } finally {
-                                    out.closeEntry();
-                                }
-                            }
 
-                        } catch (Exception e) {
+                            boolean infoOK = true;
+                            if (bericht.getBrOrgineelXml() != null) {
+                                BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(bericht.getBrOrgineelXml().getBytes("UTF-8")));
+                                Bericht brk = reader.next();
+                                if (brk.getDatum() != null && brk.getObjectRef() != null && brk.getVolgordeNummer() != null) {
+                                    bericht.setDatum(brk.getDatum());
+                                    bericht.setObjectRef(brk.getObjectRef());
+                                    bericht.setVolgordeNummer(brk.getVolgordeNummer());
+                                } else {
+                                    infoOK = false;
+                                }
+                            } else {
+                                infoOK = false;
+                            }
+                            StringBuilder sb = new StringBuilder();
+                            if (!infoOK) {
+                                sb.append("I");
+                            }
+                            if (bericht.getObjectRef() != null) {
+                                //substring om NL.KAD.OnroerendeZaak: eraf te strippen
+                                sb.append(bericht.getObjectRef().substring(22));
+                            } else {
+                                sb.append((new Date()).getTime());
+                            }
+                            sb.append("_");
+                            if (bericht.getDatum() != null) {
+                                sb.append(bericht.getDatum().getTime());
+                            } else {
+                                sb.append("O");
+                                sb.append((new Date()).getTime());
+                            }
+                            sb.append("_");
+                            sb.append(bericht.getVolgordeNummer());
+                            sb.append(".xml");
+
+                            ZipEntry e = new ZipEntry(sb.toString());
+                            try {
+                                out.putNextEntry(e);
+                                byte[] data = null;
+                                if (infoOK) {
+                                    data = bericht.getBrOrgineelXml().getBytes("utf-8");
+                                } else {
+                                    data = "ERROR".getBytes("utf-8");
+                                }
+                                out.write(data, 0, data.length);
+                            } catch (ZipException ze) {
+                                log.info(ze.getLocalizedMessage());
+                            } finally {
+                                out.closeEntry();
+                            }
+                         } catch (Exception e) {
                             return e;
                         }
                         processed.increment();

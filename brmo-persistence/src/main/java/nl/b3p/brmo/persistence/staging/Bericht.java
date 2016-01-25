@@ -180,6 +180,9 @@ public class Bericht implements Serializable {
     }
 
     public String getDb_xml() {
+        // als lengte in bytes precies 8000 is dan kan oracle
+        // dit waarde niet lezen uit database zonde \o toe te voegen
+        // TODO gaan we hier iets aan doen?
         return db_xml;
     }
 
