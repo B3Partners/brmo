@@ -22,6 +22,7 @@ import nl.b3p.brmo.loader.entity.BerichtenSorter;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
+import nl.b3p.brmo.loader.jdbc.OracleJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.PostgisJdbcConverter;
 import nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork;
 import nl.b3p.brmo.loader.pipeline.BerichtWorkUnit;
@@ -248,7 +249,7 @@ public class StagingProxy {
             processDbXmlPipeline.start();
         }
         int offset = 0;
-        int batch = 50;
+        int batch = 250;
         boolean noTotal = (total < 0);
         final MutableInt processed = new MutableInt(0);
         final boolean doOrderBerichten = orderBerichten;
@@ -317,6 +318,13 @@ public class StagingProxy {
                 if(e != null) {
                     throw e;
                 }
+                
+                // TODO onderzoeken waarom dit soms nodig is
+                if (geomToJdbc instanceof OracleJdbcConverter) {
+                    log.debug("Vernieuwen van verbinding om cursors in Oracle vrij te geven!");
+                    handler.renewConnection();
+                }
+                
             } while(processed.intValue() > 0 && (offset < total || noTotal));
             if(offset < total && !noTotal) {
                 log.warn(String.format("Minder berichten verwerkt (%d) dan verwacht (%d)!", offset, total));

@@ -206,21 +206,31 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
         }
     }
-
+    
     public void close() {
         for (PreparedStatement stmt : checkRowExistsStatements.values()) {
             DbUtils.closeQuietly(stmt);
         }
+        checkRowExistsStatements.clear();
         for (PreparedStatement stmt : insertSqlPreparedStatements.values()) {
             DbUtils.closeQuietly(stmt);
         }
+        insertSqlPreparedStatements.clear();
         for (PreparedStatement stmt : updateSqlPreparedStatements.values()) {
             DbUtils.closeQuietly(stmt);
         }
+        updateSqlPreparedStatements.clear();
         if (insertMetadataStatement != null) {
             DbUtils.closeQuietly(insertMetadataStatement);
         }
+        insertMetadataStatement = null;
         DbUtils.closeQuietly(connRsgb);
+    }
+
+    @Override
+    public void renewConnection() throws SQLException {
+        close();
+        init();
     }
 
     @Override
