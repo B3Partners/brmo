@@ -249,7 +249,7 @@
 			</fk_4nra_sc_identif>
 		</ligplaats>
 		<xsl:for-each select="bag:gerelateerdeAdressen/bag:nevenadres">
-			<standplaats_nummeraand>
+			<ligplaats_nummeraand>
 				<fk_nn_lh_lpl_sc_identif>
 					<xsl:value-of select="$bagid"/>
 				</fk_nn_lh_lpl_sc_identif>
@@ -259,7 +259,7 @@
 				<fk_nn_rh_nra_sc_identif>
 					<xsl:value-of select="bag:identificatie"/>
 				</fk_nn_rh_nra_sc_identif>
-			</standplaats_nummeraand>
+			</ligplaats_nummeraand>
 		</xsl:for-each>
 		<brondocument ignore-duplicates="yes">
 			<tabel>
