@@ -99,6 +99,13 @@ Ext.define('B3P.brmo.Berichten', {
                 }
             });
             Ext.create('Ext.Button', {
+                text: 'WAITING-berichten nogmaals transformeren naar RSGB',
+                renderTo: 'button-retry',
+                handler: function() {
+                    window.open(config.retryurl);
+                }
+            });
+            Ext.create('Ext.Button', {
                 text: 'WAITING-berichten nogmaals transformeren naar RSGB (alleen stand)',
                 renderTo: 'button-retry-stand',
                 handler: function() {

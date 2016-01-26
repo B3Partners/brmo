@@ -148,6 +148,11 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
     }
     
     @WaitPage(path=JSP, delay=1000, refresh=1000)
+    public Resolution transformRetry() {
+        return doTransform(RsgbProxy.BerichtSelectMode.RETRY_WAITING, true);
+    }
+
+    @WaitPage(path=JSP, delay=1000, refresh=1000)
     public Resolution transformRetryStand() {
         return doTransform(RsgbProxy.BerichtSelectMode.RETRY_WAITING, false);
     }

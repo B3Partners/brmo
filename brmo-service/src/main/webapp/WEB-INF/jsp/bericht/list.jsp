@@ -16,6 +16,7 @@
         <div id="button-run"></div>
         <div id="button-run-all"></div>
         <div id="button-run-all-stand"></div>
+        <div id="button-retry"></div>
         <div id="button-retry-stand"></div>
         <div id="button-export-mutaties"></div>
         <div id="button-run-updates"></div>        
@@ -25,6 +26,7 @@
                 runurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.TransformActionBean" event="transformSelected"/>',
                 runallurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.TransformActionBean" event="transformAll"/>',
                 runallstandurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.TransformActionBean" event="transformAllStand"/>',
+                retryurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.TransformActionBean" event="transformRetry"/>',
                 retrystandurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.TransformActionBean" event="transformRetryStand"/>',
                 runupdatesurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.UpdatesActionBean" event="form"/>',
                 exportmutatiesurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.ExportActionBean" event="form"/>',
