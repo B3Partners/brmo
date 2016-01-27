@@ -229,8 +229,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     @Override
     public void renewConnection() throws SQLException {
-        close();
-        init();
+        synchronized (connRsgb) {
+            close();
+            init();
+        }
     }
 
     @Override
@@ -375,135 +377,138 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     @Override
     public void handle(Bericht ber, List<TableData> pretransformedTableData, boolean updateResult) throws BrmoException {
+        // lock on connection, omdat parent loop periodiek connectie wil verversen.
+        synchronized (connRsgb) {
 
-        if (updateProcess != null) {
-            update(ber, pretransformedTableData);
-            return;
-        }
+            if (updateProcess != null) {
+                update(ber, pretransformedTableData);
+                return;
+            }
 
-        Bericht.STATUS newStatus = Bericht.STATUS.RSGB_OK;
+            Bericht.STATUS newStatus = Bericht.STATUS.RSGB_OK;
 
-        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss:SSS");
+            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss:SSS");
 //        dateTimeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 //        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-        log.debug(String.format("RSGB verwerking van %s bericht met id %s, object_ref %s", ber.getSoort(), ber.getId(), ber.getObjectRef()));
-        StringBuilder loadLog;
-        if (pretransformedTableData == null) {
-            loadLog = new StringBuilder();
-        } else {
-            loadLog = new StringBuilder(ber.getOpmerking());
-        }
-        loadLog.append(String.format("%s: start verwerking %s bericht object ref %s, met id %s, berichtdatum %s\n", dateTimeFormat.format(new Date()), ber.getSoort(), ber.getObjectRef(), ber.getId(), dateFormat.format(ber.getDatum())));
-
-        setHerkomstMetadata(ber.getSoort());
-
-        long startTime = 0;
-        try {
-
-            if (connRsgb.getAutoCommit()) {
-                connRsgb.setAutoCommit(false);
-            }
-
-            List<TableData> newList;
-            if (pretransformedTableData != null) {
-                loadLog.append("Bericht was al getransformeerd in pipeline\n");
-                newList = pretransformedTableData;
+            log.debug(String.format("RSGB verwerking van %s bericht met id %s, object_ref %s", ber.getSoort(), ber.getId(), ber.getObjectRef()));
+            StringBuilder loadLog;
+            if (pretransformedTableData == null) {
+                loadLog = new StringBuilder();
             } else {
-                loadLog.append("Transformeren naar RSGB database-xml en lezen resultaat... ");
-                startTime = System.currentTimeMillis();
-                newList = transformToTableData(ber);
-                loadLog.append(String.format("%4.1fs\n", (System.currentTimeMillis() - startTime) / 1000.0));
-            }
-            // nieuwe starttijd voor laden in RSGB
-            startTime = System.currentTimeMillis();
-            
-            // per bericht kijken of er een oud bericht is
-            Bericht oud = null;
-            if (orderBerichten || (ber.getVolgordeNummer() >= 0)) {
-                //maar alleen als een mutatie wordt verwerkt
-                //indien standlevering dan volgnummer = -1
-                oud = stagingProxy.getOldBericht(ber, loadLog);
-            } else {
-                loadLog.append("Standverwerking, gegevens worden alleen toegevoegd als ze nog niet bestaan!\n");    
-            }
-            
-            // oud bericht
-            if (oud != null) {
-                loadLog.append(String.format("Eerder bericht (id: %d) voor zelfde object gevonden van datum %s, volgnummer %d,status %s op %s\n",
-                        oud.getId(),
-                        dateFormat.format(oud.getDatum()),
-                        oud.getVolgordeNummer(),
-                        oud.getStatus().toString(),
-                        dateTimeFormat.format(oud.getStatusDatum())));
-
-                if (ber.getDatum().equals(oud.getDatum()) && ber.getVolgordeNummer().equals(oud.getVolgordeNummer())) {
-                    loadLog.append("Datum en volgordenummer van nieuw bericht hetzelfde als de oude, negeer update van dit bericht!\n");
-
-                    boolean dbXmlEquals = ber.getDbXml().equals(oud.getDbXml());
-                    if (!dbXmlEquals) {
-                        String s = String.format("Bericht %d met zelfde datum en volgnummer als eerder verwerkt bericht %d heeft andere db xml! Object ref %s",
-                                ber.getId(), oud.getId(), ber.getObjectRef());
-                        log.warn(s);
-                        loadLog.append("Waarschuwing: ").append(s).append("\n");
-                    }
-                } else {
-
-                    // Check of eerder bericht toevallig niet nieuwere datum
-                    if (oud.getDatum().after(ber.getDatum())) {
-                        newStatus = Bericht.STATUS.RSGB_OUTDATED;
-                        loadLog.append("Bericht bevat oudere data dan eerder verwerkt bericht, status RSGB_OUTDATED\n");
-                    } else {
-                        StringReader oReader = new StringReader(oud.getDbXml());
-                        List<TableData> oudList = oldDbXmlReader.readDataXML(new StreamSource(oReader));
-
-                        parseNewData(oudList, newList, dateFormat.format(oud.getDatum()), loadLog);
-                        parseOldData(oudList, newList, dateFormat.format(ber.getDatum()), dateFormat.format(oud.getDatum()), loadLog);
-                    }
-                }
-            } else {
-                //TODO: werkt niet als berichten voorgeladen zijn bv via DSL
-                parseNewData(null, newList, null, loadLog);
-            }
-
-            Split commit = SimonManager.getStopwatch(simonNamePrefix + "commit").start();
-            connRsgb.commit();
-            commit.stop();
-            ber.setStatus(newStatus);
-
-            this.processed++;
-            if (listener != null) {
-                listener.progress(this.processed);
-            }
-
-        } catch (Throwable ex) {
-            log.error("Fout bij verwerking bericht met id " + ber.getId(), ex);
-            try {
-                connRsgb.rollback();
-            } catch (SQLException e) {
-                log.debug("Rollback exception", e);
-            }
-            ber.setOpmerking(loadLog.toString());
-            loadLog = null;
-            updateBerichtException(ber, ex);
-
-        } finally {
-            if (loadLog == null) {
                 loadLog = new StringBuilder(ber.getOpmerking());
             }
+            loadLog.append(String.format("%s: start verwerking %s bericht object ref %s, met id %s, berichtdatum %s\n", dateTimeFormat.format(new Date()), ber.getSoort(), ber.getObjectRef(), ber.getId(), dateFormat.format(ber.getDatum())));
 
-            loadLog.append("\n\n");
-            loadLog.append(String.format("%s: einde verwerking, duur: %4.1fs", dateTimeFormat.format(new Date()), (System.currentTimeMillis() - startTime) / 1000.0));
-            ber.setOpmerking(loadLog.toString());
+            setHerkomstMetadata(ber.getSoort());
 
-            if (updateResult) {
-                updateProcessingResult(ber);
-            }
+            long startTime = 0;
+            try {
 
-            if (recentSavepoint != null) {
-                // Set savepoint to null, as it is automatically released after commit the transaction.
-                recentSavepoint = null;
+                if (connRsgb.getAutoCommit()) {
+                    connRsgb.setAutoCommit(false);
+                }
+
+                List<TableData> newList;
+                if (pretransformedTableData != null) {
+                    loadLog.append("Bericht was al getransformeerd in pipeline\n");
+                    newList = pretransformedTableData;
+                } else {
+                    loadLog.append("Transformeren naar RSGB database-xml en lezen resultaat... ");
+                    startTime = System.currentTimeMillis();
+                    newList = transformToTableData(ber);
+                    loadLog.append(String.format("%4.1fs\n", (System.currentTimeMillis() - startTime) / 1000.0));
+                }
+                // nieuwe starttijd voor laden in RSGB
+                startTime = System.currentTimeMillis();
+
+                // per bericht kijken of er een oud bericht is
+                Bericht oud = null;
+                if (orderBerichten || (ber.getVolgordeNummer() >= 0)) {
+                //maar alleen als een mutatie wordt verwerkt
+                    //indien standlevering dan volgnummer = -1
+                    oud = stagingProxy.getOldBericht(ber, loadLog);
+                } else {
+                    loadLog.append("Standverwerking, gegevens worden alleen toegevoegd als ze nog niet bestaan!\n");
+                }
+
+                // oud bericht
+                if (oud != null) {
+                    loadLog.append(String.format("Eerder bericht (id: %d) voor zelfde object gevonden van datum %s, volgnummer %d,status %s op %s\n",
+                            oud.getId(),
+                            dateFormat.format(oud.getDatum()),
+                            oud.getVolgordeNummer(),
+                            oud.getStatus().toString(),
+                            dateTimeFormat.format(oud.getStatusDatum())));
+
+                    if (ber.getDatum().equals(oud.getDatum()) && ber.getVolgordeNummer().equals(oud.getVolgordeNummer())) {
+                        loadLog.append("Datum en volgordenummer van nieuw bericht hetzelfde als de oude, negeer update van dit bericht!\n");
+
+                        boolean dbXmlEquals = ber.getDbXml().equals(oud.getDbXml());
+                        if (!dbXmlEquals) {
+                            String s = String.format("Bericht %d met zelfde datum en volgnummer als eerder verwerkt bericht %d heeft andere db xml! Object ref %s",
+                                    ber.getId(), oud.getId(), ber.getObjectRef());
+                            log.warn(s);
+                            loadLog.append("Waarschuwing: ").append(s).append("\n");
+                        }
+                    } else {
+
+                        // Check of eerder bericht toevallig niet nieuwere datum
+                        if (oud.getDatum().after(ber.getDatum())) {
+                            newStatus = Bericht.STATUS.RSGB_OUTDATED;
+                            loadLog.append("Bericht bevat oudere data dan eerder verwerkt bericht, status RSGB_OUTDATED\n");
+                        } else {
+                            StringReader oReader = new StringReader(oud.getDbXml());
+                            List<TableData> oudList = oldDbXmlReader.readDataXML(new StreamSource(oReader));
+
+                            parseNewData(oudList, newList, dateFormat.format(oud.getDatum()), loadLog);
+                            parseOldData(oudList, newList, dateFormat.format(ber.getDatum()), dateFormat.format(oud.getDatum()), loadLog);
+                        }
+                    }
+                } else {
+                    //TODO: werkt niet als berichten voorgeladen zijn bv via DSL
+                    parseNewData(null, newList, null, loadLog);
+                }
+
+                Split commit = SimonManager.getStopwatch(simonNamePrefix + "commit").start();
+                connRsgb.commit();
+                commit.stop();
+                ber.setStatus(newStatus);
+
+                this.processed++;
+                if (listener != null) {
+                    listener.progress(this.processed);
+                }
+
+            } catch (Throwable ex) {
+                log.error("Fout bij verwerking bericht met id " + ber.getId(), ex);
+                try {
+                    connRsgb.rollback();
+                } catch (SQLException e) {
+                    log.debug("Rollback exception", e);
+                }
+                ber.setOpmerking(loadLog.toString());
+                loadLog = null;
+                updateBerichtException(ber, ex);
+
+            } finally {
+                if (loadLog == null) {
+                    loadLog = new StringBuilder(ber.getOpmerking());
+                }
+
+                loadLog.append("\n\n");
+                loadLog.append(String.format("%s: einde verwerking, duur: %4.1fs", dateTimeFormat.format(new Date()), (System.currentTimeMillis() - startTime) / 1000.0));
+                ber.setOpmerking(loadLog.toString());
+
+                if (updateResult) {
+                    updateProcessingResult(ber);
+                }
+
+                if (recentSavepoint != null) {
+                    // Set savepoint to null, as it is automatically released after commit the transaction.
+                    recentSavepoint = null;
+                }
             }
         }
     }

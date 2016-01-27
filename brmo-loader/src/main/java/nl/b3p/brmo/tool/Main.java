@@ -42,8 +42,8 @@ public class Main {
     private static final String BAG_BR_TYPE = "bag";
     private static final String BRK_BR_TYPE = "brk";
 
-    private static final String xslPathBrk = "/xsl/brk-snapshot-to-rsgb-xml-v4.xsl";
-    private static final String xslPathBag = "/xsl/bag-snapshot-to-rsgb-xml-v1.xsl";
+    private static final String xslPathBrk = "/xsl/brk-snapshot-to-rsgb-xml.xsl";
+    private static final String xslPathBag = "/xsl/bag-mutatie-to-rsgb-xml.xsl";
 
     private static List<Option> stagingDbOpts;
     private static List<Option> modeOpts;
@@ -146,7 +146,7 @@ public class Main {
         final int W = 100;
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
-        formatter.printUsage(pw, 80, "java -jar brmo-tool.jar <mode> <staging-db-opties> <out-db-opties>");
+        formatter.printUsage(pw, 80, "java -jar brmo-loader.jar <mode> <staging-db-opties> <out-db-opties>");
         pw.print("\nModes:\n");
         formatter.printOptions(pw, W, modeOptions, 2, 2);
         pw.print("\nStaging database gegevens:\n");
