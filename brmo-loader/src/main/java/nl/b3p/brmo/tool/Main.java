@@ -59,7 +59,7 @@ public class Main {
             .hasArg(true)
             .isRequired()
             .create("stagingurl"),
-            OptionBuilder.withDescription("JDBC property Staging database, bijv. user=<user> en password=<password> (herhaal optie voor meerdere properties)")
+            OptionBuilder.withDescription("JDBC property Staging database, bijv. user=<user> en password=<password> (herhaal optie, inclusief stagingprop, voor meerdere properties)")
             .withArgName("property=value")
             .hasArgs()
             .isRequired()
@@ -92,7 +92,7 @@ public class Main {
             .withArgName("url")
             .hasArg(true)
             .create("outdburl"),
-            OptionBuilder.withDescription("JDBC property output-database, bijv. user=<user> en password=<password> (herhaal optie voor meerdere properties)")
+            OptionBuilder.withDescription("JDBC property output-database, bijv. user=<user> en password=<password> (herhaal optie, inclusief outdbprop, voor meerdere properties)")
             .withArgName("property=value")
             .hasArgs()
             .withValueSeparator('=')
@@ -147,6 +147,7 @@ public class Main {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         formatter.printUsage(pw, 80, "java -jar brmo-loader.jar <mode> <staging-db-opties> <out-db-opties>");
+        formatter.printUsage(pw, 80, "java -cp \"brmo-loader.jar;databaseDriver.jar;lib/*\" nl.b3p.brmo.tool.Main <mode> <staging-db-opties> <out-db-opties>");
         pw.print("\nModes:\n");
         formatter.printOptions(pw, W, modeOptions, 2, 2);
         pw.print("\nStaging database gegevens:\n");
