@@ -597,15 +597,12 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
                     boolean existsInOldList = doesRowExist(row, pkColumns, oldList);
                     split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.rowexistsindb").start();
-                    boolean doInsert = !existsInOldList;
-                    if (!doInsert) {
-                        // er kan een record bestaan zonder dat er
-                        // een oud bericht aan ten grondslag ligt.
-                        // dan maar update maar zonder historie vastlegging.
-                        // oud record kan niet worden terugherleid.
-                        //TODO: dure check, kan het anders?
-                        doInsert = !rowExistsInDb(row, loadLog);
-                    }
+                    // er kan een record bestaan zonder dat er
+                    // een oud bericht aan ten grondslag ligt.
+                    // dan maar update maar zonder historie vastlegging.
+                    // oud record kan niet worden terugherleid.
+                    //TODO: dure check, kan het anders?
+                    boolean doInsert = !rowExistsInDb(row, loadLog);
                     split2.stop();
 
                     // insert hoofdtabel
