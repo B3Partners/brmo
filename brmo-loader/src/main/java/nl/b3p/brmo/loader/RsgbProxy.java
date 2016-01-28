@@ -207,31 +207,44 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
     }
     
+    private final Object LOCK = new Object();
+    private final Map<String, PreparedStatement> checkRowExistsStatements = new HashMap();
+    private final Map<String, PreparedStatement> insertSqlPreparedStatements = new HashMap();
+    private final Map<String, PreparedStatement> updateSqlPreparedStatements = new HashMap();
+    private PreparedStatement insertMetadataStatement;
+
+    private PreparedStatement checkAndGetPreparedStatement(Map<String, PreparedStatement> m, String name) throws SQLException {
+        PreparedStatement stm = m.get(name);
+        if (stm == null || stm.isClosed()) {
+            return null;
+        }
+        return stm;
+    }
+    
     public void close() {
         for (PreparedStatement stmt : checkRowExistsStatements.values()) {
             DbUtils.closeQuietly(stmt);
         }
-        checkRowExistsStatements.clear();
         for (PreparedStatement stmt : insertSqlPreparedStatements.values()) {
             DbUtils.closeQuietly(stmt);
         }
-        insertSqlPreparedStatements.clear();
         for (PreparedStatement stmt : updateSqlPreparedStatements.values()) {
             DbUtils.closeQuietly(stmt);
         }
-        updateSqlPreparedStatements.clear();
         if (insertMetadataStatement != null) {
             DbUtils.closeQuietly(insertMetadataStatement);
         }
-        insertMetadataStatement = null;
         DbUtils.closeQuietly(connRsgb);
     }
 
     @Override
     public void renewConnection() throws SQLException {
-        synchronized (connRsgb) {
-            close();
-            init();
+        //TODO synchronized werkt niet optimaal
+        synchronized (LOCK) {
+            synchronized (connRsgb) {
+                DbUtils.closeQuietly(connRsgb);
+                init();
+            }
         }
     }
 
@@ -248,8 +261,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
             // Do the work by querying all berichten, berichten are passed to
             // handle() method
-            stagingProxy.handleBerichtenByJob(jobId, total, this, enablePipeline, pipelineCapacity, orderBerichten);
-
+            if (total!=0) { // -1 betekent obnbekend
+                stagingProxy.handleBerichtenByJob(jobId, total, this, enablePipeline, pipelineCapacity, orderBerichten);
+            }
         } catch (Exception e) {
             // user is informed via status in database
             log.error("Fout tijdens verwerken berichten", e);
@@ -265,11 +279,18 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     /**
      * Zet alle te verwerken berichten op WAITING.
      */
-    private long setWaitingStatus() throws SQLException {
+    private long setWaitingStatus() throws SQLException, BrmoException {
 
+        String waitingJobId = stagingProxy.getWaitingJobId();
+        if (waitingJobId != null 
+                && !mode.equals(BerichtSelectMode.RETRY_WAITING)) {
+            throw new BrmoException("Vorige transformatie is afgebroken,"
+                    + " verwerk eerst de RSGB_WAITING berichten!");
+        }
+        
         switch (mode) {
             case BY_STATUS:
-                return stagingProxy.setBerichtenJobByStatus(status, jobId);
+                 return stagingProxy.setBerichtenJobByStatus(status, jobId);
             case BY_IDS:
                 return stagingProxy.setBerichtenJobByIds(berichtIds, jobId);
             case BY_LAADPROCES:
@@ -277,7 +298,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             case FOR_UPDATE:
                 return stagingProxy.setBerichtenJobForUpdate(jobId, updateProcess.getSoort());
             case RETRY_WAITING:
-                jobId = stagingProxy.getWaitingJobId();
+                jobId = waitingJobId;
                 stagingProxy.setBerichtenJobByStatus(Bericht.STATUS.RSGB_PROCESSING, jobId);
                 return stagingProxy.getBerichtenCountByJob(jobId);
             default:
@@ -304,17 +325,14 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             return transformUpdateTableData(ber);
         }
 
-        RsgbTransformer transformer;
+        StringBuilder loadLog = new StringBuilder();
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        
         try {
-            transformer = getTransformer(ber.getSoort());
-        } catch (Exception e) {
-            throw new BrmoException("Fout bij laden " + ber.getSoort() + " XSL stylesheet", e);
-        }
-        try {
-            StringBuilder loadLog = new StringBuilder();
-            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             loadLog.append(String.format("%s: transformeren %s bericht object ref %s, met id %s, berichtdatum %s\n", dateTimeFormat.format(new Date()), ber.getSoort(), ber.getObjectRef(), ber.getId(), dateFormat.format(ber.getDatum())));
+
+            RsgbTransformer transformer = getTransformer(ber.getSoort());
 
             long startTime = System.currentTimeMillis();
             stagingProxy.updateBerichtenDbXml(Collections.singletonList(ber), transformer);
@@ -328,8 +346,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             ber.setOpmerking(loadLog.toString());
             return data;
         } catch (Exception e) {
-            updateBerichtException(ber, e);
-            updateProcessingResult(ber);
+            try {
+                updateBerichtException(ber, e);
+            } finally {
+                updateProcessingResult(ber);
+            }
             return null;
         }
     }
@@ -356,11 +377,15 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
     }
 
-    public void updateBerichtException(Bericht ber, Throwable e) {
+    public void updateBerichtException(Bericht ber, Throwable e) throws BrmoException {
         ber.setStatus(Bericht.STATUS.RSGB_NOK);
         StringWriter sw = new StringWriter();
         e.printStackTrace(new PrintWriter(sw, true));
         ber.setOpmerking(ber.getOpmerking() + "\nFout: " + sw.toString());
+        if (orderBerichten) {
+            // volgorde belangrijk dus stoppen
+            throw new BrmoException("Mutatieverwerking en foutief bericht, dus stoppen!");
+        }
     }
 
     @Override
@@ -378,6 +403,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     @Override
     public void handle(Bericht ber, List<TableData> pretransformedTableData, boolean updateResult) throws BrmoException {
         // lock on connection, omdat parent loop periodiek connectie wil verversen.
+        synchronized (LOCK) {
         synchronized (connRsgb) {
 
             if (updateProcess != null) {
@@ -425,11 +451,14 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
                 // per bericht kijken of er een oud bericht is
                 Bericht oud = null;
-                if (orderBerichten || (ber.getVolgordeNummer() >= 0)) {
-                //maar alleen als een mutatie wordt verwerkt
-                    //indien standlevering dan volgnummer = -1
+                if (orderBerichten) {
                     oud = stagingProxy.getOldBericht(ber, loadLog);
                 } else {
+                    //als geen orderberichten dan wordt stand ingelezen
+                    //en indien volgordenummer >=0 (geen stand) dan afbreken
+                    if (ber.getVolgordeNummer() >= 0) {
+                        throw new BrmoException("Standverwerking, maar bericht is mutatie: niet verwerken!");
+                    }
                     loadLog.append("Standverwerking, gegevens worden alleen toegevoegd als ze nog niet bestaan!\n");
                 }
 
@@ -491,7 +520,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 ber.setOpmerking(loadLog.toString());
                 loadLog = null;
                 updateBerichtException(ber, ex);
-
+ 
             } finally {
                 if (loadLog == null) {
                     loadLog = new StringBuilder(ber.getOpmerking());
@@ -510,6 +539,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                     recentSavepoint = null;
                 }
             }
+        }
         }
     }
 
@@ -862,8 +892,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return found;
     }
 
-    private final Map<String, PreparedStatement> insertSqlPreparedStatements = new HashMap();
-
     private void createInsertSql(TableRow row, boolean useArchiveTable, StringBuilder loadLog) throws SQLException, ParseException {
 
         StringBuilder sql = new StringBuilder("insert into ");
@@ -956,8 +984,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             sql.append(")");
         }
 
-        PreparedStatement stm = insertSqlPreparedStatements.get(sql.toString());
-        if (stm == null || stm.isClosed()) {
+        PreparedStatement stm = checkAndGetPreparedStatement(insertSqlPreparedStatements, sql.toString());
+        if (stm == null) {
             SimonManager.getCounter("b3p.rsgb.insertsql.preparestatement").increase();
             stm = connRsgb.prepareStatement(sql.toString());
             insertSqlPreparedStatements.put(sql.toString(), stm);
@@ -993,8 +1021,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         loadLog.append("\nAantal toegevoegde records: " + count);
     }
-
-    private final Map<String, PreparedStatement> updateSqlPreparedStatements = new HashMap();
 
     private void createUpdateSql(TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
         //doSavePoint(row);
@@ -1063,8 +1089,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             params.add(obj);
         }
 
-        PreparedStatement stm = updateSqlPreparedStatements.get(sql.toString());
-        if (stm == null || stm.isClosed()) {
+        PreparedStatement stm = checkAndGetPreparedStatement(updateSqlPreparedStatements, sql.toString());
+        if (stm == null) {
             SimonManager.getCounter("b3p.rsgb.updatesql.preparestatement").increase();
             stm = connRsgb.prepareStatement(sql.toString());
             updateSqlPreparedStatements.put(sql.toString(), stm);
@@ -1087,12 +1113,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         loadLog.append("\nAantal record updates: " + count);
     }
 
-    private PreparedStatement insertMetadataStatement;
-
     /* Columns id, tabel, kolom, waarde, herkomst_br, datum (toestandsdatum) */
     private boolean createInsertMetadataSql(String tabel, String kolom, String waarde, String datum, StringBuilder loadLog) throws SQLException, ParseException {
 
-        if (insertMetadataStatement == null) {
+        if (insertMetadataStatement == null || insertMetadataStatement.isClosed()) {
             StringBuilder sql = new StringBuilder("insert into herkomst_metadata (tabel, kolom, waarde, herkomst_br, datum) ")
                     .append("select ?, ?, ?, ?, ? ")
                     .append(geomToJdbc instanceof OracleJdbcConverter ? "from dual" : "")
@@ -1131,8 +1155,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return count > 0;
     }
 
-    private final Map<String, PreparedStatement> checkRowExistsStatements = new HashMap();
-
     private boolean rowExistsInDb(TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
 
         String tableName = row.getTable();
@@ -1147,7 +1169,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         loadLog.append("\nControleer ").append(tableName).append(" op primary key: ").append(params.toString());
 
-        PreparedStatement stm = checkRowExistsStatements.get(tableName);
+        PreparedStatement stm = checkAndGetPreparedStatement(checkRowExistsStatements, tableName);
 
         if (stm == null) {
             StringBuilder sql = new StringBuilder("select 1 from ")
@@ -1208,7 +1230,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         loadLog.append("\nControleer ").append(tableName).append(" op primary key: ").append(params.toString());
 
-        PreparedStatement stm = checkRowExistsStatements.get(tableName);
+        PreparedStatement stm = checkAndGetPreparedStatement(checkRowExistsStatements, tableName);
 
         if (stm == null) {
             StringBuilder sql = new StringBuilder("select * from ")

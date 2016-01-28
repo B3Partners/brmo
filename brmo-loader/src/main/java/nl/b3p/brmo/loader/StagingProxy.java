@@ -169,7 +169,9 @@ public class StagingProxy {
         ResultSetHandler<List<Bericht>> h
                 = new BeanListHandler(Bericht.class, new StagingRowHandler());
 
-        String sql = "select * from " + BrmoFramework.BERICHT_TABLE + " where status = 'RSGB_WAITING' ";
+        String sql = "select * from " + BrmoFramework.BERICHT_TABLE 
+                + " where status = 'RSGB_WAITING' "
+                + " or status = 'RSGB_PROCESSING' ";
         sql = geomToJdbc.buildPaginationSql(sql, 0, 1);
         berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),sql, h);
 
@@ -224,7 +226,8 @@ public class StagingProxy {
             return -1l;
         } else {
             Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
-                    "select count(*) from " + BrmoFramework.BERICHT_TABLE + " where job_id = ?",
+                    "select count(*) from " + BrmoFramework.BERICHT_TABLE 
+                            + " where job_id = ? and status = 'RSGB_WAITING'",
                     new ScalarHandler(),
                     jobId);
 

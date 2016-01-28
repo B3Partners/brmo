@@ -22,6 +22,7 @@ public abstract class BerichtPipelineThread extends Thread {
 
     private boolean stopWhenQueueEmpty = false;
     private boolean abort = false;
+    private Exception qe = null; 
 
     public BerichtPipelineThread(BerichtenHandler handler, int capacity, String stopwatchPrefix) {
         log = LogFactory.getLog(this.getClass());
@@ -38,7 +39,10 @@ public abstract class BerichtPipelineThread extends Thread {
         this.abort = true;
     }
 
-    public BlockingQueue<BerichtWorkUnit> getQueue() {
+    public BlockingQueue<BerichtWorkUnit> getQueue() throws Exception {
+        if (qe!=null) {
+            throw qe;
+        }
         return queue;
     }
 
@@ -82,6 +86,7 @@ public abstract class BerichtPipelineThread extends Thread {
             try {
                 work(workUnit);
             } catch(Exception e) {
+                qe=e;
                 // Do not log stacktrace, in database bericht.opmerking
                 log.error("work method threw exception (continuing): " + e.getClass() + ": " + e.getMessage());
             }

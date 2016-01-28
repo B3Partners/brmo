@@ -46,7 +46,7 @@ Ext.define('B3P.brmo.Berichten', {
                         },
                         editor: {
                             xtype: 'combobox',
-                            store: ['STAGING_OK']
+                            store: ['STAGING_OK', 'RSGB_WAITING']
                         },
                         flex: 2
                     },{

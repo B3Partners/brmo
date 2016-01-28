@@ -72,10 +72,11 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
     }
 
     public void exception(Throwable t) {
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-        t.printStackTrace(new PrintWriter(sw));
-        this.exceptionStacktrace = sw.toString();
+//        StringWriter sw = new StringWriter();
+//        PrintWriter pw = new PrintWriter(sw);
+//        t.printStackTrace(new PrintWriter(sw));
+//        this.exceptionStacktrace = sw.toString();
+        this.exceptionStacktrace=t.getLocalizedMessage();
     }
 
     private Resolution doTransform(RsgbProxy.BerichtSelectMode mode, boolean orderBerichten) {
