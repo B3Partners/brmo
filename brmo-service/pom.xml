@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo-service</artifactId>
-    <version>1.2.14-SNAPSHOT</version>
+    <version>1.3.0</version>
     <packaging>war</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
-        <version>1.2.14-SNAPSHOT</version>
+        <version>1.3.0</version>
     </parent>
     <name>brmo-service</name>
     <properties>
@@ -239,7 +239,7 @@
                             <!-- Note: dit bestand wordt neergezet tijdens 'test' phase. 
                             Om Tomcat standalone te draaien gebruik je
                             'mvn clean test tomcat7:run -Ptravis-ci' -->
-                            <contextFile>${project.build.directory}/test-classes/testcontext.xml</contextFile>-->
+                            <contextFile>${project.build.directory}/test-classes/testcontext.xml</contextFile>--&gt;
                         </configuration>
                         <executions>
                             <execution>
@@ -280,7 +280,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration></configuration>
+                        <configuration />
                     </plugin>
                 </plugins>
             </build>
