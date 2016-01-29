@@ -298,11 +298,14 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             case FOR_UPDATE:
                 return stagingProxy.setBerichtenJobForUpdate(jobId, updateProcess.getSoort());
             case RETRY_WAITING:
-                jobId = waitingJobId;
-                stagingProxy.setBerichtenJobByStatus(Bericht.STATUS.RSGB_PROCESSING, jobId);
-                return stagingProxy.getBerichtenCountByJob(jobId);
+                if (waitingJobId != null) {
+                    return stagingProxy.setBerichtenJobByWaitingJobId(jobId, waitingJobId);
+                } else {
+                    throw new BrmoException("Geen geschikte afgebroken transformatie gevonden,"
+                        + " transformatie kan niet herstart worden!");
+                }
             default:
-                return -1l;
+                return 0l;
         }
     }
 
@@ -472,14 +475,19 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                             dateTimeFormat.format(oud.getStatusDatum())));
 
                     if (ber.getDatum().equals(oud.getDatum()) && ber.getVolgordeNummer().equals(oud.getVolgordeNummer())) {
-                        loadLog.append("Datum en volgordenummer van nieuw bericht hetzelfde als de oude, negeer update van dit bericht!\n");
-
-                        boolean dbXmlEquals = ber.getDbXml().equals(oud.getDbXml());
-                        if (!dbXmlEquals) {
-                            String s = String.format("Bericht %d met zelfde datum en volgnummer als eerder verwerkt bericht %d heeft andere db xml! Object ref %s",
-                                    ber.getId(), oud.getId(), ber.getObjectRef());
-                            log.warn(s);
-                            loadLog.append("Waarschuwing: ").append(s).append("\n");
+                        if (ber.getId() == oud.getId()) {
+                            //dit kan voorkomen bij herstart van job terwijl bericht nog in pipeline van andere job zat
+                            //niets doen, log overnemen.
+                            loadLog.append(ber.getOpmerking());
+                        } else {
+                            loadLog.append("Datum en volgordenummer van nieuw bericht hetzelfde als de oude, negeer dit bericht!\n");
+                            boolean dbXmlEquals = ber.getDbXml().equals(oud.getDbXml());
+                            if (!dbXmlEquals) {
+                                String s = String.format("Bericht %d met zelfde datum en volgnummer als eerder verwerkt bericht %d heeft andere db xml! Object ref %s",
+                                        ber.getId(), oud.getId(), ber.getObjectRef());
+                                log.warn(s);
+                                loadLog.append("Waarschuwing: ").append(s).append("\n");
+                            }
                         }
                     } else {
 

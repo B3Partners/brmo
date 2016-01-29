@@ -171,7 +171,8 @@ public class StagingProxy {
 
         String sql = "select * from " + BrmoFramework.BERICHT_TABLE 
                 + " where status = 'RSGB_WAITING' "
-                + " or status = 'RSGB_PROCESSING' ";
+                + " or status = 'RSGB_PROCESSING' "
+                + " order by job_id ";
         sql = geomToJdbc.buildPaginationSql(sql, 0, 1);
         berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),sql, h);
 
@@ -181,6 +182,14 @@ public class StagingProxy {
         }
         
         return null;
+    }
+
+    public long setBerichtenJobByWaitingJobId(String jobId, String waitingJobId) throws SQLException {
+        return new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), 
+                "update " + BrmoFramework.BERICHT_TABLE + " set status = ?, job_id = ?"
+                        + " where job_id = ?"
+                        + " and (status = 'RSGB_WAITING' or status = 'RSGB_PROCESSING') ",
+                Bericht.STATUS.RSGB_WAITING.toString(), jobId, waitingJobId);
     }
 
     public long setBerichtenJobByStatus(Bericht.STATUS status, String jobId) throws SQLException {
@@ -218,27 +227,27 @@ public class StagingProxy {
         return new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), q.toString(), Bericht.STATUS.RSGB_WAITING.toString(), jobId, Bericht.STATUS.STAGING_OK.toString());
     }
 
-    public long getBerichtenCountByJob(String jobId) throws SQLException {
-        //Deze query wordt alleen aangeroepen bij een herstel-run op WAITING berichten
-        //normaal wordt het aantal bepaald via de return value van het update-script 
-        //voor postgresql is dit zo traag dat we -1 terug geven, dan geen voortgang indicatie
-        if (geomToJdbc instanceof PostgisJdbcConverter) {
-            return -1l;
-        } else {
-            Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
-                    "select count(*) from " + BrmoFramework.BERICHT_TABLE 
-                            + " where job_id = ? and status = 'RSGB_WAITING'",
-                    new ScalarHandler(),
-                    jobId);
-
-            if (o instanceof BigDecimal) {
-                return ((BigDecimal) o).longValue();
-            } else if (o instanceof Integer) {
-                return ((Integer) o).longValue();
-            }
-            return (Long) o;
-        }
-    }
+//    public long getBerichtenCountByJob(String jobId) throws SQLException {
+//        //Deze query wordt alleen aangeroepen bij een herstel-run op WAITING berichten
+//        //normaal wordt het aantal bepaald via de return value van het update-script 
+//        //voor postgresql is dit zo traag dat we -1 terug geven, dan geen voortgang indicatie
+//        if (geomToJdbc instanceof PostgisJdbcConverter) {
+//            return -1l;
+//        } else {
+//            Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
+//                    "select count(*) from " + BrmoFramework.BERICHT_TABLE 
+//                            + " where job_id = ? and status = 'RSGB_WAITING'",
+//                    new ScalarHandler(),
+//                    jobId);
+//
+//            if (o instanceof BigDecimal) {
+//                return ((BigDecimal) o).longValue();
+//            } else if (o instanceof Integer) {
+//                return ((Integer) o).longValue();
+//            }
+//            return (Long) o;
+//        }
+//    }
 
     public void handleBerichtenByJob(final String jobId, long total, final BerichtenHandler handler, final boolean enablePipeline, int transformPipelineCapacity, boolean orderBerichten) throws Exception {
         Split split = SimonManager.getStopwatch("b3p.rsgb.job").start();
