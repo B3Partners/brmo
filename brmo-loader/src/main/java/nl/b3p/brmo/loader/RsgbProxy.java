@@ -239,7 +239,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     @Override
     public void renewConnection() throws SQLException {
-        //TODO synchronized werkt niet optimaal
+        //TODO check of dit echt werkt zoals bedoeld
         synchronized (LOCK) {
             synchronized (connRsgb) {
                 DbUtils.closeQuietly(connRsgb);
@@ -261,7 +261,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
             // Do the work by querying all berichten, berichten are passed to
             // handle() method
-            if (total!=0) { // -1 betekent obnbekend
+            if (total!=0) { // -1 betekent onbekend
                 stagingProxy.handleBerichtenByJob(jobId, total, this, enablePipeline, pipelineCapacity, orderBerichten);
             }
         } catch (Exception e) {

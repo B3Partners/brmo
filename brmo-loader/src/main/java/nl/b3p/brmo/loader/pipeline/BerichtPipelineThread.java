@@ -87,6 +87,7 @@ public abstract class BerichtPipelineThread extends Thread {
                 work(workUnit);
             } catch(Exception e) {
                 qe=e;
+                abort = true;
                 // Do not log stacktrace, in database bericht.opmerking
                 log.error("work method threw exception (continuing): " + e.getClass() + ": " + e.getMessage());
             }
