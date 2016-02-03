@@ -218,9 +218,26 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         if (stm == null || stm.isClosed()) {
             return null;
         }
+        stm.clearParameters();
         return stm;
     }
     
+    public void checkAndCloseStatement(PreparedStatement stmt) {
+        if (geomToJdbc instanceof OracleJdbcConverter) {
+            DbUtils.closeQuietly(stmt);
+            return;
+        }
+        // do not close now, but later in batch
+    }
+    
+    public void checkAndAddStatement(Map<String, PreparedStatement> m, String tableName, PreparedStatement stmt) {
+        if (geomToJdbc instanceof OracleJdbcConverter) {
+            // do never add
+            return;
+        }
+        m.put(tableName, stmt);
+    }
+
     public void close() {
         for (PreparedStatement stmt : checkRowExistsStatements.values()) {
             DbUtils.closeQuietly(stmt);
@@ -996,10 +1013,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         if (stm == null) {
             SimonManager.getCounter("b3p.rsgb.insertsql.preparestatement").increase();
             stm = connRsgb.prepareStatement(sql.toString());
-            insertSqlPreparedStatements.put(sql.toString(), stm);
+            checkAndAddStatement(insertSqlPreparedStatements, sql.toString(), stm);
         } else {
             SimonManager.getCounter("b3p.rsgb.insertsql.reusestatement").increase();
-            stm.clearParameters();
         }
         loadLog.append("\nSQL: ");
         loadLog.append(sql);
@@ -1025,6 +1041,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             } else {
                 throw e;
             }
+        } finally {
+            checkAndCloseStatement(stm);
         }
 
         loadLog.append("\nAantal toegevoegde records: " + count);
@@ -1101,10 +1119,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         if (stm == null) {
             SimonManager.getCounter("b3p.rsgb.updatesql.preparestatement").increase();
             stm = connRsgb.prepareStatement(sql.toString());
-            updateSqlPreparedStatements.put(sql.toString(), stm);
+            checkAndAddStatement(updateSqlPreparedStatements, sql.toString(), stm);
         } else {
             SimonManager.getCounter("b3p.rsgb.updatesql.reusestatement").increase();
-            stm.clearParameters();
         }
         loadLog.append("\nSQL: ");
         loadLog.append(sql);
@@ -1117,8 +1134,13 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             stm.setObject(i + 1, param);
         }
 
-        int count = stm.executeUpdate();
-        loadLog.append("\nAantal record updates: " + count);
+        int count = -1;
+        try {
+            count = stm.executeUpdate();
+        } finally {
+            loadLog.append("\nAantal record updates: " + count);
+            checkAndCloseStatement(stm);
+        }
     }
 
     /* Columns id, tabel, kolom, waarde, herkomst_br, datum (toestandsdatum) */
@@ -1194,18 +1216,23 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
 
             stm = connRsgb.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            checkRowExistsStatements.put(tableName, stm);
-        } else {
-            stm.clearParameters();
+            checkAndAddStatement(checkRowExistsStatements, tableName, stm);
         }
 
         int i = 1;
         for (Object p : params) {
             stm.setObject(i++, p);
         }
-        ResultSet rs = stm.executeQuery();
-        boolean exists = rs.next();
-        rs.close();
+        
+        ResultSet rs = null;
+        boolean exists = false;
+        try {
+            rs = stm.executeQuery();
+            exists = rs.next();
+        } finally {
+            rs.close();
+            checkAndCloseStatement(stm);
+        }
         loadLog.append(", rij bestaat: ").append(exists ? "ja" : "nee");
 
         return exists;
@@ -1255,27 +1282,32 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
 
             stm = connRsgb.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            checkRowExistsStatements.put(tableName, stm);
-        } else {
-            stm.clearParameters();
+            checkAndAddStatement(checkRowExistsStatements, tableName, stm);        
         }
 
         int i = 1;
         for (Object p : params) {
             stm.setObject(i++, p);
         }
-        ResultSet rs = stm.executeQuery();
-        boolean exists = rs.next();
+        ResultSet rs = null;
+        boolean exists = false;
         TableRow existing = null;
-        if (exists) {
-            existing = new TableRow();
-            existing.setTable(tableName);
-            for (ColumnMetadata columnMd : getTableColumnMetadata(row.getTable())) {
-                existing.getColumns().add(columnMd.getName());
-                existing.getValues().add(getValueAsString(columnMd, rs.getObject(columnMd.getName())));
+        try {
+            rs = stm.executeQuery();
+            exists = rs.next();
+            if (exists) {
+                existing = new TableRow();
+                existing.setTable(tableName);
+                for (ColumnMetadata columnMd : getTableColumnMetadata(row.getTable())) {
+                    existing.getColumns().add(columnMd.getName());
+                    existing.getValues().add(getValueAsString(columnMd, rs.getObject(columnMd.getName())));
+                }
             }
+        } finally {
+            if (rs!=null) rs.close();
+            checkAndCloseStatement(stm);
         }
-        rs.close();
+        
         loadLog.append(", rij bestaat: ").append(exists ? "ja" : "nee");
 
         return existing;

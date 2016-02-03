@@ -261,7 +261,7 @@ public class StagingProxy {
             processDbXmlPipeline.start();
         }
         int offset = 0;
-        int batch = 250;
+        int batch = 150;
         boolean noTotal = (total < 0);
         final MutableInt processed = new MutableInt(0);
         final boolean doOrderBerichten = orderBerichten;
