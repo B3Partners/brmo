@@ -330,10 +330,10 @@ public class StagingProxy {
                 }
                 
                 // TODO onderzoeken waarom dit soms nodig is
-                if (geomToJdbc instanceof OracleJdbcConverter) {
-                    log.debug("Vernieuwen van verbinding om cursors in Oracle vrij te geven!");
-                    handler.renewConnection();
-                }
+//                if (geomToJdbc instanceof OracleJdbcConverter) {
+//                    log.debug("Vernieuwen van verbinding om cursors in Oracle vrij te geven!");
+//                    handler.renewConnection();
+//                }
                 
             } while(processed.intValue() > 0 && (offset < total || noTotal));
             if(offset < total && !noTotal) {

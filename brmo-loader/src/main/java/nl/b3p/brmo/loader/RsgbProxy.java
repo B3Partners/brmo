@@ -23,6 +23,8 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TimeZone;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sql.DataSource;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
@@ -32,6 +34,7 @@ import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.jdbc.ColumnMetadata;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
+import nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper;
 import nl.b3p.brmo.loader.jdbc.OracleJdbcConverter;
 import nl.b3p.brmo.loader.updates.UpdateProcess;
 import nl.b3p.brmo.loader.util.BrmoException;
@@ -39,6 +42,7 @@ import nl.b3p.brmo.loader.util.DataComfortXMLReader;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.TableData;
 import nl.b3p.brmo.loader.util.TableRow;
+import oracle.jdbc.OracleConnection;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -242,16 +246,31 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         for (PreparedStatement stmt : checkRowExistsStatements.values()) {
             DbUtils.closeQuietly(stmt);
         }
+        checkRowExistsStatements.clear();
         for (PreparedStatement stmt : insertSqlPreparedStatements.values()) {
             DbUtils.closeQuietly(stmt);
         }
+        insertSqlPreparedStatements.clear();
         for (PreparedStatement stmt : updateSqlPreparedStatements.values()) {
             DbUtils.closeQuietly(stmt);
         }
+        updateSqlPreparedStatements.clear();
         if (insertMetadataStatement != null) {
             DbUtils.closeQuietly(insertMetadataStatement);
         }
-        DbUtils.closeQuietly(connRsgb);
+        insertMetadataStatement = null;
+
+        if (geomToJdbc instanceof OracleJdbcConverter) {
+            try {
+                OracleConnection oc = OracleConnectionUnwrapper.unwrap(connRsgb);
+                oc.close(OracleConnection.INVALID_CONNECTION);
+            } catch (SQLException ex) {
+                // quiet
+            }
+        } else {
+            DbUtils.closeQuietly(connRsgb);
+        }
+        connRsgb = null;
     }
 
     @Override
@@ -259,7 +278,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         //TODO check of dit echt werkt zoals bedoeld
         synchronized (LOCK) {
             synchronized (connRsgb) {
-                DbUtils.closeQuietly(connRsgb);
+                close();
                 init();
             }
         }
@@ -418,6 +437,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     @Override
     public void handle(Bericht ber, List<TableData> pretransformedTableData, boolean updateResult) throws BrmoException {
         if (geomToJdbc instanceof OracleJdbcConverter) {
+            // too many cursors
             try {
                 renewConnection();
             } catch (Exception e) {
