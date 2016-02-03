@@ -1,8 +1,6 @@
 
 package nl.b3p.brmo.service.stripes;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.Date;
 import javax.sql.DataSource;
 import net.sourceforge.stripes.action.ActionBean;

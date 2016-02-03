@@ -171,8 +171,7 @@ public class StagingProxy {
 
         String sql = "select * from " + BrmoFramework.BERICHT_TABLE 
                 + " where status = 'RSGB_WAITING' "
-                + " or status = 'RSGB_PROCESSING' "
-                + " order by job_id ";
+                + " or status = 'RSGB_PROCESSING' ";
         sql = geomToJdbc.buildPaginationSql(sql, 0, 1);
         berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),sql, h);
 
@@ -184,12 +183,11 @@ public class StagingProxy {
         return null;
     }
 
-    public long setBerichtenJobByWaitingJobId(String jobId, String waitingJobId) throws SQLException {
+    public long setBerichtenJobByResetJobId(String jobId) throws SQLException {
         return new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), 
                 "update " + BrmoFramework.BERICHT_TABLE + " set status = ?, job_id = ?"
-                        + " where job_id = ?"
                         + " and (status = 'RSGB_WAITING' or status = 'RSGB_PROCESSING') ",
-                Bericht.STATUS.RSGB_WAITING.toString(), jobId, waitingJobId);
+                Bericht.STATUS.RSGB_WAITING.toString(), jobId);
     }
 
     public long setBerichtenJobByStatus(Bericht.STATUS status, String jobId) throws SQLException {

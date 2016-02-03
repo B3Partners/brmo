@@ -315,12 +315,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             case FOR_UPDATE:
                 return stagingProxy.setBerichtenJobForUpdate(jobId, updateProcess.getSoort());
             case RETRY_WAITING:
-                if (waitingJobId != null) {
-                    return stagingProxy.setBerichtenJobByWaitingJobId(jobId, waitingJobId);
-                } else {
-                    throw new BrmoException("Geen geschikte afgebroken transformatie gevonden,"
-                        + " transformatie kan niet herstart worden!");
-                }
+                return stagingProxy.setBerichtenJobByResetJobId(jobId);
             default:
                 return 0l;
         }
