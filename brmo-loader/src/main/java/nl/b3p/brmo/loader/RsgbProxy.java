@@ -417,6 +417,13 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     @Override
     public void handle(Bericht ber, List<TableData> pretransformedTableData, boolean updateResult) throws BrmoException {
+        if (geomToJdbc instanceof OracleJdbcConverter) {
+            try {
+                renewConnection();
+            } catch (Exception e) {
+                throw new BrmoException("Renew connection failed", e);
+            }
+        }
         // lock on connection, omdat parent loop periodiek connectie wil verversen.
         synchronized (LOCK) {
         synchronized (connRsgb) {
