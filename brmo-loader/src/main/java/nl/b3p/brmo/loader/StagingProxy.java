@@ -186,7 +186,7 @@ public class StagingProxy {
     public long setBerichtenJobByResetJobId(String jobId) throws SQLException {
         return new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), 
                 "update " + BrmoFramework.BERICHT_TABLE + " set status = ?, job_id = ?"
-                        + " and (status = 'RSGB_WAITING' or status = 'RSGB_PROCESSING') ",
+                        + " where (status = 'RSGB_WAITING' or status = 'RSGB_PROCESSING') ",
                 Bericht.STATUS.RSGB_WAITING.toString(), jobId);
     }
 
