@@ -227,18 +227,18 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     }
     
     public void checkAndCloseStatement(PreparedStatement stmt) {
-        if (geomToJdbc instanceof OracleJdbcConverter) {
-            DbUtils.closeQuietly(stmt);
-            return;
-        }
+//        if (geomToJdbc instanceof OracleJdbcConverter) {
+//            DbUtils.closeQuietly(stmt);
+//            return;
+//        }
         // do not close now, but later in batch
     }
     
     public void checkAndAddStatement(Map<String, PreparedStatement> m, String tableName, PreparedStatement stmt) {
-        if (geomToJdbc instanceof OracleJdbcConverter) {
-            // do never add
-            return;
-        }
+//        if (geomToJdbc instanceof OracleJdbcConverter) {
+//            // do never add
+//            return;
+//        }
         m.put(tableName, stmt);
     }
 
@@ -260,16 +260,16 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
         insertMetadataStatement = null;
 
-        if (geomToJdbc instanceof OracleJdbcConverter) {
-            try {
-                OracleConnection oc = OracleConnectionUnwrapper.unwrap(connRsgb);
-                oc.close(OracleConnection.INVALID_CONNECTION);
-            } catch (SQLException ex) {
-                // quiet
-            }
-        } else {
+//        if (geomToJdbc instanceof OracleJdbcConverter) {
+//            try {
+//                OracleConnection oc = OracleConnectionUnwrapper.unwrap(connRsgb);
+//                oc.close(OracleConnection.INVALID_CONNECTION);
+//            } catch (SQLException ex) {
+//                // quiet
+//            }
+//        } else {
             DbUtils.closeQuietly(connRsgb);
-        }
+//        }
         connRsgb = null;
     }
 
@@ -436,14 +436,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     @Override
     public void handle(Bericht ber, List<TableData> pretransformedTableData, boolean updateResult) throws BrmoException {
-        if (geomToJdbc instanceof OracleJdbcConverter) {
-            // too many cursors
-            try {
-                renewConnection();
-            } catch (Exception e) {
-                throw new BrmoException("Renew connection failed", e);
-            }
-        }
         // lock on connection, omdat parent loop periodiek connectie wil verversen.
         synchronized (LOCK) {
         synchronized (connRsgb) {
