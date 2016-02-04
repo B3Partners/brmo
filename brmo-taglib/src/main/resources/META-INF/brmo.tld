@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+        version="2.1">
+    <description>BRMO Custom Tags</description>
+    <tlib-version>2.1</tlib-version>
+    <short-name>brmo</short-name>
+    <uri>http://brmo.b3p.nl/jsp/brmo</uri>
+    <tag>
+        <name>formatCron</name>
+        <tag-class>nl.b3p.web.jsp.CronFormatterTag</tag-class>
+        <body-content>empty</body-content>
+        <description>Geeft een beschrijving van de cron expressie. Geeft een lege string als parsing van de expressie mislukt.</description>
+        <display-name>Cron Formatter</display-name>
+        <attribute>
+            <name>cronExpression</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>De te beschrijven expressie</description>
+        </attribute>
+        <attribute>
+            <name>locale</name>
+            <required>false</required>
+            <description>language code, bijv. 'nl'</description>
+        </attribute>
+    </tag>
+</taglib>

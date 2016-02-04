@@ -73,6 +73,11 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>brmo-taglib</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.javasimon</groupId>
             <artifactId>javasimon-console-embed</artifactId>
         </dependency>
