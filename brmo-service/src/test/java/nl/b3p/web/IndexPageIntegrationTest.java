@@ -30,12 +30,12 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.util.EntityUtils;
 import static org.hamcrest.CoreMatchers.equalTo;
+import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import org.junit.Test;
 
 /**
  * Integration test for the index page.
@@ -79,14 +79,13 @@ public class IndexPageIntegrationTest extends TestUtil {
         String default_hash = "6310227872580fec7d1262ab7ab3b4b3902a9f61";
 
         try {
-            Class.forName(POSTGRESPROPS.getProperty("postgres.driverClassName"));
+            Class.forName(DBPROPS.getProperty("jdbc.driverClassName"));
         } catch (ClassNotFoundException ex) {
-            fail("Laden van Postgres driver is mislukt.");
+            fail("Laden van database driver (" + DBPROPS.getProperty("jdbc.driverClassName") + ") is mislukt.");
         }
-        Connection connection = DriverManager.getConnection(
-                POSTGRESPROPS.getProperty("staging.url"),
-                POSTGRESPROPS.getProperty("staging.username"),
-                POSTGRESPROPS.getProperty("staging.password")
+        Connection connection = DriverManager.getConnection(DBPROPS.getProperty("staging.url"),
+                DBPROPS.getProperty("staging.username"),
+                DBPROPS.getProperty("staging.password")
         );
         ResultSet rs = connection.createStatement().executeQuery("SELECT gebruikersnaam, wachtwoord FROM gebruiker_;");
 
