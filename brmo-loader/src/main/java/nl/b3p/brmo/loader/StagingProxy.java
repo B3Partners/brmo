@@ -328,13 +328,7 @@ public class StagingProxy {
                 if(e != null) {
                     throw e;
                 }
-                
-                // TODO onderzoeken waarom dit soms nodig is
-//                if (geomToJdbc instanceof OracleJdbcConverter) {
-//                    log.debug("Vernieuwen van verbinding om cursors in Oracle vrij te geven!");
-//                    handler.renewConnection();
-//                }
-                
+                                
             } while(processed.intValue() > 0 && (offset < total || noTotal));
             if(offset < total && !noTotal) {
                 log.warn(String.format("Minder berichten verwerkt (%d) dan verwacht (%d)!", offset, total));
@@ -382,6 +376,12 @@ public class StagingProxy {
         for (Bericht ber : berichten) {
             Split split = SimonManager.getStopwatch("b3p.staging.bericht.dbxml.transform").start();
             String dbxml = transformer.transformToDbXml(ber);
+            
+            //HACK vanwege Oracle 8000 karakters bug, zie brmo wiki
+            if (geomToJdbc instanceof OracleJdbcConverter && dbxml!=null && dbxml.length()==8000) {
+                dbxml += " ";
+            }
+
             ber.setDbXml(dbxml);
             split.stop();
         }
