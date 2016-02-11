@@ -13,8 +13,11 @@
         <td><stripes:text name="config['archiefdirectory']"  /></td>
     </tr>
     <tr>
-        <td><stripes:label name="">Planning (cron expressie)</stripes:label></td>
-        <td><stripes:text name="proces.cronExpressie"/></td>
+        <td><stripes:label name="">Planning <a href="http://cronmaker.com" target="_blank">(cron expressie)</a></stripes:label></td>
+        <td>
+            <stripes:text name="proces.cronExpressie"/>
+            <brmo:formatCron cronExpression="${actionBean.proces.cronExpressie}" />
+        </td>
     </tr>
     <tr>
         <td><stripes:label name="">Commit page size (leeg voor default)</stripes:label></td>

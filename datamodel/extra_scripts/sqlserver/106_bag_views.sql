@@ -1,6 +1,6 @@
 /*
 Views for visualizing the BAG data.
-25-06-2015
+09-02-2016
 */
 -- DROP VIEWS
 -- DROP VIEW v_adres_totaal;
@@ -320,7 +320,7 @@ SELECT
     addrobj.huinummertoevoeging AS huisnummer_toev,
     addrobj.postcode,
     vbo.status,
-    gobj.oppervlakte_obj + ' m2' AS oppervlakte,
+    gobj.oppervlakte_obj AS oppervlakte_m2,
     gobj.puntgeom                 AS the_geom
 FROM
     verblijfsobj vbo

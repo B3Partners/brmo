@@ -228,11 +228,12 @@ public class BrmoFramework {
                         }
                         entry = zip.getNextEntry();
                     }
-                 } finally {
+                } finally {
                     if(zip != null) {
                         zip.close();
                     }
                 }
+                log.info("Klaar met ZIP bestand " + fileName);
             } else {
                 File f = new File(fileName);
                 if(listener != null) {

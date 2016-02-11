@@ -2702,7 +2702,7 @@ SELECT
     addrobj.huinummertoevoeging AS huisnummer_toev,
     addrobj.postcode,
     vbo.status,
-    gobj.oppervlakte_obj + ' m2' AS oppervlakte,
+    gobj.oppervlakte_obj AS oppervlakte_m2,
     gobj.puntgeom                 AS the_geom
 FROM
     verblijfsobj vbo
