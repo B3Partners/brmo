@@ -380,6 +380,12 @@ public class StagingProxy {
         for (Bericht ber : berichten) {
             Split split = SimonManager.getStopwatch("b3p.staging.bericht.dbxml.transform").start();
             String dbxml = transformer.transformToDbXml(ber);
+            
+            //HACK vanwege Oracle 8000 karakters bug, zie brmo wiki
+            if (geomToJdbc instanceof OracleJdbcConverter && dbxml!=null && dbxml.length()==8000) {
+                dbxml += " ";
+            }
+
             ber.setDbXml(dbxml);
             split.stop();
         }

@@ -1,0 +1,14 @@
+--
+-- Maak een Geotools/Geoserver primary key metatabel aan, de metatabel 
+-- kan vervolgens gebruikt worden voor het invulveld "Primary key metadata table" 
+-- in de Geoserver bron configuratie. Uit te voeren als schema eigenaar.
+--
+-- zie: http://docs.geoserver.org/stable/en/user/data/database/primarykey.html
+--
+-- NB let op de schema naam 'RSGBTEST' in dit bestand; die dient vervangen te worden
+-- NB de lijst views is mogelijk niet compleet, afhankelijk van installatie
+-- 
+--
+-- insert de primary key metadata voor de views
+--
+INSERT INTO gt_pk_metadata VALUES ('RSGBTEST', 'V_KAD_PERCEEL_EIGENAAR', 'kadaster_identificatie', NULL, 'assigned', NULL);
