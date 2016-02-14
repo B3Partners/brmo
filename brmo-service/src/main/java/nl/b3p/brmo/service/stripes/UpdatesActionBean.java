@@ -198,6 +198,10 @@ public class UpdatesActionBean implements ActionBean, ProgressUpdateListener {
                     brmo.setTransformPipelineCapacity(Integer.parseInt(capacityString));
                 }
             }
+            String batchString = getContext().getServletContext().getInitParameter("batch.capacity");
+            if(batchString != null) {
+                brmo.setBatchCapacity(Integer.parseInt(batchString));
+            }
 
             Thread t = brmo.toRsgb(process, this);
             t.join();

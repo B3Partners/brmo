@@ -92,6 +92,11 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
                     brmo.setTransformPipelineCapacity(Integer.parseInt(capacityString));
                 }
             }
+            String batchString = getContext().getServletContext().getInitParameter("batch.capacity");
+            if(batchString != null) {
+                brmo.setBatchCapacity(Integer.parseInt(batchString));
+            }
+
             brmo.setOrderBerichten(orderBerichten);
             
             Thread t = null;

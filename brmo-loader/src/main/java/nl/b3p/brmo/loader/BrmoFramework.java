@@ -63,6 +63,12 @@ public class BrmoFramework {
     public void setTransformPipelineCapacity(int pipelineCapacity) {
         this.pipelineCapacity = pipelineCapacity;
     }
+
+    public void setBatchCapacity(int batchCapacity) {
+        if (stagingProxy!=null) {
+            stagingProxy.setBatchCapacity(batchCapacity);
+        }
+    }
     
     public void setOrderBerichten(boolean orderBerichten) {
         this.orderBerichten = orderBerichten;

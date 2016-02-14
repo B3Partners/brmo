@@ -22,7 +22,6 @@ import nl.b3p.brmo.loader.entity.BerichtenSorter;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
-import nl.b3p.brmo.loader.jdbc.OracleJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.PostgisJdbcConverter;
 import nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork;
 import nl.b3p.brmo.loader.pipeline.BerichtWorkUnit;
@@ -61,6 +60,7 @@ public class StagingProxy {
     private Connection connStaging = null;
     private DataSource dataSourceStaging =  null;
     private GeometryJdbcConverter geomToJdbc = null;
+    private Integer batchCapacity = 150;
 
     public StagingProxy(DataSource dataSourceStaging) throws SQLException, BrmoException {
         this.dataSourceStaging = dataSourceStaging;
@@ -259,7 +259,7 @@ public class StagingProxy {
             processDbXmlPipeline.start();
         }
         int offset = 0;
-        int batch = 150;
+        int batch = batchCapacity;
         boolean noTotal = (total < 0);
         final MutableInt processed = new MutableInt(0);
         final boolean doOrderBerichten = orderBerichten;
@@ -267,7 +267,11 @@ public class StagingProxy {
         try {
             do {
                 log.debug(String.format("Ophalen RSGB_WAITING berichten batch voor job %s, offset %d, limit %d", jobId, offset, batch));
-                String sql = "select * from " + BrmoFramework.BERICHT_TABLE + " where job_id = ? and status = 'RSGB_WAITING' ";
+                String sql = "select id, "
+                        //+ "br_orgineel_xml, " //niet ophalen vanwege out-of-memory errors
+                        + "br_xml, datum, db_xml, job_id, object_ref, opmerking, soort, status, "
+                        + "status_datum, volgordenummer, xsl_version, laadprocesid from " 
+                        + BrmoFramework.BERICHT_TABLE + " where job_id = ? and status = 'RSGB_WAITING' ";
                 if (orderBerichten) {
                     sql += " order by " + BerichtenSorter.SQL_ORDER_BY;
                 }
@@ -328,12 +332,6 @@ public class StagingProxy {
                 if(e != null) {
                     throw e;
                 }
-                
-                // TODO onderzoeken waarom dit soms nodig is
-//                if (geomToJdbc instanceof OracleJdbcConverter) {
-//                    log.debug("Vernieuwen van verbinding om cursors in Oracle vrij te geven!");
-//                    handler.renewConnection();
-//                }
                 
             } while(processed.intValue() > 0 && (offset < total || noTotal));
             if(offset < total && !noTotal) {
@@ -854,5 +852,12 @@ public class StagingProxy {
 
     Bericht getOldBericht(Bericht nieuwBericht) {
         throw new UnsupportedOperationException("Not supported yet."); 
+    }
+
+    /**
+     * @param batchCapacity the batchCapacity to set
+     */
+    public void setBatchCapacity(Integer batchCapacity) {
+        this.batchCapacity = batchCapacity;
     }
 }

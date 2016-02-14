@@ -10,6 +10,11 @@
         <param-name>pipelining.capacity</param-name>
         <param-value>100</param-value>
     </context-param>
+    <context-param>
+        <description>Capaciteit van de batch (aantal uit database opgehaalde berichten)</description>
+        <param-name>batch.capacity</param-name>
+        <param-value>100</param-value>
+    </context-param>
     <filter>
         <display-name>Stripes Filter</display-name>
         <filter-name>StripesFilter</filter-name>
