@@ -36,6 +36,7 @@ public class BrmoFramework {
 
     public static final String LAADPROCES_TABEL = "laadproces";
     public static final String BERICHT_TABLE = "bericht";
+    public static final String JOB_TABLE = "job";
 
     private StagingProxy stagingProxy = null;
     private DataSource dataSourceRsgb = null;

@@ -21,10 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
-import java.util.TimeZone;
 import java.util.TreeSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sql.DataSource;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
@@ -34,7 +31,6 @@ import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.jdbc.ColumnMetadata;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
-import nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper;
 import nl.b3p.brmo.loader.jdbc.OracleJdbcConverter;
 import nl.b3p.brmo.loader.updates.UpdateProcess;
 import nl.b3p.brmo.loader.util.BrmoException;
@@ -42,7 +38,6 @@ import nl.b3p.brmo.loader.util.DataComfortXMLReader;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.TableData;
 import nl.b3p.brmo.loader.util.TableRow;
-import oracle.jdbc.OracleConnection;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -57,8 +52,6 @@ import org.w3c.dom.Node;
 public class RsgbProxy implements Runnable, BerichtenHandler {
 
     private static final Log log = LogFactory.getLog(RsgbProxy.class);
-
-    private String jobId;
 
     private final boolean alsoExecuteSql = true;
 
@@ -124,7 +117,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     private final DataComfortXMLReader oldDbXmlReader = new DataComfortXMLReader();
 
     public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, Bericht.STATUS status, ProgressUpdateListener listener) {
-        this.jobId = Thread.currentThread().getId() + System.currentTimeMillis() + "";
         this.stagingProxy = stagingProxy;
         this.dataSourceRsgb = dataSourceRsgb;
 
@@ -142,7 +134,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
      * @param listener
      */
     public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, BerichtSelectMode mode, long[] ids, ProgressUpdateListener listener) {
-        this.jobId = Thread.currentThread().getId() + System.currentTimeMillis() + "";
         this.stagingProxy = stagingProxy;
         this.dataSourceRsgb = dataSourceRsgb;
 
@@ -157,20 +148,12 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     }
 
     public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, UpdateProcess updateProcess, ProgressUpdateListener listener) {
-        this.jobId = Thread.currentThread().getId() + System.currentTimeMillis() + "";
         this.stagingProxy = stagingProxy;
         this.dataSourceRsgb = dataSourceRsgb;
 
         this.mode = BerichtSelectMode.FOR_UPDATE;
         this.updateProcess = updateProcess;
         this.listener = listener;
-    }
-
-    /**
-     * @param jobId the jobId to set
-     */
-    public void setJobId(String jobId) {
-        this.jobId = jobId;
     }
 
     public void setSimonNamePrefix(String prefix) {
@@ -259,17 +242,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             DbUtils.closeQuietly(insertMetadataStatement);
         }
         insertMetadataStatement = null;
-
-//        if (geomToJdbc instanceof OracleJdbcConverter) {
-//            try {
-//                OracleConnection oc = OracleConnectionUnwrapper.unwrap(connRsgb);
-//                oc.close(OracleConnection.INVALID_CONNECTION);
-//            } catch (SQLException ex) {
-//                // quiet
-//            }
-//        } else {
-            DbUtils.closeQuietly(connRsgb);
-//        }
+        DbUtils.closeQuietly(connRsgb);
         connRsgb = null;
     }
 
@@ -297,8 +270,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
             // Do the work by querying all berichten, berichten are passed to
             // handle() method
-            if (total!=0) { // -1 betekent onbekend
-                stagingProxy.handleBerichtenByJob(jobId, total, this, enablePipeline, pipelineCapacity, orderBerichten);
+            if (total>0) { 
+                stagingProxy.handleBerichtenByJob(total, this, enablePipeline, pipelineCapacity, orderBerichten);
             }
         } catch (Exception e) {
             // user is informed via status in database
@@ -312,13 +285,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         close();
     }
 
-    /**
-     * Zet alle te verwerken berichten op WAITING.
-     */
     private long setWaitingStatus() throws SQLException, BrmoException {
-
-        String waitingJobId = stagingProxy.getWaitingJobId();
-        if (waitingJobId != null 
+        //verwijder al verwerkte berichten uit afgebroken job
+        stagingProxy.cleanJob();
+        //zijn er nog berichten over uit de vorige job
+        if (stagingProxy.isWaitingJob() 
                 && !mode.equals(BerichtSelectMode.RETRY_WAITING)) {
             throw new BrmoException("Vorige transformatie is afgebroken,"
                     + " verwerk eerst de RSGB_WAITING berichten!");
@@ -326,15 +297,15 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         
         switch (mode) {
             case BY_STATUS:
-                 return stagingProxy.setBerichtenJobByStatus(status, jobId);
+                 return stagingProxy.setBerichtenJobByStatus(status);
             case BY_IDS:
-                return stagingProxy.setBerichtenJobByIds(berichtIds, jobId);
+                return stagingProxy.setBerichtenJobByIds(berichtIds);
             case BY_LAADPROCES:
-                return stagingProxy.setBerichtenJobByLaadprocessen(laadprocesIds, jobId);
+                return stagingProxy.setBerichtenJobByLaadprocessen(laadprocesIds);
             case FOR_UPDATE:
-                return stagingProxy.setBerichtenJobForUpdate(jobId, updateProcess.getSoort());
+                return stagingProxy.setBerichtenJobForUpdate(updateProcess.getSoort());
             case RETRY_WAITING:
-                return stagingProxy.setBerichtenJobByResetJobId(jobId);
+                return stagingProxy.setBerichtenJobByResetJob();
             default:
                 return 0l;
         }
@@ -509,7 +480,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                         if (ber.getId() == oud.getId()) {
                             //dit kan voorkomen bij herstart van job terwijl bericht nog in pipeline van andere job zat
                             //niets doen, log overnemen.
-                            loadLog.append(ber.getOpmerking());
+                            loadLog.append(oud.getOpmerking());
                         } else {
                             loadLog.append("Datum en volgordenummer van nieuw bericht hetzelfde als de oude, negeer dit bericht!\n");
                             boolean dbXmlEquals = ber.getDbXml().equals(oud.getDbXml());
