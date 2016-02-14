@@ -207,6 +207,8 @@ public class StagingProxy {
         return getCountJob();
     }
 
+    //TODO, pk aan job toevoegen, insert met order by, pagineren over pk
+    //offset is heeeeel langzaaaaaaam
     public long setBerichtenJobByStatus(Bericht.STATUS status) throws SQLException {
         return new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), 
                 "insert into " + BrmoFramework.JOB_TABLE 
@@ -269,17 +271,15 @@ public class StagingProxy {
         int offset = 0;
         int batch = batchCapacity;
         final MutableInt processed = new MutableInt(0);
+        final MutableInt lastJid = new MutableInt(0);
         final boolean doOrderBerichten = orderBerichten;
         boolean abort = false;
         try {
             do {
-                log.debug(String.format("Ophalen berichten batch Job tabel, offset %d, limit %d", offset, batch));
-                String sql = "select id, datum, volgordenummer, object_ref, br_xml, soort from "
-                        + BrmoFramework.JOB_TABLE;
-                if (orderBerichten) {
-                    sql += " order by " + BerichtenSorter.SQL_ORDER_BY;
-                }
-                sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
+                log.debug(String.format("Ophalen berichten batch Job tabel, offset %d, limit %d", lastJid.intValue(), batch));
+                String sql = "select jid, id, datum, volgordenummer, object_ref, br_xml, soort from "
+                        + BrmoFramework.JOB_TABLE + " where jid > " + lastJid.intValue() + " order by jid ";
+                sql = geomToJdbc.buildPaginationSql(sql, 0, batch);
                 log.debug("SQL voor ophalen berichten batch: " + sql);
 
                 processed.setValue(0);
@@ -320,6 +320,7 @@ public class StagingProxy {
                                     handler.handle(bericht, null, true);
                                     berichtSplit.stop();
                                 }
+                                lastJid.setValue(rs.getInt("jid"));
                             } catch(Exception e) {
                                 return e;
                             }
