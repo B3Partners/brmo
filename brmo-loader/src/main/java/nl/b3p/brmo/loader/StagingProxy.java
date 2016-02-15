@@ -207,26 +207,29 @@ public class StagingProxy {
         return getCountJob();
     }
 
-    //TODO, pk aan job toevoegen, insert met order by, pagineren over pk
-    //offset is heeeeel langzaaaaaaam
-    public long setBerichtenJobByStatus(Bericht.STATUS status) throws SQLException {
-        return new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), 
-                "insert into " + BrmoFramework.JOB_TABLE 
+    public long setBerichtenJobByStatus(Bericht.STATUS status, boolean orderBerichten) throws SQLException {
+        StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE 
                         + " (id, datum, volgordenummer, object_ref, br_xml, soort) "
                         + " select id, datum, volgordenummer, object_ref, br_xml, soort from " 
-                        + BrmoFramework.BERICHT_TABLE + " where status = ?", status.toString());
+                        + BrmoFramework.BERICHT_TABLE + " where status = ? ");
+        if (orderBerichten) {
+            q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
+        }
+        return new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), q.toString(), status.toString());
     }
 
-    public long setBerichtenJobForUpdate(String soort) throws SQLException {
-        return new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), 
-                "insert into " + BrmoFramework.JOB_TABLE 
+    public long setBerichtenJobForUpdate(String soort, boolean orderBerichten) throws SQLException {
+        StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE 
                         + " (id, datum, volgordenummer, object_ref, br_xml, soort) "
                         + " select id, datum, volgordenummer, object_ref, br_xml, soort from " 
-                        + BrmoFramework.BERICHT_TABLE + " where status = ? and soort = ?", 
-                Bericht.STATUS.RSGB_OK.toString(), soort);
+                        + BrmoFramework.BERICHT_TABLE + " where status = ? and soort = ? ");
+        if (orderBerichten) {
+            q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
+        }
+        return new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), q.toString(), Bericht.STATUS.RSGB_OK.toString(), soort);
    }
 
-    public long setBerichtenJobByIds(long[] ids) throws SQLException {
+    public long setBerichtenJobByIds(long[] ids, boolean orderBerichten) throws SQLException {
         StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE 
                         + " (id, datum, volgordenummer, object_ref, br_xml, soort) "
                         + " select id, datum, volgordenummer, object_ref, br_xml, soort from " 
@@ -238,10 +241,13 @@ public class StagingProxy {
             q.append(ids[i]);
         }
         q.append(")");
+        if (orderBerichten) {
+            q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
+        }
         return new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), q.toString());
     }
 
-    public long setBerichtenJobByLaadprocessen(long[] laadprocesIds) throws SQLException {
+    public long setBerichtenJobByLaadprocessen(long[] laadprocesIds, boolean orderBerichten) throws SQLException {
 
         StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE 
                         + " (id, datum, volgordenummer, object_ref, br_xml, soort) "
@@ -254,6 +260,9 @@ public class StagingProxy {
             q.append(laadprocesIds[i]);
         }
         q.append(") and status = ?");
+        if (orderBerichten) {
+            q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
+        }
         return new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), q.toString(), Bericht.STATUS.STAGING_OK.toString());
     }
 

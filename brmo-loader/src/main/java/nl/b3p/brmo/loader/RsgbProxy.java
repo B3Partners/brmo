@@ -297,13 +297,13 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         
         switch (mode) {
             case BY_STATUS:
-                 return stagingProxy.setBerichtenJobByStatus(status);
+                 return stagingProxy.setBerichtenJobByStatus(status, orderBerichten);
             case BY_IDS:
-                return stagingProxy.setBerichtenJobByIds(berichtIds);
+                return stagingProxy.setBerichtenJobByIds(berichtIds, orderBerichten);
             case BY_LAADPROCES:
-                return stagingProxy.setBerichtenJobByLaadprocessen(laadprocesIds);
+                return stagingProxy.setBerichtenJobByLaadprocessen(laadprocesIds, orderBerichten);
             case FOR_UPDATE:
-                return stagingProxy.setBerichtenJobForUpdate(updateProcess.getSoort());
+                return stagingProxy.setBerichtenJobForUpdate(updateProcess.getSoort(), orderBerichten);
             case RETRY_WAITING:
                 return stagingProxy.setBerichtenJobByResetJob();
             default:
