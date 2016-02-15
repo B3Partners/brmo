@@ -196,17 +196,6 @@ public class StagingProxy {
         return false;
     }
     
-    public boolean isWaitingJob() throws SQLException {
-        if (getCountJob()>0) {
-            return true;
-        }
-        return false;
-    }
-    
-    public long setBerichtenJobByResetJob() throws SQLException {
-        return getCountJob();
-    }
-
     public long setBerichtenJobByStatus(Bericht.STATUS status, boolean orderBerichten) throws SQLException {
         StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE 
                         + " (id, datum, volgordenummer, object_ref, br_xml, soort) "

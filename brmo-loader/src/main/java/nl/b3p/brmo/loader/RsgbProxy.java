@@ -289,8 +289,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         //verwijder al verwerkte berichten uit afgebroken job
         stagingProxy.cleanJob();
         //zijn er nog berichten over uit de vorige job
-        if (stagingProxy.isWaitingJob() 
-                && !mode.equals(BerichtSelectMode.RETRY_WAITING)) {
+        long count = stagingProxy.getCountJob();
+        if (count > 0 && !mode.equals(BerichtSelectMode.RETRY_WAITING)) {
             throw new BrmoException("Vorige transformatie is afgebroken,"
                     + " verwerk eerst de RSGB_WAITING berichten!");
         }
@@ -305,7 +305,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             case FOR_UPDATE:
                 return stagingProxy.setBerichtenJobForUpdate(updateProcess.getSoort(), orderBerichten);
             case RETRY_WAITING:
-                return stagingProxy.setBerichtenJobByResetJob();
+                return count;
             default:
                 return 0l;
         }
