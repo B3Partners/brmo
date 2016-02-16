@@ -3,6 +3,7 @@ package nl.b3p.brmo.loader.jdbc;
 
 import com.vividsolutions.jts.io.ParseException;
 import java.sql.SQLException;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.geolatte.geom.Geometry;
@@ -80,6 +81,11 @@ public class MssqlJdbcConverter extends GeometryJdbcConverter {
     @Override
     public String buildPaginationSql(String sql, int offset, int limit) {
         StringBuilder builder = new StringBuilder(sql);
+        if (!StringUtils.containsIgnoreCase(sql, "ORDER BY")) {
+            // OFFSET ... FETCH queries require order by,
+            // see https://msdn.microsoft.com/en-us/library/gg699618.aspx?f=255&MSPPError=-2147217396
+            builder.append(" ORDER BY id ");
+        }
         builder.append(" OFFSET ");
         builder.append(offset);
         builder.append(" ROWS FETCH NEXT ");
