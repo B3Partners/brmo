@@ -167,12 +167,12 @@ public class BagXMLReaderTest {
         bReader = new BagXMLReader(BagXMLReaderTest.class.getResourceAsStream(lvcSmall));
         assertTrue(bReader.hasNext());
         BagBericht bag = bReader.next();
-        assertEquals("STA:0197200000050628", bag.getObjectRef());
+        assertEquals("STA:0197030000035441", bag.getObjectRef());
         assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2014-07-01"),
                 bag.getDatum());
         assertTrue(bReader.hasNext());
         bag = bReader.next();
-        assertEquals("STA:0197200000050631", bag.getObjectRef());
+        assertEquals("STA:0197030000035442", bag.getObjectRef());
         assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2014-07-01"),
                 bag.getDatum());
     }

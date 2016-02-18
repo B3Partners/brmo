@@ -23,16 +23,17 @@ public class BagBericht extends Bericht {
     private static final Log log = LogFactory.getLog(BagBericht.class);
 
     private static XPathExpression mutTijdstipVerwerking = null, mutVolgnr = null, mutObjectType = null;
-    private static XPathExpression idXPath = null;
+    private static XPathExpression idXPath = null, mutIdXPath = null;
 
     static {
         XPathFactory xPathfactory = XPathFactory.newInstance();
         XPath xpath = xPathfactory.newXPath();
 
         try {
-            mutTijdstipVerwerking = xpath.compile("/*[local-name() = 'Mutatie-product']/*[local-name()= 'Verwerking' or local-name()='Verwerking']/*[local-name() = 'TijdstipVerwerking']/text()");
-            mutVolgnr = xpath.compile("/*[local-name() = 'Mutatie-product']/*[local-name()= 'Verwerking' or local-name()='Verwerking']/*[local-name() = 'VolgnrVerwerking']/text()");
-            mutObjectType = xpath.compile("/*[local-name() = 'Mutatie-product']/*[local-name()= 'Verwerking' or local-name()='Verwerking']/*[local-name() = 'ObjectType']/text()");
+            mutTijdstipVerwerking = xpath.compile("/*[local-name() = 'Mutatie-product']/*[local-name()= 'Verwerking']/*[local-name() = 'TijdstipVerwerking']/text()");
+            mutVolgnr = xpath.compile("/*[local-name() = 'Mutatie-product']/*[local-name()= 'Verwerking']/*[local-name() = 'VolgnrVerwerking']/text()");
+            mutObjectType = xpath.compile("/*[local-name() = 'Mutatie-product']/*[local-name()= 'Verwerking']/*[local-name() = 'ObjectType']/text()");
+            mutIdXPath = xpath.compile("/*[local-name() = 'Mutatie-product']/*[local-name() = 'Nieuw']/*/*[local-name() = 'identificatie']/text()");
             idXPath = xpath.compile("/*/*[local-name() = 'identificatie']/text()");
         } catch (XPathExpressionException ex) {
             log.fatal("Fout bij initialiseren XPath expressies", ex);
@@ -64,32 +65,31 @@ public class BagBericht extends Bericht {
                 DocumentBuilder builder = factory.newDocumentBuilder();
                 doc = builder.parse(new InputSource(new StringReader(getBrXml())));
             }
-
+            
+            String id = null;
+            
             if(doc.getDocumentElement().getLocalName().equals(BagXMLReader.MUTATIE_PRODUCT)) {
                 String d = mutTijdstipVerwerking.evaluate(doc);
                 setDatumAsString(d);
 
                 setVolgordeNummer(new Integer(mutVolgnr.evaluate(doc)));
                 objectType = mutObjectType.evaluate(doc);
+                id = mutIdXPath.evaluate(doc);
 
             } else if(BagXMLReader.lvcProductToObjectType.containsKey(doc.getDocumentElement().getLocalName())) {
+                // datum wordt elders toegevoegd uit bestandsdatum
                 // Levering
-
                 setVolgordeNummer(-1);
 
-                String n = doc.getDocumentElement().getLocalName();
-
-                objectType = BagXMLReader.lvcProductToObjectType.get(n);
-                if(objectType == null) {
-                    throw new IllegalArgumentException("Onbekend BAG product: " + n);
-                }
+                objectType = BagXMLReader.lvcProductToObjectType.get(doc.getDocumentElement().getLocalName());
+                id = idXPath.evaluate(doc);
+                
             } else {
                 throw new IllegalArgumentException("Onbekend BAG bericht: verwacht "
                         + BagXMLReader.MUTATIE_PRODUCT + " of " + BagXMLReader.lvcProductToObjectType.keySet().toString()
                         + " maar \"" + doc.getDocumentElement().getLocalName() + "\" gevonden");
             }
 
-            String id = idXPath.evaluate(doc);
             setObjectRef(objectType + ":" + id);
 
         } catch (Exception e) {
