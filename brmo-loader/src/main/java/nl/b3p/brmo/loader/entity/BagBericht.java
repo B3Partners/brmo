@@ -33,7 +33,7 @@ public class BagBericht extends Bericht {
             mutTijdstipVerwerking = xpath.compile("/*[local-name() = 'Mutatie-product']/*[local-name()= 'Verwerking' or local-name()='Verwerking']/*[local-name() = 'TijdstipVerwerking']/text()");
             mutVolgnr = xpath.compile("/*[local-name() = 'Mutatie-product']/*[local-name()= 'Verwerking' or local-name()='Verwerking']/*[local-name() = 'VolgnrVerwerking']/text()");
             mutObjectType = xpath.compile("/*[local-name() = 'Mutatie-product']/*[local-name()= 'Verwerking' or local-name()='Verwerking']/*[local-name() = 'ObjectType']/text()");
-            idXPath = xpath.compile("//*[local-name() = 'identificatie']/text()");
+            idXPath = xpath.compile("/*/*[local-name() = 'identificatie']/text()");
         } catch (XPathExpressionException ex) {
             log.fatal("Fout bij initialiseren XPath expressies", ex);
         }
