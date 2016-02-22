@@ -11,7 +11,7 @@
               minEvictableIdleTimeMillis="5000"
               username="${staging.username}"
               password="${staging.password}"
-              driverClassName="${postgres.driverClassName}"
+              driverClassName="${jdbc.driverClassName}"
               url="${staging.url}"
     />
     
@@ -24,7 +24,7 @@
               minEvictableIdleTimeMillis="5000"
               username="${rsgb.username}"
               password="${rsgb.password}"
-              driverClassName="${postgres.driverClassName}"
+              driverClassName="${jdbc.driverClassName}"
               url="${rsgb.url}"
     />
 
@@ -55,7 +55,7 @@
            userNameCol="gebruikersnaam"
            userRoleTable="gebruiker_groepen"
            userTable="gebruiker_"
-           driverName="${postgres.driverClassName}"
+           driverName="${jdbc.driverClassName}"
            connectionURL="${staging.url}?user=${staging.username}&amp;password=${staging.password}"
     / -->
 </Context>
