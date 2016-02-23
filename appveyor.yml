@@ -1,0 +1,76 @@
+version: "{build}-{branch}"
+clone_folder: c:\projects\brmo
+clone_depth: 5
+skip_tags: true
+
+services: mssql2012sp1
+
+environment:
+  INSTANCENAME: SQL2012SP1
+
+matrix:
+  fast_finish: false
+
+init:
+  - git config --global core.autocrlf input
+  - git config --global core.safecrlf true
+
+install:
+  - ps: >-
+      Add-Type -AssemblyName System.IO.Compression.FileSystem
+          if (!(Test-Path -Path "C:\maven\apache-maven-3.3.3" )) {
+            (new-object System.Net.WebClient).DownloadFile(
+              'http://www.us.apache.org/dist/maven/maven-3/3.3.3/binaries/apache-maven-3.3.3-bin.zip',
+              'C:\maven-bin.zip'
+            )
+            [System.IO.Compression.ZipFile]::ExtractToDirectory("C:\maven-bin.zip", "C:\maven")
+          }
+  - cmd: SET PATH=C:\maven\apache-maven-3.3.3\bin;%JAVA_HOME%\bin;%PATH%
+  - cmd: echo %PATH%
+  - cmd: java -version
+  - cd C:\projects\brmo
+  # initial build, no testing
+  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Pappveyor-ci -pl "!brmo-dist"  
+
+
+# before_build: does nothing
+build: off
+# after_build: does nothing
+
+before_test:
+# services are started after install, so we need to wait 
+# create STAGING DB
+  - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -Q "CREATE DATABASE staging" -d "master"
+  - dir -w .\datamodel\generated_scripts\
+# create + set up RSGB DB
+  - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -Q "CREATE DATABASE rsgb" -d "master"
+  - dir -w .\datamodel\utility_scripts\
+  - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -d "rsgb" -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
+# set up STAGING DB
+  - dir -w .\brmo-persistence\target\ddlscripts\
+#  - sqlcmd -S localhost,1433 -U sa -P Password12! -d "staging" -i .\brmo-persistence\target\ddlscripts\create-brmo-persistence-sqlserver.sql
+  - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\create-brmo-persistence-sqlserver.sql
+  - dir -w .\brmo-persistence\db\
+  - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\01_create_indexes.sql
+  - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\02_insert_default_user.sql
+  - cmd: echo "computer name:" %COMPUTERNAME%
+  - cmd: echo "instance name:" %INSTANCENAME%
+  - ps: .\.appveyor\setting-tcp-ip-ports.ps1
+
+test_script:
+# run unit tests
+  - mvn -e test -B -Pappveyor-ci -pl "!brmo-dist"
+# run integration tests
+# TODO configure sql server to listen on ip address, see: https://www.appveyor.com/docs/services-databases
+  - mvn -e verify -B -Pappveyor-ci -pl "!brmo-dist"
+
+after_test:
+  - ps: Get-Date
+
+# on_success:
+# on_failure:
+# on_finish:
+
+cache:
+  - C:\maven\apache-maven-3.3.3 -> appveyor.yml
+  - C:\Users\appveyor\.m2\repository -> pom.xml
