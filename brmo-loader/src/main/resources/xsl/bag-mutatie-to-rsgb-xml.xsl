@@ -3,16 +3,16 @@
 	<xsl:template match="/">
 		<root>
 			<data>
-                <xsl:apply-templates select="*"/>
-            </data>
+				<xsl:apply-templates select="*"/>
+			</data>
 		</root>
 	</xsl:template>
-    <xsl:template match="bep:Mutatie-product">
-        <!-- loop door bep:Nieuw elementen -->
-        <xsl:for-each select="bep:Nieuw">
-            <xsl:apply-templates select="."/>
-        </xsl:for-each>
-    </xsl:template>
+	<xsl:template match="bep:Mutatie-product">
+		<!-- loop door bep:Nieuw elementen -->
+		<xsl:for-each select="bep:Nieuw">
+			<xsl:apply-templates select="."/>
+		</xsl:for-each>
+	</xsl:template>
 	<!-- Template Pand
 <bag:Pand>
 	<bag:identificatie>aaaaaaaaaaaaaaaa</bag:identificatie>
@@ -112,13 +112,13 @@
 			<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:begindatumTijdvakGeldigheid">
 				<xsl:call-template name="date-numeric"/>
 			</xsl:for-each>
-		</xsl:variable>        
+		</xsl:variable>
 		<benoemd_obj>
 			<identif>
 				<xsl:value-of select="bag:identificatie"/>
 			</identif>
 			<clazz>STANDPLAATS</clazz>
-		</benoemd_obj> 
+		</benoemd_obj>
 		<benoemd_terrein>
 			<dat_beg_geldh>
 				<xsl:value-of select="$begindate"/>
@@ -135,7 +135,7 @@
 					<xsl:call-template name="date-numeric"/>
 				</xsl:for-each>
 			</datum_einde_geldh>
-		</benoemd_terrein>                 
+		</benoemd_terrein>
 		<standplaats>
 			<sc_identif>
 				<xsl:value-of select="bag:identificatie"/>
@@ -212,13 +212,13 @@
 			<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:begindatumTijdvakGeldigheid">
 				<xsl:call-template name="date-numeric"/>
 			</xsl:for-each>
-		</xsl:variable>        
+		</xsl:variable>
 		<benoemd_obj>
 			<identif>
 				<xsl:value-of select="bag:identificatie"/>
 			</identif>
 			<clazz>LIGPLAATS</clazz>
-		</benoemd_obj>    
+		</benoemd_obj>
 		<benoemd_terrein>
 			<dat_beg_geldh>
 				<xsl:value-of select="$begindate"/>
@@ -233,7 +233,7 @@
 			<datum_einde_geldh>
 				<xsl:value-of select="bag:tijdvakgeldigheid/bagtype:einddatumTijdvakGeldigheid"/>
 			</datum_einde_geldh>
-		</benoemd_terrein>            
+		</benoemd_terrein>
 		<ligplaats>
 			<sc_identif>
 				<xsl:value-of select="bag:identificatie"/>
@@ -341,7 +341,7 @@
 			<fk_7opr_identifcode>
 				<xsl:value-of select="bag:gerelateerdeOpenbareRuimte/bag:identificatie"/>
 			</fk_7opr_identifcode>
-		</addresseerb_obj_aand>        
+		</addresseerb_obj_aand>
 		<nummeraand>
 			<sc_identif>
 				<xsl:value-of select="bag:identificatie"/>
@@ -474,7 +474,7 @@
 				<xsl:value-of select="bag:identificatie"/>
 			</identif>
 			<clazz>VERBLIJFSOBJECT</clazz>
-		</benoemd_obj>        
+		</benoemd_obj>
 		<gebouwd_obj>
 			<dat_beg_geldh>
 				<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:begindatumTijdvakGeldigheid">
@@ -510,18 +510,20 @@
 			<fk_11nra_sc_identif>
 				<xsl:value-of select="bag:gerelateerdeAdressen/bag:hoofdadres"/>
 			</fk_11nra_sc_identif>
-		</verblijfsobj>        
-        <gebouwd_obj_gebruiksdoel>
-            <gebruiksdoel_gebouwd_obj>
-                <xsl:value-of select="bag:gebruiksdoelVerblijfsobject"/>
-            </gebruiksdoel_gebouwd_obj>
-            <fk_gbo_sc_identif>
-                <xsl:value-of select="bag:identificatie"/>
-            </fk_gbo_sc_identif>
-        </gebouwd_obj_gebruiksdoel>
+		</verblijfsobj>
 		<xsl:variable name="bagid">
 			<xsl:value-of select="bag:identificatie"/>
 		</xsl:variable>
+		<xsl:for-each select="bag:gebruiksdoelVerblijfsobject">
+			<gebouwd_obj_gebruiksdoel>
+				<gebruiksdoel_gebouwd_obj>
+					<xsl:value-of select="."/>
+				</gebruiksdoel_gebouwd_obj>
+				<fk_gbo_sc_identif>
+					<xsl:value-of select="$bagid"/>
+				</fk_gbo_sc_identif>
+			</gebouwd_obj_gebruiksdoel>
+		</xsl:for-each>
 		<xsl:variable name="begindate">
 			<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:begindatumTijdvakGeldigheid">
 				<xsl:call-template name="date-numeric"/>
