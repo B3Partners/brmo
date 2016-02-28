@@ -1,6 +1,6 @@
 
 -- BRMO RSGB script voor oracle
--- Gegenereerd op 2015-12-30T12:36:49.521+01:00
+-- Gegenereerd op 2016-02-18T11:16:18.188+01:00
 
 create table sbi_activiteit(
 	omschr varchar2(60),
@@ -3659,7 +3659,6 @@ insert into meta_referentielijsten (tabel,kolom,referentielijst) values ('zak_re
 
 -- Script: 101_herkomst_metadata.sql
 
-
 create table herkomst_metadata (
     id number,
     tabel varchar2(255),
@@ -3670,7 +3669,6 @@ create table herkomst_metadata (
     primary key(tabel, kolom, waarde, herkomst_br, datum)
 );
 -- Script: 102_metagegevens_brondocument.sql
-
 
 -- Een brondocument wordt niet in de originele tabel opgenomen omdat dit een
 -- 0..n relatie kan zijn en niet altijd een 0..1. 
@@ -3812,6 +3810,8 @@ Views for visualizing the bag data.
 -- DROP VIEW V_ADRES;
 -- DROP VIEW V_LIGPLAATS;
 -- DROP VIEW V_STANDPLAATS;
+-- DROP VIEW V_LIGPLAATS_ALLES;
+-- DROP VIEW V_STANDPLAATS_ALLES;
 -- DROP VIEW V_PAND_GEBRUIK_NIET_INGEMETEN;
 -- DROP VIEW V_PAND_IN_GEBRUIK;
 -- DROP VIEW V_VERBLIJFSOBJECT;
@@ -3833,7 +3833,6 @@ CREATE OR REPLACE VIEW
         HUISLETTER,
         HUISNUMMER_TOEV,
         POSTCODE,
-        --GEBRUIKSDOEL,
         STATUS,
         OPPERVLAKTE,
         THE_GEOM
@@ -3842,75 +3841,59 @@ SELECT
     VBO.SC_IDENTIF              AS FID,
     FKPAND.FK_NN_RH_PND_IDENTIF AS PAND_ID,
     GEM.NAAM                    AS GEMEENTE,
-    WP.NAAM                    	AS WOONPLAATS,
+    WP.NAAM                     AS WOONPLAATS,
     GEOR.NAAM_OPENB_RMTE        AS STRAATNAAM,
-    ADDROBJ.HUINUMMER						AS HUISNUMMER,
+    ADDROBJ.HUINUMMER           AS HUISNUMMER,
     ADDROBJ.HUISLETTER,
     ADDROBJ.HUINUMMERTOEVOEGING AS HUISNUMMER_TOEV,
     ADDROBJ.POSTCODE,
-    --DOEL.GEBRUIKSDOEL_GEBOUWD_OBJ,
     VBO.STATUS,
     GOBJ.OPPERVLAKTE_OBJ AS OPPERVLAKTE,
     GOBJ.PUNTGEOM        AS THE_GEOM
 FROM
-    VERBLIJFSOBJ VBO
+    ((((((((VERBLIJFSOBJ VBO
 JOIN
     VERBLIJFSOBJ_PAND FKPAND
 ON
-    (
-        FKPAND.FK_NN_LH_VBO_SC_IDENTIF = VBO.SC_IDENTIF )
+    ((FKPAND.FK_NN_LH_VBO_SC_IDENTIF = VBO.SC_IDENTIF)))
 JOIN
     GEBOUWD_OBJ GOBJ
 ON
-    (
-        GOBJ.SC_IDENTIF = VBO.SC_IDENTIF )
-JOIN
-    VERBLIJFSOBJ_NUMMERAAND VNA
-ON
-    (
-        VNA.FK_NN_LH_VBO_SC_IDENTIF = VBO.SC_IDENTIF )
+    ((GOBJ.SC_IDENTIF = VBO.SC_IDENTIF)))
 JOIN
     NUMMERAAND NA
 ON
-    (
-        NA.SC_IDENTIF = VNA.FK_NN_RH_NRA_SC_IDENTIF )
+    ((NA.SC_IDENTIF = VBO.FK_11NRA_SC_IDENTIF)))
 JOIN
     ADDRESSEERB_OBJ_AAND ADDROBJ
 ON
-    (
-        ADDROBJ.IDENTIF = NA.SC_IDENTIF )
+    ((ADDROBJ.IDENTIF = NA.SC_IDENTIF)))
 JOIN
     GEM_OPENB_RMTE GEOR
 ON
-    (
-        GEOR.IDENTIFCODE = ADDROBJ.FK_7OPR_IDENTIFCODE )
+    ((GEOR.IDENTIFCODE = ADDROBJ.FK_7OPR_IDENTIFCODE)))
 LEFT JOIN
     OPENB_RMTE_WNPLTS ORWP
 ON
-    (
-        GEOR.IDENTIFCODE = ORWP.FK_NN_LH_OPR_IDENTIFCODE)
+    ((GEOR.IDENTIFCODE = ORWP.FK_NN_LH_OPR_IDENTIFCODE)))
 LEFT JOIN
     WNPLTS WP
 ON
-    (
-        ORWP.FK_NN_RH_WPL_IDENTIF = WP.IDENTIF)
+    ((ORWP.FK_NN_RH_WPL_IDENTIF = WP.IDENTIF)))
 LEFT JOIN
     GEMEENTE GEM
 ON
-    (
-        WP.FK_7GEM_CODE = GEM.CODE )
-    /*
-    LEFT JOIN
-    GEBOUWD_OBJ_GEBRUIKSDOEL DOEL
-    ON
-    (
-    DOEL.FK_GBO_SC_IDENTIF = GOBJ.SC_IDENTIF)
-    */
+    ((
+            WP.FK_7GEM_CODE = GEM.CODE)))
 WHERE
-    ADDROBJ.DAT_EIND_GELDH IS NULL
-AND GEOR.DATUM_EINDE_GELDH IS NULL
-AND GEM.DATUM_EINDE_GELDH IS NULL
-AND GOBJ.DATUM_EINDE_GELDH IS NULL;
+    ((((
+                    ADDROBJ.DAT_EIND_GELDH IS NULL)
+            AND (
+                    GEOR.DATUM_EINDE_GELDH IS NULL))
+        AND (
+                GEM.DATUM_EINDE_GELDH IS NULL))
+    AND (
+            GOBJ.DATUM_EINDE_GELDH IS NULL));
 -------------------------------------------------
 -- V_VERBLIJFSOBJECT_GEVORMD
 -------------------------------------------------
@@ -4089,6 +4072,148 @@ LEFT JOIN
 ON
     (
         LP.SC_IDENTIF = BT.SC_IDENTIF) ;
+-------------------------------------------------
+-- V_LIGPLAATS_ALLES
+-------------------------------------------------
+/*
+LIGPLAATS MET HOOFDADRES
+*/		
+CREATE OR REPLACE VIEW
+    V_LIGPLAATS_ALLES
+    (
+        FID,
+        GEMEENTE,
+        WOONPLAATS,
+        STRAATNAAM,
+        HUISNUMMER,
+        HUISLETTER,
+        HUISNUMMER_TOEV,
+        POSTCODE,
+        STATUS,
+        THE_GEOM
+    ) AS
+SELECT
+    LP.SC_IDENTIF        AS FID,
+    GEM.NAAM             AS GEMEENTE,
+    WP.NAAM              AS WOONPLAATS,
+    GEOR.NAAM_OPENB_RMTE AS STRAATNAAM,
+    ADDROBJ.HUINUMMER    AS HUISNUMMER,
+    ADDROBJ.HUISLETTER,
+    ADDROBJ.HUINUMMERTOEVOEGING AS HUISNUMMER_TOEV,
+    ADDROBJ.POSTCODE,
+    LP.STATUS,
+    BT.GEOM AS THE_GEOM
+FROM
+    (((((((LIGPLAATS LP
+JOIN
+    BENOEMD_TERREIN BT
+ON
+    ((LP.SC_IDENTIF = BT.SC_IDENTIF)))
+JOIN
+    NUMMERAAND NA
+ON
+    ((NA.SC_IDENTIF = LP.FK_4NRA_SC_IDENTIF)))
+JOIN
+    ADDRESSEERB_OBJ_AAND ADDROBJ
+ON
+    ((ADDROBJ.IDENTIF = NA.SC_IDENTIF)))
+JOIN
+    GEM_OPENB_RMTE GEOR
+ON
+    ((GEOR.IDENTIFCODE = ADDROBJ.FK_7OPR_IDENTIFCODE)))
+LEFT JOIN
+    OPENB_RMTE_WNPLTS ORWP
+ON
+    ((GEOR.IDENTIFCODE = ORWP.FK_NN_LH_OPR_IDENTIFCODE)))
+LEFT JOIN
+    WNPLTS WP
+ON
+    ((ORWP.FK_NN_RH_WPL_IDENTIF = WP.IDENTIF)))
+LEFT JOIN
+    GEMEENTE GEM
+ON
+    ((
+            WP.FK_7GEM_CODE = GEM.CODE)))
+WHERE
+    ((((
+                    ADDROBJ.DAT_EIND_GELDH IS NULL)
+            AND (
+                    GEOR.DATUM_EINDE_GELDH IS NULL))
+        AND (
+                GEM.DATUM_EINDE_GELDH IS NULL))
+    AND (
+            BT.DATUM_EINDE_GELDH IS NULL));	
+-------------------------------------------------
+-- V_STANDPLAATS_ALLES
+-------------------------------------------------
+/*
+STANDPLAATS MET HOOFDADRES
+*/		
+CREATE OR REPLACE VIEW
+    V_STANDPLAATS_ALLES
+    (
+        FID,
+        GEMEENTE,
+        WOONPLAATS,
+        STRAATNAAM,
+        HUISNUMMER,
+        HUISLETTER,
+        HUISNUMMER_TOEV,
+        POSTCODE,
+        STATUS,
+        THE_GEOM
+    ) AS
+SELECT
+    SP.SC_IDENTIF        AS FID,
+    GEM.NAAM             AS GEMEENTE,
+    WP.NAAM              AS WOONPLAATS,
+    GEOR.NAAM_OPENB_RMTE AS STRAATNAAM,
+    ADDROBJ.HUINUMMER    AS HUISNUMMER,
+    ADDROBJ.HUISLETTER,
+    ADDROBJ.HUINUMMERTOEVOEGING AS HUISNUMMER_TOEV,
+    ADDROBJ.POSTCODE,
+    SP.STATUS,
+    BT.GEOM AS THE_GEOM
+FROM
+    (((((((STANDPLAATS SP
+JOIN
+    BENOEMD_TERREIN BT
+ON
+    ((SP.SC_IDENTIF = BT.SC_IDENTIF)))
+JOIN
+    NUMMERAAND NA
+ON
+    ((NA.SC_IDENTIF = SP.FK_4NRA_SC_IDENTIF)))
+JOIN
+    ADDRESSEERB_OBJ_AAND ADDROBJ
+ON
+    ((ADDROBJ.IDENTIF = NA.SC_IDENTIF)))
+JOIN
+    GEM_OPENB_RMTE GEOR
+ON
+    ((GEOR.IDENTIFCODE = ADDROBJ.FK_7OPR_IDENTIFCODE)))
+LEFT JOIN
+    OPENB_RMTE_WNPLTS ORWP
+ON
+    ((GEOR.IDENTIFCODE = ORWP.FK_NN_LH_OPR_IDENTIFCODE)))
+LEFT JOIN
+    WNPLTS WP
+ON
+    ((ORWP.FK_NN_RH_WPL_IDENTIF = WP.IDENTIF)))
+LEFT JOIN
+    GEMEENTE GEM
+ON
+    ((
+            WP.FK_7GEM_CODE = GEM.CODE)))
+WHERE
+    ((((
+                    ADDROBJ.DAT_EIND_GELDH IS NULL)
+            AND (
+                    GEOR.DATUM_EINDE_GELDH IS NULL))
+        AND (
+                GEM.DATUM_EINDE_GELDH IS NULL))
+    AND (
+            BT.DATUM_EINDE_GELDH IS NULL));			
 -------------------------------------------------
 -- V_ADRES
 -------------------------------------------------
@@ -4378,7 +4503,6 @@ CREATE VIEW
         FROM
             V_ADRES_STANDPLAATS
     );-- Script: 107_brk_views.sql
-
 
 create view v_map_kad_perceel as
 select

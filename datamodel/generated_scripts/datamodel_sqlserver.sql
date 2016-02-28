@@ -1,6 +1,6 @@
 
 -- BRMO RSGB script voor sqlserver
--- Gegenereerd op 2015-12-30T12:31:49.191+01:00
+-- Gegenereerd op 2016-02-18T11:16:26.663+01:00
 
 create table sbi_activiteit(
 	omschr varchar(60),
@@ -2248,7 +2248,6 @@ create table herkomst_metadata (
 );
 -- Script: 102_metagegevens_brondocument.sql
 
-
 -- Een brondocument wordt niet in de originele tabel opgenomen omdat dit een
 -- 0..n relatie kan zijn en niet altijd een 0..1. 
 
@@ -2382,7 +2381,7 @@ CREATE VIEW v_bd_app_re_bij_perceel AS
 
 /*
 Views for visualizing the BAG data.
-25-06-2015
+09-02-2016
 */
 -- DROP VIEWS
 -- DROP VIEW v_adres_totaal;
@@ -2391,6 +2390,8 @@ Views for visualizing the BAG data.
 -- DROP VIEW v_adres;
 -- DROP VIEW v_ligplaats;
 -- DROP VIEW v_standplaats;
+-- DROP VIEW v_ligplaats_alles;
+-- DROP VIEW v_standplaats_alles;
 -- DROP VIEW v_pand_gebruik_niet_ingemeten;
 -- DROP VIEW v_pand_in_gebruik;
 -- DROP VIEW v_verblijfsobject;
@@ -2400,7 +2401,7 @@ Views for visualizing the BAG data.
 -------------------------------------------------
 -- v_verblijfsobject_alles
 -------------------------------------------------
-CREATE VIEW
+CREATE OR REPLACE VIEW
     v_verblijfsobject_alles
     (
         fid,
@@ -2412,7 +2413,6 @@ CREATE VIEW
         huisletter,
         huisnummer_toev,
         postcode,
-        --gebruiksdoel,
         status,
         oppervlakte,
         the_geom
@@ -2421,75 +2421,59 @@ SELECT
     vbo.sc_identif              AS fid,
     fkpand.fk_nn_rh_pnd_identif AS pand_id,
     gem.naam                    AS gemeente,
-    wp.naam                    	AS woonplaats,
+    wp.naam                     AS woonplaats,
     geor.naam_openb_rmte        AS straatnaam,
-    addrobj.huinummer						AS huisnummer,
+    addrobj.huinummer           AS huisnummer,
     addrobj.huisletter,
     addrobj.huinummertoevoeging AS huisnummer_toev,
     addrobj.postcode,
-    --doel.gebruiksdoel_gebouwd_obj,
     vbo.status,
     gobj.oppervlakte_obj AS oppervlakte,
     gobj.puntgeom        AS the_geom
 FROM
-    verblijfsobj vbo
+    ((((((((verblijfsobj vbo
 JOIN
     verblijfsobj_pand fkpand
 ON
-    (
-        fkpand.fk_nn_lh_vbo_sc_identif = vbo.sc_identif )
+    ((fkpand.fk_nn_lh_vbo_sc_identif = vbo.sc_identif)))
 JOIN
     gebouwd_obj gobj
 ON
-    (
-        gobj.sc_identif = vbo.sc_identif )
-JOIN
-    verblijfsobj_nummeraand vna
-ON
-    (
-        vna.fk_nn_lh_vbo_sc_identif = vbo.sc_identif )
+    ((gobj.sc_identif = vbo.sc_identif)))
 JOIN
     nummeraand na
 ON
-    (
-        na.sc_identif = vna.fk_nn_rh_nra_sc_identif )
+    ((na.sc_identif = vbo.fk_11nra_sc_identif)))
 JOIN
     addresseerb_obj_aand addrobj
 ON
-    (
-        addrobj.identif = na.sc_identif )
+    ((addrobj.identif = na.sc_identif)))
 JOIN
     gem_openb_rmte geor
 ON
-    (
-        geor.identifcode = addrobj.fk_7opr_identifcode )
+    ((geor.identifcode = addrobj.fk_7opr_identifcode)))
 LEFT JOIN
     openb_rmte_wnplts orwp
 ON
-    (
-        geor.identifcode = orwp.fk_nn_lh_opr_identifcode)
+    ((geor.identifcode = orwp.fk_nn_lh_opr_identifcode)))
 LEFT JOIN
     wnplts wp
 ON
-    (
-        orwp.fk_nn_rh_wpl_identif = wp.identif)
+    ((orwp.fk_nn_rh_wpl_identif = wp.identif)))
 LEFT JOIN
     gemeente gem
 ON
-    (
-        wp.fk_7gem_code = gem.code )
-    /*
-    left join
-    gebouwd_obj_gebruiksdoel doel
-    on
-    (
-    doel.fk_gbo_sc_identif = gobj.sc_identif)
-    */
+    ((
+            wp.fk_7gem_code = gem.code)))
 WHERE
-    addrobj.dat_eind_geldh IS NULL
-AND geor.datum_einde_geldh IS NULL
-AND gem.datum_einde_geldh IS NULL
-AND gobj.datum_einde_geldh IS NULL;
+    ((((
+                    addrobj.dat_eind_geldh IS NULL)
+            AND (
+                    geor.datum_einde_geldh IS NULL))
+        AND (
+                gem.datum_einde_geldh IS NULL))
+    AND (
+            gobj.datum_einde_geldh IS NULL));
 -------------------------------------------------
 -- v_verblijfsobject_gevormd
 -------------------------------------------------
@@ -2668,6 +2652,148 @@ LEFT JOIN
 ON
     (
         lp.sc_identif = bt.sc_identif) ;
+-------------------------------------------------
+-- v_ligplaats_alles
+-------------------------------------------------
+/*
+ligplaats met hoofdadres
+*/		
+CREATE OR REPLACE VIEW
+    v_ligplaats_alles
+    (
+        fid,
+        gemeente,
+        woonplaats,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        status,
+        the_geom
+    ) AS
+SELECT
+    lp.sc_identif        AS fid,
+    gem.naam             AS gemeente,
+    wp.naam              AS woonplaats,
+    geor.naam_openb_rmte AS straatnaam,
+    addrobj.huinummer    AS huisnummer,
+    addrobj.huisletter,
+    addrobj.huinummertoevoeging AS huisnummer_toev,
+    addrobj.postcode,
+    lp.status,
+    bt.geom AS the_geom
+FROM
+    (((((((ligplaats lp
+JOIN
+    benoemd_terrein bt
+ON
+    ((lp.sc_identif = bt.sc_identif)))
+JOIN
+    nummeraand na
+ON
+    ((na.sc_identif = lp.fk_4nra_sc_identif)))
+JOIN
+    addresseerb_obj_aand addrobj
+ON
+    ((addrobj.identif = na.sc_identif)))
+JOIN
+    gem_openb_rmte geor
+ON
+    ((geor.identifcode = addrobj.fk_7opr_identifcode)))
+LEFT JOIN
+    openb_rmte_wnplts orwp
+ON
+    ((geor.identifcode = orwp.fk_nn_lh_opr_identifcode)))
+LEFT JOIN
+    wnplts wp
+ON
+    ((orwp.fk_nn_rh_wpl_identif = wp.identif)))
+LEFT JOIN
+    gemeente gem
+ON
+    ((
+            wp.fk_7gem_code = gem.code)))
+WHERE
+    ((((
+                    addrobj.dat_eind_geldh IS NULL)
+            AND (
+                    geor.datum_einde_geldh IS NULL))
+        AND (
+                gem.datum_einde_geldh IS NULL))
+    AND (
+            bt.datum_einde_geldh IS NULL));	
+-------------------------------------------------
+-- v_standplaats_alles
+-------------------------------------------------
+/*
+standplaats met hoofdadres
+*/		
+CREATE OR REPLACE VIEW
+    v_standplaats_alles
+    (
+        fid,
+        gemeente,
+        woonplaats,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        status,
+        the_geom
+    ) AS
+SELECT
+    sp.sc_identif        AS fid,
+    gem.naam             AS gemeente,
+    wp.naam              AS woonplaats,
+    geor.naam_openb_rmte AS straatnaam,
+    addrobj.huinummer    AS huisnummer,
+    addrobj.huisletter,
+    addrobj.huinummertoevoeging AS huisnummer_toev,
+    addrobj.postcode,
+    sp.status,
+    bt.geom AS the_geom
+FROM
+    (((((((standplaats sp
+JOIN
+    benoemd_terrein bt
+ON
+    ((sp.sc_identif = bt.sc_identif)))
+JOIN
+    nummeraand na
+ON
+    ((na.sc_identif = sp.fk_4nra_sc_identif)))
+JOIN
+    addresseerb_obj_aand addrobj
+ON
+    ((addrobj.identif = na.sc_identif)))
+JOIN
+    gem_openb_rmte geor
+ON
+    ((geor.identifcode = addrobj.fk_7opr_identifcode)))
+LEFT JOIN
+    openb_rmte_wnplts orwp
+ON
+    ((geor.identifcode = orwp.fk_nn_lh_opr_identifcode)))
+LEFT JOIN
+    wnplts wp
+ON
+    ((orwp.fk_nn_rh_wpl_identif = wp.identif)))
+LEFT JOIN
+    gemeente gem
+ON
+    ((
+            wp.fk_7gem_code = gem.code)))
+WHERE
+    ((((
+                    addrobj.dat_eind_geldh IS NULL)
+            AND (
+                    geor.datum_einde_geldh IS NULL))
+        AND (
+                gem.datum_einde_geldh IS NULL))
+    AND (
+            bt.datum_einde_geldh IS NULL));			
 -------------------------------------------------
 -- v_adres
 -------------------------------------------------
@@ -2957,7 +3083,6 @@ CREATE VIEW
         FROM
             v_adres_standplaats
     );-- Script: 107_brk_views.sql
-
 
 create view v_map_kad_perceel as
 select
@@ -18550,7 +18675,6 @@ INSERT INTO wijk (code, naam) VALUES ('198702', 'Wijk 02');
 INSERT INTO wijk (code, naam) VALUES ('198703', 'Wijk 03');
 INSERT INTO wijk (code, naam) VALUES ('999999', '');
 -- Script: 114_drop_constraints.sql
-
 
 --snijdt alle banden tussen BAG en ander BR's door
 --zodat BAG verwijderd en weer opnieuw geladen kan worden

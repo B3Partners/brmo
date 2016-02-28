@@ -245,24 +245,24 @@ public class BagXMLReader extends BrmoXMLReader {
                 }
             }
             // status ingetrokken verwijderen
-            if ("ligplaatsstatus".equals(child.getLocalName())) {
+            if ("ligplaatsStatus".equals(child.getLocalName())) {
                 if (child.getTextContent().equalsIgnoreCase("Plaats ingetrokken")) {
                     return false;
                 }
             }
-            if ("standplaatsstatus".equals(child.getLocalName())) {
+            if ("standplaatsStatus".equals(child.getLocalName())) {
                 if (child.getTextContent().equalsIgnoreCase("Plaats ingetrokken")) {
                     return false;
                 }
             }
             // nummeraanduidingen met status 'Naamgeving ingetrokken'
-            if ("nummeraanduidingstatus".equals(child.getLocalName())) {
+            if ("nummeraanduidingStatus".equals(child.getLocalName())) {
                 if (child.getTextContent().equalsIgnoreCase("Naamgeving ingetrokken")) {
                     return false;
                 }
             }
             // openbare ruimten met status 'Naamgeving ingetrokken'
-            if ("openbareruimtestatus".equals(child.getLocalName())) {
+            if ("openbareruimteStatus".equals(child.getLocalName())) {
                 if (child.getTextContent().equalsIgnoreCase("Naamgeving ingetrokken")) {
                     return false;
                 }
@@ -275,14 +275,14 @@ public class BagXMLReader extends BrmoXMLReader {
                 }
             }
             // verblijfsobjecten met status 'Niet gerealiseerd verblijfsobject' of 'Verblijfsobject ingetrokken'
-            if ("verblijfsobjectstatus".equals(child.getLocalName())) {
+            if ("verblijfsobjectStatus".equals(child.getLocalName())) {
                 if (child.getTextContent().equalsIgnoreCase("Verblijfsobject ingetrokken")
                         || child.getTextContent().equalsIgnoreCase("Niet gerealiseerd verblijfsobject")) {
                     return false;
                 }
             }
             // woonplaatsen met status 'Woonplaats ingetrokken'
-            if ("woonplaatsstatus".equals(child.getLocalName())) {
+            if ("woonplaatsStatus".equals(child.getLocalName())) {
                 if (child.getTextContent().equalsIgnoreCase("Woonplaats ingetrokken")) {
                     return false;
                 }
