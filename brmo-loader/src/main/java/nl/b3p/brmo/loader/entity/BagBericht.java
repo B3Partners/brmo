@@ -77,10 +77,8 @@ public class BagBericht extends Bericht {
                 id = mutIdXPath.evaluate(doc);
 
             } else if(BagXMLReader.lvcProductToObjectType.containsKey(doc.getDocumentElement().getLocalName())) {
-                // datum wordt elders toegevoegd uit bestandsdatum
+                // datum en volgordenr worden elders toegevoegd
                 // Levering
-                setVolgordeNummer(-1);
-
                 objectType = BagXMLReader.lvcProductToObjectType.get(doc.getDocumentElement().getLocalName());
                 id = idXPath.evaluate(doc);
                 

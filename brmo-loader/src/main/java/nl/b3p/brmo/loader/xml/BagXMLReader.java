@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -186,11 +188,21 @@ public class BagXMLReader extends BrmoXMLReader {
     }
     
     private boolean createStandBagBericht(String brXml, Document d) {
-        if (isBerichtActueel(d.getDocumentElement())) {
+        if (gebruikStandBericht(d.getDocumentElement())) {
             nextBericht = new BagBericht(brXml, d);
-            // Bij een levering zit er geen datum in een "Verwerking" element,
-            // pak peildatum van stand
-            nextBericht.setDatum(getBestandsDatum());
+            Date datBegGeld = getBerichtBeginGeldigheid(d.getDocumentElement());
+            if (datBegGeld != null && getBestandsDatum().before(datBegGeld)) {
+                //uitzondering: begindatum in toekomst
+                //sla op als mutatie met datum in de toekomst
+                //als dit 2x voorkomt voor zelfde object, jammer dan!
+                nextBericht.setDatum(datBegGeld);
+                nextBericht.setVolgordeNummer(0);
+            } else {
+                // Bij een standlevering zit er geen datum in een "Verwerking" element,
+                // pak peildatum van stand en zet volgordenr op -1
+                nextBericht.setDatum(getBestandsDatum());
+                nextBericht.setVolgordeNummer(-1);
+            }
             return true;
         }
         return false;
@@ -209,11 +221,17 @@ public class BagXMLReader extends BrmoXMLReader {
                 for (int j = 0; j < grandchildren.getLength(); j++) {
                     Node grandchild = grandchildren.item(j);
                     if (grandchild.getNodeType() == Node.ELEMENT_NODE) {
-                        if (isBerichtActueel(grandchild)) {
-                            nextBericht = new BagBericht(brXml, d);
-                        } else {
-                            // maak leeg bericht
-                            nextBericht = new BagBericht("<empty/>", d);
+                        nextBericht = new BagBericht(brXml, d);
+                        Date datBegGeld = getBerichtBeginGeldigheid(grandchild);
+                        if (datBegGeld != null && getBestandsDatum().before(datBegGeld)) {
+                            //uitzondering: begindatum in toekomst
+                            //sla op met datum in de toekomst
+                            nextBericht.setDatum(datBegGeld);
+                            //TODO
+                            //als een bericht inactief wordt gezet dan zal het
+                            //oorspronkelijke bericht waarschijnlijk nog getransformeerd
+                            //moeten worden, beste oplossing is beide berichten
+                            //uit staging wissen.
                         }
                         return true;
                     }
@@ -222,8 +240,12 @@ public class BagXMLReader extends BrmoXMLReader {
         }
         return false;
     }
-
-    private boolean isBerichtActueel(Node n) {
+    
+    /**
+     * @param n bericht
+     * @return true als record niet inactief en einddatum geldigheid na bestandsdatum
+     */
+    private boolean gebruikStandBericht(Node n) {
         String soort = n.getLocalName();
         NodeList children = n.getChildNodes();
         for (int i = 0; i < children.getLength(); i++) {
@@ -233,8 +255,18 @@ public class BagXMLReader extends BrmoXMLReader {
                 for (int j = 0; j < grandchildren.getLength(); j++) {
                     Node grandchild = grandchildren.item(j);
                     if ("einddatumTijdvakGeldigheid".equals(grandchild.getLocalName())) {
-                        // check datum toekomst ????
-                        return false;
+                        String dateString = grandchild.getTextContent().substring(0, 7);
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+                        Date eindGeldigheidDatum = null;
+                        try {
+                            eindGeldigheidDatum = sdf.parse(dateString);
+                        } catch (ParseException pe) {
+                            log.error("Fout bij parsen datum \"" + dateString + "\" met formaat yyyyMMdd", pe);
+                        }
+                        if (eindGeldigheidDatum != null 
+                                && getBestandsDatum().after(eindGeldigheidDatum)) {
+                            return false;
+                        }
                     }
                 }
             }
@@ -244,50 +276,35 @@ public class BagXMLReader extends BrmoXMLReader {
                     return false;
                 }
             }
-            // status ingetrokken verwijderen
-            if ("ligplaatsStatus".equals(child.getLocalName())) {
-                if (child.getTextContent().equalsIgnoreCase("Plaats ingetrokken")) {
-                    return false;
-                }
-            }
-            if ("standplaatsStatus".equals(child.getLocalName())) {
-                if (child.getTextContent().equalsIgnoreCase("Plaats ingetrokken")) {
-                    return false;
-                }
-            }
-            // nummeraanduidingen met status 'Naamgeving ingetrokken'
-            if ("nummeraanduidingStatus".equals(child.getLocalName())) {
-                if (child.getTextContent().equalsIgnoreCase("Naamgeving ingetrokken")) {
-                    return false;
-                }
-            }
-            // openbare ruimten met status 'Naamgeving ingetrokken'
-            if ("openbareruimteStatus".equals(child.getLocalName())) {
-                if (child.getTextContent().equalsIgnoreCase("Naamgeving ingetrokken")) {
-                    return false;
-                }
-            }
-            // panden met status 'Niet gerealiseerd pand' of 'Pand gesloopt'
-            if ("pandstatus".equals(child.getLocalName())) {
-                if (child.getTextContent().equalsIgnoreCase("Pand gesloopt")
-                        || child.getTextContent().equalsIgnoreCase("Niet gerealiseerd pand")) {
-                    return false;
-                }
-            }
-            // verblijfsobjecten met status 'Niet gerealiseerd verblijfsobject' of 'Verblijfsobject ingetrokken'
-            if ("verblijfsobjectStatus".equals(child.getLocalName())) {
-                if (child.getTextContent().equalsIgnoreCase("Verblijfsobject ingetrokken")
-                        || child.getTextContent().equalsIgnoreCase("Niet gerealiseerd verblijfsobject")) {
-                    return false;
-                }
-            }
-            // woonplaatsen met status 'Woonplaats ingetrokken'
-            if ("woonplaatsStatus".equals(child.getLocalName())) {
-                if (child.getTextContent().equalsIgnoreCase("Woonplaats ingetrokken")) {
-                    return false;
-                }
-            }
         }
         return true;
+    }
+    
+        /**
+     * @param n bericht
+     * @return datum begin geldigheid of null indien niet in toekomst
+     */
+    private Date getBerichtBeginGeldigheid(Node n) {
+        NodeList children = n.getChildNodes();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        Date beginGeldigheid = null;
+        for (int i = 0; i < children.getLength(); i++) {
+            Node child = children.item(i);
+            if ("tijdvakgeldigheid".equals(child.getLocalName())) {
+                NodeList grandchildren = child.getChildNodes();
+                for (int j = 0; j < grandchildren.getLength(); j++) {
+                    Node grandchild = grandchildren.item(j);
+                    if ("begindatumTijdvakGeldigheid".equals(grandchild.getLocalName())) {
+                        String dateString = grandchild.getTextContent().substring(0, 7);
+                        try {
+                            beginGeldigheid = sdf.parse(dateString);
+                        } catch (ParseException pe) {
+                            log.error("Fout bij parsen datum \"" + dateString + "\" met formaat yyyyMMdd", pe);
+                        }
+                    }
+                 }
+            }
+        }
+        return beginGeldigheid;
     }
 }

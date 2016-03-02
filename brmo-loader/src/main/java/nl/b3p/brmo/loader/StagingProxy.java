@@ -200,22 +200,24 @@ public class StagingProxy {
         StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE 
                         + " (id, datum, volgordenummer, object_ref, br_xml, soort) "
                         + " select id, datum, volgordenummer, object_ref, br_xml, soort from " 
-                        + BrmoFramework.BERICHT_TABLE + " where status = ? ");
+                        + BrmoFramework.BERICHT_TABLE + " where status = ? and datum <= ? ");
         if (orderBerichten) {
             q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
         }
-        return new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), q.toString(), status.toString());
+        return new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                .update(getConnection(), q.toString(), status.toString(), new java.sql.Date((new Date()).getTime()));
     }
 
     public long setBerichtenJobForUpdate(String soort, boolean orderBerichten) throws SQLException {
         StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE 
                         + " (id, datum, volgordenummer, object_ref, br_xml, soort) "
                         + " select id, datum, volgordenummer, object_ref, br_xml, soort from " 
-                        + BrmoFramework.BERICHT_TABLE + " where status = ? and soort = ? ");
+                        + BrmoFramework.BERICHT_TABLE + " where status = ? and soort = ? and datum <= ? ");
         if (orderBerichten) {
             q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
         }
-        return new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), q.toString(), Bericht.STATUS.RSGB_OK.toString(), soort);
+        return new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                .update(getConnection(), q.toString(), Bericht.STATUS.RSGB_OK.toString(), soort, new java.sql.Date((new Date()).getTime()));
    }
 
     public long setBerichtenJobByIds(long[] ids, boolean orderBerichten) throws SQLException {
@@ -229,11 +231,12 @@ public class StagingProxy {
             }
             q.append(ids[i]);
         }
-        q.append(")");
+        q.append(") and datum <= ? ");
         if (orderBerichten) {
             q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
         }
-        return new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), q.toString());
+        return new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                .update(getConnection(), q.toString(), new java.sql.Date((new Date()).getTime()));
     }
 
     public long setBerichtenJobByLaadprocessen(long[] laadprocesIds, boolean orderBerichten) throws SQLException {
@@ -248,11 +251,12 @@ public class StagingProxy {
             }
             q.append(laadprocesIds[i]);
         }
-        q.append(") and status = ?");
+        q.append(") and status = ? and datum <= ? ");
         if (orderBerichten) {
             q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
         }
-        return new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), q.toString(), Bericht.STATUS.STAGING_OK.toString());
+        return new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                .update(getConnection(), q.toString(), Bericht.STATUS.STAGING_OK.toString(), new java.sql.Date((new Date()).getTime()));
     }
 
     public void handleBerichtenByJob(long total, final BerichtenHandler handler, final boolean enablePipeline, int transformPipelineCapacity, boolean orderBerichten) throws Exception {
