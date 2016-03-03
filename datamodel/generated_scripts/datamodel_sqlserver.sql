@@ -6,7 +6,7 @@
 	datum datetime not null,
 	primary key clustered(tabel, kolom, waarde, herkomst_br, datum)
 );
--- Script: 102_metagegevens_brondocument.sql
+-- Script: 102_metagegevens_brondocument.sql
 -- Een brondocument wordt niet in de originele tabel opgenomen omdat dit een
 -- 0..n relatie kan zijn en niet altijd een 0..1. 
 
@@ -833,7 +833,7 @@ CREATE VIEW
             centroide AS the_geom
         FROM
             v_adres_standplaats
-    );-- Script: 107_brk_views.sql
+    );-- Script: 107_brk_views.sql
 create view v_map_kad_perceel as
 select
     p.sc_kad_identif,
@@ -16413,7 +16413,7 @@ INSERT INTO wijk (code, naam) VALUES ('198701', 'Wijk 01 Noordbroek');
 INSERT INTO wijk (code, naam) VALUES ('198702', 'Wijk 02');
 INSERT INTO wijk (code, naam) VALUES ('198703', 'Wijk 03');
 INSERT INTO wijk (code, naam) VALUES ('999999', '');
--- Script: 114_drop_constraints.sql
+-- Script: 114_drop_constraints.sql
 --snijdt alle banden tussen BAG en ander BR's door
 --zodat BAG verwijderd en weer opnieuw geladen kan worden
 alter table addresseerb_obj_aand drop constraint fk_aoa_as_6;
