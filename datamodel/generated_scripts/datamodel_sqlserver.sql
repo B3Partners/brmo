@@ -1,2244 +1,4 @@
-
--- BRMO RSGB script voor sqlserver
--- Gegenereerd op 2016-02-18T11:16:26.663+01:00
-
-create table sbi_activiteit(
-	omschr varchar(60),
-	sbi_code varchar(6) not null
-);
-alter table sbi_activiteit add constraint sbi_activiteit_pk primary key clustered(sbi_code);
-
-
-create table aard_recht_verkort(
-	aand varchar(4) not null,
-	omschr varchar(100)
-);
-alter table aard_recht_verkort add constraint aard_recht_verkort_pk primary key clustered(aand);
-
-
-create table aard_verkregen_recht(
-	aand varchar(6) not null,
-	omschr_aard_verkregenr_recht varchar(200)
-);
-alter table aard_verkregen_recht add constraint aard_verkregen_recht_pk primary key clustered(aand);
-
-
-create table academische_titel(
-	code varchar(3) not null,
-	dat_beg_geldh_titel varchar(19),
-	datum_einde_geldh_titel varchar(19),
-	omschr varchar(80),
-	positie_tov_naam varchar(1)
-);
-alter table academische_titel add constraint academische_titel_pk primary key clustered(code);
-
-
-create table land(
-	eindd varchar(19),
-	ingangsdatum varchar(19),
-	code decimal(4,0),
-	code_iso varchar(2) not null,
-	naam varchar(40)
-);
-alter table land add constraint land_pk primary key clustered(code_iso);
-
-
-create table nation(
-	begindatum_geldh varchar(19),
-	eindd_geldh varchar(19),
-	code decimal(4,0) not null,
-	omschr varchar(42)
-);
-alter table nation add constraint nation_pk primary key clustered(code);
-
-
-create table rsdocsoort(
-	begindatum_geldh varchar(19),
-	eindd_geldh varchar(19),
-	rsdoccode varchar(2) not null,
-	rsdocomschr varchar(80)
-);
-alter table rsdocsoort add constraint rsdocsoort_pk primary key clustered(rsdoccode);
-
-
-create table addresseerb_obj_aand(
-	dat_beg_geldh varchar(19),
-	identif varchar(16) not null,
-	clazz varchar(255),
-	dat_eind_geldh varchar(19),
-	huisletter varchar(1),
-	huinummer decimal(5,0),
-	huinummertoevoeging varchar(4),
-	postcode varchar(6),
-	fk_6wpl_identif varchar(4),
-	fk_7opr_identifcode varchar(16)
-);
-alter table addresseerb_obj_aand add constraint addresseerb_obj_aand_pk primary key clustered(identif);
-
-
-create table ander_btnlnds_niet_nat_prs(
-	sc_identif varchar(32) not null
-);
-alter table ander_btnlnds_niet_nat_prs add constraint ander_btnlnds_niet_nat_prs_pk primary key clustered(sc_identif);
-
-
-create table ander_nat_prs(
-	sc_identif varchar(32) not null,
-	geboortedatum decimal(8,0),
-	overlijdensdatum decimal(8,0),
-	fk_3aoa_identif varchar(16)
-);
-alter table ander_nat_prs add constraint ander_nat_prs_pk primary key clustered(sc_identif);
-
-
-create table app_re(
-	sc_kad_identif decimal(15,0) not null,
-	fk_2nnp_sc_identif varchar(32),
-	ka_appartementsindex varchar(4),
-	ka_kad_gemeentecode varchar(5),
-	ka_perceelnummer varchar(15),
-	ka_sectie varchar(255)
-);
-alter table app_re add constraint app_re_pk primary key clustered(sc_kad_identif);
-
-
-create table begr_terr_dl(
-	dat_beg_geldh varchar(19),
-	identif varchar(255) not null,
-	clazz varchar(255),
-	datum_einde_geldh varchar(19),
-	fysiek_voork_begr_terrein varchar(20),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	fk_8opr_identifcode varchar(16)
-);
-alter table begr_terr_dl add constraint begr_terr_dl_pk primary key clustered(identif);
-alter table begr_terr_dl add geom geometry;
-CREATE SPATIAL INDEX begr_terr_dl_geom1_idx ON begr_terr_dl (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-alter table begr_terr_dl add kruinlijngeom geometry;
-CREATE SPATIAL INDEX begr_terr_dl_kruinlijngeo2_idx ON begr_terr_dl (kruinlijngeom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table begr_terreinvakonderd(
-	sc_identif varchar(255) not null,
-	fk_1btd_identif varchar(255)
-);
-alter table begr_terreinvakonderd add constraint begr_terreinvakonderd_pk primary key clustered(sc_identif);
-
-
-create table benoemd_obj(
-	identif varchar(16) not null,
-	clazz varchar(255)
-);
-alter table benoemd_obj add constraint benoemd_obj_pk primary key clustered(identif);
-
-
-create table benoemd_terrein(
-	dat_beg_geldh varchar(19),
-	sc_identif varchar(16) not null,
-	clazz varchar(255),
-	datum_einde_geldh varchar(19)
-);
-alter table benoemd_terrein add constraint benoemd_terrein_pk primary key clustered(sc_identif);
-alter table benoemd_terrein add geom geometry;
-CREATE SPATIAL INDEX benoemd_terrein_geom1_idx ON benoemd_terrein (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table brugconstructie_element(
-	sc_identif varchar(255) not null,
-	type varchar(40)
-);
-alter table brugconstructie_element add constraint brugconstructie_element_pk primary key clustered(sc_identif);
-
-
-create table buurt(
-	code decimal(8,0) not null,
-	dat_beg_geldh varchar(19),
-	naam varchar(80),
-	datum_einde_geldh varchar(19),
-	identif_imgeobrt varchar(255),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8)
-);
-alter table buurt add constraint buurt_pk primary key clustered(code);
-alter table buurt add geom geometry;
-CREATE SPATIAL INDEX buurt_geom1_idx ON buurt (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table functioneel_gebied(
-	dat_beg_geldh varchar(19),
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	naam varchar(40),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	type varchar(255)
-);
-alter table functioneel_gebied add constraint functioneel_gebied_pk primary key clustered(identif);
-alter table functioneel_gebied add geom geometry;
-CREATE SPATIAL INDEX functioneel_gebied_geom1_idx ON functioneel_gebied (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table gebouwd_obj(
-	dat_beg_geldh varchar(19),
-	sc_identif varchar(16) not null,
-	clazz varchar(255),
-	bouwk_best_act varchar(255),
-	bruto_inhoud decimal(6,0),
-	datum_einde_geldh varchar(19),
-	inwwijze_oppervlakte varchar(24),
-	oppervlakte_obj decimal(6,0),
-	status_voortgang_bouw integer
-);
-alter table gebouwd_obj add constraint gebouwd_obj_pk primary key clustered(sc_identif);
-alter table gebouwd_obj add vlakgeom geometry;
-CREATE SPATIAL INDEX gebouwd_obj_vlakgeom1_idx ON gebouwd_obj (vlakgeom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-alter table gebouwd_obj add puntgeom geometry;
-CREATE SPATIAL INDEX gebouwd_obj_puntgeom2_idx ON gebouwd_obj (puntgeom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table gebouwinstallatie(
-	dat_beg_geldh varchar(19),
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	type varchar(40)
-);
-alter table gebouwinstallatie add constraint gebouwinstallatie_pk primary key clustered(identif);
-alter table gebouwinstallatie add geom geometry;
-CREATE SPATIAL INDEX gebouwinstallatie_geom1_idx ON gebouwinstallatie (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table gemeente(
-	dat_beg_geldh varchar(19),
-	code decimal(4,0) not null,
-	datum_einde_geldh varchar(19),
-	naam varchar(40),
-	naam_nen varchar(24)
-);
-alter table gemeente add constraint gemeente_pk primary key clustered(code);
-alter table gemeente add geom geometry;
-CREATE SPATIAL INDEX gemeente_geom1_idx ON gemeente (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table gem_openb_rmte(
-	dat_beg_geldh varchar(19),
-	identifcode varchar(16) not null,
-	datum_einde_geldh varchar(19),
-	indic_geconst_openb_rmte varchar(1),
-	naam_openb_rmte varchar(80),
-	status_openb_rmte varchar(80),
-	straatnaam varchar(24),
-	type_openb_rmte varchar(40),
-	fk_7gem_code decimal(4,0)
-);
-alter table gem_openb_rmte add constraint gem_openb_rmte_pk primary key clustered(identifcode);
-
-
-create table huishouden(
-	dat_beg_geldh varchar(19),
-	nummer decimal(12,0) not null,
-	datum_einde_geldh varchar(19),
-	grootte decimal(2,0),
-	soort decimal(2,0),
-	fk_4vbo_sc_identif varchar(16),
-	fk_5lpl_sc_identif varchar(16),
-	fk_7spl_sc_identif varchar(16)
-);
-alter table huishouden add constraint huishouden_pk primary key clustered(nummer);
-
-
-create table ingeschr_niet_nat_prs(
-	sc_identif varchar(32) not null,
-	typering varchar(35),
-	ovrg_privaatr_rechtsvorm varchar(200),
-	publiekrechtelijke_rechtsvorm varchar(40),
-	rechtstoestand varchar(30),
-	rechtsvorm varchar(50),
-	statutaire_zetel varchar(40),
-	fk_7aoa_identif varchar(16)
-);
-alter table ingeschr_niet_nat_prs add constraint ingeschr_niet_nat_prs_pk primary key clustered(sc_identif);
-
-
-create table ingeschr_nat_prs(
-	sc_identif varchar(32) not null,
-	clazz varchar(255),
-	a_nummer decimal(10,0),
-	btnlnds_rsdoc decimal(1,0),
-	burgerlijke_staat decimal(1,0),
-	bsn decimal(9,0),
-	dat_beg_geldh_verblijfpl varchar(19),
-	datum_inschrijving_in_gemeente varchar(19),
-	datum_opschorting_bijhouding varchar(19),
-	datum_verkr_nation varchar(19),
-	datum_verlies_nation varchar(19),
-	datum_vertrek_uit_nederland varchar(19),
-	datum_vestg_in_nederland varchar(19),
-	gemeente_van_inschrijving decimal(4,0),
-	handelingsbekwaam varchar(3),
-	indic_geheim decimal(1,0),
-	rechtstoestand varchar(22),
-	reden_opschorting_bijhouding varchar(1),
-	signalering_rsdoc decimal(1,0),
-	fk_27lpl_sc_identif varchar(16),
-	fk_28nra_sc_identif varchar(16),
-	fk_29wpl_identif varchar(4),
-	fk_30spl_sc_identif varchar(16),
-	fk_31vbo_sc_identif varchar(16),
-	fk_1rsd_nummer varchar(9),
-	gb_geboortedatum decimal(8,0),
-	fk_gb_lnd_code_iso varchar(2),
-	gb_geboorteplaats varchar(40),
-	nt_aand_bijzonder_nlschap varchar(1),
-	fk_nt_nat_code decimal(4,0),
-	nt_reden_verkr_nlse_nation decimal(3,0),
-	nt_reden_verlies_nlse_nation decimal(3,0),
-	fk_ol_lnd_code_iso varchar(2),
-	ol_overlijdensdatum decimal(8,0),
-	ol_overlijdensplaats varchar(40),
-	va_adresherkomst varchar(1),
-	va_loc_beschrijving varchar(255),
-	fk_va_3_vbo_sc_identif varchar(16),
-	fk_va_4_spl_sc_identif varchar(16),
-	fk_va_5_nra_sc_identif varchar(16),
-	fk_va_6_wpl_identif varchar(4),
-	fk_va_7_lpl_sc_identif varchar(16),
-	fk_3nat_code decimal(4,0),
-	fk_17lnd_code_iso varchar(2),
-	fk_18lnd_code_iso varchar(2)
-);
-alter table ingeschr_nat_prs add constraint ingeschr_nat_prs_pk primary key clustered(sc_identif);
-
-
-create table ingezetene(
-	sc_identif varchar(32) not null,
-	datum_verkr_verblijfstitel varchar(19),
-	datum_verlies_verblijfstitel varchar(19),
-	indic_blokkering varchar(1),
-	indic_curateleregister decimal(1,0),
-	indic_gezag_minderjarige varchar(2),
-	fk_8vbt_aand decimal(2,0),
-	ek_aand_euro_kiesr decimal(1,0),
-	ek_verw_eindd_uitsl_euro_kiesr decimal(8,0),
-	uk_aand_uitgesloten_kiesr varchar(1),
-	uk_verw_eindd_uitsl_kiesr decimal(8,0)
-);
-alter table ingezetene add constraint ingezetene_pk primary key clustered(sc_identif);
-
-
-create table inrichtingselement(
-	dat_beg_geldh varchar(19),
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	typering varchar(40),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	type varchar(30)
-);
-alter table inrichtingselement add constraint inrichtingselement_pk primary key clustered(identif);
-alter table inrichtingselement add geom geometry;
-CREATE SPATIAL INDEX inrichtingselement_geom1_idx ON inrichtingselement (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table kad_perceel(
-	sc_kad_identif decimal(15,0) not null,
-	aand_soort_grootte char(1),
-	grootte_perceel decimal(8,0),
-	omschr_deelperceel varchar(1120),
-	fk_7kdp_sc_kad_identif decimal(15,0),
-	ka_deelperceelnummer varchar(4),
-	ka_kad_gemeentecode varchar(5),
-	ka_perceelnummer varchar(5),
-	ka_sectie varchar(255)
-);
-alter table kad_perceel add constraint kad_perceel_pk primary key clustered(sc_kad_identif);
-alter table kad_perceel add begrenzing_perceel geometry;
-CREATE SPATIAL INDEX kad_perceel_begrenzing_pe1_idx ON kad_perceel (begrenzing_perceel) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-alter table kad_perceel add plaatscoordinaten_perceel geometry;
-CREATE SPATIAL INDEX kad_perceel_plaatscoordin2_idx ON kad_perceel (plaatscoordinaten_perceel) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table kad_gemeente(
-	code varchar(5) not null,
-	indic_vervallen char(1),
-	naam varchar(40)
-);
-alter table kad_gemeente add constraint kad_gemeente_pk primary key clustered(code);
-
-
-create table kad_onrrnd_zk(
-	dat_beg_geldh varchar(19),
-	kad_identif decimal(15,0) not null,
-	clazz varchar(255),
-	datum_einde_geldh varchar(19),
-	typering varchar(1),
-	fk_7kdg_code varchar(5),
-	fk_10pes_sc_identif varchar(32),
-	cu_aard_bebouwing varchar(255),
-	cu_aard_cultuur_onbebouwd varchar(65),
-	cu_meer_culturen char(1),
-	ks_aard_bedrag varchar(255),
-	ks_bedrag decimal(9,0),
-	ks_koopjaar integer,
-	ks_meer_onroerendgoed char(1),
-	ks_transactiedatum datetime,
-	ks_valutasoort varchar(255),
-	lr_aand_aard_liproject varchar(1),
-	lr_aard_bedrag varchar(255),
-	lr_bedrag varchar(255),
-	lr_eindjaar integer,
-	lr_valutasoort varchar(3),
-	lo_cultuur_bebouwd varchar(65),
-	lo_loc__omschr varchar(40)
-);
-alter table kad_onrrnd_zk add constraint kad_onrrnd_zk_pk primary key clustered(kad_identif);
-
-
-create table kad_onrrnd_zk_aantek(
-	begindatum_aantek_kad_obj varchar(19),
-	kadaster_identif_aantek varchar(255) not null,
-	aard_aantek_kad_obj varchar(255),
-	beschrijving_aantek_kad_obj varchar(124),
-	eindd_aantek_kad_obj varchar(19),
-	fk_4koz_kad_identif decimal(15,0),
-	fk_5pes_sc_identif varchar(32)
-);
-alter table kad_onrrnd_zk_aantek add constraint kad_onrrnd_zk_aantek_pk primary key clustered(kadaster_identif_aantek);
-
-
-create table kunstwerkdeel(
-	dat_beg_geldh varchar(19),
-	identif varchar(255) not null,
-	clazz varchar(255),
-	datum_einde_geldh varchar(19),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	type_kunstwerk varchar(40)
-);
-alter table kunstwerkdeel add constraint kunstwerkdeel_pk primary key clustered(identif);
-alter table kunstwerkdeel add geom geometry;
-CREATE SPATIAL INDEX kunstwerkdeel_geom1_idx ON kunstwerkdeel (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table ligplaats(
-	sc_identif varchar(16) not null,
-	indic_geconst varchar(1),
-	status varchar(80),
-	fk_4nra_sc_identif varchar(16)
-);
-alter table ligplaats add constraint ligplaats_pk primary key clustered(sc_identif);
-
-
-create table maatschapp_activiteit(
-	kvk_nummer decimal(8,0) not null,
-	datum_aanvang varchar(19),
-	datum_einde_geldig varchar(19),
-	fk_3ond_kvk_nummer decimal(8,0),
-	fk_4pes_sc_identif varchar(32)
-);
-alter table maatschapp_activiteit add constraint maatschapp_activiteit_pk primary key clustered(kvk_nummer);
-
-
-create table nat_prs(
-	sc_identif varchar(32) not null,
-	clazz varchar(255),
-	aand_naamgebruik varchar(1),
-	geslachtsaand varchar(1),
-	nm_adellijke_titel_predikaat varchar(10),
-	nm_geslachtsnaam varchar(200),
-	nm_voornamen varchar(200),
-	nm_voorvoegsel_geslachtsnaam varchar(10),
-	na_aanhef_aanschrijving varchar(50),
-	na_geslachtsnaam_aanschrijving varchar(200),
-	na_voorletters_aanschrijving varchar(20),
-	na_voornamen_aanschrijving varchar(200),
-	fk_2acd_code varchar(3)
-);
-alter table nat_prs add constraint nat_prs_pk primary key clustered(sc_identif);
-
-
-create table niet_ingezetene(
-	sc_identif varchar(32) not null
-);
-alter table niet_ingezetene add constraint niet_ingezetene_pk primary key clustered(sc_identif);
-
-
-create table niet_nat_prs(
-	sc_identif varchar(32) not null,
-	clazz varchar(255),
-	naam varchar(500),
-	datum_aanvang varchar(19),
-	datum_beeindiging varchar(19),
-	verkorte_naam varchar(45)
-);
-alter table niet_nat_prs add constraint niet_nat_prs_pk primary key clustered(sc_identif);
-
-
-create table nummeraand(
-	sc_identif varchar(16) not null,
-	indic_geconst varchar(1),
-	indic_hoofdadres char(1),
-	status varchar(80)
-);
-alter table nummeraand add constraint nummeraand_pk primary key clustered(sc_identif);
-
-
-create table onbegr_terr_dl(
-	dat_beg_geldh varchar(19),
-	identif varchar(255) not null,
-	clazz varchar(255),
-	datum_einde_geldh varchar(19),
-	fysiek_voork_onbegr_terrein varchar(20),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	fk_8opr_identifcode varchar(16)
-);
-alter table onbegr_terr_dl add constraint onbegr_terr_dl_pk primary key clustered(identif);
-alter table onbegr_terr_dl add geom geometry;
-CREATE SPATIAL INDEX onbegr_terr_dl_geom1_idx ON onbegr_terr_dl (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-alter table onbegr_terr_dl add kruinlijngeom geometry;
-CREATE SPATIAL INDEX onbegr_terr_dl_kruinlijng2_idx ON onbegr_terr_dl (kruinlijngeom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table onbegr_terreinvakonderd(
-	sc_identif varchar(255) not null,
-	fk_1obt_identif varchar(255)
-);
-alter table onbegr_terreinvakonderd add constraint onbegr_terreinvakonderd_pk primary key clustered(sc_identif);
-
-
-create table ondrnmng(
-	kvk_nummer decimal(8,0) not null,
-	datum_aanvang varchar(19),
-	datum_einde varchar(19),
-	fk_4mac_kvk_nummer decimal(8,0),
-	fk_1ond_kvk_nummer decimal(8,0)
-);
-alter table ondrnmng add constraint ondrnmng_pk primary key clustered(kvk_nummer);
-
-
-create table ondersteunend_wegdeel(
-	dat_beg_geldh varchar(19),
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	functie varchar(25),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	fk_6opr_identifcode varchar(16)
-);
-alter table ondersteunend_wegdeel add constraint ondersteunend_wegdeel_pk primary key clustered(identif);
-alter table ondersteunend_wegdeel add geom geometry;
-CREATE SPATIAL INDEX ondersteunend_wegdeel_geo1_idx ON ondersteunend_wegdeel (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table openb_rmte(
-	identifcode varchar(16) not null,
-	huisnrrange_on_even_nummers varchar(11),
-	huisnrrange_even_nummers varchar(11),
-	huisnrrange_oneven_nummers varchar(11),
-	identif_bgtopr varchar(255)
-);
-alter table openb_rmte add constraint openb_rmte_pk primary key clustered(identifcode);
-
-
-create table ovrg_addresseerb_obj_aand(
-	sc_identif varchar(16) not null
-);
-alter table ovrg_addresseerb_obj_aand add constraint ovrg_addresseerb_obj_aand_pk primary key clustered(sc_identif);
-
-
-create table overig_bouwwerk(
-	dat_beg_geldh varchar(19),
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	type varchar(40)
-);
-alter table overig_bouwwerk add constraint overig_bouwwerk_pk primary key clustered(identif);
-alter table overig_bouwwerk add geom geometry;
-CREATE SPATIAL INDEX overig_bouwwerk_geom1_idx ON overig_bouwwerk (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table overig_gebouwd_obj(
-	sc_identif varchar(16) not null,
-	bouwjaar decimal(4,0),
-	loc_aand varchar(40),
-	type varchar(40),
-	fk_4oao_sc_identif varchar(16),
-	fk_5nra_sc_identif varchar(16),
-	fk_6opr_identifcode varchar(16)
-);
-alter table overig_gebouwd_obj add constraint overig_gebouwd_obj_pk primary key clustered(sc_identif);
-
-
-create table ovrg_scheiding(
-	dat_beg_geldh varchar(19),
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	type varchar(40)
-);
-alter table ovrg_scheiding add constraint ovrg_scheiding_pk primary key clustered(identif);
-alter table ovrg_scheiding add geom geometry;
-CREATE SPATIAL INDEX ovrg_scheiding_geom1_idx ON ovrg_scheiding (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table overig_terrein(
-	sc_identif varchar(16) not null,
-	fk_2oao_sc_identif varchar(16)
-);
-alter table overig_terrein add constraint overig_terrein_pk primary key clustered(sc_identif);
-
-
-create table pand(
-	dat_beg_geldh varchar(19),
-	identif varchar(16) not null,
-	bruto_inhoud decimal(6,0),
-	datum_einde_geldh varchar(19),
-	hoogste_bouwlaag decimal(3,0),
-	identif_bgtpnd varchar(255),
-	indic_geconstateerd varchar(1),
-	inwwijze_geom_bovenaanzicht varchar(24),
-	inwwijze_geom_maaiveld varchar(24),
-	laagste_bouwlaag decimal(3,0),
-	oorspronkelijk_bouwjaar decimal(4,0),
-	oppervlakte decimal(6,0),
-	status varchar(80),
-	relve_hoogteligging decimal(1,0),
-	status_voortgang_bouw varchar(24)
-);
-alter table pand add constraint pand_pk primary key clustered(identif);
-alter table pand add geom_bovenaanzicht geometry;
-CREATE SPATIAL INDEX pand_geom_bovenaanzicht1_idx ON pand (geom_bovenaanzicht) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-alter table pand add geom_maaiveld geometry;
-CREATE SPATIAL INDEX pand_geom_maaiveld2_idx ON pand (geom_maaiveld) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table prs(
-	sc_identif varchar(32) not null,
-	clazz varchar(255)
-);
-alter table prs add constraint prs_pk primary key clustered(sc_identif);
-
-
-create table rsdoc(
-	nummer varchar(9) not null,
-	aand_inhouding_of_vermissing varchar(1),
-	autoriteit_uitgifte varchar(6),
-	datum_inhouding_of_vermissing decimal(8,0),
-	datum_uitgifte decimal(8,0),
-	eindd_geldh_document decimal(8,0),
-	lengte_houder decimal(8,0),
-	fk_7rds_rsdoccode varchar(2)
-);
-alter table rsdoc add constraint rsdoc_pk primary key clustered(nummer);
-
-
-create table scheiding(
-	dat_beg_geldh varchar(19),
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	type varchar(40)
-);
-alter table scheiding add constraint scheiding_pk primary key clustered(identif);
-alter table scheiding add geom geometry;
-CREATE SPATIAL INDEX scheiding_geom1_idx ON scheiding (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table spoor(
-	dat_beg_geldh varchar(19),
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	functie varchar(25),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8)
-);
-alter table spoor add constraint spoor_pk primary key clustered(identif);
-alter table spoor add geom geometry;
-CREATE SPATIAL INDEX spoor_geom1_idx ON spoor (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table stadsdeel(
-	dat_beg_geldh varchar(19),
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	relve_hoogteligging decimal(1,0),
-	naam varchar(40),
-	status varchar(8)
-);
-alter table stadsdeel add constraint stadsdeel_pk primary key clustered(identif);
-alter table stadsdeel add geom geometry;
-CREATE SPATIAL INDEX stadsdeel_geom1_idx ON stadsdeel (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table standplaats(
-	sc_identif varchar(16) not null,
-	indic_geconst varchar(1),
-	status varchar(80),
-	fk_4nra_sc_identif varchar(16)
-);
-alter table standplaats add constraint standplaats_pk primary key clustered(sc_identif);
-
-
-create table subject(
-	identif varchar(32) not null,
-	clazz varchar(255),
-	adres_binnenland varchar(257),
-	adres_buitenland varchar(149),
-	emailadres varchar(254),
-	fax_nummer varchar(20),
-	kvk_nummer decimal(8,0),
-	naam varchar(500),
-	typering varchar(50),
-	telefoonnummer varchar(20),
-	website_url varchar(200),
-	fk_13wpl_identif varchar(4),
-	fk_14aoa_identif varchar(16),
-	fk_15aoa_identif varchar(16),
-	pa_postadres_postcode varchar(6),
-	pa_postadrestype varchar(1),
-	pa_postbus__of_antwoordnummer decimal(5,0),
-	fk_pa_4_wpl_identif varchar(4),
-	rn_bankrekeningnummer decimal(10,0),
-	rn_bic varchar(11),
-	rn_iban varchar(34),
-	vb_adres_buitenland_1 varchar(35),
-	vb_adres_buitenland_2 varchar(35),
-	vb_adres_buitenland_3 varchar(35),
-	fk_vb_lnd_code_iso varchar(2)
-);
-alter table subject add constraint subject_pk primary key clustered(identif);
-
-
-create table verblijfsobj(
-	sc_identif varchar(16) not null,
-	aantal_kamers decimal(2,0),
-	hoogste_bouwlaag decimal(3,0),
-	indic_geconstateerd varchar(1),
-	laagste_bouwlaag decimal(3,0),
-	ontsluiting_verdieping varchar(3),
-	soort_woonobj decimal(1,0),
-	toegang_bouwlaag decimal(3,0),
-	status varchar(80),
-	fk_11nra_sc_identif varchar(16)
-);
-alter table verblijfsobj add constraint verblijfsobj_pk primary key clustered(sc_identif);
-
-
-create table verblijfstitel(
-	aand decimal(2,0) not null,
-	begindatum_geldh varchar(19),
-	eindd_geldh varchar(19),
-	omschr varchar(100)
-);
-alter table verblijfstitel add constraint verblijfstitel_pk primary key clustered(aand);
-
-
-create table vestg(
-	sc_identif varchar(32) not null,
-	activiteit_omschr varchar(2000),
-	datum_aanvang varchar(19),
-	datum_beeindiging varchar(19),
-	datum_voortzetting varchar(19),
-	fulltime_werkzame_mannen decimal(5,0),
-	fulltime_werkzame_vrouwen decimal(5,0),
-	parttime_werkzame_mannen decimal(5,0),
-	parttime_werkzame_vrouwen decimal(5,0),
-	toevoeging_adres varchar(100),
-	verkorte_naam varchar(45),
-	typering varchar(26),
-	fk_15ond_kvk_nummer decimal(8,0),
-	fk_16tgo_identif varchar(16),
-	fk_17mac_kvk_nummer decimal(8,0),
-	fk_18ves_sc_identif varchar(32),
-	fk_19mac_kvk_nummer decimal(8,0),
-	fk_20aoa_identif varchar(16),
-	sa_indic_hoofdactiviteit varchar(3),
-	fk_sa_sbi_activiteit_sbi_code varchar(6)
-);
-alter table vestg add constraint vestg_pk primary key clustered(sc_identif);
-
-
-create table vrijstaand_vegetatie_obj(
-	dat_beg_geldh varchar(19),
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	type varchar(40)
-);
-alter table vrijstaand_vegetatie_obj add constraint vrijstaand_vegetatie_obj_pk primary key clustered(identif);
-alter table vrijstaand_vegetatie_obj add geom geometry;
-CREATE SPATIAL INDEX vrijstaand_vegetatie_obj_1_idx ON vrijstaand_vegetatie_obj (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table waterdeel(
-	dat_beg_geldh varchar(19),
-	identif varchar(255) not null,
-	clazz varchar(255),
-	datum_einde_geldh varchar(19),
-	droogvallend varchar(1),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	type varchar(40),
-	fk_7opr_identifcode varchar(16)
-);
-alter table waterdeel add constraint waterdeel_pk primary key clustered(identif);
-alter table waterdeel add geom geometry;
-CREATE SPATIAL INDEX waterdeel_geom1_idx ON waterdeel (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table watervakonderdeel(
-	sc_identif varchar(255) not null,
-	fk_1wad_identif varchar(255)
-);
-alter table watervakonderdeel add constraint watervakonderdeel_pk primary key clustered(sc_identif);
-
-
-create table waterschap(
-	dat_beg_geldh varchar(19),
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	naam varchar(40)
-);
-alter table waterschap add constraint waterschap_pk primary key clustered(identif);
-alter table waterschap add geom geometry;
-CREATE SPATIAL INDEX waterschap_geom1_idx ON waterschap (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table wegdeel(
-	dat_beg_geldh varchar(19),
-	identif varchar(255) not null,
-	clazz varchar(255),
-	datum_einde_geldh varchar(19),
-	functie varchar(25),
-	fysiek_voork varchar(20),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	fk_8opr_identifcode varchar(16)
-);
-alter table wegdeel add constraint wegdeel_pk primary key clustered(identif);
-alter table wegdeel add geom geometry;
-CREATE SPATIAL INDEX wegdeel_geom1_idx ON wegdeel (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table wegvakonderdeel(
-	sc_identif varchar(255) not null,
-	fk_1wgd_identif varchar(255)
-);
-alter table wegvakonderdeel add constraint wegvakonderdeel_pk primary key clustered(sc_identif);
-
-
-create table wijk(
-	dat_beg_geldh varchar(19),
-	code decimal(6,0) not null,
-	datum_einde_geldh varchar(19),
-	identif_imgeowyk varchar(255),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	naam varchar(80)
-);
-alter table wijk add constraint wijk_pk primary key clustered(code);
-alter table wijk add geom geometry;
-CREATE SPATIAL INDEX wijk_geom1_idx ON wijk (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table wnplts(
-	dat_beg_geldh varchar(19),
-	identif varchar(4) not null,
-	datum_einde_geldh varchar(19),
-	indic_geconst varchar(1),
-	naam varchar(80),
-	naam_nen varchar(24),
-	status varchar(80),
-	fk_7gem_code decimal(4,0)
-);
-alter table wnplts add constraint wnplts_pk primary key clustered(identif);
-alter table wnplts add geom geometry;
-CREATE SPATIAL INDEX wnplts_geom1_idx ON wnplts (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table woz_deelobj(
-	dat_beg_geldh_deelobj decimal(8,0),
-	nummer decimal(6,0) not null,
-	code varchar(4),
-	datum_einde_geldh_deelobj decimal(8,0),
-	status decimal(2,0),
-	fk_4pnd_identif varchar(16),
-	fk_5tgo_identif varchar(16),
-	fk_6woz_nummer decimal(12,0)
-);
-alter table woz_deelobj add constraint woz_deelobj_pk primary key clustered(nummer);
-
-
-create table woz_obj(
-	dat_beg_geldh varchar(19),
-	nummer decimal(12,0) not null,
-	datum_einde_geldh varchar(19),
-	gebruikscode decimal(2,0),
-	grondoppervlakte decimal(11,0),
-	soort_obj_code decimal(4,0),
-	status decimal(2,0),
-	vastgestelde_waarde decimal(11,0),
-	waardepeildatum date
-);
-alter table woz_obj add constraint woz_obj_pk primary key clustered(nummer);
-alter table woz_obj add geom geometry;
-CREATE SPATIAL INDEX woz_obj_geom1_idx ON woz_obj (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table woz_waarde(
-	waardepeildatum decimal(8,0),
-	status_beschikking decimal(2,0),
-	toestandspeildatum decimal(8,0),
-	vastgestelde_waarde decimal(11,0),
-	fk_1woz_nummer decimal(12,0)
-);
-
-
-create table zak_recht(
-	kadaster_identif varchar(255) not null,
-	eindd_recht varchar(255),
-	indic_betrokken_in_splitsing varchar(255),
-	ingangsdatum_recht varchar(19),
-	fk_7koz_kad_identif decimal(15,0),
-	fk_8pes_sc_identif varchar(32),
-	ar_noemer decimal(8,0),
-	ar_teller decimal(8,0),
-	fk_2aard_recht_verkort_aand varchar(4),
-	fk_3avr_aand varchar(6)
-);
-alter table zak_recht add constraint zak_recht_pk primary key clustered(kadaster_identif);
-
-
-create table zak_recht_aantek(
-	kadaster_identif_aantek_recht varchar(255) not null,
-	aard_aantek_recht varchar(255),
-	begindatum_aantek_recht varchar(19),
-	beschrijving_aantek_recht varchar(255),
-	eindd_aantek_recht varchar(255),
-	fk_5zkr_kadaster_identif varchar(255),
-	fk_6pes_sc_identif varchar(32)
-);
-alter table zak_recht_aantek add constraint zak_recht_aantek_pk primary key clustered(kadaster_identif_aantek_recht);
-
-
-create table gebouwd_obj_gebruiksdoel(
-	gebruiksdoel_gebouwd_obj varchar(80),
-	fk_gbo_sc_identif varchar(16)
-);
-
-
-create table overig_terrein_gebruiksdoel(
-	gebruiksdoel_overig_terrein varchar(80),
-	fk_otr_sc_identif varchar(16)
-);
-
-
-create table vestg_naam(
-	naam varchar(500),
-	fk_ves_sc_identif varchar(32)
-);
-
-
-create table functionaris(
-	fk_sc_lh_pes_sc_identif varchar(32) not null,
-	fk_sc_rh_pes_sc_identif varchar(32) not null,
-	beperking_bev_in_euros decimal(18,0),
-	bv_beperking_in_geld decimal(18,0),
-	bv_omschr_ovrg_beperkingen varchar(2000),
-	bv_ovrg_volmacht varchar(3),
-	bv_soort_handeling varchar(35),
-	bev_met_andere_prsn varchar(3),
-	datum_toetr varchar(19),
-	datum_uittreding varchar(19),
-	functie varchar(80),
-	functionaristypering varchar(35),
-	indic_statutair_volmacht varchar(3),
-	ovrg_beperking_bev varchar(3),
-	soort_bev varchar(30),
-	volledig_beperkt_volmacht varchar(1)
-);
-alter table functionaris add constraint functionaris_pk primary key clustered(fk_sc_lh_pes_sc_identif,fk_sc_rh_pes_sc_identif);
-
-
-create table huishoudenrel(
-	fk_sc_lh_inp_sc_identif varchar(32) not null,
-	fk_sc_rh_hhd_nummer decimal(12,0) not null,
-	huishoudenrelcode decimal(1,0)
-);
-alter table huishoudenrel add constraint huishoudenrel_pk primary key clustered(fk_sc_lh_inp_sc_identif,fk_sc_rh_hhd_nummer);
-
-
-create table huw_ger_partn(
-	fk_sc_lh_inp_sc_identif varchar(32) not null,
-	fk_sc_rh_inp_sc_identif varchar(32) not null,
-	hs_datum_aangaan decimal(8,0),
-	fk_hs_lnd_code_iso varchar(2),
-	hs_plaats varchar(40),
-	ho_datum_ontb_huw_ger_partn decimal(8,0),
-	fk_ho_lnd_code_iso varchar(2),
-	ho_plaats_ontb_huw_ger_partn varchar(40),
-	ho_reden_ontb_huw_ger_partn varchar(1),
-	soort_verbintenis varchar(1)
-);
-alter table huw_ger_partn add constraint huw_ger_partn_pk primary key clustered(fk_sc_lh_inp_sc_identif,fk_sc_rh_inp_sc_identif);
-
-
-create table kad_onrrnd_zk_his_rel(
-	fk_sc_lh_koz_kad_identif decimal(15,0) not null,
-	fk_sc_rh_koz_kad_identif decimal(15,0) not null,
-	aard varchar(255),
-	overgangsgrootte varchar(255)
-);
-alter table kad_onrrnd_zk_his_rel add constraint kad_onrrnd_zk_his_rel_pk primary key clustered(fk_sc_lh_koz_kad_identif,fk_sc_rh_koz_kad_identif);
-
-
-create table locaand_adres(
-	fk_sc_lh_aoa_identif varchar(16) not null,
-	fk_sc_rh_woz_nummer decimal(12,0) not null,
-	locomschr varchar(40)
-);
-alter table locaand_adres add constraint locaand_adres_pk primary key clustered(fk_sc_lh_aoa_identif,fk_sc_rh_woz_nummer);
-
-
-create table locaand_openb_rmte(
-	fk_sc_lh_opr_identifcode varchar(16) not null,
-	fk_sc_rh_woz_nummer decimal(12,0) not null,
-	locomschr varchar(40)
-);
-alter table locaand_openb_rmte add constraint locaand_openb_rmte_pk primary key clustered(fk_sc_lh_opr_identifcode,fk_sc_rh_woz_nummer);
-
-
-create table ouder_kind_rel(
-	fk_sc_lh_inp_sc_identif varchar(32) not null,
-	fk_sc_rh_inp_sc_identif varchar(32) not null,
-	datum_einde_fam_recht_betr varchar(19),
-	datum_ingang_fam_recht_betr decimal(8,0),
-	ouder_aand varchar(6)
-);
-alter table ouder_kind_rel add constraint ouder_kind_rel_pk primary key clustered(fk_sc_lh_inp_sc_identif,fk_sc_rh_inp_sc_identif);
-
-
-create table woz_belang(
-	fk_sc_lh_sub_identif varchar(32) not null,
-	fk_sc_rh_woz_nummer decimal(12,0) not null,
-	aand_eigenaargebruiker varchar(1)
-);
-alter table woz_belang add constraint woz_belang_pk primary key clustered(fk_sc_lh_sub_identif,fk_sc_rh_woz_nummer);
-
-
-create table app_re_kad_perceel(
-	fk_nn_lh_apr_sc_kad_identif decimal(15,0) not null,
-	fk_nn_lh_apr_sc_dat_beg_geldh varchar(19),
-	fk_nn_rh_kdp_sc_kad_identif decimal(15,0) not null
-);
-alter table app_re_kad_perceel add constraint app_re_kad_perceel_pk primary key clustered(fk_nn_lh_apr_sc_kad_identif,fk_nn_rh_kdp_sc_kad_identif);
-
-
-create table benoemd_obj_kad_onrrnd_zk(
-	fk_nn_lh_tgo_identif varchar(16) not null,
-	fk_nn_rh_koz_kad_identif decimal(15,0) not null
-);
-alter table benoemd_obj_kad_onrrnd_zk add constraint benoemd_obj_kad_onrrnd_zk_pk primary key clustered(fk_nn_lh_tgo_identif,fk_nn_rh_koz_kad_identif);
-
-
-create table benoemd_terrein_benoemd_terrei(
-	fk_nn_lh_btr_sc_identif varchar(16) not null,
-	fk_nn_lh_btr_dat_beg_geldh varchar(19),
-	fk_nn_rh_btr_sc_identif varchar(16) not null
-);
-alter table benoemd_terrein_benoemd_terrei add constraint benoemd_terrein_benoemd_ter_pk primary key clustered(fk_nn_lh_btr_sc_identif,fk_nn_rh_btr_sc_identif);
-
-
-create table gemeente_gemeente(
-	fk_nn_lh_gem_code decimal(4,0) not null,
-	fk_nn_lh_gem_dat_beg_geldh varchar(19),
-	fk_nn_rh_gem_code decimal(4,0) not null
-);
-alter table gemeente_gemeente add constraint gemeente_gemeente_pk primary key clustered(fk_nn_lh_gem_code,fk_nn_rh_gem_code);
-
-
-create table kad_onrrnd_zk_kad_onrrnd_zk(
-	fk_nn_lh_koz_kad_identif decimal(15,0) not null,
-	fk_nn_lh_koz_dat_beg_geldh varchar(19),
-	fk_nn_rh_koz_kad_identif decimal(15,0) not null
-);
-alter table kad_onrrnd_zk_kad_onrrnd_zk add constraint kad_onrrnd_zk_kad_onrrnd_zk_pk primary key clustered(fk_nn_lh_koz_kad_identif,fk_nn_rh_koz_kad_identif);
-
-
-create table ligplaats_nummeraand(
-	fk_nn_lh_lpl_sc_identif varchar(16) not null,
-	fk_nn_lh_lpl_sc_dat_beg_geldh varchar(19),
-	fk_nn_rh_nra_sc_identif varchar(16) not null
-);
-alter table ligplaats_nummeraand add constraint ligplaats_nummeraand_pk primary key clustered(fk_nn_lh_lpl_sc_identif,fk_nn_rh_nra_sc_identif);
-
-
-create table openb_rmte_gem_openb_rmte(
-	fk_nn_lh_opr_identifcode varchar(16) not null,
-	fk_nn_rh_gor_identifcode varchar(16) not null
-);
-alter table openb_rmte_gem_openb_rmte add constraint openb_rmte_gem_openb_rmte_pk primary key clustered(fk_nn_lh_opr_identifcode,fk_nn_rh_gor_identifcode);
-
-
-create table openb_rmte_wnplts(
-	fk_nn_lh_opr_identifcode varchar(16) not null,
-	fk_nn_rh_wpl_identif varchar(4) not null
-);
-alter table openb_rmte_wnplts add constraint openb_rmte_wnplts_pk primary key clustered(fk_nn_lh_opr_identifcode,fk_nn_rh_wpl_identif);
-
-
-create table rsdoc_ingeschr_nat_prs(
-	fk_nn_lh_rsd_nummer varchar(9) not null,
-	fk_nn_rh_inp_sc_identif varchar(32) not null
-);
-alter table rsdoc_ingeschr_nat_prs add constraint rsdoc_ingeschr_nat_prs_pk primary key clustered(fk_nn_lh_rsd_nummer,fk_nn_rh_inp_sc_identif);
-
-
-create table standplaats_nummeraand(
-	fk_nn_lh_spl_sc_identif varchar(16) not null,
-	fk_nn_lh_spl_sc_dat_beg_geldh varchar(19),
-	fk_nn_rh_nra_sc_identif varchar(16) not null
-);
-alter table standplaats_nummeraand add constraint standplaats_nummeraand_pk primary key clustered(fk_nn_lh_spl_sc_identif,fk_nn_rh_nra_sc_identif);
-
-
-create table verblijfsobj_pand(
-	fk_nn_lh_vbo_sc_identif varchar(16) not null,
-	fk_nn_lh_vbo_sc_dat_beg_geldh varchar(19),
-	fk_nn_rh_pnd_identif varchar(16) not null
-);
-alter table verblijfsobj_pand add constraint verblijfsobj_pand_pk primary key clustered(fk_nn_lh_vbo_sc_identif,fk_nn_rh_pnd_identif);
-
-
-create table verblijfsobj_nummeraand(
-	fk_nn_lh_vbo_sc_identif varchar(16) not null,
-	fk_nn_lh_vbo_sc_dat_beg_geldh varchar(19),
-	fk_nn_rh_nra_sc_identif varchar(16) not null
-);
-alter table verblijfsobj_nummeraand add constraint verblijfsobj_nummeraand_pk primary key clustered(fk_nn_lh_vbo_sc_identif,fk_nn_rh_nra_sc_identif);
-
-
-create table vestg_benoemd_obj(
-	fk_nn_lh_ves_sc_identif varchar(32) not null,
-	fk_nn_rh_tgo_identif varchar(16) not null
-);
-alter table vestg_benoemd_obj add constraint vestg_benoemd_obj_pk primary key clustered(fk_nn_lh_ves_sc_identif,fk_nn_rh_tgo_identif);
-
-
-create table meta_enumeratie_waardes(
-	naam varchar(255) not null,
-	waarde varchar(255) not null
-);
-alter table meta_enumeratie_waardes add constraint meta_enumeratie_waardes_pk primary key clustered(naam,waarde);
-
-
-create table meta_enumeratie(
-	tabel varchar(255) not null,
-	kolom varchar(255) not null,
-	enumeratie varchar(255)
-);
-alter table meta_enumeratie add constraint meta_enumeratie_pk primary key clustered(tabel,kolom);
-
-
-create table meta_referentielijsten(
-	tabel varchar(255) not null,
-	kolom varchar(255) not null,
-	referentielijst varchar(255)
-);
-alter table meta_referentielijsten add constraint meta_referentielijsten_pk primary key clustered(tabel,kolom);
-
-
-
--- Foreign keys voor tabel addresseerb_obj_aand
-alter table addresseerb_obj_aand add constraint fk_aoa_as_6 foreign key (fk_6wpl_identif) references wnplts (identif) on delete no action;
-alter table addresseerb_obj_aand add constraint fk_aoa_as_7 foreign key (fk_7opr_identifcode) references openb_rmte (identifcode) on delete no action;
-
--- Foreign keys voor tabel ander_btnlnds_niet_nat_prs
-alter table ander_btnlnds_niet_nat_prs add constraint fk_ann_sc foreign key (sc_identif) references niet_nat_prs (sc_identif) on delete no action;
-
--- Foreign keys voor tabel ander_nat_prs
-alter table ander_nat_prs add constraint fk_anp_sc foreign key (sc_identif) references nat_prs (sc_identif) on delete no action;
-alter table ander_nat_prs add constraint fk_anp_as_3 foreign key (fk_3aoa_identif) references addresseerb_obj_aand (identif) on delete no action;
-
--- Foreign keys voor tabel app_re
-alter table app_re add constraint fk_apr_sc foreign key (sc_kad_identif) references kad_onrrnd_zk (kad_identif) on delete no action;
-alter table app_re add constraint fk_apr_as_2 foreign key (fk_2nnp_sc_identif) references niet_nat_prs (sc_identif) on delete no action;
-
--- Foreign keys voor tabel begr_terr_dl
-alter table begr_terr_dl add constraint fk_btd_as_8 foreign key (fk_8opr_identifcode) references openb_rmte (identifcode) on delete no action;
-
--- Foreign keys voor tabel begr_terreinvakonderd
-alter table begr_terreinvakonderd add constraint fk_btv_sc foreign key (sc_identif) references begr_terr_dl (identif) on delete no action;
-alter table begr_terreinvakonderd add constraint fk_btv_1n_1 foreign key (fk_1btd_identif) references begr_terr_dl (identif) on delete no action;
-
--- Foreign keys voor tabel benoemd_terrein
-alter table benoemd_terrein add constraint fk_btr_sc foreign key (sc_identif) references benoemd_obj (identif) on delete no action;
-
--- Foreign keys voor tabel brugconstructie_element
-alter table brugconstructie_element add constraint fk_bce_sc foreign key (sc_identif) references kunstwerkdeel (identif) on delete no action;
-
--- Foreign keys voor tabel gebouwd_obj
-alter table gebouwd_obj add constraint fk_gbo_sc foreign key (sc_identif) references benoemd_obj (identif) on delete no action;
-
--- Foreign keys voor tabel gem_openb_rmte
-alter table gem_openb_rmte add constraint fk_gor_as_7 foreign key (fk_7gem_code) references gemeente (code) on delete no action;
-
--- Foreign keys voor tabel huishouden
-alter table huishouden add constraint fk_hhd_as_4 foreign key (fk_4vbo_sc_identif) references verblijfsobj (sc_identif) on delete no action;
-alter table huishouden add constraint fk_hhd_as_5 foreign key (fk_5lpl_sc_identif) references ligplaats (sc_identif) on delete no action;
-alter table huishouden add constraint fk_hhd_as_7 foreign key (fk_7spl_sc_identif) references standplaats (sc_identif) on delete no action;
-
--- Foreign keys voor tabel ingeschr_niet_nat_prs
-alter table ingeschr_niet_nat_prs add constraint fk_inn_sc foreign key (sc_identif) references niet_nat_prs (sc_identif) on delete no action;
-alter table ingeschr_niet_nat_prs add constraint fk_inn_as_7 foreign key (fk_7aoa_identif) references addresseerb_obj_aand (identif) on delete no action;
-
--- Foreign keys voor tabel ingeschr_nat_prs
-alter table ingeschr_nat_prs add constraint fk_inp_sc foreign key (sc_identif) references nat_prs (sc_identif) on delete no action;
-alter table ingeschr_nat_prs add constraint fk_inp_as_27 foreign key (fk_27lpl_sc_identif) references ligplaats (sc_identif) on delete no action;
-alter table ingeschr_nat_prs add constraint fk_inp_as_28 foreign key (fk_28nra_sc_identif) references nummeraand (sc_identif) on delete no action;
-alter table ingeschr_nat_prs add constraint fk_inp_as_29 foreign key (fk_29wpl_identif) references wnplts (identif) on delete no action;
-alter table ingeschr_nat_prs add constraint fk_inp_as_30 foreign key (fk_30spl_sc_identif) references standplaats (sc_identif) on delete no action;
-alter table ingeschr_nat_prs add constraint fk_inp_as_31 foreign key (fk_31vbo_sc_identif) references verblijfsobj (sc_identif) on delete no action;
-alter table ingeschr_nat_prs add constraint fk_inp_1n_1 foreign key (fk_1rsd_nummer) references rsdoc (nummer) on delete no action;
-alter table ingeschr_nat_prs add constraint fk_inp_gb_2 foreign key (fk_gb_lnd_code_iso) references land (code_iso) on delete no action;
-alter table ingeschr_nat_prs add constraint fk_inp_nt_2 foreign key (fk_nt_nat_code) references nation (code) on delete no action;
-alter table ingeschr_nat_prs add constraint fk_inp_ol_1 foreign key (fk_ol_lnd_code_iso) references land (code_iso) on delete no action;
-alter table ingeschr_nat_prs add constraint fk_inp_va_as_3 foreign key (fk_va_3_vbo_sc_identif) references verblijfsobj (sc_identif) on delete no action;
-alter table ingeschr_nat_prs add constraint fk_inp_va_as_4 foreign key (fk_va_4_spl_sc_identif) references standplaats (sc_identif) on delete no action;
-alter table ingeschr_nat_prs add constraint fk_inp_va_as_5 foreign key (fk_va_5_nra_sc_identif) references nummeraand (sc_identif) on delete no action;
-alter table ingeschr_nat_prs add constraint fk_inp_va_as_6 foreign key (fk_va_6_wpl_identif) references wnplts (identif) on delete no action;
-alter table ingeschr_nat_prs add constraint fk_inp_va_as_7 foreign key (fk_va_7_lpl_sc_identif) references ligplaats (sc_identif) on delete no action;
-alter table ingeschr_nat_prs add constraint fk_inp_rl_3 foreign key (fk_3nat_code) references nation (code) on delete no action;
-alter table ingeschr_nat_prs add constraint fk_inp_rl_17 foreign key (fk_17lnd_code_iso) references land (code_iso) on delete no action;
-alter table ingeschr_nat_prs add constraint fk_inp_rl_18 foreign key (fk_18lnd_code_iso) references land (code_iso) on delete no action;
-
--- Foreign keys voor tabel ingezetene
-alter table ingezetene add constraint fk_ing_sc foreign key (sc_identif) references ingeschr_nat_prs (sc_identif) on delete no action;
-alter table ingezetene add constraint fk_ing_as_8 foreign key (fk_8vbt_aand) references verblijfstitel (aand) on delete no action;
-
--- Foreign keys voor tabel kad_perceel
-alter table kad_perceel add constraint fk_kdp_sc foreign key (sc_kad_identif) references kad_onrrnd_zk (kad_identif) on delete no action;
-alter table kad_perceel add constraint fk_kdp_as_7 foreign key (fk_7kdp_sc_kad_identif) references kad_perceel (sc_kad_identif) on delete no action;
-
--- Foreign keys voor tabel kad_onrrnd_zk
-alter table kad_onrrnd_zk add constraint fk_koz_as_7 foreign key (fk_7kdg_code) references kad_gemeente (code) on delete no action;
-alter table kad_onrrnd_zk add constraint fk_koz_as_10 foreign key (fk_10pes_sc_identif) references prs (sc_identif) on delete no action;
-
--- Foreign keys voor tabel kad_onrrnd_zk_aantek
-alter table kad_onrrnd_zk_aantek add constraint fk_kza_as_4 foreign key (fk_4koz_kad_identif) references kad_onrrnd_zk (kad_identif) on delete no action;
-alter table kad_onrrnd_zk_aantek add constraint fk_kza_as_5 foreign key (fk_5pes_sc_identif) references prs (sc_identif) on delete no action;
-
--- Foreign keys voor tabel ligplaats
-alter table ligplaats add constraint fk_lpl_sc foreign key (sc_identif) references benoemd_terrein (sc_identif) on delete no action;
-alter table ligplaats add constraint fk_lpl_as_4 foreign key (fk_4nra_sc_identif) references nummeraand (sc_identif) on delete no action;
-
--- Foreign keys voor tabel maatschapp_activiteit
-alter table maatschapp_activiteit add constraint fk_mac_as_3 foreign key (fk_3ond_kvk_nummer) references ondrnmng (kvk_nummer) on delete no action;
-alter table maatschapp_activiteit add constraint fk_mac_as_4 foreign key (fk_4pes_sc_identif) references prs (sc_identif) on delete no action;
-
--- Foreign keys voor tabel nat_prs
-alter table nat_prs add constraint fk_nps_sc foreign key (sc_identif) references prs (sc_identif) on delete no action;
-alter table nat_prs add constraint fk_nps_rl_2 foreign key (fk_2acd_code) references academische_titel (code) on delete no action;
-
--- Foreign keys voor tabel niet_ingezetene
-alter table niet_ingezetene add constraint fk_nin_sc foreign key (sc_identif) references ingeschr_nat_prs (sc_identif) on delete no action;
-
--- Foreign keys voor tabel niet_nat_prs
-alter table niet_nat_prs add constraint fk_nnp_sc foreign key (sc_identif) references prs (sc_identif) on delete no action;
-
--- Foreign keys voor tabel nummeraand
-alter table nummeraand add constraint fk_nra_sc foreign key (sc_identif) references addresseerb_obj_aand (identif) on delete no action;
-
--- Foreign keys voor tabel onbegr_terr_dl
-alter table onbegr_terr_dl add constraint fk_obt_as_8 foreign key (fk_8opr_identifcode) references openb_rmte (identifcode) on delete no action;
-
--- Foreign keys voor tabel onbegr_terreinvakonderd
-alter table onbegr_terreinvakonderd add constraint fk_otv_sc foreign key (sc_identif) references onbegr_terr_dl (identif) on delete no action;
-alter table onbegr_terreinvakonderd add constraint fk_otv_1n_1 foreign key (fk_1obt_identif) references onbegr_terr_dl (identif) on delete no action;
-
--- Foreign keys voor tabel ondrnmng
-alter table ondrnmng add constraint fk_ond_as_4 foreign key (fk_4mac_kvk_nummer) references maatschapp_activiteit (kvk_nummer) on delete no action;
-alter table ondrnmng add constraint fk_ond_1n_1 foreign key (fk_1ond_kvk_nummer) references ondrnmng (kvk_nummer) on delete no action;
-
--- Foreign keys voor tabel ondersteunend_wegdeel
-alter table ondersteunend_wegdeel add constraint fk_owd_as_6 foreign key (fk_6opr_identifcode) references openb_rmte (identifcode) on delete no action;
-
--- Foreign keys voor tabel ovrg_addresseerb_obj_aand
-alter table ovrg_addresseerb_obj_aand add constraint fk_oao_sc foreign key (sc_identif) references addresseerb_obj_aand (identif) on delete no action;
-
--- Foreign keys voor tabel overig_gebouwd_obj
-alter table overig_gebouwd_obj add constraint fk_ogo_sc foreign key (sc_identif) references gebouwd_obj (sc_identif) on delete no action;
-alter table overig_gebouwd_obj add constraint fk_ogo_as_4 foreign key (fk_4oao_sc_identif) references ovrg_addresseerb_obj_aand (sc_identif) on delete no action;
-alter table overig_gebouwd_obj add constraint fk_ogo_as_5 foreign key (fk_5nra_sc_identif) references nummeraand (sc_identif) on delete no action;
-alter table overig_gebouwd_obj add constraint fk_ogo_as_6 foreign key (fk_6opr_identifcode) references openb_rmte (identifcode) on delete no action;
-
--- Foreign keys voor tabel overig_terrein
-alter table overig_terrein add constraint fk_otr_sc foreign key (sc_identif) references benoemd_terrein (sc_identif) on delete no action;
-alter table overig_terrein add constraint fk_otr_as_2 foreign key (fk_2oao_sc_identif) references ovrg_addresseerb_obj_aand (sc_identif) on delete no action;
-
--- Foreign keys voor tabel prs
-alter table prs add constraint fk_pes_sc foreign key (sc_identif) references subject (identif) on delete no action;
-
--- Foreign keys voor tabel rsdoc
-alter table rsdoc add constraint fk_rsd_rl_7 foreign key (fk_7rds_rsdoccode) references rsdocsoort (rsdoccode) on delete no action;
-
--- Foreign keys voor tabel standplaats
-alter table standplaats add constraint fk_spl_sc foreign key (sc_identif) references benoemd_terrein (sc_identif) on delete no action;
-alter table standplaats add constraint fk_spl_as_4 foreign key (fk_4nra_sc_identif) references nummeraand (sc_identif) on delete no action;
-
--- Foreign keys voor tabel subject
-alter table subject add constraint fk_sub_as_13 foreign key (fk_13wpl_identif) references wnplts (identif) on delete no action;
-alter table subject add constraint fk_sub_as_14 foreign key (fk_14aoa_identif) references addresseerb_obj_aand (identif) on delete no action;
-alter table subject add constraint fk_sub_as_15 foreign key (fk_15aoa_identif) references addresseerb_obj_aand (identif) on delete no action;
-alter table subject add constraint fk_sub_pa_as_4 foreign key (fk_pa_4_wpl_identif) references wnplts (identif) on delete no action;
-alter table subject add constraint fk_sub_vb_4 foreign key (fk_vb_lnd_code_iso) references land (code_iso) on delete no action;
-
--- Foreign keys voor tabel verblijfsobj
-alter table verblijfsobj add constraint fk_vbo_sc foreign key (sc_identif) references gebouwd_obj (sc_identif) on delete no action;
-alter table verblijfsobj add constraint fk_vbo_as_11 foreign key (fk_11nra_sc_identif) references nummeraand (sc_identif) on delete no action;
-
--- Foreign keys voor tabel vestg
-alter table vestg add constraint fk_ves_sc foreign key (sc_identif) references subject (identif) on delete no action;
-alter table vestg add constraint fk_ves_as_15 foreign key (fk_15ond_kvk_nummer) references ondrnmng (kvk_nummer) on delete no action;
-alter table vestg add constraint fk_ves_as_16 foreign key (fk_16tgo_identif) references benoemd_obj (identif) on delete no action;
-alter table vestg add constraint fk_ves_as_17 foreign key (fk_17mac_kvk_nummer) references maatschapp_activiteit (kvk_nummer) on delete no action;
-alter table vestg add constraint fk_ves_as_18 foreign key (fk_18ves_sc_identif) references vestg (sc_identif) on delete no action;
-alter table vestg add constraint fk_ves_as_19 foreign key (fk_19mac_kvk_nummer) references maatschapp_activiteit (kvk_nummer) on delete no action;
-alter table vestg add constraint fk_ves_as_20 foreign key (fk_20aoa_identif) references addresseerb_obj_aand (identif) on delete no action;
-alter table vestg add constraint fk_ves_sa_2 foreign key (fk_sa_sbi_activiteit_sbi_code) references sbi_activiteit (sbi_code) on delete no action;
-
--- Foreign keys voor tabel waterdeel
-alter table waterdeel add constraint fk_wad_as_7 foreign key (fk_7opr_identifcode) references openb_rmte (identifcode) on delete no action;
-
--- Foreign keys voor tabel watervakonderdeel
-alter table watervakonderdeel add constraint fk_wav_sc foreign key (sc_identif) references waterdeel (identif) on delete no action;
-alter table watervakonderdeel add constraint fk_wav_1n_1 foreign key (fk_1wad_identif) references waterdeel (identif) on delete no action;
-
--- Foreign keys voor tabel wegdeel
-alter table wegdeel add constraint fk_wgd_as_8 foreign key (fk_8opr_identifcode) references openb_rmte (identifcode) on delete no action;
-
--- Foreign keys voor tabel wegvakonderdeel
-alter table wegvakonderdeel add constraint fk_wvd_sc foreign key (sc_identif) references wegdeel (identif) on delete no action;
-alter table wegvakonderdeel add constraint fk_wvd_1n_1 foreign key (fk_1wgd_identif) references wegdeel (identif) on delete no action;
-
--- Foreign keys voor tabel wnplts
-alter table wnplts add constraint fk_wpl_as_7 foreign key (fk_7gem_code) references gemeente (code) on delete no action;
-
--- Foreign keys voor tabel woz_deelobj
-alter table woz_deelobj add constraint fk_wdo_as_4 foreign key (fk_4pnd_identif) references pand (identif) on delete no action;
-alter table woz_deelobj add constraint fk_wdo_as_5 foreign key (fk_5tgo_identif) references benoemd_obj (identif) on delete no action;
-alter table woz_deelobj add constraint fk_wdo_as_6 foreign key (fk_6woz_nummer) references woz_obj (nummer) on delete no action;
-
--- Foreign keys voor tabel woz_waarde
-alter table woz_waarde add constraint fk_wrd_1n_1 foreign key (fk_1woz_nummer) references woz_obj (nummer) on delete no action;
-
--- Foreign keys voor tabel zak_recht
-alter table zak_recht add constraint fk_zkr_as_7 foreign key (fk_7koz_kad_identif) references kad_onrrnd_zk (kad_identif) on delete no action;
-alter table zak_recht add constraint fk_zkr_as_8 foreign key (fk_8pes_sc_identif) references prs (sc_identif) on delete no action;
-alter table zak_recht add constraint fk_zkr_rl_2 foreign key (fk_2aard_recht_verkort_aand) references aard_recht_verkort (aand) on delete no action;
-alter table zak_recht add constraint fk_zkr_rl_3 foreign key (fk_3avr_aand) references aard_verkregen_recht (aand) on delete no action;
-
--- Foreign keys voor tabel zak_recht_aantek
-alter table zak_recht_aantek add constraint fk_zra_as_5 foreign key (fk_5zkr_kadaster_identif) references zak_recht (kadaster_identif) on delete no action;
-alter table zak_recht_aantek add constraint fk_zra_as_6 foreign key (fk_6pes_sc_identif) references prs (sc_identif) on delete no action;
-
--- Foreign keys voor tabel gebouwd_obj_gebruiksdoel
-alter table gebouwd_obj_gebruiksdoel add constraint fk_gbo7 foreign key (fk_gbo_sc_identif) references gebouwd_obj (sc_identif) on delete no action;
-
--- Foreign keys voor tabel overig_terrein_gebruiksdoel
-alter table overig_terrein_gebruiksdoel add constraint fk_otr1 foreign key (fk_otr_sc_identif) references overig_terrein (sc_identif) on delete no action;
-
--- Foreign keys voor tabel vestg_naam
-alter table vestg_naam add constraint fk_ves1 foreign key (fk_ves_sc_identif) references vestg (sc_identif) on delete no action;
-
--- Foreign keys voor tabel functionaris
-alter table functionaris add constraint fk_functionaris_sc_lh foreign key (fk_sc_lh_pes_sc_identif) references prs (sc_identif) on delete no action;
-alter table functionaris add constraint fk_functionaris_sc_rh foreign key (fk_sc_rh_pes_sc_identif) references prs (sc_identif) on delete no action;
-
--- Foreign keys voor tabel huishoudenrel
-alter table huishoudenrel add constraint fk_huishoudenrel_sc_lh foreign key (fk_sc_lh_inp_sc_identif) references ingeschr_nat_prs (sc_identif) on delete no action;
-alter table huishoudenrel add constraint fk_huishoudenrel_sc_rh foreign key (fk_sc_rh_hhd_nummer) references huishouden (nummer) on delete no action;
-
--- Foreign keys voor tabel huw_ger_partn
-alter table huw_ger_partn add constraint fk_huw_ger_partn_sc_lh foreign key (fk_sc_lh_inp_sc_identif) references ingeschr_nat_prs (sc_identif) on delete no action;
-alter table huw_ger_partn add constraint fk_huw_ger_partn_sc_rh foreign key (fk_sc_rh_inp_sc_identif) references ingeschr_nat_prs (sc_identif) on delete no action;
-alter table huw_ger_partn add constraint fk_huw_ger_partn_hs_2 foreign key (fk_hs_lnd_code_iso) references land (code_iso) on delete no action;
-alter table huw_ger_partn add constraint fk_huw_ger_partn_ho_2 foreign key (fk_ho_lnd_code_iso) references land (code_iso) on delete no action;
-
--- Foreign keys voor tabel kad_onrrnd_zk_his_rel
-alter table kad_onrrnd_zk_his_rel add constraint fk_kad_onrrnd_zk_his_rel_sc_lh foreign key (fk_sc_lh_koz_kad_identif) references kad_onrrnd_zk (kad_identif) on delete no action;
-alter table kad_onrrnd_zk_his_rel add constraint fk_kad_onrrnd_zk_his_rel_sc_rh foreign key (fk_sc_rh_koz_kad_identif) references kad_onrrnd_zk (kad_identif) on delete no action;
-
--- Foreign keys voor tabel locaand_adres
-alter table locaand_adres add constraint fk_locaand_adres_sc_lh foreign key (fk_sc_lh_aoa_identif) references addresseerb_obj_aand (identif) on delete no action;
-alter table locaand_adres add constraint fk_locaand_adres_sc_rh foreign key (fk_sc_rh_woz_nummer) references woz_obj (nummer) on delete no action;
-
--- Foreign keys voor tabel locaand_openb_rmte
-alter table locaand_openb_rmte add constraint fk_locaand_openb_rmte_sc_lh foreign key (fk_sc_lh_opr_identifcode) references openb_rmte (identifcode) on delete no action;
-alter table locaand_openb_rmte add constraint fk_locaand_openb_rmte_sc_rh foreign key (fk_sc_rh_woz_nummer) references woz_obj (nummer) on delete no action;
-
--- Foreign keys voor tabel ouder_kind_rel
-alter table ouder_kind_rel add constraint fk_ouder_kind_rel_sc_lh foreign key (fk_sc_lh_inp_sc_identif) references ingeschr_nat_prs (sc_identif) on delete no action;
-alter table ouder_kind_rel add constraint fk_ouder_kind_rel_sc_rh foreign key (fk_sc_rh_inp_sc_identif) references ingeschr_nat_prs (sc_identif) on delete no action;
-
--- Foreign keys voor tabel woz_belang
-alter table woz_belang add constraint fk_woz_belang_sc_lh foreign key (fk_sc_lh_sub_identif) references subject (identif) on delete no action;
-alter table woz_belang add constraint fk_woz_belang_sc_rh foreign key (fk_sc_rh_woz_nummer) references woz_obj (nummer) on delete no action;
-
--- Foreign keys voor tabel app_re_kad_perceel
-alter table app_re_kad_perceel add constraint fk_apr_kdp_nn_lh foreign key (fk_nn_lh_apr_sc_kad_identif) references app_re (sc_kad_identif) on delete no action;
-alter table app_re_kad_perceel add constraint fk_apr_kdp_nn_rh foreign key (fk_nn_rh_kdp_sc_kad_identif) references kad_perceel (sc_kad_identif) on delete no action;
-
--- Foreign keys voor tabel benoemd_obj_kad_onrrnd_zk
-alter table benoemd_obj_kad_onrrnd_zk add constraint fk_tgo_koz_nn_lh foreign key (fk_nn_lh_tgo_identif) references benoemd_obj (identif) on delete no action;
-alter table benoemd_obj_kad_onrrnd_zk add constraint fk_tgo_koz_nn_rh foreign key (fk_nn_rh_koz_kad_identif) references kad_onrrnd_zk (kad_identif) on delete no action;
-
--- Foreign keys voor tabel benoemd_terrein_benoemd_terrei
-alter table benoemd_terrein_benoemd_terrei add constraint fk_btr_btr_nn_lh foreign key (fk_nn_lh_btr_sc_identif) references benoemd_terrein (sc_identif) on delete no action;
-alter table benoemd_terrein_benoemd_terrei add constraint fk_btr_btr_nn_rh foreign key (fk_nn_rh_btr_sc_identif) references benoemd_terrein (sc_identif) on delete no action;
-
--- Foreign keys voor tabel gemeente_gemeente
-alter table gemeente_gemeente add constraint fk_gem_gem_nn_lh foreign key (fk_nn_lh_gem_code) references gemeente (code) on delete no action;
-alter table gemeente_gemeente add constraint fk_gem_gem_nn_rh foreign key (fk_nn_rh_gem_code) references gemeente (code) on delete no action;
-
--- Foreign keys voor tabel kad_onrrnd_zk_kad_onrrnd_zk
-alter table kad_onrrnd_zk_kad_onrrnd_zk add constraint fk_koz_koz_nn_lh foreign key (fk_nn_lh_koz_kad_identif) references kad_onrrnd_zk (kad_identif) on delete no action;
-alter table kad_onrrnd_zk_kad_onrrnd_zk add constraint fk_koz_koz_nn_rh foreign key (fk_nn_rh_koz_kad_identif) references kad_onrrnd_zk (kad_identif) on delete no action;
-
--- Foreign keys voor tabel ligplaats_nummeraand
-alter table ligplaats_nummeraand add constraint fk_lpl_nra_nn_lh foreign key (fk_nn_lh_lpl_sc_identif) references ligplaats (sc_identif) on delete no action;
-alter table ligplaats_nummeraand add constraint fk_lpl_nra_nn_rh foreign key (fk_nn_rh_nra_sc_identif) references nummeraand (sc_identif) on delete no action;
-
--- Foreign keys voor tabel openb_rmte_gem_openb_rmte
-alter table openb_rmte_gem_openb_rmte add constraint fk_opr_gor_nn_lh foreign key (fk_nn_lh_opr_identifcode) references openb_rmte (identifcode) on delete no action;
-alter table openb_rmte_gem_openb_rmte add constraint fk_opr_gor_nn_rh foreign key (fk_nn_rh_gor_identifcode) references gem_openb_rmte (identifcode) on delete no action;
-
--- Foreign keys voor tabel openb_rmte_wnplts
-alter table openb_rmte_wnplts add constraint fk_opr_wpl_nn_lh foreign key (fk_nn_lh_opr_identifcode) references openb_rmte (identifcode) on delete no action;
-alter table openb_rmte_wnplts add constraint fk_opr_wpl_nn_rh foreign key (fk_nn_rh_wpl_identif) references wnplts (identif) on delete no action;
-
--- Foreign keys voor tabel rsdoc_ingeschr_nat_prs
-alter table rsdoc_ingeschr_nat_prs add constraint fk_rsd_inp_nn_lh foreign key (fk_nn_lh_rsd_nummer) references rsdoc (nummer) on delete no action;
-alter table rsdoc_ingeschr_nat_prs add constraint fk_rsd_inp_nn_rh foreign key (fk_nn_rh_inp_sc_identif) references ingeschr_nat_prs (sc_identif) on delete no action;
-
--- Foreign keys voor tabel standplaats_nummeraand
-alter table standplaats_nummeraand add constraint fk_spl_nra_nn_lh foreign key (fk_nn_lh_spl_sc_identif) references standplaats (sc_identif) on delete no action;
-alter table standplaats_nummeraand add constraint fk_spl_nra_nn_rh foreign key (fk_nn_rh_nra_sc_identif) references nummeraand (sc_identif) on delete no action;
-
--- Foreign keys voor tabel verblijfsobj_pand
-alter table verblijfsobj_pand add constraint fk_vbo_pnd_nn_lh foreign key (fk_nn_lh_vbo_sc_identif) references verblijfsobj (sc_identif) on delete no action;
-alter table verblijfsobj_pand add constraint fk_vbo_pnd_nn_rh foreign key (fk_nn_rh_pnd_identif) references pand (identif) on delete no action;
-
--- Foreign keys voor tabel verblijfsobj_nummeraand
-alter table verblijfsobj_nummeraand add constraint fk_vbo_nra_nn_lh foreign key (fk_nn_lh_vbo_sc_identif) references verblijfsobj (sc_identif) on delete no action;
-alter table verblijfsobj_nummeraand add constraint fk_vbo_nra_nn_rh foreign key (fk_nn_rh_nra_sc_identif) references nummeraand (sc_identif) on delete no action;
-
--- Foreign keys voor tabel vestg_benoemd_obj
-alter table vestg_benoemd_obj add constraint fk_ves_tgo_nn_lh foreign key (fk_nn_lh_ves_sc_identif) references vestg (sc_identif) on delete no action;
-alter table vestg_benoemd_obj add constraint fk_ves_tgo_nn_rh foreign key (fk_nn_rh_tgo_identif) references benoemd_obj (identif) on delete no action;
-
--- Archief tabellen 
-
-create table addresseerb_obj_aand_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(16) not null,
-	clazz varchar(255),
-	dat_eind_geldh varchar(19),
-	huisletter varchar(1),
-	huinummer decimal(5,0),
-	huinummertoevoeging varchar(4),
-	postcode varchar(6),
-	fk_6wpl_identif varchar(4),
-	fk_7opr_identifcode varchar(16)
-);
-alter table addresseerb_obj_aand_archief add constraint ar_addresseerb_obj_aand_pk primary key clustered(dat_beg_geldh,identif);
-
-
-create table app_re_archief(
-	sc_dat_beg_geldh varchar(19) not null,
-	sc_kad_identif decimal(15,0) not null,
-	fk_2nnp_sc_identif varchar(32),
-	ka_appartementsindex varchar(4),
-	ka_kad_gemeentecode varchar(5),
-	ka_perceelnummer varchar(15),
-	ka_sectie varchar(255)
-);
-alter table app_re_archief add constraint ar_app_re_pk primary key clustered(sc_dat_beg_geldh,sc_kad_identif);
-
-
-create table begr_terr_dl_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(255) not null,
-	clazz varchar(255),
-	datum_einde_geldh varchar(19),
-	fysiek_voork_begr_terrein varchar(20),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	fk_8opr_identifcode varchar(16)
-);
-alter table begr_terr_dl_archief add constraint ar_begr_terr_dl_pk primary key clustered(dat_beg_geldh,identif);
-alter table begr_terr_dl_archief add geom geometry;
-CREATE SPATIAL INDEX begr_terr_dl_archief_geom1_idx ON begr_terr_dl_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-alter table begr_terr_dl_archief add kruinlijngeom geometry;
-CREATE SPATIAL INDEX begr_terr_dl_archief_krui2_idx ON begr_terr_dl_archief (kruinlijngeom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table begr_terreinvakonderd_archief(
-	sc_dat_beg_geldh varchar(19) not null,
-	sc_identif varchar(255) not null,
-	fk_1btd_identif varchar(255)
-);
-alter table begr_terreinvakonderd_archief add constraint ar_begr_terreinvakonderd_pk primary key clustered(sc_dat_beg_geldh,sc_identif);
-
-
-create table benoemd_terrein_archief(
-	dat_beg_geldh varchar(19) not null,
-	sc_identif varchar(16) not null,
-	clazz varchar(255),
-	datum_einde_geldh varchar(19)
-);
-alter table benoemd_terrein_archief add constraint ar_benoemd_terrein_pk primary key clustered(dat_beg_geldh,sc_identif);
-alter table benoemd_terrein_archief add geom geometry;
-CREATE SPATIAL INDEX benoemd_terrein_archief_g1_idx ON benoemd_terrein_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table brugconstructie_elemen_archief(
-	sc_dat_beg_geldh varchar(19) not null,
-	sc_identif varchar(255) not null,
-	type varchar(40)
-);
-alter table brugconstructie_elemen_archief add constraint ar_brugconstructie_element_pk primary key clustered(sc_dat_beg_geldh,sc_identif);
-
-
-create table buurt_archief(
-	code decimal(8,0) not null,
-	dat_beg_geldh varchar(19) not null,
-	naam varchar(80),
-	datum_einde_geldh varchar(19),
-	identif_imgeobrt varchar(255),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8)
-);
-alter table buurt_archief add constraint ar_buurt_pk primary key clustered(code,dat_beg_geldh);
-alter table buurt_archief add geom geometry;
-CREATE SPATIAL INDEX buurt_archief_geom1_idx ON buurt_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table functioneel_gebied_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	naam varchar(40),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	type varchar(255)
-);
-alter table functioneel_gebied_archief add constraint ar_functioneel_gebied_pk primary key clustered(dat_beg_geldh,identif);
-alter table functioneel_gebied_archief add geom geometry;
-CREATE SPATIAL INDEX functioneel_gebied_archie1_idx ON functioneel_gebied_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table gebouwd_obj_archief(
-	dat_beg_geldh varchar(19) not null,
-	sc_identif varchar(16) not null,
-	clazz varchar(255),
-	bouwk_best_act varchar(255),
-	bruto_inhoud decimal(6,0),
-	datum_einde_geldh varchar(19),
-	inwwijze_oppervlakte varchar(24),
-	oppervlakte_obj decimal(6,0),
-	status_voortgang_bouw integer
-);
-alter table gebouwd_obj_archief add constraint ar_gebouwd_obj_pk primary key clustered(dat_beg_geldh,sc_identif);
-alter table gebouwd_obj_archief add vlakgeom geometry;
-CREATE SPATIAL INDEX gebouwd_obj_archief_vlakg1_idx ON gebouwd_obj_archief (vlakgeom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-alter table gebouwd_obj_archief add puntgeom geometry;
-CREATE SPATIAL INDEX gebouwd_obj_archief_puntg2_idx ON gebouwd_obj_archief (puntgeom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table gebouwinstallatie_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	type varchar(40)
-);
-alter table gebouwinstallatie_archief add constraint ar_gebouwinstallatie_pk primary key clustered(dat_beg_geldh,identif);
-alter table gebouwinstallatie_archief add geom geometry;
-CREATE SPATIAL INDEX gebouwinstallatie_archief1_idx ON gebouwinstallatie_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table gemeente_archief(
-	dat_beg_geldh varchar(19) not null,
-	code decimal(4,0) not null,
-	datum_einde_geldh varchar(19),
-	naam varchar(40),
-	naam_nen varchar(24)
-);
-alter table gemeente_archief add constraint ar_gemeente_pk primary key clustered(dat_beg_geldh,code);
-alter table gemeente_archief add geom geometry;
-CREATE SPATIAL INDEX gemeente_archief_geom1_idx ON gemeente_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table gem_openb_rmte_archief(
-	dat_beg_geldh varchar(19) not null,
-	identifcode varchar(16) not null,
-	datum_einde_geldh varchar(19),
-	indic_geconst_openb_rmte varchar(1),
-	naam_openb_rmte varchar(80),
-	status_openb_rmte varchar(80),
-	straatnaam varchar(24),
-	type_openb_rmte varchar(40),
-	fk_7gem_code decimal(4,0)
-);
-alter table gem_openb_rmte_archief add constraint ar_gem_openb_rmte_pk primary key clustered(dat_beg_geldh,identifcode);
-
-
-create table huishouden_archief(
-	dat_beg_geldh varchar(19) not null,
-	nummer decimal(12,0) not null,
-	datum_einde_geldh varchar(19),
-	grootte decimal(2,0),
-	soort decimal(2,0),
-	fk_4vbo_sc_identif varchar(16),
-	fk_5lpl_sc_identif varchar(16),
-	fk_7spl_sc_identif varchar(16)
-);
-alter table huishouden_archief add constraint ar_huishouden_pk primary key clustered(dat_beg_geldh,nummer);
-
-
-create table inrichtingselement_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	typering varchar(40),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	type varchar(30)
-);
-alter table inrichtingselement_archief add constraint ar_inrichtingselement_pk primary key clustered(dat_beg_geldh,identif);
-alter table inrichtingselement_archief add geom geometry;
-CREATE SPATIAL INDEX inrichtingselement_archie1_idx ON inrichtingselement_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table kad_perceel_archief(
-	sc_dat_beg_geldh varchar(19) not null,
-	sc_kad_identif decimal(15,0) not null,
-	aand_soort_grootte char(1),
-	grootte_perceel decimal(8,0),
-	omschr_deelperceel varchar(1120),
-	fk_7kdp_sc_kad_identif decimal(15,0),
-	ka_deelperceelnummer varchar(4),
-	ka_kad_gemeentecode varchar(5),
-	ka_perceelnummer varchar(5),
-	ka_sectie varchar(255)
-);
-alter table kad_perceel_archief add constraint ar_kad_perceel_pk primary key clustered(sc_dat_beg_geldh,sc_kad_identif);
-alter table kad_perceel_archief add begrenzing_perceel geometry;
-CREATE SPATIAL INDEX kad_perceel_archief_begre1_idx ON kad_perceel_archief (begrenzing_perceel) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-alter table kad_perceel_archief add plaatscoordinaten_perceel geometry;
-CREATE SPATIAL INDEX kad_perceel_archief_plaat2_idx ON kad_perceel_archief (plaatscoordinaten_perceel) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table kad_onrrnd_zk_archief(
-	dat_beg_geldh varchar(19) not null,
-	kad_identif decimal(15,0) not null,
-	clazz varchar(255),
-	datum_einde_geldh varchar(19),
-	typering varchar(1),
-	fk_7kdg_code varchar(5),
-	fk_10pes_sc_identif varchar(32),
-	cu_aard_bebouwing varchar(255),
-	cu_aard_cultuur_onbebouwd varchar(65),
-	cu_meer_culturen char(1),
-	ks_aard_bedrag varchar(255),
-	ks_bedrag decimal(9,0),
-	ks_koopjaar integer,
-	ks_meer_onroerendgoed char(1),
-	ks_transactiedatum datetime,
-	ks_valutasoort varchar(255),
-	lr_aand_aard_liproject varchar(1),
-	lr_aard_bedrag varchar(255),
-	lr_bedrag varchar(255),
-	lr_eindjaar integer,
-	lr_valutasoort varchar(3),
-	lo_cultuur_bebouwd varchar(65),
-	lo_loc__omschr varchar(40)
-);
-alter table kad_onrrnd_zk_archief add constraint ar_kad_onrrnd_zk_pk primary key clustered(dat_beg_geldh,kad_identif);
-
-
-create table kad_onrrnd_zk_aantek_archief(
-	begindatum_aantek_kad_obj varchar(19) not null,
-	kadaster_identif_aantek varchar(255) not null,
-	aard_aantek_kad_obj varchar(255),
-	beschrijving_aantek_kad_obj varchar(124),
-	eindd_aantek_kad_obj varchar(19),
-	fk_4koz_kad_identif decimal(15,0),
-	fk_5pes_sc_identif varchar(32)
-);
-alter table kad_onrrnd_zk_aantek_archief add constraint ar_kad_onrrnd_zk_aantek_pk primary key clustered(begindatum_aantek_kad_obj,kadaster_identif_aantek);
-
-
-create table kunstwerkdeel_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(255) not null,
-	clazz varchar(255),
-	datum_einde_geldh varchar(19),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	type_kunstwerk varchar(40)
-);
-alter table kunstwerkdeel_archief add constraint ar_kunstwerkdeel_pk primary key clustered(dat_beg_geldh,identif);
-alter table kunstwerkdeel_archief add geom geometry;
-CREATE SPATIAL INDEX kunstwerkdeel_archief_geo1_idx ON kunstwerkdeel_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table ligplaats_archief(
-	sc_dat_beg_geldh varchar(19) not null,
-	sc_identif varchar(16) not null,
-	indic_geconst varchar(1),
-	status varchar(80),
-	fk_4nra_sc_identif varchar(16)
-);
-alter table ligplaats_archief add constraint ar_ligplaats_pk primary key clustered(sc_dat_beg_geldh,sc_identif);
-
-
-create table nummeraand_archief(
-	sc_dat_beg_geldh varchar(19) not null,
-	sc_identif varchar(16) not null,
-	indic_geconst varchar(1),
-	indic_hoofdadres char(1),
-	status varchar(80)
-);
-alter table nummeraand_archief add constraint ar_nummeraand_pk primary key clustered(sc_dat_beg_geldh,sc_identif);
-
-
-create table onbegr_terr_dl_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(255) not null,
-	clazz varchar(255),
-	datum_einde_geldh varchar(19),
-	fysiek_voork_onbegr_terrein varchar(20),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	fk_8opr_identifcode varchar(16)
-);
-alter table onbegr_terr_dl_archief add constraint ar_onbegr_terr_dl_pk primary key clustered(dat_beg_geldh,identif);
-alter table onbegr_terr_dl_archief add geom geometry;
-CREATE SPATIAL INDEX onbegr_terr_dl_archief_ge1_idx ON onbegr_terr_dl_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-alter table onbegr_terr_dl_archief add kruinlijngeom geometry;
-CREATE SPATIAL INDEX onbegr_terr_dl_archief_kr2_idx ON onbegr_terr_dl_archief (kruinlijngeom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table onbegr_terreinvakonder_archief(
-	sc_dat_beg_geldh varchar(19) not null,
-	sc_identif varchar(255) not null,
-	fk_1obt_identif varchar(255)
-);
-alter table onbegr_terreinvakonder_archief add constraint ar_onbegr_terreinvakonderd_pk primary key clustered(sc_dat_beg_geldh,sc_identif);
-
-
-create table ondersteunend_wegdeel_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	functie varchar(25),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	fk_6opr_identifcode varchar(16)
-);
-alter table ondersteunend_wegdeel_archief add constraint ar_ondersteunend_wegdeel_pk primary key clustered(dat_beg_geldh,identif);
-alter table ondersteunend_wegdeel_archief add geom geometry;
-CREATE SPATIAL INDEX ondersteunend_wegdeel_arc1_idx ON ondersteunend_wegdeel_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table ovrg_addresseerb_obj_a_archief(
-	sc_dat_beg_geldh varchar(19) not null,
-	sc_identif varchar(16) not null
-);
-alter table ovrg_addresseerb_obj_a_archief add constraint ar_ovrg_addresseerb_obj_aan_pk primary key clustered(sc_dat_beg_geldh,sc_identif);
-
-
-create table overig_bouwwerk_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	type varchar(40)
-);
-alter table overig_bouwwerk_archief add constraint ar_overig_bouwwerk_pk primary key clustered(dat_beg_geldh,identif);
-alter table overig_bouwwerk_archief add geom geometry;
-CREATE SPATIAL INDEX overig_bouwwerk_archief_g1_idx ON overig_bouwwerk_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table overig_gebouwd_obj_archief(
-	sc_dat_beg_geldh varchar(19) not null,
-	sc_identif varchar(16) not null,
-	bouwjaar decimal(4,0),
-	loc_aand varchar(40),
-	type varchar(40),
-	fk_4oao_sc_identif varchar(16),
-	fk_5nra_sc_identif varchar(16),
-	fk_6opr_identifcode varchar(16)
-);
-alter table overig_gebouwd_obj_archief add constraint ar_overig_gebouwd_obj_pk primary key clustered(sc_dat_beg_geldh,sc_identif);
-
-
-create table ovrg_scheiding_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	type varchar(40)
-);
-alter table ovrg_scheiding_archief add constraint ar_ovrg_scheiding_pk primary key clustered(dat_beg_geldh,identif);
-alter table ovrg_scheiding_archief add geom geometry;
-CREATE SPATIAL INDEX ovrg_scheiding_archief_ge1_idx ON ovrg_scheiding_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table overig_terrein_archief(
-	sc_dat_beg_geldh varchar(19) not null,
-	sc_identif varchar(16) not null,
-	fk_2oao_sc_identif varchar(16)
-);
-alter table overig_terrein_archief add constraint ar_overig_terrein_pk primary key clustered(sc_dat_beg_geldh,sc_identif);
-
-
-create table pand_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(16) not null,
-	bruto_inhoud decimal(6,0),
-	datum_einde_geldh varchar(19),
-	hoogste_bouwlaag decimal(3,0),
-	identif_bgtpnd varchar(255),
-	indic_geconstateerd varchar(1),
-	inwwijze_geom_bovenaanzicht varchar(24),
-	inwwijze_geom_maaiveld varchar(24),
-	laagste_bouwlaag decimal(3,0),
-	oorspronkelijk_bouwjaar decimal(4,0),
-	oppervlakte decimal(6,0),
-	status varchar(80),
-	relve_hoogteligging decimal(1,0),
-	status_voortgang_bouw varchar(24)
-);
-alter table pand_archief add constraint ar_pand_pk primary key clustered(dat_beg_geldh,identif);
-alter table pand_archief add geom_bovenaanzicht geometry;
-CREATE SPATIAL INDEX pand_archief_geom_bovenaa1_idx ON pand_archief (geom_bovenaanzicht) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-alter table pand_archief add geom_maaiveld geometry;
-CREATE SPATIAL INDEX pand_archief_geom_maaivel2_idx ON pand_archief (geom_maaiveld) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table scheiding_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	type varchar(40)
-);
-alter table scheiding_archief add constraint ar_scheiding_pk primary key clustered(dat_beg_geldh,identif);
-alter table scheiding_archief add geom geometry;
-CREATE SPATIAL INDEX scheiding_archief_geom1_idx ON scheiding_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table spoor_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	functie varchar(25),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8)
-);
-alter table spoor_archief add constraint ar_spoor_pk primary key clustered(dat_beg_geldh,identif);
-alter table spoor_archief add geom geometry;
-CREATE SPATIAL INDEX spoor_archief_geom1_idx ON spoor_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table stadsdeel_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	relve_hoogteligging decimal(1,0),
-	naam varchar(40),
-	status varchar(8)
-);
-alter table stadsdeel_archief add constraint ar_stadsdeel_pk primary key clustered(dat_beg_geldh,identif);
-alter table stadsdeel_archief add geom geometry;
-CREATE SPATIAL INDEX stadsdeel_archief_geom1_idx ON stadsdeel_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table standplaats_archief(
-	sc_dat_beg_geldh varchar(19) not null,
-	sc_identif varchar(16) not null,
-	indic_geconst varchar(1),
-	status varchar(80),
-	fk_4nra_sc_identif varchar(16)
-);
-alter table standplaats_archief add constraint ar_standplaats_pk primary key clustered(sc_dat_beg_geldh,sc_identif);
-
-
-create table verblijfsobj_archief(
-	sc_dat_beg_geldh varchar(19) not null,
-	sc_identif varchar(16) not null,
-	aantal_kamers decimal(2,0),
-	hoogste_bouwlaag decimal(3,0),
-	indic_geconstateerd varchar(1),
-	laagste_bouwlaag decimal(3,0),
-	ontsluiting_verdieping varchar(3),
-	soort_woonobj decimal(1,0),
-	toegang_bouwlaag decimal(3,0),
-	status varchar(80),
-	fk_11nra_sc_identif varchar(16)
-);
-alter table verblijfsobj_archief add constraint ar_verblijfsobj_pk primary key clustered(sc_dat_beg_geldh,sc_identif);
-
-
-create table verblijfstitel_archief(
-	aand decimal(2,0) not null,
-	begindatum_geldh varchar(19) not null,
-	eindd_geldh varchar(19),
-	omschr varchar(100)
-);
-alter table verblijfstitel_archief add constraint ar_verblijfstitel_pk primary key clustered(aand,begindatum_geldh);
-
-
-create table vrijstaand_vegetatie_o_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	type varchar(40)
-);
-alter table vrijstaand_vegetatie_o_archief add constraint ar_vrijstaand_vegetatie_obj_pk primary key clustered(dat_beg_geldh,identif);
-alter table vrijstaand_vegetatie_o_archief add geom geometry;
-CREATE SPATIAL INDEX vrijstaand_vegetatie_o_ar1_idx ON vrijstaand_vegetatie_o_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table waterdeel_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(255) not null,
-	clazz varchar(255),
-	datum_einde_geldh varchar(19),
-	droogvallend varchar(1),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	type varchar(40),
-	fk_7opr_identifcode varchar(16)
-);
-alter table waterdeel_archief add constraint ar_waterdeel_pk primary key clustered(dat_beg_geldh,identif);
-alter table waterdeel_archief add geom geometry;
-CREATE SPATIAL INDEX waterdeel_archief_geom1_idx ON waterdeel_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table watervakonderdeel_archief(
-	sc_dat_beg_geldh varchar(19) not null,
-	sc_identif varchar(255) not null,
-	fk_1wad_identif varchar(255)
-);
-alter table watervakonderdeel_archief add constraint ar_watervakonderdeel_pk primary key clustered(sc_dat_beg_geldh,sc_identif);
-
-
-create table waterschap_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(255) not null,
-	datum_einde_geldh varchar(19),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	naam varchar(40)
-);
-alter table waterschap_archief add constraint ar_waterschap_pk primary key clustered(dat_beg_geldh,identif);
-alter table waterschap_archief add geom geometry;
-CREATE SPATIAL INDEX waterschap_archief_geom1_idx ON waterschap_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table wegdeel_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(255) not null,
-	clazz varchar(255),
-	datum_einde_geldh varchar(19),
-	functie varchar(25),
-	fysiek_voork varchar(20),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	fk_8opr_identifcode varchar(16)
-);
-alter table wegdeel_archief add constraint ar_wegdeel_pk primary key clustered(dat_beg_geldh,identif);
-alter table wegdeel_archief add geom geometry;
-CREATE SPATIAL INDEX wegdeel_archief_geom1_idx ON wegdeel_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table wegvakonderdeel_archief(
-	sc_dat_beg_geldh varchar(19) not null,
-	sc_identif varchar(255) not null,
-	fk_1wgd_identif varchar(255)
-);
-alter table wegvakonderdeel_archief add constraint ar_wegvakonderdeel_pk primary key clustered(sc_dat_beg_geldh,sc_identif);
-
-
-create table wijk_archief(
-	dat_beg_geldh varchar(19) not null,
-	code decimal(6,0) not null,
-	datum_einde_geldh varchar(19),
-	identif_imgeowyk varchar(255),
-	relve_hoogteligging decimal(1,0),
-	status varchar(8),
-	naam varchar(80)
-);
-alter table wijk_archief add constraint ar_wijk_pk primary key clustered(dat_beg_geldh,code);
-alter table wijk_archief add geom geometry;
-CREATE SPATIAL INDEX wijk_archief_geom1_idx ON wijk_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table wnplts_archief(
-	dat_beg_geldh varchar(19) not null,
-	identif varchar(4) not null,
-	datum_einde_geldh varchar(19),
-	indic_geconst varchar(1),
-	naam varchar(80),
-	naam_nen varchar(24),
-	status varchar(80),
-	fk_7gem_code decimal(4,0)
-);
-alter table wnplts_archief add constraint ar_wnplts_pk primary key clustered(dat_beg_geldh,identif);
-alter table wnplts_archief add geom geometry;
-CREATE SPATIAL INDEX wnplts_archief_geom1_idx ON wnplts_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table woz_deelobj_archief(
-	dat_beg_geldh_deelobj decimal(8,0) not null,
-	nummer decimal(6,0) not null,
-	code varchar(4),
-	datum_einde_geldh_deelobj decimal(8,0),
-	status decimal(2,0),
-	fk_4pnd_identif varchar(16),
-	fk_5tgo_identif varchar(16),
-	fk_6woz_nummer decimal(12,0)
-);
-alter table woz_deelobj_archief add constraint ar_woz_deelobj_pk primary key clustered(dat_beg_geldh_deelobj,nummer);
-
-
-create table woz_obj_archief(
-	dat_beg_geldh varchar(19) not null,
-	nummer decimal(12,0) not null,
-	datum_einde_geldh varchar(19),
-	gebruikscode decimal(2,0),
-	grondoppervlakte decimal(11,0),
-	soort_obj_code decimal(4,0),
-	status decimal(2,0),
-	vastgestelde_waarde decimal(11,0),
-	waardepeildatum date
-);
-alter table woz_obj_archief add constraint ar_woz_obj_pk primary key clustered(dat_beg_geldh,nummer);
-alter table woz_obj_archief add geom geometry;
-CREATE SPATIAL INDEX woz_obj_archief_geom1_idx ON woz_obj_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
-
-
-create table woz_waarde_archief(
-	waardepeildatum decimal(8,0) not null,
-	status_beschikking decimal(2,0),
-	toestandspeildatum decimal(8,0),
-	vastgestelde_waarde decimal(11,0),
-	fk_1woz_nummer decimal(12,0)
-);
-alter table woz_waarde_archief add constraint ar_woz_waarde_pk primary key clustered(waardepeildatum);
-
-
-create table app_re_kad_perceel_archief(
-	fk_nn_lh_apr_sc_kad_identif decimal(15,0) not null,
-	fk_nn_lh_apr_sc_dat_beg_geldh varchar(19) not null,
-	fk_nn_rh_kdp_sc_kad_identif decimal(15,0) not null
-);
-alter table app_re_kad_perceel_archief add constraint ar_app_re_kad_perceel_pk primary key clustered(fk_nn_lh_apr_sc_kad_identif,fk_nn_lh_apr_sc_dat_beg_geldh,fk_nn_rh_kdp_sc_kad_identif);
-
-
-create table benoemd_terrein_benoem_archief(
-	fk_nn_lh_btr_sc_identif varchar(16) not null,
-	fk_nn_lh_btr_dat_beg_geldh varchar(19) not null,
-	fk_nn_rh_btr_sc_identif varchar(16) not null
-);
-alter table benoemd_terrein_benoem_archief add constraint ar_benoemd_terrein_benoemd__pk primary key clustered(fk_nn_lh_btr_sc_identif,fk_nn_lh_btr_dat_beg_geldh,fk_nn_rh_btr_sc_identif);
-
-
-create table gemeente_gemeente_archief(
-	fk_nn_lh_gem_code decimal(4,0) not null,
-	fk_nn_lh_gem_dat_beg_geldh varchar(19) not null,
-	fk_nn_rh_gem_code decimal(4,0) not null
-);
-alter table gemeente_gemeente_archief add constraint ar_gemeente_gemeente_pk primary key clustered(fk_nn_lh_gem_code,fk_nn_lh_gem_dat_beg_geldh,fk_nn_rh_gem_code);
-
-
-create table kad_onrrnd_zk_kad_onrr_archief(
-	fk_nn_lh_koz_kad_identif decimal(15,0) not null,
-	fk_nn_lh_koz_dat_beg_geldh varchar(19) not null,
-	fk_nn_rh_koz_kad_identif decimal(15,0) not null
-);
-alter table kad_onrrnd_zk_kad_onrr_archief add constraint ar_kad_onrrnd_zk_kad_onrrnd_pk primary key clustered(fk_nn_lh_koz_kad_identif,fk_nn_lh_koz_dat_beg_geldh,fk_nn_rh_koz_kad_identif);
-
-
-create table ligplaats_nummeraand_archief(
-	fk_nn_lh_lpl_sc_identif varchar(16) not null,
-	fk_nn_lh_lpl_sc_dat_beg_geldh varchar(19) not null,
-	fk_nn_rh_nra_sc_identif varchar(16) not null
-);
-alter table ligplaats_nummeraand_archief add constraint ar_ligplaats_nummeraand_pk primary key clustered(fk_nn_lh_lpl_sc_identif,fk_nn_lh_lpl_sc_dat_beg_geldh,fk_nn_rh_nra_sc_identif);
-
-
-create table standplaats_nummeraand_archief(
-	fk_nn_lh_spl_sc_identif varchar(16) not null,
-	fk_nn_lh_spl_sc_dat_beg_geldh varchar(19) not null,
-	fk_nn_rh_nra_sc_identif varchar(16) not null
-);
-alter table standplaats_nummeraand_archief add constraint ar_standplaats_nummeraand_pk primary key clustered(fk_nn_lh_spl_sc_identif,fk_nn_lh_spl_sc_dat_beg_geldh,fk_nn_rh_nra_sc_identif);
-
-
-create table verblijfsobj_pand_archief(
-	fk_nn_lh_vbo_sc_identif varchar(16) not null,
-	fk_nn_lh_vbo_sc_dat_beg_geldh varchar(19) not null,
-	fk_nn_rh_pnd_identif varchar(16) not null
-);
-alter table verblijfsobj_pand_archief add constraint ar_verblijfsobj_pand_pk primary key clustered(fk_nn_lh_vbo_sc_identif,fk_nn_lh_vbo_sc_dat_beg_geldh,fk_nn_rh_pnd_identif);
-
-
-create table verblijfsobj_nummeraan_archief(
-	fk_nn_lh_vbo_sc_identif varchar(16) not null,
-	fk_nn_lh_vbo_sc_dat_beg_geldh varchar(19) not null,
-	fk_nn_rh_nra_sc_identif varchar(16) not null
-);
-alter table verblijfsobj_nummeraan_archief add constraint ar_verblijfsobj_nummeraand_pk primary key clustered(fk_nn_lh_vbo_sc_identif,fk_nn_lh_vbo_sc_dat_beg_geldh,fk_nn_rh_nra_sc_identif);
-
-
-insert into meta_enumeratie_waardes (naam,waarde) values ('Aard aantekening kadastraal object','koopovereenkomst waarvan de inschrijving resulteert in een koperbescherming volgens artikel 7:3 BW');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Aard aantekening kadastraal object','koopovereenkomst of voorovereenkomst tot koop waarvan de inschrijving resulteert in koperbescherming volgens artikel 10 Wvg');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Aard aantekening kadastraal object','vervallen van de koopovereenkomst of voorovereenkomst tot koop die zijn ingeschreven op grond van artikel 7:3 of artikel 10 Wvg');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Aard aantekening kadastraal object','voorwaardelijke verkrijging');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Aard aantekening kadastraal object','erfdienstbaarheid');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Aard aantekening kadastraal object','kwalitatieve verplichting alsin art 6:25 BW');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Aard aantekening kadastraal object','onderbewindstelling van een grondstuk');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Aard aantekening kadastraal object','publiekrechtelijke beperking');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor wonen');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','eensgezinswoning');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','bejaardenwoning');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','recreatiewoning');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','meergezinswoning');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','dienstwoning');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','zorgwoonverblijf');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','aanleunwoonverblijf');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','bejaardenwoonverblijf (in bejaardenoord, centrale keuken)');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','jongerenwooneenheid');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','gehandicaptenwooneenheid');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor niet-wonen');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor handel, horeca en bedrijf');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','detailhandel');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','cafe/bar/restaurant');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','hotel/logies');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','kantoor');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','opslag en distributie');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','fabricage en productie');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','onderhoud en reparatie');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','laboratoria');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','overige doeleinden voor niet-wonen');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor cultuur');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','wijk-/buurt-/verenigingsactiviteiten');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','congres');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','theater en concert');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','musea');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','expositie');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','bioscoop');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','bibliotheek');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','overige doeleinden voor cultuur');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor recreatie');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','sport buiten');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','sport binnen');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','recreatie');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','zwembad');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','dierenverzorging');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','natuur en landschap');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','overige doeleinden voor recreatie');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor agrarisch bedrijf');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','akkerbouw');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','veeteelt');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','tuinbouw');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','gemengd bedrijf');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','overige doeleinden voor agrarisch bedrijf');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor onderwijs');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','kinderopvang');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','basisschool');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','algemeen voortgezet onderwijs');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','hoger beroepsonderwijs');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','academisch onderwijs');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','bijzonder onderwijs');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','vrijetijds onderwijs');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','overige doeleinden voor onderwijs');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor gezondheidszorg');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','ziekenhuis');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','polikliniek');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','praktijkruimte');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','verpleegtehuis');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','verzorgingstehuis en bejaardentehuis');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','dagverblijf');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','wijkverzorging');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','psychiatrische inrichting');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','overige doeleinden voor gezondheidszorg');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor verkeer');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','stalling (fietsen/auto''s)');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','wegverkeer');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','spoorwegverkeer');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','luchtvaart');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','scheepvaart');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','overige doeleinden voor verkeer');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor nutsvoorzieningen');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','waternuts doeleinden');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','gas');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','elektriciteit');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','CAI');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','telecommunicatie');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','waterschaps en waterverdediging');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','overige doeleinden voor nutsvoorzieningen');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','andere doeleinden van openbaar nut');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','gemeentehuis');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','politie');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','brandweer');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','gevangenis/gesticht');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','begraafplaats/crematorium');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','godsdienst (kerk, klooster e.d.)');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','defensie');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','overige andere doeleinden van openbaar nut');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Huishoudensoort','institutioneel huishouden');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Huishoudensoort','alleenstaand (inclusief andere personen die in hetzelfde object wonen, maar een eigen huishouding voeren)');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Huishoudensoort','2 personen, vaste partners, geen thuiswonende kinderen');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Huishoudensoort','2 personen, vaste partners, een of meer thuiswonende kinderen');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Huishoudensoort','eenoudergezin, ouder met een of meer thuiswonende kinderen');
-insert into meta_enumeratie_waardes (naam,waarde) values ('Huishoudensoort','overig particulier huishouden (samenwoning van personen die geen partnerrelatie onderhouden of een ouder-kindrelatie hebben, maar wel gezamenlijk een huishouding voeren)');
-insert into meta_enumeratie (tabel,kolom,enumeratie) values ('gebouwd_obj','bouwk_best_act','Bouwkundige bestemming actueel GEBOUWD OBJECT');
-insert into meta_enumeratie (tabel,kolom,enumeratie) values ('kad_onrrnd_zk_aantek','aard_aantek_kad_obj','Aard aantekening kadastraal object');
-insert into meta_referentielijsten (tabel,kolom,referentielijst) values ('ingeschr_nat_prs','btnlndse_nation','NATIONALITEIT');
-insert into meta_referentielijsten (tabel,kolom,referentielijst) values ('ingeschr_nat_prs','land_vanwaar_ingeschr','LAND');
-insert into meta_referentielijsten (tabel,kolom,referentielijst) values ('ingeschr_nat_prs','land_waarnaar_vertrokken','LAND');
-insert into meta_referentielijsten (tabel,kolom,referentielijst) values ('nat_prs','academische_titel','ACADEMISCHE TITEL');
-insert into meta_referentielijsten (tabel,kolom,referentielijst) values ('rsdoc','soort','REISDOCUMENTSOORT');
-insert into meta_referentielijsten (tabel,kolom,referentielijst) values ('zak_recht','aand_aard_recht_verkort','AARD RECHT VERKORT');
-insert into meta_referentielijsten (tabel,kolom,referentielijst) values ('zak_recht','aand_aard_verkregen_recht','AARD VERKREGEN RECHT');
-
--- Handmatige scripts
-
--- Script: 101_herkomst_metadata.sql
-
-create table herkomst_metadata (
+-- BRMO RSGB script voor sqlserver-- Gegenereerd op 2016-03-03T11:07:02.348+01:00create table sbi_activiteit(	omschr varchar(60),	sbi_code varchar(6) not null);alter table sbi_activiteit add constraint sbi_activiteit_pk primary key clustered(sbi_code);create table aard_recht_verkort(	aand varchar(4) not null,	omschr varchar(100));alter table aard_recht_verkort add constraint aard_recht_verkort_pk primary key clustered(aand);create table aard_verkregen_recht(	aand varchar(6) not null,	omschr_aard_verkregenr_recht varchar(200));alter table aard_verkregen_recht add constraint aard_verkregen_recht_pk primary key clustered(aand);create table academische_titel(	code varchar(3) not null,	dat_beg_geldh_titel varchar(19),	datum_einde_geldh_titel varchar(19),	omschr varchar(80),	positie_tov_naam varchar(1));alter table academische_titel add constraint academische_titel_pk primary key clustered(code);create table land(	eindd varchar(19),	ingangsdatum varchar(19),	code decimal(4,0),	code_iso varchar(2) not null,	naam varchar(40));alter table land add constraint land_pk primary key clustered(code_iso);create table nation(	begindatum_geldh varchar(19),	eindd_geldh varchar(19),	code decimal(4,0) not null,	omschr varchar(42));alter table nation add constraint nation_pk primary key clustered(code);create table rsdocsoort(	begindatum_geldh varchar(19),	eindd_geldh varchar(19),	rsdoccode varchar(2) not null,	rsdocomschr varchar(80));alter table rsdocsoort add constraint rsdocsoort_pk primary key clustered(rsdoccode);create table addresseerb_obj_aand(	dat_beg_geldh varchar(19),	identif varchar(16) not null,	clazz varchar(255),	dat_eind_geldh varchar(19),	huisletter varchar(1),	huinummer decimal(5,0),	huinummertoevoeging varchar(4),	postcode varchar(6),	fk_6wpl_identif varchar(4),	fk_7opr_identifcode varchar(16));alter table addresseerb_obj_aand add constraint addresseerb_obj_aand_pk primary key clustered(identif);create table ander_btnlnds_niet_nat_prs(	sc_identif varchar(32) not null);alter table ander_btnlnds_niet_nat_prs add constraint ander_btnlnds_niet_nat_prs_pk primary key clustered(sc_identif);create table ander_nat_prs(	sc_identif varchar(32) not null,	geboortedatum decimal(8,0),	overlijdensdatum decimal(8,0),	fk_3aoa_identif varchar(16));alter table ander_nat_prs add constraint ander_nat_prs_pk primary key clustered(sc_identif);create table app_re(	sc_kad_identif decimal(15,0) not null,	fk_2nnp_sc_identif varchar(32),	ka_appartementsindex varchar(4),	ka_kad_gemeentecode varchar(5),	ka_perceelnummer varchar(15),	ka_sectie varchar(255));alter table app_re add constraint app_re_pk primary key clustered(sc_kad_identif);create table begr_terr_dl(	dat_beg_geldh varchar(19),	identif varchar(255) not null,	clazz varchar(255),	datum_einde_geldh varchar(19),	fysiek_voork_begr_terrein varchar(20),	relve_hoogteligging decimal(1,0),	status varchar(8),	fk_8opr_identifcode varchar(16));alter table begr_terr_dl add constraint begr_terr_dl_pk primary key clustered(identif);alter table begr_terr_dl add geom geometry;CREATE SPATIAL INDEX begr_terr_dl_geom1_idx ON begr_terr_dl (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));alter table begr_terr_dl add kruinlijngeom geometry;CREATE SPATIAL INDEX begr_terr_dl_kruinlijngeo2_idx ON begr_terr_dl (kruinlijngeom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table begr_terreinvakonderd(	sc_identif varchar(255) not null,	fk_1btd_identif varchar(255));alter table begr_terreinvakonderd add constraint begr_terreinvakonderd_pk primary key clustered(sc_identif);create table benoemd_obj(	identif varchar(16) not null,	clazz varchar(255));alter table benoemd_obj add constraint benoemd_obj_pk primary key clustered(identif);create table benoemd_terrein(	dat_beg_geldh varchar(19),	sc_identif varchar(16) not null,	clazz varchar(255),	datum_einde_geldh varchar(19));alter table benoemd_terrein add constraint benoemd_terrein_pk primary key clustered(sc_identif);alter table benoemd_terrein add geom geometry;CREATE SPATIAL INDEX benoemd_terrein_geom1_idx ON benoemd_terrein (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table brugconstructie_element(	sc_identif varchar(255) not null,	type varchar(40));alter table brugconstructie_element add constraint brugconstructie_element_pk primary key clustered(sc_identif);create table buurt(	code decimal(8,0) not null,	dat_beg_geldh varchar(19),	naam varchar(80),	datum_einde_geldh varchar(19),	identif_imgeobrt varchar(255),	relve_hoogteligging decimal(1,0),	status varchar(8));alter table buurt add constraint buurt_pk primary key clustered(code);alter table buurt add geom geometry;CREATE SPATIAL INDEX buurt_geom1_idx ON buurt (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table functioneel_gebied(	dat_beg_geldh varchar(19),	identif varchar(255) not null,	datum_einde_geldh varchar(19),	naam varchar(40),	relve_hoogteligging decimal(1,0),	status varchar(8),	type varchar(255));alter table functioneel_gebied add constraint functioneel_gebied_pk primary key clustered(identif);alter table functioneel_gebied add geom geometry;CREATE SPATIAL INDEX functioneel_gebied_geom1_idx ON functioneel_gebied (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table gebouwd_obj(	dat_beg_geldh varchar(19),	sc_identif varchar(16) not null,	clazz varchar(255),	bouwk_best_act varchar(255),	bruto_inhoud decimal(6,0),	datum_einde_geldh varchar(19),	inwwijze_oppervlakte varchar(24),	oppervlakte_obj decimal(6,0),	status_voortgang_bouw integer);alter table gebouwd_obj add constraint gebouwd_obj_pk primary key clustered(sc_identif);alter table gebouwd_obj add vlakgeom geometry;CREATE SPATIAL INDEX gebouwd_obj_vlakgeom1_idx ON gebouwd_obj (vlakgeom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));alter table gebouwd_obj add puntgeom geometry;CREATE SPATIAL INDEX gebouwd_obj_puntgeom2_idx ON gebouwd_obj (puntgeom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table gebouwinstallatie(	dat_beg_geldh varchar(19),	identif varchar(255) not null,	datum_einde_geldh varchar(19),	relve_hoogteligging decimal(1,0),	status varchar(8),	type varchar(40));alter table gebouwinstallatie add constraint gebouwinstallatie_pk primary key clustered(identif);alter table gebouwinstallatie add geom geometry;CREATE SPATIAL INDEX gebouwinstallatie_geom1_idx ON gebouwinstallatie (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table gemeente(	dat_beg_geldh varchar(19),	code decimal(4,0) not null,	datum_einde_geldh varchar(19),	naam varchar(40),	naam_nen varchar(24));alter table gemeente add constraint gemeente_pk primary key clustered(code);alter table gemeente add geom geometry;CREATE SPATIAL INDEX gemeente_geom1_idx ON gemeente (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table gem_openb_rmte(	dat_beg_geldh varchar(19),	identifcode varchar(16) not null,	datum_einde_geldh varchar(19),	indic_geconst_openb_rmte varchar(1),	naam_openb_rmte varchar(80),	status_openb_rmte varchar(80),	straatnaam varchar(24),	type_openb_rmte varchar(40),	fk_7gem_code decimal(4,0));alter table gem_openb_rmte add constraint gem_openb_rmte_pk primary key clustered(identifcode);create table huishouden(	dat_beg_geldh varchar(19),	nummer decimal(12,0) not null,	datum_einde_geldh varchar(19),	grootte decimal(2,0),	soort decimal(2,0),	fk_4vbo_sc_identif varchar(16),	fk_5lpl_sc_identif varchar(16),	fk_7spl_sc_identif varchar(16));alter table huishouden add constraint huishouden_pk primary key clustered(nummer);create table ingeschr_niet_nat_prs(	sc_identif varchar(32) not null,	typering varchar(35),	ovrg_privaatr_rechtsvorm varchar(200),	publiekrechtelijke_rechtsvorm varchar(40),	rechtstoestand varchar(30),	rechtsvorm varchar(50),	statutaire_zetel varchar(40),	fk_7aoa_identif varchar(16));alter table ingeschr_niet_nat_prs add constraint ingeschr_niet_nat_prs_pk primary key clustered(sc_identif);create table ingeschr_nat_prs(	sc_identif varchar(32) not null,	clazz varchar(255),	a_nummer decimal(10,0),	btnlnds_rsdoc decimal(1,0),	burgerlijke_staat decimal(1,0),	bsn decimal(9,0),	dat_beg_geldh_verblijfpl varchar(19),	datum_inschrijving_in_gemeente varchar(19),	datum_opschorting_bijhouding varchar(19),	datum_verkr_nation varchar(19),	datum_verlies_nation varchar(19),	datum_vertrek_uit_nederland varchar(19),	datum_vestg_in_nederland varchar(19),	gemeente_van_inschrijving decimal(4,0),	handelingsbekwaam varchar(3),	indic_geheim decimal(1,0),	rechtstoestand varchar(22),	reden_opschorting_bijhouding varchar(1),	signalering_rsdoc decimal(1,0),	fk_27lpl_sc_identif varchar(16),	fk_28nra_sc_identif varchar(16),	fk_29wpl_identif varchar(4),	fk_30spl_sc_identif varchar(16),	fk_31vbo_sc_identif varchar(16),	fk_1rsd_nummer varchar(9),	gb_geboortedatum decimal(8,0),	fk_gb_lnd_code_iso varchar(2),	gb_geboorteplaats varchar(40),	nt_aand_bijzonder_nlschap varchar(1),	fk_nt_nat_code decimal(4,0),	nt_reden_verkr_nlse_nation decimal(3,0),	nt_reden_verlies_nlse_nation decimal(3,0),	fk_ol_lnd_code_iso varchar(2),	ol_overlijdensdatum decimal(8,0),	ol_overlijdensplaats varchar(40),	va_adresherkomst varchar(1),	va_loc_beschrijving varchar(255),	fk_va_3_vbo_sc_identif varchar(16),	fk_va_4_spl_sc_identif varchar(16),	fk_va_5_nra_sc_identif varchar(16),	fk_va_6_wpl_identif varchar(4),	fk_va_7_lpl_sc_identif varchar(16),	fk_3nat_code decimal(4,0),	fk_17lnd_code_iso varchar(2),	fk_18lnd_code_iso varchar(2));alter table ingeschr_nat_prs add constraint ingeschr_nat_prs_pk primary key clustered(sc_identif);create table ingezetene(	sc_identif varchar(32) not null,	datum_verkr_verblijfstitel varchar(19),	datum_verlies_verblijfstitel varchar(19),	indic_blokkering varchar(1),	indic_curateleregister decimal(1,0),	indic_gezag_minderjarige varchar(2),	fk_8vbt_aand decimal(2,0),	ek_aand_euro_kiesr decimal(1,0),	ek_verw_eindd_uitsl_euro_kiesr decimal(8,0),	uk_aand_uitgesloten_kiesr varchar(1),	uk_verw_eindd_uitsl_kiesr decimal(8,0));alter table ingezetene add constraint ingezetene_pk primary key clustered(sc_identif);create table inrichtingselement(	dat_beg_geldh varchar(19),	identif varchar(255) not null,	datum_einde_geldh varchar(19),	typering varchar(40),	relve_hoogteligging decimal(1,0),	status varchar(8),	type varchar(30));alter table inrichtingselement add constraint inrichtingselement_pk primary key clustered(identif);alter table inrichtingselement add geom geometry;CREATE SPATIAL INDEX inrichtingselement_geom1_idx ON inrichtingselement (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table kad_perceel(	sc_kad_identif decimal(15,0) not null,	aand_soort_grootte char(1),	grootte_perceel decimal(8,0),	omschr_deelperceel varchar(1120),	fk_7kdp_sc_kad_identif decimal(15,0),	ka_deelperceelnummer varchar(4),	ka_kad_gemeentecode varchar(5),	ka_perceelnummer varchar(5),	ka_sectie varchar(255));alter table kad_perceel add constraint kad_perceel_pk primary key clustered(sc_kad_identif);alter table kad_perceel add begrenzing_perceel geometry;CREATE SPATIAL INDEX kad_perceel_begrenzing_pe1_idx ON kad_perceel (begrenzing_perceel) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));alter table kad_perceel add plaatscoordinaten_perceel geometry;CREATE SPATIAL INDEX kad_perceel_plaatscoordin2_idx ON kad_perceel (plaatscoordinaten_perceel) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table kad_gemeente(	code varchar(5) not null,	indic_vervallen char(1),	naam varchar(40));alter table kad_gemeente add constraint kad_gemeente_pk primary key clustered(code);create table kad_onrrnd_zk(	dat_beg_geldh varchar(19),	kad_identif decimal(15,0) not null,	clazz varchar(255),	datum_einde_geldh varchar(19),	typering varchar(1),	fk_7kdg_code varchar(5),	fk_10pes_sc_identif varchar(32),	cu_aard_bebouwing varchar(255),	cu_aard_cultuur_onbebouwd varchar(65),	cu_meer_culturen char(1),	ks_aard_bedrag varchar(255),	ks_bedrag decimal(9,0),	ks_koopjaar integer,	ks_meer_onroerendgoed char(1),	ks_transactiedatum datetime,	ks_valutasoort varchar(255),	lr_aand_aard_liproject varchar(1),	lr_aard_bedrag varchar(255),	lr_bedrag varchar(255),	lr_eindjaar integer,	lr_valutasoort varchar(3),	lo_cultuur_bebouwd varchar(65),	lo_loc__omschr varchar(40));alter table kad_onrrnd_zk add constraint kad_onrrnd_zk_pk primary key clustered(kad_identif);create table kad_onrrnd_zk_aantek(	begindatum_aantek_kad_obj varchar(19),	kadaster_identif_aantek varchar(255) not null,	aard_aantek_kad_obj varchar(255),	beschrijving_aantek_kad_obj varchar(124),	eindd_aantek_kad_obj varchar(19),	fk_4koz_kad_identif decimal(15,0),	fk_5pes_sc_identif varchar(32));alter table kad_onrrnd_zk_aantek add constraint kad_onrrnd_zk_aantek_pk primary key clustered(kadaster_identif_aantek);create table kunstwerkdeel(	dat_beg_geldh varchar(19),	identif varchar(255) not null,	clazz varchar(255),	datum_einde_geldh varchar(19),	relve_hoogteligging decimal(1,0),	status varchar(8),	type_kunstwerk varchar(40));alter table kunstwerkdeel add constraint kunstwerkdeel_pk primary key clustered(identif);alter table kunstwerkdeel add geom geometry;CREATE SPATIAL INDEX kunstwerkdeel_geom1_idx ON kunstwerkdeel (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table ligplaats(	sc_identif varchar(16) not null,	indic_geconst varchar(1),	status varchar(80),	fk_4nra_sc_identif varchar(16));alter table ligplaats add constraint ligplaats_pk primary key clustered(sc_identif);create table maatschapp_activiteit(	kvk_nummer decimal(8,0) not null,	datum_aanvang varchar(19),	datum_einde_geldig varchar(19),	fk_3ond_kvk_nummer decimal(8,0),	fk_4pes_sc_identif varchar(32));alter table maatschapp_activiteit add constraint maatschapp_activiteit_pk primary key clustered(kvk_nummer);create table nat_prs(	sc_identif varchar(32) not null,	clazz varchar(255),	aand_naamgebruik varchar(1),	geslachtsaand varchar(1),	nm_adellijke_titel_predikaat varchar(10),	nm_geslachtsnaam varchar(200),	nm_voornamen varchar(200),	nm_voorvoegsel_geslachtsnaam varchar(10),	na_aanhef_aanschrijving varchar(50),	na_geslachtsnaam_aanschrijving varchar(200),	na_voorletters_aanschrijving varchar(20),	na_voornamen_aanschrijving varchar(200),	fk_2acd_code varchar(3));alter table nat_prs add constraint nat_prs_pk primary key clustered(sc_identif);create table niet_ingezetene(	sc_identif varchar(32) not null);alter table niet_ingezetene add constraint niet_ingezetene_pk primary key clustered(sc_identif);create table niet_nat_prs(	sc_identif varchar(32) not null,	clazz varchar(255),	naam varchar(500),	datum_aanvang varchar(19),	datum_beeindiging varchar(19),	verkorte_naam varchar(45));alter table niet_nat_prs add constraint niet_nat_prs_pk primary key clustered(sc_identif);create table nummeraand(	sc_identif varchar(16) not null,	indic_geconst varchar(1),	indic_hoofdadres char(1),	status varchar(80));alter table nummeraand add constraint nummeraand_pk primary key clustered(sc_identif);create table onbegr_terr_dl(	dat_beg_geldh varchar(19),	identif varchar(255) not null,	clazz varchar(255),	datum_einde_geldh varchar(19),	fysiek_voork_onbegr_terrein varchar(20),	relve_hoogteligging decimal(1,0),	status varchar(8),	fk_8opr_identifcode varchar(16));alter table onbegr_terr_dl add constraint onbegr_terr_dl_pk primary key clustered(identif);alter table onbegr_terr_dl add geom geometry;CREATE SPATIAL INDEX onbegr_terr_dl_geom1_idx ON onbegr_terr_dl (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));alter table onbegr_terr_dl add kruinlijngeom geometry;CREATE SPATIAL INDEX onbegr_terr_dl_kruinlijng2_idx ON onbegr_terr_dl (kruinlijngeom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table onbegr_terreinvakonderd(	sc_identif varchar(255) not null,	fk_1obt_identif varchar(255));alter table onbegr_terreinvakonderd add constraint onbegr_terreinvakonderd_pk primary key clustered(sc_identif);create table ondrnmng(	kvk_nummer decimal(8,0) not null,	datum_aanvang varchar(19),	datum_einde varchar(19),	fk_4mac_kvk_nummer decimal(8,0),	fk_1ond_kvk_nummer decimal(8,0));alter table ondrnmng add constraint ondrnmng_pk primary key clustered(kvk_nummer);create table ondersteunend_wegdeel(	dat_beg_geldh varchar(19),	identif varchar(255) not null,	datum_einde_geldh varchar(19),	functie varchar(25),	relve_hoogteligging decimal(1,0),	status varchar(8),	fk_6opr_identifcode varchar(16));alter table ondersteunend_wegdeel add constraint ondersteunend_wegdeel_pk primary key clustered(identif);alter table ondersteunend_wegdeel add geom geometry;CREATE SPATIAL INDEX ondersteunend_wegdeel_geo1_idx ON ondersteunend_wegdeel (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table openb_rmte(	identifcode varchar(16) not null,	huisnrrange_on_even_nummers varchar(11),	huisnrrange_even_nummers varchar(11),	huisnrrange_oneven_nummers varchar(11),	identif_bgtopr varchar(255));alter table openb_rmte add constraint openb_rmte_pk primary key clustered(identifcode);create table ovrg_addresseerb_obj_aand(	sc_identif varchar(16) not null);alter table ovrg_addresseerb_obj_aand add constraint ovrg_addresseerb_obj_aand_pk primary key clustered(sc_identif);create table overig_bouwwerk(	dat_beg_geldh varchar(19),	identif varchar(255) not null,	datum_einde_geldh varchar(19),	relve_hoogteligging decimal(1,0),	status varchar(8),	type varchar(40));alter table overig_bouwwerk add constraint overig_bouwwerk_pk primary key clustered(identif);alter table overig_bouwwerk add geom geometry;CREATE SPATIAL INDEX overig_bouwwerk_geom1_idx ON overig_bouwwerk (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table overig_gebouwd_obj(	sc_identif varchar(16) not null,	bouwjaar decimal(4,0),	loc_aand varchar(40),	type varchar(40),	fk_4oao_sc_identif varchar(16),	fk_5nra_sc_identif varchar(16),	fk_6opr_identifcode varchar(16));alter table overig_gebouwd_obj add constraint overig_gebouwd_obj_pk primary key clustered(sc_identif);create table ovrg_scheiding(	dat_beg_geldh varchar(19),	identif varchar(255) not null,	datum_einde_geldh varchar(19),	relve_hoogteligging decimal(1,0),	status varchar(8),	type varchar(40));alter table ovrg_scheiding add constraint ovrg_scheiding_pk primary key clustered(identif);alter table ovrg_scheiding add geom geometry;CREATE SPATIAL INDEX ovrg_scheiding_geom1_idx ON ovrg_scheiding (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table overig_terrein(	sc_identif varchar(16) not null,	fk_2oao_sc_identif varchar(16));alter table overig_terrein add constraint overig_terrein_pk primary key clustered(sc_identif);create table pand(	dat_beg_geldh varchar(19),	identif varchar(16) not null,	bruto_inhoud decimal(6,0),	datum_einde_geldh varchar(19),	hoogste_bouwlaag decimal(3,0),	identif_bgtpnd varchar(255),	indic_geconstateerd varchar(1),	inwwijze_geom_bovenaanzicht varchar(24),	inwwijze_geom_maaiveld varchar(24),	laagste_bouwlaag decimal(3,0),	oorspronkelijk_bouwjaar decimal(4,0),	oppervlakte decimal(6,0),	status varchar(80),	relve_hoogteligging decimal(1,0),	status_voortgang_bouw varchar(24));alter table pand add constraint pand_pk primary key clustered(identif);alter table pand add geom_bovenaanzicht geometry;CREATE SPATIAL INDEX pand_geom_bovenaanzicht1_idx ON pand (geom_bovenaanzicht) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));alter table pand add geom_maaiveld geometry;CREATE SPATIAL INDEX pand_geom_maaiveld2_idx ON pand (geom_maaiveld) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table prs(	sc_identif varchar(32) not null,	clazz varchar(255));alter table prs add constraint prs_pk primary key clustered(sc_identif);create table rsdoc(	nummer varchar(9) not null,	aand_inhouding_of_vermissing varchar(1),	autoriteit_uitgifte varchar(6),	datum_inhouding_of_vermissing decimal(8,0),	datum_uitgifte decimal(8,0),	eindd_geldh_document decimal(8,0),	lengte_houder decimal(8,0),	fk_7rds_rsdoccode varchar(2));alter table rsdoc add constraint rsdoc_pk primary key clustered(nummer);create table scheiding(	dat_beg_geldh varchar(19),	identif varchar(255) not null,	datum_einde_geldh varchar(19),	relve_hoogteligging decimal(1,0),	status varchar(8),	type varchar(40));alter table scheiding add constraint scheiding_pk primary key clustered(identif);alter table scheiding add geom geometry;CREATE SPATIAL INDEX scheiding_geom1_idx ON scheiding (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table spoor(	dat_beg_geldh varchar(19),	identif varchar(255) not null,	datum_einde_geldh varchar(19),	functie varchar(25),	relve_hoogteligging decimal(1,0),	status varchar(8));alter table spoor add constraint spoor_pk primary key clustered(identif);alter table spoor add geom geometry;CREATE SPATIAL INDEX spoor_geom1_idx ON spoor (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table stadsdeel(	dat_beg_geldh varchar(19),	identif varchar(255) not null,	datum_einde_geldh varchar(19),	relve_hoogteligging decimal(1,0),	naam varchar(40),	status varchar(8));alter table stadsdeel add constraint stadsdeel_pk primary key clustered(identif);alter table stadsdeel add geom geometry;CREATE SPATIAL INDEX stadsdeel_geom1_idx ON stadsdeel (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table standplaats(	sc_identif varchar(16) not null,	indic_geconst varchar(1),	status varchar(80),	fk_4nra_sc_identif varchar(16));alter table standplaats add constraint standplaats_pk primary key clustered(sc_identif);create table subject(	identif varchar(32) not null,	clazz varchar(255),	adres_binnenland varchar(257),	adres_buitenland varchar(149),	emailadres varchar(254),	fax_nummer varchar(20),	kvk_nummer decimal(8,0),	naam varchar(500),	typering varchar(50),	telefoonnummer varchar(20),	website_url varchar(200),	fk_13wpl_identif varchar(4),	fk_14aoa_identif varchar(16),	fk_15aoa_identif varchar(16),	pa_postadres_postcode varchar(6),	pa_postadrestype varchar(1),	pa_postbus__of_antwoordnummer decimal(5,0),	fk_pa_4_wpl_identif varchar(4),	rn_bankrekeningnummer decimal(10,0),	rn_bic varchar(11),	rn_iban varchar(34),	vb_adres_buitenland_1 varchar(35),	vb_adres_buitenland_2 varchar(35),	vb_adres_buitenland_3 varchar(35),	fk_vb_lnd_code_iso varchar(2));alter table subject add constraint subject_pk primary key clustered(identif);create table verblijfsobj(	sc_identif varchar(16) not null,	aantal_kamers decimal(2,0),	hoogste_bouwlaag decimal(3,0),	indic_geconstateerd varchar(1),	laagste_bouwlaag decimal(3,0),	ontsluiting_verdieping varchar(3),	soort_woonobj decimal(1,0),	toegang_bouwlaag decimal(3,0),	status varchar(80),	fk_11nra_sc_identif varchar(16));alter table verblijfsobj add constraint verblijfsobj_pk primary key clustered(sc_identif);create table verblijfstitel(	aand decimal(2,0) not null,	begindatum_geldh varchar(19),	eindd_geldh varchar(19),	omschr varchar(100));alter table verblijfstitel add constraint verblijfstitel_pk primary key clustered(aand);create table vestg(	sc_identif varchar(32) not null,	activiteit_omschr varchar(2000),	datum_aanvang varchar(19),	datum_beeindiging varchar(19),	datum_voortzetting varchar(19),	fulltime_werkzame_mannen decimal(5,0),	fulltime_werkzame_vrouwen decimal(5,0),	parttime_werkzame_mannen decimal(5,0),	parttime_werkzame_vrouwen decimal(5,0),	toevoeging_adres varchar(100),	verkorte_naam varchar(45),	typering varchar(26),	fk_15ond_kvk_nummer decimal(8,0),	fk_16tgo_identif varchar(16),	fk_17mac_kvk_nummer decimal(8,0),	fk_18ves_sc_identif varchar(32),	fk_19mac_kvk_nummer decimal(8,0),	fk_20aoa_identif varchar(16),	sa_indic_hoofdactiviteit varchar(3),	fk_sa_sbi_activiteit_sbi_code varchar(6));alter table vestg add constraint vestg_pk primary key clustered(sc_identif);create table vrijstaand_vegetatie_obj(	dat_beg_geldh varchar(19),	identif varchar(255) not null,	datum_einde_geldh varchar(19),	relve_hoogteligging decimal(1,0),	status varchar(8),	type varchar(40));alter table vrijstaand_vegetatie_obj add constraint vrijstaand_vegetatie_obj_pk primary key clustered(identif);alter table vrijstaand_vegetatie_obj add geom geometry;CREATE SPATIAL INDEX vrijstaand_vegetatie_obj_1_idx ON vrijstaand_vegetatie_obj (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table waterdeel(	dat_beg_geldh varchar(19),	identif varchar(255) not null,	clazz varchar(255),	datum_einde_geldh varchar(19),	droogvallend varchar(1),	relve_hoogteligging decimal(1,0),	status varchar(8),	type varchar(40),	fk_7opr_identifcode varchar(16));alter table waterdeel add constraint waterdeel_pk primary key clustered(identif);alter table waterdeel add geom geometry;CREATE SPATIAL INDEX waterdeel_geom1_idx ON waterdeel (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table watervakonderdeel(	sc_identif varchar(255) not null,	fk_1wad_identif varchar(255));alter table watervakonderdeel add constraint watervakonderdeel_pk primary key clustered(sc_identif);create table waterschap(	dat_beg_geldh varchar(19),	identif varchar(255) not null,	datum_einde_geldh varchar(19),	relve_hoogteligging decimal(1,0),	status varchar(8),	naam varchar(40));alter table waterschap add constraint waterschap_pk primary key clustered(identif);alter table waterschap add geom geometry;CREATE SPATIAL INDEX waterschap_geom1_idx ON waterschap (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table wegdeel(	dat_beg_geldh varchar(19),	identif varchar(255) not null,	clazz varchar(255),	datum_einde_geldh varchar(19),	functie varchar(25),	fysiek_voork varchar(20),	relve_hoogteligging decimal(1,0),	status varchar(8),	fk_8opr_identifcode varchar(16));alter table wegdeel add constraint wegdeel_pk primary key clustered(identif);alter table wegdeel add geom geometry;CREATE SPATIAL INDEX wegdeel_geom1_idx ON wegdeel (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table wegvakonderdeel(	sc_identif varchar(255) not null,	fk_1wgd_identif varchar(255));alter table wegvakonderdeel add constraint wegvakonderdeel_pk primary key clustered(sc_identif);create table wijk(	dat_beg_geldh varchar(19),	code decimal(6,0) not null,	datum_einde_geldh varchar(19),	identif_imgeowyk varchar(255),	relve_hoogteligging decimal(1,0),	status varchar(8),	naam varchar(80));alter table wijk add constraint wijk_pk primary key clustered(code);alter table wijk add geom geometry;CREATE SPATIAL INDEX wijk_geom1_idx ON wijk (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table wnplts(	dat_beg_geldh varchar(19),	identif varchar(4) not null,	datum_einde_geldh varchar(19),	indic_geconst varchar(1),	naam varchar(80),	naam_nen varchar(24),	status varchar(80),	fk_7gem_code decimal(4,0));alter table wnplts add constraint wnplts_pk primary key clustered(identif);alter table wnplts add geom geometry;CREATE SPATIAL INDEX wnplts_geom1_idx ON wnplts (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table woz_deelobj(	dat_beg_geldh_deelobj decimal(8,0),	nummer decimal(6,0) not null,	code varchar(4),	datum_einde_geldh_deelobj decimal(8,0),	status decimal(2,0),	fk_4pnd_identif varchar(16),	fk_5tgo_identif varchar(16),	fk_6woz_nummer decimal(12,0));alter table woz_deelobj add constraint woz_deelobj_pk primary key clustered(nummer);create table woz_obj(	dat_beg_geldh varchar(19),	nummer decimal(12,0) not null,	datum_einde_geldh varchar(19),	gebruikscode decimal(2,0),	grondoppervlakte decimal(11,0),	soort_obj_code decimal(4,0),	status decimal(2,0),	vastgestelde_waarde decimal(11,0),	waardepeildatum date);alter table woz_obj add constraint woz_obj_pk primary key clustered(nummer);alter table woz_obj add geom geometry;CREATE SPATIAL INDEX woz_obj_geom1_idx ON woz_obj (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table woz_waarde(	waardepeildatum decimal(8,0),	status_beschikking decimal(2,0),	toestandspeildatum decimal(8,0),	vastgestelde_waarde decimal(11,0),	fk_1woz_nummer decimal(12,0));create table zak_recht(	kadaster_identif varchar(255) not null,	eindd_recht varchar(255),	indic_betrokken_in_splitsing varchar(255),	ingangsdatum_recht varchar(19),	fk_7koz_kad_identif decimal(15,0),	fk_8pes_sc_identif varchar(32),	ar_noemer decimal(8,0),	ar_teller decimal(8,0),	fk_2aard_recht_verkort_aand varchar(4),	fk_3avr_aand varchar(6));alter table zak_recht add constraint zak_recht_pk primary key clustered(kadaster_identif);create table zak_recht_aantek(	kadaster_identif_aantek_recht varchar(255) not null,	aard_aantek_recht varchar(255),	begindatum_aantek_recht varchar(19),	beschrijving_aantek_recht varchar(255),	eindd_aantek_recht varchar(255),	fk_5zkr_kadaster_identif varchar(255),	fk_6pes_sc_identif varchar(32));alter table zak_recht_aantek add constraint zak_recht_aantek_pk primary key clustered(kadaster_identif_aantek_recht);create table gebouwd_obj_gebruiksdoel(	gebruiksdoel_gebouwd_obj varchar(80),	fk_gbo_sc_identif varchar(16));create table overig_terrein_gebruiksdoel(	gebruiksdoel_overig_terrein varchar(80),	fk_otr_sc_identif varchar(16));create table vestg_naam(	naam varchar(500),	fk_ves_sc_identif varchar(32));create table functionaris(	fk_sc_lh_pes_sc_identif varchar(32) not null,	fk_sc_rh_pes_sc_identif varchar(32) not null,	beperking_bev_in_euros decimal(18,0),	bv_beperking_in_geld decimal(18,0),	bv_omschr_ovrg_beperkingen varchar(2000),	bv_ovrg_volmacht varchar(3),	bv_soort_handeling varchar(35),	bev_met_andere_prsn varchar(3),	datum_toetr varchar(19),	datum_uittreding varchar(19),	functie varchar(80),	functionaristypering varchar(35),	indic_statutair_volmacht varchar(3),	ovrg_beperking_bev varchar(3),	soort_bev varchar(30),	volledig_beperkt_volmacht varchar(1));alter table functionaris add constraint functionaris_pk primary key clustered(fk_sc_lh_pes_sc_identif,fk_sc_rh_pes_sc_identif);create table huishoudenrel(	fk_sc_lh_inp_sc_identif varchar(32) not null,	fk_sc_rh_hhd_nummer decimal(12,0) not null,	huishoudenrelcode decimal(1,0));alter table huishoudenrel add constraint huishoudenrel_pk primary key clustered(fk_sc_lh_inp_sc_identif,fk_sc_rh_hhd_nummer);create table huw_ger_partn(	fk_sc_lh_inp_sc_identif varchar(32) not null,	fk_sc_rh_inp_sc_identif varchar(32) not null,	hs_datum_aangaan decimal(8,0),	fk_hs_lnd_code_iso varchar(2),	hs_plaats varchar(40),	ho_datum_ontb_huw_ger_partn decimal(8,0),	fk_ho_lnd_code_iso varchar(2),	ho_plaats_ontb_huw_ger_partn varchar(40),	ho_reden_ontb_huw_ger_partn varchar(1),	soort_verbintenis varchar(1));alter table huw_ger_partn add constraint huw_ger_partn_pk primary key clustered(fk_sc_lh_inp_sc_identif,fk_sc_rh_inp_sc_identif);create table kad_onrrnd_zk_his_rel(	fk_sc_lh_koz_kad_identif decimal(15,0) not null,	fk_sc_rh_koz_kad_identif decimal(15,0) not null,	aard varchar(255),	overgangsgrootte varchar(255));alter table kad_onrrnd_zk_his_rel add constraint kad_onrrnd_zk_his_rel_pk primary key clustered(fk_sc_lh_koz_kad_identif,fk_sc_rh_koz_kad_identif);create table locaand_adres(	fk_sc_lh_aoa_identif varchar(16) not null,	fk_sc_rh_woz_nummer decimal(12,0) not null,	locomschr varchar(40));alter table locaand_adres add constraint locaand_adres_pk primary key clustered(fk_sc_lh_aoa_identif,fk_sc_rh_woz_nummer);create table locaand_openb_rmte(	fk_sc_lh_opr_identifcode varchar(16) not null,	fk_sc_rh_woz_nummer decimal(12,0) not null,	locomschr varchar(40));alter table locaand_openb_rmte add constraint locaand_openb_rmte_pk primary key clustered(fk_sc_lh_opr_identifcode,fk_sc_rh_woz_nummer);create table ouder_kind_rel(	fk_sc_lh_inp_sc_identif varchar(32) not null,	fk_sc_rh_inp_sc_identif varchar(32) not null,	datum_einde_fam_recht_betr varchar(19),	datum_ingang_fam_recht_betr decimal(8,0),	ouder_aand varchar(6));alter table ouder_kind_rel add constraint ouder_kind_rel_pk primary key clustered(fk_sc_lh_inp_sc_identif,fk_sc_rh_inp_sc_identif);create table woz_belang(	fk_sc_lh_sub_identif varchar(32) not null,	fk_sc_rh_woz_nummer decimal(12,0) not null,	aand_eigenaargebruiker varchar(1));alter table woz_belang add constraint woz_belang_pk primary key clustered(fk_sc_lh_sub_identif,fk_sc_rh_woz_nummer);create table app_re_kad_perceel(	fk_nn_lh_apr_sc_kad_identif decimal(15,0) not null,	fk_nn_lh_apr_sc_dat_beg_geldh varchar(19),	fk_nn_rh_kdp_sc_kad_identif decimal(15,0) not null);alter table app_re_kad_perceel add constraint app_re_kad_perceel_pk primary key clustered(fk_nn_lh_apr_sc_kad_identif,fk_nn_rh_kdp_sc_kad_identif);create table benoemd_obj_kad_onrrnd_zk(	fk_nn_lh_tgo_identif varchar(16) not null,	fk_nn_rh_koz_kad_identif decimal(15,0) not null);alter table benoemd_obj_kad_onrrnd_zk add constraint benoemd_obj_kad_onrrnd_zk_pk primary key clustered(fk_nn_lh_tgo_identif,fk_nn_rh_koz_kad_identif);create table benoemd_terrein_benoemd_terrei(	fk_nn_lh_btr_sc_identif varchar(16) not null,	fk_nn_lh_btr_dat_beg_geldh varchar(19),	fk_nn_rh_btr_sc_identif varchar(16) not null);alter table benoemd_terrein_benoemd_terrei add constraint benoemd_terrein_benoemd_ter_pk primary key clustered(fk_nn_lh_btr_sc_identif,fk_nn_rh_btr_sc_identif);create table gemeente_gemeente(	fk_nn_lh_gem_code decimal(4,0) not null,	fk_nn_lh_gem_dat_beg_geldh varchar(19),	fk_nn_rh_gem_code decimal(4,0) not null);alter table gemeente_gemeente add constraint gemeente_gemeente_pk primary key clustered(fk_nn_lh_gem_code,fk_nn_rh_gem_code);create table kad_onrrnd_zk_kad_onrrnd_zk(	fk_nn_lh_koz_kad_identif decimal(15,0) not null,	fk_nn_lh_koz_dat_beg_geldh varchar(19),	fk_nn_rh_koz_kad_identif decimal(15,0) not null);alter table kad_onrrnd_zk_kad_onrrnd_zk add constraint kad_onrrnd_zk_kad_onrrnd_zk_pk primary key clustered(fk_nn_lh_koz_kad_identif,fk_nn_rh_koz_kad_identif);create table ligplaats_nummeraand(	fk_nn_lh_lpl_sc_identif varchar(16) not null,	fk_nn_lh_lpl_sc_dat_beg_geldh varchar(19),	fk_nn_rh_nra_sc_identif varchar(16) not null);alter table ligplaats_nummeraand add constraint ligplaats_nummeraand_pk primary key clustered(fk_nn_lh_lpl_sc_identif,fk_nn_rh_nra_sc_identif);create table openb_rmte_gem_openb_rmte(	fk_nn_lh_opr_identifcode varchar(16) not null,	fk_nn_rh_gor_identifcode varchar(16) not null);alter table openb_rmte_gem_openb_rmte add constraint openb_rmte_gem_openb_rmte_pk primary key clustered(fk_nn_lh_opr_identifcode,fk_nn_rh_gor_identifcode);create table openb_rmte_wnplts(	fk_nn_lh_opr_identifcode varchar(16) not null,	fk_nn_rh_wpl_identif varchar(4) not null);alter table openb_rmte_wnplts add constraint openb_rmte_wnplts_pk primary key clustered(fk_nn_lh_opr_identifcode,fk_nn_rh_wpl_identif);create table rsdoc_ingeschr_nat_prs(	fk_nn_lh_rsd_nummer varchar(9) not null,	fk_nn_rh_inp_sc_identif varchar(32) not null);alter table rsdoc_ingeschr_nat_prs add constraint rsdoc_ingeschr_nat_prs_pk primary key clustered(fk_nn_lh_rsd_nummer,fk_nn_rh_inp_sc_identif);create table standplaats_nummeraand(	fk_nn_lh_spl_sc_identif varchar(16) not null,	fk_nn_lh_spl_sc_dat_beg_geldh varchar(19),	fk_nn_rh_nra_sc_identif varchar(16) not null);alter table standplaats_nummeraand add constraint standplaats_nummeraand_pk primary key clustered(fk_nn_lh_spl_sc_identif,fk_nn_rh_nra_sc_identif);create table verblijfsobj_pand(	fk_nn_lh_vbo_sc_identif varchar(16) not null,	fk_nn_lh_vbo_sc_dat_beg_geldh varchar(19),	fk_nn_rh_pnd_identif varchar(16) not null);alter table verblijfsobj_pand add constraint verblijfsobj_pand_pk primary key clustered(fk_nn_lh_vbo_sc_identif,fk_nn_rh_pnd_identif);create table verblijfsobj_nummeraand(	fk_nn_lh_vbo_sc_identif varchar(16) not null,	fk_nn_lh_vbo_sc_dat_beg_geldh varchar(19),	fk_nn_rh_nra_sc_identif varchar(16) not null);alter table verblijfsobj_nummeraand add constraint verblijfsobj_nummeraand_pk primary key clustered(fk_nn_lh_vbo_sc_identif,fk_nn_rh_nra_sc_identif);create table vestg_benoemd_obj(	fk_nn_lh_ves_sc_identif varchar(32) not null,	fk_nn_rh_tgo_identif varchar(16) not null);alter table vestg_benoemd_obj add constraint vestg_benoemd_obj_pk primary key clustered(fk_nn_lh_ves_sc_identif,fk_nn_rh_tgo_identif);create table meta_enumeratie_waardes(	naam varchar(255) not null,	waarde varchar(255) not null);alter table meta_enumeratie_waardes add constraint meta_enumeratie_waardes_pk primary key clustered(naam,waarde);create table meta_enumeratie(	tabel varchar(255) not null,	kolom varchar(255) not null,	enumeratie varchar(255));alter table meta_enumeratie add constraint meta_enumeratie_pk primary key clustered(tabel,kolom);create table meta_referentielijsten(	tabel varchar(255) not null,	kolom varchar(255) not null,	referentielijst varchar(255));alter table meta_referentielijsten add constraint meta_referentielijsten_pk primary key clustered(tabel,kolom);-- Foreign keys voor tabel addresseerb_obj_aandalter table addresseerb_obj_aand add constraint fk_aoa_as_6 foreign key (fk_6wpl_identif) references wnplts (identif) on delete no action;alter table addresseerb_obj_aand add constraint fk_aoa_as_7 foreign key (fk_7opr_identifcode) references openb_rmte (identifcode) on delete no action;-- Foreign keys voor tabel ander_btnlnds_niet_nat_prsalter table ander_btnlnds_niet_nat_prs add constraint fk_ann_sc foreign key (sc_identif) references niet_nat_prs (sc_identif) on delete no action;-- Foreign keys voor tabel ander_nat_prsalter table ander_nat_prs add constraint fk_anp_sc foreign key (sc_identif) references nat_prs (sc_identif) on delete no action;alter table ander_nat_prs add constraint fk_anp_as_3 foreign key (fk_3aoa_identif) references addresseerb_obj_aand (identif) on delete no action;-- Foreign keys voor tabel app_realter table app_re add constraint fk_apr_sc foreign key (sc_kad_identif) references kad_onrrnd_zk (kad_identif) on delete no action;alter table app_re add constraint fk_apr_as_2 foreign key (fk_2nnp_sc_identif) references niet_nat_prs (sc_identif) on delete no action;-- Foreign keys voor tabel begr_terr_dlalter table begr_terr_dl add constraint fk_btd_as_8 foreign key (fk_8opr_identifcode) references openb_rmte (identifcode) on delete no action;-- Foreign keys voor tabel begr_terreinvakonderdalter table begr_terreinvakonderd add constraint fk_btv_sc foreign key (sc_identif) references begr_terr_dl (identif) on delete no action;alter table begr_terreinvakonderd add constraint fk_btv_1n_1 foreign key (fk_1btd_identif) references begr_terr_dl (identif) on delete no action;-- Foreign keys voor tabel benoemd_terreinalter table benoemd_terrein add constraint fk_btr_sc foreign key (sc_identif) references benoemd_obj (identif) on delete no action;-- Foreign keys voor tabel brugconstructie_elementalter table brugconstructie_element add constraint fk_bce_sc foreign key (sc_identif) references kunstwerkdeel (identif) on delete no action;-- Foreign keys voor tabel gebouwd_objalter table gebouwd_obj add constraint fk_gbo_sc foreign key (sc_identif) references benoemd_obj (identif) on delete no action;-- Foreign keys voor tabel gem_openb_rmtealter table gem_openb_rmte add constraint fk_gor_as_7 foreign key (fk_7gem_code) references gemeente (code) on delete no action;-- Foreign keys voor tabel huishoudenalter table huishouden add constraint fk_hhd_as_4 foreign key (fk_4vbo_sc_identif) references verblijfsobj (sc_identif) on delete no action;alter table huishouden add constraint fk_hhd_as_5 foreign key (fk_5lpl_sc_identif) references ligplaats (sc_identif) on delete no action;alter table huishouden add constraint fk_hhd_as_7 foreign key (fk_7spl_sc_identif) references standplaats (sc_identif) on delete no action;-- Foreign keys voor tabel ingeschr_niet_nat_prsalter table ingeschr_niet_nat_prs add constraint fk_inn_sc foreign key (sc_identif) references niet_nat_prs (sc_identif) on delete no action;alter table ingeschr_niet_nat_prs add constraint fk_inn_as_7 foreign key (fk_7aoa_identif) references addresseerb_obj_aand (identif) on delete no action;-- Foreign keys voor tabel ingeschr_nat_prsalter table ingeschr_nat_prs add constraint fk_inp_sc foreign key (sc_identif) references nat_prs (sc_identif) on delete no action;alter table ingeschr_nat_prs add constraint fk_inp_as_27 foreign key (fk_27lpl_sc_identif) references ligplaats (sc_identif) on delete no action;alter table ingeschr_nat_prs add constraint fk_inp_as_28 foreign key (fk_28nra_sc_identif) references nummeraand (sc_identif) on delete no action;alter table ingeschr_nat_prs add constraint fk_inp_as_29 foreign key (fk_29wpl_identif) references wnplts (identif) on delete no action;alter table ingeschr_nat_prs add constraint fk_inp_as_30 foreign key (fk_30spl_sc_identif) references standplaats (sc_identif) on delete no action;alter table ingeschr_nat_prs add constraint fk_inp_as_31 foreign key (fk_31vbo_sc_identif) references verblijfsobj (sc_identif) on delete no action;alter table ingeschr_nat_prs add constraint fk_inp_1n_1 foreign key (fk_1rsd_nummer) references rsdoc (nummer) on delete no action;alter table ingeschr_nat_prs add constraint fk_inp_gb_2 foreign key (fk_gb_lnd_code_iso) references land (code_iso) on delete no action;alter table ingeschr_nat_prs add constraint fk_inp_nt_2 foreign key (fk_nt_nat_code) references nation (code) on delete no action;alter table ingeschr_nat_prs add constraint fk_inp_ol_1 foreign key (fk_ol_lnd_code_iso) references land (code_iso) on delete no action;alter table ingeschr_nat_prs add constraint fk_inp_va_as_3 foreign key (fk_va_3_vbo_sc_identif) references verblijfsobj (sc_identif) on delete no action;alter table ingeschr_nat_prs add constraint fk_inp_va_as_4 foreign key (fk_va_4_spl_sc_identif) references standplaats (sc_identif) on delete no action;alter table ingeschr_nat_prs add constraint fk_inp_va_as_5 foreign key (fk_va_5_nra_sc_identif) references nummeraand (sc_identif) on delete no action;alter table ingeschr_nat_prs add constraint fk_inp_va_as_6 foreign key (fk_va_6_wpl_identif) references wnplts (identif) on delete no action;alter table ingeschr_nat_prs add constraint fk_inp_va_as_7 foreign key (fk_va_7_lpl_sc_identif) references ligplaats (sc_identif) on delete no action;alter table ingeschr_nat_prs add constraint fk_inp_rl_3 foreign key (fk_3nat_code) references nation (code) on delete no action;alter table ingeschr_nat_prs add constraint fk_inp_rl_17 foreign key (fk_17lnd_code_iso) references land (code_iso) on delete no action;alter table ingeschr_nat_prs add constraint fk_inp_rl_18 foreign key (fk_18lnd_code_iso) references land (code_iso) on delete no action;-- Foreign keys voor tabel ingezetenealter table ingezetene add constraint fk_ing_sc foreign key (sc_identif) references ingeschr_nat_prs (sc_identif) on delete no action;alter table ingezetene add constraint fk_ing_as_8 foreign key (fk_8vbt_aand) references verblijfstitel (aand) on delete no action;-- Foreign keys voor tabel kad_perceelalter table kad_perceel add constraint fk_kdp_sc foreign key (sc_kad_identif) references kad_onrrnd_zk (kad_identif) on delete no action;alter table kad_perceel add constraint fk_kdp_as_7 foreign key (fk_7kdp_sc_kad_identif) references kad_perceel (sc_kad_identif) on delete no action;-- Foreign keys voor tabel kad_onrrnd_zkalter table kad_onrrnd_zk add constraint fk_koz_as_7 foreign key (fk_7kdg_code) references kad_gemeente (code) on delete no action;alter table kad_onrrnd_zk add constraint fk_koz_as_10 foreign key (fk_10pes_sc_identif) references prs (sc_identif) on delete no action;-- Foreign keys voor tabel kad_onrrnd_zk_aantekalter table kad_onrrnd_zk_aantek add constraint fk_kza_as_4 foreign key (fk_4koz_kad_identif) references kad_onrrnd_zk (kad_identif) on delete no action;alter table kad_onrrnd_zk_aantek add constraint fk_kza_as_5 foreign key (fk_5pes_sc_identif) references prs (sc_identif) on delete no action;-- Foreign keys voor tabel ligplaatsalter table ligplaats add constraint fk_lpl_sc foreign key (sc_identif) references benoemd_terrein (sc_identif) on delete no action;alter table ligplaats add constraint fk_lpl_as_4 foreign key (fk_4nra_sc_identif) references nummeraand (sc_identif) on delete no action;-- Foreign keys voor tabel maatschapp_activiteitalter table maatschapp_activiteit add constraint fk_mac_as_3 foreign key (fk_3ond_kvk_nummer) references ondrnmng (kvk_nummer) on delete no action;alter table maatschapp_activiteit add constraint fk_mac_as_4 foreign key (fk_4pes_sc_identif) references prs (sc_identif) on delete no action;-- Foreign keys voor tabel nat_prsalter table nat_prs add constraint fk_nps_sc foreign key (sc_identif) references prs (sc_identif) on delete no action;alter table nat_prs add constraint fk_nps_rl_2 foreign key (fk_2acd_code) references academische_titel (code) on delete no action;-- Foreign keys voor tabel niet_ingezetenealter table niet_ingezetene add constraint fk_nin_sc foreign key (sc_identif) references ingeschr_nat_prs (sc_identif) on delete no action;-- Foreign keys voor tabel niet_nat_prsalter table niet_nat_prs add constraint fk_nnp_sc foreign key (sc_identif) references prs (sc_identif) on delete no action;-- Foreign keys voor tabel nummeraandalter table nummeraand add constraint fk_nra_sc foreign key (sc_identif) references addresseerb_obj_aand (identif) on delete no action;-- Foreign keys voor tabel onbegr_terr_dlalter table onbegr_terr_dl add constraint fk_obt_as_8 foreign key (fk_8opr_identifcode) references openb_rmte (identifcode) on delete no action;-- Foreign keys voor tabel onbegr_terreinvakonderdalter table onbegr_terreinvakonderd add constraint fk_otv_sc foreign key (sc_identif) references onbegr_terr_dl (identif) on delete no action;alter table onbegr_terreinvakonderd add constraint fk_otv_1n_1 foreign key (fk_1obt_identif) references onbegr_terr_dl (identif) on delete no action;-- Foreign keys voor tabel ondrnmngalter table ondrnmng add constraint fk_ond_as_4 foreign key (fk_4mac_kvk_nummer) references maatschapp_activiteit (kvk_nummer) on delete no action;alter table ondrnmng add constraint fk_ond_1n_1 foreign key (fk_1ond_kvk_nummer) references ondrnmng (kvk_nummer) on delete no action;-- Foreign keys voor tabel ondersteunend_wegdeelalter table ondersteunend_wegdeel add constraint fk_owd_as_6 foreign key (fk_6opr_identifcode) references openb_rmte (identifcode) on delete no action;-- Foreign keys voor tabel ovrg_addresseerb_obj_aandalter table ovrg_addresseerb_obj_aand add constraint fk_oao_sc foreign key (sc_identif) references addresseerb_obj_aand (identif) on delete no action;-- Foreign keys voor tabel overig_gebouwd_objalter table overig_gebouwd_obj add constraint fk_ogo_sc foreign key (sc_identif) references gebouwd_obj (sc_identif) on delete no action;alter table overig_gebouwd_obj add constraint fk_ogo_as_4 foreign key (fk_4oao_sc_identif) references ovrg_addresseerb_obj_aand (sc_identif) on delete no action;alter table overig_gebouwd_obj add constraint fk_ogo_as_5 foreign key (fk_5nra_sc_identif) references nummeraand (sc_identif) on delete no action;alter table overig_gebouwd_obj add constraint fk_ogo_as_6 foreign key (fk_6opr_identifcode) references openb_rmte (identifcode) on delete no action;-- Foreign keys voor tabel overig_terreinalter table overig_terrein add constraint fk_otr_sc foreign key (sc_identif) references benoemd_terrein (sc_identif) on delete no action;alter table overig_terrein add constraint fk_otr_as_2 foreign key (fk_2oao_sc_identif) references ovrg_addresseerb_obj_aand (sc_identif) on delete no action;-- Foreign keys voor tabel prsalter table prs add constraint fk_pes_sc foreign key (sc_identif) references subject (identif) on delete no action;-- Foreign keys voor tabel rsdocalter table rsdoc add constraint fk_rsd_rl_7 foreign key (fk_7rds_rsdoccode) references rsdocsoort (rsdoccode) on delete no action;-- Foreign keys voor tabel standplaatsalter table standplaats add constraint fk_spl_sc foreign key (sc_identif) references benoemd_terrein (sc_identif) on delete no action;alter table standplaats add constraint fk_spl_as_4 foreign key (fk_4nra_sc_identif) references nummeraand (sc_identif) on delete no action;-- Foreign keys voor tabel subjectalter table subject add constraint fk_sub_as_13 foreign key (fk_13wpl_identif) references wnplts (identif) on delete no action;alter table subject add constraint fk_sub_as_14 foreign key (fk_14aoa_identif) references addresseerb_obj_aand (identif) on delete no action;alter table subject add constraint fk_sub_as_15 foreign key (fk_15aoa_identif) references addresseerb_obj_aand (identif) on delete no action;alter table subject add constraint fk_sub_pa_as_4 foreign key (fk_pa_4_wpl_identif) references wnplts (identif) on delete no action;alter table subject add constraint fk_sub_vb_4 foreign key (fk_vb_lnd_code_iso) references land (code_iso) on delete no action;-- Foreign keys voor tabel verblijfsobjalter table verblijfsobj add constraint fk_vbo_sc foreign key (sc_identif) references gebouwd_obj (sc_identif) on delete no action;alter table verblijfsobj add constraint fk_vbo_as_11 foreign key (fk_11nra_sc_identif) references nummeraand (sc_identif) on delete no action;-- Foreign keys voor tabel vestgalter table vestg add constraint fk_ves_sc foreign key (sc_identif) references subject (identif) on delete no action;alter table vestg add constraint fk_ves_as_15 foreign key (fk_15ond_kvk_nummer) references ondrnmng (kvk_nummer) on delete no action;alter table vestg add constraint fk_ves_as_16 foreign key (fk_16tgo_identif) references benoemd_obj (identif) on delete no action;alter table vestg add constraint fk_ves_as_17 foreign key (fk_17mac_kvk_nummer) references maatschapp_activiteit (kvk_nummer) on delete no action;alter table vestg add constraint fk_ves_as_18 foreign key (fk_18ves_sc_identif) references vestg (sc_identif) on delete no action;alter table vestg add constraint fk_ves_as_19 foreign key (fk_19mac_kvk_nummer) references maatschapp_activiteit (kvk_nummer) on delete no action;alter table vestg add constraint fk_ves_as_20 foreign key (fk_20aoa_identif) references addresseerb_obj_aand (identif) on delete no action;alter table vestg add constraint fk_ves_sa_2 foreign key (fk_sa_sbi_activiteit_sbi_code) references sbi_activiteit (sbi_code) on delete no action;-- Foreign keys voor tabel waterdeelalter table waterdeel add constraint fk_wad_as_7 foreign key (fk_7opr_identifcode) references openb_rmte (identifcode) on delete no action;-- Foreign keys voor tabel watervakonderdeelalter table watervakonderdeel add constraint fk_wav_sc foreign key (sc_identif) references waterdeel (identif) on delete no action;alter table watervakonderdeel add constraint fk_wav_1n_1 foreign key (fk_1wad_identif) references waterdeel (identif) on delete no action;-- Foreign keys voor tabel wegdeelalter table wegdeel add constraint fk_wgd_as_8 foreign key (fk_8opr_identifcode) references openb_rmte (identifcode) on delete no action;-- Foreign keys voor tabel wegvakonderdeelalter table wegvakonderdeel add constraint fk_wvd_sc foreign key (sc_identif) references wegdeel (identif) on delete no action;alter table wegvakonderdeel add constraint fk_wvd_1n_1 foreign key (fk_1wgd_identif) references wegdeel (identif) on delete no action;-- Foreign keys voor tabel wnpltsalter table wnplts add constraint fk_wpl_as_7 foreign key (fk_7gem_code) references gemeente (code) on delete no action;-- Foreign keys voor tabel woz_deelobjalter table woz_deelobj add constraint fk_wdo_as_4 foreign key (fk_4pnd_identif) references pand (identif) on delete no action;alter table woz_deelobj add constraint fk_wdo_as_5 foreign key (fk_5tgo_identif) references benoemd_obj (identif) on delete no action;alter table woz_deelobj add constraint fk_wdo_as_6 foreign key (fk_6woz_nummer) references woz_obj (nummer) on delete no action;-- Foreign keys voor tabel woz_waardealter table woz_waarde add constraint fk_wrd_1n_1 foreign key (fk_1woz_nummer) references woz_obj (nummer) on delete no action;-- Foreign keys voor tabel zak_rechtalter table zak_recht add constraint fk_zkr_as_7 foreign key (fk_7koz_kad_identif) references kad_onrrnd_zk (kad_identif) on delete no action;alter table zak_recht add constraint fk_zkr_as_8 foreign key (fk_8pes_sc_identif) references prs (sc_identif) on delete no action;alter table zak_recht add constraint fk_zkr_rl_2 foreign key (fk_2aard_recht_verkort_aand) references aard_recht_verkort (aand) on delete no action;alter table zak_recht add constraint fk_zkr_rl_3 foreign key (fk_3avr_aand) references aard_verkregen_recht (aand) on delete no action;-- Foreign keys voor tabel zak_recht_aantekalter table zak_recht_aantek add constraint fk_zra_as_5 foreign key (fk_5zkr_kadaster_identif) references zak_recht (kadaster_identif) on delete no action;alter table zak_recht_aantek add constraint fk_zra_as_6 foreign key (fk_6pes_sc_identif) references prs (sc_identif) on delete no action;-- Foreign keys voor tabel gebouwd_obj_gebruiksdoelalter table gebouwd_obj_gebruiksdoel add constraint fk_gbo7 foreign key (fk_gbo_sc_identif) references gebouwd_obj (sc_identif) on delete no action;-- Foreign keys voor tabel overig_terrein_gebruiksdoelalter table overig_terrein_gebruiksdoel add constraint fk_otr1 foreign key (fk_otr_sc_identif) references overig_terrein (sc_identif) on delete no action;-- Foreign keys voor tabel vestg_naamalter table vestg_naam add constraint fk_ves1 foreign key (fk_ves_sc_identif) references vestg (sc_identif) on delete no action;-- Foreign keys voor tabel functionarisalter table functionaris add constraint fk_functionaris_sc_lh foreign key (fk_sc_lh_pes_sc_identif) references prs (sc_identif) on delete no action;alter table functionaris add constraint fk_functionaris_sc_rh foreign key (fk_sc_rh_pes_sc_identif) references prs (sc_identif) on delete no action;-- Foreign keys voor tabel huishoudenrelalter table huishoudenrel add constraint fk_huishoudenrel_sc_lh foreign key (fk_sc_lh_inp_sc_identif) references ingeschr_nat_prs (sc_identif) on delete no action;alter table huishoudenrel add constraint fk_huishoudenrel_sc_rh foreign key (fk_sc_rh_hhd_nummer) references huishouden (nummer) on delete no action;-- Foreign keys voor tabel huw_ger_partnalter table huw_ger_partn add constraint fk_huw_ger_partn_sc_lh foreign key (fk_sc_lh_inp_sc_identif) references ingeschr_nat_prs (sc_identif) on delete no action;alter table huw_ger_partn add constraint fk_huw_ger_partn_sc_rh foreign key (fk_sc_rh_inp_sc_identif) references ingeschr_nat_prs (sc_identif) on delete no action;alter table huw_ger_partn add constraint fk_huw_ger_partn_hs_2 foreign key (fk_hs_lnd_code_iso) references land (code_iso) on delete no action;alter table huw_ger_partn add constraint fk_huw_ger_partn_ho_2 foreign key (fk_ho_lnd_code_iso) references land (code_iso) on delete no action;-- Foreign keys voor tabel kad_onrrnd_zk_his_relalter table kad_onrrnd_zk_his_rel add constraint fk_kad_onrrnd_zk_his_rel_sc_lh foreign key (fk_sc_lh_koz_kad_identif) references kad_onrrnd_zk (kad_identif) on delete no action;alter table kad_onrrnd_zk_his_rel add constraint fk_kad_onrrnd_zk_his_rel_sc_rh foreign key (fk_sc_rh_koz_kad_identif) references kad_onrrnd_zk (kad_identif) on delete no action;-- Foreign keys voor tabel locaand_adresalter table locaand_adres add constraint fk_locaand_adres_sc_lh foreign key (fk_sc_lh_aoa_identif) references addresseerb_obj_aand (identif) on delete no action;alter table locaand_adres add constraint fk_locaand_adres_sc_rh foreign key (fk_sc_rh_woz_nummer) references woz_obj (nummer) on delete no action;-- Foreign keys voor tabel locaand_openb_rmtealter table locaand_openb_rmte add constraint fk_locaand_openb_rmte_sc_lh foreign key (fk_sc_lh_opr_identifcode) references openb_rmte (identifcode) on delete no action;alter table locaand_openb_rmte add constraint fk_locaand_openb_rmte_sc_rh foreign key (fk_sc_rh_woz_nummer) references woz_obj (nummer) on delete no action;-- Foreign keys voor tabel ouder_kind_relalter table ouder_kind_rel add constraint fk_ouder_kind_rel_sc_lh foreign key (fk_sc_lh_inp_sc_identif) references ingeschr_nat_prs (sc_identif) on delete no action;alter table ouder_kind_rel add constraint fk_ouder_kind_rel_sc_rh foreign key (fk_sc_rh_inp_sc_identif) references ingeschr_nat_prs (sc_identif) on delete no action;-- Foreign keys voor tabel woz_belangalter table woz_belang add constraint fk_woz_belang_sc_lh foreign key (fk_sc_lh_sub_identif) references subject (identif) on delete no action;alter table woz_belang add constraint fk_woz_belang_sc_rh foreign key (fk_sc_rh_woz_nummer) references woz_obj (nummer) on delete no action;-- Foreign keys voor tabel app_re_kad_perceelalter table app_re_kad_perceel add constraint fk_apr_kdp_nn_lh foreign key (fk_nn_lh_apr_sc_kad_identif) references app_re (sc_kad_identif) on delete no action;alter table app_re_kad_perceel add constraint fk_apr_kdp_nn_rh foreign key (fk_nn_rh_kdp_sc_kad_identif) references kad_perceel (sc_kad_identif) on delete no action;-- Foreign keys voor tabel benoemd_obj_kad_onrrnd_zkalter table benoemd_obj_kad_onrrnd_zk add constraint fk_tgo_koz_nn_lh foreign key (fk_nn_lh_tgo_identif) references benoemd_obj (identif) on delete no action;alter table benoemd_obj_kad_onrrnd_zk add constraint fk_tgo_koz_nn_rh foreign key (fk_nn_rh_koz_kad_identif) references kad_onrrnd_zk (kad_identif) on delete no action;-- Foreign keys voor tabel benoemd_terrein_benoemd_terreialter table benoemd_terrein_benoemd_terrei add constraint fk_btr_btr_nn_lh foreign key (fk_nn_lh_btr_sc_identif) references benoemd_terrein (sc_identif) on delete no action;alter table benoemd_terrein_benoemd_terrei add constraint fk_btr_btr_nn_rh foreign key (fk_nn_rh_btr_sc_identif) references benoemd_terrein (sc_identif) on delete no action;-- Foreign keys voor tabel gemeente_gemeentealter table gemeente_gemeente add constraint fk_gem_gem_nn_lh foreign key (fk_nn_lh_gem_code) references gemeente (code) on delete no action;alter table gemeente_gemeente add constraint fk_gem_gem_nn_rh foreign key (fk_nn_rh_gem_code) references gemeente (code) on delete no action;-- Foreign keys voor tabel kad_onrrnd_zk_kad_onrrnd_zkalter table kad_onrrnd_zk_kad_onrrnd_zk add constraint fk_koz_koz_nn_lh foreign key (fk_nn_lh_koz_kad_identif) references kad_onrrnd_zk (kad_identif) on delete no action;alter table kad_onrrnd_zk_kad_onrrnd_zk add constraint fk_koz_koz_nn_rh foreign key (fk_nn_rh_koz_kad_identif) references kad_onrrnd_zk (kad_identif) on delete no action;-- Foreign keys voor tabel ligplaats_nummeraandalter table ligplaats_nummeraand add constraint fk_lpl_nra_nn_lh foreign key (fk_nn_lh_lpl_sc_identif) references ligplaats (sc_identif) on delete no action;alter table ligplaats_nummeraand add constraint fk_lpl_nra_nn_rh foreign key (fk_nn_rh_nra_sc_identif) references nummeraand (sc_identif) on delete no action;-- Foreign keys voor tabel openb_rmte_gem_openb_rmtealter table openb_rmte_gem_openb_rmte add constraint fk_opr_gor_nn_lh foreign key (fk_nn_lh_opr_identifcode) references openb_rmte (identifcode) on delete no action;alter table openb_rmte_gem_openb_rmte add constraint fk_opr_gor_nn_rh foreign key (fk_nn_rh_gor_identifcode) references gem_openb_rmte (identifcode) on delete no action;-- Foreign keys voor tabel openb_rmte_wnpltsalter table openb_rmte_wnplts add constraint fk_opr_wpl_nn_lh foreign key (fk_nn_lh_opr_identifcode) references openb_rmte (identifcode) on delete no action;alter table openb_rmte_wnplts add constraint fk_opr_wpl_nn_rh foreign key (fk_nn_rh_wpl_identif) references wnplts (identif) on delete no action;-- Foreign keys voor tabel rsdoc_ingeschr_nat_prsalter table rsdoc_ingeschr_nat_prs add constraint fk_rsd_inp_nn_lh foreign key (fk_nn_lh_rsd_nummer) references rsdoc (nummer) on delete no action;alter table rsdoc_ingeschr_nat_prs add constraint fk_rsd_inp_nn_rh foreign key (fk_nn_rh_inp_sc_identif) references ingeschr_nat_prs (sc_identif) on delete no action;-- Foreign keys voor tabel standplaats_nummeraandalter table standplaats_nummeraand add constraint fk_spl_nra_nn_lh foreign key (fk_nn_lh_spl_sc_identif) references standplaats (sc_identif) on delete no action;alter table standplaats_nummeraand add constraint fk_spl_nra_nn_rh foreign key (fk_nn_rh_nra_sc_identif) references nummeraand (sc_identif) on delete no action;-- Foreign keys voor tabel verblijfsobj_pandalter table verblijfsobj_pand add constraint fk_vbo_pnd_nn_lh foreign key (fk_nn_lh_vbo_sc_identif) references verblijfsobj (sc_identif) on delete no action;alter table verblijfsobj_pand add constraint fk_vbo_pnd_nn_rh foreign key (fk_nn_rh_pnd_identif) references pand (identif) on delete no action;-- Foreign keys voor tabel verblijfsobj_nummeraandalter table verblijfsobj_nummeraand add constraint fk_vbo_nra_nn_lh foreign key (fk_nn_lh_vbo_sc_identif) references verblijfsobj (sc_identif) on delete no action;alter table verblijfsobj_nummeraand add constraint fk_vbo_nra_nn_rh foreign key (fk_nn_rh_nra_sc_identif) references nummeraand (sc_identif) on delete no action;-- Foreign keys voor tabel vestg_benoemd_objalter table vestg_benoemd_obj add constraint fk_ves_tgo_nn_lh foreign key (fk_nn_lh_ves_sc_identif) references vestg (sc_identif) on delete no action;alter table vestg_benoemd_obj add constraint fk_ves_tgo_nn_rh foreign key (fk_nn_rh_tgo_identif) references benoemd_obj (identif) on delete no action;-- Archief tabellen create table addresseerb_obj_aand_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(16) not null,	clazz varchar(255),	dat_eind_geldh varchar(19),	huisletter varchar(1),	huinummer decimal(5,0),	huinummertoevoeging varchar(4),	postcode varchar(6),	fk_6wpl_identif varchar(4),	fk_7opr_identifcode varchar(16));alter table addresseerb_obj_aand_archief add constraint ar_addresseerb_obj_aand_pk primary key clustered(dat_beg_geldh,identif);create table app_re_archief(	sc_dat_beg_geldh varchar(19) not null,	sc_kad_identif decimal(15,0) not null,	fk_2nnp_sc_identif varchar(32),	ka_appartementsindex varchar(4),	ka_kad_gemeentecode varchar(5),	ka_perceelnummer varchar(15),	ka_sectie varchar(255));alter table app_re_archief add constraint ar_app_re_pk primary key clustered(sc_dat_beg_geldh,sc_kad_identif);create table begr_terr_dl_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(255) not null,	clazz varchar(255),	datum_einde_geldh varchar(19),	fysiek_voork_begr_terrein varchar(20),	relve_hoogteligging decimal(1,0),	status varchar(8),	fk_8opr_identifcode varchar(16));alter table begr_terr_dl_archief add constraint ar_begr_terr_dl_pk primary key clustered(dat_beg_geldh,identif);alter table begr_terr_dl_archief add geom geometry;CREATE SPATIAL INDEX begr_terr_dl_archief_geom1_idx ON begr_terr_dl_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));alter table begr_terr_dl_archief add kruinlijngeom geometry;CREATE SPATIAL INDEX begr_terr_dl_archief_krui2_idx ON begr_terr_dl_archief (kruinlijngeom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table begr_terreinvakonderd_archief(	sc_dat_beg_geldh varchar(19) not null,	sc_identif varchar(255) not null,	fk_1btd_identif varchar(255));alter table begr_terreinvakonderd_archief add constraint ar_begr_terreinvakonderd_pk primary key clustered(sc_dat_beg_geldh,sc_identif);create table benoemd_terrein_archief(	dat_beg_geldh varchar(19) not null,	sc_identif varchar(16) not null,	clazz varchar(255),	datum_einde_geldh varchar(19));alter table benoemd_terrein_archief add constraint ar_benoemd_terrein_pk primary key clustered(dat_beg_geldh,sc_identif);alter table benoemd_terrein_archief add geom geometry;CREATE SPATIAL INDEX benoemd_terrein_archief_g1_idx ON benoemd_terrein_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table brugconstructie_elemen_archief(	sc_dat_beg_geldh varchar(19) not null,	sc_identif varchar(255) not null,	type varchar(40));alter table brugconstructie_elemen_archief add constraint ar_brugconstructie_element_pk primary key clustered(sc_dat_beg_geldh,sc_identif);create table buurt_archief(	code decimal(8,0) not null,	dat_beg_geldh varchar(19) not null,	naam varchar(80),	datum_einde_geldh varchar(19),	identif_imgeobrt varchar(255),	relve_hoogteligging decimal(1,0),	status varchar(8));alter table buurt_archief add constraint ar_buurt_pk primary key clustered(code,dat_beg_geldh);alter table buurt_archief add geom geometry;CREATE SPATIAL INDEX buurt_archief_geom1_idx ON buurt_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table functioneel_gebied_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(255) not null,	datum_einde_geldh varchar(19),	naam varchar(40),	relve_hoogteligging decimal(1,0),	status varchar(8),	type varchar(255));alter table functioneel_gebied_archief add constraint ar_functioneel_gebied_pk primary key clustered(dat_beg_geldh,identif);alter table functioneel_gebied_archief add geom geometry;CREATE SPATIAL INDEX functioneel_gebied_archie1_idx ON functioneel_gebied_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table gebouwd_obj_archief(	dat_beg_geldh varchar(19) not null,	sc_identif varchar(16) not null,	clazz varchar(255),	bouwk_best_act varchar(255),	bruto_inhoud decimal(6,0),	datum_einde_geldh varchar(19),	inwwijze_oppervlakte varchar(24),	oppervlakte_obj decimal(6,0),	status_voortgang_bouw integer);alter table gebouwd_obj_archief add constraint ar_gebouwd_obj_pk primary key clustered(dat_beg_geldh,sc_identif);alter table gebouwd_obj_archief add vlakgeom geometry;CREATE SPATIAL INDEX gebouwd_obj_archief_vlakg1_idx ON gebouwd_obj_archief (vlakgeom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));alter table gebouwd_obj_archief add puntgeom geometry;CREATE SPATIAL INDEX gebouwd_obj_archief_puntg2_idx ON gebouwd_obj_archief (puntgeom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table gebouwinstallatie_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(255) not null,	datum_einde_geldh varchar(19),	relve_hoogteligging decimal(1,0),	status varchar(8),	type varchar(40));alter table gebouwinstallatie_archief add constraint ar_gebouwinstallatie_pk primary key clustered(dat_beg_geldh,identif);alter table gebouwinstallatie_archief add geom geometry;CREATE SPATIAL INDEX gebouwinstallatie_archief1_idx ON gebouwinstallatie_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table gemeente_archief(	dat_beg_geldh varchar(19) not null,	code decimal(4,0) not null,	datum_einde_geldh varchar(19),	naam varchar(40),	naam_nen varchar(24));alter table gemeente_archief add constraint ar_gemeente_pk primary key clustered(dat_beg_geldh,code);alter table gemeente_archief add geom geometry;CREATE SPATIAL INDEX gemeente_archief_geom1_idx ON gemeente_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table gem_openb_rmte_archief(	dat_beg_geldh varchar(19) not null,	identifcode varchar(16) not null,	datum_einde_geldh varchar(19),	indic_geconst_openb_rmte varchar(1),	naam_openb_rmte varchar(80),	status_openb_rmte varchar(80),	straatnaam varchar(24),	type_openb_rmte varchar(40),	fk_7gem_code decimal(4,0));alter table gem_openb_rmte_archief add constraint ar_gem_openb_rmte_pk primary key clustered(dat_beg_geldh,identifcode);create table huishouden_archief(	dat_beg_geldh varchar(19) not null,	nummer decimal(12,0) not null,	datum_einde_geldh varchar(19),	grootte decimal(2,0),	soort decimal(2,0),	fk_4vbo_sc_identif varchar(16),	fk_5lpl_sc_identif varchar(16),	fk_7spl_sc_identif varchar(16));alter table huishouden_archief add constraint ar_huishouden_pk primary key clustered(dat_beg_geldh,nummer);create table inrichtingselement_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(255) not null,	datum_einde_geldh varchar(19),	typering varchar(40),	relve_hoogteligging decimal(1,0),	status varchar(8),	type varchar(30));alter table inrichtingselement_archief add constraint ar_inrichtingselement_pk primary key clustered(dat_beg_geldh,identif);alter table inrichtingselement_archief add geom geometry;CREATE SPATIAL INDEX inrichtingselement_archie1_idx ON inrichtingselement_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table kad_perceel_archief(	sc_dat_beg_geldh varchar(19) not null,	sc_kad_identif decimal(15,0) not null,	aand_soort_grootte char(1),	grootte_perceel decimal(8,0),	omschr_deelperceel varchar(1120),	fk_7kdp_sc_kad_identif decimal(15,0),	ka_deelperceelnummer varchar(4),	ka_kad_gemeentecode varchar(5),	ka_perceelnummer varchar(5),	ka_sectie varchar(255));alter table kad_perceel_archief add constraint ar_kad_perceel_pk primary key clustered(sc_dat_beg_geldh,sc_kad_identif);alter table kad_perceel_archief add begrenzing_perceel geometry;CREATE SPATIAL INDEX kad_perceel_archief_begre1_idx ON kad_perceel_archief (begrenzing_perceel) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));alter table kad_perceel_archief add plaatscoordinaten_perceel geometry;CREATE SPATIAL INDEX kad_perceel_archief_plaat2_idx ON kad_perceel_archief (plaatscoordinaten_perceel) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table kad_onrrnd_zk_archief(	dat_beg_geldh varchar(19) not null,	kad_identif decimal(15,0) not null,	clazz varchar(255),	datum_einde_geldh varchar(19),	typering varchar(1),	fk_7kdg_code varchar(5),	fk_10pes_sc_identif varchar(32),	cu_aard_bebouwing varchar(255),	cu_aard_cultuur_onbebouwd varchar(65),	cu_meer_culturen char(1),	ks_aard_bedrag varchar(255),	ks_bedrag decimal(9,0),	ks_koopjaar integer,	ks_meer_onroerendgoed char(1),	ks_transactiedatum datetime,	ks_valutasoort varchar(255),	lr_aand_aard_liproject varchar(1),	lr_aard_bedrag varchar(255),	lr_bedrag varchar(255),	lr_eindjaar integer,	lr_valutasoort varchar(3),	lo_cultuur_bebouwd varchar(65),	lo_loc__omschr varchar(40));alter table kad_onrrnd_zk_archief add constraint ar_kad_onrrnd_zk_pk primary key clustered(dat_beg_geldh,kad_identif);create table kad_onrrnd_zk_aantek_archief(	begindatum_aantek_kad_obj varchar(19) not null,	kadaster_identif_aantek varchar(255) not null,	aard_aantek_kad_obj varchar(255),	beschrijving_aantek_kad_obj varchar(124),	eindd_aantek_kad_obj varchar(19),	fk_4koz_kad_identif decimal(15,0),	fk_5pes_sc_identif varchar(32));alter table kad_onrrnd_zk_aantek_archief add constraint ar_kad_onrrnd_zk_aantek_pk primary key clustered(begindatum_aantek_kad_obj,kadaster_identif_aantek);create table kunstwerkdeel_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(255) not null,	clazz varchar(255),	datum_einde_geldh varchar(19),	relve_hoogteligging decimal(1,0),	status varchar(8),	type_kunstwerk varchar(40));alter table kunstwerkdeel_archief add constraint ar_kunstwerkdeel_pk primary key clustered(dat_beg_geldh,identif);alter table kunstwerkdeel_archief add geom geometry;CREATE SPATIAL INDEX kunstwerkdeel_archief_geo1_idx ON kunstwerkdeel_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table ligplaats_archief(	sc_dat_beg_geldh varchar(19) not null,	sc_identif varchar(16) not null,	indic_geconst varchar(1),	status varchar(80),	fk_4nra_sc_identif varchar(16));alter table ligplaats_archief add constraint ar_ligplaats_pk primary key clustered(sc_dat_beg_geldh,sc_identif);create table nummeraand_archief(	sc_dat_beg_geldh varchar(19) not null,	sc_identif varchar(16) not null,	indic_geconst varchar(1),	indic_hoofdadres char(1),	status varchar(80));alter table nummeraand_archief add constraint ar_nummeraand_pk primary key clustered(sc_dat_beg_geldh,sc_identif);create table onbegr_terr_dl_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(255) not null,	clazz varchar(255),	datum_einde_geldh varchar(19),	fysiek_voork_onbegr_terrein varchar(20),	relve_hoogteligging decimal(1,0),	status varchar(8),	fk_8opr_identifcode varchar(16));alter table onbegr_terr_dl_archief add constraint ar_onbegr_terr_dl_pk primary key clustered(dat_beg_geldh,identif);alter table onbegr_terr_dl_archief add geom geometry;CREATE SPATIAL INDEX onbegr_terr_dl_archief_ge1_idx ON onbegr_terr_dl_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));alter table onbegr_terr_dl_archief add kruinlijngeom geometry;CREATE SPATIAL INDEX onbegr_terr_dl_archief_kr2_idx ON onbegr_terr_dl_archief (kruinlijngeom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table onbegr_terreinvakonder_archief(	sc_dat_beg_geldh varchar(19) not null,	sc_identif varchar(255) not null,	fk_1obt_identif varchar(255));alter table onbegr_terreinvakonder_archief add constraint ar_onbegr_terreinvakonderd_pk primary key clustered(sc_dat_beg_geldh,sc_identif);create table ondersteunend_wegdeel_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(255) not null,	datum_einde_geldh varchar(19),	functie varchar(25),	relve_hoogteligging decimal(1,0),	status varchar(8),	fk_6opr_identifcode varchar(16));alter table ondersteunend_wegdeel_archief add constraint ar_ondersteunend_wegdeel_pk primary key clustered(dat_beg_geldh,identif);alter table ondersteunend_wegdeel_archief add geom geometry;CREATE SPATIAL INDEX ondersteunend_wegdeel_arc1_idx ON ondersteunend_wegdeel_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table ovrg_addresseerb_obj_a_archief(	sc_dat_beg_geldh varchar(19) not null,	sc_identif varchar(16) not null);alter table ovrg_addresseerb_obj_a_archief add constraint ar_ovrg_addresseerb_obj_aan_pk primary key clustered(sc_dat_beg_geldh,sc_identif);create table overig_bouwwerk_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(255) not null,	datum_einde_geldh varchar(19),	relve_hoogteligging decimal(1,0),	status varchar(8),	type varchar(40));alter table overig_bouwwerk_archief add constraint ar_overig_bouwwerk_pk primary key clustered(dat_beg_geldh,identif);alter table overig_bouwwerk_archief add geom geometry;CREATE SPATIAL INDEX overig_bouwwerk_archief_g1_idx ON overig_bouwwerk_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table overig_gebouwd_obj_archief(	sc_dat_beg_geldh varchar(19) not null,	sc_identif varchar(16) not null,	bouwjaar decimal(4,0),	loc_aand varchar(40),	type varchar(40),	fk_4oao_sc_identif varchar(16),	fk_5nra_sc_identif varchar(16),	fk_6opr_identifcode varchar(16));alter table overig_gebouwd_obj_archief add constraint ar_overig_gebouwd_obj_pk primary key clustered(sc_dat_beg_geldh,sc_identif);create table ovrg_scheiding_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(255) not null,	datum_einde_geldh varchar(19),	relve_hoogteligging decimal(1,0),	status varchar(8),	type varchar(40));alter table ovrg_scheiding_archief add constraint ar_ovrg_scheiding_pk primary key clustered(dat_beg_geldh,identif);alter table ovrg_scheiding_archief add geom geometry;CREATE SPATIAL INDEX ovrg_scheiding_archief_ge1_idx ON ovrg_scheiding_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table overig_terrein_archief(	sc_dat_beg_geldh varchar(19) not null,	sc_identif varchar(16) not null,	fk_2oao_sc_identif varchar(16));alter table overig_terrein_archief add constraint ar_overig_terrein_pk primary key clustered(sc_dat_beg_geldh,sc_identif);create table pand_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(16) not null,	bruto_inhoud decimal(6,0),	datum_einde_geldh varchar(19),	hoogste_bouwlaag decimal(3,0),	identif_bgtpnd varchar(255),	indic_geconstateerd varchar(1),	inwwijze_geom_bovenaanzicht varchar(24),	inwwijze_geom_maaiveld varchar(24),	laagste_bouwlaag decimal(3,0),	oorspronkelijk_bouwjaar decimal(4,0),	oppervlakte decimal(6,0),	status varchar(80),	relve_hoogteligging decimal(1,0),	status_voortgang_bouw varchar(24));alter table pand_archief add constraint ar_pand_pk primary key clustered(dat_beg_geldh,identif);alter table pand_archief add geom_bovenaanzicht geometry;CREATE SPATIAL INDEX pand_archief_geom_bovenaa1_idx ON pand_archief (geom_bovenaanzicht) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));alter table pand_archief add geom_maaiveld geometry;CREATE SPATIAL INDEX pand_archief_geom_maaivel2_idx ON pand_archief (geom_maaiveld) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table scheiding_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(255) not null,	datum_einde_geldh varchar(19),	relve_hoogteligging decimal(1,0),	status varchar(8),	type varchar(40));alter table scheiding_archief add constraint ar_scheiding_pk primary key clustered(dat_beg_geldh,identif);alter table scheiding_archief add geom geometry;CREATE SPATIAL INDEX scheiding_archief_geom1_idx ON scheiding_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table spoor_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(255) not null,	datum_einde_geldh varchar(19),	functie varchar(25),	relve_hoogteligging decimal(1,0),	status varchar(8));alter table spoor_archief add constraint ar_spoor_pk primary key clustered(dat_beg_geldh,identif);alter table spoor_archief add geom geometry;CREATE SPATIAL INDEX spoor_archief_geom1_idx ON spoor_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table stadsdeel_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(255) not null,	datum_einde_geldh varchar(19),	relve_hoogteligging decimal(1,0),	naam varchar(40),	status varchar(8));alter table stadsdeel_archief add constraint ar_stadsdeel_pk primary key clustered(dat_beg_geldh,identif);alter table stadsdeel_archief add geom geometry;CREATE SPATIAL INDEX stadsdeel_archief_geom1_idx ON stadsdeel_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table standplaats_archief(	sc_dat_beg_geldh varchar(19) not null,	sc_identif varchar(16) not null,	indic_geconst varchar(1),	status varchar(80),	fk_4nra_sc_identif varchar(16));alter table standplaats_archief add constraint ar_standplaats_pk primary key clustered(sc_dat_beg_geldh,sc_identif);create table verblijfsobj_archief(	sc_dat_beg_geldh varchar(19) not null,	sc_identif varchar(16) not null,	aantal_kamers decimal(2,0),	hoogste_bouwlaag decimal(3,0),	indic_geconstateerd varchar(1),	laagste_bouwlaag decimal(3,0),	ontsluiting_verdieping varchar(3),	soort_woonobj decimal(1,0),	toegang_bouwlaag decimal(3,0),	status varchar(80),	fk_11nra_sc_identif varchar(16));alter table verblijfsobj_archief add constraint ar_verblijfsobj_pk primary key clustered(sc_dat_beg_geldh,sc_identif);create table verblijfstitel_archief(	aand decimal(2,0) not null,	begindatum_geldh varchar(19) not null,	eindd_geldh varchar(19),	omschr varchar(100));alter table verblijfstitel_archief add constraint ar_verblijfstitel_pk primary key clustered(aand,begindatum_geldh);create table vrijstaand_vegetatie_o_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(255) not null,	datum_einde_geldh varchar(19),	relve_hoogteligging decimal(1,0),	status varchar(8),	type varchar(40));alter table vrijstaand_vegetatie_o_archief add constraint ar_vrijstaand_vegetatie_obj_pk primary key clustered(dat_beg_geldh,identif);alter table vrijstaand_vegetatie_o_archief add geom geometry;CREATE SPATIAL INDEX vrijstaand_vegetatie_o_ar1_idx ON vrijstaand_vegetatie_o_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table waterdeel_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(255) not null,	clazz varchar(255),	datum_einde_geldh varchar(19),	droogvallend varchar(1),	relve_hoogteligging decimal(1,0),	status varchar(8),	type varchar(40),	fk_7opr_identifcode varchar(16));alter table waterdeel_archief add constraint ar_waterdeel_pk primary key clustered(dat_beg_geldh,identif);alter table waterdeel_archief add geom geometry;CREATE SPATIAL INDEX waterdeel_archief_geom1_idx ON waterdeel_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table watervakonderdeel_archief(	sc_dat_beg_geldh varchar(19) not null,	sc_identif varchar(255) not null,	fk_1wad_identif varchar(255));alter table watervakonderdeel_archief add constraint ar_watervakonderdeel_pk primary key clustered(sc_dat_beg_geldh,sc_identif);create table waterschap_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(255) not null,	datum_einde_geldh varchar(19),	relve_hoogteligging decimal(1,0),	status varchar(8),	naam varchar(40));alter table waterschap_archief add constraint ar_waterschap_pk primary key clustered(dat_beg_geldh,identif);alter table waterschap_archief add geom geometry;CREATE SPATIAL INDEX waterschap_archief_geom1_idx ON waterschap_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table wegdeel_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(255) not null,	clazz varchar(255),	datum_einde_geldh varchar(19),	functie varchar(25),	fysiek_voork varchar(20),	relve_hoogteligging decimal(1,0),	status varchar(8),	fk_8opr_identifcode varchar(16));alter table wegdeel_archief add constraint ar_wegdeel_pk primary key clustered(dat_beg_geldh,identif);alter table wegdeel_archief add geom geometry;CREATE SPATIAL INDEX wegdeel_archief_geom1_idx ON wegdeel_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table wegvakonderdeel_archief(	sc_dat_beg_geldh varchar(19) not null,	sc_identif varchar(255) not null,	fk_1wgd_identif varchar(255));alter table wegvakonderdeel_archief add constraint ar_wegvakonderdeel_pk primary key clustered(sc_dat_beg_geldh,sc_identif);create table wijk_archief(	dat_beg_geldh varchar(19) not null,	code decimal(6,0) not null,	datum_einde_geldh varchar(19),	identif_imgeowyk varchar(255),	relve_hoogteligging decimal(1,0),	status varchar(8),	naam varchar(80));alter table wijk_archief add constraint ar_wijk_pk primary key clustered(dat_beg_geldh,code);alter table wijk_archief add geom geometry;CREATE SPATIAL INDEX wijk_archief_geom1_idx ON wijk_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table wnplts_archief(	dat_beg_geldh varchar(19) not null,	identif varchar(4) not null,	datum_einde_geldh varchar(19),	indic_geconst varchar(1),	naam varchar(80),	naam_nen varchar(24),	status varchar(80),	fk_7gem_code decimal(4,0));alter table wnplts_archief add constraint ar_wnplts_pk primary key clustered(dat_beg_geldh,identif);alter table wnplts_archief add geom geometry;CREATE SPATIAL INDEX wnplts_archief_geom1_idx ON wnplts_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table woz_deelobj_archief(	dat_beg_geldh_deelobj decimal(8,0) not null,	nummer decimal(6,0) not null,	code varchar(4),	datum_einde_geldh_deelobj decimal(8,0),	status decimal(2,0),	fk_4pnd_identif varchar(16),	fk_5tgo_identif varchar(16),	fk_6woz_nummer decimal(12,0));alter table woz_deelobj_archief add constraint ar_woz_deelobj_pk primary key clustered(dat_beg_geldh_deelobj,nummer);create table woz_obj_archief(	dat_beg_geldh varchar(19) not null,	nummer decimal(12,0) not null,	datum_einde_geldh varchar(19),	gebruikscode decimal(2,0),	grondoppervlakte decimal(11,0),	soort_obj_code decimal(4,0),	status decimal(2,0),	vastgestelde_waarde decimal(11,0),	waardepeildatum date);alter table woz_obj_archief add constraint ar_woz_obj_pk primary key clustered(dat_beg_geldh,nummer);alter table woz_obj_archief add geom geometry;CREATE SPATIAL INDEX woz_obj_archief_geom1_idx ON woz_obj_archief (geom) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));create table woz_waarde_archief(	waardepeildatum decimal(8,0) not null,	status_beschikking decimal(2,0),	toestandspeildatum decimal(8,0),	vastgestelde_waarde decimal(11,0),	fk_1woz_nummer decimal(12,0));alter table woz_waarde_archief add constraint ar_woz_waarde_pk primary key clustered(waardepeildatum);create table app_re_kad_perceel_archief(	fk_nn_lh_apr_sc_kad_identif decimal(15,0) not null,	fk_nn_lh_apr_sc_dat_beg_geldh varchar(19) not null,	fk_nn_rh_kdp_sc_kad_identif decimal(15,0) not null);alter table app_re_kad_perceel_archief add constraint ar_app_re_kad_perceel_pk primary key clustered(fk_nn_lh_apr_sc_kad_identif,fk_nn_lh_apr_sc_dat_beg_geldh,fk_nn_rh_kdp_sc_kad_identif);create table benoemd_terrein_benoem_archief(	fk_nn_lh_btr_sc_identif varchar(16) not null,	fk_nn_lh_btr_dat_beg_geldh varchar(19) not null,	fk_nn_rh_btr_sc_identif varchar(16) not null);alter table benoemd_terrein_benoem_archief add constraint ar_benoemd_terrein_benoemd__pk primary key clustered(fk_nn_lh_btr_sc_identif,fk_nn_lh_btr_dat_beg_geldh,fk_nn_rh_btr_sc_identif);create table gemeente_gemeente_archief(	fk_nn_lh_gem_code decimal(4,0) not null,	fk_nn_lh_gem_dat_beg_geldh varchar(19) not null,	fk_nn_rh_gem_code decimal(4,0) not null);alter table gemeente_gemeente_archief add constraint ar_gemeente_gemeente_pk primary key clustered(fk_nn_lh_gem_code,fk_nn_lh_gem_dat_beg_geldh,fk_nn_rh_gem_code);create table kad_onrrnd_zk_kad_onrr_archief(	fk_nn_lh_koz_kad_identif decimal(15,0) not null,	fk_nn_lh_koz_dat_beg_geldh varchar(19) not null,	fk_nn_rh_koz_kad_identif decimal(15,0) not null);alter table kad_onrrnd_zk_kad_onrr_archief add constraint ar_kad_onrrnd_zk_kad_onrrnd_pk primary key clustered(fk_nn_lh_koz_kad_identif,fk_nn_lh_koz_dat_beg_geldh,fk_nn_rh_koz_kad_identif);create table ligplaats_nummeraand_archief(	fk_nn_lh_lpl_sc_identif varchar(16) not null,	fk_nn_lh_lpl_sc_dat_beg_geldh varchar(19) not null,	fk_nn_rh_nra_sc_identif varchar(16) not null);alter table ligplaats_nummeraand_archief add constraint ar_ligplaats_nummeraand_pk primary key clustered(fk_nn_lh_lpl_sc_identif,fk_nn_lh_lpl_sc_dat_beg_geldh,fk_nn_rh_nra_sc_identif);create table standplaats_nummeraand_archief(	fk_nn_lh_spl_sc_identif varchar(16) not null,	fk_nn_lh_spl_sc_dat_beg_geldh varchar(19) not null,	fk_nn_rh_nra_sc_identif varchar(16) not null);alter table standplaats_nummeraand_archief add constraint ar_standplaats_nummeraand_pk primary key clustered(fk_nn_lh_spl_sc_identif,fk_nn_lh_spl_sc_dat_beg_geldh,fk_nn_rh_nra_sc_identif);create table verblijfsobj_pand_archief(	fk_nn_lh_vbo_sc_identif varchar(16) not null,	fk_nn_lh_vbo_sc_dat_beg_geldh varchar(19) not null,	fk_nn_rh_pnd_identif varchar(16) not null);alter table verblijfsobj_pand_archief add constraint ar_verblijfsobj_pand_pk primary key clustered(fk_nn_lh_vbo_sc_identif,fk_nn_lh_vbo_sc_dat_beg_geldh,fk_nn_rh_pnd_identif);create table verblijfsobj_nummeraan_archief(	fk_nn_lh_vbo_sc_identif varchar(16) not null,	fk_nn_lh_vbo_sc_dat_beg_geldh varchar(19) not null,	fk_nn_rh_nra_sc_identif varchar(16) not null);alter table verblijfsobj_nummeraan_archief add constraint ar_verblijfsobj_nummeraand_pk primary key clustered(fk_nn_lh_vbo_sc_identif,fk_nn_lh_vbo_sc_dat_beg_geldh,fk_nn_rh_nra_sc_identif);insert into meta_enumeratie_waardes (naam,waarde) values ('Aard aantekening kadastraal object','koopovereenkomst waarvan de inschrijving resulteert in een koperbescherming volgens artikel 7:3 BW');insert into meta_enumeratie_waardes (naam,waarde) values ('Aard aantekening kadastraal object','koopovereenkomst of voorovereenkomst tot koop waarvan de inschrijving resulteert in koperbescherming volgens artikel 10 Wvg');insert into meta_enumeratie_waardes (naam,waarde) values ('Aard aantekening kadastraal object','vervallen van de koopovereenkomst of voorovereenkomst tot koop die zijn ingeschreven op grond van artikel 7:3 of artikel 10 Wvg');insert into meta_enumeratie_waardes (naam,waarde) values ('Aard aantekening kadastraal object','voorwaardelijke verkrijging');insert into meta_enumeratie_waardes (naam,waarde) values ('Aard aantekening kadastraal object','erfdienstbaarheid');insert into meta_enumeratie_waardes (naam,waarde) values ('Aard aantekening kadastraal object','kwalitatieve verplichting alsin art 6:25 BW');insert into meta_enumeratie_waardes (naam,waarde) values ('Aard aantekening kadastraal object','onderbewindstelling van een grondstuk');insert into meta_enumeratie_waardes (naam,waarde) values ('Aard aantekening kadastraal object','publiekrechtelijke beperking');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor wonen');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','eensgezinswoning');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','bejaardenwoning');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','recreatiewoning');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','meergezinswoning');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','dienstwoning');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','zorgwoonverblijf');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','aanleunwoonverblijf');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','bejaardenwoonverblijf (in bejaardenoord, centrale keuken)');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','jongerenwooneenheid');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','gehandicaptenwooneenheid');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor niet-wonen');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor handel, horeca en bedrijf');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','detailhandel');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','cafe/bar/restaurant');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','hotel/logies');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','kantoor');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','opslag en distributie');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','fabricage en productie');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','onderhoud en reparatie');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','laboratoria');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','overige doeleinden voor niet-wonen');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor cultuur');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','wijk-/buurt-/verenigingsactiviteiten');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','congres');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','theater en concert');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','musea');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','expositie');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','bioscoop');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','bibliotheek');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','overige doeleinden voor cultuur');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor recreatie');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','sport buiten');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','sport binnen');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','recreatie');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','zwembad');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','dierenverzorging');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','natuur en landschap');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','overige doeleinden voor recreatie');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor agrarisch bedrijf');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','akkerbouw');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','veeteelt');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','tuinbouw');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','gemengd bedrijf');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','overige doeleinden voor agrarisch bedrijf');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor onderwijs');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','kinderopvang');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','basisschool');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','algemeen voortgezet onderwijs');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','hoger beroepsonderwijs');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','academisch onderwijs');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','bijzonder onderwijs');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','vrijetijds onderwijs');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','overige doeleinden voor onderwijs');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor gezondheidszorg');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','ziekenhuis');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','polikliniek');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','praktijkruimte');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','verpleegtehuis');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','verzorgingstehuis en bejaardentehuis');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','dagverblijf');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','wijkverzorging');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','psychiatrische inrichting');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','overige doeleinden voor gezondheidszorg');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor verkeer');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','stalling (fietsen/auto''s)');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','wegverkeer');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','spoorwegverkeer');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','luchtvaart');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','scheepvaart');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','overige doeleinden voor verkeer');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','doeleinden voor nutsvoorzieningen');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','waternuts doeleinden');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','gas');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','elektriciteit');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','CAI');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','telecommunicatie');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','waterschaps en waterverdediging');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','overige doeleinden voor nutsvoorzieningen');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','andere doeleinden van openbaar nut');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','gemeentehuis');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','politie');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','brandweer');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','gevangenis/gesticht');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','begraafplaats/crematorium');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','godsdienst (kerk, klooster e.d.)');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','defensie');insert into meta_enumeratie_waardes (naam,waarde) values ('Bouwkundige bestemming actueel GEBOUWD OBJECT','overige andere doeleinden van openbaar nut');insert into meta_enumeratie_waardes (naam,waarde) values ('Huishoudensoort','institutioneel huishouden');insert into meta_enumeratie_waardes (naam,waarde) values ('Huishoudensoort','alleenstaand (inclusief andere personen die in hetzelfde object wonen, maar een eigen huishouding voeren)');insert into meta_enumeratie_waardes (naam,waarde) values ('Huishoudensoort','2 personen, vaste partners, geen thuiswonende kinderen');insert into meta_enumeratie_waardes (naam,waarde) values ('Huishoudensoort','2 personen, vaste partners, een of meer thuiswonende kinderen');insert into meta_enumeratie_waardes (naam,waarde) values ('Huishoudensoort','eenoudergezin, ouder met een of meer thuiswonende kinderen');insert into meta_enumeratie_waardes (naam,waarde) values ('Huishoudensoort','overig particulier huishouden (samenwoning van personen die geen partnerrelatie onderhouden of een ouder-kindrelatie hebben, maar wel gezamenlijk een huishouding voeren)');insert into meta_enumeratie (tabel,kolom,enumeratie) values ('gebouwd_obj','bouwk_best_act','Bouwkundige bestemming actueel GEBOUWD OBJECT');insert into meta_enumeratie (tabel,kolom,enumeratie) values ('kad_onrrnd_zk_aantek','aard_aantek_kad_obj','Aard aantekening kadastraal object');insert into meta_referentielijsten (tabel,kolom,referentielijst) values ('ingeschr_nat_prs','btnlndse_nation','NATIONALITEIT');insert into meta_referentielijsten (tabel,kolom,referentielijst) values ('ingeschr_nat_prs','land_vanwaar_ingeschr','LAND');insert into meta_referentielijsten (tabel,kolom,referentielijst) values ('ingeschr_nat_prs','land_waarnaar_vertrokken','LAND');insert into meta_referentielijsten (tabel,kolom,referentielijst) values ('nat_prs','academische_titel','ACADEMISCHE TITEL');insert into meta_referentielijsten (tabel,kolom,referentielijst) values ('rsdoc','soort','REISDOCUMENTSOORT');insert into meta_referentielijsten (tabel,kolom,referentielijst) values ('zak_recht','aand_aard_recht_verkort','AARD RECHT VERKORT');insert into meta_referentielijsten (tabel,kolom,referentielijst) values ('zak_recht','aand_aard_verkregen_recht','AARD VERKREGEN RECHT');-- Handmatige scripts-- Script: 101_herkomst_metadata.sqlcreate table herkomst_metadata (
 	tabel character varying(255) not null,
 	kolom character varying(255) not null,
 	waarde character varying(255) not null,
@@ -2246,8 +6,7 @@ create table herkomst_metadata (
 	datum datetime not null,
 	primary key clustered(tabel, kolom, waarde, herkomst_br, datum)
 );
--- Script: 102_metagegevens_brondocument.sql
-
+-- Script: 102_metagegevens_brondocument.sql
 -- Een brondocument wordt niet in de originele tabel opgenomen omdat dit een
 -- 0..n relatie kan zijn en niet altijd een 0..1. 
 
@@ -2268,26 +27,20 @@ create table brondocument (
   primary key clustered(tabel,tabel_identificatie,identificatie)
 );
   
--- Script: 103_woz_waarde.sql
-
-ALTER TABLE woz_waarde ALTER COLUMN fk_1woz_nummer DECIMAL(12,0) NOT NULL;
+-- Script: 103_woz_waarde.sqlALTER TABLE woz_waarde ALTER COLUMN fk_1woz_nummer DECIMAL(12,0) NOT NULL;
 alter table woz_waarde add constraint woz_waarde_pk primary key (fk_1woz_nummer);
 
 alter table woz_waarde_archief drop constraint ar_woz_waarde_pk;
 ALTER TABLE woz_waarde_archief ALTER COLUMN fk_1woz_nummer DECIMAL(12,0) NOT NULL;
 alter table woz_waarde_archief add constraint woz_waarde_archief_pk primary key(waardepeildatum,fk_1woz_nummer);
--- Script: 104_brondocument_indices.sql
-
-create index brondocument_tabel_idx on brondocument(tabel);
+-- Script: 104_brondocument_indices.sqlcreate index brondocument_tabel_idx on brondocument(tabel);
 create index brondocument_tabel_identif_idx on brondocument(tabel_identificatie);
 create index brondocument_identificatie_idx on brondocument(identificatie);
 CREATE INDEX BRONDOCUMENT_OMSCHRIJVING_IDX ON BRONDOCUMENT(OMSCHRIJVING);
 
 CREATE INDEX brondocument_ref_id  ON brondocument (ref_id);
 
--- Script: 105_appartements_rechten.sql
-
--- selecteer parent en child app_re's die een ondersplitsing zijn of zijn geworden
+-- Script: 105_appartements_rechten.sql-- selecteer parent en child app_re's die een ondersplitsing zijn of zijn geworden
 
 
 CREATE VIEW v_bd_app_re_app_re AS 
@@ -2377,9 +130,7 @@ CREATE VIEW v_bd_app_re_bij_perceel AS
 
 
 
--- Script: 106_bag_views.sql
-
-/*
+-- Script: 106_bag_views.sql/*
 Views for visualizing the BAG data.
 09-02-2016
 */
@@ -3082,8 +833,7 @@ CREATE VIEW
             centroide AS the_geom
         FROM
             v_adres_standplaats
-    );-- Script: 107_brk_views.sql
-
+    );-- Script: 107_brk_views.sql
 create view v_map_kad_perceel as
 select
     p.sc_kad_identif,
@@ -3133,7 +883,8 @@ left join verblijfsobj vbo on (vbo.SC_IDENTIF = kpvbo.FK_NN_LH_TGO_IDENTIF)
 left join nummeraand na on (na.SC_IDENTIF = vbo.FK_11NRA_SC_IDENTIF)
 left join addresseerb_obj_aand aoa on (aoa.IDENTIF = na.SC_IDENTIF)
 left join gem_openb_rmte gor on (gor.IDENTIFCODE = aoa.FK_7OPR_IDENTIFCODE)
-left join wnplts wp on (wp.IDENTIF = aoa.FK_6WPL_IDENTIF);
+left join openb_rmte_wnplts oprw on (oprw.FK_NN_LH_OPR_IDENTIFCODE = gor.IDENTIFCODE)
+left join wnplts wp on (wp.IDENTIF = oprw.FK_NN_RH_WPL_IDENTIF);
 
 CREATE view v_kad_perceel_eenvoudig as
 select
@@ -3271,9 +1022,7 @@ and zr2.FK_8PES_SC_IDENTIF is not null;
 --order by kpe.SC_KAD_IDENTIF, kpe.straat, kpe.huisnummer, kpe.toevoeging, kpe.huisletter,  KA_APPARTEMENTSINDEX;
 
   
--- Script: 108_insert_aard_recht_verkort.sql
-
-INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('1', 'Beklemrecht');
+-- Script: 108_insert_aard_recht_verkort.sqlINSERT INTO aard_recht_verkort (aand, omschr) VALUES ('1', 'Beklemrecht');
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('2', 'Eigendom (recht van)');
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('3', 'Erfpacht (recht van)');
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('4', 'Gebruik en bewoning (recht van)');
@@ -3295,9 +1044,7 @@ INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('19', 'Voorrecht');
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('20', 'Zakelijk recht na twee of meer zakelijke belastingen');
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('21', 'Zakelijke belasting derde of volgende');
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('22', 'BP-recht');
--- Script: 109_insert_aard_verkregen_recht.sql
-
-INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('1', 'Beklemrecht');
+-- Script: 109_insert_aard_verkregen_recht.sqlINSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('1', 'Beklemrecht');
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('2', 'Eigendom (recht van)');
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('3', 'Erfpacht (recht van)');
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('4', 'Gebruik en bewoning (recht van)');
@@ -3319,17 +1066,13 @@ INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('1
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('20', 'Zakelijk recht na twee of meer zakelijke belastingen');
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('21', 'Zakelijke belasting derde of volgende');
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('22', 'BP-recht');
--- Script: 110_gebruiksdoel_primary_key.sql
-
-ALTER TABLE
+-- Script: 110_gebruiksdoel_primary_key.sqlALTER TABLE
     gebouwd_obj_gebruiksdoel ALTER COLUMN gebruiksdoel_gebouwd_obj VARCHAR(80) NOT NULL;
 ALTER TABLE
     gebouwd_obj_gebruiksdoel ALTER COLUMN fk_gbo_sc_identif VARCHAR(16) NOT NULL;
 ALTER TABLE gebouwd_obj_gebruiksdoel
   ADD CONSTRAINT pk_geb_obj_gebr_doel PRIMARY KEY (gebruiksdoel_gebouwd_obj, fk_gbo_sc_identif);
--- Script: 111_insert_gemeente.sql
-
-INSERT INTO gemeente (code, naam) VALUES (1930, 'Nissewaard');
+-- Script: 111_insert_gemeente.sqlINSERT INTO gemeente (code, naam) VALUES (1930, 'Nissewaard');
 INSERT INTO gemeente (code, naam) VALUES (1931, 'Krimpenerwaard');
 INSERT INTO gemeente (code, naam) VALUES (55, 'Boarnsterhim');
 INSERT INTO gemeente (code, naam) VALUES (51, 'Skarsterlân');
@@ -3724,9 +1467,7 @@ INSERT INTO gemeente (code, naam) VALUES (983, 'Venlo');
 INSERT INTO gemeente (code, naam) VALUES (984, 'Venray');
 INSERT INTO gemeente (code, naam) VALUES (986, 'Voerendaal');
 INSERT INTO gemeente (code, naam) VALUES (988, 'Weert');
--- Script: 112_insert_buurt.sql
-
---ALTER TABLE buurt ALTER COLUMN code TYPE NUMERIC(8,0);
+-- Script: 112_insert_buurt.sql--ALTER TABLE buurt ALTER COLUMN code TYPE NUMERIC(8,0);
 --ALTER TABLE buurt ALTER COLUMN naam TYPE CHARACTER VARYING(80);
 INSERT INTO buurt (code, naam) VALUES (30000, 'Appingedam-Centrum');
 INSERT INTO buurt (code, naam) VALUES (30001, 'Appingedam-West');
@@ -15834,9 +13575,7 @@ INSERT INTO buurt (code, naam) VALUES (19870303, 'Tripscompagnie');
 INSERT INTO buurt (code, naam) VALUES (19870304, 'Borgercompagnie (gedeeltelijk)');
 INSERT INTO buurt (code, naam) VALUES (19870309, 'Verspreide huizen Muntendam');
 INSERT INTO buurt (code, naam) VALUES (99999999, '');
--- Script: 113_insert_wijk.sql
-
---ALTER TABLE wijk ALTER COLUMN code TYPE NUMERIC(6,0);
+-- Script: 113_insert_wijk.sql--ALTER TABLE wijk ALTER COLUMN code TYPE NUMERIC(6,0);
 --ALTER TABLE wijk ALTER COLUMN naam TYPE CHARACTER VARYING(80);
 INSERT INTO wijk (code, naam) VALUES ('300', 'Wijk 00');
 INSERT INTO wijk (code, naam) VALUES ('500', 'Wijk 00');
@@ -18674,8 +16413,7 @@ INSERT INTO wijk (code, naam) VALUES ('198701', 'Wijk 01 Noordbroek');
 INSERT INTO wijk (code, naam) VALUES ('198702', 'Wijk 02');
 INSERT INTO wijk (code, naam) VALUES ('198703', 'Wijk 03');
 INSERT INTO wijk (code, naam) VALUES ('999999', '');
--- Script: 114_drop_constraints.sql
-
+-- Script: 114_drop_constraints.sql
 --snijdt alle banden tussen BAG en ander BR's door
 --zodat BAG verwijderd en weer opnieuw geladen kan worden
 alter table addresseerb_obj_aand drop constraint fk_aoa_as_6;
