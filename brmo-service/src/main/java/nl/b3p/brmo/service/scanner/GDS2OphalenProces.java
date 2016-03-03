@@ -94,6 +94,12 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     private static final String PEM_CERT_START = "-----BEGIN CERTIFICATE-----";
     private static final String PEM_CERT_END = "-----END CERTIFICATE-----";
 
+    private static final int BESTANDENLIJST_ATTEMPTS = 5;
+    private static final int BESTANDENLIJST_RETRY_WAIT = 10000;
+
+    private static final int AFGIFTE_DOWNLOAD_ATTEMPTS = 5;
+    private static final int AFGIFTE_DOWNLOAD_RETRY_WAIT = 3000;
+
     GDS2OphalenProces(GDS2OphaalProces config) {
         this.config = config;
     }
@@ -300,7 +306,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 }
 
                 verzoekGb.setAfgifteSelectieCriteria(criteria);
-                BestandenlijstGBOpvragenResponse responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
+                BestandenlijstGBOpvragenResponse responseGb = retryBestandenLijstGBOpvragen(gds2, requestGb);
 
                 int aantalInAntwoord = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB().size();
                 l.addLog("Aantal in antwoord: " + aantalInAntwoord);
@@ -403,6 +409,25 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         }
     }
 
+    private BestandenlijstGBOpvragenResponse retryBestandenLijstGBOpvragen(Gds2AfgifteServiceV20130701 gds2, BestandenlijstGBOpvragenRequest requestGb) throws Exception {
+        int attempt = 0;
+        while (true) {
+            try {
+                return gds2.bestandenlijstGBOpvragen(requestGb);
+            } catch (Exception e) {
+                attempt++;
+                if (attempt == BESTANDENLIJST_ATTEMPTS) {
+                    l.addLog("Fout bij laatste poging ophalen bestandenlijst: " + e.getClass().getName() + ": " + e.getMessage());
+                    throw e;
+                } else {
+                    l.addLog("Fout bij poging " + attempt + " om bestandenlijst op te halen: " + e.getClass().getName() + ": " + e.getMessage());
+                    Thread.sleep(BESTANDENLIJST_RETRY_WAIT);
+                    l.addLog("Uitvoeren poging " + (attempt+1) + " om bestandenlijst op te halen...");
+                }
+            }
+        }
+    }
+
     private String getLaadprocesBestansanaam(AfgifteGBType a) {
         return a.getBestand().getBestandsnaam() + " (" + a.getAfgifteID() + ")";
     }
@@ -437,12 +462,13 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 break;
             } catch (Exception e) {
                 attempt++;
-                if (attempt == 5) {
+                if (attempt == AFGIFTE_DOWNLOAD_ATTEMPTS) {
                     l.addLog("Fout bij laatste poging downloaden afgifte: " + e.getClass().getName() + ": " + e.getMessage());
                     throw e;
                 } else {
                     l.addLog("Fout bij poging " + attempt + " om afgifte te downloaden: " + e.getClass().getName() + ": " + e.getMessage());
-                    Thread.sleep(1000);
+                    Thread.sleep(AFGIFTE_DOWNLOAD_RETRY_WAIT);
+                    l.addLog("Uitvoeren poging " + (attempt+1) + " om afgifte " + url + " te downloaden...");
                 }
             }
         }
