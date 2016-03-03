@@ -1,3 +1,19 @@
+--DROP TABLE job;
+CREATE TABLE
+    job
+    (
+        jid bigserial NOT NULL,
+        id BIGINT,
+        br_xml TEXT,
+        datum TIMESTAMP(6) WITHOUT TIME ZONE,
+        object_ref CHARACTER VARYING(255),
+        soort CHARACTER VARYING(255),
+        volgordenummer INTEGER,
+        PRIMARY KEY (jid)
+    );
+/*
+
+
 --DROP TABLE automatisch_proces;
 CREATE TABLE
     automatisch_proces
@@ -64,19 +80,6 @@ CREATE TABLE
         beschrijving TEXT,
         PRIMARY KEY (naam)
     );
---DROP TABLE job;
-CREATE TABLE
-    job
-    (
-        jid bigserial NOT NULL,
-        id BIGINT,
-        br_xml TEXT,
-        datum TIMESTAMP(6) WITHOUT TIME ZONE,
-        object_ref CHARACTER VARYING(255),
-        soort CHARACTER VARYING(255),
-        volgordenummer INTEGER,
-        PRIMARY KEY (jid)
-    );
 --DROP TABLE laadproces;
 CREATE TABLE
     laadproces
@@ -108,3 +111,5 @@ ALTER TABLE
 ALTER TABLE
     laadproces ADD CONSTRAINT laadproces_auto_fkey FOREIGN KEY (automatisch_proces) REFERENCES
     automatisch_proces (id);
+	
+*/
