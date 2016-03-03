@@ -7,3 +7,5 @@ Zie de [wiki](https://github.com/B3Partners/brmo/wiki) voor meer informatie.
 Ga naar [releases](https://github.com/B3Partners/brmo/releases) voor de laatste en eerdere releases.
 
 [![Build Status](https://travis-ci.org/B3Partners/brmo.svg?branch=master)](https://travis-ci.org/B3Partners/brmo)
+[![Build status](https://ci.appveyor.com/api/projects/status/kjwij2vo9bvnd458/branch/master?svg=true)](https://ci.appveyor.com/project/mprins/brmo/branch/master)
+
