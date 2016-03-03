@@ -140,25 +140,41 @@ public class StagingProxy {
                         name,
                         new Timestamp(date));
 
-        if (processen != null && processen.size() == 1) {
+        if (processen != null && processen.size() > 0) {
             return processen.get(0);
         }
 
         return null;
     }
 
-    private Bericht getBerichtByNaturalKey(String name, long date) throws SQLException {
+    /**
+     * bepaal of bericht bestaat aan de hand van laadprocesid, object_ref,
+     * datum en volgordenummer.
+     *
+     * @param b
+     * @return
+     * @throws SQLException
+     */
+    public Bericht getExistingBericht(Bericht b) throws SQLException {
+        Bericht b2 = getBerichtByNaturalKey(b.getObjectRef(), 
+                b.getDatum().getTime(), 
+                b.getVolgordeNummer());
+        return b2;
+    }
+
+    private Bericht getBerichtByNaturalKey(String object_ref, long date, Integer volgnr) throws SQLException {
         List<Bericht> processen;
         ResultSetHandler<List<Bericht>> h
                 = new BeanListHandler(Bericht.class, new StagingRowHandler());
 
         processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
-                "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE bestand_naam = ?"
-                        + " AND bestand_datum = ?", h,
-                        name,
-                        new Timestamp(date));
+                "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE object_ref = ?"
+                        + " AND datum = ? and volgordenummer = ?", h,
+                        object_ref,
+                        new Timestamp(date),
+                        volgnr);
 
-        if (processen != null && processen.size() == 1) {
+        if (processen != null && processen.size() > 0) {
             return processen.get(0);
         }
 
@@ -568,9 +584,19 @@ public class StagingProxy {
                 if (b.getDatum()==null) {
                     throw new BrmoException("Datum bericht is null");
                 }
-                if (!berichtExists(b)) {
+                
+                Bericht existingBericht = getExistingBericht(b);
+                if (existingBericht == null) {
                     writeBericht(b);
                     isBerichtGeschreven = true;
+                } else if (existingBericht.getStatus().equals(Bericht.STATUS.STAGING_OK)) {
+                    //als bericht nog niet getransformeerd is, dan overschrijven.
+                    //als een BAG bericht inactief wordt gezet dan zal het
+                    //oorspronkelijke bericht nog getransformeerd
+                    //moeten worden, beste oplossing is bericht overschrijven
+                    //TODO bij transformatie ook inactief eruit filteren
+                    b.setId(existingBericht.getId());
+                    updateBericht(b);
                 }
                 if (listener != null) {
                     listener.progress(cis.getByteCount());
@@ -598,28 +624,6 @@ public class StagingProxy {
             String opmerking = "Dit bestand is waarschijnlijk al eerder geladen.";
             this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_DUPLICAAT, opmerking);
         }
-    }
-
-    /**
-     * bepaal of bericht bestaat aan de hand van laadprocesid, object_ref,
-     * datum en volgordenummer.
-     *
-     * @param b
-     * @return
-     * @throws SQLException
-     */
-    public boolean berichtExists(Bericht b) throws SQLException {
-        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
-                "SELECT 1 FROM " + BrmoFramework.BERICHT_TABLE + " WHERE"
-                // + " laadprocesid = ? AND"
-                + " object_ref = ? AND datum = ?"
-                + " AND volgordenummer = ?", new ScalarHandler(),
-                // b.getLaadProcesId(),
-                b.getObjectRef(),
-                new Timestamp(b.getDatum().getTime()),
-                b.getVolgordeNummer());
-
-        return o != null;
     }
 
     public void writeBericht(Bericht b) throws SQLException {

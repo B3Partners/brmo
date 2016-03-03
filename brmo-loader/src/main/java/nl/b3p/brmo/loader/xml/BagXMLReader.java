@@ -227,11 +227,6 @@ public class BagXMLReader extends BrmoXMLReader {
                             //uitzondering: begindatum in toekomst
                             //sla op met datum in de toekomst
                             nextBericht.setDatum(datBegGeld);
-                            //TODO
-                            //als een bericht inactief wordt gezet dan zal het
-                            //oorspronkelijke bericht waarschijnlijk nog getransformeerd
-                            //moeten worden, beste oplossing is beide berichten
-                            //uit staging wissen.
                         }
                         return true;
                     }
@@ -280,7 +275,7 @@ public class BagXMLReader extends BrmoXMLReader {
         return true;
     }
     
-        /**
+    /**
      * @param n bericht
      * @return datum begin geldigheid of null indien niet in toekomst
      */
