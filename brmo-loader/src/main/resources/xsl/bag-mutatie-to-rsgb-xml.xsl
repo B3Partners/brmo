@@ -3,13 +3,13 @@
 	<xsl:template match="/">
 		<root>
 			<data>
-				<xsl:apply-templates select="*"/>
+				<xsl:apply-templates select="//bep:Mutatie-product"/>
 			</data>
 		</root>
 	</xsl:template>
 	<xsl:template match="bep:Mutatie-product">
 		<!-- loop door bep:Nieuw elementen -->
-		<xsl:for-each select="bep:Nieuw">
+		<xsl:for-each select="bep:Nieuw[*/*[local-name() = 'aanduidingRecordInactief']/text() = 'N']">
 			<xsl:apply-templates select="."/>
 		</xsl:for-each>
 	</xsl:template>
