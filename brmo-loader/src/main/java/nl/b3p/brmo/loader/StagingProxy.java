@@ -593,8 +593,8 @@ public class StagingProxy {
                     //als bericht nog niet getransformeerd is, dan overschrijven.
                     //als een BAG bericht inactief wordt gezet dan zal het
                     //oorspronkelijke bericht nog getransformeerd
-                    //moeten worden, beste oplossing is bericht overschrijven
-                    //TODO bij transformatie ook inactief eruit filteren
+                    //moeten worden, door overschrijven wordt dit bericht inactief
+                    //en zal nooit getransformeerd worden.
                     b.setId(existingBericht.getId());
                     updateBericht(b);
                 }
