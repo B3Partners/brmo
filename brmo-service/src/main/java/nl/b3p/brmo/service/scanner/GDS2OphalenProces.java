@@ -356,7 +356,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 while (hasMore && !"true".equals(dontGetMoreConfig)) {
                     l.updateStatus("Uitvoeren SOAP request naar Kadaster voor meer afgiftes..." + moreCount++);
                     criteria.setNogNietGerapporteerd(true);
-                    responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
+                    responseGb = retryBestandenLijstGBOpvragen(gds2, requestGb);
 
                     List<AfgifteGBType> afgiftes = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB();
                     for (AfgifteGBType t : afgiftes) {
