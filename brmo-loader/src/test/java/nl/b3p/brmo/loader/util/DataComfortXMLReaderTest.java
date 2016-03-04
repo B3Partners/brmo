@@ -25,6 +25,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
@@ -68,5 +69,27 @@ public class DataComfortXMLReaderTest {
             fail(e.getLocalizedMessage());
         }
     }
+    @Test
+    public void test() throws Exception {
+        InputStream stream = DataComfortXMLReaderTest.class.getResourceAsStream("comfortdata.xml");
+        StreamSource source = new StreamSource(stream);
+        List<TableData> data = reader.readDataXML(source);
+        try {
+            assertEquals("Er zijn drie table data elementen", 3, data.size());
+            TableData d = data.get(0);
+            assertTrue("eerste table data is comfort data.", d.isComfortData());
+            assertEquals("Er zijn vier table rows", 4, d.getRows().size());
+            TableRow row = d.getRows().get(0);
+            assertEquals("50656082", row.getColumnValue("kvk_nummer"));
 
+            d = data.get(2);
+            row = d.getRows().get(0);
+            assertEquals("214606.115 581137.695 214593.637 581184.181 214586.404 581200.432 214582.757 581198.853 214579.699 581197.328 214595.919 581135.491 214597.599 581135.854 214606.115 581137.695",
+                    row.getColumnValue("posList"));
+
+
+        } catch (Exception e) {
+            fail(e.getLocalizedMessage());
+        }
+    }
 }
