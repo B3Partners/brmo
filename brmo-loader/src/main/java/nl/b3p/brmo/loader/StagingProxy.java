@@ -736,7 +736,7 @@ public class StagingProxy {
         try {
             pstmt = getConnection().prepareStatement(sql);
             try {
-                pstmt.setQueryTimeout(60); //seconds to wait
+                pstmt.setQueryTimeout(300); //seconds to wait
             } catch (Exception e){
                 log.warn("Driver does not support setQueryTimeout, please update driver.");
             } 

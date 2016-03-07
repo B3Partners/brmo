@@ -398,11 +398,13 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         if (updateProcess != null) {
             return;
         }
-        ber.setStatus(Bericht.STATUS.RSGB_PROCESSING);
-        ber.setOpmerking("");
-        ber.setStatusDatum(new Date());
-        ber.setDbXml(null);
-        stagingProxy.updateBerichtProcessing(ber);
+        //via job tabel, niet langer status aanpassen
+        return;
+//        ber.setStatus(Bericht.STATUS.RSGB_PROCESSING);
+//        ber.setOpmerking("");
+//        ber.setStatusDatum(new Date());
+//        ber.setDbXml(null);
+//        stagingProxy.updateBerichtProcessing(ber);
     }
 
     @Override
