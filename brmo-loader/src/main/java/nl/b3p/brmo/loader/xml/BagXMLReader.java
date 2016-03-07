@@ -106,13 +106,18 @@ public class BagXMLReader extends BrmoXMLReader {
         String technischeDatum = null;
         String peilDatum = null;
         String mutatieDatumTot = null;
+        boolean firstStartElement = true;
         try {
             while (streamReader.hasNext()) {
                 if (streamReader.isStartElement()) {
                     String localName = streamReader.getLocalName();
 
-                    if (localName.equals(MUTATIE_PRODUCT) || localName.equals(LVC_PRODUCT)
-                            || lvcProductToObjectType.containsKey(localName)) {
+                    if (localName.equals(MUTATIE_PRODUCT) || localName.equals(LVC_PRODUCT)) {
+                        break;
+                    }
+                    //tbv bag-fragment met enkel object zonder wrapper
+                    if (lvcProductToObjectType.containsKey(localName) 
+                            && firstStartElement) {
                         break;
                     }
 
@@ -128,6 +133,8 @@ public class BagXMLReader extends BrmoXMLReader {
                     if(localName.equals(MUTATIE_DATUMTOT)) {
                         mutatieDatumTot = streamReader.getElementText();
                     }
+                    
+                    firstStartElement = false;
                 }
                 streamReader.next();
             }
