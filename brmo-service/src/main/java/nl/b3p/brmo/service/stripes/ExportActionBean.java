@@ -27,6 +27,7 @@ import nl.b3p.brmo.loader.exports.ExportProcess;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
+import nl.b3p.brmo.loader.xml.BagXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import org.apache.commons.dbutils.QueryRunner;
@@ -245,7 +246,7 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
     
     public void repairMutatieBerichten() throws Exception {
         int offset = 0;
-        int batch = 250;
+        int batch = 1000;
         final MutableInt processed = new MutableInt(0);
         final DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
         final Connection conn = dataSourceStaging.getConnection();
@@ -255,7 +256,7 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
 
         do {
             log.debug(String.format("Ophalen mutatieberichten batch met offset %d, limit %d", offset, batch));
-            String sql = "select * from " + BrmoFramework.BERICHT_TABLE + " where volgordenummer >= 0 order by id ";
+            String sql = "select * from " + BrmoFramework.BERICHT_TABLE + " where volgordenummer >= 0 and datum > '2016-02-08' order by id ";
             sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
             log.debug("SQL voor ophalen berichten batch: " + sql);
             
@@ -279,7 +280,7 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
                                             dateFormat.format(bericht.getDatum()), 
                                             bericht.getVolgordeNummer(),
                                             bericht.getObjectRef()));
-                                    if (bericht.getBrXml().toString().startsWith("<?xml version=\"1.0\"")) {
+                                    if (bericht.getBrXml().startsWith("<?xml version=\"1.0\"")) {
                                         // strip <?xml version="1.0"?>
                                         message.append(bericht.getBrXml().substring(21));
                                     } else {
@@ -290,12 +291,12 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
 
                                 BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(message.toString().getBytes("UTF-8")));
                                 Bericht brk = reader.next();
-                                if (brk.getDatum() != null && brk.getObjectRef() != null && brk.getVolgordeNummer() != null) {
+                                if (brk !=null && brk.getDatum() != null && brk.getObjectRef() != null && brk.getVolgordeNummer() != null) {
                                     bericht.setDatum(brk.getDatum());
                                     bericht.setObjectRef(brk.getObjectRef());
                                     bericht.setVolgordeNummer(brk.getVolgordeNummer());
                                 }
-                                if (brk.getDatum() != null && brk.getObjectRef() != null && brk.getVolgordeNummer() != null) {
+                                if (brk !=null && brk.getDatum() != null && brk.getObjectRef() != null && brk.getVolgordeNummer() != null) {
                                     if (bericht.getBrOrgineelXml() != null && !bericht.getBrOrgineelXml().isEmpty()) {
                                         new QueryRunner(geomToJdbc.isPmdKnownBroken())
                                                 .update(conn, "update " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?, datum = ?, volgordenummer = ? where id = ?",
@@ -306,7 +307,42 @@ public class ExportActionBean implements ActionBean, ProgressUpdateListener {
                                                         bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), message.toString(), bericht.getId());
                                     }
                                 }
-                            }
+                                
+                            } else if (bericht != null && bericht.getSoort().equalsIgnoreCase("bag")) {
+                                
+                                StringBuilder message = new StringBuilder();
+                                if (bericht.getBrOrgineelXml()!=null && !bericht.getBrOrgineelXml().isEmpty()) {
+                                    message.append(bericht.getBrOrgineelXml());
+                                } else {
+                                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                     if (bericht.getBrXml().startsWith("<?xml version=\"1.0\"")) {
+                                        // strip <?xml version="1.0"?>
+                                        message.append(bericht.getBrXml().substring(21));
+                                    } else {
+                                        message.append(bericht.getBrXml());
+                                    }
+                                }
+
+                                BagXMLReader reader = new BagXMLReader(new ByteArrayInputStream(message.toString().getBytes("UTF-8")));
+                                reader.hasNext();
+                                Bericht bag = reader.next();
+                                if (bag != null && bag.getDatum() != null && bag.getObjectRef() != null && bag.getVolgordeNummer() != null) {
+                                    bericht.setDatum(bag.getDatum());
+                                    bericht.setObjectRef(bag.getObjectRef());
+                                    bericht.setVolgordeNummer(bag.getVolgordeNummer());
+                                }
+                                if (bag != null && bag.getDatum() != null && bag.getObjectRef() != null && bag.getVolgordeNummer() != null) {
+                                    if (bericht.getBrOrgineelXml() != null && !bericht.getBrOrgineelXml().isEmpty()) {
+                                        new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                                .update(conn, "update " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?, datum = ?, volgordenummer = ? where id = ?",
+                                                        bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), bericht.getId());
+                                    } else {
+                                        new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                                .update(conn, "update " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?, datum = ?, volgordenummer = ?, br_orgineel_xml = ? where id = ?",
+                                                        bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), message.toString(), bericht.getId());
+                                    }
+                                }
+                            }                        
                         } catch (Exception e) {
                             return e;
                         }
