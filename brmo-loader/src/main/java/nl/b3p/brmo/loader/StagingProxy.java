@@ -219,6 +219,8 @@ public class StagingProxy {
                         + BrmoFramework.BERICHT_TABLE + " where status = ? and datum <= ? ");
         if (orderBerichten) {
             q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
+        } else {
+            q.append(" and volgordenummer < 0 ");
         }
         return new QueryRunner(geomToJdbc.isPmdKnownBroken())
                 .update(getConnection(), q.toString(), status.toString(), new java.sql.Date((new Date()).getTime()));
@@ -231,6 +233,8 @@ public class StagingProxy {
                         + BrmoFramework.BERICHT_TABLE + " where status = ? and soort = ? and datum <= ? ");
         if (orderBerichten) {
             q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
+        } else {
+            q.append(" and volgordenummer < 0 ");
         }
         return new QueryRunner(geomToJdbc.isPmdKnownBroken())
                 .update(getConnection(), q.toString(), Bericht.STATUS.RSGB_OK.toString(), soort, new java.sql.Date((new Date()).getTime()));
@@ -250,6 +254,8 @@ public class StagingProxy {
         q.append(") and datum <= ? ");
         if (orderBerichten) {
             q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
+        } else {
+            q.append(" and volgordenummer < 0 ");
         }
         return new QueryRunner(geomToJdbc.isPmdKnownBroken())
                 .update(getConnection(), q.toString(), new java.sql.Date((new Date()).getTime()));
@@ -270,6 +276,8 @@ public class StagingProxy {
         q.append(") and status = ? and datum <= ? ");
         if (orderBerichten) {
             q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
+        } else {
+            q.append(" and volgordenummer < 0 ");
         }
         return new QueryRunner(geomToJdbc.isPmdKnownBroken())
                 .update(getConnection(), q.toString(), Bericht.STATUS.STAGING_OK.toString(), new java.sql.Date((new Date()).getTime()));
