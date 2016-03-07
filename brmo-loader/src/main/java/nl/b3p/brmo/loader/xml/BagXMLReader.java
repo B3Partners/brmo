@@ -111,7 +111,8 @@ public class BagXMLReader extends BrmoXMLReader {
                 if (streamReader.isStartElement()) {
                     String localName = streamReader.getLocalName();
 
-                    if (localName.equals(MUTATIE_PRODUCT) || localName.equals(LVC_PRODUCT)) {
+                    if (localName.equals(MUTATIE_PRODUCT) || localName.equals(LVC_PRODUCT)
+                            || lvcProductToObjectType.containsKey(localName)) {
                         break;
                     }
 
@@ -250,7 +251,7 @@ public class BagXMLReader extends BrmoXMLReader {
                 for (int j = 0; j < grandchildren.getLength(); j++) {
                     Node grandchild = grandchildren.item(j);
                     if ("einddatumTijdvakGeldigheid".equals(grandchild.getLocalName())) {
-                        String dateString = grandchild.getTextContent().substring(0, 7);
+                        String dateString = grandchild.getTextContent().substring(0, 8);
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                         Date eindGeldigheidDatum = null;
                         try {
@@ -290,7 +291,7 @@ public class BagXMLReader extends BrmoXMLReader {
                 for (int j = 0; j < grandchildren.getLength(); j++) {
                     Node grandchild = grandchildren.item(j);
                     if ("begindatumTijdvakGeldigheid".equals(grandchild.getLocalName())) {
-                        String dateString = grandchild.getTextContent().substring(0, 7);
+                        String dateString = grandchild.getTextContent().substring(0, 8);
                         try {
                             beginGeldigheid = sdf.parse(dateString);
                         } catch (ParseException pe) {
