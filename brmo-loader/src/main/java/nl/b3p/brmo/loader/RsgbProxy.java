@@ -103,7 +103,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     private boolean enablePipeline = false;
     private int pipelineCapacity = 25;
-    
+
     private boolean orderBerichten = true;
 
     private Map<String, RsgbTransformer> rsgbTransformers = new HashMap();
@@ -193,7 +193,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
         }
     }
-    
+
     private final Object LOCK = new Object();
     private final Map<String, PreparedStatement> checkRowExistsStatements = new HashMap();
     private final Map<String, PreparedStatement> insertSqlPreparedStatements = new HashMap();
@@ -208,7 +208,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         stm.clearParameters();
         return stm;
     }
-    
+
     public void checkAndCloseStatement(PreparedStatement stmt) {
 //        if (geomToJdbc instanceof OracleJdbcConverter) {
 //            DbUtils.closeQuietly(stmt);
@@ -216,7 +216,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 //        }
         // do not close now, but later in batch
     }
-    
+
     public void checkAndAddStatement(Map<String, PreparedStatement> m, String tableName, PreparedStatement stmt) {
 //        if (geomToJdbc instanceof OracleJdbcConverter) {
 //            // do never add
@@ -270,7 +270,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
             // Do the work by querying all berichten, berichten are passed to
             // handle() method
-            if (total>0) { 
+            if (total>0) {
                 stagingProxy.handleBerichtenByJob(total, this, enablePipeline, pipelineCapacity, orderBerichten);
             }
         } catch (Exception e) {
@@ -294,7 +294,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             throw new BrmoException("Vorige transformatie is afgebroken,"
                     + " verwerk eerst de RSGB_WAITING berichten!");
         }
-        
+
         switch (mode) {
             case BY_STATUS:
                  return stagingProxy.setBerichtenJobByStatus(status, orderBerichten);
@@ -333,7 +333,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         StringBuilder loadLog = new StringBuilder();
         SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        
+
         try {
             loadLog.append(String.format("%s: transformeren %s bericht object ref %s, met id %s, berichtdatum %s\n", dateTimeFormat.format(new Date()), ber.getSoort(), ber.getObjectRef(), ber.getId(), dateFormat.format(ber.getDatum())));
 
@@ -532,7 +532,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 ber.setOpmerking(loadLog.toString());
                 loadLog = null;
                 updateBerichtException(ber, ex);
- 
+
             } finally {
                 if (loadLog == null) {
                     loadLog = new StringBuilder(ber.getOpmerking());
@@ -608,8 +608,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return t;
     }
 
-    private StringBuilder parseNewData(List<TableData> oldList, 
-            List<TableData> newList, String oldDate, 
+    private StringBuilder parseNewData(List<TableData> oldList,
+            List<TableData> newList, String oldDate,
             StringBuilder loadLog) throws SQLException, ParseException, BrmoException {
         Split split = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata").start();
 
@@ -949,7 +949,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             params.add(param);
 
             sql.append(cm.getName());
-            
+
             String insertValuePlaceholder = "?";
             if (cm.getTypeName().equals(geomToJdbc.getGeomTypeName())) {
                 //waarde altijd als WKT aanbieden en placeholder per db type
@@ -1070,7 +1070,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             ColumnMetadata cm = findColumnMetadata(tableColumnMetadata, column);
             Object param = getValueAsObject(tableName, column, stringValue, cm);
             params.add(param);
- 
+
             sql.append(cm.getName());
             sql.append(" = ");
             String insertValuePlaceholder = "?";
@@ -1166,7 +1166,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         loadLog.append(String.format("\nConditioneel toevoegen herkomst metadata tabel=%s, kolom=%s, waarde=%s, herkomst_br=%s, datum=%s",
                 tabel, kolom, waarde, getHerkomstMetadata(), datum));
-        
+
         int count = insertMetadataStatement.executeUpdate();
         loadLog.append(": record geinsert: ").append(count > 0 ? "ja" : "nee (rij bestond al)");
         return count > 0;
@@ -1210,7 +1210,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         for (Object p : params) {
             stm.setObject(i++, p);
         }
-        
+
         ResultSet rs = null;
         boolean exists = false;
         try {
@@ -1269,7 +1269,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
 
             stm = connRsgb.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            checkAndAddStatement(checkRowExistsStatements, tableName, stm);        
+            checkAndAddStatement(checkRowExistsStatements, tableName, stm);
         }
 
         int i = 1;
@@ -1294,7 +1294,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             if (rs!=null) rs.close();
             checkAndCloseStatement(stm);
         }
-        
+
         loadLog.append(", rij bestaat: ").append(exists ? "ja" : "nee");
 
         return existing;
@@ -1339,7 +1339,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         ResultSet results = stm.executeQuery();
         int count = getRowCount(results);
         DbUtils.closeQuietly(results);
-        
+
         return count > 0;
     }
 

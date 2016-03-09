@@ -531,6 +531,9 @@
 				</sc_identif>
 				<rechtsvorm><xsl:value-of select="nhr:rechtsvorm/typ:waarde"/></rechtsvorm>
 				<statutaire_zetel><xsl:value-of select="nhr:statutaireZetel"/></statutaire_zetel>
+                <xsl:for-each select="nhr:RSIN">
+                    <rsin><xsl:value-of select="."/></rsin>
+                </xsl:for-each>
 			</ingeschr_niet_nat_prs>
 
 		</comfort>
@@ -550,9 +553,9 @@
 			<xsl:if test="$clazz">
 				<clazz><xsl:value-of select="$clazz"/></clazz>
 			</xsl:if>
-			<xsl:if test="nhr:KVKnummer">
-				<kvk_nummer><xsl:value-of select="nhr:KVKnummer"/></kvk_nummer>
-			</xsl:if>
+            <xsl:for-each select="nhr:KVKnummer">
+                <kvk_nummer><xsl:value-of select="."/></kvk_nummer>
+            </xsl:for-each>
         </subject>
 
         <prs>
