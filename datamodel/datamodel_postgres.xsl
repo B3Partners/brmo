@@ -32,7 +32,9 @@
 		<xsl:param name="column"/>	
 		<xsl:param name="type"/>
 		<xsl:param name="pos"/>
-		<xsl:text>select addgeometrycolumn('</xsl:text><xsl:value-of select="$table"/><xsl:text>', '</xsl:text><xsl:value-of select="$column"/><xsl:text>', 28992, '</xsl:text><xsl:value-of select="$geom-types/geom[@rsgb=$type]/@db"/><xsl:text>', 2);&#13;</xsl:text>
-		<xsl:text>create index </xsl:text><xsl:value-of select="$table"/><xsl:text>_</xsl:text><xsl:value-of select="$column"/><xsl:text>_idx on </xsl:text><xsl:value-of select="$table"/><xsl:text> USING GIST (</xsl:text><xsl:value-of select="$column"/><xsl:text>);&#13;</xsl:text>
+		<xsl:text>select addgeometrycolumn('</xsl:text><xsl:value-of select="$table"/><xsl:text>', '</xsl:text><xsl:value-of select="$column"/><xsl:text>', 28992, '</xsl:text><xsl:value-of select="$geom-types/geom[@rsgb=$type]/@db"/><xsl:text>', 2);
+</xsl:text>
+		<xsl:text>create index </xsl:text><xsl:value-of select="$table"/><xsl:text>_</xsl:text><xsl:value-of select="$column"/><xsl:text>_idx on </xsl:text><xsl:value-of select="$table"/><xsl:text> USING GIST (</xsl:text><xsl:value-of select="$column"/><xsl:text>);
+</xsl:text>
 	</xsl:function>		
 </xsl:stylesheet>

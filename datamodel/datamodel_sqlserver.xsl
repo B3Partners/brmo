@@ -45,7 +45,9 @@
 			<xsl:text>)</xsl:text>
 		</xsl:variable>
 		
-		<xsl:text>alter table </xsl:text><xsl:value-of select="$table"/><xsl:text> add </xsl:text><xsl:value-of select="$column"/><xsl:text> geometry;&#13;</xsl:text>
-		<xsl:text>CREATE SPATIAL INDEX </xsl:text><xsl:value-of select="fn:substring(concat($table,'_',$column),1,25)"/><xsl:value-of select="$pos"/><xsl:text>_idx ON </xsl:text><xsl:value-of select="$table"/><xsl:text> (</xsl:text><xsl:value-of select="$column"/><xsl:text>) WITH ( BOUNDING_BOX = </xsl:text><xsl:value-of select="$bbox"/><xsl:text>);&#13;</xsl:text>			
-	</xsl:function>		
+		<xsl:text>alter table </xsl:text><xsl:value-of select="$table"/><xsl:text> add </xsl:text><xsl:value-of select="$column"/><xsl:text> geometry;
+</xsl:text>
+		<xsl:text>CREATE SPATIAL INDEX </xsl:text><xsl:value-of select="fn:substring(concat($table,'_',$column),1,25)"/><xsl:value-of select="$pos"/><xsl:text>_idx ON </xsl:text><xsl:value-of select="$table"/><xsl:text> (</xsl:text><xsl:value-of select="$column"/><xsl:text>) WITH ( BOUNDING_BOX = </xsl:text><xsl:value-of select="$bbox"/><xsl:text>);
+</xsl:text>
+	</xsl:function>
 </xsl:stylesheet>

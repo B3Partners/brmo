@@ -34,14 +34,17 @@
 		<xsl:param name="pos"/>
 					
 		<xsl:text>insert into user_sdo_geom_metadata values('</xsl:text><xsl:value-of select="$table"/><xsl:text>', '</xsl:text><xsl:value-of select="$column"/><xsl:text>', </xsl:text>
-			<xsl:text>MDSYS.SDO_DIM_ARRAY(&#13;</xsl:text>
-			<xsl:text>	MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),&#13;</xsl:text>
-			<xsl:text>	MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), &#13;</xsl:text>
-			<xsl:text>	28992 &#13;</xsl:text>
-			<xsl:text>);&#13;</xsl:text>
+			<xsl:text>MDSYS.SDO_DIM_ARRAY(
+	MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+	MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
+	28992
+);
+</xsl:text>
 			
-			<xsl:text>alter table </xsl:text><xsl:value-of select="$table"/><xsl:text> add(</xsl:text><xsl:value-of select="$column"/><xsl:text> sdo_geometry );&#13;</xsl:text>
-			<xsl:text>CREATE INDEX </xsl:text><xsl:value-of select="fn:substring(concat($table,'_',$column),1,25)"/><xsl:value-of select="$pos"/><xsl:text>_idx ON </xsl:text><xsl:value-of select="$table"/><xsl:text> (</xsl:text><xsl:value-of select="$column"/><xsl:text>) INDEXTYPE IS MDSYS.SPATIAL_INDEX PARAMETERS ( 'LAYER_GTYPE=</xsl:text><xsl:value-of select="$geom-types/geom[@rsgb=$type]/@db"/><xsl:text>');&#13;</xsl:text>			
+			<xsl:text>alter table </xsl:text><xsl:value-of select="$table"/><xsl:text> add(</xsl:text><xsl:value-of select="$column"/><xsl:text> sdo_geometry );
+</xsl:text>
+			<xsl:text>CREATE INDEX </xsl:text><xsl:value-of select="fn:substring(concat($table,'_',$column),1,25)"/><xsl:value-of select="$pos"/><xsl:text>_idx ON </xsl:text><xsl:value-of select="$table"/><xsl:text> (</xsl:text><xsl:value-of select="$column"/><xsl:text>) INDEXTYPE IS MDSYS.SPATIAL_INDEX PARAMETERS ( 'LAYER_GTYPE=</xsl:text><xsl:value-of select="$geom-types/geom[@rsgb=$type]/@db"/><xsl:text>');
+</xsl:text>
 		<!-- evt create index <table>_idx00 on table(column) indextype is mdsys.spatial_index; -->
-	</xsl:function>		
+	</xsl:function>
 </xsl:stylesheet>

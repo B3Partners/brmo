@@ -3,11 +3,15 @@
 	<xsl:output method="text" encoding="utf-8"/>
 	<xsl:variable name="geometryTypes" select="'polygon multipolygon linestring multilinestring point multipoint geometry'"/>
 	<xsl:template name="header">
-		<xsl:text>&#13;-- BRMO RSGB script voor </xsl:text>
+		<xsl:text>
+-- BRMO RSGB script voor </xsl:text>
 		<xsl:value-of select="$dbtype"/>
-		<xsl:text>&#13;-- Gegenereerd op </xsl:text>
+		<xsl:text>
+-- Gegenereerd op </xsl:text>
 		<xsl:value-of select="current-dateTime()"/>
-		<xsl:text>&#13;&#13;</xsl:text>
+		<xsl:text>
+
+</xsl:text>
 	</xsl:template>
 	<xsl:template match="schema">
 		<xsl:call-template name="header"/>
@@ -15,7 +19,10 @@
 			<xsl:with-param name="archief" select="false()"/>
 		</xsl:apply-templates>
 		<xsl:apply-templates select="table" mode="foreign-keys"/>
-		<xsl:text>&#13;-- Archief tabellen &#13;&#13;</xsl:text>
+		<xsl:text>
+-- Archief tabellen
+
+</xsl:text>
 		<xsl:apply-templates select="table">
 			<xsl:with-param name="archief" select="true()"/>
 		</xsl:apply-templates>
@@ -36,11 +43,13 @@
 			</xsl:variable>
 			<xsl:text>create table </xsl:text>
 			<xsl:value-of select="$table-name"/>
-			<xsl:text>(&#13;</xsl:text>
+			<xsl:text>(
+</xsl:text>
 			<xsl:for-each select="column[$archief or not(@superclass-archief='true')]">
 				<xsl:if test="not (fn:contains($geometryTypes,@type))">
 					<xsl:if test="position() > 1">
-						<xsl:text>,&#13;</xsl:text>
+						<xsl:text>,
+</xsl:text>
 					</xsl:if>
 					<xsl:text>&#9;</xsl:text>
 					<xsl:value-of select="@name"/>
@@ -51,7 +60,9 @@
 					</xsl:if>
 				</xsl:if>
 			</xsl:for-each>
-			<xsl:text>&#13;);&#13;</xsl:text>
+			<xsl:text>
+);
+</xsl:text>
 			<xsl:if test="column[@key='true' and ($archief or (not(@archief='true') and not(@superclass-archief='true')))]">
 				<xsl:text>alter table </xsl:text>
 				<xsl:value-of select="$table-name"/> add constraint <xsl:if test="$archief">ar_<xsl:value-of select="fn:substring(@name,1,24)"/>
@@ -59,19 +70,22 @@
 				<xsl:if test="not($archief)">
 					<xsl:value-of select="fn:substring(@name,1,27)"/>
 				</xsl:if>_pk <xsl:value-of select="$dbpkdef"/>(<xsl:value-of select="fn:string-join(column[@key='true' and ($archief or (not(@archief='true') and not(@superclass-archief='true')))]/@name,',')"/>
-				<xsl:text>);&#13;</xsl:text>
+				<xsl:text>);
+</xsl:text>
 			</xsl:if>
 			<xsl:for-each select="column[fn:contains($geometryTypes,@type)]">
 				<xsl:value-of select="db:addGeometryColumn($table-name, @name, @type, position())"/>
 			</xsl:for-each>
-			<xsl:text>&#13;</xsl:text>
+			<xsl:text>
+</xsl:text>
 			<xsl:if test="$addcomment='true'">
 				<xsl:if test="@desc">
 					<xsl:text>comment on table </xsl:text>
 					<xsl:value-of select="$table-name"/>
 					<xsl:text> is </xsl:text>
 					<xsl:value-of select="db:string-literal(@desc)"/>
-					<xsl:text>;&#13;</xsl:text>
+					<xsl:text>;
+</xsl:text>
 				</xsl:if>
 				<xsl:for-each select="column[(@desc or @fullname) and ($archief or (not(@archief='true') and not(@superclass-archief='true')))]">
 					<xsl:variable name="comment">
@@ -91,17 +105,21 @@
 					<xsl:value-of select="$table-name"/>.<xsl:value-of select="@name"/>
 					<xsl:text> is </xsl:text>
 					<xsl:value-of select="db:string-literal($comment)"/>
-					<xsl:text>;&#13;</xsl:text>
+					<xsl:text>;
+</xsl:text>
 				</xsl:for-each>
 			</xsl:if>
-			<xsl:text>&#13;</xsl:text>
+			<xsl:text>
+</xsl:text>
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="table" mode="foreign-keys">
 		<xsl:if test="foreign-key[not(@archief='true')]">
-			<xsl:text>&#13;-- Foreign keys voor tabel </xsl:text>
+			<xsl:text>
+-- Foreign keys voor tabel </xsl:text>
 			<xsl:value-of select="@name"/>
-			<xsl:text>&#13;</xsl:text>
+			<xsl:text>
+</xsl:text>
 			<xsl:for-each select="foreign-key[not(@archief='true')]">
 				<!--xsl:text>alter table </xsl:text><xsl:value-of select="../@name"/> drop constraint <xsl:value-of select="@name"/><xsl:text>;
 </xsl:text-->
@@ -114,7 +132,8 @@
 					<xsl:when test="$dbtype='sqlserver'"><xsl:text> no action</xsl:text></xsl:when>
 					<xsl:otherwise><xsl:text> cascade</xsl:text></xsl:otherwise>
 				</xsl:choose>
-				<xsl:text>;&#13;</xsl:text>
+				<xsl:text>;
+</xsl:text>
 			</xsl:for-each>
 		</xsl:if>
 	</xsl:template>
@@ -131,15 +150,21 @@
 				<xsl:with-param name="node-list" select="values/value"/>
 				<xsl:with-param name="escape" select="true()"/>
 			</xsl:call-template>
-			<xsl:text>);&#13;</xsl:text>
+			<xsl:text>);
+</xsl:text>
 		</xsl:for-each>
 	</xsl:template>
 	<xsl:template match="extra-scripts">
-		<xsl:text>&#13;-- Handmatige scripts&#13;&#13;</xsl:text>
+		<xsl:text>
+-- Handmatige scripts
+
+</xsl:text>
 		<xsl:for-each select="script">
 			<xsl:text>-- Script: </xsl:text>
 			<xsl:value-of select="."/>
-			<xsl:text>&#13;&#13;</xsl:text>
+			<xsl:text>
+
+</xsl:text>
 			<xsl:value-of select="unparsed-text(concat('extra_scripts/',$dbtype,'/',.))"/>
 		</xsl:for-each>
 	</xsl:template>
