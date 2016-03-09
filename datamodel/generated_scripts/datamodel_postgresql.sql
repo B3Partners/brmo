@@ -1,6 +1,6 @@
 
 -- BRMO RSGB script voor postgresql
--- Gegenereerd op 2016-03-09T16:47:48.354+01:00
+-- Gegenereerd op 2016-03-09T17:21:16.297+01:00
 
 create table sbi_activiteit(
 	omschr character varying(60),
@@ -19807,7 +19807,7 @@ alter table ingeschr_nat_prs drop constraint fk_inp_as_30;
 alter table ingeschr_nat_prs drop constraint fk_inp_va_as_3;
 alter table ingeschr_nat_prs drop constraint fk_inp_as_31;
 alter table ingeschr_nat_prs drop constraint fk_inp_va_as_6;
-alter table ingeschr_niet_nat_prs drop constraint fk_inn_as_7;
+alter table ingeschr_niet_nat_prs drop constraint fk_inn_as_8;
 alter table locaand_adres drop constraint fk_locaand_adres_sc_lh;
 alter table onbegr_terr_dl drop constraint fk_obt_as_8;
 alter table ondersteunend_wegdeel drop constraint fk_owd_as_6;
