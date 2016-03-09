@@ -1,4 +1,6 @@
 --DROP TABLE job;
+    create sequence JOB_JID_SEQ;
+    
 CREATE TABLE
     job
     (
