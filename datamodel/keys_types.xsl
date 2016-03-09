@@ -6,7 +6,6 @@
 		<entry class="ADRESSEERBAAR OBJECT AANDUIDING"><key>Identificatie adresseerbaar object aanduiding</key><key archief="true">Datum begin geldigheid addresserbaar object aanduiding</key></entry>
 		<entry class="ANDER BUITENLANDS NIET-NATUURLIJK PERSOON"><key>Nummer ander buitenlands niet-natuurlijk persoon</key></entry>
 		<entry class="ANDER NATUURLIJK PERSOON"><key>Nummer ander natuurlijk persoon</key></entry>
-		<entry class="INGESCHREVEN NIET-NATUURLIJK PERSOON"><key>RSIN</key></entry>
 		<entry class="BENOEMD OBJECT"><key>Benoemd object identificatie</key></entry>
 		<entry class="KADASTRALE GEMEENTE"><key>Kadastrale gemeentecode</key></entry>
 		<entry class="KADASTRALE ONROERENDE ZAAK AANTEKENING"><key>Kadaster identificatie aantekening</key><key archief="true">Begindatum aantekening kadastraal object</key></entry>

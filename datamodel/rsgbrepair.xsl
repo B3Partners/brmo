@@ -30,12 +30,6 @@
 			<xsl:text>repair.xsl: Overig  terrein identificatie  -  verwijderd omdat pk van tabel wordt gebruikt hiervoor</xsl:text>
 		</xsl:comment>
 	</xsl:template>
-	<!--Property elementType="Objecttype - Property" id="EAID_45A244CC_A0BA_4c4c_A474_DB973C94AF3D" name="RSIN"-->
-	<xsl:template match="*[@elementType='Objecttype - Property' and @id='EAID_45A244CC_A0BA_4c4c_A474_DB973C94AF3D']">
-		<xsl:comment>
-			<xsl:text>repair.xsl: RSIN  -  verwijderd omdat pk van tabel wordt gebruikt hiervoor</xsl:text>
-		</xsl:comment>
-	</xsl:template>
 	<!--Property elementType="Objecttype - Property" id="EAID_4DF562B2_713D_4fdd_A381_D2523F72C99B" name="Nummer ander buitenlands niet-natuurlijk persoon" -->
 	<xsl:template match="*[@elementType='Objecttype - Property' and @id='EAID_4DF562B2_713D_4fdd_A381_D2523F72C99B']">
 		<xsl:comment>

@@ -21150,7 +21150,17 @@
                    typeName="AN50"
                    visibility=""
                    association=""/>
-         <!--repair.xsl: RSIN  -  verwijderd omdat pk van tabel wordt gebruikt hiervoor-->
+         <Property elementType="Objecttype - Property"
+                   id="EAID_45A244CC_A0BA_4c4c_A474_DB973C94AF3D"
+                   name="RSIN"
+                   lowerValueType="uml:LiteralInteger"
+                   lowerValueValue="1"
+                   upperValueType="uml:LiteralUnlimitedNatural"
+                   upperValueValue="1"
+                   type="EAJava_N9"
+                   typeName="N9"
+                   visibility=""
+                   association=""/>
          <Property elementType="Objecttype - Property"
                    id="EAID_96B84C98_C9B1_44c4_B256_9E046413EED5"
                    name="Statutaire zetel"

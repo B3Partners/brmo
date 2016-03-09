@@ -1,6 +1,6 @@
 
 -- BRMO RSGB script voor oracle
--- Gegenereerd op 2016-03-09T16:25:59.698+01:00
+-- Gegenereerd op 2016-03-09T16:47:49.72+01:00
 
 create table sbi_activiteit(
 	omschr varchar2(60),
@@ -437,8 +437,9 @@ create table ingeschr_niet_nat_prs(
 	publiekrechtelijke_rechtsvorm varchar2(40),
 	rechtstoestand varchar2(30),
 	rechtsvorm varchar2(50),
+	rsin decimal(9,0),
 	statutaire_zetel varchar2(40),
-	fk_7aoa_identif varchar2(16)
+	fk_8aoa_identif varchar2(16)
 );
 alter table ingeschr_niet_nat_prs add constraint ingeschr_niet_nat_prs_pk primary key(sc_identif);
 
@@ -449,8 +450,9 @@ comment on column ingeschr_niet_nat_prs.ovrg_privaatr_rechtsvorm is 'AN200 - Ove
 comment on column ingeschr_niet_nat_prs.publiekrechtelijke_rechtsvorm is 'AN40 - Publiekrechtelijke rechtsvorm';
 comment on column ingeschr_niet_nat_prs.rechtstoestand is 'AN30 - Rechtstoestand';
 comment on column ingeschr_niet_nat_prs.rechtsvorm is 'AN50 - Rechtsvorm';
+comment on column ingeschr_niet_nat_prs.rsin is 'N9 - RSIN';
 comment on column ingeschr_niet_nat_prs.statutaire_zetel is 'AN40 - Statutaire zetel';
-comment on column ingeschr_niet_nat_prs.fk_7aoa_identif is '[FK] AN16, FK naar addresseerb_obj_aand.identif: "heeft als bezoekadres"';
+comment on column ingeschr_niet_nat_prs.fk_8aoa_identif is '[FK] AN16, FK naar addresseerb_obj_aand.identif: "heeft als bezoekadres"';
 
 create table ingeschr_nat_prs(
 	sc_identif varchar2(32) not null,
@@ -2044,7 +2046,7 @@ alter table huishouden add constraint fk_hhd_as_7 foreign key (fk_7spl_sc_identi
 
 -- Foreign keys voor tabel ingeschr_niet_nat_prs
 alter table ingeschr_niet_nat_prs add constraint fk_inn_sc foreign key (sc_identif) references niet_nat_prs (sc_identif) on delete cascade;
-alter table ingeschr_niet_nat_prs add constraint fk_inn_as_7 foreign key (fk_7aoa_identif) references addresseerb_obj_aand (identif) on delete cascade;
+alter table ingeschr_niet_nat_prs add constraint fk_inn_as_8 foreign key (fk_8aoa_identif) references addresseerb_obj_aand (identif) on delete cascade;
 
 -- Foreign keys voor tabel ingeschr_nat_prs
 alter table ingeschr_nat_prs add constraint fk_inp_sc foreign key (sc_identif) references nat_prs (sc_identif) on delete cascade;

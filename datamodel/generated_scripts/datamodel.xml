@@ -1854,16 +1854,17 @@
               fullname="Rechtsvorm"
               type="varchar(50)"
               desc="AN50"/>
+      <column name="rsin" fullname="RSIN" type="decimal(9,0)" desc="N9"/>
       <column name="statutaire_zetel"
               fullname="Statutaire zetel"
               type="varchar(40)"
               desc="AN40"/>
       <!-- Association properties 1 - * -->
-      <column name="fk_7aoa_identif"
+      <column name="fk_8aoa_identif"
               type="varchar(16)"
               desc="[FK] AN16, FK naar addresseerb_obj_aand.identif: &#34;heeft als bezoekadres&#34;"/>
-      <foreign-key name="fk_inn_as_7"
-                   columns="fk_7aoa_identif"
+      <foreign-key name="fk_inn_as_8"
+                   columns="fk_8aoa_identif"
                    ref-table="addresseerb_obj_aand"
                    ref-columns="identif"/>
       <!-- Association properties * - 1 -->

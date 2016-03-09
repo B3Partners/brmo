@@ -147,6 +147,7 @@
                 column="publiekrechtelijke_rechtsvorm"/>
       <property name="Rechtstoestand" column="rechtstoestand"/>
       <property name="Rechtsvorm" column="rechtsvorm"/>
+      <property name="RSIN" column="rsin"/>
       <property name="Statutaire zetel" column="statutaire_zetel"/>
       <property name="bezoekadres" column="bezoekadres"/>
    </class>
