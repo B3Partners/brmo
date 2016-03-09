@@ -1,6 +1,6 @@
 
 -- BRMO RSGB script voor sqlserver
--- Gegenereerd op 2016-03-03T11:07:02.348+01:00
+-- Gegenereerd op 2016-03-09T16:26:05.347+01:00
 
 create table sbi_activiteit(
 	omschr varchar(60),
@@ -1447,7 +1447,7 @@ alter table verblijfsobj_nummeraand add constraint fk_vbo_nra_nn_rh foreign key 
 alter table vestg_benoemd_obj add constraint fk_ves_tgo_nn_lh foreign key (fk_nn_lh_ves_sc_identif) references vestg (sc_identif) on delete no action;
 alter table vestg_benoemd_obj add constraint fk_ves_tgo_nn_rh foreign key (fk_nn_rh_tgo_identif) references benoemd_obj (identif) on delete no action;
 
--- Archief tabellen 
+-- Archief tabellen
 
 create table addresseerb_obj_aand_archief(
 	dat_beg_geldh varchar(19) not null,
@@ -2247,6 +2247,8 @@ create table herkomst_metadata (
 	primary key clustered(tabel, kolom, waarde, herkomst_br, datum)
 );
 -- Script: 102_metagegevens_brondocument.sql
+
+
 -- Een brondocument wordt niet in de originele tabel opgenomen omdat dit een
 -- 0..n relatie kan zijn en niet altijd een 0..1. 
 
@@ -3082,6 +3084,8 @@ CREATE VIEW
         FROM
             v_adres_standplaats
     );-- Script: 107_brk_views.sql
+
+
 create view v_map_kad_perceel as
 select
     p.sc_kad_identif,
@@ -18674,6 +18678,8 @@ INSERT INTO wijk (code, naam) VALUES ('198702', 'Wijk 02');
 INSERT INTO wijk (code, naam) VALUES ('198703', 'Wijk 03');
 INSERT INTO wijk (code, naam) VALUES ('999999', '');
 -- Script: 114_drop_constraints.sql
+
+
 --snijdt alle banden tussen BAG en ander BR's door
 --zodat BAG verwijderd en weer opnieuw geladen kan worden
 alter table addresseerb_obj_aand drop constraint fk_aoa_as_6;
