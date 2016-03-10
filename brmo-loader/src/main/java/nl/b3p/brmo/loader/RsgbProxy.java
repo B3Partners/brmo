@@ -696,7 +696,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                             loadLog.append("\nUpdate einddatum in vorige versie object");
                             TableRow oldRow = getMatchingRowFromTableData(row, pkColumns, oldList);
                             String newBeginDate = getValueFromTableRow(row, row.getColumnDatumBeginGeldigheid());
-                            updateValueInTableRow(oldRow, oldRow.getColumnDatumEindeGeldigheid(), newBeginDate);
+                            updateValueInTableRow(oldRow, row.getColumnDatumEindeGeldigheid(), newBeginDate);
 
                             // write old to archive table
                             loadLog.append("\nSchrijf vorige versie naar archief tabel");
