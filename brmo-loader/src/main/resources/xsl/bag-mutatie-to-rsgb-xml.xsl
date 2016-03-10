@@ -37,7 +37,7 @@
 </bag:Pand> -->
 	<xsl:template match="bag:Pand">
 		<xsl:if test="bag:aanduidingRecordInactief = 'N'">
-			<pand>
+			<pand column-dat-beg-geldh="dat_beg_geldh" column-datum-einde-geldh="datum_einde_geldh">
 				<identif>
 					<xsl:value-of select="bag:identificatie"/>
 				</identif>
@@ -142,12 +142,10 @@
 					</xsl:for-each>
 				</datum_einde_geldh>
 			</benoemd_terrein>
-			<standplaats  column-dat-beg-geldh="sc_dat_beg_geldh">
-			
+			<standplaats column-dat-beg-geldh="sc_dat_beg_geldh">
 				<sc_dat_beg_geldh alleen-archief="true">
 					<xsl:value-of select="$begindate"/>
 				</sc_dat_beg_geldh>
-				
 				<sc_identif>
 					<xsl:value-of select="bag:identificatie"/>
 				</sc_identif>
@@ -248,11 +246,9 @@
 				</datum_einde_geldh>
 			</benoemd_terrein>
 			<ligplaats column-dat-beg-geldh="sc_dat_beg_geldh">
-			
 				<sc_dat_beg_geldh alleen-archief="true">
 					<xsl:value-of select="$begindate"/>
 				</sc_dat_beg_geldh>
-				
 				<sc_identif>
 					<xsl:value-of select="bag:identificatie"/>
 				</sc_identif>
@@ -366,11 +362,9 @@
 				</fk_7opr_identifcode>
 			</addresseerb_obj_aand>
 			<nummeraand column-dat-beg-geldh="sc_dat_beg_geldh">
-			
 				<sc_dat_beg_geldh alleen-archief="true">
 					<xsl:value-of select="$begindate"/>
 				</sc_dat_beg_geldh>
-				
 				<sc_identif>
 					<xsl:value-of select="bag:identificatie"/>
 				</sc_identif>
@@ -424,7 +418,7 @@
 -->
 	<xsl:template match="bag:Woonplaats">
 		<xsl:if test="bag:aanduidingRecordInactief = 'N'">
-			<wnplts>
+			<wnplts column-dat-beg-geldh="dat_beg_geldh" column-datum-einde-geldh="datum_einde_geldh">
 				<dat_beg_geldh>
 					<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:begindatumTijdvakGeldigheid">
 						<xsl:call-template name="date-numeric"/>
@@ -534,11 +528,9 @@
 				</puntgeom>
 			</gebouwd_obj>
 			<verblijfsobj column-dat-beg-geldh="sc_dat_beg_geldh">
-			
 				<sc_dat_beg_geldh alleen-archief="true">
 					<xsl:value-of select="$begindate"/>
 				</sc_dat_beg_geldh>
-				
 				<sc_identif>
 					<xsl:value-of select="bag:identificatie"/>
 				</sc_identif>
@@ -635,7 +627,7 @@
 -->
 	<xsl:template match="bag:OpenbareRuimte">
 		<xsl:if test="bag:aanduidingRecordInactief = 'N'">
-			<gem_openb_rmte>
+			<gem_openb_rmte column-dat-beg-geldh="dat_beg_geldh" column-datum-einde-geldh="datum_einde_geldh">
 				<dat_beg_geldh>
 					<xsl:for-each select="bag:tijdvakgeldigheid/bagtype:begindatumTijdvakGeldigheid">
 						<xsl:call-template name="date-numeric"/>
