@@ -701,13 +701,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                             // write old to archive table
                             loadLog.append("\nSchrijf vorige versie naar archief tabel");
                             oldRow.setIgnoreDuplicates(true);
-                            // XXX workaround voor oud ingeladen stand zonder alleen-archief kolom
-                            if (oldRow.getTable().equals("kad_perceel")) {
-                                if (!oldRow.getColumns().contains("sc_dat_beg_geldh")) {
-                                    oldRow.getColumns().add("sc_dat_beg_geldh");
-                                    oldRow.getValues().add(oldDate);
-                                }
-                            }
+                            
                             split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.archive").start();
                             createInsertSql(oldRow, true, loadLog);
                             split2.stop();
@@ -805,13 +799,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
                 updateValueInTableRow(rowToDelete, rowToDelete.getColumnDatumEindeGeldigheid(), newDate);
 
-                if (rowToDelete.getTable().equals("kad_perceel")) {
-                    if (!rowToDelete.getColumns().contains("sc_dat_beg_geldh")) {
-                        rowToDelete.getColumns().add("sc_dat_beg_geldh");
-                        rowToDelete.getValues().add(oldDate);
-                    }
-                }
-
                 split = SimonManager.getStopwatch(simonNamePrefix + "parseolddata.archive").start();
                 rowToDelete.setIgnoreDuplicates(true);
                 createInsertSql(rowToDelete, true, loadLog);
@@ -834,6 +821,12 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     }
 
     private void updateValueInTableRow(TableRow row, String column, String newValue) {
+        //TODO, mag later weer weg
+        repairOldRowIfRequired(row, newValue);
+        
+        if (column == null) {
+            return;
+        }
         int i = 0;
         for (String c : row.getColumns()) {
             if (c.equalsIgnoreCase(column)) {
@@ -842,6 +835,22 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
             i++;
         }
+     }
+    
+    private void repairOldRowIfRequired(TableRow row, String guessDate) {
+
+        if (row.getTable().equals("kad_perceel")
+                || row.getTable().equals("app_re")
+                || row.getTable().equals("nummeraand")
+                || row.getTable().equals("ligplaats")
+                || row.getTable().equals("standplaats")
+                || row.getTable().equals("verblijfsobj")) {
+            if (!row.getColumns().contains("sc_dat_beg_geldh")) {
+                row.getColumns().add("sc_dat_beg_geldh");
+                row.getValues().add(guessDate);
+            }
+        }
+
     }
 
     private TableRow getMatchingRowFromTableData(TableRow row, List<String> pkColumns, List<TableData> testList) {
