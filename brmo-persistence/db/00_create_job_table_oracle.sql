@@ -1,6 +1,5 @@
 --DROP TABLE job;
-    create sequence JOB_JID_SEQ;
-    
+
 CREATE TABLE
     job
     (
@@ -13,4 +12,6 @@ CREATE TABLE
         volgordenummer number(10,0),
         primary key (jid)
     );
+	
+create sequence JOB_JID_SEQ;
 

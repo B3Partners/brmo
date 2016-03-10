@@ -22,6 +22,7 @@ import nl.b3p.brmo.loader.entity.BerichtenSorter;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
+import nl.b3p.brmo.loader.jdbc.MssqlJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.OracleJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.PostgisJdbcConverter;
 import nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork;
@@ -202,11 +203,27 @@ public class StagingProxy {
     }
     
     public boolean cleanJob() throws SQLException {
-        int count = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
-                "delete from " + BrmoFramework.JOB_TABLE + " j where j.id in (select b.id from "
-                + BrmoFramework.BERICHT_TABLE + " b "
-                + " where b.id = j.id and status<>?)", Bericht.STATUS.STAGING_OK.toString());
-        if (count>0) {
+        int count = 0;
+        if (geomToJdbc instanceof OracleJdbcConverter) {
+            count = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
+                    "delete from " + BrmoFramework.JOB_TABLE + " j where j.id in (select b.id from "
+                    + BrmoFramework.BERICHT_TABLE + " b "
+                    // vanwege rare fout in oracle bij ophalen tabel metadata werkt dit niet
+                    // https://issues.apache.org/jira/browse/DBUTILS-125
+                    + " where b.id = j.id and status != 'STAGING_OK')");
+
+        } else if (geomToJdbc instanceof MssqlJdbcConverter) {
+            count = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
+                    "delete j from dbo." + BrmoFramework.JOB_TABLE + " j where j.id in (select b.id from dbo."
+                    + BrmoFramework.BERICHT_TABLE + " b "
+                    + " where b.id = j.id and status != ?)", Bericht.STATUS.STAGING_OK.toString());
+        } else {
+            count = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
+                    "delete from " + BrmoFramework.JOB_TABLE + " j where j.id in (select b.id from "
+                    + BrmoFramework.BERICHT_TABLE + " b "
+                    + " where b.id = j.id and status != ?)", Bericht.STATUS.STAGING_OK.toString());
+        }
+        if (count > 0) {
             return true;
         }
         return false;
