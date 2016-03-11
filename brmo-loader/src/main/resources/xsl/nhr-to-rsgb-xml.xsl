@@ -63,16 +63,22 @@
 			hoofdSbiActiviteit
 			nevenSbiActiviteit
 			incidenteelUitlenenArbeidskrachten
-			bezoekLocatie
-			postLocatie
-			communicatiegegevens
-			naam
-			wordtUitgeoefendIn
-			wordtGeleidVanuit
 			-->
 		</maatschapp_activiteit>
+
+		<!-- TODO: wordtUitgeoefendIn nietCommercieleVestiging -->
+
+		<xsl:variable name="key">NHR.MaatschappelijkeActiviteit.<xsl:value-of select="cat:kvkNummer"/></xsl:variable>
+		<subject>
+			<identif><xsl:value-of select="$key"/></identif>
+			<clazz>INGESCHREVEN NIET-NATUURLIJK PERSOON</clazz>
+			<typering>INGESCHREVEN NIET-NATUURLIJK PERSOON</typering>
+			<naam><xsl:value-of select="cat:naam"/></naam>
+
+			<xsl:call-template name="subject"/>
+		</subject>
+
 	</xsl:template>
-	
 
 	<xsl:template match="cat:maatschappelijkeActiviteit" mode="rsgb3.0">
 		<maatschapp_activiteit column-dat-beg-geldh="datum_aanvang" column-datum-einde-geldh="datum_einde_geldig">
@@ -81,7 +87,6 @@
 		
 			<indicatie_economisch_actief><xsl:value-of select="boolean(cat:manifesteertZichAls/cat:onderneming/cat:kvkNummer)"/></indicatie_economisch_actief>
 		</maatschapp_activiteit>
-		
 	</xsl:template>
 		
 	<xsl:template match="cat:onderneming" mode="rsgb2.2">
@@ -125,34 +130,9 @@
 			<identif><xsl:value-of select="$key"/></identif>
 			<clazz>VESTIGING</clazz>
 			<typering>VESTIGING</typering>
-
-			<!-- Lengte mismatch: NHR 500, RSGB 257 -->
-			<adres_binnenland><xsl:value-of select="cat:bezoekLocatie[cat:binnenlandsAdres]/cat:volledigAdres"/></adres_binnenland>
-			<!-- Lengte mismatch: NHR 500, RSGB 149 (???) -->
-			<adres_buitenland><xsl:value-of select="cat:bezoekLocatie[cat:buitenlandsAdres]/cat:volledigAdres"/></adres_buitenland>
-
-			<xsl:for-each select="cat:postLocatie/cat:binnenlandsAdres[cat:postbusnummer]">
-				<pa_postadres_postcode><xsl:value-of select="cat:postcode/cat:cijfercombinatie"/><xsl:value-of select="cat:postcode/cat:lettercombinatie"/></pa_postadres_postcode>
-				<pa_postadrestype>postbus</pa_postadrestype>
-				<pa_postbus__of_antwoordnummer><xsl:value-of select="cat:postbusnummer"/></pa_postbus__of_antwoordnummer>
-			</xsl:for-each>
-
-			<fk_15aoa_identif><xsl:value-of select="cat:postLocatie/cat:binnenlandsAdres/cat:bagId/cat:identificatieAdresseerbaarObject"/></fk_15aoa_identif>
-
 			<naam><xsl:value-of select="$naam"/></naam>
 
-			<emailadres><xsl:value-of select="cat:communicatiegegevens/cat:emailAdres[position()=1]"/></emailadres>
-			<xsl:for-each select="cat:communicatiegegevens/cat:communicatienummer[cat:soort = 'Fax']/cat:nummer">
-				<xsl:if test="position() = 1">
-					<fax_nummer><xsl:value-of select="."/></fax_nummer>
-				</xsl:if>
-			</xsl:for-each>
-			<xsl:for-each select="cat:communicatiegegevens/cat:communicatienummer[cat:soort = 'Telefoon']/cat:nummer">
-				<xsl:if test="position() = 1">
-					<telefoonnummer><xsl:value-of select="."/></telefoonnummer>
-				</xsl:if>
-			</xsl:for-each>
-			<website_url><xsl:value-of select="cat:communicatiegegevens/cat:domeinNaam[position()=1]"/></website_url>
+			<xsl:call-template name="subject"/>
 		</subject>
 		<vestg>
 			<sc_identif><xsl:value-of select="$key"/></sc_identif>
@@ -226,7 +206,6 @@
 					<indicatie_hoofdactiviteit><xsl:value-of select="boolean(local-name() = 'hoofdSbiActiviteit')"/></indicatie_hoofdactiviteit>
 				</vestg_activiteit>
 			</xsl:for-each>
-
 		</vestg>
 		<xsl:for-each select="cat:handeltOnder/cat:handelsnaam/cat:naam">
 			<xsl:if test="position() = 1">
@@ -241,5 +220,34 @@
 			</vestg_naam>
 		</xsl:for-each>
 		
+	</xsl:template>
+
+	<!-- Werkt voor maatschappelijkeActiviteit en vestiging -->
+	<xsl:template name="subject">
+		<!-- Lengte mismatch: NHR 500, RSGB 257 -->
+		<adres_binnenland><xsl:value-of select="cat:bezoekLocatie[cat:binnenlandsAdres]/cat:volledigAdres"/></adres_binnenland>
+		<!-- Lengte mismatch: NHR 500, RSGB 149 (???) -->
+		<adres_buitenland><xsl:value-of select="cat:bezoekLocatie[cat:buitenlandsAdres]/cat:volledigAdres"/></adres_buitenland>
+
+		<xsl:for-each select="cat:postLocatie/cat:binnenlandsAdres[cat:postbusnummer]">
+			<pa_postadres_postcode><xsl:value-of select="cat:postcode/cat:cijfercombinatie"/><xsl:value-of select="cat:postcode/cat:lettercombinatie"/></pa_postadres_postcode>
+			<pa_postadrestype>postbus</pa_postadrestype>
+			<pa_postbus__of_antwoordnummer><xsl:value-of select="cat:postbusnummer"/></pa_postbus__of_antwoordnummer>
+		</xsl:for-each>
+
+		<fk_15aoa_identif><xsl:value-of select="cat:postLocatie/cat:binnenlandsAdres/cat:bagId/cat:identificatieAdresseerbaarObject"/></fk_15aoa_identif>
+
+		<emailadres><xsl:value-of select="cat:communicatiegegevens/cat:emailAdres[position()=1]"/></emailadres>
+		<xsl:for-each select="cat:communicatiegegevens/cat:communicatienummer[cat:soort = 'Fax']/cat:nummer">
+			<xsl:if test="position() = 1">
+				<fax_nummer><xsl:value-of select="."/></fax_nummer>
+			</xsl:if>
+		</xsl:for-each>
+		<xsl:for-each select="cat:communicatiegegevens/cat:communicatienummer[cat:soort = 'Telefoon']/cat:nummer">
+			<xsl:if test="position() = 1">
+				<telefoonnummer><xsl:value-of select="."/></telefoonnummer>
+			</xsl:if>
+		</xsl:for-each>
+		<website_url><xsl:value-of select="cat:communicatiegegevens/cat:domeinNaam[position()=1]"/></website_url>
 	</xsl:template>
 </xsl:stylesheet>
