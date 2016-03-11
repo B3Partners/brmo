@@ -153,7 +153,6 @@
 				</xsl:choose>
 			</typering>
 			<datum_voortzetting><xsl:value-of select="cat:datumVoortzetting"/></datum_voortzetting>
-			<activiteit_omschr><xsl:value-of select="cat:activiteiten/cat:omschrijving"/></activiteit_omschr>
 			<verkorte_naam>
 				<xsl:choose>
 					<xsl:when test="cat:eersteHandelsnaam">
@@ -175,9 +174,32 @@
 			</xsl:choose>
 			
 			<toevoeging_adres><xsl:value-of select="cat:bezoekLocatie/cat:toevoegingAdres"/></toevoeging_adres>
+
+			<activiteit_omschr><xsl:value-of select="cat:activiteiten/cat:omschrijving"/></activiteit_omschr>
+			<xsl:comment> Gaat uit van fixed issue #139, #140</xsl:comment>
+			<xsl:for-each select="cat:activiteiten/cat:hoofdSbiActiviteit | cat:activiteiten/cat:sbiActiviteit">
+				<xsl:if test="position() = 1">
+					<vestg_activiteit delete-rows="true">
+						<fk_vestg_nummer><xsl:value-of select="$key"/></fk_vestg_nummer>
+					</vestg_activiteit>
+				</xsl:if>
+				<comfort>
+					<sbi_activiteit>
+						<sbi_code><xsl:value-of select="cat:sbiCode"/></sbi_code>
+						<omschr><xsl:value-of select="cat:omschrijving"/></omschr>
+					</sbi_activiteit>
+				</comfort>
+				<vestg_activiteit>
+					<fk_vestg_nummer><xsl:value-of select="$key"/></fk_vestg_nummer>
+					<fk_sbi_activiteit_code><xsl:value-of select="cat:sbiCode"/></fk_sbi_activiteit_code>
+					<indicatie_hoofdactiviteit><xsl:value-of select="boolean(local-name() = 'hoofdSbiActiviteit')"/></indicatie_hoofdactiviteit>
+				</vestg_activiteit>
+			</xsl:for-each>
+
 		</vestg>
 		<xsl:for-each select="cat:handeltOnder/cat:handelsnaam/cat:naam">
 			<xsl:if test="position() = 1">
+				<xsl:comment> Gaat uit van fixed issue #139</xsl:comment>
 				<vestg_naam delete-rows="true">
 					<fk_ves_sc_identif><xsl:value-of select="$key"/></fk_ves_sc_identif>
 				</vestg_naam>
