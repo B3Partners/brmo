@@ -66,14 +66,41 @@
 		<!-- TODO: wordtUitgeoefendIn nietCommercieleVestiging -->
 
 		<xsl:variable name="key">NHR.MaatschappelijkeActiviteit.<xsl:value-of select="cat:kvkNummer"/></xsl:variable>
+		<xsl:variable name="class">INGESCHREVEN NIET-NATUURLIJK PERSOON</xsl:variable>
 		<subject>
 			<identif><xsl:value-of select="$key"/></identif>
-			<clazz>INGESCHREVEN NIET-NATUURLIJK PERSOON</clazz>
-			<typering>INGESCHREVEN NIET-NATUURLIJK PERSOON</typering>
+			<clazz><xsl:value-of select="$class"/></clazz>
+			<typering><xsl:value-of select="$class"/></typering>
 			<naam><xsl:value-of select="cat:naam"/></naam>
 
 			<xsl:call-template name="subject"/>
 		</subject>
+		<prs>
+			<sc_identif><xsl:value-of select="$key"/></sc_identif>
+			<clazz><xsl:value-of select="$class"/></clazz>
+		</prs>
+		<niet_nat_prs>
+			<sc_identif><xsl:value-of select="$key"/></sc_identif>
+			<clazz><xsl:value-of select="$class"/></clazz>
+			<naam><xsl:value-of select="cat:naam"/></naam>
+			<verkorte_naam><xsl:value-of select="cat:naam"/></verkorte_naam>
+			<xsl:call-template name="registratie-datum">
+				<xsl:with-param name="einde" select="'datum_beeindiging'"/>
+			</xsl:call-template>
+		</niet_nat_prs>
+		<ingeschr_niet_nat_prs>
+			<sc_identif><xsl:value-of select="$key"/></sc_identif>
+			<typering><xsl:value-of select="$class"/></typering>
+
+			<fk_7aoa_identif><xsl:value-of select="cat:bezoekLocatie//cat:bagId//cat:identificatieAdresseerbaarObject"/></fk_7aoa_identif>
+			<xsl:for-each select="cat:heeftAlsEigenaar/*">
+				<rsin><xsl:value-of select="cat:rsin"/></rsin>
+				<rechtsvorm><xsl:value-of select="cat:persoonRechtsvorm"/></rechtsvorm>
+				<statutaire_zetel><xsl:value-of select="cat:statutaireZetel"/></statutaire_zetel>
+
+				<!-- TODO: rechtstoestand -->
+			</xsl:for-each>
+		</ingeschr_niet_nat_prs>
 
 		<xsl:comment>Hoofdvestiging (maatschappelijkeActiviteit wordtGeleidVanuit)</xsl:comment>
 		<xsl:apply-templates select="cat:wordtGeleidVanuit"/>
