@@ -109,10 +109,42 @@
 	
 	<xsl:template match="cat:nietCommercieleVestiging[cat:vestigingsnummer] | cat:commercieleVestiging[cat:vestigingsnummer]">
 		<xsl:variable name="key">NHR.Vestiging.<xsl:value-of select="cat:vestigingsnummer"/></xsl:variable>
+
+		<xsl:variable name="naam">
+			<xsl:choose>
+				<xsl:when test="cat:eersteHandelsnaam">
+					<xsl:value-of select="substring(cat:eersteHandelsnaam,1,45)"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="substring(cat:handeltOnder[position()=1]/cat:handelsnaam/cat:naam,1,45)"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+
 		<subject>
 			<identif><xsl:value-of select="$key"/></identif>
 			<clazz>VESTIGING</clazz>
 			<typering>VESTIGING</typering>
+
+			<!-- Lengte mismatch: NHR 500, RSGB 257 -->
+			<adres_binnenland><xsl:value-of select="cat:bezoekLocatie[cat:binnenlandsAdres]/cat:volledigAdres"/></adres_binnenland>
+			<!-- Lengte mismatch: NHR 500, RSGB 149 (???) -->
+			<adres_buitenland><xsl:value-of select="cat:bezoekLocatie[cat:buitenlandsAdres]/cat:volledigAdres"/></adres_buitenland>
+
+			<naam><xsl:value-of select="$naam"/></naam>
+
+			<emailadres><xsl:value-of select="cat:communicatiegegevens/cat:emailAdres[position()=1]"/></emailadres>
+			<xsl:for-each select="cat:communicatiegegevens/cat:communicatienummer[cat:soort = 'Fax']/cat:nummer">
+				<xsl:if test="position() = 1">
+					<fax_nummer><xsl:value-of select="."/></fax_nummer>
+				</xsl:if>
+			</xsl:for-each>
+			<xsl:for-each select="cat:communicatiegegevens/cat:communicatienummer[cat:soort = 'Telefoon']/cat:nummer">
+				<xsl:if test="position() = 1">
+					<telefoonnummer><xsl:value-of select="."/></telefoonnummer>
+				</xsl:if>
+			</xsl:for-each>
+			<website_url><xsl:value-of select="cat:communicatiegegevens/cat:domeinNaam[position()=1]"/></website_url>
 		</subject>
 		<vestg>
 			<sc_identif><xsl:value-of select="$key"/></sc_identif>
@@ -153,16 +185,7 @@
 				</xsl:choose>
 			</typering>
 			<datum_voortzetting><xsl:value-of select="cat:datumVoortzetting"/></datum_voortzetting>
-			<verkorte_naam>
-				<xsl:choose>
-					<xsl:when test="cat:eersteHandelsnaam">
-						<xsl:value-of select="substring(cat:eersteHandelsnaam,1,45)"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="substring(cat:handeltOnder[position()=1]/cat:handelsnaam/cat:naam,1,45)"/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</verkorte_naam>
+			<verkorte_naam><xsl:value-of select="$naam"/></verkorte_naam>
 			<xsl:choose>
 				<xsl:when test="cat:fulltimeWerkzamePersonen and cat:parttimeWerkzamePersonen">
 					<fulltime_werkzame_mannen><xsl:value-of select="cat:fulltimeWerkzamePersonen"/></fulltime_werkzame_mannen>
