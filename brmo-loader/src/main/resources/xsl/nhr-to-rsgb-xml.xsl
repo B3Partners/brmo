@@ -42,9 +42,6 @@
 		<xsl:comment>Maatschappelijke activiteit manifesteert zich als onderneming, met niet-hoofdvestigingen</xsl:comment>
 		<xsl:apply-templates select="cat:manifesteertZichAls/cat:onderneming" mode="rsgb2.2"/>
 	
-		<xsl:comment>Hoofdvestiging (maatschappelijkeActiviteit wordtGeleidVanuit)</xsl:comment>
-		<xsl:apply-templates select="cat:wordtGeleidVanuit"/>
-		
 		<maatschapp_activiteit column-dat-beg-geldh="datum_aanvang" column-datum-einde-geldh="datum_einde_geldig">
 			<kvk_nummer><xsl:value-of select="cat:kvkNummer"/></kvk_nummer>
 			<xsl:call-template name="registratie-datum"/>
@@ -78,6 +75,8 @@
 			<xsl:call-template name="subject"/>
 		</subject>
 
+		<xsl:comment>Hoofdvestiging (maatschappelijkeActiviteit wordtGeleidVanuit)</xsl:comment>
+		<xsl:apply-templates select="cat:wordtGeleidVanuit"/>
 	</xsl:template>
 
 	<xsl:template match="cat:maatschappelijkeActiviteit" mode="rsgb3.0">
