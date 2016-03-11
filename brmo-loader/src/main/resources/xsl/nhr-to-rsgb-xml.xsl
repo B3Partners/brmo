@@ -93,6 +93,9 @@
 			<typering><xsl:value-of select="$class"/></typering>
 
 			<fk_7aoa_identif><xsl:value-of select="cat:bezoekLocatie//cat:bagId//cat:identificatieAdresseerbaarObject"/></fk_7aoa_identif>
+
+			<!-- Is dit correct, of moeten deze velden leeg geladen worden en heeftAlsEigenaar als apart object worden
+				vastgelegd en heeftAlsEignaar relatie via andere koppeling worden vastgelegd? -->
 			<xsl:for-each select="cat:heeftAlsEigenaar/*">
 				<rsin><xsl:value-of select="cat:rsin"/></rsin>
 				<rechtsvorm><xsl:value-of select="cat:persoonRechtsvorm"/></rechtsvorm>
@@ -100,6 +103,8 @@
 
 				<!-- TODO: rechtstoestand -->
 			</xsl:for-each>
+
+			<!-- TODO heeftAlsEigenaar/rechtspersoon/heeft -->
 		</ingeschr_niet_nat_prs>
 
 		<xsl:comment>Hoofdvestiging (maatschappelijkeActiviteit wordtGeleidVanuit)</xsl:comment>
