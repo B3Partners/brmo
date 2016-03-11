@@ -131,6 +131,14 @@
 			<!-- Lengte mismatch: NHR 500, RSGB 149 (???) -->
 			<adres_buitenland><xsl:value-of select="cat:bezoekLocatie[cat:buitenlandsAdres]/cat:volledigAdres"/></adres_buitenland>
 
+			<xsl:for-each select="cat:postLocatie/cat:binnenlandsAdres[cat:postbusnummer]">
+				<pa_postadres_postcode><xsl:value-of select="cat:postcode/cat:cijfercombinatie"/><xsl:value-of select="cat:postcode/cat:lettercombinatie"/></pa_postadres_postcode>
+				<pa_postadrestype>postbus</pa_postadrestype>
+				<pa_postbus__of_antwoordnummer><xsl:value-of select="cat:postbusnummer"/></pa_postbus__of_antwoordnummer>
+			</xsl:for-each>
+
+			<fk_15aoa_identif><xsl:value-of select="cat:postLocatie/cat:binnenlandsAdres/cat:bagId/cat:identificatieAdresseerbaarObject"/></fk_15aoa_identif>
+
 			<naam><xsl:value-of select="$naam"/></naam>
 
 			<emailadres><xsl:value-of select="cat:communicatiegegevens/cat:emailAdres[position()=1]"/></emailadres>
