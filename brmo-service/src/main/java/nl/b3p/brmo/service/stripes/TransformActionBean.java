@@ -98,6 +98,10 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
             }
 
             brmo.setOrderBerichten(orderBerichten);
+            String errorState = getContext().getServletContext().getInitParameter("error.state");
+            if (errorState != null) {
+                brmo.setErrorState(errorState);
+            }
             
             Thread t = null;
             switch(mode) {

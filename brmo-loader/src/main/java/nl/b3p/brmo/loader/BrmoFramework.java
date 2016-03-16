@@ -45,6 +45,7 @@ public class BrmoFramework {
     private Integer pipelineCapacity;
 
     private boolean orderBerichten = true;
+    private String errorState = null;
 
     public BrmoFramework(DataSource dataSourceStaging, DataSource dataSourceRsgb) throws BrmoException {
         if (dataSourceStaging != null) {
@@ -75,6 +76,10 @@ public class BrmoFramework {
         this.orderBerichten = orderBerichten;
     }
 
+    public void setErrorState(String errorState) {
+        this.errorState = errorState;
+    }
+
     public void closeBrmoFramework() {
         if (stagingProxy != null) {
             stagingProxy.closeStagingProxy();
@@ -97,6 +102,7 @@ public class BrmoFramework {
             rsgbProxy.setPipelineCapacity(pipelineCapacity);
         }
         rsgbProxy.setOrderBerichten(orderBerichten);
+        rsgbProxy.setErrorState(errorState);
         Thread t = new Thread(rsgbProxy);
         t.start();
         return t;
@@ -117,6 +123,7 @@ public class BrmoFramework {
             rsgbProxy.setPipelineCapacity(pipelineCapacity);
         }
         rsgbProxy.setOrderBerichten(orderBerichten);
+        rsgbProxy.setErrorState(errorState);
         Thread t = new Thread(rsgbProxy);
         t.start();
         return t;
@@ -129,6 +136,7 @@ public class BrmoFramework {
             rsgbProxy.setPipelineCapacity(pipelineCapacity);
         }
         rsgbProxy.setOrderBerichten(orderBerichten);
+        rsgbProxy.setErrorState(errorState);
         Thread t = new Thread(rsgbProxy);
         t.start();
         return t;

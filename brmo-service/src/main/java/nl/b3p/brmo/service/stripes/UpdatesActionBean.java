@@ -203,6 +203,10 @@ public class UpdatesActionBean implements ActionBean, ProgressUpdateListener {
             if(batchString != null) {
                 brmo.setBatchCapacity(Integer.parseInt(batchString));
             }
+            String errorState = getContext().getServletContext().getInitParameter("error.state");
+            if (errorState != null) {
+                brmo.setErrorState(errorState);
+            }
 
             Thread t = brmo.toRsgb(process, this);
             t.join();

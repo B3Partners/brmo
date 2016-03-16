@@ -15,6 +15,11 @@
         <param-name>batch.capacity</param-name>
         <param-value>100</param-value>
     </context-param>
+    <context-param>
+        <description>Moet mutatieverwerking doorgaan (ignore) bij errors of niet (fail of iets anders)</description>
+        <param-name>error.state</param-name>
+        <param-value>ignore</param-value>
+    </context-param>
     <filter>
         <display-name>Stripes Filter</display-name>
         <filter-name>StripesFilter</filter-name>

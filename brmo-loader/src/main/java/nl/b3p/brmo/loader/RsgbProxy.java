@@ -105,6 +105,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     private int pipelineCapacity = 25;
 
     private boolean orderBerichten = true;
+    private String errorState = null;
 
     private Map<String, RsgbTransformer> rsgbTransformers = new HashMap();
 
@@ -170,6 +171,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     public void setOrderBerichten(boolean orderBerichten) {
         this.orderBerichten = orderBerichten;
+    }
+
+    public void setErrorState(String errorState) {
+        this.errorState = errorState;
     }
 
     public void init() throws SQLException {
@@ -388,8 +393,13 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         e.printStackTrace(new PrintWriter(sw, true));
         ber.setOpmerking(ber.getOpmerking() + "\nFout: " + sw.toString());
         if (orderBerichten) {
-            // volgorde belangrijk dus stoppen
-            throw new BrmoException("Mutatieverwerking en foutief bericht, dus stoppen!");
+            if (errorState!=null && errorState.equalsIgnoreCase("ignore")) {
+                //omdat we te vaak moeten stoppen, later soort exception erbij
+                //betrekken.
+            } else {
+                // volgorde belangrijk dus stoppen
+                throw new BrmoException("Mutatieverwerking en foutief bericht, dus stoppen!");
+            }
         }
     }
 
@@ -616,6 +626,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         // parse new db xml
         loadLog.append("\nVerwerk nieuw bericht");
         if (newList == null || newList.isEmpty()) {
+            if (oldList == null || oldList.isEmpty()) {
+                throw new BrmoException("Bericht verwijdert object waarvoor geen eerder bericht gevonden is!");
+            }
             split.stop();
             return loadLog;
         }
