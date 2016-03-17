@@ -228,6 +228,8 @@ public class Main {
 
     private static int toRsgb(DataSource dataSourceStaging, DataSource dataSourceRsgb) throws BrmoException {
         BrmoFramework brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb);
+        brmo.setOrderBerichten(true);
+        brmo.setErrorState("ignore");
         brmo.toRsgb();
         brmo.closeBrmoFramework();
         return 0;
@@ -341,6 +343,8 @@ public class Main {
         String brType = opts[1];
 
         BrmoFramework brmo = new BrmoFramework(ds, null);
+        brmo.setOrderBerichten(true);
+        brmo.setErrorState("ignore");
         brmo.loadFromFile(brType, fileName);
         brmo.closeBrmoFramework();
 

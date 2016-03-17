@@ -385,7 +385,7 @@ public class StagingProxy {
             if(offset < total) {
                 log.warn(String.format("Minder berichten verwerkt (%d) dan verwacht (%d)!", offset, total));
             }
-            // als succesvol beeindigd, dan verwjderen, anders herstart mogelijk maken
+            // als succesvol beeindigd, dan verwijderen, anders herstart mogelijk maken
             removeJob();
         } catch(Exception t) {
             abort = true;
