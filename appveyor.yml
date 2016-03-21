@@ -48,6 +48,10 @@ before_test:
   - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -Q "CREATE DATABASE rsgb" -d "master"
   - dir -w .\datamodel\utility_scripts\
   - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -d "rsgb" -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
+
+  - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -Q "CREATE SCHEMA bgttest AUTHORIZATION rsgb;"
+  - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -Q "GRANT ALL ON SCHEMA bgttest TO dbo;"
+
 # set up STAGING DB
   - dir -w .\brmo-persistence\target\ddlscripts\
 #  - sqlcmd -S localhost,1433 -U sa -P Password12! -d "staging" -i .\brmo-persistence\target\ddlscripts\create-brmo-persistence-sqlserver.sql
