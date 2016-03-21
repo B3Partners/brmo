@@ -12,6 +12,7 @@
         <module>brmo-service</module>
         <module>brmo-proxyservice</module>
         <module>brmo-soap</module>
+        <module>bgt-gml-loader</module>
         <module>brmo-dist</module>
     </modules>
     <name>BRMO</name>
@@ -42,6 +43,8 @@
     </issueManagement>
     <properties>
         <java.version>1.7</java.version>
+        <netbeans.hint.jdkPlatform>JDK_${java.version}</netbeans.hint.jdkPlatform>
+        <netbeans.hint.license>default_1</netbeans.hint.license>
         <hibernate.version>3.6.10.Final</hibernate.version>
         <geotools.version>14.3</geotools.version>
         <postgresql.jdbc.version>9.3-1102-jdbc4</postgresql.jdbc.version>
@@ -124,6 +127,16 @@
                 <version>${geotools.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.geotools</groupId>
+                <artifactId>gt-xml</artifactId>
+                <version>${geotools.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.geotools</groupId>
+                <artifactId>gt-jdbc</artifactId>
+                <version>${geotools.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.geotools.jdbc</groupId>
                 <artifactId>gt-jdbc-oracle</artifactId>
                 <version>${geotools.version}</version>
@@ -131,6 +144,11 @@
             <dependency>
                 <groupId>org.geotools.jdbc</groupId>
                 <artifactId>gt-jdbc-sqlserver</artifactId>
+                <version>${geotools.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.geotools.jdbc</groupId>
+                <artifactId>gt-jdbc-postgis</artifactId>
                 <version>${geotools.version}</version>
             </dependency>
             <!-- database en persistence -->
@@ -414,6 +432,9 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven.surefire.version}</version>
                     <configuration>
+                        <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
+                        <trimStackTrace>false</trimStackTrace>
+                        <useFile>false</useFile>
                         <excludes>
                             <exclude>**/*IntegrationTest.java</exclude>
                         </excludes>
