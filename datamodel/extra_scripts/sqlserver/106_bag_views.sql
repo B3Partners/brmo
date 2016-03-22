@@ -20,7 +20,7 @@ Views for visualizing the BAG data.
 -------------------------------------------------
 -- v_verblijfsobject_alles
 -------------------------------------------------
-CREATE OR REPLACE VIEW
+CREATE VIEW
     v_verblijfsobject_alles
     (
         fid,
@@ -277,7 +277,7 @@ ON
 /*
 ligplaats met hoofdadres
 */		
-CREATE OR REPLACE VIEW
+CREATE VIEW
     v_ligplaats_alles
     (
         fid,
@@ -348,7 +348,7 @@ WHERE
 /*
 standplaats met hoofdadres
 */		
-CREATE OR REPLACE VIEW
+CREATE VIEW
     v_standplaats_alles
     (
         fid,
