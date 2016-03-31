@@ -1,0 +1,30 @@
+-- Aanpassing aan v_bd_app_re_bij_perceel t.b.v. PFLV
+-- Door: Niek Bouma
+-- Februari 2016
+
+CREATE OR REPLACE VIEW v_bd_app_re_bij_perceel AS 
+ SELECT ar.sc_kad_identif,
+    ar.fk_2nnp_sc_identif,
+    ar.ka_appartementsindex,
+    ar.ka_kad_gemeentecode,
+    ar.ka_perceelnummer,
+    ar.ka_sectie,
+    kp.begrenzing_perceel,
+    kp.sc_kad_identif AS perceel_identif,
+    zr.ar_teller,
+    zr.ar_noemer,
+    zr.fk_3avr_aand,
+    zr.fk_2aard_recht_verkort_aand,
+    np.nm_geslachtsnaam,
+    np.nm_voornamen,
+    nnp.naam,
+    arv.omschr,
+    kp.plaatscoordinaten_perceel
+   FROM v_bd_app_re_all_kad_perceel v
+     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif
+     JOIN app_re ar ON v.app_re_identif = ar.sc_kad_identif
+     JOIN zak_recht zr ON zr.fk_7koz_kad_identif = ar.sc_kad_identif
+     LEFT JOIN nat_prs np ON zr.fk_8pes_sc_identif = np.sc_identif
+     LEFT JOIN niet_nat_prs nnp ON nnp.sc_identif = zr.fk_8pes_sc_identif
+     JOIN aard_recht_verkort arv ON zr.fk_3avr_aand = arv.aand
+  WHERE zr.fk_8pes_sc_identif IS NOT NULL;
