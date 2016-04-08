@@ -11,14 +11,20 @@ import org.quartz.impl.StdSchedulerFactory;
 
 /**
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public class GeplandeTakenContextListener implements ServletContextListener {
 
+    /**
+     * Doet niets, setup van de StdSchedulerFactory doen we in een servlet
+     * vanwege initialisatie van stripes die eerst gebeurt in het stripes
+     * filter.
+     *
+     * @param sce de servlet context
+     * @see GeplandeTakenInit
+     */
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        // setup doen we in een servlet vanwege initialisatie van stripes
-        // die eerst gebeurt in het stripes filter
     }
 
     @Override

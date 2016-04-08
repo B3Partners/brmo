@@ -18,7 +18,7 @@ cache:
   - $HOME/.m2
 
 before_install:
-# set up STAGING db
+  # set up STAGING db
   - psql --version
   - psql -U postgres -a -c "CREATE ROLE staging LOGIN PASSWORD 'staging' SUPERUSER CREATEDB;"
   - psql -U postgres -a -c "CREATE ROLE rsgb LOGIN PASSWORD 'rsgb' SUPERUSER CREATEDB;"
@@ -26,7 +26,7 @@ before_install:
   - psql -U postgres -c 'create database rsgb;'
   - psql -U postgres -d rsgb -c 'create extension postgis;'
   - ls -l ./datamodel/generated_scripts/
-# set up RSGB db
+  # set up RSGB db
   - travis_wait psql -U postgres -w -d rsgb -f ./datamodel/generated_scripts/datamodel_postgresql.sql
   - ls -l ./datamodel/utility_scripts/postgresql/
   - travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/111a_update_gemeente_geom.sql
@@ -37,7 +37,7 @@ install:
   - mvn install -Dmaven.test.skip=true -B -V -fae -q -Ptravis-ci -pl '!brmo-dist'
 
 before_script:
-# dit dient na afloop van de 'install' gedaan te worden omdat de staging DB sql gegenereerd wordt door Hibernate
+  # dit dient na afloop van de 'install' gedaan te worden omdat de staging DB sql gegenereerd wordt door Hibernate
   - ls -l ./brmo-persistence/target/ddlscripts/
   - psql -U postgres -d staging -a -f ./brmo-persistence/target/ddlscripts/create-brmo-persistence-postgresql.sql
   - ls -l ./brmo-persistence/db/
@@ -46,10 +46,14 @@ before_script:
 
 # run tests
 script:
-# run unit tests
+  # run unit tests
   - mvn -e test -B -Ptravis-ci -pl '!brmo-dist'
-# run integration tests
+  # run integration tests
   - mvn -e verify -B -Ptravis-ci -pl '!brmo-dist'
+  # test of javadoc compliant is met java-8 strict checks
+  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
+         mvn javadoc:javadoc;
+    fi
 
 # after_success:
 

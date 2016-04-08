@@ -20,7 +20,7 @@ import org.stripesstuff.stripersist.Stripersist;
 /**
  * Start door quartz beheerde automatische processen.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public class AutomatischProcesJob implements Job {
 
