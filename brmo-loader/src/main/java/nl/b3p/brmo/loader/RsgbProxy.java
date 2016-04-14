@@ -610,6 +610,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 t = new RsgbTransformer(BrmoFramework.XSL_BRK);
             } else if (brType.equals(BrmoFramework.BR_BAG)) {
                 t = new RsgbTransformer(BrmoFramework.XSL_BAG);
+            } else if (brType.equals(BrmoFramework.BR_NHR)) {
+                t = new RsgbTransformer(BrmoFramework.XSL_NHR);
             } else {
                 throw new IllegalArgumentException("Onbekende basisregistratie: " + brType);
             }
@@ -714,7 +716,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                             // write old to archive table
                             loadLog.append("\nSchrijf vorige versie naar archief tabel");
                             oldRow.setIgnoreDuplicates(true);
-                            
+
                             split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.archive").start();
                             createInsertSql(oldRow, true, loadLog);
                             split2.stop();
@@ -836,7 +838,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     private void updateValueInTableRow(TableRow row, String column, String newValue) {
         //TODO, mag later weer weg
         repairOldRowIfRequired(row, newValue);
-        
+
         if (column == null) {
             return;
         }
@@ -849,7 +851,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             i++;
         }
      }
-    
+
     private void repairOldRowIfRequired(TableRow row, String guessDate) {
 
         if (row.getTable().equals("kad_perceel")

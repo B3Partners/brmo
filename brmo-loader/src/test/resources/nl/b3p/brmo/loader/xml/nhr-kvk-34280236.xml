@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../../../../../../../main/resources/xsl/nhr-to-rsgb-xml.xsl"?>
+		<maatschappelijkeActiviteit xmlns="http://schemas.kvk.nl/schemas/hrip/catalogus/2013/01">
+			<registratie registratieTijdstip="00000000000000000">
+				<datumAanvang>20070809</datumAanvang>
+			</registratie>
+			<kvkNummer>34280236</kvkNummer>
+			<nonMailing>Ja</nonMailing>
+			<incidenteelUitlenenArbeidskrachten>Nee</incidenteelUitlenenArbeidskrachten>
+			<naam>PROFIREAL Group SE</naam>
+			<manifesteertZichAls>
+				<onderneming>
+					<registratie registratieTijdstip="00000000000000000">
+						<datumAanvang>20070809</datumAanvang>
+					</registratie>
+					<kvkNummer>34280236</kvkNummer>
+					<hoofdSbiActiviteit>
+						<sbiCode>6420</sbiCode>
+						<omschrijving>Financiële holdings</omschrijving>
+					</hoofdSbiActiviteit>
+					<nevenSbiActiviteit>
+						<sbiCode>64922</sbiCode>
+						<omschrijving>Volkskredietbanken en commerciële financieringsmaatschappijen</omschrijving>
+					</nevenSbiActiviteit>
+					<fulltimeWerkzamePersonen>0</fulltimeWerkzamePersonen>
+					<parttimeWerkzamePersonen>0</parttimeWerkzamePersonen>
+					<totaalWerkzamePersonen>0</totaalWerkzamePersonen>
+					<handeltOnder>
+						<handelsnaam>
+							<naam>PROFIREAL Group SE</naam>
+						</handelsnaam>
+					</handeltOnder>
+					<wordtUitgeoefendIn>
+						<commercieleVestiging>
+							<vestigingsnummer>000000973556</vestigingsnummer>
+							<bezoekLocatie>
+								<afgeschermd>Nee</afgeschermd>
+								<binnenlandsAdres>
+									<straatnaam>Martinus Nijhofflaan</straatnaam>
+									<huisnummer>2</huisnummer>
+									<postcode>
+										<cijfercombinatie>2624</cijfercombinatie>
+										<lettercombinatie>ES</lettercombinatie>
+									</postcode>
+									<plaats>Delft</plaats>
+									<bagId>
+										<identificatieNummeraanduiding>0503200000007033</identificatieNummeraanduiding>
+										<identificatieAdresseerbaarObject>0503010000009773</identificatieAdresseerbaarObject>
+									</bagId>
+								</binnenlandsAdres>
+								<volledigAdres>Martinus Nijhofflaan 2 2624ES Delft</volledigAdres>
+							</bezoekLocatie>
+							<handeltOnder>
+								<handelsnaam>
+									<naam>PROFIREAL Group SE</naam>
+								</handelsnaam>
+							</handeltOnder>
+						</commercieleVestiging>
+					</wordtUitgeoefendIn>
+				</onderneming>
+			</manifesteertZichAls>
+			<wordtGeleidVanuit>
+				<commercieleVestiging>
+					<registratie registratieTijdstip="00000000000000000">
+						<datumAanvang>20070809</datumAanvang>
+					</registratie>
+					<vestigingsnummer>000000973556</vestigingsnummer>
+					<bezoekLocatie>
+						<afgeschermd>Nee</afgeschermd>
+						<binnenlandsAdres>
+							<straatnaam>Martinus Nijhofflaan</straatnaam>
+							<huisnummer>2</huisnummer>
+							<postcode>
+								<cijfercombinatie>2624</cijfercombinatie>
+								<lettercombinatie>ES</lettercombinatie>
+							</postcode>
+							<plaats>Delft</plaats>
+							<bagId>
+								<identificatieNummeraanduiding>0503200000007033</identificatieNummeraanduiding>
+								<identificatieAdresseerbaarObject>0503010000009773</identificatieAdresseerbaarObject>
+							</bagId>
+						</binnenlandsAdres>
+						<volledigAdres>Martinus Nijhofflaan 2 2624ES Delft</volledigAdres>
+					</bezoekLocatie>
+					<postLocatie>
+						<afgeschermd>Nee</afgeschermd>
+						<binnenlandsAdres>
+							<postbusnummer>1007</postbusnummer>
+							<postcode>
+								<cijfercombinatie>2600</cijfercombinatie>
+								<lettercombinatie>BA</lettercombinatie>
+							</postcode>
+							<plaats>Delft</plaats>
+						</binnenlandsAdres>
+						<volledigAdres>Postbus 1007 2600BA Delft</volledigAdres>
+					</postLocatie>
+					<communicatiegegevens>
+						<communicatienummer>
+							<toegangscode>31</toegangscode>
+							<nummer>0157890192</nummer>
+							<soort>Telefoon</soort>
+						</communicatienummer>
+						<communicatienummer>
+							<toegangscode>31</toegangscode>
+							<nummer>0157890193</nummer>
+							<soort>Fax</soort>
+						</communicatienummer>
+					</communicatiegegevens>
+					<totaalWerkzamePersonen>0</totaalWerkzamePersonen>
+					<activiteiten>
+						<omschrijving>Houdster- en financieringsmaatschappij</omschrijving>
+						<hoofdSbiActiviteit>
+							<sbiCode>6420</sbiCode>
+							<omschrijving>Financiële holdings</omschrijving>
+						</hoofdSbiActiviteit>
+						<sbiActiviteit>
+							<sbiCode>64922</sbiCode>
+							<omschrijving>Volkskredietbanken en commerciële financieringsmaatschappijen</omschrijving>
+						</sbiActiviteit>
+						<export>Nee</export>
+						<import>Nee</import>
+					</activiteiten>
+					<handeltOnder>
+						<handelsnaam>
+							<naam>PROFIREAL Group SE</naam>
+						</handelsnaam>
+					</handeltOnder>
+				</commercieleVestiging>
+			</wordtGeleidVanuit>
+			<heeftAlsEigenaar>
+				<rechtspersoon>
+					<registratie registratieTijdstip="00000000000000000">
+						<datumAanvang>20070809</datumAanvang>
+					</registratie>
+					<persoonRechtsvorm>EuropeseNaamlozeVennootschap</persoonRechtsvorm>
+					<volledigeNaam>PROFIREAL Group SE</volledigeNaam>
+					<uitgebreideRechtsvorm>EuropeseNaamlozeVennootschap</uitgebreideRechtsvorm>
+					<heeft>
+						<bestuursfunctie>
+							<registratie registratieTijdstip="20110214111416764">
+								<datumAanvang>20110208</datumAanvang>
+							</registratie>
+							<functieTitel>
+								<functieTitel>bestuurder A</functieTitel>
+								<indicatieStatutair>Ja</indicatieStatutair>
+							</functieTitel>
+							<langstzittende>Nee</langstzittende>
+							<door>
+								<natuurlijkPersoon>
+									<registratie registratieTijdstip="00000000000000000">
+										<datumAanvang>19720606</datumAanvang>
+									</registratie>
+									<volledigeNaam>Gerben van den Berg</volledigeNaam>
+									<bezoekLocatiePersoonDoor>
+										<afgeschermd>Nee</afgeschermd>
+										<binnenlandsAdres>
+											<straatnaam>Grieglaan</straatnaam>
+											<huisnummer>8</huisnummer>
+											<postcode>
+												<cijfercombinatie>2253</cijfercombinatie>
+												<lettercombinatie>BC</lettercombinatie>
+											</postcode>
+											<plaats>Voorschoten</plaats>
+											<bagId>
+												<identificatieNummeraanduiding>0626200000003468</identificatieNummeraanduiding>
+												<identificatieAdresseerbaarObject>0626010000003468</identificatieAdresseerbaarObject>
+											</bagId>
+										</binnenlandsAdres>
+										<volledigAdres>Grieglaan 8 2253BC Voorschoten</volledigAdres>
+									</bezoekLocatiePersoonDoor>
+									<bsn>221425706</bsn>
+									<geslachtsnaam>Berg</geslachtsnaam>
+									<voorvoegselGeslachtsnaam>van den</voorvoegselGeslachtsnaam>
+									<voornamen>Gerben</voornamen>
+									<geslachtsaanduiding>Man</geslachtsaanduiding>
+									<geboorteplaats>Tegelen</geboorteplaats>
+									<geboorteland>Nederland</geboorteland>
+									<aanduidingNaamgebruik>EigenGeslachtsnaam</aanduidingNaamgebruik>
+									<geslachtsnaamPartner>Wijlen</geslachtsnaamPartner>
+									<voorvoegselGeslachtsnaamPartner>van</voorvoegselGeslachtsnaamPartner>
+								</natuurlijkPersoon>
+							</door>
+							<functie>Bestuurder</functie>
+							<bevoegdheid>
+								<soort>GezamenlijkBevoegd</soort>
+								<bevoegdMetAnderePersonen>Nee</bevoegdMetAnderePersonen>
+							</bevoegdheid>
+						</bestuursfunctie>
+					</heeft>
+					<heeft>
+						<bestuursfunctie>
+							<registratie registratieTijdstip="20110214111416764">
+								<datumAanvang>20110208</datumAanvang>
+							</registratie>
+							<functieTitel>
+								<functieTitel>bestuurder A</functieTitel>
+								<indicatieStatutair>Ja</indicatieStatutair>
+							</functieTitel>
+							<langstzittende>Nee</langstzittende>
+							<door>
+								<natuurlijkPersoon>
+									<registratie registratieTijdstip="00000000000000000">
+										<datumAanvang>19790701</datumAanvang>
+									</registratie>
+									<volledigeNaam>Dennis Jacobus Marlies Kramer</volledigeNaam>
+									<bezoekLocatiePersoonDoor>
+										<afgeschermd>Nee</afgeschermd>
+										<binnenlandsAdres>
+											<straatnaam>Marnixstraat</straatnaam>
+											<huisnummer>97</huisnummer>
+											<huisletter>D</huisletter>
+											<postcode>
+												<cijfercombinatie>1015</cijfercombinatie>
+												<lettercombinatie>VG</lettercombinatie>
+											</postcode>
+											<plaats>Amsterdam</plaats>
+											<bagId>
+												<identificatieNummeraanduiding>0363200000500838</identificatieNummeraanduiding>
+												<identificatieAdresseerbaarObject>0363010001019119</identificatieAdresseerbaarObject>
+											</bagId>
+										</binnenlandsAdres>
+										<volledigAdres>Marnixstraat 97 D 1015VG Amsterdam</volledigAdres>
+									</bezoekLocatiePersoonDoor>
+									<bsn>160263761</bsn>
+									<geslachtsnaam>Kramer</geslachtsnaam>
+									<voornamen>Dennis Jacobus Marlies</voornamen>
+									<geslachtsaanduiding>Man</geslachtsaanduiding>
+									<geboorteplaats>Tegelen</geboorteplaats>
+									<geboorteland>Nederland</geboorteland>
+									<aanduidingNaamgebruik>EigenGeslachtsnaam</aanduidingNaamgebruik>
+								</natuurlijkPersoon>
+							</door>
+							<functie>Bestuurder</functie>
+							<bevoegdheid>
+								<soort>GezamenlijkBevoegd</soort>
+								<bevoegdMetAnderePersonen>Nee</bevoegdMetAnderePersonen>
+							</bevoegdheid>
+						</bestuursfunctie>
+					</heeft>
+					<heeft>
+						<bestuursfunctie>
+							<registratie registratieTijdstip="20110215105441487">
+								<datumAanvang>20110208</datumAanvang>
+							</registratie>
+							<functieTitel>
+								<functieTitel>bestuurder C</functieTitel>
+								<indicatieStatutair>Ja</indicatieStatutair>
+							</functieTitel>
+							<langstzittende>Nee</langstzittende>
+							<door>
+								<natuurlijkPersoon>
+									<registratie registratieTijdstip="00000000000000000">
+										<datumAanvang>19480409</datumAanvang>
+									</registratie>
+									<volledigeNaam>Johannes Cornelis Jacobus Michel</volledigeNaam>
+									<bezoekLocatiePersoonDoor>
+										<afgeschermd>Nee</afgeschermd>
+										<binnenlandsAdres>
+											<straatnaam>Jan van Ruusbroeclaan</straatnaam>
+											<huisnummer>16</huisnummer>
+											<postcode>
+												<cijfercombinatie>2343</cijfercombinatie>
+												<lettercombinatie>JL</lettercombinatie>
+											</postcode>
+											<plaats>Oegstgeest</plaats>
+											<bagId>
+												<identificatieNummeraanduiding>0579200000004352</identificatieNummeraanduiding>
+												<identificatieAdresseerbaarObject>0579010000004352</identificatieAdresseerbaarObject>
+											</bagId>
+										</binnenlandsAdres>
+										<volledigAdres>Jan van Ruusbroeclaan 16 2343JL Oegstgeest</volledigAdres>
+									</bezoekLocatiePersoonDoor>
+									<bsn>068347145</bsn>
+									<geslachtsnaam>Michel</geslachtsnaam>
+									<voornamen>Johannes Cornelis Jacobus</voornamen>
+									<geslachtsaanduiding>Man</geslachtsaanduiding>
+									<geboorteplaats>Rotterdam</geboorteplaats>
+									<geboorteland>Nederland</geboorteland>
+									<aanduidingNaamgebruik>EigenGeslachtsnaam</aanduidingNaamgebruik>
+									<geslachtsnaamPartner>Aufderheijde</geslachtsnaamPartner>
+								</natuurlijkPersoon>
+							</door>
+							<functie>Bestuurder</functie>
+							<bevoegdheid>
+								<soort>GezamenlijkBevoegd</soort>
+								<bevoegdMetAnderePersonen>Nee</bevoegdMetAnderePersonen>
+							</bevoegdheid>
+						</bestuursfunctie>
+					</heeft>
+					<heeft>
+						<bestuursfunctie>
+							<registratie registratieTijdstip="20110216160217287">
+								<datumAanvang>20071221</datumAanvang>
+							</registratie>
+							<functieTitel>
+								<functieTitel>bestuurder B</functieTitel>
+								<indicatieStatutair>Ja</indicatieStatutair>
+							</functieTitel>
+							<langstzittende>Ja</langstzittende>
+							<door>
+								<natuurlijkPersoon>
+									<registratie registratieTijdstip="00000000000000000">
+										<datumAanvang>19780128</datumAanvang>
+									</registratie>
+									<volledigeNaam>David Chour</volledigeNaam>
+									<bezoekLocatiePersoonDoor>
+										<afgeschermd>Nee</afgeschermd>
+										<buitenlandsAdres>
+											<straatHuisnummer>Bretislavova 71, PSC 537 01</straatHuisnummer>
+											<postcodeWoonplaats>Chrudim</postcodeWoonplaats>
+											<land>Tsjechië</land>
+										</buitenlandsAdres>
+										<volledigAdres>Bretislavova 71, PSC 537 01 Chrudim Tsjechië</volledigAdres>
+									</bezoekLocatiePersoonDoor>
+									<geslachtsnaam>Chour</geslachtsnaam>
+									<voornamen>David</voornamen>
+									<geslachtsaanduiding>Onbekend</geslachtsaanduiding>
+									<geboorteplaats>Chrudim</geboorteplaats>
+									<geboorteland>Tsjechoslowakije</geboorteland>
+								</natuurlijkPersoon>
+							</door>
+							<functie>Bestuurder</functie>
+							<bevoegdheid>
+								<soort>GezamenlijkBevoegd</soort>
+								<bevoegdMetAnderePersonen>Nee</bevoegdMetAnderePersonen>
+							</bevoegdheid>
+						</bestuursfunctie>
+					</heeft>
+					<heeft>
+						<bestuursfunctie>
+							<registratie registratieTijdstip="20110216160707099">
+								<datumAanvang>20071221</datumAanvang>
+							</registratie>
+							<functieTitel>
+								<functieTitel>bestuurder B</functieTitel>
+								<indicatieStatutair>Ja</indicatieStatutair>
+							</functieTitel>
+							<langstzittende>Nee</langstzittende>
+							<door>
+								<natuurlijkPersoon>
+									<registratie registratieTijdstip="00000000000000000">
+										<datumAanvang>19660302</datumAanvang>
+									</registratie>
+									<volledigeNaam>Zdenek Lhotsky</volledigeNaam>
+									<bezoekLocatiePersoonDoor>
+										<afgeschermd>Nee</afgeschermd>
+										<buitenlandsAdres>
+											<straatHuisnummer>Mezi Domy 789, Jesenice u Prahy</straatHuisnummer>
+											<postcodeWoonplaats>PSC 252 42</postcodeWoonplaats>
+											<land>Tsjechië</land>
+										</buitenlandsAdres>
+										<volledigAdres>Mezi Domy 789, Jesenice u Prahy PSC 252 42 Tsjechië</volledigAdres>
+									</bezoekLocatiePersoonDoor>
+									<geslachtsnaam>Lhotsky</geslachtsnaam>
+									<voornamen>Zdenek</voornamen>
+									<geslachtsaanduiding>Onbekend</geslachtsaanduiding>
+									<geboorteplaats>Boskovice</geboorteplaats>
+									<geboorteland>Tsjechoslowakije</geboorteland>
+								</natuurlijkPersoon>
+							</door>
+							<functie>Bestuurder</functie>
+							<bevoegdheid>
+								<soort>GezamenlijkBevoegd</soort>
+								<bevoegdMetAnderePersonen>Nee</bevoegdMetAnderePersonen>
+							</bevoegdheid>
+						</bestuursfunctie>
+					</heeft>
+					<rsin>818324958</rsin>
+					<naam>PROFIREAL Group SE</naam>
+					<statutaireZetel>Amsterdam</statutaireZetel>
+					<datumAkteOprichting>20070809</datumAkteOprichting>
+					<datumOprichting>00000000</datumOprichting>
+					<bedragKostenOprichting>
+						<waarde>1800</waarde>
+						<valuta>Euro</valuta>
+					</bedragKostenOprichting>
+					<datumEersteInschrijving>20070809</datumEersteInschrijving>
+					<datumAkteStatutenWijziging>20150717</datumAkteStatutenWijziging>
+					<datumLaatsteStatutenWijziging>20150717</datumLaatsteStatutenWijziging>
+					<stelselInrichting>Monistisch</stelselInrichting>
+					<maatschappelijkKapitaal>
+						<bedrag>
+							<waarde>40000000</waarde>
+							<valuta>Euro</valuta>
+						</bedrag>
+					</maatschappelijkKapitaal>
+					<geplaatstKapitaal>
+						<bedrag>
+							<waarde>9000012</waarde>
+							<valuta>Euro</valuta>
+						</bedrag>
+					</geplaatstKapitaal>
+					<gestortKapitaal>
+						<bedrag>
+							<waarde>9000012</waarde>
+							<valuta>Euro</valuta>
+						</bedrag>
+					</gestortKapitaal>
+					<bezoekLocatie>
+						<afgeschermd>Nee</afgeschermd>
+						<binnenlandsAdres>
+							<straatnaam>Martinus Nijhofflaan</straatnaam>
+							<huisnummer>2</huisnummer>
+							<postcode>
+								<cijfercombinatie>2624</cijfercombinatie>
+								<lettercombinatie>ES</lettercombinatie>
+							</postcode>
+							<plaats>Delft</plaats>
+							<bagId>
+								<identificatieNummeraanduiding>0503200000007033</identificatieNummeraanduiding>
+								<identificatieAdresseerbaarObject>0503010000009773</identificatieAdresseerbaarObject>
+							</bagId>
+						</binnenlandsAdres>
+						<volledigAdres>Martinus Nijhofflaan 2 2624ES Delft</volledigAdres>
+					</bezoekLocatie>
+				</rechtspersoon>
+			</heeftAlsEigenaar>
+		</maatschappelijkeActiviteit>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2013/01" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<data>
+		<!--Maatschappelijke activiteit manifesteert zich als onderneming, met niet-hoofdvestigingen-->
+		<ondrnmng column-dat-beg-geldh="datum_aanvang" column-datum-einde-geldh="datum_einde">
+			<kvk_nummer>16029104</kvk_nummer>
+			<datum_aanvang>19690717</datum_aanvang>
+			<datum_einde/>
+		</ondrnmng>
+		<!--Hoofdvestiging (maatschappelijkeActiviteit wordtGeleidVanuit)-->
+		<subject>
+			<identif>NHR.Vestiging.000002706229</identif>
+			<clazz>VESTIGING</clazz>
+			<typering>VESTIGING</typering>
+		</subject>
+		<vestg>
+			<sc_identif>NHR.Vestiging.000002706229</sc_identif>
+			<datum_aanvang>19690717</datum_aanvang>
+			<datum_beeindiging/>
+			<fk_15ond_kvk_nummer>16029104</fk_15ond_kvk_nummer>
+			<fk_17mac_kvk_nummer>16029104</fk_17mac_kvk_nummer>
+			<typering>Commerciele vestiging</typering>
+			<datum_voortzetting/>
+			<activiteit_omschr>Belangenbehartiging van praktiserende dierenartsen. Ondersteuning in praktijk en organisatie van praktiserende dierenartsen. Webshop in dierbenodigdheden.</activiteit_omschr>
+			<verkorte_naam>Dactari Dierenartsencoöperatie U.A.</verkorte_naam>
+			<fulltime_werkzame_mannen>8</fulltime_werkzame_mannen>
+			<toevoeging_adres/>
+		</vestg>
+		<vestg_naam delete-rows="true">
+			<fk_ves_sc_identif>NHR.Vestiging.000002706229</fk_ves_sc_identif>
+		</vestg_naam>
+		<vestg_naam>
+			<naam>Dactari Dierenartsencoöperatie U.A.</naam>
+			<fk_ves_sc_identif>NHR.Vestiging.000002706229</fk_ves_sc_identif>
+		</vestg_naam>
+		<vestg_naam>
+			<naam>Dactari</naam>
+			<fk_ves_sc_identif>NHR.Vestiging.000002706229</fk_ves_sc_identif>
+		</vestg_naam>
+		<vestg_naam>
+			<naam>G.V.P. Online</naam>
+			<fk_ves_sc_identif>NHR.Vestiging.000002706229</fk_ves_sc_identif>
+		</vestg_naam>
+		<vestg_naam>
+			<naam>ICOVet</naam>
+			<fk_ves_sc_identif>NHR.Vestiging.000002706229</fk_ves_sc_identif>
+		</vestg_naam>
+		<maatschapp_activiteit column-dat-beg-geldh="datum_aanvang" column-datum-einde-geldh="datum_einde_geldig">
+			<kvk_nummer>16029104</kvk_nummer>
+			<datum_aanvang>19690717</datum_aanvang>
+			<datum_einde_geldig/>
+			<fk_3ond_kvk_nummer>16029104</fk_3ond_kvk_nummer>
+		</maatschapp_activiteit>
+	</data>
+</root>
