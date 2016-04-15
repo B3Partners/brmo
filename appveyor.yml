@@ -32,7 +32,7 @@ install:
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-http-proxy.ps1'))
   - ps: .\.appveyor\set-maven-proxy.ps1
   # initial build, no testing
-  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Pappveyor-ci -pl "!brmo-dist"
+  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Pmssql -pl "!brmo-dist"
 
 
 # before_build: does nothing
@@ -65,10 +65,10 @@ before_test:
 
 test_script:
 # run unit tests
-  - mvn -e test -B -Pappveyor-ci -pl "!brmo-dist"
+  - mvn -e test -B -Pmssql -pl "!brmo-dist"
 # run integration tests
 # TODO configure sql server to listen on ip address, see: https://www.appveyor.com/docs/services-databases
-  - mvn -e verify -B -Pappveyor-ci -pl "!brmo-dist"
+  - mvn -e verify -B -Pmssql -pl "!brmo-dist"
 
 after_test:
   - ps: Get-Date

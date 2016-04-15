@@ -4,6 +4,7 @@
 package nl.b3p.brmo.loader.gml.light;
 
 /**
+ * GML Light transformer voor RSGB 3.0 objecttype GEBOUWINSTALLATIE.
  *
  * @author mprins
  */

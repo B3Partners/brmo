@@ -11,14 +11,15 @@ public class OpenbareRuimteLabel extends GMLLightFeatureTransformerImpl {
 
     public OpenbareRuimteLabel() {
         attrMapping.put("identificatieBAGOPR", "identif_bagopr");
-        attrMapping.put("openbareRuimteNaam.tekst", "openbareruimtenaam_tekst");
-        attrMapping.put("openbareRuimteNaam.positie_1.plaatsingspunt", "openbareruimtenaam_positie_1_plaatsingspunt");
-        attrMapping.put("openbareRuimteNaam.positie_1.hoek", "openbareruimtenaam_positie_1_hoek");
-        attrMapping.put("openbareRuimteNaam.positie_2.plaatsingspunt", "openbareruimtenaam_positie_2_plaatsingspunt");
-        attrMapping.put("openbareRuimteNaam.positie_2.hoek", "openbareruimtenaam_positie_2_hoek");
-        attrMapping.put("openbareRuimteNaam.positie_3.plaatsingspunt", "openbareruimtenaam_positie_3_plaatsingspunt");
-        attrMapping.put("openbareRuimteNaam.positie_3.hoek", "openbareruimtenaam_positie_3_hoek");
-        attrMapping.put("openbareRuimteType", "openbareruimtetype");
 
+        attrMapping.put("openbareRuimteNaam.tekst", "oprnm_tekst");
+        attrMapping.put("openbareRuimteNaam.positie_1.plaatsingspunt", "oprnm_pos_1_punt");
+        attrMapping.put("openbareRuimteNaam.positie_1.hoek", "oprnm_pos_1_hoek");
+        attrMapping.put("openbareRuimteNaam.positie_2.plaatsingspunt", "oprnm_pos_2_punt");
+        attrMapping.put("openbareRuimteNaam.positie_2.hoek", "oprnm_pos_2_hoek");
+        attrMapping.put("openbareRuimteNaam.positie_3.plaatsingspunt", "oprnm_pos_3_punt");
+        attrMapping.put("openbareRuimteNaam.positie_3.hoek", "oprnm_pos_3_hoek");
+
+        attrMapping.put("openbareRuimteType", "oprtype");
     }
 }

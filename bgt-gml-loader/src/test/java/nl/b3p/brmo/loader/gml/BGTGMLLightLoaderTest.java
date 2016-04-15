@@ -96,7 +96,9 @@ public class BGTGMLLightLoaderTest {
      * @throws Exception if any
      */
     @Test
+    //@Ignore("Todat we alle tabellen in de database hebben zitten")
     public void testProcessGMLFile() throws Exception {
+        ldr.setCreateTables(false);
         File gml = new File(BGTGMLLightLoaderTest.class.getResource("/gmllight/one/bgt_onbegroeidterreindeel.gml").toURI());
         assertEquals("Aantal geschreven features", 1, ldr.processGMLFile(gml));
     }
@@ -107,8 +109,9 @@ public class BGTGMLLightLoaderTest {
      * @throws Exception if any
      */
     @Test
-    @Ignore("Todat we alle tabbelen in de database hebben zitten")
+    @Ignore("Todat we alle tabellen in de database hebben zitten")
     public void testScanDirectory() throws Exception {
+        ldr.setCreateTables(false);
         ldr.setScanDirectory(BGTGMLLightLoaderTest.class.getResource("/gmllight/zips/").getFile());
         List<File> zips = ldr.scanDirectory();
         assertEquals("Verwacht aantal zipfiles", 1, zips.size());

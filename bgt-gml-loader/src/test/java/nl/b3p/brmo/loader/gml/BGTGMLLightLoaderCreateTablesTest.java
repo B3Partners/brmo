@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 B3Partners B.V.
+ * Copyright (C) 2016 B3Partners B.V.
  */
 package nl.b3p.brmo.loader.gml;
 
@@ -9,15 +9,19 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.After;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeNotNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.fail;
+import org.junit.Ignore;
 
 /**
  *
@@ -57,10 +61,12 @@ public class BGTGMLLightLoaderCreateTablesTest {
         } catch (IOException | NullPointerException e) {
             // negeren; het override bestand is normaal niet aanwezig
         }
+
+        LOG.debug(params);
         ldr.setDbConnProps(params);
     }
 
-    @After
+    // @After
     public void dropTables() throws Exception {
         try {
             Class.forName(params.getProperty("jdbc.driverClassName"));
@@ -99,7 +105,40 @@ public class BGTGMLLightLoaderCreateTablesTest {
     @Test(expected = IllegalStateException.class)
     public void testProcessGMLFileFail() throws Exception {
         dropTables();
+        ldr.setCreateTables(false);
+        @SuppressWarnings("unused")
         File gml = new File(BGTGMLLightLoaderTest.class.getResource("/gmllight/one/bgt_onbegroeidterreindeel.gml").toURI());
         fail("De verwachte exceptie is niet opgetreden.");
+    }
+
+    /**
+     * test voor: tabellen bestaan niet in database en createSchema is true
+     * (default).
+     *
+     * @throws Exception if any
+     */
+    @Test
+    public void testProcessGMLFile() throws Exception {
+        dropTables();
+        File gml = new File(BGTGMLLightLoaderTest.class.getResource("/gmllight/one/bgt_onbegroeidterreindeel.gml").toURI());
+        assertEquals("Aantal geschreven features", 1, ldr.processGMLFile(gml));
+    }
+
+    /**
+     * test scannen en laden van een directory zipfiles in niet bestaande
+     * tabellen.
+     *
+     * @throws Exception if any
+     */
+    @Test
+    public void testScanDirectory() throws Exception {
+        dropTables();
+        ldr.setScanDirectory(BGTGMLLightLoaderTest.class.getResource("/gmllight/zips/").getFile());
+        List<File> zips = ldr.scanDirectory();
+        assertEquals("Verwacht aantal zipfiles", 1, zips.size());
+        for (File zip : zips) {
+            int actual = ldr.processZipFile(zip);
+            assertTrue("Verwacht meer dan 1 geschreven feature", (actual > 1));
+        }
     }
 }

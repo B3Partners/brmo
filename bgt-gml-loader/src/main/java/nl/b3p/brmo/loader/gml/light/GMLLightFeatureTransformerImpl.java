@@ -6,6 +6,8 @@ package nl.b3p.brmo.loader.gml.light;
 import nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.geotools.factory.Hints;
@@ -14,11 +16,14 @@ import org.geotools.feature.AttributeTypeBuilder;
 import org.geotools.feature.simple.SimpleFeatureBuilder;
 import org.geotools.feature.simple.SimpleFeatureTypeBuilder;
 import org.geotools.feature.type.FeatureTypeFactoryImpl;
+import org.geotools.referencing.CRS;
 import org.geotools.util.SimpleInternationalString;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 import org.opengis.feature.type.AttributeDescriptor;
 import org.opengis.feature.type.FeatureTypeFactory;
+import org.opengis.referencing.FactoryException;
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 /**
  * Default implementatie van GML Light transformer.
@@ -40,6 +45,22 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
      * bevat paren van: 'gml attribuut naam 1+gml attribuut naam 2', 'rsgb
      * attribuut' waarbij de rgsb attribuut waarde wordt samengesteld uit de
      * waarden van de gml attributen. bijv. de NEN3610ID.
+     *
+     * Niet alle velden uit de GML worden in de database gezet; overgeslagen oa:
+     * <ul>
+     * <li>inOnderzoek</li>
+     * <li>tijdstipRegistratie</li>
+     * <li>eindRegistratie</li>
+     * <li>LV-publicatiedatum</li>
+     * <li>bronhouder</li>
+     * </ul>
+     * (IMgeo / BGT attributen) en (GML 3 attributen)
+     * <ul>
+     * <li>name</li>
+     * <li>description</li>
+     * <li>boundedBy</li>
+     * <li>LV-publicatiedatum</li>
+     * </ul>
      */
     protected final HashMap<String, AttributeDescriptor> composedAttr = new HashMap();
 
@@ -49,10 +70,7 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
     private final FeatureTypeFactory typeFactory = new FeatureTypeFactoryImpl();
 
     private final AttributeTypeBuilder builder = new AttributeTypeBuilder();
-
-    public static final String DEFAULT_GEOM_NAME = "geom2d";
-    public static final String ID_NAME = "identif";
-
+    private CoordinateReferenceSystem crs = null;
     /**
      * default constructor. Zorgt voor initiele vulling van de
      * {@link #composedAttr} en {@link #attrMapping} transformatie mappings.
@@ -99,6 +117,11 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
                 .description("NEN3610 indentificatie");
         AttributeDescriptor NEN3610ID = builder.buildDescriptor(ID_NAME);
         composedAttr.put("identificatie.namespace+identificatie.lokaalID", NEN3610ID);
+        try {
+            crs = CRS.decode("EPSG:28992");
+        } catch (FactoryException ex) {
+            LOG.warn("CRS opzoeken is mislukt", ex);
+        }
     }
 
     @Override
@@ -109,21 +132,38 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
         } else {
             tb.setName(targetTableName);
         }
-        tb.setCRS(gmlSchema.getGeometryDescriptor().getCoordinateReferenceSystem());
+
+        tb.setCRS(crs);
+
         tb.setSRS("EPSG:28992");
         tb.setNamespaceURI((String) null);
-        tb.setDescription(new SimpleInternationalString("RSGB 3.0 BGT" + gmlSchema.getTypeName()));
+        tb.setDescription(new SimpleInternationalString("RSGB 3.0 BGT " + gmlSchema.getTypeName()));
 
+        AttributeTypeBuilder bldr = new AttributeTypeBuilder();
         for (AttributeDescriptor attr : composedAttr.values()) {
-            tb.srid(28992).add(attr);
+            if (shouldUppercase) {
+                tb.srid(28992).add(
+                        bldr.init(attr.getType())
+                        .name(attr.getLocalName().toUpperCase())
+                        .defaultValue(attr.getDefaultValue())
+                        .buildDescriptor(attr.getLocalName().toUpperCase()));
+            } else {
+                tb.srid(28992).add(attr);
+            }
         }
 
         String gmlAttrLocalName;
         String dbAttrName;
-        AttributeTypeBuilder bldr = new AttributeTypeBuilder();
         for (AttributeDescriptor att : gmlSchema.getAttributeDescriptors()) {
             gmlAttrLocalName = att.getLocalName();
+            if (gmlAttrLocalName == null) {
+                LOG.warn("Null local name van attribuut " + att);
+                gmlAttrLocalName = att.toString();
+            }
             dbAttrName = attrMapping.get(gmlAttrLocalName);
+
+            // LOG.debug("aanmaken AttributeDescriptor voor: " + gmlAttrLocalName + " (wordt: " + gmlAttrLocalName + ")");
+
             if (dbAttrName != null) {
                 // hernoem attribuut als de db naam niet gelijk is aan gml naam
                 if (shouldUppercase) {
@@ -132,8 +172,10 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
                 if (dbAttrName.equals(gmlAttrLocalName)) {
                     tb.srid(28992).add(att);
                 } else {
-                    tb.srid(28992).add(bldr.init(att.getType())
+                    tb.srid(28992).add(
+                            bldr.init(att.getType())
                             .name(dbAttrName)
+                            .defaultValue(att.getDefaultValue())
                             .buildDescriptor(dbAttrName));
                 }
                 if (dbAttrName.equals(DEFAULT_GEOM_NAME)) {
@@ -144,11 +186,12 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
                 }
             }
         }
-        return tb.buildFeatureType();
+
+        return tb.crs(crs).buildFeatureType();
     }
 
     @Override
-    public SimpleFeature transform(SimpleFeature inFeature, SimpleFeatureType targetType, boolean shouldUppercaseFieldnames) {
+    public SimpleFeature transform(SimpleFeature inFeature, SimpleFeatureType targetType, boolean shouldUppercaseFieldnames, boolean userDefinedPrimaryKey) {
         SimpleFeatureBuilder featureBuilder = new SimpleFeatureBuilder(targetType);
         String targetAttrName;
         for (String key : attrMapping.keySet()) {
@@ -166,7 +209,7 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
         for (Entry<String, AttributeDescriptor> e : composedAttr.entrySet()) {
             targetAttrName = e.getValue().getLocalName();
             if (shouldUppercaseFieldnames) {
-                //should not: targetAttrName = targetAttrName.toUpperCase();
+                targetAttrName = targetAttrName.toUpperCase();
             }
             // splits op '+' en voeg samen met ':'
             String[] keys = e.getKey().split("\\+");
@@ -180,7 +223,8 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
                 id = composed;
             }
         }
-        featureBuilder.featureUserData(Hints.USE_PROVIDED_FID, true);
+        featureBuilder.featureUserData(Hints.USE_PROVIDED_FID, userDefinedPrimaryKey);
+
         return featureBuilder.buildFeature(id);
     }
 }

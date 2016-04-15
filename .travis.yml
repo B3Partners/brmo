@@ -38,7 +38,7 @@ before_install:
 
 install:
   # install all dependencies + artifacts without any testing, create staging db scripts
-  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Ptravis-ci -pl '!brmo-dist'
+  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Ppostgresql -pl '!brmo-dist'
 
 before_script:
 # dit dient na afloop van de 'install' gedaan te worden omdat de staging DB sql gegenereerd wordt door Hibernate
@@ -51,9 +51,9 @@ before_script:
 # run tests
 script:
 # run unit tests
-  - mvn -e test -B -Ptravis-ci -pl '!brmo-dist'
+  - mvn -e test -B -Ppostgresql -pl '!brmo-dist'
 # run integration tests
-  - mvn -e verify -B -Ptravis-ci -pl '!brmo-dist'
+  - mvn -e verify -B -Ppostgresql -pl '!brmo-dist'
 
 # after_success:
 

@@ -13,6 +13,5 @@ public class Waterschap extends GMLLightFeatureTransformerImpl {
         attrMapping.put("naam", "naam");
 
         attrMapping.put("geometrie2d", DEFAULT_GEOM_NAME);
-
     }
 }
