@@ -1,15 +1,24 @@
 package nl.b3p.brmo.loader.entity;
 
 import java.util.Date;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import static nl.b3p.brmo.loader.entity.NhrBerichten.NS_BRMO_BERICHT;
 
 /**
  *
  * @author Boy de Wit
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Bericht {
     private Long id;
     private Integer laadProcesId;
+    @XmlElement(namespace=NS_BRMO_BERICHT,name="object_ref")
     protected String objectRef;
+    @XmlElement(namespace=NS_BRMO_BERICHT)
+    @XmlJavaTypeAdapter(NhrPeildatumAdapter.class)
     protected Date datum;
     private Integer volgordeNummer;
     private String soort;
