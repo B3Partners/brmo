@@ -10,6 +10,8 @@
 	xmlns:brmo="http://www.b3partners.nl/brmo/bericht"
 	>
 
+	<xsl:import href="nhr-object-ref.xsl"/>
+	
 	<!-- Dit stylesheet splitst een "GeneriekProduct" NHR Dataservice respons in meerdere berichten over
 		authentieke gegevens van de basisregistratie.
 	-->
@@ -26,21 +28,27 @@
 			<brmo:datum><xsl:value-of select="../@peilmoment"/></brmo:datum>
 		</xsl:variable>
 		<brmo:bericht>
-			<brmo:object_ref>x-nhr.maatschappelijkeActiviteit.kvk.<xsl:value-of select="cat:kvkNummer"/></brmo:object_ref>
+			<brmo:object_ref><xsl:apply-templates select="." mode="object_ref"/></brmo:object_ref>
 			<xsl:copy-of select="$datum"/>
-			<brmo:br_xml><xsl:copy-of select="."/></brmo:br_xml>
+			<brmo:br_xml>
+				<xsl:copy>
+					<xsl:attribute name="peilmoment"><xsl:value-of select="$datum"/></xsl:attribute>
+					<xsl:copy-of select="node()"/>
+				</xsl:copy>
+			</brmo:br_xml>
 		</brmo:bericht>
 		<!-- Completere vestiging in wordtGeleidVanuit dan wordtUitgeoefendIn -->
 		<xsl:variable name="leidendeVestiging" select="cat:wordtGeleidVanuit/cat:vestigingsnummer"/>
 		<xsl:for-each select="cat:wordtGeleidVanuit/*">
 			<brmo:bericht>
-				<brmo:object_ref>x-nhr.<xsl:value-of select="local-name()"/>.<xsl:value-of select="cat:vestigingsnummer"/></brmo:object_ref>
+				<brmo:object_ref><xsl:apply-templates select="." mode="object_ref"/></brmo:object_ref>
 				<xsl:copy-of select="$datum"/>
 				<brmo:br_xml>
 					<!-- Voeg element wordtUitgeoefendDoor toe. Deze is niet aanwezig bij opvragen van 
 					maatschappelijkeActiviteit, maar in RSGB een foreign key dus deze informatie bij
 					splitsen wel overbrengen via toevoegen van dit element -->
 					<xsl:copy>
+						<xsl:attribute name="peilmoment"><xsl:value-of select="$datum"/></xsl:attribute>
 						<xsl:copy-of select="node()"/>
 						<cat:wordtUitgeoefendDoor>
 							<!-- Voor een commercieleVestiging komt hier een onderneming, met alleen het kvkNummer -->
@@ -82,10 +90,11 @@
 		<xsl:for-each select="cat:heeftAlsEigenaar/*[cat:bsn or cat:rsin]">
 			<!-- TODO: afsplitsen door/voor Persoon -->
 			<brmo:bericht>
-				<brmo:object_ref>x-nhr.<xsl:value-of select="local-name()"/>.<xsl:if test="cat:bsn">bsn.<xsl:value-of select="cat:bsn"/></xsl:if><xsl:if test="cat:rsin">rsin.<xsl:value-of select="cat:rsin"/></xsl:if></brmo:object_ref>
+				<brmo:object_ref><xsl:apply-templates select="." mode="object_ref"/></brmo:object_ref>
 				<xsl:copy-of select="$datum"/>
 				<brmo:br_xml>
-					<xsl:copy-of select="."/>
+					<xsl:copy>
+						<xsl:attribute name="peilmoment"><xsl:value-of select="$datum"/></xsl:attribute>
 						<xsl:copy-of select="node()"/>
 						<cat:isEigenaarVan>
 							<xsl:for-each select="../..">
@@ -94,6 +103,7 @@
 								</xsl:copy>
 							</xsl:for-each>
 						</cat:isEigenaarVan>
+					</xsl:copy>
 				</brmo:br_xml>
 			</brmo:bericht>
 		</xsl:for-each>		

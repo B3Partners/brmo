@@ -32,9 +32,9 @@ public class NhrXMLReaderTest {
         }
         assertEquals(3, total);
         assertArrayEquals(new String[] {
-            "x-nhr.maatschappelijkeActiviteit.kvk.16029104",
-            "x-nhr.commercieleVestiging.000002706229",
-            "x-nhr.rechtspersoon.rsin.001681965"
+            "nhr.maatschAct.kvk.16029104",
+            "nhr.comVestg.000002706229",
+            "nhr.rechtspersoon.rsin.001681965"
         }, objectRefs.toArray(new String[] {}));
     }
 }

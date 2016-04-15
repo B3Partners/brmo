@@ -6,9 +6,13 @@
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions">
                 
+	<xsl:import href="nhr-object-ref.xsl"/>
+	
     <xsl:param name="rsgb-version" select="2.2"/>
     
-    <xsl:variable name="hoofdvestiging" select="//cat:maatschappelijkeActiviteit/cat:wordtGeleidVanuit//cat:vestigingsnummer"/>
+    <xsl:variable name="hoofdvestiging" select="/cat:maatschappelijkeActiviteit/cat:wordtGeleidVanuit//cat:vestigingsnummer"/>
+    <xsl:variable name="peilmoment" select="/*/@peilmoment"/>
+	<xsl:variable name="peilmoment-dateTime"><xsl:value-of select="substring($peilmoment,1,4)"/>-<xsl:value-of select="substring($peilmoment,5,2)"/>-<xsl:value-of select="substring($peilmoment,7,2)"/>T<xsl:value-of select="substring($peilmoment,9,2)"/>:<xsl:value-of select="substring($peilmoment,11,2)"/>:<xsl:value-of select="substring($peilmoment,13,2)"/></xsl:variable>
     
     <xsl:template match="/">
         <root>
@@ -39,8 +43,10 @@
 	</xsl:template>
 	
 	<xsl:template match="cat:maatschappelijkeActiviteit" mode="rsgb2.2">
-		<xsl:comment>Maatschappelijke activiteit manifesteert zich als onderneming, met niet-hoofdvestigingen</xsl:comment>
-		<xsl:apply-templates select="cat:manifesteertZichAls/cat:onderneming" mode="rsgb2.2"/>
+		<xsl:for-each select="cat:manifesteertZichAls/cat:onderneming">
+			<xsl:comment>Maatschappelijke activiteit manifesteert zich als onderneming, met niet-hoofdvestigingen</xsl:comment>
+			<xsl:apply-templates select="." mode="rsgb2.2"/>
+		</xsl:for-each>
 	
 		<maatschapp_activiteit column-dat-beg-geldh="datum_aanvang" column-datum-einde-geldh="datum_einde_geldig">
 			<kvk_nummer><xsl:value-of select="cat:kvkNummer"/></kvk_nummer>
@@ -65,12 +71,12 @@
 
 		<!-- TODO: wordtUitgeoefendIn nietCommercieleVestiging -->
 
-		<xsl:variable name="key">NHR.MaatschappelijkeActiviteit.<xsl:value-of select="cat:kvkNummer"/></xsl:variable>
+		<xsl:variable name="key"><xsl:apply-templates select="." mode="object_ref"/></xsl:variable>
 		<xsl:variable name="class">INGESCHREVEN NIET-NATUURLIJK PERSOON</xsl:variable>
 		<subject>
 			<identif><xsl:value-of select="$key"/></identif>
 			<clazz><xsl:value-of select="$class"/></clazz>
-			<typering><xsl:value-of select="$class"/></typering>
+			<typering><xsl:value-of select="substring($class,1,35)"/></typering>
 			<naam><xsl:value-of select="cat:naam"/></naam>
 
 			<xsl:call-template name="subject"/>
@@ -90,9 +96,9 @@
 		</niet_nat_prs>
 		<ingeschr_niet_nat_prs>
 			<sc_identif><xsl:value-of select="$key"/></sc_identif>
-			<typering><xsl:value-of select="$class"/></typering>
+			<typering><xsl:value-of select="substring($class,1,35)"/></typering>
 
-			<fk_7aoa_identif><xsl:value-of select="cat:bezoekLocatie//cat:bagId//cat:identificatieAdresseerbaarObject"/></fk_7aoa_identif>
+			<fk_8aoa_identif><xsl:value-of select="cat:bezoekLocatie//cat:bagId//cat:identificatieAdresseerbaarObject"/></fk_8aoa_identif>
 
 			<!-- Is dit correct, of moeten deze velden leeg geladen worden en heeftAlsEigenaar als apart object worden
 				vastgelegd en heeftAlsEignaar relatie via andere koppeling worden vastgelegd? -->
@@ -107,8 +113,10 @@
 			<!-- TODO heeftAlsEigenaar/rechtspersoon/heeft -->
 		</ingeschr_niet_nat_prs>
 
-		<xsl:comment>Hoofdvestiging (maatschappelijkeActiviteit wordtGeleidVanuit)</xsl:comment>
-		<xsl:apply-templates select="cat:wordtGeleidVanuit"/>
+		<xsl:for-each select="cat:wordtGeleidVanuit">
+			<xsl:comment>Hoofdvestiging (maatschappelijkeActiviteit wordtGeleidVanuit)</xsl:comment>
+			<xsl:apply-templates select="."/>
+		</xsl:for-each>
 	</xsl:template>
 
 	<xsl:template match="cat:maatschappelijkeActiviteit" mode="rsgb3.0">
@@ -144,7 +152,7 @@
 	</xsl:template>
 	
 	<xsl:template match="cat:nietCommercieleVestiging[cat:vestigingsnummer] | cat:commercieleVestiging[cat:vestigingsnummer]">
-		<xsl:variable name="key">NHR.Vestiging.<xsl:value-of select="cat:vestigingsnummer"/></xsl:variable>
+		<xsl:variable name="key"><xsl:apply-templates select="." mode="object_ref"/></xsl:variable>
 
 		<xsl:variable name="naam">
 			<xsl:choose>
@@ -165,6 +173,14 @@
 
 			<xsl:call-template name="subject"/>
 		</subject>
+		<xsl:for-each select="cat:activiteiten/cat:hoofdSbiActiviteit | cat:activiteiten/cat:sbiActiviteit">
+			<comfort search-table="sbi_activiteit"  search-column="sbi_code" search-value="{cat:sbiCode}" snapshot-date="{$peilmoment-dateTime}">
+				<sbi_activiteit>
+					<sbi_code><xsl:value-of select="cat:sbiCode"/></sbi_code>
+					<omschr><xsl:value-of select="cat:omschrijving"/></omschr>
+				</sbi_activiteit>
+			</comfort>
+		</xsl:for-each>
 		<vestg>
 			<sc_identif><xsl:value-of select="$key"/></sc_identif>
 			<xsl:call-template name="registratie-datum">
@@ -218,33 +234,31 @@
 			<toevoeging_adres><xsl:value-of select="cat:bezoekLocatie/cat:toevoegingAdres"/></toevoeging_adres>
 
 			<activiteit_omschr><xsl:value-of select="cat:activiteiten/cat:omschrijving"/></activiteit_omschr>
-			<xsl:comment> Gaat uit van fixed issue #139, #140</xsl:comment>
-			<xsl:for-each select="cat:activiteiten/cat:hoofdSbiActiviteit | cat:activiteiten/cat:sbiActiviteit">
-				<xsl:if test="position() = 1">
-					<vestg_activiteit delete-rows="true">
-						<fk_vestg_nummer><xsl:value-of select="$key"/></fk_vestg_nummer>
-					</vestg_activiteit>
-				</xsl:if>
-				<comfort>
-					<sbi_activiteit>
-						<sbi_code><xsl:value-of select="cat:sbiCode"/></sbi_code>
-						<omschr><xsl:value-of select="cat:omschrijving"/></omschr>
-					</sbi_activiteit>
-				</comfort>
-				<vestg_activiteit>
-					<fk_vestg_nummer><xsl:value-of select="$key"/></fk_vestg_nummer>
-					<fk_sbi_activiteit_code><xsl:value-of select="cat:sbiCode"/></fk_sbi_activiteit_code>
-					<indicatie_hoofdactiviteit><xsl:value-of select="boolean(local-name() = 'hoofdSbiActiviteit')"/></indicatie_hoofdactiviteit>
-				</vestg_activiteit>
-			</xsl:for-each>
 		</vestg>
+		<!--xsl:comment> Gaat uit van fixed issue #139, #140</xsl:comment-->
+		<xsl:for-each select="cat:activiteiten/cat:hoofdSbiActiviteit | cat:activiteiten/cat:sbiActiviteit">
+			<!--xsl:if test="position() = 1">
+				<vestg_activiteit delete-rows="true">
+					<fk_vestg_nummer><xsl:value-of select="$key"/></fk_vestg_nummer>
+				</vestg_activiteit>
+			</xsl:if-->
+			<vestg_activiteit>
+				<fk_vestg_nummer><xsl:value-of select="$key"/></fk_vestg_nummer>
+				<fk_sbi_activiteit_code><xsl:value-of select="cat:sbiCode"/></fk_sbi_activiteit_code>
+				<indicatie_hoofdactiviteit>
+					<xsl:if test="local-name() = 'hoofdSbiActiviteit'">1</xsl:if>
+					<xsl:if test="local-name() != 'hoofdSbiActiviteit'">0</xsl:if>
+				</indicatie_hoofdactiviteit>
+			</vestg_activiteit>
+		</xsl:for-each>
+		
 		<xsl:for-each select="cat:handeltOnder/cat:handelsnaam/cat:naam">
-			<xsl:if test="position() = 1">
+			<!--xsl:if test="position() = 1">
 				<xsl:comment> Gaat uit van fixed issue #139</xsl:comment>
 				<vestg_naam delete-rows="true">
 					<fk_ves_sc_identif><xsl:value-of select="$key"/></fk_ves_sc_identif>
 				</vestg_naam>
-			</xsl:if>
+			</xsl:if-->
 			<vestg_naam>			
 				<naam><xsl:value-of select="."/></naam> <!-- NHR max 625 lang, BRMO 500 -->
 				<fk_ves_sc_identif><xsl:value-of select="$key"/></fk_ves_sc_identif>

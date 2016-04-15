@@ -11,6 +11,7 @@ import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.URIResolver;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -37,6 +38,12 @@ public class RsgbTransformer {
 
         Source xsl = new StreamSource(this.getClass().getResourceAsStream(pathToXsl));
         TransformerFactory tf = TransformerFactory.newInstance();
+        tf.setURIResolver(new URIResolver() {
+            @Override
+            public Source resolve(String href, String base) throws TransformerException {
+                return new StreamSource(RsgbTransformer.class.getResourceAsStream("/xsl/" + href));
+            }
+        });
         this.t = tf.newTemplates(xsl);
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();

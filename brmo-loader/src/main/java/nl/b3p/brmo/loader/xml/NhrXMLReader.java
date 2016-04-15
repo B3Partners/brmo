@@ -5,12 +5,12 @@ import java.io.StringWriter;
 import java.util.Iterator;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.URIResolver;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -56,11 +56,17 @@ public class NhrXMLReader extends BrmoXMLReader {
         iterator = b.berichten.iterator();
     }
 
-    private synchronized void initTemplates() throws TransformerConfigurationException, ParserConfigurationException {
+    private synchronized void initTemplates() throws Exception {
         if(splitTemplates == null) {
             log.info("Initializing NHR split XSL templates...");
             Source xsl = new StreamSource(this.getClass().getResourceAsStream("/xsl/nhr-split.xsl"));
             TransformerFactory tf = TransformerFactory.newInstance();
+            tf.setURIResolver(new URIResolver() {
+                @Override
+                public Source resolve(String href, String base) throws TransformerException {
+                    return new StreamSource(NhrXMLReader.class.getResourceAsStream("/xsl/" + href));
+                }
+            });
             NhrXMLReader.splitTemplates = tf.newTemplates(xsl);
 
             t = TransformerFactory.newInstance().newTransformer();
