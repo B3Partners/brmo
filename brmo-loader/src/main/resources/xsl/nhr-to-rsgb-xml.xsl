@@ -89,7 +89,7 @@
 			<sc_identif><xsl:value-of select="$key"/></sc_identif>
 			<clazz><xsl:value-of select="$class"/></clazz>
 			<naam><xsl:value-of select="cat:naam"/></naam>
-			<verkorte_naam><xsl:value-of select="cat:naam"/></verkorte_naam>
+			<verkorte_naam><xsl:value-of select="substring(cat:naam,1,45)"/></verkorte_naam>
 			<xsl:call-template name="registratie-datum">
 				<xsl:with-param name="einde" select="'datum_beeindiging'"/>
 			</xsl:call-template>
@@ -113,13 +113,14 @@
 			<!-- TODO heeftAlsEigenaar/rechtspersoon/heeft -->
 		</ingeschr_niet_nat_prs>
 
-		<xsl:for-each select="cat:wordtGeleidVanuit">
+		<!-- Afgesplitst -->
+		<!--xsl:for-each select="cat:wordtGeleidVanuit">
 			<xsl:comment>Hoofdvestiging (maatschappelijkeActiviteit wordtGeleidVanuit)</xsl:comment>
 			<xsl:apply-templates select="."/>
-		</xsl:for-each>
+		</xsl:for-each-->
 	</xsl:template>
 
-	<xsl:template match="cat:maatschappelijkeActiviteit" mode="rsgb3.0">
+	<xsl:template match="/cat:maatschappelijkeActiviteit" mode="rsgb3.0">
 		<maatschapp_activiteit column-dat-beg-geldh="datum_aanvang" column-datum-einde-geldh="datum_einde_geldig">
 			<kvk_nummer><xsl:value-of select="cat:kvkNummer"/></kvk_nummer>
 			<xsl:call-template name="registratie-datum"/>
@@ -151,7 +152,7 @@
 		<xsl:apply-templates select="cat:wordtUitgeoefendIn[cat:vestigingsnummer != $hoofdvestiging]"/>
 	</xsl:template>
 	
-	<xsl:template match="cat:nietCommercieleVestiging[cat:vestigingsnummer] | cat:commercieleVestiging[cat:vestigingsnummer]">
+	<xsl:template match="cat:nietCommercieleVestiging[cat:vestigingsnummer] | cat:commercieleVestiging[cat:vestigingsnummer]" mode="rsgb2.2">
 		<xsl:variable name="key"><xsl:apply-templates select="." mode="object_ref"/></xsl:variable>
 
 		<xsl:variable name="naam">
@@ -188,30 +189,14 @@
 			</xsl:call-template>
 
 			<!-- RSGB 'betreft uitoefening van activiteiten door' fk naar onderneming -->
-			<!-- van wordtUitgeoefendIn terug naar onderneming of van wordtGeleidVanuit terug naar maatschappelijkeActiviteit -->
-			<xsl:variable name="kvk" select="../../cat:kvkNummer"/>
-            <xsl:choose>
-				<xsl:when test="$kvk">
-					<fk_15ond_kvk_nummer><xsl:value-of select="$kvk"/></fk_15ond_kvk_nummer>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:message terminate="yes">Vestiging <xsl:value-of select="$key"/> alleen ondersteund als onderdeel van onderneming of maatschappelijke activiteit! wordtUitgeoefendDoor niet geimplementeerd</xsl:message>
-				</xsl:otherwise>
-			</xsl:choose>
+			<xsl:for-each select="cat:wordtUitgeoefendDoor/cat:onderneming">
+					<fk_15ond_kvk_nummer><xsl:value-of select="cat:kvkNummer"/></fk_15ond_kvk_nummer>
+			</xsl:for-each>
 
 			<!-- RSGB 'betreft uitoefening van activiteiten door' fk naar maatschappelijke activiteit -->
-			<!-- van wordtUitgeoefendIn terug naar onderneming, manifesteertZichAls, maatschappelijkeActiviteit -->
-			<!-- van wordtGeleidVanuit terug naar maatschappelijkeActiviteit -->
-			<!-- Is dit ooit anders dan $kvk? -->
-			<xsl:variable name="kvk-ma" select="../../../../cat:kvkNummer | ../../cat:kvkNummer"/>
-            <xsl:choose>
-				<xsl:when test="$kvk-ma">
-					<fk_17mac_kvk_nummer><xsl:value-of select="$kvk"/></fk_17mac_kvk_nummer>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:message terminate="yes">Vestiging <xsl:value-of select="$key"/> alleen ondersteund als onderdeel van onderneming als onderdeel van maatschappelijke activiteit! wordtUitgeoefendDoor niet geimplementeerd</xsl:message>
-				</xsl:otherwise>
-			</xsl:choose>
+			<xsl:for-each select="cat:wordtUitgeoefendDoor/cat:maatschappelijkeActiviteit">
+					<fk_17mac_kvk_nummer><xsl:value-of select="cat:kvkNummer"/></fk_17mac_kvk_nummer>
+			</xsl:for-each>
 						
 			<typering>
 				<xsl:choose>
@@ -276,7 +261,7 @@
 
 		<xsl:for-each select="cat:postLocatie/cat:binnenlandsAdres[cat:postbusnummer]">
 			<pa_postadres_postcode><xsl:value-of select="cat:postcode/cat:cijfercombinatie"/><xsl:value-of select="cat:postcode/cat:lettercombinatie"/></pa_postadres_postcode>
-			<pa_postadrestype>postbus</pa_postadrestype>
+			<pa_postadrestype>P</pa_postadrestype>
 			<pa_postbus__of_antwoordnummer><xsl:value-of select="cat:postbusnummer"/></pa_postbus__of_antwoordnummer>
 		</xsl:for-each>
 
@@ -294,5 +279,9 @@
 			</xsl:if>
 		</xsl:for-each>
 		<website_url><xsl:value-of select="cat:communicatiegegevens/cat:domeinNaam[position()=1]"/></website_url>
+	</xsl:template>
+	
+	<xsl:template match="*" mode="rsgb2.2">
+		<xsl:comment>Catch-all template voor onbekend element <xsl:value-of select="local-name()"/></xsl:comment>
 	</xsl:template>
 </xsl:stylesheet>
