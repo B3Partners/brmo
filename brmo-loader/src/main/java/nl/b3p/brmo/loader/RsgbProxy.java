@@ -1241,8 +1241,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             rs = stm.executeQuery();
             exists = rs.next();
         } finally {
-            rs.close();
-            checkAndCloseStatement(stm);
+            if(rs != null) {
+                rs.close();
+                checkAndCloseStatement(stm); // ???
+            }
         }
         loadLog.append(", rij bestaat: ").append(exists ? "ja" : "nee");
 
@@ -1452,6 +1454,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         String origName = tables.get(tableName);
 
+        if(origName == null) {
+            throw new IllegalArgumentException("Tabel bestaat niet: " + tableName);
+        }
+        
         ResultSet set = dbMetadata.getPrimaryKeys(null, geomToJdbc.getSchema(), origName);
         while (set.next()) {
             String column = set.getString("COLUMN_NAME");
