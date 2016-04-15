@@ -21,6 +21,14 @@
                 <directory>src/test/resources</directory>
             </testResource>
         </testResources>
+        <resources>
+            <resource>
+                <directory>src/main/xsd</directory>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <!-- jaxb op dit moment niet gebruikt
             <plugin>
@@ -55,11 +63,71 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <!-- Oracle JDBC driver <excludeGroupIds>com.oracle</excludeGroupIds -->
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>nl.b3p.brmo.bgt.Main</mainClass>
+                        </manifest>
+                    </archive>
+                    <excludes>
+                        <exclude>bgtloader.properties</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>antrun-archive</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <zip destfile="${project.build.directory}/${project.build.finalName}.zip">
+                                    <zipfileset dir="${project.build.directory}" includes="lib/**" />
+                                    <zipfileset dir="${project.build.directory}" includes="${project.build.finalName}.jar" />
+                                    <zipfileset dir="${basedir}" includes="README.md" />
+                                    <zipfileset dir="${project.build.directory}/classes" includes="voorbeeld.bgtloader.properties" />
+                                    <zipfileset dir="${basedir}/datamodel" includes="**/*.sql" />
+                                </zip>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <profiles>
         <profile>
-            <id>travis-ci</id>
+            <id>postgresql</id>
             <properties>
                 <postgresql.jdbc.version>9.4.1208.jre7</postgresql.jdbc.version>
             </properties>
@@ -67,41 +135,37 @@
                 <dependency>
                     <groupId>org.postgresql</groupId>
                     <artifactId>postgresql</artifactId>
-                    <scope>test</scope>
                 </dependency>
-				<dependency>
-					<groupId>org.geotools.jdbc</groupId>
-					<artifactId>gt-jdbc-postgis</artifactId>
-                    <scope>test</scope>
-				</dependency>
-			</dependencies>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<systemPropertyVariables>
-								<database.properties.file>postgis.properties</database.properties.file>
+                <dependency>
+                    <groupId>org.geotools.jdbc</groupId>
+                    <artifactId>gt-jdbc-postgis</artifactId>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <database.properties.file>postgis.properties</database.properties.file>
                             </systemPropertyVariables>
                         </configuration>
-					</plugin>
-				</plugins>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
         <profile>
-            <id>appveyor-ci</id>
+            <id>mssql</id>
             <dependencies>
                 <dependency>
                     <groupId>net.sourceforge.jtds</groupId>
                     <artifactId>jtds</artifactId>
                     <version>${sqlserver.jtds.version}</version>
-                    <scope>test</scope>
                 </dependency>
-				<dependency>
-					<groupId>org.geotools.jdbc</groupId>
-					<artifactId>gt-jdbc-sqlserver</artifactId>
-                    <scope>test</scope>
-				</dependency>
+                <dependency>
+                    <groupId>org.geotools.jdbc</groupId>
+                    <artifactId>gt-jdbc-sqlserver</artifactId>
+                </dependency>
             </dependencies>
             <build>
                 <plugins>
@@ -126,12 +190,10 @@
                 <dependency>
                     <groupId>com.oracle</groupId>
                     <artifactId>${oracle.jdbc.artifactId}</artifactId>
-                    <scope>test</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.geotools.jdbc</groupId>
                     <artifactId>gt-jdbc-oracle</artifactId>
-                    <scope>test</scope>
                 </dependency>
             </dependencies>
             <build>

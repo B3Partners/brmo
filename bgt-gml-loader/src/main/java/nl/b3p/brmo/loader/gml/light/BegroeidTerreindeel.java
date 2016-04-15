@@ -4,6 +4,7 @@
 package nl.b3p.brmo.loader.gml.light;
 
 /**
+ * GML Light transformer voor RSGB 3.0 objecttype BEGROEID TERREINDEEL.
  *
  * @author mprins
  */
@@ -15,8 +16,7 @@ public class BegroeidTerreindeel extends GMLLightFeatureTransformerImpl {
         attrMapping.put("plus-fysiekVoorkomen", "plus_fysiekvoorkomen");
 
         attrMapping.put("lod0MultiSurface", "lod0multisurface");
+        attrMapping.put("kruinlijn", KRUINLIJN_GEOM_NAME);
         attrMapping.put("geometrie2d", DEFAULT_GEOM_NAME);
-        attrMapping.put("kruinlijn", "kruinlijn");
     }
-
 }

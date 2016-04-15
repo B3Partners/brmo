@@ -675,7 +675,8 @@
     </build>
     <profiles>
         <profile>
-            <id>travis-ci</id>
+            <!-- actief voor Travis-CI builds -->
+            <id>postgresql</id>
             <properties>
                 <oracle.jdbc.artifactId>ojdbc6</oracle.jdbc.artifactId>
                 <oracle.jdbc.version>11.2.0.3</oracle.jdbc.version>
@@ -692,7 +693,8 @@
             </repositories>
         </profile>
         <profile>
-            <id>appveyor-ci</id>
+            <!-- actief voor AppVeyor builds -->
+            <id>mssql</id>
             <properties>
                 <oracle.jdbc.artifactId>ojdbc6</oracle.jdbc.artifactId>
                 <oracle.jdbc.version>11.2.0.3</oracle.jdbc.version>

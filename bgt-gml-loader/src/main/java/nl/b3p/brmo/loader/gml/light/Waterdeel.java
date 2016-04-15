@@ -1,9 +1,10 @@
 /*
- * Copyright (C) 2015 B3Partners B.V.
+ * Copyright (C) 2016 B3Partners B.V.
  */
 package nl.b3p.brmo.loader.gml.light;
 
 /**
+ * GML Light transformer voor RSGB 3.0 objecttype WATERDEEL.
  *
  * @author mprins
  */

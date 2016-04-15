@@ -14,6 +14,6 @@ public class Inrichtingselement extends GMLLightFeatureTransformerImpl {
 
     public Inrichtingselement() {
         attrMapping.put("bgt-type", "bgt_type");
-        // vreemd: geen geomtrie
+        // vreemd: geen geometrie
     }
 }

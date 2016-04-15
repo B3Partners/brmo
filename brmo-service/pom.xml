@@ -192,7 +192,7 @@
     </build>
     <profiles>
         <profile>
-            <id>travis-ci</id>
+            <id>postgresql</id>
             <properties>
                 <test.persistence.unit>brmo.persistence.postgresql</test.persistence.unit>
                 <postgresql.jdbc.version>9.4.1208.jre7</postgresql.jdbc.version>
@@ -242,7 +242,7 @@
                             <port>9090</port>
                             <!-- Note: dit bestand wordt neergezet tijdens 'test' phase.
                             Om Tomcat standalone te draaien gebruik je
-                            'mvn clean test tomcat7:run -Ptravis-ci' -->
+                            'mvn clean test tomcat7:run -Ppostgresql' -->
                             <contextFile>${project.build.directory}/test-classes/testcontext.xml</contextFile>
                         </configuration>
                         <executions>
@@ -294,7 +294,7 @@
             </build>
         </profile>
         <profile>
-            <id>appveyor-ci</id>
+            <id>mssql</id>
             <properties>
                 <test.persistence.unit>brmo.persistence.sqlserver</test.persistence.unit>
             </properties>
@@ -343,7 +343,7 @@
                             <port>9090</port>
                             <!-- Note: dit bestand wordt neergezet tijdens 'test' phase.
                             Om Tomcat standalone te draaien gebruik je
-                            'mvn clean test tomcat7:run -Pappveyor-ci' -->
+                            'mvn clean test tomcat7:run -Pmssql' -->
                             <contextFile>${project.build.directory}/test-classes/testcontext.xml</contextFile>
                         </configuration>
                         <executions>

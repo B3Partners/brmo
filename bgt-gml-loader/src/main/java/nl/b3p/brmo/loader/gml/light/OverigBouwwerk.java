@@ -4,6 +4,7 @@
 package nl.b3p.brmo.loader.gml.light;
 
 /**
+ * GML Light transformer voor RSGB 3.0 objecttype OVERIG BOUWWERK.
  *
  * @author mprins
  */
@@ -14,5 +15,6 @@ public class OverigBouwwerk extends GMLLightFeatureTransformerImpl {
         attrMapping.put("plus-type", "plus_type");
 
         attrMapping.put("geometrie2d", DEFAULT_GEOM_NAME);
+        // TODO verschillende LODx geometrieen (niet in simpel model, wel in doc...)
     }
 }

@@ -4,6 +4,7 @@
 package nl.b3p.brmo.loader.gml.light;
 
 /**
+ * TODO Komt niet als zelfstanding objecttype voor in RSGB 3.0 doc.
  *
  * @author mprins
  */
@@ -15,6 +16,6 @@ public class Paal extends GMLLightFeatureTransformerImpl {
         attrMapping.put("hectometeraanduiding", "hectometeraanduiding");
 
         attrMapping.put("geometrie2d", DEFAULT_GEOM_NAME);
-        attrMapping.put("lod0Geometrie", "lod0geometrie");
+        attrMapping.put("lod0Geometrie", LOD0_GEOM_NAME);
     }
 }

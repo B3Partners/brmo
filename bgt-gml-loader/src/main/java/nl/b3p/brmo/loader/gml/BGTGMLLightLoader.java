@@ -11,13 +11,14 @@ import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.xml.parsers.ParserConfigurationException;
@@ -34,14 +35,10 @@ import org.geotools.data.DataUtilities;
 import org.geotools.jdbc.JDBCDataStore;
 import org.geotools.data.DefaultTransaction;
 import org.geotools.data.FeatureStore;
-import org.geotools.data.FeatureWriter;
 import org.geotools.data.Transaction;
 import org.geotools.data.simple.SimpleFeatureCollection;
-import org.geotools.factory.Hints;
 import org.geotools.feature.FeatureIterator;
-import org.geotools.jdbc.JDBCFeatureSource;
-import org.geotools.jdbc.JDBCInsertFeatureWriter;
-import org.geotools.jdbc.JDBCUpdateFeatureWriter;
+import org.geotools.jdbc.Index;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 
@@ -63,15 +60,20 @@ public class BGTGMLLightLoader {
     private Properties dbConnProps;
 
     /**
-     * {@code true} als we tegene een oracle database werken, default
+     * {@code true} als we tegen een oracle database werken, default
      * {@code false}
      */
     private boolean isOracle = false;
+    /**
+     * {@code true} als we tegen een MS SQL database werken, default
+     * {@code false}
+     */
+    private boolean isMSSQL = false;
 
     /**
-     * Maak automatisch tabellen aan; normaal niet/default {@code false}.
+     * Maak automatisch tabellen aan; normaal wel/default {@code true}.
      */
-    private boolean createTables = false;
+    private boolean createTables = true;
 
     private Parser parser;
 
@@ -79,7 +81,7 @@ public class BGTGMLLightLoader {
      * Default constructor initaliseert de GML parser.
      */
     public BGTGMLLightLoader() {
-        final String schemaLocation = BGTGMLLightLoader.class.getResource("/imgeo-simple_resolved.xsd").getFile();
+        final String schemaLocation = BGTGMLLightLoader.class.getResource("/imgeo-simple_resolved.xsd").toString();
 
         Configuration configuration = new ApplicationSchemaConfiguration("http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", schemaLocation);
         configuration.getContext().registerComponentInstance(new GeometryFactory(new PrecisionModel(), 28992));
@@ -106,6 +108,7 @@ public class BGTGMLLightLoader {
         this.dbConnProps = dbConnProps;
 
         this.isOracle = "oracle".equalsIgnoreCase(dbConnProps.getProperty("dbtype"));
+        this.isMSSQL = ("jtds-sqlserver".equalsIgnoreCase(dbConnProps.getProperty("dbtype")) | "sqlserver".equalsIgnoreCase(dbConnProps.getProperty("dbtype")));
     }
 
     /**
@@ -145,12 +148,7 @@ public class BGTGMLLightLoader {
                     LOG.warn("Overslaan zip entry geen GML bestand: " + entry.getName());
                 } else {
                     LOG.debug("Lezen GML bestand " + entry.getName() + " uit zip " + zipExtract.getCanonicalPath());
-                    FeatureCollection<SimpleFeatureType, SimpleFeature> featureCollection = parseGML(new CloseShieldInputStream(zip));
-                    if (!featureCollection.isEmpty()) {
-                        result += storeFeatureCollection(featureCollection, entry.getName().toLowerCase());
-                    } else {
-                        LOG.debug("Geen features gevonden in bestand: " + entry.getName());
-                    }
+                    result += storeFeatureCollection(new CloseShieldInputStream(zip), entry.getName().toLowerCase());
                 }
                 entry = zip.getNextEntry();
             }
@@ -161,7 +159,7 @@ public class BGTGMLLightLoader {
     }
 
     /**
-     * verwerk een GML bestand.
+     * Verwerk een GML bestand.
      *
      * @param gml GML Light bestand
      * @return aantal geschreven features
@@ -171,12 +169,7 @@ public class BGTGMLLightLoader {
     public int processGMLFile(File gml) throws IOException {
         int result = 0;
         try {
-            FeatureCollection<SimpleFeatureType, SimpleFeature> featureCollection = parseGML(new FileInputStream(gml));
-            if (!featureCollection.isEmpty()) {
-                result = storeFeatureCollection(featureCollection, gml.getName().toLowerCase());
-            } else {
-                LOG.debug("Geen features gevonden in bestand: " + gml.getName());
-            }
+            result = storeFeatureCollection(new FileInputStream(gml), gml.getName().toLowerCase());
         } catch (SAXException | ParserConfigurationException ex) {
             LOG.error("Er is een parse fout opgetreden.", ex);
         }
@@ -184,47 +177,18 @@ public class BGTGMLLightLoader {
     }
 
     /**
-     * Parse GML bestand uit de stream.
-     *
-     * @param in GML inputstream
-     * @return verzameling SimpleFeatures (mogelijk leeg)
-     *
-     * @throws IOException als openen van inputstream mislukt
-     * @throws SAXException als parsen van in mislukt
-     * @throws ParserConfigurationException als gml parser config niet deugd
-     */
-    private FeatureCollection<SimpleFeatureType, SimpleFeature> parseGML(InputStream in) throws IOException, SAXException, ParserConfigurationException {
-        SimpleFeatureCollection featureCollection = (SimpleFeatureCollection) parser.parse(in);
-//        LOG.debug("Parser schema's: " + Arrays.toString(parser.getSchemas()));
-//        if (LOG.isDebugEnabled()) {
-//            featureCollection.accepts(new AbstractFeatureVisitor() {
-//                private Collection<Property> props;
-//
-//                @Override
-//                public void visit(Feature feature) {
-//                    props = feature.getProperties();
-//                    String s = "Feature " + feature.getIdentifier() + "\n";
-//                    for (Property p : props) {
-//                        s = s.concat(" -> " + p.getName() + " (" + p.getType() + "): value " + p.getValue() + "\n");
-//                    }
-//                    LOG.debug(s);
-//                }
-//            }, new NullProgressListener());
-//        }
-        return featureCollection;
-    }
-
-    /**
      * transformeert de input en slaat op in database.
      *
-     * @param collection te laden features
+     * @param gmlFeatCollection te laden features
      * @param gmlFileName naam input gml bestand
      * @return aantal geschreven features
      *
+     * @throws SAXException als parsen van in mislukt
      * @throws IOException als er een database fout optreedt
+     * @throws ParserConfigurationException als gml parser config niet deugd
      * @throws IllegalStateException als er iets mis is in de configuratie
      */
-    private int storeFeatureCollection(FeatureCollection<SimpleFeatureType, SimpleFeature> collection, String gmlFileName) throws IOException, IllegalStateException {
+    private int storeFeatureCollection(InputStream in, String gmlFileName) throws IOException, IllegalStateException, SAXException, ParserConfigurationException {
         int writtenFeatures = 0;
         GMLLightFeatureTransformer featTransformer = BGTGMLLightTransformerFactory.getTransformer(gmlFileName);
         if (featTransformer == null) {
@@ -236,7 +200,13 @@ public class BGTGMLLightLoader {
         if (dataStore == null) {
             throw new IllegalStateException("Datastore mag niet null voor opslaan van data.");
         }
-        dataStore.setExposePrimaryKeyColumns(true);
+        // TODO boolean mapping voor mssql en oracle
+        if (this.isOracle) {
+            dataStore.getClassToSqlTypeMappings().put(java.lang.Boolean.class, Types.VARCHAR);
+        }
+        if (this.isMSSQL) {
+            dataStore.getClassToSqlTypeMappings().put(java.lang.Boolean.class, Types.VARCHAR);
+        }
 
         // check table exists
         String tableName = BGTGMLLightTransformerFactory.getTableName(gmlFileName);
@@ -249,23 +219,51 @@ public class BGTGMLLightLoader {
             }
         }
 
-        SimpleFeatureType sft = (SimpleFeatureType) collection.getSchema();
+        FeatureCollection<SimpleFeatureType, SimpleFeature> gmlFeatCollection = (SimpleFeatureCollection) parser.parse(in);
+        SimpleFeatureType sft = (SimpleFeatureType) gmlFeatCollection.getSchema();
         SimpleFeatureType targetSchema = featTransformer.getTargetSchema(sft, tableName, this.isOracle);
+
+        LOG.debug("doel tabel schema: " + targetSchema);
+
         if (!exists) {
             if (createTables) {
                 dataStore.createSchema(targetSchema);
-                dataStore.setExposePrimaryKeyColumns(false);
                 LOG.info("De volgende tabel is aangemaakt in de database: " + targetSchema.getTypeName());
+// Deze index is vooralsnog niet nodig, als geotools de tabel aanmaakt komt er vanzelf een 'fid' in
+//                Index idx = new Index(targetSchema.getTypeName(),
+// safeIndexName doet zoek/vervang van namen voor de index, zie hieronder
+//                        safeIndexName(targetSchema.getTypeName() + "_" + GMLLightFeatureTransformer.ID_NAME + "_idx"),
+//                        true,
+//                        GMLLightFeatureTransformer.ID_NAME);
+//                dataStore.createIndex(idx);
+//                LOG.info("De volgende index is aangemaakt in de database: " + idx);
+                if (this.isOracle) {
+                    try {
+                        dataStore.getConnection(Transaction.AUTO_COMMIT).createStatement().execute("UPDATE USER_SDO_GEOM_METADATA SET SRID=28992");
+                    } catch (SQLException ex) {
+                        LOG.error("Bijwerken ruimtelijke metadata is mislukt", ex);
+                    }
+                }
             } else {
                 LOG.error("Tabel: " + tableName + " is niet beschikbaar in de database.");
                 throw new IllegalStateException("De tabel " + tableName + " ontbreekt in de database; opslaan van gegevens uit GML " + gmlFileName + " is niet mogelijk.");
             }
+        } else {
+            // als tabel bestaat aannemen dat deze de juiste primary key heeft
+            dataStore.setExposePrimaryKeyColumns(true);
         }
+
+        if (gmlFeatCollection.isEmpty()) {
+            LOG.info("Geen features gevonden in bestand: " + gmlFileName);
+            dataStore.dispose();
+            return writtenFeatures;
+        }
+
         Transaction transaction = new DefaultTransaction("add-bgt");
-        try (FeatureIterator<SimpleFeature> feats = collection.features()) {
+        try (FeatureIterator<SimpleFeature> feats = gmlFeatCollection.features()) {
             FeatureStore store = (FeatureStore) dataStore.getFeatureSource(targetSchema.getTypeName(), transaction);
             while (feats.hasNext()) {
-                SimpleFeature transformed = featTransformer.transform(feats.next(), targetSchema, this.isOracle);
+                SimpleFeature transformed = featTransformer.transform(feats.next(), targetSchema, this.isOracle, dataStore.isExposePrimaryKeyColumns());
                 store.addFeatures(DataUtilities.collection(transformed));
                 writtenFeatures++;
             }
@@ -281,6 +279,24 @@ public class BGTGMLLightLoader {
         return writtenFeatures;
     }
 
+//    private String safeIndexName(String shouldBeLess30char) {
+//
+//        if (shouldBeLess30char.length() < 30) {
+//            return shouldBeLess30char.toLowerCase();
+//        } else {
+//            return shouldBeLess30char.toLowerCase()
+//                    .replace("deel", "dl")
+//                    .replace("ondersteunend", "odrsteun")
+//                    .replace("onbegroeid", "obgrd")
+//                    .replace("begroeid", "bgrd")
+//                    .replace("inrichtingselement", "inrelem")
+//                    .replace("ongeclassificeerd", "oclas")
+//                    .replace("object", "obj")
+//                    .replace("gebied", "gbd")
+//                    .replace("kruinlijn", "kr")
+//                    .replace("lod0geom", "ld0");
+//        }
+//    }
     /**
      * scan directory for zipfiles in de geconfigueerde directory.
      *
@@ -347,13 +363,14 @@ public class BGTGMLLightLoader {
     public void setDbConnProps(Properties dbConnProps) {
         this.dbConnProps = dbConnProps;
         this.isOracle = "oracle".equalsIgnoreCase(dbConnProps.getProperty("dbtype"));
+        this.isMSSQL = ("jtds-sqlserver".equalsIgnoreCase(dbConnProps.getProperty("dbtype")) | "sqlserver".equalsIgnoreCase(dbConnProps.getProperty("dbtype")));
     }
 
     /**
      * Maak automatisch tabellen aan.
      *
      * @param createTables {@code true} om automatisch tabellen aan te maken,
-     * default is {@code false}
+     * default is {@code true}
      */
     public void setCreateTables(boolean createTables) {
         this.createTables = createTables;
@@ -366,5 +383,14 @@ public class BGTGMLLightLoader {
      */
     public void setIsOracle(boolean isOracle) {
         this.isOracle = isOracle;
+    }
+
+    /**
+     * omdat sqlserver geen boolean heeft voor velden...
+     *
+     * @param isMSSQL {@code true} als het zo is
+     */
+    public void setIsMSSQL(boolean isMSSQL) {
+        this.isMSSQL = isMSSQL;
     }
 }

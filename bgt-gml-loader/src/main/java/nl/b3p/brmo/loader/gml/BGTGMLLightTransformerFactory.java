@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  *
  * Houdt de lijst met beschkibare GML transformers bij. Er zijn een aantal
- * bestanden die niet geconverteerd worden
+ * bestanden die niet geconverteerd worden, oa. bestuurlijke eenheden.
  *
  * @author mprins
  */
@@ -17,15 +17,11 @@ public enum BGTGMLLightTransformerFactory {
     // NB (mogelijk) geen geometrie,
     // TODO nog geen voorbeeld of bestand gezien...
     inrichtingselement("", "Inrichtingselement"),
-    // TODO nog geen voorbeeld of bestand gezien...
-    openbareruimte("", "OpenbareRuimte"),
-    // TODO nog geen gml bestand van gezien
-    stadsdeel("", "Stadsdeel"),
-    // TODO nog geen gml bestand van gezien
-    waterschap("", "Waterschap"),
+    // TODO nog geen voorbeeld of bestand gezien, naam moet gecontroleerd... zit bovendien in BAG
+    bgt_openbareruimte("", "OpenbareRuimte"),
     // doen we niet
     // plaatsbepalingspunt("", ""),
-    //
+    
     bak("bgt_bak.gml", "Bak"),
     bord("bgt_bord.gml", "Bord"),
     put("bgt_put.gml", "Put"),
@@ -36,19 +32,23 @@ public enum BGTGMLLightTransformerFactory {
     kast("bgt_kast.gml", "Kast"),
     //
     gebouw_installatie("bgt_buildinginstallation.gml", "GebouwInstallatie"),
-    pand("bgt_buildingpart.gml", "Pand"),
+    bgt_pand("bgt_buildingpart.gml", "Pand"),
     overig_bouwwerk("bgt_overigbouwwerk.gml", "OverigBouwwerk"),
     //
     openbareruimtelabel("bgt_openbareruimtelabel.gml", "OpenbareRuimteLabel"),
-    buurt("bgt_buurt.gml", "Buurt"),
-    wijk("bgt_wijk.gml", "Wijk"),
     functioneelgebied("bgt_functioneelgebied.gml", "FunctioneelGebied"),
+    // TODO bestuurlijke eenheden
+    // TODO nog geen gml bestand van gezien
+    // stadsdeel("", "Stadsdeel"),
+    // TODO nog geen gml bestand van gezien
+    // waterschap("", "Waterschap"),
+    // buurt("bgt_buurt.gml", "Buurt"),
+    // wijk("bgt_wijk.gml", "Wijk"),
     //
     ongeclassificeerdobject("bgt_ongeclassificeerdobject.gml", "OngeclassificeerdObject"),
     //
     begroeid_terreindeel("bgt_plantcover.gml", "BegroeidTerreindeel"),
     onbegroeid_terreindeel("bgt_onbegroeidterreindeel.gml", "OnbegroeidTerreindeel"),
-    //ONBEGROEID_TERREINDEEL("bgt_onbegroeidterreindeel.gml", "OnbegroeidTerreindeel"),
     vegetatieobject("bgt_solitaryvegetationobject.gml", "VegetatieObject"),
     //
     spoor("bgt_railway.gml", "Spoor"),
@@ -120,7 +120,7 @@ public enum BGTGMLLightTransformerFactory {
         try {
             Class c = Class.forName(GMLLightFeatureTransformer.class.getPackage().getName() + ".light." + lookup.get(gmlFileName).getTransformerName());
             return (GMLLightFeatureTransformer) c.newInstance();
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NullPointerException ex) {
             return null;
         }
     }

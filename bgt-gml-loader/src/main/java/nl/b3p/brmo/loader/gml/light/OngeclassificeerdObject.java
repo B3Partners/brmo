@@ -4,6 +4,7 @@
 package nl.b3p.brmo.loader.gml.light;
 
 /**
+ * TODO Komt niet als zelfstanding objecttype voor in RSGB 3.0 doc.
  *
  * @author mprins
  */
