@@ -27,6 +27,28 @@
 		<xsl:variable name="datum">
 			<brmo:datum><xsl:value-of select="../@peilmoment"/></brmo:datum>
 		</xsl:variable>
+		
+		<xsl:for-each select="cat:heeftAlsEigenaar/*[cat:bsn or cat:rsin]">
+			<!-- TODO: afsplitsen door/voor Persoon -->
+			<brmo:bericht>
+				<brmo:object_ref><xsl:apply-templates select="." mode="object_ref"/></brmo:object_ref>
+				<xsl:copy-of select="$datum"/>
+				<brmo:br_xml>
+					<xsl:copy>
+						<xsl:attribute name="peilmoment"><xsl:value-of select="$datum"/></xsl:attribute>
+						<xsl:copy-of select="node()"/>
+						<cat:isEigenaarVan>
+							<xsl:for-each select="../..">
+								<xsl:copy>
+									<xsl:copy-of select="cat:kvkNummer"/>
+								</xsl:copy>
+							</xsl:for-each>
+						</cat:isEigenaarVan>
+					</xsl:copy>
+				</brmo:br_xml>
+			</brmo:bericht>
+		</xsl:for-each>		
+		
 		<brmo:bericht>
 			<brmo:object_ref><xsl:apply-templates select="." mode="object_ref"/></brmo:object_ref>
 			<xsl:copy-of select="$datum"/>
@@ -86,26 +108,5 @@
 				Onbekende case: nietCommercieleVestiging van maatschappelijkeActiviteit waaruit deze niet wordt geleid, aub testcase aanmelden bij ontwikkelaars!
 			</brmo:message>
 		</xsl:for-each>
-			
-		<xsl:for-each select="cat:heeftAlsEigenaar/*[cat:bsn or cat:rsin]">
-			<!-- TODO: afsplitsen door/voor Persoon -->
-			<brmo:bericht>
-				<brmo:object_ref><xsl:apply-templates select="." mode="object_ref"/></brmo:object_ref>
-				<xsl:copy-of select="$datum"/>
-				<brmo:br_xml>
-					<xsl:copy>
-						<xsl:attribute name="peilmoment"><xsl:value-of select="$datum"/></xsl:attribute>
-						<xsl:copy-of select="node()"/>
-						<cat:isEigenaarVan>
-							<xsl:for-each select="../..">
-								<xsl:copy>
-									<xsl:copy-of select="cat:kvkNummer"/>
-								</xsl:copy>
-							</xsl:for-each>
-						</cat:isEigenaarVan>
-					</xsl:copy>
-				</brmo:br_xml>
-			</brmo:bericht>
-		</xsl:for-each>		
-    </xsl:template>
+	</xsl:template>
 </xsl:stylesheet>

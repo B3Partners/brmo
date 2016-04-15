@@ -58,9 +58,10 @@
 				<fk_3ond_kvk_nummer><xsl:value-of select="."/></fk_3ond_kvk_nummer>
 			</xsl:for-each>
 			
-			<!-- RSGB todo:
-			heeftAlsEigenaar (fk_4pes_sc_identif)
-            -->
+			<fk_4pes_sc_identif>
+				<xsl:apply-templates select="cat:heeftAlsEigenaar" mode="object_ref"/>
+			</fk_4pes_sc_identif>
+
 			<!-- elementen niet in RSGB: 
 			nonMailing
 			hoofdSbiActiviteit
@@ -100,15 +101,16 @@
 
 			<fk_8aoa_identif><xsl:value-of select="cat:bezoekLocatie//cat:bagId//cat:identificatieAdresseerbaarObject"/></fk_8aoa_identif>
 
+			<!-- Afgesplitst -->
 			<!-- Is dit correct, of moeten deze velden leeg geladen worden en heeftAlsEigenaar als apart object worden
 				vastgelegd en heeftAlsEignaar relatie via andere koppeling worden vastgelegd? -->
-			<xsl:for-each select="cat:heeftAlsEigenaar/*">
+			<!--xsl:for-each select="cat:heeftAlsEigenaar/*">
 				<rsin><xsl:value-of select="cat:rsin"/></rsin>
 				<rechtsvorm><xsl:value-of select="cat:persoonRechtsvorm"/></rechtsvorm>
 				<statutaire_zetel><xsl:value-of select="cat:statutaireZetel"/></statutaire_zetel>
 
-				<!-- TODO: rechtstoestand -->
-			</xsl:for-each>
+				<!- - TODO: rechtstoestand - ->
+			</xsl:for-each-->
 
 			<!-- TODO heeftAlsEigenaar/rechtspersoon/heeft -->
 		</ingeschr_niet_nat_prs>
@@ -252,7 +254,7 @@
 		
 	</xsl:template>
 
-	<!-- Werkt voor maatschappelijkeActiviteit en vestiging -->
+	<!-- Werkt voor elementen met cat:bezoekLocatie -->
 	<xsl:template name="subject">
 		<!-- Lengte mismatch: NHR 500, RSGB 257 -->
 		<adres_binnenland><xsl:value-of select="cat:bezoekLocatie[cat:binnenlandsAdres]/cat:volledigAdres"/></adres_binnenland>
@@ -281,6 +283,96 @@
 		<website_url><xsl:value-of select="cat:communicatiegegevens/cat:domeinNaam[position()=1]"/></website_url>
 	</xsl:template>
 	
+	<xsl:template match="cat:rechtspersoon | cat:samenwerkingsverband" mode="rsgb2.2">
+
+		<xsl:variable name="key"><xsl:apply-templates select="." mode="object_ref"/></xsl:variable>
+		<xsl:variable name="class">INGESCHREVEN NIET-NATUURLIJK PERSOON</xsl:variable>
+		<subject>
+			<identif><xsl:value-of select="$key"/></identif>
+			<clazz><xsl:value-of select="$class"/></clazz>
+			<typering><xsl:value-of select="substring($class,1,35)"/></typering>
+			<naam><xsl:value-of select="cat:volledigeNaam"/></naam>
+
+			<xsl:call-template name="subject"/>
+		</subject>
+		<prs>
+			<sc_identif><xsl:value-of select="$key"/></sc_identif>
+			<clazz><xsl:value-of select="$class"/></clazz>
+		</prs>
+		<niet_nat_prs>
+			<sc_identif><xsl:value-of select="$key"/></sc_identif>
+			<clazz><xsl:value-of select="$class"/></clazz>
+			<naam><xsl:value-of select="cat:volledigeNaam"/></naam>
+			<verkorte_naam><xsl:value-of select="substring(cat:volledigeNaam,1,45)"/></verkorte_naam>
+			<xsl:call-template name="registratie-datum">
+				<xsl:with-param name="einde" select="'datum_beeindiging'"/>
+			</xsl:call-template>
+		</niet_nat_prs>
+		<ingeschr_niet_nat_prs>
+			<sc_identif><xsl:value-of select="$key"/></sc_identif>
+			<typering><xsl:value-of select="substring($class,1,35)"/></typering>
+
+			<fk_8aoa_identif><xsl:value-of select="cat:bezoekLocatie//cat:bagId//cat:identificatieAdresseerbaarObject"/></fk_8aoa_identif>
+
+			<rsin><xsl:value-of select="cat:rsin"/></rsin>
+			<rechtsvorm><xsl:value-of select="cat:persoonRechtsvorm"/></rechtsvorm>
+			<statutaire_zetel><xsl:value-of select="cat:statutaireZetel"/></statutaire_zetel>
+
+			<!-- TODO heeft (comfortdata) -->
+		</ingeschr_niet_nat_prs>
+	</xsl:template>
+	
+	<xsl:template match="cat:natuurlijkPersoon" mode="rsgb2.2">
+
+		<xsl:variable name="key"><xsl:apply-templates select="." mode="object_ref"/></xsl:variable>
+		<xsl:variable name="class">NATUURLIJK PERSOON</xsl:variable>
+		<subject>
+			<identif><xsl:value-of select="$key"/></identif>
+			<clazz><xsl:value-of select="$class"/></clazz>
+			<typering><xsl:value-of select="substring($class,1,35)"/></typering>
+			<naam><xsl:value-of select="cat:volledigeNaam"/></naam>
+
+			<!-- TODO postLocatiePersoon -->
+			<xsl:call-template name="subject"/>
+		</subject>
+		<prs>
+			<sc_identif><xsl:value-of select="$key"/></sc_identif>
+			<clazz><xsl:value-of select="$class"/></clazz>
+		</prs>
+		<nat_prs>
+			<sc_identif><xsl:value-of select="$key"/></sc_identif>
+			<clazz><xsl:value-of select="$class"/></clazz>
+			<aand_naamgebruik>
+				<xsl:choose>
+					<xsl:when test="cat:aanduidingNaamgebruik = 'EigenGeslachtsnaam'">E</xsl:when>
+					<xsl:when test="cat:aanduidingNaamgebruik = 'GeslachtsnaamPartner'">P</xsl:when>
+					<xsl:when test="cat:aanduidingNaamgebruik = 'GeslachtsnaamPartnerNaEigenGeslachtsnaam'">N</xsl:when>
+					<xsl:when test="cat:aanduidingNaamgebruik = 'GeslachtsnaamPartnerVoorEigenGeslachtsnaam'">V</xsl:when>
+				</xsl:choose>
+			</aand_naamgebruik>
+			<geslachtsaand>
+				<xsl:choose>
+					<xsl:when test="cat:geslachtsaanduiding = 'Man'">M</xsl:when>
+					<xsl:when test="cat:geslachtsaanduiding = 'Vrouw'">V</xsl:when>
+					<xsl:otherwise>O</xsl:otherwise>
+				</xsl:choose>
+			</geslachtsaand>
+			<!-- TODO nm_adellijke_titel_predikaat/-->
+			<nm_geslachtsnaam><xsl:value-of select="cat:geslachtsnaam"/></nm_geslachtsnaam>
+			<nm_voornamen><xsl:value-of select="cat:voornamen"/></nm_voornamen>
+			<nm_voorvoegsel_geslachtsnaam><xsl:value-of select="cat:voorvoegselGeslachtsnaam"/></nm_voorvoegsel_geslachtsnaam>
+		</nat_prs>
+		
+		<ingeschr_nat_prs>
+			<sc_identif><xsl:value-of select="$key"/></sc_identif>
+			<clazz><xsl:value-of select="$class"/></clazz>			
+
+			<bsn><xsl:value-of select="cat:bsn"/></bsn>
+			
+			<fk_28nra_sc_identif><xsl:value-of select="cat:woonLocatie//cat:bagId//cat:identificatieAdresseerbaarObject"/></fk_28nra_sc_identif>
+		</ingeschr_nat_prs>
+	</xsl:template>
+		
 	<xsl:template match="*" mode="rsgb2.2">
 		<xsl:comment>Catch-all template voor onbekend element <xsl:value-of select="local-name()"/></xsl:comment>
 	</xsl:template>
