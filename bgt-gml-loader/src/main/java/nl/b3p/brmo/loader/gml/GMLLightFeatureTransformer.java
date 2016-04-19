@@ -17,7 +17,9 @@ public interface GMLLightFeatureTransformer {
      * default geometrie kolom, {@value }.
      */
     public static final String DEFAULT_GEOM_NAME = "geom2d";
-
+    /**
+     * kruinlijn geometrie kolom, {@value }.
+     */
     public static final String KRUINLIJN_GEOM_NAME = "kruinlijn";
     /**
      * {@value }.

@@ -48,9 +48,8 @@ before_test:
   - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -Q "CREATE DATABASE rsgb" -d "master"
   - dir -w .\datamodel\utility_scripts\
   - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -d "rsgb" -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
-
-  - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -Q "CREATE SCHEMA bgttest AUTHORIZATION rsgb;"
-  - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -Q "GRANT ALL ON SCHEMA bgttest TO dbo;"
+# BGT tests
+  - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -Q "CREATE DATABASE bgttest" -d "master"
 
 # set up STAGING DB
   - dir -w .\brmo-persistence\target\ddlscripts\
@@ -59,6 +58,8 @@ before_test:
   - dir -w .\brmo-persistence\db\
   - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\01_create_indexes.sql
   - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\02_insert_default_user.sql
+# bgttest setup
+  - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -d "bgttest" -i .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\create_rsgb_bgt.sql
   - cmd: echo "computer name:" %COMPUTERNAME%
   - cmd: echo "instance name:" %INSTANCENAME%
   - ps: .\.appveyor\setting-tcp-ip-ports.ps1

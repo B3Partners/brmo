@@ -57,6 +57,117 @@
             </plugin>
             -->
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>transform</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <transformationSets>
+                        <transformationSet>
+                            <dir>src/main/xml</dir>
+                            <stylesheet>src/main/xsl/gmlight-transformers.xsl</stylesheet>
+                            <outputDir>${project.build.directory}/generated-sources/xslt</outputDir>
+                        </transformationSet>
+                        <transformationSet>
+                            <dir>src/main/xml</dir>
+                            <includes>datamodel.xml</includes>
+                            <stylesheet>src/main/xsl/ddl-oracle.xsl</stylesheet>
+                            <outputDir>${project.build.directory}/generated-resources/ddl/oracle</outputDir>
+                            <fileMappers>
+                                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.MergeFileMapper">
+                                    <targetName>create_rsgb_bgt.sql</targetName>
+                                </fileMapper>
+                            </fileMappers>
+                        </transformationSet>
+                        <transformationSet>
+                            <dir>src/main/xml</dir>
+                            <includes>datamodel.xml</includes>
+                            <stylesheet>src/main/xsl/ddl-sqlserver.xsl</stylesheet>
+                            <outputDir>${project.build.directory}/generated-resources/ddl/sqlserver</outputDir>
+                            <fileMappers>
+                                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.MergeFileMapper">
+                                    <targetName>create_rsgb_bgt.sql</targetName>
+                                </fileMapper>
+                            </fileMappers>
+                        </transformationSet>
+                        <transformationSet>
+                            <dir>src/main/xml</dir>
+                            <includes>datamodel.xml</includes>
+                            <stylesheet>src/main/xsl/ddl-postgresql.xsl</stylesheet>
+                            <outputDir>${project.build.directory}/generated-resources/ddl/postgresql</outputDir>
+                            <fileMappers>
+                                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.MergeFileMapper">
+                                    <targetName>create_rsgb_bgt.sql</targetName>
+                                </fileMapper>
+                            </fileMappers>
+                        </transformationSet>
+                        <transformationSet>
+                            <dir>src/main/xml</dir>
+                            <includes>datamodel.xml</includes>
+                            <stylesheet>src/main/xsl/drop-sqlserver.xsl</stylesheet>
+                            <outputDir>${project.build.directory}/generated-resources/ddl/sqlserver</outputDir>
+                            <fileMappers>
+                                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.MergeFileMapper">
+                                    <targetName>drop_rsgb_bgt.sql</targetName>
+                                </fileMapper>
+                            </fileMappers>
+                        </transformationSet>
+                        <transformationSet>
+                            <dir>src/main/xml</dir>
+                            <includes>datamodel.xml</includes>
+                            <stylesheet>src/main/xsl/drop-postgresql.xsl</stylesheet>
+                            <outputDir>${project.build.directory}/generated-resources/ddl/postgresql</outputDir>
+                            <fileMappers>
+                                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.MergeFileMapper">
+                                    <targetName>drop_rsgb_bgt.sql</targetName>
+                                </fileMapper>
+                            </fileMappers>
+                        </transformationSet>
+                        <transformationSet>
+                            <dir>src/main/xml</dir>
+                            <includes>datamodel.xml</includes>
+                            <stylesheet>src/main/xsl/drop-oracle.xsl</stylesheet>
+                            <outputDir>${project.build.directory}/generated-resources/ddl/oracle</outputDir>
+                            <fileMappers>
+                                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.MergeFileMapper">
+                                    <targetName>drop_rsgb_bgt.sql</targetName>
+                                </fileMapper>
+                            </fileMappers>
+                        </transformationSet>
+                    </transformationSets>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.saxon</groupId>
+                        <artifactId>Saxon-HE</artifactId>
+                        <version>9.7.0-4</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/xslt</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>${java.version}</source>
@@ -116,7 +227,7 @@
                                     <zipfileset dir="${project.build.directory}" includes="${project.build.finalName}.jar" />
                                     <zipfileset dir="${basedir}" includes="README.md" />
                                     <zipfileset dir="${project.build.directory}/classes" includes="voorbeeld.bgtloader.properties" />
-                                    <zipfileset dir="${basedir}/datamodel" includes="**/*.sql" />
+                                    <zipfileset dir="${project.build.directory}/generated-resources/ddl" includes="**/*.sql" />
                                 </zip>
                             </target>
                         </configuration>
@@ -132,14 +243,6 @@
                 <postgresql.jdbc.version>9.4.1208.jre7</postgresql.jdbc.version>
             </properties>
             <dependencies>
-                <dependency>
-                    <groupId>org.postgresql</groupId>
-                    <artifactId>postgresql</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>org.geotools.jdbc</groupId>
-                    <artifactId>gt-jdbc-postgis</artifactId>
-                </dependency>
             </dependencies>
             <build>
                 <plugins>
@@ -156,17 +259,6 @@
         </profile>
         <profile>
             <id>mssql</id>
-            <dependencies>
-                <dependency>
-                    <groupId>net.sourceforge.jtds</groupId>
-                    <artifactId>jtds</artifactId>
-                    <version>${sqlserver.jtds.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.geotools.jdbc</groupId>
-                    <artifactId>gt-jdbc-sqlserver</artifactId>
-                </dependency>
-            </dependencies>
             <build>
                 <plugins>
                     <plugin>
@@ -190,10 +282,6 @@
                 <dependency>
                     <groupId>com.oracle</groupId>
                     <artifactId>${oracle.jdbc.artifactId}</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>org.geotools.jdbc</groupId>
-                    <artifactId>gt-jdbc-oracle</artifactId>
                 </dependency>
             </dependencies>
             <build>
@@ -226,6 +314,26 @@
         <dependency>
             <groupId>org.geotools</groupId>
             <artifactId>gt-epsg-hsql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools.jdbc</groupId>
+            <artifactId>gt-jdbc-postgis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools.jdbc</groupId>
+            <artifactId>gt-jdbc-oracle</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.jtds</groupId>
+            <artifactId>jtds</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools.jdbc</groupId>
+            <artifactId>gt-jdbc-sqlserver</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
