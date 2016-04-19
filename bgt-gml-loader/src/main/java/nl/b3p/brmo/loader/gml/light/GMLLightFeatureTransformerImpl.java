@@ -6,8 +6,6 @@ package nl.b3p.brmo.loader.gml.light;
 import nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer;
 import java.util.HashMap;
 import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.geotools.factory.Hints;

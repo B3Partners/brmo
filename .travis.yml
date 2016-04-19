@@ -29,7 +29,6 @@ before_install:
 # bgt auto-schema
   - psql -U postgres -d rsgb -c "CREATE SCHEMA bgttest AUTHORIZATION rsgb;"
   - psql -U postgres -d rsgb -c "GRANT ALL ON SCHEMA bgttest TO public;"
-#  - psql -U postgres -d rsgb -c "GRANT ALL ON SCHEMA bgttest TO rsgb;"
 # set up RSGB db
   - travis_wait psql -U postgres -w -d rsgb -f ./datamodel/generated_scripts/datamodel_postgresql.sql
   - ls -l ./datamodel/utility_scripts/postgresql/
@@ -47,6 +46,8 @@ before_script:
   - ls -l ./brmo-persistence/db/
   - psql -U postgres -d staging -f ./brmo-persistence/db/01_create_indexes.sql
   - psql -U postgres -d staging -f ./brmo-persistence/db/02_insert_default_user.sql
+# bgt test tabellen
+   - travis_wait psql "dbname=rsgb options=--search_path=bgttest,public" -U postgres -w -q -f ./bgt-gml-loader/target/generated-resources/ddl/postgresql/create_rsgb_bgt.sql
 
 # run tests
 script:

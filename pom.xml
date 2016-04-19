@@ -7,12 +7,12 @@
     <packaging>pom</packaging>
     <modules>
         <module>brmo-persistence</module>
+        <module>bgt-gml-loader</module>
         <module>brmo-loader</module>
         <module>brmo-taglib</module>
         <module>brmo-service</module>
         <module>brmo-proxyservice</module>
         <module>brmo-soap</module>
-        <module>bgt-gml-loader</module>
         <module>brmo-dist</module>
     </modules>
     <name>BRMO</name>
@@ -182,6 +182,12 @@
                 <artifactId>${oracle.jdbc.artifactId}</artifactId>
                 <version>${oracle.jdbc.version}</version>
                 <!-- Bij JNDI db verbinding moeten Oracle jars in tomcat lib staan -->
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.jtds</groupId>
+                <artifactId>jtds</artifactId>
+                <version>${sqlserver.jtds.version}</version>
+                <!-- Bij JNDI db verbinding moeten jtds jars in tomcat lib staan -->
             </dependency>
             <dependency>
                 <groupId>org.postgis</groupId>
@@ -381,6 +387,16 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>1.10</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>xml-maven-plugin</artifactId>
+                    <version>1.0.1</version>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
