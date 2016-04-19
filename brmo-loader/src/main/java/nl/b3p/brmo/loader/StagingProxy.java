@@ -36,6 +36,7 @@ import nl.b3p.brmo.loader.util.TableData;
 import nl.b3p.brmo.loader.xml.BagXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.BrmoXMLReader;
+import nl.b3p.brmo.loader.xml.NhrXMLReader;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
@@ -157,8 +158,8 @@ public class StagingProxy {
      * @throws SQLException
      */
     public Bericht getExistingBericht(Bericht b) throws SQLException {
-        Bericht b2 = getBerichtByNaturalKey(b.getObjectRef(), 
-                b.getDatum().getTime(), 
+        Bericht b2 = getBerichtByNaturalKey(b.getObjectRef(),
+                b.getDatum().getTime(),
                 b.getVolgordeNummer());
         return b2;
     }
@@ -181,7 +182,7 @@ public class StagingProxy {
 
         return null;
     }
-    
+
     public long getCountJob() throws SQLException {
         Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "select count(*) from " + BrmoFramework.JOB_TABLE,
@@ -201,7 +202,7 @@ public class StagingProxy {
         }
         return false;
     }
-    
+
     public boolean cleanJob() throws SQLException {
         int count = 0;
         if (geomToJdbc instanceof OracleJdbcConverter) {
@@ -228,11 +229,11 @@ public class StagingProxy {
         }
         return false;
     }
-    
+
     public long setBerichtenJobByStatus(Bericht.STATUS status, boolean orderBerichten) throws SQLException {
-        StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE 
+        StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE
                         + " (id, datum, volgordenummer, object_ref, br_xml, soort) "
-                        + " select id, datum, volgordenummer, object_ref, br_xml, soort from " 
+                        + " select id, datum, volgordenummer, object_ref, br_xml, soort from "
                         + BrmoFramework.BERICHT_TABLE + " where status = ? and datum <= ? ");
         if (orderBerichten) {
             q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
@@ -244,9 +245,9 @@ public class StagingProxy {
     }
 
     public long setBerichtenJobForUpdate(String soort, boolean orderBerichten) throws SQLException {
-        StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE 
+        StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE
                         + " (id, datum, volgordenummer, object_ref, br_xml, soort) "
-                        + " select id, datum, volgordenummer, object_ref, br_xml, soort from " 
+                        + " select id, datum, volgordenummer, object_ref, br_xml, soort from "
                         + BrmoFramework.BERICHT_TABLE + " where status = ? and soort = ? and datum <= ? ");
         if (orderBerichten) {
             q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
@@ -258,9 +259,9 @@ public class StagingProxy {
    }
 
     public long setBerichtenJobByIds(long[] ids, boolean orderBerichten) throws SQLException {
-        StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE 
+        StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE
                         + " (id, datum, volgordenummer, object_ref, br_xml, soort) "
-                        + " select id, datum, volgordenummer, object_ref, br_xml, soort from " 
+                        + " select id, datum, volgordenummer, object_ref, br_xml, soort from "
                         + BrmoFramework.BERICHT_TABLE + " where id in (");
         for (int i = 0; i < ids.length; i++) {
             if(i != 0) {
@@ -280,9 +281,9 @@ public class StagingProxy {
 
     public long setBerichtenJobByLaadprocessen(long[] laadprocesIds, boolean orderBerichten) throws SQLException {
 
-        StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE 
+        StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE
                         + " (id, datum, volgordenummer, object_ref, br_xml, soort) "
-                        + " select id, datum, volgordenummer, object_ref, br_xml, soort from " 
+                        + " select id, datum, volgordenummer, object_ref, br_xml, soort from "
                         + BrmoFramework.BERICHT_TABLE + " where laadprocesid in (");
         for (int i = 0; i < laadprocesIds.length; i++) {
             if(i != 0) {
@@ -380,7 +381,7 @@ public class StagingProxy {
                 if(e != null) {
                     throw e;
                 }
-                
+
             } while(processed.intValue() > 0 && (offset < total));
             if(offset < total) {
                 log.warn(String.format("Minder berichten verwerkt (%d) dan verwacht (%d)!", offset, total));
@@ -412,7 +413,7 @@ public class StagingProxy {
         for (Bericht ber : berichten) {
             Split split = SimonManager.getStopwatch("b3p.staging.bericht.dbxml.transform").start();
             String dbxml = transformer.transformToDbXml(ber);
-            
+
             //HACK vanwege Oracle 8000 karakters bug, zie brmo wiki
             if (geomToJdbc instanceof OracleJdbcConverter && dbxml!=null && dbxml.length()==8000) {
                 dbxml += " ";
@@ -436,13 +437,13 @@ public class StagingProxy {
                 = new BeanListHandler(Bericht.class, new StagingRowHandler());
 
         if(getOldBerichtStatement == null) {
-            String sql = "SELECT id, object_ref, datum, volgordenummer, soort, status, job_id, status_datum FROM " 
+            String sql = "SELECT id, object_ref, datum, volgordenummer, soort, status, job_id, status_datum FROM "
                     + BrmoFramework.BERICHT_TABLE + " WHERE"
                     + " object_ref = ?"
                     + " AND status = ?"
                     + " ORDER BY datum desc, volgordenummer desc";
             sql = geomToJdbc.buildPaginationSql(sql, 0, 1);
-              
+
             getOldBerichtStatement = getConnection().prepareStatement(sql);
         } else {
             getOldBerichtStatement.clearParameters();
@@ -465,13 +466,13 @@ public class StagingProxy {
                     loadLog.append("Niet geschikt bericht: ").append(b).append("\n");
                 }
             }
-        } 
+        }
 
         if (bericht != null) {
             //bericht nu wel vullen met alle kolommen
             if (getOldBerichtStatementById == null) {
                 String sql = "SELECT * FROM "
-                        + BrmoFramework.BERICHT_TABLE + 
+                        + BrmoFramework.BERICHT_TABLE +
                         " WHERE id = ?";
 
                 getOldBerichtStatementById = getConnection().prepareStatement(sql);
@@ -486,9 +487,9 @@ public class StagingProxy {
 
             if(!list2.isEmpty()) {
                 bericht = list2.get(0);
-            }            
+            }
         }
-        
+
         split.stop();
         return bericht;
     }
@@ -567,6 +568,8 @@ public class StagingProxy {
             brmoXMLReader = new BrkSnapshotXMLReader(cis);
         } else if (type.equals(BrmoFramework.BR_BAG)) {
             brmoXMLReader = new BagXMLReader(cis);
+        } else if (type.equals(BrmoFramework.BR_NHR)) {
+            brmoXMLReader = new NhrXMLReader(cis);
         } else {
             throw new UnsupportedOperationException("Ongeldige basisregistratie: " + type);
         }
@@ -591,12 +594,12 @@ public class StagingProxy {
         if(!brmoXMLReader.hasNext()) {
             throw new BrmoLeegBestandException("Leeg bestand, geen berichten gevonden in "+ fileName);
         }
-        
+
         boolean isBerichtGeschreven = false;
         int berichten = 0;
         int foutBerichten = 0;
         String lastErrorMessage = null;
-        
+
         while (brmoXMLReader.hasNext()) {
             Bericht b = null;
             try {
@@ -605,11 +608,11 @@ public class StagingProxy {
                 b.setStatus(Bericht.STATUS.STAGING_OK);
                 b.setStatusDatum(new Date());
                 b.setSoort(type);
-                
+
                 if (b.getDatum()==null) {
                     throw new BrmoException("Datum bericht is null");
                 }
-                
+
                 Bericht existingBericht = getExistingBericht(b);
                 if (existingBericht == null) {
                     writeBericht(b);
@@ -628,7 +631,7 @@ public class StagingProxy {
                 }
                 berichten++;
             } catch (Exception e) {
-                lastErrorMessage = String.format("Laden bericht uit %s mislukt vanwege: %s", 
+                lastErrorMessage = String.format("Laden bericht uit %s mislukt vanwege: %s",
                         fileName, e.getLocalizedMessage());
                 log.error(lastErrorMessage);
                 if(listener != null){
@@ -641,8 +644,8 @@ public class StagingProxy {
             listener.total(berichten);
         }
         if (foutBerichten > 0) {
-            String opmerking = "Laden van " + foutBerichten 
-                    + " bericht(en) mislukt, laatste melding: " 
+            String opmerking = "Laden van " + foutBerichten
+                    + " bericht(en) mislukt, laatste melding: "
                     + lastErrorMessage + ", zie logs voor meer info.";
             this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_NOK, opmerking);
         } else if (!isBerichtGeschreven) {
@@ -702,7 +705,7 @@ public class StagingProxy {
                 lp.getStatus().toString(),
                 new Timestamp(lp.getStatusDatum().getTime()),
                 lp.getContactEmail());
-                
+
          return getLaadProcesByNaturalKey(lp.getBestandNaam(), lp.getBestandDatum().getTime());
     }
 
@@ -739,7 +742,7 @@ public class StagingProxy {
 
         List<String> params = new ArrayList();
         String filter = buildFilterSql(0, null, null, filterSoort,filterStatus, params);
-        
+
         String sql;
         // gebruik estimate voor postgresql indien geen filter
         if (StringUtils.isBlank(filter) && geomToJdbc instanceof PostgisJdbcConverter) {
@@ -747,7 +750,7 @@ public class StagingProxy {
         } else {
             sql = "SELECT count(*) FROM " + BrmoFramework.BERICHT_TABLE + filter;
         }
- 
+
         ResultSet rs = null;
         PreparedStatement pstmt = null;
         try {
@@ -756,7 +759,7 @@ public class StagingProxy {
                 pstmt.setQueryTimeout(300); //seconds to wait
             } catch (Exception e){
                 log.warn("Driver does not support setQueryTimeout, please update driver.");
-            } 
+            }
             if (!params.isEmpty()) {
                 for (int i = 0; i < params.size(); i++) {
                     if (params.get(i) != null) {
@@ -870,14 +873,14 @@ public class StagingProxy {
         }
         String sql = "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + buildFilterSql(page, sort, dir,
                 filterSoort, filterStatus,params);
-        
+
         sql = geomToJdbc.buildPaginationSql(sql, start, limit);
 
         return (List<LaadProces>)new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new BeanListHandler(LaadProces.class, new StagingRowHandler()), params.toArray());
     }
 
     Bericht getOldBericht(Bericht nieuwBericht) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**

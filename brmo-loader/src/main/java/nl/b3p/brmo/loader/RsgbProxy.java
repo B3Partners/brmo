@@ -609,6 +609,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 t = new RsgbTransformer(BrmoFramework.XSL_BRK);
             } else if (brType.equals(BrmoFramework.BR_BAG)) {
                 t = new RsgbTransformer(BrmoFramework.XSL_BAG);
+            } else if (brType.equals(BrmoFramework.BR_NHR)) {
+                t = new RsgbTransformer(BrmoFramework.XSL_NHR);
             } else {
                 throw new IllegalArgumentException("Onbekende basisregistratie: " + brType);
             }
@@ -713,7 +715,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                             // write old to archive table
                             loadLog.append("\nSchrijf vorige versie naar archief tabel");
                             oldRow.setIgnoreDuplicates(true);
-                            
+
                             split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.archive").start();
                             createInsertSql(oldRow, true, loadLog);
                             split2.stop();
@@ -856,7 +858,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     private void updateValueInTableRow(TableRow row, String column, String newValue) {
         //TODO, mag later weer weg
         repairOldRowIfRequired(row, newValue);
-        
+
         if (column == null) {
             return;
         }
@@ -869,7 +871,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             i++;
         }
      }
-    
+
     private void repairOldRowIfRequired(TableRow row, String guessDate) {
 
         if (row.getTable().equals("kad_perceel")
@@ -1259,8 +1261,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             rs = stm.executeQuery();
             exists = rs.next();
         } finally {
-            rs.close();
-            checkAndCloseStatement(stm);
+            if(rs != null) {
+                rs.close();
+                checkAndCloseStatement(stm); // ???
+            }
         }
         loadLog.append(", rij bestaat: ").append(exists ? "ja" : "nee");
 
@@ -1470,6 +1474,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         String origName = tables.get(tableName);
 
+        if(origName == null) {
+            throw new IllegalArgumentException("Tabel bestaat niet: " + tableName);
+        }
+        
         ResultSet set = dbMetadata.getPrimaryKeys(null, geomToJdbc.getSchema(), origName);
         while (set.next()) {
             String column = set.getString("COLUMN_NAME");
