@@ -16,12 +16,39 @@
                 xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20120201"
                 xmlns:bagadres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-bag-adres/v20120201"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions">
+		<!-- parameters van het bericht -->
+		<xsl:param name="objectRef" select="'NL.KAD.OnroerendeZaak:onbekend'"/>
+		<xsl:param name="datum" select="'datum-onbekend'"/>
+		<xsl:param name="volgordeNummer" select="'volgordeNummer-onbekend'"/>
+		<xsl:param name="soort" select="'soort-onbekend'"/>
     <xsl:variable name="kad_oz_id" select="/snp:KadastraalObjectSnapshot/ko:Perceel/ko:identificatie/nen:lokaalId | /snp:KadastraalObjectSnapshot/ko:Appartementsrecht/ko:identificatie/nen:lokaalId"/>
     <xsl:variable name="toestandsdatum" select="/snp:KadastraalObjectSnapshot/snp:toestandsdatum"/>
     <xsl:variable name="persoonId"/>
     <xsl:template match="/">
         <root>
+						<xsl:comment>
+							<xsl:text>objectRef: </xsl:text>
+							<xsl:value-of select="$objectRef"/>
+							<xsl:text>, datum: </xsl:text>
+							<xsl:value-of select="$datum"/>
+							<xsl:text>, volgordeNummer: </xsl:text>
+							<xsl:value-of select="$volgordeNummer"/>
+							<xsl:text>, soort: </xsl:text>
+							<xsl:value-of select="$soort"/>
+						</xsl:comment>
             <data>
+								<xsl:if test="not(/snp:KadastraalObjectSnapshot)">
+									<!-- 	
+										als bericht geen KadastraalObjectSnapshot bevat dan
+										moet dit object verwijderd worden. Alleen kad_onrrnd_zk
+										verwijderen en vertrouwen op delete cascade.
+									-->
+									<delete>
+										<kad_onrrnd_zk>
+											<kad_identif><xsl:value-of select="substring($objectRef, 23)"/></kad_identif>
+										</kad_onrrnd_zk>
+									</delete>
+								</xsl:if>
                 <xsl:for-each select="/snp:KadastraalObjectSnapshot/pers:*">
                     <xsl:apply-templates select="."/>
                 </xsl:for-each>
