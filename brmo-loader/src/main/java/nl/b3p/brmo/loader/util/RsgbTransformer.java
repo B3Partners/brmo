@@ -8,6 +8,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
+import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -47,7 +48,12 @@ public class RsgbTransformer {
     public String transformToDbXml(Bericht bericht) throws SAXException, IOException, TransformerConfigurationException, TransformerException {
         StringWriter sw = new StringWriter();
         Document d = db.parse( new InputSource(new StringReader(bericht.getBrXml())));
-        t.newTransformer().transform(new DOMSource(d), new StreamResult(sw));
+        Transformer transformer = t.newTransformer();
+        transformer.setParameter("objectRef", bericht.getObjectRef()==null?"":bericht.getObjectRef());
+        transformer.setParameter("datum", bericht.getDatum()==null?"":bericht.getDatum());
+        transformer.setParameter("volgordeNummer", bericht.getVolgordeNummer()==null?"":bericht.getVolgordeNummer());
+        transformer.setParameter("soort", bericht.getSoort()==null?"":bericht.getSoort());
+        transformer.transform(new DOMSource(d), new StreamResult(sw));
 
         return sw.toString();
     }

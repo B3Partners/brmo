@@ -14,12 +14,15 @@ public class TableData {
     private String comfortSearchColumn;
     private String comfortSearchValue;
     
+    private boolean deleteData = false;
+    
     /* Used for comfort metadata tables */
     private String comfortSnapshotDate;
     
     List<TableRow> rows = new ArrayList<TableRow>();
     
     public TableData(TableRow row) {
+        this.deleteData = false;
         this.comfortData = false;  
         this.rows.add(row);
     }
@@ -28,12 +31,18 @@ public class TableData {
             String comfortSearchValue, String comfortSnapshotDate) {
         
         this.comfortData = true;
+        this.deleteData = false;
         this.comfortSearchTable = comfortSearchTable;
         this.comfortSearchColumn = comfortSearchColumn;
         this.comfortSearchValue = comfortSearchValue;    
         this.comfortSnapshotDate = comfortSnapshotDate;
     }
-    
+
+    public TableData() {
+        this.deleteData = true;
+        this.comfortData = false;
+    }
+
     public void addRow(TableRow row) {
         rows.add(row);      
     }
@@ -44,6 +53,14 @@ public class TableData {
 
     public void setComfortData(boolean comfortData) {
         this.comfortData = comfortData;
+    }
+    
+    public boolean isDeleteData() {
+        return deleteData;
+    }
+
+    public void setDeleteData(boolean deleteData) {
+        this.deleteData = deleteData;
     }
 
     public String getComfortSearchTable() {

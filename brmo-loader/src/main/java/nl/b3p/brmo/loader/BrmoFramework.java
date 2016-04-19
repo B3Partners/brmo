@@ -356,34 +356,4 @@ public class BrmoFramework {
         }
     }
 
-    /* XXX methode alleen gebruikt in test
-    public boolean rowInRsgbMetadata(TableRow row) throws BrmoException {
-        try {
-            StringBuilder dummy = new StringBuilder();
-            RsgbProxy rsgbProxy = new RsgbProxy(dataSourceRsgb, stagingProxy);
-            rsgbProxy.init();
-            return rsgbProxy.isAlreadyInMetadata(row, dummy);
-        } catch (Exception ex) {
-            throw new BrmoException(ex);
-        }
-    }*/
-
-    private RsgbTransformer getTransformer(String brType) throws BrmoException {
-        try {
-            RsgbTransformer transformer = null;
-            if (brType.equalsIgnoreCase(BrmoFramework.BR_BRK)) {
-                transformer = new RsgbTransformer(BrmoFramework.XSL_BRK);
-            } else if (brType.equalsIgnoreCase(BrmoFramework.BR_BAG)) {
-                transformer = new RsgbTransformer(BrmoFramework.XSL_BAG);
-            }
-            return transformer;
-        } catch (Exception ex) {
-           if (ex instanceof BrmoException) {
-                throw (BrmoException)ex;
-            } else {
-                throw new BrmoException(ex);
-            }
-        }
-
-    }
 }

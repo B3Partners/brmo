@@ -36,6 +36,7 @@ public class DataComfortXMLReader {
     private static final int LEVEL_DATA = 1;
     private static final int LEVEL_COMFORT = 2;
     private static final int LEVEL_TABLE = 3;
+    private static final int LEVEL_DELETE = 4;
 
     private final TransformerFactory tf = TransformerFactory.newInstance();
     private final XMLInputFactory xif = XMLInputFactory.newInstance();
@@ -59,6 +60,7 @@ public class DataComfortXMLReader {
         TableData data = null;
         TableRow row = null;
         boolean inComfortData = false;
+        boolean inDeleteData = false;
 
         root:
         while (xer.hasNext()) {
@@ -87,7 +89,17 @@ public class DataComfortXMLReader {
                         level = LEVEL_COMFORT;
 
                         inComfortData = true;
+                        inDeleteData = false;
 
+                    } if ("delete".equals(tag)) {
+    
+                        data = new TableData();
+                        
+                        level = LEVEL_DELETE;
+                        
+                        inComfortData = false;
+                        inDeleteData = true;
+                        
                     } else {
                         row = new TableRow();
                         row.setTable(tag);
@@ -104,6 +116,7 @@ public class DataComfortXMLReader {
                         level = LEVEL_TABLE;
 
                         inComfortData = false;
+                        inDeleteData = false;
                     }
 
                     list.add(data);
@@ -125,11 +138,28 @@ public class DataComfortXMLReader {
 
                     break;
 
+                case LEVEL_DELETE:
+                    
+                     if (xer.isEndElement() && "delete".equals(tag)) {
+                        level = LEVEL_DATA;
+                    } else {
+                        row = new TableRow();
+                        row.setTable(tag);
+
+                        data.addRow(row);
+
+                        level = LEVEL_TABLE;
+                    }
+
+                    break;
+                   
                 case LEVEL_TABLE:
                     if (xer.isEndElement()) {
 
                         if (inComfortData) {
                             level = LEVEL_COMFORT;
+                        } else if (inDeleteData) {
+                            level = LEVEL_DELETE;
                         } else {
                             level = LEVEL_DATA;
                         }

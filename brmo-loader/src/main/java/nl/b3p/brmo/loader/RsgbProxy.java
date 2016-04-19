@@ -518,7 +518,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                         }
                     }
                 } else {
-                    //TODO: werkt niet als berichten voorgeladen zijn bv via DSL
                     parseNewData(null, newList, null, loadLog);
                 }
 
@@ -635,7 +634,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         String lastExistingBrondocumentId = null;
         for (TableData newData : newList) {
-            if (!newData.isComfortData()) {
+            if (!newData.isComfortData() && !newData.isDeleteData()) {
                 Split splitAuthentic = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic").start();
                 // auth data
                 loadLog.append("\n");
@@ -727,10 +726,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                         split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.update." + row.getTable()).start();
                         createUpdateSql(row, loadLog);
                         split2.stop();
-                    }
+                     }
                 }
                 splitAuthentic.stop();
-            } else {
+                
+            } else if (!newData.isDeleteData()) {
                 Split splitComfort = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort").start();
 
                 // TODO: select herkomst_br/datum uit herkomst_metadata voor tabel,kolom,waarde
@@ -772,7 +772,27 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
                 splitComfort.stop();
                 loadLog.append("\n");
+                
+            } else if (newData.isDeleteData() && (oldList == null || oldList.isEmpty())){
+                //only use delete in newData if there is no old record (this is more complete)
+                Split splitDelete = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.delete").start();
+                loadLog.append("\n\nWissen van object zonder oud record.");
+                for (TableRow row : newData.getRows()) {
+                    // zoek obv natural key op in rsgb
+                    if (rowExistsInDb(row, loadLog)) {
+                        Split split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.delete.update").start();
+                        createDeleteSql(row, loadLog);
+                        split2.stop();
+                    } else {
+                        loadLog.append("\nTe wissen record niet in database.");
+                    }
+                }
+                splitDelete.stop();
+                loadLog.append("\n");
+                    
             }
+                        
+
         }
         split.stop();
         return loadLog;
