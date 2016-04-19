@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mb="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-deelbestand-mutaties-lvc/v20090901" xmlns:bep="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901" xmlns:bag="http://www.kadaster.nl/schemas/imbag/lvc/v20090901" xmlns:bagtype="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901" xmlns:gml="http://www.opengis.net/gml" xmlns:nen5825="http://www.kadaster.nl/schemas/imbag/nen5825/v20090901">
+	<!-- parameters van het bericht -->
+	<xsl:param name="objectRef"/>
+	<xsl:param name="datum"/>
+	<xsl:param name="volgordeNummer"/>
+	<xsl:param name="soort"/>
 	<xsl:template match="/">
 		<root>
+			<xsl:comment>
+				<xsl:text>objectRef: </xsl:text>
+				<xsl:value-of select="$objectRef"/>
+				<xsl:text>, datum: </xsl:text>
+				<xsl:value-of select="$datum"/>
+				<xsl:text>, volgordeNummer: </xsl:text>
+				<xsl:value-of select="$volgordeNummer"/>
+				<xsl:text>, soort: </xsl:text>
+				<xsl:value-of select="$soort"/>
+			</xsl:comment>
 			<data>
 				<xsl:apply-templates select="*"/>
 			</data>
