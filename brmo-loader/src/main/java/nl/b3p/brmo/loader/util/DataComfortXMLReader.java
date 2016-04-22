@@ -91,7 +91,7 @@ public class DataComfortXMLReader {
                         inComfortData = true;
                         inDeleteData = false;
 
-                    } if ("delete".equals(tag)) {
+                    } else if ("delete".equals(tag)) {
     
                         data = new TableData();
                         
@@ -140,7 +140,7 @@ public class DataComfortXMLReader {
 
                 case LEVEL_DELETE:
                     
-                     if (xer.isEndElement() && "delete".equals(tag)) {
+                    if (xer.isEndElement() && "delete".equals(tag)) {
                         level = LEVEL_DATA;
                     } else {
                         row = new TableRow();
