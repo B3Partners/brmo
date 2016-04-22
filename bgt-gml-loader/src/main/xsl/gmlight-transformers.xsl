@@ -16,6 +16,8 @@
     
     <xsl:output method="text" encoding="utf-8"/>
     
+    <xsl:param name="baseDirectory">target/generated-sources/xslt/</xsl:param>
+    
     <xsl:template match="/">
         <xsl:apply-templates select="/datamodel/objecttype" mode="generateClass" />
     </xsl:template>
@@ -24,7 +26,7 @@
         
         <xsl:variable name="className" select="@clazz"/>
 
-        <xsl:variable name="filename" select="concat('target/generated-sources/xslt/nl/b3p/brmo/loader/gml/light/',$className,'.java')" />
+        <xsl:variable name="filename" select="concat($baseDirectory,'nl/b3p/brmo/loader/gml/light/',$className,'.java')" />
         <xsl:value-of select="$filename" />
 
         <xsl:result-document href="{$filename}" method="text">

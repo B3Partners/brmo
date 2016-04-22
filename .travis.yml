@@ -30,10 +30,10 @@ before_install:
   - psql -U postgres -d rsgb -c "CREATE SCHEMA bgttest AUTHORIZATION rsgb;"
   - psql -U postgres -d rsgb -c "GRANT ALL ON SCHEMA bgttest TO public;"
 # set up RSGB db
-  - travis_wait psql -U postgres -w -d rsgb -f ./datamodel/generated_scripts/datamodel_postgresql.sql
+  - travis_wait psql -U postgres -w -q -d rsgb -f ./datamodel/generated_scripts/datamodel_postgresql.sql
   - ls -l ./datamodel/utility_scripts/postgresql/
-  - travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/111a_update_gemeente_geom.sql
-  - travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/113a_update_wijk_geom.sql
+#  - travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/111a_update_gemeente_geom.sql
+#  - travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/113a_update_wijk_geom.sql
 
 install:
   # install all dependencies + artifacts without any testing, create staging db scripts
@@ -47,7 +47,7 @@ before_script:
   - psql -U postgres -d staging -f ./brmo-persistence/db/01_create_indexes.sql
   - psql -U postgres -d staging -f ./brmo-persistence/db/02_insert_default_user.sql
 # bgt test tabellen
-   - travis_wait psql "dbname=rsgb options=--search_path=bgttest,public" -U postgres -w -q -f ./bgt-gml-loader/target/generated-resources/ddl/postgresql/create_rsgb_bgt.sql
+  - psql "dbname=rsgb options=--search_path=bgttest,public" -U postgres -w -q -f ./bgt-gml-loader/target/generated-resources/ddl/postgresql/create_rsgb_bgt.sql
 
 # run tests
 script:

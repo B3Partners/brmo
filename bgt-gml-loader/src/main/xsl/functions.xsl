@@ -18,6 +18,8 @@
         <name java="LOD1_GEOM_NAME" mapped="lod1geom"/>
         <name java="LOD2_GEOM_NAME" mapped="lod2geom"/>
         <name java="LOD3_GEOM_NAME" mapped="lod3geom"/>
+        <name java="BIJWERKDATUM_NAME" mapped="bijwerkdatum"/>
+        <name java="BEGINTIJD_NAME" mapped="dat_beg_geldh"/>
     </xsl:variable>
 
     <xsl:function name="md:colName">

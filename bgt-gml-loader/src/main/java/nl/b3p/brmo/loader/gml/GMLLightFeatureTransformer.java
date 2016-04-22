@@ -3,6 +3,7 @@
  */
 package nl.b3p.brmo.loader.gml;
 
+import java.util.Date;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 
@@ -43,6 +44,19 @@ public interface GMLLightFeatureTransformer {
     public static final String ID_NAME = "identif";
 
     /**
+     * Naam voor laatst bijgewerkt veld {@value }.
+     */
+    public static final String BIJWERKDATUM_NAME = "bijwerkdatum";
+    /**
+     * Naam voor object begin tijd veld {@value }.
+     */
+    public static final String BEGINTIJD_NAME = "dat_beg_geldh";
+
+    /**
+     * Naam voor object eind tijd veld {@value }.
+     */
+    public static final String EINDTIJD_NAME = "datum_einde_geldh";
+    /**
      * Maak nieuw (getransformeerd) featuretype.
      *
      * @param gmlSchema Simple GML / GML light feature type
@@ -63,7 +77,9 @@ public interface GMLLightFeatureTransformer {
      * @param userDefinedPrimaryKey {@code true} als de identifier uit de bron
      * wordt geconstrueerd en in bestaand schema wordt geladen, {@code false} in
      * geval geotools gegenereerd schema met {@code fid} kolom
-     * @return de getransformeerde feature van het nieuwe type
+     * @param bijwerkDatum metadata, de datum waarop een object is bijgewerkt
+     *
+     * @return de getransformeerde feature van het nieuwe type of null
      */
-    SimpleFeature transform(SimpleFeature inFeature, SimpleFeatureType targetType, boolean shouldUppercase, boolean userDefinedPrimaryKey);
+    SimpleFeature transform(SimpleFeature inFeature, SimpleFeatureType targetType, boolean shouldUppercase, boolean userDefinedPrimaryKey, Date bijwerkDatum);
 }

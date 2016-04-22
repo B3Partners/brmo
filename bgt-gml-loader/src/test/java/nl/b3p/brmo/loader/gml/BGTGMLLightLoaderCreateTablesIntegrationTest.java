@@ -14,18 +14,31 @@ import java.util.Properties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.After;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeNotNull;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.fail;
+import org.junit.Ignore;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeNotNull;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-public class BGTGMLLightLoaderTest {
+/**
+ *
+ * @author mprins
+ */
+public class BGTGMLLightLoaderCreateTablesIntegrationTest {
 
-    private static final Log LOG = LogFactory.getLog(BGTGMLLightLoaderTest.class);
+    private static final Log LOG = LogFactory.getLog(BGTGMLLightLoaderCreateTablesIntegrationTest.class);
 
     private BGTGMLLightLoader ldr;
     private final Properties params = new Properties();
@@ -48,20 +61,22 @@ public class BGTGMLLightLoaderTest {
     public void setUp() throws Exception {
         ldr = new BGTGMLLightLoader();
         // de `database.properties.file` is in de pom.xml of via commandline ingesteld
-        params.load(BGTGMLLightLoaderTest.class.getClassLoader()
+        params.load(BGTGMLLightLoaderIntegrationTest.class.getClassLoader()
                 .getResourceAsStream(System.getProperty("database.properties.file")));
         try {
             // probeer een local (override) versie te laden als die bestaat
-            params.load(BGTGMLLightLoaderTest.class.getClassLoader()
+            params.load(BGTGMLLightLoaderIntegrationTest.class.getClassLoader()
                     .getResourceAsStream("local." + System.getProperty("database.properties.file")));
         } catch (IOException | NullPointerException e) {
             // negeren; het override bestand is normaal niet aanwezig
         }
+
+        LOG.debug(params);
         ldr.setDbConnProps(params);
     }
 
-    @After
-    public void clearTables() throws Exception {
+    // @After
+    public void dropTables() throws Exception {
         try {
             Class.forName(params.getProperty("jdbc.driverClassName"));
         } catch (ClassNotFoundException ex) {
@@ -77,12 +92,12 @@ public class BGTGMLLightLoaderTest {
             for (BGTGMLLightTransformerFactory t : BGTGMLLightTransformerFactory.values()) {
                 ResultSet res = connection.getMetaData().getTables(null, params.getProperty("schema"), t.name(), null);
                 if (res.next()) {
-                    String sql = "DELETE FROM " + params.getProperty("schema") + ".\"" + t.name() + "\";";
-                    LOG.info("legen tabel: " + params.getProperty("schema") + "." + t.name() + " met sql: " + sql);
+                    String sql = "drop table " + params.getProperty("schema") + "." + t.name() + ";";
+                    LOG.info("droppen tabel: " + params.getProperty("schema") + "." + t.name() + " met sql: " + sql);
                     try {
-                        connection.createStatement().executeQuery(sql);
+                        connection.createStatement().executeUpdate(sql);
                     } catch (SQLException se) {
-                        LOG.warn("Mogelijke fout tijdens legen van tabellen: " + se.getLocalizedMessage());
+                        LOG.warn("Mogelijke fout tijdens droppen van tabellen: " + se.getLocalizedMessage());
                     }
                 }
             }
@@ -91,28 +106,46 @@ public class BGTGMLLightLoaderTest {
     }
 
     /**
-     * test parsen en laden van 1 bestand in bestaande tabel.
+     * test voor: tabellen bestaan niet in database en createSchema is false
+     * (default).
+     *
+     * @throws Exception if any
+     */
+    @Test(expected = IllegalStateException.class)
+    @Ignore("Overslaan omdat tabellen in db worden gemaakt met SQL.")
+    public void testProcessGMLFileFail() throws Exception {
+        dropTables();
+        ldr.setCreateTables(false);
+        @SuppressWarnings("unused")
+        File gml = new File(BGTGMLLightLoaderIntegrationTest.class.getResource("/gmllight/one/bgt_onbegroeidterreindeel.gml").toURI());
+        fail("De verwachte exceptie is niet opgetreden.");
+    }
+
+    /**
+     * test voor: tabellen bestaan niet in database en createSchema is true
+     * (default).
      *
      * @throws Exception if any
      */
     @Test
-    //@Ignore("Todat we alle tabellen in de database hebben zitten")
+    @Ignore("Overslaan omdat tabellen in db worden gemaakt met SQL.")
     public void testProcessGMLFile() throws Exception {
-        ldr.setCreateTables(false);
-        File gml = new File(BGTGMLLightLoaderTest.class.getResource("/gmllight/one/bgt_onbegroeidterreindeel.gml").toURI());
+        dropTables();
+        File gml = new File(BGTGMLLightLoaderIntegrationTest.class.getResource("/gmllight/one/bgt_onbegroeidterreindeel.gml").toURI());
         assertEquals("Aantal geschreven features", 1, ldr.processGMLFile(gml));
     }
 
     /**
-     * test scannen en laden van een directory zipfiles in bestaande tabellen.
+     * test scannen en laden van een directory zipfiles in niet bestaande
+     * tabellen.
      *
      * @throws Exception if any
      */
     @Test
-    @Ignore("Todat we alle tabellen in de database hebben zitten")
+    @Ignore("Overslaan omdat tabellen in db worden gemaakt met SQL.")
     public void testScanDirectory() throws Exception {
-        ldr.setCreateTables(false);
-        ldr.setScanDirectory(BGTGMLLightLoaderTest.class.getResource("/gmllight/zips/").getFile());
+        dropTables();
+        ldr.setScanDirectory(BGTGMLLightLoaderIntegrationTest.class.getResource("/gmllight/zips/").getFile());
         List<File> zips = ldr.scanDirectory();
         assertEquals("Verwacht aantal zipfiles", 1, zips.size());
         for (File zip : zips) {
@@ -120,5 +153,4 @@ public class BGTGMLLightLoaderTest {
             assertTrue("Verwacht meer dan 1 geschreven feature", (actual > 1));
         }
     }
-
 }

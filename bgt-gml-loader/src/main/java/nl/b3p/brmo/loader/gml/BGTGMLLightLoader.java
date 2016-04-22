@@ -3,8 +3,10 @@
  */
 package nl.b3p.brmo.loader.gml;
 
+import com.vividsolutions.jts.geom.Dimension;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.PrecisionModel;
+import com.vividsolutions.jts.geom.Geometry;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,11 +17,16 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.xml.parsers.ParserConfigurationException;
+import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.BEGINTIJD_NAME;
+import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.BIJWERKDATUM_NAME;
+import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.DEFAULT_GEOM_NAME;
+import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.ID_NAME;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.geotools.feature.FeatureCollection;
@@ -35,10 +42,14 @@ import org.geotools.data.DefaultTransaction;
 import org.geotools.data.FeatureStore;
 import org.geotools.data.Transaction;
 import org.geotools.data.simple.SimpleFeatureCollection;
+import org.geotools.factory.CommonFactoryFinder;
 import org.geotools.feature.FeatureIterator;
-import org.geotools.jdbc.Index;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
+import org.opengis.feature.type.AttributeDescriptor;
+import org.opengis.feature.type.Name;
+import org.opengis.filter.Filter;
+import org.opengis.filter.FilterFactory2;
 
 /**
  *
@@ -74,6 +85,23 @@ public class BGTGMLLightLoader {
     private boolean createTables = true;
 
     private Parser parser;
+
+    /**
+     * deze geometrie wordt gebruikt om het gebied van de mutaties in een
+     * ziefile bij te houden.
+     */
+    private Geometry omhullendeVanZipFile = null;
+
+    /**
+     * {@code true} als er een update wordt geladen, {@code false} voor een
+     * stand, default is {@value}.
+     */
+    private boolean loadingUpdate = true;
+
+    /**
+     * metadata, datum van laden.
+     */
+    private Date bijwerkDatum = null;
 
     /**
      * Default constructor initaliseert de GML parser.
@@ -134,6 +162,11 @@ public class BGTGMLLightLoader {
      * @throws IOException als ophalen next zipentry mislukt
      */
     public int processZipFile(File zipExtract) throws FileNotFoundException, IOException {
+        this.omhullendeVanZipFile = null;
+        if (this.bijwerkDatum == null) {
+            this.bijwerkDatum = new Date();
+        }
+
         int result = 0;
         try (ZipInputStream zip = new ZipInputStream(new FileInputStream(zipExtract))) {
             ZipEntry entry = zip.getNextEntry();
@@ -150,14 +183,64 @@ public class BGTGMLLightLoader {
                 }
                 entry = zip.getNextEntry();
             }
+
+            if (this.loadingUpdate) {
+                // nadat zipfile is geladen
+                LOG.debug("omhullende van zipfile: " + omhullendeVanZipFile);
+                LOG.debug("convex omhullende van zipfile(" + zipExtract + "): " + omhullendeVanZipFile.convexHull());
+                LOG.debug("union omhullende van zipfile(" + zipExtract + "): " + omhullendeVanZipFile.union());
+
+                // org.opensphere.geometry.algorithm.ConcaveHull, zie ook: pom.xml
+                //ConcaveHull ch = new ConcaveHull(omhullendeVanZipFile, 1d);
+                //LOG.debug("concave omhullende van zipfile(" + zipExtract + "): " + ch.getConcaveHull());
+                // verwijderen van de onderliggend aan omhullendeVanZipFile, verouderde objecten in iedere tabel
+                // self union lijkt vooranlog het beste masker te geven voor verwijderen
+                deleteOldData(this.bijwerkDatum, omhullendeVanZipFile.union());
+            }
+
         } catch (SAXException | ParserConfigurationException ex) {
             LOG.error("Er is een parse fout opgetreden.", ex);
         }
         return result;
     }
 
+    private void deleteOldData(Date deleteBeforeDatum, Geometry deleteOverlaps) throws IOException {
+        JDBCDataStore dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(dbConnProps);
+        if (dataStore == null) {
+            throw new IllegalStateException("Datastore mag niet null zijn voor verwijderen van van data.");
+        }
+
+        FilterFactory2 ff = CommonFactoryFinder.getFilterFactory2();
+        Filter filter = ff.and(
+                ff.before(ff.property(
+                        (this.isOracle ? BIJWERKDATUM_NAME.toUpperCase() : BIJWERKDATUM_NAME)
+                ), ff.literal(deleteBeforeDatum)),
+                ff.overlaps(ff.property(
+                        (this.isOracle ? DEFAULT_GEOM_NAME.toUpperCase() : DEFAULT_GEOM_NAME)
+                ), ff.literal(deleteOverlaps))
+        );
+        LOG.info("Opruimen van verouderde data uit tabellen met filters: " + filter);
+
+        FeatureStore store;
+        try (Transaction deletetransaction = new DefaultTransaction("delete-bgt")) {
+            for (BGTGMLLightTransformerFactory t : BGTGMLLightTransformerFactory.values()) {
+                if (t.getGmlFileName().isEmpty()) {
+                    continue;
+                }
+                String tableName = this.isOracle ? t.name().toUpperCase() : t.name();
+                LOG.info("Opruimen van verouderde data uit tabel: " + tableName);
+                store = (FeatureStore) dataStore.getFeatureSource(tableName, deletetransaction);
+                store.removeFeatures(filter);
+                deletetransaction.commit();
+            }
+        }
+        dataStore.dispose();
+    }
+
     /**
-     * Verwerk een GML bestand.
+     * Verwerk een GML bestand. <strong>Let op:</strong> alleen voor "stand"
+     * verwerking omdat de onderliggende geometrische niet betrouwbaar kan
+     * worden verwijderd in dit geval.
      *
      * @param gml GML Light bestand
      * @return aantal geschreven features
@@ -188,15 +271,9 @@ public class BGTGMLLightLoader {
      */
     private int storeFeatureCollection(InputStream in, String gmlFileName) throws IOException, IllegalStateException, SAXException, ParserConfigurationException {
         int writtenFeatures = 0;
-        GMLLightFeatureTransformer featTransformer = BGTGMLLightTransformerFactory.getTransformer(gmlFileName);
-        if (featTransformer == null) {
-            LOG.error("Opzoeken van FeatureTransformer voor " + gmlFileName + " is mislukt; er geen transformer beschikbaar voor dit bestand.");
-            return writtenFeatures;
-        }
-
         JDBCDataStore dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(dbConnProps);
         if (dataStore == null) {
-            throw new IllegalStateException("Datastore mag niet null voor opslaan van data.");
+            throw new IllegalStateException("Datastore mag niet null zijn voor opslaan van data.");
         }
         // TODO boolean mapping voor mssql en oracle
         if (this.isOracle) {
@@ -206,8 +283,23 @@ public class BGTGMLLightLoader {
             dataStore.getClassToSqlTypeMappings().put(java.lang.Boolean.class, Types.VARCHAR);
         }
 
+        FeatureCollection<SimpleFeatureType, SimpleFeature> gmlFeatCollection = (SimpleFeatureCollection) parser.parse(in);
+        if (gmlFeatCollection.isEmpty()) {
+            LOG.info("Geen features gevonden in bestand: " + gmlFileName);
+            dataStore.dispose();
+            return writtenFeatures;
+        }
+
+        SimpleFeatureType sft = (SimpleFeatureType) gmlFeatCollection.getSchema();
+        GMLLightFeatureTransformer featTransformer = BGTGMLLightTransformerFactory.getTransformer(sft.getTypeName());
+        if (featTransformer == null) {
+            LOG.error("Opzoeken van FeatureTransformer voor " + sft.getTypeName() + " is mislukt; er geen transformer beschikbaar voor dit bestand.");
+            dataStore.dispose();
+            return writtenFeatures;
+        }
+
         // check table exists
-        String tableName = BGTGMLLightTransformerFactory.getTableName(gmlFileName);
+        String tableName = BGTGMLLightTransformerFactory.getTableName(sft.getTypeName());
         boolean exists = false;
         String[] typeNames = dataStore.getTypeNames();
         for (String name : typeNames) {
@@ -217,10 +309,7 @@ public class BGTGMLLightLoader {
             }
         }
 
-        FeatureCollection<SimpleFeatureType, SimpleFeature> gmlFeatCollection = (SimpleFeatureCollection) parser.parse(in);
-        SimpleFeatureType sft = (SimpleFeatureType) gmlFeatCollection.getSchema();
         SimpleFeatureType targetSchema = featTransformer.getTargetSchema(sft, tableName, this.isOracle);
-
         LOG.debug("doel tabel schema: " + targetSchema);
 
         if (!exists) {
@@ -251,30 +340,106 @@ public class BGTGMLLightLoader {
             dataStore.setExposePrimaryKeyColumns(true);
         }
 
-        if (gmlFeatCollection.isEmpty()) {
-            LOG.info("Geen features gevonden in bestand: " + gmlFileName);
-            dataStore.dispose();
-            return writtenFeatures;
-        }
-
         Transaction transaction = new DefaultTransaction("add-bgt");
+        Transaction updatetransaction = new DefaultTransaction("update-bgt");
         try (FeatureIterator<SimpleFeature> feats = gmlFeatCollection.features()) {
             FeatureStore store = (FeatureStore) dataStore.getFeatureSource(targetSchema.getTypeName(), transaction);
+            FeatureStore store2 = (FeatureStore) dataStore.getFeatureSource(targetSchema.getTypeName(), updatetransaction);
+
+            SimpleFeature gmlSF;
+            SimpleFeature transformed;
             while (feats.hasNext()) {
-                SimpleFeature transformed = featTransformer.transform(feats.next(), targetSchema, this.isOracle, dataStore.isExposePrimaryKeyColumns());
-                store.addFeatures(DataUtilities.collection(transformed));
-                writtenFeatures++;
+                gmlSF = feats.next();
+                // als object niet meer bestaat of nog niet bestaat overslaan!
+                if ((/* bestaat nog niet*/((Date) gmlSF.getAttribute("objectBeginTijd")).after(new Date()))
+                        | (/* bestaat niet meer */gmlSF.getAttribute("objectEindTijd") != null && ((Date) gmlSF.getAttribute("objectEindTijd")).before(new Date()))) {
+                    // mogelijk toch nog de geom eruit halen voor de delete...
+                    LOG.info("Vervallen of nog niet bestaand object gevonden met GML ID: " + gmlSF.getID());
+                    continue;
+                }
+
+                transformed = featTransformer.transform(gmlSF, targetSchema, this.isOracle, dataStore.isExposePrimaryKeyColumns(), this.bijwerkDatum);
+                if (transformed == null) {
+                    continue;
+                }
+                if (this.loadingUpdate) {
+                    // bijwerken omhullende omhullendeVanZipFile met vlakken in geval van een update
+                    Geometry geom = (Geometry) transformed.getDefaultGeometry();
+                    if (geom != null && geom.getDimension() > Dimension.L) {
+                        if (omhullendeVanZipFile != null) {
+                            try {
+                                omhullendeVanZipFile = geom.union(omhullendeVanZipFile);
+                            } catch (IllegalArgumentException iae) {
+                                LOG.error("Union fout", iae);
+                                LOG.debug("geom voor union :" + geom);
+                                LOG.debug("omhullendeVanZipFile voor union: " + omhullendeVanZipFile);
+                            }
+                        } else {
+                            omhullendeVanZipFile = geom;
+                        }
+                    }
+                }
+
+                try {
+                    store.addFeatures(DataUtilities.collection(transformed));
+                    writtenFeatures++;
+                    // commit per feature
+                    transaction.commit();
+                    LOG.debug("Feature toegevoegd in database met NEN3610ID: " + transformed.getID());
+                } catch (IOException ioe) {
+                    // als primary key violation bij insert dan afvangen
+                    if (isDuplicateKeyViolationMessage(ioe.getCause().getMessage())) {
+                        LOG.info("Duplicaat gevonden tijdens insert van feature: " + transformed.getID());
+                        // bij mssql transactie sluiten ander blijft de boel hangen, voor orcl + pg ook
+                        transaction.close();
+                        // object opzoeken,
+                        Filter filter = CommonFactoryFinder.getFilterFactory2(null).id(transformed.getIdentifier());
+                        FeatureIterator<SimpleFeature> bestaandeFeats = store2.getFeatures(filter).features();
+                        SimpleFeature bestaandeFeat = bestaandeFeats.next();
+
+                        final String beginAttr = this.isOracle ? BEGINTIJD_NAME.toUpperCase() : BEGINTIJD_NAME;
+                        final String idAttr = this.isOracle ? ID_NAME.toUpperCase() : ID_NAME;
+                        // update als datum jonger dan bestaand
+                        if (((Date) transformed.getAttribute(beginAttr)).after((Date) bestaandeFeat.getAttribute(beginAttr))) {
+                            for (AttributeDescriptor attr : transformed.getFeatureType().getAttributeDescriptors()) {
+                                Name attrName = attr.getName();
+                                if (!attrName.getLocalPart().equals(idAttr)) {
+                                    store2.modifyFeatures(attrName, transformed.getAttribute(attrName), filter);
+                                }
+                            }
+                            LOG.debug("Klaar met update van feature: " + transformed.getID());
+                            updatetransaction.commit();
+                            // TODO in geval "mutatie"
+                            // onderliggende objecten verwijderen
+                        } else {
+                            LOG.debug("Geen update van feature: " + transformed.getID());
+                        }
+                        bestaandeFeats.close();
+                        // maak een nieuw transactie voor toevoegen, de eerdere is aborted
+                        transaction = new DefaultTransaction("add-bgt");
+                        store.setTransaction(transaction);
+                    } else {
+                        throw ioe;
+                    }
+                }
             }
-            transaction.commit();
             LOG.info("Aantal ingevoegde features: " + writtenFeatures);
         } catch (IOException ioe) {
             LOG.error("I/O database probleem tijdens insert van features", ioe);
             transaction.rollback();
         } finally {
             transaction.close();
+            updatetransaction.close();
             dataStore.dispose();
         }
         return writtenFeatures;
+    }
+
+    private boolean isDuplicateKeyViolationMessage(String message) {
+        return message != null
+                && (message.startsWith("ORA-00001:")
+                | message.startsWith("ERROR: duplicate key value violates unique constraint")
+                | message.contains("Cannot insert duplicate key in object"));
     }
 
 //    private String safeIndexName(String shouldBeLess30char) {
@@ -375,7 +540,8 @@ public class BGTGMLLightLoader {
     }
 
     /**
-     * omdat oracle uppercase heeft voor tabellen en velden...
+     * omdat oracle uppercase heeft voor tabellen en velden en geen boolean
+     * heeft...
      *
      * @param isOracle {@code true} als het zo is
      */
@@ -391,4 +557,27 @@ public class BGTGMLLightLoader {
     public void setIsMSSQL(boolean isMSSQL) {
         this.isMSSQL = isMSSQL;
     }
+
+    /**
+     *
+     * @param loadingUpdate {@code true als er een update wordt geladen, {@code false} voor een stand
+     */
+    public void setLoadingUpdate(boolean loadingUpdate) {
+        this.loadingUpdate = loadingUpdate;
+    }
+
+    public void setBijwerkDatum(Date bijwerkDatum) {
+        this.bijwerkDatum = bijwerkDatum;
+    }
+
+    /**
+     * Zipfile omhullende geometrie.
+     *
+     * @return omhullende van alle vlakgeometrieen van de bestanden in een
+     * zipfile. In het gavel van een stand {@code null}.
+     */
+    public Geometry getOmhullendeVanZipFile() {
+        return omhullendeVanZipFile;
+    }
+
 }
