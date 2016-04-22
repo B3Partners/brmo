@@ -4,10 +4,10 @@
     <stripes:layout-component name="title">
         <c:choose>
             <c:when test="${actionBean.complete}">
-                Klaar - Exporteren
+                Klaar - ${actionBean.advancedFunctionProcessName}
             </c:when>
             <c:otherwise>
-                [<fmt:formatNumber maxFractionDigits="1" value="${actionBean.progress}"/>%] Bezig met exporteren ...
+                [<fmt:formatNumber maxFractionDigits="1" value="${actionBean.progress}"/>%] Bezig met geavanceerde functie ...
             </c:otherwise>
         </c:choose>
     </stripes:layout-component>
@@ -22,7 +22,7 @@
         </c:if>
     </stripes:layout-component>
     <stripes:layout-component name="contents">
-        <h1>Exporteren</h1>
+        <h1>${actionBean.advancedFunctionProcessName}</h1>
         <p>
             Gestart op: <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${actionBean.start}"/>,
                 <script type="text/javascript">
@@ -33,7 +33,7 @@
                 Laatste status: <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${actionBean.update}"/><br>
             </c:if>
             Totaal: ${actionBean.total}<br>
-            Geexporteerd: ${actionBean.processed}
+            Verwerkt: ${actionBean.processed}
         </p>
         <p>
             <%--stripes:link href="/javasimon-console" target="_blank">Performance monitoring console</stripes:link--%>
@@ -47,7 +47,7 @@
         </c:if>
         </p>
         <c:if test="${!empty actionBean.exceptionStacktrace}">
-            <b>Proces afgebroken vanwege een exception:</b>
+            <b>Proces afgebroken vanwege een technische fout:</b>
             <pre><c:out value="${actionBean.exceptionStacktrace}"/></pre>
         </c:if>
     </stripes:layout-component>

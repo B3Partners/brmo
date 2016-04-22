@@ -440,7 +440,7 @@ public class StagingProxy {
             String sql = "SELECT id, object_ref, datum, volgordenummer, soort, status, job_id, status_datum FROM "
                     + BrmoFramework.BERICHT_TABLE + " WHERE"
                     + " object_ref = ?"
-                    + " AND status = ?"
+                    + " AND status in ('RSGB_OK', 'ARCHIVE')"
                     + " ORDER BY datum desc, volgordenummer desc";
             sql = geomToJdbc.buildPaginationSql(sql, 0, 1);
 
@@ -448,9 +448,7 @@ public class StagingProxy {
         } else {
             getOldBerichtStatement.clearParameters();
         }
-
         getOldBerichtStatement.setString(1, nieuwBericht.getObjectRef());
-        getOldBerichtStatement.setString(2, Bericht.STATUS.RSGB_OK.toString());
 
         ResultSet rs = getOldBerichtStatement.executeQuery();
         List<Bericht> list = h.handle(rs);
@@ -459,8 +457,10 @@ public class StagingProxy {
         if(!list.isEmpty()) {
             loadLog.append("Vorig bericht gevonden:\n");
             for(Bericht b: list) {
-                if(Bericht.STATUS.RSGB_OK.equals(b.getStatus()) && bericht == null) {
-                    loadLog.append("Recentste bericht gevonden met RSGB_OK: ").append(b).append("\n");
+                if( (Bericht.STATUS.RSGB_OK.equals(b.getStatus()) 
+                     || Bericht.STATUS.ARCHIVE.equals(b.getStatus()) ) 
+                        && bericht == null) {
+                    loadLog.append("Meest recent bericht gevonden: ").append(b).append("\n");
                     bericht = b;
                 } else {
                     loadLog.append("Niet geschikt bericht: ").append(b).append("\n");

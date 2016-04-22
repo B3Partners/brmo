@@ -1,21 +1,21 @@
-package nl.b3p.brmo.loader.exports;
+package nl.b3p.brmo.loader.advancedfunctions;
 
 /**
  *
  * @author Chris van Lith
  */
-public class ExportProcess {
+public class AdvancedFunctionProcess {
 
     private String name;
 
     private String soort;
 
-    private String exportpad;
+    private String config;
 
-    public ExportProcess(String name, String soort, String exportpad) {
+    public AdvancedFunctionProcess(String name, String soort, String config) {
         this.name = name;
         this.soort = soort;
-        this.exportpad = exportpad;
+        this.config = config;
     }
 
     public String getName() {
@@ -34,11 +34,11 @@ public class ExportProcess {
         this.soort = soort;
     }
 
-    public String getExportpad() {
-        return exportpad;
+    public String getConfig() {
+        return config;
     }
 
-    public void setExportpad(String exportpad) {
-        this.exportpad = exportpad;
+    public void setConfig(String config) {
+        this.config = config;
     }
 }
