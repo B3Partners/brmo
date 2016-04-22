@@ -39,7 +39,9 @@ CREATE TABLE </xsl:text>
         <xsl:text> </xsl:text>
         <xsl:value-of select="db:type('varchar(255)')"/>
         <xsl:text> NOT NULL,
-        dat_beg_geldh date,
+        </xsl:text>
+        <xsl:value-of select="md:colName('BEGINTIJD_NAME')" />
+        <xsl:text> date,
         datum_einde_geldh date,
         relve_hoogteligging </xsl:text>
         <xsl:value-of select="db:type('integer')"/>
@@ -55,9 +57,10 @@ CREATE TABLE </xsl:text>
         <xsl:for-each select="attribuut">
             <xsl:value-of select="db:addColumn(md:colName(@sqlname),@sqltype)"/>
         </xsl:for-each>
-        
-        <!-- PK op identif -->
-        <xsl:text>PRIMARY KEY (</xsl:text>
+        <!-- brmo metadata velden -->
+        <xsl:value-of select="md:colName('BIJWERKDATUM_NAME')" />
+        <xsl:text> date,
+        PRIMARY KEY (</xsl:text>
         <xsl:value-of select="md:colName('ID_NAME')" />
         <xsl:text>)
 );

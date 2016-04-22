@@ -47,11 +47,11 @@ public enum BGTGMLLightTransformerFactory {
     //
     ongeclassificeerdobject("bgt_ongeclassificeerdobject.gml", "OngeclassificeerdObject"),
     //
-    begroeid_terreindeel("bgt_plantcover.gml", "BegroeidTerreindeel"),
+    begroeid_terreindeel("bgt_begroeidterreindeel.gml", "BegroeidTerreindeel"),
     onbegroeid_terreindeel("bgt_onbegroeidterreindeel.gml", "OnbegroeidTerreindeel"),
-    vegetatieobject("bgt_solitaryvegetationobject.gml", "VegetatieObject"),
+    vegetatieobject("bgt_vegetatieobject.gml", "VegetatieObject"),
     //
-    spoor("bgt_railway.gml", "Spoor"),
+    spoor("bgt_spoor.gml", "Spoor"),
     //
     scheiding("bgt_scheiding.gml", "Scheiding"),
     overige_scheiding("bgt_overigescheiding.gml", "OverigeScheiding"),
@@ -60,14 +60,14 @@ public enum BGTGMLLightTransformerFactory {
     ondersteunend_waterdeel("bgt_ondersteunendwaterdeel.gml", "OndersteunendWaterdeel"),
     waterinrichtingselement("bgt_waterinrichtingselement.gml", "Waterinrichtingselement"),
     //
-    overbruggingsdeel("bgt_bridgeconstructionelement.gml", "Overbruggingsdeel"),
+    overbruggingsdeel("bgt_overbruggingsdeel.gml", "Overbruggingsdeel"),
     kunstwerkdeel("bgt_kunstwerkdeel.gml", "Kunstwerkdeel"),
     //
-    ondersteunend_wegdeel("bgt_auxiliarytrafficarea.gml", "OndersteunendWegdeel"),
-    wegdeel("bgt_trafficarea.gml", "Wegdeel"),
-    tunneldeel("bgt_tunnelpart.gml", "Tunneldeel"),
+    ondersteunend_wegdeel("bgt_ondersteunendwegdeel.gml", "OndersteunendWegdeel"),
+    wegdeel("bgt_wegdeel.gml", "Wegdeel"),
+    tunneldeel("bgt_tunneldeel.gml", "Tunneldeel"),
     straatmeubilair("bgt_straatmeubilair.gml", "Straatmeubilair"),
-    wegerinrichtingselement("bgt_weginrichtingselement.gml", "Weginrichtingselement");
+    weginrichtingselement("bgt_weginrichtingselement.gml", "Weginrichtingselement");
 
     /**
      * naam van het GML bestand.
@@ -76,27 +76,28 @@ public enum BGTGMLLightTransformerFactory {
     /**
      * naam van de transformer klasse.
      */
-    private final String transformerName;
+    private final String transformerClassName;
 
     private static final Map<String, BGTGMLLightTransformerFactory> lookup = new HashMap<>();
 
     static {
         for (BGTGMLLightTransformerFactory d : BGTGMLLightTransformerFactory.values()) {
-            lookup.put(d.getGmlFileName(), d);
+            //lookup.put(d.getGmlFileName(), d);
+            lookup.put(d.getTransformerClassName(), d);
         }
     }
 
-    private BGTGMLLightTransformerFactory(String gmlFileName, String transformerName) {
+    private BGTGMLLightTransformerFactory(String gmlFileName, String transformerClassName) {
         this.gmlFileName = gmlFileName;
-        this.transformerName = transformerName;
+        this.transformerClassName = transformerClassName;
     }
 
     public String getGmlFileName() {
         return gmlFileName;
     }
 
-    public String getTransformerName() {
-        return transformerName;
+    public String getTransformerClassName() {
+        return transformerClassName;
     }
 
     /**
@@ -118,7 +119,7 @@ public enum BGTGMLLightTransformerFactory {
      */
     public static GMLLightFeatureTransformer getTransformer(String gmlFileName) {
         try {
-            Class c = Class.forName(GMLLightFeatureTransformer.class.getPackage().getName() + ".light." + lookup.get(gmlFileName).getTransformerName());
+            Class c = Class.forName(GMLLightFeatureTransformer.class.getPackage().getName() + ".light." + lookup.get(gmlFileName).getTransformerClassName());
             return (GMLLightFeatureTransformer) c.newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NullPointerException ex) {
             return null;

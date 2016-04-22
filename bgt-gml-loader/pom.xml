@@ -72,10 +72,15 @@
                             <dir>src/main/xml</dir>
                             <stylesheet>src/main/xsl/gmlight-transformers.xsl</stylesheet>
                             <outputDir>${project.build.directory}/generated-sources/xslt</outputDir>
+                            <parameters>
+                                <parameter>
+                                    <name>baseDirectory</name>
+                                    <value>${project.build.directory}/generated-sources/xslt/</value>
+                                </parameter>
+                            </parameters>
                         </transformationSet>
                         <transformationSet>
                             <dir>src/main/xml</dir>
-                            <includes>datamodel.xml</includes>
                             <stylesheet>src/main/xsl/ddl-oracle.xsl</stylesheet>
                             <outputDir>${project.build.directory}/generated-resources/ddl/oracle</outputDir>
                             <fileMappers>
@@ -86,7 +91,6 @@
                         </transformationSet>
                         <transformationSet>
                             <dir>src/main/xml</dir>
-                            <includes>datamodel.xml</includes>
                             <stylesheet>src/main/xsl/ddl-sqlserver.xsl</stylesheet>
                             <outputDir>${project.build.directory}/generated-resources/ddl/sqlserver</outputDir>
                             <fileMappers>
@@ -97,7 +101,6 @@
                         </transformationSet>
                         <transformationSet>
                             <dir>src/main/xml</dir>
-                            <includes>datamodel.xml</includes>
                             <stylesheet>src/main/xsl/ddl-postgresql.xsl</stylesheet>
                             <outputDir>${project.build.directory}/generated-resources/ddl/postgresql</outputDir>
                             <fileMappers>
@@ -108,7 +111,6 @@
                         </transformationSet>
                         <transformationSet>
                             <dir>src/main/xml</dir>
-                            <includes>datamodel.xml</includes>
                             <stylesheet>src/main/xsl/drop-sqlserver.xsl</stylesheet>
                             <outputDir>${project.build.directory}/generated-resources/ddl/sqlserver</outputDir>
                             <fileMappers>
@@ -119,7 +121,6 @@
                         </transformationSet>
                         <transformationSet>
                             <dir>src/main/xml</dir>
-                            <includes>datamodel.xml</includes>
                             <stylesheet>src/main/xsl/drop-postgresql.xsl</stylesheet>
                             <outputDir>${project.build.directory}/generated-resources/ddl/postgresql</outputDir>
                             <fileMappers>
@@ -130,7 +131,6 @@
                         </transformationSet>
                         <transformationSet>
                             <dir>src/main/xml</dir>
-                            <includes>datamodel.xml</includes>
                             <stylesheet>src/main/xsl/drop-oracle.xsl</stylesheet>
                             <outputDir>${project.build.directory}/generated-resources/ddl/oracle</outputDir>
                             <fileMappers>
@@ -247,7 +247,7 @@
             <build>
                 <plugins>
                     <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
                                 <database.properties.file>postgis.properties</database.properties.file>
@@ -262,7 +262,7 @@
             <build>
                 <plugins>
                     <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
                                 <database.properties.file>sqlserver.properties</database.properties.file>
@@ -287,7 +287,7 @@
             <build>
                 <plugins>
                     <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
                                 <database.properties.file>oracle.properties</database.properties.file>
@@ -344,5 +344,10 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- <dependency>
+            <groupId>org.opensphere</groupId>
+            <artifactId>concave-hull</artifactId>
+            <version>0.1</version>
+        </dependency> -->
     </dependencies>
 </project>

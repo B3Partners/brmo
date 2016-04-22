@@ -3,13 +3,13 @@
  */
 package nl.b3p.brmo.loader.gml.light;
 
+import java.util.Date;
 import nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.geotools.factory.Hints;
-
 import org.geotools.feature.AttributeTypeBuilder;
 import org.geotools.feature.simple.SimpleFeatureBuilder;
 import org.geotools.feature.simple.SimpleFeatureTypeBuilder;
@@ -69,6 +69,7 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
 
     private final AttributeTypeBuilder builder = new AttributeTypeBuilder();
     private CoordinateReferenceSystem crs = null;
+
     /**
      * default constructor. Zorgt voor initiele vulling van de
      * {@link #composedAttr} en {@link #attrMapping} transformatie mappings.
@@ -95,8 +96,8 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
         /* bovenstaande niet in RSBG 3.0 */
 
         // (gedeelde) model attributen
-        attrMapping.put("objectBeginTijd", "dat_beg_geldh");
-        attrMapping.put("objectEindTijd", "datum_einde_geldh");
+        attrMapping.put("objectBeginTijd", BEGINTIJD_NAME);
+        attrMapping.put("objectEindTijd", EINDTIJD_NAME);
         attrMapping.put("bgt-status", "bgt_status");
         attrMapping.put("plus-status", "plus_status");
         attrMapping.put("relatieveHoogteligging", "relve_hoogteligging");
@@ -161,7 +162,6 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
             dbAttrName = attrMapping.get(gmlAttrLocalName);
 
             // LOG.debug("aanmaken AttributeDescriptor voor: " + gmlAttrLocalName + " (wordt: " + gmlAttrLocalName + ")");
-
             if (dbAttrName != null) {
                 // hernoem attribuut als de db naam niet gelijk is aan gml naam
                 if (shouldUppercase) {
@@ -185,11 +185,14 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
             }
         }
 
+        // extra database velden / brmo metadata
+        String datum = shouldUppercase ? BIJWERKDATUM_NAME.toUpperCase() : BIJWERKDATUM_NAME;
+        tb.add(datum, Date.class);
         return tb.crs(crs).buildFeatureType();
     }
 
     @Override
-    public SimpleFeature transform(SimpleFeature inFeature, SimpleFeatureType targetType, boolean shouldUppercaseFieldnames, boolean userDefinedPrimaryKey) {
+    public SimpleFeature transform(SimpleFeature inFeature, SimpleFeatureType targetType, boolean shouldUppercaseFieldnames, boolean userDefinedPrimaryKey, Date bijwerkDatum) {
         SimpleFeatureBuilder featureBuilder = new SimpleFeatureBuilder(targetType);
         String targetAttrName;
         for (String key : attrMapping.keySet()) {
@@ -221,8 +224,11 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
                 id = composed;
             }
         }
-        featureBuilder.featureUserData(Hints.USE_PROVIDED_FID, userDefinedPrimaryKey);
+        // brmo metadata
+        String datum = shouldUppercaseFieldnames ? BIJWERKDATUM_NAME.toUpperCase() : BIJWERKDATUM_NAME;
+        featureBuilder.set(datum, bijwerkDatum);
 
+        featureBuilder.featureUserData(Hints.USE_PROVIDED_FID, userDefinedPrimaryKey);
         return featureBuilder.buildFeature(id);
     }
 }
