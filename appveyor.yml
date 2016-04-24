@@ -29,8 +29,10 @@ install:
   - cmd: echo %PATH%
   - cmd: java -version
   - cd C:\projects\brmo
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-http-proxy.ps1'))
+  - ps: .\.appveyor\set-maven-proxy.ps1
   # initial build, no testing
-  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Pappveyor-ci -pl "!brmo-dist"  
+  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Pappveyor-ci -pl "!brmo-dist"
 
 
 # before_build: does nothing
@@ -38,7 +40,7 @@ build: off
 # after_build: does nothing
 
 before_test:
-# services are started after install, so we need to wait 
+# services are started after install, so we need to wait
 # create STAGING DB
   - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -Q "CREATE DATABASE staging" -d "master"
   - dir -w .\datamodel\generated_scripts\
