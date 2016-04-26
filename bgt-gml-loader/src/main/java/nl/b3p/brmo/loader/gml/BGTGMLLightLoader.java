@@ -186,9 +186,9 @@ public class BGTGMLLightLoader {
 
             if (this.loadingUpdate) {
                 // nadat zipfile is geladen
-                LOG.debug("omhullende van zipfile: " + omhullendeVanZipFile);
-                LOG.debug("convex omhullende van zipfile(" + zipExtract + "): " + omhullendeVanZipFile.convexHull());
-                LOG.debug("union omhullende van zipfile(" + zipExtract + "): " + omhullendeVanZipFile.union());
+//                LOG.debug("omhullende van zipfile: " + omhullendeVanZipFile);
+//                LOG.debug("convex omhullende van zipfile(" + zipExtract + "): " + omhullendeVanZipFile.convexHull());
+//                LOG.debug("union omhullende van zipfile(" + zipExtract + "): " + omhullendeVanZipFile.union());
 
                 // org.opensphere.geometry.algorithm.ConcaveHull, zie ook: pom.xml
                 //ConcaveHull ch = new ConcaveHull(omhullendeVanZipFile, 1d);
@@ -239,7 +239,7 @@ public class BGTGMLLightLoader {
 
     /**
      * Verwerk een GML bestand. <strong>Let op:</strong> alleen voor "stand"
-     * verwerking omdat de onderliggende geometrische niet betrouwbaar kan
+     * verwerking omdat de onderliggende geometrische data niet betrouwbaar kan
      * worden verwijderd in dit geval.
      *
      * @param gml GML Light bestand

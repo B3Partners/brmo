@@ -11,13 +11,13 @@ LEVELS: debug, info, warn, error, fatal en off, all -->
         </layout>
     </appender>
     <logger name="org.geotools">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
     <logger name="org.geotools.jdbc">
-        <level value="all" />
+        <level value="warn" />
     </logger>
     <logger name="org.postgresql">
-        <level value="all" />
+        <level value="debug" />
     </logger>
     <root>
         <level value="debug" />
