@@ -17,3 +17,5 @@ Beter is om een aantal kleinere bestanden te downloaden, plaats deze bij elkaar 
  - Maak het schema aan in de database met het juiste bestand voor de omgeving `create_rsgb_bgt.sql` (gebruik `drop_rsgb_bgt.sql` om het te droppen)  **Let op**: gebruik een eigen database schema, en niet het RSGB schema van de bestaande BRMO applicatie.
 
  - Voer het commando `java -jar bgt-gml-loader-1.3.2-SNAPSHOT.jar` vanaf de commandline om data te laden. De applicatie maakt een logfile `brmo-bgtloader.log` aan in de applicatie directory.
+
+**NB** De Oracle JDBC driver zit niet in de zipfile, de juiste `ojdbc.jar` moet in de `lib` directory worden neergezet om met een Oracle database te kunnen werken. De PostgreSQL driver en MS Sqlserver (JTDS) driver zitten wel in de zipfile.

@@ -17,10 +17,21 @@
             <outputDirectory>wars</outputDirectory>
             <unpack>false</unpack>
             <excludes>
-                <!-- expliciet exclude vanwege dat dit deps zijn in parent pom -->
+                <!-- expliciet exclude vanwege dat dit dependencies zijn in parent pom -->
                 <exclude>commons-logging:commons-logging</exclude>
                 <exclude>log4j:log4j</exclude>
+                <exclude>${project.groupId}:bgt-gml-loader</exclude>
             </excludes>
+            <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
+        </dependencySet>
+        <dependencySet>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <useProjectArtifact>${project.groupId}:bgt-gml-loader</useProjectArtifact>
+            <outputDirectory>tools</outputDirectory>
+            <unpack>false</unpack>
+            <includes>
+                <include>${project.groupId}:bgt-gml-loader</include>
+            </includes>
             <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>
     </dependencySets>
