@@ -283,14 +283,14 @@ public class BGTGMLLightLoader {
             dataStore.getClassToSqlTypeMappings().put(java.lang.Boolean.class, Types.VARCHAR);
         }
 
-        FeatureCollection<SimpleFeatureType, SimpleFeature> gmlFeatCollection = (SimpleFeatureCollection) parser.parse(in);
+        SimpleFeatureCollection gmlFeatCollection = (SimpleFeatureCollection) parser.parse(in);
         if (gmlFeatCollection.isEmpty()) {
             LOG.info("Geen features gevonden in bestand: " + gmlFileName);
             dataStore.dispose();
             return writtenFeatures;
         }
 
-        SimpleFeatureType sft = (SimpleFeatureType) gmlFeatCollection.getSchema();
+        SimpleFeatureType sft = gmlFeatCollection.getSchema();
         GMLLightFeatureTransformer featTransformer = BGTGMLLightTransformerFactory.getTransformer(sft.getTypeName());
         if (featTransformer == null) {
             LOG.error("Opzoeken van FeatureTransformer voor " + sft.getTypeName() + " is mislukt; er geen transformer beschikbaar voor dit bestand.");
@@ -316,14 +316,6 @@ public class BGTGMLLightLoader {
             if (createTables) {
                 dataStore.createSchema(targetSchema);
                 LOG.info("De volgende tabel is aangemaakt in de database: " + targetSchema.getTypeName());
-// Deze index is vooralsnog niet nodig, als geotools de tabel aanmaakt komt er vanzelf een 'fid' in
-//                Index idx = new Index(targetSchema.getTypeName(),
-// safeIndexName doet zoek/vervang van namen voor de index, zie hieronder
-//                        safeIndexName(targetSchema.getTypeName() + "_" + GMLLightFeatureTransformer.ID_NAME + "_idx"),
-//                        true,
-//                        GMLLightFeatureTransformer.ID_NAME);
-//                dataStore.createIndex(idx);
-//                LOG.info("De volgende index is aangemaakt in de database: " + idx);
                 if (this.isOracle) {
                     try {
                         dataStore.getConnection(Transaction.AUTO_COMMIT).createStatement().execute("UPDATE USER_SDO_GEOM_METADATA SET SRID=28992");
@@ -368,14 +360,14 @@ public class BGTGMLLightLoader {
                     if (geom != null && geom.getDimension() > Dimension.L) {
                         if (omhullendeVanZipFile != null) {
                             try {
-                                omhullendeVanZipFile = geom.union(omhullendeVanZipFile);
+                                omhullendeVanZipFile = omhullendeVanZipFile.union(geom);
                             } catch (IllegalArgumentException iae) {
                                 LOG.error("Union fout", iae);
                                 LOG.debug("geom voor union :" + geom);
                                 LOG.debug("omhullendeVanZipFile voor union: " + omhullendeVanZipFile);
                             }
                         } else {
-                            omhullendeVanZipFile = geom;
+                            omhullendeVanZipFile = geom.union();
                         }
                     }
                 }
@@ -409,8 +401,6 @@ public class BGTGMLLightLoader {
                             }
                             LOG.debug("Klaar met update van feature: " + transformed.getID());
                             updatetransaction.commit();
-                            // TODO in geval "mutatie"
-                            // onderliggende objecten verwijderen
                         } else {
                             LOG.debug("Geen update van feature: " + transformed.getID());
                         }
@@ -437,29 +427,14 @@ public class BGTGMLLightLoader {
 
     private boolean isDuplicateKeyViolationMessage(String message) {
         return message != null
+                /* oracle */
                 && (message.startsWith("ORA-00001:")
+                /* postgresql */
                 | message.startsWith("ERROR: duplicate key value violates unique constraint")
+                /* mssql */
                 | message.contains("Cannot insert duplicate key in object"));
     }
 
-//    private String safeIndexName(String shouldBeLess30char) {
-//
-//        if (shouldBeLess30char.length() < 30) {
-//            return shouldBeLess30char.toLowerCase();
-//        } else {
-//            return shouldBeLess30char.toLowerCase()
-//                    .replace("deel", "dl")
-//                    .replace("ondersteunend", "odrsteun")
-//                    .replace("onbegroeid", "obgrd")
-//                    .replace("begroeid", "bgrd")
-//                    .replace("inrichtingselement", "inrelem")
-//                    .replace("ongeclassificeerd", "oclas")
-//                    .replace("object", "obj")
-//                    .replace("gebied", "gbd")
-//                    .replace("kruinlijn", "kr")
-//                    .replace("lod0geom", "ld0");
-//        }
-//    }
     /**
      * scan directory for zipfiles in de geconfigueerde directory.
      *

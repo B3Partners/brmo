@@ -96,10 +96,10 @@ public abstract class TestingBase {
             for (BGTGMLLightTransformerFactory t : BGTGMLLightTransformerFactory.values()) {
                 tableName = isOracle ? t.name().toUpperCase() : t.name();
 
-                ResultSet res = connection.getMetaData().getTables(null, params.getProperty("schema"), tableName, null);
+                ResultSet res = connection.getMetaData().getTables(null, params.getProperty("schema"), tableName, new String[]{"TABLE"});
                 if (res.next()) {
                     String sql = "DELETE FROM \"" + params.getProperty("schema") + "\".\"" + tableName + "\"";
-                    LOG.info("legen tabel: " + params.getProperty("schema") + "." + tableName + " met sql: " + sql);
+                    LOG.info("legen tabel: " + tableName + " met sql: " + sql);
                     try {
                         connection.createStatement().executeUpdate(sql);
                     } catch (SQLException se) {
@@ -107,6 +107,7 @@ public abstract class TestingBase {
                         LOG.debug(se);
                     }
                 }
+                res.close();
             }
             connection.close();
         }
@@ -134,16 +135,17 @@ public abstract class TestingBase {
             for (BGTGMLLightTransformerFactory t : BGTGMLLightTransformerFactory.values()) {
                 tableName = isOracle ? t.name().toUpperCase() : t.name();
 
-                ResultSet res = connection.getMetaData().getTables(null, params.getProperty("schema"), tableName, null);
+                ResultSet res = connection.getMetaData().getTables(null, params.getProperty("schema"), tableName, new String[]{"TABLE"});
                 if (res.next()) {
-                    String sql = "drop table \"" + params.getProperty("schema") + "\".\"" + t.name() + "\";";
-                    LOG.info("droppen tabel: " + t.name() + " met sql: " + sql);
+                    String sql = "DROP TABLE \"" + params.getProperty("schema") + "\".\"" + tableName + "\";";
+                    LOG.info("Droppen tabel: " + tableName + " met sql: " + sql);
                     try {
                         connection.createStatement().executeUpdate(sql);
                     } catch (SQLException se) {
                         LOG.warn("Mogelijke fout tijdens droppen van tabellen: " + se.getLocalizedMessage());
                     }
                 }
+                res.close();
             }
             connection.close();
         }
