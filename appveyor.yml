@@ -59,7 +59,7 @@ before_test:
   - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\01_create_indexes.sql
   - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\02_insert_default_user.sql
 # bgttest setup
-  - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -d "bgttest" -i .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\create_rsgb_bgt.sql
+  - sqlcmd -S (local)\SQL2012SP1 -I -U sa -P Password12! -d "bgttest" -i .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\create_rsgb_bgt.sql
   - cmd: echo "computer name:" %COMPUTERNAME%
   - cmd: echo "instance name:" %INSTANCENAME%
   - ps: .\.appveyor\setting-tcp-ip-ports.ps1

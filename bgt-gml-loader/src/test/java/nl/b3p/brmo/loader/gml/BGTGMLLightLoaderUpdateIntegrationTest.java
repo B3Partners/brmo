@@ -37,6 +37,8 @@ public class BGTGMLLightLoaderUpdateIntegrationTest extends TestingBase {
 
     private final Lock sequential = new ReentrantLock();
 
+    private final SimpleDateFormat fmt = new SimpleDateFormat("YYYYMMdd");
+
     /**
      * set up test object.
      *
@@ -85,9 +87,9 @@ public class BGTGMLLightLoaderUpdateIntegrationTest extends TestingBase {
         for (File zip : zips) {
             load_one = ldr.processZipFile(zip);
             LOG.info("Totaal aantal ingevoegde features voor: " + zip.getName() + " is: " + load_one);
-            assertTrue("Verwacht meer dan 1 geschreven feature", (load_one > 500));
+            assertTrue("Verwacht meer dan 1 geschreven feature", (load_one > 1));
             if (zip.getName().equalsIgnoreCase("extract-gmllight.zip")) {
-                assertEquals("Er zitten 506 objecten in de gml bestanden", 506, load_one);
+                assertEquals("Er zitten 114 objecten in de gml bestanden", 114, load_one);
             }
         }
 
@@ -108,7 +110,7 @@ public class BGTGMLLightLoaderUpdateIntegrationTest extends TestingBase {
      * @throws Exception if any
      */
     @Test
-    @Ignore("De update zipfile zit te dicht op de bron")
+    @Ignore("De update zipfile zit nog te dicht op de bron, dus geen verschil.")
     public void testUpdateFromDirectoryTwoDates() throws Exception {
         int load_one, load_two;
 
@@ -144,7 +146,7 @@ public class BGTGMLLightLoaderUpdateIntegrationTest extends TestingBase {
                 params.getProperty("passwd"))) {
 
             connection.setAutoCommit(true);
-            SimpleDateFormat fmt = new SimpleDateFormat("YYYYMMdd");
+            connection.setSchema(params.getProperty("schema"));
 
             for (BGTGMLLightTransformerFactory t : BGTGMLLightTransformerFactory.values()) {
 
@@ -155,7 +157,9 @@ public class BGTGMLLightLoaderUpdateIntegrationTest extends TestingBase {
                     sql = isOracle ? sql.toUpperCase() : sql;
                     try {
                         ResultSet count = connection.createStatement().executeQuery(sql);
-                        assertFalse("Verwacht geen oude data in tabel " + t.name(), count.next());
+                        count.next();
+                        int counted = count.getObject(1, Integer.class);
+                        assertEquals("Verwacht geen oude data in tabel " + t.name(), 0, counted);
                     } catch (SQLException se) {
                         LOG.warn("Fout tijdens tellen in tabellen: " + se.getLocalizedMessage());
                     }
