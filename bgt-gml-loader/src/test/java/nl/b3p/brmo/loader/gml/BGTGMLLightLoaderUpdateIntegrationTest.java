@@ -5,6 +5,7 @@ package nl.b3p.brmo.loader.gml;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,54 +13,29 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Properties;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.BIJWERKDATUM_NAME;
+import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.ID_NAME;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assume.assumeNotNull;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.rules.TestName;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeNotNull;
+import org.junit.Ignore;
 
-public class BGTGMLLightLoaderUpdateIntegrationTest {
+public class BGTGMLLightLoaderUpdateIntegrationTest extends TestingBase {
 
     private static final Log LOG = LogFactory.getLog(BGTGMLLightLoaderUpdateIntegrationTest.class);
 
     private BGTGMLLightLoader ldr;
-    private final Properties params = new Properties();
 
     private final Lock sequential = new ReentrantLock();
-
-    @Rule
-    public TestName name = new TestName();
-
-    /**
-     * test of de database properties zijn aangegeven, zo niet dan skippen we
-     * alle tests in deze test.
-     */
-    @BeforeClass
-    public static void checkDatabaseIsProvided() {
-        assumeNotNull("Verwacht database omgeving te zijn aangegeven.", System.getProperty("database.properties.file"));
-    }
-
-    @Before
-    public void logStart() {
-        LOG.info("test start: " + name.getMethodName());
-    }
-
-    @After
-    public void logEnd() {
-        LOG.info("test einde: " + name.getMethodName());
-    }
 
     /**
      * set up test object.
@@ -68,17 +44,11 @@ public class BGTGMLLightLoaderUpdateIntegrationTest {
      */
     @Before
     public void setUp() throws Exception {
+        loadProps();
+
+        sequential.lock();
+
         ldr = new BGTGMLLightLoader();
-        // de `database.properties.file` is in de pom.xml of via commandline ingesteld
-        params.load(BGTGMLLightLoaderUpdateIntegrationTest.class.getClassLoader()
-                .getResourceAsStream(System.getProperty("database.properties.file")));
-        try {
-            // probeer een local (override) versie te laden als die bestaat
-            params.load(BGTGMLLightLoaderUpdateIntegrationTest.class.getClassLoader()
-                    .getResourceAsStream("local." + System.getProperty("database.properties.file")));
-        } catch (IOException | NullPointerException e) {
-            // negeren; het override bestand is normaal niet aanwezig
-        }
         ldr.setDbConnProps(params);
         ldr.setCreateTables(false);
 
@@ -86,33 +56,8 @@ public class BGTGMLLightLoaderUpdateIntegrationTest {
     }
 
     @After
-    public void clearTables() throws Exception {
-        try {
-            Class.forName(params.getProperty("jdbc.driverClassName"));
-        } catch (ClassNotFoundException ex) {
-            fail("Laden van database driver (" + params.getProperty("jdbc.driverClassName") + ") is mislukt.");
-        }
-        try (Connection connection = DriverManager.getConnection(
-                params.getProperty("jdbc.url"),
-                params.getProperty("user"),
-                params.getProperty("passwd"))) {
-
-            connection.setAutoCommit(true);
-
-            for (BGTGMLLightTransformerFactory t : BGTGMLLightTransformerFactory.values()) {
-                ResultSet res = connection.getMetaData().getTables(null, params.getProperty("schema"), t.name(), null);
-                if (res.next()) {
-                    String sql = "DELETE FROM " + params.getProperty("schema") + ".\"" + t.name() + "\";";
-                    LOG.info("legen tabel: " + params.getProperty("schema") + "." + t.name() + " met sql: " + sql);
-                    try {
-                        connection.createStatement().executeUpdate(sql);
-                    } catch (SQLException se) {
-                        LOG.warn("Mogelijke fout tijdens legen van tabellen: " + se.getLocalizedMessage());
-                    }
-                }
-            }
-            connection.close();
-        }
+    public void resetDatabase() throws Exception {
+        sequential.unlock();
     }
 
     /**
@@ -131,15 +76,19 @@ public class BGTGMLLightLoaderUpdateIntegrationTest {
         List<File> zips = ldr.scanDirectory();
         assertEquals("Verwacht aantal zipfiles", 1, zips.size());
 
-        // eerste set laden met datum 3 dagen voor vandaag
+        // eerste set laden met datum 21 dagen voor vandaag
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -3);
+        cal.add(Calendar.DATE, -21);
         ldr.setBijwerkDatum(cal.getTime());
         ldr.setLoadingUpdate(false);
 
         for (File zip : zips) {
             load_one = ldr.processZipFile(zip);
-            assertTrue("Verwacht meer dan 1 geschreven feature", (load_one > 1));
+            LOG.info("Totaal aantal ingevoegde features voor: " + zip.getName() + " is: " + load_one);
+            assertTrue("Verwacht meer dan 1 geschreven feature", (load_one > 500));
+            if (zip.getName().equalsIgnoreCase("extract-gmllight.zip")) {
+                assertEquals("Er zitten 506 objecten in de gml bestanden", 506, load_one);
+            }
         }
 
         Calendar today = Calendar.getInstance();
@@ -147,11 +96,47 @@ public class BGTGMLLightLoaderUpdateIntegrationTest {
         ldr.setLoadingUpdate(true);
         for (File zip : zips) {
             load_two = ldr.processZipFile(zip);
-            assertTrue("Verwacht meer dan 1 geschreven feature", (load_one > 1));
+            assertTrue("Verwacht alleen bijgewerkte features, geen nieuwe", (load_two == 0));
         }
-        assertEquals("geladen en bijgwerkt zijn gelijk", load_one, load_two);
+        assertEquals("Geladen en bijgewerkt zijn gelijk", load_one, load_one - load_two);
+    }
 
-        SimpleDateFormat fmt = new SimpleDateFormat("YYYYMMDD");
+    /**
+     * test laden van twee in datum verschillende zipfiles, maar zelfde gebied,
+     * in bestaande tabellen.
+     *
+     * @throws Exception if any
+     */
+    @Test
+    @Ignore("De update zipfile zit te dicht op de bron")
+    public void testUpdateFromDirectoryTwoDates() throws Exception {
+        int load_one, load_two;
+
+        URL zipUrl = BGTGMLLightLoaderNederlandIntegrationTest.class.getResource("/gmllight/dated/code38468_0-20160422.zip");
+        assumeNotNull("Verwacht de zipfile met data te bestaan.", zipUrl);
+        URL updateUrl = BGTGMLLightLoaderNederlandIntegrationTest.class.getResource("/gmllight/dated/code38468_0-20160426.zip");
+        assumeNotNull("Verwacht de zipfile met data te bestaan.", zipUrl);
+
+        File zip = new File(zipUrl.getFile());
+        assertNotNull("Zipfile is niet null", zip);
+
+        // eerste set laden als stand met datum 7 dagen voor vandaag
+        Calendar cal = Calendar.getInstance();
+        cal.set(2015, 4, 22, 17, 32);
+        ldr.setBijwerkDatum(cal.getTime());
+        ldr.setLoadingUpdate(false);
+        load_one = ldr.processZipFile(zip);
+        assertTrue("Verwacht meer dan 1 geschreven feature", (load_one > 1));
+
+        // update set laden met datum van vandaag
+        zip = new File(updateUrl.getFile());
+        assertNotNull("Zipfile is niet null", zip);
+        Calendar today = Calendar.getInstance();
+        ldr.setBijwerkDatum(today.getTime());
+        ldr.setLoadingUpdate(true);
+        load_two = ldr.processZipFile(zip);
+        assertTrue("Verwacht meer dan 0 geschreven features", (load_two > 0));
+        assertFalse("Geladen en bijgewerkt zijn niet gelijk", load_one != load_two);
 
         try (Connection connection = DriverManager.getConnection(
                 params.getProperty("jdbc.url"),
@@ -159,12 +144,15 @@ public class BGTGMLLightLoaderUpdateIntegrationTest {
                 params.getProperty("passwd"))) {
 
             connection.setAutoCommit(true);
+            SimpleDateFormat fmt = new SimpleDateFormat("YYYYMMdd");
 
             for (BGTGMLLightTransformerFactory t : BGTGMLLightTransformerFactory.values()) {
-                ResultSet res = connection.getMetaData().getTables(null, params.getProperty("schema"), t.name(), null);
+
+                ResultSet res = connection.getMetaData().getTables(null, params.getProperty("schema"), (isOracle ? t.name().toUpperCase() : t.name()), null);
                 if (res.next()) {
-                    String sql = "SELECT COUNT(ID_NAME) FROM " + params.getProperty("schema") + ".\"" + t.name()
-                            + "\" WHERE " + BIJWERKDATUM_NAME + " < '" + fmt.format(today) + "';";
+                    String sql = "SELECT COUNT(" + ID_NAME + ") FROM \"" + params.getProperty("schema") + "\".\"" + t.name()
+                            + "\" WHERE " + BIJWERKDATUM_NAME + " < '" + fmt.format(today.getTime()) + "';";
+                    sql = isOracle ? sql.toUpperCase() : sql;
                     try {
                         ResultSet count = connection.createStatement().executeQuery(sql);
                         assertFalse("Verwacht geen oude data in tabel " + t.name(), count.next());
@@ -176,4 +164,5 @@ public class BGTGMLLightLoaderUpdateIntegrationTest {
             connection.close();
         }
     }
+
 }
