@@ -165,6 +165,22 @@
                             </sources>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>attach-artifacts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>${project.build.directory}/${project.build.finalName}.zip</file>
+                                    <type>zip</type>
+                                    <classifier>tool</classifier>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -186,9 +202,10 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <!-- Oracle JDBC driver <excludeGroupIds>com.oracle</excludeGroupIds -->
+                            <!-- Oracle JDBC driver uitsluiten -->
+                            <excludeGroupIds>com.oracle</excludeGroupIds>
                             <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteSnapshots>true</overWriteSnapshots>
                             <overWriteIfNewer>true</overWriteIfNewer>
                         </configuration>
                     </execution>
