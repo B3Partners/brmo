@@ -71,8 +71,8 @@ public class BGTGMLLightParserTest {
     public static Collection<Object[]> params() {
         return Arrays.asList(new Object[][]{
             //arrays of: {"gmlFileName", "typeNamespace", "elementName", expectedNumOfElements, expectedNumOfAtrr},
-            {"/gmllight/bgt_ondersteunendwaterdeel.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "OndersteunendWaterdeel", 12, 20},
-            {"/gmllight/bgt_ongeclassificeerdobject.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "OngeclassificeerdObject", 2, 18}
+            {"/gmllight/bgt_ondersteunendwaterdeel.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "OndersteunendWaterdeel", 47, 20},
+            {"/gmllight/bgt_ongeclassificeerdobject.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "OngeclassificeerdObject", 0, 18}
         });
     }
 
