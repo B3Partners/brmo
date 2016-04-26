@@ -26,7 +26,7 @@
         
         <xsl:variable name="className" select="@clazz"/>
 
-        <xsl:variable name="filename" select="concat('file://', $baseDirectory,'nl/b3p/brmo/loader/gml/light/',$className,'.java')" />
+        <xsl:variable name="filename" select="concat($baseDirectory,'nl/b3p/brmo/loader/gml/light/',$className,'.java')" />
         <xsl:value-of select="$filename" />
 
         <xsl:result-document href="{$filename}" method="text">

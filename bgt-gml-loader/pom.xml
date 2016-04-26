@@ -75,7 +75,7 @@
                             <parameters>
                                 <parameter>
                                     <name>baseDirectory</name>
-                                    <value>${project.build.directory}/generated-sources/xslt/</value>
+                                    <value>${project.baseUri}/target/generated-sources/xslt/</value>
                                 </parameter>
                             </parameters>
                         </transformationSet>
