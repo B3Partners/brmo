@@ -2,10 +2,10 @@ group: edge
 dist: trusty
 language: java
 
-sudo: false
+sudo: reuired
 
 addons:
-  postgresql: "9.4"
+  postgresql: "9.5"
 
 jdk:
   - openjdk7
@@ -25,6 +25,8 @@ before_install:
   - unzip -qq apache-maven-3.3.3-bin.zip
   - export M2_HOME=$PWD/apache-maven-3.3.3
   - export PATH=$M2_HOME/bin:$PATH
+  - sudo apt-get update
+  - sudo apt-get -y install postgis
 # set up STAGING db
   - psql --version
   - psql -U postgres -a -c "CREATE ROLE staging LOGIN PASSWORD 'staging' SUPERUSER CREATEDB;"
@@ -32,6 +34,7 @@ before_install:
   - psql -U postgres -c 'create database staging;'
   - psql -U postgres -c 'create database rsgb;'
   - psql -U postgres -d rsgb -c 'create extension postgis;'
+  - psql -U postgres -d rsgb -a -c 'SELECT PostGIS_full_version();'
   - ls -l ./datamodel/generated_scripts/
 # bgt auto-schema
   - psql -U postgres -d rsgb -c "CREATE SCHEMA bgttest AUTHORIZATION rsgb;"
