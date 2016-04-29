@@ -7,13 +7,13 @@
     <packaging>pom</packaging>
     <modules>
         <module>brmo-persistence</module>
-        <module>bgt-gml-loader</module>
         <module>brmo-loader</module>
         <module>brmo-taglib</module>
         <module>brmo-service</module>
         <module>brmo-proxyservice</module>
         <module>brmo-soap</module>
         <module>brmo-dist</module>
+        <module>bgt-gml-loader</module>
     </modules>
     <name>BRMO</name>
     <description>B3Parteners BRMO applicatie</description>
