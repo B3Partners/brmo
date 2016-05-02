@@ -1,6 +1,6 @@
 
 -- BRMO RSGB script voor sqlserver
--- Gegenereerd op 2016-03-09T17:21:24.871+01:00
+-- Gegenereerd op 2016-05-02T11:31:56.542+02:00
 
 create table sbi_activiteit(
 	omschr varchar(60),
@@ -2283,7 +2283,7 @@ alter table woz_waarde_archief add constraint woz_waarde_archief_pk primary key(
 create index brondocument_tabel_idx on brondocument(tabel);
 create index brondocument_tabel_identif_idx on brondocument(tabel_identificatie);
 create index brondocument_identificatie_idx on brondocument(identificatie);
-CREATE INDEX BRONDOCUMENT_OMSCHRIJVING_IDX ON BRONDOCUMENT(OMSCHRIJVING);
+CREATE INDEX brondocument_omschrijving_idx ON brondocument(omschrijving);
 
 CREATE INDEX brondocument_ref_id  ON brondocument (ref_id);
 
@@ -2403,7 +2403,7 @@ Views for visualizing the BAG data.
 -------------------------------------------------
 -- v_verblijfsobject_alles
 -------------------------------------------------
-CREATE OR REPLACE VIEW
+CREATE VIEW
     v_verblijfsobject_alles
     (
         fid,
@@ -2660,7 +2660,7 @@ ON
 /*
 ligplaats met hoofdadres
 */		
-CREATE OR REPLACE VIEW
+CREATE VIEW
     v_ligplaats_alles
     (
         fid,
@@ -2731,7 +2731,7 @@ WHERE
 /*
 standplaats met hoofdadres
 */		
-CREATE OR REPLACE VIEW
+CREATE VIEW
     v_standplaats_alles
     (
         fid,
@@ -18730,3 +18730,25 @@ alter table zak_recht drop constraint fk_zkr_rl_3;
 -- Rechterkant mogelijk nog niet geinsert
 alter table kad_onrrnd_zk_his_rel drop constraint fk_kad_onrrnd_zk_his_rel_sc_rh;
 
+-- Script: 115_nhr.sql
+
+
+
+
+alter table sbi_activiteit alter column omschr type varchar(255);
+
+create table vestg_activiteit(
+    fk_vestg_nummer varchar(32) references vestg(sc_identif),
+    fk_sbi_activiteit_code varchar(6) references sbi_activiteit(sbi_code),
+    indicatie_hoofdactiviteit decimal(1,0),
+    primary key(fk_vestg_nummer, fk_sbi_activiteit_code)
+);
+
+ALTER TABLE vestg_naam
+  ADD PRIMARY KEY (naam, fk_ves_sc_identif);
+-- Script: 116_brk_extra_indices.sql
+
+CREATE INDEX zak_recht_fk_kad_identif_idx ON zak_recht (fk_7koz_kad_identif);
+CREATE INDEX kad_onrrnd_zk_aantek_fk4_idx ON kad_onrrnd_zk_aantek (fk_4koz_kad_identif);
+CREATE INDEX kad_perceel_id_idx ON kad_perceel (ka_kad_gemeentecode, ka_sectie, ka_perceelnummer);
+CREATE INDEX zak_recht_aantek_fk5_zk_re_idx ON zak_recht_aantek (fk_5zkr_kadaster_identif);

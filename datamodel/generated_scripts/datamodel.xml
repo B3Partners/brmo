@@ -6276,6 +6276,8 @@
       <script>112_insert_buurt.sql</script>
       <script>113_insert_wijk.sql</script>
       <script>114_drop_constraints.sql</script>
+      <script>115_nhr.sql</script>
+      <script>116_brk_extra_indices.sql</script>
    </extra-scripts>
 </schema>
 

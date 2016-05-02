@@ -39,12 +39,12 @@
 				<script>108_insert_aard_recht_verkort.sql</script>
 				<script>109_insert_aard_verkregen_recht.sql</script>
 				<script>110_gebruiksdoel_primary_key.sql</script>
-				<!-- volgende scripts hebben nog geen geometrie,
-				buurt en wijk hebben een alter script -->
 				<script>111_insert_gemeente.sql</script>
 				<script>112_insert_buurt.sql</script>
 				<script>113_insert_wijk.sql</script>
 				<script>114_drop_constraints.sql</script>
+				<script>115_nhr.sql</script>
+				<script>116_brk_extra_indices.sql</script>
 			</extra-scripts>		
 		</schema>
 	</xsl:template>

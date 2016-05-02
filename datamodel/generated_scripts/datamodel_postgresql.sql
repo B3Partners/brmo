@@ -1,6 +1,6 @@
 
 -- BRMO RSGB script voor postgresql
--- Gegenereerd op 2016-03-09T17:21:16.297+01:00
+-- Gegenereerd op 2016-05-02T11:27:14.166+02:00
 
 create table sbi_activiteit(
 	omschr character varying(60),
@@ -3405,7 +3405,7 @@ alter table woz_waarde_archief add constraint woz_waarde_archief_pk primary key(
 create index brondocument_tabel_idx on brondocument(tabel);
 create index brondocument_tabel_identif_idx on brondocument(tabel_identificatie);
 create index brondocument_identificatie_idx on brondocument(identificatie);
-CREATE INDEX BRONDOCUMENT_OMSCHRIJVING_IDX ON BRONDOCUMENT(OMSCHRIJVING);
+CREATE INDEX brondocument_omschrijving_idx ON brondocument(omschrijving);
 
 CREATE INDEX brondocument_ref_id  ON brondocument (ref_id);
 
@@ -19852,3 +19852,9 @@ create table vestg_activiteit(
 
 ALTER TABLE vestg_naam
   ADD PRIMARY KEY (naam, fk_ves_sc_identif);
+-- Script: 116_brk_extra_indices.sql
+
+CREATE INDEX zak_recht_fk_kad_identif_idx ON zak_recht (fk_7koz_kad_identif);
+CREATE INDEX kad_onrrnd_zk_aantek_fk4_idx ON kad_onrrnd_zk_aantek (fk_4koz_kad_identif);
+CREATE INDEX kad_perceel_id_idx ON kad_perceel (ka_kad_gemeentecode, ka_sectie, ka_perceelnummer);
+CREATE INDEX zak_recht_aantek_fk5_zk_re_idx ON zak_recht_aantek (fk_5zkr_kadaster_identif);
