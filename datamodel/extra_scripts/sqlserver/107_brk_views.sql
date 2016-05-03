@@ -199,7 +199,7 @@ select
     p.begrenzing_perceel
 FROM
     kad_perceel p
-union   
+union all  
 SELECT 
     ar.sc_kad_identif,
     'appartement' as type,
@@ -210,8 +210,8 @@ SELECT
     ar.ka_sectie,
     kp.begrenzing_perceel
    FROM v_bd_app_re_all_kad_perceel v
-     JOIN kad_perceel kp ON v.perceel_identif::NUMERIC = kp.sc_kad_identif
-     JOIN app_re ar ON v.app_re_identif::NUMERIC = ar.sc_kad_identif;    
+     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif
+     JOIN app_re ar ON v.app_re_identif = ar.sc_kad_identif;    
 
 -- Eigenarenkaart - percelen en appartementen met hun eigenaren
 CREATE VIEW

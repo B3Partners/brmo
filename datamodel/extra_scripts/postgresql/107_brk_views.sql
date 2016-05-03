@@ -199,7 +199,7 @@ select
     p.begrenzing_perceel
 FROM
     kad_perceel p
-union   
+union all 
 SELECT 
     ar.sc_kad_identif,
     'appartement' as type,
