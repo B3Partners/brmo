@@ -30,7 +30,7 @@ before_install:
   - export PATH=$M2_HOME/bin:$PATH
   - sudo -E apt-get -yq update &>> ~/apt-get-update.log
   - sudo -E apt-get -yq --no-install-suggests --no-install-recommends --force-yes install postgresql-9.5-postgis-2.2 postgresql-9.5 postgresql-contrib-9.5
-#  - sudo service postgresql stop
+  - sudo service postgresql stop
   - sudo service postgresql start 9.5
 # set up STAGING db
   - psql --version
