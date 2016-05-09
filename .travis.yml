@@ -32,7 +32,8 @@ before_install:
   # - sudo -E apt-get -yq --no-install-suggests --no-install-recommends --force-yes install postgresql-9.5 postgresql-9.5-postgis-2.2 postgresql-contrib-9.5
   #- sudo -E apt-get -yq --force-yes install postgresql-9.5 postgresql-9.5-postgis-2.2 postgresql-contrib-9.5
   - sudo cp /etc/postgresql/9.4/main/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
-  - sudo service postgresql start 9.5
+  #- sudo service postgresql start 9.5
+  - sudo /etc/init.d/postgresql restart
   #- sudo -u postgres createuser -s -p 5432 travis &>/dev/null
   #- sudo -u postgres createdb -O travis -p 5432 travis &>/dev/null
   #- sudo -u postgres createuser -s -p 5433 travis &>/dev/null
@@ -42,7 +43,8 @@ before_install:
 #  - export PGPORT=5433
 # set up STAGING db
   - psql --version
-  - psql -U postgres -a -c "SELECT version();"
+  - psql -p 5433 -U postgres -a -c "SELECT version();"
+  - psql -p 5432 -U postgres -a -c "SELECT version();"
   - psql -U postgres -a -c "CREATE ROLE staging LOGIN PASSWORD 'staging' SUPERUSER CREATEDB;"
   - psql -U postgres -a -c "CREATE ROLE rsgb LOGIN PASSWORD 'rsgb' SUPERUSER CREATEDB;"
   - psql -U postgres -c 'create database staging;'
