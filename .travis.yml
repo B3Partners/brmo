@@ -4,8 +4,9 @@ language: java
 
 sudo: required
 
- addons:
-  postgresql: "9.5"
+addons:
+   postgresql: "9.5"
+
 #  apt:
 #    packages:
 #    - postgresql-9.5-postgis-2.
@@ -21,6 +22,7 @@ matrix:
 cache:
   directories:
   - $HOME/.m2
+  apt
 
 before_install:
   # installeer up-2-date Maven versie
