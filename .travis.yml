@@ -22,7 +22,6 @@ matrix:
 cache:
   directories:
   - $HOME/.m2
-  apt
 
 before_install:
   # installeer up-2-date Maven versie
