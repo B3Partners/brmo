@@ -40,16 +40,18 @@ before_install:
   #- sudo -u postgres createuser -s -p 5433 travis &>/dev/null
   #- sudo -u postgres createdb -O travis -p 5433 travis &>/dev/null
 
-#  - export PGHOST=localhost
+  - export PGHOST=localhost
   - export PGPORT=5433
+  - export PAGER=cat
 # set up STAGING db
   - psql --version
+  - psql -U postgres -d rsgb -c 'SELECT Version();'
   - psql -U postgres -a -c "CREATE ROLE staging LOGIN PASSWORD 'staging' SUPERUSER CREATEDB;"
   - psql -U postgres -a -c "CREATE ROLE rsgb LOGIN PASSWORD 'rsgb' SUPERUSER CREATEDB;"
   - psql -U postgres -c 'create database staging;'
   - psql -U postgres -c 'create database rsgb;'
   - psql -U postgres -d rsgb -c 'create extension postgis;'
-  - psql -U postgres -d rsgb -c 'SELECT PostGIS_full_version();';
+  - psql -U postgres -d rsgb -c 'SELECT PostGIS_full_version();' 
   - ls -l ./datamodel/generated_scripts/
 # bgt test schema
   - psql -U postgres -d rsgb -c "CREATE SCHEMA bgttest AUTHORIZATION rsgb;"
