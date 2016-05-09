@@ -2,10 +2,10 @@ group: edge
 dist: trusty
 language: java
 
-sudo: reuired
+sudo: required
 
 addons:
-  postgresql: "9.5"
+  postgresql: "9.4"
 
 jdk:
   - openjdk7
@@ -25,8 +25,8 @@ before_install:
   - unzip -qq apache-maven-3.3.3-bin.zip
   - export M2_HOME=$PWD/apache-maven-3.3.3
   - export PATH=$M2_HOME/bin:$PATH
-  - sudo apt-get update
-  - sudo apt-get -y install postgis
+  #- sudo apt-get update
+  - sudo apt-get -y install postgresql-9.4-postgis-2.2
 # set up STAGING db
   - psql --version
   - psql -U postgres -a -c "CREATE ROLE staging LOGIN PASSWORD 'staging' SUPERUSER CREATEDB;"
