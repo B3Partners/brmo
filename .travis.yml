@@ -28,7 +28,8 @@ before_install:
   # installeer/update postgis 2.2 op 9.5  
   - sudo service postgresql stop
   - sudo -E apt-get -yq update &>> ~/apt-get-update.log
-  - sudo apt-get -y install postgis libgeos gdal-bin
+  - sudo apt-get -y install postgis gdal-bin
+  # libgeos-3.4.2
   # - sudo -E apt-get -yq --no-install-suggests --no-install-recommends --force-yes install postgresql-9.5 postgresql-9.5-postgis-2.2 postgresql-contrib-9.5
   #- sudo -E apt-get -yq --force-yes install postgresql-9.5 postgresql-9.5-postgis-2.2 postgresql-contrib-9.5
   - sudo cp /etc/postgresql/9.4/main/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
