@@ -7,10 +7,6 @@ sudo: required
 #addons:
 #   postgresql: "9.5"
 
-#  apt:
-#    packages:
-#    - postgresql-9.5-postgis-2.
-
 jdk:
 #  - openjdk7
   - oraclejdk7
@@ -29,13 +25,15 @@ before_install:
   - unzip -qq apache-maven-3.3.3-bin.zip
   - export M2_HOME=$PWD/apache-maven-3.3.3
   - export PATH=$M2_HOME/bin:$PATH
-  # installeer postgis 2.2 op 9.5  
+  # installeer/update postgis 2.2 op 9.5  
   - sudo service postgresql stop
   - sudo -E apt-get -yq update &>> ~/apt-get-update.log
   - sudo apt-get -y install postgis
   # - sudo -E apt-get -yq --no-install-suggests --no-install-recommends --force-yes install postgresql-9.5 postgresql-9.5-postgis-2.2 postgresql-contrib-9.5
   #- sudo -E apt-get -yq --force-yes install postgresql-9.5 postgresql-9.5-postgis-2.2 postgresql-contrib-9.5
   - sudo service postgresql start 9.5
+  - export PGHOST=localhost
+  - export PGPORT=5433
 # set up STAGING db
   - psql --version
   - psql -U postgres -a -c "CREATE ROLE staging LOGIN PASSWORD 'staging' SUPERUSER CREATEDB;"
