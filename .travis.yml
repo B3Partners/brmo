@@ -32,7 +32,11 @@ before_install:
   # - sudo -E apt-get -yq --no-install-suggests --no-install-recommends --force-yes install postgresql-9.5 postgresql-9.5-postgis-2.2 postgresql-contrib-9.5
   #- sudo -E apt-get -yq --force-yes install postgresql-9.5 postgresql-9.5-postgis-2.2 postgresql-contrib-9.5
   - sudo service postgresql start 9.5
-  - export PGHOST=localhost
+  #- sudo -u postgres createuser -s -p 5432 travis &>/dev/null
+  #- sudo -u postgres createdb -O travis -p 5432 travis &>/dev/null
+  - sudo -u postgres createuser -s -p 5433 travis &>/dev/null
+  - sudo -u postgres createdb -O travis -p 5433 travis &>/dev/null
+#  - export PGHOST=localhost
   - export PGPORT=5433
 # set up STAGING db
   - psql --version
