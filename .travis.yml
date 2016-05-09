@@ -28,7 +28,7 @@ before_install:
   # installeer/update postgis 2.2 op 9.5  
   - sudo service postgresql stop
   - sudo -E apt-get -yq update &>> ~/apt-get-update.log
-  - sudo apt-get -y install postgis
+  - sudo apt-get -y install postgis libgeos gdal-bin
   # - sudo -E apt-get -yq --no-install-suggests --no-install-recommends --force-yes install postgresql-9.5 postgresql-9.5-postgis-2.2 postgresql-contrib-9.5
   #- sudo -E apt-get -yq --force-yes install postgresql-9.5 postgresql-9.5-postgis-2.2 postgresql-contrib-9.5
   - sudo cp /etc/postgresql/9.4/main/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
@@ -48,7 +48,7 @@ before_install:
   - psql -U postgres -c 'create database staging;'
   - psql -U postgres -c 'create database rsgb;'
   - psql -U postgres -d rsgb -c 'create extension postgis;'
-  - psql -U postgres -d rsgb -c 'SELECT PostGIS_full_version();'
+  - psql -U postgres -d rsgb -c 'SELECT PostGIS_full_version();';
   - ls -l ./datamodel/generated_scripts/
 # bgt test schema
   - psql -U postgres -d rsgb -c "CREATE SCHEMA bgttest AUTHORIZATION rsgb;"
