@@ -45,7 +45,7 @@ before_install:
   - export PAGER=cat
 # set up STAGING db
   - psql --version
-  - psql -U postgres -d travis -c 'SELECT Version();'
+  - psql -U postgres -d postgres -c 'SELECT Version();'
   - psql -U postgres -a -c "CREATE ROLE staging LOGIN PASSWORD 'staging' SUPERUSER CREATEDB;"
   - psql -U postgres -a -c "CREATE ROLE rsgb LOGIN PASSWORD 'rsgb' SUPERUSER CREATEDB;"
   - psql -U postgres -c 'create database staging;'
