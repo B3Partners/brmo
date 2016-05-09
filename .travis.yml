@@ -25,9 +25,10 @@ before_install:
   - unzip -qq apache-maven-3.3.3-bin.zip
   - export M2_HOME=$PWD/apache-maven-3.3.3
   - export PATH=$M2_HOME/bin:$PATH
-  #- sudo apt-get update
+  - sudo apt-get update
+  - sudo service postgresql stop
   - sudo apt-get -y install postgresql-9.4-postgis-2.2
-  - sudo service postgresql restart 9.4
+  - sudo service postgresql start 9.4
 # set up STAGING db
   - psql --version
   - psql -U postgres -a -c "CREATE ROLE staging LOGIN PASSWORD 'staging' SUPERUSER CREATEDB;"
