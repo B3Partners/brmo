@@ -4,8 +4,8 @@ language: java
 
 sudo: required
 
-addons:
-   postgresql: "9.5"
+#addons:
+#   postgresql: "9.5"
 
 #  apt:
 #    packages:
