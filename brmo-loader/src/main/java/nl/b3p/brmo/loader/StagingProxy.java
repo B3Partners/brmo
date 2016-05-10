@@ -33,6 +33,7 @@ import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
 import nl.b3p.brmo.loader.util.TableData;
+import nl.b3p.brmo.loader.xml.BGTLightFileReader;
 import nl.b3p.brmo.loader.xml.BagXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.BrmoXMLReader;
@@ -570,6 +571,9 @@ public class StagingProxy {
             brmoXMLReader = new BagXMLReader(cis);
         } else if (type.equals(BrmoFramework.BR_NHR)) {
             brmoXMLReader = new NhrXMLReader(cis);
+        } else if (type.equals(BrmoFramework.BR_BGTLIGHT)) {
+            brmoXMLReader = new BGTLightFileReader(fileName);
+            brmoXMLReader.setSoort(type);
         } else {
             throw new UnsupportedOperationException("Ongeldige basisregistratie: " + type);
         }

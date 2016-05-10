@@ -6,8 +6,8 @@
         <p>
             Deze service werkt met de RSGB database van B3Partners en kan
             Basisregistratie berichten laden in deze RSGB database. Deze service
-            kan een eenmalige stand inlezen of mutaties van de BAG, BRK en NHR; andere
-            registraties kunnen worden toegevoegd.
+            kan een eenmalige stand inlezen of mutaties van de BAG, BRK, NHR en BGT;
+            andere registraties kunnen worden toegevoegd.
         </p>
         <p>
             Deze service werkt op twee manieren:

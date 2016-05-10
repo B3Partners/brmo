@@ -12,7 +12,6 @@ import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.updates.UpdateProcess;
 import nl.b3p.brmo.loader.util.BrmoException;
-import nl.b3p.brmo.loader.util.RsgbTransformer;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.io.input.CountingInputStream;
@@ -20,7 +19,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * BRMO framework
+ * BRMO framework.
  *
  * @author Matthijs Laan
  */
@@ -31,6 +30,7 @@ public class BrmoFramework {
     public static final String BR_BAG = "bag";
     public static final String BR_BRK = "brk";
     public static final String BR_NHR = "nhr";
+    public static final String BR_BGTLIGHT = "bgtlight";
 
     public static final String XSL_BRK = "/xsl/brk-snapshot-to-rsgb-xml.xsl";
     public static final String XSL_BAG = "/xsl/bag-mutatie-to-rsgb-xml.xsl";
@@ -217,7 +217,7 @@ public class BrmoFramework {
      */
     public void loadFromFile(String type, String fileName, final ProgressUpdateListener listener) throws BrmoException {
         try {
-            if(fileName.toLowerCase().endsWith(".zip")) {
+            if (fileName.toLowerCase().endsWith(".zip") && !type.equalsIgnoreCase(BR_BGTLIGHT)) {
                 log.info("Openen ZIP bestand " + fileName);
                 ZipInputStream zip = null;
                 try {
@@ -236,8 +236,8 @@ public class BrmoFramework {
                     };
                     zip = new ZipInputStream(zipCis);
                     ZipEntry entry = zip.getNextEntry();
-                    while(entry != null) {
-                        if(!entry.getName().toLowerCase().endsWith(".xml")) {
+                    while (entry != null) {
+                        if (!entry.getName().toLowerCase().endsWith(".xml")) {
                             log.warn("Overslaan zip entry geen XML: " + entry.getName());
                         } else {
                             log.info("Lezen XML bestand uit zip: " + entry.getName());

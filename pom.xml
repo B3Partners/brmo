@@ -62,7 +62,7 @@
         -->
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
         <test.h2.version>1.4.191</test.h2.version>
-        <test.onlyITs>false</test.onlyITs>
+        <!-- test.onlyITs>false</test.onlyITs -->
         <maven.surefire.version>2.19.1</maven.surefire.version>
     </properties>
     <dependencyManagement>
@@ -455,7 +455,7 @@
                         <excludes>
                             <exclude>**/*IntegrationTest.java</exclude>
                         </excludes>
-                        <skipTests>!${test.onlyITs}</skipTests>
+                        <!--<skipTests>!${test.onlyITs}</skipTests>-->
                     </configuration>
                 </plugin>
                 <plugin>
