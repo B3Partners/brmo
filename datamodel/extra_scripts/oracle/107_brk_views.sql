@@ -216,9 +216,7 @@ SELECT
      JOIN app_re ar ON v.app_re_identif = ar.sc_kad_identif;    
 
 -- Eigenarenkaart - percelen en appartementen met hun eigenaren
-CREATE OR REPLACE MATERIALIZED VIEW V_KAD_EIGENARENKAART
-BUILD IMMEDIATE
-REFRESH FAST ON DEMAND   
+CREATE MATERIALIZED VIEW VM_KAD_EIGENARENKAART
     (
         OBJECTID,
         KADASTER_IDENTIFICATIE,
@@ -249,7 +247,7 @@ REFRESH FAST ON DEMAND
         KA_KAD_GEMEENTECODE,
         KA_SECTIE,
         BEGRENZING_PERCEEL
-    ) AS
+    ) BUILD IMMEDIATE AS
 SELECT
     ROWNUM AS objectid,
     p.kadaster_identificatie    AS kadaster_identificatie,
