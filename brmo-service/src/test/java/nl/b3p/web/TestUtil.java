@@ -5,18 +5,25 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.client.LaxRedirectStrategy;
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.rules.TestName;
 
 /**
  *
  * @author Mark Prins
  */
 public abstract class TestUtil {
+    private static final Log LOG = LogFactory.getLog(TestUtil.class);
 
     /**
      * the server root url. {@value}
@@ -75,5 +82,17 @@ public abstract class TestUtil {
     @AfterClass
     public static void tearDownClass() throws IOException {
         client.close();
+    }
+    @Rule
+    public TestName name = new TestName();
+
+    @Before
+    public void startTest() {
+        LOG.info("==== Start test methode: " + name.getMethodName());
+    }
+
+    @After
+    public void endTest() {
+        LOG.info("==== Einde test methode: " + name.getMethodName());
     }
 }

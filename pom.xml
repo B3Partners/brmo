@@ -8,12 +8,12 @@
     <modules>
         <module>brmo-persistence</module>
         <module>brmo-loader</module>
+        <module>bgt-gml-loader</module>
         <module>brmo-taglib</module>
         <module>brmo-service</module>
         <module>brmo-proxyservice</module>
         <module>brmo-soap</module>
         <module>brmo-dist</module>
-        <module>bgt-gml-loader</module>
     </modules>
     <name>BRMO</name>
     <description>B3Parteners BRMO applicatie</description>
@@ -47,7 +47,7 @@
         <netbeans.hint.license>default_1</netbeans.hint.license>
         <hibernate.version>3.6.10.Final</hibernate.version>
         <geotools.version>14.3</geotools.version>
-        <postgresql.jdbc.version>9.3-1102-jdbc4</postgresql.jdbc.version>
+        <postgresql.jdbc.version>9.3-1104-jdbc4</postgresql.jdbc.version>
         <oracle.jdbc.version>11.1.0.7.0</oracle.jdbc.version>
         <oracle.jdbc.artifactId>ojdbc5</oracle.jdbc.artifactId>
         <sqlserver.jtds.version>1.3.1</sqlserver.jtds.version>
@@ -61,7 +61,8 @@
         de schema's voor posgresql en oracle worden niet automatisch aangemaakt.
         -->
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
-        <test.h2.version>1.4.190</test.h2.version>
+        <test.h2.version>1.4.191</test.h2.version>
+        <test.onlyITs>false</test.onlyITs>
         <maven.surefire.version>2.19.1</maven.surefire.version>
     </properties>
     <dependencyManagement>
@@ -454,6 +455,7 @@
                         <excludes>
                             <exclude>**/*IntegrationTest.java</exclude>
                         </excludes>
+                        <skipTests>!${test.onlyITs}</skipTests>
                     </configuration>
                 </plugin>
                 <plugin>

@@ -69,7 +69,7 @@ test_script:
   - mvn -e test -B -Pmssql -pl "!brmo-dist"
 # run integration tests
 # TODO configure sql server to listen on ip address, see: https://www.appveyor.com/docs/services-databases
-  - mvn -e verify -B -Pmssql -pl "!brmo-dist"
+  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "!brmo-dist"
 
 after_test:
   - ps: Get-Date
