@@ -189,10 +189,7 @@ and zr2.FK_8PES_SC_IDENTIF is not null
 order by kpe.SC_KAD_IDENTIF, kpe.straat, kpe.huisnummer, kpe.toevoeging, kpe.huisletter,  to_number(KA_APPARTEMENTSINDEX);
 
 -- percelen plus appartementen op de percelen
-CREATE OR REPLACE MATERIALIZED VIEW v_bd_app_re_and_kad_perceel
-BUILD IMMEDIATE
-REFRESH FAST ON DEMAND
-ENABLE QUERY REWRITE AS
+CREATE OR REPLACE VIEW v_bd_app_re_and_kad_perceel AS
 select
     p.sc_kad_identif    AS kadaster_identificatie,
     'perceel' as type,
@@ -219,8 +216,9 @@ SELECT
      JOIN app_re ar ON v.app_re_identif = ar.sc_kad_identif;    
 
 -- Eigenarenkaart - percelen en appartementen met hun eigenaren
-CREATE OR REPLACE VIEW
-    V_KAD_EIGENARENKAART
+CREATE OR REPLACE MATERIALIZED VIEW V_KAD_EIGENARENKAART
+BUILD IMMEDIATE
+REFRESH FAST ON DEMAND   
     (
         OBJECTID,
         KADASTER_IDENTIFICATIE,
