@@ -5,10 +5,13 @@
 --
 -- zie: http://docs.geoserver.org/stable/en/user/data/database/primarykey.html
 --
--- NB let op de schema naam 'RSGBTEST' in dit bestand; die dient vervangen te worden
+--
 -- NB de lijst views is mogelijk niet compleet, afhankelijk van installatie
 -- 
 --
 -- insert de primary key metadata voor de views
---
-INSERT INTO gt_pk_metadata VALUES ('RSGBTEST', 'V_KAD_PERCEEL_EIGENAAR', 'kadaster_identificatie', NULL, 'assigned', NULL);
+--V_KAD_PERCEEL_EIGENAAR
+INSERT INTO gt_pk_metadata VALUES ('FLV_RSGB', 'V_KAD_PERCEEL_EIGENAAR', 'kadaster_identificatie', NULL, 'assigned', NULL);
+
+--V_KAD_EIGENARENKAART
+INSERT INTO gt_pk_metadata VALUES ('FLV_RSGB', 'V_KAD_EIGENARENKAART', 'kadaster_identificatie', NULL, 'assigned', NULL);
