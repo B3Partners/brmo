@@ -3,6 +3,7 @@
  */
 package nl.b3p.brmo.loader.xml;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collection;
@@ -20,7 +21,6 @@ import org.junit.runners.Parameterized.Parameters;
 public class BGTLightFileReaderTest {
 
     private final SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
-
     /**
      * test parameter.
      */
@@ -37,8 +37,8 @@ public class BGTLightFileReaderTest {
     @Parameters
     public static Collection params() {
         return Arrays.asList(new Object[][]{
-            // {"name","date", "gebied"},
-            {"/home/mark/dev/projects/brmo/bgt-gml-loader/src/test/resources/gmllight/zips/data/38468_0-20160429.zip", "20160429", "grid 38468 aggrlevel 0"},
+            // {"filename","date", "gebied"},
+            {File.separator + "bgt-gml-loader" + File.separator + "data" + File.separator + "38468_0-20160429.zip", "20160429", "grid 38468 aggrlevel 0"},
             {"38468_0-20160429.zip", "20160429", "grid 38468 aggrlevel 0"}
         });
     }
