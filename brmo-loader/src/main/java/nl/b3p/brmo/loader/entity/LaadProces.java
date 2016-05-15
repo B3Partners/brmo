@@ -19,7 +19,7 @@ public class LaadProces {
     private String contactEmail;
 
     public static enum STATUS {
-        STAGING_OK, STAGING_NOK, ARCHIVE, STAGING_DUPLICAAT
+        STAGING_OK, STAGING_NOK, ARCHIVE, STAGING_DUPLICAAT, RSGB_BGT_OK, RSGB_BGT_NOK, RSGB_BGT_WAITING
     };
 
     public LaadProces() {

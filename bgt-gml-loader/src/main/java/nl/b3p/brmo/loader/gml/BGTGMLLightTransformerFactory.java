@@ -18,7 +18,7 @@ public enum BGTGMLLightTransformerFactory {
     // TODO nog geen voorbeeld of bestand gezien...
     inrichtingselement("", "Inrichtingselement"),
     // TODO nog geen voorbeeld of bestand gezien, naam moet gecontroleerd... zit bovendien in BAG
-    bgt_openbareruimte("", "OpenbareRuimte"),
+    openbareruimte("", "OpenbareRuimte"),
     // doen we niet
     // plaatsbepalingspunt("", ""),
     
@@ -32,7 +32,7 @@ public enum BGTGMLLightTransformerFactory {
     kast("bgt_kast.gml", "Kast"),
     //
     gebouw_installatie("bgt_buildinginstallation.gml", "GebouwInstallatie"),
-    bgt_pand("bgt_buildingpart.gml", "Pand"),
+    pand("bgt_buildingpart.gml", "Pand"),
     overig_bouwwerk("bgt_overigbouwwerk.gml", "OverigBouwwerk"),
     //
     openbareruimtelabel("bgt_openbareruimtelabel.gml", "OpenbareRuimteLabel"),

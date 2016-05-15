@@ -20,7 +20,7 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class BGTLightFileReaderTest {
 
-    private final SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+    private final SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
     /**
      * test parameter.
      */
@@ -38,8 +38,8 @@ public class BGTLightFileReaderTest {
     public static Collection params() {
         return Arrays.asList(new Object[][]{
             // {"filename","date", "gebied"},
-            {File.separator + "bgt-gml-loader" + File.separator + "data" + File.separator + "38468_0-20160429.zip", "20160429", "grid 38468 aggrlevel 0"},
-            {"38468_0-20160429.zip", "20160429", "grid 38468 aggrlevel 0"}
+            {File.separator + "bgt-gml-loader" + File.separator + "data" + File.separator + "38468_0-20160429.zip", "2016-04-29", "grid 38468 aggrlevel 0"},
+            {"38468_0-20160429.zip", "2016-04-29", "grid 38468 aggrlevel 0"}
         });
     }
 
@@ -49,19 +49,16 @@ public class BGTLightFileReaderTest {
         this.gebied = gebied;
     }
 
-    @Test
-    public void testSetBestandsNaam() throws Exception {
+    @Test(expected = NullPointerException.class)
+    public void testNullBestandsNaam() throws Exception {
         BGTLightFileReader r = new BGTLightFileReader(null);
-        r.setBestandsNaam(bestandNaam);
-
-        assertEquals("Naam moet identiek zijn", bestandNaam, r.getBestandsNaam());
-        assertEquals("Gebied moet overeen komen", gebied, r.getGebied());
-        assertEquals("Datum moet overeen komen", fmt.parse(datum), r.getBestandsDatum());
     }
 
-    @Test
+    // TODO omdat deze bestanden niet bestaan...
+    @Test(expected = java.io.FileNotFoundException.class)
     public void testBGTLightXMLReader() throws Exception {
         BGTLightFileReader r = new BGTLightFileReader(bestandNaam);
+        r.setDatumAsString(datum);
 
         assertEquals("Naam moet identiek zijn", bestandNaam, r.getBestandsNaam());
         assertEquals("Gebied moet overeen komen", gebied, r.getGebied());

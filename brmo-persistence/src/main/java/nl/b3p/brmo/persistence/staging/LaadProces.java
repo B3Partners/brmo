@@ -21,7 +21,7 @@ import org.hibernate.annotations.Type;
 /**
  * Beschrijft een laad proces van een bericht of bestand.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 @Entity
 @Table(name = "laadproces")
@@ -58,7 +58,7 @@ public class LaadProces implements Serializable {
 
     public static enum STATUS {
 
-        STAGING_OK, STAGING_NOK, ARCHIVE, STAGING_DUPLICAAT
+        STAGING_OK, STAGING_NOK, ARCHIVE, STAGING_DUPLICAAT, RSGB_BGT_OK, RSGB_BGT_NOK, RSGB_BGT_WAITING
     };
 
         public LaadProces() {

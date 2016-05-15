@@ -33,13 +33,11 @@ import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
 import nl.b3p.brmo.loader.jdbc.OracleJdbcConverter;
 import nl.b3p.brmo.loader.updates.UpdateProcess;
-import nl.b3p.brmo.loader.util.BGTLightRsgbTransformer;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.DataComfortXMLReader;
-import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.TableData;
 import nl.b3p.brmo.loader.util.TableRow;
-import nl.b3p.brmo.loader.util.XslRsgbTransformer;
+import nl.b3p.brmo.loader.util.RsgbTransformer;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -373,7 +371,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         if (transformer == null) {
             try {
-                transformer = new XslRsgbTransformer(updateProcess.getXsl());
+                transformer = new RsgbTransformer(updateProcess.getXsl());
             } catch (Exception e) {
                 throw new BrmoException("Fout bij laden XSL stylesheet: " + updateProcess.getXsl(), e);
             }
@@ -608,13 +606,13 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         RsgbTransformer t = rsgbTransformers.get(brType);
         if (t == null) {
             if (brType.equals(BrmoFramework.BR_BRK)) {
-                t = new XslRsgbTransformer(BrmoFramework.XSL_BRK);
+                t = new RsgbTransformer(BrmoFramework.XSL_BRK);
             } else if (brType.equals(BrmoFramework.BR_BAG)) {
-                t = new XslRsgbTransformer(BrmoFramework.XSL_BAG);
+                t = new RsgbTransformer(BrmoFramework.XSL_BAG);
             } else if (brType.equals(BrmoFramework.BR_NHR)) {
-                t = new XslRsgbTransformer(BrmoFramework.XSL_NHR);
-            } else if (brType.equals(BrmoFramework.BR_BGTLIGHT)) {
-                t = new BGTLightRsgbTransformer(this.stagingProxy);
+                t = new RsgbTransformer(BrmoFramework.XSL_NHR);
+//            } else if (brType.equals(BrmoFramework.BR_BGTLIGHT)) {
+//                t = new BGTLightRsgbTransformer(this.stagingProxy);
             } else {
                 throw new IllegalArgumentException("Onbekende basisregistratie: " + brType);
             }

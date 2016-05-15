@@ -7,6 +7,7 @@ import com.vividsolutions.jts.geom.Dimension;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.PrecisionModel;
 import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.TopologyException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -29,7 +30,6 @@ import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.DEFAULT_GEOM_NAM
 import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.ID_NAME;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.geotools.feature.FeatureCollection;
 import org.geotools.gml3.ApplicationSchemaConfiguration;
 import org.geotools.xml.Configuration;
 import org.geotools.xml.Parser;
@@ -40,6 +40,7 @@ import org.geotools.data.DataUtilities;
 import org.geotools.jdbc.JDBCDataStore;
 import org.geotools.data.DefaultTransaction;
 import org.geotools.data.FeatureStore;
+import org.geotools.data.LockingManager;
 import org.geotools.data.Transaction;
 import org.geotools.data.simple.SimpleFeatureCollection;
 import org.geotools.factory.CommonFactoryFinder;
@@ -80,9 +81,9 @@ public class BGTGMLLightLoader {
     private boolean isMSSQL = false;
 
     /**
-     * Maak automatisch tabellen aan; normaal wel/default {@code true}.
+     * Maak automatisch tabellen aan; normaal niet/default {@code false}.
      */
-    private boolean createTables = true;
+    private boolean createTables = false;
 
     private Parser parser;
 
@@ -103,6 +104,8 @@ public class BGTGMLLightLoader {
      */
     private Date bijwerkDatum = null;
 
+    private final StringBuilder opmerkingen = new StringBuilder();
+
     /**
      * Default constructor initaliseert de GML parser.
      */
@@ -112,8 +115,6 @@ public class BGTGMLLightLoader {
         Configuration configuration = new ApplicationSchemaConfiguration("http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", schemaLocation);
         configuration.getContext().registerComponentInstance(new GeometryFactory(new PrecisionModel(), 28992));
 
-        // SchemaResolver resolver = new SchemaResolver(SchemaCatalog.build(BGTGMLLightLoader.class.getResource("/resolved-catalog.xml")));
-        // configuration.getContext().registerComponentInstance(resolver);
         parser = new Parser(configuration);
         parser.setValidating(true);
         parser.setStrict(true);
@@ -167,7 +168,7 @@ public class BGTGMLLightLoader {
             this.bijwerkDatum = new Date();
         }
 
-        int result = 0;
+        int result = 0, total = 0;
         try (ZipInputStream zip = new ZipInputStream(new FileInputStream(zipExtract))) {
             ZipEntry entry = zip.getNextEntry();
             if (entry == null) {
@@ -179,7 +180,9 @@ public class BGTGMLLightLoader {
                     LOG.warn("Overslaan zip entry geen GML bestand: " + entry.getName());
                 } else {
                     LOG.debug("Lezen GML bestand " + entry.getName() + " uit zip " + zipExtract.getCanonicalPath());
-                    result += storeFeatureCollection(new CloseShieldInputStream(zip), entry.getName().toLowerCase());
+                    result = storeFeatureCollection(new CloseShieldInputStream(zip), entry.getName().toLowerCase());
+                    opmerkingen.append(result).append(" features geladen uit: ").append(entry.getName()).append(", zipfile: ").append(zipExtract.getCanonicalPath()).append("\n");
+                    total += result;
                 }
                 entry = zip.getNextEntry();
             }
@@ -201,7 +204,7 @@ public class BGTGMLLightLoader {
         } catch (SAXException | ParserConfigurationException ex) {
             LOG.error("Er is een parse fout opgetreden.", ex);
         }
-        return result;
+        return total;
     }
 
     private void deleteOldData(Date deleteBeforeDatum, Geometry deleteOverlaps) throws IOException {
@@ -228,6 +231,7 @@ public class BGTGMLLightLoader {
                     continue;
                 }
                 String tableName = this.isOracle ? t.name().toUpperCase() : t.name();
+                opmerkingen.append("Opruimen van verouderde data uit tabel: ").append(tableName).append("\n");
                 LOG.info("Opruimen van verouderde data uit tabel: " + tableName);
                 store = (FeatureStore) dataStore.getFeatureSource(tableName, deletetransaction);
                 store.removeFeatures(filter);
@@ -264,7 +268,7 @@ public class BGTGMLLightLoader {
      * @param gmlFileName naam input gml bestand
      * @return aantal geschreven features
      *
-     * @throws SAXException als parsen van in mislukt
+     * @throws SAXException als parsen van input mislukt
      * @throws IOException als er een database fout optreedt
      * @throws ParserConfigurationException als gml parser config niet deugd
      * @throws IllegalStateException als er iets mis is in de configuratie
@@ -273,7 +277,7 @@ public class BGTGMLLightLoader {
         int writtenFeatures = 0;
         JDBCDataStore dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(dbConnProps);
         if (dataStore == null) {
-            throw new IllegalStateException("Datastore mag niet null zijn voor opslaan van data.");
+            throw new IllegalStateException("Datastore mag niet 'null' zijn voor opslaan van data.");
         }
         // TODO boolean mapping voor mssql en oracle
         if (this.isOracle) {
@@ -285,6 +289,7 @@ public class BGTGMLLightLoader {
 
         SimpleFeatureCollection gmlFeatCollection = (SimpleFeatureCollection) parser.parse(in);
         if (gmlFeatCollection.isEmpty()) {
+            opmerkingen.append("Geen features gevonden in bestand: ").append(gmlFileName).append("\n");
             LOG.info("Geen features gevonden in bestand: " + gmlFileName);
             dataStore.dispose();
             return writtenFeatures;
@@ -310,12 +315,12 @@ public class BGTGMLLightLoader {
         }
 
         SimpleFeatureType targetSchema = featTransformer.getTargetSchema(sft, tableName, this.isOracle);
-        LOG.debug("doel tabel schema: " + targetSchema);
+        LOG.debug("Doel tabel schema: " + targetSchema);
 
         if (!exists) {
             if (createTables) {
                 dataStore.createSchema(targetSchema);
-                LOG.info("De volgende tabel is aangemaakt in de database: " + targetSchema.getTypeName());
+                LOG.warn("De volgende tabel is aangemaakt in de database: " + targetSchema.getTypeName());
                 if (this.isOracle) {
                     try {
                         dataStore.getConnection(Transaction.AUTO_COMMIT).createStatement().execute("UPDATE USER_SDO_GEOM_METADATA SET SRID=28992");
@@ -361,8 +366,9 @@ public class BGTGMLLightLoader {
                         if (omhullendeVanZipFile != null) {
                             try {
                                 omhullendeVanZipFile = omhullendeVanZipFile.union(geom);
-                            } catch (IllegalArgumentException iae) {
-                                LOG.error("Union fout", iae);
+                            } catch (IllegalArgumentException | TopologyException ex) {
+                                LOG.error("Union fout bij verwerking van " + transformed.getID() + " (GML ID: " + gmlSF.getID() + ", bestand: " + gmlFileName
+                                        + ")", ex);
                                 LOG.debug("geom voor union :" + geom);
                                 LOG.debug("omhullendeVanZipFile voor union: " + omhullendeVanZipFile);
                             }
@@ -413,6 +419,7 @@ public class BGTGMLLightLoader {
                     }
                 }
             }
+            opmerkingen.append("Aantal ingevoegde features: ").append(writtenFeatures).append("\n");
             LOG.info("Aantal ingevoegde features: " + writtenFeatures);
         } catch (IOException ioe) {
             LOG.error("I/O database probleem tijdens insert van features", ioe);
@@ -555,4 +562,7 @@ public class BGTGMLLightLoader {
         return omhullendeVanZipFile;
     }
 
+    public String getOpmerkingen() {
+        return this.opmerkingen.toString();
+    }
 }

@@ -20,6 +20,7 @@ public class ConfigUtil implements Servlet {
     private static final String JNDI_NAME = "java:comp/env";
     private static final String JDBC_NAME_STAGING = "jdbc/brmo/staging";
     private static final String JDBC_NAME_RSGB = "jdbc/brmo/rsgb";
+    private static final String JDBC_NAME_RSGB_BGT = "jdbc/brmo/rsgbbgt";
 
     private static DataSource datasourceStaging = null;
     private static DataSource datasourceRsgb = null;
@@ -70,6 +71,22 @@ public class ConfigUtil implements Servlet {
             }
         } catch (Exception ex) {
             log.error("Fout verbinden naar rsgb db. ", ex);
+            throw new BrmoException(ex);
+        }
+
+        return ds;
+    }
+
+    public static DataSource getDataSourceRsgbBgt() throws BrmoException {
+        DataSource ds = null;
+        try {
+            if (datasourceRsgb == null) {
+                InitialContext ic = new InitialContext();
+                Context xmlContext = (Context) ic.lookup(JNDI_NAME);
+                ds = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB_BGT);
+            }
+        } catch (Exception ex) {
+            log.error("Fout verbinden naar rsgb bgt db. ", ex);
             throw new BrmoException(ex);
         }
 

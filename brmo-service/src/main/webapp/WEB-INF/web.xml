@@ -108,6 +108,10 @@
         <description>Quartz cleanup listener</description>
         <listener-class>nl.b3p.brmo.service.jobs.GeplandeTakenContextListener</listener-class>
     </listener>
+    <listener>
+        <description>GeoTools initialisatie en cleanup listener</description>
+        <listener-class>nl.b3p.brmo.web.geotools.GeotoolsContextListener</listener-class>
+    </listener>
     <!-- Note: No authorization on url-patterns but on Stripes ActionBeans using
       @Secure (from Stripesstuff), so when the @UrlBinding changes no url-patterns
       need to be updated

@@ -18,7 +18,9 @@ public interface ProcesExecutable extends Runnable {
      */
     enum ProcessingImple {
 
-    BAGScannerProces, BRKScannerProces, MailRapportageProces, GDS2OphaalProces, BerichtTransformatieProces, BerichtDoorstuurProces, WebMirrorBAGScannerProces;
+        BAGScannerProces, BRKScannerProces, MailRapportageProces, GDS2OphaalProces, BerichtTransformatieProces,
+        BerichtDoorstuurProces, WebMirrorBAGScannerProces, //BGTLightOphalenProces, BGTLightScannerProces
+        ;
     }
 
     /**
