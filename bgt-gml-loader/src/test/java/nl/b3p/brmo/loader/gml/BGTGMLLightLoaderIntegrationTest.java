@@ -11,7 +11,6 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
@@ -89,6 +88,22 @@ public class BGTGMLLightLoaderIntegrationTest extends TestingBase {
     @Test
     public void testScanDirectory() throws Exception {
         ldr.setScanDirectory(BGTGMLLightLoaderIntegrationTest.class.getResource("/gmllight/zips/").getFile());
+        List<File> zips = ldr.scanDirectory();
+        assertEquals("Verwacht aantal zipfiles", 1, zips.size());
+        for (File zip : zips) {
+            int actual = ldr.processZipFile(zip);
+            assertTrue("Verwacht meer dan 1 geschreven feature", (actual > 1));
+        }
+    }
+
+    /**
+     * test scannen en laden van een directory zipfiles in bestaande tabellen.
+     *
+     * @throws Exception if any
+     */
+    @Test
+    public void testScanDirectoryTwo() throws Exception {
+        ldr.setScanDirectory(BGTGMLLightLoaderIntegrationTest.class.getResource("/gmllight/two/").getFile());
         List<File> zips = ldr.scanDirectory();
         assertEquals("Verwacht aantal zipfiles", 1, zips.size());
         for (File zip : zips) {

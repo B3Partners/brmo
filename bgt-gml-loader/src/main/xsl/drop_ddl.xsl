@@ -10,12 +10,14 @@
     <xsl:template match="/">
         <xsl:call-template name="header"/>
         <xsl:apply-templates select="/datamodel/objecttype" mode="dropSQL" />
+        <xsl:call-template name="metatables" />
     </xsl:template>
 
 
     <xsl:template name="header">
         <!-- file header -->
-        <xsl:text>-- BRMO BGT/RSGB3 drop script voor: </xsl:text>
+        <xsl:text>--
+-- BRMO BGT/RSGB3 drop script voor: </xsl:text>
         <xsl:value-of select="$dbtype"/>
 <xsl:text>
 -- Gegenereerd op: </xsl:text>
@@ -23,6 +25,10 @@
 <xsl:text>
 --
 </xsl:text>
+    </xsl:template>
+
+    <xsl:template name="metatables">
+        <xsl:value-of select="db:dropMetaTables()"/>
     </xsl:template>
 
 </xsl:stylesheet>

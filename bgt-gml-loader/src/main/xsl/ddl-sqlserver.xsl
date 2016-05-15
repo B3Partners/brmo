@@ -61,6 +61,7 @@
         <xsl:param name="table"/>
         <xsl:param name="column"/>
         <xsl:param name="type"/>
+        <xsl:param name="schema"/>
 
         <xsl:text>CREATE SPATIAL INDEX </xsl:text>
         <xsl:value-of select="concat($table,'_',$column)"/>
@@ -71,4 +72,7 @@
         <xsl:text>) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
 </xsl:text>
     </xsl:function>
+
+    <xsl:function name="db:addMetaTables" />
+    <xsl:function name="db:dropMetaTables" />
 </xsl:stylesheet>

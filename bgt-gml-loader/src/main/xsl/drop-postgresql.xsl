@@ -16,5 +16,6 @@
         <xsl:text>;
 </xsl:text>
     </xsl:template>
-    
+
+    <xsl:function name="db:dropMetaTables"/>
 </xsl:stylesheet>

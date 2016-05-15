@@ -114,9 +114,9 @@ public class BGTGMLLightLoaderUpdateIntegrationTest extends TestingBase {
     public void testUpdateFromDirectoryTwoDates() throws Exception {
         int load_one, load_two;
 
-        URL zipUrl = BGTGMLLightLoaderNederlandIntegrationTest.class.getResource("/gmllight/dated/code38468_0-20160422.zip");
+        URL zipUrl = BGTGMLLightLoaderNederlandIntegrationTest.class.getResource("/gmllight/dated/38468_0-20160422.zip");
         assumeNotNull("Verwacht de zipfile met data te bestaan.", zipUrl);
-        URL updateUrl = BGTGMLLightLoaderNederlandIntegrationTest.class.getResource("/gmllight/dated/code38468_0-20160426.zip");
+        URL updateUrl = BGTGMLLightLoaderNederlandIntegrationTest.class.getResource("/gmllight/dated/38468_0-20160512.zip");
         assumeNotNull("Verwacht de zipfile met data te bestaan.", zipUrl);
 
         File zip = new File(zipUrl.getFile());

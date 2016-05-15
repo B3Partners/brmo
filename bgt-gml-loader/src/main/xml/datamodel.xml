@@ -232,7 +232,7 @@ Copyright (C) 2016 B3Partners B.V.
         <attribuut xslname="kruinlijn" sqlname="KRUINLIJN_GEOM_NAME" sqltype="linestring" />
     </objecttype>
 
-    <objecttype clazz="Pand" table="bgt_pand">
+    <objecttype clazz="Pand" table="pand">
         <attribuut xslname="identificatieBAGPND" sqlname="identif_bagpnd" sqltype="varchar(255)" />
         <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="multipolygon" />
 

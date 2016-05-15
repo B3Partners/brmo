@@ -10,6 +10,7 @@
 
     <xsl:template match="/">
         <xsl:call-template name="header"/>
+        <xsl:call-template name="metatables" />
         <xsl:apply-templates select="/datamodel/objecttype" mode="generateSQL" />
     </xsl:template>
 
@@ -24,8 +25,13 @@
 --
 </xsl:text>
     </xsl:template>
+
+    <xsl:template name="metatables">
+        <xsl:value-of select="db:addMetaTables()"/>
+    </xsl:template>
     
     <xsl:template match="objecttype" mode="generateSQL">
+        <xsl:variable name="schema" select="'RSGBBGT'"/>
         <xsl:variable name="tableName" select="@table"/>
         <xsl:text>
 -- Klasse: </xsl:text>
@@ -70,7 +76,7 @@ CREATE TABLE </xsl:text>
         <!-- geometrie metadata en geom.indexen -->
         <xsl:for-each select="attribuut">
             <xsl:if test="(fn:contains($geometryTypes,@sqltype))">
-                <xsl:value-of select="db:addGeometryMetaData($tableName, md:colName(@sqlname), @sqltype)"/>
+                <xsl:value-of select="db:addGeometryMetaData($tableName, md:colName(@sqlname), @sqltype, $schema)"/>
             </xsl:if>
         </xsl:for-each>
     </xsl:template>

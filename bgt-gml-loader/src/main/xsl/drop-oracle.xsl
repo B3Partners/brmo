@@ -10,7 +10,19 @@
     <xsl:variable name="dbtype">oracle</xsl:variable>
 
     <xsl:template match="objecttype" mode="dropSQL">
-        <xsl:text>DELETE FROM USER_SDO_GEOM_METADATA WHERE TABLE_NAME = '</xsl:text>
+        <xsl:text>
+
+DELETE FROM USER_SDO_GEOM_METADATA WHERE TABLE_NAME = '</xsl:text>
+        <xsl:value-of select="upper-case(@table)"/>
+        <xsl:text>';</xsl:text>
+
+        <xsl:text>
+DELETE FROM GT_PK_METADATA WHERE TABLE_NAME = '</xsl:text>
+        <xsl:value-of select="upper-case(@table)"/>
+        <xsl:text>';</xsl:text>
+
+        <xsl:text>
+DELETE FROM GEOMETRY_COLUMNS WHERE F_TABLE_NAME = '</xsl:text>
         <xsl:value-of select="upper-case(@table)"/>
         <xsl:text>';</xsl:text>
 
@@ -20,4 +32,15 @@ DROP TABLE </xsl:text>
         <xsl:text> CASCADE CONSTRAINTS;
 </xsl:text>
     </xsl:template>
+
+    <xsl:function name="db:dropMetaTables">
+        <xsl:text>
+
+DROP TABLE GEOMETRY_COLUMNS CASCADE CONSTRAINTS;
+</xsl:text>
+        <xsl:text>DROP TABLE GT_PK_METADATA CASCADE CONSTRAINTS;
+</xsl:text>
+    </xsl:function>
+
+
 </xsl:stylesheet>

@@ -59,6 +59,7 @@
         <xsl:param name="table"/>
         <xsl:param name="column"/>
         <xsl:param name="type"/>
+        <xsl:param name="schema"/>
 
         <xsl:text>CREATE INDEX </xsl:text>
         <xsl:value-of select="concat($table,'_',$column)"/>
@@ -70,4 +71,6 @@
 </xsl:text>
     </xsl:function>
 
+    <xsl:function name="db:addMetaTables" />
+    <xsl:function name="db:dropMetaTables" />
 </xsl:stylesheet>
