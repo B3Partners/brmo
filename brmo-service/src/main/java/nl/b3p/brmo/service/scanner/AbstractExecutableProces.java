@@ -14,6 +14,8 @@ import javax.persistence.criteria.Root;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
+import nl.b3p.brmo.persistence.staging.BGTLightOphaalProces;
+import nl.b3p.brmo.persistence.staging.BGTLightScannerProces;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
 import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
 import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
@@ -61,6 +63,10 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
                 return new BerichtDoorsturenProces((BerichtDoorstuurProces)config);
             case WebMirrorBAGScannerProces:
                 return new WebMirrorBAGDirectoryScanner((WebMirrorBAGScannerProces) config);
+//            case BGTLightOphalenProces:
+//                return new BGTLightOphalenProces((BGTLightOphaalProces) config);
+//            case BGTLightScannerProces:
+//                return new BGTLightDirectoryScanner((BGTLightScannerProces) config);
 
             default:
                 throw new IllegalArgumentException(imple.name() + " is is geen ondersteund proces...");

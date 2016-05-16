@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
+        xmlns:gml="http://www.opengis.net/gml"
+        targetNamespace="http://www.opengis.net/citygml/2.0"
+        elementFormDefault="qualified"
+        attributeFormDefault="unqualified">
+   <import namespace="http://www.opengis.net/gml"
+           schemaLocation="gml_resolved.xsd"/>
+   <import namespace="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
+           schemaLocation="xAL_resolved.xsd"/>
+</schema>

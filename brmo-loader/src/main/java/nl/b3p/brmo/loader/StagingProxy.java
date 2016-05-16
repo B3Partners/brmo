@@ -33,6 +33,7 @@ import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
 import nl.b3p.brmo.loader.util.TableData;
+import nl.b3p.brmo.loader.xml.BGTLightFileReader;
 import nl.b3p.brmo.loader.xml.BagXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.BrmoXMLReader;
@@ -115,6 +116,7 @@ public class StagingProxy {
 
         return null;
     }
+
 
     public LaadProces getLaadProcesByFileName(String name) throws SQLException {
         List<LaadProces> processen;
@@ -570,6 +572,9 @@ public class StagingProxy {
             brmoXMLReader = new BagXMLReader(cis);
         } else if (type.equals(BrmoFramework.BR_NHR)) {
             brmoXMLReader = new NhrXMLReader(cis);
+        } else if (type.equals(BrmoFramework.BR_BGTLIGHT)) {
+            brmoXMLReader = new BGTLightFileReader(fileName);
+            brmoXMLReader.setSoort(type);
         } else {
             throw new UnsupportedOperationException("Ongeldige basisregistratie: " + type);
         }
@@ -591,66 +596,75 @@ public class StagingProxy {
         }
         lp = writeLaadProces(lp);
 
-        if(!brmoXMLReader.hasNext()) {
-            throw new BrmoLeegBestandException("Leeg bestand, geen berichten gevonden in "+ fileName);
-        }
-
-        boolean isBerichtGeschreven = false;
-        int berichten = 0;
-        int foutBerichten = 0;
-        String lastErrorMessage = null;
-
-        while (brmoXMLReader.hasNext()) {
-            Bericht b = null;
-            try {
-                b = brmoXMLReader.next();
-                b.setLaadProcesId(lp.getId().intValue());
-                b.setStatus(Bericht.STATUS.STAGING_OK);
-                b.setStatusDatum(new Date());
-                b.setSoort(type);
-
-                if (b.getDatum()==null) {
-                    throw new BrmoException("Datum bericht is null");
-                }
-
-                Bericht existingBericht = getExistingBericht(b);
-                if (existingBericht == null) {
-                    writeBericht(b);
-                    isBerichtGeschreven = true;
-                } else if (existingBericht.getStatus().equals(Bericht.STATUS.STAGING_OK)) {
-                    //als bericht nog niet getransformeerd is, dan overschrijven.
-                    //als een BAG bericht inactief wordt gezet dan zal het
-                    //oorspronkelijke bericht nog getransformeerd
-                    //moeten worden, door overschrijven wordt dit bericht inactief
-                    //en zal nooit getransformeerd worden.
-                    b.setId(existingBericht.getId());
-                    updateBericht(b);
-                }
-                if (listener != null) {
-                    listener.progress(cis.getByteCount());
-                }
-                berichten++;
-            } catch (Exception e) {
-                lastErrorMessage = String.format("Laden bericht uit %s mislukt vanwege: %s",
-                        fileName, e.getLocalizedMessage());
-                log.error(lastErrorMessage);
-                if(listener != null){
-                    listener.exception(e);
-                }
-                foutBerichten++;
+        if (brmoXMLReader.getSoort().equalsIgnoreCase(BrmoFramework.BR_BGTLIGHT)) {
+            // van een BGT Light bestand maken we alleen een LP, geen bericht,
+            // de datum halen we van een GML uit het zip bestand
+            if (listener != null) {
+                listener.total(((BGTLightFileReader) brmoXMLReader).getFileSize());
+                listener.progress(((BGTLightFileReader) brmoXMLReader).getFileSize());
             }
-        }
-        if(listener != null) {
-            listener.total(berichten);
-        }
-        if (foutBerichten > 0) {
-            String opmerking = "Laden van " + foutBerichten
-                    + " bericht(en) mislukt, laatste melding: "
-                    + lastErrorMessage + ", zie logs voor meer info.";
-            this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_NOK, opmerking);
-        } else if (!isBerichtGeschreven) {
-            String opmerking = "Dit bestand is waarschijnlijk al eerder geladen.";
-            this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_DUPLICAAT, opmerking);
+        } else {
+            if (!brmoXMLReader.hasNext()) {
+                throw new BrmoLeegBestandException("Leeg bestand, geen berichten gevonden in " + fileName);
+            }
+
+            boolean isBerichtGeschreven = false;
+            int berichten = 0;
+            int foutBerichten = 0;
+            String lastErrorMessage = null;
+
+            while (brmoXMLReader.hasNext()) {
+                Bericht b = null;
+                try {
+                    b = brmoXMLReader.next();
+                    b.setLaadProcesId(lp.getId().intValue());
+                    b.setStatus(Bericht.STATUS.STAGING_OK);
+                    b.setStatusDatum(new Date());
+                    b.setSoort(type);
+
+                    if (b.getDatum() == null) {
+                        throw new BrmoException("Datum bericht is null");
+                    }
+
+                    Bericht existingBericht = getExistingBericht(b);
+                    if (existingBericht == null) {
+                        writeBericht(b);
+                        isBerichtGeschreven = true;
+                    } else if (existingBericht.getStatus().equals(Bericht.STATUS.STAGING_OK)) {
+                        //als bericht nog niet getransformeerd is, dan overschrijven.
+                        //als een BAG bericht inactief wordt gezet dan zal het
+                        //oorspronkelijke bericht nog getransformeerd
+                        //moeten worden, door overschrijven wordt dit bericht inactief
+                        //en zal nooit getransformeerd worden.
+                        b.setId(existingBericht.getId());
+                        updateBericht(b);
+                    }
+                    if (listener != null) {
+                        listener.progress(cis.getByteCount());
+                    }
+                    berichten++;
+                } catch (Exception e) {
+                    lastErrorMessage = String.format("Laden bericht uit %s mislukt vanwege: %s",
+                            fileName, e.getLocalizedMessage());
+                    log.error(lastErrorMessage);
+                    if (listener != null) {
+                        listener.exception(e);
+                    }
+                    foutBerichten++;
+                }
+            }
+            if (listener != null) {
+                listener.total(berichten);
+            }
+            if (foutBerichten > 0) {
+                String opmerking = "Laden van " + foutBerichten
+                        + " bericht(en) mislukt, laatste melding: "
+                        + lastErrorMessage + ", zie logs voor meer info.";
+                this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_NOK, opmerking);
+            } else if (!isBerichtGeschreven) {
+                String opmerking = "Dit bestand is waarschijnlijk al eerder geladen.";
+                this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_DUPLICAAT, opmerking);
+            }
         }
     }
 
@@ -709,7 +723,7 @@ public class StagingProxy {
          return getLaadProcesByNaturalKey(lp.getBestandNaam(), lp.getBestandDatum().getTime());
     }
 
-    private void updateLaadProcesStatus(LaadProces lp, LaadProces.STATUS status, String opmerking) throws SQLException{
+    public void updateLaadProcesStatus(LaadProces lp, LaadProces.STATUS status, String opmerking) throws SQLException {
         new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "update " + BrmoFramework.LAADPROCES_TABEL + " set status = ?, opmerking = ? where id = ?",
                         status.toString(), opmerking, lp.getId());
     }

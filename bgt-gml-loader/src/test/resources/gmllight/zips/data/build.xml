@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="compile">
+  <target name="compile">
+    <unzip src="./code51627_aggrlevel0-20160429.zip" dest="./unzip" overwrite="true" />
+    <xslt basedir="./unzip" destdir="./zip" extension=".gml" style="subset.xsl" includes="*.gml" />
+    <zip destfile="../extract-gmllight.zip" basedir="./zip" includes="*.gml" update="false" />
+    <delete dir="unzip"/>
+    <delete dir="zip"/>
+  </target>
+</project>

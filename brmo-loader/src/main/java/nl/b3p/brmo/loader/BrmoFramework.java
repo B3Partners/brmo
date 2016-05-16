@@ -5,14 +5,19 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.updates.UpdateProcess;
+import nl.b3p.brmo.loader.util.BGTLightRsgbTransformer;
 import nl.b3p.brmo.loader.util.BrmoException;
-import nl.b3p.brmo.loader.util.RsgbTransformer;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.io.input.CountingInputStream;
@@ -20,7 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * BRMO framework
+ * BRMO framework.
  *
  * @author Matthijs Laan
  */
@@ -31,6 +36,7 @@ public class BrmoFramework {
     public static final String BR_BAG = "bag";
     public static final String BR_BRK = "brk";
     public static final String BR_NHR = "nhr";
+    public static final String BR_BGTLIGHT = "bgtlight";
 
     public static final String XSL_BRK = "/xsl/brk-snapshot-to-rsgb-xml.xsl";
     public static final String XSL_BAG = "/xsl/bag-mutatie-to-rsgb-xml.xsl";
@@ -42,6 +48,7 @@ public class BrmoFramework {
 
     private StagingProxy stagingProxy = null;
     private DataSource dataSourceRsgb = null;
+    private DataSource dataSourceRsgbBgt = null;
 
     private boolean enablePipeline = false;
     private Integer pipelineCapacity;
@@ -58,6 +65,22 @@ public class BrmoFramework {
             }
         }
         this.dataSourceRsgb = dataSourceRsgb;
+    }
+
+    public BrmoFramework(DataSource dataSourceStaging, DataSource dataSourceRsgb, DataSource dataSourceRsgbBgt) throws BrmoException {
+        if (dataSourceStaging != null) {
+            try {
+                stagingProxy = new StagingProxy(dataSourceStaging);
+            } catch (SQLException ex) {
+                throw new BrmoException(ex);
+            }
+        }
+        this.dataSourceRsgb = dataSourceRsgb;
+        this.dataSourceRsgbBgt = dataSourceRsgbBgt;
+    }
+
+    public void setDataSourceRsgbBgt(DataSource dataSourceRsgbBgt) {
+        this.dataSourceRsgbBgt = dataSourceRsgbBgt;
     }
 
     public void setEnablePipeline(boolean enablePipeline) {
@@ -115,18 +138,34 @@ public class BrmoFramework {
      * @param mode geeft aan wat ids zijn (laadprocessen of berichten)
      * @param ids array van ids
      * @param listener
-     * @return
-     * @throws BrmoException
+     * @return running transformatie thread
+     * @throws BrmoException if any
      */
-    public Thread toRsgb(RsgbProxy.BerichtSelectMode mode, long[] ids, ProgressUpdateListener listener) throws BrmoException  {
-        RsgbProxy rsgbProxy = new RsgbProxy(dataSourceRsgb, stagingProxy, mode, ids, listener);
-        rsgbProxy.setEnablePipeline(enablePipeline);
-        if(pipelineCapacity != null) {
-            rsgbProxy.setPipelineCapacity(pipelineCapacity);
+    public Thread toRsgb(RsgbProxy.BerichtSelectMode mode, long[] ids, ProgressUpdateListener listener) throws BrmoException {
+        String soort = "";
+        if (mode == RsgbProxy.BerichtSelectMode.BY_LAADPROCES) {
+            try {
+                soort = stagingProxy.getLaadProcesById(ids[0]).getSoort();
+            } catch (SQLException ex) {
+                throw new BrmoException(ex);
+            }
         }
-        rsgbProxy.setOrderBerichten(orderBerichten);
-        rsgbProxy.setErrorState(errorState);
-        Thread t = new Thread(rsgbProxy);
+
+        Runnable worker;
+        if (soort.equalsIgnoreCase(BR_BGTLIGHT)) {
+            // filter soort, als bgt dan als proces verwerken, niet als berichtenset
+            worker = new BGTLightRsgbTransformer(dataSourceRsgbBgt, stagingProxy, ids, listener);
+            ((BGTLightRsgbTransformer) worker).setLoadingUpdate(this.orderBerichten);
+        } else {
+            worker = new RsgbProxy(dataSourceRsgb, stagingProxy, mode, ids, listener);
+            ((RsgbProxy) worker).setEnablePipeline(enablePipeline);
+            if (pipelineCapacity != null) {
+                ((RsgbProxy) worker).setPipelineCapacity(pipelineCapacity);
+            }
+            ((RsgbProxy) worker).setOrderBerichten(orderBerichten);
+            ((RsgbProxy) worker).setErrorState(errorState);
+        }
+        Thread t = new Thread(worker);
         t.start();
         return t;
     }
@@ -217,7 +256,7 @@ public class BrmoFramework {
      */
     public void loadFromFile(String type, String fileName, final ProgressUpdateListener listener) throws BrmoException {
         try {
-            if(fileName.toLowerCase().endsWith(".zip")) {
+            if (fileName.toLowerCase().endsWith(".zip") && !type.equalsIgnoreCase(BR_BGTLIGHT)) {
                 log.info("Openen ZIP bestand " + fileName);
                 ZipInputStream zip = null;
                 try {
@@ -236,8 +275,8 @@ public class BrmoFramework {
                     };
                     zip = new ZipInputStream(zipCis);
                     ZipEntry entry = zip.getNextEntry();
-                    while(entry != null) {
-                        if(!entry.getName().toLowerCase().endsWith(".xml")) {
+                    while (entry != null) {
+                        if (!entry.getName().toLowerCase().endsWith(".xml")) {
                             log.warn("Overslaan zip entry geen XML: " + entry.getName());
                         } else {
                             log.info("Lezen XML bestand uit zip: " + entry.getName());
@@ -317,6 +356,14 @@ public class BrmoFramework {
     public Bericht getBerichtById(long id) throws BrmoException {
         try {
             return stagingProxy.getBerichtById(id);
+        } catch (SQLException ex) {
+            throw new BrmoException(ex);
+        }
+    }
+
+    public LaadProces getLaadProcesById(long id) throws BrmoException {
+        try {
+            return stagingProxy.getLaadProcesById(id);
         } catch (SQLException ex) {
             throw new BrmoException(ex);
         }

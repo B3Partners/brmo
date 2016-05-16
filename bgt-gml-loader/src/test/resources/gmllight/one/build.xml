@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="compile">
+  <target name="compile">
+    <xslt basedir="../" destdir="./" extension=".gml" style="firstone.xsl" includes="*.gml" />
+    <zip destfile="one.zip" basedir="./" includes="*.gml" update="false" />
+  </target>
+</project>

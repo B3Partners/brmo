@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 B3Partners B.V.
+ * Copyright (C) 2016 B3Partners B.V.
  */
 /**
  * Business objecten (entities) package voor de BRMO omgeving. Het auth package

@@ -11,6 +11,8 @@ import org.postgis.PGgeometry;
  */
 public class PostgisJdbcConverter extends GeometryJdbcConverter {
 
+    private String schema = null;
+
     @Override
     public boolean isDuplicateKeyViolationMessage(String message) {
         return message!=null && message.startsWith("ERROR: duplicate key value violates unique constraint");
@@ -33,7 +35,11 @@ public class PostgisJdbcConverter extends GeometryJdbcConverter {
 
     @Override
     public String getSchema() {
-        return null;
+        return schema;
+    }
+
+    public void setSchema(String schema) {
+        this.schema = schema;
     }
 
     @Override
@@ -60,5 +66,8 @@ public class PostgisJdbcConverter extends GeometryJdbcConverter {
     public boolean isPmdKnownBroken() {
         return false;
     }
-
+    @Override
+    public String getGeotoolsDBTypeName() {
+        return "postgis";
+    }
 }

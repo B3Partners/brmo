@@ -32,7 +32,7 @@ install:
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-http-proxy.ps1'))
   - ps: .\.appveyor\set-maven-proxy.ps1
   # initial build, no testing
-  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Pappveyor-ci -pl "!brmo-dist"
+  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Pmssql -pl "!brmo-dist"
 
 
 # before_build: does nothing
@@ -48,6 +48,9 @@ before_test:
   - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -Q "CREATE DATABASE rsgb" -d "master"
   - dir -w .\datamodel\utility_scripts\
   - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -d "rsgb" -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
+# BGT tests
+  - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -Q "CREATE DATABASE bgttest" -d "master"
+
 # set up STAGING DB
   - dir -w .\brmo-persistence\target\ddlscripts\
 #  - sqlcmd -S localhost,1433 -U sa -P Password12! -d "staging" -i .\brmo-persistence\target\ddlscripts\create-brmo-persistence-sqlserver.sql
@@ -55,16 +58,18 @@ before_test:
   - dir -w .\brmo-persistence\db\
   - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\01_create_indexes.sql
   - sqlcmd -S (local)\SQL2012SP1 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\02_insert_default_user.sql
+# bgttest setup
+  - sqlcmd -S (local)\SQL2012SP1 -I -U sa -P Password12! -d "bgttest" -i .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\create_rsgb_bgt.sql
   - cmd: echo "computer name:" %COMPUTERNAME%
   - cmd: echo "instance name:" %INSTANCENAME%
   - ps: .\.appveyor\setting-tcp-ip-ports.ps1
 
 test_script:
 # run unit tests
-  - mvn -e test -B -Pappveyor-ci -pl "!brmo-dist"
+  - mvn -e test -B -Pmssql -pl "!brmo-dist"
 # run integration tests
 # TODO configure sql server to listen on ip address, see: https://www.appveyor.com/docs/services-databases
-  - mvn -e verify -B -Pappveyor-ci -pl "!brmo-dist"
+  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "!brmo-dist"
 
 after_test:
   - ps: Get-Date

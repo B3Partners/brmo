@@ -39,6 +39,7 @@
                             <stripes:option value="bag">bag</stripes:option>
                             <stripes:option value="brk">brk</stripes:option>
                             <stripes:option value="nhr">nhr</stripes:option>
+                            <stripes:option value="bgtlight">bgt light</stripes:option>
                         </stripes:select>
                     </td>
                 </tr>

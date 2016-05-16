@@ -10,19 +10,22 @@
     <stripes:layout-component name="contents">
         <h1>Overzicht Laadprocessen</h1>
         <p><b>Shift-click:</b> Selecteer meerdere records,
-        <b>Ctrl-click:</b> De-selecteer record.</p>
+            <b>Ctrl-click:</b> De-selecteer record.
+            <b>Let op:</b> Als U "bgtlight" wilt transformeren mogen alleen processen van deze soort geselecteerd worden.
+        </p>
         <div id="comment-div"></div>
         <div id="laadproces-grid" class="grid-container"></div>
         <div id="button-transform"></div>
         <div id="button-transform-stand"></div>
         <div id="button-delete"></div>
         <script type="text/javascript">
-            Ext.create('B3P.brmo.LaadProces', {
+            var b3plaadprocessen = Ext.create('B3P.brmo.LaadProces', {
                 gridurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.LaadProcesActionBean" event="getGridData"/>',
                 deleteurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.LaadProcesActionBean" event="delete"/>',
                 transformurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.TransformActionBean" event="transformSelectedLaadprocessen"/>',
                 transformstandurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.TransformActionBean" event="transformSelectedLaadprocessenStand"/>',
-                gridsaveurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.LaadProcesActionBean" event="saveRecord"/>'
+                gridsaveurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.LaadProcesActionBean" event="saveRecord"/>',
+                logurl : '<stripes:url beanclass="nl.b3p.brmo.service.stripes.LaadProcesActionBean" event="log"/>'
             });
         </script>
     </stripes:layout-component>

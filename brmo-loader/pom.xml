@@ -55,6 +55,12 @@
             met postgresql jdbc driver staan -->
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>net.sourceforge.jtds</groupId>
+            <artifactId>jtds</artifactId>
+            <!-- Bij JNDI db verbinding moet de jtds driver jar in tomcat lib staan -->
+            <scope>provided</scope>
+        </dependency>
         <!--
             Bij gebruik van oracle met maven moet je de oracle jdbc driver
             handmatig toevoegen aan je locale mvn repo (licentie blabla): Dit
@@ -91,6 +97,29 @@
             <groupId>org.geolatte</groupId>
             <artifactId>geolatte-geom</artifactId>
             <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>bgt-gml-loader</artifactId>
+            <version>${project.parent.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.oracle</groupId>
+                    <artifactId>ojdbc5</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>org.postgresql</artifactId>
+                    <groupId>postgresql</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.postgis</groupId>
+                    <artifactId>postgis-jdbc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>net.sourceforge.jtds</groupId>
+                    <artifactId>jtds</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
     <build>

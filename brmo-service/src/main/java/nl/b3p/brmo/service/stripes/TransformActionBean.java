@@ -115,11 +115,13 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
                     t = brmo.toRsgb(BerichtSelectMode.RETRY_WAITING, null, this);
                     break;
                 case BY_LAADPROCES:
+                    brmo.setDataSourceRsgbBgt(ConfigUtil.getDataSourceRsgbBgt());
                     t = brmo.toRsgb(BerichtSelectMode.BY_LAADPROCES, selectedIds, this);
                     break;
             }
-
-            t.join();
+            if (t != null) {
+                t.join();
+            }
 
             if(this.exceptionStacktrace == null) {
                 getContext().getMessages().add(new SimpleMessage("Transformatie afgerond, controleer berichtenstatus."));
@@ -140,7 +142,7 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
         return new ForwardResolution(JSP);
     }
 
-    @WaitPage(path=JSP, delay=1000, refresh=1000)
+    @WaitPage(path = JSP, delay = 1000, refresh = 1000)
     public Resolution transformSelected() {
         return doTransform(RsgbProxy.BerichtSelectMode.BY_IDS, true);
     }

@@ -55,6 +55,28 @@ public class LaadProcesActionBean implements ActionBean {
         return new ForwardResolution("/WEB-INF/jsp/laadproces/list.jsp");
     }
 
+    public Resolution log() throws BrmoException {
+        DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("success", Boolean.FALSE);
+        BrmoFramework brmo = new BrmoFramework(dataSourceStaging, null);
+        try {
+            LaadProces lp = brmo.getLaadProcesById(selectedIds[0]);
+            jsonObj = laadProces2Json(lp);
+            jsonObj.put("opmerking", lp.getOpmerking());
+            jsonObj.put("success", Boolean.TRUE);
+        } finally {
+            brmo.closeBrmoFramework();
+        }
+        final String returnValue = jsonObj.toString();
+        return new StreamingResolution("application/json") {
+            @Override
+            public void stream(HttpServletResponse response) throws Exception {
+                response.getWriter().print(returnValue);
+            }
+        };
+    }
+
     public Resolution delete() {
         if (selectedIds != null) {
 

@@ -8,6 +8,7 @@
     <modules>
         <module>brmo-persistence</module>
         <module>brmo-loader</module>
+        <module>bgt-gml-loader</module>
         <module>brmo-taglib</module>
         <module>brmo-service</module>
         <module>brmo-proxyservice</module>
@@ -42,9 +43,11 @@
     </issueManagement>
     <properties>
         <java.version>1.7</java.version>
+        <netbeans.hint.jdkPlatform>JDK_${java.version}</netbeans.hint.jdkPlatform>
+        <netbeans.hint.license>default_1</netbeans.hint.license>
         <hibernate.version>3.6.10.Final</hibernate.version>
         <geotools.version>14.3</geotools.version>
-        <postgresql.jdbc.version>9.3-1102-jdbc4</postgresql.jdbc.version>
+        <postgresql.jdbc.version>9.4.1208.jre7</postgresql.jdbc.version>
         <oracle.jdbc.version>11.1.0.7.0</oracle.jdbc.version>
         <oracle.jdbc.artifactId>ojdbc5</oracle.jdbc.artifactId>
         <sqlserver.jtds.version>1.3.1</sqlserver.jtds.version>
@@ -58,7 +61,8 @@
         de schema's voor posgresql en oracle worden niet automatisch aangemaakt.
         -->
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
-        <test.h2.version>1.4.190</test.h2.version>
+        <test.h2.version>1.4.191</test.h2.version>
+        <!-- test.onlyITs>false</test.onlyITs -->
         <maven.surefire.version>2.19.1</maven.surefire.version>
     </properties>
     <dependencyManagement>
@@ -124,6 +128,16 @@
                 <version>${geotools.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.geotools</groupId>
+                <artifactId>gt-xml</artifactId>
+                <version>${geotools.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.geotools</groupId>
+                <artifactId>gt-jdbc</artifactId>
+                <version>${geotools.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.geotools.jdbc</groupId>
                 <artifactId>gt-jdbc-oracle</artifactId>
                 <version>${geotools.version}</version>
@@ -131,6 +145,11 @@
             <dependency>
                 <groupId>org.geotools.jdbc</groupId>
                 <artifactId>gt-jdbc-sqlserver</artifactId>
+                <version>${geotools.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.geotools.jdbc</groupId>
+                <artifactId>gt-jdbc-postgis</artifactId>
                 <version>${geotools.version}</version>
             </dependency>
             <!-- database en persistence -->
@@ -164,6 +183,12 @@
                 <artifactId>${oracle.jdbc.artifactId}</artifactId>
                 <version>${oracle.jdbc.version}</version>
                 <!-- Bij JNDI db verbinding moeten Oracle jars in tomcat lib staan -->
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.jtds</groupId>
+                <artifactId>jtds</artifactId>
+                <version>${sqlserver.jtds.version}</version>
+                <!-- Bij JNDI db verbinding moeten jtds jars in tomcat lib staan -->
             </dependency>
             <dependency>
                 <groupId>org.postgis</groupId>
@@ -364,6 +389,16 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>1.10</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>xml-maven-plugin</artifactId>
+                    <version>1.0.1</version>
+                </plugin>
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>2.6</version>
@@ -414,9 +449,13 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven.surefire.version}</version>
                     <configuration>
+                        <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
+                        <trimStackTrace>false</trimStackTrace>
+                        <useFile>false</useFile>
                         <excludes>
                             <exclude>**/*IntegrationTest.java</exclude>
                         </excludes>
+                        <!--<skipTests>!${test.onlyITs}</skipTests>-->
                     </configuration>
                 </plugin>
                 <plugin>
@@ -654,7 +693,8 @@
     </build>
     <profiles>
         <profile>
-            <id>travis-ci</id>
+            <!-- actief voor Travis-CI builds -->
+            <id>postgresql</id>
             <properties>
                 <oracle.jdbc.artifactId>ojdbc6</oracle.jdbc.artifactId>
                 <oracle.jdbc.version>11.2.0.3</oracle.jdbc.version>
@@ -671,7 +711,8 @@
             </repositories>
         </profile>
         <profile>
-            <id>appveyor-ci</id>
+            <!-- actief voor AppVeyor builds -->
+            <id>mssql</id>
             <properties>
                 <oracle.jdbc.artifactId>ojdbc6</oracle.jdbc.artifactId>
                 <oracle.jdbc.version>11.2.0.3</oracle.jdbc.version>

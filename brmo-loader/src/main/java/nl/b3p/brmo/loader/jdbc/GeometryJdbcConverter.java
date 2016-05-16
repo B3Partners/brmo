@@ -24,6 +24,8 @@ public abstract class GeometryJdbcConverter {
     public abstract String buildPaginationSql(String sql, int offset, int limit);
     public abstract boolean useSavepoints();
     public abstract boolean isPmdKnownBroken();
+
+    public abstract String getGeotoolsDBTypeName();
     
     static public Object convertToSQLObject(String stringValue, ColumnMetadata cm, 
             String tableName, String column) {
@@ -62,6 +64,5 @@ public abstract class GeometryJdbcConverter {
         }
         return param;
     }
-
 
 }

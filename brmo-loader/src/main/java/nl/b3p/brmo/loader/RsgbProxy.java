@@ -35,9 +35,9 @@ import nl.b3p.brmo.loader.jdbc.OracleJdbcConverter;
 import nl.b3p.brmo.loader.updates.UpdateProcess;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.DataComfortXMLReader;
-import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.TableData;
 import nl.b3p.brmo.loader.util.TableRow;
+import nl.b3p.brmo.loader.util.RsgbTransformer;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -611,6 +611,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 t = new RsgbTransformer(BrmoFramework.XSL_BAG);
             } else if (brType.equals(BrmoFramework.BR_NHR)) {
                 t = new RsgbTransformer(BrmoFramework.XSL_NHR);
+//            } else if (brType.equals(BrmoFramework.BR_BGTLIGHT)) {
+//                t = new BGTLightRsgbTransformer(this.stagingProxy);
             } else {
                 throw new IllegalArgumentException("Onbekende basisregistratie: " + brType);
             }
