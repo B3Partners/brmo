@@ -4,8 +4,6 @@
 package nl.b3p.brmo.loader.jdbc;
 
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import net.sourceforge.jtds.jdbc.JtdsConnection;
 import org.apache.commons.logging.Log;
@@ -16,7 +14,7 @@ import org.apache.commons.logging.LogFactory;
  * @author mprins
  */
 public class MssqlConnectionUnwrapper {
-    private static final Log LOG = LogFactory.getLog(OracleConnectionUnwrapper.class);
+    private static final Log LOG = LogFactory.getLog(MssqlConnectionUnwrapper.class);
 
     public static JtdsConnection unwrap(Connection c) throws SQLException {
         LOG.debug("Unwrapping jTDS connection, isWrapperFor(JtdsConnection.class): " + c.isWrapperFor(JtdsConnection.class));
