@@ -80,6 +80,12 @@
             <artifactId>postgis-jdbc</artifactId>
             <!-- Bij JNDI db verbinding moeten postgis jars in tomcat lib samen
             met postgresql jdbc driver staan -->
+            <exclusions>
+                <exclusion>
+                    <groupId>postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.javasimon</groupId>
