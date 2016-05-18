@@ -1,6 +1,6 @@
 
--- Voor Oracle, PostgreSQL en SQLServer gelijk
+-- Voor Oracle is het woord 'column' weggelaten
 
-alter table ingeschr_niet_nat_prs add column rsin decimal(9,0);
+alter table ingeschr_niet_nat_prs add rsin decimal(9,0);
 
 
