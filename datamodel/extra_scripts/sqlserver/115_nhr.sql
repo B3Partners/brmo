@@ -1,5 +1,5 @@
 
-alter table sbi_activiteit alter column omschr type varchar(255);
+alter table sbi_activiteit alter column omschr varchar(255);
 
 create table vestg_activiteit(
     fk_vestg_nummer varchar(32) references vestg(sc_identif),
