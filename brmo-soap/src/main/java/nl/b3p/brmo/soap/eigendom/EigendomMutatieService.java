@@ -29,8 +29,10 @@ public class EigendomMutatieService {
     }
     
     @WebMethod(operationName = "getMutatieList")
-    public String getMutatieList(@WebParam(name = "fromdate") Date fromDate, @WebParam(name = "toDate") Date toDate) {
-        return "Period: " + fromDate.toString() + " to " + toDate.toString();
+    public List getMutatieList(@WebParam(name = "fromdate") Date fromDate, @WebParam(name = "toDate") Date toDate) throws EigendomMutatieException {
+        List<String> l = new ArrayList<>();
+        l.add("Period: " + fromDate.toString() + " to " + toDate.toString());
+        return l;
     }
     
     
