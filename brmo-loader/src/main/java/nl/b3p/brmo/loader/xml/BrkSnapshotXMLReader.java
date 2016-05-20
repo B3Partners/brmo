@@ -13,6 +13,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stax.StAXResult;
 import javax.xml.transform.stax.StAXSource;
+import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.BrkBericht;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -29,9 +30,6 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
     private final XMLInputFactory factory = XMLInputFactory.newInstance();
     private final XMLStreamReader streamReader;
     private final Transformer transformer;
-
-    // soort laadproces
-    private static final String soort = "brk";
 
     private static final String KAD_OBJ_SNAP = "KadastraalObjectSnapshot";
     // gebied
@@ -66,6 +64,7 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
 
     @Override
     public void init() throws XMLStreamException {
+        soort = BrmoFramework.BR_BRK;
         positionToNext();
     }
 

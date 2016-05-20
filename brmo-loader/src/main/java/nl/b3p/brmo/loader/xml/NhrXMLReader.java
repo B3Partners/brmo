@@ -15,6 +15,7 @@ import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.NhrBericht;
 import nl.b3p.brmo.loader.entity.NhrBerichten;
@@ -37,7 +38,6 @@ public class NhrXMLReader extends BrmoXMLReader {
     int volgorde = 0;
 
     public NhrXMLReader(InputStream in) throws Exception {
-
         initTemplates();
 
         // Split input naar multiple berichten
@@ -54,6 +54,8 @@ public class NhrXMLReader extends BrmoXMLReader {
         }
 
         iterator = b.berichten.iterator();
+        
+        init();
     }
 
     private synchronized void initTemplates() throws Exception {
@@ -75,6 +77,7 @@ public class NhrXMLReader extends BrmoXMLReader {
 
     @Override
     public void init() throws Exception {
+        soort = BrmoFramework.BR_NHR;
     }
 
     @Override

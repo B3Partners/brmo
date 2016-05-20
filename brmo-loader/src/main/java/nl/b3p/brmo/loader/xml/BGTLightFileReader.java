@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.StringTokenizer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 
 /**
@@ -33,6 +34,7 @@ public final class BGTLightFileReader extends BrmoXMLReader {
      */
     @Override
     public void init() throws Exception {
+         soort = BrmoFramework.BR_BGTLIGHT;
         File input = new File(this.getBestandsNaam());
         try (ZipInputStream zip = new ZipInputStream(new FileInputStream(input))) {
             fileSize = input.length();

@@ -26,6 +26,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stax.StAXResult;
 import javax.xml.transform.stax.StAXSource;
+import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.BagBericht;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,9 +51,6 @@ public class BagXMLReader extends BrmoXMLReader {
     private final Transformer transformer;
     private final DocumentBuilder builder;
     private final XMLOutputFactory xmlof;
-
-    // soort laadproces
-    private String soort = "bag";
 
     public static final String MUTATIE_PRODUCT = "Mutatie-product";
     public static final String LVC_PRODUCT = "LVC-product";
@@ -103,6 +101,8 @@ public class BagXMLReader extends BrmoXMLReader {
 
     @Override
     public void init() {
+        soort = BrmoFramework.BR_BAG;
+
         String technischeDatum = null;
         String peilDatum = null;
         String mutatieDatumTot = null;

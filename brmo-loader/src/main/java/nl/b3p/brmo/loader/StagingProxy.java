@@ -574,7 +574,6 @@ public class StagingProxy {
             brmoXMLReader = new NhrXMLReader(cis);
         } else if (type.equals(BrmoFramework.BR_BGTLIGHT)) {
             brmoXMLReader = new BGTLightFileReader(fileName);
-            brmoXMLReader.setSoort(type);
         } else {
             throw new UnsupportedOperationException("Ongeldige basisregistratie: " + type);
         }
@@ -596,7 +595,7 @@ public class StagingProxy {
         }
         lp = writeLaadProces(lp);
 
-        if (brmoXMLReader.getSoort().equalsIgnoreCase(BrmoFramework.BR_BGTLIGHT)) {
+        if (type.equalsIgnoreCase(BrmoFramework.BR_BGTLIGHT)) {
             // van een BGT Light bestand maken we alleen een LP, geen bericht,
             // de datum halen we van een GML uit het zip bestand
             if (listener != null) {

@@ -297,7 +297,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         long count = stagingProxy.getCountJob();
         if (count > 0 && !mode.equals(BerichtSelectMode.RETRY_WAITING)) {
             throw new BrmoException("Vorige transformatie is afgebroken,"
-                    + " verwerk eerst de RSGB_WAITING berichten!");
+                    + " verwerk eerst die berichten (zie job-tabel)!");
         }
 
         switch (mode) {
