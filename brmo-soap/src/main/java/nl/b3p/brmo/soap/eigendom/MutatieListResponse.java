@@ -12,46 +12,46 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
- * <p>Java class for eigendomMutatieResponse complex type.
-  */
+ * <p>Java class for mutatieListResponse complex type.
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "eigendomMutatieResponse", propOrder = {
-    "eigendomMutatie"
+@XmlType(name = "mutatieListResponse", propOrder = {
+    "mutatieList"
 })
-public class EigendomMutatieResponse {
+public class MutatieListResponse {
 
-    protected List<EigendomMutatie> eigendomMutatie;
+    protected List<String> mutatieList;
     @XmlAttribute(name = "timestamp")
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar timestamp;
 
     /**
-     * Gets the value of the eigendomMutatie property.
+     * Gets the value of the mutatieList property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the eigendomMutatie property.
+     * This is why there is not a <CODE>set</CODE> method for the mutatieList property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getEigendomMutatie().add(newItem);
+     *    getMutatieList().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link EigendomMutatie }
+     * {@link String }
      * 
      * 
      */
-    public List<EigendomMutatie> getEigendomMutatie() {
-        if (eigendomMutatie == null) {
-            eigendomMutatie = new ArrayList<EigendomMutatie>();
+    public List<String> getMutatieList() {
+        if (mutatieList == null) {
+            mutatieList = new ArrayList<String>();
         }
-        return this.eigendomMutatie;
+        return this.mutatieList;
     }
 
     /**
