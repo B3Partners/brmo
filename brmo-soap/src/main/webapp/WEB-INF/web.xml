@@ -2,6 +2,22 @@
 <web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
     <description>brmo-soap</description>
     <display-name>brmo-soap</display-name>
+    <security-constraint>
+        <display-name>WSSecurityConstraint</display-name>
+        <web-resource-collection>
+            <web-resource-name>WS</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>BASIC</auth-method>
+    </login-config>
+    <security-role>
+        <role-name>Admin</role-name>
+    </security-role>
     <listener>
         <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
     </listener>
@@ -19,22 +35,6 @@
         <servlet-name>GetBrkInfoImplService</servlet-name>
         <url-pattern>/GetBrkInfoImplService</url-pattern>
     </servlet-mapping>
-    <security-constraint>
-        <display-name>WSSecurityConstraint</display-name>
-        <web-resource-collection>
-            <web-resource-name>WS</web-resource-name>
-            <url-pattern>/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>Admin</role-name>
-        </auth-constraint>
-    </security-constraint>
-    <login-config>
-        <auth-method>BASIC</auth-method>
-    </login-config>
-    <security-role>
-        <role-name>Admin</role-name>
-    </security-role>
     <servlet-mapping>
         <servlet-name>EigendomMutatieService</servlet-name>
         <url-pattern>/EigendomMutatieService</url-pattern>
