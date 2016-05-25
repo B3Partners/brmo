@@ -13,14 +13,14 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "mutatieListRequest", propOrder = {
     "fromDate",
-    "gemeente",
+    "objectprefix",
     "toDate"
 })
 public class MutatieListRequest {
 
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar fromDate;
-    protected String gemeente;
+    protected String objectprefix;
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar toDate;
 
@@ -49,27 +49,27 @@ public class MutatieListRequest {
     }
 
     /**
-     * Gets the value of the gemeente property.
+     * Gets the value of the objectprefix property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getGemeente() {
-        return gemeente;
+    public String getObjectprefix() {
+        return objectprefix;
     }
 
     /**
-     * Sets the value of the gemeente property.
+     * Sets the value of the objectprefix property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setGemeente(String value) {
-        this.gemeente = value;
+    public void setObjectprefix(String value) {
+        this.objectprefix = value;
     }
 
     /**

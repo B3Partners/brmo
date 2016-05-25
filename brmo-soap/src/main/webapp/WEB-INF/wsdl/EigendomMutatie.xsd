@@ -14,7 +14,7 @@
 	<xs:complexType name="mutatieListRequest">
 		<xs:sequence>
 			<xs:element name="fromDate" type="xs:dateTime" minOccurs="0"/>
-			<xs:element name="gemeente" type="xs:string" minOccurs="0"/>
+			<xs:element name="objectprefix" type="xs:string" minOccurs="0"/>
 			<xs:element name="toDate" type="xs:dateTime" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
@@ -200,7 +200,7 @@
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="benoemd_object">
+						<xs:element name="benoemd_object" maxOccurs="unbounded">
 							<xs:complexType>
 								<xs:sequence>
 									<xs:element name="identificatienummer" type="xs:string">
