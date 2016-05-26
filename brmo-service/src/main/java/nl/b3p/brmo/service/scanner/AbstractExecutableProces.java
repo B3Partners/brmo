@@ -65,8 +65,8 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
                 return new WebMirrorBAGDirectoryScanner((WebMirrorBAGScannerProces) config);
 //            case BGTLightOphalenProces:
 //                return new BGTLightOphalenProces((BGTLightOphaalProces) config);
-//            case BGTLightScannerProces:
-//                return new BGTLightDirectoryScanner((BGTLightScannerProces) config);
+            case BGTLightScannerProces:
+                return new BGTLightDirectoryScanner((BGTLightScannerProces) config);
 
             default:
                 throw new IllegalArgumentException(imple.name() + " is is geen ondersteund proces...");
