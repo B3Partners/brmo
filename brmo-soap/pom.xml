@@ -13,7 +13,6 @@
     <name>brmo-soap</name>
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        <netbeans.hint.jdkPlatform>@@DEFAU:T@@</netbeans.hint.jdkPlatform>
     </properties>
     <dependencies>
         <dependency>

@@ -16,25 +16,25 @@ import javax.xml.datatype.XMLGregorianCalendar;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "mutatieListResponse", propOrder = {
-    "mutatieList"
+    "mutatieEntry"
 })
 public class MutatieListResponse {
 
-    protected List<String> mutatieList;
+    protected List<MutatieEntry> mutatieEntry;
     @XmlAttribute(name = "timestamp")
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar timestamp;
 
     /**
-     * Gets the value of the mutatieList property.
+     * Gets the value of the mutatieEntry property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the mutatieList property.
-     * 
-     * <p>
+     * This is why there is not a <CODE>set</CODE> method for the mutatieEntry property.
+ 
+ <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getMutatieList().add(newItem);
@@ -47,11 +47,11 @@ public class MutatieListResponse {
      * 
      * 
      */
-    public List<String> getMutatieList() {
-        if (mutatieList == null) {
-            mutatieList = new ArrayList<String>();
+    public List<MutatieEntry> getMutatieEntry() {
+        if (mutatieEntry == null) {
+            mutatieEntry = new ArrayList<MutatieEntry>();
         }
-        return this.mutatieList;
+        return this.mutatieEntry;
     }
 
     /**

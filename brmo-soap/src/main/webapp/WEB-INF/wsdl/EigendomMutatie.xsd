@@ -25,9 +25,41 @@
 	</xs:complexType>
 	<xs:complexType name="mutatieListResponse">
 		<xs:sequence>
-			<xs:element name="mutatieList" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="mutatieEntry" type="tns:mutatieEntry" nillable="true" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>antwoord opvraag, meerdere mogelijk.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
-		<xs:attribute name="timestamp" type="xs:dateTime"/>
+		<xs:attribute name="timestamp" type="xs:dateTime">
+			<xs:annotation>
+				<xs:documentation>tijdstip van aanmaken antwoord.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="mutatieEntry">
+		<xs:sequence>
+			<xs:element name="object_ref" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>object identificatie van de mutatie (samen met volgnummer en datum uniek)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="volgnummer" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>volgnummer van de mutatie (samen met datum en object_ref uniek)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="datum" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>dag van de mutatie (samen met volgnummer en object_ref uniek)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="status_datum" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>timestamp wanneer mutatie de laatste keer naar database getransformeerd is.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="EigendomMutatieException">
 		<xs:sequence>
@@ -85,7 +117,7 @@
 		<xs:sequence>
 			<xs:element name="identificatienummer" type="xs:string" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>kadastraak identificatienummer</xs:documentation>
+					<xs:documentation>kadastraal identificatienummer</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="gemeentecode" type="xs:string">
