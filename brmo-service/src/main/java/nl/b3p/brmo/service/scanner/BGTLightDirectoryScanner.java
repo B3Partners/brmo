@@ -3,30 +3,22 @@
  */
 package nl.b3p.brmo.service.scanner;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Transient;
 import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.loader.entity.BrkBericht;
 import nl.b3p.brmo.loader.util.BrmoException;
-import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
 import nl.b3p.brmo.persistence.staging.BGTLightScannerProces;
-import nl.b3p.brmo.persistence.staging.Bericht;
 import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.persistence.staging.LaadProces;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.comparator.NameFileComparator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -52,12 +44,32 @@ public class BGTLightDirectoryScanner extends AbstractExecutableProces {
 
     @Override
     public void execute() throws BrmoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.execute(new ProgressUpdateListener() {
+            @Override
+            public void total(long total) {
+            }
+
+            @Override
+            public void progress(long progress) {
+            }
+
+            @Override
+            public void exception(Throwable t) {
+                LOG.error(t);
+            }
+
+            @Override
+            public void updateStatus(String status) {
+            }
+
+            @Override
+            public void addLog(String log) {
+            }
+        });
     }
 
     @Override
     public void execute(ProgressUpdateListener listener) {
-
         this.listener = listener;
         config.setStatus(PROCESSING);
         StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE);
@@ -129,41 +141,36 @@ public class BGTLightDirectoryScanner extends AbstractExecutableProces {
             LOG.info(msg);
             listener.addLog(msg);
             sb.append(AutomatischProces.LOG_NEWLINE).append(msg).append(AutomatischProces.LOG_NEWLINE);
-            if (this.isDuplicaatLaadProces(f, BrmoFramework.BR_BRK)) {
+            if (this.isDuplicaatLaadProces(f, BrmoFramework.BR_BGTLIGHT)) {
                 msg = String.format("  Bestand %s is een duplicaat en wordt overgeslagen.", f);
                 listener.addLog(msg);
                 LOG.info(msg);
                 sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                 filterAlVerwerkt++;
             } else {
-                // mogelijk bij openen en lezen xml bestand
-
                 LaadProces lp = new LaadProces();
                 lp.setBestand_naam(getBestandsNaam(f));
                 lp.setBestand_datum(getBestandsDatum(f));
-                lp.setSoort(BrmoFramework.BR_BRK);
+                lp.setSoort(BrmoFramework.BR_BGTLIGHT);
                 lp.setStatus(LaadProces.STATUS.STAGING_OK);
                 lp.setOpmerking(String.format("Bestand geladen van %s op %s", f.getAbsolutePath(), sdf.format(new Date())));
                 lp.setAutomatischProces(Stripersist.getEntityManager().find(AutomatischProces.class, config.getId()));
                 Stripersist.getEntityManager().persist(lp);
                 Stripersist.getEntityManager().merge(this.config);
+
                 aantalGeladen++;
                 msg = String.format("  Bestand %s is geladen en heeft status: %s.", f, lp.getStatus());
                 LOG.info(msg);
                 this.listener.addLog(msg);
                 sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                 if (aantalGeladen % commitPageSize == 0) {
-                    LOG.info("Tussentijds opslaan van berichten, 'commitPageSize' is bereikt");
+                    LOG.debug("Tussentijds opslaan van berichten, 'commitPageSize' is bereikt");
                     Stripersist.getEntityManager().flush();
                     Stripersist.getEntityManager().getTransaction().commit();
                     Stripersist.getEntityManager().clear();
                 }
             }
             listener.progress(++progress);
-
-            LOG.info(msg);
-            this.listener.addLog(msg);
-            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
         }
         msg = String.format("Klaar met run op %tc", Calendar.getInstance());
         LOG.info(msg);

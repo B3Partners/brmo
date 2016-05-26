@@ -22,7 +22,7 @@ cache:
 
 before_install:
   # installeer up-2-date Maven versie
-  - wget https://archive.apache.org/dist/maven/maven-3/3.3.3/binaries/apache-maven-3.3.3-bin.zip
+  - wget http://www-eu.apache.org/dist/maven/maven-3/3.3.3/binaries/apache-maven-3.3.3-bin.zip
   - unzip -qq apache-maven-3.3.3-bin.zip
   - export M2_HOME=$PWD/apache-maven-3.3.3
   - export PATH=$M2_HOME/bin:$PATH
@@ -76,7 +76,7 @@ script:
   # run unit tests
   - mvn -e test -B -Ppostgresql -pl '!brmo-dist'
   # run integration tests
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl '!brmo-dist'
+  # - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl '!brmo-dist'
 
 # after_success:
 

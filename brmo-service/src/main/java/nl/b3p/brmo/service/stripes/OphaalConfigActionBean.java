@@ -25,6 +25,7 @@ import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import net.sourceforge.stripes.validation.ValidationMethod;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
+import nl.b3p.brmo.persistence.staging.BGTLightScannerProces;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
 import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
 import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
@@ -35,8 +36,8 @@ import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
 import nl.b3p.brmo.service.jobs.GeplandeTakenInit;
 import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.QUARTZ_FACTORY_KEY;
 import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.SCHEDULER_NAME;
+import nl.b3p.brmo.service.scanner.BGTLightOphalenProces;
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
-import static nl.b3p.brmo.service.scanner.ProcesExecutable.ProcessingImple.WebMirrorBAGScannerProces;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.quartz.CronExpression;
@@ -49,7 +50,7 @@ import org.stripesstuff.stripersist.Stripersist;
 
 /**
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 @StrictBinding
 public class OphaalConfigActionBean implements ActionBean {
@@ -172,8 +173,12 @@ public class OphaalConfigActionBean implements ActionBean {
                 return new BerichtDoorstuurProces();
             case WebMirrorBAGScannerProces:
                 return new WebMirrorBAGScannerProces();
+            case BGTLightScannerProces:
+                return new BGTLightScannerProces();
+            // case BGTLightOphalenProces:
+            //    return new BGTLightOphalenProces();
             default:
-                throw new IllegalArgumentException(type.name() + " is is geen ondersteund proces type...");
+                throw new IllegalArgumentException(type.name() + " is geen ondersteund proces type...");
         }
     }
 
