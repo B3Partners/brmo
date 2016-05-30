@@ -465,7 +465,7 @@ LEFT JOIN
     nummeraand na
 ON
     (
-        na.sc_identif = vna.fk_nn_rh_nra_sc_identif )
+        na.sc_identif = vbo.fk_11nra_sc_identif)
 LEFT JOIN
     addresseerb_obj_aand addrobj
 ON
@@ -542,7 +542,7 @@ LEFT JOIN
     nummeraand na
 ON
     (
-        na.sc_identif = lna.fk_nn_rh_nra_sc_identif )
+        na.sc_identif = lpa.fk_4nra_sc_identif )
 LEFT JOIN
     addresseerb_obj_aand addrobj
 ON
@@ -617,7 +617,7 @@ LEFT JOIN
     nummeraand na
 ON
     (
-        na.sc_identif = sna.fk_nn_rh_nra_sc_identif )
+        na.sc_identif = spl.fk_4nra_sc_identif )
 LEFT JOIN
     addresseerb_obj_aand addrobj
 ON
