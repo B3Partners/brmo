@@ -137,6 +137,13 @@
                         </stripes:url>
                     </c:when>
 
+                    <c:when test="${actionBean.type eq 'BGTLightOphaalProces'}">
+                        <jsp:include page="editbgtlightophaalproces.jsp" />
+                        <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean">
+                            <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
+                        </stripes:url>
+                    </c:when>
+
                     <c:otherwise>
                         <p>Onbekende input</p>
                     </c:otherwise>

@@ -25,6 +25,7 @@ import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import net.sourceforge.stripes.validation.ValidationMethod;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
+import nl.b3p.brmo.persistence.staging.BGTLightOphaalProces;
 import nl.b3p.brmo.persistence.staging.BGTLightScannerProces;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
 import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
@@ -175,8 +176,8 @@ public class OphaalConfigActionBean implements ActionBean {
                 return new WebMirrorBAGScannerProces();
             case BGTLightScannerProces:
                 return new BGTLightScannerProces();
-            // case BGTLightOphalenProces:
-            //    return new BGTLightOphalenProces();
+            case BGTLightOphaalProces:
+                return new BGTLightOphaalProces();
             default:
                 throw new IllegalArgumentException(type.name() + " is geen ondersteund proces type...");
         }
