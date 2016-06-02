@@ -658,7 +658,9 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         int filterAlVerwerkt = 0;
         int aantalGeladen = 0;
         int progress = 0;
-        List<Bericht> geladenBerichten = new ArrayList();
+        //List<Bericht> geladenBerichten = new ArrayList();
+        List<Long> geladenBerichtIds = new ArrayList();
+        String doorsturenUrl = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
 
         for (AfgifteGBType a : afgiftesGb) {
             String url = null;
@@ -674,8 +676,9 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                     filterAlVerwerkt++;
                 } else {
                     Bericht b = laadAfgifte(a, url);
-                    if (b != null) {
-                        geladenBerichten.add(b);
+                    if (b != null && doorsturenUrl != null) {
+                        //geladenBerichten.add(b);
+                        geladenBerichtIds.add(b.getId());
                     }
                     aantalGeladen++;
                 }
@@ -683,14 +686,18 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             l.progress(++progress);
         }
 
-        String doorsturenUrl = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
-        if (doorsturenUrl != null && !geladenBerichten.isEmpty()) {
-            for (Bericht b : geladenBerichten) {
+        //if (doorsturenUrl != null && !geladenBerichten.isEmpty()) {
+        //    for (Bericht b : geladenBerichten) {
+        Bericht b;
+        if (doorsturenUrl != null && !geladenBerichtIds.isEmpty()) {
+            for (Long bId : geladenBerichtIds) {
+                b = Stripersist.getEntityManager().find(Bericht.class, bId);
                 doorsturenBericht(this.config, l, b, doorsturenUrl);
                 Stripersist.getEntityManager().merge(b);
                 Stripersist.getEntityManager().merge(this.config);
                 Stripersist.getEntityManager().flush();
                 Stripersist.getEntityManager().getTransaction().commit();
+                Stripersist.getEntityManager().clear();
             }
         }
 
