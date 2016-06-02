@@ -1,12 +1,13 @@
 ﻿/****************************************************************
  ** Auteur	: S. Knoeff
- ** Versie 	: 1.1
- ** Datum	: 18-01-2016
+ ** Versie 	: 1.2
+ ** Datum	: 12-04-2016
  **
  ** Wijzigingen :
  ** Datum	Auteur		Soort
  ** xxxxxxxx	S.Knoeff	Initieel
  ** 18-01-2016	S.Knoeff	TMP tabel
+ ** 12-04-2016	S.Knoeff	pm_p8_kadastraal_perceel_overgegaan_in werd opgebouwd uit subject, dat is niet correct
  *****************************************************************/
 /*
 CREATE OR REPLACE VIEW vw_p8_kadastraal_perceel_overgegaan_in AS 
@@ -24,7 +25,7 @@ FROM pv_kad_perceel_archief ka;
 
   
   CREATE TABLE pm_p8_kadastraal_perceel_overgegaan_in_tmp AS
-  SELECT * FROM vw_p8_subject_percelen; 
+  SELECT * FROM vw_p8_kadastraal_perceel_overgegaan_in; 
 
 -- Technische PK voor tooling
 ALTER TABLE pm_p8_kadastraal_perceel_overgegaan_in_tmp ADD column pm_p8_kadastraal_perceel_overgegaan_in_id serial;
