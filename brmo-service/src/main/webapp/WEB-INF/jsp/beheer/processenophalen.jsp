@@ -131,9 +131,17 @@
                     </c:when>
 
                     <c:when test="${actionBean.type eq 'BGTLightScannerProces'}">
-                        <jsp:include page="editdirscannerproces.jsp" />
+                        <jsp:include page="editbgtlightscannerproces.jsp" />
                         <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean">
                             <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
+                        </stripes:url>
+                    </c:when>
+
+                    <c:when test="${actionBean.type eq 'BGTLightOphaalProces'}">
+                        <jsp:include page="editbgtlightophaalproces.jsp" />
+                        <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean">
+                            <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
+                            <stripes:param name="title">BGT Light GML</stripes:param>
                         </stripes:url>
                     </c:when>
 
