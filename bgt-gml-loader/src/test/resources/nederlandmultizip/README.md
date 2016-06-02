@@ -16,6 +16,9 @@ Bijvoorbeeld:
 ## download commando's
 
 curl -o code38468_0.zip "https://www.pdok.nl/download/service/extract.zip?extractset=gmllight&tiles=%7B%22layers%22%3A%5B%7B%22aggregateLevel%22%3A0%2C%22codes%22%3A%5B38468%5D%7D%5D%7D&excludedtypes=plaatsbepalingspunt&history=true&enddate=22-4-2016"
+
 curl -o code38469_0.zip "https://www.pdok.nl/download/service/extract.zip?extractset=gmllight&tiles=%7B%22layers%22%3A%5B%7B%22aggregateLevel%22%3A0%2C%22codes%22%3A%5B38469%5D%7D%5D%7D&excludedtypes=plaatsbepalingspunt&history=true&enddate=22-4-2016"
+
 curl -o code38480_0.zip "https://www.pdok.nl/download/service/extract.zip?extractset=gmllight&tiles=%7B%22layers%22%3A%5B%7B%22aggregateLevel%22%3A0%2C%22codes%22%3A%5B38480%5D%7D%5D%7D&excludedtypes=plaatsbepalingspunt&history=true&enddate=22-4-2016"
+
 curl -o code38126-38127-38138_0.zip "https://www.pdok.nl/download/service/extract.zip?extractset=gmllight&tiles=%7B%22layers%22%3A%5B%7B%22aggregateLevel%22%3A0%2C%22codes%22%3A%5B38126%2C38127%2C38138%5D%7D%5D%7D&excludedtypes=plaatsbepalingspunt&history=true&enddate=22-4-2016"

@@ -129,9 +129,11 @@ public abstract class AutomatischProces implements Serializable {
      * NIETS</strong> op dit moment.
      *
      * @todo make this work
+     * @deprecated doet niets!
      *
      * @param line toe te voegen regel
      */
+    @Deprecated
     public void addLogLine(String line) {
         //this.setLogfile(this.getLogfile() + LOG_NEWLINE + line);
     }
