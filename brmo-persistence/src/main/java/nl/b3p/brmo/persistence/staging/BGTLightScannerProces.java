@@ -12,23 +12,4 @@ import javax.persistence.Entity;
  */
 @Entity
 public class BGTLightScannerProces extends DirectoryScannerProces {
-    /**
-     * doet niets
-     *
-     * @return null
-     */
-    @Override
-    public String getArchiefDirectory() {
-        return null;
-    }
-
-    /**
-     * doet niets
-     *
-     * @param archiefDirectory ignored
-     */
-    @Override
-    public void setArchiefDirectory(String archiefDirectory) {
-
-    }
 }

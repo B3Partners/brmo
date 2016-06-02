@@ -14,7 +14,7 @@
     </tr>
     <tr>
         <td><stripes:label name="">basis URL</stripes:label></td>
-        <td><stripes:text name="config['ophaalurl']" value="https://www.pdok.nl/download/service/extract.zip?extractset=gmllight&tiles=%7B%22layers%22%3A%5B%7B%22aggregateLevel%22%3A0%2C%22codes%22%3A%5BGRID_ID%5D%7D%5D%7D&excludedtypes=plaatsbepalingspunt&history=true&enddate=ENDDATE" style="width: 30em;"/></td>
+        <td><stripes:text name="config['ophaalurl']" value="https://www.pdok.nl/download/service/extract.zip?extractset=gmllight&tiles=%7B%22layers%22%3A%5B%7B%22aggregateLevel%22%3A0%2C%22codes%22%3A%5BGRID_ID%5D%7D%5D%7D&excludedtypes=plaatsbepalingspunt&history=true&enddate=ENDDATE" style="width: 40em;"/></td>
     </tr>
     <tr>
         <td><stripes:label name="">Planning <a href="http://cronmaker.com" target="_blank">(cron expressie)</a></stripes:label></td>
