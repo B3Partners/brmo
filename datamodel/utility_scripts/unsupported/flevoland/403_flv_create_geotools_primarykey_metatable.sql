@@ -16,7 +16,8 @@ INSERT INTO gt_pk_metadata VALUES ('FLV_RSGB', 'V_KAD_PERCEEL_EIGENAAR', 'kadast
 --V_KAD_EIGENARENKAART
 INSERT INTO gt_pk_metadata VALUES ('FLV_RSGB', 'V_KAD_EIGENARENKAART', 'kadaster_identificatie', NULL, 'assigned', NULL);
 
- 
- --materialized view: VM_KAD_EIGENARENKAART 
+--materialized view: VM_KAD_EIGENARENKAART 
  INSERT INTO gt_pk_metadata VALUES ('FLV_RSGB', 'VM_KAD_EIGENARENKAART', 'kadaster_identificatie', NULL, 'assigned', NULL); 
 
+--VM_BD_APP_RE_AND_KAD_PERCEEL
+INSERT INTO gt_pk_metadata VALUES ('FLV_RSGB', 'VM_BD_APP_RE_AND_KAD_PERCEEL', 'kadaster_identificatie', NULL, 'assigned', NULL);
