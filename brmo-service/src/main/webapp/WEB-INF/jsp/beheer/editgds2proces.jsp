@@ -32,7 +32,7 @@
     </td>
 </tr>
 <tr>
-    <td>datum vanaf (dd-MM-yyyy formaat)</td>
+    <td>datum vanaf (dd-MM-yyyy formaat of -1 / -2  / -3 mits "datum tot" gevuld)</td>
     <td><stripes:text name="config['vanafdatum']"/></td>
 </tr>
 <tr>

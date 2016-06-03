@@ -148,11 +148,11 @@ public class GeplandeTakenInit implements Servlet {
                     .build();
             scheduler.scheduleJob(job, trigger);
 
-            log.info(String.format("Proces: %d met cron expressie %s is toegevoegd (of bijgewerkt).",
-                    p.getId(), p.getCronExpressie()));
+            log.info(String.format("%s met id: %d met cron expressie %s is toegevoegd (of bijgewerkt).",
+                    p.getClass().getSimpleName(), p.getId(), p.getCronExpressie()));
         } catch (ParseException ex) {
-            log.warn(String.format("Ongeldige cron expressie voor proces met %d. Het proces is niet ingepland.",
-                    p.getId()), ex);
+            log.warn(String.format("Ongeldige cron expressie voor %s met id %d. Het proces is niet ingepland.",
+                    p.getClass().getSimpleName(), p.getId()), ex);
         }
     }
 
