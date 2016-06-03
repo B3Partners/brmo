@@ -50,7 +50,8 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
 
     private String label;
 
-    private String log = "";
+    private StringBuilder log = new StringBuilder();
+    private int logLineCounter = 0;
 
     private Date start;
 
@@ -97,7 +98,15 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
 
     @Override
     public void addLog(String log) {
-        this.log += log + "\n";
+
+        if (this.logLineCounter > 1000) {
+            // trim buffer
+            int i900regels = 100;
+            this.log.delete(0, i900regels);
+            this.log.trimToSize();
+        }
+        this.log.append(log).append("\n");
+        this.logLineCounter++;
         GDS2OphalenProces.getLog().info(log);
     }
 
@@ -138,11 +147,11 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
     }
 
     public String getLog() {
-        return log;
+        return log.toString();
     }
 
     public void setLog(String log) {
-        this.log = log;
+        this.log = new StringBuilder(log);
     }
 
     public long getTotal() {
