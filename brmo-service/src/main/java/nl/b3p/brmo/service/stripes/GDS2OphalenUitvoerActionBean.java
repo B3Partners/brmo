@@ -21,6 +21,8 @@ import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import nl.b3p.brmo.service.scanner.GDS2OphalenProces;
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.plugin.waitpage.WaitPage;
 import org.stripesstuff.stripersist.EntityTypeConverter;
 import org.stripesstuff.stripersist.Stripersist;
@@ -32,6 +34,8 @@ import org.stripesstuff.stripersist.Stripersist;
 public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateListener {
 
     private static final String JSP = "/WEB-INF/jsp/beheer/gds2ophalenuitvoeren.jsp";
+
+    private static final Log LOG = LogFactory.getLog(GDS2OphalenUitvoerActionBean.class);
 
     private ActionBeanContext context;
 
@@ -51,6 +55,7 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
     private String label;
 
     private StringBuilder log = new StringBuilder();
+
     private int logLineCounter = 0;
 
     private Date start;
@@ -86,7 +91,6 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
     @Override
     public void exception(Throwable t) {
         StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
         t.printStackTrace(new PrintWriter(sw));
         this.exceptionStacktrace = sw.toString();
     }
@@ -97,17 +101,18 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
     }
 
     @Override
-    public void addLog(String log) {
-
+    public void addLog(String line) {
         if (this.logLineCounter > 1000) {
-            // trim buffer
-            int i900regels = 100;
-            this.log.delete(0, i900regels);
+            // trim buffer met 100 regels
+            for (int removeline = 0; removeline < 100; removeline++) {
+                this.log.delete(0, this.log.indexOf("\n") + 1);
+            }
             this.log.trimToSize();
+            this.logLineCounter = this.log.toString().split("\n").length;
         }
-        this.log.append(log).append("\n");
+        this.log.append(line).append("\n");
         this.logLineCounter++;
-        GDS2OphalenProces.getLog().info(log);
+        GDS2OphalenProces.getLog().info(line);
     }
 
     @DefaultHandler
