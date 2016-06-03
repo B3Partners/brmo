@@ -80,6 +80,8 @@
             </c:if>
 
             <c:if test="${edit || _new}">
+                <stripes:button name="execute" onclick="if(confirm('Let op! Het proces moet eerst zijn opgeslagen. \nCancel; eerst opslaan, OK; Toch verder gaan?')) window.open('${url}');">Uitvoeren</stripes:button>
+
                 <c:choose>
                     <c:when test="${actionBean.type eq 'MailRapportageProces'}">
                         <jsp:include page="editmailproces.jsp" />
@@ -149,8 +151,6 @@
                         <p>Onbekende input</p>
                     </c:otherwise>
                 </c:choose>
-
-                <stripes:button name="execute" onclick="if(confirm('Let op! Proces moet eerst zijn opgeslagen. Verder gaan?')) window.open('${url}');">Uitvoeren</stripes:button>
             </c:if>
         </stripes:form>
     </stripes:layout-component>
