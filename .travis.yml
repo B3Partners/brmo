@@ -4,6 +4,11 @@ language: java
 
 addons:
    postgresql: "9.4"
+   # fix voor OpenJDK bufferoverflow, zie: 
+   #  - https://docs.travis-ci.com/user/hostname
+   #  - https://github.com/travis-ci/travis-ci/issues/5227
+   #  - https://github.com/travis-ci/travis-ci/issues/5669
+   hostname: travis-brmo
 
 jdk:
   - openjdk7
