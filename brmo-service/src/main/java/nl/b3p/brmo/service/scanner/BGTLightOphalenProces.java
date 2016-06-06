@@ -81,6 +81,7 @@ public class BGTLightOphalenProces extends AbstractExecutableProces {
         config.setStatus(PROCESSING);
         config.setLastrun(new Date());
         Stripersist.getEntityManager().merge(config);
+        Stripersist.getEntityManager().flush();
 
         StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE);
         String oldLog = config.getLogfile();
@@ -112,6 +113,7 @@ public class BGTLightOphalenProces extends AbstractExecutableProces {
             String naam;
             String sUrl;
 
+            BrmoFramework brmo = null;
             for (Integer id : ids) {
                 // download naar directory
                 // code38451_aggrlevel0-20160429.zip
@@ -132,7 +134,8 @@ public class BGTLightOphalenProces extends AbstractExecutableProces {
                     listener.addLog(msg);
                     sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                     try {
-                        laadBestand(gmlZip);
+                        brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
+                        brmo.loadFromFile(BrmoFramework.BR_BGTLIGHT, gmlZip.getAbsolutePath(), null);
                         aantalGeladen++;
                     } catch (BrmoException ex) {
                         msg = "GML Bestand kon niet worden geladen.";
@@ -140,6 +143,10 @@ public class BGTLightOphalenProces extends AbstractExecutableProces {
                         LOG.error(msg, ex);
                         config.setSamenvatting("Er is een fout opgetreden, details staan in de logs.");
                         listener.exception(ex);
+                    } finally {
+                        if (brmo != null) {
+                            brmo.closeBrmoFramework();
+                        }
                     }
                 }
                 listener.progress(++totaal);
@@ -174,12 +181,6 @@ public class BGTLightOphalenProces extends AbstractExecutableProces {
         Stripersist.getEntityManager().flush();
         Stripersist.getEntityManager().getTransaction().commit();
         Stripersist.getEntityManager().clear();
-    }
-
-    private void laadBestand(File gmlZip) throws BrmoException {
-        DataSource ds = ConfigUtil.getDataSourceStaging();
-        BrmoFramework brmo = new BrmoFramework(ds, null);
-        brmo.loadFromFile(BrmoFramework.BR_BGTLIGHT, gmlZip.getAbsolutePath(), null);
     }
 
     /**
