@@ -155,5 +155,8 @@
 
             </c:if>
         </stripes:form>
+        <p>
+            Documentatie van de automatische processen is beschikbaar op <a href="https://github.com/B3Partners/brmo/wiki/Automatische-processen" target="_blank">de wiki</a>.
+        </p>
     </stripes:layout-component>
 </stripes:layout-render>
