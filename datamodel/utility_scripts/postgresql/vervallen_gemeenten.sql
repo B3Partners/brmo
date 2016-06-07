@@ -97,7 +97,7 @@ BEGIN TRANSACTION;
 -- zie: http://www.cbs.nl/nl-NL/menu/methoden/classificaties/overzicht/gemeentelijke-indeling/2016/default.htm
 UPDATE gemeente SET datum_einde_geldh = '2016-01-01', dat_beg_geldh = '2009-01-01' WHERE code IN (
 -- Groesbeek (0241) is hernoemt naar Berg en Dal (1945)
-   241,1945,
+   241,
 -- Bussum (0381), Muiden (0424) & Naarden (0425) komen te vervallen
    381,424,425,
 -- Zeevang (0478) komt te vervallen
@@ -105,7 +105,7 @@ UPDATE gemeente SET datum_einde_geldh = '2016-01-01', dat_beg_geldh = '2009-01-0
 );
 INSERT INTO gemeente_archief SELECT * FROM gemeente WHERE code IN (
 -- Groesbeek (0241) is hernoemt naar Berg en Dal (1945)
-   241,1945,
+   241,
 -- Bussum (0381), Muiden (0424) & Naarden (0425) komen te vervallen
    381,424,425,
 -- Zeevang (0478) komt te vervallen
@@ -113,7 +113,7 @@ INSERT INTO gemeente_archief SELECT * FROM gemeente WHERE code IN (
 );
 DELETE FROM gemeente WHERE code IN (
 -- Groesbeek (0241) is hernoemt naar Berg en Dal (1945)
-   241,1945,
+   241,
 -- Bussum (0381), Muiden (0424) & Naarden (0425) komen te vervallen
    381,424,425,
 -- Zeevang (0478) komt te vervallen
