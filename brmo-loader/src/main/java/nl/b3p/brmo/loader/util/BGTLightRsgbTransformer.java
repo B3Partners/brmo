@@ -78,6 +78,7 @@ public class BGTLightRsgbTransformer implements Runnable {
             // jndi lijkt niet te werken in geotools met jDTS.. kreeg steeds een null voor de DataStore
             // uitzoeken / bug report maken
             // vooralsnog maar even met gewone property set doen
+            // zie: https://osgeo-org.atlassian.net/browse/GEOT-5422 en https://github.com/geotools/geotools/pull/1198
 
             String dbName = dataSourceRsgbBgt.getConnection().getCatalog();
             params.put("database", dbName);
