@@ -172,7 +172,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             final Date startDate = new Date();
             l.addLog(String.format("Initialiseren GDS2 ophalen proces %d... %tc", config.getId(), startDate));
             this.config.updateSamenvattingEnLogfile(
-                    String.format("Het GDS2 ophalen proces is gestart op %tc.%s", startDate, LOG_NEWLINE));
+                    String.format("Het GDS2 ophalen proces is gestart op %tc.", startDate));
             this.config.setStatus(AutomatischProces.ProcessingStatus.PROCESSING);
             this.config.setLastrun(startDate);
             Stripersist.getEntityManager().merge(this.config);
@@ -678,6 +678,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     private void verwerkAfgiftes(List<AfgifteGBType> afgiftesGb) throws Exception {
         int filterAlVerwerkt = 0;
         int aantalGeladen = 0;
+        int aantalDoorgestuurd = 0;
         int progress = 0;
         List<Long> geladenBerichtIds = new ArrayList();
         String doorsturenUrl = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
@@ -707,27 +708,36 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
         Bericht b;
         if (doorsturenUrl != null && !geladenBerichtIds.isEmpty()) {
+            l.addLog("Doorsturen van de opgehaalde berichten, in totaal " + geladenBerichtIds.size());
+            l.total(geladenBerichtIds.size());
+            progress = 0;
+
             for (Long bId : geladenBerichtIds) {
                 b = Stripersist.getEntityManager().find(Bericht.class, bId);
+                l.updateStatus("Doorsturen bericht: " + b.getObject_ref());
                 doorsturenBericht(this.config, l, b, doorsturenUrl);
                 Stripersist.getEntityManager().merge(b);
                 Stripersist.getEntityManager().merge(this.config);
                 Stripersist.getEntityManager().flush();
                 Stripersist.getEntityManager().getTransaction().commit();
                 Stripersist.getEntityManager().clear();
+                aantalDoorgestuurd++;
+                l.progress(++progress);
             }
         }
 
         l.addLog("\n\n**** resultaat ****\n");
         l.addLog("Aantal afgiftes die al waren verwerkt: " + filterAlVerwerkt);
-        l.addLog("\nAantal afgiftes geladen: " + aantalGeladen + "\n");
+        l.addLog("\nAantal afgiftes geladen: " + aantalGeladen);
+        l.addLog("\nAantal afgiftes doorgestuurd: " + aantalDoorgestuurd + "\n");
 
         l.addLog(String.format("Het GDS2 ophalen proces met ID %d is afgerond op %tc", config.getId(), Calendar.getInstance()));
         this.config.updateSamenvattingEnLogfile(
                 String.format("Het GDS2 ophalen proces, gestart op %tc, is afgerond op %tc. " + LOG_NEWLINE
                         + "Aantal afgiftes die al waren verwerkt: %d" + LOG_NEWLINE
-                        + "Aantal afgiftes geladen: %d.",
-                        this.config.getLastrun(), Calendar.getInstance(), filterAlVerwerkt, aantalGeladen));
+                        + "Aantal afgiftes geladen: %d" + LOG_NEWLINE
+                        + "Aantal afgiftes doorgestuurd: %d",
+                        this.config.getLastrun(), Calendar.getInstance(), filterAlVerwerkt, aantalGeladen, aantalDoorgestuurd));
 
         this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);
         this.config.setLastrun(new Date());

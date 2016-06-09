@@ -102,9 +102,9 @@ public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateL
 
     @Override
     public void addLog(String line) {
-        if (this.logLineCounter > 1000) {
-            // trim buffer met 100 regels
-            for (int removeline = 0; removeline < 100; removeline++) {
+        if (this.logLineCounter > 3000) {
+            // trim buffer met 150 regels (5%)
+            for (int removeline = 0; removeline < 150; removeline++) {
                 this.log.delete(0, this.log.indexOf("\n") + 1);
             }
             this.log.trimToSize();
