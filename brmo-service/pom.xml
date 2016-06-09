@@ -302,6 +302,8 @@
                             <systemPropertyVariables>
                                 <database.properties.file>postgres.properties</database.properties.file>
                             </systemPropertyVariables>
+                            <rerunFailingTestsCount>3</rerunFailingTestsCount>
+                            <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
                         </configuration>
                     </plugin>
                 </plugins>
