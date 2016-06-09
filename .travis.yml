@@ -81,7 +81,7 @@ script:
   # run unit tests
   - mvn -e test -B -Ppostgresql -pl '!brmo-dist'
   # run integration tests
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl '!brmo-dist'
+  - travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl '!brmo-dist'
 
 # after_success:
 
