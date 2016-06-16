@@ -1,12 +1,13 @@
 ﻿/****************************************************************
  ** Auteur	: S. Knoeff
- ** Versie 	: 1.1
- ** Datum	: 14-01-2016
+ ** Versie 	: 1.2
+ ** Datum	: 15-04-2016
  **
  ** Wijzigingen :
  ** Datum	Auteur		Soort
  ** xxxxxxxx	S.Knoeff	Initieel
  ** 14-01-2016	S.Knoeff	zakelijk recht, left ipv inner join
+ ** 15-04-2016	S.Knoeff	Ander natuurlijk persoon toegevoegd voor geboorte/overlijden
  *****************************************************************/
 
 /****************************************************************
@@ -181,35 +182,39 @@ SELECT distinct
 	then map.omschr_deelperceel 
 	else pma.omschr_deelperceel
 	end					--omschr_deelperceel(15)
-, cast (null as date) --cast (onrzk.dat_beg_geldh as date)		--begin kadastrale onroerende zaak dat_beg_geldh->geldh_begindatum(16) 
-, cast (null as date) --cast(onrzk.datum_einde_geldh as date)		--datum_einde_geldh->geldh_einddatum(17)
+, cast (null as date) 				--cast (onrzk.dat_beg_geldh as date)		--begin kadastrale onroerende zaak dat_beg_geldh->geldh_begindatum(16) 
+, cast (null as date) 				--cast(onrzk.datum_einde_geldh as date)		--datum_einde_geldh->geldh_einddatum(17)
 , cast (soort_eigenaar as varchar(255)) 	as soort_eigenaar				--soort_eigenaar(18)
 , arv_omschr					--arv_omschr->soort_recht(19)
-, cast (null --ar.dat_beg_geldh		-- begin kadastrale onroerende zaak, niet het recht mail 12-10-2015
-	as date)					as geldh_begindatum --ingangsdatum_recht->recht_begindatum(20)
+, cast (null --ar.dat_beg_geldh			-- begin kadastrale onroerende zaak, niet het recht mail 12-10-2015
+	as date)				as geldh_begindatum --ingangsdatum_recht->recht_begindatum(20)
 , cast(	null --ar.datum_einde_geldh
-	as date)					as geldh_einddatum  --eindd_recht->recht_einddatum(21)
-, inp.bsn 						as 	bsn_nummer
+	as date)				as geldh_einddatum  --eindd_recht->recht_einddatum(21)
+, inp.bsn 					as bsn_nummer
 , case when geslacht='1' then 'M'
 	when geslacht='2' then 'V'
 	when geslacht='3' then 'O'
 	else geslacht 
-	end as geslacht				--(22)
-, voornamen					--(23)
-, voorvoegsel					--(24)
-, geslachtsnaam					--geslachtsnaam(25)
-, woonadres					--(26)
-, geboorteplaats				--(27)
-, geboortedatum					--(28)
-, overlijdensdatum				--overlijdensdatum(29)
-, naam_niet_natuurlijk_persoon			--naam_niet_natuurlijk_persoon->naam_niet_nat_persoon(30)
-, rechtsvorm					--rechtsvorm(31)
-, statutaire_zetel				--statutaire_zetel(33)
-, kvk_nummer					--kvk_nummer(34)
-, aandeel_noemer				--aandeel_noemer(35)
-, aandeel_teller				--aandeel_teller(36)
+	end as geslacht				
+, zak.voornamen					
+, zak.voorvoegsel				
+, zak.geslachtsnaam				
+, zak.woonadres					
+, zak.geboorteplaats				
+, case when zak.geboortedatum is null
+	then anp.geboortedatum
+	end as geboortedatum
+, case when zak.overlijdensdatum is null
+	then anp.overlijdensdatum
+	end as overlijdensdatum
+, naam_niet_natuurlijk_persoon			
+, rechtsvorm					
+, statutaire_zetel				
+, kvk_nummer					
+, aandeel_noemer				
+, aandeel_teller				
 , indic_betrokken_in_splitsing 			--indic_betrokken_in_splitsing->betrokken_in_splitsing(37)
-, pso_identif					--pso_identif(38)
+, pso_identif					--pso_identif(38) (persoon)
 , onrzk.kad_identif				--kad_identif(39)
 , case when ar.sc_kad_identif is null
 	then map.begrenzing_perceel
@@ -276,8 +281,13 @@ LEFT JOIN pv_info_i_koz_adres_sk a
 
 -- BSN
  left join ingeschr_nat_prs inp
-  on inp.sc_identif = pso_identif
+  on inp.sc_identif = zak.pso_identif
+
+-- NNP
+ left join ander_nat_prs anp		-- Rechtstreeks op tabel, geen view aanwezig
+ on anp.sc_identif = zak.pso_identif
 ;
+
 
 /* Traag en mogelijke crash, dan maar update achteraf
 
