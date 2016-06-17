@@ -62,7 +62,7 @@
         -->
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
         <test.h2.version>1.4.191</test.h2.version>
-        <!-- test.onlyITs>false</test.onlyITs -->
+        <test.onlyITs>false</test.onlyITs>
         <maven.surefire.version>2.19.1</maven.surefire.version>
     </properties>
     <dependencyManagement>
@@ -352,7 +352,7 @@
         <repository>
             <id>boundless</id>
             <name>Boundless Maven Repository</name>
-            <url>https://boundless.artifactoryonline.com/boundless/main/</url>
+            <url>http://repo.boundlessgeo.com/main</url>
         </repository>
         <!-- see:
           https://docs.oracle.com/middleware/1213/core/MAVEN/config_maven_repo.htm#MAVEN9010
@@ -410,6 +410,11 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.5.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.4</version>
                     <dependencies>
@@ -423,7 +428,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.3</version>
+                    <version>3.5.1</version>
                     <configuration>
                         <source>${java.version}</source>
                         <target>${java.version}</target>
@@ -437,7 +442,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>3.0.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.0.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -455,7 +465,7 @@
                         <excludes>
                             <exclude>**/*IntegrationTest.java</exclude>
                         </excludes>
-                        <!--<skipTests>!${test.onlyITs}</skipTests>-->
+                        <skipTests>!${test.onlyITs}</skipTests>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -469,6 +479,7 @@
                         <systemPropertyVariables />
                         <trimStackTrace>false</trimStackTrace>
                         <useFile>false</useFile>
+                        <skipTests>${test.onlyITs}</skipTests>
                     </configuration>
                     <executions>
                         <execution>
@@ -487,7 +498,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.10.3</version>
+                    <version>2.10.4</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -497,7 +508,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>2.4</version>
+                    <version>3.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.0.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -507,7 +523,7 @@
                 <plugin>
                     <groupId>pl.project13.maven</groupId>
                     <artifactId>git-commit-id-plugin</artifactId>
-                    <version>2.2.0</version>
+                    <version>2.2.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -696,8 +712,8 @@
             <!-- actief voor Travis-CI builds -->
             <id>postgresql</id>
             <properties>
-                <oracle.jdbc.artifactId>ojdbc6</oracle.jdbc.artifactId>
-                <oracle.jdbc.version>11.2.0.3</oracle.jdbc.version>
+                <oracle.jdbc.artifactId>ojdbc7</oracle.jdbc.artifactId>
+                <oracle.jdbc.version>12.1.0.2</oracle.jdbc.version>
             </properties>
             <repositories>
                 <repository>
@@ -714,8 +730,8 @@
             <!-- actief voor AppVeyor builds -->
             <id>mssql</id>
             <properties>
-                <oracle.jdbc.artifactId>ojdbc6</oracle.jdbc.artifactId>
-                <oracle.jdbc.version>11.2.0.3</oracle.jdbc.version>
+                <oracle.jdbc.artifactId>ojdbc7</oracle.jdbc.artifactId>
+                <oracle.jdbc.version>12.1.0.2</oracle.jdbc.version>
             </properties>
             <repositories>
                 <repository>
