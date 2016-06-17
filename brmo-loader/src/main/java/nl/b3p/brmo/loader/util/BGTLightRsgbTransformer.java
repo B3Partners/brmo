@@ -72,43 +72,14 @@ public class BGTLightRsgbTransformer implements Runnable {
     public void init() throws SQLException {
         geomjdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(dataSourceRsgbBgt.getConnection());
 
-        boolean isMSSQL = geomjdbc.getGeotoolsDBTypeName().toLowerCase().contains("sqlserver");
-        if (isMSSQL) {
-            // HACK
-            // jndi lijkt niet te werken in geotools met jDTS.. kreeg steeds een null voor de DataStore
-            // uitzoeken / bug report maken
-            // vooralsnog maar even met gewone property set doen
-            // zie: https://osgeo-org.atlassian.net/browse/GEOT-5422 en https://github.com/geotools/geotools/pull/1198
-
-            String dbName = dataSourceRsgbBgt.getConnection().getCatalog();
-            params.put("database", dbName);
-
-            String url = dataSourceRsgbBgt.getConnection().getMetaData().getURL();
-            // jdbc:jtds:sqlserver://192.168.1.15:1433/bgttest;instance=SQLEXPRESS"
-            URI uri = URI.create(url.substring(10));
-            params.put("host", uri.getHost());
-            params.put("port", uri.getPort());
-            params.put("instance", uri.getPath().substring(1 + dbName.length() + 10));
-            params.put("user", dataSourceRsgbBgt.getConnection().getMetaData().getUserName());
-            try {
-                JtdsConnection oc = dataSourceRsgbBgt.getConnection().unwrap(JtdsConnection.class);
-                //dit kan dus niet: params.put("passwd", dataSourceRsgbBgt.getConnection().getMetaData().getPassword());
-                String pwd = (String) FieldUtils.readField(oc, "password", isMSSQL);
-                params.put("passwd", pwd);
-            } catch (IllegalAccessException ex) {
-                LOG.error("wachtwoord kon niet worden ingesteld", ex);
-            }
-
-        } else {
-            params.put("jndiReferenceName", "java:comp/env/jdbc/brmo/rsgbbgt");
-        }
+        params.put("jndiReferenceName", "java:comp/env/jdbc/brmo/rsgbbgt");
         params.put("dbtype", geomjdbc.getGeotoolsDBTypeName());
         params.put("schema", geomjdbc.getSchema());
 
         gmlLoader.setDbConnProps(params);
         gmlLoader.setBijwerkDatum(new Date());
         gmlLoader.setIsOracle(geomjdbc.getGeotoolsDBTypeName().toLowerCase().contains("oracle"));
-        gmlLoader.setIsMSSQL(isMSSQL);
+        gmlLoader.setIsMSSQL(geomjdbc.getGeotoolsDBTypeName().toLowerCase().contains("sqlserver"));
     }
 
     public void setLoadingUpdate(boolean loadingUpdate) {
