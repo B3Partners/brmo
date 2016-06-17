@@ -169,8 +169,13 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
         try {
             l.updateStatus("Initialiseren...");
-            l.addLog(String.format("Initialiseren... %tc", new Date()));
+            final Date startDate = new Date();
+            l.addLog(String.format("Initialiseren GDS2 ophalen proces %d... %tc", config.getId(), startDate));
+            this.config.updateSamenvattingEnLogfile(
+                    String.format("Het GDS2 ophalen proces is gestart op %tc.", startDate));
             this.config.setStatus(AutomatischProces.ProcessingStatus.PROCESSING);
+            this.config.setLastrun(startDate);
+            Stripersist.getEntityManager().merge(this.config);
             Stripersist.getEntityManager().flush();
 
             BestandenlijstOpvragenRequest request = new BestandenlijstOpvragenRequest();
@@ -192,8 +197,14 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             }
 
             // datum tijd parsen/instellen
-            GregorianCalendar vanaf = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("vanafdatum")));
+            GregorianCalendar vanaf = null;
             GregorianCalendar tot = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("totdatum")));
+            String sVanaf = ClobElement.nullSafeGet(this.config.getConfig().get("vanafdatum"));
+            if (tot != null && ("-1".equals(sVanaf) | "-2".equals(sVanaf) | "-3".equals(sVanaf))) {
+                vanaf = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("totdatum")), Integer.parseInt(sVanaf));
+            } else {
+                vanaf = getDatumTijd(sVanaf);
+            }
 
             GregorianCalendar currentMoment = null;
             boolean parseblePeriod = false;
@@ -208,8 +219,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 currentMoment = vanaf;
             }
 
-            // Mark denkt: misschien een Set<AfgifteGBType> van maken, dan zijn er geen duplicaten om te verwerken
-            List<AfgifteGBType> afgiftesGb = new ArrayList<AfgifteGBType>();
+            List<AfgifteGBType> afgiftesGb = new ArrayList<>();
 
             Gds2AfgifteServiceV20130701 gds2 = initGDS2();
             l.updateStatus("Uitvoeren SOAP request naar Kadaster...");
@@ -364,7 +374,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                         if (t.getDigikoppelingExternalDatareferences() != null
                                 && t.getDigikoppelingExternalDatareferences().getDataReference() != null) {
                             for (DataReference dr : t.getDigikoppelingExternalDatareferences().getDataReference()) {
-                                log.info("GSD2url: " + dr.getTransport().getLocation().getSenderUrl().getValue());
+                                log.info("GDS2url te downloaden: " + dr.getTransport().getLocation().getSenderUrl().getValue());
                                 break;
                             }
                         }
@@ -381,7 +391,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             } while (morePeriods2Process);
 
             l.total(afgiftesGb.size());
-            config.addLogLine("Totaal aantal opgehaalde berichten: " + afgiftesGb.size());
+            l.addLog("Totaal aantal op te halen berichten: " + afgiftesGb.size());
+            config.addLogLine("Totaal aantal op te halen berichten: " + afgiftesGb.size());
 
             verwerkAfgiftes(afgiftesGb);
 
@@ -593,7 +604,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             b.setOpmerking(msg);
             proces.addLogLine(msg);
             l.addLog(msg);
-            log.info(msg);
 
             return b.getStatus() == Bericht.STATUS.STAGING_FORWARDED;
         } catch (Exception e) {
@@ -637,9 +647,20 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         return gregory;
     }
 
+    /**
+     * parse datum uit string.
+     *
+     * @param refDate datum in dd-MM-yyyy formaat
+     * @return datum of null in geval van een parse fout
+     */
+    private GregorianCalendar getDatumTijd(String refDate, int before) {
+        GregorianCalendar ref = getDatumTijd(refDate);
+        ref.add(GregorianCalendar.DAY_OF_YEAR, before);
+        return ref;
+    }
+
     private XMLGregorianCalendar getXMLDatumTijd(GregorianCalendar gregory) {
         try {
-
             return DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory);
         } catch (DatatypeConfigurationException ex) {
             log.error(ex);
@@ -657,8 +678,10 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     private void verwerkAfgiftes(List<AfgifteGBType> afgiftesGb) throws Exception {
         int filterAlVerwerkt = 0;
         int aantalGeladen = 0;
+        int aantalDoorgestuurd = 0;
         int progress = 0;
-        List<Bericht> geladenBerichten = new ArrayList();
+        List<Long> geladenBerichtIds = new ArrayList();
+        String doorsturenUrl = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
 
         for (AfgifteGBType a : afgiftesGb) {
             String url = null;
@@ -674,8 +697,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                     filterAlVerwerkt++;
                 } else {
                     Bericht b = laadAfgifte(a, url);
-                    if (b != null) {
-                        geladenBerichten.add(b);
+                    if (b != null && doorsturenUrl != null) {
+                        geladenBerichtIds.add(b.getId());
                     }
                     aantalGeladen++;
                 }
@@ -683,23 +706,38 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             l.progress(++progress);
         }
 
-        String doorsturenUrl = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
-        if (doorsturenUrl != null && !geladenBerichten.isEmpty()) {
-            for (Bericht b : geladenBerichten) {
+        Bericht b;
+        if (doorsturenUrl != null && !geladenBerichtIds.isEmpty()) {
+            l.addLog("Doorsturen van de opgehaalde berichten, in totaal " + geladenBerichtIds.size());
+            l.total(geladenBerichtIds.size());
+            progress = 0;
+
+            for (Long bId : geladenBerichtIds) {
+                b = Stripersist.getEntityManager().find(Bericht.class, bId);
+                l.updateStatus("Doorsturen bericht: " + b.getObject_ref());
                 doorsturenBericht(this.config, l, b, doorsturenUrl);
                 Stripersist.getEntityManager().merge(b);
                 Stripersist.getEntityManager().merge(this.config);
                 Stripersist.getEntityManager().flush();
                 Stripersist.getEntityManager().getTransaction().commit();
+                Stripersist.getEntityManager().clear();
+                aantalDoorgestuurd++;
+                l.progress(++progress);
             }
         }
 
         l.addLog("\n\n**** resultaat ****\n");
         l.addLog("Aantal afgiftes die al waren verwerkt: " + filterAlVerwerkt);
-        l.addLog("\nAantal afgiftes geladen: " + aantalGeladen + "\n");
+        l.addLog("\nAantal afgiftes geladen: " + aantalGeladen);
+        l.addLog("\nAantal afgiftes doorgestuurd: " + aantalDoorgestuurd + "\n");
 
-        this.config.updateSamenvattingEnLogfile("Aantal afgiftes die al waren verwerkt: " + filterAlVerwerkt + LOG_NEWLINE
-                + "Aantal afgiftes geladen: " + aantalGeladen);
+        l.addLog(String.format("Het GDS2 ophalen proces met ID %d is afgerond op %tc", config.getId(), Calendar.getInstance()));
+        this.config.updateSamenvattingEnLogfile(
+                String.format("Het GDS2 ophalen proces, gestart op %tc, is afgerond op %tc. " + LOG_NEWLINE
+                        + "Aantal afgiftes die al waren verwerkt: %d" + LOG_NEWLINE
+                        + "Aantal afgiftes geladen: %d" + LOG_NEWLINE
+                        + "Aantal afgiftes doorgestuurd: %d",
+                        this.config.getLastrun(), Calendar.getInstance(), filterAlVerwerkt, aantalGeladen, aantalDoorgestuurd));
 
         this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);
         this.config.setLastrun(new Date());
@@ -709,7 +747,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         Stripersist.getEntityManager().flush();
         Stripersist.getEntityManager().getTransaction().commit();
         Stripersist.getEntityManager().clear();
-
     }
 
     private Gds2AfgifteServiceV20130701 initGDS2() throws Exception {
