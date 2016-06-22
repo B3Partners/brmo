@@ -4,14 +4,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
 import net.sourceforge.jtds.jdbc.JtdsConnection;
-import nl.b3p.brmo.loader.BrmoFramework;
 import oracle.jdbc.OracleConnection;
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.ResultSetHandler;
-import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 /**
  *
@@ -29,7 +25,11 @@ public class GeometryJdbcConverterFactory {
         if (databaseProductName.contains("PostgreSQL")) {
             PostgisJdbcConverter geomToJdbc = new PostgisJdbcConverter();
             try {
-                geomToJdbc.setSchema(conn.getSchema());
+                // DO NOT USE conn.getSchema(). This is a JDBC 4.1 method not
+                // supported by older PostgreSQL drivers and NOT by DBCP 1.4
+                // used by Tomcat 7!
+                String schema = new QueryRunner().query(conn, "select current_schema", new ScalarHandler<String>());
+                geomToJdbc.setSchema(schema);
             } catch (SQLException ex) {
                 throw new UnsupportedOperationException("Cannot get/set schema: " + databaseProductName, ex);
             }
