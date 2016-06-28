@@ -1,13 +1,15 @@
 /****************************************************************
  ** Auteur	: S. Knoeff
- ** Versie 	: 2.0
- ** Datum	: 19-05-2016
+ ** Versie 	: 2.1
+ ** Datum	: 27-06-2016
  **
  ** Wijzigingen :
  ** Datum	Auteur		Soort
  ** xxxxxxxx	S.Knoeff	Initieel
  ** 15-01-2016	S.Knoeff	TMP tabel
  ** 19-05-2016	S.Knoeff	Uitbreiden met 'archief' ivm perceelsplitsingen
+ ** 27-06-2016	S.Knoeff	Uitsluiten archief records die nog een actuele tegenhanger heeft
+ **				Alleen laatst gewijzigde archiefrecord
  *****************************************************************/
 --drop VIEW vw_p8_kadastraal_perceel cascade;
 /*
@@ -55,6 +57,27 @@ with cte_complex
   on cc.perceel_identif = p.kad_identif::text
 
    union
+  select kadperceelcode,
+	gemeente_code,
+	sectie,
+	perceelnummer,
+	objectindexletter,
+	objectindexnummer,
+	oppervlakte,
+	adres,
+	straat,
+	huis_nummer,
+	huis_nummer_toevoeging,
+	huisletter,
+	postcode,
+	woonplaats,
+	gemeente,
+	cultuur,
+	datum_ingang,
+	aard,
+	geom 
+	from 
+   (
   SELECT p.sc_kad_identif              AS kadperceelcode,
     p.ka_kad_gemeentecode              AS gemeente_code,
     p.ka_sectie                        AS sectie,
@@ -80,21 +103,25 @@ with cte_complex
     p.cu_aard_cultuur_onbebouwd        AS cultuur,
     CAST(p.dat_beg_geldh AS TIMESTAMP) AS datum_ingang,
     p.cu_aard_bebouwing                AS aard,
-    p.begrenzing_perceel               AS geom
+    p.begrenzing_perceel               AS geom,
+    -- Alleen de laatst geldige
+    RANK () over (partition by p.sc_kad_identif ORDER BY p.dat_beg_geldh desc ) as ranking_nummer
   FROM  pv_map_i_kpe_archief p
      LEFT JOIN pv_info_i_koz_adres a
      ON p.sc_kad_identif = a.koz_identif
   -- Complex
      left join  cte_complex cc
      on cc.perceel_identif = p.kad_identif::text
-	
+  -- Mag alleen in archief bestaan
+     where not exists ( select null from pv_map_i_kpe i where i.sc_kad_identif=p.sc_kad_identif )
+  ) a where ranking_nummer=1
 ;
 */
 
 
 COMMENT ON VIEW vw_p8_kadastraal_perceel
 IS
-  'Versie 0.2 juni 2016 SK Provincie Gelderland';
+  'Versie 2.1 juni 2016 SK Provincie Gelderland';
 
 --DROP TABLE pm_p8_kadastraal_perceel;
 */
