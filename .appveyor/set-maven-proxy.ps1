@@ -1,12 +1,10 @@
-Write-Host "IP: $env:APPVEYOR_HTTP_PROXY_IP"
-Write-Host "PORT: $env:APPVEYOR_HTTP_PROXY_PORT"
-
 if(!(Test-Path env:\APPVEYOR_HTTP_PROXY_PORT)) {
     # No proxy port set in environment
-    Write-Host "Skip writing maven settings file" -ForegroundColor Yellow
+    Write-Host "Skip writing maven settings file; no proxy defined" -ForegroundColor Yellow
     return
 }
 
+Write-Host "proxy IP: $env:APPVEYOR_HTTP_PROXY_IP, proxy PORT: $env:APPVEYOR_HTTP_PROXY_PORT"
 
 $mavenConfig = '<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
