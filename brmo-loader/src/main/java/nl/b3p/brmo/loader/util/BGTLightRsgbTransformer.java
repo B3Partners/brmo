@@ -5,14 +5,10 @@ package nl.b3p.brmo.loader.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sql.DataSource;
-import net.sourceforge.jtds.jdbc.JtdsConnection;
 import static nl.b3p.brmo.loader.BrmoFramework.BR_BGTLIGHT;
 import nl.b3p.brmo.loader.ProgressUpdateListener;
 import nl.b3p.brmo.loader.StagingProxy;
@@ -21,7 +17,6 @@ import static nl.b3p.brmo.loader.entity.LaadProces.STATUS;
 import nl.b3p.brmo.loader.gml.BGTGMLLightLoader;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
-import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -49,6 +44,7 @@ public class BGTLightRsgbTransformer implements Runnable {
 
     private void transform(long lpID) throws SQLException {
         String opmerking;
+        STATUS status;
         LaadProces lp = stagingProxy.getLaadProcesById(lpID);
         if (lp.getSoort().equalsIgnoreCase(BR_BGTLIGHT) && lp.getStatus() == STATUS.STAGING_OK) {
             File zip = new File(lp.getBestandNaam());
@@ -58,7 +54,15 @@ public class BGTLightRsgbTransformer implements Runnable {
                 int total = gmlLoader.processZipFile(zip);
                 opmerking = gmlLoader.getOpmerkingen();
                 LOG.info(opmerking);
-                stagingProxy.updateLaadProcesStatus(lp, STATUS.RSGB_BGT_OK, opmerking);
+                switch (gmlLoader.getStatus()) {
+                    case OK:
+                        status = STATUS.RSGB_BGT_OK;
+                        break;
+                    case NOK:
+                    default:
+                        status = STATUS.RSGB_BGT_NOK;
+                }
+                stagingProxy.updateLaadProcesStatus(lp, status, opmerking);
             } catch (IOException | IllegalArgumentException ex) {
                 opmerking = "Laden van bestand " + zip + " is mislukt.\n" + ex.getLocalizedMessage();
                 LOG.error(opmerking, ex);

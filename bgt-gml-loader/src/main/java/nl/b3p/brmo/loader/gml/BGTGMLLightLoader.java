@@ -40,7 +40,6 @@ import org.geotools.data.DataUtilities;
 import org.geotools.jdbc.JDBCDataStore;
 import org.geotools.data.DefaultTransaction;
 import org.geotools.data.FeatureStore;
-import org.geotools.data.LockingManager;
 import org.geotools.data.Transaction;
 import org.geotools.data.simple.SimpleFeatureCollection;
 import org.geotools.factory.CommonFactoryFinder;
@@ -106,6 +105,8 @@ public class BGTGMLLightLoader {
 
     private final StringBuilder opmerkingen = new StringBuilder();
 
+    private STATUS status = STATUS.OK;
+
     /**
      * Default constructor initaliseert de GML parser.
      */
@@ -117,8 +118,8 @@ public class BGTGMLLightLoader {
 
         parser = new Parser(configuration);
         parser.setValidating(true);
-        parser.setStrict(true);
-        parser.setFailOnValidationError(true);
+        parser.setStrict(false);
+        parser.setFailOnValidationError(false);
     }
 
     /**
@@ -181,9 +182,13 @@ public class BGTGMLLightLoader {
                     LOG.warn("Overslaan zip entry geen GML bestand: " + entry.getName());
                 } else {
                     eName = entry.getName();
-                    LOG.debug("Lezen GML bestand " + eName + " uit zip " + zipExtract.getCanonicalPath());
+                    LOG.debug("Lezen GML bestand: " + eName + " uit zip file: " + zipExtract.getCanonicalPath());
                     result = storeFeatureCollection(new CloseShieldInputStream(zip), eName.toLowerCase());
-                    opmerkingen.append(result).append(" features geladen uit: ").append(eName).append(", zipfile: ").append(zipExtract.getCanonicalPath()).append("\n");
+                    opmerkingen.append(result)
+                            .append(" features geladen uit: ")
+                            .append(eName).append(", zipfile: ")
+                            .append(zipExtract.getCanonicalPath())
+                            .append("\n");
                     total += result;
                 }
                 entry = zip.getNextEntry();
@@ -205,7 +210,9 @@ public class BGTGMLLightLoader {
 
         } catch (SAXException | ParserConfigurationException ex) {
             LOG.error("Er is een parse fout opgetreden tijdens verwerken van " + eName + " uit " + zipExtract.getCanonicalPath(), ex);
-            opmerkingen.append("Er is een parse fout opgetreden.").append(ex);
+            opmerkingen.append("Er is een parse fout opgetreden tijdens verwerken van ").append(eName)
+                    .append(" Foutmelding: ").append(ex).append("\n");
+            this.status = STATUS.NOK;
         }
         return total;
     }
@@ -213,7 +220,7 @@ public class BGTGMLLightLoader {
     private void deleteOldData(Date deleteBeforeDatum, Geometry deleteOverlaps) throws IOException {
         JDBCDataStore dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(dbConnProps);
         if (dataStore == null) {
-            throw new IllegalStateException("Datastore mag niet null zijn voor verwijderen van van data.");
+            throw new IllegalStateException("Datastore mag niet 'null' zijn voor verwijderen van van data.");
         }
 
         FilterFactory2 ff = CommonFactoryFinder.getFilterFactory2();
@@ -260,6 +267,7 @@ public class BGTGMLLightLoader {
             result = storeFeatureCollection(new FileInputStream(gml), gml.getName().toLowerCase());
         } catch (SAXException | ParserConfigurationException ex) {
             LOG.error("Er is een parse fout opgetreden tijdens verwerken van: " + gml.getCanonicalPath(), ex);
+            this.status = STATUS.NOK;
         }
         return result;
     }
@@ -291,6 +299,15 @@ public class BGTGMLLightLoader {
         }
 
         SimpleFeatureCollection gmlFeatCollection = (SimpleFeatureCollection) parser.parse(in);
+        
+        List<Exception> validationErrors = parser.getValidationErrors();
+        if (!validationErrors.isEmpty()) {
+            LOG.warn("Er zijn validatie fouten opgetreden tijdens verwerking van bestand: " + gmlFileName);
+            for (Exception e : validationErrors) {
+                LOG.warn("validatie fout: " + e.getMessage());
+            }
+        }
+
         if (gmlFeatCollection.isEmpty()) {
             opmerkingen.append("Geen features gevonden in bestand: ").append(gmlFileName).append("\n");
             LOG.info("Geen features gevonden in bestand: " + gmlFileName);
@@ -426,6 +443,7 @@ public class BGTGMLLightLoader {
             LOG.info("Aantal ingevoegde features voor " + gmlFileName + ": " + writtenFeatures);
         } catch (IOException ioe) {
             LOG.error("I/O database probleem tijdens insert van features", ioe);
+            this.status = STATUS.NOK;
             transaction.rollback();
         } finally {
             transaction.close();
@@ -474,6 +492,7 @@ public class BGTGMLLightLoader {
             zipfiles = Arrays.asList(files);
         } else {
             LOG.fatal("De directory (" + scanDirectory + ") kan niet worden gelezen of doorbladerd.");
+            this.status = STATUS.NOK;
         }
         return zipfiles;
     }
@@ -545,7 +564,8 @@ public class BGTGMLLightLoader {
 
     /**
      *
-     * @param loadingUpdate {@code true als er een update wordt geladen, {@code false} voor een stand
+     * @param loadingUpdate {@code true} als er een update wordt geladen,
+     * {@code false} voor een stand
      */
     public void setLoadingUpdate(boolean loadingUpdate) {
         this.loadingUpdate = loadingUpdate;
@@ -565,7 +585,28 @@ public class BGTGMLLightLoader {
         return omhullendeVanZipFile;
     }
 
+    /**
+     * geeft een log van de verwerking.
+     *
+     * @return log van de verwerking
+     */
     public String getOpmerkingen() {
         return this.opmerkingen.toString();
+    }
+
+    /**
+     * geeft de verwerkingsstatus.
+     *
+     * @return status van de verwerking
+     */
+    public STATUS getStatus() {
+        return this.status;
+    }
+
+    /**
+     * verwerkingsstatus
+     */
+    public enum STATUS {
+        OK, NOK
     }
 }
