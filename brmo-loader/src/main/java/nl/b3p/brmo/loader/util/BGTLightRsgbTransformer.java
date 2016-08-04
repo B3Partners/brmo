@@ -53,7 +53,7 @@ public class BGTLightRsgbTransformer implements Runnable {
                 // het bestand aan de GML transformer geven om te transformeren
                 int total = gmlLoader.processZipFile(zip);
                 opmerking = gmlLoader.getOpmerkingen();
-                LOG.info(opmerking);
+                // dit is dubbelop: LOG.info(opmerking);
                 switch (gmlLoader.getStatus()) {
                     case OK:
                         status = STATUS.RSGB_BGT_OK;
