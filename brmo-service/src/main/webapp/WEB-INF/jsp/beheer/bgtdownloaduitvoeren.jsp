@@ -4,10 +4,10 @@
     <stripes:layout-component name="title">
         <c:choose>
             <c:when test="${actionBean.complete}">
-                Klaar - ${actionBean.title} ophalen
+                Klaar - ${actionBean.title} (${actionBean.proces.id}) ophalen
             </c:when>
             <c:otherwise>
-                [<fmt:formatNumber maxFractionDigits="1" value="${actionBean.progress}"/>%] Bezig met ophalen ${actionBean.title}...
+                [<fmt:formatNumber maxFractionDigits="1" value="${actionBean.progress}"/>%] Bezig met ophalen ${actionBean.title} (${actionBean.proces.id})...
             </c:otherwise>
         </c:choose>
     </stripes:layout-component>
@@ -22,7 +22,7 @@
         </c:if>
     </stripes:layout-component>
     <stripes:layout-component name="contents">
-        <h1>${actionBean.title} ophalen</h1>
+        <h1>${actionBean.title} (${actionBean.proces.id}) ophalen</h1>
         <p>
             Gestart op: <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${actionBean.start}"/>,
             <script type="text/javascript">

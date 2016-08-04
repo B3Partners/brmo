@@ -16,6 +16,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
+import javax.net.ssl.SSLHandshakeException;
 import javax.persistence.Transient;
 import javax.sql.DataSource;
 import nl.b3p.brmo.loader.BrmoFramework;
@@ -240,6 +241,7 @@ public class BGTLightOphalenProces extends AbstractExecutableProces {
             StreamUtils.copy(data, archiveFile);
         } catch (IOException ex) {
             LOG.error("Bestand kon niet worden opgehaald of opgeslagen.", ex);
+            log.append("Bestand kon niet worden opgehaald of opgeslagen: ").append(ex.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
             config.setSamenvatting("Er is een fout opgetreden, details staan in de logs.");
             config.setStatus(ERROR);
             listener.exception(ex);
