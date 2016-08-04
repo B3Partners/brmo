@@ -34,6 +34,7 @@ public class Main {
             System.exit(1);
         }
 
+        LOG.warn("Let op, de commandline BGT GML Light loader maakt geen gebruik van de staging database; gebruik hiervoor de webinterface.");
         BGTGMLLightLoader ldr = new BGTGMLLightLoader();
         ldr.setDbConnProps(prop);
         ldr.setScanDirectory(prop.getProperty("scandirectory"));

@@ -925,4 +925,86 @@ A simple link element can be used to implement pointer functionality, and this f
 			</simpleType>
 		</union>
 	</simpleType>
+
+    <!-- met de hand toegevoegd; komt niet in xsd voor maar wel in de data,
+         kruinlijnen zitten als LineString in de GML en niet als curve.
+         nog niet duidelijk of dit nodig is..
+
+    <xs:element name="pointProperty" type="gml:PointPropertyType">
+        <xs:annotation>
+            <xs:documentation>This property element either references a point via the XLink-attributes or contains the point element. pointProperty
+                is the predefined property which can be used by GML Application Schemas whenever a GML Feature has a property with a value that
+                is substitutable for Point.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="pointRep" type="gml:PointPropertyType">
+        <xs:annotation>
+            <xs:documentation>Deprecated with GML version 3.1.0. Use "pointProperty" instead. Included for backwards compatibility with GML 3.0.0.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="posList" type="gml:DirectPositionListType" />
+    <xs:complexType name="DirectPositionListType">
+        <xs:annotation>
+            <xs:documentation>DirectPositionList instances hold the coordinates for a sequence of direct positions within the same coordinate
+                reference system (CRS).</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="gml:doubleList">
+                <xs:attributeGroup ref="gml:SRSReferenceGroup"/>
+                <xs:attribute name="count" type="positiveInteger" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>"count" allows to specify the number of direct positions in the list. If the attribute count is present then
+                            the attribute srsDimension shall be present, too.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:element name="LineString" type="gml:LineStringType" substitutionGroup="gml:_Curve"/>
+    <xs:complexType name="LineStringType">
+        <xs:annotation>
+            <xs:documentation>A LineString is a special curve that consists of a single segment with linear interpolation. It is defined by two or
+                more coordinate tuples, with linear interpolation between them. It is backwards compatible with the LineString of GML 2, GM_LineString
+                of ISO 19107 is implemented by LineStringSegment.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="gml:AbstractCurveType">
+                <xs:sequence>
+                    <xs:choice>
+                        <xs:annotation>
+                            <xs:documentation>GML supports two different ways to specify the control points of a line string. 1. A sequence of "pos"
+                                (DirectPositionType) or "pointProperty" (PointPropertyType) elements. "pos" elements are control points that are only part
+                                of this curve, "pointProperty" elements contain a point that may be referenced from other geometry elements or reference
+                                another point defined outside of this curve (reuse of existing points). 2. The "posList" element allows for a compact way to
+                                specifiy the coordinates of the control points, if all control points are in the same coordinate reference systems and belong
+                                to this curve only. The number of direct positions in the list must be at least two.</xs:documentation>
+                        </xs:annotation>
+                        <xs:choice minOccurs="2" maxOccurs="unbounded">
+                            <xs:element ref="gml:pos"/>
+                            <xs:element ref="gml:pointProperty"/>
+                            <xs:element ref="gml:pointRep">
+                                <xs:annotation>
+                                    <xs:documentation>Deprecated with GML version 3.1.0. Use "pointProperty" instead. Included for backwards compatibility
+                                        with GML 3.0.0.</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element ref="gml:coord">
+                                <xs:annotation>
+                                    <xs:documentation>Deprecated with GML version 3.0. Use "pos" instead. The "coord" element is included for backwards
+                                        compatibility with GML 2.</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:choice>
+                        <xs:element ref="gml:posList"/>
+                        <xs:element ref="gml:coordinates">
+                            <xs:annotation>
+                                <xs:documentation>Deprecated with GML version 3.1.0. Use "posList" instead.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    -->
 </xs:schema>

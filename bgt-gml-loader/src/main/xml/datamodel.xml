@@ -22,7 +22,7 @@ Copyright (C) 2016 B3Partners B.V.
         <attribuut xslname="plus-fysiekVoorkomen" sqlname="plus_fysiekvoorkomen" sqltype="varchar(255)" />
         <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
         <attribuut xslname="lod0MultiSurface" sqlname="LOD0_GEOM_NAME" sqltype="multipolygon" />
-        <attribuut xslname="kruinlijn" sqlname="KRUINLIJN_GEOM_NAME" sqltype="linestring" />
+        <attribuut xslname="kruinlijn" sqlname="KRUINLIJN_GEOM_NAME" sqltype="geometry" />
     </objecttype>
 
     <!-- TODO Komt niet als zelfstanding objecttype voor in RSGB 3.0 doc. -->
@@ -151,7 +151,7 @@ Copyright (C) 2016 B3Partners B.V.
         <attribuut xslname="bgt-fysiekVoorkomen" sqlname="bgt_fysiekvoorkomen" sqltype="varchar(255)" />
         <attribuut xslname="plus-fysiekVoorkomen" sqlname="plus_fysiekvoorkomen" sqltype="varchar(255)" />
         <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
-        <attribuut xslname="kruinlijn" sqlname="KRUINLIJN_GEOM_NAME" sqltype="linestring" />
+        <attribuut xslname="kruinlijn" sqlname="KRUINLIJN_GEOM_NAME" sqltype="geometry" />
     </objecttype>
 
     <objecttype clazz="Overbruggingsdeel" table="overbruggingsdeel">
@@ -184,7 +184,7 @@ Copyright (C) 2016 B3Partners B.V.
         <attribuut xslname="plus-fysiekVoorkomen" sqlname="plus_fysiekvoorkomen" sqltype="varchar(255)" />
         <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
         <attribuut xslname="lod0Surface" sqlname="LOD0_GEOM_NAME" sqltype="polygon" />
-        <attribuut xslname="kruinlijn" sqlname="KRUINLIJN_GEOM_NAME" sqltype="linestring" />
+        <attribuut xslname="kruinlijn" sqlname="KRUINLIJN_GEOM_NAME" sqltype="geometry" />
     </objecttype>
 
     <objecttype clazz="Spoor" table="spoor">
@@ -229,7 +229,7 @@ Copyright (C) 2016 B3Partners B.V.
         <attribuut xslname="plus-fysiekVoorkomen" sqlname="plus_fysiekvoorkomen" sqltype="varchar(255)" />
         <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
         <attribuut xslname="lod0Surface" sqlname="LOD0_GEOM_NAME" sqltype="polygon" />
-        <attribuut xslname="kruinlijn" sqlname="KRUINLIJN_GEOM_NAME" sqltype="linestring" />
+        <attribuut xslname="kruinlijn" sqlname="KRUINLIJN_GEOM_NAME" sqltype="geometry" />
     </objecttype>
 
     <objecttype clazz="Pand" table="pand">
