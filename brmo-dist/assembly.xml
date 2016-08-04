@@ -62,6 +62,14 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>../${project.basedir}/datamodel/upgrade_scripts/</directory>
+            <outputDirectory>db/upgrade_scripts</outputDirectory>
+            <includes>
+                <include>**/*.sql</include>
+                <include>**/*.md</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>../${project.basedir}/bgt-gml-loader/target/generated-resources/ddl/</directory>
             <outputDirectory>db/rsgbbgt</outputDirectory>
             <includes>

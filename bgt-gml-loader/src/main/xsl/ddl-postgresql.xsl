@@ -22,7 +22,7 @@
         <geom rsgb="multipoint" db="MULTIPOINT"/>
         <geom rsgb="linestring" db="LINESTRING"/>
         <geom rsgb="multilinestring" db="MULTILINESTRING"/>
-        <geom rsgb="multicurve" db="MULTICURVE"/>
+        <geom rsgb="multicurve" db="GEOMETRY"/>
         <geom rsgb="geometry" db="GEOMETRY"/>
     </xsl:variable>
 
