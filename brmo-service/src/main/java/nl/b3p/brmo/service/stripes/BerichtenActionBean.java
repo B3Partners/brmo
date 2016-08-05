@@ -67,7 +67,7 @@ public class BerichtenActionBean implements ActionBean {
                 JSONObject j = this.getFilter().getJSONObject(k);
                 String property = j.getString("property");
                 Object value = j.opt("value"); //JSONARRAY ["STAGING_OK","RSGB_OK","RSGB_NOK"] of string
-                String stringValue = null;
+                String stringValue = "";
                 if (value instanceof String) {
                     stringValue = (String)value;
                 } else if (value instanceof JSONArray) {
@@ -93,6 +93,9 @@ public class BerichtenActionBean implements ActionBean {
 
             count = brmo.getCountBerichten(sort, dir, filterSoort, filterStatus);
 
+            if (start < 0) {
+                start = 0;
+            }
             berichten = brmo.getBerichten(page, start, limit, 
                     (sort==null || sort.trim().isEmpty())?"id":sort, 
                     (dir==null || dir.trim().isEmpty())?"asc":dir, 
