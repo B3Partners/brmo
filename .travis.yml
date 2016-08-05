@@ -1,55 +1,88 @@
+dist: trusty
+sudo: required
 language: java
 
-sudo: false
-
 addons:
-  postgresql: "9.4"
+   postgresql: "9.4"
+   # fix voor OpenJDK bufferoverflow, zie: 
+   #  - https://docs.travis-ci.com/user/hostname
+   #  - https://github.com/travis-ci/travis-ci/issues/5227
+   #  - https://github.com/travis-ci/travis-ci/issues/5669
+   hostname: travis-brmo
 
 jdk:
   - openjdk7
   - oraclejdk7
   - oraclejdk8
+  - openjdk8
 
 matrix:
   fast_finish: true
+
+  allow_failures:
+    - jdk: openjdk7
 
 cache:
   directories:
   - $HOME/.m2
 
 before_install:
+  # installeer up-2-date Maven versie
+  - wget https://www-eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.zip
+  - unzip -qq apache-maven-3.3.9-bin.zip
+  - export M2_HOME=$PWD/apache-maven-3.3.9
+  - export PATH=$M2_HOME/bin:$PATH
+  # installeer/update postgis 2.2 op 9.5  
+  - sudo service postgresql stop
+  - sudo -E apt-get -qq update &>> ~/apt-get-update.log
+  - sudo apt-get -qq install postgis gdal-bin
+  - sudo cp /etc/postgresql/9.4/main/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
+  - sudo /etc/init.d/postgresql restart
+  #- export PGHOST=localhost
+  - export PGPORT=5433
+  - export PAGER=cat
   # set up STAGING db
   - psql --version
+  - psql -U postgres -d postgres -c 'SELECT Version();'
   - psql -U postgres -a -c "CREATE ROLE staging LOGIN PASSWORD 'staging' SUPERUSER CREATEDB;"
   - psql -U postgres -a -c "CREATE ROLE rsgb LOGIN PASSWORD 'rsgb' SUPERUSER CREATEDB;"
   - psql -U postgres -c 'create database staging;'
   - psql -U postgres -c 'create database rsgb;'
   - psql -U postgres -d rsgb -c 'create extension postgis;'
+  - psql -U postgres -d rsgb -c 'SELECT PostGIS_full_version();' 
   - ls -l ./datamodel/generated_scripts/
+  # bgt test schema
+  - psql -U postgres -d rsgb -c "CREATE SCHEMA bgttest AUTHORIZATION rsgb;"
+  - psql -U postgres -d rsgb -c "GRANT ALL ON SCHEMA bgttest TO public;"
   # set up RSGB db
-  - travis_wait psql -U postgres -w -d rsgb -f ./datamodel/generated_scripts/datamodel_postgresql.sql
-  - ls -l ./datamodel/utility_scripts/postgresql/
-  - travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/111a_update_gemeente_geom.sql
-  - travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/113a_update_wijk_geom.sql
+  - travis_wait psql -U postgres -w -q -d rsgb -f ./datamodel/generated_scripts/datamodel_postgresql.sql
+  #- ls -l ./datamodel/utility_scripts/postgresql/
+  #- travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/111a_update_gemeente_geom.sql
+  #- travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/113a_update_wijk_geom.sql
 
 install:
   # install all dependencies + artifacts without any testing, create staging db scripts
-  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Ptravis-ci -pl '!brmo-dist'
+  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Ppostgresql -pl '!brmo-dist'
 
 before_script:
   # dit dient na afloop van de 'install' gedaan te worden omdat de staging DB sql gegenereerd wordt door Hibernate
-  - ls -l ./brmo-persistence/target/ddlscripts/
-  - psql -U postgres -d staging -a -f ./brmo-persistence/target/ddlscripts/create-brmo-persistence-postgresql.sql
+  # set up staging db
+  # TODO, see https://github.com/B3Partners/brmo/issues/153
+  #- ls -l ./brmo-persistence/target/ddlscripts/
+  #- psql -U postgres -d staging -f ./brmo-persistence/target/ddlscripts/create-brmo-persistence-postgresql.sql
   - ls -l ./brmo-persistence/db/
-  - psql -U postgres -d staging -a -f ./brmo-persistence/db/01_create_indexes.sql
-  - psql -U postgres -d staging -a -f ./brmo-persistence/db/02_insert_default_user.sql
+  - psql -U postgres -d staging -f ./brmo-persistence/db/create-brmo-persistence-postgresql.sql
+  - psql -U postgres -d staging -f ./brmo-persistence/db/01_create_indexes.sql
+  - psql -U postgres -d staging -f ./brmo-persistence/db/02_insert_default_user.sql
+  # bgt test tabellen
+  - psql "dbname=rsgb options=--search_path=bgttest,public" -U postgres -w -q -f ./bgt-gml-loader/target/generated-resources/ddl/postgresql/create_rsgb_bgt.sql
 
 # run tests
 script:
   # run unit tests
-  - mvn -e test -B -Ptravis-ci -pl '!brmo-dist'
+  - mvn -e test -B -Ppostgresql -pl '!brmo-dist'
   # run integration tests
-  - mvn -e verify -B -Ptravis-ci -pl '!brmo-dist'
+  # - travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl '!brmo-dist'
   # test of javadoc compliant is met java-8 strict checks
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
          mvn javadoc:javadoc;

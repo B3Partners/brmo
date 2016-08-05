@@ -18,7 +18,7 @@
         <div id="button-run-all-stand"></div>
         <div id="button-retry"></div>
         <div id="button-retry-stand"></div>
-        <div id="button-export-mutaties"></div>
+        <div id="button-advanced-functions"></div>
         <div id="button-run-updates"></div>        
         <script type="text/javascript">
             var b3pberichten = Ext.create('B3P.brmo.Berichten', {
@@ -29,7 +29,7 @@
                 retryurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.TransformActionBean" event="transformRetry"/>',
                 retrystandurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.TransformActionBean" event="transformRetryStand"/>',
                 runupdatesurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.UpdatesActionBean" event="form"/>',
-                exportmutatiesurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.ExportActionBean" event="form"/>',
+                advancedfunctionsurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean" event="form"/>',
                 gridsaveurl: '<stripes:url beanclass="nl.b3p.brmo.service.stripes.BerichtenActionBean" event="saveRecord"/>',
                 logurl : '<stripes:url beanclass="nl.b3p.brmo.service.stripes.BerichtenActionBean" event="log"/>'
             });

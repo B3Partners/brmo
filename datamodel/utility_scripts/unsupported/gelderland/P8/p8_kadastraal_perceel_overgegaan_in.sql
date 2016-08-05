@@ -1,30 +1,66 @@
 ﻿/****************************************************************
  ** Auteur	: S. Knoeff
- ** Versie 	: 1.1
- ** Datum	: 18-01-2016
+ ** Versie 	: 2.0
+ ** Datum	: 19-05-2016
  **
  ** Wijzigingen :
  ** Datum	Auteur		Soort
  ** xxxxxxxx	S.Knoeff	Initieel
  ** 18-01-2016	S.Knoeff	TMP tabel
+ ** 12-04-2016	S.Knoeff	pm_p8_kadastraal_perceel_overgegaan_in werd opgebouwd uit subject, dat is niet correct
+ ** 19-05-2016	S.Knoeff	Nieuw opgezette view
  *****************************************************************/
 /*
 CREATE OR REPLACE VIEW vw_p8_kadastraal_perceel_overgegaan_in AS 
-SELECT 	sc_kad_identif 			as kadperceelcode
-, 	ka_kad_gemeentecode 		as gemeente_code
-, 	ka_sectie 			as sectie
-, 	ka_perceelnummer		as perceelnummer
-,	cast (null as char(1))		as objectindexletter
-,	-1				as objectindexnummer
-, 	ka.grootte_perceel		as oppervlakte
-, 	ka.cu_aard_cultuur_onbebouwd 	as aard
-, 	ka.datum_einde_geldh		as datum_einde
-FROM pv_kad_perceel_archief ka;
+with cte_complex
+  as
+  (
+  select perceel_identif from v_bd_app_re_all_kad_perceel
+  )                                       
+SELECT 	kadperceelcode
+,	kadperceelcode_overgegaan_in
+, 	gemeente_code
+, 	sectie
+, 	perceelnummer
+,	objectindexletter
+,	objectindexnummer
+, 	oppervlakte
+, 	aard
+, 	datum_einde
+From
+(SELECT 	distinct kpa.sc_kad_identif		as kadperceelcode
+,	kp.sc_kad_identif				as kadperceelcode_overgegaan_in
+, 	kp.ka_kad_gemeentecode 				as gemeente_code
+, 	kp.ka_sectie 					as sectie
+, 	kp.ka_perceelnummer				as perceelnummer
+,  CAST (case when cc.perceel_identif is null and kp.omschr_deelperceel is null
+	then 'G' 
+	when cc.perceel_identif is not null and kp.omschr_deelperceel is null
+	then 'C'
+	when kp.omschr_deelperceel is not null -- Deel bepalen aan hand van aanwezigheid omschrijving
+	then 'D'
+	else 'O' 				
+	end   AS CHAR(1))              			AS objectindexletter
+,	-1						as objectindexnummer
+, 	kp.grootte_perceel				as oppervlakte
+, 	kp.cu_aard_bebouwing 	 			as aard
+, 	kpa.datum_einde_geldh				as datum_einde
+, 	RANK () over (partition by kpa.sc_kad_identif ORDER BY kpa.dat_beg_geldh desc ) as ranking_nummer
+  FROM pv_kad_perceel_archief kpa
+  inner join pv_kad_perceel kp
+  on st_within( kp.plaatscoordinaten_perceel,kpa.begrenzing_perceel)
+  and kpa.sc_kad_identif <>  kp.sc_kad_identif
+
+   -- Complex
+  left join  cte_complex cc
+  on cc.perceel_identif = kp.kad_identif::text
+
+) poi 
+where ranking_nummer=1 
 */
 
-  
   CREATE TABLE pm_p8_kadastraal_perceel_overgegaan_in_tmp AS
-  SELECT * FROM vw_p8_subject_percelen; 
+  SELECT * FROM vw_p8_kadastraal_perceel_overgegaan_in; 
 
 -- Technische PK voor tooling
 ALTER TABLE pm_p8_kadastraal_perceel_overgegaan_in_tmp ADD column pm_p8_kadastraal_perceel_overgegaan_in_id serial;

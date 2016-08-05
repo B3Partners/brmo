@@ -1,6 +1,6 @@
 
 -- BRMO RSGB script voor oracle
--- Gegenereerd op 2016-03-09T17:21:17.674+01:00
+-- Gegenereerd op 2016-08-04T12:02:40.178+02:00
 
 create table sbi_activiteit(
 	omschr varchar2(60),
@@ -4270,7 +4270,7 @@ LEFT JOIN
     NUMMERAAND NA
 ON
     (
-        NA.SC_IDENTIF = VNA.FK_NN_RH_NRA_SC_IDENTIF )
+        NA.SC_IDENTIF = VBO.FK_11NRA_SC_IDENTIF)
 LEFT JOIN
     ADDRESSEERB_OBJ_AAND ADDROBJ
 ON
@@ -4347,7 +4347,7 @@ LEFT JOIN
     NUMMERAAND NA
 ON
     (
-        NA.SC_IDENTIF = LNA.FK_NN_RH_NRA_SC_IDENTIF )
+        NA.SC_IDENTIF = LPA.FK_4NRA_SC_IDENTIF )
 LEFT JOIN
     ADDRESSEERB_OBJ_AAND ADDROBJ
 ON
@@ -4422,7 +4422,7 @@ LEFT JOIN
     NUMMERAAND NA
 ON
     (
-        NA.SC_IDENTIF = SNA.FK_NN_RH_NRA_SC_IDENTIF )
+        NA.SC_IDENTIF = SPL.FK_4NRA_SC_IDENTIF)
 LEFT JOIN
     ADDRESSEERB_OBJ_AAND ADDROBJ
 ON
@@ -4698,7 +4698,146 @@ where bd1.omschrijving like 'betrokkenBij%'
 and zr2.FK_8PES_SC_IDENTIF is not null
 order by kpe.SC_KAD_IDENTIF, kpe.straat, kpe.huisnummer, kpe.toevoeging, kpe.huisletter,  to_number(KA_APPARTEMENTSINDEX);
 
--- Script: 108_insert_aard_recht_verkort.sql
+-- percelen plus appartementen op de percelen
+CREATE OR REPLACE VIEW v_bd_app_re_and_kad_perceel AS
+select
+    p.sc_kad_identif    AS kadaster_identificatie,
+    'perceel' as type,
+    p.ka_deelperceelnummer,
+    '' as ka_appartementsindex,
+    p.ka_perceelnummer,
+    p.ka_kad_gemeentecode,
+    p.ka_sectie,
+    p.begrenzing_perceel
+FROM
+    kad_perceel p
+union all  
+SELECT 
+    ar.sc_kad_identif     AS kadaster_identificatie,
+    'appartement' as type,
+    '' as ka_deelperceelnummer,
+    ar.ka_appartementsindex,
+    ar.ka_perceelnummer,
+    ar.ka_kad_gemeentecode,
+    ar.ka_sectie,
+    kp.begrenzing_perceel
+   FROM v_bd_app_re_all_kad_perceel v
+     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif
+     JOIN app_re ar ON v.app_re_identif = ar.sc_kad_identif;    
+
+-- Eigenarenkaart - percelen en appartementen met hun eigenaren
+CREATE MATERIALIZED VIEW VM_KAD_EIGENARENKAART
+    (
+        OBJECTID,
+        KADASTER_IDENTIFICATIE,
+        TYPE,
+        ZAKELIJK_RECHT_IDENTIFICATIE,
+        AANDEEL_TELLER,
+        AANDEEL_NOEMER,
+        AARD_RECHT_AAND,
+        ZAKELIJK_RECHT_OMSCHRIJVING,
+        SOORT_EIGENAAR,
+        GESLACHTSNAAM,
+        VOORVOEGSEL,
+        VOORNAMEN,
+        GESLACHT,
+        PERCEEL_ZAK_RECHT_NAAM,
+        PERSOON_IDENTIFICATIE,
+        WOONADRES,
+        GEBOORTEDATUM,
+        GEBOORTEPLAATS,
+        OVERLIJDENSDATUM,
+        NAAM_NIET_NATUURLIJK_PERSOON,
+        RECHTSVORM,
+        STATUTAIRE_ZETEL,
+        KVK_NUMMER,
+        KA_APPARTEMENTSINDEX,
+        KA_DEELPERCEELNUMMER,
+        KA_PERCEELNUMMER,
+        KA_KAD_GEMEENTECODE,
+        KA_SECTIE,
+        BEGRENZING_PERCEEL
+    ) BUILD IMMEDIATE AS
+SELECT
+    ROWNUM AS objectid,
+    p.kadaster_identificatie    AS kadaster_identificatie,
+    p.type,
+    zr.kadaster_identif AS zakelijk_recht_identificatie,
+    zr.ar_teller        AS aandeel_teller,
+    zr.ar_noemer        AS aandeel_noemer,
+    zr.fk_3avr_aand     AS aard_recht_aand,
+    ark.omschr          AS zakelijk_recht_omschrijving,
+    CASE
+        WHEN np.sc_identif IS NOT NULL
+        THEN 'Natuurlijk persoon'
+        WHEN nnp.sc_identif IS NOT NULL
+        THEN 'Niet natuurlijk persoon'
+        ELSE 'Onbekend'
+    END                             AS soort_eigenaar,
+    np.nm_geslachtsnaam             AS geslachtsnaam,
+    np.nm_voorvoegsel_geslachtsnaam AS voorvoegsel,
+    np.nm_voornamen                 AS voornamen,
+    np.geslachtsaand                AS geslacht,
+    CASE
+        WHEN np.sc_identif IS NOT NULL
+        THEN np.NM_GESLACHTSNAAM || ', ' || np.NM_VOORNAMEN || ' ' ||
+            np.NM_VOORVOEGSEL_GESLACHTSNAAM
+        WHEN nnp.sc_identif IS NOT NULL
+        THEN nnp.NAAM
+        ELSE 'Onbekend'
+    END                     AS perceel_zak_recht_naam,
+    inp.sc_identif          AS persoon_identificatie,
+    inp.va_loc_beschrijving AS woonadres,
+    inp.gb_geboortedatum    AS geboortedatum,
+    inp.gb_geboorteplaats   AS geboorteplaats,
+    inp.ol_overlijdensdatum AS overlijdensdatum,
+    nnp.naam                AS naam_niet_natuurlijk_persoon,
+    innp.rechtsvorm,
+    innp.statutaire_zetel,
+    innp_subject.kvk_nummer,
+    p.ka_appartementsindex,
+    p.ka_deelperceelnummer,
+    p.ka_perceelnummer,
+    p.ka_kad_gemeentecode,
+    p.ka_sectie,
+    p.begrenzing_perceel
+FROM
+    v_bd_app_re_and_kad_perceel p
+JOIN
+    zak_recht zr
+ON
+    zr.fk_7koz_kad_identif = p.kadaster_identificatie
+LEFT JOIN
+    aard_recht_verkort ark
+ON
+    zr.fk_3avr_aand = ark.aand
+LEFT JOIN
+    aard_verkregen_recht ar
+ON
+    zr.fk_3avr_aand = ar.aand
+LEFT JOIN
+    nat_prs np
+ON
+    np.sc_identif = zr.fk_8pes_sc_identif
+LEFT JOIN
+    ingeschr_nat_prs inp
+ON
+    inp.sc_identif = np.sc_identif
+LEFT JOIN
+    niet_nat_prs nnp
+ON
+    nnp.sc_identif = zr.fk_8pes_sc_identif
+LEFT JOIN
+    ingeschr_niet_nat_prs innp
+ON
+    innp.sc_identif = nnp.sc_identif
+LEFT JOIN
+    subject innp_subject
+ON
+    innp_subject.identif = innp.sc_identif
+WHERE
+    zr.kadaster_identif like 'NL.KAD.Tenaamstelling%';
+ -- Script: 108_insert_aard_recht_verkort.sql
 
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('1', 'Beklemrecht');
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('2', 'Eigendom (recht van)');
@@ -20147,3 +20286,24 @@ ALTER TABLE ZAK_RECHT DROP CONSTRAINT FK_ZKR_RL_3;
 
 -- Rechterkant mogelijk nog niet geinsert
 ALTER TABLE KAD_ONRRND_ZK_HIS_REL DROP CONSTRAINT FK_KAD_ONRRND_ZK_HIS_REL_SC_RH;
+-- Script: 115_nhr.sql
+
+
+
+ALTER TABLE SBI_ACTIVITEIT MODIFY (OMSCHR VARCHAR2(255));
+
+create table vestg_activiteit(
+    fk_vestg_nummer varchar2(32) references vestg(sc_identif),
+    fk_sbi_activiteit_code varchar2(6) references sbi_activiteit(sbi_code),
+    indicatie_hoofdactiviteit numeric(1,0),
+    primary key(fk_vestg_nummer, fk_sbi_activiteit_code)
+);
+
+ALTER TABLE vestg_naam
+  ADD PRIMARY KEY (naam, fk_ves_sc_identif);
+-- Script: 116_brk_extra_indices.sql
+
+CREATE INDEX ZAK_RECHT_FK_KAD_IDENTIF_IDX ON ZAK_RECHT (FK_7KOZ_KAD_IDENTIF);
+CREATE INDEX KAD_ONRRND_ZK_AANTEK_FK4_IDX ON KAD_ONRRND_ZK_AANTEK (FK_4KOZ_KAD_IDENTIF);
+CREATE INDEX KAD_PERCEEL_ID_IDX ON KAD_PERCEEL (KA_KAD_GEMEENTECODE, KA_SECTIE, KA_PERCEELNUMMER);
+CREATE INDEX ZAK_RECHT_AANTEK_FK5_ZK_RE_IDX ON ZAK_RECHT_AANTEK (FK_5ZKR_KADASTER_IDENTIF);

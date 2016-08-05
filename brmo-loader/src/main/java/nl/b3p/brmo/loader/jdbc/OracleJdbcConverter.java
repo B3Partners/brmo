@@ -109,4 +109,8 @@ public class OracleJdbcConverter extends GeometryJdbcConverter {
         return false;
     }
 
+    @Override
+    public String getGeotoolsDBTypeName() {
+        return "oracle";
+    }
 }

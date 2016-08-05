@@ -95,7 +95,7 @@ public class BasisregistratieFileUploadActionBean implements ActionBean {
                 }
             } else {
                 // Geen ZIP, direct BR XML laden
-                brmo.loadFromStream(basisregistratie, in, bestand.getFileName());
+                brmo.loadFromStream(basisregistratie, in, bestand.getFileName(), totalAdder);
             }
 
             getContext().getMessages().add(new SimpleMessage("Bestand " + bestand.getFileName() + " is ingelezen, " + theTotal.getValue() + " berichten" + (extractedFiles > 0 ? " (uit " + extractedFiles + " uitgepakte XML bestanden)" : "")));

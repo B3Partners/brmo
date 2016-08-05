@@ -35,9 +35,9 @@ import nl.b3p.brmo.loader.jdbc.OracleJdbcConverter;
 import nl.b3p.brmo.loader.updates.UpdateProcess;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.DataComfortXMLReader;
-import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.TableData;
 import nl.b3p.brmo.loader.util.TableRow;
+import nl.b3p.brmo.loader.util.RsgbTransformer;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -297,7 +297,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         long count = stagingProxy.getCountJob();
         if (count > 0 && !mode.equals(BerichtSelectMode.RETRY_WAITING)) {
             throw new BrmoException("Vorige transformatie is afgebroken,"
-                    + " verwerk eerst de RSGB_WAITING berichten!");
+                    + " verwerk eerst die berichten (zie job-tabel)!");
         }
 
         switch (mode) {
@@ -518,7 +518,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                         }
                     }
                 } else {
-                    //TODO: werkt niet als berichten voorgeladen zijn bv via DSL
                     parseNewData(null, newList, null, loadLog);
                 }
 
@@ -610,6 +609,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 t = new RsgbTransformer(BrmoFramework.XSL_BRK);
             } else if (brType.equals(BrmoFramework.BR_BAG)) {
                 t = new RsgbTransformer(BrmoFramework.XSL_BAG);
+            } else if (brType.equals(BrmoFramework.BR_NHR)) {
+                t = new RsgbTransformer(BrmoFramework.XSL_NHR);
+//            } else if (brType.equals(BrmoFramework.BR_BGTLIGHT)) {
+//                t = new BGTLightRsgbTransformer(this.stagingProxy);
             } else {
                 throw new IllegalArgumentException("Onbekende basisregistratie: " + brType);
             }
@@ -635,7 +638,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         String lastExistingBrondocumentId = null;
         for (TableData newData : newList) {
-            if (!newData.isComfortData()) {
+            if (!newData.isComfortData() && !newData.isDeleteData()) {
                 Split splitAuthentic = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic").start();
                 // auth data
                 loadLog.append("\n");
@@ -714,7 +717,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                             // write old to archive table
                             loadLog.append("\nSchrijf vorige versie naar archief tabel");
                             oldRow.setIgnoreDuplicates(true);
-                            
+
                             split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.archive").start();
                             createInsertSql(oldRow, true, loadLog);
                             split2.stop();
@@ -727,10 +730,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                         split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.update." + row.getTable()).start();
                         createUpdateSql(row, loadLog);
                         split2.stop();
-                    }
+                     }
                 }
                 splitAuthentic.stop();
-            } else {
+                
+            } else if (!newData.isDeleteData()) {
                 Split splitComfort = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort").start();
 
                 // TODO: select herkomst_br/datum uit herkomst_metadata voor tabel,kolom,waarde
@@ -772,7 +776,27 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
                 splitComfort.stop();
                 loadLog.append("\n");
+                
+            } else if (newData.isDeleteData() && (oldList == null || oldList.isEmpty())){
+                //only use delete in newData if there is no old record (this is more complete)
+                Split splitDelete = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.delete").start();
+                loadLog.append("\n\nWissen van object zonder oud record.");
+                for (TableRow row : newData.getRows()) {
+                    // zoek obv natural key op in rsgb
+                    if (rowExistsInDb(row, loadLog)) {
+                        Split split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.delete.update").start();
+                        createDeleteSql(row, loadLog);
+                        split2.stop();
+                    } else {
+                        loadLog.append("\nTe wissen record niet in database.");
+                    }
+                }
+                splitDelete.stop();
+                loadLog.append("\n");
+                    
             }
+                        
+
         }
         split.stop();
         return loadLog;
@@ -836,7 +860,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     private void updateValueInTableRow(TableRow row, String column, String newValue) {
         //TODO, mag later weer weg
         repairOldRowIfRequired(row, newValue);
-        
+
         if (column == null) {
             return;
         }
@@ -849,7 +873,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             i++;
         }
      }
-    
+
     private void repairOldRowIfRequired(TableRow row, String guessDate) {
 
         if (row.getTable().equals("kad_perceel")
@@ -1239,8 +1263,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             rs = stm.executeQuery();
             exists = rs.next();
         } finally {
-            rs.close();
-            checkAndCloseStatement(stm);
+            if(rs != null) {
+                rs.close();
+                checkAndCloseStatement(stm); // ???
+            }
         }
         loadLog.append(", rij bestaat: ").append(exists ? "ja" : "nee");
 
@@ -1450,6 +1476,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         String origName = tables.get(tableName);
 
+        if(origName == null) {
+            throw new IllegalArgumentException("Tabel bestaat niet: " + tableName);
+        }
+        
         ResultSet set = dbMetadata.getPrimaryKeys(null, geomToJdbc.getSchema(), origName);
         while (set.next()) {
             String column = set.getString("COLUMN_NAME");

@@ -22,6 +22,7 @@ import java.text.ParseException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import javax.servlet.jsp.JspException;
 import java.io.IOException;
+import net.redhogs.cronparser.Options;
 
 /**
  * Formatter voor cron expressies. The default locale for this tag is
@@ -53,10 +54,13 @@ public class CronFormatterTag extends SimpleTagSupport {
     @Override
     public void doTag() throws JspException, IOException {
         String formatted = "";
+        final Options options = new Options();
+        options.setVerbose(true);
+        options.setTwentyFourHourTime(true);
         if (cronExpression != null && !cronExpression.isEmpty()) {
             try {
                 if (locale != null) {
-                    formatted = CronExpressionDescriptor.getDescription(cronExpression, locale);
+                    formatted = CronExpressionDescriptor.getDescription(cronExpression, options, locale);
                 } else {
                     formatted = CronExpressionDescriptor.getDescription(cronExpression);
                 }

@@ -22,7 +22,7 @@ public class TableRow {
     /* Used for archief tables */
     private String columnDatumBeginGeldigheid;
     private String columnDatumEindeGeldigheid;
-
+    
     public String getTable() {
         return table;
     }
@@ -78,7 +78,7 @@ public class TableRow {
     public void setColumnDatumEindeGeldigheid(String columnDatumEindeGeldigheid) {
         this.columnDatumEindeGeldigheid = columnDatumEindeGeldigheid;
     }
-
+ 
     public String toString(List<String> displayColumns) {
         StringBuilder s = new StringBuilder();
         s.append(table).append("[");

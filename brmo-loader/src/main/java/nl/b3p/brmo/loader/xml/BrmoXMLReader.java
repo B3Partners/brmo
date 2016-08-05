@@ -19,7 +19,7 @@ public abstract class BrmoXMLReader {
     // laadproces
     private String bestandsNaam;
     private Date bestandsDatum;
-    private String soort;
+    protected String soort; //waarde gezet in implementatie
     private String gebied;
     private String opmerking;
     private String status;
@@ -41,7 +41,6 @@ public abstract class BrmoXMLReader {
 
     public void setDatumAsString(String brkDatumString) {
         setDatumAsString(brkDatumString, "yyyy-MM-dd");
-
     }
 
     public String getBestandsNaam() {

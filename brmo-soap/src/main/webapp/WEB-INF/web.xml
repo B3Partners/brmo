@@ -2,18 +2,6 @@
 <web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
     <description>brmo-soap</description>
     <display-name>brmo-soap</display-name>
-    <listener>
-        <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
-    </listener>
-    <servlet>
-        <servlet-name>GetBrkInfoImplService</servlet-name>
-        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>GetBrkInfoImplService</servlet-name>
-        <url-pattern>/GetBrkInfoImplService</url-pattern>
-    </servlet-mapping>
     <security-constraint>
         <display-name>WSSecurityConstraint</display-name>
         <web-resource-collection>
@@ -30,6 +18,27 @@
     <security-role>
         <role-name>Admin</role-name>
     </security-role>
+    <listener>
+        <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>GetBrkInfoImplService</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>EigendomMutatieService</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetBrkInfoImplService</servlet-name>
+        <url-pattern>/GetBrkInfoImplService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EigendomMutatieService</servlet-name>
+        <url-pattern>/EigendomMutatieService</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

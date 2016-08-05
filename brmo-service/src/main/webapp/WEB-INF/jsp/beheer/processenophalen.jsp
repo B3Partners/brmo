@@ -80,6 +80,7 @@
             </c:if>
 
             <c:if test="${edit || _new}">
+
                 <c:choose>
                     <c:when test="${actionBean.type eq 'MailRapportageProces'}">
                         <jsp:include page="editmailproces.jsp" />
@@ -130,13 +131,32 @@
                         </stripes:url>
                     </c:when>
 
+                    <c:when test="${actionBean.type eq 'BGTLightScannerProces'}">
+                        <jsp:include page="editbgtlightscannerproces.jsp" />
+                        <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean">
+                            <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
+                        </stripes:url>
+                    </c:when>
+
+                    <c:when test="${actionBean.type eq 'BGTLightOphaalProces'}">
+                        <jsp:include page="editbgtlightophaalproces.jsp" />
+                        <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean">
+                            <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
+                            <stripes:param name="title">BGT Light GML</stripes:param>
+                        </stripes:url>
+                    </c:when>
+
                     <c:otherwise>
                         <p>Onbekende input</p>
                     </c:otherwise>
                 </c:choose>
 
-                <stripes:button name="execute" onclick="if(confirm('Let op! Proces moet eerst zijn opgeslagen. Verder gaan?')) window.open('${url}');">Uitvoeren</stripes:button>
+                <stripes:submit name="execute" onclick="if(confirm('Let op! Het proces moet eerst zijn opgeslagen. \nCancel; eerst opslaan, OK; Toch verder gaan?')) window.open('${url}');">Uitvoeren</stripes:submit>
+
             </c:if>
         </stripes:form>
+        <p>
+            Documentatie van de automatische processen is beschikbaar op <a href="https://github.com/B3Partners/brmo/wiki/Automatische-processen" target="_blank">de wiki</a>.
+        </p>
     </stripes:layout-component>
 </stripes:layout-render>

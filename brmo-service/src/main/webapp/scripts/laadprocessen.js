@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2014 B3Partners B.V.
+ * Copyright (C) 2011-2016 B3Partners B.V.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,7 +39,15 @@ Ext.define('B3P.brmo.LaadProces', {
                             xtype: 'combobox',
                             store: ['STAGING_OK']
                         },
-                        flex: 1}
+                        flex: 1},
+                    {
+                        text: "log",
+                        dataIndex: 'id',
+                        flex: 1,
+                        renderer: function (value) {
+                            return Ext.String.format('<a href="#" onclick="return openLog({0});" title="Open opmerkingen"><img src="images/page_text.gif"/></a>', value);
+                        }
+                    }
                 ],
                 gridUrl: config.gridurl,
                 gridSaveUrl: config.gridsaveurl,
@@ -54,8 +62,7 @@ Ext.define('B3P.brmo.LaadProces', {
                 renderTo: 'button-transform',
                 handler: function() {
                     var ids = gridSelection.grid.getSelection();
-                    console.log("ids: ", ids);
-                    if(ids.length === 0) {
+                    if (ids.length === 0) {
                         Ext.Msg.alert('Selectie transformeren', 'Geen laadprocessen geselecteerd!');
                         return;
                     }
@@ -74,8 +81,7 @@ Ext.define('B3P.brmo.LaadProces', {
                 renderTo: 'button-transform-stand',
                 handler: function() {
                     var ids = gridSelection.grid.getSelection();
-                    console.log("ids: ", ids);
-                    if(ids.length === 0) {
+                    if (ids.length === 0) {
                         Ext.Msg.alert('Selectie transformeren', 'Geen laadprocessen geselecteerd!');
                         return;
                     }
@@ -89,6 +95,31 @@ Ext.define('B3P.brmo.LaadProces', {
                     window.open(config.transformstandurl + "&" + p);
                 }
             });
-         });
+        });
+        this.logUrl = config.logurl;
     }
 });
+var logWindow = null;
+function openLog(id) {
+    var url = b3plaadprocessen.logUrl + "&selectedIds=" + id;
+    Ext.Ajax.request({
+        url: url,
+        callback: function (options, success, response) {
+            if (logWindow) {
+                logWindow.destroy();
+            }
+            var bericht = Ext.decode(response.responseText);
+            var text = bericht.opmerking;
+            var html = "<pre>" + text + "</pre>";
+            logWindow = Ext.create('Ext.window.Window', {
+                title: 'Log van ' + bericht.id + ": " + bericht.bestand_naam,
+                height: 400,
+                width: 700,
+                autoScroll: true,
+                layout: 'fit',
+                html: html
+            });
+            logWindow.show();
+        }
+    });
+}

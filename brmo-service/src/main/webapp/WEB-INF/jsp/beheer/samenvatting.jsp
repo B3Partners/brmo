@@ -1,7 +1,7 @@
 <%@include file="/WEB-INF/taglibs.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <stripes:layout-render name="/WEB-INF/jsp/layout/default.jsp">
-    <stripes:layout-component name="title">BRMO Processen</stripes:layout-component>
+    <stripes:layout-component name="title">BRMO Proces logfile</stripes:layout-component>
     <stripes:layout-component name="html_head">
 
     </stripes:layout-component>

@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 rel. 2 (http://www.altova.com) by chris van lith (B3partners BV) -->
+<xs:schema xmlns:tns="http://brmo.b3p.nl/brmo/1.0/eigendom" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://brmo.b3p.nl/brmo/1.0/eigendom" version="1.0">
+	<xs:element name="EigendomMutatieException" type="tns:EigendomMutatieException"/>
+	<xs:element name="getEigendomMutaties" type="tns:getEigendomMutaties"/>
+	<xs:element name="getEigendomMutatiesResponse" type="tns:getEigendomMutatiesResponse"/>
+	<xs:element name="getMutatieList" type="tns:getMutatieList"/>
+	<xs:element name="getMutatieListResponse" type="tns:getMutatieListResponse"/>
+	<xs:complexType name="getMutatieList">
+		<xs:sequence>
+			<xs:element name="request" type="tns:mutatieListRequest" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mutatieListRequest">
+		<xs:sequence>
+			<xs:element name="fromDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="objectprefix" type="xs:string" minOccurs="0"/>
+			<xs:element name="toDate" type="xs:dateTime" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="getMutatieListResponse">
+		<xs:sequence>
+			<xs:element name="return" type="tns:mutatieListResponse" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mutatieListResponse">
+		<xs:sequence>
+			<xs:element name="mutatieEntry" type="tns:mutatieEntry" nillable="true" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>antwoord opvraag, meerdere mogelijk.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="timestamp" type="xs:dateTime">
+			<xs:annotation>
+				<xs:documentation>tijdstip van aanmaken antwoord.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="mutatieEntry">
+		<xs:sequence>
+			<xs:element name="object_ref" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>object identificatie van de mutatie (samen met volgnummer en datum uniek)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="volgnummer" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>volgnummer van de mutatie (samen met datum en object_ref uniek)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="datum" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>dag van de mutatie (samen met volgnummer en object_ref uniek)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="status_datum" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>timestamp wanneer mutatie de laatste keer naar database getransformeerd is.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EigendomMutatieException">
+		<xs:sequence>
+			<xs:element name="detail" type="xs:string" minOccurs="0"/>
+			<xs:element name="message" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="getEigendomMutaties">
+		<xs:sequence>
+			<xs:element name="request" type="tns:eigendomMutatieRequest" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>object waarmee vraag gedefinieerd moet worden.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="eigendomMutatieRequest">
+		<xs:sequence>
+			<xs:element name="identificatie" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>identificatie van object waarvoor de eigendom-gegevens moeten worden opgehaald. Komt uit eerder opgevraagde lijst.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="maxAantalResultaten" type="xs:int">
+			<xs:annotation>
+				<xs:documentation>maximaal aantal resultaten in antwoord (niet geimplementeerd)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="getEigendomMutatiesResponse">
+		<xs:sequence>
+			<xs:element name="return" type="tns:eigendomMutatieResponse" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>object waarin antwoord teruggegeven wordt.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="eigendomMutatieResponse">
+		<xs:sequence>
+			<xs:element name="eigendomMutatie" type="tns:eigendomMutatie" nillable="true" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>antwoord opvraag, meerdere mogelijk.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="timestamp" type="xs:dateTime">
+			<xs:annotation>
+				<xs:documentation>tijdstip van aanmaken antwoord.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="eigendomMutatie">
+		<xs:sequence>
+			<xs:element name="identificatienummer" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>kadastraal identificatienummer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="gemeentecode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>kadastrale gemeentecode</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="appartementsindex" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>appartementsindex (leeg indien geen appartement)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="perceelnummer" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>perceelnummer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sectie" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>sectie</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="historische_relaties" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>uit welke kadastrale percelen is dit object ontstaan, nuttig bij splisting</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="historische_relatie" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="identificatienummer" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>kadastraal indentificatienummer van object waaruit hoofdobject is ontstaan.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="aard" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>aard van de overgang: splitsing, omnummering e.d.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="brondocumenten" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>lijst met documenten waar mutatie is is vastgelegd</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="document" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>referentie naar document</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="xs:string">
+										<xs:attribute name="datum" type="xs:string"/>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="zakelijke_rechten" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>lijst met rechten op dit object</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="zakelijk_recht" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="identificatienummer" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>identificatie van het recht</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="noemer" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>geeft samen met teller aan welk deel de persoon met BSN in bezet heeft</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="teller" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>geeft samen met noemer aan welk deel de persoon met BSN in bezet heeft</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="BSN" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>identificatie van persoon met recht</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="aard_recht" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>aard van het recht: eigendom, erfpacht e.d.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="benoemd_objecten" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>lijst met adressen gekoppeld aan dit object.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="benoemd_object" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="identificatienummer" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>identificatie van het (verblijfs)object.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="gebouwd_object_oppervlakte" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>oppervlak van (verblijfs)object</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="gebouwd_object_gebruiksdoel" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>gebruiksdoel van (verblijfs)object</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="addreseerbaar_object_aanduiding" minOccurs="0" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>adres van (verblijfs)object</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="identificatienummer" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>identificatie van adres</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="postcode" type="xs:string" minOccurs="0"/>
+												<xs:element name="huisnummer" type="xs:string" minOccurs="0"/>
+												<xs:element name="huisletter" type="xs:string" minOccurs="0"/>
+												<xs:element name="huisnummertoevoeging" type="xs:string" minOccurs="0"/>
+												<xs:element name="woonplaats_identificatie" type="xs:string" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>nummer van woonplaats</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="openbare_ruimte_naam" type="xs:string" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>straatnaam</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="brondocumenten" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>lijst met documenten waar mutatie is is vastgelegd</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="document" maxOccurs="unbounded">
+													<xs:annotation>
+														<xs:documentation>referentie naar document</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:simpleContent>
+															<xs:extension base="xs:string">
+																<xs:attribute name="datum" type="xs:string"/>
+															</xs:extension>
+														</xs:simpleContent>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

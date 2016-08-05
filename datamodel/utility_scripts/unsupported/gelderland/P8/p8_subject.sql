@@ -1,12 +1,13 @@
 ﻿/****************************************************************
  ** Auteur	: S. Knoeff
- ** Versie 	: 1.1
- ** Datum	: 18-01-2016
+ ** Versie 	: 1.2
+ ** Datum	: 07-06-2016
  **
  ** Wijzigingen :
  ** Datum	Auteur		Soort
  ** xxxxxxxx	S.Knoeff	Initieel
  ** 18-01-2016	S.Knoeff	TMP tabel
+ ** 07-06-2016  S.Knoeff	Adres construeren uit va_loc_beschrijving
  *****************************************************************/
 /*
 create or replace view vw_p8_subject as
@@ -14,9 +15,22 @@ select
 p.sc_identif 				as subjectid, 
 p.sc_identif 				as pk_id, 
 p.clazz 				as type,
-cast (null as varchar(200)) 		as postcode,
-cast (null as varchar(200))		as adres,	
-cast (null as varchar(200)) 		as woonplaats,	
+cast (
+	case when trim(substring(va_loc_beschrijving, strpos(va_loc_beschrijving,',')+2,6)) ~ '[0-9][0-9][0-9][0-9][A-Z][A-Z]'
+	then trim(substring(va_loc_beschrijving, strpos(va_loc_beschrijving,',')+2,6))
+	else ''
+	end
+	as varchar(200)) 		as postcode,
+cast (	
+	case when strpos(va_loc_beschrijving,',') <> 0
+	then trim(substring(va_loc_beschrijving, 0, strpos(va_loc_beschrijving,',')))
+	else ''
+	end as varchar(200))		as adres,	
+cast (
+	case when trim(substring(va_loc_beschrijving, strpos(va_loc_beschrijving,',')+2,6)) ~ '[0-9][0-9][0-9][0-9][A-Z][A-Z]' AND strpos(va_loc_beschrijving,',') <> 0
+	then trim(substring(va_loc_beschrijving,strpos(va_loc_beschrijving,substring(va_loc_beschrijving, strpos(va_loc_beschrijving,',')+2,6))+6))
+	else ''
+	end as varchar(200)) 		as woonplaats,	
 np.nm_voornamen 			as natuurlijk_subject_voornaam,
 np.nm_voorvoegsel_geslachtsnaam 	as natuurlijk_subject_tussenvoegsel,
 np.nm_geslachtsnaam 			as natuurlijk_subject_achternaam,
@@ -49,6 +63,7 @@ left join pv_natuurlijk_persoon np
 left join pv_niet_natuurlijk_persoon nnp
  on p.sc_identif = nnp.sc_identif;
 */
+
 
 create table pm_p8_subject_tmp as select * from vw_p8_subject;
 

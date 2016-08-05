@@ -8,9 +8,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
+import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.URIResolver;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -37,6 +39,12 @@ public class RsgbTransformer {
 
         Source xsl = new StreamSource(this.getClass().getResourceAsStream(pathToXsl));
         TransformerFactory tf = TransformerFactory.newInstance();
+        tf.setURIResolver(new URIResolver() {
+            @Override
+            public Source resolve(String href, String base) throws TransformerException {
+                return new StreamSource(RsgbTransformer.class.getResourceAsStream("/xsl/" + href));
+            }
+        });
         this.t = tf.newTemplates(xsl);
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -47,7 +55,12 @@ public class RsgbTransformer {
     public String transformToDbXml(Bericht bericht) throws SAXException, IOException, TransformerConfigurationException, TransformerException {
         StringWriter sw = new StringWriter();
         Document d = db.parse( new InputSource(new StringReader(bericht.getBrXml())));
-        t.newTransformer().transform(new DOMSource(d), new StreamResult(sw));
+        Transformer transformer = t.newTransformer();
+        transformer.setParameter("objectRef", bericht.getObjectRef()==null?"":bericht.getObjectRef());
+        transformer.setParameter("datum", bericht.getDatum()==null?"":bericht.getDatum());
+        transformer.setParameter("volgordeNummer", bericht.getVolgordeNummer()==null?"":bericht.getVolgordeNummer());
+        transformer.setParameter("soort", bericht.getSoort()==null?"":bericht.getSoort());
+        transformer.transform(new DOMSource(d), new StreamResult(sw));
 
         return sw.toString();
     }

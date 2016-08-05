@@ -99,7 +99,7 @@ Ext.define('B3P.common.GridSelection', {
                     /**
                      * We will disable the 'last page' button of the pagertoolbar when we have a virtual total
                      */
-                    if(store.getProxy().getReader().rawData.hasOwnProperty('virtualtotal') && store.getProxy().getReader().rawData.virtualtotal) {
+                    if (store.getProxy().getReader().rawData.hasOwnProperty('virtualtotal') && store.getProxy().getReader().rawData.virtualtotal) {
                         // Kind of hack to disable 'last page' button, property will be used on 'afterlayout' event on pager, see below
                         pager.hideLastButton = true;
                     }
@@ -107,9 +107,9 @@ Ext.define('B3P.common.GridSelection', {
                      * When the store hits the end of a resultset (total is unknown at the beginning)
                      * the total is stored and set to correct number after each load
                      */
-                    if(maxResults !== -1) {
+                    if (maxResults !== -1) {
                         store.totalCount = maxResults;
-                        if(pager) {
+                        if (pager) {
                             pager.onLoad();  // triggers correct total
                         }
                     }
@@ -117,9 +117,9 @@ Ext.define('B3P.common.GridSelection', {
                      * total is not 0 but there are not records (resultset has exactly x pages of pageSize)
                      * store total and move to previous page
                      */
-                    if(store.totalCount !== 0 && records.length === 0) {
+                    if (store.totalCount !== 0 && records.length === 0) {
                         maxResults = store.totalCount;
-                        if(store.currentPage !== 0 && movingBack < 4) {
+                        if (store.currentPage !== 0 && movingBack < 4) {
                             movingBack++;
                             store.loadPage(parseInt(store.totalCount / pageSize, 10));
                         }
@@ -127,7 +127,7 @@ Ext.define('B3P.common.GridSelection', {
                     /**
                      * the number of results are less than the pageSize so we are at the end of the set
                      */
-                    if(store.totalCount !== 0 && records.length < pageSize) {
+                    if (store.totalCount !== 0 && records.length < pageSize) {
                         maxResults = store.totalCount;
                     }
 

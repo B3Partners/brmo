@@ -19,6 +19,8 @@ public class MssqlJdbcConverter extends GeometryJdbcConverter {
 
     private static final Log log = LogFactory.getLog(MssqlJdbcConverter.class);
 
+    private String schema = "dbo";
+
     @Override
     public boolean isDuplicateKeyViolationMessage(String message) {
         //Error Code: 2627
@@ -45,7 +47,11 @@ public class MssqlJdbcConverter extends GeometryJdbcConverter {
 
     @Override
     public String getSchema() {
-        return "dbo";
+        return schema;
+    }
+
+    public void setSchema(String schema) {
+        this.schema = schema;
     }
 
     @Override
@@ -105,4 +111,12 @@ public class MssqlJdbcConverter extends GeometryJdbcConverter {
         return false; // jtds driver
     }
 
+    @Override
+    public String getGeotoolsDBTypeName() {
+        // see: http://docs.geotools.org/stable/userguide/library/jdbc/sqlserver.html
+        final String name = "jtds-sqlserver";
+        // we gebruiken altijd jtds, maar anders.. 
+        // if(...){name = "sqlserver"}
+        return name;
+    }
 }
