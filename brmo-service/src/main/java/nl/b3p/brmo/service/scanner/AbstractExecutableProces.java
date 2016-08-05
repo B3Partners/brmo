@@ -111,21 +111,21 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
      * bepaal of het bestand een duplicaat is op basis van de bestandsnaam en
      * soort.
      *
-     * De flow in      <code>
+     * De flow in
+     * <pre>
      * loadFromFile(bericht)
-     * -> stagingProxy.loadBr(InputStream stream, String type, String fileName,...)
-     * -> snapshot reader van de input stream parsed het bericht in een BrkSnapshotXMLReader of BagMutatieXMLReader die
-     *       bericht voor bericht uitgelezen kunnen worden
-     * -> bepaal of laadproces bestaat stagingProxy.laadProcesExists(filenaam/datum)
-     * -> laadproces in database maken stagingProxy.writeLaadProces(bestand_naam/bestand_datum/soort/gebied/opmerking/status/status_datum/contact_email)
-     * -> uitlezen xml bericht als
-     * -> !stagingProxy.berichtExists(laadprocesid/object_ref/datum/volgordenummer)
-     * -> stagingProxy.writeBericht(b)
-     * </code>
+     * 	→ stagingProxy.loadBr(InputStream stream, String type, String fileName,...)
+     * 	→ snapshot reader van de input stream parsed het bericht in een BrkSnapshotXMLReader of BagMutatieXMLReader die bericht voor bericht uitgelezen kunnen worden
+     * 	→ bepaal of laadproces bestaat stagingProxy.laadProcesExists(filenaam/datum)
+     * 	→ laadproces in database maken stagingProxy.writeLaadProces(bestand_naam/bestand_datum/soort/gebied/opmerking/status/status_datum/contact_email)
+     * 	→ uitlezen xml bericht als
+     * 	→ !stagingProxy.berichtExists(laadprocesid/object_ref/datum/volgordenummer)
+     * 	→ stagingProxy.writeBericht(b)
+     * </pre>
      *
      * @param input een input bestand
      * @param soort het type registratie, bijvoorbeeld
-     * {@code BrmoFramework.BR_BRK}
+     * {@value nl.b3p.brmo.loader.BrmoFramework#BR_BRK}
      *
      * @return {@code true} als het bestand een duplicaat betreft, anders
      * {@code false}

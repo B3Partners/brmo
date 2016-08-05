@@ -26,7 +26,7 @@ import org.stripesstuff.stripersist.Stripersist;
 
 /**
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 @StrictBinding
 public class DirectoryScannerUitvoerActionBean implements ActionBean, ProgressUpdateListener {

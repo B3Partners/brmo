@@ -19,7 +19,7 @@ import org.stripesstuff.stripersist.Stripersist;
 /**
  * Toont de samenvatting/log van een automatisch proces.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public class SamenvattingActionBean implements ActionBean {
 

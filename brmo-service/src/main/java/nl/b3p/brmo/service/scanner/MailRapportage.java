@@ -38,7 +38,7 @@ import org.stripesstuff.stripersist.Stripersist;
 /**
  * Mailt rapporten.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public class MailRapportage extends AbstractExecutableProces {
 
