@@ -125,7 +125,7 @@ public class LaadProcesActionBean implements ActionBean {
             for (int k = 0; k < this.getFilter().length(); k++) {
                 JSONObject j = this.getFilter().getJSONObject(k);
                 String property = j.getString("property");
-                String value = j.getString("value");
+                String value = j.optString("value");
                 if (property.equals("soort")) {
                     filterSoort = value;
                 }
@@ -145,7 +145,9 @@ public class LaadProcesActionBean implements ActionBean {
             brmo = new BrmoFramework(dataSourceStaging, null);
 
             count = brmo.getCountLaadProcessen(sort, dir, filterSoort, filterStatus);
-
+            if (start < 0) {
+                start = 0;
+            }
             processen = brmo.getLaadprocessen(page, start, limit, 
                     (sort==null || sort.trim().isEmpty())?"id":sort, 
                     (dir==null || dir.trim().isEmpty())?"asc":dir, 
@@ -197,15 +199,18 @@ public class LaadProcesActionBean implements ActionBean {
 
     public Resolution saveRecord() {
         JSONObject item = this.getChangedItem();
-
-        final EntityManager em = Stripersist.getEntityManager();
-        nl.b3p.brmo.persistence.staging.LaadProces _lp = em.find(nl.b3p.brmo.persistence.staging.LaadProces.class, item.getLong("id"));
-        _lp.setStatus(nl.b3p.brmo.persistence.staging.LaadProces.STATUS.valueOf(item.getString("status")));
-        em.merge(_lp);
-        em.getTransaction().commit();
-
+        String status = item.optString("status");
         final JSONObject jsonResponse = new JSONObject();
-        jsonResponse.put("success", true);
+        if (status.isEmpty()) {
+            jsonResponse.put("success", false);
+        } else {
+            final EntityManager em = Stripersist.getEntityManager();
+            nl.b3p.brmo.persistence.staging.LaadProces _lp = em.find(nl.b3p.brmo.persistence.staging.LaadProces.class, item.getLong("id"));
+            _lp.setStatus(nl.b3p.brmo.persistence.staging.LaadProces.STATUS.valueOf(status));
+            em.merge(_lp);
+            em.getTransaction().commit();
+            jsonResponse.put("success", true);
+        }
         return new StreamingResolution("application/json") {
             @Override
             public void stream(HttpServletResponse response) throws Exception {
