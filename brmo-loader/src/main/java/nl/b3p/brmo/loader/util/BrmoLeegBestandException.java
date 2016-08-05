@@ -6,7 +6,7 @@ package nl.b3p.brmo.loader.util;
 /**
  * Specifieke exception voor een leeg bestand met berichten.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public class BrmoLeegBestandException extends BrmoException {
 
