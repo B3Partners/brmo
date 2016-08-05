@@ -10,7 +10,7 @@ import org.junit.Test;
 /**
  * Testcase voor {@link nl.b3p.brmo.persistence.staging.BAGScannerProces}.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public class BAGScannerProcesTest extends TestUtil {
 

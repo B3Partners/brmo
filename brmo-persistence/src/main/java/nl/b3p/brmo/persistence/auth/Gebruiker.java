@@ -55,9 +55,10 @@ public class Gebruiker implements Serializable {
     //    private Map<String,String> details = new HashMap<String,String>();
     /**
      *
-     * @param password
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException
+     * @param password wachtwoord
+     * @throws NoSuchAlgorithmException als er geen DIGEST_ALGORITM bestaat
+     * @throws UnsupportedEncodingException als er een onbekendeencodingsfout
+     * optreed
      */
     public void changePassword(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest md = (MessageDigest) MessageDigest.getInstance(DIGEST_ALGORITM);

@@ -11,7 +11,7 @@ import org.junit.Before;
 /**
  * utility methoden voor unit tests.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public abstract class TestUtil {
 

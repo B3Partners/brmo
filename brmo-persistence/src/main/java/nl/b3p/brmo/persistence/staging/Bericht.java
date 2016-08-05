@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
 /**
  * Beschrijft een (xml) bericht in de staging database.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 @Entity
 @Table(name = "bericht")

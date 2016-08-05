@@ -10,7 +10,7 @@ import org.junit.Test;
 /**
  * Testcase voor {@link  nl.b3p.brmo.persistence.staging.Bericht}.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public class BerichtTest extends TestUtil {
 

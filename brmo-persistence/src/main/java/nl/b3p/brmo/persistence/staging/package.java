@@ -4,6 +4,6 @@
 /**
  * Business objecten (entities) package voor de BRMO staging omgeving.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 package nl.b3p.brmo.persistence.staging;

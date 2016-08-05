@@ -21,7 +21,7 @@ import static org.junit.Assert.assertThat;
 /**
  * test cases voor {@link nl.b3p.brmo.persistence.staging.MailRapportageProces}.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public class MailRapportageProcesTest extends TestUtil {
 

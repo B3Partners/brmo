@@ -10,7 +10,7 @@ import org.junit.Test;
 /**
  * Testcase voor {@link  nl.b3p.brmo.persistence.staging.LaadProces}.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public class LaadProcesTest extends TestUtil {
 
