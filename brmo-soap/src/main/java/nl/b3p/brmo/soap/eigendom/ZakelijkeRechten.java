@@ -38,8 +38,8 @@ public class ZakelijkeRechten {
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-         * {@link EigendomMutatie.ZakelijkeRechten.ZakelijkRecht }
+     * Objects of the following type(s) are allowed in the list {@link ZakelijkRecht }
+     * {EigendomMutatie.ZakelijkeRechten.ZakelijkRecht}
      *
      *
      */
