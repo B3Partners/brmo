@@ -21,7 +21,7 @@ import org.stripesstuff.stripersist.Stripersist;
  *
  * @see nl.b3p.brmo.loader.BrmoFramework
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
 

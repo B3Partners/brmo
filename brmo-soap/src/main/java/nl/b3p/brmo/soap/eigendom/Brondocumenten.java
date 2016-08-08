@@ -38,7 +38,7 @@ public class Brondocumenten {
      *
      * <p>
      * Objects of the following type(s) are allowed in the list
-         * {@link EigendomMutatie.Brondocumenten.Document }
+     * {EigendomMutatie.Brondocumenten.Document }
      *
      *
      */

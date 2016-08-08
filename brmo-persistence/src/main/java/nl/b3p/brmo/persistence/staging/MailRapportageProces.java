@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 /**
  * Mail rapportage proces.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 @Entity
 public class MailRapportageProces extends AutomatischProces {

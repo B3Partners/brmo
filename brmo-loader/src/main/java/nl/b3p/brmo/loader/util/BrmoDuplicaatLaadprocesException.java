@@ -6,7 +6,7 @@ package nl.b3p.brmo.loader.util;
 /**
  * Specifieke exception voor dubbel laden van een laadproces.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public class BrmoDuplicaatLaadprocesException extends BrmoException {
 

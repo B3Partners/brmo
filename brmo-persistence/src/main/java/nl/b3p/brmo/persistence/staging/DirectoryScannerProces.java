@@ -6,7 +6,7 @@ package nl.b3p.brmo.persistence.staging;
 /**
  * Levert een aantal gedeelde methoden voor directory gebaseerde processen.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public abstract class DirectoryScannerProces extends AutomatischProces {
 

@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * testcases voor {@link nl.b3p.brmo.persistence.auth.Groep }.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public class GroepTest extends TestUtil {
 

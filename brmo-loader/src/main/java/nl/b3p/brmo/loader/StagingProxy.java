@@ -155,9 +155,9 @@ public class StagingProxy {
      * bepaal of bericht bestaat aan de hand van laadprocesid, object_ref,
      * datum en volgordenummer.
      *
-     * @param b
-     * @return
-     * @throws SQLException
+     * @param b het bestaande bericht
+     * @return het bestaande bericht uit de database
+     * @throws SQLException if any
      */
     public Bericht getExistingBericht(Bericht b) throws SQLException {
         Bericht b2 = getBerichtByNaturalKey(b.getObjectRef(),
@@ -556,10 +556,10 @@ public class StagingProxy {
      * Laadt het bestand uit de stream in de database.
      *
      * @param stream input
-     * @param type type registratie, bijv. {@value BrmoFramework.BR_BRK}
+     * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}
      * @param fileName naam van het bestand (ter identificatie)
      * @param listener progress listener
-     * @throws Exception
+     * @throws Exception if any
      */
     public void loadBr(InputStream stream, String type, String fileName, ProgressUpdateListener listener) throws Exception {
 

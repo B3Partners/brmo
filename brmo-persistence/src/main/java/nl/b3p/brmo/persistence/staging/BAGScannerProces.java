@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 /**
  * Proces configuratie voor de BAG directory scanner.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 @Entity
 public class BAGScannerProces extends DirectoryScannerProces {

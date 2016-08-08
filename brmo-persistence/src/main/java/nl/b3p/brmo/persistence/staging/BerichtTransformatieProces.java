@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 
 /**
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 @Entity
 public class BerichtTransformatieProces extends AutomatischProces {

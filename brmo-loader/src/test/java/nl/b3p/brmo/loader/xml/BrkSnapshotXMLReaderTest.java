@@ -19,7 +19,7 @@ import org.junit.Test;
 /**
  * Testcases voor {@link nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader}.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public class BrkSnapshotXMLReaderTest {
 

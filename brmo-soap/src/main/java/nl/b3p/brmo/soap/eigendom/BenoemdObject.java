@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * <p>
  * Java class for anonymous complex type.
  *
  */
@@ -109,8 +108,8 @@ public class BenoemdObject {
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-             * {@link EigendomMutatie.BenoemdObjecten.BenoemdObject.AddreseerbaarObjectAanduiding }
+     * Objects of the following type(s) are allowed in the list {@link AddreseerbaarObjectAanduiding }
+     * {EigendomMutatie.BenoemdObjecten.BenoemdObject.AddreseerbaarObjectAanduiding}
      *
      *
      */
@@ -124,8 +123,9 @@ public class BenoemdObject {
     /**
      * Gets the value of the brondocumenten property.
      *
-     * @return possible object is
-             *     {@link EigendomMutatie.BenoemdObjecten.BenoemdObject.Brondocumenten }
+     * @return possible object is {@link Brondocumenten }
+     *     {EigendomMutatie.BenoemdObjecten.BenoemdObject.Brondocumenten}
+     *
      *
      */
     public Brondocumenten getBrondocumenten() {
@@ -135,8 +135,8 @@ public class BenoemdObject {
     /**
      * Sets the value of the brondocumenten property.
      *
-     * @param value allowed object is
-             *     {@link EigendomMutatie.BenoemdObjecten.BenoemdObject.Brondocumenten }
+     * @param value allowed object is {@link Brondocumenten }
+     *     {EigendomMutatie.BenoemdObjecten.BenoemdObject.Brondocumenten}
      *
      */
     public void setBrondocumenten(Brondocumenten value) {

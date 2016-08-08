@@ -19,7 +19,7 @@ import org.apache.commons.logging.LogFactory;
  * Endpoint servlet welke geposte bestanden doorstuurt naar de BRMO. Voorbeeld:
  * {@code curl -X POST -H "Content-Type: application/xml" http://localhost:8084/brmo-proxyservice/brkproxy -d  @'/testbestanden/BRK_KLEIN_SNAPSHOT.xml'}
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public class BerichtEndpointProxyServlet extends HttpServlet {
 

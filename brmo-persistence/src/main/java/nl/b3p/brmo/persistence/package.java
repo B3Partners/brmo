@@ -5,6 +5,6 @@
  * Business objecten (entities) package voor de BRMO omgeving.
  * Het staging package bevat de ORM voor de staging database.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 package nl.b3p.brmo.persistence;

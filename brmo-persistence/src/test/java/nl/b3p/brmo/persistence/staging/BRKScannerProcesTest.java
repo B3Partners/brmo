@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Testcase voor {@link nl.b3p.brmo.persistence.staging.BRKScannerProces}.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public class BRKScannerProcesTest extends TestUtil {
 

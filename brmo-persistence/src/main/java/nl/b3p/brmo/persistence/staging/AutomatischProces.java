@@ -26,7 +26,7 @@ import org.hibernate.annotations.Type;
 /**
  * Generieke beschrijving van een automatisch proces.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  *
  * @note Tabel "automatisch_proces" in de database.
  *

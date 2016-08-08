@@ -38,8 +38,8 @@ public class HistorischeRelaties {
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-         * {@link EigendomMutatie.HistorischeRelaties.HistorischeRelatie }
+     * Objects of the following type(s) are allowed in the list {@link HistorischeRelatie }
+     * {EigendomMutatie.HistorischeRelaties.HistorischeRelatie}
      *
      *
      */

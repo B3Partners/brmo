@@ -40,7 +40,7 @@ import org.xml.sax.SAXException;
  * reader of BAG mutatie files
  *
  * @author Boy de Wit
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public class BagXMLReader extends BrmoXMLReader {
 

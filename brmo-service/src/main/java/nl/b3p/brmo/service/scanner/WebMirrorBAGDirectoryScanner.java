@@ -42,8 +42,7 @@ import org.stripesstuff.stripersist.Stripersist;
 /**
  * Proces dat een web directory uitleest voor BAG mutaties in zipfiles.
  *
- * @see http://mirror.openstreetmap.nl/bag/mutatie/
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
 

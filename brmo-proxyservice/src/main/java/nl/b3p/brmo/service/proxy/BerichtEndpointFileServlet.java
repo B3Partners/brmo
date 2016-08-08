@@ -20,7 +20,7 @@ import org.apache.commons.logging.LogFactory;
  * configuratie. Voorbeeld:
  * {@code curl -X POST -H "Content-Type: application/xml" http://localhost:8084/brmo-proxyservice/brkbericht -d  @'/testbestanden/BRK_KLEIN_SNAPSHOT.xml'}
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @author mprins
  */
 public class BerichtEndpointFileServlet extends HttpServlet {
 

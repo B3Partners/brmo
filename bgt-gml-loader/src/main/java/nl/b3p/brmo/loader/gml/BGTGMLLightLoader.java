@@ -94,7 +94,7 @@ public class BGTGMLLightLoader {
 
     /**
      * {@code true} als er een update wordt geladen, {@code false} voor een
-     * stand, default is {@value}.
+     * stand, default is: {@code true}
      */
     private boolean loadingUpdate = true;
 
