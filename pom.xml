@@ -407,7 +407,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>1.10</version>
+                    <version>1.12</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -432,12 +432,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.4</version>
+                    <version>3.5.1</version>
                     <dependencies>
                         <dependency>
                             <groupId>org.apache.maven.doxia</groupId>
                             <artifactId>doxia-module-markdown</artifactId>
-                            <version>1.6</version>
+                            <version>1.7</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -458,7 +458,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.0.1</version>
+                    <version>3.0.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -584,7 +584,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.0.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

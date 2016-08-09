@@ -21,7 +21,7 @@
   <body>
     <head />
     <links>
-      <item name="Issues dashboard" href="${project.issueManagement.url}" />
+      <item name="Issues dashboard" href="${this.issueManagement.url}" />
     </links>
     <menu name="Information">
       <item name="Home" href="/index.html" />
