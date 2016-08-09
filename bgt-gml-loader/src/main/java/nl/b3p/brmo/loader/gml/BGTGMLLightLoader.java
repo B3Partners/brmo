@@ -182,7 +182,7 @@ public class BGTGMLLightLoader {
                     LOG.warn("Overslaan zip entry geen GML bestand: " + entry.getName());
                 } else {
                     eName = entry.getName();
-                    LOG.debug("Lezen GML bestand: " + eName + " uit zip file: " + zipExtract.getCanonicalPath());
+                    LOG.info("Lezen GML bestand: " + eName + " uit zip file: " + zipExtract.getCanonicalPath());
                     result = storeFeatureCollection(new CloseShieldInputStream(zip), eName.toLowerCase());
                     opmerkingen.append(result)
                             .append(" features geladen uit: ")

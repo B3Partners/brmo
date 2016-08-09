@@ -100,10 +100,9 @@ Copyright (C) 2016 B3Partners B.V.
         <attribuut xslname="identificatieBAGOPR" sqlname="identif_bagopr" sqltype="varchar(255)" />
         <attribuut xslname="openbareRuimteNaam.tekst" sqlname="oprnm_tekst" sqltype="varchar(255)" />
 
-        <!--attribuut xslname="openbareRuimteNaam.positie_1.plaatsingspunt" sqlname="oprnm_pos_1_punt" sqltype="point" /-->
         <attribuut xslname="openbareRuimteNaam.positie_1.plaatsingspunt" sqlname="DEFAULT_GEOM_NAME" sqltype="point" />
         <attribuut xslname="openbareRuimteNaam.positie_1.hoek" sqlname="oprnm_pos_1_hoek" sqltype="float(23)" />
-        <attribuut xslname="openbareRuimteNaam.positie_1.plaatsingspunt" sqlname="oprnm_pos_2_punt" sqltype="point" />
+        <attribuut xslname="openbareRuimteNaam.positie_2.plaatsingspunt" sqlname="oprnm_pos_2_punt" sqltype="point" />
         <attribuut xslname="openbareRuimteNaam.positie_2.hoek" sqlname="oprnm_pos_2_hoek" sqltype="float(23)" />
         <attribuut xslname="openbareRuimteNaam.positie_3.plaatsingspunt" sqlname="oprnm_pos_3_punt" sqltype="point" />
         <attribuut xslname="openbareRuimteNaam.positie_3.hoek" sqlname="oprnm_pos_3_hoek" sqltype="float(23)" />
