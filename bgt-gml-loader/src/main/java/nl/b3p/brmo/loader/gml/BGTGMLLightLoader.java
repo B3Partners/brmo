@@ -247,8 +247,9 @@ public class BGTGMLLightLoader {
                 store.removeFeatures(filter);
                 deletetransaction.commit();
             }
+        } finally {
+            dataStore.dispose();
         }
-        dataStore.dispose();
     }
 
     /**

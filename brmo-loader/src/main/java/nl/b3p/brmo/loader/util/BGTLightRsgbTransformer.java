@@ -43,7 +43,7 @@ public class BGTLightRsgbTransformer implements Runnable {
     }
 
     private void transform(long lpID) throws SQLException {
-        String opmerking;
+        String opmerking = "";
         STATUS status;
         LaadProces lp = stagingProxy.getLaadProcesById(lpID);
         if (lp.getSoort().equalsIgnoreCase(BR_BGTLIGHT) && lp.getStatus() == STATUS.STAGING_OK) {
@@ -64,8 +64,8 @@ public class BGTLightRsgbTransformer implements Runnable {
                 }
                 stagingProxy.updateLaadProcesStatus(lp, status, opmerking);
             } catch (IOException | IllegalArgumentException ex) {
-                opmerking = "Laden van bestand " + zip + " is mislukt.\n" + ex.getLocalizedMessage();
-                LOG.error(opmerking, ex);
+                opmerking += "Laden van bestand " + zip + " is mislukt.\n" + ex.getLocalizedMessage();
+                LOG.error("Laden van bestand " + zip + " is mislukt.", ex);
                 stagingProxy.updateLaadProcesStatus(lp, STATUS.RSGB_BGT_NOK, opmerking);
             }
         } else {
