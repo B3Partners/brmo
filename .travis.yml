@@ -9,6 +9,7 @@ addons:
    #  - https://github.com/travis-ci/travis-ci/issues/5227
    #  - https://github.com/travis-ci/travis-ci/issues/5669
    hostname: travis-brmo
+   hosts: travis-brmo
 
 jdk:
   - openjdk7
