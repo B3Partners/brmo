@@ -3,12 +3,13 @@ sudo: required
 language: java
 
 addons:
-   postgresql: "9.4"
+   postgresql: "9.5"
    # fix voor OpenJDK bufferoverflow, zie: 
    #  - https://docs.travis-ci.com/user/hostname
    #  - https://github.com/travis-ci/travis-ci/issues/5227
    #  - https://github.com/travis-ci/travis-ci/issues/5669
    hostname: travis-brmo
+   hosts: travis-brmo
 
 jdk:
   - openjdk7
@@ -36,10 +37,11 @@ before_install:
   - sudo service postgresql stop
   - sudo -E apt-get -qq update &>> ~/apt-get-update.log
   - sudo apt-get -qq install postgis gdal-bin
-  - sudo cp /etc/postgresql/9.4/main/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
-  - sudo /etc/init.d/postgresql restart
+  #- sudo cp /etc/postgresql/9.4/main/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
+  #- sudo /etc/init.d/postgresql restart
+  - sudo service postgresql start 9.5
   #- export PGHOST=localhost
-  - export PGPORT=5433
+  #- export PGPORT=5433
   - export PAGER=cat
   # set up STAGING db
   - psql --version
