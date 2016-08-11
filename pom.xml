@@ -491,7 +491,7 @@
                         <excludes>
                             <exclude>**/*IntegrationTest.java</exclude>
                         </excludes>
-                        <skipTests>!${test.onlyITs}</skipTests>
+                        <skipTests>${test.onlyITs}</skipTests>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -505,7 +505,7 @@
                         <systemPropertyVariables />
                         <trimStackTrace>false</trimStackTrace>
                         <useFile>false</useFile>
-                        <skipTests>${test.onlyITs}</skipTests>
+                        <skipTests>!${test.onlyITs}</skipTests>
                     </configuration>
                     <executions>
                         <execution>

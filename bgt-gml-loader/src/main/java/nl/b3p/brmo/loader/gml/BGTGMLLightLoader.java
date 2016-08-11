@@ -161,7 +161,8 @@ public class BGTGMLLightLoader {
      * @return het aantal geschreven features voor de zipfile
      *
      * @throws FileNotFoundException als zipExtract niet gevonden kan worden
-     * @throws IOException als ophalen next zipentry mislukt
+     * @throws IOException als ophalen next zipentry mislukt of als de database
+     * verbinding wegvalt
      */
     public int processZipFile(File zipExtract) throws FileNotFoundException, IOException {
         this.omhullendeVanZipFile = null;

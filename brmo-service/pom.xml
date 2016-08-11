@@ -208,13 +208,11 @@
             <id>postgresql</id>
             <properties>
                 <test.persistence.unit>brmo.persistence.postgresql</test.persistence.unit>
-                <postgresql.jdbc.version>9.4.1208.jre7</postgresql.jdbc.version>
             </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.postgresql</groupId>
                     <artifactId>postgresql</artifactId>
-                    <version>${postgresql.jdbc.version}</version>
                 </dependency>
             </dependencies>
             <build>
@@ -318,7 +316,6 @@
                 <dependency>
                     <groupId>net.sourceforge.jtds</groupId>
                     <artifactId>jtds</artifactId>
-                    <version>${sqlserver.jtds.version}</version>
                 </dependency>
             </dependencies>
             <build>
