@@ -46,7 +46,7 @@
         <netbeans.hint.jdkPlatform>JDK_${java.version}</netbeans.hint.jdkPlatform>
         <netbeans.hint.license>default_1</netbeans.hint.license>
         <hibernate.version>3.6.10.Final</hibernate.version>
-        <geotools.version>14.4</geotools.version>
+        <geotools.version>14.5</geotools.version>
         <postgresql.jdbc.version>9.4.1209.jre7</postgresql.jdbc.version>
         <oracle.jdbc.version>11.1.0.7.0</oracle.jdbc.version>
         <oracle.jdbc.artifactId>ojdbc5</oracle.jdbc.artifactId>
@@ -491,7 +491,7 @@
                         <excludes>
                             <exclude>**/*IntegrationTest.java</exclude>
                         </excludes>
-                        <skipTests>!${test.onlyITs}</skipTests>
+                        <skipTests>${test.onlyITs}</skipTests>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -505,7 +505,7 @@
                         <systemPropertyVariables />
                         <trimStackTrace>false</trimStackTrace>
                         <useFile>false</useFile>
-                        <skipTests>${test.onlyITs}</skipTests>
+                        <skipTests>!${test.onlyITs}</skipTests>
                     </configuration>
                     <executions>
                         <execution>

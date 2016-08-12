@@ -43,7 +43,6 @@ public class BGTLightRsgbTransformer implements Runnable {
     }
 
     private void transform(long lpID) throws SQLException {
-        String opmerking = "";
         STATUS status;
         LaadProces lp = stagingProxy.getLaadProcesById(lpID);
         if (lp.getSoort().equalsIgnoreCase(BR_BGTLIGHT) && lp.getStatus() == STATUS.STAGING_OK) {
@@ -52,7 +51,6 @@ public class BGTLightRsgbTransformer implements Runnable {
             try {
                 // het bestand aan de GML transformer geven om te transformeren
                 int total = gmlLoader.processZipFile(zip);
-                opmerking = gmlLoader.getOpmerkingen();
                 // dit is dubbelop: LOG.info(opmerking);
                 switch (gmlLoader.getStatus()) {
                     case OK:
@@ -62,11 +60,12 @@ public class BGTLightRsgbTransformer implements Runnable {
                     default:
                         status = STATUS.RSGB_BGT_NOK;
                 }
-                stagingProxy.updateLaadProcesStatus(lp, status, opmerking);
+                stagingProxy.updateLaadProcesStatus(lp, status, gmlLoader.getOpmerkingen());
             } catch (IOException | IllegalArgumentException ex) {
-                opmerking += "Laden van bestand " + zip + " is mislukt.\n" + ex.getLocalizedMessage();
                 LOG.error("Laden van bestand " + zip + " is mislukt.", ex);
-                stagingProxy.updateLaadProcesStatus(lp, STATUS.RSGB_BGT_NOK, opmerking);
+                String opmerkingen = gmlLoader.getOpmerkingen()
+                        + "\nLaden van bestand " + zip + " is mislukt: " + ex.getLocalizedMessage();
+                stagingProxy.updateLaadProcesStatus(lp, STATUS.RSGB_BGT_NOK, opmerkingen);
             }
         } else {
             LOG.warn("LaadProces " + lp.getId() + " van soort " + lp.getSoort() + " met status: " + lp.getStatus() + " is overgeslagen.");

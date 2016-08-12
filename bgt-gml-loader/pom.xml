@@ -256,9 +256,7 @@
     <profiles>
         <profile>
             <id>postgresql</id>
-            <properties>
-                <postgresql.jdbc.version>9.4.1208.jre7</postgresql.jdbc.version>
-            </properties>
+            <properties />
             <dependencies>
             </dependencies>
             <build>
