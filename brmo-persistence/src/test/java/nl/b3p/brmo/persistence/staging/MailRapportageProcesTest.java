@@ -60,8 +60,6 @@ public class MailRapportageProcesTest extends TestUtil {
 
     /**
      * test filtering op id en status.
-     *
-     * @see
      */
     @Test
     public void testRapportageLijst() {
