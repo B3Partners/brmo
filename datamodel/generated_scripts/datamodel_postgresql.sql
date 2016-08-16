@@ -1,6 +1,6 @@
 
 -- BRMO RSGB script voor postgresql
--- Gegenereerd op 2016-08-04T12:02:32.887+02:00
+-- Gegenereerd op 2016-08-16T17:14:10.051+02:00
 
 create table sbi_activiteit(
 	omschr character varying(60),
@@ -3388,7 +3388,7 @@ create table brondocument (
   tabel_identificatie varchar(50),
   identificatie varchar(50),
   gemeente integer,
-  omschrijving varchar(40),
+  omschrijving varchar(255),
   datum date,
   ref_id varchar(50),
   primary key(tabel,tabel_identificatie,identificatie)

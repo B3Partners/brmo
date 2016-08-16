@@ -184,15 +184,9 @@
             <ks_bedrag>
                 <xsl:value-of select="$oz/ko:koopsom/ko:bedrag/typ:som"/>
             </ks_bedrag>
-            <!--ks_valutasoort>
-				<!- - TODO: zoek waarde op van groepsattribuut
-                  Toelichting RSGB: "De attribuutsort maakt deel uit van het groepattribuutsoort
-                  Koopsom en is afgeleid van het subdomein CurrencyID van het domein Koopsom in
-                  de catalogus BRK. Zie verder de toelichting in de BRK.
-				- ->
-				0
-                <!- -xsl:value-of select="$oz/ko:koopsom/ko:bedrag/typ:valuta/typ:code"/- ->
-            </ks_valutasoort-->
+            <ks_valutasoort>
+                <xsl:value-of select="$oz/ko:koopsom/ko:bedrag/typ:valuta/typ:waarde"/>
+            </ks_valutasoort>
             <xsl:if test="$oz/ko:koopsom/ko:koopjaar">
                 <ks_koopjaar>
                     <xsl:value-of select="$oz/ko:koopsom/ko:koopjaar"/>
@@ -202,6 +196,9 @@
 				<xsl:if test="$oz/ko:koopsom/ko:indicatieMeerObjecten">J</xsl:if>
 				<xsl:if test="not($oz/ko:koopsom/ko:indicatieMeerObjecten)">N</xsl:if>
             </ks_meer_onroerendgoed>
+            <!-- TODO: van eerste tenaamstelling recht het stukdeel ophalen; van dat stuk de datum nemen
+            <ks_transactiedatum></ks_transactiedatum>
+             -->
             <cu_aard_bebouwing>
                 <xsl:value-of select="$oz/ko:heeftLocatie/ko:LocatieKadastraalObject/ko:cultuurBebouwd/ko:code"/>
             </cu_aard_bebouwing>
@@ -680,18 +677,30 @@
 					<xsl:value-of select="."/>
 				</datum>
 			</xsl:for-each>
+            <xsl:for-each select="Stuk:deelEnNummer">
+                <omschrijving><xsl:text>deel: </xsl:text><xsl:value-of select="Stuk:deel"/>
+                <xsl:text>, nummer: </xsl:text><xsl:value-of select="Stuk:nummer"/>
+                <xsl:text>, registercode: </xsl:text><xsl:value-of select="Stuk:registercode/typ:waarde"/>
+                <xsl:text>, soortregister: </xsl:text><xsl:value-of select="Stuk:soortRegister/typ:waarde"/></omschrijving>
+            </xsl:for-each>
 			<xsl:choose>
 				<xsl:when test="../ko:Perceel">
 					<tabel>KAD_PERCEEL</tabel>
 					<tabel_identificatie>
-						<xsl:value-of select="../ko:Perceel/ko:identificatie/nen:lokaalId"/>
+                        <xsl:value-of select="../ko:Perceel/ko:identificatie/nen:lokaalId"/>
 					</tabel_identificatie>
+                    <ref_id>
+                        <xsl:value-of select="../ko:Perceel/ko:identificatie/nen:lokaalId"/>
+                    </ref_id>
 				</xsl:when>
 				<xsl:when test="../ko:Appartementsrecht">
 					<tabel>APP_RE</tabel>
 					<tabel_identificatie>
 						<xsl:value-of select="../ko:Appartementsrecht/ko:identificatie/nen:lokaalId"/>
 					</tabel_identificatie>
+                    <ref_id>
+                        <xsl:value-of select="../ko:Appartementsrecht/ko:identificatie/nen:lokaalId"/>
+                    </ref_id>
 				</xsl:when>
 				<!--
 				<xsl:otherwise>
@@ -703,6 +712,7 @@
 				-->
 			</xsl:choose>
 		</brondocument>
+        
 		<xsl:for-each select="Stuk:omvat/Stuk:Stukdeel">
 			<brondocument ignore-duplicates="yes">
 				<identificatie>
@@ -712,6 +722,13 @@
 				</identificatie>
 				<tabel>BRONDOCUMENT</tabel>
 				<tabel_identificatie><xsl:value-of select="$parent-id"/></tabel_identificatie>
+                <xsl:for-each select="Stuk:aardStukdeel">
+                    <omschrijving><xsl:value-of select="typ:waarde"/></omschrijving>
+                </xsl:for-each>
+                <xsl:for-each select="../../Stuk:tijdstipAanbieding">
+                    <datum><xsl:value-of select="."/></datum>
+                </xsl:for-each>
+                <ref_id><xsl:value-of select="$kad_oz_id"/></ref_id>
 			</brondocument>
 		</xsl:for-each>
     </xsl:template>
@@ -735,6 +752,7 @@
 				<xsl:if test="$omschrijving">
 					<omschrijving><xsl:value-of select="$omschrijving"/></omschrijving>
                 </xsl:if>
+				<datum><xsl:value-of select="//Stuk:Stukdeel[@id = $id]/../../Stuk:tijdstipAanbieding"/></datum>
 				<xsl:if test="$ref_id">
 					<ref_id><xsl:value-of select="$ref_id"/></ref_id>
                </xsl:if>

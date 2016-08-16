@@ -1,6 +1,6 @@
 
 -- BRMO RSGB script voor sqlserver
--- Gegenereerd op 2016-08-04T12:02:47.414+02:00
+-- Gegenereerd op 2016-08-16T17:14:28.077+02:00
 
 create table sbi_activiteit(
 	omschr varchar(60),
@@ -2264,7 +2264,7 @@ create table brondocument (
   tabel_identificatie varchar(50) not null,
   identificatie varchar(50) not null,
   gemeente integer,
-  omschrijving varchar(40),
+  omschrijving varchar(255),
   datum date,
   ref_id varchar(50),
   primary key clustered(tabel,tabel_identificatie,identificatie)
