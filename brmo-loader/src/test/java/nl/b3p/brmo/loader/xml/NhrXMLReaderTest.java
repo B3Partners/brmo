@@ -5,12 +5,16 @@ import java.util.List;
 import nl.b3p.brmo.loader.entity.NhrBericht;
 import static org.junit.Assert.*;
 import org.junit.Test;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  *
  * @author Matthijs Laan
  */
 public class NhrXMLReaderTest {
+
+    private static final Log LOG = LogFactory.getLog(NhrXMLReaderTest.class);
+
     @Test
     public void testMaatschappelijkeActiviteit() throws Exception {
         NhrXMLReader r;
@@ -23,7 +27,7 @@ public class NhrXMLReaderTest {
         while (r.hasNext()) {
             NhrBericht b = r.next();
             objectRefs.add(b.getObjectRef());
-            System.out.println(String.format("Bericht #%d van %tF %2$tT, object ref %s",
+            LOG.debug(String.format("Bericht #%d van %tF %2$tT, object ref %s",
                     b.getVolgordeNummer(),
                     b.getDatum(),
                     b.getObjectRef())
