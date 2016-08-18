@@ -50,7 +50,8 @@ public class DirectoryScannerUitvoerActionBean implements ActionBean, ProgressUp
 
     private String label;
 
-    private String log = "";
+    private StringBuilder log = new StringBuilder();
+    private int logLineCounter = 0;
 
     private Date start;
 
@@ -127,9 +128,16 @@ public class DirectoryScannerUitvoerActionBean implements ActionBean, ProgressUp
     @Override
     public void addLog(String log) {
         // voorkom dubbele log uitvoer
-       // this.proces.addLogLine(log);
-       // Stripersist.getEntityManager().merge(this.proces);
-        this.log += log + "\n";
+        // this.proces.addLogLine(log);
+        // Stripersist.getEntityManager().merge(this.proces);
+        if (this.logLineCounter > 1000) {
+            // trim buffer
+            int i900regels = 100;
+            this.log.delete(0, i900regels);
+            this.log.trimToSize();
+        }
+        this.log.append(log).append("\n");
+        this.logLineCounter++;
     }
 
     @Override
@@ -199,11 +207,11 @@ public class DirectoryScannerUitvoerActionBean implements ActionBean, ProgressUp
     }
 
     public String getLog() {
-        return log;
+        return log.toString();
     }
 
     public void setLog(String log) {
-        this.log = log;
+        this.log = new StringBuilder(log);
     }
 
     public Date getStart() {
