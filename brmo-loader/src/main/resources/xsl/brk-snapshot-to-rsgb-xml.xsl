@@ -677,12 +677,30 @@
 					<xsl:value-of select="."/>
 				</datum>
 			</xsl:for-each>
-            <xsl:for-each select="Stuk:deelEnNummer">
-                <omschrijving><xsl:text>deel: </xsl:text><xsl:value-of select="Stuk:deel"/>
-                <xsl:text>, nummer: </xsl:text><xsl:value-of select="Stuk:nummer"/>
-                <xsl:text>, registercode: </xsl:text><xsl:value-of select="Stuk:registercode/typ:waarde"/>
-                <xsl:text>, soortregister: </xsl:text><xsl:value-of select="Stuk:soortRegister/typ:waarde"/></omschrijving>
-            </xsl:for-each>
+            <xsl:choose>
+                <xsl:when test="Stuk:deelEnNummer">
+                    <xsl:for-each select="Stuk:deelEnNummer">
+                        <omschrijving>
+                            <xsl:text>deel: </xsl:text>
+                            <xsl:value-of select="Stuk:deel"/>
+                            <xsl:text>, nummer: </xsl:text>
+                            <xsl:value-of select="Stuk:nummer"/>
+                            <xsl:text>, registercode: </xsl:text>
+                            <xsl:value-of select="Stuk:registercode/typ:waarde"/>
+                            <xsl:text>, soortregister: </xsl:text>
+                            <xsl:value-of select="Stuk:soortRegister/typ:waarde"/>
+                        </omschrijving>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <omschrijving>
+                        <xsl:if test="Stuk:AKRPortefeuilleNr">
+                            <xsl:text>AKR Portefeuille Nr: </xsl:text>
+                            <xsl:value-of select="Stuk:AKRPortefeuilleNr"/>
+                        </xsl:if>
+                    </omschrijving>
+                </xsl:otherwise>
+            </xsl:choose>
 			<xsl:choose>
 				<xsl:when test="../ko:Perceel">
 					<tabel>KAD_PERCEEL</tabel>
