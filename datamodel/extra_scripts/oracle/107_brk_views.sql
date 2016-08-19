@@ -215,6 +215,29 @@ SELECT
      JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif
      JOIN app_re ar ON v.app_re_identif = ar.sc_kad_identif;    
 
+-- aankoopdatum uit brondocumenten
+CREATE OR REPLACE VIEW
+    V_AANKOOPDATUM
+    (
+        KADASTER_IDENTIFICATIE,
+        AANKOOPDATUM
+    ) AS
+SELECT
+    b.ref_id AS KADASTER_IDENTIFICATIE,
+    b.datum  AS AANKOOPDATUM
+FROM
+    (
+        SELECT
+            ref_id ,
+            datum ,
+            row_number() over (partition BY ref_id ORDER BY datum DESC) AS rnk
+        FROM
+            brondocument
+        WHERE
+            omschrijving = 'Akte van Koop en Verkoop' ) b
+WHERE
+    b.rnk = 1;
+
 -- Eigenarenkaart - percelen en appartementen met hun eigenaren
 CREATE MATERIALIZED VIEW VM_KAD_EIGENARENKAART
     (
@@ -226,6 +249,7 @@ CREATE MATERIALIZED VIEW VM_KAD_EIGENARENKAART
         AANDEEL_NOEMER,
         AARD_RECHT_AAND,
         ZAKELIJK_RECHT_OMSCHRIJVING,
+        AANKOOPDATUM,
         SOORT_EIGENAAR,
         GESLACHTSNAAM,
         VOORVOEGSEL,
@@ -257,6 +281,7 @@ SELECT
     zr.ar_noemer        AS aandeel_noemer,
     zr.fk_3avr_aand     AS aard_recht_aand,
     ark.omschr          AS zakelijk_recht_omschrijving,
+    b.aankoopdatum,
     CASE
         WHEN np.sc_identif IS NOT NULL
         THEN 'Natuurlijk persoon'
@@ -325,6 +350,10 @@ LEFT JOIN
     subject innp_subject
 ON
     innp_subject.identif = innp.sc_identif
+LEFT JOIN
+    v_aankoopdatum b
+ON
+    b.kadaster_identificatie = p.kadaster_identificatie
 WHERE
     zr.kadaster_identif like 'NL.KAD.Tenaamstelling%';
  
