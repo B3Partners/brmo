@@ -214,41 +214,42 @@ SELECT
      JOIN app_re ar ON v.app_re_identif = ar.sc_kad_identif;    
 
 -- Eigenarenkaart - percelen en appartementen met hun eigenaren
+-- Eigenarenkaart - percelen en appartementen met hun eigenaren
 CREATE VIEW
-    V_KAD_EIGENARENKAART
+    v_kad_eigenarenkaart
     (
-        OBJECTID,
-        KADASTER_IDENTIFICATIE,
-        TYPE,
-        ZAKELIJK_RECHT_IDENTIFICATIE,
-        AANDEEL_TELLER,
-        AANDEEL_NOEMER,
-        AARD_RECHT_AAND,
-        ZAKELIJK_RECHT_OMSCHRIJVING,
-        SOORT_EIGENAAR,
-        GESLACHTSNAAM,
-        VOORVOEGSEL,
-        VOORNAMEN,
-        GESLACHT,
-        PERCEEL_ZAK_RECHT_NAAM,
-        PERSOON_IDENTIFICATIE,
-        WOONADRES,
-        GEBOORTEDATUM,
-        GEBOORTEPLAATS,
-        OVERLIJDENSDATUM,
-        NAAM_NIET_NATUURLIJK_PERSOON,
-        RECHTSVORM,
-        STATUTAIRE_ZETEL,
-        KVK_NUMMER,
-        KA_APPARTEMENTSINDEX,
-        KA_DEELPERCEELNUMMER,
-        KA_PERCEELNUMMER,
-        KA_KAD_GEMEENTECODE,
-        KA_SECTIE,
-        BEGRENZING_PERCEEL
+        objectid,
+        kadaster_identificatie,
+        type,
+        zakelijk_recht_identificatie,
+        aandeel_teller,
+        aandeel_noemer,
+        aard_recht_aand,
+        zakelijk_recht_omschrijving,
+        soort_eigenaar,
+        geslachtsnaam,
+        voorvoegsel,
+        voornamen,
+        geslacht,
+        perceel_zak_recht_naam,
+        persoon_identificatie,
+        woonadres,
+        geboortedatum,
+        geboorteplaats,
+        overlijdensdatum,
+        naam_niet_natuurlijk_persoon,
+        rechtsvorm,
+        statutaire_zetel,
+        kvk_nummer,
+        ka_appartementsindex,
+        ka_deelperceelnummer,
+        ka_perceelnummer,
+        ka_kad_gemeentecode,
+        ka_sectie,
+        begrenzing_perceel
     ) AS
 SELECT
-    row_number() OVER () AS objectid,
+    row_number() OVER (order by p.kadaster_identificatie) AS objectid,
     p.kadaster_identificatie    AS kadaster_identificatie,
     p.type,
     zr.kadaster_identif AS zakelijk_recht_identificatie,
@@ -269,7 +270,7 @@ SELECT
     np.geslachtsaand                AS geslacht,
     CASE
         WHEN np.sc_identif IS NOT NULL
-        THEN np.NM_GESLACHTSNAAM || ', ' || np.NM_VOORNAMEN || ' ' ||
+        THEN np.NM_GESLACHTSNAAM + ', ' + np.NM_VOORNAMEN + ' ' +
             np.NM_VOORVOEGSEL_GESLACHTSNAAM
         WHEN nnp.sc_identif IS NOT NULL
         THEN nnp.NAAM
