@@ -40,7 +40,6 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
         this.execute(new ProgressUpdateListener() {
             @Override
             public void total(long total) {
-                config.addLogLine("Totaal aantal te transformeren berichten: " + total);
             }
 
             @Override
@@ -49,7 +48,6 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
 
             @Override
             public void exception(Throwable t) {
-                config.addLogLine("FOUT: " + t.getLocalizedMessage());
                 log.error(t);
             }
 
@@ -59,7 +57,6 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
 
             @Override
             public void addLog(String log) {
-                config.addLogLine(log);
             }
         });
     }
