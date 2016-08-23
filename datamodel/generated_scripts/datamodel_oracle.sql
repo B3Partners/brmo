@@ -1,6 +1,6 @@
 
 -- BRMO RSGB script voor oracle
--- Gegenereerd op 2016-08-04T12:02:40.178+02:00
+-- Gegenereerd op 2016-08-16T17:14:19.706+02:00
 
 create table sbi_activiteit(
 	omschr varchar2(60),
@@ -3688,7 +3688,7 @@ create table brondocument (
   tabel_identificatie varchar2(50),
   identificatie varchar2(50),
   gemeente number,
-  omschrijving varchar2(40),
+  omschrijving varchar2(255),
   datum date,
   ref_id varchar2(50),
   primary key(tabel,tabel_identificatie,identificatie)

@@ -13,7 +13,7 @@ create table brondocument (
   tabel_identificatie varchar(50) not null,
   identificatie varchar(50) not null,
   gemeente integer,
-  omschrijving varchar(40),
+  omschrijving varchar(255),
   datum date,
   ref_id varchar(50),
   primary key clustered(tabel,tabel_identificatie,identificatie)

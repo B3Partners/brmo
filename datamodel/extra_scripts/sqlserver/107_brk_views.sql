@@ -213,7 +213,25 @@ SELECT
      JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif
      JOIN app_re ar ON v.app_re_identif = ar.sc_kad_identif;    
 
--- Eigenarenkaart - percelen en appartementen met hun eigenaren
+-- aankoopdatum uit brondocumenten
+CREATE VIEW
+    v_aankoopdatum AS
+SELECT
+    b.ref_id AS kadaster_identificatie,
+    b.datum  AS aankoopdatum
+FROM
+    (
+        SELECT
+            ref_id,
+            MAX(datum) datum
+        FROM
+            brondocument
+        WHERE
+            omschrijving = 'Akte van Koop en Verkoop'
+        GROUP BY
+            ref_id
+    ) b;
+
 -- Eigenarenkaart - percelen en appartementen met hun eigenaren
 CREATE VIEW
     v_kad_eigenarenkaart
@@ -226,6 +244,7 @@ CREATE VIEW
         aandeel_noemer,
         aard_recht_aand,
         zakelijk_recht_omschrijving,
+        aankoopdatum,
         soort_eigenaar,
         geslachtsnaam,
         voorvoegsel,
@@ -257,6 +276,7 @@ SELECT
     zr.ar_noemer        AS aandeel_noemer,
     zr.fk_3avr_aand     AS aard_recht_aand,
     ark.omschr          AS zakelijk_recht_omschrijving,
+    b.aankoopdatum,
     CASE
         WHEN np.sc_identif IS NOT NULL
         THEN 'Natuurlijk persoon'
@@ -325,6 +345,10 @@ LEFT JOIN
     subject innp_subject
 ON
     innp_subject.identif = innp.sc_identif
+LEFT JOIN
+    v_aankoopdatum b
+ON
+    b.kadaster_identificatie = p.kadaster_identificatie
 WHERE
     zr.kadaster_identif like 'NL.KAD.Tenaamstelling%';
    
