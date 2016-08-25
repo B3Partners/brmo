@@ -1,6 +1,8 @@
 
+--
 -- BRMO RSGB script voor sqlserver
--- Gegenereerd op 2016-08-16T17:14:28.077+02:00
+-- Gegenereerd op 2016-08-25T10:02:53.386+02:00
+--
 
 create table sbi_activiteit(
 	omschr varchar(60),
@@ -3301,42 +3303,62 @@ SELECT
      JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif
      JOIN app_re ar ON v.app_re_identif = ar.sc_kad_identif;    
 
+-- aankoopdatum uit brondocumenten
+CREATE VIEW
+    v_aankoopdatum AS
+SELECT
+    b.ref_id AS kadaster_identificatie,
+    b.datum  AS aankoopdatum
+FROM
+    (
+        SELECT
+            ref_id,
+            MAX(datum) datum
+        FROM
+            brondocument
+        WHERE
+            omschrijving = 'Akte van Koop en Verkoop'
+        GROUP BY
+            ref_id
+    ) b;
+
 -- Eigenarenkaart - percelen en appartementen met hun eigenaren
 CREATE VIEW
-    V_KAD_EIGENARENKAART
+    v_kad_eigenarenkaart
     (
-        OBJECTID,
-        KADASTER_IDENTIFICATIE,
-        TYPE,
-        ZAKELIJK_RECHT_IDENTIFICATIE,
-        AANDEEL_TELLER,
-        AANDEEL_NOEMER,
-        AARD_RECHT_AAND,
-        ZAKELIJK_RECHT_OMSCHRIJVING,
-        SOORT_EIGENAAR,
-        GESLACHTSNAAM,
-        VOORVOEGSEL,
-        VOORNAMEN,
-        GESLACHT,
-        PERCEEL_ZAK_RECHT_NAAM,
-        PERSOON_IDENTIFICATIE,
-        WOONADRES,
-        GEBOORTEDATUM,
-        GEBOORTEPLAATS,
-        OVERLIJDENSDATUM,
-        NAAM_NIET_NATUURLIJK_PERSOON,
-        RECHTSVORM,
-        STATUTAIRE_ZETEL,
-        KVK_NUMMER,
-        KA_APPARTEMENTSINDEX,
-        KA_DEELPERCEELNUMMER,
-        KA_PERCEELNUMMER,
-        KA_KAD_GEMEENTECODE,
-        KA_SECTIE,
-        BEGRENZING_PERCEEL
+        objectid,
+        kadaster_identificatie,
+        type,
+        zakelijk_recht_identificatie,
+        aandeel_teller,
+        aandeel_noemer,
+        aard_recht_aand,
+        zakelijk_recht_omschrijving,
+        aankoopdatum,
+        soort_eigenaar,
+        geslachtsnaam,
+        voorvoegsel,
+        voornamen,
+        geslacht,
+        perceel_zak_recht_naam,
+        persoon_identificatie,
+        woonadres,
+        geboortedatum,
+        geboorteplaats,
+        overlijdensdatum,
+        naam_niet_natuurlijk_persoon,
+        rechtsvorm,
+        statutaire_zetel,
+        kvk_nummer,
+        ka_appartementsindex,
+        ka_deelperceelnummer,
+        ka_perceelnummer,
+        ka_kad_gemeentecode,
+        ka_sectie,
+        begrenzing_perceel
     ) AS
 SELECT
-    row_number() OVER () AS objectid,
+    row_number() OVER (order by p.kadaster_identificatie) AS objectid,
     p.kadaster_identificatie    AS kadaster_identificatie,
     p.type,
     zr.kadaster_identif AS zakelijk_recht_identificatie,
@@ -3344,6 +3366,7 @@ SELECT
     zr.ar_noemer        AS aandeel_noemer,
     zr.fk_3avr_aand     AS aard_recht_aand,
     ark.omschr          AS zakelijk_recht_omschrijving,
+    b.aankoopdatum,
     CASE
         WHEN np.sc_identif IS NOT NULL
         THEN 'Natuurlijk persoon'
@@ -3357,7 +3380,7 @@ SELECT
     np.geslachtsaand                AS geslacht,
     CASE
         WHEN np.sc_identif IS NOT NULL
-        THEN np.NM_GESLACHTSNAAM || ', ' || np.NM_VOORNAMEN || ' ' ||
+        THEN np.NM_GESLACHTSNAAM + ', ' + np.NM_VOORNAMEN + ' ' +
             np.NM_VOORVOEGSEL_GESLACHTSNAAM
         WHEN nnp.sc_identif IS NOT NULL
         THEN nnp.NAAM
@@ -3412,6 +3435,10 @@ LEFT JOIN
     subject innp_subject
 ON
     innp_subject.identif = innp.sc_identif
+LEFT JOIN
+    v_aankoopdatum b
+ON
+    b.kadaster_identificatie = p.kadaster_identificatie
 WHERE
     zr.kadaster_identif like 'NL.KAD.Tenaamstelling%';
    
@@ -18882,6 +18909,10 @@ create table vestg_activiteit(
     primary key(fk_vestg_nummer, fk_sbi_activiteit_code)
 );
 
+ALTER TABLE vestg_naam
+  ALTER COLUMN naam varchar(500) NOT NULL;
+ALTER TABLE vestg_naam
+  ALTER COLUMN fk_ves_sc_identif varchar(32) NOT NULL;
 ALTER TABLE vestg_naam
   ADD PRIMARY KEY (naam, fk_ves_sc_identif);
 -- Script: 116_brk_extra_indices.sql

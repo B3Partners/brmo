@@ -1,6 +1,8 @@
 
+--
 -- BRMO RSGB script voor postgresql
--- Gegenereerd op 2016-08-16T17:14:10.051+02:00
+-- Gegenereerd op 2016-08-25T10:02:41.091+02:00
+--
 
 create table sbi_activiteit(
 	omschr character varying(60),
@@ -4411,6 +4413,25 @@ SELECT
      JOIN kad_perceel kp ON v.perceel_identif::NUMERIC = kp.sc_kad_identif
      JOIN app_re ar ON v.app_re_identif::NUMERIC = ar.sc_kad_identif;    
 
+-- aankoopdatum uit brondocumenten
+CREATE OR REPLACE VIEW
+    v_aankoopdatum AS
+SELECT
+    b.ref_id AS kadaster_identificatie,
+    b.datum  AS aankoopdatum
+FROM
+    (
+        SELECT
+            ref_id,
+            MAX(datum) datum
+        FROM
+            brondocument
+        WHERE
+            omschrijving = 'Akte van Koop en Verkoop'
+        GROUP BY
+            ref_id
+    ) b ;
+
 -- Eigenarenkaart - percelen en appartementen met hun eigenaren
 CREATE OR REPLACE VIEW
     V_KAD_EIGENARENKAART
@@ -4423,6 +4444,7 @@ CREATE OR REPLACE VIEW
         AANDEEL_NOEMER,
         AARD_RECHT_AAND,
         ZAKELIJK_RECHT_OMSCHRIJVING,
+        AANKOOPDATUM,
         SOORT_EIGENAAR,
         GESLACHTSNAAM,
         VOORVOEGSEL,
@@ -4454,6 +4476,7 @@ SELECT
     zr.ar_noemer        AS aandeel_noemer,
     zr.fk_3avr_aand     AS aard_recht_aand,
     ark.omschr          AS zakelijk_recht_omschrijving,
+    b.aankoopdatum,
     CASE
         WHEN np.sc_identif IS NOT NULL
         THEN 'Natuurlijk persoon'
@@ -4522,6 +4545,10 @@ LEFT JOIN
     subject innp_subject
 ON
     innp_subject.identif = innp.sc_identif
+LEFT JOIN
+    v_aankoopdatum b
+ON
+    b.kadaster_identificatie::numeric(15,0) = p.kadaster_identificatie
 WHERE
     zr.kadaster_identif like 'NL.KAD.Tenaamstelling%';
   
