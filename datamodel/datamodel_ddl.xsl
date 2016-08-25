@@ -3,13 +3,17 @@
 	<xsl:output method="text" encoding="utf-8"/>
 	<xsl:variable name="geometryTypes" select="'polygon multipolygon linestring multilinestring point multipoint geometry'"/>
 	<xsl:template name="header">
-<xsl:text>
---
+
+    <xsl:text>--
 -- BRMO RSGB script voor </xsl:text>
 		<xsl:value-of select="$dbtype"/>
-<xsl:text>
+    <xsl:text>
+-- Applicatie versie: </xsl:text>
+        <xsl:value-of select="$versie"/>
+    <xsl:text>
 -- Gegenereerd op </xsl:text>
-		<xsl:value-of select="current-dateTime()"/><xsl:text>
+		<xsl:value-of select="current-dateTime()"/>
+    <xsl:text>
 --
 
 </xsl:text>
