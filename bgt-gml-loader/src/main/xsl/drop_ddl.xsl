@@ -7,6 +7,8 @@
                 xmlns:fn="http://www.w3.org/2005/xpath-functions">
     <xsl:output method="text" encoding="utf-8"/>
 
+    <xsl:param name="versie">developer</xsl:param>
+
     <xsl:template match="/">
         <xsl:call-template name="header"/>
         <xsl:apply-templates select="/datamodel/objecttype" mode="dropSQL" />
@@ -15,14 +17,16 @@
 
 
     <xsl:template name="header">
-        <!-- file header -->
         <xsl:text>--
 -- BRMO BGT/RSGB3 drop script voor: </xsl:text>
         <xsl:value-of select="$dbtype"/>
-<xsl:text>
+        <xsl:text>
+-- Applicatie versie: </xsl:text>
+        <xsl:value-of select="$versie"/>
+        <xsl:text>
 -- Gegenereerd op: </xsl:text>
         <xsl:value-of select="current-dateTime()"/>
-<xsl:text>
+        <xsl:text>
 --
 </xsl:text>
     </xsl:template>

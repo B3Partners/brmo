@@ -82,6 +82,12 @@
                         <transformationSet>
                             <dir>src/main/xml</dir>
                             <stylesheet>src/main/xsl/ddl-oracle.xsl</stylesheet>
+                            <parameters>
+                                <parameter>
+                                    <name>versie</name>
+                                    <value>${project.version}</value>
+                                </parameter>
+                            </parameters>
                             <outputDir>${project.build.directory}/generated-resources/ddl/oracle</outputDir>
                             <fileMappers>
                                 <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.MergeFileMapper">
@@ -92,6 +98,12 @@
                         <transformationSet>
                             <dir>src/main/xml</dir>
                             <stylesheet>src/main/xsl/ddl-sqlserver.xsl</stylesheet>
+                            <parameters>
+                                <parameter>
+                                    <name>versie</name>
+                                    <value>${project.version}</value>
+                                </parameter>
+                            </parameters>
                             <outputDir>${project.build.directory}/generated-resources/ddl/sqlserver</outputDir>
                             <fileMappers>
                                 <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.MergeFileMapper">
@@ -102,6 +114,12 @@
                         <transformationSet>
                             <dir>src/main/xml</dir>
                             <stylesheet>src/main/xsl/ddl-postgresql.xsl</stylesheet>
+                            <parameters>
+                                <parameter>
+                                    <name>versie</name>
+                                    <value>${project.version}</value>
+                                </parameter>
+                            </parameters>
                             <outputDir>${project.build.directory}/generated-resources/ddl/postgresql</outputDir>
                             <fileMappers>
                                 <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.MergeFileMapper">

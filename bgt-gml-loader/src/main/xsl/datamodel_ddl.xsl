@@ -5,8 +5,10 @@
                 xmlns:md="http://www.b3partners.nl/model-specific"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions">
     
-
+	
     <xsl:import href="functions.xsl"/>
+
+    <xsl:param name="versie">developer</xsl:param>
 
     <xsl:template match="/">
         <xsl:call-template name="header"/>
@@ -16,8 +18,11 @@
 
     <xsl:template name="header">
         <xsl:text>--
--- BRMO BGT/RSGB3 script voor: </xsl:text>
+-- BRMO BGT/RSGB3 create script voor: </xsl:text>
         <xsl:value-of select="$dbtype"/>
+        <xsl:text>
+-- Applicatie versie: </xsl:text>
+        <xsl:value-of select="$versie"/>
         <xsl:text>
 -- Gegenereerd op: </xsl:text>
         <xsl:value-of select="current-dateTime()"/>
