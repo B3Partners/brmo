@@ -1,7 +1,7 @@
-
 --
 -- BRMO RSGB script voor sqlserver
--- Gegenereerd op 2016-08-25T10:02:53.386+02:00
+-- Applicatie versie: 1.3.6-SNAPSHOT
+-- Gegenereerd op 2016-08-25T11:16:48.249+02:00
 --
 
 create table sbi_activiteit(
