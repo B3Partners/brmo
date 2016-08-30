@@ -83,8 +83,8 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
         final StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE);
         String oldLog = config.getLogfile();
         if (oldLog != null) {
-            if (oldLog.length() > 2000) {
-                sb.append(oldLog.substring(oldLog.length() - 200));
+            if (oldLog.length() > OLD_LOG_LENGTH) {
+                sb.append(oldLog.substring(oldLog.length() - OLD_LOG_LENGTH / 10));
             } else {
                 sb.append(oldLog);
             }

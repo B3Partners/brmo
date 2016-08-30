@@ -38,7 +38,10 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
 
     private static final Log log = LogFactory.getLog(AbstractExecutableProces.class);
 
-    protected static final int OLD_LOG_LENGTH = 4000;
+    /**
+     * maximale lengte waarna log wordt ingekort, moet een veelvoud van 10 zijn.
+     */
+    protected static final int OLD_LOG_LENGTH = 3000;
 
     volatile boolean active = false;
 
