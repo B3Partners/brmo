@@ -42,7 +42,9 @@ import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.RowProcessor;
+import org.apache.commons.dbutils.handlers.ArrayHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.io.input.CountingInputStream;
 import org.apache.commons.lang3.StringUtils;
@@ -890,6 +892,19 @@ public class StagingProxy {
         sql = geomToJdbc.buildPaginationSql(sql, start, limit);
 
         return (List<LaadProces>)new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new BeanListHandler(LaadProces.class, new StagingRowHandler()), params.toArray());
+    }
+
+    public Long[] getLaadProcessenIds(String sort, String dir, String filterSoort, String filterStatus) throws SQLException {
+        List<String> params = new ArrayList();
+        if (sort == null || sort.trim().isEmpty()) {
+            sort = "id";
+        }
+        if (dir == null || dir.trim().isEmpty()) {
+            sort = "asc";
+        }
+        String sql = "SELECT ID FROM " + BrmoFramework.LAADPROCES_TABEL + buildFilterSql(-1, sort, dir, filterSoort, filterStatus, params);
+        List<Long> ids = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new ColumnListHandler<Long>("id"), params.toArray());
+        return ids.toArray(new Long[ids.size()]);
     }
 
     Bericht getOldBericht(Bericht nieuwBericht) {

@@ -32,12 +32,12 @@ import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
 import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
 import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
+import nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces;
 import nl.b3p.brmo.persistence.staging.MailRapportageProces;
 import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
 import nl.b3p.brmo.service.jobs.GeplandeTakenInit;
 import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.QUARTZ_FACTORY_KEY;
 import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.SCHEDULER_NAME;
-import nl.b3p.brmo.service.scanner.BGTLightOphalenProces;
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -178,6 +178,8 @@ public class OphaalConfigActionBean implements ActionBean {
                 return new BGTLightScannerProces();
             case BGTLightOphaalProces:
                 return new BGTLightOphaalProces();
+            case LaadprocesTransformatieProces:
+                return new LaadprocesTransformatieProces();
             default:
                 throw new IllegalArgumentException(type.name() + " is geen ondersteund proces type...");
         }

@@ -17,9 +17,9 @@ public interface ProcesExecutable extends Runnable {
      *
      */
     enum ProcessingImple {
-
+        // klassen uit nl.b3p.brmo.persistence.statging package
         BAGScannerProces, BRKScannerProces, MailRapportageProces, GDS2OphaalProces, BerichtTransformatieProces,
-        BerichtDoorstuurProces, WebMirrorBAGScannerProces, BGTLightScannerProces, BGTLightOphaalProces;
+        BerichtDoorstuurProces, WebMirrorBAGScannerProces, BGTLightScannerProces, BGTLightOphaalProces, LaadprocesTransformatieProces;
     }
 
     /**
