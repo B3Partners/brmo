@@ -105,8 +105,8 @@ public class LaadprocesTransformatieUitvoeren extends AbstractExecutableProces {
             long[] lpIds = ArrayUtils.toPrimitive(
                     brmo.getLaadProcessenIds("bestand_datum", "ASC", config.getSoort(), "STAGING_OK"));
             brmo.setOrderBerichten(!config.alsStandTransformeren());
-            if (lpIds == null) {
-                msg = "Er zijn geen laadprocessen van soort " + config.getSoort() + "en status: 'STAGING_OK' om te transformeren.";
+            if (lpIds == null || lpIds.length == 0) {
+                msg = "Er zijn geen laadprocessen van soort " + config.getSoort() + " en status: 'STAGING_OK' om te transformeren.";
                 LOG.info(msg);
                 sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                 listener.addLog(msg);
