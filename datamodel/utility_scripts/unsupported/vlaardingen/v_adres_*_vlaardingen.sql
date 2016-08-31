@@ -1,7 +1,5 @@
 
 
-
-
  DROP VIEW v_adres_totaal;
   DROP VIEW v_adres_standplaats;
  DROP VIEW v_adres_ligplaats;
@@ -128,10 +126,10 @@ ALTER TABLE v_adres_totaal
 
 
 
-CREATE OR REPLACE VIEW v_adres_totaal_vlaardingen AS 
+CREATE OR REPLACE VIEW v_adres_met_buurt_en_wijk AS 
  SELECT a.fid,
     a.gemeente,
-    a.straatnaam as straat,
+    a.straat,
     a.huisnummer,
     a.huisletter,
     a.huisnummer_toev,
@@ -146,8 +144,6 @@ CREATE OR REPLACE VIEW v_adres_totaal_vlaardingen AS
      JOIN buurt b ON st_within(a.the_geom, b.geom)
      JOIN wijk w ON st_within(a.the_geom, w.geom);
 
-ALTER TABLE v_adres_totaal_vlaardingen
+ALTER TABLE v_adres_met_buurt_en_wijk
   OWNER TO vlaardingen;
-
-
 
