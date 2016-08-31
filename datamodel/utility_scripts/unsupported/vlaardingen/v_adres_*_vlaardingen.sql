@@ -1,5 +1,4 @@
-
-
+DROP VIEW v_adres_met_buurt_en_wijk;
  DROP VIEW v_adres_totaal;
   DROP VIEW v_adres_standplaats;
  DROP VIEW v_adres_ligplaats;
@@ -147,3 +146,62 @@ CREATE OR REPLACE VIEW v_adres_met_buurt_en_wijk AS
 ALTER TABLE v_adres_met_buurt_en_wijk
   OWNER TO vlaardingen;
 
+-- View: v_ligplaats_met_document
+
+-- DROP VIEW v_ligplaats_met_document;
+
+CREATE OR REPLACE VIEW v_ligplaats_met_document AS 
+ SELECT lp.sc_identif,
+    a.gemeente,
+    a.straat,
+    a.huisnummer,
+    a.huisletter,
+    a.huisnummer_toev,
+    a.postcode,
+    lp.status,
+    lp.indic_geconst,
+    lp.fk_4nra_sc_identif,
+    i.inonderzoekgemeentelijk AS in_onderzoek_gemeentelijk,
+    i.inonderzoeklandelijk AS in_onderzoek_landelijk,
+    b.identificatie AS documentnummer,
+    b.datum AS documentdatum,
+    to_char(to_date(bt.dat_beg_geldh::text, 'YYYYMMDDHH24MISSSSSSS'::text)::timestamp with time zone, 'YYYY-MM-DD'::text)::character varying(19) AS begin_datum_geldig,
+    bt.geom AS geometrie
+   FROM ligplaats lp
+     LEFT JOIN benoemd_terrein bt ON lp.sc_identif::text = bt.sc_identif::text
+     JOIN v_adres_met_buurt_en_wijk a ON lp.sc_identif::text = a.fid::text
+     JOIN brondocument b ON b.tabel_identificatie::text = lp.sc_identif::text AND b.tabel::text = 'ligplaats'::text
+     JOIN inonderzoek i ON i.tabel_identificatie::text = lp.sc_identif::text AND i.tabel::text = 'ligplaats'::text;
+
+ALTER TABLE v_ligplaats_met_document
+  OWNER TO vlaardingen;
+
+-- View: v_standplaats_met_document
+
+-- DROP VIEW v_standplaats_met_document;
+
+CREATE OR REPLACE VIEW v_standplaats_met_document AS 
+ SELECT sp.sc_identif,
+    a.gemeente,
+    a.straat,
+    a.huisnummer,
+    a.huisletter,
+    a.huisnummer_toev,
+    a.postcode,
+    sp.status,
+    sp.indic_geconst,
+    i.inonderzoekgemeentelijk AS in_onderzoek_gemeentelijk,
+    i.inonderzoeklandelijk AS in_onderzoek_landelijk,
+    sp.fk_4nra_sc_identif,
+    b.identificatie AS documentnummer,
+    b.datum AS documentdatum,
+    to_char(to_date(bt.dat_beg_geldh::text, 'YYYYMMDDHH24MISSSSSSS'::text)::timestamp with time zone, 'YYYY-MM-DD'::text)::character varying(19) AS begin_datum_geldig,
+    bt.geom AS geometrie
+   FROM standplaats sp
+     LEFT JOIN benoemd_terrein bt ON sp.sc_identif::text = bt.sc_identif::text
+     JOIN v_adres_met_buurt_en_wijk a ON sp.sc_identif::text = a.fid::text
+     JOIN inonderzoek i ON i.tabel_identificatie::text = sp.sc_identif::text AND i.tabel::text = 'standplaats'::text
+     JOIN brondocument b ON b.tabel_identificatie::text = sp.sc_identif::text AND b.tabel::text = 'standplaats'::text;
+
+ALTER TABLE v_standplaats_met_document
+  OWNER TO vlaardingen;
