@@ -389,6 +389,14 @@ public class BrmoFramework {
         }
     }
 
+    public Long[] getLaadProcessenIds(String sort, String dir, String filterSoort, String filterStatus) throws BrmoException {
+        try {
+            return stagingProxy.getLaadProcessenIds(sort, dir, filterSoort, filterStatus);
+        } catch (SQLException ex) {
+            throw new BrmoException(ex);
+        }
+    }
+
     public long getCountBerichten(String sort, String dir, String filterSoort, String filterStatus) throws BrmoException {
         try {
             return stagingProxy.getCountBerichten(sort, dir, filterSoort, filterStatus);
@@ -404,5 +412,4 @@ public class BrmoFramework {
             throw new BrmoException(ex);
         }
     }
-
 }

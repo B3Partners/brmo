@@ -21,8 +21,10 @@ import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
 import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
 import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.persistence.staging.LaadProces;
+import nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces;
 import nl.b3p.brmo.persistence.staging.MailRapportageProces;
 import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
+import static nl.b3p.brmo.service.scanner.ProcesExecutable.ProcessingImple.LaadprocesTransformatieProces;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
@@ -35,6 +37,11 @@ import org.stripesstuff.stripersist.Stripersist;
 public abstract class AbstractExecutableProces implements ProcesExecutable {
 
     private static final Log log = LogFactory.getLog(AbstractExecutableProces.class);
+
+    /**
+     * maximale lengte waarna log wordt ingekort, moet een veelvoud van 10 zijn.
+     */
+    protected static final int OLD_LOG_LENGTH = 3000;
 
     volatile boolean active = false;
 
@@ -67,6 +74,8 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
                 return new BGTLightOphalenProces((BGTLightOphaalProces) config);
             case BGTLightScannerProces:
                 return new BGTLightDirectoryScanner((BGTLightScannerProces) config);
+            case LaadprocesTransformatieProces:
+                return new LaadprocesTransformatieUitvoeren((LaadprocesTransformatieProces) config);
 
             default:
                 throw new IllegalArgumentException(imple.name() + " is is geen ondersteund proces...");
