@@ -16,7 +16,7 @@ import org.junit.Test;
 public class PDOKBGTLightUtilTest {
 
     /**
-     * offline test
+     * offline test.
      */
     @Test
     public void calculateGridIdsTest() {
