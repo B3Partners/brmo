@@ -3,11 +3,13 @@ clone_folder: c:\projects\brmo
 clone_depth: 5
 skip_tags: true
 
-services: mssql2012sp1
+services:
+  - mssql2012sp1
 
 environment:
   INSTANCENAME: SQL2012SP1
 
+# todo set up voor meerdere db versies, zie: https://www.appveyor.com/docs/services-databases/
 matrix:
   fast_finish: false
 

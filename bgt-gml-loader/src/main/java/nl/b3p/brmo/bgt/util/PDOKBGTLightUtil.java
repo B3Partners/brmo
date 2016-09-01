@@ -42,8 +42,8 @@ public class PDOKBGTLightUtil {
      * @param jsonUrl url naar de pdok bgt gml light index
      * @return lijst met grid ids
      *
-     * @see #calculateGridIds(org.opengis.geometry.Geometry,
-     * org.geotools.feature.FeatureCollection)
+     * @see #calculateGridIds(com.vividsolutions.jts.geom.Geometry,
+     * org.geotools.data.simple.SimpleFeatureCollection)
      */
     public static Set<Integer> calculateGridIds(String wktGeom, String jsonUrl) {
         Geometry geometry = null;
