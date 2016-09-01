@@ -82,7 +82,7 @@ before_script:
 # run tests
 script:
   # run unit tests
-  - mvn -e test -B -Ppostgresql -pl '!brmo-dist'
+  - mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest='!PDOKBGTLightUtilTest#calculateGridIdsOnlineTest'
   # run integratie tests
   # - travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl '!brmo-dist'
   # run integratie tests voor bgt-gml-loader module
