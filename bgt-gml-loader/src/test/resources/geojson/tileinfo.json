@@ -1,0 +1,215 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "id": 217668,
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            184000,
+                            414000
+                        ],
+                        [
+                            186000,
+                            414000
+                        ],
+                        [
+                            186000,
+                            416000
+                        ],
+                        [
+                            184000,
+                            416000
+                        ],
+                        [
+                            184000,
+                            414000
+                        ]
+                    ]
+                ]
+            },
+            "properties": {
+                "id": 26846,
+                "extractset": "bgt_citygml"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 217749,
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            100000,
+                            398000
+                        ],
+                        [
+                            102000,
+                            398000
+                        ],
+                        [
+                            102000,
+                            400000
+                        ],
+                        [
+                            100000,
+                            400000
+                        ],
+                        [
+                            100000,
+                            398000
+                        ]
+                    ]
+                ]
+            },
+            "properties": {
+                "id": 15386,
+                "extractset": "bgt_citygml"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 217990,
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            146000,
+                            488000
+                        ],
+                        [
+                            148000,
+                            488000
+                        ],
+                        [
+                            148000,
+                            490000
+                        ],
+                        [
+                            146000,
+                            490000
+                        ],
+                        [
+                            146000,
+                            488000
+                        ]
+                    ]
+                ]
+            },
+            "properties": {
+                "id": 38725,
+                "extractset": "bgt_citygml"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 218150,
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            174000,
+                            318000
+                        ],
+                        [
+                            176000,
+                            318000
+                        ],
+                        [
+                            176000,
+                            320000
+                        ],
+                        [
+                            174000,
+                            320000
+                        ],
+                        [
+                            174000,
+                            318000
+                        ]
+                    ]
+                ]
+            },
+            "properties": {
+                "id": 19147,
+                "extractset": "bgt_citygml"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 218230,
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            178000,
+                            498000
+                        ],
+                        [
+                            180000,
+                            498000
+                        ],
+                        [
+                            180000,
+                            500000
+                        ],
+                        [
+                            178000,
+                            500000
+                        ],
+                        [
+                            178000,
+                            498000
+                        ]
+                    ]
+                ]
+            },
+            "properties": {
+                "id": 49767,
+                "extractset": "bgt_citygml"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 218310,
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            186000,
+                            506000
+                        ],
+                        [
+                            188000,
+                            506000
+                        ],
+                        [
+                            188000,
+                            508000
+                        ],
+                        [
+                            186000,
+                            508000
+                        ],
+                        [
+                            186000,
+                            506000
+                        ]
+                    ]
+                ]
+            },
+            "properties": {
+                "id": 49879,
+                "extractset": "bgt_citygml"
+            }
+        }
+    ]
+}

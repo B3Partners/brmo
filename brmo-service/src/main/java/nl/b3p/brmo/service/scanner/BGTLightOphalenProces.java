@@ -11,14 +11,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.StringTokenizer;
-import javax.net.ssl.SSLHandshakeException;
+import java.util.Set;
 import javax.persistence.Transient;
-import javax.sql.DataSource;
+import nl.b3p.brmo.bgt.util.PDOKBGTLightUtil;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
@@ -103,10 +100,31 @@ public class BGTLightOphalenProces extends AbstractExecutableProces {
 
         if (isArchivingOK()) {
             config.setLogfile(sb.toString());
-            // haal lijst uit config
-            List<Integer> ids = getGridIDs();
+            Set<Integer> ids = config.getGridIds();
+            if (ids == null || ids.isEmpty()) {
+                msg = "Ophalen 'tileinfo.json' van pdok website en bepalen grid cellen";
+                listener.updateStatus(msg);
+                String ophaalgebiedWKT = config.getOphaalgebied();
+                msg = "Ophaalgebied: " + ophaalgebiedWKT;
+                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
+                listener.addLog(msg);
+                LOG.info(msg);
+                String tileInfoJsonUrl = config.getTileInfoUrl();
+                msg = "BGT tileinfo url: " + tileInfoJsonUrl;
+                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
+                LOG.info(msg);
+                ids = PDOKBGTLightUtil.calculateGridIds(ophaalgebiedWKT, tileInfoJsonUrl);
+                msg = "De berekende lijst met op te halen grid cellen is: " + ids;
+            } else {
+                msg = "De berekende lijst met op te halen grid cellen is: " + ids;
+            }
             listener.total(ids.size());
-            String bUrl = config.getConfig().get("ophaalurl").getValue();
+            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
+            LOG.info(msg);
+            listener.addLog(msg);
+            listener.updateStatus(msg);
+
+            String bUrl = config.getOphaalUrl();
             LOG.info("BGT GML light ophaal basis url: " + bUrl);
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             String enddate = sdf.format(new Date());
@@ -182,26 +200,6 @@ public class BGTLightOphalenProces extends AbstractExecutableProces {
         Stripersist.getEntityManager().flush();
         Stripersist.getEntityManager().getTransaction().commit();
         Stripersist.getEntityManager().clear();
-    }
-
-    /**
-     *
-     * @return lijst met op te halen grid ids
-     */
-    private List<Integer> getGridIDs() {
-        ArrayList<Integer> ids = new ArrayList();
-        String sIds = config.getConfig().get("gridids").getValue();
-
-        StringTokenizer st = new StringTokenizer(sIds, ",;", false);
-        while (st.hasMoreTokens()) {
-            try {
-                ids.add(Integer.parseInt(st.nextToken().trim()));
-            } catch (NumberFormatException ignore) {
-                LOG.debug("Niet parsable integer.", ignore);
-                // ignore unparsable
-            }
-        }
-        return ids;
     }
 
     /**
