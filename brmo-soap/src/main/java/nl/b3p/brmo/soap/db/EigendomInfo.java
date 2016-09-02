@@ -548,7 +548,7 @@ public class EigendomInfo {
             resultNames.append(" zr.ar_teller as teller, ");
             resultNames.append(" zr.ar_noemer as noemer, ");
             resultNames.append(" inp.bsn as bsn, ");
-//            resultNames.append(" innp.rsin as rsin, ");
+            resultNames.append(" innp.rsin as rsin, ");
             resultNames.append(" su.kvk_nummer as kvk ");
 
             StringBuilder fromSQL = new StringBuilder("  zak_recht zr ");
@@ -580,17 +580,17 @@ public class EigendomInfo {
                 if (rs.getString("aardrecht") != null) {
                     entry.setAardRecht(rs.getString("aardrecht"));
                 }
+                if (rs.getString("subject_id") != null) {
+                    entry.setBSN(rs.getString("subject_id"));
+                }
 //                if (rs.getString("kvk")!=null) {
 //                    entry.setBSN(rs.getString("kvk"));
 //                }
 //                if (rs.getString("rsin")!=null) {
 //                    entry.setBSN(rs.getString("rsin"));
 //                }
-//                if (rs.getString("bsn")!=null) {
-//                    entry.setBSN(rs.getString("bsn"));
-//                }
-                if (rs.getString("subject_id") != null) {
-                    entry.setBSN(rs.getString("subject_id"));
+                if (rs.getString("bsn")!=null) {
+                    entry.setBSN(rs.getString("bsn"));
                 }
                 if (rs.getString("noemer") != null) {
                     entry.setNoemer(rs.getString("noemer"));
