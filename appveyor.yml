@@ -3,11 +3,13 @@ clone_folder: c:\projects\brmo
 clone_depth: 5
 skip_tags: true
 
-services: mssql2012sp1
+services:
+  - mssql2012sp1
 
 environment:
   INSTANCENAME: SQL2012SP1
 
+# todo set up voor meerdere db versies, zie: https://www.appveyor.com/docs/services-databases/
 matrix:
   fast_finish: false
 
@@ -66,7 +68,7 @@ before_test:
 
 test_script:
 # run unit tests
-  - mvn -e test -B -Pmssql -pl "!brmo-dist" -Dtest="!PDOKBGTLightUtilTest#calculateGridIdsOnlineTest" -DfailIfNoTests=false
+  - mvn -e test -B -Pmssql -pl "!brmo-dist"
 # run integration tests
 # TODO configure sql server to listen on ip address, see: https://www.appveyor.com/docs/services-databases
   - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "!brmo-dist"

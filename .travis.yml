@@ -82,11 +82,11 @@ before_script:
 # run tests
 script:
   # run unit tests
-  - mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest='!PDOKBGTLightUtilTest#calculateGridIdsOnlineTest'
+  - mvn -e test -B -Ppostgresql -pl '!brmo-dist'
   # run integratie tests
-  # - travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl '!brmo-dist'
   # run integratie tests voor bgt-gml-loader module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
+  # run integratie tests voor brmo-service module
   - travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service'
   # test of javadoc compliant is met java-8 strict checks
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
