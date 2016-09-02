@@ -53,6 +53,10 @@ public class CronFormatterTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException, IOException {
+        getJspContext().getOut().write(buildOutput());
+    }
+
+    public String buildOutput() {
         String formatted = "";
         final Options options = new Options();
         options.setVerbose(true);
@@ -68,7 +72,7 @@ public class CronFormatterTag extends SimpleTagSupport {
                 // ignore this error
             }
         }
-        getJspContext().getOut().write(formatted);
+        return formatted;
     }
 
 }
