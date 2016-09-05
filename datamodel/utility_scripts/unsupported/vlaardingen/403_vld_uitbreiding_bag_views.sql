@@ -1298,5 +1298,292 @@ ON
         AND ((
                     b.tabel)::text = 'woonplaats'::text))));
 
-                                                                               
+------------------------------------
+-- v_adres_met buurt_en_wijk_vld
+------------------------------------
+CREATE OR REPLACE VIEW
+    v_adres_met_buurt_en_wijk_vld
+    (
+        fid,
+        gemeente,
+        straat,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        gebruiksdoel,
+        buurtnaam,
+        buurtcode,
+        wijknaam,
+        wijkcode,
+        the_geom
+    ) AS
+SELECT
+    a.fid,
+    a.gemeente,
+    a.straat,
+    a.huisnummer,
+    a.huisletter,
+    a.huisnummer_toev,
+    a.postcode,
+    a.gebruiksdoel,
+    b.naam AS buurtnaam,
+    b.code AS buurtcode,
+    w.naam AS wijknaam,
+    w.code AS wijkcode,
+    a.the_geom
+FROM
+    ((v_adres_totaal_vld a
+JOIN
+    buurt b
+ON
+    (
+        st_within(a.the_geom, b.geom)))
+JOIN
+    wijk w
+ON
+    (
+        st_within(a.the_geom, w.geom)));                    
+
+------------------------------------
+--  v_adres_totaal_vld
+------------------------------------  
+
+ (
+        fid,
+        straat,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        gemeente,
+        gebruiksdoel,
+        the_geom
+    ) AS
+SELECT
+    v_adres_vld.fid,
+    v_adres_vld.straat,
+    v_adres_vld.huisnummer,
+    v_adres_vld.huisletter,
+    v_adres_vld.huisnummer_toev,
+    v_adres_vld.postcode,
+    v_adres_vld.gemeente,
+    v_adres_vld.gebruiksdoel,
+    v_adres_vld.the_geom
+FROM
+    v_adres_vld
+UNION ALL
+SELECT
+    v_adres_ligplaats.fid,
+    v_adres_ligplaats.straat,
+    v_adres_ligplaats.huisnummer,
+    v_adres_ligplaats.huisletter,
+    v_adres_ligplaats.huisnummer_toev,
+    v_adres_ligplaats.postcode,
+    v_adres_ligplaats.gemeente,
+    NULL::text                  AS gebruiksdoel,
+    v_adres_ligplaats.centroide AS the_geom
+FROM
+    v_adres_ligplaats
+UNION ALL
+SELECT
+    v_adres_standplaats.fid,
+    v_adres_standplaats.straat,
+    v_adres_standplaats.huisnummer,
+    v_adres_standplaats.huisletter,
+    v_adres_standplaats.huisnummer_toev,
+    v_adres_standplaats.postcode,
+    v_adres_standplaats.gemeente,
+    NULL::text                    AS gebruiksdoel,
+    v_adres_standplaats.centroide AS the_geom
+FROM
+    v_adres_standplaats;
+    
+------------------------------------
+-- v_adres_vld
+------------------------------------    
+CREATE OR REPLACE VIEW
+    v_adres_vld
+    (
+        fid,
+        gemeente,
+        straat,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        gebruiksdoel,
+        status,
+        oppervlakte,
+        the_geom
+    ) AS
+SELECT
+    vbo.sc_identif       AS fid,
+    gem.naam             AS gemeente,
+    geor.naam_openb_rmte AS straat,
+    addrobj.huinummer    AS huisnummer,
+    addrobj.huisletter,
+    addrobj.huinummertoevoeging AS huisnummer_toev,
+    addrobj.postcode,
+    string_agg((gog.gebruiksdoel_gebouwd_obj)::text, ', '::text) AS gebruiksdoel,
+    vbo.status,
+    (gobj.oppervlakte_obj || ' m2'::text) AS oppervlakte,
+    gobj.puntgeom                         AS the_geom
+FROM
+    (((((((((verblijfsobj vbo
+JOIN
+    gebouwd_obj gobj
+ON
+    (((
+                gobj.sc_identif)::text = (vbo.sc_identif)::text)))
+LEFT JOIN
+    verblijfsobj_nummeraand vna
+ON
+    (((
+                vna.fk_nn_lh_vbo_sc_identif)::text = (vbo.sc_identif)::text)))
+LEFT JOIN
+    nummeraand na
+ON
+    (((
+                na.sc_identif)::text = (vna.fk_nn_rh_nra_sc_identif)::text)))
+LEFT JOIN
+    addresseerb_obj_aand addrobj
+ON
+    (((
+                addrobj.identif)::text = (na.sc_identif)::text)))
+LEFT JOIN
+    openb_rmte opr
+ON
+    (((
+                opr.identifcode)::text = (addrobj.fk_7opr_identifcode)::text)))
+LEFT JOIN
+    openb_rmte_gem_openb_rmte gmopr
+ON
+    (((
+                gmopr.fk_nn_lh_opr_identifcode)::text = (opr.identifcode)::text)))
+LEFT JOIN
+    gem_openb_rmte geor
+ON
+    (((
+                geor.identifcode)::text = (gmopr.fk_nn_rh_gor_identifcode)::text)))
+LEFT JOIN
+    gemeente gem
+ON
+    ((
+            geor.fk_7gem_code = gem.code)))
+JOIN
+    gebouwd_obj_gebruiksdoel gog
+ON
+    (((
+                vbo.sc_identif)::text = (gog.fk_gbo_sc_identif)::text)))
+WHERE
+    (((
+                na.status)::text = 'Naamgeving uitgegeven'::text)
+    AND (((((
+                            vbo.status)::text = 'Verblijfsobject in gebruik (niet ingemeten)'::text
+                    )
+                OR  ((
+                            vbo.status)::text = 'Verblijfsobject in gebruik'::text))
+            OR  ((
+                        vbo.status)::text = 'Verblijfsobject gevormd'::text))
+        OR  ((
+                    vbo.status)::text = 'Verblijfsobject buiten gebruik'::text)))
+GROUP BY
+    vbo.sc_identif,
+    gem.naam,
+    geor.naam_openb_rmte,
+    addrobj.huinummer,
+    addrobj.huisletter,
+    addrobj.huinummertoevoeging,
+    addrobj.postcode,
+    vbo.status,
+    gobj.oppervlakte_obj,
+    gobj.puntgeom;
+    
+------------------------------------
+-- v_verblijfsobject_alles_vld
+------------------------------------    
+ CREATE OR RPELACE VIEW
+    v_verblijfsobject_alles_vld
+    (
+        fid,
+        pand_id,
+        gemeente,
+        woonplaats,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        status,
+        oppervlakte,
+        the_geom,
+        indicatie_geconstateerd
+    ) AS
+SELECT
+    vbo.sc_identif              AS fid,
+    fkpand.fk_nn_rh_pnd_identif AS pand_id,
+    gem.naam                    AS gemeente,
+    wp.naam                     AS woonplaats,
+    geor.naam_openb_rmte        AS straatnaam,
+    addrobj.huinummer           AS huisnummer,
+    addrobj.huisletter,
+    addrobj.huinummertoevoeging AS huisnummer_toev,
+    addrobj.postcode,
+    vbo.status,
+    gobj.oppervlakte_obj    AS oppervlakte,
+    gobj.puntgeom           AS the_geom,
+    vbo.indic_geconstateerd AS indicatie_geconstateerd
+FROM
+    ((((((((verblijfsobj vbo
+JOIN
+    verblijfsobj_pand fkpand
+ON
+    (((
+                fkpand.fk_nn_lh_vbo_sc_identif)::text = (vbo.sc_identif)::text)))
+JOIN
+    gebouwd_obj gobj
+ON
+    (((
+                gobj.sc_identif)::text = (vbo.sc_identif)::text)))
+JOIN
+    nummeraand na
+ON
+    (((
+                na.sc_identif)::text = (vbo.fk_11nra_sc_identif)::text)))
+JOIN
+    addresseerb_obj_aand addrobj
+ON
+    (((
+                addrobj.identif)::text = (na.sc_identif)::text)))
+JOIN
+    gem_openb_rmte geor
+ON
+    (((
+                geor.identifcode)::text = (addrobj.fk_7opr_identifcode)::text)))
+LEFT JOIN
+    openb_rmte_wnplts orwp
+ON
+    (((
+                geor.identifcode)::text = (orwp.fk_nn_lh_opr_identifcode)::text)))
+LEFT JOIN
+    wnplts wp
+ON
+    (((
+                orwp.fk_nn_rh_wpl_identif)::text = (wp.identif)::text)))
+LEFT JOIN
+    gemeente gem
+ON
+    ((
+            wp.fk_7gem_code = gem.code)))
+WHERE
+    ((((
+                    addrobj.dat_eind_geldh IS NULL)
+            AND (
+                    geor.datum_einde_geldh IS NULL))
+        AND (
+                gem.datum_einde_geldh IS NULL))
+    AND (
+            gobj.datum_einde_geldh IS NULL));
+    
                                                                                                                                     
