@@ -36,14 +36,16 @@ public class BGTLightKruinlijnIntegrationTest extends TestingBase {
     @Parameterized.Parameters
     public static Collection<Object[]> params() {
         return Arrays.asList(new Object[][]{
-            // arrays van: {"gmlFileName", expectedNumOfElements, expectedKruinlijnElements },
-            {"/gmllight/kruinlijntest/bgt_ondersteunendwegdeel.gml",
+            // arrays van: {"gmlFileName", "tabel",expectedNumOfElements, expectedKruinlijnElements },
+            {"/gmllight/kruinlijntest/bgt_ondersteunendwegdeel.gml", "ondersteunend_wegdeel",
                 431 - 28 /* duplicaten */ - 6 /* vervallen of nog niet bestaand */,
-                2 /* kruinlijn elementen */}
+                2 /* kruinlijn elementen */},
+            {"/gmllight/mantis6028/bgt_begroeidterreindeel.gml", "begroeid_terreindeel", 1, 1}
         });
     }
 
     private final String gmlFileName;
+    private final String tableName;
     private final int expectedNumOfElements;
     private final int expectedKruinlijnElements;
     private final Lock sequential = new ReentrantLock();
@@ -52,12 +54,15 @@ public class BGTLightKruinlijnIntegrationTest extends TestingBase {
     /**
      *
      * @param gmlFileName filename of the test resource (GML)
+     * @param tableName tabel naam
      * @param expectedNumOfElements number of elements in resources
+     * @param expectedKruinlijnElements aantal kruinlijn elementen
      *
      * @see #params()
      */
-    public BGTLightKruinlijnIntegrationTest(String gmlFileName, int expectedNumOfElements, int expectedKruinlijnElements) {
+    public BGTLightKruinlijnIntegrationTest(String gmlFileName, String tableName, int expectedNumOfElements, int expectedKruinlijnElements) {
         this.gmlFileName = gmlFileName;
+        this.tableName = tableName;
         this.expectedNumOfElements = expectedNumOfElements;
         this.expectedKruinlijnElements = expectedKruinlijnElements;
     }
@@ -92,6 +97,11 @@ public class BGTLightKruinlijnIntegrationTest extends TestingBase {
      */
     @Test
     public void testProcessGMLFile() throws Exception {
+        if (isMsSQL && gmlFileName.equalsIgnoreCase("/gmllight/mantis6028/bgt_begroeidterreindeel.gml")) {
+            // overslaan vanwege https://osgeo-org.atlassian.net/browse/GEOT-5512
+            return;
+        }
+
         File gml = new File(BGTLightKruinlijnIntegrationTest.class.getResource(gmlFileName).toURI());
         int actualElements = ldr.processGMLFile(gml);
         assertEquals(BGTGMLLightLoader.STATUS.OK, ldr.getStatus());
@@ -106,7 +116,7 @@ public class BGTLightKruinlijnIntegrationTest extends TestingBase {
 
             String sql = "SELECT COUNT(" + ID_NAME + ") FROM \""
                     + params.getProperty("schema")
-                    + "\".\"ondersteunend_wegdeel\" WHERE kruinlijn is not null";
+                    + "\".\"" + tableName + "\" WHERE kruinlijn is not null";
             sql = isOracle ? sql.toUpperCase() : sql;
 
             try {

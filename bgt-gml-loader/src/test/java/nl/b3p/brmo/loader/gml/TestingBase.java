@@ -32,6 +32,8 @@ public abstract class TestingBase {
 
     protected boolean isOracle;
 
+    protected boolean isMsSQL;
+
     @Rule
     public TestName name = new TestName();
 
@@ -72,6 +74,7 @@ public abstract class TestingBase {
             // negeren; het override bestand is normaal niet aanwezig
         }
         isOracle = "oracle".equalsIgnoreCase(params.getProperty("dbtype"));
+        isMsSQL = "jtds-sqlserver".equalsIgnoreCase(params.getProperty("dbtype"));
     }
 
     /**
