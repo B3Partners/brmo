@@ -2,9 +2,9 @@
 -- 31-08-2016 (hersteld)
 -----------------------------------
 -- v_adres_met_buurt_en_wijk
--- v_adres (aangepaste versie met gebruiksdoel, \
+-- v_adres_vld (aangepaste versie met gebruiksdoel, \
 --   moet eigenlijk gelijkgetrokken worden met oorspronkelijke versie)
--- v_adres_totaal (aangepaste versie met gebruiksdoel, 
+-- v_adres_totaal_vld (aangepaste versie met gebruiksdoel, 
 --   moet gelijkgetrokken worden met oorspronkelijke versie)
 -- v_bag_zoeker
 -- v_ligplaats_alles
@@ -21,6 +21,14 @@
 -- v_verblijfsobject_met_wijk_buurt
 -- v_verblijfsobject_vbo_pand
 -- v_woonplaats_met_document
+-- v_brondocument_nummeraanduiding
+-- v_brondocument_ligplaats
+-- v_brondocument_nummeraanduiding
+-- v_brondocument_openbareruimte
+-- v_brondocument_pand
+-- v_brondocument_standplaats
+-- v_brondocument_vbo
+-- v_brondocument_woonplaats
 ------------------------------------
 
 ------------------------------------
@@ -59,7 +67,7 @@ SELECT
     w.code AS wijkcode,
     a.the_geom
 FROM
-    ((v_adres_totaal a
+    ((v_adres_totaal_vld a
 JOIN
     buurt b
 ON
@@ -408,7 +416,7 @@ ON
     (((
                 lp.sc_identif)::text = (a.fid)::text)))
 JOIN
-    brondocument b
+    v_brondocument_ligplaats b
 ON
     ((((
                     b.tabel_identificatie)::text = (lp.sc_identif)::text)
@@ -520,7 +528,7 @@ ON
         AND ((
                     i.tabel)::text = 'nummeraanduiding'::text))))
 JOIN
-    brondocument br
+    v_brondocument_nummeraanduiding br
 ON
     ((((
                     br.tabel_identificatie)::text = (na.sc_identif)::text)
@@ -600,7 +608,7 @@ ON
     ((
             w.fk_7gem_code = g.code)))
 JOIN
-    brondocument b
+    v_brondocument_openbareruimte b
 ON
     ((((
                     b.tabel_identificatie)::text = (gor.identifcode)::text)
@@ -690,7 +698,7 @@ ON
         AND ((
                     i.tabel)::text = 'Pand'::text))))
 JOIN
-    brondocument b
+    V_brondocument_pand b
 ON
     ((((
                     b.tabel_identificatie)::text = (p.identif)::text)
@@ -756,7 +764,7 @@ SELECT
 FROM
     (((pand p
 JOIN
-    brondocument b
+    v_brondocument_pand b
 ON
     ((((
                     b.tabel_identificatie)::text = (p.identif)::text)
@@ -921,7 +929,7 @@ ON
         AND ((
                     i.tabel)::text = 'standplaats'::text))))
 JOIN
-    brondocument b
+    v_brondocument_standplaats b
 ON
     ((((
                     b.tabel_identificatie)::text = (sp.sc_identif)::text)
@@ -1029,7 +1037,7 @@ SELECT
 FROM
     (((v_verblijfsobject_alles v
 JOIN
-    brondocument b
+    v_brondocument_vbo b
 ON
     ((((
                     b.tabel_identificatie)::text = (v.fid)::text)
@@ -1197,7 +1205,7 @@ ON
     ((
             geor.fk_7gem_code = gem.code)))
 JOIN
-    brondocument b
+    v_brondocument_vbo b
 ON
     ((((
                     b.tabel_identificatie)::text = (vbo.sc_identif)::text)
@@ -1291,7 +1299,7 @@ ON
         AND ((
                     i.tabel)::text = 'Woonplaats'::text))))
 JOIN
-    brondocument b
+    v_brondocument_woonplaats b
 ON
     ((((
                     b.tabel_identificatie)::text = (w.identif)::text)
@@ -1586,4 +1594,103 @@ WHERE
     AND (
             gobj.datum_einde_geldh IS NULL));
     
-                                                                                                                                    
+------------------------------------
+-- v_brondocument_ligplaats
+------------------------------------   
+CREATE OR REPLACE VIEW v_brondocument_ligplaats AS 
+ SELECT DISTINCT ON (brondocument.tabel_identificatie) brondocument.tabel,
+    brondocument.tabel_identificatie,
+    brondocument.identificatie,
+    brondocument.gemeente,
+    brondocument.omschrijving,
+    brondocument.datum,
+    brondocument.ref_id
+   FROM brondocument
+  WHERE brondocument.tabel::text = 'ligplaats'::text
+  ORDER BY brondocument.tabel_identificatie, brondocument.datum DESC;
+------------------------------------
+-- v_brondocument_nummeraanduiding
+------------------------------------ 
+CREATE OR REPLACE VIEW v_brondocument_nummeraanduiding AS 
+ SELECT DISTINCT ON (brondocument.tabel_identificatie) brondocument.tabel,
+    brondocument.tabel_identificatie,
+    brondocument.identificatie,
+    brondocument.gemeente,
+    brondocument.omschrijving,
+    brondocument.datum,
+    brondocument.ref_id
+   FROM brondocument
+  WHERE brondocument.tabel::text = 'nummeraanduiding'::text
+  ORDER BY brondocument.tabel_identificatie, brondocument.datum DESC;
+------------------------------------
+-- v_brondocument_openbareruimte
+------------------------------------
+CREATE OR REPLACE VIEW v_brondocument_openbareruimte AS 
+ SELECT DISTINCT ON (brondocument.tabel_identificatie) brondocument.tabel,
+    brondocument.tabel_identificatie,
+    brondocument.identificatie,
+    brondocument.gemeente,
+    brondocument.omschrijving,
+    brondocument.datum,
+    brondocument.ref_id
+   FROM brondocument
+  WHERE brondocument.tabel::text = 'openbareruimte'::text
+  ORDER BY brondocument.tabel_identificatie, brondocument.datum DESC;
+------------------------------------
+-- v_brondocument_pand
+------------------------------------
+CREATE OR REPLACE VIEW v_brondocument_pand AS 
+ SELECT DISTINCT ON (brondocument.tabel_identificatie) brondocument.tabel,
+    brondocument.tabel_identificatie,
+    brondocument.identificatie,
+    brondocument.gemeente,
+    brondocument.omschrijving,
+    brondocument.datum,
+    brondocument.ref_id
+   FROM brondocument
+  WHERE brondocument.tabel::text = 'pand'::text
+  ORDER BY brondocument.tabel_identificatie, brondocument.datum DESC;
+------------------------------------
+-- v_brondocument_standplaats
+------------------------------------
+CREATE OR REPLACE VIEW v_brondocument_standplaats AS 
+ SELECT DISTINCT ON (brondocument.tabel_identificatie) brondocument.tabel,
+    brondocument.tabel_identificatie,
+    brondocument.identificatie,
+    brondocument.gemeente,
+    brondocument.omschrijving,
+    brondocument.datum,
+    brondocument.ref_id
+   FROM brondocument
+  WHERE brondocument.tabel::text = 'standplaats'::text
+  ORDER BY brondocument.tabel_identificatie, brondocument.datum DESC;
+------------------------------------
+-- v_brondocument_vbo
+------------------------------------
+CREATE OR REPLACE VIEW v_brondocument_vbo AS 
+ SELECT DISTINCT ON (brondocument.tabel_identificatie) brondocument.tabel,
+    brondocument.tabel_identificatie,
+    brondocument.identificatie,
+    brondocument.gemeente,
+    brondocument.omschrijving,
+    brondocument.datum,
+    brondocument.ref_id
+   FROM brondocument
+  WHERE brondocument.tabel::text = 'verblijfsobject'::text
+  ORDER BY brondocument.tabel_identificatie, brondocument.datum DESC;
+------------------------------------
+-- v_brondocument_woonplaats
+------------------------------------
+CREATE OR REPLACE VIEW v_brondocument_woonplaats AS 
+ SELECT DISTINCT ON (brondocument.tabel_identificatie) brondocument.tabel,
+    brondocument.tabel_identificatie,
+    brondocument.identificatie,
+    brondocument.gemeente,
+    brondocument.omschrijving,
+    brondocument.datum,
+    brondocument.ref_id
+   FROM brondocument
+  WHERE brondocument.tabel::text = 'woonplaats'::text
+  ORDER BY brondocument.tabel_identificatie, brondocument.datum DESC;
+
+                                                                                                                                   
