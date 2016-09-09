@@ -530,8 +530,66 @@ public class EigendomInfo {
             }
         }
     }
-
+    
+    /**
+     * Naast de rechten van het kadastrale objecten moeten bij appartementsrechten
+     * ook nog de rechten van het grondperceel worden opgevraagd. Het bijbehorende
+     * grondperceel wordt verkregen via de view: v_bd_app_re_all_kad_perceel.
+     * 
+     * @param kad_id
+     * @return
+     * @throws Exception 
+     */
     private static ZakelijkeRechten findZakelijkeRechten(long kad_id) throws Exception {
+
+        ZakelijkeRechten zrn = new ZakelijkeRechten();
+        addZakelijkeRechten(zrn, kad_id, null);
+        
+        // zoek grondperceel grondperceel_kad_id
+        long grondperceel_kad_id = 0l;
+        DataSource ds = getDataSourceRsgb();
+        StringBuilder sql = null;
+        PreparedStatement stm = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            conn = ds.getConnection();
+            String dbType = getDbType(conn);
+
+            StringBuilder resultNames = new StringBuilder();
+            resultNames.append(" gpa.perceel_identif as perceel_identif ");
+            StringBuilder fromSQL = new StringBuilder(" v_bd_app_re_all_kad_perceel gpa ");
+            StringBuilder whereSQL = new StringBuilder();
+            whereSQL.append(" gpa.app_re_identif = ? ");
+
+            sql = createSelectSQL(resultNames, fromSQL,
+                    whereSQL, null, dbType);
+            stm = conn.prepareStatement(sql.toString());
+            stm.setString(1, Long.toString(kad_id));
+            rs = stm.executeQuery();
+
+            if (rs.next()) {
+                grondperceel_kad_id = rs.getLong("perceel_identif");
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        if (grondperceel_kad_id != 0l) {
+            addZakelijkeRechten(zrn, grondperceel_kad_id, "grondperceel");
+        }
+        return zrn;
+    }
+    
+    private static ZakelijkeRechten addZakelijkeRechten(ZakelijkeRechten zrn, long kad_id, String type) throws Exception {
         DataSource ds = getDataSourceRsgb();
         StringBuilder sql = null;
         PreparedStatement stm = null;
@@ -562,7 +620,14 @@ public class EigendomInfo {
             fromSQL.append(" ON (su.identif = innp.sc_identif)  ");
 
             StringBuilder whereSQL = new StringBuilder();
-            whereSQL.append(" zr.kadaster_identif like 'NL.KAD.Tenaamstelling%' ");
+            if (type!=null && type.equals("grondperceel")) {
+                //van grondperceel bij app_re is alleen erfpacht interessant
+                //onderscheid tussen tenaamstelling en ander zakelijk recht onduidelijk
+                whereSQL.append(" zr.fk_3avr_aand = '3' ");
+            } else {
+                whereSQL.append(" zr.kadaster_identif like 'NL.KAD.Tenaamstelling%' ");
+            }
+
             whereSQL.append(" and zr.fk_7koz_kad_identif = ? ");
 
             sql = createSelectSQL(resultNames, fromSQL,
@@ -571,7 +636,6 @@ public class EigendomInfo {
             stm.setLong(1, kad_id);
             rs = stm.executeQuery();
 
-            ZakelijkeRechten zrn = new ZakelijkeRechten();
             while (rs.next()) {
                 ZakelijkRecht entry = new ZakelijkRecht();
                 if (rs.getString("identificatie") != null) {
