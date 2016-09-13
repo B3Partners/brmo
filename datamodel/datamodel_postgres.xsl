@@ -2,6 +2,8 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:db="http://www.b3partners.nl/db-specific" xmlns:fn="http://www.w3.org/2005/xpath-functions">
 	
 	<xsl:import href="datamodel_ddl.xsl"/>
+
+    <xsl:param name="versie">developer</xsl:param>
 	
 	<xsl:variable name="dbtype">postgresql</xsl:variable>
 	<xsl:variable name="dbpkdef">primary key</xsl:variable>

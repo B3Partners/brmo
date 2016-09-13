@@ -3,6 +3,8 @@
 	
 	<xsl:import href="datamodel_ddl.xsl"/>
 	
+    <xsl:param name="versie">developer</xsl:param>
+
 	<xsl:variable name="dbtype">oracle</xsl:variable>
 	<xsl:variable name="dbpkdef">primary key</xsl:variable>
 	<xsl:variable name="addcomment">true</xsl:variable>
