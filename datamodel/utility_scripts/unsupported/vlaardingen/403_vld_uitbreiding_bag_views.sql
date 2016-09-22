@@ -14,6 +14,7 @@
 -- v_opzoeklijst_straat
 -- v_pand_met_document
 -- v_pand_met_document_inclusief_verblijfsobj
+-- v_pand_status_gisviewer_vld
 -- v_standplaats_alles
 -- v_standplaats_met_document
 -- v_verblijfsobj_pand
@@ -791,6 +792,27 @@ WHERE
             CHARACTER VARYING)::text]))
     AND (
             p.datum_einde_geldh IS NULL));
+			
+------------------------------------
+-- v_pand_status_gisviewer_vld
+------------------------------------			
+-- View: v_pand_status_gisviewer_vld
+
+-- DROP VIEW v_pand_status_gisviewer_vld;
+
+CREATE OR REPLACE VIEW v_pand_status_gisviewer_vld AS 
+ SELECT p.identif AS fid,
+    p.datum_einde_geldh AS eind_datum_geldig,
+    p.dat_beg_geldh AS begin_datum_geldig,
+    p.status,
+    p.oorspronkelijk_bouwjaar AS bouwjaar,
+    p.geom_bovenaanzicht AS the_geom
+   FROM pand p
+  WHERE (p.status::text = ANY (ARRAY['Bouwvergunning verleend'::character varying::text, 'Sloopvergunning verleend'::character varying::text, 'Pand in gebruik (niet ingemeten)'::character varying::text, 'Pand in gebruik'::character varying::text, 'Bouw gestart'::character varying::text])) AND p.datum_einde_geldh IS NULL;
+
+ALTER TABLE v_pand_status_gisviewer_vld
+  OWNER TO vlaardingen;
+			
   
 ------------------------------------
 -- v_standplaats_alles
@@ -1691,6 +1713,4 @@ CREATE OR REPLACE VIEW v_brondocument_woonplaats AS
     brondocument.ref_id
    FROM brondocument
   WHERE brondocument.tabel::text = 'woonplaats'::text
-  ORDER BY brondocument.tabel_identificatie, brondocument.datum DESC;
-
-                                                                                                                                   
+ORDER BY brondocument.tabel_identificatie, brondocument.datum DESC;
