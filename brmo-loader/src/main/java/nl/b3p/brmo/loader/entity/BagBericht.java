@@ -51,6 +51,11 @@ public class BagBericht extends Bericht {
         this.doc = doc;
     }
 
+    /**
+     * Deze methode haalt een aantal parameters uit (meestal header van) het bericht.
+     * Deze methode vult alleen waarden in indien nog geen waarde bekend is,
+     * Soms wordt een waarde, zoals datum, al eerder gezet (overruled).
+     */
     private void evaluateXPath() {
         if (xpathEvaluated) {
             return;
@@ -69,10 +74,15 @@ public class BagBericht extends Bericht {
             String id = null;
             
             if(doc.getDocumentElement().getLocalName().equals(BagXMLReader.MUTATIE_PRODUCT)) {
-                String d = mutTijdstipVerwerking.evaluate(doc);
-                setDatumAsString(d);
+                if (super.getDatum()==null) {
+                    String d = mutTijdstipVerwerking.evaluate(doc);
+                    setDatumAsString(d);
+                }
 
-                setVolgordeNummer(new Integer(mutVolgnr.evaluate(doc)));
+                if (super.getVolgordeNummer()==null) {
+                    setVolgordeNummer(new Integer(mutVolgnr.evaluate(doc)));
+                }
+                
                 objectType = mutObjectType.evaluate(doc);
                 id = mutIdXPath.evaluate(doc);
 
@@ -88,7 +98,9 @@ public class BagBericht extends Bericht {
                         + " maar \"" + doc.getDocumentElement().getLocalName() + "\" gevonden");
             }
 
-            setObjectRef(objectType + ":" + id);
+            if (super.getObjectRef()==null) {
+                setObjectRef(objectType + ":" + id);
+            }
 
         } catch (Exception e) {
             log.error("Error while getting bag referentie", e);
