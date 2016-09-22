@@ -7,6 +7,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>gt-api</module>
+        <module>jdbc-oracle</module>
         <module>brmo-persistence</module>
         <module>brmo-loader</module>
         <module>bgt-gml-loader</module>
@@ -152,7 +153,7 @@
             <dependency>
                 <groupId>org.geotools.jdbc</groupId>
                 <artifactId>gt-jdbc-oracle</artifactId>
-                <version>${geotools.version}</version>
+                <version>${geotools.version}.p1</version>
             </dependency>
             <dependency>
                 <groupId>org.geotools.jdbc</groupId>
