@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 B3Partners B.V.
+ * Copyright (C) 2016 B3Partners B.V.
  */
 package nl.b3p.brmo.loader.gml;
 
@@ -29,11 +29,11 @@ import static org.junit.Assert.fail;
  * @author mprins
  */
 @RunWith(Parameterized.class)
-public class BGTLightKruinlijnIntegrationTest extends TestingBase {
+public class BGTNullGeomIntegrationTest extends TestingBase {
 
     private static final Log LOG = LogFactory.getLog(BGTLightKruinlijnIntegrationTest.class);
 
-    @Parameterized.Parameters(name = "{index}: file: {0}")
+    @Parameterized.Parameters(name = "{index}: gml:{0}")
     public static Collection<Object[]> params() {
         return Arrays.asList(new Object[][]{
             // arrays van: {"gmlFileName", "tabel",expectedNumOfElements, expectedKruinlijnElements },
@@ -60,7 +60,7 @@ public class BGTLightKruinlijnIntegrationTest extends TestingBase {
      *
      * @see #params()
      */
-    public BGTLightKruinlijnIntegrationTest(String gmlFileName, String tableName, int expectedNumOfElements, int expectedKruinlijnElements) {
+    public BGTNullGeomIntegrationTest(String gmlFileName, String tableName, int expectedNumOfElements, int expectedKruinlijnElements) {
         this.gmlFileName = gmlFileName;
         this.tableName = tableName;
         this.expectedNumOfElements = expectedNumOfElements;
@@ -90,6 +90,7 @@ public class BGTLightKruinlijnIntegrationTest extends TestingBase {
         sequential.unlock();
     }
 
+
     /**
      * test parsen en laden van 1 GML bestand in bestaande tabel.
      *
@@ -102,8 +103,11 @@ public class BGTLightKruinlijnIntegrationTest extends TestingBase {
             return;
         }
 
+        int nullGeomCount = expectedNumOfElements - expectedKruinlijnElements;
+
         File gml = new File(BGTLightKruinlijnIntegrationTest.class.getResource(gmlFileName).toURI());
         int actualElements = ldr.processGMLFile(gml);
+
         assertEquals(BGTGMLLightLoader.STATUS.OK, ldr.getStatus());
         assertEquals("Aantal geschreven features", expectedNumOfElements, actualElements);
 
@@ -116,19 +120,20 @@ public class BGTLightKruinlijnIntegrationTest extends TestingBase {
 
             String sql = "SELECT COUNT(" + ID_NAME + ") FROM \""
                     + params.getProperty("schema")
-                    + "\".\"" + tableName + "\" WHERE kruinlijn is not null";
+                    + "\".\"" + tableName + "\" WHERE kruinlijn is null";
             sql = isOracle ? sql.toUpperCase() : sql;
 
             try {
                 ResultSet count = connection.createStatement().executeQuery(sql);
                 count.next();
                 int counted = count.getInt(1);
-                assertEquals("Aantal kruinlijn elementen", expectedKruinlijnElements, counted);
+                assertEquals("Aantal 'null' kruinlijn elementen", nullGeomCount, counted);
             } catch (SQLException se) {
-                LOG.error("Fout tijdens tellen kruinlijn elementen: ", se);
-                fail("Fout tijdens tellen kruinlijn elementen: " + se.getLocalizedMessage());
+                LOG.error("Fout tijdens tellen 'null' kruinlijn elementen: ", se);
+                fail("Fout tijdens tellen 'null' kruinlijn elementen: " + se.getLocalizedMessage());
             }
             connection.close();
         }
+
     }
 }

@@ -95,10 +95,10 @@
             <groupId>org.geotools.jdbc</groupId>
             <artifactId>gt-jdbc-sqlserver</artifactId>
         </dependency>
-            <dependency>
-                <groupId>joda-time</groupId>
-                <artifactId>joda-time</artifactId>
-            </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.geolatte</groupId>
             <artifactId>geolatte-geom</artifactId>
@@ -111,7 +111,7 @@
             <exclusions>
                 <exclusion>
                     <groupId>com.oracle</groupId>
-                    <artifactId>ojdbc5</artifactId>
+                    <artifactId>${oracle.jdbc.artifactId}</artifactId>
                 </exclusion>
                 <exclusion>
                     <artifactId>org.postgresql</artifactId>
@@ -185,4 +185,25 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>oracle</id>
+            <properties>
+                <oracle.jdbc.artifactId>ojdbc7</oracle.jdbc.artifactId>
+                <oracle.jdbc.version>12.1.0.2.0</oracle.jdbc.version>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <database.properties.file>oracle.properties</database.properties.file>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
