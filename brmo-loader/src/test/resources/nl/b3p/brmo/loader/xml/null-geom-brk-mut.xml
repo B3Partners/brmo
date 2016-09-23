@@ -1,0 +1,150 @@
+<?xml version='1.0'?>
+<Snapshot:KadastraalObjectSnapshot xmlns:Snapshot="http://www.kadaster.nl/schemas/brk-levering/snapshot/v20120901">
+  <Snapshot:referentie>5174640A1AC4-1D4B6D1D766</Snapshot:referentie>
+  <Snapshot:toestandsdatum>2013-11-19</Snapshot:toestandsdatum>
+  <KadastraalObject:Perceel xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20120701" id="ID.2491012467">
+    <KadastraalObject:identificatie>
+      <NEN3610:namespace xmlns:NEN3610="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-NEN3610-2011/v20120201">NL.KAD.OnroerendeZaak</NEN3610:namespace>
+      <NEN3610:lokaalId xmlns:NEN3610="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-NEN3610-2011/v20120201">89560336440004</NEN3610:lokaalId>
+    </KadastraalObject:identificatie>
+    <KadastraalObject:heeftLocatie>
+      <KadastraalObject:LocatieKadastraalObject>
+        <KadastraalObject:adres>
+          <Adres:KADBinnenlandsAdres xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20120201">
+            <Adres:openbareRuimteNaam>MUIDERZAND</Adres:openbareRuimteNaam>
+            <Adres:woonplaatsNaam>URK</Adres:woonplaatsNaam>
+          </Adres:KADBinnenlandsAdres>
+        </KadastraalObject:adres>
+      </KadastraalObject:LocatieKadastraalObject>
+      <KadastraalObject:LocatieKadastraalObject>
+        <KadastraalObject:adres>
+          <Adres:KADBinnenlandsAdres xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20120201">
+            <Adres:openbareRuimteNaam>KAMPERZAND</Adres:openbareRuimteNaam>
+            <Adres:woonplaatsNaam>URK</Adres:woonplaatsNaam>
+          </Adres:KADBinnenlandsAdres>
+        </KadastraalObject:adres>
+      </KadastraalObject:LocatieKadastraalObject>
+      <KadastraalObject:LocatieKadastraalObject>
+        <KadastraalObject:adres>
+          <Adres:KADBinnenlandsAdres xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20120201">
+            <Adres:openbareRuimteNaam>ENKHUIZERZAND</Adres:openbareRuimteNaam>
+            <Adres:woonplaatsNaam>URK</Adres:woonplaatsNaam>
+          </Adres:KADBinnenlandsAdres>
+        </KadastraalObject:adres>
+      </KadastraalObject:LocatieKadastraalObject>
+    </KadastraalObject:heeftLocatie>
+    <KadastraalObject:kadastraleAanduiding>
+      <KadastraalObject:AKRKadastraleGemeenteCode>
+        <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201">1102</Typen:code>
+        <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201">URK00</Typen:waarde>
+      </KadastraalObject:AKRKadastraleGemeenteCode>
+      <KadastraalObject:naamKadastraleGemeente>
+        <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201">993</Typen:code>
+        <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201">Urk</Typen:waarde>
+      </KadastraalObject:naamKadastraleGemeente>
+      <KadastraalObject:sectie>C</KadastraalObject:sectie>
+      <KadastraalObject:perceelnummer>3364</KadastraalObject:perceelnummer>
+    </KadastraalObject:kadastraleAanduiding>
+    <KadastraalObject:aardCultuurOnbebouwd>
+      <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201">41</Typen:code>
+      <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201">Wegen</Typen:waarde>
+    </KadastraalObject:aardCultuurOnbebouwd>
+    <KadastraalObject:ontstaanUitOZ>
+      <KadastraalObject:OnroerendeZaakFiliatie>
+        <KadastraalObject:aard>
+          <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201">4</Typen:code>
+          <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201">Overgegaan in deelpercelen</Typen:waarde>
+        </KadastraalObject:aard>
+        <KadastraalObject:onroerendeZaak>
+          <KadastraalObjectRef:PerceelRef xmlns:KadastraalObjectRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject-ref/v20120201" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="NL.KAD.OnroerendeZaak.89560336440002" />
+        </KadastraalObject:onroerendeZaak>
+      </KadastraalObject:OnroerendeZaakFiliatie>
+    </KadastraalObject:ontstaanUitOZ>
+    <KadastraalObject:indicatieDeelperceel>true</KadastraalObject:indicatieDeelperceel>
+    <KadastraalObject:kadastraleGrootte>
+      <KadastraalObject:waarde>1967</KadastraalObject:waarde>
+    </KadastraalObject:kadastraleGrootte>
+    <KadastraalObject:soortGrootte>
+      <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201">3</Typen:code>
+      <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201">Geschat</Typen:waarde>
+    </KadastraalObject:soortGrootte>
+  </KadastraalObject:Perceel>
+  <Recht:ZakelijkRecht xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20120201" id="ID.2491012477">
+    <Recht:identificatie>
+      <NEN3610:namespace xmlns:NEN3610="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-NEN3610-2011/v20120201">NL.KAD.ZakelijkRecht</NEN3610:namespace>
+      <NEN3610:lokaalId xmlns:NEN3610="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-NEN3610-2011/v20120201">AKR1.100000007279189</NEN3610:lokaalId>
+    </Recht:identificatie>
+    <Recht:aard>
+      <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201">2</Typen:code>
+      <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201">Eigendom (recht van)</Typen:waarde>
+    </Recht:aard>
+    <Recht:rustOp>
+      <KadastraalObjectRef:PerceelRef xmlns:KadastraalObjectRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject-ref/v20120201" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ID.2491012467" />
+    </Recht:rustOp>
+  </Recht:ZakelijkRecht>
+  <Recht:Tenaamstelling xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20120201" id="ID.2491012489">
+    <Recht:identificatie>
+      <NEN3610:namespace xmlns:NEN3610="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-NEN3610-2011/v20120201">NL.KAD.Tenaamstelling</NEN3610:namespace>
+      <NEN3610:lokaalId xmlns:NEN3610="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-NEN3610-2011/v20120201">AKR1.100000007279189</NEN3610:lokaalId>
+    </Recht:identificatie>
+    <Recht:isGebaseerdOp>
+      <StukRef:StukdeelRef xmlns:StukRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20120201" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ID.2491012487" />
+    </Recht:isGebaseerdOp>
+    <Recht:vanPersoon>
+      <PersoonRef:KADNietNatuurlijkPersoonRef xmlns:PersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20120201" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ID.2491012479" />
+    </Recht:vanPersoon>
+    <Recht:aandeel>
+      <Recht:teller>1</Recht:teller>
+      <Recht:noemer>1</Recht:noemer>
+    </Recht:aandeel>
+    <Recht:van>
+      <RechtRef:ZakelijkRechtRef xmlns:RechtRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20120201" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ID.2491012477" />
+    </Recht:van>
+  </Recht:Tenaamstelling>
+  <Persoon:KADNietNatuurlijkPersoon xmlns:Persoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon/v20120201" id="ID.2491012479">
+    <Persoon:identificatie>
+      <NEN3610:namespace xmlns:NEN3610="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-NEN3610-2011/v20120201">NL.KAD.Persoon</NEN3610:namespace>
+      <NEN3610:lokaalId xmlns:NEN3610="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-NEN3610-2011/v20120201">24210332</NEN3610:lokaalId>
+    </Persoon:identificatie>
+    <Persoon:postlocatie>
+      <Adres:PostbusAdres xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20120201">
+        <Adres:postbusnummer>77</Adres:postbusnummer>
+        <Adres:postcode>8320AB</Adres:postcode>
+        <Adres:woonplaatsNaam>URK</Adres:woonplaatsNaam>
+      </Adres:PostbusAdres>
+    </Persoon:postlocatie>
+    <Persoon:woonlocatie>
+      <Adres:KADBinnenlandsAdres xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20120201">
+        <Adres:openbareRuimteNaam>Singel</Adres:openbareRuimteNaam>
+        <Adres:huisNummer>9</Adres:huisNummer>
+        <Adres:postcode>8321GT</Adres:postcode>
+        <Adres:woonplaatsNaam>URK</Adres:woonplaatsNaam>
+      </Adres:KADBinnenlandsAdres>
+    </Persoon:woonlocatie>
+    <Persoon:naam>Gemeente Urk</Persoon:naam>
+    <Persoon:rechtsvorm>
+      <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201">10</Typen:code>
+      <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201">Publiekrechtelijke rechtspersoon</Typen:waarde>
+    </Persoon:rechtsvorm>
+    <Persoon:statutaireZetel>URK</Persoon:statutaireZetel>
+  </Persoon:KADNietNatuurlijkPersoon>
+  <Stuk:Kadasterstuk xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20120201" id="ID.2491012485">
+    <Stuk:identificatie>
+      <NEN3610:namespace xmlns:NEN3610="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-NEN3610-2011/v20120201">NL.KAD.Kadasterstuk</NEN3610:namespace>
+      <NEN3610:lokaalId xmlns:NEN3610="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-NEN3610-2011/v20120201">AKR1.15675672</NEN3610:lokaalId>
+    </Stuk:identificatie>
+    <Stuk:omvat>
+      <Stuk:Stukdeel id="ID.2491012487">
+        <Stuk:identificatie>
+          <NEN3610:namespace xmlns:NEN3610="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-NEN3610-2011/v20120201">NL.KAD.Stukdeel</NEN3610:namespace>
+          <NEN3610:lokaalId xmlns:NEN3610="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-NEN3610-2011/v20120201">AKR1.15685927</NEN3610:lokaalId>
+        </Stuk:identificatie>
+        <Stuk:aardStukdeel nilReason="waardeOnbekend">
+          <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201">NIL</Typen:code>
+          <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201">NIL</Typen:waarde>
+        </Stuk:aardStukdeel>
+      </Stuk:Stukdeel>
+    </Stuk:omvat>
+    <Stuk:AKRPortefeuilleNr>84 URK0007106LLS</Stuk:AKRPortefeuilleNr>
+  </Stuk:Kadasterstuk>
+</Snapshot:KadastraalObjectSnapshot>

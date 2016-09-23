@@ -783,5 +783,8 @@
                 </repository>
             </repositories>
         </profile>
+        <profile>
+            <id>oracle</id>
+        </profile>
     </profiles>
 </project>

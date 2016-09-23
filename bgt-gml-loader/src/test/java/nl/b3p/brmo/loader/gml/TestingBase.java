@@ -68,7 +68,7 @@ public abstract class TestingBase {
                 .getResourceAsStream(System.getProperty("database.properties.file")));
         try {
             // probeer een local (override) versie te laden als die bestaat
-            params.load(BGTGMLLightLoaderUpdateIntegrationTest.class.getClassLoader()
+            params.load(TestingBase.class.getClassLoader()
                     .getResourceAsStream("local." + System.getProperty("database.properties.file")));
         } catch (IOException | NullPointerException e) {
             // negeren; het override bestand is normaal niet aanwezig

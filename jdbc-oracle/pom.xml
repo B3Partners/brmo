@@ -71,6 +71,7 @@
                             <targetDirectory>${project.build.directory}/generated-sources/java/</targetDirectory>
                             <patchFile>src/main/patches/1313.patch</patchFile>
                             <strip>1</strip>
+                            <backups>true</backups>
                         </configuration>
                         <phase>process-sources</phase>
                         <goals>
@@ -111,10 +112,15 @@
             <artifactId>gt-referencing</artifactId>
             <version>${geotools.version}</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.oracle</groupId>
             <artifactId>dummy_spatial</artifactId>
-            <version>8.1.8</version> <!-- Do not necessarly match the oracle.jdbc version number. -->
+            <version>8.1.8</version>
+            <scope>provided</scope>
+        </dependency>-->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>${oracle.jdbc.artifactId}</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
