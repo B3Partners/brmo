@@ -3,19 +3,24 @@ clone_folder: c:\projects\brmo
 clone_depth: 5
 skip_tags: true
 
+init:
+  - git config --global core.autocrlf input
+  - git config --global core.safecrlf true
+
 services:
   - mssql2016
 
 environment:
   INSTANCENAME: SQL2016
 
+environment:
+  matrix:
+    - JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+    #- JAVA_HOME: C:\Program Files (x86)\Java\jdk1.8.0
+
 # todo set up voor meerdere db versies, zie: https://www.appveyor.com/docs/services-databases/
 matrix:
   fast_finish: false
-
-init:
-  - git config --global core.autocrlf input
-  - git config --global core.safecrlf true
 
 install:
   - cmd: echo %PATH%
@@ -60,7 +65,6 @@ test_script:
 # run unit tests
   - mvn -e test -B -Pmssql -pl "!brmo-dist"
 # run integration tests
-# TODO configure sql server to listen on ip address, see: https://www.appveyor.com/docs/services-databases
   - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "!brmo-dist"
 
 after_test:
