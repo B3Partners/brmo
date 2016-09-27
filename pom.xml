@@ -45,15 +45,15 @@
         <url>https://github.com/B3Partners/brmo/issues</url>
     </issueManagement>
     <properties>
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
         <netbeans.hint.jdkPlatform>JDK_${java.version}</netbeans.hint.jdkPlatform>
         <netbeans.hint.license>default_1</netbeans.hint.license>
         <hibernate.version>3.6.10.Final</hibernate.version>
         <!-- let op: als geotools wordt ge-upgraded dan moet waarcshijnlijk de gt-api patch versie worden verwijderd -->
         <geotools.version>14.5</geotools.version>
-        <postgresql.jdbc.version>9.4.1210.jre7</postgresql.jdbc.version>
-        <oracle.jdbc.version>11.2.0.4.0</oracle.jdbc.version>
-        <oracle.jdbc.artifactId>ojdbc5</oracle.jdbc.artifactId>
+        <postgresql.jdbc.version>9.4.1211</postgresql.jdbc.version>
+        <oracle.jdbc.version>12.1.0.2.0</oracle.jdbc.version>
+        <oracle.jdbc.artifactId>ojdbc7</oracle.jdbc.artifactId>
         <sqlserver.jtds.version>1.3.1</sqlserver.jtds.version>
         <javasimon.version>4.1.1</javasimon.version>
         <quartz.version>2.2.3</quartz.version>
@@ -191,11 +191,11 @@
             </dependency>
             <!--
                 Bij gebruik van oracle met maven moet je de oracle jdbc driver
-                handmatig toevoegen aan je locale mvn repo (licentie blabla): Dit
-                kan met: mvn install:install-file
-                -Dfile=/mnt/x_b3p_install/Databases/JDBC\ drivers/ojdbc5.jar
-                -DgroupId=com.oracle -DartifactId=ojdbc5 -Dversion=11.1.0.7.0
-                -Dpackaging=jar -DgeneratePom=true
+                handmatig toevoegen aan je locale mvn repo (OTN licentie blabla): Dit
+                kan met: 
+                mvn install:install-file -Dfile=ojdbc7-12.1.0.2.0.jar -DpomFile=ojdbc7-12.1.0.2.0.pom -Dfile=ojdbc7-12.1.0.2.0.jar 
+                mvn install:install-file -Dfile=ojdbc7-12.1.0.2.0-javadoc.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0.2.0 -Dclassifier=javadoc -Dpackaging=jar
+                vanuit de /Mesa/Producten/third_party/oracle-drivers/ directory
             -->
             <dependency>
                 <groupId>com.oracle</groupId>
