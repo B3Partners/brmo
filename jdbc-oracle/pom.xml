@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.geotools.jdbc</groupId>
     <artifactId>gt-jdbc-oracle</artifactId>
-    <version>1.4.0</version>
+    <version>14.5.p1</version>
     <packaging>jar</packaging>
     <name>Patched GeoTools Oracle JDBC package</name>
     <description>Bouwt een patch versie van de GeoTools Oracle JDBC module waarin issue
@@ -15,7 +15,7 @@
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
-        <version>1.4.0</version>
+        <version>1.4.0-SNAPSHOT</version>
     </parent>
     <build>
         <plugins>
