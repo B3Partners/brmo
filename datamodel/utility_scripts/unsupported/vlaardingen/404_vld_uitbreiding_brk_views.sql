@@ -2,6 +2,7 @@
 -- 31-08-2016 (hersteld)
 -----------------------------------
 -- v_app_re_adres
+-- v_bd_app_re_bij_perceel_vld
 -- v_kad_perceel_deelperceel
 -- v_kad_perceel_eigenaar
 -- v_kad_perceel_eigenaar_geen_erfpacht
@@ -83,6 +84,42 @@ ON
 WHERE
     ((
             na.status)::text = 'Naamgeving uitgegeven'::text);
+
+------------------------------------
+-- v_bd_app_re_bij_perceel_vld
+------------------------------------
+
+-- View: v_bd_app_re_bij_perceel_vld
+
+-- DROP VIEW v_bd_app_re_bij_perceel_vld;
+
+CREATE OR REPLACE VIEW v_bd_app_re_bij_perceel_vld AS 
+ SELECT ar.sc_kad_identif,
+    ar.fk_2nnp_sc_identif,
+    ar.ka_appartementsindex,
+    ar.ka_kad_gemeentecode,
+    ar.ka_perceelnummer,
+    ar.ka_sectie,
+    kp.begrenzing_perceel,
+    kp.sc_kad_identif AS perceel_identif,
+    zr.ar_teller,
+    zr.ar_noemer,
+    zr.fk_3avr_aand,
+    zr.fk_2aard_recht_verkort_aand,
+    np.nm_geslachtsnaam,
+    np.nm_voornamen,
+    nnp.naam,
+    arv.omschr,
+    kp.plaatscoordinaten_perceel
+   FROM v_bd_app_re_all_kad_perceel v
+     JOIN kad_perceel kp ON v.perceel_identif::text = kp.sc_kad_identif::text
+     JOIN app_re ar ON v.app_re_identif::text = ar.sc_kad_identif::text
+     JOIN zak_recht zr ON zr.fk_7koz_kad_identif::text = ar.sc_kad_identif::text
+     LEFT JOIN nat_prs np ON zr.fk_8pes_sc_identif::text = np.sc_identif::text
+     LEFT JOIN niet_nat_prs nnp ON nnp.sc_identif::text = zr.fk_8pes_sc_identif::text
+     JOIN aard_recht_verkort arv ON zr.fk_3avr_aand::text = arv.aand::text
+  WHERE zr.fk_8pes_sc_identif IS NOT NULL
+  ORDER BY ar.ka_appartementsindex::integer;
 
 ------------------------------------
 -- v_kad_perceel_deelperceel
@@ -783,6 +820,49 @@ WHERE
             zr.fk_3avr_aand)::text = '3'::text);
 
 ------------------------------------
+-- v_kad_perceel_zak_recht_vld
+------------------------------------
+
+-- View: v_kad_perceel_zak_recht_vld
+
+-- DROP VIEW v_kad_perceel_zak_recht_vld;
+
+CREATE OR REPLACE VIEW v_kad_perceel_zak_recht_vld AS 
+ SELECT p.sc_kad_identif AS koz_kad_identif,
+    zr.kadaster_identif AS zr_kad_identificatie,
+    zr.ar_teller AS aandeel_teller,
+    zr.ar_noemer AS aandeel_noemer,
+    zr.fk_3avr_aand AS aard_recht_aand,
+        CASE
+            WHEN np.sc_identif IS NOT NULL THEN 'Natuurlijk persoon'::text
+            ELSE 'Niet natuurlijk persoon'::text
+        END AS soort_eigenaar,
+    np.nm_geslachtsnaam AS geslachtsnaam,
+    np.nm_voorvoegsel_geslachtsnaam AS voorvoegsel,
+    np.nm_voornamen AS voornamen,
+    np.geslachtsaand AS geslacht,
+    inp.va_loc_beschrijving AS woonadres,
+    inp.gb_geboortedatum AS geboortedatum,
+    inp.gb_geboorteplaats AS geboorteplaats,
+    inp.ol_overlijdensdatum AS overlijdensdatum,
+    nnp.naam AS naam_niet_natuurlijk_persoon,
+    innp.rechtsvorm,
+    innp.statutaire_zetel,
+    innp_subject.kvk_nummer,
+    ark.omschr AS zak_recht_omschrijving
+   FROM kad_perceel p
+     JOIN zak_recht zr ON zr.fk_7koz_kad_identif = p.sc_kad_identif
+     LEFT JOIN aard_recht_verkort ark ON zr.fk_3avr_aand::text = ark.aand::text
+     LEFT JOIN aard_verkregen_recht ar ON zr.fk_3avr_aand::text = ar.aand::text
+     LEFT JOIN nat_prs np ON np.sc_identif::text = zr.fk_8pes_sc_identif::text
+     LEFT JOIN ingeschr_nat_prs inp ON inp.sc_identif::text = np.sc_identif::text
+     LEFT JOIN niet_nat_prs nnp ON nnp.sc_identif::text = zr.fk_8pes_sc_identif::text
+     LEFT JOIN ingeschr_niet_nat_prs innp ON innp.sc_identif::text = nnp.sc_identif::text
+     LEFT JOIN subject innp_subject ON innp_subject.identif::text = innp.sc_identif::text
+  WHERE np.nm_geslachtsnaam IS NOT NULL OR nnp.naam IS NOT NULL;
+
+
+------------------------------------
 -- v_kad_percelen_historische_relaties
 ------------------------------------
 CREATE OR REPLACE VIEW
@@ -889,6 +969,26 @@ FROM
 WHERE
     ((
             brondocument.tabel)::text ~~ '%KAD%'::text);
+            
+------------------------------------
+-- v_map_kad_perceel_vld
+------------------------------------
+
+-- View: v_map_kad_perceel_vld
+
+-- DROP VIEW v_map_kad_perceel_vld;
+
+CREATE OR REPLACE VIEW v_map_kad_perceel_vld AS 
+ SELECT p.sc_kad_identif,
+    p.begrenzing_perceel,
+    (p.ka_sectie::text || ' '::text) || p.ka_perceelnummer::text AS aanduiding,
+    p.grootte_perceel,
+    z.ks_koopjaar,
+    z.ks_bedrag,
+    z.ks_meer_onroerendgoed,
+    z.cu_aard_cultuur_onbebouwd
+   FROM kad_perceel p
+     JOIN kad_onrrnd_zk z ON z.kad_identif = p.sc_kad_identif;
 
 ------------------------------------
 -- v_zak_recht_aantek
