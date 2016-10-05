@@ -36,9 +36,10 @@ before_install:
   # installeer/update postgis 2.2 op 9.5  
   - sudo service postgresql stop
   - sudo -E apt-get -qq update &>> ~/apt-get-update.log
-  - sudo apt-get -qq install postgis gdal-bin graphviz
+  - sudo apt-get -qq install postgis-2.2 gdal-bin graphviz
   #- sudo cp /etc/postgresql/9.4/main/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
   #- sudo /etc/init.d/postgresql restart
+  - sudo service postgresql stop
   - sudo service postgresql start 9.5
   #- export PGHOST=localhost
   #- export PGPORT=5433
