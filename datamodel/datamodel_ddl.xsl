@@ -19,8 +19,9 @@
 </xsl:text>
         <xsl:if test="'oracle'=$dbtype">
 <xsl:text>
--- voor sqldeveloper define evt. uitzetten omdat er ampersand tekens in sommige namen voorkomen.
--- set define off;
+-- voor ander tooling dan sqldeveloper define evt. uitzetten omdat er ampersand 
+--   tekens in sommige gemeente/plaats/buurt namen voorkomen.
+set define off;
 
 </xsl:text>
         </xsl:if>

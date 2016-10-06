@@ -6,7 +6,7 @@
 
 
 -- voor sqldeveloper define evt. uitzetten omdat er ampersand tekens in sommige namen voorkomen.
--- set define off;
+set define off;
 
 create table sbi_activiteit(
 	omschr varchar2(60),

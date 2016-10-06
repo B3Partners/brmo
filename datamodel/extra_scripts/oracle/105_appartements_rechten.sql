@@ -75,7 +75,9 @@ select * from v_bd_app_re_3_kad_perceel;
 
 -- view om app_re' s bij percelen op te zoeken
 CREATE OR REPLACE VIEW v_bd_app_re_bij_perceel AS 
- SELECT ar.sc_kad_identif,
+ SELECT 
+    CAST(ROWNUM AS INTEGER) AS objectid,
+    ar.sc_kad_identif,
     ar.fk_2nnp_sc_identif,
     ar.ka_appartementsindex,
     ar.ka_kad_gemeentecode,
