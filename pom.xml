@@ -8,6 +8,7 @@
     <modules>
         <module>gt-api</module>
         <module>jdbc-oracle</module>
+        <module>datamodel</module>
         <module>brmo-persistence</module>
         <module>brmo-loader</module>
         <module>bgt-gml-loader</module>
