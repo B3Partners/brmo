@@ -32,8 +32,8 @@ WHERE
 
 -- aanpassen eigenarenkaart
 -- Eigenarenkaart - percelen en appartementen met hun eigenaren
-CREATE OR REPLACE VIEW
-    V_KAD_EIGENARENKAART
+DROP MATERIALIZED VIEW VM_KAD_EIGENARENKAART;
+CREATE MATERIALIZED VIEW VM_KAD_EIGENARENKAART
     (
         OBJECTID,
         KADASTER_IDENTIFICATIE,
@@ -65,9 +65,9 @@ CREATE OR REPLACE VIEW
         KA_KAD_GEMEENTECODE,
         KA_SECTIE,
         BEGRENZING_PERCEEL
-    ) AS
+    ) BUILD IMMEDIATE AS
 SELECT
-    row_number() OVER () AS objectid,
+    ROWNUM AS objectid,
     p.kadaster_identificatie    AS kadaster_identificatie,
     p.type,
     zr.kadaster_identif AS zakelijk_recht_identificatie,
