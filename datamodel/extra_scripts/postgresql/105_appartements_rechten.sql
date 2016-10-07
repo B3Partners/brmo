@@ -1,6 +1,5 @@
 -- selecteer parent en child app_re's die een ondersplitsing zijn of zijn geworden
 
-
 CREATE OR REPLACE VIEW v_bd_app_re_app_re AS 
  SELECT b1.ref_id AS app_re_identif,
     b2.ref_id AS parent_app_re_identif
@@ -63,7 +62,9 @@ CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app AS
 
 -- view om app_re' s bij percelen op te zoeken
 CREATE OR REPLACE VIEW v_bd_app_re_bij_perceel AS 
- SELECT ar.sc_kad_identif,
+ SELECT 
+    (row_number() OVER ())::integer AS ObjectID,
+    ar.sc_kad_identif,
     ar.fk_2nnp_sc_identif,
     ar.ka_appartementsindex,
     ar.ka_kad_gemeentecode,
