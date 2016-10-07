@@ -86,8 +86,8 @@ public class ConfigUtil implements Servlet {
                 ds = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB_BGT);
             }
         } catch (Exception ex) {
-            log.error("Fout verbinden naar rsgb bgt db. ", ex);
-            throw new BrmoException(ex);
+            log.error("Fout verbinden naar 'rsgbbgt' schema.", ex);
+            throw new BrmoException("Fout verbinden naar 'rsgbbgt' schema.", ex);
         }
 
         return ds;
