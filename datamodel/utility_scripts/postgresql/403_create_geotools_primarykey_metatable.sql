@@ -33,7 +33,6 @@ INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_bd_app_re_bij_perceel', 'sc_k
 INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_bd_kad_perceel_met_app', 'sc_kad_identif', NULL, 'assigned', NULL);
 INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_kad_perceel_eenvoudig', 'sc_kad_identif', NULL, 'assigned', NULL);
 INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_kad_perceel_in_eigendom', 'sc_kad_identif', NULL, 'assigned', NULL);
--- in V_KAD_PERCEEL_ZR_ADRESSEN is SC_KAD_IDENTIF niet uniek, derhalve is er geen bruikbaar primary key veld!
 INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_ligplaats', 'sc_kad_identif', NULL, 'assigned', NULL);
 INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_map_kad_perceel', 'sc_kad_identif', NULL, 'assigned', NULL);
 INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_pand_gebruik_niet_ingemeten', 'fid', NULL, 'assigned', NULL);
@@ -42,3 +41,8 @@ INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_standplaats', 'sc_identif', N
 INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_verblijfsobject', 'fid', NULL, 'assigned', NULL);
 INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_verblijfsobject_alles', 'fid', NULL, 'assigned', NULL);
 INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_verblijfsobject_gevormd', 'fid', NULL, 'assigned', NULL);
+
+-- in onderstaande tabellen is objectid een gegenereerd veld
+INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_kad_perceel_zr_adressen', 'ObjectID', NULL, 'assigned', NULL);
+INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_bd_app_re_and_kad_perceel', 'ObjectID', NULL, 'assigned', NULL);
+INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_kad_eigenarenkaart', 'objectid', NULL, 'assigned', NULL);

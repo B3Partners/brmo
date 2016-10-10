@@ -1,6 +1,10 @@
 --
 -- upgrade RSGB datamodel van 1.3.6 naar 1.4.0 (Oracle)
 --
+-- Als er gebruik wordt gemaakt van Geotools (Flamingo)/Geoserver dan 
+--   ook de inserts van de GT_PK_METADATA en GEOMETRY_COLUMNS uitvoeren 
+--   na aanpassen (regel 239~249 hieronder).
+--
 -- merge van de nieuwe waarden voor Aard Recht codelijst (issue#234)
 MERGE INTO aard_recht_verkort USING dual ON (aand='23')
 WHEN MATCHED THEN UPDATE SET omschr='Opstalrecht Nutsvoorzieningen op gedeelte van perceel'
@@ -232,4 +236,14 @@ CREATE UNIQUE INDEX VM_KAD_EIGENARENKAART_OID_IDX ON VM_KAD_EIGENARENKAART (OBJE
 INSERT INTO USER_SDO_GEOM_METADATA VALUES('VM_KAD_EIGENARENKAART', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
 CREATE INDEX VM_KAD_EIGENARENKAART_PERC_IDX ON VM_KAD_EIGENARENKAART (BEGRENZING_PERCEEL) INDEXTYPE IS MDSYS.SPATIAL_INDEX PARAMETERS ( 'LAYER_GTYPE=MULTIPOLYGON');
 
-
+-- optioneel: bijwerken Geotools / geoserver metadata tabellen, zie ook utility scripts:
+--    402_create_geotools_geometrycolumns_metatable.sql
+--    403_create_geotools_primarykey_metatable.sql
+-- in directory brmo/datamodel/utility_scripts/oracle/ 
+-- (let op de schemanaam 'RSGB' in onderstaande inserts moet mogelijk aangepast worden)
+-- 
+-- INSERT INTO GT_PK_METADATA VALUES ('RSGB', 'V_KAD_PERCEEL_ZR_ADRESSEN', 'OBJECTID', NULL, 'assigned', NULL);
+-- INSERT INTO GT_PK_METADATA VALUES ('RSGB', 'V_BD_APP_RE_AND_KAD_PERCEEL', 'OBJECTID', NULL, 'assigned', NULL);
+-- INSERT INTO GEOMETRY_COLUMNS (F_TABLE_SCHEMA, F_TABLE_NAME, F_GEOMETRY_COLUMN, COORD_DIMENSION, SRID, TYPE) 
+--    VALUES ('RSGB', 'VM_KAD_EIGENARENKAART', 'BEGRENZING_PERCEEL', 2, 28992, 'MULTIPOLYGON');
+-- INSERT INTO GT_PK_METADATA VALUES ('RSGB', 'VM_KAD_EIGENARENKAART', 'OBJECTID', NULL, 'assigned', NULL);

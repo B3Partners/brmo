@@ -1,5 +1,9 @@
 --
 -- upgrade RSGB datamodel van 1.3.6 naar 1.4.0 (PostgreSQL)
+-- 
+-- Als er gebruik wordt gemaakt van Geotools (Flamingo)/Geoserver dan 
+--   ook de inserts van de gt_pk_metadata uitvoeren na aanpassen 
+--   (regel 339~347 hieronder).
 --
 -- upsert van de nieuwe waarden voor Aard Recht codelijst (issue#234)
 WITH new_values (id, txt) AS (VALUES
@@ -19,8 +23,8 @@ WITH new_values (id, txt) AS (VALUES
         FROM new_values nv WHERE  m.aand = nv.id RETURNING m.* 
     )
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) SELECT id, txt FROM new_values WHERE NOT EXISTS (SELECT 1 FROM upsert up WHERE up.aand = new_values.id);
-
--- toevoegen van een ObjectID aan kadaster views ten behoeve van arcgis
+--
+-- Toevoegen van een ObjectID aan kadaster views ten behoeve van arcgis
 DROP VIEW IF EXISTS v_bd_app_re_bij_perceel;
 DROP VIEW IF EXISTS v_kad_perceel_in_eigendom;
 DROP VIEW IF EXISTS v_map_kad_perceel;
@@ -214,9 +218,9 @@ select
 
    -- Eigenarenkaart - percelen en appartementen met hun eigenaren
 CREATE OR REPLACE VIEW
-    V_KAD_EIGENARENKAART
+    v_kad_eigenarenkaart
     (
-        OBJECTID,
+        objectid,
         KADASTER_IDENTIFICATIE,
         TYPE,
         ZAKELIJK_RECHT_IDENTIFICATIE,
@@ -332,3 +336,11 @@ ON
 WHERE
     zr.kadaster_identif like 'NL.KAD.Tenaamstelling%';
 
+-- optioneel: bijwerken Geotools / geoserver metadata tabellen, zie ook utility scripts:
+--    403_create_geotools_primarykey_metatable.sql
+-- in directory brmo/datamodel/utility_scripts/postgresql/ 
+-- (let op de schemanaam 'brmo_rsgb' in onderstaande inserts moet mogelijk aangepast worden)
+--
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_kad_perceel_zr_adressen', 'ObjectID', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_bd_app_re_and_kad_perceel', 'ObjectID', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_kad_eigenarenkaart', 'objectid', NULL, 'assigned', NULL);
