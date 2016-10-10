@@ -3,6 +3,7 @@ GO
 
 CREATE VIEW v_map_kad_perceel as
 select
+    CAST(ROW_NUMBER() over(ORDER BY p.sc_kad_identif) AS INT) AS ObjectID,
     p.sc_kad_identif,
     p.begrenzing_perceel,
     p.ka_sectie + ' ' + p.ka_perceelnummer AS aanduiding,
@@ -23,10 +24,11 @@ create table prs_eigendom (
 
 GO
 
-CREATE VIEW v_kad_perceel_in_eigendom as
-select
+CREATE view v_kad_perceel_in_eigendom as
+select 
+    CAST(ROW_NUMBER() over(ORDER BY p.sc_kad_identif) AS INT) AS ObjectID,
     p.begrenzing_perceel,
-     p.sc_kad_identif,
+    p.sc_kad_identif,
     p.aanduiding,
     p.grootte_perceel,
     p.ks_koopjaar,
@@ -63,6 +65,7 @@ GO
 
 CREATE VIEW v_kad_perceel_eenvoudig as
 select
+        CAST(ROW_NUMBER() over(ORDER BY p.sc_kad_identif) AS INT) AS ObjectID,
         p.sc_kad_identif,
         p.begrenzing_perceel,
         p.ka_sectie + ' ' + p.ka_perceelnummer AS aanduiding,
@@ -114,8 +117,9 @@ CREATE VIEW v_kad_perceel_zak_recht as
 
 GO
 
-CREATE VIEW v_kad_perceel_zr_adressen as
-select
+CREATE view v_kad_perceel_zr_adressen as 
+select 
+  CAST(ROW_NUMBER() over(ORDER BY kp.sc_kad_identif) AS INT) AS ObjectID,
   kp.SC_KAD_IDENTIF,
   kp.BEGRENZING_PERCEEL,
   kp.AANDUIDING,
@@ -206,30 +210,42 @@ and zr2.FK_8PES_SC_IDENTIF is not null;
 GO
 
 CREATE VIEW v_bd_app_re_and_kad_perceel AS
-select
-    p.sc_kad_identif    AS kadaster_identificatie,
-    'perceel' as type,
-    p.ka_deelperceelnummer,
-    '' as ka_appartementsindex,
-    p.ka_perceelnummer,
-    p.ka_kad_gemeentecode,
-    p.ka_sectie,
-    p.begrenzing_perceel
-FROM
-    kad_perceel p
-union all
 SELECT
-    ar.sc_kad_identif,
-    'appartement' as type,
-    '' as ka_deelperceelnummer,
-    ar.ka_appartementsindex,
-    ar.ka_perceelnummer,
-    ar.ka_kad_gemeentecode,
-    ar.ka_sectie,
-    kp.begrenzing_perceel
-   FROM v_bd_app_re_all_kad_perceel v
-     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif
-     JOIN app_re ar ON v.app_re_identif = ar.sc_kad_identif;
+    CAST(ROW_NUMBER() over(ORDER BY qry.kadaster_identificatie) AS INT) AS ObjectID,
+    qry.*
+FROM
+    (
+        SELECT
+            p.sc_kad_identif AS kadaster_identificatie,
+            'perceel'        AS type,
+            p.ka_deelperceelnummer,
+            '' AS ka_appartementsindex,
+            p.ka_perceelnummer,
+            p.ka_kad_gemeentecode,
+            p.ka_sectie,
+            p.begrenzing_perceel
+        FROM
+            kad_perceel p
+        UNION ALL
+        SELECT
+            ar.sc_kad_identif,
+            'appartement' AS type,
+            ''            AS ka_deelperceelnummer,
+            ar.ka_appartementsindex,
+            ar.ka_perceelnummer,
+            ar.ka_kad_gemeentecode,
+            ar.ka_sectie,
+            kp.begrenzing_perceel
+        FROM
+            v_bd_app_re_all_kad_perceel v
+        JOIN
+            kad_perceel kp
+        ON
+            v.perceel_identif = kp.sc_kad_identif
+        JOIN
+            app_re ar
+        ON
+            v.app_re_identif = ar.sc_kad_identif ) qry;
 
 -- aankoopdatum uit brondocumenten
 GO
@@ -258,7 +274,7 @@ GO
 CREATE VIEW
     v_kad_eigenarenkaart
     (
-        objectid,
+        ObjectID,
         kadaster_identificatie,
         type,
         zakelijk_recht_identificatie,
@@ -290,7 +306,7 @@ CREATE VIEW
         begrenzing_perceel
     ) AS
 SELECT
-    row_number() OVER (order by p.kadaster_identificatie) AS objectid,
+    CAST(row_number() OVER (order by p.kadaster_identificatie) AS INT) AS ObjectID,
     p.kadaster_identificatie    AS kadaster_identificatie,
     p.type,
     zr.kadaster_identif AS zakelijk_recht_identificatie,

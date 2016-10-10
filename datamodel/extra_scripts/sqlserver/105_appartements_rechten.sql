@@ -91,7 +91,9 @@ select * from v_bd_app_re_3_kad_perceel;
 GO
 
 CREATE VIEW v_bd_app_re_bij_perceel AS 
- SELECT ar.sc_kad_identif,
+ SELECT 
+    CAST(ROW_NUMBER() over(ORDER BY ar.sc_kad_identif) AS INT) AS ObjectID,
+    ar.sc_kad_identif,
     ar.fk_2nnp_sc_identif,
     ar.ka_appartementsindex,
     ar.ka_kad_gemeentecode,
