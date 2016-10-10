@@ -12,8 +12,6 @@ addons:
    hosts: travis-brmo
 
 jdk:
-  - openjdk7
-  - oraclejdk7
   - oraclejdk8
   - openjdk8
 
@@ -21,7 +19,6 @@ matrix:
   fast_finish: true
 
   allow_failures:
-    - jdk: openjdk7
 
 cache:
   directories:
