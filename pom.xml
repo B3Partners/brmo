@@ -71,7 +71,7 @@
     <dependencyManagement>
         <!--
         voor een update controle gebruik je het volgende maven commando:
-        mvn -U org.codehaus.mojo:versions-maven-plugin:2.3:display-dependency-updates
+        mvn -U org.codehaus.mojo:versions-maven-plugin:2.3:display-dependency-updates > target/dependency-updates.log
         -->
         <dependencies>
             <!-- logging libs -->
@@ -168,6 +168,11 @@
                 <groupId>org.geotools</groupId>
                 <artifactId>gt-geojson</artifactId>
                 <version>${geotools.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.geolatte</groupId>
+                <artifactId>geolatte-geom</artifactId>
+                <version>1.0.6</version>
             </dependency>
             <!-- database en persistence -->
             <dependency>
@@ -324,6 +329,12 @@
                 <version>4.12</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.2</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <prerequisites>
@@ -424,7 +435,7 @@
             <plugins>
                 <!--
                 voor een update controle gebruik je het volgende maven commando:
-                mvn -U org.codehaus.mojo:versions-maven-plugin:2.3:display-plugin-updates
+                mvn -U org.codehaus.mojo:versions-maven-plugin:2.3:display-plugin-updates > target/plugin-updates.log
                 -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
