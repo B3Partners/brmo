@@ -15,7 +15,7 @@ voer uit:
   - P8/p8_subject_percelen.sql
   - P8/p8_kadastraal_perceel_rechten.sql
   - P8/p8_kadastraal_perceel_aantekeningen.sql
-  
-  
   - P8/p8_kadastraal_perceel_overgegaan_in.sql
 
+tbv. Geoserver, eventueel na schema naam aanpassingen
+  - geotools_metadata.sql 

@@ -1,0 +1,64 @@
+--
+-- maakt een tweetal metadata tabellen (gt_pk_metadata en geometry_columns) 
+-- aan voor geotools/geoserver en vult deze.
+--
+
+-- primary key metadata tabel
+CREATE TABLE gt_pk_metadata (
+    table_schema  VARCHAR2(32) NOT NULL,
+    table_name    VARCHAR2(32) NOT NULL,
+    pk_column     VARCHAR2(32) NOT NULL,
+    pk_column_idx NUMBER(38),
+    pk_policy     VARCHAR2(32),
+    pk_sequence   VARCHAR2(64),
+    CONSTRAINT chk_pk_policy CHECK (pk_policy IN ('sequence', 'assigned', 'autoincrement'))
+  );
+CREATE UNIQUE INDEX gt_pk_metadata_table_idx01 ON gt_pk_metadata (table_schema, table_name, pk_column);
+COMMENT ON TABLE gt_pk_metadata IS 'Primary key metadata tabel ten behoeve van Geoserver/Geotools';
+
+-- geometrie metadata tabel
+CREATE TABLE geometry_columns (
+    F_TABLE_SCHEMA    VARCHAR(30) NOT NULL,
+    F_TABLE_NAME      VARCHAR(30) NOT NULL,
+    F_GEOMETRY_COLUMN VARCHAR(30) NOT NULL,
+    COORD_DIMENSION   INTEGER,
+    SRID              INTEGER NOT NULL,
+    TYPE              VARCHAR(30) NOT NULL,
+    UNIQUE(F_TABLE_SCHEMA, F_TABLE_NAME, F_GEOMETRY_COLUMN),
+    CHECK(TYPE IN ('POINT', 'LINE', 'POLYGON', 'COLLECTION', 'MULTIPOINT', 'MULTILINE', 'MULTIPOLYGON', 'GEOMETRY'))
+  );
+COMMENT ON TABLE GEOMETRY_COLUMNS IS 'Geometry metadata tabel ten behoeve van Geoserver/Geotools';
+
+
+-- V_P8_KAD_PERCEEL_OVER_IN heeft geen PK kolom en geen geometrie
+--INSERT INTO gt_pk_metadata VALUES ('RSGB', 'V_P8_KAD_PERCEEL_OVER_IN', 'GEEN PK KOLOM', NULL, 'assigned', NULL);
+--INSERT INTO gt_pk_metadata VALUES ('RSGB', 'VM_P8_KAD_PERCEEL_OVER_IN', 'GEEN PK KOLOM', NULL, 'assigned', NULL);
+
+
+-- V_P8_KADASTRAAL_PERCEEL heeft geen PK kolom, mogelijk is KADPERCEELCODE bruikbaar, dan ook de index vm_p8_kad_perc_kpcode_idx uniek maken
+--INSERT INTO gt_pk_metadata VALUES ('RSGB', 'V_P8_KADASTRAAL_PERCEEL', 'KADPERCEELCODE', NULL, 'assigned', NULL);
+--INSERT INTO gt_pk_metadata VALUES ('RSGB', 'VM_P8_KADASTRAAL_PERCEEL', 'KADPERCEELCODE', NULL, 'assigned', NULL);
+INSERT INTO GEOMETRY_COLUMNS (F_TABLE_SCHEMA, F_TABLE_NAME, F_GEOMETRY_COLUMN, COORD_DIMENSION, SRID, TYPE) VALUES ('RSGB', 'V_P8_KADASTRAAL_PERCEEL', 'GEOM', 2, 28992, 'MULTIPOLYGON');
+INSERT INTO GEOMETRY_COLUMNS (F_TABLE_SCHEMA, F_TABLE_NAME, F_GEOMETRY_COLUMN, COORD_DIMENSION, SRID, TYPE) VALUES ('RSGB', 'VM_P8_KADASTRAAL_PERCEEL', 'GEOM', 2, 28992, 'MULTIPOLYGON');
+    
+
+-- V_P8_KADASTRAAL_PERCEEL_AANT heeft geen PK kolom en geen geometrie
+--INSERT INTO gt_pk_metadata VALUES ('RSGB', 'V_P8_KADASTRAAL_PERCEEL_AANT', 'GEEN PK KOLOM', NULL, 'assigned', NULL);
+--INSERT INTO gt_pk_metadata VALUES ('RSGB', 'VM_P8_KADASTRAAL_PERCEEL_AANT', 'GEEN PK KOLOM', NULL, 'assigned', NULL);
+
+
+-- V_P8_KADASTRAAL_PERCEEL_RECHT heeft geen PK kolom en geen geometrie
+--INSERT INTO gt_pk_metadata VALUES ('RSGB', 'V_P8_KADASTRAAL_PERCEEL_RECHT', 'GEEN PK KOLOM', NULL, 'assigned', NULL);
+--INSERT INTO gt_pk_metadata VALUES ('RSGB', 'VM_P8_KADASTRAAL_PERCEEL_RECHT', 'GEEN PK KOLOM', NULL, 'assigned', NULL);
+
+
+-- V_P8_SUBJECT heeft geen PK kolom en geen geometrie, waarschijnlijk is SUBJECTID te gebruiken als PK
+--INSERT INTO gt_pk_metadata VALUES ('RSGB', 'V_P8_SUBJECT', 'SUBJECTID', NULL, 'assigned', NULL);
+--INSERT INTO gt_pk_metadata VALUES ('RSGB', 'VM_P8_SUBJECT', 'SUBJECTID', NULL, 'assigned', NULL);
+
+
+-- V_P8_SUBJECT_PERCELEN heeft geen PK kolom, mogelijk ROWNUM as FID toevoegen / gebruiken
+--INSERT INTO gt_pk_metadata VALUES ('RSGB', 'V_P8_SUBJECT_PERCELEN', 'GEEN PK KOLOM', NULL, 'assigned', NULL);
+--INSERT INTO gt_pk_metadata VALUES ('RSGB', 'VM_P8_SUBJECT_PERCELEN', 'FID', NULL, 'assigned', NULL);
+INSERT INTO GEOMETRY_COLUMNS (F_TABLE_SCHEMA, F_TABLE_NAME, F_GEOMETRY_COLUMN, COORD_DIMENSION, SRID, TYPE) VALUES ('RSGB', 'V_P8_SUBJECT_PERCELEN', 'GEOM', 2, 28992, 'MULTIPOLYGON');
+INSERT INTO GEOMETRY_COLUMNS (F_TABLE_SCHEMA, F_TABLE_NAME, F_GEOMETRY_COLUMN, COORD_DIMENSION, SRID, TYPE) VALUES ('RSGB', 'VM_P8_SUBJECT_PERCELEN', 'GEOM', 2, 28992, 'MULTIPOLYGON');
