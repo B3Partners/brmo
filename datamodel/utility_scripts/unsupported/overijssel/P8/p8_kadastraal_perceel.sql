@@ -66,12 +66,14 @@ INTO USER_SDO_GEOM_METADATA VALUES
 CREATE MATERIALIZED VIEW vm_p8_kadastraal_perceel REFRESH ON DEMAND START WITH TRUNC(SYSDATE) +(7.5/24) NEXT TRUNC(SYSDATE) +1+ (7.5/24)
 AS
   SELECT * FROM v_p8_kadastraal_perceel;
-  --metadata
-  DELETE
+
+--metadata
+DELETE
   FROM USER_SDO_GEOM_METADATA
   WHERE table_name ='VM_P8_KADASTRAAL_PERCEEL';
-  INSERT
-  INTO USER_SDO_GEOM_METADATA VALUES
+  
+INSERT
+INTO USER_SDO_GEOM_METADATA VALUES
     (
       'VM_P8_KADASTRAAL_PERCEEL',
       'GEOM',
@@ -79,7 +81,7 @@ AS
       28992
     );
   -- indexen
-  CREATE INDEX vm_p8_kad_perc_kpcode_idx ON vm_p8_kadastraal_perceel
+  CREATE UNIQUE INDEX vm_p8_kad_perc_kpcode_idx ON vm_p8_kadastraal_perceel
     (
       kadperceelcode ASC
     );
