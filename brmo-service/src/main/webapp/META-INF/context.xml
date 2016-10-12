@@ -59,9 +59,9 @@
 
     2. Plaats postgresql of oracle driver in tomcat lib
     -->
-  <ResourceLink global="jdbc/brmo/staging" name="jdbc/brmo/staging" type="javax.sql.Datasource"/>
-  <ResourceLink global="jdbc/brmo/rsgb" name="jdbc/brmo/rsgb" type="javax.sql.Datasource"/>
-  <ResourceLink global="jdbc/brmo/rsgbbgt" name="jdbc/brmo/rsgbbgt" type="javax.sql.Datasource"/>
+  <ResourceLink global="jdbc/brmo/staging" name="jdbc/brmo/staging" type="javax.sql.DataSource"/>
+  <ResourceLink global="jdbc/brmo/rsgb" name="jdbc/brmo/rsgb" type="javax.sql.DataSource"/>
+  <ResourceLink global="jdbc/brmo/rsgbbgt" name="jdbc/brmo/rsgbbgt" type="javax.sql.DataSource"/>
   <!-- For Tomcat: define JavaMail resource in server.xml. See:
     http://tomcat.apache.org/tomcat-6.0-doc/jndi-resources-howto.html#JavaMail_Sessions
     Don't forget to put mail.jar in the Tomcat lib directory.

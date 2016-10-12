@@ -60,8 +60,8 @@
     2. Plaats postgresql of oracle driver in tomcat lib
     -->
 
-    <ResourceLink global="jdbc/brmo/staging" name="jdbc/brmo/staging" type="javax.sql.Datasource"/>
-    <ResourceLink global="jdbc/brmo/rsgb" name="jdbc/brmo/rsgb" type="javax.sql.Datasource"/>
+    <ResourceLink global="jdbc/brmo/staging" name="jdbc/brmo/staging" type="javax.sql.DataSource"/>
+    <ResourceLink global="jdbc/brmo/rsgb" name="jdbc/brmo/rsgb" type="javax.sql.DataSource"/>
 
     <Realm allRolesMode="authOnly" className="org.apache.catalina.realm.DataSourceRealm" dataSourceName="jdbc/brmo/staging" digest="SHA-1" roleNameCol="groep_" userCredCol="wachtwoord" userNameCol="gebruikersnaam" userRoleTable="gebruiker_groepen" userTable="gebruiker_"/>
 </Context>
