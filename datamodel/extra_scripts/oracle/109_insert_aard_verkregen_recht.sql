@@ -20,3 +20,5 @@ INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('1
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('20', 'Zakelijk recht na twee of meer zakelijke belastingen');
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('21', 'Zakelijke belasting derde of volgende');
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('22', 'BP-recht');
+INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('23', 'Opstalrecht Nutsvoorzieningen op gedeelte van perceel');
+INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('24', 'Zakelijk recht als bedoeld in artikel 5, lid 3, onder b, van de Belemmeringenwet Privaatrecht op gedeelte van perceel');
