@@ -784,7 +784,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         this.config.addLogLine("Initializing SSLContext");
         context = SSLContext.getInstance("TLS", "SunJSSE");
         context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
-        SSLContext.setDefault(context);
         ctxt.put(JAXWSProperties.SSL_SOCKET_FACTORY, context.getSocketFactory());
 
         return gds2;
