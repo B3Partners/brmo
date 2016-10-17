@@ -59,21 +59,18 @@ before_install:
   #- ls -l ./datamodel/utility_scripts/postgresql/
   #- travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/111a_update_gemeente_geom.sql
   #- travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/113a_update_wijk_geom.sql
+  # set up staging db
+  - ls -l ./brmo-persistence/db/
+  - psql -U postgres -d staging -f ./brmo-persistence/db/create-brmo-persistence-postgresql.sql
+  - psql -U postgres -d staging -f ./brmo-persistence/db/01_create_indexes.sql
+  - psql -U postgres -d staging -f ./brmo-persistence/db/02_insert_default_user.sql
 
 install:
   # install all dependencies + artifacts without any testing, create staging db scripts
   - mvn install -Dmaven.test.skip=true -B -V -fae -q -Ppostgresql -pl '!brmo-dist'
 
 before_script:
-  # dit dient na afloop van de 'install' gedaan te worden omdat de staging DB sql gegenereerd wordt door Hibernate
-  # set up staging db
-  # TODO, see https://github.com/B3Partners/brmo/issues/153
-  #- ls -l ./brmo-persistence/target/ddlscripts/
-  #- psql -U postgres -d staging -f ./brmo-persistence/target/ddlscripts/create-brmo-persistence-postgresql.sql
-  - ls -l ./brmo-persistence/db/
-  - psql -U postgres -d staging -f ./brmo-persistence/db/create-brmo-persistence-postgresql.sql
-  - psql -U postgres -d staging -f ./brmo-persistence/db/01_create_indexes.sql
-  - psql -U postgres -d staging -f ./brmo-persistence/db/02_insert_default_user.sql
+  # dit dient na afloop van de 'install' gedaan te worden omdat de sql gegenereerd wordt
   # bgt test tabellen
   - psql "dbname=rsgb options=--search_path=bgttest,public" -U postgres -w -q -f ./bgt-gml-loader/target/generated-resources/ddl/postgresql/create_rsgb_bgt.sql
 

@@ -58,7 +58,7 @@
     <build>
         <defaultGoal>compile</defaultGoal>
         <plugins>
-            <plugin>
+            <!-- plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>hibernate3-maven-plugin</artifactId>
                 <executions>
@@ -70,7 +70,7 @@
                                 <classpath>
                                     <path location="target" />
                                 </classpath>
-                                <!-- om drop en create scripts afzonderlijk te krijgen draaien we hbm2ddl 2x -->
+                                <!- om drop en create scripts afzonderlijk te krijgen draaien we hbm2ddl 2x ->
                                 <hbm2ddl export="false" drop="false" create="true" outputfilename="create-brmo-persistence-postgresql.sql" format="true">
                                     <jpaconfiguration persistenceUnit="brmo.persistence.postgresql" />
                                 </hbm2ddl>
@@ -103,7 +103,7 @@
                                 <classpath>
                                     <path location="target" />
                                 </classpath>
-                                <!-- voor de unit tests met H2 -->
+                                <!- voor de unit tests met H2 ->
                                 <hbm2ddl export="true" drop="true" create="true" outputfilename="brmo-persistence-h2.sql" format="true">
                                     <jpaconfiguration persistenceUnit="brmo.persistence.h2" />
                                 </hbm2ddl>
@@ -116,14 +116,14 @@
                 </executions>
                 <dependencies>
                     <dependency>
-                        <!-- h2 wordt allen voor unit tests gebruikt, maar als deze
-                        als test scope dep wordt opgevoerd treedt er een CNFE op tijdens de build. -->
+                        <!- h2 wordt allen voor unit tests gebruikt, maar als deze
+                        als test scope dep wordt opgevoerd treedt er een CNFE op tijdens de build. ->
                         <groupId>com.h2database</groupId>
                         <artifactId>h2</artifactId>
                         <version>${test.h2.version}</version>
                     </dependency>
                 </dependencies>
-            </plugin>
+            </plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
