@@ -629,11 +629,11 @@
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>3.0.0</version>
                 </plugin>
-                <plugin>
+                <!-- plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>hibernate3-maven-plugin</artifactId>
                     <version>3.0</version>
-                </plugin>
+                </plugin -->
                 <plugin>
                     <groupId>pl.project13.maven</groupId>
                     <artifactId>git-commit-id-plugin</artifactId>
