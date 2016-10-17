@@ -37,24 +37,18 @@ build: off
 
 before_test:
 # services are started after install, so we need to wait
-# create STAGING DB
+# create + set up STAGING DB
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE staging" -d "master"
-  - dir -w .\datamodel\generated_scripts\
-# create + set up RSGB DB
-  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE rsgb" -d "master"
-  - dir -w .\datamodel\utility_scripts\
-  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "rsgb" -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
-# BGT tests
-  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE bgttest" -d "master"
-
-# set up STAGING DB
-  - dir -w .\brmo-persistence\target\ddlscripts\
-#  - sqlcmd -S localhost,1433 -U sa -P Password12! -d "staging" -i .\brmo-persistence\target\ddlscripts\create-brmo-persistence-sqlserver.sql
-  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\create-brmo-persistence-sqlserver.sql
   - dir -w .\brmo-persistence\db\
+  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\create-brmo-persistence-sqlserver.sql
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\01_create_indexes.sql
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\02_insert_default_user.sql
-# bgttest setup
+# create + set up RSGB DB
+  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE rsgb" -d "master"
+  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "rsgb" -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
+# create + set up RSGBBGT DB
+  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE bgttest" -d "master"
+  - dir -w .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\
   - sqlcmd -S (local)\SQL2016 -I -U sa -P Password12! -d "bgttest" -i .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\create_rsgb_bgt.sql
   - cmd: echo "computer name:" %COMPUTERNAME%
   - cmd: echo "instance name:" %INSTANCENAME%
