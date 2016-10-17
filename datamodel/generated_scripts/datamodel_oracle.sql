@@ -1,7 +1,7 @@
 --
 -- BRMO RSGB script voor oracle
 -- Applicatie versie: 1.4.0-SNAPSHOT
--- Gegenereerd op 2016-10-06T12:26:59.849+02:00
+-- Gegenereerd op 2016-10-17T11:22:29.09+02:00
 --
 
 
@@ -4896,6 +4896,8 @@ INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('19', 'Voorrecht');
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('20', 'Zakelijk recht na twee of meer zakelijke belastingen');
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('21', 'Zakelijke belasting derde of volgende');
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('22', 'BP-recht');
+INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('23', 'Opstalrecht Nutsvoorzieningen op gedeelte van perceel');
+INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('24', 'Zakelijk recht (als bedoeld in artikel 5, lid 3, onder b)');
 -- Script: 109_insert_aard_verkregen_recht.sql
 
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('1', 'Beklemrecht');
@@ -4920,6 +4922,8 @@ INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('1
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('20', 'Zakelijk recht na twee of meer zakelijke belastingen');
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('21', 'Zakelijke belasting derde of volgende');
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('22', 'BP-recht');
+INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('23', 'Opstalrecht Nutsvoorzieningen op gedeelte van perceel');
+INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('24', 'Zakelijk recht als bedoeld in artikel 5, lid 3, onder b, van de Belemmeringenwet Privaatrecht op gedeelte van perceel');
 -- Script: 110_gebruiksdoel_primary_key.sql
 
 ALTER TABLE gebouwd_obj_gebruiksdoel
