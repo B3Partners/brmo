@@ -805,6 +805,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     private StringBuilder parseOldData(List<TableData> oldList, List<TableData> newList, String newDate, String oldDate, StringBuilder loadLog) throws SQLException, ParseException {
 
         List<TableRow> rowsToDelete = new ArrayList();
+        // als heel object verwijderd moet worden omdat newList een verwijderbericht is
+        boolean deleteAll = !newList.isEmpty() && newList.get(0).isDeleteData();
 
         // parse old db xml
         loadLog.append("\nControleren te verwijderen gegevens vorig bericht...\n");
@@ -815,7 +817,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 for (TableRow oldRow : oldData.getRows()) {
                     List<String> pkColumns = getPrimaryKeys(oldRow.getTable());
                     boolean exists = doesRowExist(oldRow, pkColumns, newList);
-                    if (!exists) {
+                    if (deleteAll || !exists) {
                         loadLog.append("Vervallen record te verwijderen: ").append(oldRow.toString(pkColumns)).append("\n");
 
                         rowsToDelete.add(oldRow);
