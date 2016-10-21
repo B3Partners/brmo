@@ -1,4 +1,4 @@
--- selecteer parent en child app_re's die een ondersplitsing zijn of zijn geworden
+-- selecteer parent en child app_re-s die een ondersplitsing zijn of zijn geworden
 
 
 CREATE OR REPLACE VIEW v_bd_app_re_app_re AS 
