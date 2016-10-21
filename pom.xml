@@ -81,7 +81,7 @@
                 <version>1.2</version>
             </dependency>
             <dependency>
-                <!-- oa. nodig voor hibernate -->
+                <!-- oa. nodig voor hibernate, dbunit, cronparser -->
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>1.7.21</version>
