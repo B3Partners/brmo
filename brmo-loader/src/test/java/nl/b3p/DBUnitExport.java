@@ -35,7 +35,7 @@ public class DBUnitExport {
     private static final String _jdbcConnection = "jdbc:postgresql://localhost:5432/mantis6098";
     private static final String _user = "rsgb";
     private static final String _passwd = "rsgb";
-    // volgorde van tebellen belangrijk vanwege constraint op laadproces-id
+    // volgorde van tabellen belangrijk vanwege constraint op laadproces-id
     private static final String[] _testTableNames = {"laadproces", "bericht"};
 
     public static void main(String[] args) throws ClassNotFoundException, DatabaseUnitException, IOException, SQLException {

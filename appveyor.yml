@@ -57,16 +57,15 @@ before_test:
   - ps: .\.appveyor\setting-tcp-ip-ports.ps1
 
 test_script:
-  # run unit tests
+  # unit tests
   - mvn -e test -B -Pmssql -pl "!brmo-dist"
-  # run integration tests
+  # integration tests
   # run integratie tests voor bgt-gml-loader module
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl "bgt-gml-loader"
-  # run integratie tests voor brmo-loader module
-  # - travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl "brmo-loader"
-  # overslaan totdat https://github.com/B3Partners/brmo/issues/113 is opgelost
+  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-gml-loader"
+  # run integratie tests voor brmo-loader module 
+  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-loader"
   # run integratie tests voor brmo-service module
-  - travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl "brmo-service"
+  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-service"
 
 after_test:
   - ps: Get-Date
@@ -74,7 +73,7 @@ after_test:
 # on_success:
 
 # on_failure:
-    
+
 # on_finish:
 
 cache:

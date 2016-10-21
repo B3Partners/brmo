@@ -15,6 +15,7 @@ import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.operation.DatabaseOperation;
+import org.dbunit.ext.mssql.InsertIdentityOperation;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.dataset.DefaultDataSet;
 import org.dbunit.dataset.DefaultTable;
@@ -23,7 +24,7 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assume.assumeTrue;
 
 /**
@@ -51,13 +52,16 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
     public void setUp() throws Exception {
         BasicDataSource dsStaging = new BasicDataSource();
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
-        dsStaging.setUsername(params.getProperty("staging.passwd"));
-        dsStaging.setPassword(params.getProperty("staging.user"));
+        dsStaging.setUsername(params.getProperty("staging.user"));
+        dsStaging.setPassword(params.getProperty("staging.passwd"));
+        dsStaging.setAccessToUnderlyingConnectionAllowed(true);
 
         BasicDataSource dsRsgb = new BasicDataSource();
         dsRsgb.setUrl(params.getProperty("rsgb.jdbc.url"));
-        dsRsgb.setUsername(params.getProperty("rsgb.passwd"));
-        dsRsgb.setPassword(params.getProperty("rsgb.user"));
+        dsRsgb.setUsername(params.getProperty("rsgb.user"));
+        dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
+        dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
+        dsRsgb.setDefaultCatalog(params.getProperty("rsgb.schema"));
 
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
         staging = new DatabaseDataSourceConnection(dsStaging);
@@ -69,7 +73,13 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
 
         sequential.lock();
 
-        DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
+        if (this.isMsSQL) {
+            // SET IDENTITY_INSERT bericht ON
+            // SET IDENTITY_INSERT laadproces ON
+            InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
+        } else {
+            DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
+        }
 
         brmo = new BrmoFramework(dsStaging, dsRsgb);
         brmo.setOrderBerichten(true);

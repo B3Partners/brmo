@@ -230,5 +230,21 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <!-- actief voor oa. AppVeyor builds -->
+            <id>mssql</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <database.properties.file>sqlserver.properties</database.properties.file>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>
