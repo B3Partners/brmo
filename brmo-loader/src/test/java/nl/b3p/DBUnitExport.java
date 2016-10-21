@@ -12,15 +12,16 @@ import java.sql.SQLException;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.FilteredDataSet;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
-import org.dbunit.operation.DatabaseOperation;
 
 /**
+ * Een tool om een export te maken van een aantal tabellen; de export kan
+ * vervolgens worden gebruikt in een dbunit testcase.
  *
+ * @see Mantis6098IntegrationTest#setUp()
  * @author mprins
  *
  * zie: http://dbunit.wikidot.com/demoimportexport
@@ -34,7 +35,7 @@ public class DBUnitExport {
     private static final String _jdbcConnection = "jdbc:postgresql://localhost:5432/mantis6098";
     private static final String _user = "rsgb";
     private static final String _passwd = "rsgb";
-    // volgorde belangrijk vanwege constraint op LP-id
+    // volgorde van tebellen belangrijk vanwege constraint op laadproces-id
     private static final String[] _testTableNames = {"laadproces", "bericht"};
 
     public static void main(String[] args) throws ClassNotFoundException, DatabaseUnitException, IOException, SQLException {
@@ -45,8 +46,11 @@ public class DBUnitExport {
         // voor alle tabellen:
         // ITableFilter filter = new DatabaseSequenceFilter(connection);
         // IDataSet dataset = new FilteredDataSet(filter, connection.createDataSet());
+        // voor een setje tabellen
         IDataSet dataset = new FilteredDataSet(_testTableNames, connection.createDataSet());
+        // "flat" xml
         FlatXmlDataSet.write(dataset, new FileOutputStream(new File(_testDir, _dbFile)));
+        // "big" xml
         XmlDataSet.write(dataset, new FileOutputStream(new File(_testDir, _dbFile2)));
     }
 }
