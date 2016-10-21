@@ -81,7 +81,7 @@
                 <version>1.2</version>
             </dependency>
             <dependency>
-                <!-- oa. nodig voor hibernate -->
+                <!-- oa. nodig voor hibernate, dbunit -->
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>1.7.21</version>
@@ -327,6 +327,12 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.dbunit</groupId>
+                <artifactId>dbunit</artifactId>
+                <version>2.5.3</version>
                 <scope>test</scope>
             </dependency>
             <dependency>

@@ -6,9 +6,11 @@ package nl.b3p.brmo.loader.jdbc;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Struct;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Properties;
+import nl.b3p.AbstractDatabaseIntegrationTest;
 import nl.b3p.brmo.loader.gml.BGTGMLLightLoader;
 import oracle.jdbc.OracleConnection;
 import oracle.sql.STRUCT;
@@ -36,18 +38,9 @@ import org.junit.runners.Parameterized;
  * @author mprins
  */
 @RunWith(Parameterized.class)
-public class NullGeomOracleIntegrationTest {
+public class NullGeomOracleIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(NullGeomOracleIntegrationTest.class);
-
-    protected final Properties params = new Properties();
-
-    protected boolean isOracle;
-
-    private String testVal;
-
-    @Rule
-    public TestName name = new TestName();
 
     @Parameterized.Parameters(name = "{index}: testwaarde: {0}")
     public static Collection<Object[]> params() {
@@ -56,28 +49,18 @@ public class NullGeomOracleIntegrationTest {
         });
     }
 
-    public NullGeomOracleIntegrationTest(String testVal) {
-        this.testVal = testVal;
-    }
-
     /**
      * test of de database properties zijn aangegeven, zo niet dan skippen we
      * alle tests in deze test.
      */
     @BeforeClass
     public static void checkDatabaseIsProvided() {
-        assumeNotNull("Verwacht database omgeving te zijn aangegeven.", System.getProperty("database.properties.file"));
         GeoTools.init();
     }
+    private final String testVal;
 
-    @Before
-    public void startTest() {
-        LOG.info("==== Start test methode: " + name.getMethodName());
-    }
-
-    @After
-    public void endTest() {
-        LOG.info("==== Einde test methode: " + name.getMethodName());
+    public NullGeomOracleIntegrationTest(String testVal) {
+        this.testVal = testVal;
     }
 
     /**
@@ -86,6 +69,7 @@ public class NullGeomOracleIntegrationTest {
      * @throws IOException als laden van property file mislukt
      */
     @Before
+    @Override
     public void setUp() throws Exception {
         loadProps();
     }
@@ -99,36 +83,18 @@ public class NullGeomOracleIntegrationTest {
     public void testNullGeomXML() throws Exception {
         if (isOracle) {
             Connection connection = DriverManager.getConnection(
-                    params.getProperty("jdbc.url"),
-                    params.getProperty("user"),
-                    params.getProperty("passwd"));
+                    params.getProperty("rsgb.jdbc.url"),
+                    params.getProperty("rsgb.user"),
+                    params.getProperty("rsgb.passwd"));
 
             OracleConnection oc = OracleConnectionUnwrapper.unwrap(connection);
             OracleJdbcConverter c = new OracleJdbcConverter(oc);
-            STRUCT s = (STRUCT) c.convertToNativeGeometryObject(this.testVal);
+            //STRUCT s = (STRUCT) c.convertToNativeGeometryObject(this.testVal);
+            Struct s = (Struct) c.convertToNativeGeometryObject(this.testVal);
             assertEquals("verwacht een sdo geometry", "MDSYS.SDO_GEOMETRY", s.getSQLTypeName());
             for (Object o : s.getAttributes()) {
                 assertNull("verwacht 'null'", o);
             }
         }
-    }
-
-    /**
-     * Laadt de database propery file en eventuele overrides.
-     *
-     * @throws IOException als laden van property file mislukt
-     */
-    protected void loadProps() throws IOException {
-        // de `database.properties.file` is in de pom.xml of via commandline ingesteld
-        params.load(NullGeomOracleIntegrationTest.class.getClassLoader()
-                .getResourceAsStream(System.getProperty("database.properties.file")));
-        try {
-            // probeer een local (override) versie te laden als die bestaat
-            params.load(NullGeomOracleIntegrationTest.class.getClassLoader()
-                    .getResourceAsStream("local." + System.getProperty("database.properties.file")));
-        } catch (IOException | NullPointerException e) {
-            // negeren; het override bestand is normaal niet aanwezig
-        }
-        isOracle = "oracle".equalsIgnoreCase(params.getProperty("dbtype"));
     }
 }

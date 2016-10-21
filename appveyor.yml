@@ -32,7 +32,9 @@ install:
 
 
 # before_build: does nothing
+
 build: off
+
 # after_build: does nothing
 
 before_test:
@@ -55,16 +57,23 @@ before_test:
   - ps: .\.appveyor\setting-tcp-ip-ports.ps1
 
 test_script:
-# run unit tests
+  # run unit tests
   - mvn -e test -B -Pmssql -pl "!brmo-dist"
-# run integration tests
-  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "!brmo-dist"
+  # run integration tests
+  # run integratie tests voor bgt-gml-loader module
+  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl "bgt-gml-loader"
+  # run integratie tests voor brmo-loader module
+  - travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl "brmo-loader"
+  # run integratie tests voor brmo-service module
+  - travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl "brmo-service"
 
 after_test:
   - ps: Get-Date
 
 # on_success:
+
 # on_failure:
+    
 # on_finish:
 
 cache:

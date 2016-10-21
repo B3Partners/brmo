@@ -81,6 +81,8 @@ script:
   # run integratie tests
   # run integratie tests voor bgt-gml-loader module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
+  # run integratie tests voor brmo-loader module
+  - travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader'
   # run integratie tests voor brmo-service module
   - travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service'
   # test of javadoc compliant is met java-8 strict checks
