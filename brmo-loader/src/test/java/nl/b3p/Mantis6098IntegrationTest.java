@@ -53,11 +53,14 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
         dsStaging.setUsername(params.getProperty("staging.passwd"));
         dsStaging.setPassword(params.getProperty("staging.user"));
+        dsStaging.setAccessToUnderlyingConnectionAllowed(true);
 
         BasicDataSource dsRsgb = new BasicDataSource();
         dsRsgb.setUrl(params.getProperty("rsgb.jdbc.url"));
         dsRsgb.setUsername(params.getProperty("rsgb.passwd"));
         dsRsgb.setPassword(params.getProperty("rsgb.user"));
+        dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
+        dsRsgb.setDefaultCatalog(params.getProperty("rsgb.schema"));
 
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
         staging = new DatabaseDataSourceConnection(dsStaging);
