@@ -3,11 +3,12 @@
 **/local.*.properties
 /bgt-gml-loader/src/**/resources/bgtloader.properties
 
-# te groot + mogelijk gevoelige data
+# te groot en/of mogelijk gevoelige data
 /brmo-loader/src/test/resources/nl/b3p/brmo/loader/xml/BURBX01-ASN00-20091130-6000015280-9100000039.zip
 /bgt-gml-loader/src/test/resources/gmllight/zips/data/*.zip
 /bgt-gml-loader/src/test/resources/nederland/*.zip
 /bgt-gml-loader/src/test/resources/nederlandmultizip/**/*.zip
+/brmo-loader/src/test/resources/mantis6098/staging.xml
 
 # maven release procedure files
 **/pom.xml.tag
@@ -18,6 +19,7 @@
 **/dependency-reduced-pom.xml
 **/buildNumber.properties
 
+mvn.log
 rel-prepare.log
 rel-perform.log
 
