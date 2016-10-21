@@ -504,11 +504,14 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                             }
                         }
                     } else {
-
                         // Check of eerder bericht toevallig niet nieuwere datum
                         if (oud.getDatum().after(ber.getDatum())) {
                             newStatus = Bericht.STATUS.RSGB_OUTDATED;
                             loadLog.append("Bericht bevat oudere data dan eerder verwerkt bericht, status RSGB_OUTDATED\n");
+                            // Check of eerder bericht toevallig niet zelfde datum met hoger volgorde nummer, mantis-6098
+                        } else if (oud.getDatum().equals(ber.getDatum()) && oud.getVolgordeNummer() > ber.getVolgordeNummer()) {
+                            newStatus = Bericht.STATUS.RSGB_OUTDATED;
+                            loadLog.append("Bericht bevat oudere data dan eerder verwerkt bericht met hoger volgnummer, status RSGB_OUTDATED\n");
                         } else {
                             StringReader oReader = new StringReader(oud.getDbXml());
                             List<TableData> oudList = oldDbXmlReader.readDataXML(new StreamSource(oReader));

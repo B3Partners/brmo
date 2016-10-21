@@ -19,9 +19,7 @@ import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.dataset.DefaultDataSet;
 import org.dbunit.dataset.DefaultTable;
 import org.dbunit.dataset.ITable;
-import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.dbunit.dataset.xml.XmlDataSet;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,9 +34,17 @@ import static org.junit.Assume.assumeTrue;
 public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(Mantis6098IntegrationTest.class);
+
     private BrmoFramework brmo;
+
     private IDatabaseConnection rsgb;
+    private IDatabaseConnection staging;
+
     private final Lock sequential = new ReentrantLock();
+
+    private static final long stand = 5521;
+    private static final long mutatie = 458403;
+    private static final long verwijder = 458408;
 
     @Override
     @Before
@@ -54,7 +60,7 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
         dsRsgb.setPassword(params.getProperty("rsgb.user"));
 
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
-        IDatabaseConnection staging = new DatabaseDataSourceConnection(dsStaging);
+        staging = new DatabaseDataSourceConnection(dsStaging);
         // IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis6098IntegrationTest.class.getResource("/mantis6098/staging.xml").toURI())));
         // IDataSet stagingDataSet = new FlatXmlDataSet(new FileInputStream(new File(Mantis6098IntegrationTest.class.getResource("/mantis6098/staging-flat.xml").toURI())));
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
@@ -63,11 +69,7 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
 
         sequential.lock();
 
-        try {
-            DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        } finally {
-            staging.close();
-        }
+        DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
         brmo = new BrmoFramework(dsStaging, dsRsgb);
         brmo.setOrderBerichten(true);
@@ -80,14 +82,16 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
-        /* cleanup rsgb, doet
-                DELETE FROM kad_onrrnd_zk;
-                DELETE FROM kad_onrrnd_zk_archief;
-                DELETE FROM kad_perceel;
-                DELETE FROM kad_perceel_archief;
-                DELETE FROM prs;
-                DELETE FROM subject;
+        /* cleanup rsgb, doet:
+                DELETE FROM brondocument;
                 DELETE FROM herkomst_metadata;
+                DELETE FROM subject;
+                DELETE FROM prs;
+                DELETE FROM kad_perceel_archief;
+                DELETE FROM kad_perceel;
+                DELETE FROM kad_onrrnd_zk_archief;
+                DELETE FROM kad_onrrnd_zk;
+         dus omgekeerde volgorde tov. array
          */
         DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
             new DefaultTable("kad_onrrnd_zk"),
@@ -100,6 +104,7 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
             new DefaultTable("brondocument")}
         ));
         rsgb.close();
+        staging.close();
 
         sequential.unlock();
     }
@@ -111,7 +116,7 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
      */
     @Test
     public void testStand() throws Exception {
-        Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{5521l}, null);
+        Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{stand}, null);
         t.join();
 
         assertEquals("Twee berichten zijn niet getransformeerd", 2l, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
@@ -131,7 +136,7 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
      */
     @Test
     public void testStandMutatie() throws Exception {
-        Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{5521l, 458403l}, null);
+        Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{stand, mutatie}, null);
         t.join();
 
         assertEquals("Twee berichten zijn OK getransformeerd", 2l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
@@ -179,7 +184,7 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
      */
     @Test
     public void testStandDelete() throws Exception {
-        Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{5521l, 458408l}, null);
+        Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{stand, verwijder}, null);
         t.join();
 
         assertEquals("Twee berichten zijn OK getransformeerd", 2l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
@@ -195,5 +200,34 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
         assertEquals("Er zijn geen brondocumenten", 0, brondocument.getRowCount());
     }
 
+    /**
+     * transformeer stand bericht en verwijder bericht; daarna mutatie
+     * transformeren.
+     *
+     * @throws Exception if any
+     */
+    @Test
+    public void testStandDeleteMutatie() throws Exception {
+        Thread t1 = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{stand, verwijder}, null);
+        t1.join();
+
+        assertEquals("Twee berichten zijn OK getransformeerd", 2l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
+        assertEquals("Een bericht is niet getransformeerd", 1l, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
+
+        Thread t2 = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{mutatie}, null);
+        t2.join();
+
+        assertEquals("Twee berichten zijn OK getransformeerd", 2l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
+        assertEquals("Een bericht is outdated", 1l, brmo.getCountBerichten(null, null, "brk", "RSGB_OUTDATED"));
+
+        ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
+        assertEquals("Er zijn geen actuele percelen", 0, kad_perceel.getRowCount());
+
+        ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
+        assertEquals("Er zijn geen actuele onroerende zaken", 0, kad_onrrnd_zk.getRowCount());
+
+        ITable brondocument = rsgb.createDataSet().getTable("brondocument");
+        assertEquals("Er zijn geen brondocumenten", 0, brondocument.getRowCount());
+    }
 
 }
