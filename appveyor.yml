@@ -63,7 +63,8 @@ test_script:
   # run integratie tests voor bgt-gml-loader module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl "bgt-gml-loader"
   # run integratie tests voor brmo-loader module
-  - travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl "brmo-loader"
+  # - travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl "brmo-loader"
+  # overslaan totdat https://github.com/B3Partners/brmo/issues/113 is opgelost
   # run integratie tests voor brmo-service module
   - travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl "brmo-service"
 
