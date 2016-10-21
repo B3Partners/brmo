@@ -25,5 +25,11 @@
             <artifactId>javaee-web-api</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <!-- nodig voor cronparser -->
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
