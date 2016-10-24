@@ -15,6 +15,7 @@ import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.operation.DatabaseOperation;
+import org.dbunit.ext.mssql.InsertIdentityOperation;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.dataset.DefaultDataSet;
 import org.dbunit.dataset.DefaultTable;
@@ -23,7 +24,7 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assume.assumeTrue;
 
 /**
@@ -72,7 +73,13 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
 
         sequential.lock();
 
-        DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
+        if (this.isMsSQL) {
+            // SET IDENTITY_INSERT bericht ON
+            // SET IDENTITY_INSERT laadproces ON
+            InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
+        } else {
+            DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
+        }
 
         brmo = new BrmoFramework(dsStaging, dsRsgb);
         brmo.setOrderBerichten(true);
