@@ -9,24 +9,17 @@ import java.sql.DriverManager;
 import java.sql.Struct;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Properties;
 import nl.b3p.AbstractDatabaseIntegrationTest;
-import nl.b3p.brmo.loader.gml.BGTGMLLightLoader;
 import oracle.jdbc.OracleConnection;
-import oracle.sql.STRUCT;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.geotools.factory.GeoTools;
-import org.junit.After;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assume.assumeNotNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TestName;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assume.assumeTrue;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
@@ -49,12 +42,8 @@ public class NullGeomOracleIntegrationTest extends AbstractDatabaseIntegrationTe
         });
     }
 
-    /**
-     * test of de database properties zijn aangegeven, zo niet dan skippen we
-     * alle tests in deze test.
-     */
     @BeforeClass
-    public static void checkDatabaseIsProvided() {
+    public static void geotoolsInit() {
         GeoTools.init();
     }
     private final String testVal;
@@ -81,20 +70,21 @@ public class NullGeomOracleIntegrationTest extends AbstractDatabaseIntegrationTe
      */
     @Test
     public void testNullGeomXML() throws Exception {
-        if (isOracle) {
-            Connection connection = DriverManager.getConnection(
-                    params.getProperty("rsgb.jdbc.url"),
-                    params.getProperty("rsgb.user"),
-                    params.getProperty("rsgb.passwd"));
+        assumeTrue("Deze test alleen op Oracle uitvoeren", isOracle);
+        LOG.info("Testen van 'null' geometrie voor Oracle");
 
-            OracleConnection oc = OracleConnectionUnwrapper.unwrap(connection);
-            OracleJdbcConverter c = new OracleJdbcConverter(oc);
-            //STRUCT s = (STRUCT) c.convertToNativeGeometryObject(this.testVal);
-            Struct s = (Struct) c.convertToNativeGeometryObject(this.testVal);
-            assertEquals("verwacht een sdo geometry", "MDSYS.SDO_GEOMETRY", s.getSQLTypeName());
-            for (Object o : s.getAttributes()) {
-                assertNull("verwacht 'null'", o);
-            }
+        Connection connection = DriverManager.getConnection(
+                params.getProperty("rsgb.jdbc.url"),
+                params.getProperty("rsgb.user"),
+                params.getProperty("rsgb.passwd")
+        );
+
+        OracleConnection oc = OracleConnectionUnwrapper.unwrap(connection);
+        OracleJdbcConverter c = new OracleJdbcConverter(oc);
+        Struct s = (Struct) c.convertToNativeGeometryObject(this.testVal);
+        assertEquals("Verwacht een sdo geometry type", "MDSYS.SDO_GEOMETRY", s.getSQLTypeName());
+        for (Object o : s.getAttributes()) {
+            assertNull("verwacht 'null'voor attribuut", o);
         }
     }
 }

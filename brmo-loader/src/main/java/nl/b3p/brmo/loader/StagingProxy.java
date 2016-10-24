@@ -22,6 +22,7 @@ import nl.b3p.brmo.loader.entity.BerichtenSorter;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
+import nl.b3p.brmo.loader.jdbc.LongColumnListHandler;
 import nl.b3p.brmo.loader.jdbc.MssqlJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.OracleJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.PostgisJdbcConverter;
@@ -42,9 +43,7 @@ import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.RowProcessor;
-import org.apache.commons.dbutils.handlers.ArrayHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.io.input.CountingInputStream;
 import org.apache.commons.lang3.StringUtils;
@@ -900,10 +899,10 @@ public class StagingProxy {
             sort = "id";
         }
         if (dir == null || dir.trim().isEmpty()) {
-            sort = "asc";
+            dir = "asc";
         }
         String sql = "SELECT ID FROM " + BrmoFramework.LAADPROCES_TABEL + buildFilterSql(-1, sort, dir, filterSoort, filterStatus, params);
-        List<Long> ids = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new ColumnListHandler<Long>("id"), params.toArray());
+        List<Long> ids = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new LongColumnListHandler("id"), params.toArray());
         return ids.toArray(new Long[ids.size()]);
     }
 

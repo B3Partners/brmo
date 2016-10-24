@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import javax.sql.DataSource;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.RsgbProxy;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -28,7 +29,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assume.assumeTrue;
 
 /**
- * testcases voor mantis 6098; incorrecte verwijdering van berichten.
+ * Testcases voor mantis 6098; incorrecte verwijdering van berichten. Uitvoeren
+ * met
+ * {@code mvn -Dit.test=Mantis6098IntegrationTest -Dtest.onlyITs=true verify -Ppostgresql}
+ * evt. een ander profiel kiezen voor een andere database.
  *
  * @author mprins
  */
@@ -61,7 +65,6 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
         dsRsgb.setUsername(params.getProperty("rsgb.user"));
         dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
-        dsRsgb.setDefaultCatalog(params.getProperty("rsgb.schema"));
 
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
         staging = new DatabaseDataSourceConnection(dsStaging);
@@ -101,15 +104,18 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
                 DELETE FROM kad_perceel;
                 DELETE FROM kad_onrrnd_zk_archief;
                 DELETE FROM kad_onrrnd_zk;
-         dus omgekeerde volgorde tov. array
+         dus omgekeerde volgorde tov. onderstaande array
          */
         DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
             new DefaultTable("kad_onrrnd_zk"),
             new DefaultTable("kad_onrrnd_zk_archief"),
             new DefaultTable("kad_perceel"),
             new DefaultTable("kad_perceel_archief"),
-            new DefaultTable("prs"),
             new DefaultTable("subject"),
+            new DefaultTable("prs"),
+            new DefaultTable("niet_nat_prs"),
+            new DefaultTable("ingeschr_niet_nat_prs"),
+            new DefaultTable("zak_recht"),
             new DefaultTable("herkomst_metadata"),
             new DefaultTable("brondocument")}
         ));
