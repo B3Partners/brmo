@@ -10,7 +10,13 @@ create table vestg_activiteit(
 
 ALTER TABLE vestg_naam
   ALTER COLUMN naam varchar(500) NOT NULL;
+
+GO
+
 ALTER TABLE vestg_naam
   ALTER COLUMN fk_ves_sc_identif varchar(32) NOT NULL;
+
+GO
+  
 ALTER TABLE vestg_naam
   ADD PRIMARY KEY (naam, fk_ves_sc_identif);

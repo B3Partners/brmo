@@ -1,7 +1,7 @@
 --
 -- BRMO RSGB script voor sqlserver
 -- Applicatie versie: 1.4.0-SNAPSHOT
--- Gegenereerd op 2016-10-17T11:22:29.414+02:00
+-- Gegenereerd op 2016-10-31T11:09:34.746+01:00
 --
 
 create table sbi_activiteit(
@@ -2294,6 +2294,8 @@ CREATE INDEX brondocument_ref_id  ON brondocument (ref_id);
 -- selecteer parent en child app_re's die een ondersplitsing zijn of zijn geworden
 
 
+GO
+
 CREATE VIEW v_bd_app_re_app_re AS 
  SELECT b1.ref_id AS app_re_identif,
     b2.ref_id AS parent_app_re_identif
@@ -2305,6 +2307,8 @@ CREATE VIEW v_bd_app_re_app_re AS
 
 -- Haalt alle percelen ids op met 1 of meer app_re (dient als basis voor de view voor de kaart)
 
+GO
+
 CREATE VIEW v_bd_kad_perceel_with_app_re AS 
  SELECT DISTINCT b2.ref_id AS perceel_identif
    FROM brondocument b1
@@ -2312,6 +2316,8 @@ CREATE VIEW v_bd_kad_perceel_with_app_re AS
   WHERE b2.omschrijving = 'betrokkenBij HoofdSplitsing' AND b1.omschrijving = 'ontstaanUit HoofdSplitsing';
 
 -- view om kaart te maken met percelen die 1 of meerdere appartementen hebben
+
+GO
 
 CREATE VIEW v_bd_kad_perceel_met_app AS 
  SELECT v.perceel_identif,
@@ -2334,6 +2340,8 @@ CREATE VIEW v_bd_kad_perceel_met_app AS
 ---Views om app_res op te zoeken (inclusief ondersplitsingen)
 -- oracle ondersteund geen recursive/iteratieve/hierarchische queries met joins/unions (https://community.oracle.com/thread/55016?start=0&tstart=0), dus meerdere views (itt postgres die toffe recursieve queries ondersteunt
 
+GO
+
 CREATE VIEW v_bd_app_re_kad_perceel AS 
  SELECT b1.ref_id AS app_re_identif,
     b2.ref_id AS perceel_identif
@@ -2342,12 +2350,16 @@ CREATE VIEW v_bd_app_re_kad_perceel AS
   WHERE b2.omschrijving = 'betrokkenBij HoofdSplitsing' AND b1.omschrijving = 'ontstaanUit HoofdSplitsing'
   GROUP BY b1.ref_id, b2.ref_id;
 
+GO
+
 CREATE VIEW v_bd_app_re_2_kad_perceel AS 
  SELECT vaa.app_re_identif,
     vap.perceel_identif
    FROM v_bd_app_re_app_re vaa
      JOIN v_bd_app_re_kad_perceel vap ON vaa.parent_app_re_identif = vap.app_re_identif
   GROUP BY vaa.app_re_identif, vap.perceel_identif;
+
+GO
 
 CREATE VIEW v_bd_app_re_3_kad_perceel AS 
  SELECT vaa.app_re_identif,
@@ -2358,6 +2370,8 @@ CREATE VIEW v_bd_app_re_3_kad_perceel AS
 
 
 
+GO
+
 CREATE VIEW v_bd_app_re_all_kad_perceel AS 
 
 select * from v_bd_app_re_kad_perceel
@@ -2367,6 +2381,8 @@ union
 select * from v_bd_app_re_3_kad_perceel;
 
 -- view om app_re' s bij percelen op te zoeken
+GO
+
 CREATE VIEW v_bd_app_re_bij_perceel AS 
  SELECT ar.sc_kad_identif,
     ar.fk_2nnp_sc_identif,
@@ -2405,6 +2421,8 @@ Views for visualizing the BAG data.
 -------------------------------------------------
 -- v_verblijfsobject_alles
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_verblijfsobject_alles
     (
@@ -2481,6 +2499,8 @@ WHERE
 -------------------------------------------------
 -- v_verblijfsobject_gevormd
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_verblijfsobject_gevormd
     (
@@ -2519,6 +2539,8 @@ WHERE
 -------------------------------------------------
 -- v_verblijfsobject
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_verblijfsobject
     (
@@ -2558,6 +2580,8 @@ OR  status = 'Verblijfsobject in gebruik';
 -------------------------------------------------
 -- v_pand_in_gebruik
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_pand_in_gebruik
     (
@@ -2586,6 +2610,8 @@ AND datum_einde_geldh IS NULL;
 -------------------------------------------------
 -- v_pand_gebruik_niet_ingemeten
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_pand_gebruik_niet_ingemeten
     (
@@ -2609,6 +2635,8 @@ AND datum_einde_geldh IS NULL;
 -------------------------------------------------
 -- v_standplaats
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_standplaats
     (
@@ -2634,6 +2662,8 @@ ON
 -------------------------------------------------
 -- v_ligplaats
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_ligplaats
     (
@@ -2662,6 +2692,8 @@ ON
 /*
 ligplaats met hoofdadres
 */		
+GO
+
 CREATE VIEW
     v_ligplaats_alles
     (
@@ -2733,6 +2765,8 @@ WHERE
 /*
 standplaats met hoofdadres
 */		
+GO
+
 CREATE VIEW
     v_standplaats_alles
     (
@@ -2807,6 +2841,8 @@ standplaats en ligplaats via benoemd_terrein,
 waarbij centroide van polygon wordt genomen
 plus verblijfsobject via punt object van gebouwd_obj
 */
+GO
+
 CREATE VIEW
     v_adres
     (
@@ -2884,6 +2920,8 @@ AND (
 -------------------------------------------------
 -- v_adres_ligplaats
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_adres_ligplaats
     (
@@ -2959,6 +2997,8 @@ AND lpa.status = 'Plaats aangewezen';
 -------------------------------------------------
 -- v_adres_standplaats
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_adres_standplaats
     (
@@ -3034,6 +3074,8 @@ AND spl.status = 'Plaats aangewezen';
 -------------------------------------------------
 -- v_adres_totaal
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_adres_totaal
     (
@@ -3086,10 +3128,13 @@ CREATE VIEW
             centroide AS the_geom
         FROM
             v_adres_standplaats
-    );-- Script: 107_brk_views.sql
+    );
+-- Script: 107_brk_views.sql
 
 
-create view v_map_kad_perceel as
+GO
+
+CREATE VIEW v_map_kad_perceel as
 select
     p.sc_kad_identif,
     p.begrenzing_perceel,
@@ -3101,14 +3146,18 @@ select
 from kad_perceel p
 join kad_onrrnd_zk z on (z.kad_identif = p.sc_kad_identif);
 
+GO
+
 create table prs_eigendom (
-    fk_prs_sc_identif varchar(32), 
-    primary key (fk_prs_sc_identif), 
+    fk_prs_sc_identif varchar(32),
+    primary key (fk_prs_sc_identif),
     foreign key (fk_prs_sc_identif) references prs(sc_identif)
 );
 
-CREATE view v_kad_perceel_in_eigendom as
-select 
+GO
+
+CREATE VIEW v_kad_perceel_in_eigendom as
+select
     p.begrenzing_perceel,
      p.sc_kad_identif,
     p.aanduiding,
@@ -3122,8 +3171,10 @@ join zak_recht zr on (zr.fk_7koz_kad_identif = p.sc_kad_identif)
 join prs_eigendom prs_e on (prs_e.fk_prs_sc_identif = zr.fk_8pes_sc_identif)
 left join niet_nat_prs nnprs on (nnprs.sc_identif = prs_e.fk_prs_sc_identif);
 
-CREATE view v_kad_perceel_adres as 
-select distinct 
+GO
+
+CREATE VIEW v_kad_perceel_adres as
+select distinct
         kp.sc_kad_identif,
         kpvbo.FK_NN_LH_TGO_IDENTIF as kad_bag_koppeling_benobj,
         gor.naam_openb_rmte as straat,
@@ -3141,13 +3192,15 @@ left join gem_openb_rmte gor on (gor.IDENTIFCODE = aoa.FK_7OPR_IDENTIFCODE)
 left join openb_rmte_wnplts oprw on (oprw.FK_NN_LH_OPR_IDENTIFCODE = gor.IDENTIFCODE)
 left join wnplts wp on (wp.IDENTIF = oprw.FK_NN_RH_WPL_IDENTIF);
 
-CREATE view v_kad_perceel_eenvoudig as
+GO
+
+CREATE VIEW v_kad_perceel_eenvoudig as
 select
         p.sc_kad_identif,
         p.begrenzing_perceel,
         p.ka_sectie + ' ' + p.ka_perceelnummer AS aanduiding,
-        p.grootte_perceel,   
-        p_adr.kad_bag_koppeling_benobj,             
+        p.grootte_perceel,
+        p_adr.kad_bag_koppeling_benobj,
         p_adr.straat,
         p_adr.huisnummer,
         p_adr.huisletter,
@@ -3157,8 +3210,10 @@ select
 from kad_perceel p
 join v_kad_perceel_adres p_adr on (p_adr.sc_kad_identif = p.sc_kad_identif);
 
-CREATE view v_kad_perceel_zak_recht as
-  select 
+GO
+
+CREATE VIEW v_kad_perceel_zak_recht as
+  select
     p.sc_kad_identif as Kadaster_identificatie,
     zr.AR_TELLER  as Aandeel_teller,
     zr.AR_NOEMER as Aandeel_noemer,
@@ -3189,9 +3244,11 @@ CREATE view v_kad_perceel_zak_recht as
   left join ingeschr_niet_nat_prs innp on (innp.SC_IDENTIF = nnp.sc_identif)
   left join subject innp_subject on (innp_subject.identif = innp.sc_identif)
   where np.NM_GESLACHTSNAAM is not null or nnp.NAAM is not null;
-  
-CREATE view v_kad_perceel_zr_adressen as 
-select 
+
+GO
+
+CREATE VIEW v_kad_perceel_zr_adressen as
+select
   kp.SC_KAD_IDENTIF,
   kp.BEGRENZING_PERCEEL,
   kp.AANDUIDING,
@@ -3221,8 +3278,10 @@ select
 from v_kad_perceel_eenvoudig kp
 join v_kad_perceel_zak_recht zr on (zr.KADASTER_IDENTIFICATIE = kp.sc_kad_identif);
 
-CREATE view kad_perceel_app_rechten as
-select 
+GO
+
+CREATE VIEW kad_perceel_app_rechten as
+select
  kpe.SC_KAD_IDENTIF as perceel_identificatie,
 -- kpe.KA_SECTIE + ' ' + kpe.KA_PERCEELNUMMER as perceelnr,
  kpe.aanduiding,
@@ -3235,8 +3294,8 @@ select
 --    case when np1.PK_PERSOON is not null then 'Natuurlijk persoon' else 'Niet natuurlijk persoon' end as l_soort_eigenaar,
     case when np1.sc_identif is not null then np1.NM_GESLACHTSNAAM + ', ' + np1.NM_VOORNAMEN + ' ' + np1.NM_VOORVOEGSEL_GESLACHTSNAAM else nnp1.NAAM end as perceel_zak_recht_naam,
 --    nnp1.NAAM as l_nnp,
-    
--- bd1.identificatie as brondocument, 
+
+-- bd1.identificatie as brondocument,
 -- zr2.kadaster_identif as rechts_zak_recht,
  zr2.FK_3AVR_AAND as app_re_zak_recht_aard_aand,
 -- zr2.FK2_PERSOON as rechts_zak_recht_persoon,
@@ -3277,6 +3336,8 @@ and zr2.FK_8PES_SC_IDENTIF is not null;
 --order by kpe.SC_KAD_IDENTIF, kpe.straat, kpe.huisnummer, kpe.toevoeging, kpe.huisletter,  KA_APPARTEMENTSINDEX;
 
 -- percelen plus appartementen op de percelen
+GO
+
 CREATE VIEW v_bd_app_re_and_kad_perceel AS
 select
     p.sc_kad_identif    AS kadaster_identificatie,
@@ -3289,8 +3350,8 @@ select
     p.begrenzing_perceel
 FROM
     kad_perceel p
-union all  
-SELECT 
+union all
+SELECT
     ar.sc_kad_identif,
     'appartement' as type,
     '' as ka_deelperceelnummer,
@@ -3301,9 +3362,11 @@ SELECT
     kp.begrenzing_perceel
    FROM v_bd_app_re_all_kad_perceel v
      JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif
-     JOIN app_re ar ON v.app_re_identif = ar.sc_kad_identif;    
+     JOIN app_re ar ON v.app_re_identif = ar.sc_kad_identif;
 
 -- aankoopdatum uit brondocumenten
+GO
+
 CREATE VIEW
     v_aankoopdatum AS
 SELECT
@@ -3323,6 +3386,8 @@ FROM
     ) b;
 
 -- Eigenarenkaart - percelen en appartementen met hun eigenaren
+GO
+
 CREATE VIEW
     v_kad_eigenarenkaart
     (
@@ -3441,7 +3506,8 @@ ON
     b.kadaster_identificatie = p.kadaster_identificatie
 WHERE
     zr.kadaster_identif like 'NL.KAD.Tenaamstelling%';
-   
+
+GO
 -- Script: 108_insert_aard_recht_verkort.sql
 
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('1', 'Beklemrecht');
@@ -3498,10 +3564,18 @@ INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('2
 
 ALTER TABLE
     gebouwd_obj_gebruiksdoel ALTER COLUMN gebruiksdoel_gebouwd_obj VARCHAR(80) NOT NULL;
+    
+GO
+    
 ALTER TABLE
     gebouwd_obj_gebruiksdoel ALTER COLUMN fk_gbo_sc_identif VARCHAR(16) NOT NULL;
+
+GO
+
 ALTER TABLE gebouwd_obj_gebruiksdoel
   ADD CONSTRAINT pk_geb_obj_gebr_doel PRIMARY KEY (gebruiksdoel_gebouwd_obj, fk_gbo_sc_identif);
+
+GO
 -- Script: 111_insert_gemeente.sql
 
 INSERT INTO gemeente (code, naam) VALUES (1930, 'Nissewaard');
@@ -18915,8 +18989,14 @@ create table vestg_activiteit(
 
 ALTER TABLE vestg_naam
   ALTER COLUMN naam varchar(500) NOT NULL;
+
+GO
+
 ALTER TABLE vestg_naam
   ALTER COLUMN fk_ves_sc_identif varchar(32) NOT NULL;
+
+GO
+  
 ALTER TABLE vestg_naam
   ADD PRIMARY KEY (naam, fk_ves_sc_identif);
 -- Script: 116_brk_extra_indices.sql

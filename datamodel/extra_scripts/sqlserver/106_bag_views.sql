@@ -20,6 +20,8 @@ Views for visualizing the BAG data.
 -------------------------------------------------
 -- v_verblijfsobject_alles
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_verblijfsobject_alles
     (
@@ -96,6 +98,8 @@ WHERE
 -------------------------------------------------
 -- v_verblijfsobject_gevormd
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_verblijfsobject_gevormd
     (
@@ -134,6 +138,8 @@ WHERE
 -------------------------------------------------
 -- v_verblijfsobject
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_verblijfsobject
     (
@@ -173,6 +179,8 @@ OR  status = 'Verblijfsobject in gebruik';
 -------------------------------------------------
 -- v_pand_in_gebruik
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_pand_in_gebruik
     (
@@ -201,6 +209,8 @@ AND datum_einde_geldh IS NULL;
 -------------------------------------------------
 -- v_pand_gebruik_niet_ingemeten
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_pand_gebruik_niet_ingemeten
     (
@@ -224,6 +234,8 @@ AND datum_einde_geldh IS NULL;
 -------------------------------------------------
 -- v_standplaats
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_standplaats
     (
@@ -249,6 +261,8 @@ ON
 -------------------------------------------------
 -- v_ligplaats
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_ligplaats
     (
@@ -277,6 +291,8 @@ ON
 /*
 ligplaats met hoofdadres
 */		
+GO
+
 CREATE VIEW
     v_ligplaats_alles
     (
@@ -348,6 +364,8 @@ WHERE
 /*
 standplaats met hoofdadres
 */		
+GO
+
 CREATE VIEW
     v_standplaats_alles
     (
@@ -422,6 +440,8 @@ standplaats en ligplaats via benoemd_terrein,
 waarbij centroide van polygon wordt genomen
 plus verblijfsobject via punt object van gebouwd_obj
 */
+GO
+
 CREATE VIEW
     v_adres
     (
@@ -499,6 +519,8 @@ AND (
 -------------------------------------------------
 -- v_adres_ligplaats
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_adres_ligplaats
     (
@@ -574,6 +596,8 @@ AND lpa.status = 'Plaats aangewezen';
 -------------------------------------------------
 -- v_adres_standplaats
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_adres_standplaats
     (
@@ -649,6 +673,8 @@ AND spl.status = 'Plaats aangewezen';
 -------------------------------------------------
 -- v_adres_totaal
 -------------------------------------------------
+GO
+
 CREATE VIEW
     v_adres_totaal
     (

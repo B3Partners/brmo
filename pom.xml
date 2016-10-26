@@ -6,7 +6,7 @@
     <version>1.4.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <!-- module>datamodel</module -->
+        <!--module>datamodel</module-->
         <module>brmo-persistence</module>
         <module>brmo-loader</module>
         <module>bgt-gml-loader</module>
@@ -195,8 +195,8 @@
             <!--
                 Bij gebruik van oracle met maven moet je de oracle jdbc driver
                 handmatig toevoegen aan je locale mvn repo (OTN licentie blabla): Dit
-                kan met: 
-                mvn install:install-file -Dfile=ojdbc7-12.1.0.2.0.jar -DpomFile=ojdbc7-12.1.0.2.0.pom -Dfile=ojdbc7-12.1.0.2.0.jar 
+                kan met:
+                mvn install:install-file -Dfile=ojdbc7-12.1.0.2.0.jar -DpomFile=ojdbc7-12.1.0.2.0.pom -Dfile=ojdbc7-12.1.0.2.0.jar
                 mvn install:install-file -Dfile=ojdbc7-12.1.0.2.0-javadoc.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0.2.0 -Dclassifier=javadoc -Dpackaging=jar
                 vanuit de /Mesa/Producten/third_party/oracle-drivers/ directory
             -->
