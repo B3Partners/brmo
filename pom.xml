@@ -47,8 +47,7 @@
         <netbeans.hint.jdkPlatform>JDK_${java.version}</netbeans.hint.jdkPlatform>
         <netbeans.hint.license>default_1</netbeans.hint.license>
         <hibernate.version>3.6.10.Final</hibernate.version>
-        <!-- let op: als geotools wordt ge-upgraded dan moet waarcshijnlijk de gt-api patch versie worden verwijderd -->
-        <geotools.version>15.2</geotools.version>
+        <geotools.version>16.0</geotools.version>
         <postgresql.jdbc.version>9.4.1211</postgresql.jdbc.version>
         <oracle.jdbc.version>12.1.0.2.0</oracle.jdbc.version>
         <oracle.jdbc.artifactId>ojdbc7</oracle.jdbc.artifactId>
