@@ -61,7 +61,6 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
         dsRsgb.setUsername(params.getProperty("rsgb.user"));
         dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
-        dsRsgb.setDefaultCatalog(params.getProperty("rsgb.schema"));
 
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
         staging = new DatabaseDataSourceConnection(dsStaging);
@@ -95,21 +94,27 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
         /* cleanup rsgb, doet:
                 DELETE FROM brondocument;
                 DELETE FROM herkomst_metadata;
-                DELETE FROM subject;
+                DELETE FROM zak_recht,
+                DELETE FROM ingeschr_niet_nat_prs,
+                DELETE FROM niet_nat_prs,
                 DELETE FROM prs;
+                DELETE FROM subject;
                 DELETE FROM kad_perceel_archief;
                 DELETE FROM kad_perceel;
                 DELETE FROM kad_onrrnd_zk_archief;
                 DELETE FROM kad_onrrnd_zk;
-         dus omgekeerde volgorde tov. array
+         dus omgekeerde volgorde tov. onderstaande array
          */
         DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
             new DefaultTable("kad_onrrnd_zk"),
             new DefaultTable("kad_onrrnd_zk_archief"),
             new DefaultTable("kad_perceel"),
             new DefaultTable("kad_perceel_archief"),
-            new DefaultTable("prs"),
             new DefaultTable("subject"),
+            new DefaultTable("prs"),
+            new DefaultTable("niet_nat_prs"),
+            new DefaultTable("ingeschr_niet_nat_prs"),
+            new DefaultTable("zak_recht"),
             new DefaultTable("herkomst_metadata"),
             new DefaultTable("brondocument")}
         ));
