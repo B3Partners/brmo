@@ -504,11 +504,14 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                             }
                         }
                     } else {
-
                         // Check of eerder bericht toevallig niet nieuwere datum
                         if (oud.getDatum().after(ber.getDatum())) {
                             newStatus = Bericht.STATUS.RSGB_OUTDATED;
                             loadLog.append("Bericht bevat oudere data dan eerder verwerkt bericht, status RSGB_OUTDATED\n");
+                            // Check of eerder bericht toevallig niet zelfde datum met hoger volgorde nummer, mantis-6098
+                        } else if (oud.getDatum().equals(ber.getDatum()) && oud.getVolgordeNummer() > ber.getVolgordeNummer()) {
+                            newStatus = Bericht.STATUS.RSGB_OUTDATED;
+                            loadLog.append("Bericht bevat oudere data dan eerder verwerkt bericht met hoger volgnummer, status RSGB_OUTDATED\n");
                         } else {
                             StringReader oReader = new StringReader(oud.getDbXml());
                             List<TableData> oudList = oldDbXmlReader.readDataXML(new StreamSource(oReader));
@@ -805,6 +808,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     private StringBuilder parseOldData(List<TableData> oldList, List<TableData> newList, String newDate, String oldDate, StringBuilder loadLog) throws SQLException, ParseException {
 
         List<TableRow> rowsToDelete = new ArrayList();
+        // als heel object verwijderd moet worden omdat newList een verwijderbericht is
+        boolean deleteAll = !newList.isEmpty() && newList.get(0).isDeleteData();
 
         // parse old db xml
         loadLog.append("\nControleren te verwijderen gegevens vorig bericht...\n");
@@ -815,7 +820,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 for (TableRow oldRow : oldData.getRows()) {
                     List<String> pkColumns = getPrimaryKeys(oldRow.getTable());
                     boolean exists = doesRowExist(oldRow, pkColumns, newList);
-                    if (!exists) {
+                    if (deleteAll || !exists) {
                         loadLog.append("Vervallen record te verwijderen: ").append(oldRow.toString(pkColumns)).append("\n");
 
                         rowsToDelete.add(oldRow);

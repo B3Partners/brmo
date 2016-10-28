@@ -7,6 +7,18 @@
             <param name="ConversionPattern" value="BRMO-LOADER-TEST: %5p %d{HH:mm:ss} (%C#%M:%L) - %m%n" />
         </layout>
     </appender>
+    <logger name="org.dbunit.database">
+        <level value="info" />
+    </logger>
+    <logger name="org.dbunit.operation">
+        <level value="info" />
+    </logger>
+    <logger name="org.dbunit.util">
+        <level value="info" />
+    </logger>
+    <logger name="org.dbunit.dataset">
+        <level value="info" />
+    </logger>
     <root>
         <level value="debug" />
         <appender-ref ref="consoleAppender" />
