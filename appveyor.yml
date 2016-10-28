@@ -62,8 +62,9 @@ test_script:
   # integration tests
   # run integratie tests voor bgt-gml-loader module
   - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-gml-loader"
-  # run integratie tests voor brmo-loader module 
-  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-loader"
+  # run integratie tests voor brmo-loader module
+  # wacht op issue #113
+  # - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-loader"
   # run integratie tests voor brmo-service module
   - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-service"
 
