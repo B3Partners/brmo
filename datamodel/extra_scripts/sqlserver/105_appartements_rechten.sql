@@ -1,6 +1,8 @@
 -- selecteer parent en child app_re's die een ondersplitsing zijn of zijn geworden
 
 
+GO
+
 CREATE VIEW v_bd_app_re_app_re AS 
  SELECT b1.ref_id AS app_re_identif,
     b2.ref_id AS parent_app_re_identif
@@ -12,6 +14,8 @@ CREATE VIEW v_bd_app_re_app_re AS
 
 -- Haalt alle percelen ids op met 1 of meer app_re (dient als basis voor de view voor de kaart)
 
+GO
+
 CREATE VIEW v_bd_kad_perceel_with_app_re AS 
  SELECT DISTINCT b2.ref_id AS perceel_identif
    FROM brondocument b1
@@ -19,6 +23,8 @@ CREATE VIEW v_bd_kad_perceel_with_app_re AS
   WHERE b2.omschrijving = 'betrokkenBij HoofdSplitsing' AND b1.omschrijving = 'ontstaanUit HoofdSplitsing';
 
 -- view om kaart te maken met percelen die 1 of meerdere appartementen hebben
+
+GO
 
 CREATE VIEW v_bd_kad_perceel_met_app AS 
  SELECT v.perceel_identif,
@@ -41,6 +47,8 @@ CREATE VIEW v_bd_kad_perceel_met_app AS
 ---Views om app_res op te zoeken (inclusief ondersplitsingen)
 -- oracle ondersteund geen recursive/iteratieve/hierarchische queries met joins/unions (https://community.oracle.com/thread/55016?start=0&tstart=0), dus meerdere views (itt postgres die toffe recursieve queries ondersteunt
 
+GO
+
 CREATE VIEW v_bd_app_re_kad_perceel AS 
  SELECT b1.ref_id AS app_re_identif,
     b2.ref_id AS perceel_identif
@@ -49,12 +57,16 @@ CREATE VIEW v_bd_app_re_kad_perceel AS
   WHERE b2.omschrijving = 'betrokkenBij HoofdSplitsing' AND b1.omschrijving = 'ontstaanUit HoofdSplitsing'
   GROUP BY b1.ref_id, b2.ref_id;
 
+GO
+
 CREATE VIEW v_bd_app_re_2_kad_perceel AS 
  SELECT vaa.app_re_identif,
     vap.perceel_identif
    FROM v_bd_app_re_app_re vaa
      JOIN v_bd_app_re_kad_perceel vap ON vaa.parent_app_re_identif = vap.app_re_identif
   GROUP BY vaa.app_re_identif, vap.perceel_identif;
+
+GO
 
 CREATE VIEW v_bd_app_re_3_kad_perceel AS 
  SELECT vaa.app_re_identif,
@@ -65,6 +77,8 @@ CREATE VIEW v_bd_app_re_3_kad_perceel AS
 
 
 
+GO
+
 CREATE VIEW v_bd_app_re_all_kad_perceel AS 
 
 select * from v_bd_app_re_kad_perceel
@@ -74,6 +88,8 @@ union
 select * from v_bd_app_re_3_kad_perceel;
 
 -- view om app_re' s bij percelen op te zoeken
+GO
+
 CREATE VIEW v_bd_app_re_bij_perceel AS 
  SELECT ar.sc_kad_identif,
     ar.fk_2nnp_sc_identif,

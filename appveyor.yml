@@ -47,7 +47,8 @@ before_test:
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\02_insert_default_user.sql
 # create + set up RSGB DB
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE rsgb" -d "master"
-  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "rsgb" -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
+  - dir -w .\datamodel\generated_scripts\
+  - sqlcmd -r 1 -x -b -S (local)\SQL2016 -U sa -P Password12! -d "rsgb" -I -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
 # create + set up RSGBBGT DB
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE bgttest" -d "master"
   - dir -w .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\
@@ -59,12 +60,11 @@ before_test:
 test_script:
   # unit tests
   - mvn -e test -B -Pmssql -pl "!brmo-dist"
-  # integration tests
+  # integratie tests
   # run integratie tests voor bgt-gml-loader module
   - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-gml-loader"
   # run integratie tests voor brmo-loader module
-  # wacht op issue #113
-  # - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-loader"
+  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-loader"
   # run integratie tests voor brmo-service module
   - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-service"
 
