@@ -34,6 +34,24 @@ DROP VIEW IF EXISTS v_kad_perceel_eenvoudig;
 DROP VIEW IF EXISTS v_kad_eigenarenkaart;
 DROP VIEW IF EXISTS v_bd_app_re_and_kad_perceel;
 
+-- view om vlakken kaart te maken met percelen die 1 of meerdere appartementen hebben
+CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app_vlak AS 
+ SELECT 
+    (row_number() OVER ())::integer AS ObjectID,
+    v.perceel_identif,
+    kp.sc_kad_identif,
+    kp.aand_soort_grootte,
+    kp.grootte_perceel,
+    kp.omschr_deelperceel,
+    kp.fk_7kdp_sc_kad_identif,
+    kp.ka_deelperceelnummer,
+    kp.ka_kad_gemeentecode,
+    kp.ka_perceelnummer,
+    kp.ka_sectie,
+    kp.begrenzing_perceel
+   FROM v_bd_kad_perceel_with_app_re v
+     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif::varchar;
+
 CREATE OR REPLACE VIEW v_bd_app_re_bij_perceel AS
   SELECT
     (row_number() OVER ())::integer AS ObjectID,
@@ -344,3 +362,5 @@ WHERE
 -- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_kad_perceel_zr_adressen', 'ObjectID', NULL, 'assigned', NULL);
 -- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_bd_app_re_and_kad_perceel', 'ObjectID', NULL, 'assigned', NULL);
 -- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_kad_eigenarenkaart', 'objectid', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_bd_kad_perceel_met_app_vlak', 'objectid', NULL, 'assigned', NULL);
+
