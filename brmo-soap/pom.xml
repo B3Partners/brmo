@@ -13,36 +13,37 @@
     <name>brmo-soap</name>
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <glassfish.version>2.3.1</glassfish.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.glassfish.metro</groupId>
             <artifactId>webservices-tools</artifactId>
-            <version>2.2-b03</version>
+            <version>${glassfish.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.metro</groupId>
             <artifactId>webservices-rt</artifactId>
-            <version>2.3</version>
+            <version>${glassfish.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.metro</groupId>
             <artifactId>webservices-extra</artifactId>
-            <version>2.2-b03</version>
+            <version>${glassfish.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.metro</groupId>
             <artifactId>webservices-api</artifactId>
-            <version>2.2-b03</version>
+            <version>${glassfish.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.metro</groupId>
             <artifactId>webservices-extra-api</artifactId>
-            <version>2.2-b03</version>
+            <version>${glassfish.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -58,7 +59,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <compilerArguments>
@@ -67,14 +67,12 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
