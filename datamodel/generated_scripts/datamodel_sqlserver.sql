@@ -1,7 +1,7 @@
 --
 -- BRMO RSGB script voor sqlserver
 -- Applicatie versie: 1.4.0-SNAPSHOT
--- Gegenereerd op 2016-10-31T11:09:34.746+01:00
+-- Gegenereerd op 2016-10-31T17:24:44.341+01:00
 --
 
 create table sbi_activiteit(
@@ -2335,6 +2335,24 @@ CREATE VIEW v_bd_kad_perceel_met_app AS
    FROM v_bd_kad_perceel_with_app_re v
      JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif;
 
+-- view om vlakken kaart te maken met percelen die 1 of meerdere appartementen hebben
+GO
+CREATE VIEW v_bd_kad_perceel_met_app_vlak AS 
+ SELECT 
+    CAST(ROW_NUMBER() over(ORDER BY kp.sc_kad_identif) AS INT) AS ObjectID,
+    v.perceel_identif,
+    kp.sc_kad_identif,
+    kp.aand_soort_grootte,
+    kp.grootte_perceel,
+    kp.omschr_deelperceel,
+    kp.fk_7kdp_sc_kad_identif,
+    kp.ka_deelperceelnummer,
+    kp.ka_kad_gemeentecode,
+    kp.ka_perceelnummer,
+    kp.ka_sectie,
+    kp.begrenzing_perceel
+   FROM v_bd_kad_perceel_with_app_re v
+     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif;
 
 
 ---Views om app_res op te zoeken (inclusief ondersplitsingen)
@@ -3249,7 +3267,7 @@ CREATE VIEW v_kad_perceel_zak_recht as
   left join ingeschr_niet_nat_prs innp on (innp.SC_IDENTIF = nnp.sc_identif)
   left join subject innp_subject on (innp_subject.identif = innp.sc_identif)
   where np.NM_GESLACHTSNAAM is not null or nnp.NAAM is not null;
-  
+
 GO
 
 CREATE view v_kad_perceel_zr_adressen as 

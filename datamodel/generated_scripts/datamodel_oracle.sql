@@ -1,7 +1,7 @@
 --
 -- BRMO RSGB script voor oracle
 -- Applicatie versie: 1.4.0-SNAPSHOT
--- Gegenereerd op 2016-10-17T12:00:04.714+02:00
+-- Gegenereerd op 2016-10-31T17:24:44.131+01:00
 --
 
 
@@ -3718,7 +3718,7 @@ CREATE INDEX brondocument_ref_id  ON brondocument (ref_id);
 
 -- Script: 105_appartements_rechten.sql
 
--- selecteer parent en child app_re's die een ondersplitsing zijn of zijn geworden
+-- selecteer parent en child app_re-s die een ondersplitsing zijn of zijn geworden
 
 
 CREATE OR REPLACE VIEW v_bd_app_re_app_re AS 
@@ -3756,7 +3756,23 @@ CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app AS
    FROM v_bd_kad_perceel_with_app_re v
      JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif;
 
-
+-- view om vlakken kaart te maken met percelen die 1 of meerdere appartementen hebben
+CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app_vlak AS 
+ SELECT 
+    CAST(ROWNUM AS INTEGER) AS objectid,
+    v.perceel_identif,
+    kp.sc_kad_identif,
+    kp.aand_soort_grootte,
+    kp.grootte_perceel,
+    kp.omschr_deelperceel,
+    kp.fk_7kdp_sc_kad_identif,
+    kp.ka_deelperceelnummer,
+    kp.ka_kad_gemeentecode,
+    kp.ka_perceelnummer,
+    kp.ka_sectie,
+    kp.begrenzing_perceel
+   FROM v_bd_kad_perceel_with_app_re v
+     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif;
 
 ---Views om app_res op te zoeken (inclusief ondersplitsingen)
 -- oracle ondersteund geen recursive/iteratieve/hierarchische queries met joins/unions (https://community.oracle.com/thread/55016?start=0&tstart=0), dus meerdere views (itt postgres die toffe recursieve queries ondersteunt

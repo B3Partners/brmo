@@ -1,7 +1,7 @@
 --
 -- BRMO RSGB script voor postgresql
 -- Applicatie versie: 1.4.0-SNAPSHOT
--- Gegenereerd op 2016-10-17T12:00:04.394+02:00
+-- Gegenereerd op 2016-10-31T17:24:43.812+01:00
 --
 
 create table sbi_activiteit(
@@ -3473,7 +3473,24 @@ CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app AS
    FROM v_bd_kad_perceel_with_app_re v
      JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif::varchar;
 
-
+-- view om vlakken kaart te maken met percelen die 1 of meerdere appartementen hebben
+CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app_vlak AS 
+ SELECT 
+    (row_number() OVER ())::integer AS ObjectID,
+    v.perceel_identif,
+    kp.sc_kad_identif,
+    kp.aand_soort_grootte,
+    kp.grootte_perceel,
+    kp.omschr_deelperceel,
+    kp.fk_7kdp_sc_kad_identif,
+    kp.ka_deelperceelnummer,
+    kp.ka_kad_gemeentecode,
+    kp.ka_perceelnummer,
+    kp.ka_sectie,
+    kp.begrenzing_perceel
+   FROM v_bd_kad_perceel_with_app_re v
+     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif::varchar;
+     
 
 -- view om app_re' s bij percelen op te zoeken
 CREATE OR REPLACE VIEW v_bd_app_re_bij_perceel AS 
