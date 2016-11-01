@@ -1,7 +1,7 @@
 --
 -- BRMO RSGB script voor sqlserver
 -- Applicatie versie: 1.4.0-SNAPSHOT
--- Gegenereerd op 2016-10-31T17:24:44.341+01:00
+-- Gegenereerd op 2016-11-01T16:19:50.514+01:00
 --
 
 create table sbi_activiteit(
@@ -2421,7 +2421,6 @@ CREATE VIEW v_bd_app_re_bij_perceel AS
 
 /*
 Views for visualizing the BAG data.
-09-02-2016
 */
 -- DROP VIEWS
 -- DROP VIEW v_adres_totaal;
@@ -2446,6 +2445,7 @@ GO
 CREATE VIEW
     v_verblijfsobject_alles
     (
+        objectid,
         fid,
         pand_id,
         gemeente,
@@ -2460,6 +2460,7 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
+    CAST(ROW_NUMBER() over(ORDER BY vbo.sc_identif) AS INT) AS ObjectID,
     vbo.sc_identif              AS fid,
     fkpand.fk_nn_rh_pnd_identif AS pand_id,
     gem.naam                    AS gemeente,
@@ -2524,6 +2525,7 @@ GO
 CREATE VIEW
     v_verblijfsobject_gevormd
     (
+        objectid,
         fid,
         pand_id,
         gemeente,
@@ -2539,6 +2541,7 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
+    objectid,
     fid,
     pand_id,
     gemeente,
@@ -2564,6 +2567,7 @@ GO
 CREATE VIEW
     v_verblijfsobject
     (
+        objectid,
         fid,
         pand_id,
         gemeente,
@@ -2579,6 +2583,7 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
+    objectid,
     fid,
     pand_id,
     gemeente,
@@ -2605,6 +2610,7 @@ GO
 CREATE VIEW
     v_pand_in_gebruik
     (
+        objectid,
         fid,
         eind_datum_geldig,
         begin_datum_geldig,
@@ -2613,6 +2619,7 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
+    CAST(ROW_NUMBER() over(ORDER BY p.identif) AS INT) AS ObjectID,
     p.identif           AS fid,
     p.datum_einde_geldh AS eind_datum_geldig,
     p.dat_beg_geldh     AS begin_datum_geldig,
@@ -2635,6 +2642,7 @@ GO
 CREATE VIEW
     v_pand_gebruik_niet_ingemeten
     (
+        objectid,
         fid,
         begin_datum_geldig,
         status,
@@ -2642,6 +2650,7 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
+    CAST(ROW_NUMBER() over(ORDER BY p.identif) AS INT) AS ObjectID,
     p.identif       AS fid,
     p.dat_beg_geldh AS begin_datum_geldig,
     p.status,
@@ -2660,6 +2669,7 @@ GO
 CREATE VIEW
     v_standplaats
     (
+        objectid,
         sc_identif,
         status,
         fk_4nra_sc_identif,
@@ -2667,6 +2677,7 @@ CREATE VIEW
         geometrie
     ) AS
 SELECT
+    CAST(ROW_NUMBER() over(ORDER BY sp.sc_identif) AS INT) AS ObjectID,
     sp.sc_identif,
     sp.status,
     sp.fk_4nra_sc_identif,
@@ -2687,6 +2698,7 @@ GO
 CREATE VIEW
     v_ligplaats
     (
+        objectid,
         sc_identif,
         status,
         fk_4nra_sc_identif,
@@ -2694,6 +2706,7 @@ CREATE VIEW
         geometrie
     ) AS
 SELECT
+    CAST(ROW_NUMBER() over(ORDER BY lp.sc_identif) AS INT) AS ObjectID,
     lp.sc_identif,
     lp.status,
     lp.fk_4nra_sc_identif,
@@ -2711,12 +2724,13 @@ ON
 -------------------------------------------------
 /*
 ligplaats met hoofdadres
-*/		
+*/
 GO
 
 CREATE VIEW
     v_ligplaats_alles
     (
+        objectid,
         fid,
         gemeente,
         woonplaats,
@@ -2729,6 +2743,7 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
+    CAST(ROW_NUMBER() over(ORDER BY lp.sc_identif) AS INT) AS ObjectID,
     lp.sc_identif        AS fid,
     gem.naam             AS gemeente,
     wp.naam              AS woonplaats,
@@ -2784,12 +2799,13 @@ WHERE
 -------------------------------------------------
 /*
 standplaats met hoofdadres
-*/		
+*/
 GO
 
 CREATE VIEW
     v_standplaats_alles
     (
+        objectid,
         fid,
         gemeente,
         woonplaats,
@@ -2802,6 +2818,7 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
+    CAST(ROW_NUMBER() over(ORDER BY sp.sc_identif) AS INT) AS ObjectID,
     sp.sc_identif        AS fid,
     gem.naam             AS gemeente,
     wp.naam              AS woonplaats,
@@ -2866,6 +2883,7 @@ GO
 CREATE VIEW
     v_adres
     (
+        objectid,
         fid,
         gemeente,
         woonplaats,
@@ -2879,6 +2897,7 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
+    CAST(ROW_NUMBER() over(ORDER BY vbo.sc_identif) AS INT) AS ObjectID,
     vbo.sc_identif       AS fid,
     gem.naam             AS gemeente,
     wp.naam              AS woonplaats,
@@ -2889,7 +2908,7 @@ SELECT
     addrobj.postcode,
     vbo.status,
     gobj.oppervlakte_obj AS oppervlakte_m2,
-    gobj.puntgeom                 AS the_geom
+    gobj.puntgeom        AS the_geom
 FROM
     verblijfsobj vbo
 JOIN
@@ -3099,6 +3118,7 @@ GO
 CREATE VIEW
     v_adres_totaal
     (
+        objectid,
         fid,
         straatnaam,
         huisnummer,
@@ -3109,6 +3129,10 @@ CREATE VIEW
         woonplaats,
         the_geom
     ) AS
+  SELECT
+    CAST(ROW_NUMBER() over(ORDER BY qry.fid) AS INT) AS ObjectID,
+    qry.*
+    FROM
     (
         SELECT
             fid ,
@@ -3118,7 +3142,7 @@ CREATE VIEW
             huisnummer_toev,
             postcode,
             gemeente,
-        		woonplaats,
+            woonplaats,
             the_geom
         FROM
             v_adres
@@ -3131,7 +3155,7 @@ CREATE VIEW
             huisnummer_toev,
             postcode,
             gemeente,
-        		woonplaats,
+            woonplaats,
             centroide AS the_geom
         FROM
             v_adres_ligplaats
@@ -3144,11 +3168,13 @@ CREATE VIEW
             huisnummer_toev,
             postcode,
             gemeente,
-        		woonplaats,
+            woonplaats,
             centroide AS the_geom
         FROM
             v_adres_standplaats
-    );
+    ) qry;
+
+GO
 -- Script: 107_brk_views.sql
 
 
