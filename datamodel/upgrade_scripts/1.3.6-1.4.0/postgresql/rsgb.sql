@@ -944,10 +944,25 @@ SELECT
 -- optioneel: bijwerken Geotools / geoserver metadata tabellen, zie ook utility scripts:
 --    403_create_geotools_primarykey_metatable.sql
 -- in directory brmo/datamodel/utility_scripts/postgresql/ 
--- (let op de schemanaam 'brmo_rsgb' in onderstaande inserts moet mogelijk aangepast worden)
+-- (let op de schemanaam 'brmo_rsgb' in onderstaande inserts moet mogelijk aangepast worden) en mogelijk zitten 
+--   er al records voor betreffende views in de tabel, in dat geval deze eerst verwijderen.
 --
--- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_kad_perceel_zr_adressen', 'ObjectID', NULL, 'assigned', NULL);
--- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_bd_app_re_and_kad_perceel', 'ObjectID', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_kad_perceel_zr_adressen', 'objectid', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_bd_app_re_and_kad_perceel', 'objectid', NULL, 'assigned', NULL);
 -- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_kad_eigenarenkaart', 'objectid', NULL, 'assigned', NULL);
 -- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_bd_kad_perceel_met_app_vlak', 'objectid', NULL, 'assigned', NULL);
-
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_adres', 'objectid', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_ligplaats_alles', 'objectid', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_standplaats_alles', 'objectid', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_adres_totaal', 'objectid', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_bd_app_re_bij_perceel', 'objectid', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_kad_perceel_eenvoudig', 'objectid', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_kad_perceel_in_eigendom', 'objectid', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_ligplaats', 'objectid', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_map_kad_perceel', 'objectid', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_pand_gebruik_niet_ingemeten', 'objectid', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_pand_in_gebruik', 'objectid', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_standplaats', 'objectid', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_verblijfsobject', 'objectid', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_verblijfsobject_alles', 'objectid', NULL, 'assigned', NULL);
+-- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_verblijfsobject_gevormd', 'objectid', NULL, 'assigned', NULL);
