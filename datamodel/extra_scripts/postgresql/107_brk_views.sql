@@ -1,6 +1,7 @@
 
 create view v_map_kad_perceel as
 select
+   (row_number() OVER ())::integer AS ObjectID,
     p.sc_kad_identif,
     p.begrenzing_perceel,
     p.ka_sectie || ' ' || p.ka_perceelnummer AS aanduiding,
@@ -19,8 +20,9 @@ create table prs_eigendom (
 
 create or replace view v_kad_perceel_in_eigendom as
 select 
+    (row_number() OVER ())::integer AS ObjectID,
     p.begrenzing_perceel,
-     p.sc_kad_identif,
+    p.sc_kad_identif,
     p.aanduiding,
     p.grootte_perceel,
     p.ks_koopjaar,
@@ -53,6 +55,7 @@ left join wnplts wp on (wp.IDENTIF = oprw.fk_nn_rh_wpl_identif);
 
 create or replace view v_kad_perceel_eenvoudig as
 select
+        (row_number() OVER ())::integer AS ObjectID,
         p.sc_kad_identif,
         p.begrenzing_perceel,
         p.ka_sectie || ' ' || p.ka_perceelnummer AS aanduiding,
@@ -102,6 +105,7 @@ create or replace view v_kad_perceel_zak_recht as
   
 create or replace view v_kad_perceel_zr_adressen as 
 select 
+  (row_number() OVER ())::integer AS ObjectID,
   kp.SC_KAD_IDENTIF,
   kp.BEGRENZING_PERCEEL,
   kp.AANDUIDING,
@@ -189,29 +193,34 @@ order by kpe.SC_KAD_IDENTIF, kpe.straat, kpe.huisnummer, kpe.toevoeging, kpe.hui
 -- percelen plus appartementen op de percelen
 CREATE OR REPLACE VIEW v_bd_app_re_and_kad_perceel AS
 select
-    p.sc_kad_identif    AS kadaster_identificatie,
-    'perceel' as type,
-    p.ka_deelperceelnummer,
-    '' as ka_appartementsindex,
-    p.ka_perceelnummer,
-    p.ka_kad_gemeentecode,
-    p.ka_sectie,
-    p.begrenzing_perceel
-FROM
-    kad_perceel p
-union all 
-SELECT 
-    ar.sc_kad_identif,
-    'appartement' as type,
-    '' as ka_deelperceelnummer,
-    ar.ka_appartementsindex,
-    ar.ka_perceelnummer,
-    ar.ka_kad_gemeentecode,
-    ar.ka_sectie,
-    kp.begrenzing_perceel
-   FROM v_bd_app_re_all_kad_perceel v
-     JOIN kad_perceel kp ON v.perceel_identif::NUMERIC = kp.sc_kad_identif
-     JOIN app_re ar ON v.app_re_identif::NUMERIC = ar.sc_kad_identif;    
+    (row_number() OVER ())::integer AS ObjectID,
+    qry.*
+  from(
+    select
+        p.sc_kad_identif    AS kadaster_identificatie,
+        'perceel' as type,
+        p.ka_deelperceelnummer,
+        '' as ka_appartementsindex,
+        p.ka_perceelnummer,
+        p.ka_kad_gemeentecode,
+        p.ka_sectie,
+        p.begrenzing_perceel
+    FROM
+        kad_perceel p
+    union all
+    SELECT
+        ar.sc_kad_identif,
+        'appartement' as type,
+        '' as ka_deelperceelnummer,
+        ar.ka_appartementsindex,
+        ar.ka_perceelnummer,
+        ar.ka_kad_gemeentecode,
+        ar.ka_sectie,
+        kp.begrenzing_perceel
+    FROM v_bd_app_re_all_kad_perceel v
+        JOIN kad_perceel kp ON v.perceel_identif::NUMERIC = kp.sc_kad_identif
+        JOIN app_re ar ON v.app_re_identif::NUMERIC = ar.sc_kad_identif
+  ) qry;
 
 -- aankoopdatum uit brondocumenten
 CREATE OR REPLACE VIEW
@@ -268,7 +277,7 @@ CREATE OR REPLACE VIEW
         BEGRENZING_PERCEEL
     ) AS
 SELECT
-    row_number() OVER () AS objectid,
+    (row_number() OVER ())::integer AS objectid,
     p.kadaster_identificatie    AS kadaster_identificatie,
     p.type,
     zr.kadaster_identif AS zakelijk_recht_identificatie,

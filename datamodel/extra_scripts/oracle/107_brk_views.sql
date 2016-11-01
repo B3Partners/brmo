@@ -1,6 +1,7 @@
 
 create view v_map_kad_perceel as
 select
+    CAST(ROWNUM AS INTEGER) AS objectid,
     p.sc_kad_identif,
     p.begrenzing_perceel,
     p.ka_sectie || ' ' || p.ka_perceelnummer AS aanduiding,
@@ -19,15 +20,16 @@ create table prs_eigendom (
 
 create or replace view v_kad_perceel_in_eigendom as
 select 
+    CAST(ROWNUM AS INTEGER) AS objectid,
     p.begrenzing_perceel,
-     p.sc_kad_identif,
+    p.sc_kad_identif,
     p.aanduiding,
     p.grootte_perceel,
     p.ks_koopjaar,
     p.ks_bedrag,
     p.cu_aard_cultuur_onbebouwd,
-    nnprs.naam,
-    rownum as wtf -- Anders Oracle ORA-13276 SRID 0 not found.
+    nnprs.naam
+    -- rownum as wtf -- Anders Oracle ORA-13276 SRID 0 not found.
 from v_map_kad_perceel p
 join zak_recht zr on (zr.fk_7koz_kad_identif = p.sc_kad_identif)
 join prs_eigendom prs_e on (prs_e.fk_prs_sc_identif = zr.fk_8pes_sc_identif)
@@ -55,6 +57,7 @@ left join wnplts wp on (wp.IDENTIF = oprw.FK_NN_RH_WPL_IDENTIF);
 
 create or replace view v_kad_perceel_eenvoudig as
 select
+        CAST(ROWNUM AS INTEGER) AS objectid,
         p.sc_kad_identif,
         p.begrenzing_perceel,
         p.ka_sectie || ' ' || p.ka_perceelnummer AS aanduiding,
@@ -104,6 +107,7 @@ create or replace view v_kad_perceel_zak_recht as
   
 create or replace view v_kad_perceel_zr_adressen as 
 select 
+  CAST(ROWNUM AS INTEGER) AS objectid,
   kp.SC_KAD_IDENTIF,
   kp.BEGRENZING_PERCEEL,
   kp.AANDUIDING,
@@ -191,6 +195,7 @@ order by kpe.SC_KAD_IDENTIF, kpe.straat, kpe.huisnummer, kpe.toevoeging, kpe.hui
 -- percelen plus appartementen op de percelen
 CREATE OR REPLACE VIEW v_bd_app_re_and_kad_perceel AS
 select
+    CAST(ROWNUM AS INTEGER) AS objectid,
     p.sc_kad_identif    AS kadaster_identificatie,
     'perceel' as type,
     p.ka_deelperceelnummer,
@@ -273,7 +278,7 @@ CREATE MATERIALIZED VIEW VM_KAD_EIGENARENKAART
         BEGRENZING_PERCEEL
     ) BUILD IMMEDIATE AS
 SELECT
-    ROWNUM AS objectid,
+    CAST(ROWNUM AS INTEGER) AS objectid,
     p.kadaster_identificatie    AS kadaster_identificatie,
     p.type,
     zr.kadaster_identif AS zakelijk_recht_identificatie,
@@ -356,4 +361,7 @@ ON
     b.kadaster_identificatie = p.kadaster_identificatie
 WHERE
     zr.kadaster_identif like 'NL.KAD.Tenaamstelling%';
- 
+
+CREATE UNIQUE INDEX VM_KAD_EIGENARENKAART_OID_IDX ON VM_KAD_EIGENARENKAART (OBJECTID ASC);
+INSERT INTO USER_SDO_GEOM_METADATA VALUES('VM_KAD_EIGENARENKAART', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+CREATE INDEX VM_KAD_EIGENARENKAART_PERC_IDX ON VM_KAD_EIGENARENKAART (BEGRENZING_PERCEEL) INDEXTYPE IS MDSYS.SPATIAL_INDEX PARAMETERS ( 'LAYER_GTYPE=MULTIPOLYGON');

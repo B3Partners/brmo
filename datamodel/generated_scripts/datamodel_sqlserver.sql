@@ -1,7 +1,7 @@
 --
 -- BRMO RSGB script voor sqlserver
 -- Applicatie versie: 1.4.0-SNAPSHOT
--- Gegenereerd op 2016-10-31T11:09:34.746+01:00
+-- Gegenereerd op 2016-11-01T16:19:50.514+01:00
 --
 
 create table sbi_activiteit(
@@ -2335,6 +2335,24 @@ CREATE VIEW v_bd_kad_perceel_met_app AS
    FROM v_bd_kad_perceel_with_app_re v
      JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif;
 
+-- view om vlakken kaart te maken met percelen die 1 of meerdere appartementen hebben
+GO
+CREATE VIEW v_bd_kad_perceel_met_app_vlak AS 
+ SELECT 
+    CAST(ROW_NUMBER() over(ORDER BY kp.sc_kad_identif) AS INT) AS ObjectID,
+    v.perceel_identif,
+    kp.sc_kad_identif,
+    kp.aand_soort_grootte,
+    kp.grootte_perceel,
+    kp.omschr_deelperceel,
+    kp.fk_7kdp_sc_kad_identif,
+    kp.ka_deelperceelnummer,
+    kp.ka_kad_gemeentecode,
+    kp.ka_perceelnummer,
+    kp.ka_sectie,
+    kp.begrenzing_perceel
+   FROM v_bd_kad_perceel_with_app_re v
+     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif;
 
 
 ---Views om app_res op te zoeken (inclusief ondersplitsingen)
@@ -2384,7 +2402,9 @@ select * from v_bd_app_re_3_kad_perceel;
 GO
 
 CREATE VIEW v_bd_app_re_bij_perceel AS 
- SELECT ar.sc_kad_identif,
+ SELECT 
+    CAST(ROW_NUMBER() over(ORDER BY ar.sc_kad_identif) AS INT) AS ObjectID,
+    ar.sc_kad_identif,
     ar.fk_2nnp_sc_identif,
     ar.ka_appartementsindex,
     ar.ka_kad_gemeentecode,
@@ -2401,7 +2421,6 @@ CREATE VIEW v_bd_app_re_bij_perceel AS
 
 /*
 Views for visualizing the BAG data.
-09-02-2016
 */
 -- DROP VIEWS
 -- DROP VIEW v_adres_totaal;
@@ -2426,6 +2445,7 @@ GO
 CREATE VIEW
     v_verblijfsobject_alles
     (
+        objectid,
         fid,
         pand_id,
         gemeente,
@@ -2440,6 +2460,7 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
+    CAST(ROW_NUMBER() over(ORDER BY vbo.sc_identif) AS INT) AS ObjectID,
     vbo.sc_identif              AS fid,
     fkpand.fk_nn_rh_pnd_identif AS pand_id,
     gem.naam                    AS gemeente,
@@ -2504,6 +2525,7 @@ GO
 CREATE VIEW
     v_verblijfsobject_gevormd
     (
+        objectid,
         fid,
         pand_id,
         gemeente,
@@ -2519,6 +2541,7 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
+    objectid,
     fid,
     pand_id,
     gemeente,
@@ -2544,6 +2567,7 @@ GO
 CREATE VIEW
     v_verblijfsobject
     (
+        objectid,
         fid,
         pand_id,
         gemeente,
@@ -2559,6 +2583,7 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
+    objectid,
     fid,
     pand_id,
     gemeente,
@@ -2585,6 +2610,7 @@ GO
 CREATE VIEW
     v_pand_in_gebruik
     (
+        objectid,
         fid,
         eind_datum_geldig,
         begin_datum_geldig,
@@ -2593,6 +2619,7 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
+    CAST(ROW_NUMBER() over(ORDER BY p.identif) AS INT) AS ObjectID,
     p.identif           AS fid,
     p.datum_einde_geldh AS eind_datum_geldig,
     p.dat_beg_geldh     AS begin_datum_geldig,
@@ -2615,6 +2642,7 @@ GO
 CREATE VIEW
     v_pand_gebruik_niet_ingemeten
     (
+        objectid,
         fid,
         begin_datum_geldig,
         status,
@@ -2622,6 +2650,7 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
+    CAST(ROW_NUMBER() over(ORDER BY p.identif) AS INT) AS ObjectID,
     p.identif       AS fid,
     p.dat_beg_geldh AS begin_datum_geldig,
     p.status,
@@ -2640,6 +2669,7 @@ GO
 CREATE VIEW
     v_standplaats
     (
+        objectid,
         sc_identif,
         status,
         fk_4nra_sc_identif,
@@ -2647,6 +2677,7 @@ CREATE VIEW
         geometrie
     ) AS
 SELECT
+    CAST(ROW_NUMBER() over(ORDER BY sp.sc_identif) AS INT) AS ObjectID,
     sp.sc_identif,
     sp.status,
     sp.fk_4nra_sc_identif,
@@ -2667,6 +2698,7 @@ GO
 CREATE VIEW
     v_ligplaats
     (
+        objectid,
         sc_identif,
         status,
         fk_4nra_sc_identif,
@@ -2674,6 +2706,7 @@ CREATE VIEW
         geometrie
     ) AS
 SELECT
+    CAST(ROW_NUMBER() over(ORDER BY lp.sc_identif) AS INT) AS ObjectID,
     lp.sc_identif,
     lp.status,
     lp.fk_4nra_sc_identif,
@@ -2691,12 +2724,13 @@ ON
 -------------------------------------------------
 /*
 ligplaats met hoofdadres
-*/		
+*/
 GO
 
 CREATE VIEW
     v_ligplaats_alles
     (
+        objectid,
         fid,
         gemeente,
         woonplaats,
@@ -2709,6 +2743,7 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
+    CAST(ROW_NUMBER() over(ORDER BY lp.sc_identif) AS INT) AS ObjectID,
     lp.sc_identif        AS fid,
     gem.naam             AS gemeente,
     wp.naam              AS woonplaats,
@@ -2764,12 +2799,13 @@ WHERE
 -------------------------------------------------
 /*
 standplaats met hoofdadres
-*/		
+*/
 GO
 
 CREATE VIEW
     v_standplaats_alles
     (
+        objectid,
         fid,
         gemeente,
         woonplaats,
@@ -2782,6 +2818,7 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
+    CAST(ROW_NUMBER() over(ORDER BY sp.sc_identif) AS INT) AS ObjectID,
     sp.sc_identif        AS fid,
     gem.naam             AS gemeente,
     wp.naam              AS woonplaats,
@@ -2846,6 +2883,7 @@ GO
 CREATE VIEW
     v_adres
     (
+        objectid,
         fid,
         gemeente,
         woonplaats,
@@ -2859,6 +2897,7 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
+    CAST(ROW_NUMBER() over(ORDER BY vbo.sc_identif) AS INT) AS ObjectID,
     vbo.sc_identif       AS fid,
     gem.naam             AS gemeente,
     wp.naam              AS woonplaats,
@@ -2869,7 +2908,7 @@ SELECT
     addrobj.postcode,
     vbo.status,
     gobj.oppervlakte_obj AS oppervlakte_m2,
-    gobj.puntgeom                 AS the_geom
+    gobj.puntgeom        AS the_geom
 FROM
     verblijfsobj vbo
 JOIN
@@ -3079,6 +3118,7 @@ GO
 CREATE VIEW
     v_adres_totaal
     (
+        objectid,
         fid,
         straatnaam,
         huisnummer,
@@ -3089,6 +3129,10 @@ CREATE VIEW
         woonplaats,
         the_geom
     ) AS
+  SELECT
+    CAST(ROW_NUMBER() over(ORDER BY qry.fid) AS INT) AS ObjectID,
+    qry.*
+    FROM
     (
         SELECT
             fid ,
@@ -3098,7 +3142,7 @@ CREATE VIEW
             huisnummer_toev,
             postcode,
             gemeente,
-        		woonplaats,
+            woonplaats,
             the_geom
         FROM
             v_adres
@@ -3111,7 +3155,7 @@ CREATE VIEW
             huisnummer_toev,
             postcode,
             gemeente,
-        		woonplaats,
+            woonplaats,
             centroide AS the_geom
         FROM
             v_adres_ligplaats
@@ -3124,11 +3168,13 @@ CREATE VIEW
             huisnummer_toev,
             postcode,
             gemeente,
-        		woonplaats,
+            woonplaats,
             centroide AS the_geom
         FROM
             v_adres_standplaats
-    );
+    ) qry;
+
+GO
 -- Script: 107_brk_views.sql
 
 
@@ -3136,6 +3182,7 @@ GO
 
 CREATE VIEW v_map_kad_perceel as
 select
+    CAST(ROW_NUMBER() over(ORDER BY p.sc_kad_identif) AS INT) AS ObjectID,
     p.sc_kad_identif,
     p.begrenzing_perceel,
     p.ka_sectie + ' ' + p.ka_perceelnummer AS aanduiding,
@@ -3156,10 +3203,11 @@ create table prs_eigendom (
 
 GO
 
-CREATE VIEW v_kad_perceel_in_eigendom as
-select
+CREATE view v_kad_perceel_in_eigendom as
+select 
+    CAST(ROW_NUMBER() over(ORDER BY p.sc_kad_identif) AS INT) AS ObjectID,
     p.begrenzing_perceel,
-     p.sc_kad_identif,
+    p.sc_kad_identif,
     p.aanduiding,
     p.grootte_perceel,
     p.ks_koopjaar,
@@ -3196,6 +3244,7 @@ GO
 
 CREATE VIEW v_kad_perceel_eenvoudig as
 select
+        CAST(ROW_NUMBER() over(ORDER BY p.sc_kad_identif) AS INT) AS ObjectID,
         p.sc_kad_identif,
         p.begrenzing_perceel,
         p.ka_sectie + ' ' + p.ka_perceelnummer AS aanduiding,
@@ -3247,8 +3296,9 @@ CREATE VIEW v_kad_perceel_zak_recht as
 
 GO
 
-CREATE VIEW v_kad_perceel_zr_adressen as
-select
+CREATE view v_kad_perceel_zr_adressen as 
+select 
+  CAST(ROW_NUMBER() over(ORDER BY kp.sc_kad_identif) AS INT) AS ObjectID,
   kp.SC_KAD_IDENTIF,
   kp.BEGRENZING_PERCEEL,
   kp.AANDUIDING,
@@ -3339,30 +3389,42 @@ and zr2.FK_8PES_SC_IDENTIF is not null;
 GO
 
 CREATE VIEW v_bd_app_re_and_kad_perceel AS
-select
-    p.sc_kad_identif    AS kadaster_identificatie,
-    'perceel' as type,
-    p.ka_deelperceelnummer,
-    '' as ka_appartementsindex,
-    p.ka_perceelnummer,
-    p.ka_kad_gemeentecode,
-    p.ka_sectie,
-    p.begrenzing_perceel
-FROM
-    kad_perceel p
-union all
 SELECT
-    ar.sc_kad_identif,
-    'appartement' as type,
-    '' as ka_deelperceelnummer,
-    ar.ka_appartementsindex,
-    ar.ka_perceelnummer,
-    ar.ka_kad_gemeentecode,
-    ar.ka_sectie,
-    kp.begrenzing_perceel
-   FROM v_bd_app_re_all_kad_perceel v
-     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif
-     JOIN app_re ar ON v.app_re_identif = ar.sc_kad_identif;
+    CAST(ROW_NUMBER() over(ORDER BY qry.kadaster_identificatie) AS INT) AS ObjectID,
+    qry.*
+FROM
+    (
+        SELECT
+            p.sc_kad_identif AS kadaster_identificatie,
+            'perceel'        AS type,
+            p.ka_deelperceelnummer,
+            '' AS ka_appartementsindex,
+            p.ka_perceelnummer,
+            p.ka_kad_gemeentecode,
+            p.ka_sectie,
+            p.begrenzing_perceel
+        FROM
+            kad_perceel p
+        UNION ALL
+        SELECT
+            ar.sc_kad_identif,
+            'appartement' AS type,
+            ''            AS ka_deelperceelnummer,
+            ar.ka_appartementsindex,
+            ar.ka_perceelnummer,
+            ar.ka_kad_gemeentecode,
+            ar.ka_sectie,
+            kp.begrenzing_perceel
+        FROM
+            v_bd_app_re_all_kad_perceel v
+        JOIN
+            kad_perceel kp
+        ON
+            v.perceel_identif = kp.sc_kad_identif
+        JOIN
+            app_re ar
+        ON
+            v.app_re_identif = ar.sc_kad_identif ) qry;
 
 -- aankoopdatum uit brondocumenten
 GO
@@ -3391,7 +3453,7 @@ GO
 CREATE VIEW
     v_kad_eigenarenkaart
     (
-        objectid,
+        ObjectID,
         kadaster_identificatie,
         type,
         zakelijk_recht_identificatie,
@@ -3423,7 +3485,7 @@ CREATE VIEW
         begrenzing_perceel
     ) AS
 SELECT
-    row_number() OVER (order by p.kadaster_identificatie) AS objectid,
+    CAST(row_number() OVER (order by p.kadaster_identificatie) AS INT) AS ObjectID,
     p.kadaster_identificatie    AS kadaster_identificatie,
     p.type,
     zr.kadaster_identif AS zakelijk_recht_identificatie,

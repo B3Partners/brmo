@@ -1,12 +1,13 @@
 --
 -- BRMO RSGB script voor oracle
 -- Applicatie versie: 1.4.0-SNAPSHOT
--- Gegenereerd op 2016-10-17T11:22:29.09+02:00
+-- Gegenereerd op 2016-11-01T16:19:50.124+01:00
 --
 
 
--- voor sqldeveloper define evt. uitzetten omdat er ampersand tekens in sommige namen voorkomen.
--- set define off;
+-- voor ander tooling dan sqldeveloper define evt. uitzetten omdat er ampersand 
+--   tekens in sommige gemeente/plaats/buurt namen voorkomen.
+set define off;
 
 create table sbi_activiteit(
 	omschr varchar2(60),
@@ -3717,7 +3718,7 @@ CREATE INDEX brondocument_ref_id  ON brondocument (ref_id);
 
 -- Script: 105_appartements_rechten.sql
 
--- selecteer parent en child app_re's die een ondersplitsing zijn of zijn geworden
+-- selecteer parent en child app_re-s die een ondersplitsing zijn of zijn geworden
 
 
 CREATE OR REPLACE VIEW v_bd_app_re_app_re AS 
@@ -3755,7 +3756,23 @@ CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app AS
    FROM v_bd_kad_perceel_with_app_re v
      JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif;
 
-
+-- view om vlakken kaart te maken met percelen die 1 of meerdere appartementen hebben
+CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app_vlak AS 
+ SELECT 
+    CAST(ROWNUM AS INTEGER) AS objectid,
+    v.perceel_identif,
+    kp.sc_kad_identif,
+    kp.aand_soort_grootte,
+    kp.grootte_perceel,
+    kp.omschr_deelperceel,
+    kp.fk_7kdp_sc_kad_identif,
+    kp.ka_deelperceelnummer,
+    kp.ka_kad_gemeentecode,
+    kp.ka_perceelnummer,
+    kp.ka_sectie,
+    kp.begrenzing_perceel
+   FROM v_bd_kad_perceel_with_app_re v
+     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif;
 
 ---Views om app_res op te zoeken (inclusief ondersplitsingen)
 -- oracle ondersteund geen recursive/iteratieve/hierarchische queries met joins/unions (https://community.oracle.com/thread/55016?start=0&tstart=0), dus meerdere views (itt postgres die toffe recursieve queries ondersteunt
@@ -3794,7 +3811,9 @@ select * from v_bd_app_re_3_kad_perceel;
 
 -- view om app_re' s bij percelen op te zoeken
 CREATE OR REPLACE VIEW v_bd_app_re_bij_perceel AS 
- SELECT ar.sc_kad_identif,
+ SELECT 
+    CAST(ROWNUM AS INTEGER) AS objectid,
+    ar.sc_kad_identif,
     ar.fk_2nnp_sc_identif,
     ar.ka_appartementsindex,
     ar.ka_kad_gemeentecode,
@@ -3811,7 +3830,6 @@ CREATE OR REPLACE VIEW v_bd_app_re_bij_perceel AS
 
 /*
 Views for visualizing the bag data.
-24-06-2015
 */
 -- DROP VIEWS
 -- DROP VIEW V_ADRES_TOTAAL;
@@ -3834,6 +3852,7 @@ Views for visualizing the bag data.
 CREATE OR REPLACE VIEW
     V_VERBLIJFSOBJECT_ALLES
     (
+        OBJECTID,
         FID,
         PAND_ID,
         GEMEENTE,
@@ -3848,6 +3867,7 @@ CREATE OR REPLACE VIEW
         THE_GEOM
     ) AS
 SELECT
+    CAST(ROWNUM AS INTEGER)     AS OBJECTID,
     VBO.SC_IDENTIF              AS FID,
     FKPAND.FK_NN_RH_PND_IDENTIF AS PAND_ID,
     GEM.NAAM                    AS GEMEENTE,
@@ -3910,6 +3930,7 @@ WHERE
 CREATE OR REPLACE VIEW
     V_VERBLIJFSOBJECT_GEVORMD
     (
+        OBJECTID,
         FID,
         PAND_ID,
         GEMEENTE,
@@ -3925,6 +3946,7 @@ CREATE OR REPLACE VIEW
         THE_GEOM
     ) AS
 SELECT
+    OBJECTID,
     FID,
     PAND_ID,
     GEMEENTE,
@@ -3948,6 +3970,7 @@ WHERE
 CREATE OR REPLACE VIEW
     V_VERBLIJFSOBJECT
     (
+        OBJECTID,
         FID,
         PAND_ID,
         GEMEENTE,
@@ -3963,6 +3986,7 @@ CREATE OR REPLACE VIEW
         THE_GEOM
     ) AS
 SELECT
+    OBJECTID,
     FID,
     PAND_ID,
     GEMEENTE,
@@ -3984,9 +4008,10 @@ OR  STATUS = 'Verblijfsobject in gebruik';
 -------------------------------------------------
 -- V_PAND_IN_GEBRUIK
 -------------------------------------------------
-CREATE VIEW
+CREATE  OR REPLACE VIEW
     V_PAND_IN_GEBRUIK
     (
+        OBJECTID,
         FID,
         EIND_DATUM_GELDIG,
         BEGIN_DATUM_GELDIG,
@@ -3995,9 +4020,10 @@ CREATE VIEW
         THE_GEOM
     ) AS
 SELECT
-    P.IDENTIF           AS FID,
-    P.DATUM_EINDE_GELDH AS EIND_DATUM_GELDIG,
-    P.DAT_BEG_GELDH     AS BEGIN_DATUM_GELDIG,
+    CAST(ROWNUM AS INTEGER) AS OBJECTID,
+    P.IDENTIF               AS FID,
+    P.DATUM_EINDE_GELDH     AS EIND_DATUM_GELDIG,
+    P.DAT_BEG_GELDH         AS BEGIN_DATUM_GELDIG,
     P.STATUS,
     P.OORSPRONKELIJK_BOUWJAAR AS BOUWJAAR,
     P.GEOM_BOVENAANZICHT      AS THE_GEOM
@@ -4015,6 +4041,7 @@ AND DATUM_EINDE_GELDH IS NULL;
 CREATE OR REPLACE VIEW
     V_PAND_GEBRUIK_NIET_INGEMETEN
     (
+        OBJECTID,
         FID,
         BEGIN_DATUM_GELDIG,
         STATUS,
@@ -4022,8 +4049,9 @@ CREATE OR REPLACE VIEW
         THE_GEOM
     ) AS
 SELECT
-    P.IDENTIF       AS FID,
-    P.DAT_BEG_GELDH AS BEGIN_DATUM_GELDIG,
+    CAST(ROWNUM AS INTEGER) AS OBJECTID,
+    P.IDENTIF               AS FID,
+    P.DAT_BEG_GELDH         AS BEGIN_DATUM_GELDIG,
     P.STATUS,
     P.OORSPRONKELIJK_BOUWJAAR AS BOUWJAAR,
     P.GEOM_BOVENAANZICHT      AS THE_GEOM
@@ -4038,6 +4066,7 @@ AND DATUM_EINDE_GELDH IS NULL;
 CREATE OR REPLACE VIEW
     V_STANDPLAATS
     (
+        OBJECTID,
         SC_IDENTIF,
         STATUS,
         FK_4NRA_SC_IDENTIF,
@@ -4045,6 +4074,7 @@ CREATE OR REPLACE VIEW
         GEOMETRIE
     ) AS
 SELECT
+    CAST(ROWNUM AS INTEGER) AS OBJECTID,
     SP.SC_IDENTIF,
     SP.STATUS,
     SP.FK_4NRA_SC_IDENTIF,
@@ -4063,6 +4093,7 @@ ON
 CREATE OR REPLACE VIEW
     V_LIGPLAATS
     (
+        OBJECTID,
         SC_IDENTIF,
         STATUS,
         FK_4NRA_SC_IDENTIF,
@@ -4070,6 +4101,7 @@ CREATE OR REPLACE VIEW
         GEOMETRIE
     ) AS
 SELECT
+    CAST(ROWNUM AS INTEGER) AS OBJECTID,
     LP.SC_IDENTIF,
     LP.STATUS,
     LP.FK_4NRA_SC_IDENTIF,
@@ -4091,6 +4123,7 @@ LIGPLAATS MET HOOFDADRES
 CREATE OR REPLACE VIEW
     V_LIGPLAATS_ALLES
     (
+        OBJECTID,
         FID,
         GEMEENTE,
         WOONPLAATS,
@@ -4103,11 +4136,12 @@ CREATE OR REPLACE VIEW
         THE_GEOM
     ) AS
 SELECT
-    LP.SC_IDENTIF        AS FID,
-    GEM.NAAM             AS GEMEENTE,
-    WP.NAAM              AS WOONPLAATS,
-    GEOR.NAAM_OPENB_RMTE AS STRAATNAAM,
-    ADDROBJ.HUINUMMER    AS HUISNUMMER,
+    CAST(ROWNUM AS INTEGER) AS OBJECTID,
+    LP.SC_IDENTIF           AS FID,
+    GEM.NAAM                AS GEMEENTE,
+    WP.NAAM                 AS WOONPLAATS,
+    GEOR.NAAM_OPENB_RMTE    AS STRAATNAAM,
+    ADDROBJ.HUINUMMER       AS HUISNUMMER,
     ADDROBJ.HUISLETTER,
     ADDROBJ.HUINUMMERTOEVOEGING AS HUISNUMMER_TOEV,
     ADDROBJ.POSTCODE,
@@ -4162,6 +4196,7 @@ STANDPLAATS MET HOOFDADRES
 CREATE OR REPLACE VIEW
     V_STANDPLAATS_ALLES
     (
+        OBJECTID,
         FID,
         GEMEENTE,
         WOONPLAATS,
@@ -4174,11 +4209,12 @@ CREATE OR REPLACE VIEW
         THE_GEOM
     ) AS
 SELECT
-    SP.SC_IDENTIF        AS FID,
-    GEM.NAAM             AS GEMEENTE,
-    WP.NAAM              AS WOONPLAATS,
-    GEOR.NAAM_OPENB_RMTE AS STRAATNAAM,
-    ADDROBJ.HUINUMMER    AS HUISNUMMER,
+    CAST(ROWNUM AS INTEGER) AS OBJECTID,
+    SP.SC_IDENTIF           AS FID,
+    GEM.NAAM                AS GEMEENTE,
+    WP.NAAM                 AS WOONPLAATS,
+    GEOR.NAAM_OPENB_RMTE    AS STRAATNAAM,
+    ADDROBJ.HUINUMMER       AS HUISNUMMER,
     ADDROBJ.HUISLETTER,
     ADDROBJ.HUINUMMERTOEVOEGING AS HUISNUMMER_TOEV,
     ADDROBJ.POSTCODE,
@@ -4236,6 +4272,7 @@ PLUS VERBLIJFSOBJECT VIA PUNT OBJECT VAN GEBOUWD_OBJ
 CREATE OR REPLACE VIEW
     V_ADRES
     (
+        OBJECTID,
         FID,
         GEMEENTE,
         WOONPLAATS,
@@ -4249,11 +4286,12 @@ CREATE OR REPLACE VIEW
         THE_GEOM
     ) AS
 SELECT
-    VBO.SC_IDENTIF       AS FID,
-    GEM.NAAM             AS GEMEENTE,
-    WP.NAAM              AS WOONPLAATS,
-    GEOR.NAAM_OPENB_RMTE AS STRAATNAAM,
-    ADDROBJ.HUINUMMER    AS HUISNUMMER,
+    CAST(ROWNUM AS INTEGER) AS OBJECTID,
+    VBO.SC_IDENTIF          AS FID,
+    GEM.NAAM                AS GEMEENTE,
+    WP.NAAM                 AS WOONPLAATS,
+    GEOR.NAAM_OPENB_RMTE    AS STRAATNAAM,
+    ADDROBJ.HUINUMMER       AS HUISNUMMER,
     ADDROBJ.HUISLETTER,
     ADDROBJ.HUINUMMERTOEVOEGING AS HUISNUMMER_TOEV,
     ADDROBJ.POSTCODE,
@@ -4310,7 +4348,7 @@ AND (
 -------------------------------------------------
 -- V_ADRES_LIGPLAATS
 -------------------------------------------------
-CREATE VIEW
+CREATE  OR REPLACE VIEW
     V_ADRES_LIGPLAATS
     (
         FID,
@@ -4385,7 +4423,7 @@ AND LPA.STATUS = 'Plaats aangewezen';
 -------------------------------------------------
 -- V_ADRES_STANDPLAATS
 -------------------------------------------------
-CREATE VIEW
+CREATE OR REPLACE VIEW
     V_ADRES_STANDPLAATS
     (
         FID,
@@ -4460,9 +4498,10 @@ AND SPL.STATUS = 'Plaats aangewezen';
 -------------------------------------------------
 -- V_ADRES_TOTAAL
 -------------------------------------------------
-CREATE VIEW
+CREATE OR REPLACE VIEW
     V_ADRES_TOTAAL
     (
+        OBJECTID,
         FID,
         STRAATNAAM,
         HUISNUMMER,
@@ -4473,7 +4512,10 @@ CREATE VIEW
         WOONPLAATS,
         THE_GEOM
     ) AS
-    (
+  SELECT
+    CAST(ROWNUM AS INTEGER) AS OBJECTID,
+    QRY.*
+    FROM (
         SELECT
             FID ,
             STRAATNAAM,
@@ -4512,11 +4554,12 @@ CREATE VIEW
             CENTROIDE AS THE_GEOM
         FROM
             V_ADRES_STANDPLAATS
-    );-- Script: 107_brk_views.sql
+    ) QRY;-- Script: 107_brk_views.sql
 
 
 create view v_map_kad_perceel as
 select
+    CAST(ROWNUM AS INTEGER) AS objectid,
     p.sc_kad_identif,
     p.begrenzing_perceel,
     p.ka_sectie || ' ' || p.ka_perceelnummer AS aanduiding,
@@ -4535,15 +4578,16 @@ create table prs_eigendom (
 
 create or replace view v_kad_perceel_in_eigendom as
 select 
+    CAST(ROWNUM AS INTEGER) AS objectid,
     p.begrenzing_perceel,
-     p.sc_kad_identif,
+    p.sc_kad_identif,
     p.aanduiding,
     p.grootte_perceel,
     p.ks_koopjaar,
     p.ks_bedrag,
     p.cu_aard_cultuur_onbebouwd,
-    nnprs.naam,
-    rownum as wtf -- Anders Oracle ORA-13276 SRID 0 not found.
+    nnprs.naam
+    -- rownum as wtf -- Anders Oracle ORA-13276 SRID 0 not found.
 from v_map_kad_perceel p
 join zak_recht zr on (zr.fk_7koz_kad_identif = p.sc_kad_identif)
 join prs_eigendom prs_e on (prs_e.fk_prs_sc_identif = zr.fk_8pes_sc_identif)
@@ -4571,6 +4615,7 @@ left join wnplts wp on (wp.IDENTIF = oprw.FK_NN_RH_WPL_IDENTIF);
 
 create or replace view v_kad_perceel_eenvoudig as
 select
+        CAST(ROWNUM AS INTEGER) AS objectid,
         p.sc_kad_identif,
         p.begrenzing_perceel,
         p.ka_sectie || ' ' || p.ka_perceelnummer AS aanduiding,
@@ -4620,6 +4665,7 @@ create or replace view v_kad_perceel_zak_recht as
   
 create or replace view v_kad_perceel_zr_adressen as 
 select 
+  CAST(ROWNUM AS INTEGER) AS objectid,
   kp.SC_KAD_IDENTIF,
   kp.BEGRENZING_PERCEEL,
   kp.AANDUIDING,
@@ -4707,6 +4753,7 @@ order by kpe.SC_KAD_IDENTIF, kpe.straat, kpe.huisnummer, kpe.toevoeging, kpe.hui
 -- percelen plus appartementen op de percelen
 CREATE OR REPLACE VIEW v_bd_app_re_and_kad_perceel AS
 select
+    CAST(ROWNUM AS INTEGER) AS objectid,
     p.sc_kad_identif    AS kadaster_identificatie,
     'perceel' as type,
     p.ka_deelperceelnummer,
@@ -4789,7 +4836,7 @@ CREATE MATERIALIZED VIEW VM_KAD_EIGENARENKAART
         BEGRENZING_PERCEEL
     ) BUILD IMMEDIATE AS
 SELECT
-    ROWNUM AS objectid,
+    CAST(ROWNUM AS INTEGER) AS objectid,
     p.kadaster_identificatie    AS kadaster_identificatie,
     p.type,
     zr.kadaster_identif AS zakelijk_recht_identificatie,
@@ -4872,7 +4919,11 @@ ON
     b.kadaster_identificatie = p.kadaster_identificatie
 WHERE
     zr.kadaster_identif like 'NL.KAD.Tenaamstelling%';
- -- Script: 108_insert_aard_recht_verkort.sql
+
+CREATE UNIQUE INDEX VM_KAD_EIGENARENKAART_OID_IDX ON VM_KAD_EIGENARENKAART (OBJECTID ASC);
+INSERT INTO USER_SDO_GEOM_METADATA VALUES('VM_KAD_EIGENARENKAART', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+CREATE INDEX VM_KAD_EIGENARENKAART_PERC_IDX ON VM_KAD_EIGENARENKAART (BEGRENZING_PERCEEL) INDEXTYPE IS MDSYS.SPATIAL_INDEX PARAMETERS ( 'LAYER_GTYPE=MULTIPOLYGON');
+-- Script: 108_insert_aard_recht_verkort.sql
 
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('1', 'Beklemrecht');
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('2', 'Eigendom (recht van)');

@@ -1,7 +1,7 @@
 --
 -- BRMO RSGB script voor postgresql
 -- Applicatie versie: 1.4.0-SNAPSHOT
--- Gegenereerd op 2016-10-17T11:22:28.728+02:00
+-- Gegenereerd op 2016-11-01T16:19:49.755+01:00
 --
 
 create table sbi_activiteit(
@@ -3415,7 +3415,6 @@ CREATE INDEX brondocument_ref_id  ON brondocument (ref_id);
 
 -- selecteer parent en child app_re's die een ondersplitsing zijn of zijn geworden
 
-
 CREATE OR REPLACE VIEW v_bd_app_re_app_re AS 
  SELECT b1.ref_id AS app_re_identif,
     b2.ref_id AS parent_app_re_identif
@@ -3474,11 +3473,30 @@ CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app AS
    FROM v_bd_kad_perceel_with_app_re v
      JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif::varchar;
 
-
+-- view om vlakken kaart te maken met percelen die 1 of meerdere appartementen hebben
+CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app_vlak AS 
+ SELECT 
+    (row_number() OVER ())::integer AS ObjectID,
+    v.perceel_identif,
+    kp.sc_kad_identif,
+    kp.aand_soort_grootte,
+    kp.grootte_perceel,
+    kp.omschr_deelperceel,
+    kp.fk_7kdp_sc_kad_identif,
+    kp.ka_deelperceelnummer,
+    kp.ka_kad_gemeentecode,
+    kp.ka_perceelnummer,
+    kp.ka_sectie,
+    kp.begrenzing_perceel
+   FROM v_bd_kad_perceel_with_app_re v
+     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif::varchar;
+     
 
 -- view om app_re' s bij percelen op te zoeken
 CREATE OR REPLACE VIEW v_bd_app_re_bij_perceel AS 
- SELECT ar.sc_kad_identif,
+ SELECT 
+    (row_number() OVER ())::integer AS ObjectID,
+    ar.sc_kad_identif,
     ar.fk_2nnp_sc_identif,
     ar.ka_appartementsindex,
     ar.ka_kad_gemeentecode,
@@ -3518,6 +3536,7 @@ Views for visualizing the BAG data.
 CREATE OR REPLACE VIEW
     v_verblijfsobject_alles
     (
+        objectid,
         fid,
         pand_id,
         gemeente,
@@ -3532,6 +3551,7 @@ CREATE OR REPLACE VIEW
         the_geom
     ) AS
 SELECT
+    (row_number() OVER ())::integer AS objectid,
     vbo.sc_identif              AS fid,
     fkpand.fk_nn_rh_pnd_identif AS pand_id,
     gem.naam                    AS gemeente,
@@ -3594,6 +3614,7 @@ WHERE
 CREATE OR REPLACE VIEW
     v_verblijfsobject_gevormd
     (
+        objectid,
         fid,
         pand_id,
         gemeente,
@@ -3609,6 +3630,7 @@ CREATE OR REPLACE VIEW
         the_geom
     ) AS
 SELECT
+    objectid,
     fid,
     pand_id,
     gemeente,
@@ -3632,6 +3654,7 @@ WHERE
 CREATE OR REPLACE VIEW
     v_verblijfsobject
     (
+        objectid,
         fid,
         pand_id,
         gemeente,
@@ -3647,6 +3670,7 @@ CREATE OR REPLACE VIEW
         the_geom
     ) AS
 SELECT
+    objectid,
     fid,
     pand_id,
     gemeente,
@@ -3671,6 +3695,7 @@ OR  status = 'Verblijfsobject in gebruik';
 CREATE VIEW
     v_pand_in_gebruik
     (
+        objectid,
         fid,
         eind_datum_geldig,
         begin_datum_geldig,
@@ -3679,6 +3704,7 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
+    (row_number() OVER ())::integer AS ObjectID,
     p.identif           AS fid,
     p.datum_einde_geldh AS eind_datum_geldig,
     p.dat_beg_geldh     AS begin_datum_geldig,
@@ -3699,6 +3725,7 @@ AND datum_einde_geldh IS NULL;
 CREATE OR REPLACE VIEW
     v_pand_gebruik_niet_ingemeten
     (
+        objectid,
         fid,
         begin_datum_geldig,
         status,
@@ -3706,6 +3733,7 @@ CREATE OR REPLACE VIEW
         the_geom
     ) AS
 SELECT
+    (row_number() OVER ())::integer AS ObjectID,
     p.identif       AS fid,
     p.dat_beg_geldh AS begin_datum_geldig,
     p.status,
@@ -3722,6 +3750,7 @@ AND datum_einde_geldh IS NULL;
 CREATE OR REPLACE VIEW
     v_standplaats
     (
+        objectid,
         sc_identif,
         status,
         fk_4nra_sc_identif,
@@ -3729,6 +3758,7 @@ CREATE OR REPLACE VIEW
         geometrie
     ) AS
 SELECT
+    (row_number() OVER ())::integer AS ObjectID,
     sp.sc_identif,
     sp.status,
     sp.fk_4nra_sc_identif,
@@ -3747,6 +3777,7 @@ ON
 CREATE OR REPLACE VIEW
     v_ligplaats
     (
+        objectid,
         sc_identif,
         status,
         fk_4nra_sc_identif,
@@ -3754,6 +3785,7 @@ CREATE OR REPLACE VIEW
         geometrie
     ) AS
 SELECT
+    (row_number() OVER ())::integer AS ObjectID,
     lp.sc_identif,
     lp.status,
     lp.fk_4nra_sc_identif,
@@ -3775,6 +3807,7 @@ ligplaats met hoofdadres
 CREATE OR REPLACE VIEW
     v_ligplaats_alles
     (
+        objectid,
         fid,
         gemeente,
         woonplaats,
@@ -3787,6 +3820,7 @@ CREATE OR REPLACE VIEW
         the_geom
     ) AS
 SELECT
+    (row_number() OVER ())::integer AS ObjectID,
     lp.sc_identif        AS fid,
     gem.naam             AS gemeente,
     wp.naam              AS woonplaats,
@@ -3846,6 +3880,7 @@ standplaats met hoofdadres
 CREATE OR REPLACE VIEW
     v_standplaats_alles
     (
+        objectid,
         fid,
         gemeente,
         woonplaats,
@@ -3858,6 +3893,7 @@ CREATE OR REPLACE VIEW
         the_geom
     ) AS
 SELECT
+    (row_number() OVER ())::integer AS ObjectID,
     sp.sc_identif        AS fid,
     gem.naam             AS gemeente,
     wp.naam              AS woonplaats,
@@ -3920,6 +3956,7 @@ plus verblijfsobject via punt object van gebouwd_obj
 CREATE OR REPLACE VIEW
     v_adres
     (
+        objectid,
         fid,
         gemeente,
         woonplaats,
@@ -3933,6 +3970,7 @@ CREATE OR REPLACE VIEW
         the_geom
     ) AS
 SELECT
+    (row_number() OVER ())::integer AS ObjectID,
     vbo.sc_identif       AS fid,
     gem.naam             AS gemeente,
     wp.naam              AS woonplaats,
@@ -4147,6 +4185,7 @@ AND spl.status = 'Plaats aangewezen';
 CREATE VIEW
     v_adres_totaal
     (
+        objectid,
         fid,
         straatnaam,
         huisnummer,
@@ -4157,16 +4196,19 @@ CREATE VIEW
         woonplaats,
         the_geom
     ) AS
-    (
+SELECT 
+    (row_number() OVER ())::integer AS ObjectID,
+    qry.*
+    FROM (
         SELECT
-            fid ,
+            fid,
             straatnaam,
             huisnummer,
             huisletter,
             huisnummer_toev,
             postcode,
             gemeente,
-        		woonplaats,
+            woonplaats,
             the_geom
         FROM
             v_adres
@@ -4179,7 +4221,7 @@ CREATE VIEW
             huisnummer_toev,
             postcode,
             gemeente,
-        		woonplaats,
+            woonplaats,
             centroide AS the_geom
         FROM
             v_adres_ligplaats
@@ -4192,15 +4234,16 @@ CREATE VIEW
             huisnummer_toev,
             postcode,
             gemeente,
-        		woonplaats,
+            woonplaats,
             centroide AS the_geom
         FROM
             v_adres_standplaats
-    );-- Script: 107_brk_views.sql
+    ) qry;-- Script: 107_brk_views.sql
 
 
 create view v_map_kad_perceel as
 select
+   (row_number() OVER ())::integer AS ObjectID,
     p.sc_kad_identif,
     p.begrenzing_perceel,
     p.ka_sectie || ' ' || p.ka_perceelnummer AS aanduiding,
@@ -4219,8 +4262,9 @@ create table prs_eigendom (
 
 create or replace view v_kad_perceel_in_eigendom as
 select 
+    (row_number() OVER ())::integer AS ObjectID,
     p.begrenzing_perceel,
-     p.sc_kad_identif,
+    p.sc_kad_identif,
     p.aanduiding,
     p.grootte_perceel,
     p.ks_koopjaar,
@@ -4253,6 +4297,7 @@ left join wnplts wp on (wp.IDENTIF = oprw.fk_nn_rh_wpl_identif);
 
 create or replace view v_kad_perceel_eenvoudig as
 select
+        (row_number() OVER ())::integer AS ObjectID,
         p.sc_kad_identif,
         p.begrenzing_perceel,
         p.ka_sectie || ' ' || p.ka_perceelnummer AS aanduiding,
@@ -4302,6 +4347,7 @@ create or replace view v_kad_perceel_zak_recht as
   
 create or replace view v_kad_perceel_zr_adressen as 
 select 
+  (row_number() OVER ())::integer AS ObjectID,
   kp.SC_KAD_IDENTIF,
   kp.BEGRENZING_PERCEEL,
   kp.AANDUIDING,
@@ -4389,29 +4435,34 @@ order by kpe.SC_KAD_IDENTIF, kpe.straat, kpe.huisnummer, kpe.toevoeging, kpe.hui
 -- percelen plus appartementen op de percelen
 CREATE OR REPLACE VIEW v_bd_app_re_and_kad_perceel AS
 select
-    p.sc_kad_identif    AS kadaster_identificatie,
-    'perceel' as type,
-    p.ka_deelperceelnummer,
-    '' as ka_appartementsindex,
-    p.ka_perceelnummer,
-    p.ka_kad_gemeentecode,
-    p.ka_sectie,
-    p.begrenzing_perceel
-FROM
-    kad_perceel p
-union all 
-SELECT 
-    ar.sc_kad_identif,
-    'appartement' as type,
-    '' as ka_deelperceelnummer,
-    ar.ka_appartementsindex,
-    ar.ka_perceelnummer,
-    ar.ka_kad_gemeentecode,
-    ar.ka_sectie,
-    kp.begrenzing_perceel
-   FROM v_bd_app_re_all_kad_perceel v
-     JOIN kad_perceel kp ON v.perceel_identif::NUMERIC = kp.sc_kad_identif
-     JOIN app_re ar ON v.app_re_identif::NUMERIC = ar.sc_kad_identif;    
+    (row_number() OVER ())::integer AS ObjectID,
+    qry.*
+  from(
+    select
+        p.sc_kad_identif    AS kadaster_identificatie,
+        'perceel' as type,
+        p.ka_deelperceelnummer,
+        '' as ka_appartementsindex,
+        p.ka_perceelnummer,
+        p.ka_kad_gemeentecode,
+        p.ka_sectie,
+        p.begrenzing_perceel
+    FROM
+        kad_perceel p
+    union all
+    SELECT
+        ar.sc_kad_identif,
+        'appartement' as type,
+        '' as ka_deelperceelnummer,
+        ar.ka_appartementsindex,
+        ar.ka_perceelnummer,
+        ar.ka_kad_gemeentecode,
+        ar.ka_sectie,
+        kp.begrenzing_perceel
+    FROM v_bd_app_re_all_kad_perceel v
+        JOIN kad_perceel kp ON v.perceel_identif::NUMERIC = kp.sc_kad_identif
+        JOIN app_re ar ON v.app_re_identif::NUMERIC = ar.sc_kad_identif
+  ) qry;
 
 -- aankoopdatum uit brondocumenten
 CREATE OR REPLACE VIEW
@@ -4468,7 +4519,7 @@ CREATE OR REPLACE VIEW
         BEGRENZING_PERCEEL
     ) AS
 SELECT
-    row_number() OVER () AS objectid,
+    (row_number() OVER ())::integer AS objectid,
     p.kadaster_identificatie    AS kadaster_identificatie,
     p.type,
     zr.kadaster_identif AS zakelijk_recht_identificatie,
