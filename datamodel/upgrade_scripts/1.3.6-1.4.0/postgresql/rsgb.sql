@@ -358,6 +358,8 @@ WHERE
 -- Toevoegen van een ObjectID aan bag views ten behoeve van arcgis
 -- drop views die aangepast worden
 DROP VIEW IF EXISTS v_adres_totaal;
+DROP VIEW IF EXISTS v_adres_standplaats;
+DROP VIEW IF EXISTS v_adres_ligplaats;
 DROP VIEW IF EXISTS v_adres;
 DROP VIEW IF EXISTS v_standplaats_alles;
 DROP VIEW IF EXISTS v_ligplaats_alles;
@@ -394,7 +396,12 @@ SELECT
     vbo.sc_identif              AS fid,
     fkpand.fk_nn_rh_pnd_identif AS pand_id,
     gem.naam                    AS gemeente,
-    wp.naam                     AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif=fk_6wpl_identif)
+        ELSE wp.naam           
+    END                         AS woonplaats,
     geor.naam_openb_rmte        AS straatnaam,
     addrobj.huinummer           AS huisnummer,
     addrobj.huisletter,
@@ -670,7 +677,12 @@ SELECT
     (row_number() OVER ())::integer AS ObjectID,
     lp.sc_identif        AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif=fk_6wpl_identif)
+        ELSE wp.naam           
+    END
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -744,7 +756,12 @@ SELECT
     (row_number() OVER ())::integer AS ObjectID,
     sp.sc_identif        AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif=fk_6wpl_identif)
+        ELSE wp.naam           
+    END  
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -822,7 +839,12 @@ SELECT
     (row_number() OVER ())::integer AS ObjectID,
     vbo.sc_identif       AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif=fk_6wpl_identif)
+        ELSE wp.naam           
+    END  
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -878,7 +900,169 @@ WHERE
 AND (
         vbo.status = 'Verblijfsobject in gebruik (niet ingemeten)'
     OR  vbo.status = 'Verblijfsobject in gebruik');
-    
+
+
+-------------------------------------------------
+-- v_adres_ligplaats
+-------------------------------------------------
+CREATE OR REPLACE VIEW
+    v_adres_ligplaats
+    (
+        fid,
+        gemeente,
+        woonplaats,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        status,
+        the_geom,
+        centroide
+    ) AS
+SELECT
+    lpa.sc_identif       AS fid,
+    gem.naam             AS gemeente,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+        ELSE wp.naam           
+    END                  AS woonplaats,
+    geor.naam_openb_rmte AS straatnaam,
+    addrobj.huinummer    AS huisnummer,
+    addrobj.huisletter,
+    addrobj.huinummertoevoeging AS huisnummer_toev,
+    addrobj.postcode,
+    lpa.status,
+    benter.geom AS the_geom,
+    st_centroid(benter.geom)
+FROM
+    ligplaats lpa
+JOIN
+    benoemd_terrein benter
+ON
+    (
+        benter.sc_identif = lpa.sc_identif )
+LEFT JOIN
+    ligplaats_nummeraand lna
+ON
+    (
+        lna.fk_nn_lh_lpl_sc_identif = lpa.sc_identif )
+LEFT JOIN
+    nummeraand na
+ON
+    (
+        na.sc_identif = lpa.fk_4nra_sc_identif )
+LEFT JOIN
+    addresseerb_obj_aand addrobj
+ON
+    (
+        addrobj.identif = na.sc_identif )
+JOIN
+    gem_openb_rmte geor
+ON
+    (
+        geor.identifcode = addrobj.fk_7opr_identifcode )
+LEFT JOIN
+    openb_rmte_wnplts orwp
+ON
+    (
+        geor.identifcode = orwp.fk_nn_lh_opr_identifcode)
+LEFT JOIN
+    wnplts wp
+ON
+    (
+        orwp.fk_nn_rh_wpl_identif = wp.identif)
+LEFT JOIN
+    gemeente gem
+ON
+    (
+        wp.fk_7gem_code = gem.code )
+WHERE
+    na.status = 'Naamgeving uitgegeven'
+AND lpa.status = 'Plaats aangewezen';
+-------------------------------------------------
+-- v_adres_standplaats
+-------------------------------------------------
+CREATE OR REPLACE VIEW
+    v_adres_standplaats
+    (
+        fid,
+        gemeente,
+        woonplaats,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        status,
+        the_geom,
+        centroide
+    ) AS
+SELECT
+    spl.sc_identif       AS fid,
+    gem.naam             AS gemeente,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+        ELSE wp.naam           
+    END                  AS woonplaats,
+    geor.naam_openb_rmte AS straatnaam,
+    addrobj.huinummer    AS huisnummer,
+    addrobj.huisletter,
+    addrobj.huinummertoevoeging AS huisnummer_toev,
+    addrobj.postcode,
+    spl.status,
+    benter.geom AS the_geom,
+    st_centroid(benter.geom)
+FROM
+    standplaats spl
+JOIN
+    benoemd_terrein benter
+ON
+    (
+        benter.sc_identif = spl.sc_identif )
+LEFT JOIN
+    standplaats_nummeraand sna
+ON
+    (
+        sna.fk_nn_lh_spl_sc_identif = spl.sc_identif )
+LEFT JOIN
+    nummeraand na
+ON
+    (
+        na.sc_identif = spl.fk_4nra_sc_identif )
+LEFT JOIN
+    addresseerb_obj_aand addrobj
+ON
+    (
+        addrobj.identif = na.sc_identif )
+JOIN
+    gem_openb_rmte geor
+ON
+    (
+        geor.identifcode = addrobj.fk_7opr_identifcode )
+LEFT JOIN
+    openb_rmte_wnplts orwp
+ON
+    (
+        geor.identifcode = orwp.fk_nn_lh_opr_identifcode)
+LEFT JOIN
+    wnplts wp
+ON
+    (
+        orwp.fk_nn_rh_wpl_identif = wp.identif)
+LEFT JOIN
+    gemeente gem
+ON
+    (
+        wp.fk_7gem_code = gem.code )
+WHERE
+    na.status = 'Naamgeving uitgegeven'
+AND spl.status = 'Plaats aangewezen';
+
 -------------------------------------------------
 -- v_adres_totaal
 -------------------------------------------------

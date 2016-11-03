@@ -42,7 +42,12 @@ SELECT
     vbo.sc_identif              AS fid,
     fkpand.fk_nn_rh_pnd_identif AS pand_id,
     gem.naam                    AS gemeente,
-    wp.naam                     AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+        ELSE wp.naam           
+    END                         AS woonplaats,
     geor.naam_openb_rmte        AS straatnaam,
     addrobj.huinummer           AS huisnummer,
     addrobj.huisletter,
@@ -310,7 +315,12 @@ SELECT
     (row_number() OVER ())::integer AS ObjectID,
     lp.sc_identif        AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+        ELSE wp.naam           
+    END                  AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -383,7 +393,12 @@ SELECT
     (row_number() OVER ())::integer AS ObjectID,
     sp.sc_identif        AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+        ELSE wp.naam           
+    END                  AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -460,7 +475,12 @@ SELECT
     (row_number() OVER ())::integer AS ObjectID,
     vbo.sc_identif       AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+        ELSE wp.naam           
+    END                  AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -537,7 +557,12 @@ CREATE VIEW
 SELECT
     lpa.sc_identif       AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+        ELSE wp.naam           
+    END                  AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -612,7 +637,12 @@ CREATE VIEW
 SELECT
     spl.sc_identif       AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+        ELSE wp.naam           
+    END                  AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
