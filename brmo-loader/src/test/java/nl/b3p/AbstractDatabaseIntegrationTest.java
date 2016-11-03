@@ -25,6 +25,7 @@ public abstract class AbstractDatabaseIntegrationTest {
     protected final Properties params = new Properties();
     protected boolean isOracle;
     protected boolean isMsSQL;
+    protected boolean isPostgis;
 
     @Rule
     public TestName name = new TestName();
@@ -65,6 +66,7 @@ public abstract class AbstractDatabaseIntegrationTest {
         }
         isOracle = "oracle".equalsIgnoreCase(params.getProperty("dbtype"));
         isMsSQL = "jtds-sqlserver".equalsIgnoreCase(params.getProperty("dbtype"));
+        isPostgis = "postgis".equalsIgnoreCase(params.getProperty("dbtype"));
 
         try {
             Class rsgbDriverClass = Class.forName(params.getProperty("rsgb.jdbc.driverClassName"));

@@ -12,6 +12,7 @@ import nl.b3p.brmo.loader.RsgbProxy;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.operation.DatabaseOperation;
@@ -21,6 +22,9 @@ import org.dbunit.dataset.DefaultDataSet;
 import org.dbunit.dataset.DefaultTable;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
+import org.dbunit.ext.oracle.OracleDataTypeFactory;
+import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -64,6 +68,18 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
 
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
         staging = new DatabaseDataSourceConnection(dsStaging);
+
+        if (this.isMsSQL) {
+            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
+            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
+        } else if (this.isOracle) {
+            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new OracleDataTypeFactory());
+            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new OracleDataTypeFactory());
+        } else if (this.isPostgis) {
+            // we hebben alleen nog postgres over
+            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+        }
         // IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis6098IntegrationTest.class.getResource("/mantis6098/staging.xml").toURI())));
         // IDataSet stagingDataSet = new FlatXmlDataSet(new FileInputStream(new File(Mantis6098IntegrationTest.class.getResource("/mantis6098/staging-flat.xml").toURI())));
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
@@ -73,8 +89,7 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
         sequential.lock();
 
         if (this.isMsSQL) {
-            // SET IDENTITY_INSERT bericht ON
-            // SET IDENTITY_INSERT laadproces ON
+            // SET IDENTITY_INSERT op ON
             InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         } else {
             DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
