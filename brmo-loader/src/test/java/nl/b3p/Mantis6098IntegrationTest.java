@@ -9,10 +9,12 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.RsgbProxy;
+import nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.DatabaseConfig;
+import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.operation.DatabaseOperation;
@@ -73,6 +75,8 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
         } else if (this.isOracle) {
+            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()));
+            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()));
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new OracleDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new OracleDataTypeFactory());
         } else if (this.isPostgis) {
@@ -92,6 +96,8 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
             // SET IDENTITY_INSERT op ON
             InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         } else {
+            // Oracle werkt (nog) niet omdat de connctie verder unwrapped moet worden
+            // java.lang.ClassCastException: org.apache.commons.dbcp.PoolingDataSource$PoolGuardConnectionWrapper cannot be cast to oracle.jdbc.OracleConnection
             DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         }
 
@@ -132,6 +138,10 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
             new DefaultTable("zak_recht"),
             new DefaultTable("herkomst_metadata"),
             new DefaultTable("brondocument")}
+        ));
+
+        DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{
+            new DefaultTable("job")}
         ));
         rsgb.close();
         staging.close();
