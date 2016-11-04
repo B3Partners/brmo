@@ -34,7 +34,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assume.assumeTrue;
 
 /**
- * testcases voor mantis 6098; incorrecte verwijdering van berichten.
+ * testcases voor mantis 6098; incorrecte verwijdering van berichten. Draaien
+ * met:
+ * {@code mvn -Dit.test=Mantis6098IntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
+ * voor bijvoorbeeld Oracle.
  *
  * @author mprins
  */
@@ -96,8 +99,6 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
             // SET IDENTITY_INSERT op ON
             InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         } else {
-            // Oracle werkt (nog) niet omdat de connctie verder unwrapped moet worden
-            // java.lang.ClassCastException: org.apache.commons.dbcp.PoolingDataSource$PoolGuardConnectionWrapper cannot be cast to oracle.jdbc.OracleConnection
             DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         }
 
