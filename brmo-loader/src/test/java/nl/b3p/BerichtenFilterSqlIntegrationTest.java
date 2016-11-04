@@ -40,6 +40,7 @@ import org.junit.Test;
  * @author mprins
  */
 public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrationTest {
+
     private String filterSoort;
     private String filterStatus;
 

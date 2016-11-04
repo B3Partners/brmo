@@ -9,23 +9,15 @@ import java.sql.DriverManager;
 import java.sql.Struct;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Properties;
 import nl.b3p.AbstractDatabaseIntegrationTest;
-import nl.b3p.brmo.loader.gml.BGTGMLLightLoader;
 import oracle.jdbc.OracleConnection;
-import oracle.sql.STRUCT;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.geotools.factory.GeoTools;
-import org.junit.After;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assume.assumeNotNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TestName;
 import static org.junit.Assert.assertNull;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -42,7 +34,7 @@ public class NullGeomOracleIntegrationTest extends AbstractDatabaseIntegrationTe
 
     private static final Log LOG = LogFactory.getLog(NullGeomOracleIntegrationTest.class);
 
-    @Parameterized.Parameters(name = "{index}: testwaarde: {0}")
+    @Parameterized.Parameters(name = "{index}: testwaarde: '{0}'")
     public static Collection<Object[]> params() {
         return Arrays.asList(new Object[][]{
             {""}, {null}
