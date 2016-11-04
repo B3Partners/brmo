@@ -22,13 +22,6 @@ import org.junit.rules.TestName;
 public abstract class AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(AbstractDatabaseIntegrationTest.class);
-    protected final Properties params = new Properties();
-    protected boolean isOracle;
-    protected boolean isMsSQL;
-    protected boolean isPostgis;
-
-    @Rule
-    public TestName name = new TestName();
 
     /**
      * test of de database properties zijn aangegeven, zo niet dan skippen we
@@ -39,8 +32,25 @@ public abstract class AbstractDatabaseIntegrationTest {
         assumeNotNull("Verwacht database omgeving te zijn aangegeven.", System.getProperty("database.properties.file"));
     }
 
+    protected final Properties params = new Properties();
     /**
-     * subklassen dienen zelf ook een setup te hebben.
+     * {@code true} als we met een Oracle database bezig zijn.
+     */
+    protected boolean isOracle;
+    /**
+     * {@code true} als we met een MS SQL Server database bezig zijn.
+     */
+    protected boolean isMsSQL;
+    /**
+     * {@code true} als we met een Postgis database bezig zijn.
+     */
+    protected boolean isPostgis;
+
+    @Rule
+    public TestName name = new TestName();
+
+    /**
+     * subklassen dienen zelf (ook) een setup te hebben.
      *
      * @throws Exception if any
      */
@@ -72,7 +82,7 @@ public abstract class AbstractDatabaseIntegrationTest {
             Class rsgbDriverClass = Class.forName(params.getProperty("rsgb.jdbc.driverClassName"));
             Class stagingDriverClass = Class.forName(params.getProperty("staging.jdbc.driverClassName"));
         } catch (ClassNotFoundException ex) {
-            LOG.warn("database driver niet gevonden.", ex);
+            LOG.error("Database driver niet gevonden.", ex);
         }
     }
 
