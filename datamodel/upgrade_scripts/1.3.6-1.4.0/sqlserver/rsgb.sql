@@ -3,7 +3,7 @@
 --
 -- merge van de nieuwe waarden voor Aard Recht codelijst (issue#234)
 MERGE INTO aard_recht_verkort t USING (
-    VALUES 
+    VALUES
         ('23','Opstalrecht Nutsvoorzieningen op gedeelte van perceel'),
         ('24','Zakelijk recht (als bedoeld in artikel 5, lid 3, onder b)')
     ) AS src (code,txt) ON t.aand = src.code
@@ -11,7 +11,7 @@ WHEN MATCHED THEN UPDATE SET omschr = src.txt
 WHEN NOT MATCHED THEN INSERT (aand,omschr) VALUES (src.code, src.txt);
 
 MERGE INTO aard_verkregen_recht t USING (
-    VALUES 
+    VALUES
         ('23','Opstalrecht Nutsvoorzieningen op gedeelte van perceel'),
         ('24','Zakelijk recht als bedoeld in artikel 5, lid 3, onder b, van de Belemmeringenwet Privaatrecht op gedeelte van perceel')
     ) AS src (code,txt) ON t.aand = src.code
@@ -22,8 +22,8 @@ WHEN NOT MATCHED THEN INSERT (aand,omschr_aard_verkregenr_recht) VALUES (src.cod
 
 -- view om vlakken kaart te maken met percelen die 1 of meerdere appartementen hebben
 GO
-CREATE VIEW v_bd_kad_perceel_met_app_vlak AS 
- SELECT 
+CREATE VIEW v_bd_kad_perceel_met_app_vlak AS
+ SELECT
     CAST(ROW_NUMBER() over(ORDER BY kp.sc_kad_identif) AS INT) AS ObjectID,
     v.perceel_identif,
     kp.sc_kad_identif,
@@ -38,11 +38,11 @@ CREATE VIEW v_bd_kad_perceel_met_app_vlak AS
     kp.begrenzing_perceel
    FROM v_bd_kad_perceel_with_app_re v
      JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif;
-     
+
 GO
 
-ALTER VIEW v_bd_app_re_bij_perceel AS 
- SELECT 
+ALTER VIEW v_bd_app_re_bij_perceel AS
+ SELECT
     CAST(ROW_NUMBER() over(ORDER BY ar.sc_kad_identif) AS INT) AS ObjectID,
     ar.sc_kad_identif,
     ar.fk_2nnp_sc_identif,
@@ -73,7 +73,7 @@ join kad_onrrnd_zk z on (z.kad_identif = p.sc_kad_identif);
 GO
 
 ALTER view v_kad_perceel_in_eigendom as
-select 
+select
     CAST(ROW_NUMBER() over(ORDER BY p.sc_kad_identif) AS INT) AS ObjectID,
     p.begrenzing_perceel,
     p.sc_kad_identif,
@@ -96,8 +96,8 @@ select
         p.sc_kad_identif,
         p.begrenzing_perceel,
         p.ka_sectie + ' ' + p.ka_perceelnummer AS aanduiding,
-        p.grootte_perceel,   
-        p_adr.kad_bag_koppeling_benobj,             
+        p.grootte_perceel,
+        p_adr.kad_bag_koppeling_benobj,
         p_adr.straat,
         p_adr.huisnummer,
         p_adr.huisletter,
@@ -109,8 +109,8 @@ join v_kad_perceel_adres p_adr on (p_adr.sc_kad_identif = p.sc_kad_identif);
 
 GO
 
-ALTER view v_kad_perceel_zr_adressen as 
-select 
+ALTER view v_kad_perceel_zr_adressen as
+select
   CAST(ROW_NUMBER() over(ORDER BY kp.sc_kad_identif) AS INT) AS ObjectID,
   kp.SC_KAD_IDENTIF,
   kp.BEGRENZING_PERCEEL,
@@ -287,7 +287,12 @@ SELECT
     vbo.sc_identif              AS fid,
     fkpand.fk_nn_rh_pnd_identif AS pand_id,
     gem.naam                    AS gemeente,
-    wp.naam                     AS woonplaats,
+    CASE
+         WHEN addrobj.fk_6wpl_identif IS NOT NULL
+         -- opzoeken want in andere woonplaats
+         THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+         ELSE wp.naam
+    END                         AS woonplaats,
     geor.naam_openb_rmte        AS straatnaam,
     addrobj.huinummer           AS huisnummer,
     addrobj.huisletter,
@@ -569,7 +574,12 @@ SELECT
     CAST(ROW_NUMBER() over(ORDER BY lp.sc_identif) AS INT) AS ObjectID,
     lp.sc_identif        AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+         WHEN addrobj.fk_6wpl_identif IS NOT NULL
+         -- opzoeken want in andere woonplaats
+         THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+         ELSE wp.naam
+    END                  AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -616,7 +626,7 @@ WHERE
         AND (
                 gem.datum_einde_geldh IS NULL))
     AND (
-            bt.datum_einde_geldh IS NULL));	
+            bt.datum_einde_geldh IS NULL));
 -------------------------------------------------
 -- v_standplaats_alles
 -------------------------------------------------
@@ -644,7 +654,12 @@ SELECT
     CAST(ROW_NUMBER() over(ORDER BY sp.sc_identif) AS INT) AS ObjectID,
     sp.sc_identif        AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+         WHEN addrobj.fk_6wpl_identif IS NOT NULL
+         -- opzoeken want in andere woonplaats
+         THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+         ELSE wp.naam
+    END                  AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -691,13 +706,13 @@ WHERE
         AND (
                 gem.datum_einde_geldh IS NULL))
     AND (
-            bt.datum_einde_geldh IS NULL));			
+            bt.datum_einde_geldh IS NULL));
 -------------------------------------------------
 -- v_adres
 -------------------------------------------------
 /*
 volledige adressenlijst
-standplaats en ligplaats via benoemd_terrein, 
+standplaats en ligplaats via benoemd_terrein,
 waarbij centroide van polygon wordt genomen
 plus verblijfsobject via punt object van gebouwd_obj
 */
@@ -723,7 +738,12 @@ SELECT
     CAST(ROW_NUMBER() over(ORDER BY vbo.sc_identif) AS INT) AS ObjectID,
     vbo.sc_identif       AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+         WHEN addrobj.fk_6wpl_identif IS NOT NULL
+         -- opzoeken want in andere woonplaats
+         THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+         ELSE wp.naam
+    END                  AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -780,6 +800,171 @@ AND (
         vbo.status = 'Verblijfsobject in gebruik (niet ingemeten)'
     OR  vbo.status = 'Verblijfsobject in gebruik');
 
+
+-------------------------------------------------
+-- v_adres_ligplaats
+-------------------------------------------------
+GO
+
+ALTER VIEW
+    v_adres_ligplaats
+    (
+        fid,
+        gemeente,
+        woonplaats,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        status,
+        the_geom,
+        centroide
+    ) AS
+SELECT
+    lpa.sc_identif       AS fid,
+    gem.naam             AS gemeente,
+    CASE
+         WHEN addrobj.fk_6wpl_identif IS NOT NULL
+         -- opzoeken want in andere woonplaats
+         THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+         ELSE wp.naam
+    END                  AS woonplaats,
+    geor.naam_openb_rmte AS straatnaam,
+    addrobj.huinummer    AS huisnummer,
+    addrobj.huisletter,
+    addrobj.huinummertoevoeging AS huisnummer_toev,
+    addrobj.postcode,
+    lpa.status,
+    benter.geom AS the_geom,
+    benter.geom.STCentroid()
+FROM
+    ligplaats lpa
+JOIN
+    benoemd_terrein benter
+ON
+    (
+        benter.sc_identif = lpa.sc_identif )
+LEFT JOIN
+    ligplaats_nummeraand lna
+ON
+    (
+        lna.fk_nn_lh_lpl_sc_identif = lpa.sc_identif )
+LEFT JOIN
+    nummeraand na
+ON
+    (
+        na.sc_identif = lpa.fk_4nra_sc_identif )
+LEFT JOIN
+    addresseerb_obj_aand addrobj
+ON
+    (
+        addrobj.identif = na.sc_identif )
+JOIN
+    gem_openb_rmte geor
+ON
+    (
+        geor.identifcode = addrobj.fk_7opr_identifcode )
+LEFT JOIN
+    openb_rmte_wnplts orwp
+ON
+    (
+        geor.identifcode = orwp.fk_nn_lh_opr_identifcode)
+LEFT JOIN
+    wnplts wp
+ON
+    (
+        orwp.fk_nn_rh_wpl_identif = wp.identif)
+LEFT JOIN
+    gemeente gem
+ON
+    (
+        wp.fk_7gem_code = gem.code )
+WHERE
+    na.status = 'Naamgeving uitgegeven'
+AND lpa.status = 'Plaats aangewezen';
+-------------------------------------------------
+-- v_adres_standplaats
+-------------------------------------------------
+GO
+
+ALTER VIEW
+    v_adres_standplaats
+    (
+        fid,
+        gemeente,
+        woonplaats,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        status,
+        the_geom,
+        centroide
+    ) AS
+SELECT
+    spl.sc_identif       AS fid,
+    gem.naam             AS gemeente,
+    CASE
+         WHEN addrobj.fk_6wpl_identif IS NOT NULL
+         -- opzoeken want in andere woonplaats
+         THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+         ELSE wp.naam
+    END                  AS woonplaats,
+    geor.naam_openb_rmte AS straatnaam,
+    addrobj.huinummer    AS huisnummer,
+    addrobj.huisletter,
+    addrobj.huinummertoevoeging AS huisnummer_toev,
+    addrobj.postcode,
+    spl.status,
+    benter.geom AS the_geom,
+    benter.geom.STCentroid()
+FROM
+    standplaats spl
+JOIN
+    benoemd_terrein benter
+ON
+    (
+        benter.sc_identif = spl.sc_identif )
+LEFT JOIN
+    standplaats_nummeraand sna
+ON
+    (
+        sna.fk_nn_lh_spl_sc_identif = spl.sc_identif )
+LEFT JOIN
+    nummeraand na
+ON
+    (
+        na.sc_identif = spl.fk_4nra_sc_identif )
+LEFT JOIN
+    addresseerb_obj_aand addrobj
+ON
+    (
+        addrobj.identif = na.sc_identif )
+JOIN
+    gem_openb_rmte geor
+ON
+    (
+        geor.identifcode = addrobj.fk_7opr_identifcode )
+LEFT JOIN
+    openb_rmte_wnplts orwp
+ON
+    (
+        geor.identifcode = orwp.fk_nn_lh_opr_identifcode)
+LEFT JOIN
+    wnplts wp
+ON
+    (
+        orwp.fk_nn_rh_wpl_identif = wp.identif)
+LEFT JOIN
+    gemeente gem
+ON
+    (
+        wp.fk_7gem_code = gem.code )
+WHERE
+    na.status = 'Naamgeving uitgegeven'
+AND spl.status = 'Plaats aangewezen';
 
 -------------------------------------------------
 -- v_adres_totaal

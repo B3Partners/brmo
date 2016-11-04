@@ -1,8 +1,8 @@
 --
 -- upgrade RSGB datamodel van 1.3.6 naar 1.4.0 (PostgreSQL)
--- 
--- Als er gebruik wordt gemaakt van Geotools (Flamingo)/Geoserver dan 
---   ook de inserts van de gt_pk_metadata uitvoeren na aanpassen 
+--
+-- Als er gebruik wordt gemaakt van Geotools (Flamingo)/Geoserver dan
+--   ook de inserts van de gt_pk_metadata uitvoeren na aanpassen
 --   (regel 339~347 hieronder).
 --
 -- upsert van de nieuwe waarden voor Aard Recht codelijst (issue#234)
@@ -11,16 +11,16 @@ WITH new_values (id, txt) AS (VALUES
         ('24','Zakelijk recht (als bedoeld in artikel 5, lid 3, onder b)')
     ), upsert AS (
         UPDATE aard_recht_verkort m SET omschr = nv.txt
-        FROM new_values nv WHERE  m.aand = nv.id RETURNING m.* 
+        FROM new_values nv WHERE  m.aand = nv.id RETURNING m.*
     )
 INSERT INTO aard_recht_verkort (aand, omschr) SELECT id, txt FROM new_values WHERE NOT EXISTS (SELECT 1 FROM upsert up WHERE up.aand = new_values.id);
-                  
+
 WITH new_values (id, txt) AS (VALUES
         ('23','Opstalrecht Nutsvoorzieningen op gedeelte van perceel'),
         ('24','Zakelijk recht als bedoeld in artikel 5, lid 3, onder b, van de Belemmeringenwet Privaatrecht op gedeelte van perceel')
     ), upsert AS (
         UPDATE aard_verkregen_recht m SET omschr_aard_verkregenr_recht = nv.txt
-        FROM new_values nv WHERE  m.aand = nv.id RETURNING m.* 
+        FROM new_values nv WHERE  m.aand = nv.id RETURNING m.*
     )
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) SELECT id, txt FROM new_values WHERE NOT EXISTS (SELECT 1 FROM upsert up WHERE up.aand = new_values.id);
 --
@@ -35,8 +35,8 @@ DROP VIEW IF EXISTS v_kad_eigenarenkaart;
 DROP VIEW IF EXISTS v_bd_app_re_and_kad_perceel;
 
 -- view om vlakken kaart te maken met percelen die 1 of meerdere appartementen hebben
-CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app_vlak AS 
- SELECT 
+CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app_vlak AS
+ SELECT
     (row_number() OVER ())::integer AS ObjectID,
     v.perceel_identif,
     kp.sc_kad_identif,
@@ -358,6 +358,8 @@ WHERE
 -- Toevoegen van een ObjectID aan bag views ten behoeve van arcgis
 -- drop views die aangepast worden
 DROP VIEW IF EXISTS v_adres_totaal;
+DROP VIEW IF EXISTS v_adres_standplaats;
+DROP VIEW IF EXISTS v_adres_ligplaats;
 DROP VIEW IF EXISTS v_adres;
 DROP VIEW IF EXISTS v_standplaats_alles;
 DROP VIEW IF EXISTS v_ligplaats_alles;
@@ -394,7 +396,12 @@ SELECT
     vbo.sc_identif              AS fid,
     fkpand.fk_nn_rh_pnd_identif AS pand_id,
     gem.naam                    AS gemeente,
-    wp.naam                     AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif=fk_6wpl_identif)
+        ELSE wp.naam
+    END                         AS woonplaats,
     geor.naam_openb_rmte        AS straatnaam,
     addrobj.huinummer           AS huisnummer,
     addrobj.huisletter,
@@ -650,7 +657,7 @@ ON
 -------------------------------------------------
 /*
 ligplaats met hoofdadres
-*/		
+*/
 CREATE OR REPLACE VIEW
     v_ligplaats_alles
     (
@@ -670,7 +677,12 @@ SELECT
     (row_number() OVER ())::integer AS ObjectID,
     lp.sc_identif        AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif=fk_6wpl_identif)
+        ELSE wp.naam
+    END                  AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -717,14 +729,14 @@ WHERE
         AND (
                 gem.datum_einde_geldh IS NULL))
     AND (
-            bt.datum_einde_geldh IS NULL));	
-            
+            bt.datum_einde_geldh IS NULL));
+
 -------------------------------------------------
 -- v_standplaats_alles
 -------------------------------------------------
 /*
 standplaats met hoofdadres
-*/		
+*/
 CREATE OR REPLACE VIEW
     v_standplaats_alles
     (
@@ -744,7 +756,12 @@ SELECT
     (row_number() OVER ())::integer AS ObjectID,
     sp.sc_identif        AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif=fk_6wpl_identif)
+        ELSE wp.naam
+    END                  AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -791,14 +808,14 @@ WHERE
         AND (
                 gem.datum_einde_geldh IS NULL))
     AND (
-            bt.datum_einde_geldh IS NULL));		
+            bt.datum_einde_geldh IS NULL));
 
 -------------------------------------------------
 -- v_adres
 -------------------------------------------------
 /*
 volledige adressenlijst
-standplaats en ligplaats via benoemd_terrein, 
+standplaats en ligplaats via benoemd_terrein,
 waarbij centroide van polygon wordt genomen
 plus verblijfsobject via punt object van gebouwd_obj
 */
@@ -822,7 +839,12 @@ SELECT
     (row_number() OVER ())::integer AS ObjectID,
     vbo.sc_identif       AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif=fk_6wpl_identif)
+        ELSE wp.naam
+    END                  AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -878,7 +900,169 @@ WHERE
 AND (
         vbo.status = 'Verblijfsobject in gebruik (niet ingemeten)'
     OR  vbo.status = 'Verblijfsobject in gebruik');
-    
+
+
+-------------------------------------------------
+-- v_adres_ligplaats
+-------------------------------------------------
+CREATE OR REPLACE VIEW
+    v_adres_ligplaats
+    (
+        fid,
+        gemeente,
+        woonplaats,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        status,
+        the_geom,
+        centroide
+    ) AS
+SELECT
+    lpa.sc_identif       AS fid,
+    gem.naam             AS gemeente,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+        ELSE wp.naam
+    END                  AS woonplaats,
+    geor.naam_openb_rmte AS straatnaam,
+    addrobj.huinummer    AS huisnummer,
+    addrobj.huisletter,
+    addrobj.huinummertoevoeging AS huisnummer_toev,
+    addrobj.postcode,
+    lpa.status,
+    benter.geom AS the_geom,
+    st_centroid(benter.geom)
+FROM
+    ligplaats lpa
+JOIN
+    benoemd_terrein benter
+ON
+    (
+        benter.sc_identif = lpa.sc_identif )
+LEFT JOIN
+    ligplaats_nummeraand lna
+ON
+    (
+        lna.fk_nn_lh_lpl_sc_identif = lpa.sc_identif )
+LEFT JOIN
+    nummeraand na
+ON
+    (
+        na.sc_identif = lpa.fk_4nra_sc_identif )
+LEFT JOIN
+    addresseerb_obj_aand addrobj
+ON
+    (
+        addrobj.identif = na.sc_identif )
+JOIN
+    gem_openb_rmte geor
+ON
+    (
+        geor.identifcode = addrobj.fk_7opr_identifcode )
+LEFT JOIN
+    openb_rmte_wnplts orwp
+ON
+    (
+        geor.identifcode = orwp.fk_nn_lh_opr_identifcode)
+LEFT JOIN
+    wnplts wp
+ON
+    (
+        orwp.fk_nn_rh_wpl_identif = wp.identif)
+LEFT JOIN
+    gemeente gem
+ON
+    (
+        wp.fk_7gem_code = gem.code )
+WHERE
+    na.status = 'Naamgeving uitgegeven'
+AND lpa.status = 'Plaats aangewezen';
+-------------------------------------------------
+-- v_adres_standplaats
+-------------------------------------------------
+CREATE OR REPLACE VIEW
+    v_adres_standplaats
+    (
+        fid,
+        gemeente,
+        woonplaats,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        status,
+        the_geom,
+        centroide
+    ) AS
+SELECT
+    spl.sc_identif       AS fid,
+    gem.naam             AS gemeente,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+        ELSE wp.naam
+    END                  AS woonplaats,
+    geor.naam_openb_rmte AS straatnaam,
+    addrobj.huinummer    AS huisnummer,
+    addrobj.huisletter,
+    addrobj.huinummertoevoeging AS huisnummer_toev,
+    addrobj.postcode,
+    spl.status,
+    benter.geom AS the_geom,
+    st_centroid(benter.geom)
+FROM
+    standplaats spl
+JOIN
+    benoemd_terrein benter
+ON
+    (
+        benter.sc_identif = spl.sc_identif )
+LEFT JOIN
+    standplaats_nummeraand sna
+ON
+    (
+        sna.fk_nn_lh_spl_sc_identif = spl.sc_identif )
+LEFT JOIN
+    nummeraand na
+ON
+    (
+        na.sc_identif = spl.fk_4nra_sc_identif )
+LEFT JOIN
+    addresseerb_obj_aand addrobj
+ON
+    (
+        addrobj.identif = na.sc_identif )
+JOIN
+    gem_openb_rmte geor
+ON
+    (
+        geor.identifcode = addrobj.fk_7opr_identifcode )
+LEFT JOIN
+    openb_rmte_wnplts orwp
+ON
+    (
+        geor.identifcode = orwp.fk_nn_lh_opr_identifcode)
+LEFT JOIN
+    wnplts wp
+ON
+    (
+        orwp.fk_nn_rh_wpl_identif = wp.identif)
+LEFT JOIN
+    gemeente gem
+ON
+    (
+        wp.fk_7gem_code = gem.code )
+WHERE
+    na.status = 'Naamgeving uitgegeven'
+AND spl.status = 'Plaats aangewezen';
+
 -------------------------------------------------
 -- v_adres_totaal
 -------------------------------------------------
@@ -896,7 +1080,7 @@ CREATE VIEW
         woonplaats,
         the_geom
     ) AS
-SELECT 
+SELECT
     (row_number() OVER ())::integer AS ObjectID,
     qry.*
     FROM (
@@ -939,12 +1123,12 @@ SELECT
         FROM
             v_adres_standplaats
     ) qry;
-    
+
 
 -- optioneel: bijwerken Geotools / geoserver metadata tabellen, zie ook utility scripts:
 --    403_create_geotools_primarykey_metatable.sql
--- in directory brmo/datamodel/utility_scripts/postgresql/ 
--- (let op de schemanaam 'brmo_rsgb' in onderstaande inserts moet mogelijk aangepast worden) en mogelijk zitten 
+-- in directory brmo/datamodel/utility_scripts/postgresql/
+-- (let op de schemanaam 'brmo_rsgb' in onderstaande inserts moet mogelijk aangepast worden) en mogelijk zitten
 --   er al records voor betreffende views in de tabel, in dat geval deze eerst verwijderen.
 --
 -- INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_kad_perceel_zr_adressen', 'objectid', NULL, 'assigned', NULL);

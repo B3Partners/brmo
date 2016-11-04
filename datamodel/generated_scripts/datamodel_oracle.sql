@@ -1,7 +1,7 @@
 --
 -- BRMO RSGB script voor oracle
 -- Applicatie versie: 1.4.0-SNAPSHOT
--- Gegenereerd op 2016-11-01T16:19:50.124+01:00
+-- Gegenereerd op 2016-11-04T10:26:31.066+01:00
 --
 
 
@@ -3871,7 +3871,12 @@ SELECT
     VBO.SC_IDENTIF              AS FID,
     FKPAND.FK_NN_RH_PND_IDENTIF AS PAND_ID,
     GEM.NAAM                    AS GEMEENTE,
-    WP.NAAM                     AS WOONPLAATS,
+    CASE
+         WHEN ADDROBJ.FK_6WPL_IDENTIF IS NOT NULL
+         -- opzoeken want in andere woonplaats
+         THEN  (SELECT NAAM FROM WNPLTS WHERE IDENTIF = FK_6WPL_IDENTIF)
+         ELSE WP.NAAM           
+    END                         AS WOONPLAATS,
     GEOR.NAAM_OPENB_RMTE        AS STRAATNAAM,
     ADDROBJ.HUINUMMER           AS HUISNUMMER,
     ADDROBJ.HUISLETTER,
@@ -4139,7 +4144,12 @@ SELECT
     CAST(ROWNUM AS INTEGER) AS OBJECTID,
     LP.SC_IDENTIF           AS FID,
     GEM.NAAM                AS GEMEENTE,
-    WP.NAAM                 AS WOONPLAATS,
+    CASE
+         WHEN ADDROBJ.FK_6WPL_IDENTIF IS NOT NULL
+         -- opzoeken want in andere woonplaats
+         THEN  (SELECT NAAM FROM WNPLTS WHERE IDENTIF = FK_6WPL_IDENTIF)
+         ELSE WP.NAAM           
+    END                     AS WOONPLAATS,
     GEOR.NAAM_OPENB_RMTE    AS STRAATNAAM,
     ADDROBJ.HUINUMMER       AS HUISNUMMER,
     ADDROBJ.HUISLETTER,
@@ -4212,7 +4222,12 @@ SELECT
     CAST(ROWNUM AS INTEGER) AS OBJECTID,
     SP.SC_IDENTIF           AS FID,
     GEM.NAAM                AS GEMEENTE,
-    WP.NAAM                 AS WOONPLAATS,
+    CASE
+         WHEN ADDROBJ.FK_6WPL_IDENTIF IS NOT NULL
+         -- opzoeken want in andere woonplaats
+         THEN  (SELECT NAAM FROM WNPLTS WHERE IDENTIF = FK_6WPL_IDENTIF)
+         ELSE WP.NAAM           
+    END                     AS WOONPLAATS,
     GEOR.NAAM_OPENB_RMTE    AS STRAATNAAM,
     ADDROBJ.HUINUMMER       AS HUISNUMMER,
     ADDROBJ.HUISLETTER,
@@ -4289,7 +4304,12 @@ SELECT
     CAST(ROWNUM AS INTEGER) AS OBJECTID,
     VBO.SC_IDENTIF          AS FID,
     GEM.NAAM                AS GEMEENTE,
-    WP.NAAM                 AS WOONPLAATS,
+    CASE
+         WHEN ADDROBJ.FK_6WPL_IDENTIF IS NOT NULL
+         -- opzoeken want in andere woonplaats
+         THEN  (SELECT NAAM FROM WNPLTS WHERE IDENTIF = FK_6WPL_IDENTIF)
+         ELSE WP.NAAM           
+    END                     AS WOONPLAATS,
     GEOR.NAAM_OPENB_RMTE    AS STRAATNAAM,
     ADDROBJ.HUINUMMER       AS HUISNUMMER,
     ADDROBJ.HUISLETTER,
@@ -4366,7 +4386,12 @@ CREATE  OR REPLACE VIEW
 SELECT
     LPA.SC_IDENTIF       AS FID,
     GEM.NAAM             AS GEMEENTE,
-    WP.NAAM              AS WOONPLAATS,
+    CASE
+         WHEN ADDROBJ.FK_6WPL_IDENTIF IS NOT NULL
+         -- opzoeken want in andere woonplaats
+         THEN  (SELECT NAAM FROM WNPLTS WHERE IDENTIF = FK_6WPL_IDENTIF)
+         ELSE WP.NAAM           
+    END                  AS WOONPLAATS,
     GEOR.NAAM_OPENB_RMTE AS STRAATNAAM,
     ADDROBJ.HUINUMMER    AS HUISNUMMER,
     ADDROBJ.HUISLETTER,
@@ -4441,7 +4466,12 @@ CREATE OR REPLACE VIEW
 SELECT
     SPL.SC_IDENTIF       AS FID,
     GEM.NAAM             AS GEMEENTE,
-    WP.NAAM              AS WOONPLAATS,
+    CASE
+         WHEN ADDROBJ.FK_6WPL_IDENTIF IS NOT NULL
+         -- opzoeken want in andere woonplaats
+         THEN  (SELECT NAAM FROM WNPLTS WHERE IDENTIF = FK_6WPL_IDENTIF)
+         ELSE WP.NAAM           
+    END                  AS WOONPLAATS,
     GEOR.NAAM_OPENB_RMTE AS STRAATNAAM,
     ADDROBJ.HUINUMMER    AS HUISNUMMER,
     ADDROBJ.HUISLETTER,
@@ -4554,7 +4584,8 @@ CREATE OR REPLACE VIEW
             CENTROIDE AS THE_GEOM
         FROM
             V_ADRES_STANDPLAATS
-    ) QRY;-- Script: 107_brk_views.sql
+    ) QRY;
+-- Script: 107_brk_views.sql
 
 
 create view v_map_kad_perceel as

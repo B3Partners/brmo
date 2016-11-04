@@ -1,7 +1,7 @@
 --
 -- BRMO RSGB script voor postgresql
 -- Applicatie versie: 1.4.0-SNAPSHOT
--- Gegenereerd op 2016-11-01T16:19:49.755+01:00
+-- Gegenereerd op 2016-11-04T10:26:30.423+01:00
 --
 
 create table sbi_activiteit(
@@ -3555,7 +3555,12 @@ SELECT
     vbo.sc_identif              AS fid,
     fkpand.fk_nn_rh_pnd_identif AS pand_id,
     gem.naam                    AS gemeente,
-    wp.naam                     AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+        ELSE wp.naam           
+    END                         AS woonplaats,
     geor.naam_openb_rmte        AS straatnaam,
     addrobj.huinummer           AS huisnummer,
     addrobj.huisletter,
@@ -3823,7 +3828,12 @@ SELECT
     (row_number() OVER ())::integer AS ObjectID,
     lp.sc_identif        AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+        ELSE wp.naam           
+    END                  AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -3896,7 +3906,12 @@ SELECT
     (row_number() OVER ())::integer AS ObjectID,
     sp.sc_identif        AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+        ELSE wp.naam           
+    END                  AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -3973,7 +3988,12 @@ SELECT
     (row_number() OVER ())::integer AS ObjectID,
     vbo.sc_identif       AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+        ELSE wp.naam           
+    END                  AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -4050,7 +4070,12 @@ CREATE VIEW
 SELECT
     lpa.sc_identif       AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+        ELSE wp.naam           
+    END                  AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -4125,7 +4150,12 @@ CREATE VIEW
 SELECT
     spl.sc_identif       AS fid,
     gem.naam             AS gemeente,
-    wp.naam              AS woonplaats,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+        ELSE wp.naam           
+    END                  AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
@@ -4238,7 +4268,8 @@ SELECT
             centroide AS the_geom
         FROM
             v_adres_standplaats
-    ) qry;-- Script: 107_brk_views.sql
+    ) qry;
+-- Script: 107_brk_views.sql
 
 
 create view v_map_kad_perceel as
