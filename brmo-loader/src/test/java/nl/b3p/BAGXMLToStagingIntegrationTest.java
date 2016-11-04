@@ -107,7 +107,7 @@ public class BAGXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
-        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(BAGXMLToStagingIntegrationTest.class.getResource("/empty-staging-flat.xml").toURI())));
+        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(BAGXMLToStagingIntegrationTest.class.getResource("/staging-empty-flat.xml").toURI())));
 
         sequential.lock();
 
