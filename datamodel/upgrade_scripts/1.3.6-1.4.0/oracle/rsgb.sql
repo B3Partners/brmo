@@ -1,8 +1,8 @@
 --
 -- upgrade RSGB datamodel van 1.3.6 naar 1.4.0 (Oracle)
 --
--- Als er gebruik wordt gemaakt van Geotools (Flamingo)/Geoserver dan 
---   ook de inserts van de GT_PK_METADATA en GEOMETRY_COLUMNS uitvoeren 
+-- Als er gebruik wordt gemaakt van Geotools (Flamingo)/Geoserver dan
+--   ook de inserts van de GT_PK_METADATA en GEOMETRY_COLUMNS uitvoeren
 --   na aanpassen (onderaan in dit bestand).
 --
 -- merge van de nieuwe waarden voor Aard Recht codelijst (issue#234)
@@ -17,7 +17,7 @@ WHEN NOT MATCHED THEN INSERT (aand, omschr) VALUES ('24','Zakelijk recht (als be
 MERGE INTO aard_verkregen_recht USING dual ON (aand='23')
 WHEN MATCHED THEN UPDATE SET omschr_aard_verkregenr_recht='Opstalrecht Nutsvoorzieningen op gedeelte van perceel'
 WHEN NOT MATCHED THEN INSERT (aand, omschr_aard_verkregenr_recht) VALUES ('23','Opstalrecht Nutsvoorzieningen op gedeelte van perceel');
-  
+
 MERGE INTO aard_verkregen_recht USING dual ON (aand='24')
 WHEN MATCHED THEN UPDATE SET omschr_aard_verkregenr_recht='Zakelijk recht als bedoeld in artikel 5, lid 3, onder b, van de Belemmeringenwet Privaatrecht op gedeelte van perceel'
 WHEN NOT MATCHED THEN INSERT (aand, omschr_aard_verkregenr_recht) VALUES ('24','Zakelijk recht als bedoeld in artikel 5, lid 3, onder b, van de Belemmeringenwet Privaatrecht op gedeelte van perceel');
@@ -25,8 +25,8 @@ WHEN NOT MATCHED THEN INSERT (aand, omschr_aard_verkregenr_recht) VALUES ('24','
 -- toevoegen van een ObjectID aan kadaster views ten behoeve van arcgis
 
 -- view om vlakken kaart te maken met percelen die 1 of meerdere appartementen hebben
-CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app_vlak AS 
- SELECT 
+CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app_vlak AS
+ SELECT
     CAST(ROWNUM AS INTEGER) AS objectid,
     v.perceel_identif,
     kp.sc_kad_identif,
@@ -42,7 +42,7 @@ CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app_vlak AS
    FROM v_bd_kad_perceel_with_app_re v
      JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif;
 
-DELETE FROM USER_SDO_GEOM_METADATA WHERE TABLE_NAME='V_BD_KAD_PERCEEL_MET_APP_VLAK' AND  COLUMN_NAME='BEGRENZING_PERCEEL';     
+DELETE FROM USER_SDO_GEOM_METADATA WHERE TABLE_NAME='V_BD_KAD_PERCEEL_MET_APP_VLAK' AND  COLUMN_NAME='BEGRENZING_PERCEEL';
 INSERT INTO USER_SDO_GEOM_METADATA VALUES('V_BD_KAD_PERCEEL_MET_APP_VLAK', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
 
 CREATE OR REPLACE VIEW v_bd_app_re_bij_perceel
@@ -60,7 +60,7 @@ CREATE OR REPLACE VIEW v_bd_app_re_bij_perceel
   ON v.perceel_identif = kp.sc_kad_identif
   JOIN app_re ar
   ON v.app_re_identif = ar.sc_kad_identif;
-     
+
 CREATE OR REPLACE VIEW v_map_kad_perceel
                                  AS
   SELECT CAST(ROWNUM AS INTEGER) AS objectid,
@@ -185,7 +185,7 @@ CREATE OR REPLACE VIEW v_bd_app_re_and_kad_perceel
 
 
 DROP MATERIALIZED VIEW VM_KAD_EIGENARENKAART;
-CREATE MATERIALIZED VIEW VM_KAD_EIGENARENKAART ( OBJECTID, KADASTER_IDENTIFICATIE, TYPE, ZAKELIJK_RECHT_IDENTIFICATIE, AANDEEL_TELLER, AANDEEL_NOEMER, AARD_RECHT_AAND, ZAKELIJK_RECHT_OMSCHRIJVING, AANKOOPDATUM, SOORT_EIGENAAR, GESLACHTSNAAM, VOORVOEGSEL, VOORNAMEN, GESLACHT, PERCEEL_ZAK_RECHT_NAAM, PERSOON_IDENTIFICATIE, WOONADRES, GEBOORTEDATUM, GEBOORTEPLAATS, OVERLIJDENSDATUM, NAAM_NIET_NATUURLIJK_PERSOON, RECHTSVORM, STATUTAIRE_ZETEL, KVK_NUMMER, KA_APPARTEMENTSINDEX, KA_DEELPERCEELNUMMER, KA_PERCEELNUMMER, KA_KAD_GEMEENTECODE, KA_SECTIE, BEGRENZING_PERCEEL ) 
+CREATE MATERIALIZED VIEW VM_KAD_EIGENARENKAART ( OBJECTID, KADASTER_IDENTIFICATIE, TYPE, ZAKELIJK_RECHT_IDENTIFICATIE, AANDEEL_TELLER, AANDEEL_NOEMER, AARD_RECHT_AAND, ZAKELIJK_RECHT_OMSCHRIJVING, AANKOOPDATUM, SOORT_EIGENAAR, GESLACHTSNAAM, VOORVOEGSEL, VOORNAMEN, GESLACHT, PERCEEL_ZAK_RECHT_NAAM, PERSOON_IDENTIFICATIE, WOONADRES, GEBOORTEDATUM, GEBOORTEPLAATS, OVERLIJDENSDATUM, NAAM_NIET_NATUURLIJK_PERSOON, RECHTSVORM, STATUTAIRE_ZETEL, KVK_NUMMER, KA_APPARTEMENTSINDEX, KA_DEELPERCEELNUMMER, KA_PERCEELNUMMER, KA_KAD_GEMEENTECODE, KA_SECTIE, BEGRENZING_PERCEEL )
                                  AS
   SELECT CAST(ROWNUM AS INTEGER) AS objectid,
     p.kadaster_identificatie     AS kadaster_identificatie,
@@ -285,7 +285,12 @@ SELECT
     VBO.SC_IDENTIF              AS FID,
     FKPAND.FK_NN_RH_PND_IDENTIF AS PAND_ID,
     GEM.NAAM                    AS GEMEENTE,
-    WP.NAAM                     AS WOONPLAATS,
+    CASE
+         WHEN ADDROBJ.FK_6WPL_IDENTIF IS NOT NULL
+         -- opzoeken want in andere woonplaats
+         THEN  (SELECT NAAM FROM WNPLTS WHERE IDENTIF = FK_6WPL_IDENTIF)
+         ELSE WP.NAAM
+    END                         AS WOONPLAATS,
     GEOR.NAAM_OPENB_RMTE        AS STRAATNAAM,
     ADDROBJ.HUINUMMER           AS HUISNUMMER,
     ADDROBJ.HUISLETTER,
@@ -533,7 +538,7 @@ ON
 -------------------------------------------------
 /*
 LIGPLAATS MET HOOFDADRES
-*/		
+*/
 CREATE OR REPLACE VIEW
     V_LIGPLAATS_ALLES
     (
@@ -553,7 +558,12 @@ SELECT
     CAST(ROWNUM AS INTEGER) AS OBJECTID,
     LP.SC_IDENTIF           AS FID,
     GEM.NAAM                AS GEMEENTE,
-    WP.NAAM                 AS WOONPLAATS,
+    CASE
+         WHEN ADDROBJ.FK_6WPL_IDENTIF IS NOT NULL
+         -- opzoeken want in andere woonplaats
+         THEN  (SELECT NAAM FROM WNPLTS WHERE IDENTIF = FK_6WPL_IDENTIF)
+         ELSE WP.NAAM
+    END                     AS WOONPLAATS,
     GEOR.NAAM_OPENB_RMTE    AS STRAATNAAM,
     ADDROBJ.HUINUMMER       AS HUISNUMMER,
     ADDROBJ.HUISLETTER,
@@ -600,13 +610,13 @@ WHERE
         AND (
                 GEM.DATUM_EINDE_GELDH IS NULL))
     AND (
-            BT.DATUM_EINDE_GELDH IS NULL));	
+            BT.DATUM_EINDE_GELDH IS NULL));
 -------------------------------------------------
 -- V_STANDPLAATS_ALLES
 -------------------------------------------------
 /*
 STANDPLAATS MET HOOFDADRES
-*/		
+*/
 CREATE OR REPLACE VIEW
     V_STANDPLAATS_ALLES
     (
@@ -626,7 +636,12 @@ SELECT
     CAST(ROWNUM AS INTEGER) AS OBJECTID,
     SP.SC_IDENTIF           AS FID,
     GEM.NAAM                AS GEMEENTE,
-    WP.NAAM                 AS WOONPLAATS,
+    CASE
+         WHEN ADDROBJ.FK_6WPL_IDENTIF IS NOT NULL
+         -- opzoeken want in andere woonplaats
+         THEN  (SELECT NAAM FROM WNPLTS WHERE IDENTIF = FK_6WPL_IDENTIF)
+         ELSE WP.NAAM
+    END                     AS WOONPLAATS,
     GEOR.NAAM_OPENB_RMTE    AS STRAATNAAM,
     ADDROBJ.HUINUMMER       AS HUISNUMMER,
     ADDROBJ.HUISLETTER,
@@ -673,13 +688,13 @@ WHERE
         AND (
                 GEM.DATUM_EINDE_GELDH IS NULL))
     AND (
-            BT.DATUM_EINDE_GELDH IS NULL));			
+            BT.DATUM_EINDE_GELDH IS NULL));
 -------------------------------------------------
 -- V_ADRES
 -------------------------------------------------
 /*
 VOLLEDIGE ADRESSENLIJST
-STANDPLAATS EN LIGPLAATS VIA BENOEMD_TERREIN, 
+STANDPLAATS EN LIGPLAATS VIA BENOEMD_TERREIN,
 WAARBIJ CENTROIDE VAN POLYGON WORDT GENOMEN
 PLUS VERBLIJFSOBJECT VIA PUNT OBJECT VAN GEBOUWD_OBJ
 */
@@ -703,7 +718,12 @@ SELECT
     CAST(ROWNUM AS INTEGER) AS OBJECTID,
     VBO.SC_IDENTIF          AS FID,
     GEM.NAAM                AS GEMEENTE,
-    WP.NAAM                 AS WOONPLAATS,
+    CASE
+         WHEN ADDROBJ.FK_6WPL_IDENTIF IS NOT NULL
+         -- opzoeken want in andere woonplaats
+         THEN  (SELECT NAAM FROM WNPLTS WHERE IDENTIF = FK_6WPL_IDENTIF)
+         ELSE WP.NAAM
+    END                     AS WOONPLAATS,
     GEOR.NAAM_OPENB_RMTE    AS STRAATNAAM,
     ADDROBJ.HUINUMMER       AS HUISNUMMER,
     ADDROBJ.HUISLETTER,
@@ -759,6 +779,167 @@ WHERE
 AND (
         VBO.STATUS = 'Verblijfsobject in gebruik (niet ingemeten)'
     OR  VBO.STATUS = 'Verblijfsobject in gebruik');
+
+-------------------------------------------------
+-- V_ADRES_LIGPLAATS
+-------------------------------------------------
+CREATE OR REPLACE VIEW
+    V_ADRES_LIGPLAATS
+    (
+        FID,
+        GEMEENTE,
+        WOONPLAATS,
+        STRAATNAAM,
+        HUISNUMMER,
+        HUISLETTER,
+        HUISNUMMER_TOEV,
+        POSTCODE,
+        STATUS,
+        THE_GEOM,
+        CENTROIDE
+    ) AS
+SELECT
+    LPA.SC_IDENTIF       AS FID,
+    GEM.NAAM             AS GEMEENTE,
+    CASE
+         WHEN ADDROBJ.FK_6WPL_IDENTIF IS NOT NULL
+         -- opzoeken want in andere woonplaats
+         THEN  (SELECT NAAM FROM WNPLTS WHERE IDENTIF = FK_6WPL_IDENTIF)
+         ELSE WP.NAAM
+    END                  AS WOONPLAATS,
+    GEOR.NAAM_OPENB_RMTE AS STRAATNAAM,
+    ADDROBJ.HUINUMMER    AS HUISNUMMER,
+    ADDROBJ.HUISLETTER,
+    ADDROBJ.HUINUMMERTOEVOEGING AS HUISNUMMER_TOEV,
+    ADDROBJ.POSTCODE,
+    LPA.STATUS,
+    BENTER.GEOM AS THE_GEOM,
+    SDO_GEOM.SDO_CENTROID(BENTER.GEOM,2)
+FROM
+    LIGPLAATS LPA
+JOIN
+    BENOEMD_TERREIN BENTER
+ON
+    (
+        BENTER.SC_IDENTIF = LPA.SC_IDENTIF )
+LEFT JOIN
+    LIGPLAATS_NUMMERAAND LNA
+ON
+    (
+        LNA.FK_NN_LH_LPL_SC_IDENTIF = LPA.SC_IDENTIF )
+LEFT JOIN
+    NUMMERAAND NA
+ON
+    (
+        NA.SC_IDENTIF = LPA.FK_4NRA_SC_IDENTIF )
+LEFT JOIN
+    ADDRESSEERB_OBJ_AAND ADDROBJ
+ON
+    (
+        ADDROBJ.IDENTIF = NA.SC_IDENTIF )
+JOIN
+    GEM_OPENB_RMTE GEOR
+ON
+    (
+        GEOR.IDENTIFCODE = ADDROBJ.FK_7OPR_IDENTIFCODE )
+LEFT JOIN
+    OPENB_RMTE_WNPLTS ORWP
+ON
+    (
+        GEOR.IDENTIFCODE = ORWP.FK_NN_LH_OPR_IDENTIFCODE)
+LEFT JOIN
+    WNPLTS WP
+ON
+    (
+        ORWP.FK_NN_RH_WPL_IDENTIF = WP.IDENTIF)
+LEFT JOIN
+    GEMEENTE GEM
+ON
+    (
+        WP.FK_7GEM_CODE = GEM.CODE )
+WHERE
+    NA.STATUS = 'Naamgeving uitgegeven'
+AND LPA.STATUS = 'Plaats aangewezen';
+-------------------------------------------------
+-- V_ADRES_STANDPLAATS
+-------------------------------------------------
+CREATE OR REPLACE VIEW
+    V_ADRES_STANDPLAATS
+    (
+        FID,
+        GEMEENTE,
+        WOONPLAATS,
+        STRAATNAAM,
+        HUISNUMMER,
+        HUISLETTER,
+        HUISNUMMER_TOEV,
+        POSTCODE,
+        STATUS,
+        THE_GEOM,
+        CENTROIDE
+    ) AS
+SELECT
+    SPL.SC_IDENTIF       AS FID,
+    GEM.NAAM             AS GEMEENTE,
+    CASE
+         WHEN ADDROBJ.FK_6WPL_IDENTIF IS NOT NULL
+         -- opzoeken want in andere woonplaats
+         THEN  (SELECT NAAM FROM WNPLTS WHERE IDENTIF = FK_6WPL_IDENTIF)
+         ELSE WP.NAAM
+    END                  AS WOONPLAATS,
+    GEOR.NAAM_OPENB_RMTE AS STRAATNAAM,
+    ADDROBJ.HUINUMMER    AS HUISNUMMER,
+    ADDROBJ.HUISLETTER,
+    ADDROBJ.HUINUMMERTOEVOEGING AS HUISNUMMER_TOEV,
+    ADDROBJ.POSTCODE,
+    SPL.STATUS,
+    BENTER.GEOM AS THE_GEOM,
+    SDO_GEOM.SDO_CENTROID(BENTER.GEOM,2)
+FROM
+    STANDPLAATS SPL
+JOIN
+    BENOEMD_TERREIN BENTER
+ON
+    (
+        BENTER.SC_IDENTIF = SPL.SC_IDENTIF )
+LEFT JOIN
+    STANDPLAATS_NUMMERAAND SNA
+ON
+    (
+        SNA.FK_NN_LH_SPL_SC_IDENTIF = SPL.SC_IDENTIF )
+LEFT JOIN
+    NUMMERAAND NA
+ON
+    (
+        NA.SC_IDENTIF = SPL.FK_4NRA_SC_IDENTIF)
+LEFT JOIN
+    ADDRESSEERB_OBJ_AAND ADDROBJ
+ON
+    (
+        ADDROBJ.IDENTIF = NA.SC_IDENTIF )
+JOIN
+    GEM_OPENB_RMTE GEOR
+ON
+    (
+        GEOR.IDENTIFCODE = ADDROBJ.FK_7OPR_IDENTIFCODE )
+LEFT JOIN
+    OPENB_RMTE_WNPLTS ORWP
+ON
+    (
+        GEOR.IDENTIFCODE = ORWP.FK_NN_LH_OPR_IDENTIFCODE)
+LEFT JOIN
+    WNPLTS WP
+ON
+    (
+        ORWP.FK_NN_RH_WPL_IDENTIF = WP.IDENTIF)
+LEFT JOIN
+    GEMEENTE GEM
+ON
+    (
+        WP.FK_7GEM_CODE = GEM.CODE )
+WHERE
+    NA.STATUS = 'Naamgeving uitgegeven'
+AND SPL.STATUS = 'Plaats aangewezen';
 
 -------------------------------------------------
 -- V_ADRES_TOTAAL
@@ -824,17 +1005,17 @@ CREATE OR REPLACE VIEW
 -- optioneel: bijwerken Geotools / geoserver metadata tabellen, zie ook utility scripts:
 --    402_create_geotools_geometrycolumns_metatable.sql
 --    403_create_geotools_primarykey_metatable.sql
--- in directory brmo/datamodel/utility_scripts/oracle/ 
--- (let op de schemanaam 'RSGB' in onderstaande inserts moet mogelijk aangepast worden) en mogelijk zitten 
+-- in directory brmo/datamodel/utility_scripts/oracle/
+-- (let op de schemanaam 'RSGB' in onderstaande inserts moet mogelijk aangepast worden) en mogelijk zitten
 --   er al records voor betreffende views in de tabel, in dat geval deze eerste verwijderen.
--- 
+--
 -- INSERT INTO GT_PK_METADATA VALUES ('RSGB', 'V_BD_KAD_PERCEEL_MET_APP_VLAK', 'OBJECTID', NULL, 'assigned', NULL);
--- INSERT INTO GEOMETRY_COLUMNS (F_TABLE_SCHEMA, F_TABLE_NAME, F_GEOMETRY_COLUMN, COORD_DIMENSION, SRID, TYPE) 
+-- INSERT INTO GEOMETRY_COLUMNS (F_TABLE_SCHEMA, F_TABLE_NAME, F_GEOMETRY_COLUMN, COORD_DIMENSION, SRID, TYPE)
 --     VALUES ('RSGB', 'V_BD_KAD_PERCEEL_MET_APP_VLAK', 'BEGRENZING_PERCEEL', 2, 28992, 'MULTIPOLYGON');
 
 -- INSERT INTO GT_PK_METADATA VALUES ('RSGB', 'V_KAD_PERCEEL_ZR_ADRESSEN', 'OBJECTID', NULL, 'assigned', NULL);
 -- INSERT INTO GT_PK_METADATA VALUES ('RSGB', 'V_BD_APP_RE_AND_KAD_PERCEEL', 'OBJECTID', NULL, 'assigned', NULL);
--- INSERT INTO GEOMETRY_COLUMNS (F_TABLE_SCHEMA, F_TABLE_NAME, F_GEOMETRY_COLUMN, COORD_DIMENSION, SRID, TYPE) 
+-- INSERT INTO GEOMETRY_COLUMNS (F_TABLE_SCHEMA, F_TABLE_NAME, F_GEOMETRY_COLUMN, COORD_DIMENSION, SRID, TYPE)
 --    VALUES ('RSGB', 'VM_KAD_EIGENARENKAART', 'BEGRENZING_PERCEEL', 2, 28992, 'MULTIPOLYGON');
 -- INSERT INTO GT_PK_METADATA VALUES ('RSGB', 'VM_KAD_EIGENARENKAART', 'OBJECTID', NULL, 'assigned', NULL);
 
