@@ -28,15 +28,19 @@ import org.dbunit.dataset.xml.XmlDataSet;
  */
 public class DBUnitExport {
 
-    private static final String _testDir = "src/test/resources/mantis6098/";
-    private static final String _dbFile = "staging-flat.xml";
-    private static final String _dbFile2 = "staging.xml";
+    //private static final String _testDir = "src/test/resources/mantis6098/";
+    private static final String _testDir = "src/test/resources/";
+    private static final String _dbFile = "gevuld-staging-flat.xml";
+    private static final String _dbFile2 = "gevuld-staging.xml";
     private static final String _driverClass = "org.postgresql.Driver";
-    private static final String _jdbcConnection = "jdbc:postgresql://localhost:5432/mantis6098";
-    private static final String _user = "rsgb";
-    private static final String _passwd = "rsgb";
+    //private static final String _jdbcConnection = "jdbc:postgresql://localhost:5432/mantis6098";
+    //private static final String _user = "rsgb";
+    //private static final String _passwd = "rsgb";
+    private static final String _jdbcConnection = "jdbc:jtds:sqlserver://192.168.1.15:1433/itest_brmo_staging;instance=SQLEXPRESS";
+    private static final String _user = "brmotest";
+    private static final String _passwd = "brmotest";
     // volgorde van tabellen belangrijk vanwege constraint op laadproces-id
-    private static final String[] _testTableNames = {"laadproces", "bericht"};
+    private static final String[] _testTableNames = {"laadproces", "bericht2"};
 
     public static void main(String[] args) throws ClassNotFoundException, DatabaseUnitException, IOException, SQLException {
         Class driverClass = Class.forName(_driverClass);

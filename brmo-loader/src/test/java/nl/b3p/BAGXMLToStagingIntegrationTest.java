@@ -129,14 +129,6 @@ public class BAGXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
         sequential.unlock();
     }
 
-//    @Test
-//    public void emptyStagingDb() throws BrmoException {
-//        brmo.emptyStagingDb();
-//        List<LaadProces> processen = brmo.listLaadProcessen();
-//        assert (processen != null && processen.size() == 0) : "Table " + BrmoFramework.LAADPROCES_TABEL + " should be empty!";
-//        List<Bericht> berichten = brmo.listBerichten();
-//        assert (berichten != null && berichten.size() == 0) : "Table " + BrmoFramework.BERICHT_TABLE + " should be empty!";
-//    }
     @Test
     public void testBagStandToStaging() throws BrmoException {
         try {

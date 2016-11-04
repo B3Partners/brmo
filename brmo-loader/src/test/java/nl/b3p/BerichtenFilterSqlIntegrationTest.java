@@ -2,15 +2,10 @@ package nl.b3p;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Properties;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.entity.Bericht;
-import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper;
 import nl.b3p.brmo.loader.util.BrmoException;
@@ -92,8 +87,8 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
             DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         }
 
-        assumeTrue("Er zijn een aantal STAGING_OK berichten", 0l < brmo.getCountBerichten(null, null, "brk,bag,nhr", "STAGING_OK"));
-        assumeTrue("Er zijn een aantal STAGING_OK laadprocessen", 0l < brmo.getCountLaadProcessen(null, null, "brk,bag,nhr", "STAGING_OK"));
+        assumeTrue("Er zijn geen STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, "brk,bag,nhr", "STAGING_OK"));
+        assumeTrue("Er zijn geen STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, "brk,bag,nhr", "STAGING_OK"));
     }
 
     @After
@@ -146,7 +141,7 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
         long id2 = berichten.get(1).getId();
 
         assertNotNull("Er moet een aantal berichten zijn.", berichten);
-        assertTrue("De DESC sortering moet kloppen", id1 < id2);
+        assertTrue("De DESC sortering moet kloppen", id1 > id2);
     }
 
     @Test
