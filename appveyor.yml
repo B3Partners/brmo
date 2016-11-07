@@ -15,7 +15,6 @@ environment:
 
   matrix:
     - JAVA_HOME: C:\Program Files\Java\jdk1.8.0
-    #- JAVA_HOME: C:\Program Files (x86)\Java\jdk1.8.0
 
 # todo set up voor meerdere db versies, zie: https://www.appveyor.com/docs/services-databases/
 matrix:
@@ -30,12 +29,7 @@ install:
   # initial build, no testing
   - mvn install -Dmaven.test.skip=true -B -V -fae -q -Pmssql -pl "!brmo-dist"
 
-
-# before_build: does nothing
-
 build: off
-
-# after_build: does nothing
 
 before_test:
 # services are started after install, so we need to wait
@@ -70,12 +64,6 @@ test_script:
 
 after_test:
   - ps: Get-Date
-
-# on_success:
-
-# on_failure:
-
-# on_finish:
 
 cache:
   - C:\Users\appveyor\.m2\repository -> pom.xml

@@ -26,14 +26,27 @@ import org.junit.rules.TestName;
  * @author mprins
  */
 public abstract class TestingBase {
-    private static final Log LOG = LogFactory.getLog(TestingBase.class);
 
+    private static final Log LOG = LogFactory.getLog(TestingBase.class);
+    /**
+     * properties uit {@code <DB smaak>.properties} en
+     * {@code local.<DB smaak>.properties}.
+     *
+     * @see #loadProps()
+     */
     protected final Properties params = new Properties();
 
+    /**
+     * {@code true} als we met een Oracle database bezig zijn.
+     */
     protected boolean isOracle;
-
+    /**
+     * {@code true} als we met een MS SQL Server database bezig zijn.
+     */
     protected boolean isMsSQL;
-
+    /**
+     * logging rule.
+     */
     @Rule
     public TestName name = new TestName();
 
@@ -47,11 +60,17 @@ public abstract class TestingBase {
         GeoTools.init();
     }
 
+    /**
+     * Log de naam van de test als deze begint.
+     */
     @Before
     public void startTest() {
         LOG.info("==== Start test methode: " + name.getMethodName());
     }
 
+    /**
+     * Log de naam van de test als deze eindigt.
+     */
     @After
     public void endTest() {
         LOG.info("==== Einde test methode: " + name.getMethodName());

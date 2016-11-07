@@ -1,10 +1,7 @@
 package nl.b3p.web;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.impl.client.BasicCookieStore;
@@ -19,19 +16,23 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 
 /**
+ * Integratie test utility klasse om online integratie tests te bouwen welke
+ * tegen een brmo-service kunnen worden uitgevoerd.
  *
  * @author Mark Prins
  */
 public abstract class TestUtil {
+
     private static final Log LOG = LogFactory.getLog(TestUtil.class);
 
     /**
      * the server root url. {@value}
      */
     public static final String BASE_TEST_URL = "http://localhost:9090/brmo-service/";
+
     /**
-     * This has the database properties as defined in 'postgres.properties' or
-     * sqlserver.properties.
+     * properties uit {@code <DB smaak>.properties} en
+     * {@code local.<DB smaak>.properties}.
      *
      * @see #loadDBprop()
      */
@@ -83,14 +84,24 @@ public abstract class TestUtil {
     public static void tearDownClass() throws IOException {
         client.close();
     }
+
+    /**
+     * logging rule.
+     */
     @Rule
     public TestName name = new TestName();
 
+    /**
+     * Log de naam van de test als deze begint.
+     */
     @Before
     public void startTest() {
         LOG.info("==== Start test methode: " + name.getMethodName());
     }
 
+    /**
+     * Log de naam van de test als deze eindigt.
+     */
     @After
     public void endTest() {
         LOG.info("==== Einde test methode: " + name.getMethodName());
