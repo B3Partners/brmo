@@ -30,7 +30,7 @@ before_install:
   - unzip -qq apache-maven-3.3.9-bin.zip
   - export M2_HOME=$PWD/apache-maven-3.3.9
   - export PATH=$M2_HOME/bin:$PATH
-  # installeer/update postgis 2.2 op 9.5
+  # installeer/update postgis 2.2 op postgresql 9.5
   - sudo service postgresql stop
   - sudo -E apt-get -qq update &>> ~/apt-get-update.log
   - sudo apt-get -qq install postgis-2.2 gdal-bin graphviz
@@ -41,7 +41,6 @@ before_install:
   #- export PGHOST=localhost
   #- export PGPORT=5432
   - export PAGER=cat
-  # set up STAGING db
   - psql --version
   - psql -U postgres -d postgres -c 'SELECT Version();'
   - psql -U postgres -a -c "CREATE ROLE staging LOGIN PASSWORD 'staging' SUPERUSER CREATEDB;"
@@ -87,10 +86,15 @@ script:
   - travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service'
   # test of javadoc compliant is met java-8 strict checks evt ook mvn javadoc:test-javadoc;
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
-         travis_wait mvn -Ppostgresql javadoc:javadoc;
+         travis_wait mvn javadoc:javadoc;
+         mvn javadoc:test-javadoc;
     fi
 
-# after_success:
+after_success:
+  # deploy maven site
+  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
+         travis_wait mvn site-deploy;
+    fi
 
 # after_failure:
 

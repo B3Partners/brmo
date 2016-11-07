@@ -59,7 +59,7 @@ module of via commandline ingesteld.
 | ------------------- | ----------- | ------------------------- |
 |postgres.properties  |Travis-CI    |local.postgres.properties  |
 |sqlserver.properties |AppVeyor     |local.sqlserver.properties |
-|oracle.properties    |  <TODO>     |local.oracle.properties    |
+|oracle.properties    | **TODO**    |local.oracle.properties    |
 
 Voor gebruik van de propertyfile in een integratie test kun je overerven van een
 abstracte klasse in verschillende modules.

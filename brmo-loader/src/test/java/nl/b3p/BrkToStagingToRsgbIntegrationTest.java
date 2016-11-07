@@ -44,7 +44,7 @@ import org.junit.runners.Parameterized;
  * voor bijvoorbeeld MSSQL.
  *
  * @author Boy de Wit
- * @autor mprins
+ * @author mprins
  */
 @RunWith(Parameterized.class)
 public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrationTest {
@@ -54,12 +54,12 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
     @Parameterized.Parameters(name = "{index}: type: {0}, bestand: {1}")
     public static Collection params() {
         return Arrays.asList(new Object[][]{
-            // {"type","filename", aantalBerichten, aantalLaadProcessen},
+            // {"type","filename", aantalBerichten, aantalProcessen},
 
             // dit bestand zit in de DVD Proefbestanden BRK Levering oktober 2012 (Totaalstanden)
             // /mnt/v_b3p_projecten/BRMO/BRK/BRK_STUF_IMKAD/BRK/Levering(dvd)/Proefbestanden BRK Levering oktober 2012 (Totaalstanden)/20091130/
             // en staat op de ignore lijst omdat 't 18.5MB groot is, grep -o KadastraalObjectSnapshot BURBX01.xml | wc -w geeft aantal berichten
-            // {"brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-20091130-6000015280-9100000039.zip", 63104 / 2, 1},
+            {"brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-20091130-6000015280-9100000039.zip", 63104 / 2, 1},
             {"brk", "/nl/b3p/brmo/loader/xml/MUTBX01-ASN00T1660-20091119-1-singleline.xml", 1, 1}
         });
     }
@@ -161,7 +161,7 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
 
     @Test
     public void testBrkXMLToStaging() throws Exception {
-        assumeNotNull("Het bestand moet er zijn.", BrkToStagingToRsgbIntegrationTest.class.getResource(bestandNaam));
+        assumeNotNull("Het test bestand moet er zijn.", BrkToStagingToRsgbIntegrationTest.class.getResource(bestandNaam));
 
         brmo.loadFromFile(bestandType, BrkToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile());
 
@@ -180,8 +180,8 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
 
         berichten = brmo.listBerichten();
         for (Bericht b : berichten) {
-            assertNotNull("bericht is niet 'null'", b);
-            assertNotNull("db-xml van bericht is niet 'null'", b.getDbXml());
+            assertNotNull("Bericht is niet 'null'", b);
+            assertNotNull("'db-xml' van bericht is niet 'null'", b.getDbXml());
         }
     }
 }
