@@ -45,6 +45,10 @@ INSERT INTO gt_pk_metadata VALUES ('RSGB', 'V_KAD_PERCEEL_ZR_ADRESSEN', 'OBJECTI
 INSERT INTO gt_pk_metadata VALUES ('RSGB', 'V_BD_APP_RE_AND_KAD_PERCEEL', 'OBJECTID', NULL, 'assigned', NULL);
 INSERT INTO gt_pk_metadata VALUES ('RSGB', 'VM_KAD_EIGENARENKAART', 'OBJECTID', NULL, 'assigned', NULL);
 INSERT INTO gt_pk_metadata VALUES ('RSGB', 'V_BD_KAD_PERCEEL_MET_APP_VLAK', 'OBJECTID', NULL, 'assigned', NULL);
+INSERT INTO gt_pk_metadata VALUES ('RSGB', 'V_ADRES_PANDVLAK', 'THE_GEOM', 'OBJECTID', NULL, 'assigned', NULL);
+INSERT INTO gt_pk_metadata VALUES ('RSGB', 'V_ADRES_TOTAAL_VLAK', 'THE_GEOM', 'OBJECTID', NULL, 'assigned', NULL);
+
+
 
 --SELECT table_name
 --  FROM user_tab_columns
