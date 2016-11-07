@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20161107" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>BRMO 1.4.0-SNAPSHOT &#x2013; About</title>
+    <title>BRMO 1.4.0-SNAPSHOT &#x2013; Developer notes</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.5.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -65,10 +65,12 @@
                 <ul class="nav nav-list">
                     <li class="nav-header">Information</li>
                               
-      <li class="active">
+      <li>
   
-            <a href="#"><span class="none"></span>Home</a>
-          </li>
+                          <a href="index.html" title="Home">
+          <span class="none"></span>
+        Home</a>
+            </li>
                 
       <li>
   
@@ -77,12 +79,10 @@
         Release notes</a>
             </li>
                 
-      <li>
+      <li class="active">
   
-                          <a href="developer-notes.html" title="Developer Notes">
-          <span class="none"></span>
-        Developer Notes</a>
-            </li>
+            <a href="#"><span class="none"></span>Developer Notes</a>
+          </li>
                               <li class="nav-header">Modules</li>
                               
       <li>
@@ -148,69 +148,13 @@
         BRMO distributie</a>
             </li>
                               <li class="nav-header">Project Documentation</li>
-                                                                                                                                                                                                                        
+                                                                                                                                                                                                              
       <li>
   
                           <a href="project-info.html" title="Project Information">
-          <span class="icon-chevron-down"></span>
+          <span class="icon-chevron-right"></span>
         Project Information</a>
-                    <ul class="nav nav-list">
-                    
-      <li>
-  
-                          <a href="dependencies.html" title="Dependencies">
-          <span class="none"></span>
-        Dependencies</a>
-            </li>
-                    
-      <li>
-  
-                          <a href="dependency-convergence.html" title="Dependency Convergence">
-          <span class="none"></span>
-        Dependency Convergence</a>
-            </li>
-                    
-      <li>
-  
-                          <a href="dependency-management.html" title="Dependency Management">
-          <span class="none"></span>
-        Dependency Management</a>
-            </li>
-                    
-      <li class="active">
-  
-            <a href="#"><span class="none"></span>About</a>
-          </li>
-                    
-      <li>
-  
-                          <a href="plugin-management.html" title="Plugin Management">
-          <span class="none"></span>
-        Plugin Management</a>
-            </li>
-                    
-      <li>
-  
-                          <a href="plugins.html" title="Project Plugins">
-          <span class="none"></span>
-        Project Plugins</a>
-            </li>
-                    
-      <li>
-  
-                          <a href="source-repository.html" title="Source Repository">
-          <span class="none"></span>
-        Source Repository</a>
-            </li>
-                    
-      <li>
-  
-                          <a href="project-summary.html" title="Project Summary">
-          <span class="none"></span>
-        Project Summary</a>
-            </li>
-              </ul>
-        </li>
+                  </li>
                                                                                                                                           
       <li>
   
@@ -238,43 +182,149 @@
                 
         <div id="bodyColumn"  class="span10" >
                                   
-            <div class="section">
-<h2><a name="About_BRMO"></a>About BRMO</h2><a name="About_BRMO"></a>
-<p>B3Parteners BRMO applicatie</p>
+            <h1>Developer notes</h1>
 <div class="section">
-<h3><a name="Project_Modules"></a>Project Modules</h3><a name="Project_Modules"></a>
-<p>This project has declared the following modules:</p>
+<h2><a name="release_maken"></a>release maken</h2>
+<p>Een release bouwen begint met het uitvoeren van het commando <tt>mvn clean release:prepare</tt> daarbij wordt voor de verschillende artifacten om versienummers gevraagd (evt. de optie <tt>-DautoVersionSubmodules=true</tt> gebruiken als alles dezelfde versie moet krijgen), zowel voor voor de release als de volgende ontwikkel versie. Tevens wordt er om een naam voor een tag gevraagd. In principe kan alle informatie op de commandline worden meegegeven, bijvoorbeeld:</p>
+
+<div class="source">
+<div class="source"><pre class="prettyprint">mvn release:prepare -l rel-prepare.log -DautoVersionSubmodules=true -DdevelopmentVersion=1.4.1-SNAPSHOT -DreleaseVersion=1.4.0 -Dtag=v1.4.0 -T1
+mvn release:perform -l rel-perform.log
+</pre></div></div>
+<p>Met het commando <tt>mvn release:perform</tt> wordt daarna, op basis van de tag uit de stap hierboven, de release gebouwd en gedeployed naar de repository uit de (parent) pom file. De release bestaat uit jar en war files met daarin oa. ook de javadoc en mogelijke site. Voor het hele project kan dit even duren, oa. omdat de javadoc ook gebouwd wordt.</p>
+<div class="section">
+<h3><a name="git_configuratie"></a>git configuratie</h3>
+
+<div class="source">
+<div class="source"><pre class="prettyprint">git config --add status.displayCommentPrefix true
+export LANG=C
+mvn clean release:prepare
+</pre></div></div></div></div>
+<div class="section">
+<h2><a name="Integratie_en_unit_tests"></a>Integratie en unit tests</h2>
+<p>Er zijn drie Maven profielen (postgresql, oracle, mssql) voor de ondersteunde databases gedefinieerd, de profiele zorgen ervoor dat de juist JDBC driver beschikbaar komt in de test suites, tevens kan daarmee de juiste configuratie worden geladen.</p>
+
 <table border="0" class="table table-striped">
+  <thead>
+    
 <tr class="a">
-<th>Name</th>
-<th>Description</th></tr>
+      
+<th>unit tests </th>
+      
+<th>integratie tests </th>
+    </tr>
+  </thead>
+  <tbody>
+    
 <tr class="b">
-<td><a href="datamodel/index.html">brmo rsgb datamodel</a></td>
-<td>B3Parteners BRMO applicatie</td></tr>
+      
+<td>Naamgeving conventie <tt>&lt;Mijn&gt;Test.java</tt> </td>
+      
+<td>Naamgeving conventie <tt>&lt;Mijn&gt;IntegrationTest.java</tt> </td>
+    </tr>
+    
 <tr class="a">
-<td><a href="brmo-persistence/index.html">brmo-persistence</a></td>
-<td>JPA artifact voor de brmo.</td></tr>
+      
+<td>Zelfstandige tests, zonder runtime omgeving benodigdheden, eventueel voorzien van een data bestand, maar zonder verdere afhankelijkheden. </td>
+      
+<td>Tests die een database omgeving en/of servlet container nodig hebben. </td>
+    </tr>
+    
 <tr class="b">
-<td><a href="brmo-loader/index.html">brmo-loader</a></td>
-<td>B3Parteners BRMO applicatie</td></tr>
+      
+<td>Unit tests worden onafhankelijk van het gebruikte Maven profiel uitgevoerd, in principe tijdens iedere full build, tenzij er een <tt>skip</tt> optie voor het overslaan van de tests wordt meegegeven. </td>
+      
+<td>Unit tests worden afhankelijk van het gebruikte Maven profiel uitgevoerd. </td>
+    </tr>
+  </tbody>
+</table>
+<p>Bekijk de <tt>.travis.yml</tt> en <tt>appveyor.yml</tt> hoe de integratie tests worden gestart.</p>
+<div class="section">
+<h3><a name="database_configuratie"></a>database configuratie</h3>
+<p>Voor de verschillende database omgevingen zijn er in bijvoorbeeld de <tt>brmo-service</tt> module, de <tt>brmo-loader</tt> module en de <tt>bgt-gml-loader</tt> module property files gemaakt met een configuratie die gebruikt wordt in de verschillende CI omgevingen. Deze bestanden zijn in de test resources te vinden. Lokaal kun je een override definieren voor een bepaalde omgeving door een bestand naast het bestaande te zetten met de naam <tt>local.&lt;DB smaakje&gt;.properties</tt>.</p>
+<p>De te gebruiken database smaak wordt middels de <tt>database.properties.file</tt> property in de pom.xml van de module of via commandline ingesteld.</p>
+
+<table border="0" class="table table-striped">
+  <thead>
+    
 <tr class="a">
-<td><a href="bgt-gml-loader/index.html">brmo BGT-GML loader</a></td>
-<td>B3Parteners BRMO applicatie</td></tr>
+      
+<th>property file </th>
+      
+<th>gebruikt op </th>
+      
+<th>override </th>
+    </tr>
+  </thead>
+  <tbody>
+    
 <tr class="b">
-<td><a href="brmo-taglib/index.html">brmo taglibrary</a></td>
-<td>B3Parteners BRMO applicatie</td></tr>
+      
+<td>postgres.properties </td>
+      
+<td>Travis-CI </td>
+      
+<td>local.postgres.properties </td>
+    </tr>
+    
 <tr class="a">
-<td><a href="brmo-service/index.html">brmo-service</a></td>
-<td>B3Parteners BRMO applicatie</td></tr>
+      
+<td>sqlserver.properties </td>
+      
+<td>AppVeyor </td>
+      
+<td>local.sqlserver.properties </td>
+    </tr>
+    
 <tr class="b">
-<td><a href="brmo-proxyservice/index.html">brmo-proxyservice</a></td>
-<td>B3Parteners BRMO applicatie</td></tr>
+      
+<td>oracle.properties </td>
+      
+<td><b>TODO</b> </td>
+      
+<td>local.oracle.properties </td>
+    </tr>
+  </tbody>
+</table>
+<p>Voor gebruik van de propertyfile in een integratie test kun je overerven van een abstracte klasse in verschillende modules.</p>
+
+<table border="0" class="table table-striped">
+  <thead>
+    
 <tr class="a">
-<td><a href="brmo-soap/index.html">brmo-soap</a></td>
-<td>B3Parteners BRMO applicatie</td></tr>
+      
+<th>module </th>
+      
+<th>klasse </th>
+    </tr>
+  </thead>
+  <tbody>
+    
 <tr class="b">
-<td><a href="brmo-dist/index.html">BRMO distributie</a></td>
-<td>B3Parteners BRMO applicatie</td></tr></table></div></div>
+      
+<td>bgt-gml-loader </td>
+      
+<td><tt>nl.b3p.brmo.loader.gml.TestingBase</tt> </td>
+    </tr>
+    
+<tr class="a">
+      
+<td>brmo-loader </td>
+      
+<td><tt>nl.b3p.AbstractDatabaseIntegrationTest</tt> </td>
+    </tr>
+    
+<tr class="b">
+      
+<td>brmo-service </td>
+      
+<td><tt>nl.b3p.web.TestUtil</tt> </td>
+    </tr>
+  </tbody>
+</table></div>
+<div class="section">
+<h3><a name="servlet_container_configuratie"></a>servlet container configuratie</h3>
+<p>Voor de brmo-service module is een voorbeeld beschikbaar in de klasse <tt>nl.b3p.web.IndexPageIntegrationTest</tt></p></div></div>
                   </div>
             </div>
           </div>
