@@ -15,3 +15,5 @@ Ga naar [releases](https://github.com/B3Partners/brmo/releases) voor de laatste 
 [![GitHub release](https://img.shields.io/github/release/B3Partners/brmo.svg?maxAge=2592000)]()
 [![Github Releases](https://img.shields.io/github/downloads/B3Partners/brmo/latest/total.svg?maxAge=2592000)]()
 [![Github All Releases](https://img.shields.io/github/downloads/B3Partners/brmo/total.svg?maxAge=2592000)]()
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/B3Partners/brmo.svg)](http://isitmaintained.com/project/B3Partners/brmo "Percentage of issues still open")
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/B3Partners/brmo.svg)](http://isitmaintained.com/project/B3Partners/brmo "Average time to resolve an issue")

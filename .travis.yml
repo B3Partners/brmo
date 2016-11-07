@@ -2,6 +2,11 @@ dist: trusty
 sudo: required
 language: java
 
+env:
+  global:
+    - secure: "gkFOCErQLXQNPRMqkwy55eVYy4Sy/uUHd/LPp7k6PKr3Nx/YmiirtiGAbL5JMrOiQRFDydGlVDAtTUcUqeyKcMkbBNJ7qqrMNXIL0cf5+xDtUeyGa/zm3Ma5R1VrZ6iD/s2e6vju4oW+NycDq5/cUm0roum5psF1eYMqGYv9uZI="
+    - secure: "H1aFIto0g/9Uw9BqugqByMtoUOtKtHD2kyCoqVsU9pE3KrlsfdmFf7h04WbuQfefyliX5r7L4eJaHUjLGySp/qka0zEnaKAgQZsS11k21LMjK0xY1KEyROmJ9ogDBoPVrn4NpCBO3RrqH33uEzD0QK97UKp/+ys/2vIlBpQfwy4="
+
 addons:
    postgresql: "9.5"
    # fix voor OpenJDK bufferoverflow, zie:
@@ -25,7 +30,7 @@ cache:
   - $HOME/.m2
 
 before_install:
-  # installeer up-2-date Maven versie
+  # installeer een up-2-date Maven versie
   - wget https://www-eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.zip
   - unzip -qq apache-maven-3.3.9-bin.zip
   - export M2_HOME=$PWD/apache-maven-3.3.9
@@ -34,8 +39,6 @@ before_install:
   - sudo service postgresql stop
   - sudo -E apt-get -qq update &>> ~/apt-get-update.log
   - sudo apt-get -qq install postgis-2.2 gdal-bin graphviz
-  #- sudo cp /etc/postgresql/9.4/main/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
-  #- sudo /etc/init.d/postgresql restart
   - sudo service postgresql stop
   - sudo service postgresql start 9.5
   #- export PGHOST=localhost
@@ -55,11 +58,11 @@ before_install:
   - psql -U postgres -d rsgbbgt -c 'SELECT PostGIS_full_version();'
 
 install:
-  # install all dependencies + artifacts without any testing, create staging db scripts
+  # install all dependencies + artifacts without any testing and create any DB scripts
   - mvn install -Dmaven.test.skip=true -B -V -fae -q -Ppostgresql -pl '!brmo-dist'
 
 before_script:
-  # dit dient na afloop van de 'install' gedaan te worden omdat de sql gegenereerd wordt
+  # dit dient na afloop van de 'install' gedaan te worden omdat (een deel van) de sql gegenereerd wordt
   # set up staging db
   - ls -l ./brmo-persistence/db/
   - psql -U postgres -d staging -f ./brmo-persistence/db/create-brmo-persistence-postgresql.sql
@@ -77,7 +80,7 @@ before_script:
 script:
   # run unit tests
   - mvn -e test -B -Ppostgresql -pl '!brmo-dist'
-  # run integratie tests
+  # run integratie tests voor veschillende modules
   # run integratie tests voor bgt-gml-loader module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
   # run integratie tests voor brmo-loader module
@@ -86,21 +89,16 @@ script:
   - travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service'
   # test of javadoc compliant is met java-8 strict checks evt ook mvn javadoc:test-javadoc;
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
-         travis_wait mvn javadoc:javadoc;
-         mvn javadoc:test-javadoc;
+         travis_wait mvn -Ppostgresql javadoc:javadoc;
+         travis_wait mvn -Ppostgresql javadoc:test-javadoc;
     fi
-
-after_success:
-  # deploy maven site
-  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
-         travis_wait mvn site-deploy;
-    fi
-
-# after_failure:
 
 # after_script:
 
-# notifications:
-#   email: false
-  #  on_success: [always|never|change] # default: change
-  #  on_failure: [always|never|change] # default: always
+after_success:
+  # deploy maven site
+  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
+         travis_wait mvn -B -e -Ppostgresql site-deploy --settings .travis/settings.xml;
+    fi
+
+# after_failure:
