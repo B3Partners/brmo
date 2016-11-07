@@ -1,7 +1,7 @@
 --
 -- BRMO RSGB script voor postgresql
 -- Applicatie versie: 1.4.0-SNAPSHOT
--- Gegenereerd op 2016-11-04T10:26:30.423+01:00
+-- Gegenereerd op 2016-11-07T13:44:00.898+01:00
 --
 
 create table sbi_activiteit(

@@ -349,7 +349,7 @@
         <site>
             <id>gh-pages</id>
             <name>github pages site</name>
-            <url>github:http://B3Partners.github.com/brmo</url>
+            <url>github:http://b3partners.github.io/brmo/</url>
         </site>
         <repository>
             <id>repo.b3p.nl</id>
@@ -661,9 +661,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <configuration>
-                    <skipDeploy>true</skipDeploy>
                     <generateSitemap>true</generateSitemap>
-                    <attach>true</attach>
+                    <attach>false</attach>
                     <outputEncoding>${project.build.sourceEncoding}</outputEncoding>
                     <reportPlugins>
                         <plugin>
