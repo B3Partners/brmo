@@ -48,3 +48,5 @@ INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_kad_perceel_zr_adressen', 'ob
 INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_bd_app_re_and_kad_perceel', 'objectid', NULL, 'assigned', NULL);
 INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_kad_eigenarenkaart', 'objectid', NULL, 'assigned', NULL);
 INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_bd_kad_perceel_met_app_vlak', 'objectid', NULL, 'assigned', NULL);
+INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_adres_pandvlak', 'objectid', NULL, 'assigned', NULL);
+INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_adres_totaal_vlak', 'objectid', NULL, 'assigned', NULL);
