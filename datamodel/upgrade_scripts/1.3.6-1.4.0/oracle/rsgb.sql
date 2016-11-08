@@ -1002,6 +1002,159 @@ CREATE OR REPLACE VIEW
             V_ADRES_STANDPLAATS
     ) QRY;
 
+    
+-------------------------------------------------
+-- v_adres_pandvlak: adressen met (maaiveld) pandvlak
+-------------------------------------------------
+CREATE OR REPLACE VIEW
+    v_adres_pandvlak
+    (
+        objectid,
+        fid,
+        pand_id,
+        gemeente,
+        woonplaats,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        status,
+        the_geom
+    ) AS
+SELECT
+    CAST(ROWNUM AS INTEGER) AS OBJECTID,
+    vbo.sc_identif              AS fid,
+    fkpand.fk_nn_rh_pnd_identif AS pand_id,
+    gem.naam                    AS gemeente,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+        ELSE wp.naam           
+    END                  AS woonplaats,
+    geor.naam_openb_rmte AS straatnaam,
+    addrobj.huinummer    AS huisnummer,
+    addrobj.huisletter,
+    addrobj.huinummertoevoeging AS huisnummer_toev,
+    addrobj.postcode,
+    vbo.status,
+    pand.geom_bovenaanzicht AS the_geom
+FROM (
+    verblijfsobj vbo
+JOIN
+    verblijfsobj_pand fkpand
+ON
+    (fkpand.fk_nn_lh_vbo_sc_identif = vbo.sc_identif)
+JOIN 
+    pand 
+ON 
+    (fkpand.fk_nn_rh_pnd_identif = pand.identif) 
+)    
+LEFT JOIN
+    verblijfsobj_nummeraand vna
+ON
+    (vna.fk_nn_lh_vbo_sc_identif = vbo.sc_identif)
+
+LEFT JOIN
+    nummeraand na
+ON
+    (na.sc_identif = vbo.fk_11nra_sc_identif)
+
+LEFT JOIN
+    addresseerb_obj_aand addrobj
+ON
+    (addrobj.identif = na.sc_identif)
+JOIN
+    gem_openb_rmte geor
+ON
+    ( geor.identifcode = addrobj.fk_7opr_identifcode )
+    
+LEFT JOIN
+    openb_rmte_wnplts orwp
+ON
+    ( geor.identifcode = orwp.fk_nn_lh_opr_identifcode)
+
+LEFT JOIN
+    wnplts wp
+ON
+    ( orwp.fk_nn_rh_wpl_identif = wp.identif)
+
+LEFT JOIN
+    gemeente gem
+ON
+    ( wp.fk_7gem_code = gem.code )
+WHERE
+    na.status = 'Naamgeving uitgegeven'
+AND ( vbo.status = 'Verblijfsobject in gebruik (niet ingemeten)'
+    OR  vbo.status = 'Verblijfsobject in gebruik');
+
+-------------------------------------------------
+-- v_adres_totaal_vlak: adressen met maaiveld vlak van pand 
+--   of openbare ruimte in geval stand of ligplaats
+-------------------------------------------------
+CREATE OR REPLACE VIEW 
+    v_adres_totaal_vlak
+    (
+        objectid,
+        fid,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        gemeente,
+        woonplaats,
+        the_geom
+    ) AS
+SELECT 
+    CAST(ROWNUM AS INTEGER) AS OBJECTID,
+    qry.*
+    FROM (
+        SELECT
+            fid,
+            straatnaam,
+            huisnummer,
+            huisletter,
+            huisnummer_toev,
+            postcode,
+            gemeente,
+            woonplaats,
+            the_geom
+        FROM
+            v_adres_pandvlak
+        UNION ALL
+        SELECT
+            fid ,
+            straatnaam,
+            huisnummer,
+            huisletter,
+            huisnummer_toev,
+            postcode,
+            gemeente,
+            woonplaats,
+            the_geom
+        FROM
+            v_adres_ligplaats
+        UNION ALL
+        SELECT
+            fid ,
+            straatnaam,
+            huisnummer,
+            huisletter,
+            huisnummer_toev,
+            postcode,
+            gemeente,
+            woonplaats,
+            the_geom
+        FROM
+            v_adres_standplaats
+    ) qry;
+    
+INSERT INTO USER_SDO_GEOM_METADATA VALUES('V_ADRES_PANDVLAK', 'THE_GEOM', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+INSERT INTO USER_SDO_GEOM_METADATA VALUES('V_ADRES_TOTAAL_VLAK', 'THE_GEOM', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+
+
 -- optioneel: bijwerken Geotools / geoserver metadata tabellen, zie ook utility scripts:
 --    402_create_geotools_geometrycolumns_metatable.sql
 --    403_create_geotools_primarykey_metatable.sql
@@ -1038,3 +1191,11 @@ CREATE OR REPLACE VIEW
 -- INSERT INTO GT_PK_METADATA VALUES ('RSGB', 'V_VERBLIJFSOBJECT', 'OBJECTID', NULL, 'assigned', NULL);
 -- INSERT INTO GT_PK_METADATA VALUES ('RSGB', 'V_VERBLIJFSOBJECT_ALLES', 'OBJECTID', NULL, 'assigned', NULL);
 -- INSERT INTO GT_PK_METADATA VALUES ('RSGB', 'V_VERBLIJFSOBJECT_GEVORMD', 'OBJECTID', NULL, 'assigned', NULL);
+
+-- adres vlakken
+-- INSERT INTO GEOMETRY_COLUMNS (F_TABLE_SCHEMA, F_TABLE_NAME, F_GEOMETRY_COLUMN, COORD_DIMENSION, SRID, TYPE) 
+--    VALUES ('RSGBTEST', 'V_ADRES_PANDVLAK', 'THE_GEOM', 2, 28992, 'MULTIPOLYGON');
+-- INSERT INTO GEOMETRY_COLUMNS (F_TABLE_SCHEMA, F_TABLE_NAME, F_GEOMETRY_COLUMN, COORD_DIMENSION, SRID, TYPE) 
+--    VALUES ('RSGBTEST', 'V_ADRES_TOTAAL_VLAK', 'THE_GEOM', 2, 28992, 'MULTIPOLYGON');
+-- INSERT INTO GT_PK_METADATA VALUES ('RSGB', 'V_ADRES_PANDVLAK', 'THE_GEOM', 'OBJECTID', NULL, 'assigned', NULL);
+-- INSERT INTO GT_PK_METADATA VALUES ('RSGB', 'V_ADRES_TOTAAL_VLAK', 'THE_GEOM', 'OBJECTID', NULL, 'assigned', NULL);
