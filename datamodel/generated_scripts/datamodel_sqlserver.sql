@@ -1,7 +1,7 @@
 --
 -- BRMO RSGB script voor sqlserver
 -- Applicatie versie: 1.4.0-SNAPSHOT
--- Gegenereerd op 2016-11-07T13:44:01.866+01:00
+-- Gegenereerd op 2016-11-08T15:35:31.788+01:00
 --
 
 create table sbi_activiteit(
@@ -3200,6 +3200,157 @@ CREATE VIEW
             gemeente,
             woonplaats,
             centroide AS the_geom
+        FROM
+            v_adres_standplaats
+    ) qry;
+
+GO
+
+-------------------------------------------------
+-- v_adres_pandvlak: adressen met (maaiveld) pandvlak
+-------------------------------------------------
+CREATE VIEW
+    v_adres_pandvlak
+    (
+        objectid,
+        fid,
+        pand_id,
+        gemeente,
+        woonplaats,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        status,
+        the_geom
+    ) AS
+SELECT
+    CAST(ROW_NUMBER() over(ORDER BY vbo.sc_identif) AS INT) AS ObjectID,
+    vbo.sc_identif       AS fid,
+    fkpand.fk_nn_rh_pnd_identif AS pand_id,
+    gem.naam             AS gemeente,
+    CASE
+        WHEN addrobj.fk_6wpl_identif IS NOT NULL
+        -- opzoeken want in andere woonplaats
+        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
+        ELSE wp.naam           
+    END                  AS woonplaats,
+    geor.naam_openb_rmte AS straatnaam,
+    addrobj.huinummer    AS huisnummer,
+    addrobj.huisletter,
+    addrobj.huinummertoevoeging AS huisnummer_toev,
+    addrobj.postcode,
+    vbo.status,
+    pand.geom_bovenaanzicht AS the_geom
+FROM (
+    verblijfsobj vbo
+JOIN
+    verblijfsobj_pand fkpand
+ON
+    (fkpand.fk_nn_lh_vbo_sc_identif = vbo.sc_identif)
+JOIN 
+    pand 
+ON 
+    (fkpand.fk_nn_rh_pnd_identif = pand.identif) 
+)    
+LEFT JOIN
+    verblijfsobj_nummeraand vna
+ON
+    (vna.fk_nn_lh_vbo_sc_identif = vbo.sc_identif)
+
+LEFT JOIN
+    nummeraand na
+ON
+    (na.sc_identif = vbo.fk_11nra_sc_identif)
+
+LEFT JOIN
+    addresseerb_obj_aand addrobj
+ON
+    (addrobj.identif = na.sc_identif)
+JOIN
+    gem_openb_rmte geor
+ON
+    ( geor.identifcode = addrobj.fk_7opr_identifcode )
+    
+LEFT JOIN
+    openb_rmte_wnplts orwp
+ON
+    ( geor.identifcode = orwp.fk_nn_lh_opr_identifcode)
+
+LEFT JOIN
+    wnplts wp
+ON
+    ( orwp.fk_nn_rh_wpl_identif = wp.identif)
+
+LEFT JOIN
+    gemeente gem
+ON
+    ( wp.fk_7gem_code = gem.code )
+WHERE
+    na.status = 'Naamgeving uitgegeven'
+AND ( vbo.status = 'Verblijfsobject in gebruik (niet ingemeten)'
+    OR  vbo.status = 'Verblijfsobject in gebruik');
+
+GO
+
+-------------------------------------------------
+-- v_adres_totaal_vlak: adressen met maaiveld vlak van pand 
+--   of openbare ruimte in geval stand of ligplaats
+-------------------------------------------------
+CREATE VIEW v_adres_totaal_vlak
+    (
+        objectid,
+        fid,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        gemeente,
+        woonplaats,
+        the_geom
+    ) AS
+SELECT 
+    CAST(ROW_NUMBER() over(ORDER BY qry.fid) AS INT) AS ObjectID,
+    qry.*
+    FROM (
+        SELECT
+            fid,
+            straatnaam,
+            huisnummer,
+            huisletter,
+            huisnummer_toev,
+            postcode,
+            gemeente,
+            woonplaats,
+            the_geom
+        FROM
+            v_adres_pandvlak
+        UNION ALL
+        SELECT
+            fid ,
+            straatnaam,
+            huisnummer,
+            huisletter,
+            huisnummer_toev,
+            postcode,
+            gemeente,
+            woonplaats,
+            the_geom
+        FROM
+            v_adres_ligplaats
+        UNION ALL
+        SELECT
+            fid ,
+            straatnaam,
+            huisnummer,
+            huisletter,
+            huisnummer_toev,
+            postcode,
+            gemeente,
+            woonplaats,
+            the_geom
         FROM
             v_adres_standplaats
     ) qry;
