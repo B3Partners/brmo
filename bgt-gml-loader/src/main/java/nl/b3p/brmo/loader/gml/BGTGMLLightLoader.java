@@ -22,7 +22,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import javax.xml.parsers.ParserConfigurationException;
@@ -588,7 +587,7 @@ public class BGTGMLLightLoader {
     /**
      * Test of de zipFile een geldige zipfile is.
      *
-     * @param zipFile de te testen zipfile
+     * @param file de te testen zipfile
      * @return {@code true} als de zipfile OK is, aders {@code false}
      */
     public boolean isValidZipFile(final File file) {
