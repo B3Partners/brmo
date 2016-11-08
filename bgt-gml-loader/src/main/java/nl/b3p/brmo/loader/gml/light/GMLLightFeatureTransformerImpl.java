@@ -133,7 +133,6 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
         }
 
         tb.setCRS(crs);
-
         tb.setSRS("EPSG:28992");
         tb.setNamespaceURI((String) null);
         tb.setDescription(new SimpleInternationalString("RSGB 3.0 BGT " + gmlSchema.getTypeName()));
@@ -156,12 +155,12 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
         for (AttributeDescriptor att : gmlSchema.getAttributeDescriptors()) {
             gmlAttrLocalName = att.getLocalName();
             if (gmlAttrLocalName == null) {
-                LOG.warn("Null local name van attribuut " + att);
+                LOG.warn("'Null' local name van attribuut " + att);
                 gmlAttrLocalName = att.toString();
             }
             dbAttrName = attrMapping.get(gmlAttrLocalName);
 
-            // LOG.debug("aanmaken AttributeDescriptor voor: " + gmlAttrLocalName + " (wordt: " + gmlAttrLocalName + ")");
+            LOG.debug("aanmaken AttributeDescriptor voor: " + gmlAttrLocalName + " (wordt: " + dbAttrName + ")");
             if (dbAttrName != null) {
                 // hernoem attribuut als de db naam niet gelijk is aan gml naam
                 if (shouldUppercase) {
