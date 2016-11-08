@@ -22,6 +22,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import javax.xml.parsers.ParserConfigurationException;
 import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.BEGINTIJD_NAME;
@@ -172,47 +174,53 @@ public class BGTGMLLightLoader {
 
         int result = 0, total = 0;
         String eName = "";
-        try (ZipInputStream zip = new ZipInputStream(new FileInputStream(zipExtract))) {
-            ZipEntry entry = zip.getNextEntry();
-            if (entry == null) {
-                LOG.error("Geen bestanden in zipfile (" + zipExtract + ") gevonden.");
-            }
-            // for each gml in zip
-            while (entry != null) {
-                if (!entry.getName().toLowerCase().endsWith(".gml")) {
-                    LOG.warn("Overslaan zip entry geen GML bestand: " + entry.getName());
-                } else {
-                    eName = entry.getName();
-                    LOG.info("Lezen GML bestand: " + eName + " uit zip file: " + zipExtract.getCanonicalPath());
-                    result = storeFeatureCollection(new CloseShieldInputStream(zip), eName.toLowerCase());
-                    opmerkingen.append(result)
-                            .append(" features geladen uit: ")
-                            .append(eName).append(", zipfile: ")
-                            .append(zipExtract.getCanonicalPath())
-                            .append("\n");
-                    total += result;
+        if (this.isValidZipFile(zipExtract)) {
+            try (ZipInputStream zip = new ZipInputStream(new FileInputStream(zipExtract))) {
+                ZipEntry entry = zip.getNextEntry();
+                if (entry == null) {
+                    LOG.error("Geen bestanden in zipfile (" + zipExtract + ") gevonden.");
                 }
-                entry = zip.getNextEntry();
+                // for each gml in zip
+                while (entry != null) {
+                    if (!entry.getName().toLowerCase().endsWith(".gml")) {
+                        LOG.warn("Overslaan zip entry geen GML bestand: " + entry.getName());
+                    } else {
+                        eName = entry.getName();
+                        LOG.info("Lezen GML bestand: " + eName + " uit zip file: " + zipExtract.getCanonicalPath());
+                        result = storeFeatureCollection(new CloseShieldInputStream(zip), eName.toLowerCase());
+                        opmerkingen.append(result)
+                                .append(" features geladen uit: ")
+                                .append(eName).append(", zipfile: ")
+                                .append(zipExtract.getCanonicalPath())
+                                .append("\n");
+                        total += result;
+                    }
+                    entry = zip.getNextEntry();
+                }
+
+                if (this.loadingUpdate) {
+                    // nadat zipfile is geladen
+                    //                LOG.debug("omhullende van zipfile: " + omhullendeVanZipFile);
+                    //                LOG.debug("convex omhullende van zipfile(" + zipExtract + "): " + omhullendeVanZipFile.convexHull());
+                    //                LOG.debug("union omhullende van zipfile(" + zipExtract + "): " + omhullendeVanZipFile.union());
+
+                    // org.opensphere.geometry.algorithm.ConcaveHull, zie ook: pom.xml
+                    //ConcaveHull ch = new ConcaveHull(omhullendeVanZipFile, 1d);
+                    //LOG.debug("concave omhullende van zipfile(" + zipExtract + "): " + ch.getConcaveHull());
+                    // verwijderen van de onderliggend aan omhullendeVanZipFile, verouderde objecten in iedere tabel
+                    // self union lijkt vooranlog het beste masker te geven voor verwijderen
+                    deleteOldData(this.bijwerkDatum, omhullendeVanZipFile.union());
+                }
+            } catch (SAXException | ParserConfigurationException ex) {
+                LOG.error("Er is een parse fout opgetreden tijdens verwerken van " + eName + " uit " + zipExtract.getCanonicalPath(), ex);
+                opmerkingen.append("Er is een parse fout opgetreden tijdens verwerken van ").append(eName)
+                        .append(" Foutmelding: ").append(ex).append("\n");
+                this.status = STATUS.NOK;
             }
-
-            if (this.loadingUpdate) {
-                // nadat zipfile is geladen
-//                LOG.debug("omhullende van zipfile: " + omhullendeVanZipFile);
-//                LOG.debug("convex omhullende van zipfile(" + zipExtract + "): " + omhullendeVanZipFile.convexHull());
-//                LOG.debug("union omhullende van zipfile(" + zipExtract + "): " + omhullendeVanZipFile.union());
-
-                // org.opensphere.geometry.algorithm.ConcaveHull, zie ook: pom.xml
-                //ConcaveHull ch = new ConcaveHull(omhullendeVanZipFile, 1d);
-                //LOG.debug("concave omhullende van zipfile(" + zipExtract + "): " + ch.getConcaveHull());
-                // verwijderen van de onderliggend aan omhullendeVanZipFile, verouderde objecten in iedere tabel
-                // self union lijkt vooranlog het beste masker te geven voor verwijderen
-                deleteOldData(this.bijwerkDatum, omhullendeVanZipFile.union());
-            }
-
-        } catch (SAXException | ParserConfigurationException ex) {
-            LOG.error("Er is een parse fout opgetreden tijdens verwerken van " + eName + " uit " + zipExtract.getCanonicalPath(), ex);
-            opmerkingen.append("Er is een parse fout opgetreden tijdens verwerken van ").append(eName)
-                    .append(" Foutmelding: ").append(ex).append("\n");
+        } else {
+            LOG.error("Ongeldige of corrupte zipfile: " + zipExtract.getCanonicalPath());
+            opmerkingen.append("Ongeldige of corrupte zipfile: ").append(zipExtract.getCanonicalPath())
+                    .append("\nHet bestand kan niet verwerkt worden. Download het bestand opnieuw.");
             this.status = STATUS.NOK;
         }
         return total;
@@ -577,6 +585,57 @@ public class BGTGMLLightLoader {
         this.bijwerkDatum = bijwerkDatum;
     }
 
+    /**
+     * Test of de zipFile een geldige zipfile is.
+     *
+     * @param zipFile de te testen zipfile
+     * @return {@code true} als de zipfile OK is, aders {@code false}
+     */
+    public boolean isValidZipFile(final File file) {
+        ZipFile zipfile = null;
+        ZipInputStream zis = null;
+        String path = null;
+        try {
+            path = file.getCanonicalPath();
+            zipfile = new ZipFile(file, ZipFile.OPEN_READ);
+            zis = new ZipInputStream(new FileInputStream(file));
+            ZipEntry ze = zis.getNextEntry();
+            if (ze == null) {
+                return false;
+            }
+            while (ze != null) {
+                // als er een exception bij 1 van volgende optreed is het bestand corrupt
+                zipfile.getInputStream(ze);
+                ze.getCrc();
+                ze.getCompressedSize();
+                ze.getName();
+                ze = zis.getNextEntry();
+            }
+            return true;
+        } catch (IOException e) {
+            LOG.error("Ongeldige zipfile: " + path, e);
+            return false;
+        } finally {
+            try {
+                if (zipfile != null) {
+                    zipfile.close();
+                    zipfile = null;
+                }
+            } catch (IOException e) {
+                LOG.warn("Fout tijdens sluiten zipfile, mogelijk corrupt bestand: " + path, e);
+                // return false;
+            }
+            try {
+                if (zis != null) {
+                    zis.close();
+                    zis = null;
+                }
+            } catch (IOException e) {
+                LOG.warn("Fout tijdens sluiten zipstream, mogelijk corrupt bestand: " + path, e);
+                // return false;
+            }
+        }
+    }
     /**
      * Zipfile omhullende geometrie.
      *
