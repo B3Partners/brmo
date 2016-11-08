@@ -80,6 +80,21 @@
                                  'ONDERSTEUNEND', 'ODRSTEUN','i')" />
     </xsl:function>
 
+    <xsl:function name="db:addPKMetaData">
+        <xsl:param name="table"/>
+        <xsl:param name="column"/>
+        <xsl:param name="schema"/>
+
+        <xsl:text>INSERT INTO GT_PK_METADATA VALUES ('</xsl:text>
+        <xsl:value-of select="upper-case($schema)"/>
+        <xsl:text>', '</xsl:text>
+        <xsl:value-of select="upper-case($table)"/>
+        <xsl:text>', '</xsl:text>
+        <xsl:value-of select="upper-case(md:colName('ID_NAME'))" />
+        <xsl:text>', NULL, 'assigned', NULL);
+</xsl:text>
+    </xsl:function>
+
     <xsl:function name="db:addGeometryMetaData">
         <xsl:param name="table"/>
         <xsl:param name="column"/>
@@ -107,15 +122,6 @@
         <xsl:text>', 2, 28992,'</xsl:text>
         <xsl:value-of select="$gt-geom-types/geom[@rsgb=$type]/@db"/>
         <xsl:text>');
-</xsl:text>
-
-        <xsl:text>INSERT INTO GT_PK_METADATA VALUES ('</xsl:text>
-        <xsl:value-of select="upper-case($schema)"/>
-        <xsl:text>', '</xsl:text>
-        <xsl:value-of select="upper-case($table)"/>
-        <xsl:text>', '</xsl:text>
-        <xsl:value-of select="upper-case(md:colName('ID_NAME'))" />
-        <xsl:text>', NULL, 'assigned', NULL);
 </xsl:text>
 
         <xsl:text>CREATE INDEX </xsl:text>
@@ -159,6 +165,8 @@ CREATE TABLE GT_PK_METADATA (
     pk_policy VARCHAR2(32),
     pk_sequence VARCHAR2(64),
     CONSTRAINT  chk_pk_policy CHECK (pk_policy IN ('sequence', 'assigned', 'autoincrement')));
+
+CREATE UNIQUE INDEX gt_pk_metadata_table_idx01 ON GT_PK_METADATA (table_schema, table_name, pk_column);
 </xsl:text>
     </xsl:function>
 

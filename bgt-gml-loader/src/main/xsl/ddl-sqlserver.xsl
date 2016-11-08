@@ -56,6 +56,11 @@
         </xsl:text>
     </xsl:function>
 
+    <xsl:function name="db:addPKMetaData">
+        <xsl:param name="table"/>
+        <xsl:param name="column"/>
+        <xsl:param name="schema"/>
+    </xsl:function>
 
     <xsl:function name="db:addGeometryMetaData">
         <xsl:param name="table"/>

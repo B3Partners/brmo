@@ -78,6 +78,9 @@ CREATE TABLE </xsl:text>
 
 </xsl:text>
 
+        <!-- PK metadata -->
+        <xsl:value-of select="db:addPKMetaData($tableName, md:colName(@sqlname), $schema)"/>
+
         <!-- geometrie metadata en geom.indexen -->
         <xsl:for-each select="attribuut">
             <xsl:if test="(fn:contains($geometryTypes,@sqltype))">
