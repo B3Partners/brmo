@@ -47,9 +47,9 @@ INSERT INTO geometry_columns (F_TABLE_SCHEMA, F_TABLE_NAME, F_GEOMETRY_COLUMN, C
 --INSERT INTO gt_pk_metadata VALUES ('BRMO_RSGB', 'VM_P8_KADASTRAAL_PERCEEL_AANT', 'GEEN PK KOLOM', NULL, 'assigned', NULL);
 
 
--- V_P8_KADASTRAAL_PERCEEL_RECHT heeft geen PK kolom en geen geometrie
---INSERT INTO gt_pk_metadata VALUES ('BRMO_RSGB', 'V_P8_KADASTRAAL_PERCEEL_RECHT', 'GEEN PK KOLOM', NULL, 'assigned', NULL);
---INSERT INTO gt_pk_metadata VALUES ('BRMO_RSGB', 'VM_P8_KADASTRAAL_PERCEEL_RECHT', 'GEEN PK KOLOM', NULL, 'assigned', NULL);
+-- V_P8_KADASTRAAL_PERCEEL_RECHT heeft geen PK kolom, maar gebruikt ROWNUM en geen geometrie
+INSERT INTO gt_pk_metadata VALUES ('BRMO_RSGB', 'V_P8_KADASTRAAL_PERCEEL_RECHT', 'OID', NULL, 'assigned', NULL);
+INSERT INTO gt_pk_metadata VALUES ('BRMO_RSGB', 'VM_P8_KADASTRAAL_PERCEEL_RECHT', 'OID', NULL, 'assigned', NULL);
 
 
 -- V_P8_SUBJECT heeft geen PK kolom en geen geometrie, waarschijnlijk is SUBJECTID te gebruiken als PK
