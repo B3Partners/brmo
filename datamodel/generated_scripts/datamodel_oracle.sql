@@ -1,7 +1,7 @@
 --
 -- BRMO RSGB script voor oracle
--- Applicatie versie: 1.4.0-SNAPSHOT
--- Gegenereerd op 2016-11-08T15:35:31.651+01:00
+-- Applicatie versie: 1.4.1-SNAPSHOT
+-- Gegenereerd op 2016-11-11T16:31:50.552+01:00
 --
 
 

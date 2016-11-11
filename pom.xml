@@ -6,7 +6,7 @@
     <version>1.4.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>datamodel</module>
+        <!--module>datamodel</module -->
         <module>brmo-persistence</module>
         <module>brmo-loader</module>
         <module>bgt-gml-loader</module>
