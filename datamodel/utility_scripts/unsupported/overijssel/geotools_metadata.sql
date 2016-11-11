@@ -53,8 +53,8 @@ INSERT INTO gt_pk_metadata VALUES ('BRMO_RSGB', 'VM_P8_KADASTRAAL_PERCEEL_RECHT'
 
 
 -- V_P8_SUBJECT heeft geen PK kolom en geen geometrie, waarschijnlijk is SUBJECTID te gebruiken als PK
---INSERT INTO gt_pk_metadata VALUES ('BRMO_RSGB', 'V_P8_SUBJECT', 'SUBJECTID', NULL, 'assigned', NULL);
---INSERT INTO gt_pk_metadata VALUES ('BRMO_RSGB', 'VM_P8_SUBJECT', 'SUBJECTID', NULL, 'assigned', NULL);
+INSERT INTO gt_pk_metadata VALUES ('BRMO_RSGB', 'V_P8_SUBJECT', 'SUBJECTID', NULL, 'assigned', NULL);
+INSERT INTO gt_pk_metadata VALUES ('BRMO_RSGB', 'VM_P8_SUBJECT', 'SUBJECTID', NULL, 'assigned', NULL);
 
 
 -- V_P8_SUBJECT_PERCELEN heeft geen PK kolom, maar gebruikt ROWNUM
