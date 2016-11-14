@@ -29,6 +29,11 @@ CREATE TABLE geometry_columns (
   );
 COMMENT ON TABLE GEOMETRY_COLUMNS IS 'Geometry metadata tabel ten behoeve van Geoserver/Geotools';
 
+-- tabellen wissen
+DELETE FROM geometry_columns WHERE F_TABLE_SCHEMA='BRMO_RSGB' AND F_TABLE_NAME LIKE 'V_P8_%' OR F_TABLE_NAME LIKE 'VM_P8_%';
+DELETE FROM GT_PK_METADATA WHERE TABLE_SCHEMA='BRMO_RSGB' AND TABLE_NAME LIKE 'V_P8_%' OR TABLE_NAME LIKE 'VM_P8_%';
+
+
 
 -- V_P8_KAD_PERCEEL_OVER_IN heeft geen PK kolom, maar gebruikt ROWNUM en geen geometrie
 INSERT INTO gt_pk_metadata VALUES ('BRMO_RSGB', 'V_P8_KAD_PERCEEL_OVER_IN', 'OID', NULL, 'assigned', NULL);
