@@ -30,9 +30,9 @@ CREATE TABLE geometry_columns (
 COMMENT ON TABLE GEOMETRY_COLUMNS IS 'Geometry metadata tabel ten behoeve van Geoserver/Geotools';
 
 
--- V_P8_KAD_PERCEEL_OVER_IN heeft geen PK kolom en geen geometrie
---INSERT INTO gt_pk_metadata VALUES ('BRMO_RSGB', 'V_P8_KAD_PERCEEL_OVER_IN', 'GEEN PK KOLOM', NULL, 'assigned', NULL);
---INSERT INTO gt_pk_metadata VALUES ('BRMO_RSGB', 'VM_P8_KAD_PERCEEL_OVER_IN', 'GEEN PK KOLOM', NULL, 'assigned', NULL);
+-- V_P8_KAD_PERCEEL_OVER_IN heeft geen PK kolom, maar gebruikt ROWNUM en geen geometrie
+INSERT INTO gt_pk_metadata VALUES ('BRMO_RSGB', 'V_P8_KAD_PERCEEL_OVER_IN', 'OID', NULL, 'assigned', NULL);
+INSERT INTO gt_pk_metadata VALUES ('BRMO_RSGB', 'VM_P8_KAD_PERCEEL_OVER_IN', 'OID', NULL, 'assigned', NULL);
 
 
 -- V_P8_KADASTRAAL_PERCEEL heeft unieke KADPERCEELCODE kolom
