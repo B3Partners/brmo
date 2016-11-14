@@ -13,7 +13,7 @@ CREATE OR REPLACE VIEW v_p8_subject_percelen
     COALESCE(TO_CHAR(aandeel_teller),'')
     || '/'
     || COALESCE(TO_CHAR(aandeel_noemer),'') AS aandeel,
-    z.rechtsvorm                            AS rechtsoort,
+    z.arv_omschr                            AS rechtsoort,
     f_datum(p.dat_beg_geldh)                AS datum_ingang,
     f_datum(p.datum_einde_geldh)            AS datum_eind
   FROM pv_info_i_koz_zak_recht z
@@ -55,28 +55,10 @@ INSERT
     );
 
 --indexen
-  CREATE UNIQUE INDEX vm_p8_subject_perc_oid_idx ON vm_p8_subject_percelen
-    (
-      oid ASC
-    );
-  CREATE INDEX vm_p8_subject_perc_sid_idx ON vm_p8_subject_percelen
-    (
-      subjectid ASC
-    );
-  CREATE INDEX vm_p8_subject_perc_kpcode_idx ON vm_p8_subject_percelen
-    (
-      kadperceelcode ASC
-    );
-  CREATE INDEX vm_p8_subject_perc_sectie_idx ON vm_p8_subject_percelen
-    (
-      sectie ASC
-    );
-  CREATE INDEX vm_p8_subject_perc_pnr_idx ON vm_p8_subject_percelen
-    (
-      perceelnummer ASC
-    );
-  CREATE INDEX vm_p8_subject_perc_geom_idx ON vm_p8_subject_percelen
-    (
-      geom
-    )
-    INDEXTYPE IS MDSYS.SPATIAL_INDEX PARAMETERS ( 'LAYER_GTYPE=MULTIPOLYGON' );
+CREATE UNIQUE INDEX vm_p8_subject_perc_oid_idx ON vm_p8_subject_percelen( oid ASC );
+CREATE INDEX vm_p8_subject_perc_sid_idx ON vm_p8_subject_percelen( subjectid ASC );
+CREATE INDEX vm_p8_subject_perc_kpcode_idx ON vm_p8_subject_percelen( kadperceelcode ASC );
+CREATE INDEX vm_p8_subject_perc_sectie_idx ON vm_p8_subject_percelen( sectie ASC );
+CREATE INDEX vm_p8_subject_perc_pnr_idx ON vm_p8_subject_percelen( perceelnummer ASC );
+CREATE INDEX vm_p8_subject_perc_geom_idx ON vm_p8_subject_percelen( geom )
+  INDEXTYPE IS MDSYS.SPATIAL_INDEX PARAMETERS ( 'LAYER_GTYPE=MULTIPOLYGON' );
