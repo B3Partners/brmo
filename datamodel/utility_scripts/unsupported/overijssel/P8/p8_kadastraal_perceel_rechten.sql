@@ -18,8 +18,8 @@ SELECT
     trim(SUBSTR(woonadres, LENGTH(woonadres)-instr(reverse(woonadres),' ')+1,LENGTH(woonadres))) AS subject_woonplaats,
     COALESCE(TO_CHAR(aandeel_teller),'') || '/' || COALESCE(TO_CHAR(aandeel_noemer),'')          AS aandeel,
     arv_omschr                                                                                   AS recht_soort,
-    CAST( ingangsdatum_recht AS DATE)                                                            AS datum_ingang,
-    CAST(eindd_recht AS DATE)                                                                    AS datum_eind
+    F_DATUM (ingangsdatum_recht)                                                                 AS datum_ingang,
+    F_DATUM (eindd_recht)                                                                        AS datum_eind
 FROM
     pv_map_i_kpe map
 INNER JOIN

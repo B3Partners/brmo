@@ -11,9 +11,9 @@ CREATE OR REPLACE VIEW v_p8_subject
       WHEN 
         np.clazz = 'INGESCHREVEN NATUURLIJK PERSOON'
       THEN 
-        INP.GB_GEBOORTEDATUM
+        F_DATUM (INP.GB_GEBOORTEDATUM)
       ELSE 
-        ANP.GEBOORTEDATUM
+        F_DATUM (ANP.GEBOORTEDATUM)
     END)                            AS natuurlijk_subj_geboorte_datum,
     inp.gb_geboorteplaats           AS natuurlijk_subj_geboorteplaats,
     CAST('' AS VARCHAR(200))        AS natuurlijk_subj_geboorte_land,
@@ -21,9 +21,9 @@ CREATE OR REPLACE VIEW v_p8_subject
       WHEN 
         np.clazz = 'INGESCHREVEN NATUURLIJK PERSOON'
       THEN 
-        inp.ol_overlijdensdatum
+        F_DATUM (inp.ol_overlijdensdatum)
       ELSE 
-        anp.overlijdensdatum
+        F_DATUM (anp.overlijdensdatum)
     END)                            AS natuurlijk_subj_overl_datum,
     (CASE
       WHEN 

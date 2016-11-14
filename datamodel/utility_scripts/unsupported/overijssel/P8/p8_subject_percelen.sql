@@ -14,8 +14,8 @@ CREATE OR REPLACE VIEW v_p8_subject_percelen
     || '/'
     || COALESCE(TO_CHAR(aandeel_noemer),'') AS aandeel,
     z.arv_omschr                            AS rechtsoort,
-    f_datum(p.dat_beg_geldh)                AS datum_ingang,
-    f_datum(p.datum_einde_geldh)            AS datum_eind
+    F_DATUM(p.dat_beg_geldh)                AS datum_ingang,
+    F_DATUM(p.datum_einde_geldh)            AS datum_eind
   FROM pv_info_i_koz_zak_recht z
   LEFT JOIN pv_map_i_kpe p
   ON p.sc_kad_identif = z.koz_identif;

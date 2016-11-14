@@ -11,8 +11,8 @@ CREATE OR REPLACE VIEW v_p8_kadastraal_perceel_aant
       THEN 'Appartementsrecht'
       ELSE 'Perceel'
     END                                    AS aantekening_recht_type , --> 'Perceel','Appartementsrecht'
-    f_datum(AANT.BEGINDATUM_AANTEK_RECHT ) AS datum_ingang,
-    f_datum(aant.eindd_aantek_recht)       AS datum_eind,
+    F_DATUM (AANT.BEGINDATUM_AANTEK_RECHT) AS datum_ingang,
+    F_DATUM (aant.eindd_aantek_recht)      AS datum_eind,
     CASE
       WHEN LENGTH(COALESCE(naam_niet_natuurlijk_persoon,''))>0
       THEN naam_niet_natuurlijk_persoon

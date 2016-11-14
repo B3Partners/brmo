@@ -9,8 +9,8 @@ CREATE OR REPLACE VIEW v_p8_kad_perceel_over_in
     h.aard                         AS aard_overgang,
     h.overgangsgrootte             AS overgangsgrootte,
     -- onroerende zaak
-    f_datum(kaz.dat_beg_geldh)     AS datum_ingang,
-    f_datum(kaz.datum_einde_geldh) AS datum_einde,
+    F_DATUM (kaz.dat_beg_geldh)    AS datum_ingang,
+    F_DATUM (kaz.datum_einde_geldh)AS datum_einde,
     -- perceel info van actuele perceel
     ka.ka_kad_gemeentecode         AS gemeente_code,
     ka.ka_sectie                   AS sectie,
@@ -42,10 +42,10 @@ CREATE OR REPLACE VIEW v_p8_kad_perceel_over_in
   
   COMMENT ON COLUMN v_p8_kad_perceel_over_in.kadperceelcode_over_in_crit
 IS
-  'zoek veld voor bepalen waarin is overgegaan';
+  'zoek veld voor bepalen waarin is overgegaan - wordt';
   COMMENT ON COLUMN v_p8_kad_perceel_over_in.kadperceelcode_ontstaan_crit
 IS
-  'zoek veld voor bepalen waaruit is ontstaan';
+  'zoek veld voor bepalen waaruit is ontstaan - was';
   COMMENT ON TABLE v_p8_kad_perceel_over_in
 IS
   'overgaan in en ontstaan uit bevragen met kad.identif op betreffende kolom [..over_in_crit | ..ontstaan_crit] levert records met relatie in tegeonoverliggende kolom';
