@@ -181,7 +181,11 @@ set define off;
 </xsl:text>
 			<xsl:value-of select="unparsed-text(concat('extra_scripts/',$dbtype,'/',.))"/>
 		</xsl:for-each>
+		
+		<xsl:call-template name="insert-versienummer"/>
+		
 	</xsl:template>
+	
 	<!-- Context: None -->
 	<!-- Maak van een node-list een comma separated string. Optioneel wordt de string geëscaped -->
 	<!-- Param node-list: de node-list om gecommasepareert te worden (verplicht)-->
@@ -204,5 +208,13 @@ set define off;
 				</xsl:if>
 			</xsl:for-each>
 		</xsl:value-of>
+	</xsl:template>
+
+	<xsl:template name="insert-versienummer">
+		<xsl:text>
+-- brmo rsgb versienummer
+
+INSERT INTO brmo_metadata (naam, waarde) VALUES ('versie','</xsl:text><xsl:value-of select="$versie"/><xsl:text>');
+</xsl:text>
 	</xsl:template>
 </xsl:stylesheet>

@@ -45,7 +45,7 @@
 				<script>114_drop_constraints.sql</script>
 				<script>115_nhr.sql</script>
 				<script>116_brk_extra_indices.sql</script>
-				<script>117_versinummer.sql</script>
+				<script>117_versienummer.sql</script>
 			</extra-scripts>
 		</schema>
 	</xsl:template>
@@ -643,5 +643,4 @@
 		</xsl:variable>
 		<xsl:value-of select="$type"/>
 	</xsl:function>
-	
 </xsl:stylesheet>
