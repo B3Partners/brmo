@@ -6,13 +6,18 @@
         xmlns:gmd="http://www.isotc211.org/2005/gmd"
         targetNamespace="http://www.opengis.net/gml/3.2"
         elementFormDefault="qualified"
-        version="3.2.1">
+        version="3.2.1.2">
    <import namespace="http://www.isotc211.org/2005/gmd"
            schemaLocation="gmd_resolved.xsd"/>
    <import namespace="http://www.w3.org/1999/xlink"
-           schemaLocation="xlinks_resolved.xsd"/>
+           schemaLocation="xlink_resolved.xsd"/>
 	  <annotation>
 		    <appinfo source="urn:x-ogc:specification:gml:schema-xsd:gml:3.2.1">gml.xsd</appinfo>
+		    <documentation>
+			GML is an OGC Standard.
+			Copyright (c) 2007,2010 Open Geospatial Consortium.
+			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
 	  <!-- ====================================================================== -->
 	
@@ -28,8 +33,14 @@
 		    <appinfo source="urn:x-ogc:specification:gml:schema-xsd:dynamicFeature:3.2.1">dynamicFeature.xsd</appinfo>
 		    <documentation>See ISO/DIS 19136 15.6.
 A number of types and relationships are defined to represent the time-varying properties of geographic features. 
-In a comprehensive treatment of spatiotemporal modeling, Langran (see Bibliography) distinguished three principal temporal entities: states, events, and evidence; the schema specified in the following Subclauses incorporates elements for each.</documentation>
+In a comprehensive treatment of spatiotemporal modeling, Langran (see Bibliography) distinguished three principal temporal entities: states, events, and evidence; the schema specified in the following Subclauses incorporates elements for each.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	
 	  <element name="dataSource" type="gml:StringOrRefType">
@@ -137,9 +148,15 @@ The gml:history element contains a set of elements in the substitution group hea
 		    <documentation>See ISO/DIS 19136 Clause 14.
 Topology is the branch of mathematics describing the properties of objects which are invariant under continuous deformation. For example, a circle is topologically equivalent to an ellipse because one can be transformed into the other by stretching. In geographic modelling, the foremost use of topology is in accelerating computational geometry. The constructs of topology allow characterisation of the spatial relationships between objects using simple combinatorial or algebraic algorithms. Topology, realised by the appropriate geometry, also allows a compact and unambiguous mechanism for expressing shared geometry among geographic features.
 There are four instantiable classes of primitive topology objects, one for each dimension up to 3D. In addition, topological complexes are supported, too. 
-There is strong symmetry in the (topological boundary and coboundary) relationships between topology primitives of adjacent dimensions. Topology primitives are bounded by directed primitives of one lower dimension. The coboundary of each topology primitive is formed from directed topology primitives of one higher dimension.</documentation>
+There is strong symmetry in the (topological boundary and coboundary) relationships between topology primitives of adjacent dimensions. Topology primitives are bounded by directed primitives of one lower dimension. The coboundary of each topology primitive is formed from directed topology primitives of one higher dimension.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
-	
+  
+  
   <complexType name="AbstractTopologyType" abstract="true">
       <annotation>
          <documentation>This abstract type supplies the root or base type for all topological elements including primitives and complexes. It inherits AbstractGMLType and hence can be identified using the gml:id attribute.</documentation>
@@ -541,9 +558,14 @@ A topology complex contains its primitive and sub-complex members.
 A coverage incorporates a mapping from a spatiotemporal domain to a range set, the latter providing the set in which the attribute values live.  The range set may be an arbitrary set including discrete lists, integer or floating point ranges, and multi-dimensional vector spaces.
 A coverage can be viewed as the graph of the coverage function f:A à B, that is as the set of ordered pairs {(x, f(x)) | where x is in A}. This view is especially applicable to the GML encoding of a coverage.  In the case of a discrete coverage, the domain set A is partitioned into a collection of subsets (typically a disjoint collection) A = UAi and the function f is constant on each Ai. For a spatial domain, the Ai are geometry elements, hence the coverage can be viewed as a collection of (geometry,value) pairs, where the value is an element of the range set.  If the spatial domain A is a topological space then the coverage can be viewed as a collection of (topology,value) pairs, where the topology element in the pair is a topological n-chain (in GML terms this is a gml:TopoPoint, gml:TopoCurve, gml:TopoSurface or gml:TopoSolid). 
 A coverage is implemented as a GML feature. We can thus speak of a "temperature distribution feature", or a "remotely sensed image feature", or a "soil distribution feature".
-As is the case for any GML object, a coverage object may also be the value of a property of a feature.  
-</documentation>
+As is the case for any GML object, a coverage object may also be the value of a property of a feature.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	
 	
@@ -855,8 +877,14 @@ The simple gridded coverage is not geometrically referenced and hence no geometr
 		    <appinfo source="urn:x-ogc:specification:gml:schema-xsd:coordinateReferenceSystems:3.2.1">coordinateReferenceSystems.xsd</appinfo>
 		    <documentation>See ISO/DIS 19136 13.3.
 The spatial-temporal coordinate reference systems schema components are divided into two logical parts. One part defines elements and types for XML encoding of abstract coordinate reference systems definitions. The larger part defines specialized constructs for XML encoding of definitions of the multiple concrete types of spatial-temporal coordinate reference systems.
-These schema components encode the Coordinate Reference System packages of the UML Models of ISO 19111 Clause 8 and ISO/DIS 19136 D.3.10, with the exception of the abstract "SC_CRS" class.</documentation>
+These schema components encode the Coordinate Reference System packages of the UML Models of ISO 19111 Clause 8 and ISO/DIS 19136 D.3.10, with the exception of the abstract "SC_CRS" class.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	
 	
@@ -1245,8 +1273,13 @@ These schema components encode the Coordinate Reference System packages of the U
 		    <documentation>See ISO/DIS 19136 Clause 19.
 A GML observation models the act of observing, often with a camera, a person or some form of instrument.  An observation feature describes the "metadata" associated with an information capture event, together with a value for the result of the observation.  This covers a broad range of cases, from a tourist photo (not the photo but the act of taking the photo), to images acquired by space borne sensors or the measurement of a temperature 5 meters below the surfaces of a lake.
 The basic structures introduced in this schema are intended to serve as the foundation for more comprehensive schemas for scientific, technical and engineering measurement schemas.
-</documentation>
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	
 	
@@ -1340,8 +1373,14 @@ The gml:resultOf property indicates the result of the observation.  The value ma
 		    <appinfo source="urn:x-ogc:specification:gml:schema-xsd:temporalReferenceSystems:3.2.1">temporalReferenceSystems.xsd</appinfo>
 		    <documentation>See ISO/DIS 19136 15.5.
 A value in the time domain is measured relative to a temporal reference system. Common types of reference systems include calendars, ordinal temporal reference systems, and temporal coordinate systems (time elapsed since some epoch).  The primary temporal reference system for use with geographic information is the Gregorian Calendar and 24 hour local or Coordinated Universal Time (UTC), but special applications may entail the use of alternative reference systems.  The Julian day numbering system is a temporal coordinate system that has an origin earlier than any known calendar, at noon on 1 January 4713 BC in the Julian proleptic calendar, and is useful in transformations between dates in different calendars.    
-In GML seven concrete elements are used to describe temporal reference systems: gml:TimeReferenceSystem, gml:TimeCoordinateSystem, gml:TimeCalendar, gml:TimeCalendarEra, gml:TimeClock, gml:TimeOrdinalReferenceSystem, and gml:TimeOrdinalEra.</documentation>
+In GML seven concrete elements are used to describe temporal reference systems: gml:TimeReferenceSystem, gml:TimeCoordinateSystem, gml:TimeCalendar, gml:TimeCalendarEra, gml:TimeClock, gml:TimeOrdinalReferenceSystem, and gml:TimeOrdinalEra.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	
 	  <element name="TimeReferenceSystem"
@@ -1542,7 +1581,12 @@ The recursive inclusion of gml:TimeOrdinalEra elements allow the construction of
 
 	  <annotation>
 		    <appinfo source="urn:x-ogc:specification:gml:schema-xsd:deprecatedTypes:3.2.1">deprecatedTypes.xsd</appinfo>
-		    <documentation>All global schema components that are part of the GML schema, but were deprecated. See Annex I.</documentation>
+		    <documentation>All global schema components that are part of the GML schema, but were deprecated. See Annex I.
+			
+			GML is an OGC Standard.
+			Copyright (c) 2007,2010 Open Geospatial Consortium.
+			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
 	
 	  <element name="Null" type="gml:NilReasonType">
@@ -2784,8 +2828,14 @@ The recursive inclusion of gml:TimeOrdinalEra elements allow the construction of
 	  <annotation>
 		    <appinfo source="urn:x-ogc:specification:gml:schema-xsd:feature:3.2.1">feature.xsd</appinfo>
 		    <documentation>See ISO/DIS 19136 Clause 9.
-A GML feature is a (representation of a) identifiable real-world object in a selected domain of discourse. The feature schema provides a framework for the creation of GML features and feature collections.</documentation>
+A GML feature is a (representation of a) identifiable real-world object in a selected domain of discourse. The feature schema provides a framework for the creation of GML features and feature collections.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	
 	  <complexType name="AbstractFeatureType" abstract="true">
@@ -2875,8 +2925,14 @@ By default, this abstract property type does not imply any ownership of the feat
 	  <annotation>
 		    <appinfo source="urn:x-ogc:specification:gml:schema-xsd:direction:3.2.1">direction.xsd</appinfo>
 		    <documentation>See ISO/DIS 19136 Clause 18.
-The direction schema components provide the GML Application Schema developer with a standard property element to describe direction, and associated objects that may be used to express orientation, direction, heading, bearing or other directional aspects of geographic features. </documentation>
+The direction schema components provide the GML Application Schema developer with a standard property element to describe direction, and associated objects that may be used to express orientation, direction, heading, bearing or other directional aspects of geographic features.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	  <element name="direction" type="gml:DirectionPropertyType">
 		    <annotation>
@@ -2954,8 +3010,14 @@ if the direction is decribed in prose, gml:direction or gml:reference should be 
 Geometric complexes (i.e. instances of gml:GeometricComplexType) are closed collections of geometric primitives, i.e. they will contain their boundaries. 
 A geometric complex (gml:GeometricComplex) is defined by ISO 19107:2003, 6.6.1 as "a set of primitive geometric objects (in a common coordinate system) whose interiors are disjoint. Further, if a primitive is in a geometric complex, then there exists a set of primitives in that complex whose point-wise union is the boundary of this first primitive."
 A geometric composite (gml:CompositeCurve, gml:CompositeSurface and gml:CompositeSolid) represents a geometric complex with an underlying core geometry that is isomorphic to a primitive, i.e. it can be viewed as a primitive and as a complex. See ISO 19107:2003, 6.1 and 6.6.3 for more details on the nature of composite geometries.
-Geometric complexes and composites are intended to be used in application schemas where the sharing of geometry is important.</documentation>
+Geometric complexes and composites are intended to be used in application schemas where the sharing of geometry is important.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	  <complexType name="GeometricComplexType">
 		    <complexContent>
@@ -3056,8 +3118,14 @@ The value objects are defined in a hierarchy. The following relationships are de
 -	Concrete element gml:ValueArray is substitutable for the concrete element gml:CompositeValue.  
 -	Abstract elements gml:AbstractScalarValue and gml:AbstractScalarValueList, and concrete elements gml:CompositeValue, gml:ValueExtent, gml:CategoryExtent, gml:CountExtent and gml:QuantityExtent are substitutable for abstract element gml:AbstractValue.  
 -	Abstract elements gml:AbstractValue, gml:AbstractTimeObject and gml:AbstractGeometry are all in a choice group named gml:Value, which is used for compositing in gml:CompositeValue and gml:ValueExtent.  
--	Schemas which need values may use the abstract element gml:AbstractValue in a content model in order to permit any of the gml:AbstractScalarValues, gml:AbstractScalarValueLists, gml:CompositeValue or gml:ValueExtent to occur in an instance, or the named group gml:Value to also permit gml:AbstractTimeObjects, gml:AbstractGeometrys.  </documentation>
+-	Schemas which need values may use the abstract element gml:AbstractValue in a content model in order to permit any of the gml:AbstractScalarValues, gml:AbstractScalarValueLists, gml:CompositeValue or gml:ValueExtent to occur in an instance, or the named group gml:Value to also permit gml:AbstractTimeObjects, gml:AbstractGeometrys.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	
 	  <element name="Boolean"
@@ -3281,8 +3349,14 @@ ValueArray has the same content model as CompositeValue, but the member values s
 		    <appinfo source="urn:x-ogc:specification:gml:schema-xsd:grids:3.2.1">grids.xsd</appinfo>
 		    <documentation>See ISO/DIS 19136 20.2.
 An implicit description of geometry is one in which the items of the geometry do not explicitly appear in the encoding.  Instead, a compact notation records a set of parameters, and a set of objects may be generated using a rule with these parameters.  This Clause provides grid geometries that are used in the description of gridded coverages and other applications.
-In GML two grid structures are defined, namely gml:Grid and gml:RectifiedGrid.</documentation>
+In GML two grid structures are defined, namely gml:Grid and gml:RectifiedGrid.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	  <element name="Grid"
             type="gml:GridType"
@@ -3343,8 +3417,14 @@ Note that the grid limits (post indexes) and axis name properties are inherited 
 	  <annotation>
 		    <appinfo source="urn:x-ogc:specification:gml:schema-xsd:geometryAggregates:3.2.1">geometryAggregates.xsd</appinfo>
 		    <documentation>See ISO/DIS 19136 12.3.
-Geometric aggregates (i.e. instances of a subtype of gml:AbstractGeometricAggregateType) are arbitrary aggregations of geometry elements. They are not assumed to have any additional internal structure and are used to "collect" pieces of geometry of a specified type. Application schemas may use aggregates for features that use multiple geometric objects in their representations.</documentation>
+Geometric aggregates (i.e. instances of a subtype of gml:AbstractGeometricAggregateType) are arbitrary aggregations of geometry elements. They are not assumed to have any additional internal structure and are used to "collect" pieces of geometry of a specified type. Application schemas may use aggregates for features that use multiple geometric objects in their representations.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	  <complexType name="AbstractGeometricAggregateType" abstract="true">
 		    <complexContent>
@@ -3549,8 +3629,14 @@ The coordinate systems schema components can be divded into  three logical parts
 -	Coordinate system axes
 -	Abstract coordinate system
 -	Multiple concrete types of spatial-temporal coordinate systems
-These schema components encode the Coordinate System packages of the UML Models of ISO 19111 Clause 9 and ISO/DIS 19136 D.3.10.</documentation>
+These schema components encode the Coordinate System packages of the UML Models of ISO 19111 Clause 9 and ISO/DIS 19136 D.3.10.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	  <element name="CoordinateSystemAxis"
             type="gml:CoordinateSystemAxisType"
@@ -3863,8 +3949,14 @@ The datums schema components can be divided into three logical parts, which defi
 -	Abstract datum
 -	Geodetic datums, including ellipsoid and prime meridian
 -	Multiple other concrete types of spatial or temporal datums
-These schema components encode the Datum packages of the UML Models of ISO 19111 Clause 10 and ISO/DIS 19136 D.3.10.</documentation>
+These schema components encode the Datum packages of the UML Models of ISO 19111 Clause 10 and ISO/DIS 19136 D.3.10.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	
 	  <element name="AbstractDatum"
@@ -4158,8 +4250,14 @@ The spatial or temporal coordinate operations schema components can be divided i
 -	Abstract and concrete parameter values and groups
 -	Operation methods
 -	Abstract and concrete operation parameters and groups
-These schema component encodes the Coordinate Operation package of the UML Model for ISO 19111 Clause 11.</documentation>
+These schema component encodes the Coordinate Operation package of the UML Model for ISO 19111 Clause 11.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	
 	
@@ -4709,8 +4807,14 @@ The generalOperationParameter elements are an unordered list of associations to 
 	  <annotation>
 		    <appinfo source="urn:x-ogc:specification:gml:schema-xsd:temporalTopology:3.2.1">temporalTopology.xsd</appinfo>
 		    <documentation>See ISO/DIS 19136 15.3.
-Temporal topology is described in terms of time complexes, nodes, and edges, and the connectivity between these. Temporal topology does not directly provide information about temporal position. It is used in the case of describing a lineage or a history (e.g. a family tree expressing evolution of species, an ecological cycle, a lineage of lands or buildings, or a history of separation and merger of administrative boundaries). The following Subclauses specifies the temporal topology as temporal characteristics of features in compliance with ISO 19108.</documentation>
+Temporal topology is described in terms of time complexes, nodes, and edges, and the connectivity between these. Temporal topology does not directly provide information about temporal position. It is used in the case of describing a lineage or a history (e.g. a family tree expressing evolution of species, an ecological cycle, a lineage of lands or buildings, or a history of separation and merger of administrative boundaries). The following Subclauses specifies the temporal topology as temporal characteristics of features in compliance with ISO 19108.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	  <element name="AbstractTimeTopologyPrimitive"
             type="gml:AbstractTimeTopologyPrimitiveType"
@@ -4843,8 +4947,14 @@ Alternatively, it may be convenient or necessary to capture definitions in XML, 
 -	a generic gml:Definition, which may serve as the basis for more specialized definitions
 -	a generic gml:Dictionary, which allows a set of definitions or references to definitions to be collected 
 These components may be used directly, but also serve as the basis for more specialised definition elements in GML, in particular: coordinate operations, coordinate reference systems, datums, temporal reference systems, and units of measure.  
-Note that the GML definition and dictionary components implement a simple nested hierarchy of definitions with identifiers. The latter provide handles which may be used in the description of more complex relationships between terms. However, the GML dictionary components are not intended to provide direct support for complex taxonomies, ontologies or thesauri.  Specialised XML tools are available to satisfy the more sophisticated requirements. </documentation>
+Note that the GML definition and dictionary components implement a simple nested hierarchy of definitions with identifiers. The latter provide handles which may be used in the description of more complex relationships between terms. However, the GML dictionary components are not intended to provide direct support for complex taxonomies, ontologies or thesauri.  Specialised XML tools are available to satisfy the more sophisticated requirements.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	  <element name="Definition"
             type="gml:DefinitionType"
@@ -4924,8 +5034,14 @@ Note that if the value is provided by reference, this definition does not carry 
 The GML temporal schemas include components for describing temporal geometry and topology, temporal reference systems, and the temporal characteristics of geographic data. The model underlying the representation constitutes a profile of the conceptual schema described in ISO 19108. The underlying spatiotemporal model strives to accommodate both feature-level and attribute-level time stamping; basic support for tracking moving objects is also included. 
 Time is measured on two types of scales: interval and ordinal.  An interval scale offers a basis for measuring duration, an ordinal scale provides information only about relative position in time.
 Two other ISO standards are relevant to describing temporal objects:  ISO 8601 describes encodings for time instants and time periods, as text strings with particular structure and punctuation; ISO 11404 provides a detailed description of time intervals as part of a general discussion of language independent datatypes.  
-The temporal schemas cover two interrelated topics and provide basic schema components for representing temporal instants and periods, temporal topology, and reference systems; more specialized schema components defines components used for dynamic features. Instances of temporal geometric types are used as values for the temporal properties of geographic features. </documentation>
+The temporal schemas cover two interrelated topics and provide basic schema components for representing temporal instants and periods, temporal topology, and reference systems; more specialized schema components defines components used for dynamic features. Instances of temporal geometric types are used as values for the temporal properties of geographic features.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	  <element name="AbstractTimeObject"
             type="gml:AbstractTimeObjectType"
@@ -5204,8 +5320,14 @@ The value of the unit is either selected from the units for time intervals from 
 Any geometry element that inherits the semantics of AbstractGeometryType may be viewed as a set of direct positions. 
 All of the classes derived from AbstractGeometryType inherit an optional association to a coordinate reference system. All direct positions shall directly or indirectly be associated with a coordinate reference system. When geometry elements are aggregated in another geometry element (such as a MultiGeometry or GeometricComplex), which already has a coordinate reference system specified, then these elements are assumed to be in that same coordinate reference system unless otherwise specified.
 The geometry model distinguishes geometric primitives, aggregates and complexes. 
-Geometric primitives, i.e. instances of a subtype of AbstractGeometricPrimitiveType, will be open, that is, they will not contain their boundary points; curves will not contain their end points, surfaces will not contain their boundary curves, and solids will not contain their bounding surfaces.</documentation>
+Geometric primitives, i.e. instances of a subtype of AbstractGeometricPrimitiveType, will be open, that is, they will not contain their boundary points; curves will not contain their end points, surfaces will not contain their boundary curves, and solids will not contain their bounding surfaces.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	  <complexType name="AbstractGeometryType" abstract="true">
 		    <annotation>
@@ -5486,8 +5608,13 @@ The use of the properties "coordinates" and "pos" has been deprecated. The expli
 		    <appinfo source="urn:x-ogc:specification:gml:schema-xsd:geometryPrimitives:3.2.1">geometryPrimitives.xsd</appinfo>
 		    <documentation>See ISO/DIS 19136 Clause 11.
 Beside the "simple" geometric primitives specified in the previous Clause, this Clause specifies additional primitives to describe real world situations which require a more expressive geometry model.
-</documentation>
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	  <complexType name="CurveType">
 		    <complexContent>
@@ -6467,8 +6594,14 @@ If provided, the aggregationType attribute shall have the value "set".
 The reference systems schema components have two logical parts, which define elements and types for XML encoding of the definitions of:
 -	Identified Object, inherited by the ten types of GML objects used for coordinate reference systems and coordinate operations
 -	High-level part of the definitions of coordinate reference systems
-This schema encodes the Identified Object and Reference System packages of the UML Model for ISO 19111.</documentation>
+This schema encodes the Identified Object and Reference System packages of the UML Model for ISO 19111.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	
 	  <complexType name="IdentifiedObjectType" abstract="true">
@@ -6529,9 +6662,14 @@ Any needed version information shall be included in the codeSpace attribute of a
 	  <annotation>
 		    <appinfo source="urn:x-ogc:specification:gml:schema-xsd:measures:3.2.1">measures.xsd</appinfo>
 		    <documentation>See ISO/DIS 19136 17.3.
-gml:MeasureType is defined in the basicTypes schema.  The measure types defined here correspond with a set of convenience measure types described in ISO/TS 19103.  The XML implementation is based on the XML Schema simple type "double" which supports both decimal and scientific notation, and includes an XML attribute "uom" which refers to the units of measure for the value.  Note that, there is no requirement to store values using any particular format, and applications receiving elements of this type may choose to coerce the data to any other type as convenient. 
-</documentation>
+gml:MeasureType is defined in the basicTypes schema.  The measure types defined here correspond with a set of convenience measure types described in ISO/TS 19103.  The XML implementation is based on the XML Schema simple type "double" which supports both decimal and scientific notation, and includes an XML attribute "uom" which refers to the units of measure for the value.  Note that, there is no requirement to store values using any particular format, and applications receiving elements of this type may choose to coerce the data to any other type as convenient.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	  <element name="measure" type="gml:MeasureType">
 		    <annotation>
@@ -6595,8 +6733,14 @@ The gmlBase schema components establish the GML model and syntax, in particular
 -	a pattern and components for GML properties,
 -	patterns for collections and arrays, and components for generic collections and arrays,
 -	components for associating metadata with GML objects,
--	components for constructing definitions and dictionaries.</documentation>
+-	components for constructing definitions and dictionaries.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	
 	  <element name="AbstractObject" abstract="true">
@@ -6631,7 +6775,7 @@ The gmlBase schema components establish the GML model and syntax, in particular
 		    <annotation>
 			      <documentation>XLink components are the standard method to support hypertext referencing in XML. An XML Schema attribute group, gml:AssociationAttributeGroup, is provided to support the use of Xlinks as the method for indicating the value of a property by reference in a uniform manner in GML.</documentation>
 		    </annotation>
-		    <attributeGroup ref="xlink:simpleLink"/>
+		    <attributeGroup ref="xlink:simpleAttrs"/>
 		    <attribute name="nilReason" type="gml:NilReasonType"/>
 		    <attribute ref="gml:remoteSchema">
 			      <annotation>
@@ -6775,8 +6919,14 @@ If metadata following the conceptual model of ISO 19115 is to be encoded in a GM
 
 	  <annotation>
 		    <appinfo source="urn:x-ogc:specification:gml:schema-xsd:geometryBasic2d:3.2.1">geometryBasic2d.xsd</appinfo>
-		    <documentation>See ISO/DIS 19136 Clause 10.</documentation>
+		    <documentation>See ISO/DIS 19136 Clause 10.
+			
+			GML is an OGC Standard.
+			Copyright (c) 2007,2010 Open Geospatial Consortium.
+			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	  <complexType name="AbstractSurfaceType" abstract="true">
 		    <annotation>
@@ -6908,8 +7058,14 @@ This model is based on the SI system of units [ISO 1000], which distinguishes be
 -	Base Units are the preferred units for a set of orthogonal fundamental quantities which define the particular system of units, which may not be derived by combination of other base units.  
 -	Derived Units are the preferred units for other quantities in the system, which may be defined by algebraic combination of the base units.  
 In some application areas Conventional units are used, which may be converted to the preferred units using a scaling factor or a formula which defines a re-scaling and offset.  The set of preferred units for all physical quantity types in a particular system of units is composed of the union of its base units and derived units.  
-Unit definitions are substitutable for the gml:Definition element declared as part of the dictionary model.  A dictionary that contains only unit definitions and references to unit definitions is a units dictionary.  </documentation>
+Unit definitions are substitutable for the gml:Definition element declared as part of the dictionary model.  A dictionary that contains only unit definitions and references to unit definitions is a units dictionary.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	
 	  <element name="unitOfMeasure" type="gml:UnitOfMeasureType">
 		    <annotation>
@@ -7070,8 +7226,14 @@ W3C XML Schema provides a set of built-in "simple" types which define methods fo
 -	new simple types by restriction and combination of the built-in types, and 
 -	complex types, with simple content, but which also have XML attributes.  
 In many places where a suitable built-in simple type is not available, simple content types derived using the XML Schema mechanisms are used for the representation of data types in GML.  
-A set of these simple content types that are required by several GML components are defined in the basicTypes schema, as well as some elements based on them. These are primarily based around components needed to record amounts, counts, flags and terms, together with support for exceptions or null values.</documentation>
+A set of these simple content types that are required by several GML components are defined in the basicTypes schema, as well as some elements based on them. These are primarily based around components needed to record amounts, counts, flags and terms, together with support for exceptions or null values.
+
+GML is an OGC Standard.
+Copyright (c) 2007,2010 Open Geospatial Consortium.
+To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</documentation>
 	  </annotation>
+	
 	  <simpleType name="NilReasonType">
 		    <annotation>
 			      <documentation>gml:NilReasonType defines a content model that allows recording of an explanation for a void value or other exception.

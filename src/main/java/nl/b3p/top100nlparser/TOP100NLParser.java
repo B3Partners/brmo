@@ -5,7 +5,6 @@
  */
 package nl.b3p.top100nlparser;
 
-import nl.b3p.top250nlparser.*;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.PrecisionModel;
 import java.io.IOException;
