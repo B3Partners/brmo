@@ -61,7 +61,7 @@ INSERT INTO USER_SDO_GEOM_METADATA VALUES (
     28992
   );
   
--- archief/historische percelen hulp view met percelen waarvan 
+-- meest recente archief/historische percelen hulp view met percelen waarvan 
 -- geen actuele versie meer is/die vervallen zijn,
 CREATE OR REPLACE VIEW v_p8_kad_perceel_archief_hulp AS
 SELECT
@@ -90,10 +90,16 @@ FROM
         p.ka_perceelnummer,
         p.ka_sectie,
         p.begrenzing_perceel 
-            FROM kad_perceel_archief p WHERE NOT EXISTS (SELECT 0 FROM KAD_PERCEEL c WHERE p.sc_kad_identif = c.sc_kad_identif)
+            FROM kad_perceel_archief p WHERE 
+            -- NOT EXISTS (SELECT 0 FROM kad_perceel c WHERE p.sc_kad_identif = c.sc_kad_identif)
+            -- AND (p.sc_kad_identif, p.sc_dat_beg_geldh) IN (SELECT pa.sc_kad_identif, MAX(pa.sc_dat_beg_geldh) FROM kad_perceel_archief pa GROUP BY pa.sc_kad_identif)
+            -- niet ideaal; maar voorkomt dat er dubbele perceel records in het eindresultaat komen; bovenstaande variant zou beter zijn, 
+            -- nadeel van onderstaand is dat er geen match op datum is bij gevallen van data inconsistentie (voor constente gevallen maakt het niet uit, maar is het een extra table scan)
+            NOT EXISTS (SELECT 0 FROM kad_onrrnd_zk c WHERE p.sc_kad_identif = c.kad_identif)
+            AND (p.sc_kad_identif, p.sc_dat_beg_geldh) IN (SELECT az.kad_identif as sc_kad_identif, MAX(az.dat_beg_geldh) as sc_dat_beg_geldh FROM kad_onrrnd_zk_archief az GROUP BY az.kad_identif)
     ) p, 
     kad_onrrnd_zk_archief a
-where
+WHERE
     p.sc_kad_identif = a.kad_identif;
     
 --metadata
