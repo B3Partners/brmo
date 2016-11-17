@@ -1,0 +1,1 @@
+-- placeholder: sqlserver kent het concept materialized view niet
