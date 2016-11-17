@@ -193,32 +193,35 @@ and zr2.FK_8PES_SC_IDENTIF is not null
 order by kpe.SC_KAD_IDENTIF, kpe.straat, kpe.huisnummer, kpe.toevoeging, kpe.huisletter,  to_number(KA_APPARTEMENTSINDEX);
 
 -- percelen plus appartementen op de percelen
-CREATE OR REPLACE VIEW v_bd_app_re_and_kad_perceel AS
-select
-    CAST(ROWNUM AS INTEGER) AS objectid,
-    p.sc_kad_identif    AS kadaster_identificatie,
-    'perceel' as type,
-    p.ka_deelperceelnummer,
-    '' as ka_appartementsindex,
-    p.ka_perceelnummer,
-    p.ka_kad_gemeentecode,
-    p.ka_sectie,
-    p.begrenzing_perceel
-FROM
-    kad_perceel p
-union all  
-SELECT 
-    ar.sc_kad_identif     AS kadaster_identificatie,
-    'appartement' as type,
-    '' as ka_deelperceelnummer,
-    ar.ka_appartementsindex,
-    ar.ka_perceelnummer,
-    ar.ka_kad_gemeentecode,
-    ar.ka_sectie,
-    kp.begrenzing_perceel
-   FROM v_bd_app_re_all_kad_perceel v
-     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif
-     JOIN app_re ar ON v.app_re_identif = ar.sc_kad_identif;    
+CREATE OR REPLACE VIEW v_bd_app_re_and_kad_perceel
+                                 AS
+  SELECT CAST(ROWNUM AS INTEGER) AS objectid,
+    qry.*
+  FROM
+    (SELECT p.sc_kad_identif AS kadaster_identificatie,
+      'perceel'              AS type,
+      p.ka_deelperceelnummer,
+      '' AS ka_appartementsindex,
+      p.ka_perceelnummer,
+      p.ka_kad_gemeentecode,
+      p.ka_sectie,
+      p.begrenzing_perceel
+    FROM kad_perceel p
+    UNION ALL
+    SELECT ar.sc_kad_identif AS kadaster_identificatie,
+      'appartement'          AS type,
+      ''                     AS ka_deelperceelnummer,
+      ar.ka_appartementsindex,
+      ar.ka_perceelnummer,
+      ar.ka_kad_gemeentecode,
+      ar.ka_sectie,
+      kp.begrenzing_perceel
+    FROM v_bd_app_re_all_kad_perceel v
+    JOIN kad_perceel kp
+    ON v.perceel_identif = kp.sc_kad_identif
+    JOIN app_re ar
+    ON v.app_re_identif = ar.sc_kad_identif
+    ) qry ;
 
 -- aankoopdatum uit brondocumenten
 CREATE OR REPLACE VIEW
