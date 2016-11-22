@@ -122,6 +122,23 @@
             <artifactId>httpclient</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <!-- voor database integratie tests -->
+            <groupId>com.oracle</groupId>
+            <artifactId>${oracle.jdbc.artifactId}</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-catalina</artifactId>
+            <version>8.0.39</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -213,12 +230,15 @@
                     <groupId>org.postgresql</groupId>
                     <artifactId>postgresql</artifactId>
                 </dependency>
+                <dependency>
+                    <groupId>net.postgis</groupId>
+                    <artifactId>postgis-jdbc</artifactId>
+                </dependency>
             </dependencies>
             <build>
                 <filters>
                     <filter>${project.basedir}/src/test/resources/postgres.properties</filter>
                 </filters>
-                <!--<resources></resources>-->
                 <testResources>
                     <testResource>
                         <directory>${project.basedir}/src/test/tomcatconf/</directory>
@@ -291,6 +311,10 @@
                                 <artifactId>postgresql</artifactId>
                                 <version>${postgresql.jdbc.version}</version>
                             </dependency>
+                            <dependency>
+                                <groupId>net.postgis</groupId>
+                                <artifactId>postgis-jdbc</artifactId>
+                            </dependency>
                         </dependencies>
                     </plugin>
                     <plugin>
@@ -301,6 +325,30 @@
                             </systemPropertyVariables>
                             <rerunFailingTestsCount>3</rerunFailingTestsCount>
                             <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>oracle</id>
+            <properties>
+                <test.persistence.unit>brmo.persistence.oracle</test.persistence.unit>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.oracle</groupId>
+                    <artifactId>${oracle.jdbc.artifactId}</artifactId>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <database.properties.file>oracle.properties</database.properties.file>
+                            </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>

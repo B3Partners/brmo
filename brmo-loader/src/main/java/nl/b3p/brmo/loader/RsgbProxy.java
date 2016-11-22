@@ -417,6 +417,14 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 //        stagingProxy.updateBerichtProcessing(ber);
     }
 
+    /**
+     * verwerk een bericht.
+     *
+     * @param ber te verwerken bericht
+     * @param pretransformedTableData tabel data uit staging
+     * @param updateResult {@code true} update verwerkings resultaat in staging
+     * @throws BrmoException if any
+     */
     @Override
     public void handle(Bericht ber, List<TableData> pretransformedTableData, boolean updateResult) throws BrmoException {
         // lock on connection, omdat parent loop periodiek connectie wil verversen.

@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,11 +25,16 @@ import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.validation.Validate;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.ProgressUpdateListener;
+import nl.b3p.brmo.loader.RsgbProxy;
+import nl.b3p.brmo.loader.StagingProxy;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.advancedfunctions.AdvancedFunctionProcess;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
+import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
+import nl.b3p.brmo.loader.util.TableData;
+import nl.b3p.brmo.loader.util.TableRow;
 import nl.b3p.brmo.loader.xml.BagXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.service.util.ConfigUtil;
@@ -81,6 +87,8 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
     private Date start;
     private Date update;
     private String exceptionStacktrace;
+
+    private final String BRK_VERWIJDEREN_NOGMAALS_UITVOEREN = "Repareren BRK achtergebleven kad_onrrnd_zk records";
     
     private final boolean repairFirst = false;
 
@@ -200,7 +208,8 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             new AdvancedFunctionProcess("Opschonen en archiveren van BRK berichten met status RSGB_OK, ouder dan 3 maanden", BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString()),
             new AdvancedFunctionProcess("Opschonen en archiveren van BAG berichten met status RSGB_OK, ouder dan 3 maanden", BrmoFramework.BR_BAG, Bericht.STATUS.RSGB_OK.toString()),
             new AdvancedFunctionProcess("Verwijderen van BRK berichten met status ARCHIVE", BrmoFramework.BR_BRK, Bericht.STATUS.ARCHIVE.toString()),
-            new AdvancedFunctionProcess("Verwijderen van BAG berichten met status ARCHIVE", BrmoFramework.BR_BAG, Bericht.STATUS.ARCHIVE.toString())
+            new AdvancedFunctionProcess("Verwijderen van BAG berichten met status ARCHIVE", BrmoFramework.BR_BAG, Bericht.STATUS.ARCHIVE.toString()),
+            new AdvancedFunctionProcess(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN, BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString())
         });
     }
 
@@ -244,6 +253,8 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                 deleteBerichten(process.getConfig(), "brk");
             } else if (process.getName().equals("Verwijderen van BAG berichten met status ARCHIVE")) {
                 deleteBerichten(process.getConfig(), "bag");
+            } else if (process.getName().equals(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN)) {
+                replayBRKVerwijderBerichten(process.getConfig(), "brk");
             }
             
             if (this.exceptionStacktrace == null) {
@@ -650,4 +661,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
     }
 
+    public void replayBRKVerwijderBerichten(String config, String soort) throws SQLException, BrmoException, Exception {
+
+    }
 }

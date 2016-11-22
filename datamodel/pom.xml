@@ -173,6 +173,45 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            
+<!-- gebruik 
+     mvn gplus:execute
+     https://books.sonatype.com/mcookbook/reference/ch02s02.html
+     https://github.com/groovy/GMavenPlus/wiki/Examples#groovy-maven-plugins
+     voor aanmaken migratie scripts
+<plugin>
+  <groupId>org.codehaus.gmavenplus</groupId>
+  <artifactId>gmavenplus-plugin</artifactId>
+  <version>1.5</version>
+  <executions>
+    <execution>
+      <goals>
+        <goal>execute</goal>
+      </goals>
+    </execution>
+  </executions>
+  <configuration>
+    <scripts>
+     <script><![CDATA[
+     // bepaal huidige doelversie
+     // bepaal vorige versie
+     // maak directories
+     // maak bestanden (evt op basis van template) rsgb.sql, rsgbbgt.sql, staging.sql met update script
+     ]]></script>
+    </scripts>
+  </configuration>
+  <dependencies>
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+      < ! - - any version of Groovy \>= 1.5.0 should work here - - >
+      <version>2.4.7</version>
+      <scope>runtime</scope>
+    </dependency>
+  </dependencies>
+</plugin>
+
+-->
         </plugins>
     </build>
 </project>

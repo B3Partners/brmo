@@ -215,6 +215,7 @@
                 <groupId>net.postgis</groupId>
                 <artifactId>postgis-jdbc</artifactId>
                 <version>2.2.1</version>
+                <!-- Bij JNDI db voor postgis verbinding moeten postgis jars in tomcat lib staan -->
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
