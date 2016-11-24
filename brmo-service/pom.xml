@@ -314,6 +314,7 @@
                             <dependency>
                                 <groupId>net.postgis</groupId>
                                 <artifactId>postgis-jdbc</artifactId>
+                                <version>${postgresql.postgis-jdbc.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>

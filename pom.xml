@@ -49,6 +49,7 @@
         <hibernate.version>3.6.10.Final</hibernate.version>
         <geotools.version>16.0</geotools.version>
         <postgresql.jdbc.version>9.4.1212</postgresql.jdbc.version>
+        <postgresql.postgis-jdbc.version>2.2.1</postgresql.postgis-jdbc.version>
         <oracle.jdbc.version>12.1.0.2.0</oracle.jdbc.version>
         <oracle.jdbc.artifactId>ojdbc7</oracle.jdbc.artifactId>
         <sqlserver.jtds.version>1.3.1</sqlserver.jtds.version>
@@ -214,7 +215,7 @@
             <dependency>
                 <groupId>net.postgis</groupId>
                 <artifactId>postgis-jdbc</artifactId>
-                <version>2.2.1</version>
+                <version>${postgresql.postgis-jdbc.version}</version>
                 <!-- Bij JNDI db voor postgis verbinding moeten postgis jars in tomcat lib staan -->
             </dependency>
             <dependency>

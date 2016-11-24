@@ -88,7 +88,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
     private Date update;
     private String exceptionStacktrace;
 
-    private final String BRK_VERWIJDEREN_NOGMAALS_UITVOEREN = "Repareren BRK achtergebleven kad_onrrnd_zk records";
+    private final String BRK_VERWIJDEREN_NOGMAALS_UITVOEREN = "Herhaal transformatie BRK verwijderberichten, oplossen achtergebleven 'kad_onrrnd_zk' records";
     
     private final boolean repairFirst = false;
 

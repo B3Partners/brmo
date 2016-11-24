@@ -168,8 +168,12 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
             // in geval van niet waar gemaakte assumtions
             brmo.closeBrmoFramework();
         }
-        rsgb.close();
-        staging.close();
+        if (rsgb != null) {
+            rsgb.close();
+        }
+        if (staging != null) {
+            staging.close();
+        }
 
         try {
             sequential.unlock();
