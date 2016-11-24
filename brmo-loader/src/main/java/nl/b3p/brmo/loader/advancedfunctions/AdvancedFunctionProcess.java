@@ -12,6 +12,13 @@ public class AdvancedFunctionProcess {
 
     private String config;
 
+    /**
+     * constructor.
+     *
+     * @param name beschrijving / naam van het proces.
+     * @param soort soort berichten
+     * @param config extra gegevens voor dit proces
+     */
     public AdvancedFunctionProcess(String name, String soort, String config) {
         this.name = name;
         this.soort = soort;

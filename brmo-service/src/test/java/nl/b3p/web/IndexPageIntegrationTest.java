@@ -42,7 +42,7 @@ import static org.junit.Assert.fail;
  *
  * @author mprins
  */
-public class IndexPageIntegrationTest extends TestUtil {
+public class IndexPageIntegrationTest extends WebTestUtil {
 
     /**
      * onze test response.

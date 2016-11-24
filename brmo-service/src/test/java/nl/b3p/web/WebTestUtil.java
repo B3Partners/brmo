@@ -2,6 +2,7 @@ package nl.b3p.web;
 
 import java.io.IOException;
 import java.util.Properties;
+import nl.b3p.brmo.service.testutil.TestUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.impl.client.BasicCookieStore;
@@ -21,46 +22,21 @@ import org.junit.rules.TestName;
  *
  * @author Mark Prins
  */
-public abstract class TestUtil {
+public abstract class WebTestUtil extends TestUtil {
 
-    private static final Log LOG = LogFactory.getLog(TestUtil.class);
+    private static final Log LOG = LogFactory.getLog(WebTestUtil.class);
 
     /**
      * the server root url. {@value}
      */
     public static final String BASE_TEST_URL = "http://localhost:9090/brmo-service/";
 
-    /**
-     * properties uit {@code <DB smaak>.properties} en
-     * {@code local.<DB smaak>.properties}.
-     *
-     * @see #loadDBprop()
-     */
-    protected static final Properties DBPROPS = new Properties();
 
     /**
      * our test client.
      */
     protected static CloseableHttpClient client;
 
-    /**
-     * initialize database props using the environment provided file.
-     *
-     * @throws java.io.IOException if loading the property file fails
-     */
-    @BeforeClass
-    public static void loadDBprop() throws IOException {
-        // the `database.properties.file`  is set in the pom.xml or using the commandline
-        DBPROPS.load(IndexPageIntegrationTest.class.getClassLoader()
-                .getResourceAsStream(System.getProperty("database.properties.file")));
-        try {
-            // see if a local version exists and use that to override
-            DBPROPS.load(IndexPageIntegrationTest.class.getClassLoader()
-                    .getResourceAsStream("local." + System.getProperty("database.properties.file")));
-        } catch (IOException | NullPointerException e) {
-            // ignore this 
-        }
-    }
 
     /**
      * initialize http client.
