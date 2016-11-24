@@ -55,20 +55,20 @@ public class DBUnitExportRSGB {
 
     // volgorde van tabellen belangrijk vanwege de constraint op laadproces-id
     private static final String[] _testTableNames = {
-        "brondocument",
-        "herkomst_metadata",
-        "zak_recht",
-        "ingeschr_niet_nat_prs",
-        "niet_nat_prs",
-        "prs",
-        "subject",
-        "kad_perceel_archief",
+        "kad_onrrnd_zk",
+        "kad_onrrnd_zk_archief",
+        "kad_onrrnd_zk_his_rel",
         "kad_perceel",
+        "kad_perceel_archief",
+        "subject",
+        "prs",
+        "niet_nat_prs",
+        "ingeschr_niet_nat_prs",
+        "herkomst_metadata",
         "kad_onrrnd_zk_aantek",
         "kad_onrrnd_zk_aantek_archief",
-        "kad_onrrnd_zk_archief",
-        "kad_onrrnd_zk",
-        "kad_onrrnd_zk_his_rel"
+        "brondocument",
+        "zak_recht"
     };
 
     public static void main(String[] args) throws ClassNotFoundException, DatabaseUnitException, IOException, SQLException {

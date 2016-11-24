@@ -2,7 +2,7 @@ package nl.b3p.web;
 
 import java.io.IOException;
 import java.util.Properties;
-import nl.b3p.brmo.service.TestUtil.TestUtil;
+import nl.b3p.brmo.service.testutil.TestUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.impl.client.BasicCookieStore;

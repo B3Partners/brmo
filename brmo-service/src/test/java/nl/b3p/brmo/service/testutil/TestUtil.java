@@ -1,12 +1,11 @@
 /*
  * Copyright (C) 2016 B3Partners B.V.
  */
-package nl.b3p.brmo.service.TestUtil;
+package nl.b3p.brmo.service.testutil;
 
 import java.io.IOException;
 import java.util.Properties;
 import nl.b3p.web.IndexPageIntegrationTest;
-import nl.b3p.web.WebTestUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.junit.Assume.assumeNotNull;

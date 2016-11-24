@@ -15,7 +15,7 @@ import javax.naming.NamingException;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper;
-import nl.b3p.brmo.service.TestUtil.TestUtil;
+import nl.b3p.brmo.service.testutil.TestUtil;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,7 +26,6 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.ext.mssql.InsertIdentityOperation;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.OracleDataTypeFactory;
@@ -47,6 +46,10 @@ import org.junit.runners.Parameterized;
  * {@code mvn -Dit.test=AdvancedFunctionsActionBeanIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
  * voor bijvoorbeeld Oracle.
  *
+ * Deze test werkt niet met de jTDS driver omdat die geen
+ * {@code PreparedStatement.setNull(int, int, String)} methode heeft
+ * geimplementeerd.
+ *
  * @author mprins
  */
 @RunWith(Parameterized.class)
@@ -57,8 +60,9 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
     @Parameterized.Parameters(name = "{index}: verwerken bestand: {0}")
     public static Collection params() {
         return Arrays.asList(new Object[][]{
-            // {"sBestandsNaam", aantalProcessen, aantalBerichten,rBestandsNaam},
-            {"/gh-issue-260/staging-flat.xml", 2, 2, "/gh-issue-260/rsgb-spook_kad_onrrnd_zk-flat.xml"}
+            // {"sBestandsNaam", aantalProcessen, aantalBerichten, rBestandsNaam},
+            {"/gh-issue-260/staging-flat.xml", 2, 2, "/gh-issue-260/rsgb-spook_kad_onrrnd_zk-flat.xml"},
+            {"/gh-issue-260/staging-flat-4.xml", 4, 4, "/gh-issue-260/rsgb-spook_kad_onrrnd_zk-flat-4.xml"}
         });
     }
 
@@ -68,6 +72,7 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
     private IDatabaseConnection staging;
 
     private final Lock sequential = new ReentrantLock();
+    private static boolean haveSetupJNDI = false;
 
     /*
      * test parameters.
@@ -123,20 +128,22 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
             fail("Geen ondersteunde database aangegegeven");
         }
 
-        try {
-            // Create initial context
-            System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
-            System.setProperty(Context.URL_PKG_PREFIXES, "org.apache.naming");
-            InitialContext ic = new InitialContext();
-            ic.createSubcontext("java:");
-            ic.createSubcontext("java:comp");
-            ic.createSubcontext("java:comp/env");
-            ic.createSubcontext("java:comp/env/jdbc");
-            ic.createSubcontext("java:comp/env/jdbc/brmo");
-            ic.bind("java:comp/env/jdbc/brmo/rsgb", dsRsgb);
-            ic.bind("java:comp/env/jdbc/brmo/staging", dsStaging);
-        } catch (NamingException ex) {
-            LOG.error("Opzetten van datasource jndi is mislukt", ex);
+        if (!haveSetupJNDI) {
+            try {
+                System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
+                System.setProperty(Context.URL_PKG_PREFIXES, "org.apache.naming");
+                InitialContext ic = new InitialContext();
+                ic.createSubcontext("java:");
+                ic.createSubcontext("java:comp");
+                ic.createSubcontext("java:comp/env");
+                ic.createSubcontext("java:comp/env/jdbc");
+                ic.createSubcontext("java:comp/env/jdbc/brmo");
+                ic.bind("java:comp/env/jdbc/brmo/rsgb", dsRsgb);
+                ic.bind("java:comp/env/jdbc/brmo/staging", dsStaging);
+                haveSetupJNDI = true;
+            } catch (NamingException ex) {
+                LOG.error("Opzetten van datasource jndi is mislukt", ex);
+            }
         }
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
@@ -189,7 +196,7 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
 
         assertEquals("Er is een spook record in de kad_onrrnd_zk tabel", 1, rds.getTable("kad_onrrnd_zk").getRowCount());
         assertEquals("De perceel tabel is leeg", 0, rds.getTable("kad_perceel").getRowCount());
-        assertEquals("De kad_onrrnd_zk_archief tabel is leeg", 0, rds.getTable("kad_onrrnd_zk_archief").getRowCount());
+        assertEquals("De kad_onrrnd_zk_archief komt een record te kort", aantalBerichten - (1 + 1), rds.getTable("kad_onrrnd_zk_archief").getRowCount());
         assertTrue("Er is minstens een perceel in kad_perceel_archief", 0 < rds.getTable("kad_perceel_archief").getRowCount());
 
         bean.replayBRKVerwijderBerichten(BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString());
