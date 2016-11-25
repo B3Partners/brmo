@@ -7,7 +7,7 @@
   <skin>
     <groupId>org.apache.maven.skins</groupId>
     <artifactId>maven-fluido-skin</artifactId>
-    <version>1.5</version>
+    <version>1.6</version>
   </skin>
   <bannerLeft>
     <name>${this.organization.name}</name>
@@ -24,9 +24,8 @@
       <item name="Issues dashboard" href="${this.issueManagement.url}" />
       <item name="Developer Notes" href="/development.html" />
     </links>
-    <menu name="Information">
+    <menu name="Informatie">
       <item name="Home" href="/index.html" />
-      <item name="Release notes" href="/releasenotes.html" />
     </menu>
     <menu name="Configuratie">
       <item name="Mail" href="/mail-configuratie.html" />
