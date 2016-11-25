@@ -22,7 +22,6 @@ import org.geotools.GML.Version;
 import org.geotools.data.simple.SimpleFeatureCollection;
 import org.geotools.feature.NameImpl;
 import org.geotools.gml3.ApplicationSchemaConfiguration;
-import org.geotools.referencing.crs.DefaultGeographicCRS;
 import org.geotools.xml.Configuration;
 import org.geotools.xml.Parser;
 import org.opengis.feature.simple.SimpleFeatureType;
@@ -58,7 +57,7 @@ public class TOP100NLParser {
         URL schemaLocation = TOP100NLParser.class.getResource("XSD-Resolver/finalized/top100nl_resolved.xsd");
 
         GML gml = new GML(Version.WFS1_1);
-        gml.setCoordinateReferenceSystem(DefaultGeographicCRS.WGS84);
+     //   gml.setCoordinateReferenceSystem(DefaultGeographicCRS.WGS84);
 
         SimpleFeatureType featureType = gml.decodeSimpleFeatureType(schemaLocation, new NameImpl(
                 "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0", "FunctioneelGebied"));

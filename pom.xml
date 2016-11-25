@@ -9,7 +9,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <geotools.version>16.0</geotools.version>
+        <geotools.version>17-SNAPSHOT</geotools.version>
     </properties>
     <dependencies>
         <dependency>
@@ -57,6 +57,12 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-wfs-ng</artifactId>
+            <version>${geotools.version}</version>
         </dependency>
         <!-- <dependency>
             <groupId>org.opensphere</groupId>
