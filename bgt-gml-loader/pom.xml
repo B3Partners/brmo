@@ -10,7 +10,7 @@
         <artifactId>brmo</artifactId>
         <version>1.4.1-SNAPSHOT</version>
     </parent>
-    <name>brmo BGT-GML loader</name>
+    <name>BRMO BGT GML loader</name>
     <build>
         <testResources>
             <!-- copy main (xsd's) + test resources -> target/test-classes -->

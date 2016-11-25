@@ -10,7 +10,8 @@
         <artifactId>brmo</artifactId>
         <version>1.4.1-SNAPSHOT</version>
     </parent>
-    <name>brmo-service</name>
+    <name>BRMO service</name>
+    <description>BRMO webapplicatie</description>
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
     </properties>

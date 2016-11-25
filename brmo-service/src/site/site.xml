@@ -21,6 +21,7 @@
   <body>
     <head />
     <links>
+      <item name="Wiki" href="https://github.com/B3Partners/brmo/wiki" />
       <item name="Issues dashboard" href="${this.issueManagement.url}" />
       <item name="Developer Notes" href="/development.html" />
     </links>

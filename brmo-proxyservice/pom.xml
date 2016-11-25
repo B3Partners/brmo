@@ -10,7 +10,8 @@
         <artifactId>brmo</artifactId>
         <version>1.4.1-SNAPSHOT</version>
     </parent>
-    <name>brmo-proxyservice</name>
+    <name>BRMO proxyservice</name>
+    <description>Berichten proxyservice de BRMO.</description>
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
     </properties>

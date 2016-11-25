@@ -10,8 +10,8 @@
         <artifactId>brmo</artifactId>
         <version>1.4.1-SNAPSHOT</version>
     </parent>
-    <name>brmo-persistence</name>
-    <description>JPA artifact voor de brmo.</description>
+    <name>BRMO persistence</name>
+    <description>JPA (staging) artifact voor de BRMO.</description>
     <inceptionYear>2015</inceptionYear>
     <dependencies>
         <dependency>

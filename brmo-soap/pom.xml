@@ -10,7 +10,7 @@
         <artifactId>brmo</artifactId>
         <version>1.4.1-SNAPSHOT</version>
     </parent>
-    <name>brmo-soap</name>
+    <name>BRMO soap bevragingsservice</name>
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <glassfish.version>2.3.1</glassfish.version>

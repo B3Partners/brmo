@@ -10,7 +10,8 @@
         <artifactId>brmo</artifactId>
         <version>1.4.1-SNAPSHOT</version>
     </parent>
-    <name>brmo taglibrary</name>
+    <name>BRMO taglibrary</name>
+    <description>JSP tags voor de BRMO.</description>
     <build>
         <plugins>
         </plugins>
