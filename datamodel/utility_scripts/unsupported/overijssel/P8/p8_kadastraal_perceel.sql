@@ -75,8 +75,8 @@ SELECT
     p.ka_sectie,
     a.cu_aard_cultuur_onbebouwd,
     a.cu_aard_bebouwing,
-    a.dat_beg_geldh,
-    a.datum_einde_geldh,
+    F_DATUM (a.dat_beg_geldh) as dat_beg_geldh,
+    F_DATUM (a.datum_einde_geldh) as datum_einde_geldh,
     p.begrenzing_perceel
 FROM
     -- kad_perceel_archief p
@@ -92,11 +92,11 @@ FROM
         p.begrenzing_perceel 
             FROM kad_perceel_archief p WHERE 
             -- NOT EXISTS (SELECT 0 FROM kad_perceel c WHERE p.sc_kad_identif = c.sc_kad_identif)
-            -- AND (p.sc_kad_identif, p.sc_dat_beg_geldh) IN (SELECT pa.sc_kad_identif, MAX(pa.sc_dat_beg_geldh) FROM kad_perceel_archief pa GROUP BY pa.sc_kad_identif)
+            -- AND (p.sc_kad_identif, F_DATUM (p.sc_dat_beg_geldh)) IN (SELECT pa.sc_kad_identif, MAX(F_DATUM (pa.sc_dat_beg_geldh)) FROM kad_perceel_archief pa GROUP BY pa.sc_kad_identif)
             -- niet ideaal; maar voorkomt dat er dubbele perceel records in het eindresultaat komen; bovenstaande variant zou beter zijn, 
             -- nadeel van onderstaand is dat er geen match op datum is bij gevallen van data inconsistentie (voor constente gevallen maakt het niet uit, maar is het een extra table scan)
             NOT EXISTS (SELECT 0 FROM kad_onrrnd_zk c WHERE p.sc_kad_identif = c.kad_identif)
-            AND (p.sc_kad_identif, p.sc_dat_beg_geldh) IN (SELECT az.kad_identif as sc_kad_identif, MAX(az.dat_beg_geldh) as sc_dat_beg_geldh FROM kad_onrrnd_zk_archief az GROUP BY az.kad_identif)
+            AND (p.sc_kad_identif, F_DATUM (p.sc_dat_beg_geldh)) IN (SELECT az.kad_identif as sc_kad_identif, MAX(F_DATUM (az.dat_beg_geldh)) as sc_dat_beg_geldh FROM kad_onrrnd_zk_archief az GROUP BY az.kad_identif)
     ) p, 
     kad_onrrnd_zk_archief a
 WHERE
@@ -142,8 +142,8 @@ SELECT
   a.wpl_naam                                               AS woonplaats,
   a.gem_naam                                               AS gemeente,
   p.cu_aard_cultuur_onbebouwd                              AS cultuur,
-  F_DATUM (p.dat_beg_geldh)                                AS datum_ingang,
-  F_DATUM (p.datum_einde_geldh)                            AS datum_einde,
+  p.dat_beg_geldh                                          AS datum_ingang,
+  p.datum_einde_geldh                                      AS datum_einde,
   p.cu_aard_bebouwing                                      AS aard,
   p.begrenzing_perceel                                     AS geom
 FROM
