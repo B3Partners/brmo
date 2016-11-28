@@ -39,6 +39,10 @@ before_test:
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\create-brmo-persistence-sqlserver.sql
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\01_create_indexes.sql
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\02_insert_default_user.sql
+  - bash: projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
+  - bash: echo $projectversion
+  - bash: sed -i s/\${project.version}/$projectversion/g .\brmo-persistence\db\05_create_brmo_metadata_sqlserver.sql
+  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\05_create_brmo_metadata_sqlserver.sql
 # create + set up RSGB DB
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE rsgb" -d "master"
   - dir -w .\datamodel\generated_scripts\

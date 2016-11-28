@@ -3,21 +3,21 @@ package nl.b3p.brmo.loader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
+import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
+import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
 import nl.b3p.brmo.loader.updates.UpdateProcess;
 import nl.b3p.brmo.loader.util.BGTLightRsgbTransformer;
 import nl.b3p.brmo.loader.util.BrmoException;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.io.input.CountingInputStream;
@@ -45,10 +45,12 @@ public class BrmoFramework {
     public static final String LAADPROCES_TABEL = "laadproces";
     public static final String BERICHT_TABLE = "bericht";
     public static final String JOB_TABLE = "job";
+    public static final String BRMO_METADATA_TABEL = "brmo_metadata";
 
     private StagingProxy stagingProxy = null;
     private DataSource dataSourceRsgb = null;
     private DataSource dataSourceRsgbBgt = null;
+    private DataSource dataSourceStaging = null;
 
     private boolean enablePipeline = false;
     private Integer pipelineCapacity;
@@ -77,10 +79,46 @@ public class BrmoFramework {
         }
         this.dataSourceRsgb = dataSourceRsgb;
         this.dataSourceRsgbBgt = dataSourceRsgbBgt;
+        this.dataSourceStaging = dataSourceStaging;
     }
 
     public void setDataSourceRsgbBgt(DataSource dataSourceRsgbBgt) {
         this.dataSourceRsgbBgt = dataSourceRsgbBgt;
+    }
+
+    public String getStagingVersion() {
+        try {
+            return getVersion(dataSourceStaging);
+        } catch (SQLException ex) {
+            log.error("Versienummer kon niet uit de STAGING database worden gelezen.", ex);
+            return "";
+        }
+    }
+
+    public String getRsgbVersion() {
+        try {
+            return getVersion(dataSourceRsgb);
+        } catch (SQLException ex) {
+            log.error("Versienummer kon niet uit de RSGB database worden gelezen.", ex);
+            return "";
+        }
+    }
+
+    public String getRsgbBgtVersion() {
+        try {
+            return getVersion(dataSourceRsgbBgt);
+        } catch (SQLException ex) {
+            log.error("Versienummer kon niet uit de RSGBBGT database worden gelezen.", ex);
+            return "";
+        }
+    }
+
+    private String getVersion(DataSource dataSource) throws SQLException {
+        String sql = "SELECT waarde FROM " + BrmoFramework.BRMO_METADATA_TABEL + " WHERE naam = 'brmoversie'";
+        Connection c = dataSource.getConnection();
+        GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(c);
+        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(c, sql, new ScalarHandler());
+        return o.toString();
     }
 
     public void setEnablePipeline(boolean enablePipeline) {

@@ -214,7 +214,7 @@ set define off;
 		<xsl:text>
 -- brmo rsgb versienummer
 
-INSERT INTO brmo_metadata (naam, waarde) VALUES ('versie','</xsl:text><xsl:value-of select="$versie"/><xsl:text>');
+INSERT INTO brmo_metadata (naam, waarde) VALUES ('brmoversie','</xsl:text><xsl:value-of select="$versie"/><xsl:text>');
 </xsl:text>
 	</xsl:template>
 </xsl:stylesheet>

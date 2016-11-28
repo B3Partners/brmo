@@ -29,3 +29,5 @@
     drop table groep_;
 
     drop table laadproces;
+
+    drop table brmo_metadata;

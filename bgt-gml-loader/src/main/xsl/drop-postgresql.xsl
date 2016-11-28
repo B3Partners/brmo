@@ -17,5 +17,8 @@
 </xsl:text>
     </xsl:template>
 
-    <xsl:function name="db:dropMetaTables"/>
+    <xsl:function name="db:dropMetaTables">
+        <xsl:text>DROP TABLE brmo_metadata;
+</xsl:text>
+    </xsl:function>
 </xsl:stylesheet>
