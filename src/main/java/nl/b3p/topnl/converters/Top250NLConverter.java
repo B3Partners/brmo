@@ -16,10 +16,23 @@
  */
 package nl.b3p.topnl.converters;
 
+import nl.b3p.topnl.entities.Hoogte;
+import nl.b3p.topnl.entities.TopNLEntity;
+
 /**
  *
  * @author Meine Toonen
  */
 public class Top250NLConverter extends Converter{
+
+    @Override
+    public TopNLEntity convert(Object jaxbObject) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Hoogte convertHoogte(Object jaxbObject) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

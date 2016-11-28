@@ -16,10 +16,16 @@
  */
 package nl.b3p.topnl.converters;
 
+import nl.b3p.topnl.entities.Hoogte;
+import nl.b3p.topnl.entities.TopNLEntity;
+
 /**
  *
  * @author Meine Toonen
  */
 public abstract class Converter {
     
+    public abstract TopNLEntity convert(Object jaxbObject);
+    
+    public abstract Hoogte convertHoogte(Object jaxbObject);
 }
