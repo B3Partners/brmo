@@ -10,7 +10,9 @@ package nl.b3p.topnl;
  * @author meine
  */
 public enum TopNLType {
-    TOP50NL ("top50nl"), TOP100NL("top100nl"), TOP250NL("top250nl");
+    TOP50NL ("top50nl"), 
+    TOP100NL("top100nl"), 
+    TOP250NL("top250nl");
     
     private final String type;
     

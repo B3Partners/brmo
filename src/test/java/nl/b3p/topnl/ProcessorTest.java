@@ -17,6 +17,7 @@
 package nl.b3p.topnl;
 
 import java.io.InputStream;
+import nl.b3p.topnl.entities.TopNLEntity;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -80,7 +81,7 @@ public class ProcessorTest {
     @Test
     public void testConvert() {
         System.out.println("convert");
-        Object entity = instance.convert(null);
+        TopNLEntity entity = instance.convert(null, null);
         
         assertNotNull(entity);
         // TODO review the generated test code and remove the default call to fail.

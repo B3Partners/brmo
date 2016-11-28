@@ -20,6 +20,6 @@ package nl.b3p.topnl.entities;
  *
  * @author meine
  */
-public class Hoogte {
+public class Hoogte implements TopNLEntity{
     
 }

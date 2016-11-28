@@ -14,32 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package nl.b3p.topnl;
-
-import java.io.InputStream;
-import nl.b3p.topnl.entities.TopNLEntity;
+package nl.b3p.topnl.entities;
 
 /**
  *
  * @author Meine Toonen
  */
-public class Processor {
-    
-    
-    public void Processor(){
-        
-    }
-    
-    public Object parse (InputStream in){
-        return null;
-    }
-    
-    public TopNLEntity convert(Object jaxbObject, TopNLType type){
-        return null;
-    }
-    
-    public void save(Object entity, TopNLType type){
-        
-    }
+public interface TopNLEntity {
     
 }
