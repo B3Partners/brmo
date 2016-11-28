@@ -29,15 +29,15 @@ public class Processor {
         
     }
     
-    public void parse (InputStream in){
-        
+    public Object parse (InputStream in){
+        return null;
     }
     
-    public void convert(){
-        
+    public Object convert(Object jaxbObject){
+        return null;
     }
     
-    public void save(){
+    public void save(Object entity, TopNLType type){
         
     }
     

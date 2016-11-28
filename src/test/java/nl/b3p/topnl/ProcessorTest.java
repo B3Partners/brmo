@@ -69,7 +69,6 @@ public class ProcessorTest {
     public void testParse() {
         System.out.println("parse");
         InputStream in = null;
-        Processor instance = new Processor();
         instance.parse(in);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -81,8 +80,9 @@ public class ProcessorTest {
     @Test
     public void testConvert() {
         System.out.println("convert");
-        Processor instance = new Processor();
-        instance.convert();
+        Object entity = instance.convert(null);
+        
+        assertNotNull(entity);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -93,8 +93,7 @@ public class ProcessorTest {
     @Test
     public void testSave() {
         System.out.println("save");
-        Processor instance = new Processor();
-        instance.save();
+        instance.save(null, null);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
