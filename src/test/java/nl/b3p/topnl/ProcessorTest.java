@@ -17,6 +17,7 @@
 package nl.b3p.topnl;
 
 import java.io.InputStream;
+import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.TopNLEntity;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -69,23 +70,24 @@ public class ProcessorTest {
     @Test
     public void testParse() {
         System.out.println("parse");
-        InputStream in = null;
-        instance.parse(in);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        InputStream in = ProcessorTest.class.getResourceAsStream("Hoogte.xml");
+        Object jaxb = instance.parse(in);
+        assertNotNull(jaxb);
+        assertTrue (jaxb instanceof nl.b3p.topnl.top250nl.HoogteType);
     }
 
     /**
      * Test of convert method, of class Processor.
      */
     @Test
-    public void testConvert() {
+    public void testConvert250() {
         System.out.println("convert");
-        TopNLEntity entity = instance.convert(null, null);
+        InputStream in = ProcessorTest.class.getResourceAsStream("Hoogte.xml");
+        Object jaxb = instance.parse(in);
+        TopNLEntity entity = instance.convert(jaxb, TopNLType.TOP250NL);
         
         assertNotNull(entity);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(entity instanceof Hoogte);
     }
 
     /**

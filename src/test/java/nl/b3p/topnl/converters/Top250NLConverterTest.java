@@ -31,6 +31,8 @@ import static org.junit.Assert.*;
  */
 public class Top250NLConverterTest {
     
+    private Top250NLConverter instance = new Top250NLConverter();
+    
     public Top250NLConverterTest() {
     }
     
@@ -57,12 +59,10 @@ public class Top250NLConverterTest {
     public void testConvert() {
         System.out.println("convert");
         Object jaxbObject = null;
-        Top250NLConverter instance = new Top250NLConverter();
         TopNLEntity expResult = null;
         TopNLEntity result = instance.convert(jaxbObject);
+        assertNotNull(result);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -72,12 +72,10 @@ public class Top250NLConverterTest {
     public void testConvertHoogte() {
         System.out.println("convertHoogte");
         Object jaxbObject = null;
-        Top250NLConverter instance = new Top250NLConverter();
         Hoogte expResult = null;
         Hoogte result = instance.convertHoogte(jaxbObject);
+        assertNotNull(result);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
