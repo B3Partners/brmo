@@ -17,6 +17,7 @@
 package nl.b3p.topnl;
 
 import java.io.InputStream;
+import javax.xml.bind.JAXBException;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.TopNLEntity;
 import org.junit.After;
@@ -32,7 +33,7 @@ import static org.junit.Assert.*;
  */
 public class ProcessorTest {
     
-    private Processor instance = new Processor();
+    private Processor instance;
     
     public ProcessorTest() {
     }
@@ -46,7 +47,8 @@ public class ProcessorTest {
     }
     
     @Before
-    public void setUp() {
+    public void setUp() throws JAXBException {
+        instance = new Processor();
     }
     
     @After
@@ -59,7 +61,6 @@ public class ProcessorTest {
     @Test
     public void testProcessor() {
         System.out.println("Processor");
-        instance.Processor();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -68,19 +69,19 @@ public class ProcessorTest {
      * Test of parse method, of class Processor.
      */
     @Test
-    public void testParse() {
+    public void testParse() throws JAXBException {
         System.out.println("parse");
         InputStream in = ProcessorTest.class.getResourceAsStream("Hoogte.xml");
         Object jaxb = instance.parse(in);
         assertNotNull(jaxb);
-        assertTrue (jaxb instanceof nl.b3p.topnl.top250nl.HoogteType);
+        assertTrue (jaxb instanceof nl.b3p.topnl.top250nl.FeatureCollectionT250NLType);
     }
 
     /**
      * Test of convert method, of class Processor.
      */
     @Test
-    public void testConvert250() {
+    public void testConvert250() throws JAXBException {
         System.out.println("convert");
         InputStream in = ProcessorTest.class.getResourceAsStream("Hoogte.xml");
         Object jaxb = instance.parse(in);

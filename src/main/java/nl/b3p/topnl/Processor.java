@@ -17,6 +17,12 @@
 package nl.b3p.topnl;
 
 import java.io.InputStream;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import nl.b3p.topnl.converters.Converter;
+import nl.b3p.topnl.converters.ConverterFactory;
 import nl.b3p.topnl.entities.TopNLEntity;
 
 /**
@@ -25,17 +31,28 @@ import nl.b3p.topnl.entities.TopNLEntity;
  */
 public class Processor {
     
+    private ConverterFactory converterFactory;
+    private JAXBContext context = null;
+
     
-    public void Processor(){
-        
+    public Processor() throws JAXBException{
+        converterFactory = new ConverterFactory();
+        context = JAXBContext.newInstance("nl.b3p.topnl.top250nl");
     }
-    
-    public Object parse (InputStream in){
-        return null;
+  
+    public Object parse(InputStream in) throws JAXBException {
+        Unmarshaller jaxbUnmarshaller = context.createUnmarshaller();
+        JAXBElement o = (JAXBElement) jaxbUnmarshaller.unmarshal(in);
+
+        Object value = o.getValue();
+
+        return value;
     }
     
     public TopNLEntity convert(Object jaxbObject, TopNLType type){
-        return null;
+        Converter converter = converterFactory.getConverter(jaxbObject);
+        TopNLEntity entity = converter.convert(jaxbObject);
+        return entity;
     }
     
     public void save(Object entity, TopNLType type){
