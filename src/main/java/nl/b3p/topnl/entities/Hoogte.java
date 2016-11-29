@@ -33,8 +33,13 @@ public class Hoogte implements TopNLEntity{
     private String bronbeschrijving;
     private Double bronnauwkeurigheid;
     private Date objectBeginTijd;
+    private Date objectEindTijd;
     private BigInteger visualisatieCode;
     private String typeHoogte;
+    private String referentieVlak;
+    private Double hoogte;
+    
+    
     private Geometry geometrie;
 
     public Integer getId() {
@@ -124,4 +129,30 @@ public class Hoogte implements TopNLEntity{
     public void setVisualisatieCode(BigInteger visualisatieCode) {
         this.visualisatieCode = visualisatieCode;
     }
+
+    public Date getObjectEindTijd() {
+        return objectEindTijd;
+    }
+
+    public void setObjectEindTijd(Date objectEindTijd) {
+        this.objectEindTijd = objectEindTijd;
+    }
+
+    public String getReferentieVlak() {
+        return referentieVlak;
+    }
+
+    public void setReferentieVlak(String referentieVlak) {
+        this.referentieVlak = referentieVlak;
+    }
+
+    public Double getHoogte() {
+        return hoogte;
+    }
+
+    public void setHoogte(Double hoogte) {
+        this.hoogte = hoogte;
+    }
+    
+    
 }

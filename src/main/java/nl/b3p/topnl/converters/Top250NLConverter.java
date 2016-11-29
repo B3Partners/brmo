@@ -95,6 +95,12 @@ public class Top250NLConverter extends Converter{
         hoogte.setObjectBeginTijd(h.getObjectBeginTijd().getTime());
         hoogte.setVisualisatieCode(h.getVisualisatieCode());
         hoogte.setTypeHoogte(h.getTypeHoogte().getValue());
+        
+        hoogte.setHoogte(h.getHoogte());
+        hoogte.setObjectEindTijd(h.getObjectEindTijd() != null ? h.getObjectEindTijd().getTime() : null);
+        hoogte.setReferentieVlak(h.getReferentievlak() != null ? h.getReferentievlak().getValue() : null);
+        
+        
         Element el = h.getGeometrie();
         Geometry geom = gc.convertGeometry(el);
         hoogte.setGeometrie( geom);
