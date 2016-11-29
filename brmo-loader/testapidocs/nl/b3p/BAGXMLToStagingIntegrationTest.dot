@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.AbstractDatabaseIntegrationTest
-	c96 [label=<<table title="nl.b3p.AbstractDatabaseIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractDatabaseIntegrationTest.html">
+	c118 [label=<<table title="nl.b3p.AbstractDatabaseIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractDatabaseIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractDatabaseIntegrationTest </font></td></tr>
 		</table></td></tr>
@@ -31,7 +31,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AbstractDatabaseIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.BAGXMLToStagingIntegrationTest
-	c98 [label=<<table title="nl.b3p.BAGXMLToStagingIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BAGXMLToStagingIntegrationTest.html">
+	c120 [label=<<table title="nl.b3p.BAGXMLToStagingIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BAGXMLToStagingIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BAGXMLToStagingIntegrationTest </td></tr>
 		</table></td></tr>
@@ -47,11 +47,11 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BAGXMLToStagingIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.BAGXMLToStagingIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c96:p -> c98:p [dir=back,arrowtail=empty];
+	c118:p -> c120:p [dir=back,arrowtail=empty];
 	// nl.b3p.BAGXMLToStagingIntegrationTest NAVASSOC nl.b3p.brmo.loader.BrmoFramework
-	c98:p -> c108:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c120:p -> c131:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.BrmoFramework
-	c108 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c131 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoFramework </td></tr>
 		</table></td></tr>
@@ -66,11 +66,15 @@ digraph G {
 <tr><td align="left" balign="left"> + LAADPROCES_TABEL : String </td></tr>
 <tr><td align="left" balign="left"> + BERICHT_TABLE : String </td></tr>
 <tr><td align="left" balign="left"> + JOB_TABLE : String </td></tr>
+<tr><td align="left" balign="left"> + BRMO_METADATA_TABEL : String </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + BrmoFramework(arg0 : DataSource, arg1 : DataSource) </td></tr>
 <tr><td align="left" balign="left"> + BrmoFramework(arg0 : DataSource, arg1 : DataSource, arg2 : DataSource) </td></tr>
 <tr><td align="left" balign="left"> + setDataSourceRsgbBgt(arg0 : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + getStagingVersion() : String </td></tr>
+<tr><td align="left" balign="left"> + getRsgbVersion() : String </td></tr>
+<tr><td align="left" balign="left"> + getRsgbBgtVersion() : String </td></tr>
 <tr><td align="left" balign="left"> + setEnablePipeline(arg0 : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setTransformPipelineCapacity(arg0 : int) </td></tr>
 <tr><td align="left" balign="left"> + setBatchCapacity(arg0 : int) </td></tr>

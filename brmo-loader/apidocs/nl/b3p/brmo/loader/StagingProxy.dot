@@ -118,11 +118,15 @@ digraph G {
 <tr><td align="left" balign="left"> + LAADPROCES_TABEL : String </td></tr>
 <tr><td align="left" balign="left"> + BERICHT_TABLE : String </td></tr>
 <tr><td align="left" balign="left"> + JOB_TABLE : String </td></tr>
+<tr><td align="left" balign="left"> + BRMO_METADATA_TABEL : String </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + BrmoFramework(dataSourceStaging : DataSource, dataSourceRsgb : DataSource) </td></tr>
 <tr><td align="left" balign="left"> + BrmoFramework(dataSourceStaging : DataSource, dataSourceRsgb : DataSource, dataSourceRsgbBgt : DataSource) </td></tr>
 <tr><td align="left" balign="left"> + setDataSourceRsgbBgt(dataSourceRsgbBgt : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + getStagingVersion() : String </td></tr>
+<tr><td align="left" balign="left"> + getRsgbVersion() : String </td></tr>
+<tr><td align="left" balign="left"> + getRsgbBgtVersion() : String </td></tr>
 <tr><td align="left" balign="left"> + setEnablePipeline(enablePipeline : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setTransformPipelineCapacity(pipelineCapacity : int) </td></tr>
 <tr><td align="left" balign="left"> + setBatchCapacity(batchCapacity : int) </td></tr>
