@@ -19,6 +19,7 @@ package nl.b3p.topnl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import javax.sql.DataSource;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -35,12 +36,14 @@ import org.xml.sax.SAXException;
  * @author Meine Toonen
  */
 public class Processor {
-    
+
+    private Database database;
     private ConverterFactory converterFactory;
     private JAXBContext context = null;
 
     
-    public Processor() throws JAXBException{
+    public Processor(DataSource ds) throws JAXBException{
+        database = new Database(ds);
         converterFactory = new ConverterFactory();
         context = JAXBContext.newInstance("nl.b3p.topnl.top250nl");
     }
@@ -60,7 +63,7 @@ public class Processor {
         return entity;
     }
     
-    public void save(Object entity, TopNLType type){
+    public void save(TopNLEntity entity, TopNLType type){
         
     }
     

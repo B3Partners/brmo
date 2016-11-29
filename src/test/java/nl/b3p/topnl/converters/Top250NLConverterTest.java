@@ -50,7 +50,7 @@ public class Top250NLConverterTest {
     private SimpleDateFormat sdf;
     
     public Top250NLConverterTest() throws JAXBException {
-        this.processor = new Processor();
+        this.processor = new Processor(null);
         this.instance = new Top250NLConverter();
         sdf = new SimpleDateFormat("yyyy-MM-dd");
     }
