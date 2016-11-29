@@ -1,7 +1,7 @@
 --
 -- BRMO RSGB script voor sqlserver
 -- Applicatie versie: 1.4.1-SNAPSHOT
--- Gegenereerd op 2016-11-11T16:31:50.75+01:00
+-- Gegenereerd op 2016-11-29T08:54:24.096+01:00
 --
 
 create table sbi_activiteit(
@@ -19248,3 +19248,23 @@ CREATE INDEX zak_recht_fk_kad_identif_idx ON zak_recht (fk_7koz_kad_identif);
 CREATE INDEX kad_onrrnd_zk_aantek_fk4_idx ON kad_onrrnd_zk_aantek (fk_4koz_kad_identif);
 CREATE INDEX kad_perceel_id_idx ON kad_perceel (ka_kad_gemeentecode, ka_sectie, ka_perceelnummer);
 CREATE INDEX zak_recht_aantek_fk5_zk_re_idx ON zak_recht_aantek (fk_5zkr_kadaster_identif);
+-- Script: 117_versienummer.sql
+
+-- brmo versie informatie
+
+CREATE TABLE brmo_metadata
+    (
+        naam VARCHAR(255) NOT NULL,
+        waarde VARCHAR(255),
+        PRIMARY KEY (naam)
+    );
+
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'comment', @value=N'BRMO metadata en versie gegevens' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'brmo_metadata'
+
+GO
+
+-- brmo rsgb versienummer
+
+INSERT INTO brmo_metadata (naam, waarde) VALUES ('brmoversie','1.4.1-SNAPSHOT');

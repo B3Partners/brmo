@@ -7,7 +7,7 @@
 
          Er worden nog geen database-specifieke types gebruikt.
     -->
-    
+
 	<xsl:import href="identifiers.xsl"/>
 	<xsl:import href="datamodel_types.xsl"/>	
 	<xsl:import href="keys_types.xsl"/>
@@ -27,7 +27,7 @@
 			<xsl:call-template name="multi-association"/>
 			<xsl:call-template name="process-enumeraties"/>
 			<xsl:call-template name="process-referentielijsten"/>
-			
+
 			<extra-scripts>
 				<script>101_herkomst_metadata.sql</script>
 				<script>102_metagegevens_brondocument.sql</script>
@@ -45,7 +45,8 @@
 				<script>114_drop_constraints.sql</script>
 				<script>115_nhr.sql</script>
 				<script>116_brk_extra_indices.sql</script>
-			</extra-scripts>		
+				<script>117_versienummer.sql</script>
+			</extra-scripts>
 		</schema>
 	</xsl:template>
 	
@@ -642,5 +643,4 @@
 		</xsl:variable>
 		<xsl:value-of select="$type"/>
 	</xsl:function>
-	
 </xsl:stylesheet>

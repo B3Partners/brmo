@@ -29,3 +29,5 @@
     drop table groep_ cascade;
 
     drop table laadproces cascade;
+
+    drop table brmo_metadata cascade;

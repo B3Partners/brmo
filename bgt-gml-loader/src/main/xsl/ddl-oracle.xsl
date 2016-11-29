@@ -167,6 +167,13 @@ CREATE TABLE GT_PK_METADATA (
     CONSTRAINT  chk_pk_policy CHECK (pk_policy IN ('sequence', 'assigned', 'autoincrement')));
 
 CREATE UNIQUE INDEX gt_pk_metadata_table_idx01 ON GT_PK_METADATA (table_schema, table_name, pk_column);
+
+CREATE TABLE BRMO_METADATA (
+        NAAM VARCHAR2(255 CHAR) NOT NULL,
+        WAARDE VARCHAR2(255 CHAR),
+        PRIMARY KEY (NAAM)
+);
+COMMENT ON TABLE BRMO_METADATA IS 'BRMO metadata en versie gegevens';
 </xsl:text>
     </xsl:function>
 

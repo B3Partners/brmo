@@ -68,10 +68,12 @@ before_script:
   - psql -U postgres -d staging -f ./brmo-persistence/db/create-brmo-persistence-postgresql.sql
   - psql -U postgres -d staging -f ./brmo-persistence/db/01_create_indexes.sql
   - psql -U postgres -d staging -f ./brmo-persistence/db/02_insert_default_user.sql
+  - projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
+  - sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/05_create_brmo_metadata_postgresql.sql
+  - psql -U postgres -d staging -f ./brmo-persistence/db/05_create_brmo_metadata_postgresql.sql
   # set up rsgb tabellen
   - ls -l ./datamodel/generated_scripts/
   - travis_wait psql -U postgres -w -q -d rsgb -f ./datamodel/generated_scripts/datamodel_postgresql.sql
-  #- ls -l ./datamodel/utility_scripts/postgresql/
   #- travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/111a_update_gemeente_geom.sql
   #- travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/113a_update_wijk_geom.sql
   # set up rsgbbgt tabellen

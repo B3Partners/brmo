@@ -100,7 +100,7 @@
 
     CREATE TABLE  job  (
         jid number(19,0) NOT NULL,
-	    id number(19,0),
+        id number(19,0),
         br_xml clob,
         datum timestamp,
         object_ref varchar2(255 char),

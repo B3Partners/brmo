@@ -1,7 +1,7 @@
 --
 -- BRMO RSGB script voor oracle
 -- Applicatie versie: 1.4.1-SNAPSHOT
--- Gegenereerd op 2016-11-11T16:31:50.552+01:00
+-- Gegenereerd op 2016-11-29T08:54:23.905+01:00
 --
 
 
@@ -4932,32 +4932,35 @@ and zr2.FK_8PES_SC_IDENTIF is not null
 order by kpe.SC_KAD_IDENTIF, kpe.straat, kpe.huisnummer, kpe.toevoeging, kpe.huisletter,  to_number(KA_APPARTEMENTSINDEX);
 
 -- percelen plus appartementen op de percelen
-CREATE OR REPLACE VIEW v_bd_app_re_and_kad_perceel AS
-select
-    CAST(ROWNUM AS INTEGER) AS objectid,
-    p.sc_kad_identif    AS kadaster_identificatie,
-    'perceel' as type,
-    p.ka_deelperceelnummer,
-    '' as ka_appartementsindex,
-    p.ka_perceelnummer,
-    p.ka_kad_gemeentecode,
-    p.ka_sectie,
-    p.begrenzing_perceel
-FROM
-    kad_perceel p
-union all  
-SELECT 
-    ar.sc_kad_identif     AS kadaster_identificatie,
-    'appartement' as type,
-    '' as ka_deelperceelnummer,
-    ar.ka_appartementsindex,
-    ar.ka_perceelnummer,
-    ar.ka_kad_gemeentecode,
-    ar.ka_sectie,
-    kp.begrenzing_perceel
-   FROM v_bd_app_re_all_kad_perceel v
-     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif
-     JOIN app_re ar ON v.app_re_identif = ar.sc_kad_identif;    
+CREATE OR REPLACE VIEW v_bd_app_re_and_kad_perceel
+                                 AS
+  SELECT CAST(ROWNUM AS INTEGER) AS objectid,
+    qry.*
+  FROM
+    (SELECT p.sc_kad_identif AS kadaster_identificatie,
+      'perceel'              AS type,
+      p.ka_deelperceelnummer,
+      '' AS ka_appartementsindex,
+      p.ka_perceelnummer,
+      p.ka_kad_gemeentecode,
+      p.ka_sectie,
+      p.begrenzing_perceel
+    FROM kad_perceel p
+    UNION ALL
+    SELECT ar.sc_kad_identif AS kadaster_identificatie,
+      'appartement'          AS type,
+      ''                     AS ka_deelperceelnummer,
+      ar.ka_appartementsindex,
+      ar.ka_perceelnummer,
+      ar.ka_kad_gemeentecode,
+      ar.ka_sectie,
+      kp.begrenzing_perceel
+    FROM v_bd_app_re_all_kad_perceel v
+    JOIN kad_perceel kp
+    ON v.perceel_identif = kp.sc_kad_identif
+    JOIN app_re ar
+    ON v.app_re_identif = ar.sc_kad_identif
+    ) qry ;
 
 -- aankoopdatum uit brondocumenten
 CREATE OR REPLACE VIEW
@@ -20578,3 +20581,18 @@ CREATE INDEX ZAK_RECHT_FK_KAD_IDENTIF_IDX ON ZAK_RECHT (FK_7KOZ_KAD_IDENTIF);
 CREATE INDEX KAD_ONRRND_ZK_AANTEK_FK4_IDX ON KAD_ONRRND_ZK_AANTEK (FK_4KOZ_KAD_IDENTIF);
 CREATE INDEX KAD_PERCEEL_ID_IDX ON KAD_PERCEEL (KA_KAD_GEMEENTECODE, KA_SECTIE, KA_PERCEELNUMMER);
 CREATE INDEX ZAK_RECHT_AANTEK_FK5_ZK_RE_IDX ON ZAK_RECHT_AANTEK (FK_5ZKR_KADASTER_IDENTIF);
+-- Script: 117_versienummer.sql
+
+-- brmo versie informatie
+
+CREATE TABLE BRMO_METADATA
+    (
+        NAAM VARCHAR2(255 CHAR) NOT NULL,
+        WAARDE VARCHAR2(255 CHAR),
+        PRIMARY KEY (NAAM)
+    );
+COMMENT ON TABLE BRMO_METADATA IS 'BRMO metadata en versie gegevens';
+
+-- brmo rsgb versienummer
+
+INSERT INTO brmo_metadata (naam, waarde) VALUES ('brmoversie','1.4.1-SNAPSHOT');

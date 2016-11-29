@@ -32,13 +32,16 @@ install:
 build: off
 
 before_test:
-# services are started after install, so we need to wait
+# services worden na install gestart en we hebben gegenereerde sql nodig
 # create + set up STAGING DB
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE staging" -d "master"
   - dir -w .\brmo-persistence\db\
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\create-brmo-persistence-sqlserver.sql
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\01_create_indexes.sql
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\02_insert_default_user.sql
+  - ps: ([xml]$pom=Get-Content .\pom.xml)
+  - ps: (Get-Content .\brmo-persistence\db\05_create_brmo_metadata_sqlserver.sql) -replace '\${project.version}', $pom.project.version | Set-Content .\brmo-persistence\db\05_create_brmo_metadata_sqlserver.sql
+  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\05_create_brmo_metadata_sqlserver.sql
 # create + set up RSGB DB
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE rsgb" -d "master"
   - dir -w .\datamodel\generated_scripts\

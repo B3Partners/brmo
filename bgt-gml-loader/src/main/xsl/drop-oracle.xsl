@@ -35,10 +35,9 @@ DROP TABLE </xsl:text>
 
     <xsl:function name="db:dropMetaTables">
         <xsl:text>
-
 DROP TABLE GEOMETRY_COLUMNS CASCADE CONSTRAINTS;
-</xsl:text>
-        <xsl:text>DROP TABLE GT_PK_METADATA CASCADE CONSTRAINTS;
+DROP TABLE GT_PK_METADATA CASCADE CONSTRAINTS;
+DROP TABLE BRMO_METADATA CASCADE CONSTRAINTS;
 </xsl:text>
     </xsl:function>
 

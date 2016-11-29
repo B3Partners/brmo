@@ -20,3 +20,5 @@
     drop sequence bericht_id_seq;
 
     drop sequence laadproces_id_seq;
+
+    DROP TABLE BRMO_METADATA CASCADE CONSTRAINTS;

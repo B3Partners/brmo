@@ -4,8 +4,7 @@
                 xmlns:db="http://www.b3partners.nl/db-specific"
                 xmlns:md="http://www.b3partners.nl/model-specific"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions">
-    
-	
+
     <xsl:import href="functions.xsl"/>
 
     <xsl:param name="versie">developer</xsl:param>
@@ -33,6 +32,10 @@
 
     <xsl:template name="metatables">
         <xsl:value-of select="db:addMetaTables()"/>
+        <xsl:text>
+-- brmo versienummer
+INSERT INTO brmo_metadata (naam, waarde) VALUES ('brmoversie','</xsl:text><xsl:value-of select="$versie"/><xsl:text>');
+</xsl:text>
     </xsl:template>
     
     <xsl:template match="objecttype" mode="generateSQL">

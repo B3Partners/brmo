@@ -1,11 +1,6 @@
 --
--- upgrade STAGING datamodel van 1.4.0 naar 1.4.1 (MS SQLserver)
+-- upgrade RSGB datamodel van 1.4.0 naar 1.4.1 (MS SQLserver)
 --
-CREATE INDEX idx_bericht_soort ON bericht (soort);
-CREATE INDEX idx_bericht_status ON bericht (status);
-
-GO
-
 -- brmo versie informatie
 CREATE TABLE brmo_metadata
     (
