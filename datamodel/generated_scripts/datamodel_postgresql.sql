@@ -1,7 +1,7 @@
 --
 -- BRMO RSGB script voor postgresql
 -- Applicatie versie: 1.4.1-SNAPSHOT
--- Gegenereerd op 2016-11-11T16:31:50.172+01:00
+-- Gegenereerd op 2016-11-29T08:54:23.627+01:00
 --
 
 create table sbi_activiteit(
@@ -20258,3 +20258,18 @@ CREATE INDEX zak_recht_fk_kad_identif_idx ON zak_recht (fk_7koz_kad_identif);
 CREATE INDEX kad_onrrnd_zk_aantek_fk4_idx ON kad_onrrnd_zk_aantek (fk_4koz_kad_identif);
 CREATE INDEX kad_perceel_id_idx ON kad_perceel (ka_kad_gemeentecode, ka_sectie, ka_perceelnummer);
 CREATE INDEX zak_recht_aantek_fk5_zk_re_idx ON zak_recht_aantek (fk_5zkr_kadaster_identif);
+-- Script: 117_versienummer.sql
+
+-- brmo versie informatie
+
+CREATE TABLE brmo_metadata
+    (
+        naam CHARACTER VARYING(255) NOT NULL,
+        waarde CHARACTER VARYING(255),
+        CONSTRAINT brmo_metadata_pk PRIMARY KEY (naam)
+    );
+COMMENT ON TABLE brmo_metadata IS 'BRMO metadata en versie gegevens';
+
+-- brmo rsgb versienummer
+
+INSERT INTO brmo_metadata (naam, waarde) VALUES ('brmoversie','1.4.1-SNAPSHOT');
