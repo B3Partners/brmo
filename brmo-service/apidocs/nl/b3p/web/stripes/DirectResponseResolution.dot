@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.web.stripes.DirectResponseResolution
-	c954 [label=<<table title="nl.b3p.web.stripes.DirectResponseResolution" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DirectResponseResolution.html">
+	c978 [label=<<table title="nl.b3p.web.stripes.DirectResponseResolution" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DirectResponseResolution.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DirectResponseResolution </td></tr>
 		</table></td></tr>
@@ -26,9 +26,9 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./DirectResponseResolution.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.web.stripes.DirectResponseResolution extends net.sourceforge.stripes.action.StreamingResolution
-	c994:p -> c954:p [dir=back,arrowtail=empty];
+	c1019:p -> c978:p [dir=back,arrowtail=empty];
 	// net.sourceforge.stripes.action.StreamingResolution
-	c994 [label=<<table title="net.sourceforge.stripes.action.StreamingResolution" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c1019 [label=<<table title="net.sourceforge.stripes.action.StreamingResolution" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StreamingResolution </td></tr>
 		</table></td></tr>

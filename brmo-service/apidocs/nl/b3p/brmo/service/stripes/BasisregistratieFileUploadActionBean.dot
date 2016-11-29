@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.stripes.BasisregistratieFileUploadActionBean
-	c690 [label=<<table title="nl.b3p.brmo.service.stripes.BasisregistratieFileUploadActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BasisregistratieFileUploadActionBean.html">
+	c707 [label=<<table title="nl.b3p.brmo.service.stripes.BasisregistratieFileUploadActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BasisregistratieFileUploadActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BasisregistratieFileUploadActionBean </td></tr>
 		</table></td></tr>
@@ -30,13 +30,13 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BasisregistratieFileUploadActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.stripes.BasisregistratieFileUploadActionBean implements net.sourceforge.stripes.action.ActionBean
-	c719:p -> c690:p [dir=back,arrowtail=empty,style=dashed];
+	c737:p -> c707:p [dir=back,arrowtail=empty,style=dashed];
 	// nl.b3p.brmo.service.stripes.BasisregistratieFileUploadActionBean NAVASSOC net.sourceforge.stripes.action.ActionBeanContext
-	c690:p -> c720:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c707:p -> c738:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.stripes.BasisregistratieFileUploadActionBean NAVASSOC net.sourceforge.stripes.action.FileBean
-	c690:p -> c722:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c707:p -> c740:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// net.sourceforge.stripes.action.ActionBean
-	c719 [label=<<table title="net.sourceforge.stripes.action.ActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c737 [label=<<table title="net.sourceforge.stripes.action.ActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ActionBean </td></tr>
@@ -50,7 +50,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.sourceforge.stripes.action.FileBean
-	c722 [label=<<table title="net.sourceforge.stripes.action.FileBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c740 [label=<<table title="net.sourceforge.stripes.action.FileBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FileBean </td></tr>
 		</table></td></tr>
@@ -73,7 +73,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.sourceforge.stripes.action.ActionBeanContext
-	c720 [label=<<table title="net.sourceforge.stripes.action.ActionBeanContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c738 [label=<<table title="net.sourceforge.stripes.action.ActionBeanContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ActionBeanContext </td></tr>
 		</table></td></tr>
