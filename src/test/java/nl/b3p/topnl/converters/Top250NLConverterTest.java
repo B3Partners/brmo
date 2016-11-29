@@ -16,6 +16,12 @@
  */
 package nl.b3p.topnl.converters;
 
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.List;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import nl.b3p.topnl.Processor;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.TopNLEntity;
 import org.junit.After;
@@ -31,9 +37,12 @@ import static org.junit.Assert.*;
  */
 public class Top250NLConverterTest {
     
-    private Top250NLConverter instance = new Top250NLConverter();
+    private final Top250NLConverter instance;
+    private final Processor processor;
     
-    public Top250NLConverterTest() {
+    public Top250NLConverterTest() throws JAXBException {
+        this.processor = new Processor();
+        this.instance = new Top250NLConverter();
     }
     
     @BeforeClass
@@ -56,26 +65,45 @@ public class Top250NLConverterTest {
      * Test of convert method, of class Top250NLConverter.
      */
     @Test
-    public void testConvert() {
+    public void testConvertFeatureCollection() throws JAXBException {
         System.out.println("convert");
-        Object jaxbObject = null;
-        TopNLEntity expResult = null;
-        TopNLEntity result = instance.convert(jaxbObject);
+        Hoogte hoogte = new Hoogte();
+        InputStream in = Top250NLConverterTest.class.getResourceAsStream("FeatureCollectionHoogte.xml");
+        Object jaxb = processor.parse(in);
+        
+        List<TopNLEntity> expResult = Collections.singletonList(hoogte);
+        List<TopNLEntity> result = instance.convert(jaxb);
         assertNotNull(result);
-        assertEquals(expResult, result);
+        assertEquals(expResult.size(), result.size());
+        assertEquals(expResult.get(0).getClass(), result.get(0).getClass());
+    }
+    
+    @Test
+    public void testConvertNoFeatureCollection() throws JAXBException {
+        System.out.println("convert");
+        Hoogte hoogte = new Hoogte();
+        InputStream in = Top250NLConverterTest.class.getResourceAsStream("Hoogte.xml");
+        Object jaxb = processor.parse(in);
+        
+        List<TopNLEntity> expResult = Collections.singletonList(hoogte);
+        List<TopNLEntity> result = instance.convert(jaxb);
+        assertNotNull(result);
+        assertEquals(expResult.size(), result.size());
+        assertEquals(expResult.get(0).getClass(), result.get(0).getClass());
     }
 
     /**
      * Test of convertHoogte method, of class Top250NLConverter.
      */
     @Test
-    public void testConvertHoogte() {
-        System.out.println("convertHoogte");
-        Object jaxbObject = null;
-        Hoogte expResult = null;
-        Hoogte result = instance.convertHoogte(jaxbObject);
-        assertNotNull(result);
-        assertEquals(expResult, result);
+    public void testConvertHoogte() throws JAXBException {
+        System.out.println("convert");
+        InputStream in = Top250NLConverterTest.class.getResourceAsStream("Hoogte.xml");
+        Object jaxb = processor.parse(in);
+        TopNLEntity entity = instance.convertObject(jaxb);
+        
+        assertNotNull(entity);
+        assertTrue(entity instanceof Hoogte);
     }
     
 }

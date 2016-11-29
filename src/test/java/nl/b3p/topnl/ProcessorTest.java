@@ -17,6 +17,7 @@
 package nl.b3p.topnl;
 
 import java.io.InputStream;
+import java.util.List;
 import javax.xml.bind.JAXBException;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.TopNLEntity;
@@ -82,13 +83,6 @@ public class ProcessorTest {
      */
     @Test
     public void testConvert250() throws JAXBException {
-        System.out.println("convert");
-        InputStream in = ProcessorTest.class.getResourceAsStream("Hoogte.xml");
-        Object jaxb = instance.parse(in);
-        TopNLEntity entity = instance.convert(jaxb, TopNLType.TOP250NL);
-        
-        assertNotNull(entity);
-        assertTrue(entity instanceof Hoogte);
     }
 
     /**

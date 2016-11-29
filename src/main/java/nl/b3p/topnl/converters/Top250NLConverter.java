@@ -16,8 +16,14 @@
  */
 package nl.b3p.topnl.converters;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.JAXBElement;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.TopNLEntity;
+import nl.b3p.topnl.top250nl.FeatureCollectionT250NLType;
+import nl.b3p.topnl.top250nl.FeatureCollectionT250NLType.FeatureMember;
+import nl.b3p.topnl.top250nl.HoogteType;
 
 /**
  *
@@ -26,13 +32,54 @@ import nl.b3p.topnl.entities.TopNLEntity;
 public class Top250NLConverter extends Converter{
 
     @Override
-    public TopNLEntity convert(Object jaxbObject) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<TopNLEntity> convert(Object jaxbObject) {
+        List<TopNLEntity> entities = null;
+        if(jaxbObject instanceof FeatureCollectionT250NLType){
+            entities = convertFeatureCollection(jaxbObject);
+        }else{
+            entities = new ArrayList<>();
+            entities.add(convertObject(jaxbObject));
+        }
+        return entities;
+    }
+    
+    @Override
+    public List<TopNLEntity> convertFeatureCollection(Object jaxbFeatureCollection) {
+        FeatureCollectionT250NLType collection = (FeatureCollectionT250NLType)jaxbFeatureCollection;
+        List<TopNLEntity> entities = new ArrayList<>();
+        
+        List<FeatureMember> featureMembers = collection.getFeatureMember();
+        for (FeatureMember featureMember : featureMembers) {
+            JAXBElement jaxbObject= featureMember.getTop250NlObject();
+            Object obj = jaxbObject.getValue();
+            TopNLEntity entity = convertObject(obj);
+            entities.add(entity);
+        }
+        
+        return entities;
+    }
+    
+    @Override
+    public TopNLEntity convertObject(Object featureMember){
+        TopNLEntity entity = null;
+
+        
+       // if(featureMember.getClass() instanceof HoogteType){
+       if(featureMember instanceof HoogteType){
+            entity = convertHoogte(featureMember);
+        }else{
+            throw new IllegalArgumentException("Type not recognized: " + featureMember.getClass());
+        }
+        
+        return entity;
     }
 
     @Override
     public Hoogte convertHoogte(Object jaxbObject) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Hoogte hoogte = new Hoogte();
+        
+        return hoogte;
     }
+
     
 }

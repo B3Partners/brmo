@@ -17,6 +17,7 @@
 package nl.b3p.topnl;
 
 import java.io.InputStream;
+import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -49,9 +50,9 @@ public class Processor {
         return value;
     }
     
-    public TopNLEntity convert(Object jaxbObject, TopNLType type){
+    public List<TopNLEntity> convert(Object jaxbObject, TopNLType type){
         Converter converter = converterFactory.getConverter(jaxbObject);
-        TopNLEntity entity = converter.convert(jaxbObject);
+        List<TopNLEntity> entity = converter.convert(jaxbObject);
         return entity;
     }
     

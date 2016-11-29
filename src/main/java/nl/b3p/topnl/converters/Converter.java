@@ -16,6 +16,8 @@
  */
 package nl.b3p.topnl.converters;
 
+import java.util.List;
+import javax.xml.bind.JAXBElement;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.TopNLEntity;
 
@@ -25,7 +27,11 @@ import nl.b3p.topnl.entities.TopNLEntity;
  */
 public abstract class Converter {
     
-    public abstract TopNLEntity convert(Object jaxbObject);
+    public abstract List<TopNLEntity> convert(Object jaxbObject);
     
     public abstract Hoogte convertHoogte(Object jaxbObject);
+    
+    public abstract TopNLEntity convertObject(Object jaxbObject);
+    
+    public abstract List<TopNLEntity> convertFeatureCollection(Object jaxbObject);
 }
