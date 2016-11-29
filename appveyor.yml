@@ -32,7 +32,7 @@ install:
 build: off
 
 before_test:
-# services are started after install, so we need to wait
+# services worden na install gestart en we hebben gegenereerde sql nodig
 # create + set up STAGING DB
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE staging" -d "master"
   - dir -w .\brmo-persistence\db\
