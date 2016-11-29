@@ -16,11 +16,17 @@
  */
 package nl.b3p.topnl.converters;
 
+import com.vividsolutions.jts.geom.LineString;
+import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import nl.b3p.topnl.Processor;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.TopNLEntity;
@@ -30,6 +36,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -40,9 +47,12 @@ public class Top250NLConverterTest {
     private final Top250NLConverter instance;
     private final Processor processor;
     
+    private SimpleDateFormat sdf;
+    
     public Top250NLConverterTest() throws JAXBException {
         this.processor = new Processor();
         this.instance = new Top250NLConverter();
+        sdf = new SimpleDateFormat("yyyy-MM-dd");
     }
     
     @BeforeClass
@@ -65,7 +75,7 @@ public class Top250NLConverterTest {
      * Test of convert method, of class Top250NLConverter.
      */
     @Test
-    public void testConvertFeatureCollection() throws JAXBException {
+    public void testConvertFeatureCollection() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException{
         System.out.println("convert");
         Hoogte hoogte = new Hoogte();
         InputStream in = Top250NLConverterTest.class.getResourceAsStream("FeatureCollectionHoogte.xml");
@@ -79,7 +89,7 @@ public class Top250NLConverterTest {
     }
     
     @Test
-    public void testConvertNoFeatureCollection() throws JAXBException {
+    public void testConvertNoFeatureCollection() throws IOException, SAXException, ParserConfigurationException, TransformerException,JAXBException {
         System.out.println("convert");
         Hoogte hoogte = new Hoogte();
         InputStream in = Top250NLConverterTest.class.getResourceAsStream("Hoogte.xml");
@@ -96,7 +106,7 @@ public class Top250NLConverterTest {
      * Test of convertHoogte method, of class Top250NLConverter.
      */
     @Test
-    public void testConvertHoogte() throws JAXBException {
+    public void testConvertHoogte() throws IOException, SAXException, ParserConfigurationException, TransformerException,JAXBException, ParseException {
         System.out.println("convert");
         InputStream in = Top250NLConverterTest.class.getResourceAsStream("Hoogte.xml");
         Object jaxb = processor.parse(in);
@@ -104,6 +114,18 @@ public class Top250NLConverterTest {
         
         assertNotNull(entity);
         assertTrue(entity instanceof Hoogte);
+        
+        Hoogte h = (Hoogte)entity;
+        assertEquals( "NL.TOP250NL.16R09-0000084246",h.getIdentificatie());
+        assertEquals( "TOP50NL",h.getBrontype());
+        assertEquals( sdf.parse("2016-09-01"),h.getBronactualiteit());
+        assertEquals( "TOP50NL wordt als bron gebruikt bij het bijwerken van EuroRegionalMap (ERM). Via een automatisch proces worden de gegevens van ERM omgezet naar TOP250NL",h.getBronbeschrijving());
+        assertEquals( "125.0",h.getBronnauwkeurigheid().toString());
+        assertEquals( sdf.parse("2016-09-12"),h.getObjectBeginTijd());
+        assertEquals( new BigInteger("45550"),h.getVisualisatieCode());
+        assertEquals( "hoogwaterlijn",h.getTypeHoogte());
+        assertNotNull(h.getGeometrie());
+        assertEquals( LineString.class,h.getGeometrie().getClass());
     }
     
 }

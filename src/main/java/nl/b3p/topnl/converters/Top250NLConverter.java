@@ -16,15 +16,22 @@
  */
 package nl.b3p.topnl.converters;
 
+import com.vividsolutions.jts.geom.Geometry;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.TopNLEntity;
+import nl.b3p.topnl.top250nl.BRTLijnOfPuntType;
 import nl.b3p.topnl.top250nl.FeatureCollectionT250NLType;
 import nl.b3p.topnl.top250nl.FeatureCollectionT250NLType.FeatureMember;
 import nl.b3p.topnl.top250nl.HoogteType;
-
+import nl.b3p.topnl.top250nl.Top250NlObjectType.Identificatie;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 /**
  *
  * @author Meine Toonen
@@ -32,7 +39,7 @@ import nl.b3p.topnl.top250nl.HoogteType;
 public class Top250NLConverter extends Converter{
 
     @Override
-    public List<TopNLEntity> convert(Object jaxbObject) {
+    public List<TopNLEntity> convert(Object jaxbObject)  throws IOException, SAXException, ParserConfigurationException, TransformerException {
         List<TopNLEntity> entities = null;
         if(jaxbObject instanceof FeatureCollectionT250NLType){
             entities = convertFeatureCollection(jaxbObject);
@@ -44,7 +51,7 @@ public class Top250NLConverter extends Converter{
     }
     
     @Override
-    public List<TopNLEntity> convertFeatureCollection(Object jaxbFeatureCollection) {
+    public List<TopNLEntity> convertFeatureCollection(Object jaxbFeatureCollection)   throws IOException, SAXException, ParserConfigurationException, TransformerException{
         FeatureCollectionT250NLType collection = (FeatureCollectionT250NLType)jaxbFeatureCollection;
         List<TopNLEntity> entities = new ArrayList<>();
         
@@ -60,7 +67,7 @@ public class Top250NLConverter extends Converter{
     }
     
     @Override
-    public TopNLEntity convertObject(Object featureMember){
+    public TopNLEntity convertObject(Object featureMember)  throws IOException, SAXException, ParserConfigurationException, TransformerException{
         TopNLEntity entity = null;
 
         
@@ -75,11 +82,30 @@ public class Top250NLConverter extends Converter{
     }
 
     @Override
-    public Hoogte convertHoogte(Object jaxbObject) {
+    public Hoogte convertHoogte(Object jaxbObject)  throws IOException, SAXException, ParserConfigurationException, TransformerException{
+        HoogteType h = (HoogteType)jaxbObject;
+
         Hoogte hoogte = new Hoogte();
+        
+        hoogte.setIdentificatie(convertIdentificatie(h.getIdentificatie()));
+        hoogte.setBrontype(h.getBrontype().getValue());
+        hoogte.setBronactualiteit(h.getBronactualiteit().getTime());
+        hoogte.setBronbeschrijving(h.getBronbeschrijving());
+        hoogte.setBronnauwkeurigheid(h.getBronnauwkeurigheid());
+        hoogte.setObjectBeginTijd(h.getObjectBeginTijd().getTime());
+        hoogte.setVisualisatieCode(h.getVisualisatieCode());
+        hoogte.setTypeHoogte(h.getTypeHoogte().getValue());
+        Element el = h.getGeometrie();
+        Geometry geom = gc.convertGeometry(el);
+        hoogte.setGeometrie( geom);
         
         return hoogte;
     }
 
+    
+    public String convertIdentificatie(Identificatie identificatie){
+        String idString = identificatie.getNEN3610ID().getNamespace() + "." + identificatie.getNEN3610ID().getLokaalID();
+        return idString;
+    }
     
 }

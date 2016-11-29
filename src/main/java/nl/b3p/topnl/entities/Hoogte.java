@@ -16,10 +16,112 @@
  */
 package nl.b3p.topnl.entities;
 
+import com.vividsolutions.jts.geom.Geometry;
+import java.math.BigInteger;
+import java.util.Date;
+
 /**
  *
  * @author meine
  */
 public class Hoogte implements TopNLEntity{
-    
+    private Integer id;
+    private String identificatie;
+    private String topnltype;
+    private String brontype;
+    private Date bronactualiteit;
+    private String bronbeschrijving;
+    private Double bronnauwkeurigheid;
+    private Date objectBeginTijd;
+    private BigInteger visualisatieCode;
+    private String typeHoogte;
+    private Geometry geometrie;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getIdentificatie() {
+        return identificatie;
+    }
+
+    public void setIdentificatie(String identificatie) {
+        this.identificatie = identificatie;
+    }
+
+    public String getTopnltype() {
+        return topnltype;
+    }
+
+    public void setTopnltype(String topnltype) {
+        this.topnltype = topnltype;
+    }
+
+    public String getBrontype() {
+        return brontype;
+    }
+
+    public void setBrontype(String brontype) {
+        this.brontype = brontype;
+    }
+
+    public Date getBronactualiteit() {
+        return bronactualiteit;
+    }
+
+    public void setBronactualiteit(Date bronactualiteit) {
+        this.bronactualiteit = bronactualiteit;
+    }
+
+    public String getBronbeschrijving() {
+        return bronbeschrijving;
+    }
+
+    public void setBronbeschrijving(String bronbeschrijving) {
+        this.bronbeschrijving = bronbeschrijving;
+    }
+
+    public Double getBronnauwkeurigheid() {
+        return bronnauwkeurigheid;
+    }
+
+    public void setBronnauwkeurigheid(Double bronnauwkeurigheid) {
+        this.bronnauwkeurigheid = bronnauwkeurigheid;
+    }
+
+    public Date getObjectBeginTijd() {
+        return objectBeginTijd;
+    }
+
+    public void setObjectBeginTijd(Date objectBeginTijd) {
+        this.objectBeginTijd = objectBeginTijd;
+    }
+
+    public String getTypeHoogte() {
+        return typeHoogte;
+    }
+
+    public void setTypeHoogte(String typeHoogte) {
+        this.typeHoogte = typeHoogte;
+    }
+
+    public Geometry getGeometrie() {
+        return geometrie;
+    }
+
+    public void setGeometrie(Geometry geometrie) {
+        this.geometrie = geometrie;
+    }
+
+    public BigInteger getVisualisatieCode() {
+        return visualisatieCode;
+    }
+
+    public void setVisualisatieCode(BigInteger visualisatieCode) {
+        this.visualisatieCode = visualisatieCode;
+    }
 }

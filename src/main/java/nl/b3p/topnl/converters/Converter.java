@@ -16,10 +16,13 @@
  */
 package nl.b3p.topnl.converters;
 
+import java.io.IOException;
 import java.util.List;
-import javax.xml.bind.JAXBElement;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.TopNLEntity;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -27,11 +30,13 @@ import nl.b3p.topnl.entities.TopNLEntity;
  */
 public abstract class Converter {
     
-    public abstract List<TopNLEntity> convert(Object jaxbObject);
+    protected GeometryConverter gc = new GeometryConverter();
     
-    public abstract Hoogte convertHoogte(Object jaxbObject);
+    public abstract List<TopNLEntity> convert(Object jaxbObject)  throws IOException, SAXException, ParserConfigurationException, TransformerException;
     
-    public abstract TopNLEntity convertObject(Object jaxbObject);
+    public abstract Hoogte convertHoogte(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
     
-    public abstract List<TopNLEntity> convertFeatureCollection(Object jaxbObject);
+    public abstract TopNLEntity convertObject(Object jaxbObject)  throws IOException, SAXException, ParserConfigurationException, TransformerException;
+    
+    public abstract List<TopNLEntity> convertFeatureCollection(Object jaxbObject)  throws IOException, SAXException, ParserConfigurationException, TransformerException;
 }

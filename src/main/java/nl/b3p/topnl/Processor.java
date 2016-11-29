@@ -16,15 +16,19 @@
  */
 package nl.b3p.topnl;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import nl.b3p.topnl.converters.Converter;
 import nl.b3p.topnl.converters.ConverterFactory;
 import nl.b3p.topnl.entities.TopNLEntity;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -50,7 +54,7 @@ public class Processor {
         return value;
     }
     
-    public List<TopNLEntity> convert(Object jaxbObject, TopNLType type){
+    public List<TopNLEntity> convert(Object jaxbObject, TopNLType type)  throws IOException, SAXException, ParserConfigurationException, TransformerException{
         Converter converter = converterFactory.getConverter(jaxbObject);
         List<TopNLEntity> entity = converter.convert(jaxbObject);
         return entity;

@@ -17,10 +17,7 @@
 package nl.b3p.topnl;
 
 import java.io.InputStream;
-import java.util.List;
 import javax.xml.bind.JAXBException;
-import nl.b3p.topnl.entities.Hoogte;
-import nl.b3p.topnl.entities.TopNLEntity;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -57,16 +54,6 @@ public class ProcessorTest {
     }
 
     /**
-     * Test of Processor method, of class Processor.
-     */
-    @Test
-    public void testProcessor() {
-        System.out.println("Processor");
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of parse method, of class Processor.
      */
     @Test
@@ -78,12 +65,6 @@ public class ProcessorTest {
         assertTrue (jaxb instanceof nl.b3p.topnl.top250nl.FeatureCollectionT250NLType);
     }
 
-    /**
-     * Test of convert method, of class Processor.
-     */
-    @Test
-    public void testConvert250() throws JAXBException {
-    }
 
     /**
      * Test of save method, of class Processor.
