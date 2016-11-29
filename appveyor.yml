@@ -45,11 +45,11 @@ before_test:
 # create + set up RSGB DB
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE rsgb" -d "master"
   - dir -w .\datamodel\generated_scripts\
-  - sqlcmd -r 1 -x -b -S (local)\SQL2016 -U sa -P Password12! -d "rsgb" -I -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
+  - sqlcmd -x -b -S (local)\SQL2016 -U sa -P Password12! -d "rsgb" -I -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
 # create + set up RSGBBGT DB
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE bgttest" -d "master"
   - dir -w .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\
-  - sqlcmd -S (local)\SQL2016 -I -U sa -P Password12! -d "bgttest" -i .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\create_rsgb_bgt.sql
+  - sqlcmd -b -S (local)\SQL2016 -I -U sa -P Password12! -d "bgttest" -i .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\create_rsgb_bgt.sql
   - cmd: echo "computer name:" %COMPUTERNAME%
   - cmd: echo "instance name:" %INSTANCENAME%
   - ps: .\.appveyor\setting-tcp-ip-ports.ps1
