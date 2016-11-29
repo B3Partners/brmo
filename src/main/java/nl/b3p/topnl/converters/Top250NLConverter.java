@@ -25,68 +25,66 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.TopNLEntity;
-import nl.b3p.topnl.top250nl.BRTLijnOfPuntType;
 import nl.b3p.topnl.top250nl.FeatureCollectionT250NLType;
 import nl.b3p.topnl.top250nl.FeatureCollectionT250NLType.FeatureMember;
 import nl.b3p.topnl.top250nl.HoogteType;
 import nl.b3p.topnl.top250nl.Top250NlObjectType.Identificatie;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
+
 /**
  *
  * @author Meine Toonen
  */
-public class Top250NLConverter extends Converter{
+public class Top250NLConverter extends Converter {
 
     @Override
-    public List<TopNLEntity> convert(Object jaxbObject)  throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public List<TopNLEntity> convert(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
         List<TopNLEntity> entities = null;
-        if(jaxbObject instanceof FeatureCollectionT250NLType){
+        if (jaxbObject instanceof FeatureCollectionT250NLType) {
             entities = convertFeatureCollection(jaxbObject);
-        }else{
+        } else {
             entities = new ArrayList<>();
             entities.add(convertObject(jaxbObject));
         }
         return entities;
     }
-    
+
     @Override
-    public List<TopNLEntity> convertFeatureCollection(Object jaxbFeatureCollection)   throws IOException, SAXException, ParserConfigurationException, TransformerException{
-        FeatureCollectionT250NLType collection = (FeatureCollectionT250NLType)jaxbFeatureCollection;
+    public List<TopNLEntity> convertFeatureCollection(Object jaxbFeatureCollection) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        FeatureCollectionT250NLType collection = (FeatureCollectionT250NLType) jaxbFeatureCollection;
         List<TopNLEntity> entities = new ArrayList<>();
-        
+
         List<FeatureMember> featureMembers = collection.getFeatureMember();
         for (FeatureMember featureMember : featureMembers) {
-            JAXBElement jaxbObject= featureMember.getTop250NlObject();
+            JAXBElement jaxbObject = featureMember.getTop250NlObject();
             Object obj = jaxbObject.getValue();
             TopNLEntity entity = convertObject(obj);
             entities.add(entity);
         }
-        
+
         return entities;
     }
-    
+
     @Override
-    public TopNLEntity convertObject(Object featureMember)  throws IOException, SAXException, ParserConfigurationException, TransformerException{
+    public TopNLEntity convertObject(Object featureMember) throws IOException, SAXException, ParserConfigurationException, TransformerException {
         TopNLEntity entity = null;
 
-        
-       // if(featureMember.getClass() instanceof HoogteType){
-       if(featureMember instanceof HoogteType){
+        if (featureMember instanceof HoogteType) {
             entity = convertHoogte(featureMember);
-        }else{
+        } else {
             throw new IllegalArgumentException("Type not recognized: " + featureMember.getClass());
         }
-        
+
         return entity;
     }
 
     @Override
-    public Hoogte convertHoogte(Object jaxbObject)  throws IOException, SAXException, ParserConfigurationException, TransformerException{
-        HoogteType h = (HoogteType)jaxbObject;
+    public Hoogte convertHoogte(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        HoogteType h = (HoogteType) jaxbObject;
 
         Hoogte hoogte = new Hoogte();
-        
+
         hoogte.setIdentificatie(convertIdentificatie(h.getIdentificatie()));
         hoogte.setBrontype(h.getBrontype().getValue());
         hoogte.setBronactualiteit(h.getBronactualiteit().getTime());
@@ -95,23 +93,20 @@ public class Top250NLConverter extends Converter{
         hoogte.setObjectBeginTijd(h.getObjectBeginTijd().getTime());
         hoogte.setVisualisatieCode(h.getVisualisatieCode());
         hoogte.setTypeHoogte(h.getTypeHoogte().getValue());
-        
+
         hoogte.setHoogte(h.getHoogte());
         hoogte.setObjectEindTijd(h.getObjectEindTijd() != null ? h.getObjectEindTijd().getTime() : null);
         hoogte.setReferentieVlak(h.getReferentievlak() != null ? h.getReferentievlak().getValue() : null);
-        
-        
+
         Element el = h.getGeometrie();
         Geometry geom = gc.convertGeometry(el);
-        hoogte.setGeometrie( geom);
-        
+        hoogte.setGeometrie(geom);
+
         return hoogte;
     }
 
-    
-    public String convertIdentificatie(Identificatie identificatie){
+    public String convertIdentificatie(Identificatie identificatie) {
         String idString = identificatie.getNEN3610ID().getNamespace() + "." + identificatie.getNEN3610ID().getLokaalID();
         return idString;
     }
-    
 }
