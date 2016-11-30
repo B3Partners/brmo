@@ -122,7 +122,7 @@ public class Top250NLConverterTest {
         assertEquals( "TOP50NL wordt als bron gebruikt bij het bijwerken van EuroRegionalMap (ERM). Via een automatisch proces worden de gegevens van ERM omgezet naar TOP250NL",h.getBronbeschrijving());
         assertEquals( "125.0",h.getBronnauwkeurigheid().toString());
         assertEquals( sdf.parse("2016-09-12"),h.getObjectBeginTijd());
-        assertEquals( new BigInteger("45550"),h.getVisualisatieCode());
+        assertEquals( new Long("45550"),h.getVisualisatieCode());
         assertEquals( "hoogwaterlijn",h.getTypeHoogte());
         assertNotNull(h.getGeometrie());
         assertEquals( LineString.class,h.getGeometrie().getClass());
