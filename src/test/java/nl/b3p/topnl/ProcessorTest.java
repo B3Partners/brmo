@@ -17,39 +17,24 @@
 package nl.b3p.topnl;
 
 import java.io.InputStream;
-import java.util.Properties;
-import javax.sql.DataSource;
 import javax.xml.bind.JAXBException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.apache.commons.dbcp.BasicDataSource;
 
 /**
  *
  * @author meine
  */
-public class ProcessorTest {
+public class ProcessorTest extends TestUtil{
     
     private Processor instance;
-    private static DataSource datasource;
     
     public ProcessorTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-        BasicDataSource ds = new BasicDataSource();
-        //Properties outdbProps = new Properties(); //cl.getOptionProperties("outdbprop");
-        ds.setUrl("jdbc:postgresql://localhost:5432/rsgb_topnl");
-        ds.setDriverClassName("org.postgresql.Driver");
-        ds.setUsername("rsgb");
-        ds.setPassword("rsgb");
-        datasource = ds;
-    }
     
     @AfterClass
     public static void tearDownClass() {
@@ -57,7 +42,7 @@ public class ProcessorTest {
     
     @Before
     public void setUp() throws JAXBException {
-        instance = new Processor(datasource);
+        instance = new Processor(null);
     }
     
     @After

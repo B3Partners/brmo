@@ -91,7 +91,7 @@ public class Top250NLConverter extends Converter {
         hoogte.setBronbeschrijving(h.getBronbeschrijving());
         hoogte.setBronnauwkeurigheid(h.getBronnauwkeurigheid());
         hoogte.setObjectBeginTijd(h.getObjectBeginTijd().getTime());
-        hoogte.setVisualisatieCode(h.getVisualisatieCode());
+        hoogte.setVisualisatieCode(h.getVisualisatieCode().longValue());
         hoogte.setTypeHoogte(h.getTypeHoogte().getValue());
 
         hoogte.setHoogte(h.getHoogte());
