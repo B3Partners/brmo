@@ -16,13 +16,25 @@
  */
 package nl.b3p.topnl;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
+import java.util.List;
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import nl.b3p.topnl.entities.Hoogte;
+import nl.b3p.topnl.entities.TopNLEntity;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -34,7 +46,7 @@ public class ProcessorTest extends TestUtil{
     
     public ProcessorTest() {
     }
-    
+
     
     @AfterClass
     public static void tearDownClass() {
@@ -42,7 +54,7 @@ public class ProcessorTest extends TestUtil{
     
     @Before
     public void setUp() throws JAXBException {
-        instance = new Processor(null);
+        instance = new Processor(datasource);
     }
     
     @After
@@ -66,11 +78,30 @@ public class ProcessorTest extends TestUtil{
      * Test of save method, of class Processor.
      */
     @Test
-    public void testSave() {
+    public void testSave() throws JAXBException, IOException, SAXException, TransformerException, ParserConfigurationException, SQLException {
         System.out.println("save");
-        instance.save(null, null);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        InputStream in = ProcessorTest.class.getResourceAsStream("Hoogte.xml");
+        Object jaxb = instance.parse(in);
+        List<TopNLEntity> hoogte = instance.convert(jaxb, TopNLType.TOP250NL);
+        instance.save(hoogte.get(0), TopNLType.TOP250NL);
+        QueryRunner run = new QueryRunner(datasource);
+
+        ResultSetHandler<Hoogte> h = new BeanHandler<>(Hoogte.class);
+
+        Hoogte real = run.query("SELECT * FROM Hoogte WHERE identificatie=?", h, "NL.TOP250NL.16R09-0000084246");
+        assertNotNull(real);
+    }
+
+    /**
+     * Test of convert method, of class Processor.
+     */
+    @Test
+    public void testConvert() throws Exception {
+        System.out.println("convert");
+        InputStream in = ProcessorTest.class.getResourceAsStream("Hoogte.xml");
+        Object jaxb = instance.parse(in);
+        List<TopNLEntity> hoogte = instance.convert(jaxb, TopNLType.TOP250NL);
+        assertEquals(1, hoogte.size());
     }
     
 }

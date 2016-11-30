@@ -64,7 +64,7 @@ public class Processor {
     }
     
     public void save(TopNLEntity entity, TopNLType type){
-        
+        database.save(entity);
     }
     
 }
