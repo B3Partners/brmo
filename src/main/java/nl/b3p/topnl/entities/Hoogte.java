@@ -24,109 +24,11 @@ import java.util.Date;
  * @author meine
  */
 public class Hoogte extends TopNLEntity{
-    private Integer id;
-    private String identificatie;
-    private String brontype;
-    private Date bronactualiteit;
-    private String bronbeschrijving;
-    private Double bronnauwkeurigheid;
-    private Date objectBeginTijd;
-    private Date objectEindTijd;
-    private Long visualisatieCode;
     private String typeHoogte;
+    private Geometry geometrie;
     private String referentieVlak;
     private Double hoogte;
     
-    
-    private Geometry geometrie;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getIdentificatie() {
-        return identificatie;
-    }
-
-    public void setIdentificatie(String identificatie) {
-        this.identificatie = identificatie;
-    }
-
-    public String getBrontype() {
-        return brontype;
-    }
-
-    public void setBrontype(String brontype) {
-        this.brontype = brontype;
-    }
-
-    public Date getBronactualiteit() {
-        return bronactualiteit;
-    }
-
-    public void setBronactualiteit(Date bronactualiteit) {
-        this.bronactualiteit = bronactualiteit;
-    }
-
-    public String getBronbeschrijving() {
-        return bronbeschrijving;
-    }
-
-    public void setBronbeschrijving(String bronbeschrijving) {
-        this.bronbeschrijving = bronbeschrijving;
-    }
-
-    public Double getBronnauwkeurigheid() {
-        return bronnauwkeurigheid;
-    }
-
-    public void setBronnauwkeurigheid(Double bronnauwkeurigheid) {
-        this.bronnauwkeurigheid = bronnauwkeurigheid;
-    }
-
-    public Date getObjectBeginTijd() {
-        return objectBeginTijd;
-    }
-
-    public void setObjectBeginTijd(Date objectBeginTijd) {
-        this.objectBeginTijd = objectBeginTijd;
-    }
-
-    public String getTypeHoogte() {
-        return typeHoogte;
-    }
-
-    public void setTypeHoogte(String typeHoogte) {
-        this.typeHoogte = typeHoogte;
-    }
-
-    public Geometry getGeometrie() {
-        return geometrie;
-    }
-
-    public void setGeometrie(Geometry geometrie) {
-        this.geometrie = geometrie;
-    }
-
-    public Long getVisualisatieCode() {
-        return visualisatieCode;
-    }
-
-    public void setVisualisatieCode(Long visualisatieCode) {
-        this.visualisatieCode = visualisatieCode;
-    }
-
-    public Date getObjectEindTijd() {
-        return objectEindTijd;
-    }
-
-    public void setObjectEindTijd(Date objectEindTijd) {
-        this.objectEindTijd = objectEindTijd;
-    }
 
     public String getReferentieVlak() {
         return referentieVlak;
@@ -144,5 +46,21 @@ public class Hoogte extends TopNLEntity{
         this.hoogte = hoogte;
     }
     
+    public String getTypeHoogte() {
+        return typeHoogte;
+    }
+
+    public void setTypeHoogte(String typeHoogte) {
+        this.typeHoogte = typeHoogte;
+    }
+
+    public Geometry getGeometrie() {
+        return geometrie;
+    }
+
+    public void setGeometrie(Geometry geometrie) {
+        this.geometrie = geometrie;
+    }
+
     
 }

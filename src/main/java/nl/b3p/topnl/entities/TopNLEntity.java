@@ -16,6 +16,9 @@
  */
 package nl.b3p.topnl.entities;
 
+import com.vividsolutions.jts.geom.Geometry;
+import java.util.Date;
+
 /**
  *
  * @author Meine Toonen
@@ -24,6 +27,18 @@ public abstract class TopNLEntity {
     
     protected String topnltype;
     
+    private Integer id;
+    private String identificatie;
+    private String brontype;
+    private Date bronactualiteit;
+    private String bronbeschrijving;
+    private Double bronnauwkeurigheid;
+    private Date objectBeginTijd;
+    private Date objectEindTijd;
+    private Long visualisatieCode;
+    
+    
+    
     
     public String getTopnltype() {
         return topnltype;
@@ -31,6 +46,78 @@ public abstract class TopNLEntity {
 
     public void setTopnltype(String topnltype) {
         this.topnltype = topnltype;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getIdentificatie() {
+        return identificatie;
+    }
+
+    public void setIdentificatie(String identificatie) {
+        this.identificatie = identificatie;
+    }
+
+    public String getBrontype() {
+        return brontype;
+    }
+
+    public void setBrontype(String brontype) {
+        this.brontype = brontype;
+    }
+
+    public Date getBronactualiteit() {
+        return bronactualiteit;
+    }
+
+    public void setBronactualiteit(Date bronactualiteit) {
+        this.bronactualiteit = bronactualiteit;
+    }
+
+    public String getBronbeschrijving() {
+        return bronbeschrijving;
+    }
+
+    public void setBronbeschrijving(String bronbeschrijving) {
+        this.bronbeschrijving = bronbeschrijving;
+    }
+
+    public Double getBronnauwkeurigheid() {
+        return bronnauwkeurigheid;
+    }
+
+    public void setBronnauwkeurigheid(Double bronnauwkeurigheid) {
+        this.bronnauwkeurigheid = bronnauwkeurigheid;
+    }
+
+    public Date getObjectBeginTijd() {
+        return objectBeginTijd;
+    }
+
+    public void setObjectBeginTijd(Date objectBeginTijd) {
+        this.objectBeginTijd = objectBeginTijd;
+    }
+
+    public Long getVisualisatieCode() {
+        return visualisatieCode;
+    }
+
+    public void setVisualisatieCode(Long visualisatieCode) {
+        this.visualisatieCode = visualisatieCode;
+    }
+
+    public Date getObjectEindTijd() {
+        return objectEindTijd;
+    }
+
+    public void setObjectEindTijd(Date objectEindTijd) {
+        this.objectEindTijd = objectEindTijd;
     }
 
     

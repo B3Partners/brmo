@@ -107,9 +107,7 @@ public class Top250NLConverterTest {
     @Test
     public void testConvertHoogte() throws IOException, SAXException, ParserConfigurationException, TransformerException,JAXBException, ParseException {
         System.out.println("convert");
-        InputStream in = Top250NLConverterTest.class.getResourceAsStream("top250nl/Hoogte.xml");
-        Object jaxb = processor.parse(in);
-        TopNLEntity entity = instance.convertObject(jaxb);
+        TopNLEntity entity = getEntity("top250nl/Hoogte.xml");
         
         assertNotNull(entity);
         assertTrue(entity instanceof Hoogte);
@@ -128,4 +126,38 @@ public class Top250NLConverterTest {
         assertEquals( LineString.class,h.getGeometrie().getClass());
     }
     
+    @Test
+    public void testConvertFunctionGebied()throws IOException, SAXException, ParserConfigurationException, TransformerException,JAXBException, ParseException {
+        System.out.println("convert");
+        TopNLEntity entity = getEntity("top250nl/FunctioneelGebied.xml");
+        
+        assertNotNull(entity);
+       // assertTrue(entity instanceof FunctioneelGebied);
+        
+    }
+    
+    
+    /*
+    top250nl:FunctioneelGebied
+    top250nl:Hoogte
+    top250nl:Gebouw
+    top250nl:Inrichtingselement
+    top250nl:Plaats
+    top250nl:GeografischGebied
+    
+    top250nl:RegistratiefGebied
+    top250nl:Relief
+    top250nl:Spoorbaandeel
+    top250nl:Terrein
+    top250nl:Waterdeel
+    top250nl:Wegdeel
+
+    */
+    
+    private TopNLEntity getEntity(String file) throws JAXBException, IOException, SAXException, ParserConfigurationException, TransformerException{
+        InputStream in = Top250NLConverterTest.class.getResourceAsStream(file);
+        Object jaxb = processor.parse(in);
+        TopNLEntity entity = instance.convertObject(jaxb);
+        return entity;
+    }
 }
