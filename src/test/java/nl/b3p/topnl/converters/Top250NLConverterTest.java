@@ -19,7 +19,6 @@ package nl.b3p.topnl.converters;
 import com.vividsolutions.jts.geom.LineString;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -78,7 +77,7 @@ public class Top250NLConverterTest {
     public void testConvertFeatureCollection() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException{
         System.out.println("convert");
         Hoogte hoogte = new Hoogte();
-        InputStream in = Top250NLConverterTest.class.getResourceAsStream("FeatureCollectionHoogte.xml");
+        InputStream in = Top250NLConverterTest.class.getResourceAsStream("top250nl/FeatureCollectionHoogte.xml");
         Object jaxb = processor.parse(in);
         
         List<TopNLEntity> expResult = Collections.singletonList(hoogte);
@@ -92,7 +91,7 @@ public class Top250NLConverterTest {
     public void testConvertNoFeatureCollection() throws IOException, SAXException, ParserConfigurationException, TransformerException,JAXBException {
         System.out.println("convert");
         Hoogte hoogte = new Hoogte();
-        InputStream in = Top250NLConverterTest.class.getResourceAsStream("Hoogte.xml");
+        InputStream in = Top250NLConverterTest.class.getResourceAsStream("top250nl/Hoogte.xml");
         Object jaxb = processor.parse(in);
         
         List<TopNLEntity> expResult = Collections.singletonList(hoogte);
@@ -108,7 +107,7 @@ public class Top250NLConverterTest {
     @Test
     public void testConvertHoogte() throws IOException, SAXException, ParserConfigurationException, TransformerException,JAXBException, ParseException {
         System.out.println("convert");
-        InputStream in = Top250NLConverterTest.class.getResourceAsStream("Hoogte.xml");
+        InputStream in = Top250NLConverterTest.class.getResourceAsStream("top250nl/Hoogte.xml");
         Object jaxb = processor.parse(in);
         TopNLEntity entity = instance.convertObject(jaxb);
         

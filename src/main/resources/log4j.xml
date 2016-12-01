@@ -10,7 +10,7 @@ LEVELS: debug, info, warn, error, fatal en off, all -->
         <param name="maxFileSize" value="10KB" />
         <param name="maxBackupIndex" value="5" />
         <!-- For Tomcat -->
-        <param name="file" value="./target/topparser.log" />
+        <param name="file" value="target/topparser.log" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
                        value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
