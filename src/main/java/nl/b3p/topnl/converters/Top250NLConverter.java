@@ -23,6 +23,7 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
+import nl.b3p.topnl.TopNLType;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.TopNLEntity;
 import nl.b3p.topnl.top250nl.FeatureCollectionT250NLType;
@@ -76,6 +77,7 @@ public class Top250NLConverter extends Converter {
             throw new IllegalArgumentException("Type not recognized: " + featureMember.getClass());
         }
 
+        entity.setTopnltype(TopNLType.TOP250NL.getType());
         return entity;
     }
 

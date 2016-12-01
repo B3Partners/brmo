@@ -17,17 +17,15 @@
 package nl.b3p.topnl.entities;
 
 import com.vividsolutions.jts.geom.Geometry;
-import java.math.BigInteger;
 import java.util.Date;
 
 /**
  *
  * @author meine
  */
-public class Hoogte implements TopNLEntity{
+public class Hoogte extends TopNLEntity{
     private Integer id;
     private String identificatie;
-    private String topnltype;
     private String brontype;
     private Date bronactualiteit;
     private String bronbeschrijving;
@@ -56,14 +54,6 @@ public class Hoogte implements TopNLEntity{
 
     public void setIdentificatie(String identificatie) {
         this.identificatie = identificatie;
-    }
-
-    public String getTopnltype() {
-        return topnltype;
-    }
-
-    public void setTopnltype(String topnltype) {
-        this.topnltype = topnltype;
     }
 
     public String getBrontype() {

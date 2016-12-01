@@ -54,13 +54,13 @@ public class Database {
         }
     }
 
-    private void saveHoogte(TopNLEntity entity) throws SQLException {
+    private Hoogte saveHoogte(TopNLEntity entity) throws SQLException {
         Hoogte h = (Hoogte) entity;
         QueryRunner run = new QueryRunner(dataSource);
         
         ResultSetHandler<Hoogte> handler = new BeanHandler<>(Hoogte.class);
         
-        Hoogte inserted = run.insert("INSERT INTO Hoogte (identificatie,topnltype,brontype,bronactualiteit,bronbeschrijving,bronnauwkeurigheid,objectBeginTijd,objectEindTijd,visualisatieCode,typeHoogte,referentieVlak,hoogte) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", 
+        Hoogte inserted = run.insert("INSERT INTO " + h.getTopnltype() + ".hoogte (identificatie,topnltype,brontype,bronactualiteit,bronbeschrijving,bronnauwkeurigheid,objectBeginTijd,objectEindTijd,visualisatieCode,typeHoogte,referentieVlak,hoogte) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", 
                 handler, 
                 h.getIdentificatie(),
                 h.getTopnltype(),
@@ -74,12 +74,7 @@ public class Database {
                 h.getTypeHoogte(),
                 h.getReferentieVlak(),
                 h.getHoogte());
-        
-      /*  int inserts = run.insert("INSERT INTO Hoogte (identificatie,topnltype,brontype,bronactualiteit,bronbeschrijving,bronnauwkeurigheid,objectBeginTijd,objectEindTijd,visualisatieCode,typeHoogte,referentieVlak,hoogte) "
-                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",h.getIdentificatie(),h.getTopnltype(),h.getBrontype(),h.getBronactualiteit(),
-                h.getBronbeschrijving(),h.getBronnauwkeurigheid(),h.getObjectBeginTijd(),h.getObjectEindTijd(),h.getVisualisatieCode(),
-                h.getTypeHoogte(),h.getReferentieVlak(),h.getHoogte());*/
-        int a = 0;
 
+        return inserted;
     }
 }

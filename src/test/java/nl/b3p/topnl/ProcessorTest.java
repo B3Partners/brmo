@@ -81,14 +81,15 @@ public class ProcessorTest extends TestUtil{
     public void testSave() throws JAXBException, IOException, SAXException, TransformerException, ParserConfigurationException, SQLException {
         System.out.println("save");
         InputStream in = ProcessorTest.class.getResourceAsStream("Hoogte.xml");
+        
         Object jaxb = instance.parse(in);
         List<TopNLEntity> hoogte = instance.convert(jaxb, TopNLType.TOP250NL);
         instance.save(hoogte.get(0), TopNLType.TOP250NL);
         QueryRunner run = new QueryRunner(datasource);
 
-        ResultSetHandler<Hoogte> h = new BeanHandler<>(Hoogte.class);
+        ResultSetHandler<Hoogte> handler = new BeanHandler<>(Hoogte.class);
 
-        Hoogte real = run.query("SELECT * FROM Hoogte WHERE identificatie=?", h, "NL.TOP250NL.16R09-0000084246");
+        Hoogte real = run.query("SELECT * FROM top250nl.Hoogte WHERE identificatie=?", handler, "NL.TOP250NL.16R09-0000084246");
         assertNotNull(real);
     }
 

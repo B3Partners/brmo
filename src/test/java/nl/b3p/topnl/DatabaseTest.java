@@ -17,7 +17,6 @@
 package nl.b3p.topnl;
 
 import com.vividsolutions.jts.geom.EmptyGeometry;
-import java.math.BigInteger;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -59,6 +58,7 @@ public class DatabaseTest extends TestUtil{
         e.setBronactualiteit(sdf.parse("2016-06-16"));
         e.setBronbeschrijving("beschrijving");
         e.setBrontype("typje");
+        e.setTopnltype(TopNLType.TOP250NL.getType());
         e.setGeometrie(new EmptyGeometry());
         e.setObjectBeginTijd(sdf.parse("2016-01-01"));
         e.setObjectEindTijd(sdf.parse("2016-01-02"));
@@ -74,7 +74,7 @@ public class DatabaseTest extends TestUtil{
 
         ResultSetHandler<Hoogte> h = new BeanHandler<>(Hoogte.class);
 
-        Hoogte real = run.query("SELECT * FROM Hoogte WHERE identificatie=?", h, identificatie);
+        Hoogte real = run.query("SELECT * FROM top250nl.hoogte WHERE identificatie=?", h, identificatie);
         assertEquals(e.getBronactualiteit(),real.getBronactualiteit());
         assertEquals(e.getBronbeschrijving(),real.getBronbeschrijving());
         assertEquals(e.getBronnauwkeurigheid(),real.getBronnauwkeurigheid());

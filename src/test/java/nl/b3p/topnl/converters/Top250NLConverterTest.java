@@ -117,6 +117,7 @@ public class Top250NLConverterTest {
         
         Hoogte h = (Hoogte)entity;
         assertEquals( "NL.TOP250NL.16R09-0000084246",h.getIdentificatie());
+        assertEquals( "top250nl",h.getTopnltype());
         assertEquals( "TOP50NL",h.getBrontype());
         assertEquals( sdf.parse("2016-09-01"),h.getBronactualiteit());
         assertEquals( "TOP50NL wordt als bron gebruikt bij het bijwerken van EuroRegionalMap (ERM). Via een automatisch proces worden de gegevens van ERM omgezet naar TOP250NL",h.getBronbeschrijving());

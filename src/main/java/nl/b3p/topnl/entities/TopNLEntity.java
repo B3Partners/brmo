@@ -20,6 +20,18 @@ package nl.b3p.topnl.entities;
  *
  * @author Meine Toonen
  */
-public interface TopNLEntity {
+public abstract class TopNLEntity {
+    
+    protected String topnltype;
+    
+    
+    public String getTopnltype() {
+        return topnltype;
+    }
+
+    public void setTopnltype(String topnltype) {
+        this.topnltype = topnltype;
+    }
+
     
 }
