@@ -67,4 +67,10 @@ public class Processor {
         database.save(entity);
     }
     
+    public void save(List<TopNLEntity> entities, TopNLType type) {
+        entities.forEach((entity) -> {
+            save(entity, type);
+        });
+    }
+    
 }

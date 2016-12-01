@@ -10,6 +10,19 @@ LEVELS: debug, info, warn, error, fatal en off, all -->
             <param name="ConversionPattern" value="%c %5p %d{HH:mm:ss} (%C#%M:%L) - %m%n" />
         </layout>
     </appender>
+    
+    <appender name="file" class="org.apache.log4j.RollingFileAppender">
+        <param name="append" value="false" />
+        <param name="maxFileSize" value="10KB" />
+        <param name="maxBackupIndex" value="5" />
+        <!-- For Tomcat -->
+        <param name="file" value=".target/topparser-test.log" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                       value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+        </layout>
+    </appender>
+
     <logger name="org.geotools">
         <level value="all" />
     </logger>
@@ -22,5 +35,6 @@ LEVELS: debug, info, warn, error, fatal en off, all -->
     <root>
         <level value="info" />
         <appender-ref ref="consoleAppender" />
+        <appender-ref ref="file" />
     </root>
 </log4j:configuration>

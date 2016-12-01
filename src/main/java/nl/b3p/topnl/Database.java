@@ -21,6 +21,8 @@ import javax.sql.DataSource;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.TopNLEntity;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -55,10 +57,29 @@ public class Database {
     private void saveHoogte(TopNLEntity entity) throws SQLException {
         Hoogte h = (Hoogte) entity;
         QueryRunner run = new QueryRunner(dataSource);
-
-        int inserts = run.update("INSERT INTO Hoogte (identificatie,topnltype,brontype,bronactualiteit,bronbeschrijving,bronnauwkeurigheid,objectBeginTijd,objectEindTijd,visualisatieCode,typeHoogte,referentieVlak,hoogte) "
-                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",h.getIdentificatie(),h.getTopnltype(),h.getBrontype(),h.getBronactualiteit(),h.getBronbeschrijving(),h.getBronnauwkeurigheid(),h.getObjectBeginTijd(),h.getObjectEindTijd(),h.getVisualisatieCode(),h.getTypeHoogte(),h.getReferentieVlak(),h.getHoogte());
         
+        ResultSetHandler<Hoogte> handler = new BeanHandler<>(Hoogte.class);
+        
+        Hoogte inserted = run.insert("INSERT INTO Hoogte (identificatie,topnltype,brontype,bronactualiteit,bronbeschrijving,bronnauwkeurigheid,objectBeginTijd,objectEindTijd,visualisatieCode,typeHoogte,referentieVlak,hoogte) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", 
+                handler, 
+                h.getIdentificatie(),
+                h.getTopnltype(),
+                h.getBrontype(),
+                h.getBronactualiteit() != null ? new java.sql.Date(h.getBronactualiteit().getTime()) : null,
+                h.getBronbeschrijving(),
+                h.getBronnauwkeurigheid(),
+                h.getObjectBeginTijd() != null ? new java.sql.Date(h.getObjectBeginTijd().getTime()) : null,
+                h.getObjectEindTijd() != null ? new java.sql.Date(h.getObjectEindTijd().getTime()) : null,
+                h.getVisualisatieCode(),
+                h.getTypeHoogte(),
+                h.getReferentieVlak(),
+                h.getHoogte());
+        
+      /*  int inserts = run.insert("INSERT INTO Hoogte (identificatie,topnltype,brontype,bronactualiteit,bronbeschrijving,bronnauwkeurigheid,objectBeginTijd,objectEindTijd,visualisatieCode,typeHoogte,referentieVlak,hoogte) "
+                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",h.getIdentificatie(),h.getTopnltype(),h.getBrontype(),h.getBronactualiteit(),
+                h.getBronbeschrijving(),h.getBronnauwkeurigheid(),h.getObjectBeginTijd(),h.getObjectEindTijd(),h.getVisualisatieCode(),
+                h.getTypeHoogte(),h.getReferentieVlak(),h.getHoogte());*/
+        int a = 0;
 
     }
 }
