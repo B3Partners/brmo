@@ -17,6 +17,7 @@
 package nl.b3p.topnl.converters;
 
 import com.vividsolutions.jts.geom.LineString;
+import com.vividsolutions.jts.geom.Point;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -27,6 +28,9 @@ import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import nl.b3p.topnl.Processor;
+import nl.b3p.topnl.TopNLType;
+import nl.b3p.topnl.entities.FunctioneelGebied;
+import nl.b3p.topnl.entities.GeografischGebied;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.TopNLEntity;
 import org.junit.After;
@@ -107,33 +111,78 @@ public class Top250NLConverterTest {
     @Test
     public void testConvertHoogte() throws IOException, SAXException, ParserConfigurationException, TransformerException,JAXBException, ParseException {
         System.out.println("convert");
+        TopNLEntity expected = getStandardTestTopNLEntity();
+        
+        expected.setVisualisatieCode(new Long("45550"));
+        
+        
         TopNLEntity entity = getEntity("top250nl/Hoogte.xml");
         
         assertNotNull(entity);
         assertTrue(entity instanceof Hoogte);
         
+        
+        testTopNLEntity(entity, entity);
         Hoogte h = (Hoogte)entity;
-        assertEquals( "NL.TOP250NL.16R09-0000084246",h.getIdentificatie());
-        assertEquals( "top250nl",h.getTopnltype());
-        assertEquals( "TOP50NL",h.getBrontype());
-        assertEquals( sdf.parse("2016-09-01"),h.getBronactualiteit());
-        assertEquals( "TOP50NL wordt als bron gebruikt bij het bijwerken van EuroRegionalMap (ERM). Via een automatisch proces worden de gegevens van ERM omgezet naar TOP250NL",h.getBronbeschrijving());
-        assertEquals( "125.0",h.getBronnauwkeurigheid().toString());
-        assertEquals( sdf.parse("2016-09-12"),h.getObjectBeginTijd());
-        assertEquals( new Long("45550"),h.getVisualisatieCode());
+          
         assertEquals( "hoogwaterlijn",h.getTypeHoogte());
         assertNotNull(h.getGeometrie());
         assertEquals( LineString.class,h.getGeometrie().getClass());
     }
     
     @Test
-    public void testConvertFunctionGebied()throws IOException, SAXException, ParserConfigurationException, TransformerException,JAXBException, ParseException {
-        System.out.println("convert");
+    public void testConvertFunctioneelGebied()throws IOException, SAXException, ParserConfigurationException, TransformerException,JAXBException, ParseException {
+        System.out.println("testConvertFunctioneelGebied");
         TopNLEntity entity = getEntity("top250nl/FunctioneelGebied.xml");
         
-        assertNotNull(entity);
-       // assertTrue(entity instanceof FunctioneelGebied);
+        TopNLEntity expected = getStandardTestTopNLEntity();
         
+        expected.setObjectBeginTijd( sdf.parse("2016-09-12"));
+        expected.setVisualisatieCode(new Long("49390"));
+        
+        assertNotNull(entity);
+        assertTrue(entity instanceof FunctioneelGebied);
+        
+        FunctioneelGebied real = (FunctioneelGebied)entity;
+        
+        testTopNLEntity(expected, real);
+        assertEquals("productie-installatie", real.getTypeFunctioneelGebied());
+        assertEquals(Point.class, real.getGeometrie().getClass());
+    }
+    
+     @Test
+    public void testConvertGeografischGebied()throws IOException, SAXException, ParserConfigurationException, TransformerException,JAXBException, ParseException {
+        System.out.println("testConvertGeografischGebied");
+        TopNLEntity entity = getEntity("top250nl/GeografischGebied.xml");
+        
+        TopNLEntity expected = getStandardTestTopNLEntity();
+        
+        expected.setVisualisatieCode(new Long("48190"));
+        
+        assertNotNull(entity);
+        assertTrue(entity instanceof GeografischGebied);
+        
+        GeografischGebied real = (GeografischGebied)entity;
+        
+        testTopNLEntity(expected, real);
+        assertEquals("zeegat, zeearm", real.getTypeGeografischGebied());
+        assertEquals("Waddenzee", real.getNaamNL());
+        assertEquals(Point.class, real.getGeometrie().getClass());
+    }
+    
+    
+    public void testTopNLEntity(TopNLEntity expected, TopNLEntity real){
+        assertEquals( expected.getTopnltype(),real.getTopnltype());
+        
+        assertEquals( expected.getId(),real.getId());
+        assertEquals( expected.getIdentificatie(),real.getIdentificatie());
+        assertEquals( expected.getBrontype(),real.getBrontype());
+        assertEquals( expected.getBronactualiteit(),real.getBronactualiteit());
+        assertEquals( expected.getBronbeschrijving(),real.getBronbeschrijving());
+        assertEquals( expected.getBronnauwkeurigheid(),real.getBronnauwkeurigheid());
+        assertEquals( expected.getObjectBeginTijd(),real.getObjectBeginTijd());
+        assertEquals( expected.getObjectEindTijd(),real.getObjectEindTijd());
+        assertEquals( expected.getVisualisatieCode(),real.getVisualisatieCode());
     }
     
     
@@ -159,5 +208,18 @@ public class Top250NLConverterTest {
         Object jaxb = processor.parse(in);
         TopNLEntity entity = instance.convertObject(jaxb);
         return entity;
+    }
+    
+    private TopNLEntity getStandardTestTopNLEntity() throws ParseException{
+        TopNLEntity expected = new TopNLEntity() {};
+        
+        expected.setIdentificatie( "NL.TOP250NL.16R09-0000084248");
+        expected.setTopnltype(TopNLType.TOP250NL.getType());
+        expected.setBrontype("TOP50NL");
+        expected.setBronactualiteit( sdf.parse("2016-09-01"));
+        expected.setBronbeschrijving("TOP50NL wordt als bron gebruikt bij het bijwerken van EuroRegionalMap (ERM). Via een automatisch proces worden de gegevens van ERM omgezet naar TOP250NL");
+        expected.setBronnauwkeurigheid(125.0);
+        expected.setObjectBeginTijd( sdf.parse("2016-09-12"));
+        return expected;
     }
 }

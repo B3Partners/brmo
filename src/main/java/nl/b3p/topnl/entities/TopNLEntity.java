@@ -37,9 +37,6 @@ public abstract class TopNLEntity {
     private Date objectEindTijd;
     private Long visualisatieCode;
     
-    
-    
-    
     public String getTopnltype() {
         return topnltype;
     }
@@ -119,6 +116,4 @@ public abstract class TopNLEntity {
     public void setObjectEindTijd(Date objectEindTijd) {
         this.objectEindTijd = objectEindTijd;
     }
-
-    
 }
