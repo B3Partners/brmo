@@ -18,6 +18,7 @@ package nl.b3p.topnl.converters;
 
 import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.Polygon;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -30,9 +31,18 @@ import javax.xml.transform.TransformerException;
 import nl.b3p.topnl.Processor;
 import nl.b3p.topnl.TopNLType;
 import nl.b3p.topnl.entities.FunctioneelGebied;
+import nl.b3p.topnl.entities.Gebouw;
 import nl.b3p.topnl.entities.GeografischGebied;
 import nl.b3p.topnl.entities.Hoogte;
+import nl.b3p.topnl.entities.Inrichtingselement;
+import nl.b3p.topnl.entities.Plaats;
+import nl.b3p.topnl.entities.RegistratiefGebied;
+import nl.b3p.topnl.entities.Relief;
+import nl.b3p.topnl.entities.Spoorbaandeel;
+import nl.b3p.topnl.entities.Terrein;
 import nl.b3p.topnl.entities.TopNLEntity;
+import nl.b3p.topnl.entities.Waterdeel;
+import nl.b3p.topnl.entities.Wegdeel;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -166,6 +176,201 @@ public class Top250NLConverterTest {
         assertEquals("zeegat, zeearm", real.getTypeGeografischGebied());
         assertEquals("Waddenzee", real.getNaamNL());
         assertEquals(Point.class, real.getGeometrie().getClass());
+    }
+    
+    @Test
+    public void testConvertGebouw() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+        System.out.println("testConvertGebouw");
+        TopNLEntity entity = getEntity("top250nl/Gebouw.xml");
+
+        TopNLEntity expected = getStandardTestTopNLEntity();
+
+        expected.setVisualisatieCode(new Long("43000"));
+
+        assertNotNull(entity);
+        assertTrue(entity instanceof Gebouw);
+
+        Gebouw real = (Gebouw) entity;
+
+        testTopNLEntity(expected, real);
+        assertEquals(Point.class, real.getGeometrie().getClass());
+        assertEquals( "telecommunicatietoren", real.getTypeGebouw());
+        assertEquals( "in gebruik", real.getStatus());
+    }
+    
+       
+    @Test
+    public void testConvertInrichtingselement() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+        System.out.println("testConvertInrichtingselement");
+        TopNLEntity entity = getEntity("top250nl/Inrichtingselement.xml");
+
+        TopNLEntity expected = getStandardTestTopNLEntity();
+
+        expected.setVisualisatieCode(new Long("45650"));
+
+        assertNotNull(entity);
+        assertTrue(entity instanceof Inrichtingselement);
+
+        Inrichtingselement real = (Inrichtingselement) entity;
+
+        testTopNLEntity(expected, real);
+        assertEquals(Point.class, real.getGeometrie().getClass());
+        assertEquals( "strekdam, krib, golfbreker", real.getTypeInrichtingselement());
+    }
+ 
+       
+    @Test
+    public void testConvertPlaats() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+        System.out.println("testConvertPlaats");
+        TopNLEntity entity = getEntity("top250nl/Plaats.xml");
+
+        TopNLEntity expected = getStandardTestTopNLEntity();
+
+        expected.setVisualisatieCode(new Long("48110"));
+
+        assertNotNull(entity);
+        assertTrue(entity instanceof Plaats);
+
+        Plaats real = (Plaats) entity;
+
+        testTopNLEntity(expected, real);
+        assertEquals(Point.class, real.getGeometrie().getClass());
+        assertEquals( "woonkern", real.getTypeGebied());
+        assertEquals( "Aldegea", real.getNaamFries());
+    }
+       
+    @Test
+    public void testConvertRegistratiefGebied() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+        System.out.println("testConvertRegistratiefGebied");
+        TopNLEntity entity = getEntity("top250nl/RegistratiefGebied.xml");
+
+        TopNLEntity expected = getStandardTestTopNLEntity();
+
+        expected.setVisualisatieCode(new Long("47200"));
+
+        assertNotNull(entity);
+        assertTrue(entity instanceof RegistratiefGebied);
+
+        RegistratiefGebied real = (RegistratiefGebied) entity;
+
+        testTopNLEntity(expected, real);
+        assertEquals(Polygon.class, real.getGeometrie().getClass());
+        assertEquals( "territoriale zee", real.getTypeRegistratiefGebied());
+        assertEquals( "---", real.getNaamOfficieel());
+    }
+
+    @Test
+    public void testConvertRelief() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+        System.out.println("testConvertRRelief");
+        TopNLEntity entity = getEntity("top250nl/Relief.xml");
+
+        TopNLEntity expected = getStandardTestTopNLEntity();
+
+        expected.setVisualisatieCode(new Long("46810"));
+
+        assertNotNull(entity);
+        assertTrue(entity instanceof Relief);
+
+        Relief real = (Relief) entity;
+
+        testTopNLEntity(expected, real);
+        assertEquals(LineString.class, real.getGeometrie().getClass());
+        assertEquals( "dijk", real.getTypeRelief());
+        assertEquals( "&gt; 2,5 meter", real.getHoogteklasse());
+    }
+    
+    @Test
+    public void testConvertSpoorbaandeel() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+        System.out.println("testConvertSpoorbaandeel");
+        TopNLEntity entity = getEntity("top250nl/Spoorbaandeel.xml");
+
+        TopNLEntity expected = getStandardTestTopNLEntity();
+
+        expected.setVisualisatieCode(new Long("41100"));
+
+        assertNotNull(entity);
+        assertTrue(entity instanceof Spoorbaandeel);
+
+        Spoorbaandeel real = (Spoorbaandeel) entity;
+
+        testTopNLEntity(expected, real);
+        assertEquals(LineString.class, real.getGeometrie().getClass());
+        assertEquals("verbinding", real.getTypeInfrastructuur());
+        assertEquals("trein", real.getTypeSpoorbaan());
+        assertEquals("normaalspoor", real.getSpoorbreedte());
+        assertEquals("enkel", real.getAantalSporen());
+        assertEquals("gemengd gebruik", real.getVervoerfunctie());
+        assertEquals("nee", real.getElektrificatie());
+        assertEquals("in gebruik", real.getStatus());
+    }
+    
+    @Test
+    public void testConvertTerrein() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+        System.out.println("testConvertTerrein");
+        TopNLEntity entity = getEntity("top250nl/Terrein.xml");
+
+        TopNLEntity expected = getStandardTestTopNLEntity();
+
+        expected.setIdentificatie("NL.TOP250NL.16R09-0000052858");
+        expected.setVisualisatieCode(new Long("44190"));
+
+        assertNotNull(entity);
+        assertTrue(entity instanceof Terrein);
+
+        Terrein real = (Terrein) entity;
+
+        testTopNLEntity(expected, real);
+        assertEquals(Polygon.class, real.getGeometrie().getClass());
+        assertEquals("zand", real.getTypeLandgebruik());
+    }
+    
+    @Test
+    public void testConvertWaterdeel() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+        System.out.println("testConvertWaterdeel");
+        TopNLEntity entity = getEntity("top250nl/Waterdeel.xml");
+
+        TopNLEntity expected = getStandardTestTopNLEntity();
+
+        expected.setIdentificatie("NL.TOP250NL.16R09-0000054882");
+        expected.setVisualisatieCode(new Long("42440"));
+
+        assertNotNull(entity);
+        assertTrue(entity instanceof Waterdeel);
+
+        Waterdeel real = (Waterdeel) entity;
+
+        testTopNLEntity(expected, real);
+        assertEquals(LineString.class, real.getGeometrie().getClass());
+        assertEquals("waterloop", real.getTypeWater());
+        assertEquals("50 - 125 meter", real.getBreedteklasse());
+        assertEquals("nee", real.getGetijdeinvloed());
+        assertEquals("Twenthekanaal", real.getNaamNL());
+    }
+    
+    @Test
+    public void testConvertWegdeel() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+        System.out.println("testConvertWegdeel");
+        TopNLEntity entity = getEntity("top250nl/Wegdeel.xml");
+
+        TopNLEntity expected = getStandardTestTopNLEntity();
+
+        expected.setIdentificatie("NL.TOP250NL.16R09-0000000140");
+        expected.setVisualisatieCode(new Long("40410"));
+
+        assertNotNull(entity);
+        assertTrue(entity instanceof Wegdeel);
+
+        Wegdeel real = (Wegdeel) entity;
+
+        testTopNLEntity(expected, real);
+        assertEquals(LineString.class, real.getGeometrie().getClass());
+        assertEquals("verbinding", real.getTypeInfrastructuur());
+        assertEquals("regionale weg", real.getTypeWeg());
+        assertEquals("gemengd verkeer", real.getHoofdverkeersgebruik());
+        assertEquals("nee", real.getGescheidenRijbaan());
+        assertEquals("verhard", real.getVerhardingstype());
+        assertEquals("2", real.getAantalRijstroken());
+        assertEquals("in gebruik", real.getStatus());
     }
 
     public void testTopNLEntity(TopNLEntity expected, TopNLEntity real) {
