@@ -21,6 +21,7 @@ import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -352,7 +353,7 @@ public class Top250NLConverterTest {
         assertEquals(LineString.class, real.getGeometrie().getClass());
         assertEquals("waterloop", real.getTypeWater());
         assertEquals("50 - 125 meter", real.getBreedteklasse());
-        assertEquals("nee", real.getGetijdeinvloed());
+        assertEquals(false, real.getGetijdeinvloed());
         assertEquals("Twenthekanaal", real.getNaamNL());
     }
     
@@ -376,9 +377,9 @@ public class Top250NLConverterTest {
         assertEquals("verbinding", real.getTypeInfrastructuur());
         assertEquals("regionale weg", real.getTypeWeg());
         assertEquals("gemengd verkeer", real.getHoofdverkeersgebruik());
-        assertEquals("nee", real.getGescheidenRijbaan());
+        assertEquals(false, real.getGescheidenRijbaan());
         assertEquals("verhard", real.getVerhardingstype());
-        assertEquals("2", real.getAantalRijstroken());
+        assertEquals(new BigInteger("2"), real.getAantalRijstroken());
         assertEquals("in gebruik", real.getStatus());
     }
 

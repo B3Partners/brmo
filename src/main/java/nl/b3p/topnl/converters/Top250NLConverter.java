@@ -233,7 +233,7 @@ public class Top250NLConverter extends Converter {
 
         ie.setSoortnaam(i.getSoortnaam());
         ie.setTypeInrichtingselement(i.getTypeInrichtingselement().getValue());
-                
+
         return ie;
     }
 
@@ -251,7 +251,7 @@ public class Top250NLConverter extends Converter {
         pl.setNaamNL(p.getNaamNL());
         pl.setNaamOfficieel(p.getNaamOfficieel());
         pl.setTypeGebied(p.getTypeGebied().getValue());
-        
+
         return pl;
     }
 
@@ -269,7 +269,7 @@ public class Top250NLConverter extends Converter {
         rg.setNaamOfficieel(r.getNaamOfficieel());
         rg.setNummer(String.join(",", r.getNummer()));
         rg.setTypeRegistratiefGebied(r.getTypeRegistratiefGebied().getValue());
-        
+
         return rg;
     }
 
@@ -280,11 +280,11 @@ public class Top250NLConverter extends Converter {
         Relief rg = new Relief();
         convertTop250NlObjectType(r, rg);
 
-        rg.setGeometrie((LineString)gc.convertGeometry(r.getLijnGeometrie()));
+        rg.setGeometrie((LineString) gc.convertGeometry(r.getLijnGeometrie()));
 
         rg.setHoogteklasse(r.getHoogteklasse().getValue());
         rg.setTypeRelief(r.getTypeRelief().getValue());
-        
+
         return rg;
     }
 
@@ -296,7 +296,7 @@ public class Top250NLConverter extends Converter {
         convertTop250NlObjectType(r, rg);
 
         rg.setGeometrie((LineString) gc.convertGeometry(r.getGeometrie()));
-        
+
         rg.setTypeInfrastructuur(r.getTypeInfrastructuur().getValue());
         rg.setTypeSpoorbaan(r.getTypeSpoorbaan().getValue());
         rg.setFysiekVoorkomen(r.getFysiekVoorkomen() != null ? r.getFysiekVoorkomen().getValue() : null);
@@ -334,7 +334,7 @@ public class Top250NLConverter extends Converter {
         Waterdeel rg = new Waterdeel();
         convertTop250NlObjectType(r, rg);
 
-        rg.setGeometrie( gc.convertGeometry(r.getGeometrie()));
+        rg.setGeometrie(gc.convertGeometry(r.getGeometrie()));
 
         rg.setTypeWater(r.getTypeWater() != null ? r.getTypeWater().getValue() : null);
         rg.setBreedteklasse(r.getBreedteklasse() != null ? r.getBreedteklasse().getValue() : null);
@@ -358,22 +358,30 @@ public class Top250NLConverter extends Converter {
         Wegdeel rg = new Wegdeel();
         convertTop250NlObjectType(r, rg);
 
+        String types = "";
+        for (CodeType codeType : r.getFysiekVoorkomen()) {
+            if (types.length() != 0) {
+                types += ",";
+            }
+            types += codeType.getValue();
+        }
+        rg.setFysiekVoorkomen(types);
+
         rg.setGeometrie(gc.convertGeometry(r.getGeometrie()));
-        rg.setTypeInfrastructuur(r.getTypeInfrastructuur() != null ? r.getTypeInfrastructuur() : null);
-        rg.setTypeWeg(r.getTypeWeg() != null ? r.getTypeWeg() : null);
-        rg.setHoofdverkeersgebruik(r.getHoofdverkeersgebruik() != null ? r.getHoofdverkeersgebruik() : null);
-        rg.setFysiekVoorkomen(r.getFysiekVoorkomen() != null ? r.getFysiekVoorkomen() : null);
-        rg.setVerhardingsbreedteklasse(r.getVerhardingsbreedteklasse() != null ? r.getVerhardingsbreedteklasse() : null);
-        rg.setGescheidenRijbaan(r.getGescheidenRijbaan() != null ? r.getGescheidenRijbaan() : null);
-        rg.setVerhardingstype(r.getVerhardingstype() != null ? r.getVerhardingstype() : null);
-        rg.setAantalRijstroken(r.getAantalRijstroken() != null ? r.getAantalRijstroken() : null);
-        rg.setStatus(r.getStatus() != null ? r.getStatus() : null);
-        rg.setNaam(r.getNaam() != null ? r.getNaam() : null);
-        rg.setIsBAGnaam(r.getIsBAGnaam() != null ? r.getIsBAGnaam() : null);
-        rg.setaWegnummer(String.join(",",r.getAWegnummer()));
-        rg.setnWegnummer(String.join(",",r.getNWegnummer()));
-        rg.seteWegnummer(String.join(",",r.getEWegnummer()));
-        rg.setsWegnummer(String.join(",",r.getSWegnummer()));
+        rg.setTypeInfrastructuur(r.getTypeInfrastructuur() != null ? r.getTypeInfrastructuur().getValue() : null);
+        rg.setTypeWeg(r.getTypeWeg() != null ? r.getTypeWeg().getValue() : null);
+        rg.setHoofdverkeersgebruik(r.getHoofdverkeersgebruik() != null ? r.getHoofdverkeersgebruik().getValue() : null);
+        rg.setVerhardingsbreedteklasse(r.getVerhardingsbreedteklasse() != null ? r.getVerhardingsbreedteklasse().getValue() : null);
+        rg.setGescheidenRijbaan(r.getGescheidenRijbaan() == BRTJaNeeWaardeType.JA);
+        rg.setVerhardingstype(r.getVerhardingstype() != null ? r.getVerhardingstype().getValue() : null);
+        rg.setAantalRijstroken(r.getAantalRijstroken());
+        rg.setStatus(r.getStatus() != null ? r.getStatus().getValue() : null);
+        rg.setNaam(String.join(",",r.getNaam()));
+        rg.setIsBAGnaam(r.getIsBAGnaam() == BRTJaNeeWaardeType.JA);
+        rg.setaWegnummer(String.join(",", r.getAWegnummer()));
+        rg.setnWegnummer(String.join(",", r.getNWegnummer()));
+        rg.seteWegnummer(String.join(",", r.getEWegnummer()));
+        rg.setsWegnummer(String.join(",", r.getSWegnummer()));
         rg.setAfritnummer(r.getAfritnummer());
         rg.setAfritnaam(r.getAfritnaam());
         rg.setKnooppuntnaam(r.getKnooppuntnaam());

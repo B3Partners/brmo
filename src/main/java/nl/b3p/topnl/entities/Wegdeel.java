@@ -17,6 +17,7 @@
 package nl.b3p.topnl.entities;
 
 import com.vividsolutions.jts.geom.Geometry;
+import java.math.BigInteger;
 
 /**
  *
@@ -31,7 +32,7 @@ public class Wegdeel extends TopNLEntity {
     private String verhardingsbreedteklasse;
     private Boolean gescheidenRijbaan;
     private String verhardingstype;
-    private String aantalRijstroken;
+    private BigInteger aantalRijstroken;
     private String status;
     private String naam;
     private Boolean isBAGnaam;
@@ -103,11 +104,11 @@ public class Wegdeel extends TopNLEntity {
         this.verhardingstype = verhardingstype;
     }
 
-    public String getAantalRijstroken() {
+    public BigInteger getAantalRijstroken() {
         return aantalRijstroken;
     }
 
-    public void setAantalRijstroken(String aantalRijstroken) {
+    public void setAantalRijstroken(BigInteger aantalRijstroken) {
         this.aantalRijstroken = aantalRijstroken;
     }
 
