@@ -20,6 +20,8 @@ import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.Polygon;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
@@ -66,6 +68,8 @@ import org.xml.sax.SAXException;
  */
 public class Top250NLConverter extends Converter {
 
+    
+    protected SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     @Override
     public List<TopNLEntity> convert(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
         List<TopNLEntity> entities = null;
@@ -389,4 +393,19 @@ public class Top250NLConverter extends Converter {
         rg.setTunnelnaam(r.getTunnelnaam());
         return rg;
     }
+      
+    public TopNLEntity getStandardTestTopNLEntity() throws ParseException {
+        TopNLEntity expected = new TopNLEntity() {};
+
+        expected.setTopnltype(TopNLType.TOP250NL.getType());
+        expected.setBrontype("TOP50NL");
+        expected.setBronactualiteit(sdf.parse("2016-09-01"));
+        expected.setBronbeschrijving("TOP50NL wordt als bron gebruikt bij het bijwerken van EuroRegionalMap (ERM). Via een automatisch proces worden de gegevens van ERM omgezet naar TOP250NL");
+        expected.setBronnauwkeurigheid(125.0);
+        expected.setObjectBeginTijd(sdf.parse("2016-09-12"));
+        expected.setVisualisatieCode(1616L);
+        
+        return expected;
+    }
+    
 }

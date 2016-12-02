@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
 import javax.xml.bind.JAXBException;
@@ -30,6 +31,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import nl.b3p.topnl.Processor;
 import nl.b3p.topnl.TestUtil;
+import nl.b3p.topnl.TopNLType;
 import nl.b3p.topnl.entities.FunctioneelGebied;
 import nl.b3p.topnl.entities.Gebouw;
 import nl.b3p.topnl.entities.GeografischGebied;
@@ -44,7 +46,9 @@ import nl.b3p.topnl.entities.TopNLEntity;
 import nl.b3p.topnl.entities.Waterdeel;
 import nl.b3p.topnl.entities.Wegdeel;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.xml.sax.SAXException;
@@ -58,6 +62,7 @@ public class Top250NLConverterTest extends TestUtil{
     private final Top250NLConverter instance;
     private final Processor processor;
 
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public Top250NLConverterTest() throws JAXBException {
         this.processor = new Processor(null);
@@ -81,7 +86,7 @@ public class Top250NLConverterTest extends TestUtil{
         System.out.println("convert");
         Hoogte hoogte = new Hoogte();
         InputStream in = Top250NLConverterTest.class.getResourceAsStream("top250nl/FeatureCollectionHoogte.xml");
-        Object jaxb = processor.parse(in);
+        Object jaxb = processor.parse(in, TopNLType.TOP250NL);
 
         List<TopNLEntity> expResult = Collections.singletonList(hoogte);
         List<TopNLEntity> result = instance.convert(jaxb);
@@ -95,7 +100,7 @@ public class Top250NLConverterTest extends TestUtil{
         System.out.println("convert");
         Hoogte hoogte = new Hoogte();
         InputStream in = Top250NLConverterTest.class.getResourceAsStream("top250nl/Hoogte.xml");
-        Object jaxb = processor.parse(in);
+        Object jaxb = processor.parse(in, TopNLType.TOP250NL);
 
         List<TopNLEntity> expResult = Collections.singletonList(hoogte);
         List<TopNLEntity> result = instance.convert(jaxb);
@@ -403,8 +408,24 @@ public class Top250NLConverterTest extends TestUtil{
      */
     private TopNLEntity getEntity(String file) throws JAXBException, IOException, SAXException, ParserConfigurationException, TransformerException {
         InputStream in = Top250NLConverterTest.class.getResourceAsStream(file);
-        Object jaxb = processor.parse(in);
+        Object jaxb = processor.parse(in, TopNLType.TOP250NL);
         TopNLEntity entity = instance.convertObject(jaxb);
         return entity;
     }
+    
+    
+    
+    public TopNLEntity getStandardTestTopNLEntity() throws ParseException {
+        TopNLEntity expected = new TopNLEntity() {};
+
+        expected.setTopnltype(TopNLType.TOP250NL.getType());
+        expected.setBrontype("TOP50NL");
+        expected.setBronactualiteit(sdf.parse("2016-09-01"));
+        expected.setBronbeschrijving("TOP50NL wordt als bron gebruikt bij het bijwerken van EuroRegionalMap (ERM). Via een automatisch proces worden de gegevens van ERM omgezet naar TOP250NL");
+        expected.setBronnauwkeurigheid(125.0);
+        expected.setObjectBeginTijd(sdf.parse("2016-09-12"));
+        expected.setVisualisatieCode(1616L);
+        
+        return expected;
+}
 }

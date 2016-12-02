@@ -39,17 +39,15 @@ public class Processor {
 
     private Database database;
     private ConverterFactory converterFactory;
-    private JAXBContext context = null;
 
     
     public Processor(DataSource ds) throws JAXBException{
         database = new Database(ds);
         converterFactory = new ConverterFactory();
-        context = JAXBContext.newInstance("nl.b3p.topnl.top250nl");
     }
   
-    public Object parse(InputStream in) throws JAXBException {
-        Unmarshaller jaxbUnmarshaller = context.createUnmarshaller();
+    public Object parse(InputStream in, TopNLType type) throws JAXBException {
+        Unmarshaller jaxbUnmarshaller = converterFactory.getContext(type).createUnmarshaller();
         JAXBElement o = (JAXBElement) jaxbUnmarshaller.unmarshal(in);
 
         Object value = o.getValue();

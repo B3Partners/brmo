@@ -49,8 +49,9 @@ public class Main {
             Processor p = new Processor(ds);
             
             InputStream in = Main.class.getResourceAsStream("Hoogte.xml");
-            Object obj = p.parse(in);
-            List<TopNLEntity> entities = p.convert(obj, TopNLType.TOP250NL);
+            TopNLType type = TopNLType.TOP250NL;
+            Object obj = p.parse(in, type);
+            List<TopNLEntity> entities = p.convert(obj, type);
             p.save(entities, TopNLType.TOP250NL);
             int a = 0;
         } catch (SAXException | ParserConfigurationException | TransformerException ex) {

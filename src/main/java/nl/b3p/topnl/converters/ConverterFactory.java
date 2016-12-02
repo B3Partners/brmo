@@ -6,6 +6,9 @@
 package nl.b3p.topnl.converters;
 
 import java.io.InputStream;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import nl.b3p.topnl.TopNLType;
 
 /**
  *
@@ -18,13 +21,28 @@ public class ConverterFactory {
 
  */
     private Converter top250nlConverter = new Top250NLConverter();
+    private JAXBContext context250nl = null;
+    private JAXBContext context100nl = null;
     
-    public ConverterFactory(){
+    public ConverterFactory() throws JAXBException{
         
+        context250nl = JAXBContext.newInstance("nl.b3p.topnl.top250nl");
+        context100nl = JAXBContext.newInstance("nl.b3p.topnl.top100nl");
     }
     
     public Converter getConverter(Object jaxbObject){
         return top250nlConverter;
     }
     
+    public JAXBContext getContext(TopNLType type) {
+        switch (type) {
+            case TOP100NL:
+                return context100nl;
+            case TOP250NL:
+                return context250nl;
+            default:
+                throw new IllegalArgumentException("TopNL type " + type.getType() + " not (yet) supported.");
+        }
+    }
+
 }
