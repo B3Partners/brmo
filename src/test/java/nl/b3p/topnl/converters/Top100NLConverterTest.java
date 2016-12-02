@@ -76,22 +76,6 @@ public class Top100NLConverterTest extends TestUtil{
     public void tearDown() {
     }
 
-    /**
-     * Test of convert method, of class Top250NLConverter.
-     */
-    @Test
-    public void testConvertFeatureCollection() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException {
-        System.out.println("convert");
-        Hoogte hoogte = new Hoogte();
-        InputStream in = Top100NLConverterTest.class.getResourceAsStream("top100nl/FeatureCollectionHoogte.xml");
-        Object jaxb = processor.parse(in, TopNLType.TOP100NL);
-
-        List<TopNLEntity> expResult = Collections.singletonList(hoogte);
-        List<TopNLEntity> result = instance.convert(jaxb);
-        assertNotNull(result);
-        assertEquals(expResult.size(), result.size());
-        assertEquals(expResult.get(0).getClass(), result.get(0).getClass());
-    }
 
     @Test
     public void testConvertNoFeatureCollection() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException {
@@ -154,7 +138,8 @@ public class Top100NLConverterTest extends TestUtil{
         assertEquals(Point.class, real.getGeometrie().getClass());
     }
 
-    @Test
+    // GeografischGebied niet in Top100NL
+    //@Test
     public void testConvertGeografischGebied() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
         System.out.println("testConvertGeografischGebied");
         TopNLEntity entity = getEntity("top100nl/GeografischGebied.xml");
@@ -217,8 +202,8 @@ public class Top100NLConverterTest extends TestUtil{
         assertEquals( "strekdam, krib, golfbreker", real.getTypeInrichtingselement());
     }
  
-       
-    @Test
+    // Plaats niet in Top100NL
+    //@Test
     public void testConvertPlaats() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
         System.out.println("testConvertPlaats");
         TopNLEntity entity = getEntity("top100nl/Plaats.xml");

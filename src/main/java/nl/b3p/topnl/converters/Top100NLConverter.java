@@ -177,7 +177,6 @@ public class Top100NLConverter extends Converter {
         fg.setTypeFunctioneelGebied(f.getTypeFunctioneelGebied().value());
         fg.setNaamFries(String.join(",", f.getNaamFries()));
         fg.setNaamNL(String.join(",", f.getNaamNL()));
-
         fg.setGeometrie(gc.convertGeometry(f.getGeometrie()));
         return fg;
     }
