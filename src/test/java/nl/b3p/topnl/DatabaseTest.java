@@ -49,7 +49,21 @@ public class DatabaseTest extends TestUtil{
      * Test of save method, of class Database.
      */
     @Test
-    public void testSave() throws SQLException, ParseException {
+    public void testSaveHoogte50() throws SQLException, ParseException {
+        testSave(TopNLType.TOP50NL);
+    }
+    
+    @Test
+    public void testSaveHoogte100() throws SQLException, ParseException {
+        testSave(TopNLType.TOP100NL);
+    }
+    
+    @Test
+    public void testSaveHoogte250() throws SQLException, ParseException {
+        testSave(TopNLType.TOP250NL);
+    }
+    
+    private void testSave(TopNLType type)throws SQLException, ParseException {
         System.out.println("save");
         Hoogte e = new Hoogte();
         String identificatie = "1616161616";
@@ -58,7 +72,7 @@ public class DatabaseTest extends TestUtil{
         e.setBronactualiteit(sdf.parse("2016-06-16"));
         e.setBronbeschrijving("beschrijving");
         e.setBrontype("typje");
-        e.setTopnltype(TopNLType.TOP250NL.getType());
+        e.setTopnltype(type.getType());
         e.setGeometrie(new EmptyGeometry());
         e.setObjectBeginTijd(sdf.parse("2016-01-01"));
         e.setObjectEindTijd(sdf.parse("2016-01-02"));
@@ -67,14 +81,14 @@ public class DatabaseTest extends TestUtil{
         e.setTypeHoogte("superhoog");
         e.setVisualisatieCode(166L);
         
-        
         instance.save(e);
 
         QueryRunner run = new QueryRunner(datasource);
 
         ResultSetHandler<Hoogte> h = new BeanHandler<>(Hoogte.class);
 
-        Hoogte real = run.query("SELECT * FROM top250nl.hoogte WHERE identificatie=?", h, identificatie);
+        Hoogte real = run.query("SELECT * FROM "  + type.getType() + ".hoogte WHERE identificatie=?", h, identificatie);
+        assertNotNull("Insert failed", real);
         assertEquals(e.getBronactualiteit(),real.getBronactualiteit());
         assertEquals(e.getBronbeschrijving(),real.getBronbeschrijving());
         assertEquals(e.getBronnauwkeurigheid(),real.getBronnauwkeurigheid());
@@ -87,7 +101,8 @@ public class DatabaseTest extends TestUtil{
         assertEquals(e.getTopnltype(),real.getTopnltype());
         assertEquals(e.getTypeHoogte(),real.getTypeHoogte());
         assertEquals(e.getVisualisatieCode(),real.getVisualisatieCode());
-        
     }
+    
+    
     
 }

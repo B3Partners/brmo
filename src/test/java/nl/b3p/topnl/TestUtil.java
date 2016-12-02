@@ -21,7 +21,10 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.sql.DataSource;
+import nl.b3p.topnl.entities.TopNLEntity;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,11 +43,14 @@ public class TestUtil {
     protected final static Log log = LogFactory.getLog(TestUtil.class);
     protected DataSource datasource;
     
+    protected SimpleDateFormat sdf;
+    
     @Rule 
     public TestName testName = new TestName();
     
     @Before
     public void setUpClass() throws SQLException, IOException {
+        sdf = new SimpleDateFormat("yyyy-MM-dd");
         JDBCDataSource ds = new JDBCDataSource();
         String testname = testName.getMethodName();
         long randomizer = System.currentTimeMillis();
@@ -82,6 +88,21 @@ public class TestUtil {
                 conn.close();
             }
         }
+    }
+    
+    
+    public TopNLEntity getStandardTestTopNLEntity() throws ParseException {
+        TopNLEntity expected = new TopNLEntity() {};
+
+        expected.setTopnltype(TopNLType.TOP250NL.getType());
+        expected.setBrontype("TOP50NL");
+        expected.setBronactualiteit(sdf.parse("2016-09-01"));
+        expected.setBronbeschrijving("TOP50NL wordt als bron gebruikt bij het bijwerken van EuroRegionalMap (ERM). Via een automatisch proces worden de gegevens van ERM omgezet naar TOP250NL");
+        expected.setBronnauwkeurigheid(125.0);
+        expected.setObjectBeginTijd(sdf.parse("2016-09-12"));
+        expected.setVisualisatieCode(1616L);
+        
+        return expected;
     }
     
 }
