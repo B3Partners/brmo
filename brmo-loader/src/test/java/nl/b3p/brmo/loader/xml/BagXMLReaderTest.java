@@ -1,12 +1,13 @@
 package nl.b3p.brmo.loader.xml;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import nl.b3p.brmo.loader.entity.BagBericht;
 import org.apache.commons.io.input.CloseShieldInputStream;
-import org.joda.time.DateTime;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
@@ -70,9 +71,8 @@ public class BagXMLReaderTest {
         assertEquals(mutSmallXmlNieuwCount, total);
         assertEquals("PND:1901100000021963", bag.getObjectRef());
         
-        //gebruik joda omdat er microseconden in de bron staan
-        DateTime d = new DateTime("2015-01-01T07:30:51.843495");
-        Date d2 = new Date(d.getMillis());
+        LocalDateTime d = LocalDateTime.parse("2015-01-01T07:30:51.843495");
+        Date d2 = Date.from(d.atZone(ZoneId.systemDefault()).toInstant());
         assertEquals(d2, bag.getDatum());
         assertEquals(new Integer(0), bag.getVolgordeNummer());
     }
