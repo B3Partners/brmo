@@ -42,6 +42,7 @@ public class TestUtil {
     
     protected final static Log log = LogFactory.getLog(TestUtil.class);
     protected DataSource datasource;
+    protected boolean useDB = false;
     
     
     @Rule 
@@ -49,12 +50,14 @@ public class TestUtil {
     
     @Before
     public void setUpClass() throws SQLException, IOException {
-        JDBCDataSource ds = new JDBCDataSource();
-        String testname = testName.getMethodName();
-        long randomizer = System.currentTimeMillis();
-        ds.setUrl("jdbc:hsqldb:file:./target/unittest-hsqldb/"+ testname + "_" + randomizer +"/db;shutdown=true");
-        datasource = ds;
-        initDB();
+        if(useDB){
+            JDBCDataSource ds = new JDBCDataSource();
+            String testname = testName.getMethodName();
+            long randomizer = System.currentTimeMillis();
+            ds.setUrl("jdbc:hsqldb:file:./target/unittest-hsqldb/" + testname + "_" + randomizer + "/db;shutdown=true");
+            datasource = ds;
+            initDB();
+        }
     }
     
     @After

@@ -45,6 +45,7 @@ public class ProcessorTest extends TestUtil{
     private Processor instance;
     
     public ProcessorTest() {
+        this.useDB = true; 
     }
 
     

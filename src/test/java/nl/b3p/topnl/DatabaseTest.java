@@ -38,6 +38,7 @@ public class DatabaseTest extends TestUtil{
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     
     public DatabaseTest() {
+        this.useDB = true; 
     }
     
 
