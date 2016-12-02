@@ -348,9 +348,11 @@ public class Top100NLConverter extends Converter {
         }
         rg.setFysiekVoorkomen(fysieks);
 
+        rg.setNaam(String.join(",",r.getStraatnaamNL()));
         rg.setGeometrie(gc.convertGeometry(r.getGeometrie()));
         rg.setTypeInfrastructuur(r.getTypeInfrastructuur() != null ? r.getTypeInfrastructuur().value() : null);
         rg.setTypeWeg(r.getTypeWeg() != null ? r.getTypeWeg().value() : null);
+        rg.setVerhardingstype(r.getTypeVerharding().value());
         rg.setHoofdverkeersgebruik(r.getHoofdverkeersgebruik() != null ? r.getHoofdverkeersgebruik().value() : null);
         rg.setVerhardingsbreedteklasse(r.getVerhardingsbreedteklasse() );
         rg.setGescheidenRijbaan(r.getGescheidenRijbaan() == JaNeeType.JA);
@@ -363,6 +365,7 @@ public class Top100NLConverter extends Converter {
         rg.setKnooppuntnaam(String.join(",",r.getKnooppuntnaam()));
         rg.setBrugnaam(String.join(",",r.getBrugnaam()));
         rg.setTunnelnaam(String.join(",",r.getTunnelnaam()));
+        rg.setHoogteniveau(r.getHoogteniveau());
         return rg;
     }
 }

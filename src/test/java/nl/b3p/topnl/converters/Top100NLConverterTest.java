@@ -342,8 +342,8 @@ public class Top100NLConverterTest extends TestUtil{
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
-        expected.setIdentificatie("NL.TOP100NL.16R11-0000000140");
-        expected.setVisualisatieCode(new Long("40410"));
+        expected.setIdentificatie("NL.TOP100NL.16R11-0000087800");
+        expected.setVisualisatieCode(new Long("13240"));
 
         assertNotNull(entity);
         assertTrue(entity instanceof Wegdeel);
@@ -353,12 +353,14 @@ public class Top100NLConverterTest extends TestUtil{
         testTopNLEntity(expected, real);
         assertEquals(LineString.class, real.getGeometrie().getClass());
         assertEquals("verbinding", real.getTypeInfrastructuur());
-        assertEquals("regionale weg", real.getTypeWeg());
+        assertEquals("lokale weg", real.getTypeWeg());
         assertEquals("gemengd verkeer", real.getHoofdverkeersgebruik());
         assertEquals(false, real.getGescheidenRijbaan());
         assertEquals("verhard", real.getVerhardingstype());
-        assertEquals(new BigInteger("2"), real.getAantalRijstroken());
-        assertEquals("in gebruik", real.getStatus());
+        assertEquals("Weijpoort", real.getNaam());
+        assertEquals(new BigInteger("0"), real.getHoogteniveau());
+        assertEquals(null, real.getAantalRijstroken());
+        assertEquals("4 - 7 meter", real.getVerhardingsbreedteklasse());
     }
 
     public void testTopNLEntity(TopNLEntity expected, TopNLEntity real) {
