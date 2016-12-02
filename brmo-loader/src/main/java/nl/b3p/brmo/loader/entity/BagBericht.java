@@ -1,6 +1,8 @@
 package nl.b3p.brmo.loader.entity;
 
 import java.io.StringReader;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -11,7 +13,6 @@ import javax.xml.xpath.XPathFactory;
 import nl.b3p.brmo.loader.xml.BagXMLReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.joda.time.DateTime;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -112,9 +113,9 @@ public class BagBericht extends Bericht {
             return;
         }
 
-        //gebruik joda omdat er microseconden in bron staan
-        DateTime date = new DateTime(d);
-        Date date2 = new Date(date.getMillis());
+        LocalDateTime date = LocalDateTime.parse(d);
+        Date date2 = Date.from(date.atZone(ZoneId.systemDefault()).toInstant());
+
         setDatum(date2);
     }
 
