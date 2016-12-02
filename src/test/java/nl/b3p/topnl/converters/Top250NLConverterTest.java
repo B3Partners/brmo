@@ -144,6 +144,7 @@ public class Top250NLConverterTest {
         TopNLEntity entity = getEntity("top250nl/FunctioneelGebied.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
+        expected.setIdentificatie("NL.TOP250NL.16R09-0000075056");
 
         expected.setObjectBeginTijd(sdf.parse("2016-09-12"));
         expected.setVisualisatieCode(new Long("49390"));
@@ -414,7 +415,6 @@ public class Top250NLConverterTest {
         TopNLEntity expected = new TopNLEntity() {
         };
 
-        expected.setIdentificatie("NL.TOP250NL.16R09-0000084248");
         expected.setTopnltype(TopNLType.TOP250NL.getType());
         expected.setBrontype("TOP50NL");
         expected.setBronactualiteit(sdf.parse("2016-09-01"));

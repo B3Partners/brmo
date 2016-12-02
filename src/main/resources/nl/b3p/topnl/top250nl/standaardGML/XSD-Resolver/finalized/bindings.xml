@@ -16,12 +16,53 @@
 			<bindings node="xsd:complexType[@name='BRTLijnOfPuntPropertyType']">
 				<dom/>
 			</bindings>
+			<bindings node="xsd:complexType[@name='BRTVlakMultivlakOfPuntPropertyType']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRTVlakLijnOfPuntPropertyType']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRTVlakOfMultivlakPropertyType']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='BRTVlakOfLijnPropertyType']">
+				<dom/>
+			</bindings>
 			<!--bindings node="xsd:complexType[@name='Structuurvisiegebied_RType']//xsd:element[@name='begrenzing']">
 				<dom/>
 			</bindings-->
 		</bindings>
 	</bindings>
-	<!--bindings schemaLocation="./finalized/gml_resolved.xsd">
+
+		<bindings schemaLocation="top250nl_resolved.xsd">
+		<!--schemaBindings>
+			<package name="nl.b3p.harvester.imro2012"/>
+		</schemaBindings-->
+		<bindings node="/xsd:schema">
+			<!--
+				attributen worden via jaxb bindings niet omgezet naar objecten.
+				Deze worden als xml fragment verder verwerkt.
+			-->
+			
+			<bindings node="xsd:complexType[@name='ReliefType']//xsd:element[@type='gml:CurvePropertyType']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SpoorbaandeelType']//xsd:element[@type='gml:CurvePropertyType']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType//xsd:element[@type='gml:SurfacePropertyType']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType//xsd:element[@type='gml:PointPropertyType']">
+				<dom/>
+			</bindings>
+			<!--bindings node="xsd:complexType[@name='Structuurvisiegebied_RType']//xsd:element[@name='begrenzing']">
+				<dom/>
+			</bindings-->
+		</bindings>
+	</bindings>
+
+	<!--bindings schemaLocation="gml_resolved.xsd">
 		<schemaBindings map="false"/>
-	</bindings -->
+	</bindings-->
 </bindings>

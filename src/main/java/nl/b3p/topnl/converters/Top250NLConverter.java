@@ -24,12 +24,35 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import nl.b3p.topnl.TopNLType;
+import nl.b3p.topnl.entities.FunctioneelGebied;
+import nl.b3p.topnl.entities.Gebouw;
+import nl.b3p.topnl.entities.GeografischGebied;
 import nl.b3p.topnl.entities.Hoogte;
+import nl.b3p.topnl.entities.Inrichtingselement;
+import nl.b3p.topnl.entities.Plaats;
+import nl.b3p.topnl.entities.RegistratiefGebied;
+import nl.b3p.topnl.entities.Relief;
+import nl.b3p.topnl.entities.Spoorbaandeel;
+import nl.b3p.topnl.entities.Terrein;
 import nl.b3p.topnl.entities.TopNLEntity;
+import nl.b3p.topnl.entities.Waterdeel;
+import nl.b3p.topnl.entities.Wegdeel;
 import nl.b3p.topnl.top250nl.FeatureCollectionT250NLType;
 import nl.b3p.topnl.top250nl.FeatureCollectionT250NLType.FeatureMember;
+import nl.b3p.topnl.top250nl.FunctioneelGebiedType;
+import nl.b3p.topnl.top250nl.GebouwType;
+import nl.b3p.topnl.top250nl.GeografischGebiedType;
 import nl.b3p.topnl.top250nl.HoogteType;
+import nl.b3p.topnl.top250nl.InrichtingselementType;
+import nl.b3p.topnl.top250nl.PlaatsType;
+import nl.b3p.topnl.top250nl.RegistratiefGebiedType;
+import nl.b3p.topnl.top250nl.ReliefType;
+import nl.b3p.topnl.top250nl.SpoorbaandeelType;
+import nl.b3p.topnl.top250nl.TerreinType;
+import nl.b3p.topnl.top250nl.Top250NlObjectType;
 import nl.b3p.topnl.top250nl.Top250NlObjectType.Identificatie;
+import nl.b3p.topnl.top250nl.WaterdeelType;
+import nl.b3p.topnl.top250nl.WegdeelType;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
@@ -73,6 +96,28 @@ public class Top250NLConverter extends Converter {
 
         if (featureMember instanceof HoogteType) {
             entity = convertHoogte(featureMember);
+        } else if (featureMember instanceof FunctioneelGebiedType) {
+            entity = convertFunctioneelGebied(featureMember);
+        } else if (featureMember instanceof GebouwType) {
+            entity = convertGebouw(featureMember);
+        } else if (featureMember instanceof GeografischGebiedType) {
+            entity = convertGeografischGebied(featureMember);
+        } else if (featureMember instanceof InrichtingselementType) {
+            entity = convertInrichtingselement(featureMember);
+        } else if (featureMember instanceof PlaatsType) {
+            entity = convertPlaats(featureMember);
+        } else if (featureMember instanceof RegistratiefGebiedType) {
+            entity = convertRegistratiefGebied(featureMember);
+        } else if (featureMember instanceof ReliefType) {
+            entity = convertRelief(featureMember);
+        } else if (featureMember instanceof SpoorbaandeelType) {
+            entity = convertSpoorbaandeel(featureMember);
+        } else if (featureMember instanceof TerreinType) {
+            entity = convertTerrein(featureMember);
+        } else if (featureMember instanceof WaterdeelType) {
+            entity = convertWaterdeel(featureMember);
+        } else if (featureMember instanceof WegdeelType) {
+            entity = convertWegdeel(featureMember);
         } else {
             throw new IllegalArgumentException("Type not recognized: " + featureMember.getClass());
         }
@@ -86,14 +131,8 @@ public class Top250NLConverter extends Converter {
         HoogteType h = (HoogteType) jaxbObject;
 
         Hoogte hoogte = new Hoogte();
+        convertTop250NlObjectType(h, hoogte);
 
-        hoogte.setIdentificatie(convertIdentificatie(h.getIdentificatie()));
-        hoogte.setBrontype(h.getBrontype().getValue());
-        hoogte.setBronactualiteit(h.getBronactualiteit().getTime());
-        hoogte.setBronbeschrijving(h.getBronbeschrijving());
-        hoogte.setBronnauwkeurigheid(h.getBronnauwkeurigheid());
-        hoogte.setObjectBeginTijd(h.getObjectBeginTijd().getTime());
-        hoogte.setVisualisatieCode(h.getVisualisatieCode().longValue());
         hoogte.setTypeHoogte(h.getTypeHoogte().getValue());
 
         hoogte.setHoogte(h.getHoogte());
@@ -110,5 +149,81 @@ public class Top250NLConverter extends Converter {
     public String convertIdentificatie(Identificatie identificatie) {
         String idString = identificatie.getNEN3610ID().getNamespace() + "." + identificatie.getNEN3610ID().getLokaalID();
         return idString;
+    }
+
+    private void convertTop250NlObjectType(Top250NlObjectType type, TopNLEntity entity) {
+        entity.setIdentificatie(convertIdentificatie(type.getIdentificatie()));
+        entity.setBrontype(type.getBrontype().getValue());
+        entity.setBronactualiteit(type.getBronactualiteit().getTime());
+        entity.setBronbeschrijving(type.getBronbeschrijving());
+        entity.setBronnauwkeurigheid(type.getBronnauwkeurigheid());
+        entity.setObjectBeginTijd(type.getObjectBeginTijd().getTime());
+        entity.setVisualisatieCode(type.getVisualisatieCode().longValue());
+    }
+
+    @Override
+    public FunctioneelGebied convertFunctioneelGebied(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        FunctioneelGebiedType f = (FunctioneelGebiedType) jaxbObject;
+
+        FunctioneelGebied fg = new FunctioneelGebied();
+        convertTop250NlObjectType(f, fg);
+        
+        fg.setTypeFunctioneelGebied(f.getTypeFunctioneelGebied().getValue());
+        fg.setNaamFries(String.join (",",f.getNaamFries()));
+        fg.setNaamNL(String.join(",",f.getNaamNL()));
+        fg.setSoortnaam(f.getSoortnaam());
+        
+        fg.setGeometrie(gc.convertGeometry(f.getGeometrie()));
+        return fg;
+    }
+
+    @Override
+    public Gebouw convertGebouw(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public GeografischGebied convertGeografischGebied(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Inrichtingselement convertInrichtingselement(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Plaats convertPlaats(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public RegistratiefGebied convertRegistratiefGebied(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Relief convertRelief(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Spoorbaandeel convertSpoorbaandeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Terrein convertTerrein(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Waterdeel convertWaterdeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Wegdeel convertWegdeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
