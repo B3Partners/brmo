@@ -17,6 +17,7 @@
 package nl.b3p.topnl.entities;
 
 import com.vividsolutions.jts.geom.Geometry;
+import java.math.BigInteger;
 
 /**
  *
@@ -25,7 +26,7 @@ import com.vividsolutions.jts.geom.Geometry;
 public class Plaats extends TopNLEntity{
     
     private String typeGebied;
-    private String aantalInwoners;
+    private BigInteger aantalInwoners;
     private String naamOfficieel;
     private String naamNL;
     private String naamFries;
@@ -40,11 +41,11 @@ public class Plaats extends TopNLEntity{
         this.typeGebied = typeGebied;
     }
 
-    public String getAantalInwoners() {
+    public BigInteger getAantalInwoners() {
         return aantalInwoners;
     }
 
-    public void setAantalInwoners(String aantalInwoners) {
+    public void setAantalInwoners(BigInteger aantalInwoners) {
         this.aantalInwoners = aantalInwoners;
     }
 

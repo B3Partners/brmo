@@ -30,7 +30,7 @@ public class Spoorbaandeel extends TopNLEntity {
     private String spoorbreedte;
     private String aantalSporen;
     private String vervoerfunctie;
-    private String elektrificatie;
+    private Boolean elektrificatie;
     private String status;
     private String brugnaam;
     private String tunnelnaam;
@@ -86,11 +86,11 @@ public class Spoorbaandeel extends TopNLEntity {
         this.vervoerfunctie = vervoerfunctie;
     }
 
-    public String getElektrificatie() {
+    public Boolean getElektrificatie() {
         return elektrificatie;
     }
 
-    public void setElektrificatie(String elektrificatie) {
+    public void setElektrificatie(Boolean elektrificatie) {
         this.elektrificatie = elektrificatie;
     }
 

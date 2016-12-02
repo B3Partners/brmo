@@ -17,6 +17,8 @@
 package nl.b3p.topnl.converters;
 
 import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.LineString;
+import com.vividsolutions.jts.geom.Polygon;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,8 @@ import nl.b3p.topnl.entities.Terrein;
 import nl.b3p.topnl.entities.TopNLEntity;
 import nl.b3p.topnl.entities.Waterdeel;
 import nl.b3p.topnl.entities.Wegdeel;
+import nl.b3p.topnl.top250nl.BRTJaNeeWaardeType;
+import nl.b3p.topnl.top250nl.CodeType;
 import nl.b3p.topnl.top250nl.FeatureCollectionT250NLType;
 import nl.b3p.topnl.top250nl.FeatureCollectionT250NLType.FeatureMember;
 import nl.b3p.topnl.top250nl.FunctioneelGebiedType;
@@ -167,63 +171,214 @@ public class Top250NLConverter extends Converter {
 
         FunctioneelGebied fg = new FunctioneelGebied();
         convertTop250NlObjectType(f, fg);
-        
+
         fg.setTypeFunctioneelGebied(f.getTypeFunctioneelGebied().getValue());
-        fg.setNaamFries(String.join (",",f.getNaamFries()));
-        fg.setNaamNL(String.join(",",f.getNaamNL()));
+        fg.setNaamFries(String.join(",", f.getNaamFries()));
+        fg.setNaamNL(String.join(",", f.getNaamNL()));
         fg.setSoortnaam(f.getSoortnaam());
-        
+
         fg.setGeometrie(gc.convertGeometry(f.getGeometrie()));
         return fg;
     }
 
     @Override
     public Gebouw convertGebouw(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        GebouwType g = (GebouwType) jaxbObject;
+
+        Gebouw gb = new Gebouw();
+        convertTop250NlObjectType(g, gb);
+        String types = "";
+        for (CodeType codeType : g.getTypeGebouw()) {
+            if (types.length() != 0) {
+                types += ",";
+            }
+            types += codeType.getValue();
+        }
+
+        gb.setTypeGebouw(types);
+        gb.setStatus(g.getStatus() != null ? g.getStatus().getValue() : null);
+        gb.setFysiekVoorkomen(g.getFysiekVoorkomen() != null ? g.getFysiekVoorkomen().getValue() : null);
+        gb.setHoogteklasse(g.getHoogteklasse() != null ? g.getHoogteklasse().getValue() : null);
+        gb.setHoogte(g.getHoogte());
+        gb.setSoortnaam(g.getSoortnaam());
+        gb.setNaam(String.join(",", g.getNaam()));
+
+        gb.setGeometrie(gc.convertGeometry(g.getGeometrie()));
+        return gb;
     }
 
     @Override
     public GeografischGebied convertGeografischGebied(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        GeografischGebiedType g = (GeografischGebiedType) jaxbObject;
+
+        GeografischGebied gb = new GeografischGebied();
+        convertTop250NlObjectType(g, gb);
+
+        gb.setGeometrie(gc.convertGeometry(g.getGeometrie()));
+
+        gb.setNaamFries(String.join(",", g.getNaamFries()));
+        gb.setNaamNL(String.join(",", g.getNaamNL()));
+        gb.setTypeGeografischGebied(g.getTypeGeografischGebied().getValue());
+        return gb;
     }
 
     @Override
     public Inrichtingselement convertInrichtingselement(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        InrichtingselementType i = (InrichtingselementType) jaxbObject;
+
+        Inrichtingselement ie = new Inrichtingselement();
+        convertTop250NlObjectType(i, ie);
+
+        ie.setGeometrie(gc.convertGeometry(i.getGeometrie()));
+
+        ie.setSoortnaam(i.getSoortnaam());
+        ie.setTypeInrichtingselement(i.getTypeInrichtingselement().getValue());
+                
+        return ie;
     }
 
     @Override
     public Plaats convertPlaats(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PlaatsType p = (PlaatsType) jaxbObject;
+
+        Plaats pl = new Plaats();
+        convertTop250NlObjectType(p, pl);
+
+        pl.setGeometrie(gc.convertGeometry(p.getGeometrie()));
+
+        pl.setAantalInwoners(p.getAantalinwoners());
+        pl.setNaamFries(p.getNaamFries());
+        pl.setNaamNL(p.getNaamNL());
+        pl.setNaamOfficieel(p.getNaamOfficieel());
+        pl.setTypeGebied(p.getTypeGebied().getValue());
+        
+        return pl;
     }
 
     @Override
     public RegistratiefGebied convertRegistratiefGebied(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        RegistratiefGebiedType r = (RegistratiefGebiedType) jaxbObject;
+
+        RegistratiefGebied rg = new RegistratiefGebied();
+        convertTop250NlObjectType(r, rg);
+
+        rg.setGeometrie(gc.convertGeometry(r.getGeometrie()));
+
+        rg.setNaamFries(String.join(",", r.getNaamFries()));
+        rg.setNaamNL(String.join(",", r.getNaamNL()));
+        rg.setNaamOfficieel(r.getNaamOfficieel());
+        rg.setNummer(String.join(",", r.getNummer()));
+        rg.setTypeRegistratiefGebied(r.getTypeRegistratiefGebied().getValue());
+        
+        return rg;
     }
 
     @Override
     public Relief convertRelief(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ReliefType r = (ReliefType) jaxbObject;
+
+        Relief rg = new Relief();
+        convertTop250NlObjectType(r, rg);
+
+        rg.setGeometrie((LineString)gc.convertGeometry(r.getLijnGeometrie()));
+
+        rg.setHoogteklasse(r.getHoogteklasse().getValue());
+        rg.setTypeRelief(r.getTypeRelief().getValue());
+        
+        return rg;
     }
 
     @Override
     public Spoorbaandeel convertSpoorbaandeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        SpoorbaandeelType r = (SpoorbaandeelType) jaxbObject;
+
+        Spoorbaandeel rg = new Spoorbaandeel();
+        convertTop250NlObjectType(r, rg);
+
+        rg.setGeometrie((LineString) gc.convertGeometry(r.getGeometrie()));
+        
+        rg.setTypeInfrastructuur(r.getTypeInfrastructuur().getValue());
+        rg.setTypeSpoorbaan(r.getTypeSpoorbaan().getValue());
+        rg.setFysiekVoorkomen(r.getFysiekVoorkomen() != null ? r.getFysiekVoorkomen().getValue() : null);
+        rg.setSpoorbreedte(r.getSpoorbreedte().getValue());
+        rg.setAantalSporen(r.getAantalSporen().getValue());
+        rg.setVervoerfunctie(r.getVervoerfunctie().getValue());
+        rg.setElektrificatie(r.getElektrificatie() == BRTJaNeeWaardeType.JA);
+        rg.setStatus(r.getStatus().getValue());
+        rg.setBrugnaam(r.getBrugnaam());
+        rg.setTunnelnaam(r.getTunnelnaam());
+        rg.setBaanvaknaam(r.getBaanvaknaam());
+
+        return rg;
     }
 
     @Override
     public Terrein convertTerrein(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TerreinType r = (TerreinType) jaxbObject;
+
+        Terrein rg = new Terrein();
+        convertTop250NlObjectType(r, rg);
+
+        rg.setGeometrie((Polygon) gc.convertGeometry(r.getGeometrieVlak()));
+
+        rg.setNaam(r.getNaam());
+        rg.setTypeLandgebruik(r.getTypeLandgebruik() != null ? r.getTypeLandgebruik().getValue() : null);
+
+        return rg;
     }
 
     @Override
     public Waterdeel convertWaterdeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        WaterdeelType r = (WaterdeelType) jaxbObject;
+
+        Waterdeel rg = new Waterdeel();
+        convertTop250NlObjectType(r, rg);
+
+        rg.setGeometrie( gc.convertGeometry(r.getGeometrie()));
+
+        rg.setTypeWater(r.getTypeWater() != null ? r.getTypeWater().getValue() : null);
+        rg.setBreedteklasse(r.getBreedteklasse() != null ? r.getBreedteklasse().getValue() : null);
+        rg.setFysiekVoorkomen(r.getFysiekVoorkomen() != null ? r.getFysiekVoorkomen().getValue() : null);
+        rg.setVoorkomen(r.getVoorkomen() != null ? r.getVoorkomen().getValue() : null);
+        rg.setGetijdeinvloed(r.getGetijdeinvloed() == BRTJaNeeWaardeType.JA);
+        rg.setVaarwegklasse(r.getVaarwegklasse() != null ? r.getVaarwegklasse().getValue() : null);
+        rg.setNaamOfficieel(r.getNaamOfficieel());
+        rg.setNaamNL(String.join(",", r.getNaamNL()));
+        rg.setNaamFries(String.join(",", r.getNaamFries()));
+        rg.setIsBAGnaam(r.getIsBAGnaam() == BRTJaNeeWaardeType.JA);
+        rg.setSluisnaam(r.getSluisnaam());
+        rg.setBrugnaam(r.getBrugnaam());
+        return rg;
     }
 
     @Override
     public Wegdeel convertWegdeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        WegdeelType r = (WegdeelType) jaxbObject;
+
+        Wegdeel rg = new Wegdeel();
+        convertTop250NlObjectType(r, rg);
+
+        rg.setGeometrie(gc.convertGeometry(r.getGeometrie()));
+        rg.setTypeInfrastructuur(r.getTypeInfrastructuur() != null ? r.getTypeInfrastructuur() : null);
+        rg.setTypeWeg(r.getTypeWeg() != null ? r.getTypeWeg() : null);
+        rg.setHoofdverkeersgebruik(r.getHoofdverkeersgebruik() != null ? r.getHoofdverkeersgebruik() : null);
+        rg.setFysiekVoorkomen(r.getFysiekVoorkomen() != null ? r.getFysiekVoorkomen() : null);
+        rg.setVerhardingsbreedteklasse(r.getVerhardingsbreedteklasse() != null ? r.getVerhardingsbreedteklasse() : null);
+        rg.setGescheidenRijbaan(r.getGescheidenRijbaan() != null ? r.getGescheidenRijbaan() : null);
+        rg.setVerhardingstype(r.getVerhardingstype() != null ? r.getVerhardingstype() : null);
+        rg.setAantalRijstroken(r.getAantalRijstroken() != null ? r.getAantalRijstroken() : null);
+        rg.setStatus(r.getStatus() != null ? r.getStatus() : null);
+        rg.setNaam(r.getNaam() != null ? r.getNaam() : null);
+        rg.setIsBAGnaam(r.getIsBAGnaam() != null ? r.getIsBAGnaam() : null);
+        rg.setaWegnummer(String.join(",",r.getAWegnummer()));
+        rg.setnWegnummer(String.join(",",r.getNWegnummer()));
+        rg.seteWegnummer(String.join(",",r.getEWegnummer()));
+        rg.setsWegnummer(String.join(",",r.getSWegnummer()));
+        rg.setAfritnummer(r.getAfritnummer());
+        rg.setAfritnaam(r.getAfritnaam());
+        rg.setKnooppuntnaam(r.getKnooppuntnaam());
+        rg.setBrugnaam(r.getBrugnaam());
+        rg.setTunnelnaam(r.getTunnelnaam());
+        return rg;
     }
 }

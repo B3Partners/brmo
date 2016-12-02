@@ -125,6 +125,7 @@ public class Top250NLConverterTest {
 
         expected.setVisualisatieCode(new Long("45550"));
 
+        expected.setIdentificatie("NL.TOP250NL.16R09-0000084246");
         TopNLEntity entity = getEntity("top250nl/Hoogte.xml");
 
         assertNotNull(entity);
@@ -166,6 +167,7 @@ public class Top250NLConverterTest {
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
+        expected.setIdentificatie("NL.TOP250NL.16R09-0000084248");
         expected.setVisualisatieCode(new Long("48190"));
 
         assertNotNull(entity);
@@ -186,6 +188,7 @@ public class Top250NLConverterTest {
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
+        expected.setIdentificatie("NL.TOP250NL.16R09-0000076688");
         expected.setVisualisatieCode(new Long("43000"));
 
         assertNotNull(entity);
@@ -207,6 +210,7 @@ public class Top250NLConverterTest {
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
+        expected.setIdentificatie("NL.TOP250NL.16R09-0000087058");
         expected.setVisualisatieCode(new Long("45650"));
 
         assertNotNull(entity);
@@ -215,7 +219,7 @@ public class Top250NLConverterTest {
         Inrichtingselement real = (Inrichtingselement) entity;
 
         testTopNLEntity(expected, real);
-        assertEquals(Point.class, real.getGeometrie().getClass());
+        assertEquals(LineString.class, real.getGeometrie().getClass());
         assertEquals( "strekdam, krib, golfbreker", real.getTypeInrichtingselement());
     }
  
@@ -227,6 +231,7 @@ public class Top250NLConverterTest {
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
+        expected.setIdentificatie("NL.TOP250NL.16R09-0000079618");
         expected.setVisualisatieCode(new Long("48110"));
 
         assertNotNull(entity);
@@ -247,6 +252,7 @@ public class Top250NLConverterTest {
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
+        expected.setIdentificatie("NL.TOP250NL.16R09-0000084787");
         expected.setVisualisatieCode(new Long("47200"));
 
         assertNotNull(entity);
@@ -267,6 +273,7 @@ public class Top250NLConverterTest {
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
+        expected.setIdentificatie("NL.TOP250NL.16R09-0000084373");
         expected.setVisualisatieCode(new Long("46810"));
 
         assertNotNull(entity);
@@ -277,7 +284,7 @@ public class Top250NLConverterTest {
         testTopNLEntity(expected, real);
         assertEquals(LineString.class, real.getGeometrie().getClass());
         assertEquals( "dijk", real.getTypeRelief());
-        assertEquals( "&gt; 2,5 meter", real.getHoogteklasse());
+        assertEquals( "> 2,5 meter", real.getHoogteklasse());
     }
     
     @Test
@@ -286,6 +293,7 @@ public class Top250NLConverterTest {
         TopNLEntity entity = getEntity("top250nl/Spoorbaandeel.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
+        expected.setIdentificatie("NL.TOP250NL.16R09-0000080534");
 
         expected.setVisualisatieCode(new Long("41100"));
 
@@ -301,7 +309,7 @@ public class Top250NLConverterTest {
         assertEquals("normaalspoor", real.getSpoorbreedte());
         assertEquals("enkel", real.getAantalSporen());
         assertEquals("gemengd gebruik", real.getVervoerfunctie());
-        assertEquals("nee", real.getElektrificatie());
+        assertEquals(false, real.getElektrificatie());
         assertEquals("in gebruik", real.getStatus());
     }
     
@@ -412,8 +420,7 @@ public class Top250NLConverterTest {
     }
 
     private TopNLEntity getStandardTestTopNLEntity() throws ParseException {
-        TopNLEntity expected = new TopNLEntity() {
-        };
+        TopNLEntity expected = new TopNLEntity() {};
 
         expected.setTopnltype(TopNLType.TOP250NL.getType());
         expected.setBrontype("TOP50NL");

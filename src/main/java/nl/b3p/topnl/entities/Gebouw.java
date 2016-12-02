@@ -27,7 +27,7 @@ public class Gebouw extends TopNLEntity{
     private String status;
     private String fysiekVoorkomen;
     private String hoogteklasse;
-    private String hoogte;
+    private Double hoogte;
     private String soortnaam;
     private String naam;
     
@@ -74,11 +74,11 @@ public class Gebouw extends TopNLEntity{
         this.hoogteklasse = hoogteklasse;
     }
 
-    public String getHoogte() {
+    public Double getHoogte() {
         return hoogte;
     }
 
-    public void setHoogte(String hoogte) {
+    public void setHoogte(Double hoogte) {
         this.hoogte = hoogte;
     }
 
