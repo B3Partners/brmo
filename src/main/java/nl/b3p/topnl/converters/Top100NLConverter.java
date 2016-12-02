@@ -130,7 +130,7 @@ public class Top100NLConverter extends Converter {
             throw new IllegalArgumentException("Type not recognized: " + featureMember.getClass());
         }
 
-        entity.setTopnltype(TopNLType.TOP250NL.getType());
+        entity.setTopnltype(TopNLType.TOP100NL.getType());
         return entity;
     }
 
@@ -195,12 +195,12 @@ public class Top100NLConverter extends Converter {
             }
             types += typeGebouwT100Type.value();
         }
-
         gb.setTypeGebouw(types);
         gb.setFysiekVoorkomen(g.getFysiekVoorkomen() != null ? g.getFysiekVoorkomen().value() : null);
         gb.setHoogteklasse(g.getHoogteklasse() != null ? g.getHoogteklasse().value() : null);
         gb.setHoogte(g.getHoogte());
         gb.setNaam(String.join(",", g.getNaamNL()));
+        gb.setNaamFries(String.join(",",g.getNaamFries()));
 
         gb.setGeometrie(gc.convertGeometry(g.getGeometrie()));
         return gb;

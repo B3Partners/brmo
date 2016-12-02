@@ -182,7 +182,7 @@ public class Top100NLConverterTest extends TestUtil{
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
-        expected.setIdentificatie("NL.TOP100NL.16R11-0000076688");
+        expected.setIdentificatie("NL.TOP100NL.16R11-0001400974");
         expected.setVisualisatieCode(new Long("12345"));
 
         assertNotNull(entity);
@@ -421,7 +421,6 @@ public class Top100NLConverterTest extends TestUtil{
         expected.setBrontype("TOP10NL");
         expected.setBronactualiteit(sdf.parse("2016-11-01"));
         expected.setBronbeschrijving("Automatische generalisatie vanuit TOP10NL");
-        expected.setBronnauwkeurigheid(125.0);
         expected.setObjectBeginTijd(sdf.parse("2016-11-02"));
         
         return expected;

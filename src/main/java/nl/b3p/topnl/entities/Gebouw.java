@@ -30,6 +30,7 @@ public class Gebouw extends TopNLEntity{
     private Double hoogte;
     private String soortnaam;
     private String naam;
+    private String naamFries;
     
     
     private Geometry geometrie;
@@ -96,6 +97,14 @@ public class Gebouw extends TopNLEntity{
 
     public void setNaam(String naam) {
         this.naam = naam;
+    }
+
+    public String getNaamFries() {
+        return naamFries;
+    }
+
+    public void setNaamFries(String naamFries) {
+        this.naamFries = naamFries;
     }
     
     

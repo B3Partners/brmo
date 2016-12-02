@@ -52,7 +52,7 @@ public class Main {
             TopNLType type = TopNLType.TOP250NL;
             Object obj = p.parse(in, type);
             List<TopNLEntity> entities = p.convert(obj, type);
-            p.save(entities, TopNLType.TOP250NL);
+            p.save(entities, type);
             int a = 0;
         } catch (SAXException | ParserConfigurationException | TransformerException ex) {
             log.error("Cannot parse/convert/save entity: ", ex);
