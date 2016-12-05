@@ -22,7 +22,9 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import nl.b3p.topnl.converters.DbUtilsGeometryColumnConverter;
+import nl.b3p.topnl.entities.FunctioneelGebied;
 import nl.b3p.topnl.entities.Hoogte;
+import nl.b3p.topnl.entities.TopNLEntity;
 import org.apache.commons.dbutils.BasicRowProcessor;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
@@ -38,8 +40,9 @@ import org.junit.Before;
 public class DatabaseTest extends TestUtil{
     
     private Database instance = null;
-    private WKTReader wkt= new WKTReader();
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private final WKTReader wkt= new WKTReader();
+    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private final String identificatie = "1616161616";
     
     public DatabaseTest() {
         
@@ -54,36 +57,28 @@ public class DatabaseTest extends TestUtil{
 
     @Test
     public void testSaveHoogte50() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        testSave(TopNLType.TOP50NL);
+        testSaveHoogte(TopNLType.TOP50NL);
     }
     
     @Test
     public void testSaveHoogte100() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        testSave(TopNLType.TOP100NL);
+        testSaveHoogte(TopNLType.TOP100NL);
     }
     
     @Test
     public void testSaveHoogte250() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        testSave(TopNLType.TOP250NL);
+        testSaveHoogte(TopNLType.TOP250NL);
     }
     
-    private void testSave(TopNLType type)throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+    private void testSaveHoogte(TopNLType type)throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
         System.out.println("save");
         Geometry p = wkt.read("POINT (1 2)");
         Hoogte e = new Hoogte();
-        String identificatie = "1616161616";
-        e.setIdentificatie(identificatie);
-        e.setHoogte(16.06);
-        e.setBronactualiteit(sdf.parse("2016-06-16"));
-        e.setBronbeschrijving("beschrijving");
-        e.setBrontype("typje");
-        e.setTopnltype(type.getType());
+        getStandardTestTopNLEntity(e, type);
         e.setGeometrie(p);
-        e.setObjectBeginTijd(sdf.parse("2016-01-01"));
-        e.setObjectEindTijd(sdf.parse("2016-01-02"));
         e.setReferentieVlak("uitgevlakt");
         e.setTypeHoogte("superhoog");
-        e.setVisualisatieCode(166L);
+        e.setHoogte(16.06);
         
         instance.save(e);
 
@@ -93,21 +88,36 @@ public class DatabaseTest extends TestUtil{
 
         Hoogte real = run.query("SELECT * FROM "  + type.getType() + ".hoogte WHERE identificatie=?", h, identificatie);
         assertNotNull("Insert failed", real);
-        assertEquals(e.getBronactualiteit(),real.getBronactualiteit());
-        assertEquals(e.getBronbeschrijving(),real.getBronbeschrijving());
-        assertEquals(e.getBronnauwkeurigheid(),real.getBronnauwkeurigheid());
-        assertEquals(e.getBrontype(),real.getBrontype());
-        assertEquals(e.getHoogte(),real.getHoogte());
-        assertEquals(e.getIdentificatie(),real.getIdentificatie());
-        assertEquals(e.getObjectBeginTijd(),real.getObjectBeginTijd());
-        assertEquals(e.getObjectEindTijd(),real.getObjectEindTijd());
+        testStandardTopNLEntity(real, e);
+        
         assertEquals(e.getReferentieVlak(),real.getReferentieVlak());
-        assertEquals(e.getTopnltype(),real.getTopnltype());
         assertEquals(e.getTypeHoogte(),real.getTypeHoogte());
-        assertEquals(e.getVisualisatieCode(),real.getVisualisatieCode());
+        assertEquals(e.getHoogte(),real.getHoogte());
         assertEquals(p,real.getGeometrie());
     }
     
+    public void getStandardTestTopNLEntity(TopNLEntity e,TopNLType type) throws ParseException {
+        e.setIdentificatie(identificatie);
+        e.setBronactualiteit(sdf.parse("2016-06-16"));
+        e.setBronbeschrijving("beschrijving");
+        e.setBrontype("typje");
+        e.setObjectBeginTijd(sdf.parse("2016-01-01"));
+        e.setObjectEindTijd(sdf.parse("2016-01-02"));
+        e.setVisualisatieCode(166L);
+        e.setTopnltype(type.getType());
+    }
     
+    public void testStandardTopNLEntity(TopNLEntity real, TopNLEntity e) {
+        assertEquals(e.getBronactualiteit(), real.getBronactualiteit());
+        assertEquals(e.getBronbeschrijving(), real.getBronbeschrijving());
+        assertEquals(e.getBronnauwkeurigheid(), real.getBronnauwkeurigheid());
+        assertEquals(e.getBrontype(), real.getBrontype());
+        assertEquals(e.getIdentificatie(), real.getIdentificatie());
+        assertEquals(e.getObjectBeginTijd(), real.getObjectBeginTijd());
+        assertEquals(e.getObjectEindTijd(), real.getObjectEindTijd());
+        assertEquals(e.getTopnltype(), real.getTopnltype());
+        assertEquals(e.getVisualisatieCode(), real.getVisualisatieCode());
+    }
+
     
 }

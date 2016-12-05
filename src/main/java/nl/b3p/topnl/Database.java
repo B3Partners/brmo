@@ -22,6 +22,7 @@ import javax.sql.DataSource;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
 import nl.b3p.topnl.converters.DbUtilsGeometryColumnConverter;
+import nl.b3p.topnl.entities.FunctioneelGebied;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.TopNLEntity;
 import org.apache.commons.dbutils.BasicRowProcessor;
@@ -54,7 +55,9 @@ public class Database {
           
             if(entity instanceof Hoogte){
                 saveHoogte(entity);
-            }else{
+            }else if(entity instanceof FunctioneelGebied){
+                saveFunctioneelGebied(entity);
+            } else{
                 throw new IllegalArgumentException ("Type of entity not (yet) implemented.");
             }
             
@@ -62,34 +65,76 @@ public class Database {
             log.error("Error inserting entity: ", e);
         }
     }
+    
+    private FunctioneelGebied saveFunctioneelGebied(TopNLEntity entity) throws SQLException, ParseException{
+                FunctioneelGebied h = (FunctioneelGebied) entity;
+        QueryRunner run = new QueryRunner(dataSource);
+
+        ResultSetHandler<FunctioneelGebied> handler = new BeanHandler(FunctioneelGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
+        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
+
+        FunctioneelGebied inserted = run.insert("INSERT INTO " + h.getTopnltype() + ".functioneelgebied (" + getTopNLEntityColumns() + ",typeFunctioneelGebied,soortnaam,naamNL,naamFries,geometrie) VALUES (" + getTopNLEntityReplacementChars() + ",?,?,?,?,?)",
+                handler,
+                getVarargs(entity),
+                h.getTypeFunctioneelGebied(),
+                h.getSoortnaam(),
+                h.getNaamNL(),
+                h.getNaamFries(),
+                nativeGeom);
+
+        return inserted;
+    }
 
     private Hoogte saveHoogte(TopNLEntity entity) throws SQLException, ParseException {
         Hoogte h = (Hoogte) entity;
         QueryRunner run = new QueryRunner(dataSource);
         
         ResultSetHandler<Hoogte> handler = new BeanHandler(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
-        GeometryJdbcConverter cv = GeometryJdbcConverterFactory.getGeometryJdbcConverter(dataSource.getConnection());
-        Object nativeGeom = cv.convertToNativeGeometryObject(h.getGeometrie().toText());
-        
-        Hoogte inserted = run.insert("INSERT INTO " + h.getTopnltype() + ".hoogte (identificatie,topnltype,brontype,bronactualiteit,bronbeschrijving,bronnauwkeurigheid,objectBeginTijd,objectEindTijd,visualisatieCode,typeHoogte,referentieVlak,hoogte, geometrie) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", 
-                handler, 
-                h.getIdentificatie(),
-                h.getTopnltype(),
-                h.getBrontype(),
-                h.getBronactualiteit() != null ? new java.sql.Date(h.getBronactualiteit().getTime()) : null,
-                h.getBronbeschrijving(),
-                h.getBronnauwkeurigheid(),
-                h.getObjectBeginTijd() != null ? new java.sql.Date(h.getObjectBeginTijd().getTime()) : null,
-                h.getObjectEindTijd() != null ? new java.sql.Date(h.getObjectEindTijd().getTime()) : null,
-                h.getVisualisatieCode(),
+        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
+        Object [] args = getVarargs(entity,
                 h.getTypeHoogte(),
                 h.getReferentieVlak(),
                 h.getHoogte(),
                 nativeGeom);
+        Hoogte inserted = run.insert("INSERT INTO " + h.getTopnltype() + ".hoogte ("+ getTopNLEntityColumns() +",typeHoogte,referentieVlak,hoogte, geometrie) VALUES ("+ getTopNLEntityReplacementChars() + ",?,?,?,?)", 
+                handler, 
+                args);
 
         return inserted;
     }
 
+    private String getTopNLEntityColumns(){
+        return "identificatie,topnltype,brontype,bronactualiteit,bronbeschrijving,bronnauwkeurigheid,objectBeginTijd,objectEindTijd,visualisatieCode";
+    }
+    
+    private String getTopNLEntityReplacementChars(){
+        return "?,?,?,?,?,?,?,?,?";
+    }
+    
+    private Object[] getVarargs(TopNLEntity entity, Object ... specificArgs) {
+        Object[] genericArgs = {
+            entity.getIdentificatie(),
+            entity.getTopnltype(),
+            entity.getBrontype(),
+            entity.getBronactualiteit() != null ? new java.sql.Date(entity.getBronactualiteit().getTime()) : null,
+            entity.getBronbeschrijving(),
+            entity.getBronnauwkeurigheid(),
+            entity.getObjectBeginTijd() != null ? new java.sql.Date(entity.getObjectBeginTijd().getTime()) : null,
+            entity.getObjectEindTijd() != null ? new java.sql.Date(entity.getObjectEindTijd().getTime()) : null,
+            entity.getVisualisatieCode()
+        };
+        int numGeneric = genericArgs.length;
+        Object[] completeArgs = new Object[numGeneric + specificArgs.length];
+        System.arraycopy(genericArgs, 0, completeArgs, 0, numGeneric);
+        
+        for (int i = 0; i < specificArgs.length; i++) {
+            Object specificArg = specificArgs[i];
+            completeArgs [numGeneric+ i] = specificArg;
+        }
+
+        return completeArgs;
+    }
+    
     public GeometryJdbcConverter getGjc() {
         return gjc;
     }    
