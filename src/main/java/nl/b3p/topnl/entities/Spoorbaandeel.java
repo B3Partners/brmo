@@ -17,6 +17,7 @@
 package nl.b3p.topnl.entities;
 
 import com.vividsolutions.jts.geom.LineString;
+import java.math.BigInteger;
 
 /**
  *
@@ -35,6 +36,7 @@ public class Spoorbaandeel extends TopNLEntity {
     private String brugnaam;
     private String tunnelnaam;
     private String baanvaknaam;
+    private BigInteger hoogteniveau;
     
     private LineString geometrie;
 
@@ -134,4 +136,13 @@ public class Spoorbaandeel extends TopNLEntity {
         this.geometrie = geometrie;
     }
 
+    public BigInteger getHoogteniveau() {
+        return hoogteniveau;
+    }
+
+    public void setHoogteniveau(BigInteger hoogteniveau) {
+        this.hoogteniveau = hoogteniveau;
+    }
+
+    
 }

@@ -189,8 +189,8 @@ public class Top100NLConverterTest extends TestUtil{
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
-        expected.setIdentificatie("NL.TOP100NL.16R11-0000087058");
-        expected.setVisualisatieCode(new Long("45650"));
+        expected.setIdentificatie("NL.TOP100NL.16R11-0001453452");
+        expected.setVisualisatieCode(new Long("13850"));
 
         assertNotNull(entity);
         assertTrue(entity instanceof Inrichtingselement);
@@ -199,7 +199,9 @@ public class Top100NLConverterTest extends TestUtil{
 
         testTopNLEntity(expected, real);
         assertEquals(LineString.class, real.getGeometrie().getClass());
-        assertEquals( "strekdam, krib, golfbreker", real.getTypeInrichtingselement());
+        assertEquals( "wegafsluiting", real.getTypeInrichtingselement());
+        assertEquals( "in gebruik", real.getStatus());
+        assertEquals(new BigInteger("0"), real.getHoogteniveau());
     }
  
     // Plaats niet in Top100NL
@@ -231,8 +233,8 @@ public class Top100NLConverterTest extends TestUtil{
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
-        expected.setIdentificatie("NL.TOP100NL.16R11-0000084787");
-        expected.setVisualisatieCode(new Long("47200"));
+        expected.setIdentificatie("NL.TOP100NL.16R11-0000078632");
+        expected.setVisualisatieCode(new Long("12345"));
 
         assertNotNull(entity);
         assertTrue(entity instanceof RegistratiefGebied);
@@ -241,8 +243,9 @@ public class Top100NLConverterTest extends TestUtil{
 
         testTopNLEntity(expected, real);
         assertEquals(Polygon.class, real.getGeometrie().getClass());
-        assertEquals( "territoriale zee", real.getTypeRegistratiefGebied());
-        assertEquals( "---", real.getNaamOfficieel());
+        assertEquals( "gemeente", real.getTypeRegistratiefGebied());
+        assertEquals( "642", real.getNummer());
+        assertEquals( "Zwijndrecht", real.getNaamNL());
     }
 
     @Test
@@ -252,8 +255,8 @@ public class Top100NLConverterTest extends TestUtil{
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
-        expected.setIdentificatie("NL.TOP100NL.16R11-0000084373");
-        expected.setVisualisatieCode(new Long("46810"));
+        expected.setIdentificatie("NL.TOP100NL.16R11-0000002988");
+        expected.setVisualisatieCode(new Long("17220"));
 
         assertNotNull(entity);
         assertTrue(entity instanceof Relief);
@@ -262,8 +265,9 @@ public class Top100NLConverterTest extends TestUtil{
 
         testTopNLEntity(expected, real);
         assertEquals(LineString.class, real.getGeometrie().getClass());
-        assertEquals( "dijk", real.getTypeRelief());
+        assertEquals( "talud, hoogteverschil", real.getTypeRelief());
         assertEquals( "> 2,5 meter", real.getHoogteklasse());
+        assertEquals(new BigInteger("0"), real.getHoogteniveau());
     }
     
     @Test
@@ -272,9 +276,9 @@ public class Top100NLConverterTest extends TestUtil{
         TopNLEntity entity = getEntity("top100nl/Spoorbaandeel.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
-        expected.setIdentificatie("NL.TOP100NL.16R11-0000080534");
+        expected.setIdentificatie("NL.TOP100NL.16R11-0001444636");
 
-        expected.setVisualisatieCode(new Long("41100"));
+        expected.setVisualisatieCode(new Long("14000"));
 
         assertNotNull(entity);
         assertTrue(entity instanceof Spoorbaandeel);
@@ -283,13 +287,10 @@ public class Top100NLConverterTest extends TestUtil{
 
         testTopNLEntity(expected, real);
         assertEquals(LineString.class, real.getGeometrie().getClass());
-        assertEquals("verbinding", real.getTypeInfrastructuur());
         assertEquals("trein", real.getTypeSpoorbaan());
-        assertEquals("normaalspoor", real.getSpoorbreedte());
-        assertEquals("enkel", real.getAantalSporen());
-        assertEquals("gemengd gebruik", real.getVervoerfunctie());
-        assertEquals(false, real.getElektrificatie());
         assertEquals("in gebruik", real.getStatus());
+        assertEquals("1", real.getAantalSporen());
+        assertEquals(new BigInteger("0"), real.getHoogteniveau());
     }
     
     @Test
@@ -299,8 +300,8 @@ public class Top100NLConverterTest extends TestUtil{
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
-        expected.setIdentificatie("NL.TOP100NL.16R11-0000052858");
-        expected.setVisualisatieCode(new Long("44190"));
+        expected.setIdentificatie("NL.TOP100NL.16R11-0000785251");
+        expected.setVisualisatieCode(new Long("15210"));
 
         assertNotNull(entity);
         assertTrue(entity instanceof Terrein);
@@ -309,7 +310,7 @@ public class Top100NLConverterTest extends TestUtil{
 
         testTopNLEntity(expected, real);
         assertEquals(Polygon.class, real.getGeometrie().getClass());
-        assertEquals("zand", real.getTypeLandgebruik());
+        assertEquals("grasland", real.getTypeLandgebruik());
     }
     
     @Test
@@ -319,8 +320,8 @@ public class Top100NLConverterTest extends TestUtil{
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
-        expected.setIdentificatie("NL.TOP100NL.16R11-0000054882");
-        expected.setVisualisatieCode(new Long("42440"));
+        expected.setIdentificatie("NL.TOP100NL.16R11-0000912247");
+        expected.setVisualisatieCode(new Long("16012"));
 
         assertNotNull(entity);
         assertTrue(entity instanceof Waterdeel);
@@ -330,9 +331,8 @@ public class Top100NLConverterTest extends TestUtil{
         testTopNLEntity(expected, real);
         assertEquals(LineString.class, real.getGeometrie().getClass());
         assertEquals("waterloop", real.getTypeWater());
-        assertEquals("50 - 125 meter", real.getBreedteklasse());
-        assertEquals(false, real.getGetijdeinvloed());
-        assertEquals("Twenthekanaal", real.getNaamNL());
+        assertEquals("3 - 6 meter", real.getBreedteklasse());
+        assertEquals(new BigInteger("-1"), real.getHoogteniveau());
     }
     
     @Test

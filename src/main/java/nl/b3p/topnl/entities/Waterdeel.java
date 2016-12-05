@@ -17,6 +17,7 @@
 package nl.b3p.topnl.entities;
 
 import com.vividsolutions.jts.geom.Geometry;
+import java.math.BigInteger;
 
 /**
  *
@@ -36,6 +37,7 @@ public class Waterdeel extends TopNLEntity {
     private Boolean isBAGnaam;
     private String sluisnaam;
     private String brugnaam;
+    private BigInteger hoogteniveau;
     
     private Geometry geometrie;
 
@@ -142,5 +144,12 @@ public class Waterdeel extends TopNLEntity {
     public void setGeometrie(Geometry geometrie) {
         this.geometrie = geometrie;
     }
-    
+
+    public BigInteger getHoogteniveau() {
+        return hoogteniveau;
+    }
+
+    public void setHoogteniveau(BigInteger hoogteniveau) {
+        this.hoogteniveau = hoogteniveau;
+    }
 }

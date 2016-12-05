@@ -17,6 +17,7 @@
 package nl.b3p.topnl.entities;
 
 import com.vividsolutions.jts.geom.Geometry;
+import java.math.BigInteger;
 
 /**
  *
@@ -26,6 +27,8 @@ public class Inrichtingselement extends TopNLEntity{
     
     private String typeInrichtingselement;
     private String soortnaam;
+    private String status;
+    private BigInteger hoogteniveau;
     
     private Geometry geometrie;
 
@@ -52,6 +55,21 @@ public class Inrichtingselement extends TopNLEntity{
     public void setGeometrie(Geometry geometrie) {
         this.geometrie = geometrie;
     }
-    
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public BigInteger getHoogteniveau() {
+        return hoogteniveau;
+    }
+
+    public void setHoogteniveau(BigInteger hoogteniveau) {
+        this.hoogteniveau = hoogteniveau;
+    }
     
 }

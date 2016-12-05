@@ -17,6 +17,7 @@
 package nl.b3p.topnl.entities;
 
 import com.vividsolutions.jts.geom.LineString;
+import java.math.BigInteger;
 
 /**
  *
@@ -26,6 +27,7 @@ public class Relief extends TopNLEntity{
     private String typeRelief;
     private String hoogteklasse;
     private LineString geometrie;
+    private BigInteger hoogteniveau;
 
     public String getTypeRelief() {
         return typeRelief;
@@ -50,7 +52,14 @@ public class Relief extends TopNLEntity{
     public void setGeometrie(LineString geometrie) {
         this.geometrie = geometrie;
     }
-    
+
+    public BigInteger getHoogteniveau() {
+        return hoogteniveau;
+    }
+
+    public void setHoogteniveau(BigInteger hoogteniveau) {
+        this.hoogteniveau = hoogteniveau;
+    }
     
     
 }

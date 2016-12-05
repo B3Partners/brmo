@@ -154,7 +154,7 @@ public class Top100NLConverter extends Converter {
     }
 
     public String convertIdentificatie(Identificatie identificatie) {
-        String idString = identificatie.getNEN3610ID().getNamespace() + "." + identificatie.getNEN3610ID().getLokaalID();
+        String idString = identificatie.getNEN3610ID().getNamespace().trim() + "." + identificatie.getNEN3610ID().getLokaalID();
         return idString;
     }
 
@@ -230,6 +230,8 @@ public class Top100NLConverter extends Converter {
         ie.setGeometrie(gc.convertGeometry(i.getGeometrie()));
 
         ie.setTypeInrichtingselement(i.getTypeInrichtingsElement().value());
+        ie.setStatus(i.getStatus().value());
+        ie.setHoogteniveau(i.getHoogteNiveau());
 
         return ie;
     }
@@ -266,6 +268,7 @@ public class Top100NLConverter extends Converter {
 
         rg.setHoogteklasse(r.getHoogteklasse());
         rg.setTypeRelief(r.getTypeRelief().value());
+        rg.setHoogteniveau(r.getHoogteniveau());
 
         return rg;
     }
@@ -291,6 +294,7 @@ public class Top100NLConverter extends Converter {
         rg.setTypeSpoorbaan(r.getTypeSpoorbaan().value());
         rg.setAantalSporen(r.getAantalSporen().toString());
         rg.setStatus(r.getStatus().value());
+        rg.setHoogteniveau(r.getHoogteniveau());
 
         return rg;
     }
@@ -329,6 +333,7 @@ public class Top100NLConverter extends Converter {
         rg.setFysiekVoorkomen(fysieks);
         rg.setTypeWater(r.getTypeWater() != null ? r.getTypeWater().value() : null);
         rg.setBreedteklasse( r.getBreedteklasse());
+        rg.setHoogteniveau(r.getHoogteniveau());
         return rg;
     }
 
