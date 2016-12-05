@@ -52,12 +52,12 @@ public class DatabaseTest extends TestUtil{
         instance = new Database(datasource);
     }
 
-   // @Test
+    @Test
     public void testSaveHoogte50() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
         testSave(TopNLType.TOP50NL);
     }
     
-  //  @Test
+    @Test
     public void testSaveHoogte100() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
         testSave(TopNLType.TOP100NL);
     }
