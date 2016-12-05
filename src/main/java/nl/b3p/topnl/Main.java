@@ -17,8 +17,10 @@
  */
 package nl.b3p.topnl;
 
+import com.vividsolutions.jts.io.ParseException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +40,7 @@ import org.xml.sax.SAXException;
 public class Main {
     protected final static Log log = LogFactory.getLog(Main.class);
     
-    public static void main (String[] args) throws IOException, JAXBException{
+    public static void main (String[] args) throws IOException, JAXBException, ParseException, SQLException{
         try {
             BasicDataSource ds = new BasicDataSource();
             ds.setUrl("jdbc:postgresql://localhost:5432/rsgb_topnl");

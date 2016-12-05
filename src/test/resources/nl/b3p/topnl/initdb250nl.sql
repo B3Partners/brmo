@@ -14,7 +14,7 @@ create table top250nl.hoogte(
   visualisatieCode integer,
 
    typeHoogte varchar(255),
-   --geometrie Geometry,
+   geometrie clob,
    referentieVlak varchar(255),
    hoogte double precision
     
@@ -37,7 +37,7 @@ create table top250nl.FunctioneelGebied(
   naamNL varchar(255),
   naamFries varchar(255),
     
-  --geometrie Geometry,
+  geometrie clob,
   primary key (id)
   );
 
@@ -64,7 +64,7 @@ create table top250nl.Gebouw(
   naamFries varchar(255),
     
     
-  --geometrie Geometry,
+  geometrie clob,
   primary key (id)
   );
 
@@ -87,7 +87,7 @@ create table top250nl.GeografischGebied(
   naamNL varchar(255),
   naamFries varchar(255),
     
-  --geometrie Geometry,
+  geometrie clob,
   primary key (id)
   );
 
@@ -110,7 +110,7 @@ create table top250nl.Inrichtingselement(
   status varchar(255),
   hoogteniveau bigint,
     
-  --geometrie Geometry,
+  geometrie clob,
   primary key (id)
   );
 
@@ -135,7 +135,7 @@ create table top250nl.Plaats(
   naamNL varchar(255),
   naamFries varchar(255),
     
-  --geometrie Geometry,
+  geometrie clob,
   primary key (id)
   );
 
@@ -158,7 +158,7 @@ create table top250nl.RegistratiefGebied(
   naamNL varchar(255),
   naamFries varchar(255),
   nummer varchar(255),
-  --geometrie Geometry,
+  geometrie clob,
   primary key (id)
   );
 
@@ -177,7 +177,7 @@ create table top250nl.Relief(
 
   typeRelief varchar(255),
   hoogteklasse varchar(255),
-  --geometrie LineString,
+  geometrie clob,
   hoogteniveau bigint,
   primary key (id)
   );
@@ -208,7 +208,7 @@ create table top250nl.Spoorbaandeel (
   baanvaknaam varchar(255),
   hoogteniveau bigint,
     
-  --geometrie LineString,
+  geometrie clob,
   primary key (id)
   );
 
@@ -228,7 +228,7 @@ create table top250nl.Terrein(
   typeLandgebruik varchar(255),
   naam varchar(255),
     
-  --geometrie Polygon,
+  geometrie clob,
   primary key (id)
   );
 
@@ -260,7 +260,7 @@ create table top250nl.Waterdeel (
   brugnaam varchar(255),
   hoogteniveau bigint,
     
-  --geometrie Geometry,
+  geometrie clob,
   primary key (id)
   );
 
@@ -300,6 +300,6 @@ create table top250nl.Wegdeel (
   brugnaam varchar(255),
   tunnelnaam varchar(255),
 
-  --geometrie Geometry,
+  geometrie clob,
   primary key (id)
   );

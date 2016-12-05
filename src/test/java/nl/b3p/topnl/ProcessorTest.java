@@ -16,6 +16,7 @@
  */
 package nl.b3p.topnl;
 
+import com.vividsolutions.jts.io.ParseException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -23,8 +24,11 @@ import java.util.List;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
+import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
+import nl.b3p.topnl.converters.DbUtilsGeometryColumnConverter;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.TopNLEntity;
+import org.apache.commons.dbutils.BasicRowProcessor;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -33,7 +37,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 import org.xml.sax.SAXException;
 
 /**
@@ -54,7 +57,7 @@ public class ProcessorTest extends TestUtil{
     }
     
     @Before
-    public void setUp() throws JAXBException {
+    public void setUp() throws JAXBException, SQLException {
         instance = new Processor(datasource);
     }
     
@@ -79,7 +82,7 @@ public class ProcessorTest extends TestUtil{
      * Test of save method, of class Processor.
      */
     @Test
-    public void testSave() throws JAXBException, IOException, SAXException, TransformerException, ParserConfigurationException, SQLException {
+    public void testSave() throws JAXBException, IOException, SAXException, TransformerException, ParserConfigurationException, SQLException, ParseException {
         System.out.println("save");
         InputStream in = ProcessorTest.class.getResourceAsStream("top250nl_Hoogte.xml");
         TopNLType type = TopNLType.TOP250NL;
@@ -88,7 +91,7 @@ public class ProcessorTest extends TestUtil{
         instance.save(hoogte.get(0), type);
         QueryRunner run = new QueryRunner(datasource);
 
-        ResultSetHandler<Hoogte> handler = new BeanHandler<>(Hoogte.class);
+        ResultSetHandler<Hoogte> handler = new BeanHandler<>(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection()))));
 
         Hoogte real = run.query("SELECT * FROM top250nl.Hoogte WHERE identificatie=?", handler, "NL.TOP250NL.16R09-0000084246");
         assertNotNull(real);

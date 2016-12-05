@@ -16,11 +16,12 @@
  */
 package nl.b3p.topnl;
 
+import com.vividsolutions.jts.io.ParseException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.List;
 import javax.sql.DataSource;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -41,7 +42,7 @@ public class Processor {
     private ConverterFactory converterFactory;
 
     
-    public Processor(DataSource ds) throws JAXBException{
+    public Processor(DataSource ds) throws JAXBException, SQLException{
         database = new Database(ds);
         converterFactory = new ConverterFactory();
     }
@@ -61,14 +62,14 @@ public class Processor {
         return entity;
     }
     
-    public void save(TopNLEntity entity, TopNLType type){
+    public void save(TopNLEntity entity, TopNLType type) throws ParseException{
         database.save(entity);
     }
     
-    public void save(List<TopNLEntity> entities, TopNLType type) {
-        entities.forEach((entity) -> {
+    public void save(List<TopNLEntity> entities, TopNLType type) throws ParseException {
+        for (TopNLEntity entity : entities) {
             save(entity, type);
-        });
+        }
     }
     
 }

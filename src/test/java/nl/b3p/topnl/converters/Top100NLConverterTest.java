@@ -22,6 +22,7 @@ import com.vividsolutions.jts.geom.Polygon;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -62,7 +63,7 @@ public class Top100NLConverterTest extends TestUtil{
 
     protected SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-    public Top100NLConverterTest() throws JAXBException {
+    public Top100NLConverterTest() throws JAXBException, SQLException {
         this.processor = new Processor(null);
         this.instance = new Top100NLConverter();
     }

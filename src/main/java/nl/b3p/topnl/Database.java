@@ -16,10 +16,15 @@
  */
 package nl.b3p.topnl;
 
+import com.vividsolutions.jts.io.ParseException;
 import java.sql.SQLException;
 import javax.sql.DataSource;
+import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
+import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
+import nl.b3p.topnl.converters.DbUtilsGeometryColumnConverter;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.TopNLEntity;
+import org.apache.commons.dbutils.BasicRowProcessor;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -34,12 +39,16 @@ public class Database {
     protected final static Log log = LogFactory.getLog(Database.class);
  
     private final DataSource dataSource;
+    private GeometryJdbcConverter gjc;
     
-    public Database(DataSource ds){
+    public Database(DataSource ds) throws SQLException{
         this.dataSource = ds;
+        if(ds !=null){
+            gjc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(dataSource.getConnection());
+        }
     }
     
-    public void save(TopNLEntity entity){
+    public void save(TopNLEntity entity) throws ParseException{
         
         try {
           
@@ -54,13 +63,15 @@ public class Database {
         }
     }
 
-    private Hoogte saveHoogte(TopNLEntity entity) throws SQLException {
+    private Hoogte saveHoogte(TopNLEntity entity) throws SQLException, ParseException {
         Hoogte h = (Hoogte) entity;
         QueryRunner run = new QueryRunner(dataSource);
         
-        ResultSetHandler<Hoogte> handler = new BeanHandler<>(Hoogte.class);
+        ResultSetHandler<Hoogte> handler = new BeanHandler(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
+        GeometryJdbcConverter cv = GeometryJdbcConverterFactory.getGeometryJdbcConverter(dataSource.getConnection());
+        Object nativeGeom = cv.convertToNativeGeometryObject(h.getGeometrie().toText());
         
-        Hoogte inserted = run.insert("INSERT INTO " + h.getTopnltype() + ".hoogte (identificatie,topnltype,brontype,bronactualiteit,bronbeschrijving,bronnauwkeurigheid,objectBeginTijd,objectEindTijd,visualisatieCode,typeHoogte,referentieVlak,hoogte) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", 
+        Hoogte inserted = run.insert("INSERT INTO " + h.getTopnltype() + ".hoogte (identificatie,topnltype,brontype,bronactualiteit,bronbeschrijving,bronnauwkeurigheid,objectBeginTijd,objectEindTijd,visualisatieCode,typeHoogte,referentieVlak,hoogte, geometrie) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", 
                 handler, 
                 h.getIdentificatie(),
                 h.getTopnltype(),
@@ -73,8 +84,14 @@ public class Database {
                 h.getVisualisatieCode(),
                 h.getTypeHoogte(),
                 h.getReferentieVlak(),
-                h.getHoogte());
+                h.getHoogte(),
+                nativeGeom);
 
         return inserted;
     }
+
+    public GeometryJdbcConverter getGjc() {
+        return gjc;
+    }    
+    
 }
