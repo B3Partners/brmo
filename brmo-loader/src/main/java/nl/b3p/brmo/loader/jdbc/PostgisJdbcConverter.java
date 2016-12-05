@@ -58,6 +58,12 @@ public class PostgisJdbcConverter extends GeometryJdbcConverter {
     }
 
     @Override
+    public StringBuilder buildLimitSql(StringBuilder sql, int limit) {
+        String s = buildPaginationSql(sql.toString(), 0, limit);
+        return new StringBuilder(s);
+    }
+
+    @Override
     public boolean useSavepoints() {
         return true;
     }

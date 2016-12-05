@@ -43,8 +43,15 @@
                     <c:otherwise>
                         ${actionBean.total}
                     </c:otherwise>
-            </c:choose><br>
-                Verwerkt: ${actionBean.processed}
+            </c:choose>
+
+            <c:if test="${actionBean.standBerichtenVerwerkingsLimiet > 0 }">
+                (Het maximum aantal <b>stand</b> berichten dat in één run verwerkt kan worden is: ${actionBean.standBerichtenVerwerkingsLimiet}.
+                <c:if test="${actionBean.total eq actionBean.standBerichtenVerwerkingsLimiet }">
+                    <br/>De stand transformatie dient mogelijk nog eens gestart te worden voor een volgende batch.
+                </c:if>)
+            </c:if>
+            <br>Verwerkt: ${actionBean.processed}
         </p>
         <p>
             <stripes:link href="/javasimon-console" target="_blank">Performance monitoring console</stripes:link>

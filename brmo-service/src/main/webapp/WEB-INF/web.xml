@@ -20,6 +20,11 @@
         <param-name>error.state</param-name>
         <param-value>ignore</param-value>
     </context-param>
+    <context-param>
+        <description>Maximum aantal te verwerken stand berichten per transformatie run, gebruik een waarde kleiner of gelijk aan 0 om uit te schakelen</description>
+        <param-name>stand.transform.max</param-name>
+        <param-value>1000000</param-value>
+    </context-param>
     <filter>
         <display-name>Stripes Filter</display-name>
         <filter-name>StripesFilter</filter-name>
