@@ -56,7 +56,10 @@ public class TestUtil {
             long randomizer = System.currentTimeMillis();
             ds.setUrl("jdbc:hsqldb:file:./target/unittest-hsqldb/" + testname + "_" + randomizer + "/db;shutdown=true");
             datasource = ds;
-            initDB();
+            initDB("initdb250nl.sql");
+            initDB("initdb100nl.sql");
+            initDB("initdb50nl.sql");
+            int a = 0;
         }
     }
     
@@ -64,10 +67,9 @@ public class TestUtil {
     public void after() throws SQLException{
     }
     
-    private void initDB() throws IOException{
-        QueryRunner run = new QueryRunner(datasource);
+    private void initDB(String file) throws IOException{
         try {
-            Reader f = new InputStreamReader(TestUtil.class.getResourceAsStream("initdb.sql"));
+            Reader f = new InputStreamReader(TestUtil.class.getResourceAsStream(file));
             executeScript(f);
         } catch (SQLException sqle) {
             log.error("Error initializing testdb:",sqle);

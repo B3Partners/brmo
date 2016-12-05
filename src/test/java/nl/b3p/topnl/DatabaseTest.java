@@ -78,7 +78,6 @@ public class DatabaseTest extends TestUtil{
         e.setObjectBeginTijd(sdf.parse("2016-01-01"));
         e.setObjectEindTijd(sdf.parse("2016-01-02"));
         e.setReferentieVlak("uitgevlakt");
-        e.setTopnltype("top250nl");
         e.setTypeHoogte("superhoog");
         e.setVisualisatieCode(166L);
         
