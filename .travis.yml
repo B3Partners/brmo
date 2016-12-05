@@ -4,8 +4,8 @@ language: java
 
 env:
   global:
-    - secure: "gkFOCErQLXQNPRMqkwy55eVYy4Sy/uUHd/LPp7k6PKr3Nx/YmiirtiGAbL5JMrOiQRFDydGlVDAtTUcUqeyKcMkbBNJ7qqrMNXIL0cf5+xDtUeyGa/zm3Ma5R1VrZ6iD/s2e6vju4oW+NycDq5/cUm0roum5psF1eYMqGYv9uZI="
-    - secure: "H1aFIto0g/9Uw9BqugqByMtoUOtKtHD2kyCoqVsU9pE3KrlsfdmFf7h04WbuQfefyliX5r7L4eJaHUjLGySp/qka0zEnaKAgQZsS11k21LMjK0xY1KEyROmJ9ogDBoPVrn4NpCBO3RrqH33uEzD0QK97UKp/+ys/2vIlBpQfwy4="
+    - secure: "mmLyX+VjQpLA7LQ79iIrBPjw/vnJC4Loda7BOyIy+H2seQJAwqDczG09aToTOkM/mmENAb08xv6JJ2PbsZqSZ3tTMXNxTOh4dGtR9DnTjtDzD4O6IHEDVOSbFndIsSEsQw4LXJWbbJwRJwF5Q+UPl+VLV+HyXbYOAmPAD96hXTA="
+    - secure: "NynQI56H74dDi6sK4wxPawnLoLsrzADKmD8Jl7w3yQnYTfVU7zP07KeJKoIWhFaYB3GCKyG2qdeM1I5DOeim183c0h51WcQTVvHX3o1D3DyrdfuhqKTBXmAUXJObp/jUoABD2KKejSKZj+mkzqutITMUUbHDiMu5PD6WXEuCYT8="
 
 addons:
    postgresql: "9.5"

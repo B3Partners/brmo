@@ -3,6 +3,7 @@
   <servers>
     <server>
       <id>gh-pages</id>
+      <!-- travis encrypt GHSITE_USERNAME=.... en travis encrypt GHSITE_PASSWORD=..... -->
       <username>${env.GHSITE_USERNAME}</username>
       <password>${env.GHSITE_PASSWORD}</password>
     </server>
