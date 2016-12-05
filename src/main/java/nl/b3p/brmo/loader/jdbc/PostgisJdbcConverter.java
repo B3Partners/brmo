@@ -4,6 +4,8 @@ package nl.b3p.brmo.loader.jdbc;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.io.ParseException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.postgis.PGgeometry;
 
 /**
@@ -40,6 +42,13 @@ public class PostgisJdbcConverter extends GeometryJdbcConverter {
 
     @Override
     public Geometry convertToJTSGeometryObject(Object nativeObj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PGgeometry geom = (PGgeometry)nativeObj;
+        StringBuffer sb = new StringBuffer();
+        geom.getGeometry().outerWKT(sb);
+        try {
+            return wkt.read(sb.toString());
+        } catch (ParseException ex) {
+            return null;
+        }
     }
 }

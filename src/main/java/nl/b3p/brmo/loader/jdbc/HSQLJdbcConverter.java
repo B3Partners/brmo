@@ -24,9 +24,6 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.sql.Clob;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import nl.b3p.topnl.converters.DbUtilsGeometryColumnConverter;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,7 +36,6 @@ public class HSQLJdbcConverter  extends GeometryJdbcConverter {
 
     protected final static Log log = LogFactory.getLog(HSQLJdbcConverter.class);
     
-    private WKTReader wkt= new WKTReader();
     @Override
     public Object convertToNativeGeometryObject(String param) throws SQLException, ParseException {
         return param;
