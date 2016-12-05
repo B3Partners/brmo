@@ -47,6 +47,8 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
 
     private String exceptionStacktrace;
 
+    private long standBerichtenVerwerkingsLimiet;
+
     @Before
     public void before() {
         start = new Date();
@@ -107,7 +109,8 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
             if (maxBerichten != null) {
                 brmo.setLimitStandBerichtenToTransform(Integer.parseInt(maxBerichten));
                 log.info("Maximum aantal stand berichten voor transformatie batch ingesteld op: " + maxBerichten
-                        + " Mogelijk dient stand transformatie meerder keren gestart te worden.");
+                        + ". Mogelijk dient stand transformatie meerdere keren gestart te worden.");
+                this.standBerichtenVerwerkingsLimiet = Integer.parseInt(maxBerichten);
             }
             Thread t = null;
             switch(mode) {
@@ -255,6 +258,14 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
     public void setExceptionStacktrace(String exceptionStacktrace) {
         this.exceptionStacktrace = exceptionStacktrace;
     }
-    // </editor-fold>
 
+    public long getStandBerichtenVerwerkingsLimiet() {
+        return standBerichtenVerwerkingsLimiet;
+    }
+
+    public void setStandBerichtenVerwerkingsLimiet(long standBerichtenVerwerkingsLimiet) {
+        this.standBerichtenVerwerkingsLimiet = standBerichtenVerwerkingsLimiet;
+    }
+
+    // </editor-fold>
 }
