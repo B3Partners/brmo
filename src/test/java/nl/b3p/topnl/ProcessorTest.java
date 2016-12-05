@@ -82,7 +82,7 @@ public class ProcessorTest extends TestUtil{
      * Test of save method, of class Processor.
      */
     @Test
-    public void testSave() throws JAXBException, IOException, SAXException, TransformerException, ParserConfigurationException, SQLException, ParseException {
+    public void testSave250() throws JAXBException, IOException, SAXException, TransformerException, ParserConfigurationException, SQLException, ParseException {
         System.out.println("save");
         InputStream in = ProcessorTest.class.getResourceAsStream("top250nl_Hoogte.xml");
         TopNLType type = TopNLType.TOP250NL;
@@ -94,6 +94,24 @@ public class ProcessorTest extends TestUtil{
         ResultSetHandler<Hoogte> handler = new BeanHandler<>(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection()))));
 
         Hoogte real = run.query("SELECT * FROM top250nl.Hoogte WHERE identificatie=?", handler, "NL.TOP250NL.16R09-0000084246");
+        assertNotNull(real);
+    }
+    /**
+     * Test of save method, of class Processor.
+     */
+    @Test
+    public void testSave100() throws JAXBException, IOException, SAXException, TransformerException, ParserConfigurationException, SQLException, ParseException {
+        System.out.println("save");
+        InputStream in = ProcessorTest.class.getResourceAsStream("top100nl_Hoogte.xml");
+        TopNLType type = TopNLType.TOP100NL;
+        Object jaxb = instance.parse(in, type);
+        List<TopNLEntity> hoogte = instance.convert(jaxb, type);
+        instance.save(hoogte.get(0), type);
+        QueryRunner run = new QueryRunner(datasource);
+
+        ResultSetHandler<Hoogte> handler = new BeanHandler<>(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection()))));
+
+        Hoogte real = run.query("SELECT * FROM top100nl.Hoogte WHERE identificatie=?", handler, "NL.TOP100NL.16R11-0001468165");
         assertNotNull(real);
     }
 

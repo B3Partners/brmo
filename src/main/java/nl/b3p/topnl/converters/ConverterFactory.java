@@ -20,7 +20,8 @@ public class ConverterFactory {
     protected final static Element STRI2006_ROOTELEMENT_GELEIDEFORMULIER = new Element("GeleideFormulier", Namespace.getNamespace("http://www.geonovum.nl/stri/2006/1"));
 
  */
-    private Converter top250nlConverter = new Top250NLConverter();
+    private final Converter top250nlConverter = new Top250NLConverter();
+    private final Converter top100nlConverter = new Top100NLConverter();
     private JAXBContext context250nl = null;
     private JAXBContext context100nl = null;
     
@@ -30,8 +31,17 @@ public class ConverterFactory {
         context100nl = JAXBContext.newInstance("nl.b3p.topnl.top100nl");
     }
     
-    public Converter getConverter(Object jaxbObject){
-        return top250nlConverter;
+    public Converter getConverter(TopNLType type){
+        switch(type){
+            case TOP100NL:
+                return top100nlConverter;
+            case TOP250NL:
+                return top250nlConverter;
+            case TOP50NL:
+            default:
+                throw new IllegalArgumentException("Converter not yet implemented: " + type.getType());
+                
+        }
     }
     
     public JAXBContext getContext(TopNLType type) {

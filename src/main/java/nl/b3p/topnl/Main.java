@@ -47,15 +47,20 @@ public class Main {
             ds.setPassword("rsgb");
             
             Processor p = new Processor(ds);
-            
-            InputStream in = Main.class.getResourceAsStream("Hoogte.xml");
-            TopNLType type = TopNLType.TOP250NL;
-            Object obj = p.parse(in, type);
-            List<TopNLEntity> entities = p.convert(obj, type);
-            p.save(entities, type);
-            int a = 0;
+            process("Hoogte_top250nl.xml", TopNLType.TOP250NL, p);
+            process("Hoogte_top100nl.xml", TopNLType.TOP100NL, p);
+          
         } catch (SAXException | ParserConfigurationException | TransformerException ex) {
             log.error("Cannot parse/convert/save entity: ", ex);
         }
+    }
+
+    private static void process(String file, TopNLType type, Processor p) throws ParseException, IOException, SAXException, ParserConfigurationException, JAXBException, TransformerException {
+        InputStream in = Main.class.getResourceAsStream(file);
+
+        Object obj = p.parse(in, type);
+        List<TopNLEntity> entities = p.convert(obj, type);
+        p.save(entities, type);
+        int a = 0;
     }
 }

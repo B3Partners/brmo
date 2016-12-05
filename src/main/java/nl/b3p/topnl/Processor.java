@@ -57,7 +57,7 @@ public class Processor {
     }
     
     public List<TopNLEntity> convert(Object jaxbObject, TopNLType type)  throws IOException, SAXException, ParserConfigurationException, TransformerException{
-        Converter converter = converterFactory.getConverter(jaxbObject);
+        Converter converter = converterFactory.getConverter(type);
         List<TopNLEntity> entity = converter.convert(jaxbObject);
         return entity;
     }
