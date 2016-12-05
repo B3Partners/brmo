@@ -26,7 +26,6 @@ import java.util.Date;
 public abstract class TopNLEntity {
     
     protected String topnltype;
-    
     private Integer id;
     private String identificatie;
     private String brontype;
