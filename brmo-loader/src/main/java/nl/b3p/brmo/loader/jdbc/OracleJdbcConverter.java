@@ -100,6 +100,13 @@ public class OracleJdbcConverter extends GeometryJdbcConverter {
     }
 
     @Override
+    public StringBuilder buildLimitSql(StringBuilder sql, int limit) {
+        // NB #buildPaginationSql is niet bruikbaar voor een insert+select
+        sql.append(" FETCH FIRST ").append(limit).append(" ROWS ONLY");
+        return sql;
+    }
+
+    @Override
     public boolean useSavepoints() {
         return false;
     }

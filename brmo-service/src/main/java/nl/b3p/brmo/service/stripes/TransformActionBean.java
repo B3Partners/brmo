@@ -102,7 +102,13 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
             if (errorState != null) {
                 brmo.setErrorState(errorState);
             }
-            
+
+            String maxBerichten = getContext().getServletContext().getInitParameter("stand.transform.max");
+            if (maxBerichten != null) {
+                brmo.setLimitStandBerichtenToTransform(Integer.parseInt(maxBerichten));
+                log.info("Maximum aantal stand berichten voor transformatie batch ingesteld op: " + maxBerichten
+                        + " Mogelijk dient stand transformatie meerder keren gestart te worden.");
+            }
             Thread t = null;
             switch(mode) {
                 case BY_IDS:

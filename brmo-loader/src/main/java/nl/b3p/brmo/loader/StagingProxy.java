@@ -66,6 +66,7 @@ public class StagingProxy {
     private DataSource dataSourceStaging =  null;
     private GeometryJdbcConverter geomToJdbc = null;
     private Integer batchCapacity = 150;
+    private Integer limitStandBerichtenToTransform = -1;
 
     public StagingProxy(DataSource dataSourceStaging) throws SQLException, BrmoException {
         this.dataSourceStaging = dataSourceStaging;
@@ -235,37 +236,45 @@ public class StagingProxy {
 
     public long setBerichtenJobByStatus(Bericht.STATUS status, boolean orderBerichten) throws SQLException {
         StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE
-                        + " (id, datum, volgordenummer, object_ref, br_xml, soort) "
-                        + " select id, datum, volgordenummer, object_ref, br_xml, soort from "
-                        + BrmoFramework.BERICHT_TABLE + " where status = ? and datum <= ? ");
+                + " (id, datum, volgordenummer, object_ref, br_xml, soort) "
+                + " select id, datum, volgordenummer, object_ref, br_xml, soort from "
+                + BrmoFramework.BERICHT_TABLE + " where status = ? and datum <= ? ");
         if (orderBerichten) {
             q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
         } else {
             q.append(" and volgordenummer < 0 ");
+            if (this.limitStandBerichtenToTransform > 0) {
+                q = geomToJdbc.buildLimitSql(q, limitStandBerichtenToTransform);
+            }
         }
+        log.debug("pre-transformatie SQL: " + q);
         return new QueryRunner(geomToJdbc.isPmdKnownBroken())
                 .update(getConnection(), q.toString(), status.toString(), new java.sql.Date((new Date()).getTime()));
     }
 
     public long setBerichtenJobForUpdate(String soort, boolean orderBerichten) throws SQLException {
         StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE
-                        + " (id, datum, volgordenummer, object_ref, br_xml, soort) "
-                        + " select id, datum, volgordenummer, object_ref, br_xml, soort from "
-                        + BrmoFramework.BERICHT_TABLE + " where status = ? and soort = ? and datum <= ? ");
+                + " (id, datum, volgordenummer, object_ref, br_xml, soort) "
+                + " select id, datum, volgordenummer, object_ref, br_xml, soort from "
+                + BrmoFramework.BERICHT_TABLE + " where status = ? and soort = ? and datum <= ? ");
         if (orderBerichten) {
             q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
         } else {
             q.append(" and volgordenummer < 0 ");
+            if (this.limitStandBerichtenToTransform > 0) {
+                q = geomToJdbc.buildLimitSql(q, limitStandBerichtenToTransform);
+            }
         }
+        log.debug("pre-transformatie SQL: " + q);
         return new QueryRunner(geomToJdbc.isPmdKnownBroken())
                 .update(getConnection(), q.toString(), Bericht.STATUS.RSGB_OK.toString(), soort, new java.sql.Date((new Date()).getTime()));
    }
 
     public long setBerichtenJobByIds(long[] ids, boolean orderBerichten) throws SQLException {
         StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE
-                        + " (id, datum, volgordenummer, object_ref, br_xml, soort) "
-                        + " select id, datum, volgordenummer, object_ref, br_xml, soort from "
-                        + BrmoFramework.BERICHT_TABLE + " where id in (");
+                + " (id, datum, volgordenummer, object_ref, br_xml, soort) "
+                + " select id, datum, volgordenummer, object_ref, br_xml, soort from "
+                + BrmoFramework.BERICHT_TABLE + " where id in (");
         for (int i = 0; i < ids.length; i++) {
             if(i != 0) {
                 q.append(",");
@@ -277,7 +286,11 @@ public class StagingProxy {
             q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
         } else {
             q.append(" and volgordenummer < 0 ");
+            if (this.limitStandBerichtenToTransform > 0) {
+                q = geomToJdbc.buildLimitSql(q, limitStandBerichtenToTransform);
+            }
         }
+        log.debug("pre-transformatie SQL: " + q);
         return new QueryRunner(geomToJdbc.isPmdKnownBroken())
                 .update(getConnection(), q.toString(), new java.sql.Date((new Date()).getTime()));
     }
@@ -285,9 +298,9 @@ public class StagingProxy {
     public long setBerichtenJobByLaadprocessen(long[] laadprocesIds, boolean orderBerichten) throws SQLException {
 
         StringBuilder q = new StringBuilder("insert into " + BrmoFramework.JOB_TABLE
-                        + " (id, datum, volgordenummer, object_ref, br_xml, soort) "
-                        + " select id, datum, volgordenummer, object_ref, br_xml, soort from "
-                        + BrmoFramework.BERICHT_TABLE + " where laadprocesid in (");
+                + " (id, datum, volgordenummer, object_ref, br_xml, soort) "
+                + " select id, datum, volgordenummer, object_ref, br_xml, soort from "
+                + BrmoFramework.BERICHT_TABLE + " where laadprocesid in (");
         for (int i = 0; i < laadprocesIds.length; i++) {
             if(i != 0) {
                 q.append(",");
@@ -299,7 +312,11 @@ public class StagingProxy {
             q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
         } else {
             q.append(" and volgordenummer < 0 ");
+            if (this.limitStandBerichtenToTransform > 0) {
+                q = geomToJdbc.buildLimitSql(q, limitStandBerichtenToTransform);
+            }
         }
+        log.debug("pre-transformatie SQL: " + q);
         return new QueryRunner(geomToJdbc.isPmdKnownBroken())
                 .update(getConnection(), q.toString(), Bericht.STATUS.STAGING_OK.toString(), new java.sql.Date((new Date()).getTime()));
     }
@@ -915,5 +932,9 @@ public class StagingProxy {
      */
     public void setBatchCapacity(Integer batchCapacity) {
         this.batchCapacity = batchCapacity;
+    }
+
+    public void setLimitStandBerichtenToTransform(Integer limitStandBerichtenToTransform) {
+        this.limitStandBerichtenToTransform = limitStandBerichtenToTransform;
     }
 }

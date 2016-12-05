@@ -22,6 +22,7 @@ public abstract class GeometryJdbcConverter {
     public abstract String getGeomTypeName();
     public abstract boolean isDuplicateKeyViolationMessage(String message);
     public abstract String buildPaginationSql(String sql, int offset, int limit);
+    public abstract StringBuilder buildLimitSql(StringBuilder sql, int limit);
     public abstract boolean useSavepoints();
     public abstract boolean isPmdKnownBroken();
 

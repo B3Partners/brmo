@@ -135,6 +135,12 @@ public class BrmoFramework {
         }
     }
 
+    public void setLimitStandBerichtenToTransform(Integer limitStandBerichtenToTransform) {
+        if (stagingProxy != null) {
+            stagingProxy.setLimitStandBerichtenToTransform(limitStandBerichtenToTransform);
+        }
+    }
+
     public void setOrderBerichten(boolean orderBerichten) {
         this.orderBerichten = orderBerichten;
     }
