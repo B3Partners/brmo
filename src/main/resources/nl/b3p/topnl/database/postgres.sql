@@ -241,7 +241,7 @@ create table top250nl.Terrein(
   typeLandgebruik text,
   naam text,
     
-  geometrie Polygon,
+  geometrie geometry (Polygon, 28992),
   primary key (id)
   );
 
@@ -558,7 +558,7 @@ create table top100nl.Terrein(
   typeLandgebruik text,
   naam text,
     
-  geometrie Polygon,
+  geometrie geometry (Polygon, 28992),
   primary key (id)
   );
 
@@ -875,7 +875,7 @@ create table top50nl.Terrein(
   typeLandgebruik text,
   naam text,
     
-  geometrie Polygon,
+  geometrie geometry (Polygon, 28992),
   primary key (id)
   );
 

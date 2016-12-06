@@ -17,17 +17,10 @@
 package nl.b3p.topnl.converters;
 
 import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.io.ParseException;
-import com.vividsolutions.jts.io.WKTReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
-import java.sql.Clob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
 import org.apache.commons.dbutils.BeanProcessor;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

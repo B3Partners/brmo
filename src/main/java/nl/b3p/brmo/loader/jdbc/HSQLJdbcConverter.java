@@ -18,7 +18,6 @@ package nl.b3p.brmo.loader.jdbc;
 
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.io.ParseException;
-import com.vividsolutions.jts.io.WKTReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
