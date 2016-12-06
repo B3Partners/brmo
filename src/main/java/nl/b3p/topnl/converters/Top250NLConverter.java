@@ -166,7 +166,7 @@ public class Top250NLConverter extends Converter {
         entity.setBronbeschrijving(type.getBronbeschrijving());
         entity.setBronnauwkeurigheid(type.getBronnauwkeurigheid());
         entity.setObjectBeginTijd(type.getObjectBeginTijd().getTime());
-        entity.setVisualisatieCode(type.getVisualisatieCode().longValue());
+        entity.setVisualisatieCode(type.getVisualisatieCode() != null ? type.getVisualisatieCode().longValue() : null);
     }
 
     @Override
@@ -378,7 +378,7 @@ public class Top250NLConverter extends Converter {
         rg.setVerhardingsbreedteklasse(r.getVerhardingsbreedteklasse() != null ? r.getVerhardingsbreedteklasse().getValue() : null);
         rg.setGescheidenRijbaan(r.getGescheidenRijbaan() == BRTJaNeeWaardeType.JA);
         rg.setVerhardingstype(r.getVerhardingstype() != null ? r.getVerhardingstype().getValue() : null);
-        rg.setAantalRijstroken(r.getAantalRijstroken().longValue());
+        rg.setAantalRijstroken(r.getAantalRijstroken() != null ? r.getAantalRijstroken().longValue() : null);
         rg.setStatus(r.getStatus() != null ? r.getStatus().getValue() : null);
         rg.setNaam(String.join(",",r.getNaam()));
         rg.setIsBAGnaam(r.getIsBAGnaam() == BRTJaNeeWaardeType.JA);

@@ -47,8 +47,8 @@ public class Main {
             ds.setPassword("rsgb");
             
             Processor p = new Processor(ds);
-            process("Hoogte_top250nl.xml", TopNLType.TOP250NL, p);
-            process("Hoogte_top100nl.xml", TopNLType.TOP100NL, p);
+            process("top250NL.gml", TopNLType.TOP250NL, p);
+           // process("Hoogte_top100nl.xml", TopNLType.TOP100NL, p);
           
         } catch (SAXException | ParserConfigurationException | TransformerException ex) {
             log.error("Cannot parse/convert/save entity: ", ex);
