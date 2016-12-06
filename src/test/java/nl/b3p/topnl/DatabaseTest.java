@@ -21,6 +21,8 @@ import com.vividsolutions.jts.io.WKTReader;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collection;
 import nl.b3p.topnl.converters.DbUtilsGeometryColumnConverter;
 import nl.b3p.topnl.entities.FunctioneelGebied;
 import nl.b3p.topnl.entities.Hoogte;
@@ -32,20 +34,38 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 /**
  *
  * @author Meine Toonen meinetoonen@b3partners.nl
  */
+
+@RunWith(Parameterized.class)
 public class DatabaseTest extends TestUtil{
     
     private Database instance = null;
     private final WKTReader wkt= new WKTReader();
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private final String identificatie = "1616161616";
+    private TopNLType type;
     
-    public DatabaseTest() {
-        
+
+    @Parameters(name="Type: {0}")
+    public static Collection<Object[]> params() {
+        return Arrays.asList(new Object[][]
+            {
+                {TopNLType.TOP50NL},
+                {TopNLType.TOP100NL},
+                {TopNLType.TOP250NL}
+            }
+        );
+    }
+    
+    public DatabaseTest(TopNLType type) {
+        this.type = type;
         this.useDB = true; 
     }
     
@@ -56,21 +76,7 @@ public class DatabaseTest extends TestUtil{
     }
 
     @Test
-    public void testSaveHoogte50() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        testSaveHoogte(TopNLType.TOP50NL);
-    }
-    
-    @Test
-    public void testSaveHoogte100() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        testSaveHoogte(TopNLType.TOP100NL);
-    }
-    
-    @Test
-    public void testSaveHoogte250() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        testSaveHoogte(TopNLType.TOP250NL);
-    }
-    
-    private void testSaveHoogte(TopNLType type)throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+    public void testSaveHoogte()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
         System.out.println("save");
         Geometry p = wkt.read("POINT (1 2)");
         Hoogte e = new Hoogte();
@@ -97,21 +103,7 @@ public class DatabaseTest extends TestUtil{
     }
     
     @Test
-    public void testSaveFunctioneelGebied50() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        testSaveFunctioneelgebied(TopNLType.TOP50NL);
-    }
-    
-    @Test
-    public void testSaveFunctioneelGebied100() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        testSaveFunctioneelgebied(TopNLType.TOP100NL);
-    }
-    
-    @Test
-    public void testSaveFunctioneelGebied250() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        testSaveFunctioneelgebied(TopNLType.TOP250NL);
-    }
-    
-    private void testSaveFunctioneelgebied(TopNLType type)throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+    public void testSaveFunctioneelgebied()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
         System.out.println("save");
         Geometry p = wkt.read("POINT (1 2)");
         FunctioneelGebied e = new FunctioneelGebied();
@@ -161,6 +153,4 @@ public class DatabaseTest extends TestUtil{
         assertEquals(e.getTopnltype(), real.getTopnltype());
         assertEquals(e.getVisualisatieCode(), real.getVisualisatieCode());
     }
-
-    
 }
