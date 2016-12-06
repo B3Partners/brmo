@@ -250,7 +250,7 @@ public class Top250NLConverter extends Converter {
 
         pl.setGeometrie(gc.convertGeometry(p.getGeometrie()));
 
-        pl.setAantalInwoners(p.getAantalinwoners());
+        pl.setAantalInwoners(p.getAantalinwoners().longValue());
         pl.setNaamFries(p.getNaamFries());
         pl.setNaamNL(p.getNaamNL());
         pl.setNaamOfficieel(p.getNaamOfficieel());
@@ -378,7 +378,7 @@ public class Top250NLConverter extends Converter {
         rg.setVerhardingsbreedteklasse(r.getVerhardingsbreedteklasse() != null ? r.getVerhardingsbreedteklasse().getValue() : null);
         rg.setGescheidenRijbaan(r.getGescheidenRijbaan() == BRTJaNeeWaardeType.JA);
         rg.setVerhardingstype(r.getVerhardingstype() != null ? r.getVerhardingstype().getValue() : null);
-        rg.setAantalRijstroken(r.getAantalRijstroken());
+        rg.setAantalRijstroken(r.getAantalRijstroken().longValue());
         rg.setStatus(r.getStatus() != null ? r.getStatus().getValue() : null);
         rg.setNaam(String.join(",",r.getNaam()));
         rg.setIsBAGnaam(r.getIsBAGnaam() == BRTJaNeeWaardeType.JA);

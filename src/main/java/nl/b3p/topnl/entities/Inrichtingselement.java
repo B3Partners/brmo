@@ -28,7 +28,7 @@ public class Inrichtingselement extends TopNLEntity{
     private String typeInrichtingselement;
     private String soortnaam;
     private String status;
-    private BigInteger hoogteniveau;
+    private Long hoogteniveau;
     
     private Geometry geometrie;
 
@@ -64,11 +64,11 @@ public class Inrichtingselement extends TopNLEntity{
         this.status = status;
     }
 
-    public BigInteger getHoogteniveau() {
+    public Long getHoogteniveau() {
         return hoogteniveau;
     }
 
-    public void setHoogteniveau(BigInteger hoogteniveau) {
+    public void setHoogteniveau(Long hoogteniveau) {
         this.hoogteniveau = hoogteniveau;
     }
     

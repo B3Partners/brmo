@@ -187,7 +187,7 @@ public class DatabaseTest extends TestUtil{
         getStandardTestTopNLEntity(e, type);
         e.setGeometrie(p);
         e.setTypeInrichtingselement("Gesloten");
-        e.setHoogteniveau(new BigInteger("778"));
+        e.setHoogteniveau(778L);
         e.setSoortnaam("MaxPen");
         e.setStatus("in gebruik");
         
@@ -216,7 +216,7 @@ public class DatabaseTest extends TestUtil{
         getStandardTestTopNLEntity(e, type);
         e.setGeometrie(p);
         e.setTypeGebied("woonplaats");
-        e.setAantalInwoners(new BigInteger("16"));
+        e.setAantalInwoners(16L);
         e.setNaamOfficieel("Gouda");
         e.setNaamNL("Gouda");
         e.setNaamFries("mompelmompel");
@@ -278,7 +278,7 @@ public class DatabaseTest extends TestUtil{
         e.setGeometrie(p);
         e.setTypeRelief("Berg");
         e.setHoogteklasse("Superhoog");
-        e.setHoogteniveau(new BigInteger("666"));
+        e.setHoogteniveau(666L);
 
         instance.save(e);
 
@@ -314,7 +314,7 @@ public class DatabaseTest extends TestUtil{
         e.setBrugnaam("Brugge");
         e.setTunnelnaam("Tunnele");
         e.setBaanvaknaam("lalala");
-        e.setHoogteniveau(new BigInteger("1"));
+        e.setHoogteniveau(1L);
 
         instance.save(e);
 
@@ -386,7 +386,7 @@ public class DatabaseTest extends TestUtil{
         e.setIsBAGnaam(false);
         e.setSluisnaam("lala");
         e.setBrugnaam("Ophaal");
-        e.setHoogteniveau(new BigInteger("8"));
+        e.setHoogteniveau(8L);
 
         instance.save(e);
 
@@ -457,8 +457,8 @@ public class DatabaseTest extends TestUtil{
         e.setVerhardingsbreedteklasse("Vrij hard");
         e.setGescheidenRijbaan(false);
         e.setVerhardingstype("asfalt");
-        e.setAantalRijstroken(new BigInteger("666"));
-        e.setHoogteniveau(BigInteger.ONE);
+        e.setAantalRijstroken(666L);
+        e.setHoogteniveau(1L);
         e.setStatus("in gebruik");
         e.setNaam("Route 666");
         e.setIsBAGnaam(false);

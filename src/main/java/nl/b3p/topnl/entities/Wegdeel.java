@@ -32,8 +32,8 @@ public class Wegdeel extends TopNLEntity {
     private String verhardingsbreedteklasse;
     private Boolean gescheidenRijbaan;
     private String verhardingstype;
-    private BigInteger aantalRijstroken;
-    private BigInteger hoogteniveau;
+    private Long aantalRijstroken;
+    private Long hoogteniveau;
     private String status;
     private String naam;
     private Boolean isBAGnaam;
@@ -105,11 +105,11 @@ public class Wegdeel extends TopNLEntity {
         this.verhardingstype = verhardingstype;
     }
 
-    public BigInteger getAantalRijstroken() {
+    public Long getAantalRijstroken() {
         return aantalRijstroken;
     }
 
-    public void setAantalRijstroken(BigInteger aantalRijstroken) {
+    public void setAantalRijstroken(Long aantalRijstroken) {
         this.aantalRijstroken = aantalRijstroken;
     }
 
@@ -217,11 +217,11 @@ public class Wegdeel extends TopNLEntity {
         this.geometrie = geometrie;
     }
 
-    public BigInteger getHoogteniveau() {
+    public Long getHoogteniveau() {
         return hoogteniveau;
     }
 
-    public void setHoogteniveau(BigInteger hoogteniveau) {
+    public void setHoogteniveau(Long hoogteniveau) {
         this.hoogteniveau = hoogteniveau;
     }    
 }

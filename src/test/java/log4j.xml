@@ -19,6 +19,9 @@ LEVELS: debug, info, warn, error, fatal en off, all -->
     <logger name="org.postgresql">
         <level value="debug" />
     </logger>
+    <logger name="hsqldb">
+        <level value="error" />
+    </logger>
     <root>
         <level value="info" />
         <appender-ref ref="consoleAppender" />

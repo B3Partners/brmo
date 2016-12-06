@@ -26,7 +26,7 @@ import java.math.BigInteger;
 public class Plaats extends TopNLEntity{
     
     private String typeGebied;
-    private BigInteger aantalInwoners;
+    private Long aantalInwoners;
     private String naamOfficieel;
     private String naamNL;
     private String naamFries;
@@ -41,11 +41,11 @@ public class Plaats extends TopNLEntity{
         this.typeGebied = typeGebied;
     }
 
-    public BigInteger getAantalInwoners() {
+    public Long getAantalInwoners() {
         return aantalInwoners;
     }
 
-    public void setAantalInwoners(BigInteger aantalInwoners) {
+    public void setAantalInwoners(Long aantalInwoners) {
         this.aantalInwoners = aantalInwoners;
     }
 

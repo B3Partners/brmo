@@ -36,7 +36,7 @@ public class Spoorbaandeel extends TopNLEntity {
     private String brugnaam;
     private String tunnelnaam;
     private String baanvaknaam;
-    private BigInteger hoogteniveau;
+    private Long hoogteniveau;
     
     private LineString geometrie;
 
@@ -136,11 +136,11 @@ public class Spoorbaandeel extends TopNLEntity {
         this.geometrie = geometrie;
     }
 
-    public BigInteger getHoogteniveau() {
+    public Long getHoogteniveau() {
         return hoogteniveau;
     }
 
-    public void setHoogteniveau(BigInteger hoogteniveau) {
+    public void setHoogteniveau(Long hoogteniveau) {
         this.hoogteniveau = hoogteniveau;
     }
 

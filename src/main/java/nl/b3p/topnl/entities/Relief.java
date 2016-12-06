@@ -26,8 +26,8 @@ import java.math.BigInteger;
 public class Relief extends TopNLEntity{
     private String typeRelief;
     private String hoogteklasse;
+    private Long hoogteniveau;
     private LineString geometrie;
-    private BigInteger hoogteniveau;
 
     public String getTypeRelief() {
         return typeRelief;
@@ -53,11 +53,11 @@ public class Relief extends TopNLEntity{
         this.geometrie = geometrie;
     }
 
-    public BigInteger getHoogteniveau() {
+    public Long getHoogteniveau() {
         return hoogteniveau;
     }
 
-    public void setHoogteniveau(BigInteger hoogteniveau) {
+    public void setHoogteniveau(Long hoogteniveau) {
         this.hoogteniveau = hoogteniveau;
     }
     

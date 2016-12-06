@@ -16,7 +16,6 @@
  */
 package nl.b3p.topnl.entities;
 
-import com.vividsolutions.jts.geom.Geometry;
 import java.util.Date;
 
 /**

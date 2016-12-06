@@ -45,7 +45,7 @@ public class DbUtilsGeometryColumnConverter extends BeanProcessor{
     
     @Override
     protected Object processColumn(ResultSet rs, int index, Class<?> propType) throws SQLException {
-        if (propType == Geometry.class) {
+        if (Geometry.class.isAssignableFrom(propType)) {
             Object o = rs.getObject(index);
             return gjc.convertToJTSGeometryObject(o);
         } else {

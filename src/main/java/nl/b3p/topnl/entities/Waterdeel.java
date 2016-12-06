@@ -37,7 +37,7 @@ public class Waterdeel extends TopNLEntity {
     private Boolean isBAGnaam;
     private String sluisnaam;
     private String brugnaam;
-    private BigInteger hoogteniveau;
+    private Long hoogteniveau;
     
     private Geometry geometrie;
 
@@ -145,11 +145,11 @@ public class Waterdeel extends TopNLEntity {
         this.geometrie = geometrie;
     }
 
-    public BigInteger getHoogteniveau() {
+    public Long getHoogteniveau() {
         return hoogteniveau;
     }
 
-    public void setHoogteniveau(BigInteger hoogteniveau) {
+    public void setHoogteniveau(Long hoogteniveau) {
         this.hoogteniveau = hoogteniveau;
     }
 }
