@@ -250,7 +250,7 @@ public class Top250NLConverter extends Converter {
 
         pl.setGeometrie(gc.convertGeometry(p.getGeometrie()));
 
-        pl.setAantalInwoners(p.getAantalinwoners().longValue());
+        pl.setAantalInwoners(p.getAantalinwoners() != null ? p.getAantalinwoners().longValue() : null);
         pl.setNaamFries(p.getNaamFries());
         pl.setNaamNL(p.getNaamNL());
         pl.setNaamOfficieel(p.getNaamOfficieel());

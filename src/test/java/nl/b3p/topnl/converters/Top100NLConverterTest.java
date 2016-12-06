@@ -202,7 +202,7 @@ public class Top100NLConverterTest extends TestUtil{
         assertEquals(LineString.class, real.getGeometrie().getClass());
         assertEquals( "wegafsluiting", real.getTypeInrichtingselement());
         assertEquals( "in gebruik", real.getStatus());
-        assertEquals(new BigInteger("0"), real.getHoogteniveau());
+        assertEquals(new Long("0"), real.getHoogteniveau());
     }
  
     // Plaats niet in Top100NL
@@ -268,7 +268,7 @@ public class Top100NLConverterTest extends TestUtil{
         assertEquals(LineString.class, real.getGeometrie().getClass());
         assertEquals( "talud, hoogteverschil", real.getTypeRelief());
         assertEquals( "> 2,5 meter", real.getHoogteklasse());
-        assertEquals(new BigInteger("0"), real.getHoogteniveau());
+        assertEquals(new Long("0"), real.getHoogteniveau());
     }
     
     @Test
@@ -291,7 +291,7 @@ public class Top100NLConverterTest extends TestUtil{
         assertEquals("trein", real.getTypeSpoorbaan());
         assertEquals("in gebruik", real.getStatus());
         assertEquals("1", real.getAantalSporen());
-        assertEquals(new BigInteger("0"), real.getHoogteniveau());
+        assertEquals(new Long("0"), real.getHoogteniveau());
     }
     
     @Test
@@ -333,7 +333,7 @@ public class Top100NLConverterTest extends TestUtil{
         assertEquals(LineString.class, real.getGeometrie().getClass());
         assertEquals("waterloop", real.getTypeWater());
         assertEquals("3 - 6 meter", real.getBreedteklasse());
-        assertEquals(new BigInteger("-1"), real.getHoogteniveau());
+        assertEquals(new Long("-1"), real.getHoogteniveau());
     }
     
     @Test
@@ -359,7 +359,7 @@ public class Top100NLConverterTest extends TestUtil{
         assertEquals(false, real.getGescheidenRijbaan());
         assertEquals("verhard", real.getVerhardingstype());
         assertEquals("Weijpoort", real.getNaam());
-        assertEquals(new BigInteger("0"), real.getHoogteniveau());
+        assertEquals(new Long("0"), real.getHoogteniveau());
         assertEquals(null, real.getAantalRijstroken());
         assertEquals("4 - 7 meter", real.getVerhardingsbreedteklasse());
     }

@@ -373,7 +373,7 @@ public class Top250NLConverterTest extends TestUtil{
         assertEquals("gemengd verkeer", real.getHoofdverkeersgebruik());
         assertEquals(false, real.getGescheidenRijbaan());
         assertEquals("verhard", real.getVerhardingstype());
-        assertEquals(new BigInteger("2"), real.getAantalRijstroken());
+        assertEquals(new Long("2"), real.getAantalRijstroken());
         assertEquals("in gebruik", real.getStatus());
     }
 
