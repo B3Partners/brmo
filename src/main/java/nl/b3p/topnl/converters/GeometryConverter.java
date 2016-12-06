@@ -75,34 +75,6 @@ public class GeometryConverter {
         this.geometryFactory = gf;
     }
 
-    public MultiPolygon convertMultiPolygonGeometry(Element geometry)
-            throws IOException, ParserConfigurationException, SAXException, TransformerException {
-        if (geometry != null) {
-            Geometry resultGeometry = convertGeometry(geometry);
-
-            if (resultGeometry instanceof MultiPolygon) {
-                return (MultiPolygon) resultGeometry;
-            } else if (resultGeometry instanceof Polygon) {
-                return geometryFactory.createMultiPolygon(new Polygon[]{(Polygon) resultGeometry});
-            }
-        }
-        return null;
-    }
-
-    public MultiLineString convertMultiLineStringGeometry(Element geometry)
-            throws IOException, SAXException, ParserConfigurationException, TransformerException {
-        if (geometry != null) {
-            Geometry resultGeometry = convertGeometry(geometry);
-
-            if (resultGeometry instanceof MultiLineString) {
-                return (MultiLineString) resultGeometry;
-            } else if (resultGeometry instanceof LineString) {
-                return geometryFactory.createMultiLineString(new LineString[]{(LineString) resultGeometry});
-            }
-        }
-        return null;
-    }
-    
     public Geometry convertGeometry(Element el)
             throws IOException, SAXException, ParserConfigurationException, TransformerException {
         if (!(el instanceof org.w3c.dom.Element)) {
