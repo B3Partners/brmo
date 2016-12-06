@@ -66,21 +66,21 @@ public class Database {
         }
     }
     
-    private FunctioneelGebied saveFunctioneelGebied(TopNLEntity entity) throws SQLException, ParseException{
-                FunctioneelGebied h = (FunctioneelGebied) entity;
+    private FunctioneelGebied saveFunctioneelGebied(TopNLEntity entity) throws SQLException, ParseException {
+        FunctioneelGebied h = (FunctioneelGebied) entity;
         QueryRunner run = new QueryRunner(dataSource);
 
         ResultSetHandler<FunctioneelGebied> handler = new BeanHandler(FunctioneelGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
         Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
-
-        FunctioneelGebied inserted = run.insert("INSERT INTO " + h.getTopnltype() + ".functioneelgebied (" + getTopNLEntityColumns() + ",typeFunctioneelGebied,soortnaam,naamNL,naamFries,geometrie) VALUES (" + getTopNLEntityReplacementChars() + ",?,?,?,?,?)",
-                handler,
-                getVarargs(entity),
+        Object[] args = getVarargs(entity,
                 h.getTypeFunctioneelGebied(),
                 h.getSoortnaam(),
                 h.getNaamNL(),
                 h.getNaamFries(),
                 nativeGeom);
+        FunctioneelGebied inserted = run.insert("INSERT INTO " + h.getTopnltype() + ".functioneelgebied (" + getTopNLEntityColumns() + ",typeFunctioneelGebied,soortnaam,naamNL,naamFries,geometrie) VALUES (" + getTopNLEntityReplacementChars() + ",?,?,?,?,?)",
+                handler,
+                args);
 
         return inserted;
     }

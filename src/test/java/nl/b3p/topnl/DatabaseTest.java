@@ -96,6 +96,49 @@ public class DatabaseTest extends TestUtil{
         assertEquals(p,real.getGeometrie());
     }
     
+    @Test
+    public void testSaveFunctioneelGebied50() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+        testSaveFunctioneelgebied(TopNLType.TOP50NL);
+    }
+    
+    @Test
+    public void testSaveFunctioneelGebied100() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+        testSaveFunctioneelgebied(TopNLType.TOP100NL);
+    }
+    
+    @Test
+    public void testSaveFunctioneelGebied250() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+        testSaveFunctioneelgebied(TopNLType.TOP250NL);
+    }
+    
+    private void testSaveFunctioneelgebied(TopNLType type)throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+        System.out.println("save");
+        Geometry p = wkt.read("POINT (1 2)");
+        FunctioneelGebied e = new FunctioneelGebied();
+        getStandardTestTopNLEntity(e, type);
+        e.setGeometrie(p);
+        e.setNaamFries("boers");
+        e.setNaamNL("normaal");
+        e.setSoortnaam("iets");
+        e.setTypeFunctioneelGebied("typerdepiep");
+        
+        instance.save(e);
+
+        QueryRunner run = new QueryRunner(datasource);
+
+        ResultSetHandler<FunctioneelGebied> h = new BeanHandler<>(FunctioneelGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
+
+        FunctioneelGebied real = run.query("SELECT * FROM "  + type.getType() + ".FunctioneelGebied WHERE identificatie=?", h, identificatie);
+        assertNotNull("Insert failed", real);
+        testStandardTopNLEntity(real, e);
+        
+        assertEquals(p,real.getGeometrie());
+        assertEquals(e.getNaamFries(),real.getNaamFries());
+        assertEquals(e.getNaamNL(),real.getNaamNL());
+        assertEquals(e.getTypeFunctioneelGebied(),real.getTypeFunctioneelGebied());
+        assertEquals(e.getSoortnaam(),real.getSoortnaam());
+    }
+    
     public void getStandardTestTopNLEntity(TopNLEntity e,TopNLType type) throws ParseException {
         e.setIdentificatie(identificatie);
         e.setBronactualiteit(sdf.parse("2016-06-16"));
