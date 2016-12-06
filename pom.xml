@@ -149,6 +149,10 @@
                 <version>0.7.5.201505241946</version>
                 <configuration>
                     <destFile>target/jacoco.exec</destFile>
+                    <excludes>
+                        <exclude>**/nl/b3p/topnl/top250nl/*</exclude>
+                        <exclude>**/nl/b3p/topnl/top100nl/*</exclude>
+                    </excludes>
                 </configuration>
                 <executions>
                     <execution>
