@@ -10,31 +10,29 @@ package nl.b3p.topnl.top250nl;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * A property that has a collection of surfaces as its value domain may either be an appropriate geometry element encapsulated in an element of this type or an XLink reference to a remote geometry element (where remote includes geometry elements located elsewhere in the same document). Either the reference or the contained element shall be given, but neither both nor none.
- * 
- * <p>Java class for MultiSurfacePropertyType complex type.
+ * <p>Java class for anonymous complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="MultiSurfacePropertyType">
+ * &lt;complexType>
  *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *     &lt;extension base="{http://www.opengis.net/gml/3.2}AbstractFeatureMemberType">
  *       &lt;sequence minOccurs="0">
- *         &lt;element ref="{http://www.opengis.net/gml/3.2}MultiSurface"/>
+ *         &lt;element ref="{http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.0}_Top250nlObject"/>
  *       &lt;/sequence>
  *       &lt;attGroup ref="{http://www.opengis.net/gml/3.2}AssociationAttributeGroup"/>
- *       &lt;attGroup ref="{http://www.opengis.net/gml/3.2}OwnershipAttributeGroup"/>
- *     &lt;/restriction>
+ *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -42,13 +40,15 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "MultiSurfacePropertyType", propOrder = {
-    "multiSurface"
+@XmlType(name = "", propOrder = {
+    "top250NlObject"
 })
-public class MultiSurfacePropertyType {
+public class FeatureMember
+    extends AbstractFeatureMemberType
+{
 
-    @XmlElement(name = "MultiSurface")
-    protected MultiSurfaceType multiSurface;
+    @XmlElementRef(name = "_Top250nlObject", namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.0", type = JAXBElement.class, required = false)
+    protected JAXBElement<? extends Top250NlObjectType> top250NlObject;
     @XmlAttribute(name = "nilReason")
     protected List<String> nilReason;
     @XmlAttribute(name = "remoteSchema", namespace = "http://www.opengis.net/gml/3.2")
@@ -68,31 +68,55 @@ public class MultiSurfacePropertyType {
     protected ShowType show;
     @XmlAttribute(name = "actuate", namespace = "http://www.w3.org/1999/xlink")
     protected ActuateType actuate;
-    @XmlAttribute(name = "owns")
-    protected Boolean owns;
 
     /**
-     * Gets the value of the multiSurface property.
+     * Gets the value of the top250NlObject property.
      * 
      * @return
      *     possible object is
-     *     {@link MultiSurfaceType }
+     *     {@link JAXBElement }{@code <}{@link GeografischGebiedType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link SpoorbaandeelType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PlaatsType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GebouwType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link HoogteType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link FunctioneelGebiedType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RegistratiefGebiedType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PlanTopografieType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TerreinType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link InrichtingselementType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WegdeelType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link Top250NlObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterdeelType }{@code >}
      *     
      */
-    public MultiSurfaceType getMultiSurface() {
-        return multiSurface;
+    public JAXBElement<? extends Top250NlObjectType> getTop250NlObject() {
+        return top250NlObject;
     }
 
     /**
-     * Sets the value of the multiSurface property.
+     * Sets the value of the top250NlObject property.
      * 
      * @param value
      *     allowed object is
-     *     {@link MultiSurfaceType }
+     *     {@link JAXBElement }{@code <}{@link GeografischGebiedType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link SpoorbaandeelType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PlaatsType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GebouwType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link HoogteType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link FunctioneelGebiedType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RegistratiefGebiedType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link PlanTopografieType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TerreinType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link InrichtingselementType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WegdeelType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link Top250NlObjectType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterdeelType }{@code >}
      *     
      */
-    public void setMultiSurface(MultiSurfaceType value) {
-        this.multiSurface = value;
+    public void setTop250NlObject(JAXBElement<? extends Top250NlObjectType> value) {
+        this.top250NlObject = value;
     }
 
     /**
@@ -318,34 +342,6 @@ public class MultiSurfacePropertyType {
      */
     public void setActuate(ActuateType value) {
         this.actuate = value;
-    }
-
-    /**
-     * Gets the value of the owns property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
-    public boolean isOwns() {
-        if (owns == null) {
-            return false;
-        } else {
-            return owns;
-        }
-    }
-
-    /**
-     * Sets the value of the owns property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
-    public void setOwns(Boolean value) {
-        this.owns = value;
     }
 
 }
