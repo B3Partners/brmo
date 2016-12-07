@@ -54,15 +54,6 @@ public class Processor {
         database = new Database(ds);
         converterFactory = new ConverterFactory();
     }
-  
-   public Object parsed(InputStream in, TopNLType type) throws JAXBException {
-        Unmarshaller jaxbUnmarshaller = converterFactory.getContext(type).createUnmarshaller();
-        JAXBElement o = (JAXBElement) jaxbUnmarshaller.unmarshal(in);
-
-        Object value = o.getValue();
-
-        return value;
-    }
     
     public List parse (InputStream in, TopNLType type) throws  JAXBException{
             List list = new ArrayList();
@@ -77,10 +68,8 @@ public class Processor {
                 int eventType = xsr.next();
                 
                 if (eventType == XMLStreamReader.START_ELEMENT) {
-                    System.out.println(xsr.getLocalName());
+                    String localname = xsr.getLocalName();
                     if (xsr.getLocalName().equals("FeatureMember")) {
-                        
-                        
                         JAXBElement jb = (JAXBElement)jaxbUnmarshaller.unmarshal(xsr);
                         list.add(jb.getValue());
                     }
