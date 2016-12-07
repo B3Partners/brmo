@@ -52,8 +52,8 @@ public class Main {
             ds.setUsername("top50nl");
             ds.setPassword("top50nl");
             Processor p = new Processor(ds);
-           // process("top250NL.gml", TopNLType.TOP250NL, p);
-            process("Hoogte_top250nl.xml", TopNLType.TOP250NL, p);
+            process("top250NL.gml", TopNLType.TOP250NL, p);
+            //process("Hoogte_top250nl.xml", TopNLType.TOP250NL, p);
             //process("Hoogte_top100nl.xml", TopNLType.TOP100NL, p);
           
         } catch (SAXException | ParserConfigurationException | TransformerException ex) {
