@@ -21,7 +21,7 @@ import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigInteger;
+import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -82,8 +82,8 @@ public class Top100NLConverterTest extends TestUtil{
     public void testConvertNoFeatureCollection() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException {
         System.out.println("convert");
         Hoogte hoogte = new Hoogte();
-        InputStream in = Top100NLConverterTest.class.getResourceAsStream("top100nl/Hoogte.xml");
-        List jaxb = processor.parse(in, TopNLType.TOP100NL);
+        URL in = Top100NLConverterTest.class.getResource("top100nl/Hoogte.xml");
+        List jaxb = processor.parse(in);
 
         List<TopNLEntity> expResult = Collections.singletonList(hoogte);
         List<TopNLEntity> result = instance.convert(jaxb);
@@ -395,8 +395,8 @@ public class Top100NLConverterTest extends TestUtil{
 
      */
     private TopNLEntity getEntity(String file) throws JAXBException, IOException, SAXException, ParserConfigurationException, TransformerException {
-        InputStream in = Top100NLConverterTest.class.getResourceAsStream(file);
-        List jaxb = processor.parse(in, TopNLType.TOP100NL);
+        URL in = Top100NLConverterTest.class.getResource(file);
+        List jaxb = processor.parse(in);
         TopNLEntity entity = instance.convertObject(jaxb.get(0));
         return entity;
     }

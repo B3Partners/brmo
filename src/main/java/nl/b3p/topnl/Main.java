@@ -19,7 +19,7 @@ package nl.b3p.topnl;
 
 import com.vividsolutions.jts.io.ParseException;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URL;
 import java.sql.SQLException;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
@@ -27,6 +27,7 @@ import javax.xml.transform.TransformerException;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jdom2.JDOMException;
 import org.xml.sax.SAXException;
 
 /**
@@ -36,7 +37,7 @@ import org.xml.sax.SAXException;
 public class Main {
     protected final static Log log = LogFactory.getLog(Main.class);
     
-    public static void main (String[] args) throws IOException, JAXBException, ParseException, SQLException{
+    public static void main (String[] args) throws IOException, JAXBException, ParseException, SQLException, JDOMException{
         try {
              /* BasicDataSource ds = new BasicDataSource();
             ds.setUrl("jdbc:postgresql://localhost:5432/rsgb_topnl");
@@ -50,7 +51,7 @@ public class Main {
             ds.setUsername("top50nl");
             ds.setPassword("top50nl");
             Processor p = new Processor(ds);
-            process("top250NL.gml", TopNLType.TOP250NL, p);
+            process("top250NL.gml", p);
             //process("Hoogte_top250nl.xml", TopNLType.TOP250NL, p);
             //process("Hoogte_top100nl.xml", TopNLType.TOP100NL, p);
           
@@ -59,9 +60,9 @@ public class Main {
         }
     }
 
-    private static void process(String file, TopNLType type, Processor p) throws ParseException, IOException, SAXException, ParserConfigurationException, JAXBException, TransformerException {
-        InputStream in = Main.class.getResourceAsStream(file);
-        p.importIntoDb(in, type);
+    private static void process(String file,  Processor p) throws ParseException, IOException, SAXException, ParserConfigurationException, JAXBException, TransformerException, JDOMException {
+        URL in = Main.class.getResource(file);
+        p.importIntoDb(in);
        /* List obj = p.parse(in, type);
         List<TopNLEntity> entities = p.convert(obj, type);
         p.save(entities, type);*/

@@ -18,6 +18,7 @@ package nl.b3p.topnl;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import org.jdom2.JDOMException;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -58,7 +59,7 @@ public class TopNLTypeFactoryTest {
     //@Test
     public void testGetTopNLType50() throws JDOMException, IOException {
         System.out.println("getTopNLType");
-        InputStream is = null;
+        URL is = null;
         TopNLTypeFactory instance = new TopNLTypeFactory();
         TopNLType expResult = TopNLType.TOP50NL;
         TopNLType result = instance.getTopNLType(is);
@@ -68,7 +69,7 @@ public class TopNLTypeFactoryTest {
     
     @Test
     public void testGetTopNLType250() throws JDOMException, IOException {
-        InputStream is = TopNLTypeFactoryTest.class.getResourceAsStream("top250nl_Hoogte.xml");
+        URL is = TopNLTypeFactoryTest.class.getResource("top250nl_Hoogte.xml");
         
         System.out.println("getTopNLType");
         TopNLType expResult = TopNLType.TOP250NL;
@@ -79,7 +80,7 @@ public class TopNLTypeFactoryTest {
     
     @Test
     public void testGetTopNLType100() throws JDOMException, IOException {
-        InputStream is = TopNLTypeFactoryTest.class.getResourceAsStream("top100nl_Hoogte.xml");
+        URL is = TopNLTypeFactoryTest.class.getResource("top100nl_Hoogte.xml");
         
         System.out.println("getTopNLType");
         TopNLType expResult = TopNLType.TOP100NL;

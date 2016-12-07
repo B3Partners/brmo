@@ -19,6 +19,7 @@ package nl.b3p.topnl;
 import com.vividsolutions.jts.io.ParseException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ import nl.b3p.topnl.converters.ConverterFactory;
 import nl.b3p.topnl.entities.TopNLEntity;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jdom2.JDOMException;
 import org.xml.sax.SAXException;
 
 /**
@@ -55,13 +57,14 @@ public class Processor {
         converterFactory = new ConverterFactory();
     }
     
-    public void importIntoDb(InputStream in, TopNLType type) {
+    public void importIntoDb(URL in) throws JDOMException {
         try {
+            TopNLType type = TopNLTypeFactory.getTopNLType(in);
             Unmarshaller jaxbUnmarshaller = converterFactory.getContext(type).createUnmarshaller();
 
             XMLInputFactory xif = XMLInputFactory.newFactory();
 
-            XMLStreamReader xsr = xif.createXMLStreamReader(in);
+            XMLStreamReader xsr = xif.createXMLStreamReader(in.openStream());
 
             while (xsr.hasNext()) {
                 int eventType = xsr.next();
@@ -87,14 +90,15 @@ public class Processor {
         }
     }
 
-    public List parse (InputStream in, TopNLType type) throws  JAXBException{
+    public List parse (URL in) throws  JAXBException,  IOException{
         List list = new ArrayList();
         try {
+            TopNLType type = TopNLTypeFactory.getTopNLType(in);
             Unmarshaller jaxbUnmarshaller = converterFactory.getContext(type).createUnmarshaller();
             
             XMLInputFactory xif = XMLInputFactory.newFactory();
             
-            XMLStreamReader xsr = xif.createXMLStreamReader(in);
+            XMLStreamReader xsr = xif.createXMLStreamReader(in.openStream());
             
             while (xsr.hasNext()) {
                 int eventType = xsr.next();
@@ -111,6 +115,8 @@ public class Processor {
             xsr.close();
         } catch (XMLStreamException ex) {
             log.error("cannot correctly stream xml file:", ex);
+        } catch (JDOMException ex) {
+            log.error("Cannot retrieve topnltype: ",ex);
         }
         return list;
     }
@@ -130,5 +136,5 @@ public class Processor {
             save(entity, type);
         }
     }
-    
+
 }

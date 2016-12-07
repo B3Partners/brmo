@@ -17,11 +17,7 @@
 package nl.b3p.topnl;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.net.URL;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -33,15 +29,22 @@ import org.jdom2.input.SAXBuilder;
  */
 public class TopNLTypeFactory {
 
-    private final String TOP250NLNAMESPACE = "http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.0";
-    private final String TOP100NLNAMESPACE = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0";
-    private final String TOP50NLNAMESPACE = "http://www.kadaster.nl/top50nl/1.1";
-    protected final static Log log = LogFactory.getLog(TopNLTypeFactory.class);
+    private static final String TOP250NLNAMESPACE = "http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.0";
+    private static final String TOP100NLNAMESPACE = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0";
+    private static final String TOP50NLNAMESPACE = "http://www.kadaster.nl/top50nl/1.1";
 
-    public TopNLType getTopNLType(InputStream is) throws JDOMException, IOException {
+    public static TopNLType getTopNLType(URL is) throws JDOMException, IOException {
         Document inputXml = new SAXBuilder().build(is);
+        return getTopNLType(inputXml);       
+    }
+    
+    public static TopNLType getTopNLType(String is) throws JDOMException, IOException {
+        Document inputXml = new SAXBuilder().build(is);
+        return getTopNLType(inputXml);
+    }
 
-        if (!inputXml.hasRootElement()) {
+    private static TopNLType getTopNLType(Document inputXml){
+         if (!inputXml.hasRootElement()) {
             throw new IllegalArgumentException("Document contains no root element");
         }
         Element rootElem = inputXml.getRootElement();
@@ -57,5 +60,4 @@ public class TopNLTypeFactory {
                 throw new IllegalArgumentException("Type not recognized: " + currentNamespace);
         }
     }
-
 }

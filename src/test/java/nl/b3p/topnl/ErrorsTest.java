@@ -18,7 +18,7 @@ package nl.b3p.topnl;
 
 import com.vividsolutions.jts.io.ParseException;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import javax.xml.bind.JAXBException;
@@ -26,11 +26,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
 import nl.b3p.topnl.converters.DbUtilsGeometryColumnConverter;
-import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.Terrein;
 import nl.b3p.topnl.entities.TopNLEntity;
 import org.apache.commons.dbutils.BasicRowProcessor;
-import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import static org.junit.Assert.assertNotNull;
@@ -58,9 +56,9 @@ public class ErrorsTest  extends TestUtil{
     @Test
     public void polygonErrors1Test() throws JAXBException, IOException, SAXException, ParserConfigurationException, TransformerException, ParseException, SQLException {
         System.out.println("save");
-        InputStream in = ErrorsTest.class.getResourceAsStream("problems/polygonError1.xml");
+        URL in = ErrorsTest.class.getResource("problems/polygonError1.xml");
         TopNLType type = TopNLType.TOP250NL;
-        List jaxb = instance.parse(in, type);
+        List jaxb = instance.parse(in);
         List<TopNLEntity> terrein = instance.convert(jaxb, type);
         instance.save(terrein.get(0), type);
 
@@ -74,9 +72,9 @@ public class ErrorsTest  extends TestUtil{
     @Test
     public void polygonErrors2Test() throws JAXBException, IOException, SAXException, ParserConfigurationException, TransformerException, ParseException, SQLException {
         System.out.println("save");
-        InputStream in = ErrorsTest.class.getResourceAsStream("problems/polygonError2.xml");
+        URL in = ErrorsTest.class.getResource("problems/polygonError2.xml");
         TopNLType type = TopNLType.TOP250NL;
-        List jaxb = instance.parse(in, type);
+        List jaxb = instance.parse(in);
         List<TopNLEntity> terrein = instance.convert(jaxb, type);
         instance.save(terrein.get(0), type);
 

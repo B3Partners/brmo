@@ -18,7 +18,7 @@ package nl.b3p.topnl;
 
 import com.vividsolutions.jts.io.ParseException;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import javax.xml.bind.JAXBException;
@@ -29,9 +29,9 @@ import nl.b3p.topnl.converters.DbUtilsGeometryColumnConverter;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.TopNLEntity;
 import org.apache.commons.dbutils.BasicRowProcessor;
-import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.jdom2.JDOMException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -69,10 +69,10 @@ public class ProcessorTest extends TestUtil{
      * Test of parse method, of class Processor.
      */
     @Test
-    public void testParse() throws JAXBException {
+    public void testParse() throws JAXBException, IOException {
         System.out.println("parse");
-        InputStream in = ProcessorTest.class.getResourceAsStream("top250nl_Hoogte.xml");
-        List jaxb = instance.parse(in, TopNLType.TOP250NL);
+        URL in = ProcessorTest.class.getResource("top250nl_Hoogte.xml");
+        List jaxb = instance.parse(in);
         assertNotNull(jaxb);
         assertEquals(1, jaxb.size());
         assertTrue (jaxb.get(0) instanceof nl.b3p.topnl.top250nl.FeatureMemberType);
@@ -85,9 +85,9 @@ public class ProcessorTest extends TestUtil{
     @Test
     public void testSave250() throws JAXBException, IOException, SAXException, TransformerException, ParserConfigurationException, SQLException, ParseException {
         System.out.println("save");
-        InputStream in = ProcessorTest.class.getResourceAsStream("top250nl_Hoogte.xml");
+        URL in = ProcessorTest.class.getResource("top250nl_Hoogte.xml");
         TopNLType type = TopNLType.TOP250NL;
-        List jaxb = instance.parse(in, type);
+        List jaxb = instance.parse(in);
         List<TopNLEntity> hoogte = instance.convert(jaxb, type);
         instance.save(hoogte.get(0), type);
 
@@ -100,11 +100,11 @@ public class ProcessorTest extends TestUtil{
      * Test of save method, of class Processor.
      */
     @Test
-    public void testImportIntoDb250() throws JAXBException, IOException, SAXException, TransformerException, ParserConfigurationException, SQLException, ParseException {
+    public void testImportIntoDb250() throws JAXBException, IOException, SAXException, TransformerException, ParserConfigurationException, SQLException, ParseException, JDOMException {
         System.out.println("save");
-        InputStream in = ProcessorTest.class.getResourceAsStream("top250nl_Hoogte.xml");
+        URL in = ProcessorTest.class.getResource("top250nl_Hoogte.xml");
         TopNLType type = TopNLType.TOP250NL;
-        instance.importIntoDb(in, type);
+        instance.importIntoDb(in);
         ResultSetHandler<Hoogte> handler = new BeanHandler<>(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection()))));
 
         Hoogte real = run.query("SELECT * FROM top250nl.Hoogte WHERE identificatie=?", handler, "NL.TOP250NL.16R09-0000084246");
@@ -117,9 +117,10 @@ public class ProcessorTest extends TestUtil{
     @Test
     public void testSave250MultipleFeature() throws JAXBException, IOException, SAXException, TransformerException, ParserConfigurationException, SQLException, ParseException {
         System.out.println("save");
-        InputStream in = ProcessorTest.class.getResourceAsStream("top250nl_HoogteMulti.xml");
+        
+        URL in = ProcessorTest.class.getResource("top250nl_HoogteMulti.xml");
         TopNLType type = TopNLType.TOP250NL;
-        List jaxb = instance.parse(in, type);
+        List jaxb = instance.parse(in);
         List<TopNLEntity> hoogte = instance.convert(jaxb, type);
         instance.save(hoogte, type);
 
@@ -136,9 +137,9 @@ public class ProcessorTest extends TestUtil{
     @Test
     public void testSave100() throws JAXBException, IOException, SAXException, TransformerException, ParserConfigurationException, SQLException, ParseException {
         System.out.println("save");
-        InputStream in = ProcessorTest.class.getResourceAsStream("top100nl_Hoogte.xml");
+        URL in = ProcessorTest.class.getResource("top100nl_Hoogte.xml");
         TopNLType type = TopNLType.TOP100NL;
-        List jaxb = instance.parse(in, type);
+        List jaxb = instance.parse(in);
         List<TopNLEntity> hoogte = instance.convert(jaxb, type);
         instance.save(hoogte.get(0), type);
 
@@ -154,9 +155,9 @@ public class ProcessorTest extends TestUtil{
     @Test
     public void testConvert() throws Exception {
         System.out.println("convert");
-        InputStream in = ProcessorTest.class.getResourceAsStream("top250nl_Hoogte.xml");
+        URL in = ProcessorTest.class.getResource("top250nl_Hoogte.xml");
         TopNLType type = TopNLType.TOP250NL;
-        List jaxb = instance.parse(in, type);
+        List jaxb = instance.parse(in);
         List<TopNLEntity> hoogte = instance.convert(jaxb, type);
         assertEquals(1, hoogte.size());
     }

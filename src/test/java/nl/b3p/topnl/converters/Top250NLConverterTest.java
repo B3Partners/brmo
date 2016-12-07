@@ -20,7 +20,7 @@ import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -83,8 +83,8 @@ public class Top250NLConverterTest extends TestUtil{
     public void testConvertFeatureCollection() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException {
         System.out.println("convert");
         Hoogte hoogte = new Hoogte();
-        InputStream in = Top250NLConverterTest.class.getResourceAsStream("top250nl/FeatureCollectionHoogte.xml");
-        List jaxb = processor.parse(in, TopNLType.TOP250NL);
+        URL in = Top250NLConverterTest.class.getResource("top250nl/FeatureCollectionHoogte.xml");
+        List jaxb = processor.parse(in);
 
         List<TopNLEntity> expResult = Collections.singletonList(hoogte);
         List<TopNLEntity> result = instance.convert(jaxb);
@@ -97,8 +97,8 @@ public class Top250NLConverterTest extends TestUtil{
     public void testConvertNoFeatureCollection() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException {
         System.out.println("convert");
         Hoogte hoogte = new Hoogte();
-        InputStream in = Top250NLConverterTest.class.getResourceAsStream("top250nl/Hoogte.xml");
-        List jaxb = processor.parse(in, TopNLType.TOP250NL);
+        URL in = Top250NLConverterTest.class.getResource("top250nl/Hoogte.xml");
+        List jaxb = processor.parse(in);
 
         List<TopNLEntity> expResult = Collections.singletonList(hoogte);
         List<TopNLEntity> result = instance.convert(jaxb);
@@ -405,8 +405,8 @@ public class Top250NLConverterTest extends TestUtil{
 
      */
     private TopNLEntity getEntity(String file) throws JAXBException, IOException, SAXException, ParserConfigurationException, TransformerException {
-        InputStream in = Top250NLConverterTest.class.getResourceAsStream(file);
-        List jaxb = processor.parse(in, TopNLType.TOP250NL);
+        URL in = Top250NLConverterTest.class.getResource(file);
+        List jaxb = processor.parse(in);
         TopNLEntity entity = instance.convertObject(jaxb.get(0));
         return entity;
     }
