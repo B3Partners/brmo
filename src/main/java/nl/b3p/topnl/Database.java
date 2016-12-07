@@ -52,11 +52,13 @@ public class Database {
 
     private final DataSource dataSource;
     private GeometryJdbcConverter gjc;
+    private QueryRunner run;
 
     public Database(DataSource ds) throws SQLException {
         this.dataSource = ds;
         if (ds != null) {
             gjc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(dataSource.getConnection());
+            run = new QueryRunner(dataSource, gjc.isPmdKnownBroken());
         }
     }
 
@@ -99,7 +101,6 @@ public class Database {
 
     private Gebouw saveGebouw(TopNLEntity entity) throws SQLException, ParseException {
         Gebouw h = (Gebouw) entity;
-        QueryRunner run = new QueryRunner(dataSource);
 
         ResultSetHandler<Gebouw> handler = new BeanHandler(Gebouw.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
         Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
@@ -122,7 +123,6 @@ public class Database {
 
     private GeografischGebied saveGeografischGebied(TopNLEntity entity) throws SQLException, ParseException {
         GeografischGebied h = (GeografischGebied) entity;
-        QueryRunner run = new QueryRunner(dataSource);
 
         ResultSetHandler<GeografischGebied> handler = new BeanHandler(GeografischGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
         Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
@@ -140,7 +140,6 @@ public class Database {
 
     private Inrichtingselement saveInrichtingselement(TopNLEntity entity) throws SQLException, ParseException {
         Inrichtingselement h = (Inrichtingselement) entity;
-        QueryRunner run = new QueryRunner(dataSource);
 
         ResultSetHandler<Inrichtingselement> handler = new BeanHandler(Inrichtingselement.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
         Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
@@ -159,7 +158,6 @@ public class Database {
 
     private Plaats savePlaats(TopNLEntity entity) throws SQLException, ParseException {
         Plaats h = (Plaats) entity;
-        QueryRunner run = new QueryRunner(dataSource);
 
         ResultSetHandler<Plaats> handler = new BeanHandler(Plaats.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
         Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
@@ -179,7 +177,6 @@ public class Database {
 
     private RegistratiefGebied saveRegistratiefGebied(TopNLEntity entity) throws SQLException, ParseException {
         RegistratiefGebied h = (RegistratiefGebied) entity;
-        QueryRunner run = new QueryRunner(dataSource);
 
         ResultSetHandler<RegistratiefGebied> handler = new BeanHandler(RegistratiefGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
         Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
@@ -199,7 +196,6 @@ public class Database {
 
     private Relief saveRelief(TopNLEntity entity) throws SQLException, ParseException {
         Relief h = (Relief) entity;
-        QueryRunner run = new QueryRunner(dataSource);
 
         ResultSetHandler<Relief> handler = new BeanHandler(Relief.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
         Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
@@ -217,7 +213,6 @@ public class Database {
 
     private Spoorbaandeel saveSpoorbaandeel(TopNLEntity entity) throws SQLException, ParseException {
         Spoorbaandeel h = (Spoorbaandeel) entity;
-        QueryRunner run = new QueryRunner(dataSource);
 
         ResultSetHandler<Spoorbaandeel> handler = new BeanHandler(Spoorbaandeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
         Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
@@ -244,7 +239,6 @@ public class Database {
 
     private Terrein saveTerrein(TopNLEntity entity) throws SQLException, ParseException {
         Terrein h = (Terrein) entity;
-        QueryRunner run = new QueryRunner(dataSource);
 
         ResultSetHandler<Terrein> handler = new BeanHandler(Terrein.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
         Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
@@ -261,7 +255,6 @@ public class Database {
 
     private Waterdeel saveWaterdeel(TopNLEntity entity) throws SQLException, ParseException {
         Waterdeel h = (Waterdeel) entity;
-        QueryRunner run = new QueryRunner(dataSource);
 
         ResultSetHandler<Waterdeel> handler = new BeanHandler(Waterdeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
         Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
@@ -289,7 +282,6 @@ public class Database {
 
     private Wegdeel saveWegdeel(TopNLEntity entity) throws SQLException, ParseException {
         Wegdeel h = (Wegdeel) entity;
-        QueryRunner run = new QueryRunner(dataSource);
 
         ResultSetHandler<Wegdeel> handler = new BeanHandler(Wegdeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
         Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
@@ -325,7 +317,6 @@ public class Database {
 
     private FunctioneelGebied saveFunctioneelGebied(TopNLEntity entity) throws SQLException, ParseException {
         FunctioneelGebied h = (FunctioneelGebied) entity;
-        QueryRunner run = new QueryRunner(dataSource);
 
         ResultSetHandler<FunctioneelGebied> handler = new BeanHandler(FunctioneelGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
         Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
@@ -344,7 +335,6 @@ public class Database {
 
     private Hoogte saveHoogte(TopNLEntity entity) throws SQLException, ParseException {
         Hoogte h = (Hoogte) entity;
-        QueryRunner run = new QueryRunner(dataSource);
 
         ResultSetHandler<Hoogte> handler = new BeanHandler(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
         Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());

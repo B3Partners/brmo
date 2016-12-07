@@ -39,16 +39,22 @@ public class Main {
     protected final static Log log = LogFactory.getLog(Main.class);
     
     public static void main (String[] args) throws IOException, JAXBException, ParseException, SQLException{
-        try {
+        try {/*
             BasicDataSource ds = new BasicDataSource();
             ds.setUrl("jdbc:postgresql://localhost:5432/rsgb_topnl");
             ds.setDriverClassName("org.postgresql.Driver");
             ds.setUsername("rsgb");
             ds.setPassword("rsgb");
-            
+            */
+            BasicDataSource ds = new BasicDataSource();
+            ds.setUrl("jdbc:oracle:thin:@b3p-demoserver:1521/ORCL");
+            ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+            ds.setUsername("top50nl");
+            ds.setPassword("top50nl");
             Processor p = new Processor(ds);
-            process("top250NL.gml", TopNLType.TOP250NL, p);
-           // process("Hoogte_top100nl.xml", TopNLType.TOP100NL, p);
+           // process("top250NL.gml", TopNLType.TOP250NL, p);
+            process("Hoogte_top250nl.xml", TopNLType.TOP250NL, p);
+            //process("Hoogte_top100nl.xml", TopNLType.TOP100NL, p);
           
         } catch (SAXException | ParserConfigurationException | TransformerException ex) {
             log.error("Cannot parse/convert/save entity: ", ex);

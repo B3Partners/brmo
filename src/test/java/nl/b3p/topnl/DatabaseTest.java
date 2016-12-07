@@ -65,7 +65,6 @@ public class DatabaseTest extends TestUtil{
     private final String identificatie = "1616161616";
     private TopNLType type;
     
-
     @Parameters(name="Type: {0}")
     public static Collection<Object[]> params() {
         return Arrays.asList(new Object[][]
@@ -101,8 +100,6 @@ public class DatabaseTest extends TestUtil{
         
         instance.save(e);
 
-        QueryRunner run = new QueryRunner(datasource);
-
         ResultSetHandler<Hoogte> h = new BeanHandler<>(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         Hoogte real = run.query("SELECT * FROM "  + type.getType() + ".hoogte WHERE identificatie=?", h, identificatie);
@@ -132,8 +129,6 @@ public class DatabaseTest extends TestUtil{
         e.setNaamFries("flaotjah");
         
         instance.save(e);
-
-        QueryRunner run = new QueryRunner(datasource);
 
         ResultSetHandler<Gebouw> h = new BeanHandler<>(Gebouw.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
@@ -165,8 +160,6 @@ public class DatabaseTest extends TestUtil{
         
         instance.save(e);
 
-        QueryRunner run = new QueryRunner(datasource);
-
         ResultSetHandler<GeografischGebied> h = new BeanHandler<>(GeografischGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         GeografischGebied real = run.query("SELECT * FROM "  + type.getType() + ".geografischgebied WHERE identificatie=?", h, identificatie);
@@ -192,8 +185,6 @@ public class DatabaseTest extends TestUtil{
         e.setStatus("in gebruik");
         
         instance.save(e);
-
-        QueryRunner run = new QueryRunner(datasource);
 
         ResultSetHandler<Inrichtingselement> h = new BeanHandler<>(Inrichtingselement.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
@@ -221,8 +212,6 @@ public class DatabaseTest extends TestUtil{
         e.setNaamNL("Gouda");
         e.setNaamFries("mompelmompel");
         instance.save(e);
-
-        QueryRunner run = new QueryRunner(datasource);
 
         ResultSetHandler<Plaats> h = new BeanHandler<>(Plaats.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
@@ -252,8 +241,6 @@ public class DatabaseTest extends TestUtil{
         e.setNaamFries("mompelmompel");
         instance.save(e);
 
-        QueryRunner run = new QueryRunner(datasource);
-
         ResultSetHandler<RegistratiefGebied> h = new BeanHandler<>(RegistratiefGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         RegistratiefGebied real = run.query("SELECT * FROM "  + type.getType() + ".registratiefgebied WHERE identificatie=?", h, identificatie);
@@ -281,8 +268,6 @@ public class DatabaseTest extends TestUtil{
         e.setHoogteniveau(666L);
 
         instance.save(e);
-
-        QueryRunner run = new QueryRunner(datasource);
 
         ResultSetHandler<Relief> h = new BeanHandler<>(Relief.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
@@ -318,8 +303,6 @@ public class DatabaseTest extends TestUtil{
 
         instance.save(e);
 
-        QueryRunner run = new QueryRunner(datasource);
-
         ResultSetHandler<Spoorbaandeel> h = new BeanHandler<>(Spoorbaandeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         Spoorbaandeel real = run.query("SELECT * FROM "  + type.getType() + ".spoorbaandeel WHERE identificatie=?", h, identificatie);
@@ -354,8 +337,6 @@ public class DatabaseTest extends TestUtil{
 
         instance.save(e);
 
-        QueryRunner run = new QueryRunner(datasource);
-
         ResultSetHandler<Terrein> h = new BeanHandler<>(Terrein.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         Terrein real = run.query("SELECT * FROM "  + type.getType() + ".terrein WHERE identificatie=?", h, identificatie);
@@ -389,8 +370,6 @@ public class DatabaseTest extends TestUtil{
         e.setHoogteniveau(8L);
 
         instance.save(e);
-
-        QueryRunner run = new QueryRunner(datasource);
 
         ResultSetHandler<Waterdeel> h = new BeanHandler<>(Waterdeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
@@ -427,8 +406,6 @@ public class DatabaseTest extends TestUtil{
         e.setTypeFunctioneelGebied("typerdepiep");
         
         instance.save(e);
-
-        QueryRunner run = new QueryRunner(datasource);
 
         ResultSetHandler<FunctioneelGebied> h = new BeanHandler<>(FunctioneelGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
@@ -473,8 +450,6 @@ public class DatabaseTest extends TestUtil{
         e.setTunnelnaam("Hades");
         
         instance.save(e);
-
-        QueryRunner run = new QueryRunner(datasource);
 
         ResultSetHandler<Wegdeel> h = new BeanHandler<>(Wegdeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 

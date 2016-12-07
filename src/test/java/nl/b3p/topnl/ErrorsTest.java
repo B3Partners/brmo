@@ -63,7 +63,6 @@ public class ErrorsTest  extends TestUtil{
         Object jaxb = instance.parse(in, type);
         List<TopNLEntity> terrein = instance.convert(jaxb, type);
         instance.save(terrein.get(0), type);
-        QueryRunner run = new QueryRunner(datasource);
 
         ResultSetHandler<Terrein> handler = new BeanHandler<>(Terrein.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection()))));
 
@@ -80,7 +79,6 @@ public class ErrorsTest  extends TestUtil{
         Object jaxb = instance.parse(in, type);
         List<TopNLEntity> terrein = instance.convert(jaxb, type);
         instance.save(terrein.get(0), type);
-        QueryRunner run = new QueryRunner(datasource);
 
         ResultSetHandler<Terrein> handler = new BeanHandler<>(Terrein.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection()))));
 

@@ -69,4 +69,8 @@ public class HSQLJdbcConverter  extends GeometryJdbcConverter {
         }
     }
 
+    @Override
+    public boolean isPmdKnownBroken() {
+        return false;
+    }
 }

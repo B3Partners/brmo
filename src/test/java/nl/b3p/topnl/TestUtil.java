@@ -21,13 +21,13 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import javax.sql.DataSource;
-import nl.b3p.topnl.entities.TopNLEntity;
+import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
+import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.geotools.gml3.GML.dataSource;
 import org.hsqldb.jdbc.JDBCDataSource;
 import org.junit.After;
 import org.junit.Before;
@@ -44,6 +44,7 @@ public class TestUtil {
     protected DataSource datasource;
     protected boolean useDB = false;
     
+    protected QueryRunner run;
     
     @Rule 
     public TestName testName = new TestName();
@@ -59,7 +60,8 @@ public class TestUtil {
             initDB("initdb250nl.sql");
             initDB("initdb100nl.sql");
             initDB("initdb50nl.sql");
-            int a = 0;
+            GeometryJdbcConverter gjc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection());
+            run = new QueryRunner(datasource, gjc.isPmdKnownBroken() );
         }
     }
     

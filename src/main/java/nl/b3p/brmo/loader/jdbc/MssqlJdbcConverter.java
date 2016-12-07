@@ -52,4 +52,9 @@ public class MssqlJdbcConverter extends GeometryJdbcConverter {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
   
+    @Override
+    public boolean isPmdKnownBroken() {
+        //return true; // microsoft driver
+        return false; // jtds driver
+    }
 }

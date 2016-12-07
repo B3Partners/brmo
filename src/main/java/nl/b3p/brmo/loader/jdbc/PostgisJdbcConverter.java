@@ -51,4 +51,9 @@ public class PostgisJdbcConverter extends GeometryJdbcConverter {
             return null;
         }
     }
+    
+    @Override
+    public boolean isPmdKnownBroken() {
+        return false;
+    }
 }

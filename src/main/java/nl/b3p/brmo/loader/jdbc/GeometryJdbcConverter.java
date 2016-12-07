@@ -20,6 +20,7 @@ public abstract class GeometryJdbcConverter {
     public abstract Object convertToNativeGeometryObject(String param) throws SQLException, ParseException;
     public abstract Geometry convertToJTSGeometryObject(Object nativeObj);
     public abstract String createPSGeometryPlaceholder() throws SQLException;
+    public abstract boolean isPmdKnownBroken();
     
     public abstract String getGeomTypeName();
 

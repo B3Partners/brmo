@@ -89,7 +89,6 @@ public class ProcessorTest extends TestUtil{
         Object jaxb = instance.parse(in, type);
         List<TopNLEntity> hoogte = instance.convert(jaxb, type);
         instance.save(hoogte.get(0), type);
-        QueryRunner run = new QueryRunner(datasource);
 
         ResultSetHandler<Hoogte> handler = new BeanHandler<>(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection()))));
 
@@ -107,7 +106,6 @@ public class ProcessorTest extends TestUtil{
         Object jaxb = instance.parse(in, type);
         List<TopNLEntity> hoogte = instance.convert(jaxb, type);
         instance.save(hoogte.get(0), type);
-        QueryRunner run = new QueryRunner(datasource);
 
         ResultSetHandler<Hoogte> handler = new BeanHandler<>(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection()))));
 

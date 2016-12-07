@@ -40,9 +40,10 @@ public class OracleJdbcConverter extends GeometryJdbcConverter {
     @Override
     public Object convertToNativeGeometryObject(String param) throws SQLException, ParseException {
         // return param;
-        WKTReader reader = new WKTReader(geometryFactory);
+        /*WKTReader reader = new WKTReader(geometryFactory);
         Geometry geom = param == null || param.trim().length() == 0 ? null : reader.read(param);
-        return gc.toSDO(geom, 28992);
+        return gc.toSDO(geom, 28992);*/
+        return null;
     }
 
 
@@ -63,4 +64,8 @@ public class OracleJdbcConverter extends GeometryJdbcConverter {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    @Override
+    public boolean isPmdKnownBroken() {
+        return false;
+    }
 }
