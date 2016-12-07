@@ -95,6 +95,26 @@ public class ProcessorTest extends TestUtil{
         Hoogte real = run.query("SELECT * FROM top250nl.Hoogte WHERE identificatie=?", handler, "NL.TOP250NL.16R09-0000084246");
         assertNotNull(real);
     }
+
+    /**
+     * Test of save method, of class Processor.
+     */
+    @Test
+    public void testSave250MultipleFeature() throws JAXBException, IOException, SAXException, TransformerException, ParserConfigurationException, SQLException, ParseException {
+        System.out.println("save");
+        InputStream in = ProcessorTest.class.getResourceAsStream("top250nl_HoogteMulti.xml");
+        TopNLType type = TopNLType.TOP250NL;
+        Object jaxb = instance.parse(in, type);
+        List<TopNLEntity> hoogte = instance.convert(jaxb, type);
+        instance.save(hoogte, type);
+
+        ResultSetHandler<Hoogte> handler = new BeanHandler<>(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection()))));
+
+        Hoogte real1 = run.query("SELECT * FROM top250nl.Hoogte WHERE identificatie=?", handler, "NL.TOP250NL.16R09-0000084246");
+        assertNotNull(real1);
+        Hoogte real2 = run.query("SELECT * FROM top250nl.Hoogte WHERE identificatie=?", handler, "NL.TOP250NL.16R09-0000084247");
+        assertNotNull(real2);
+    }
     /**
      * Test of save method, of class Processor.
      */
