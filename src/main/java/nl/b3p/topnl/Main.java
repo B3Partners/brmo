@@ -21,11 +21,9 @@ import com.vividsolutions.jts.io.ParseException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
-import java.util.List;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
-import nl.b3p.topnl.entities.TopNLEntity;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,18 +37,18 @@ public class Main {
     protected final static Log log = LogFactory.getLog(Main.class);
     
     public static void main (String[] args) throws IOException, JAXBException, ParseException, SQLException{
-        try {/*
+        try {
             BasicDataSource ds = new BasicDataSource();
             ds.setUrl("jdbc:postgresql://localhost:5432/rsgb_topnl");
             ds.setDriverClassName("org.postgresql.Driver");
             ds.setUsername("rsgb");
             ds.setPassword("rsgb");
-            */
+            /*
             BasicDataSource ds = new BasicDataSource();
             ds.setUrl("jdbc:oracle:thin:@b3p-demoserver:1521/ORCL");
             ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
             ds.setUsername("top50nl");
-            ds.setPassword("top50nl");
+            ds.setPassword("top50nl");*/
             Processor p = new Processor(ds);
             process("top250NL.gml", TopNLType.TOP250NL, p);
             //process("Hoogte_top250nl.xml", TopNLType.TOP250NL, p);
@@ -63,10 +61,10 @@ public class Main {
 
     private static void process(String file, TopNLType type, Processor p) throws ParseException, IOException, SAXException, ParserConfigurationException, JAXBException, TransformerException {
         InputStream in = Main.class.getResourceAsStream(file);
-
-        List obj = p.parse(in, type);
+        p.importIntoDb(in, type);
+       /* List obj = p.parse(in, type);
         List<TopNLEntity> entities = p.convert(obj, type);
-        p.save(entities, type);
+        p.save(entities, type);*/
         int a = 0;
     }
 }

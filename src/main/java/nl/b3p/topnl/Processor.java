@@ -55,8 +55,40 @@ public class Processor {
         converterFactory = new ConverterFactory();
     }
     
+    public void importIntoDb(InputStream in, TopNLType type) {
+        try {
+            Unmarshaller jaxbUnmarshaller = converterFactory.getContext(type).createUnmarshaller();
+
+            XMLInputFactory xif = XMLInputFactory.newFactory();
+
+            XMLStreamReader xsr = xif.createXMLStreamReader(in);
+
+            while (xsr.hasNext()) {
+                int eventType = xsr.next();
+
+                if (eventType == XMLStreamReader.START_ELEMENT) {
+                    String localname = xsr.getLocalName();
+                    if (xsr.getLocalName().equals("FeatureMember")) {
+                        JAXBElement jb = (JAXBElement) jaxbUnmarshaller.unmarshal(xsr);
+                        Object obj = jb.getValue();
+                        ArrayList list = new ArrayList();
+                        list.add(obj);
+                        List<TopNLEntity> entities = convert(list,type);
+                        save(entities, type);
+                    }
+                }
+            }
+
+            xsr.close();
+        } catch (XMLStreamException ex) {
+            log.error("cannot correctly stream xml file:", ex);
+        } catch (JAXBException | IOException | SAXException | ParserConfigurationException | TransformerException | ParseException ex) {
+            log.error("Error parsing", ex);
+        }
+    }
+
     public List parse (InputStream in, TopNLType type) throws  JAXBException{
-            List list = new ArrayList();
+        List list = new ArrayList();
         try {
             Unmarshaller jaxbUnmarshaller = converterFactory.getContext(type).createUnmarshaller();
             
