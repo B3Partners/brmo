@@ -72,9 +72,10 @@ public class ProcessorTest extends TestUtil{
     public void testParse() throws JAXBException {
         System.out.println("parse");
         InputStream in = ProcessorTest.class.getResourceAsStream("top250nl_Hoogte.xml");
-        Object jaxb = instance.parse(in, TopNLType.TOP250NL);
+        List jaxb = instance.parse(in, TopNLType.TOP250NL);
         assertNotNull(jaxb);
-        assertTrue (jaxb instanceof nl.b3p.topnl.top250nl.FeatureCollectionT250NLType);
+        assertEquals(1, jaxb.size());
+        assertTrue (jaxb.get(0) instanceof nl.b3p.topnl.top250nl.FeatureMemberType);
     }
 
 
@@ -86,7 +87,7 @@ public class ProcessorTest extends TestUtil{
         System.out.println("save");
         InputStream in = ProcessorTest.class.getResourceAsStream("top250nl_Hoogte.xml");
         TopNLType type = TopNLType.TOP250NL;
-        Object jaxb = instance.parse(in, type);
+        List jaxb = instance.parse(in, type);
         List<TopNLEntity> hoogte = instance.convert(jaxb, type);
         instance.save(hoogte.get(0), type);
 
@@ -104,7 +105,7 @@ public class ProcessorTest extends TestUtil{
         System.out.println("save");
         InputStream in = ProcessorTest.class.getResourceAsStream("top250nl_HoogteMulti.xml");
         TopNLType type = TopNLType.TOP250NL;
-        Object jaxb = instance.parse(in, type);
+        List jaxb = instance.parse(in, type);
         List<TopNLEntity> hoogte = instance.convert(jaxb, type);
         instance.save(hoogte, type);
 
@@ -123,7 +124,7 @@ public class ProcessorTest extends TestUtil{
         System.out.println("save");
         InputStream in = ProcessorTest.class.getResourceAsStream("top100nl_Hoogte.xml");
         TopNLType type = TopNLType.TOP100NL;
-        Object jaxb = instance.parse(in, type);
+        List jaxb = instance.parse(in, type);
         List<TopNLEntity> hoogte = instance.convert(jaxb, type);
         instance.save(hoogte.get(0), type);
 
@@ -141,7 +142,7 @@ public class ProcessorTest extends TestUtil{
         System.out.println("convert");
         InputStream in = ProcessorTest.class.getResourceAsStream("top250nl_Hoogte.xml");
         TopNLType type = TopNLType.TOP250NL;
-        Object jaxb = instance.parse(in, type);
+        List jaxb = instance.parse(in, type);
         List<TopNLEntity> hoogte = instance.convert(jaxb, type);
         assertEquals(1, hoogte.size());
     }

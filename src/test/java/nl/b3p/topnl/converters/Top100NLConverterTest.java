@@ -83,7 +83,7 @@ public class Top100NLConverterTest extends TestUtil{
         System.out.println("convert");
         Hoogte hoogte = new Hoogte();
         InputStream in = Top100NLConverterTest.class.getResourceAsStream("top100nl/Hoogte.xml");
-        Object jaxb = processor.parse(in, TopNLType.TOP100NL);
+        List jaxb = processor.parse(in, TopNLType.TOP100NL);
 
         List<TopNLEntity> expResult = Collections.singletonList(hoogte);
         List<TopNLEntity> result = instance.convert(jaxb);
@@ -396,8 +396,8 @@ public class Top100NLConverterTest extends TestUtil{
      */
     private TopNLEntity getEntity(String file) throws JAXBException, IOException, SAXException, ParserConfigurationException, TransformerException {
         InputStream in = Top100NLConverterTest.class.getResourceAsStream(file);
-        Object jaxb = processor.parse(in, TopNLType.TOP100NL);
-        TopNLEntity entity = instance.convertObject(jaxb);
+        List jaxb = processor.parse(in, TopNLType.TOP100NL);
+        TopNLEntity entity = instance.convertObject(jaxb.get(0));
         return entity;
     }
     

@@ -30,9 +30,9 @@
 		<!--schemaBindings>
 			<package name="nl.b3p.harvester.imro2012"/>
 		</schemaBindings-->
-    		<bindings node="xsd:complexType[@name='FeatureCollectionT250NLType']/xsd:complexContent/xsd:extension/xsd:sequence/xsd:element[@name='FeatureMember']/xsd:complexType">
+    		<!--bindings node="xsd:complexType[@name='FeatureCollectionT250NLType']/xsd:complexContent/xsd:extension/xsd:sequence/xsd:element[@name='FeatureMember']/xsd:complexType">
 	            <class name="FeatureMember"/>
-	        </bindings>
+	        </bindings-->
 			<!--
 				attributen worden via jaxb bindings niet omgezet naar objecten.
 				Deze worden als xml fragment verder verwerkt.

@@ -43,11 +43,11 @@ public abstract class Converter {
     
     protected GeometryConverter gc = new GeometryConverter();
     
-    public abstract List<TopNLEntity> convert(Object jaxbObject)  throws IOException, SAXException, ParserConfigurationException, TransformerException;
+    public abstract List<TopNLEntity> convert(List jaxbObjects)  throws IOException, SAXException, ParserConfigurationException, TransformerException;
     
     public abstract TopNLEntity convertObject(Object jaxbObject)  throws IOException, SAXException, ParserConfigurationException, TransformerException;
     
-    public abstract List<TopNLEntity> convertFeatureCollection(Object jaxbObject)  throws IOException, SAXException, ParserConfigurationException, TransformerException;
+    public abstract List<TopNLEntity> convertFeatureCollection(List jaxbObject)  throws IOException, SAXException, ParserConfigurationException, TransformerException;
     
     public abstract Hoogte convertHoogte(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
     public abstract FunctioneelGebied convertFunctioneelGebied(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;

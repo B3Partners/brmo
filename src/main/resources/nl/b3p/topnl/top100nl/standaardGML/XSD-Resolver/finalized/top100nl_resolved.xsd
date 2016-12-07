@@ -16,6 +16,21 @@
          <enumeration value="&gt; 6 meter"/>
       </restriction>
   </simpleType>
+
+  	<element name="FeatureMember"
+  		type="top100nl:FeatureMemberType"/>
+
+  	<complexType name="FeatureMemberType">
+     <complexContent>
+        <extension base="gml:AbstractFeatureMemberType">
+           <sequence minOccurs="0">
+              <element ref="top100nl:_Top100nlObject"/>
+           </sequence>
+           <attributeGroup ref="gml:AssociationAttributeGroup"/>
+        </extension>
+     </complexContent>
+ </complexType>
+
    <element name="FeatureCollectionTop100"
             substitutionGroup="gml:AbstractGML"
             type="top100nl:FeatureCollectionTop100Type"/>
@@ -23,22 +38,12 @@
       <complexContent>
          <extension base="gml:AbstractGMLType">
             <sequence>
-               <element maxOccurs="unbounded" minOccurs="0" name="FeatureMember">
-                  <complexType>
-                     <complexContent>
-                        <extension base="gml:AbstractFeatureMemberType">
-                           <sequence minOccurs="0">
-                              <element ref="top100nl:_Top100nlObject"/>
-                           </sequence>
-                           <attributeGroup ref="gml:AssociationAttributeGroup"/>
-                        </extension>
-                     </complexContent>
-                  </complexType>
-               </element>
+               <element maxOccurs="unbounded" minOccurs="0" name="FeatureMember"/>
             </sequence>
          </extension>
       </complexContent>
   </complexType>
+
    <simpleType name="FunctieReliefT100Type">
       <restriction base="string">
          <enumeration value="geluid weren"/>

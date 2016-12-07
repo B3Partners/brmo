@@ -21,7 +21,6 @@ import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigInteger;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,9 +46,7 @@ import nl.b3p.topnl.entities.TopNLEntity;
 import nl.b3p.topnl.entities.Waterdeel;
 import nl.b3p.topnl.entities.Wegdeel;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.xml.sax.SAXException;
@@ -87,7 +84,7 @@ public class Top250NLConverterTest extends TestUtil{
         System.out.println("convert");
         Hoogte hoogte = new Hoogte();
         InputStream in = Top250NLConverterTest.class.getResourceAsStream("top250nl/FeatureCollectionHoogte.xml");
-        Object jaxb = processor.parse(in, TopNLType.TOP250NL);
+        List jaxb = processor.parse(in, TopNLType.TOP250NL);
 
         List<TopNLEntity> expResult = Collections.singletonList(hoogte);
         List<TopNLEntity> result = instance.convert(jaxb);
@@ -101,7 +98,7 @@ public class Top250NLConverterTest extends TestUtil{
         System.out.println("convert");
         Hoogte hoogte = new Hoogte();
         InputStream in = Top250NLConverterTest.class.getResourceAsStream("top250nl/Hoogte.xml");
-        Object jaxb = processor.parse(in, TopNLType.TOP250NL);
+        List jaxb = processor.parse(in, TopNLType.TOP250NL);
 
         List<TopNLEntity> expResult = Collections.singletonList(hoogte);
         List<TopNLEntity> result = instance.convert(jaxb);
@@ -409,8 +406,8 @@ public class Top250NLConverterTest extends TestUtil{
      */
     private TopNLEntity getEntity(String file) throws JAXBException, IOException, SAXException, ParserConfigurationException, TransformerException {
         InputStream in = Top250NLConverterTest.class.getResourceAsStream(file);
-        Object jaxb = processor.parse(in, TopNLType.TOP250NL);
-        TopNLEntity entity = instance.convertObject(jaxb);
+        List jaxb = processor.parse(in, TopNLType.TOP250NL);
+        TopNLEntity entity = instance.convertObject(jaxb.get(0));
         return entity;
     }
     

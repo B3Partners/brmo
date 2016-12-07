@@ -64,7 +64,7 @@ public class Main {
     private static void process(String file, TopNLType type, Processor p) throws ParseException, IOException, SAXException, ParserConfigurationException, JAXBException, TransformerException {
         InputStream in = Main.class.getResourceAsStream(file);
 
-        Object obj = p.parse(in, type);
+        List obj = p.parse(in, type);
         List<TopNLEntity> entities = p.convert(obj, type);
         p.save(entities, type);
         int a = 0;

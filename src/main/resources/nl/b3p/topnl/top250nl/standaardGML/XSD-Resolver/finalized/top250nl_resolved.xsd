@@ -12,6 +12,21 @@
            schemaLocation="brt-algemeen_resolved.xsd"/>
    <import namespace="http://www.opengis.net/gml/3.2"
            schemaLocation="gml_resolved.xsd"/>
+
+   <element name="FeatureMember"
+            type="top250nl:FeatureMemberType"/>
+
+   <complexType name="FeatureMemberType">
+         <complexContent>
+            <extension base="gml:AbstractFeatureMemberType">
+               <sequence minOccurs="0">
+                  <element ref="top250nl:_Top250nlObject"/>
+               </sequence>
+               <attributeGroup ref="gml:AssociationAttributeGroup"/>
+            </extension>
+         </complexContent>
+      </complexType>
+
    <element name="FeatureCollectionT250NL"
             substitutionGroup="gml:AbstractGML"
             type="top250nl:FeatureCollectionT250NLType"/>
@@ -19,18 +34,7 @@
       <complexContent>
          <extension base="gml:AbstractGMLType">
             <sequence>
-               <element maxOccurs="unbounded" minOccurs="0" name="FeatureMember">
-                  <complexType>
-                     <complexContent>
-                        <extension base="gml:AbstractFeatureMemberType">
-                           <sequence minOccurs="0">
-                              <element ref="top250nl:_Top250nlObject"/>
-                           </sequence>
-                           <attributeGroup ref="gml:AssociationAttributeGroup"/>
-                        </extension>
-                     </complexContent>
-                  </complexType>
-               </element>
+               <element maxOccurs="unbounded" minOccurs="0" name="FeatureMember"/>
             </sequence>
          </extension>
       </complexContent>

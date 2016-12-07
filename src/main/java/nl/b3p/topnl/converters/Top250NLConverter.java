@@ -43,7 +43,7 @@ import nl.b3p.topnl.entities.Wegdeel;
 import nl.b3p.topnl.top250nl.BRTJaNeeWaardeType;
 import nl.b3p.topnl.top250nl.CodeType;
 import nl.b3p.topnl.top250nl.FeatureCollectionT250NLType;
-import nl.b3p.topnl.top250nl.FeatureMember;
+import nl.b3p.topnl.top250nl.FeatureMemberType;
 import nl.b3p.topnl.top250nl.FunctioneelGebiedType;
 import nl.b3p.topnl.top250nl.GebouwType;
 import nl.b3p.topnl.top250nl.GeografischGebiedType;
@@ -55,7 +55,6 @@ import nl.b3p.topnl.top250nl.RegistratiefGebiedType;
 import nl.b3p.topnl.top250nl.ReliefType;
 import nl.b3p.topnl.top250nl.SpoorbaandeelType;
 import nl.b3p.topnl.top250nl.TerreinType;
-import nl.b3p.topnl.top250nl.Top250NlObjectType;
 import nl.b3p.topnl.top250nl.Top250NlObjectType;
 import nl.b3p.topnl.top250nl.WaterdeelType;
 import nl.b3p.topnl.top250nl.WegdeelType;
@@ -71,9 +70,9 @@ public class Top250NLConverter extends Converter {
     
     protected SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     @Override
-    public List<TopNLEntity> convert(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public List<TopNLEntity> convert(List jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
         List<TopNLEntity> entities = null;
-        if (jaxbObject instanceof FeatureCollectionT250NLType) {
+        if (jaxbObject instanceof ArrayList) {
             entities = convertFeatureCollection(jaxbObject);
         } else {
             entities = new ArrayList<>();
@@ -83,12 +82,12 @@ public class Top250NLConverter extends Converter {
     }
 
     @Override
-    public List<TopNLEntity> convertFeatureCollection(Object jaxbFeatureCollection) throws IOException, SAXException, ParserConfigurationException, TransformerException {
-        FeatureCollectionT250NLType collection = (FeatureCollectionT250NLType) jaxbFeatureCollection;
+    public List<TopNLEntity> convertFeatureCollection(List featureMembers) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        
         List<TopNLEntity> entities = new ArrayList<>();
 
-        List<FeatureMember> featureMembers = collection.getFeatureMember();
-        for (FeatureMember featureMember : featureMembers) {
+        for (Object fm : featureMembers) {
+            FeatureMemberType featureMember = (FeatureMemberType)fm;
             JAXBElement jaxbObject = featureMember.getTop250NlObject();
             Object obj = jaxbObject.getValue();
             TopNLEntity entity = convertObject(obj);
@@ -101,8 +100,11 @@ public class Top250NLConverter extends Converter {
     @Override
     public TopNLEntity convertObject(Object featureMember) throws IOException, SAXException, ParserConfigurationException, TransformerException {
         TopNLEntity entity = null;
-
-        if (featureMember instanceof HoogteType) {
+        if(featureMember instanceof FeatureMemberType){
+            FeatureMemberType fm = (FeatureMemberType)featureMember;
+            JAXBElement jaxbObject = fm.getTop250NlObject();
+            return convertObject(jaxbObject.getValue());
+        }else if (featureMember instanceof HoogteType) {
             entity = convertHoogte(featureMember);
         } else if (featureMember instanceof FunctioneelGebiedType) {
             entity = convertFunctioneelGebied(featureMember);

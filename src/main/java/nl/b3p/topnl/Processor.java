@@ -55,7 +55,7 @@ public class Processor {
         converterFactory = new ConverterFactory();
     }
   
-   public Object parse(InputStream in, TopNLType type) throws JAXBException {
+   public Object parsed(InputStream in, TopNLType type) throws JAXBException {
         Unmarshaller jaxbUnmarshaller = converterFactory.getContext(type).createUnmarshaller();
         JAXBElement o = (JAXBElement) jaxbUnmarshaller.unmarshal(in);
 
@@ -64,11 +64,11 @@ public class Processor {
         return value;
     }
     
-    public Object parseStreaming (InputStream in, TopNLType type) throws  JAXBException{
+    public List parse (InputStream in, TopNLType type) throws  JAXBException{
+            List list = new ArrayList();
         try {
             Unmarshaller jaxbUnmarshaller = converterFactory.getContext(type).createUnmarshaller();
             
-            List list = new ArrayList();
             XMLInputFactory xif = XMLInputFactory.newFactory();
             
             XMLStreamReader xsr = xif.createXMLStreamReader(in);
@@ -88,16 +88,15 @@ public class Processor {
             }
             
             xsr.close();
-            return list;
         } catch (XMLStreamException ex) {
             log.error("cannot correctly stream xml file:", ex);
         }
-        return null;
+        return list;
     }
     
-    public List<TopNLEntity> convert(Object jaxbObject, TopNLType type)  throws IOException, SAXException, ParserConfigurationException, TransformerException{
+    public List<TopNLEntity> convert(List listOfJaxbObjects, TopNLType type)  throws IOException, SAXException, ParserConfigurationException, TransformerException{
         Converter converter = converterFactory.getConverter(type);
-        List<TopNLEntity> entity = converter.convert(jaxbObject);
+        List<TopNLEntity> entity = converter.convert(listOfJaxbObjects);
         return entity;
     }
     

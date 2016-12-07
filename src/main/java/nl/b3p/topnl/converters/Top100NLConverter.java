@@ -40,8 +40,7 @@ import nl.b3p.topnl.entities.TopNLEntity;
 import nl.b3p.topnl.entities.Waterdeel;
 import nl.b3p.topnl.entities.Wegdeel;
 
-import nl.b3p.topnl.top100nl.FeatureCollectionTop100Type;
-import nl.b3p.topnl.top100nl.FeatureCollectionTop100Type.FeatureMember;
+import nl.b3p.topnl.top100nl.FeatureMemberType;
 import nl.b3p.topnl.top100nl.FunctioneelGebiedType;
 import nl.b3p.topnl.top100nl.FysiekVoorkomenSpoorT100Type;
 import nl.b3p.topnl.top100nl.FysiekVoorkomenWaterT100Type;
@@ -60,7 +59,6 @@ import nl.b3p.topnl.top100nl.Top100NlObjectType.Identificatie;
 import nl.b3p.topnl.top100nl.TypeGebouwT100Type;
 import nl.b3p.topnl.top100nl.WaterdeelType;
 import nl.b3p.topnl.top100nl.WegdeelType;
-import nl.b3p.topnl.top250nl.BRTJaNeeWaardeType;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
@@ -71,9 +69,9 @@ import org.xml.sax.SAXException;
 public class Top100NLConverter extends Converter {
 
     @Override
-    public List<TopNLEntity> convert(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public List<TopNLEntity> convert(List jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
         List<TopNLEntity> entities = null;
-        if (jaxbObject instanceof FeatureCollectionTop100Type) {
+        if (jaxbObject instanceof ArrayList) {
             entities = convertFeatureCollection(jaxbObject);
         } else {
             entities = new ArrayList<>();
@@ -83,12 +81,11 @@ public class Top100NLConverter extends Converter {
     }
 
     @Override
-    public List<TopNLEntity> convertFeatureCollection(Object jaxbFeatureCollection) throws IOException, SAXException, ParserConfigurationException, TransformerException {
-        FeatureCollectionTop100Type collection = (FeatureCollectionTop100Type) jaxbFeatureCollection;
+    public List<TopNLEntity> convertFeatureCollection(List jaxbFeatureCollection) throws IOException, SAXException, ParserConfigurationException, TransformerException {
         List<TopNLEntity> entities = new ArrayList<>();
 
-        List<FeatureMember> featureMembers = collection.getFeatureMember();
-        for (FeatureMember featureMember : featureMembers) {
+        for (Object fm : jaxbFeatureCollection) {
+            FeatureMemberType featureMember = (FeatureMemberType)fm;
             JAXBElement jaxbObject = featureMember.getTop100NlObject();
             Object obj = jaxbObject.getValue();
             TopNLEntity entity = convertObject(obj);
@@ -102,7 +99,11 @@ public class Top100NLConverter extends Converter {
     public TopNLEntity convertObject(Object featureMember) throws IOException, SAXException, ParserConfigurationException, TransformerException {
         TopNLEntity entity = null;
 
-        if (featureMember instanceof HoogteType) {
+         if(featureMember instanceof FeatureMemberType){
+            FeatureMemberType fm = (FeatureMemberType)featureMember;
+            JAXBElement jaxbObject = fm.getTop100NlObject();
+            return convertObject(jaxbObject.getValue());
+        }else if (featureMember instanceof HoogteType) {
             entity = convertHoogte(featureMember);
         } else if (featureMember instanceof FunctioneelGebiedType) {
             entity = convertFunctioneelGebied(featureMember);

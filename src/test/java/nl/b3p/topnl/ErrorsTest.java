@@ -60,7 +60,7 @@ public class ErrorsTest  extends TestUtil{
         System.out.println("save");
         InputStream in = ErrorsTest.class.getResourceAsStream("problems/polygonError1.xml");
         TopNLType type = TopNLType.TOP250NL;
-        Object jaxb = instance.parse(in, type);
+        List jaxb = instance.parse(in, type);
         List<TopNLEntity> terrein = instance.convert(jaxb, type);
         instance.save(terrein.get(0), type);
 
@@ -76,7 +76,7 @@ public class ErrorsTest  extends TestUtil{
         System.out.println("save");
         InputStream in = ErrorsTest.class.getResourceAsStream("problems/polygonError2.xml");
         TopNLType type = TopNLType.TOP250NL;
-        Object jaxb = instance.parse(in, type);
+        List jaxb = instance.parse(in, type);
         List<TopNLEntity> terrein = instance.convert(jaxb, type);
         instance.save(terrein.get(0), type);
 
