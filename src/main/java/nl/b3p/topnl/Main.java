@@ -18,6 +18,8 @@
 package nl.b3p.topnl;
 
 import com.vividsolutions.jts.io.ParseException;
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -39,19 +41,20 @@ public class Main {
     
     public static void main (String[] args) throws IOException, JAXBException, ParseException, SQLException, JDOMException{
         try {
-             /* BasicDataSource ds = new BasicDataSource();
+            BasicDataSource ds = new BasicDataSource();
             ds.setUrl("jdbc:postgresql://localhost:5432/rsgb_topnl");
             ds.setDriverClassName("org.postgresql.Driver");
             ds.setUsername("rsgb");
             ds.setPassword("rsgb");
-          */
-            BasicDataSource ds = new BasicDataSource();
+          
+           /* BasicDataSource ds = new BasicDataSource();
             ds.setUrl("jdbc:oracle:thin:@b3p-demoserver:1521/ORCL");
             ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
             ds.setUsername("top50nl");
-            ds.setPassword("top50nl");
+            ds.setPassword("top50nl");*/
             Processor p = new Processor(ds);
-            process("top250NL.gml", p);
+            loadtop100nl("/mnt/data/Documents/TopNL/TOP100NL_GML_Filechunks_november_2016/TOP100NL_GML_Filechunks", p);
+            //process("top250NL.gml", p);
             //process("Hoogte_top250nl.xml", TopNLType.TOP250NL, p);
             //process("Hoogte_top100nl.xml", TopNLType.TOP100NL, p);
           
@@ -59,10 +62,29 @@ public class Main {
             log.error("Cannot parse/convert/save entity: ", ex);
         }
     }
+    
+    private static void loadtop100nl(String dir, Processor p)  throws ParseException, IOException, SAXException, ParserConfigurationException, JAXBException, TransformerException, JDOMException {
+        File f = new File (dir);
+        FilenameFilter filter = new  FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.toLowerCase().endsWith(".gml");
+            }
+        };
+        /*File f = new File("/mnt/data/Documents/TopNL/TOP100NL_GML_Filechunks_november_2016/TOP100NL_GML_Filechunks/Top100NL_000002.gml");
+        p.importIntoDb(f.toURL(), TopNLType.TOP100NL);*/
+        File[] files = f.listFiles(filter);
+        for (File file : files) {
+            
+            String fileString = file.getCanonicalPath();
+            p.importIntoDb(file.toURL(), TopNLType.TOP100NL);
+            
+        }
+    }
 
-    private static void process(String file,  Processor p) throws ParseException, IOException, SAXException, ParserConfigurationException, JAXBException, TransformerException, JDOMException {
+    private static void process(String file,  Processor p, TopNLType type) throws ParseException, IOException, SAXException, ParserConfigurationException, JAXBException, TransformerException, JDOMException {
         URL in = Main.class.getResource(file);
-        p.importIntoDb(in);
+        p.importIntoDb(in, type);
        /* List obj = p.parse(in, type);
         List<TopNLEntity> entities = p.convert(obj, type);
         p.save(entities, type);*/

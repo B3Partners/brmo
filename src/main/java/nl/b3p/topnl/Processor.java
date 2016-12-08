@@ -23,6 +23,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sql.DataSource;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -57,12 +59,11 @@ public class Processor {
         converterFactory = new ConverterFactory();
     }
     
-    public void importIntoDb(URL in) throws JDOMException {
+    public void importIntoDb(URL in, TopNLType type) throws JDOMException {
+        XMLInputFactory xif = XMLInputFactory.newFactory();
         try {
-            TopNLType type = TopNLTypeFactory.getTopNLType(in);
+            log.info("Importing file " + in.toExternalForm() + ", type: " + type.getType());
             Unmarshaller jaxbUnmarshaller = converterFactory.getContext(type).createUnmarshaller();
-
-            XMLInputFactory xif = XMLInputFactory.newFactory();
 
             XMLStreamReader xsr = xif.createXMLStreamReader(in.openStream());
 
@@ -72,22 +73,24 @@ public class Processor {
                 if (eventType == XMLStreamReader.START_ELEMENT) {
                     String localname = xsr.getLocalName();
                     if (xsr.getLocalName().equals("FeatureMember")) {
-                        JAXBElement jb = (JAXBElement) jaxbUnmarshaller.unmarshal(xsr);
-                        Object obj = jb.getValue();
-                        ArrayList list = new ArrayList();
-                        list.add(obj);
-                        List<TopNLEntity> entities = convert(list,type);
-                        save(entities, type);
+                        try {
+                            JAXBElement jb = (JAXBElement) jaxbUnmarshaller.unmarshal(xsr);
+                            Object obj = jb.getValue();
+                            ArrayList list = new ArrayList();
+                            list.add(obj);
+                            List<TopNLEntity> entities = convert(list, type);
+                            save(entities, type);
+                        } catch (JAXBException | IOException | SAXException | ParserConfigurationException | TransformerException | ParseException ex) {
+                            log.error("Error parsing", ex);
+                        }
                     }
                 }
             }
 
             xsr.close();
-        } catch (XMLStreamException ex) {
+        } catch (XMLStreamException | IOException | JAXBException ex) {
             log.error("cannot correctly stream xml file:", ex);
-        } catch (JAXBException | IOException | SAXException | ParserConfigurationException | TransformerException | ParseException ex) {
-            log.error("Error parsing", ex);
-        }
+        } 
     }
 
     public List parse (URL in) throws  JAXBException,  IOException{

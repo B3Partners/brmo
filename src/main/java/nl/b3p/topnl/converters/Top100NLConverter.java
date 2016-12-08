@@ -59,6 +59,8 @@ import nl.b3p.topnl.top100nl.Top100NlObjectType.Identificatie;
 import nl.b3p.topnl.top100nl.TypeGebouwT100Type;
 import nl.b3p.topnl.top100nl.WaterdeelType;
 import nl.b3p.topnl.top100nl.WegdeelType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
@@ -68,6 +70,7 @@ import org.xml.sax.SAXException;
  */
 public class Top100NLConverter extends Converter {
 
+    protected final static Log log = LogFactory.getLog(Top100NLConverter.class);
     @Override
     public List<TopNLEntity> convert(List jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
         List<TopNLEntity> entities = null;
@@ -131,6 +134,7 @@ public class Top100NLConverter extends Converter {
             throw new IllegalArgumentException("Type not recognized: " + featureMember.getClass());
         }
 
+        log.debug("Converted type " + entity.getClass());
         entity.setTopnltype(TopNLType.TOP100NL.getType());
         return entity;
     }
@@ -165,7 +169,7 @@ public class Top100NLConverter extends Converter {
         entity.setBronactualiteit(type.getBronactualiteit().getTime());
         entity.setBronbeschrijving(type.getBronbeschrijving());
         entity.setObjectBeginTijd(type.getObjectBeginTijd().getTime());
-        entity.setVisualisatieCode(type.getVisualisatieCode().longValue());
+        entity.setVisualisatieCode(type.getVisualisatieCode() != null ? type.getVisualisatieCode().longValue() : null);
     }
 
     @Override
@@ -230,7 +234,7 @@ public class Top100NLConverter extends Converter {
 
         ie.setGeometrie(gc.convertGeometry(i.getGeometrie()));
 
-        ie.setTypeInrichtingselement(i.getTypeInrichtingsElement().value());
+        ie.setTypeInrichtingselement(i.getTypeInrichtingsElement() != null ? i.getTypeInrichtingsElement().value() : null);
         ie.setStatus(i.getStatus().value());
         ie.setHoogteniveau(i.getHoogteNiveau().longValue());
 
@@ -254,7 +258,7 @@ public class Top100NLConverter extends Converter {
         rg.setNaamFries(String.join(",", r.getNaamFries()));
         rg.setNaamNL(String.join(",", r.getNaamNL()));
         rg.setNummer(String.join(",", r.getNummer()));
-        rg.setTypeRegistratiefGebied(r.getTypeRegistratiefGebied().value());
+        rg.setTypeRegistratiefGebied(r.getTypeRegistratiefGebied() != null ? r.getTypeRegistratiefGebied().value() : null);
         return rg;
     }
 
@@ -268,7 +272,7 @@ public class Top100NLConverter extends Converter {
         rg.setGeometrie((LineString) gc.convertGeometry(r.getGeometrie()));
 
         rg.setHoogteklasse(r.getHoogteklasse());
-        rg.setTypeRelief(r.getTypeRelief().value());
+        rg.setTypeRelief(r.getTypeRelief() != null ? r.getTypeRelief().value() : null);
         rg.setHoogteniveau(r.getHoogteniveau().longValue());
 
         return rg;
@@ -292,7 +296,7 @@ public class Top100NLConverter extends Converter {
         }
         rg.setFysiekVoorkomen(fysieks);
         
-        rg.setTypeSpoorbaan(r.getTypeSpoorbaan().value());
+        rg.setTypeSpoorbaan(r.getTypeSpoorbaan() != null ? r.getTypeSpoorbaan().value() : null);
         rg.setAantalSporen(r.getAantalSporen().toString());
         rg.setStatus(r.getStatus().value());
         rg.setHoogteniveau(r.getHoogteniveau().longValue());

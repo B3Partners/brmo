@@ -42,7 +42,6 @@ import nl.b3p.topnl.entities.Waterdeel;
 import nl.b3p.topnl.entities.Wegdeel;
 import nl.b3p.topnl.top250nl.BRTJaNeeWaardeType;
 import nl.b3p.topnl.top250nl.CodeType;
-import nl.b3p.topnl.top250nl.FeatureCollectionT250NLType;
 import nl.b3p.topnl.top250nl.FeatureMemberType;
 import nl.b3p.topnl.top250nl.FunctioneelGebiedType;
 import nl.b3p.topnl.top250nl.GebouwType;
@@ -58,6 +57,8 @@ import nl.b3p.topnl.top250nl.TerreinType;
 import nl.b3p.topnl.top250nl.Top250NlObjectType;
 import nl.b3p.topnl.top250nl.WaterdeelType;
 import nl.b3p.topnl.top250nl.WegdeelType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
@@ -67,6 +68,7 @@ import org.xml.sax.SAXException;
  */
 public class Top250NLConverter extends Converter {
 
+    protected final static Log log = LogFactory.getLog(Top250NLConverter.class);
     
     protected SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     @Override
@@ -131,7 +133,7 @@ public class Top250NLConverter extends Converter {
         } else {
             throw new IllegalArgumentException("Type not recognized: " + featureMember.getClass());
         }
-
+        log.debug("Converted type " + entity.getClass());
         entity.setTopnltype(TopNLType.TOP250NL.getType());
         return entity;
     }

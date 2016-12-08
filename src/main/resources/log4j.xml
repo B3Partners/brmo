@@ -27,7 +27,7 @@ LEVELS: debug, info, warn, error, fatal en off, all -->
         <level value="debug" />
     </logger>
     <root>
-        <level value="info" />
+        <priority value ="info"></priority>
         <appender-ref ref="file" />
     </root>
 </log4j:configuration>

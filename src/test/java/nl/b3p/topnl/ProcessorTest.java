@@ -104,7 +104,7 @@ public class ProcessorTest extends TestUtil{
         System.out.println("save");
         URL in = ProcessorTest.class.getResource("top250nl_Hoogte.xml");
         TopNLType type = TopNLType.TOP250NL;
-        instance.importIntoDb(in);
+        instance.importIntoDb(in, type);
         ResultSetHandler<Hoogte> handler = new BeanHandler<>(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection()))));
 
         Hoogte real = run.query("SELECT * FROM top250nl.Hoogte WHERE identificatie=?", handler, "NL.TOP250NL.16R09-0000084246");
