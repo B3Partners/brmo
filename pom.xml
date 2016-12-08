@@ -15,6 +15,7 @@
         <module>brmo-proxyservice</module>
         <module>brmo-soap</module>
         <module>brmo-dist</module>
+        <module>brmo-test-util</module>
     </modules>
     <name>BRMO</name>
     <description>B3Partners BRMO applicatie</description>
@@ -527,7 +528,7 @@
                         <includes>
                             <include>**/*IntegrationTest.java</include>
                         </includes>
-                        <systemPropertyVariables />
+                        <systemPropertyVariables/>
                         <trimStackTrace>false</trimStackTrace>
                         <useFile>false</useFile>
                         <skipTests>!${test.onlyITs}</skipTests>
@@ -563,10 +564,9 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>2.10.4</version>
                     <configuration>
-                        <debug>${debug}</debug>
                         <stylesheet>java</stylesheet>
                         <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
-                        <additionalparam>-all -hide java.* -hide javax.* -hide org.* -inferrel -inferreltype</additionalparam>
+                        <additionalparam>-all -hide java.* -hide javax.* -hide org.* -inferrel</additionalparam>
                         <docletArtifact>
                             <groupId>org.umlgraph</groupId>
                             <artifactId>umlgraph</artifactId>
@@ -575,8 +575,8 @@
                         <show>package</show>
                         <useStandardDocletOptions>true</useStandardDocletOptions>
                         <links>
-                            <link>http://www.slf4j.org/apidocs</link>
-                            <link>http://download.oracle.com/javaee/6/api</link>
+                            <link>http://www.slf4j.org/apidocs/</link>
+                            <link>http://download.oracle.com/javaee/7/api/</link>
                             <link>https://docs.jboss.org/hibernate/core/3.6/javadocs/</link>
                             <link>http://docs.geotools.org/stable/javadocs/</link>
                             <link>https://logging.apache.org/log4j/1.2/apidocs/</link>

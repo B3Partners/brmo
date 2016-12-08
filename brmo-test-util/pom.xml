@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>nl.b3p</groupId>
+        <artifactId>brmo</artifactId>
+        <version>1.4.1-SNAPSHOT</version>
+    </parent>
+    <groupId>nl.b3p</groupId>
+    <artifactId>brmo-test-util</artifactId>
+    <version>1.4.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>BRMO test-util</name>
+    <description>Test utilities voor de BRMO</description>
+    <inceptionYear>2016</inceptionYear>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <defaultGoal>compile</defaultGoal>
+        <plugins />
+    </build>
+</project>
