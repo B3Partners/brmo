@@ -607,12 +607,17 @@ public class EigendomInfo {
             resultNames.append(" zr.ar_noemer as noemer, ");
             resultNames.append(" inp.bsn as bsn, ");
             resultNames.append(" innp.rsin as rsin, ");
-            resultNames.append(" su.kvk_nummer as kvk ");
+            resultNames.append(" su.kvk_nummer as kvk, ");
+            resultNames.append(" zra.aard_aantek_recht as aard, ");
+            resultNames.append(" zra.beschrijving_aantek_recht as beschrijving, ");
+            resultNames.append(" zra.eindd_aantek_recht as einddatum ");
 
             StringBuilder fromSQL = new StringBuilder("  zak_recht zr ");
             fromSQL.append(" LEFT OUTER JOIN aard_verkregen_recht ar ");
             fromSQL.append(" ON (zr.fk_3avr_aand = ar.aand) ");
-            fromSQL.append(" INNER JOIN subject su ");
+            fromSQL.append(" LEFT OUTER JOIN zak_recht_aantek zra ");
+            fromSQL.append(" ON ( zr.kadaster_identif = zra.fk_5zkr_kadaster_identif) ");
+            fromSQL.append(" LEFT OUTER JOIN subject su ");
             fromSQL.append(" ON (su.identif = zr.fk_8pes_sc_identif) ");
             fromSQL.append(" LEFT OUTER JOIN ingeschr_nat_prs inp ");
             fromSQL.append(" ON (su.identif = inp.sc_identif) ");
@@ -620,16 +625,18 @@ public class EigendomInfo {
             fromSQL.append(" ON (su.identif = innp.sc_identif)  ");
 
             StringBuilder whereSQL = new StringBuilder();
-            if (type!=null && type.equals("grondperceel")) {
-                //van grondperceel bij app_re is alleen erfpacht interessant
-                //onderscheid tussen tenaamstelling en ander zakelijk recht onduidelijk
-                whereSQL.append(" zr.fk_3avr_aand = '3' ");
-            } else {
-                whereSQL.append(" zr.kadaster_identif like 'NL.KAD.Tenaamstelling%' ");
-            }
+//            if (type!=null && type.equals("grondperceel")) {
+//                //van grondperceel bij app_re is alleen erfpacht interessant
+//                //onderscheid tussen tenaamstelling en ander zakelijk recht onduidelijk
+//                whereSQL.append(" zr.fk_3avr_aand = '3' ");
+//            } else {
+//                whereSQL.append(" zr.kadaster_identif like 'NL.KAD.Tenaamstelling%' ");
+//            }
+//            whereSQL.append(" and ");
+            //zra.aard_aantek_recht <> 'Raadpleeg brondocument' ;            
 
-            whereSQL.append(" and zr.fk_7koz_kad_identif = ? ");
-
+            whereSQL.append(" zr.fk_7koz_kad_identif = ? ");
+            
             sql = createSelectSQL(resultNames, fromSQL,
                     whereSQL, null, dbType);
             stm = conn.prepareStatement(sql.toString());
@@ -647,21 +654,32 @@ public class EigendomInfo {
                 if (rs.getString("subject_id") != null) {
                     entry.setBSN(rs.getString("subject_id"));
                 }
-//                if (rs.getString("kvk")!=null) {
-//                    entry.setBSN(rs.getString("kvk"));
-//                }
-//                if (rs.getString("rsin")!=null) {
-//                    entry.setBSN(rs.getString("rsin"));
-//                }
+                if (rs.getString("kvk")!=null) {
+                    entry.setBSN(rs.getString("kvk"));
+                }
+                if (rs.getString("rsin")!=null) {
+                    entry.setBSN(rs.getString("rsin"));
+                }
                 if (rs.getString("bsn")!=null) {
                     entry.setBSN(rs.getString("bsn"));
                 }
                 if (rs.getString("noemer") != null) {
                     entry.setNoemer(rs.getString("noemer"));
                 }
-                if (rs.getString("teller") != null) {
-                    entry.setTeller(rs.getString("teller"));
+
+                if (rs.getString("aard") != null) {
+                    entry.setAardRecht(entry.getAardRecht() + 
+                            " - " + rs.getString("aard"));
                 }
+                if (rs.getString("beschrijving") != null) {
+                    entry.setAardRecht(entry.getAardRecht() + 
+                            " - " + rs.getString("beschrijving"));
+                }
+                if (rs.getString("einddatum") != null) {
+                    entry.setAardRecht(entry.getAardRecht() + 
+                            " - " + rs.getString("einddatum"));
+                }
+                
                 zrn.getZakelijkRecht().add(entry);
             }
 
