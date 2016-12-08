@@ -23,9 +23,44 @@
 		<bsn>
 			<xsl:value-of select="$persoon/gba:BSN"/>
 		</bsn>
-	</xsl:template>
+                <gb_geboorteplaats>
+                    <xsl:value-of select="$persoon/gba:geboorte/gba:geboorteplaats"/>
+                </gb_geboorteplaats>
+                <gb_geboortedatum>
+                                <xsl:for-each select="$persoon/gba:geboorte/gba:geboortedatum"><xsl:call-template name="numeric-date"/></xsl:for-each>
+                </gb_geboortedatum>
+                <ol_overlijdensdatum>
+                    <xsl:for-each select="$persoon/gba:overlijden/gba:datumOverlijden"><xsl:call-template name="numeric-date"/></xsl:for-each>
+                </ol_overlijdensdatum>
+                <xsl:for-each select="$persoon/pers:woonlocatie">
+                                <va_loc_beschrijving>
+                                        <xsl:call-template name="describe-locatie"/>
+                                </va_loc_beschrijving>
+                </xsl:for-each>
+        </xsl:template>        
 	<xsl:template name="nen_identificatie">
 		<xsl:param name="id"/>
 		<xsl:value-of select="$id/nen:namespace"/>.<xsl:value-of select="$id/nen:lokaalId"/>
 	</xsl:template>
+	<!-- jjjj-mm-dd -> jjjjmmdd -->
+	<xsl:template name="numeric-date">
+		<xsl:value-of select="concat(substring(.,1,4),substring(.,6,2),substring(.,9,2))"/>
+	</xsl:template>
+	<xsl:template name="describe-locatie" xmlns:adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20120201">
+		<xsl:for-each select="adres:PostbusAdres">
+			Postbus <xsl:value-of select="adres:postbusnummer"/>, <xsl:value-of select="adres:postcode"/><xsl:text> </xsl:text><xsl:value-of select="adres:woonplaatsNaam"/>
+		</xsl:for-each>
+		<xsl:for-each select="adres:KADBinnenlandsAdres">
+			<xsl:value-of select="adres:openbareRuimteNaam"/><xsl:text> </xsl:text><xsl:value-of select="adres:huisNummer"/><xsl:for-each select="adres:huisNummerToevoeging"><xsl:text> </xsl:text><xsl:value-of select="."/></xsl:for-each><xsl:for-each select="adres:huisLetter"><xsl:text> </xsl:text><xsl:value-of select="."/></xsl:for-each>, <xsl:value-of select="adres:postcode"/><xsl:text> </xsl:text><xsl:value-of select="adres:woonplaatsNaam"/>
+		</xsl:for-each>
+		<xsl:for-each select="bagadres:Ligplaats | bagadres:Standplaats | bagadres:Verlijfsobject">
+			BAG ID: <xsl:value-of select="bagadres:BAGIdentificatie"/>
+		</xsl:for-each>
+		<xsl:for-each select="gba:BuitenlandsAdres">
+			<xsl:value-of select="gba:adres"/>, <xsl:value-of select="gba:woonplaats"/><xsl:for-each select="gba:regio">, <xsl:value-of select="."/></xsl:for-each>, <xsl:value-of select="gba:land/typ:waarde"/>
+		</xsl:for-each>
+		<xsl:for-each select="adres:KADBuitenlandsAdres">
+			<xsl:value-of select="adres:adres"/>, <xsl:value-of select="adres:woonplaats"/><xsl:for-each select="adres:regio">, <xsl:value-of select="adres:regio"/></xsl:for-each>, <xsl:value-of select="adres:land"/>
+		</xsl:for-each>
+	</xsl:template>        
 </xsl:stylesheet>

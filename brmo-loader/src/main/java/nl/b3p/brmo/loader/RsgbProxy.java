@@ -592,8 +592,17 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
             for (TableData newData : newList) {
                 for (TableRow row : newData.getRows()) {
-                    createUpdateSql(row, new StringBuilder());
-                }
+                    
+                    boolean comfortFound = rowExistsInDb(row, new StringBuilder());
+                    
+                    // zoek obv natural key op in rsgb
+                    if (comfortFound) {
+                        createUpdateSql(row, new StringBuilder());
+                    } else {
+                        // insert all comfort records into hoofdtabel
+                        createInsertSql(row, false, new StringBuilder());
+                    }
+                }                
             }
 
             connRsgb.commit();
@@ -753,20 +762,22 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 // indien wel bestaat en herkomst_br/datum identiek: gegevens uit stand al geinsert, negeer
                 // indien wel bestaat en herkomst_br/datum anders: update en insert nieuwe herkomst
                 // comfort data
-                String subclass = newData.getRows().get(newData.getRows().size() - 1).getTable();
                 String tabel = newData.getComfortSearchTable();
                 String kolom = newData.getComfortSearchColumn();
                 String waarde = newData.getComfortSearchValue();
                 String datum = newData.getComfortSnapshotDate();
-
-                loadLog.append(String.format("\n\nComfort data voor %s (superclass: %s, %s=%s), controleer aanwezigheid in superclass tabel",
-                        subclass, tabel, kolom, waarde));
-
-                Split split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.exists").start();
-                boolean comfortFound = rowExistsInDb(newData.getRows().get(0), loadLog);
-                split2.stop();
+                
+                Split split2 = null;
 
                 for (TableRow row : newData.getRows()) {
+                    
+                    String subclass = row.getTable();
+                    loadLog.append(String.format("\n\nComfort data voor %s (class: %s, %s=%s), controleer aanwezigheid in tabel",
+                            subclass, tabel, kolom, waarde));
+                    split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.exists").start();
+                    boolean comfortFound = rowExistsInDb(row, loadLog);
+                    split2.stop();
+                    
                     // zoek obv natural key op in rsgb
                     if (comfortFound) {
                         split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.update").start();
