@@ -679,6 +679,10 @@ public class EigendomInfo {
                     entry.setAardRecht(entry.getAardRecht() + 
                             " - " + rs.getString("einddatum"));
                 }
+                if (type!=null && type.equals("grondperceel")) {
+                    entry.setAardRecht(entry.getAardRecht() + 
+                            " [" + type + "]");
+                }
                 
                 zrn.getZakelijkRecht().add(entry);
             }
