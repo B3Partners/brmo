@@ -19,5 +19,8 @@
             <stripes:submit name="perform">Uitvoeren</stripes:submit>
             
         </stripes:form>
+        <p>
+            Documentatie van de geavanceerde functies is beschikbaar op <a href="https://github.com/B3Partners/brmo/wiki/Geavanceerde-functies" target="_blank">de wiki</a>.
+        </p>
     </stripes:layout-component>
 </stripes:layout-render>

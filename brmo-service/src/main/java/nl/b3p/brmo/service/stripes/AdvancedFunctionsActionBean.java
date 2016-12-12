@@ -201,6 +201,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
     public void populateAdvancedFunctionProcesses() {
 
         // XXX move to configuration file
+        // bij een nieuw proces ook de wiki bijwerken: https://github.com/B3Partners/brmo/wiki/Geavanceerde-functies
         advancedFunctionProcesses = Arrays.asList(new AdvancedFunctionProcess[]{
             new AdvancedFunctionProcess("Exporteren BRK mutaties", BrmoFramework.BR_BRK, "/tmp/brkmutaties"),
             new AdvancedFunctionProcess("Repareren BRK mutaties met status STAGING_NOK", BrmoFramework.BR_BRK, Bericht.STATUS.STAGING_NOK.toString()),

@@ -20,5 +20,8 @@
             <stripes:submit name="update">Updaten</stripes:submit>
             
         </stripes:form>
+        <p>
+            Documentatie van de snelle updates is beschikbaar op <a href="https://github.com/B3Partners/brmo/wiki/Snelle-updates" target="_blank">de wiki</a>.
+        </p>
     </stripes:layout-component>
 </stripes:layout-render>

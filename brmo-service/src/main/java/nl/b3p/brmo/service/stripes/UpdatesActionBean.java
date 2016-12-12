@@ -155,7 +155,8 @@ public class UpdatesActionBean implements ActionBean, ProgressUpdateListener {
 
         // XXX move to configuration file
 
-        updateProcesses = Arrays.asList(new UpdateProcess[] {
+        updateProcesses = Arrays.asList(new UpdateProcess[]{
+            // bij een nieuw proces ook de wiki bijwerken: https://github.com/B3Partners/brmo/wiki/Snelle-updates
             new UpdateProcess("Toevoegen BSN aan ingeschreven natuurlijk persoon", BrmoFramework.BR_BRK, "/xsl/update-bsn.xsl"),
             new UpdateProcess("Toevoegen RSIN aan ingeschreven niet-natuurlijk persoon", BrmoFramework.BR_BRK, "/xsl/update-rsin.xsl"),
             new UpdateProcess("Bijwerken van omschrijving, datum en ref_id in brondocument", BrmoFramework.BR_BRK, "/xsl/update-brondocument.xsl")
