@@ -652,16 +652,19 @@ public class EigendomInfo {
                     entry.setAardRecht(rs.getString("aardrecht"));
                 }
                 if (rs.getString("subject_id") != null) {
-                    entry.setBSN(rs.getString("subject_id"));
+                    entry.setBSN("Kad-ID: " + rs.getString("subject_id"));
                 }
                 if (rs.getString("kvk")!=null) {
-                    entry.setBSN(rs.getString("kvk"));
+                    entry.setBSN("KvK: " + rs.getString("kvk"));
                 }
                 if (rs.getString("rsin")!=null) {
-                    entry.setBSN(rs.getString("rsin"));
+                    entry.setBSN("RSIN: " + rs.getString("rsin"));
                 }
                 if (rs.getString("bsn")!=null) {
                     entry.setBSN(rs.getString("bsn"));
+                }
+                if (rs.getString("teller") != null) {
+                    entry.setTeller(rs.getString("teller"));
                 }
                 if (rs.getString("noemer") != null) {
                     entry.setNoemer(rs.getString("noemer"));
