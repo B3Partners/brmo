@@ -49,6 +49,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
 <tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
 <tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
+<tr><td align="left" balign="left"> + getStandBerichtenVerwerkingsLimiet() : long </td></tr>
+<tr><td align="left" balign="left"> + setStandBerichtenVerwerkingsLimiet(standBerichtenVerwerkingsLimiet : long) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TransformActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.stripes.TransformActionBean implements net.sourceforge.stripes.action.ActionBean
