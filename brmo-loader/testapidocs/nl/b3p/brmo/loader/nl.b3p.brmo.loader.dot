@@ -57,6 +57,7 @@ digraph G {
 <tr><td align="left" balign="left"> + setEnablePipeline(arg0 : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setTransformPipelineCapacity(arg0 : int) </td></tr>
 <tr><td align="left" balign="left"> + setBatchCapacity(arg0 : int) </td></tr>
+<tr><td align="left" balign="left"> + setLimitStandBerichtenToTransform(arg0 : Integer) </td></tr>
 <tr><td align="left" balign="left"> + setOrderBerichten(arg0 : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setErrorState(arg0 : String) </td></tr>
 <tr><td align="left" balign="left"> + closeBrmoFramework() </td></tr>

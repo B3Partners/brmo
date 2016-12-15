@@ -100,6 +100,7 @@ digraph G {
 <tr><td align="left" balign="left"> + getLaadProcessenIds(sort : String, dir : String, filterSoort : String, filterStatus : String) : Long[] </td></tr>
 <tr><td align="left" balign="left"> ~ getOldBericht(nieuwBericht : Bericht) : Bericht </td></tr>
 <tr><td align="left" balign="left"> + setBatchCapacity(batchCapacity : Integer) </td></tr>
+<tr><td align="left" balign="left"> + setLimitStandBerichtenToTransform(limitStandBerichtenToTransform : Integer) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./StagingProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.BrmoFramework
@@ -130,6 +131,7 @@ digraph G {
 <tr><td align="left" balign="left"> + setEnablePipeline(enablePipeline : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setTransformPipelineCapacity(pipelineCapacity : int) </td></tr>
 <tr><td align="left" balign="left"> + setBatchCapacity(batchCapacity : int) </td></tr>
+<tr><td align="left" balign="left"> + setLimitStandBerichtenToTransform(limitStandBerichtenToTransform : Integer) </td></tr>
 <tr><td align="left" balign="left"> + setOrderBerichten(orderBerichten : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setErrorState(errorState : String) </td></tr>
 <tr><td align="left" balign="left"> + closeBrmoFramework() </td></tr>
@@ -172,6 +174,7 @@ digraph G {
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getGeomTypeName() : String </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isDuplicateKeyViolationMessage(message : String) : boolean </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + buildPaginationSql(sql : String, offset : int, limit : int) : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + buildLimitSql(sql : StringBuilder, limit : int) : StringBuilder </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + useSavepoints() : boolean </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isPmdKnownBroken() : boolean </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getGeotoolsDBTypeName() : String </font></td></tr>

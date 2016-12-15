@@ -26,6 +26,7 @@ digraph G {
 <tr><td align="left" balign="left"> + setSchema(schema : String) </td></tr>
 <tr><td align="left" balign="left"> + getGeomTypeName() : String </td></tr>
 <tr><td align="left" balign="left"> + buildPaginationSql(sql : String, offset : int, limit : int) : String </td></tr>
+<tr><td align="left" balign="left"> + buildLimitSql(sql : StringBuilder, limit : int) : StringBuilder </td></tr>
 <tr><td align="left" balign="left"> + useSavepoints() : boolean </td></tr>
 <tr><td align="left" balign="left"> + isPmdKnownBroken() : boolean </td></tr>
 <tr><td align="left" balign="left"> + getGeotoolsDBTypeName() : String </td></tr>
@@ -47,6 +48,7 @@ digraph G {
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getGeomTypeName() : String </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isDuplicateKeyViolationMessage(message : String) : boolean </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + buildPaginationSql(sql : String, offset : int, limit : int) : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + buildLimitSql(sql : StringBuilder, limit : int) : StringBuilder </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + useSavepoints() : boolean </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isPmdKnownBroken() : boolean </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getGeotoolsDBTypeName() : String </font></td></tr>
@@ -70,6 +72,7 @@ digraph G {
 <tr><td align="left" balign="left"> + setSchema(schema : String) </td></tr>
 <tr><td align="left" balign="left"> + getGeomTypeName() : String </td></tr>
 <tr><td align="left" balign="left"> + buildPaginationSql(sql : String, offset : int, limit : int) : String </td></tr>
+<tr><td align="left" balign="left"> + buildLimitSql(sql : StringBuilder, limit : int) : StringBuilder </td></tr>
 <tr><td align="left" balign="left"> + useSavepoints() : boolean </td></tr>
 <tr><td align="left" balign="left"> + isPmdKnownBroken() : boolean </td></tr>
 <tr><td align="left" balign="left"> + getGeotoolsDBTypeName() : String </td></tr>
@@ -152,6 +155,7 @@ digraph G {
 <tr><td align="left" balign="left"> + setSchema(schema : String) </td></tr>
 <tr><td align="left" balign="left"> + getGeomTypeName() : String </td></tr>
 <tr><td align="left" balign="left"> + buildPaginationSql(sql : String, offset : int, limit : int) : String </td></tr>
+<tr><td align="left" balign="left"> + buildLimitSql(sql : StringBuilder, limit : int) : StringBuilder </td></tr>
 <tr><td align="left" balign="left"> + useSavepoints() : boolean </td></tr>
 <tr><td align="left" balign="left"> + isPmdKnownBroken() : boolean </td></tr>
 <tr><td align="left" balign="left"> + getGeotoolsDBTypeName() : String </td></tr>
