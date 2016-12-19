@@ -86,7 +86,7 @@
           </gmd:CI_Citation>
         </gmd:citation>
         <gmd:abstract>
-          <gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">Kadastrale percelen plus appartementen op de percelen</gco:CharacterString>
+          <gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">Kadastrale percelen plus appartementen op de percelen (een vlak kan meerdere keren voorkomen; 1x voor het perceel en vervolgens voor ieder appartement nog eens).</gco:CharacterString>
         </gmd:abstract>
         <gmd:purpose>
           <gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">analyse en planning</gco:CharacterString>
@@ -406,7 +406,7 @@
             <gmd:processStep>
               <gmd:LI_ProcessStep>
                 <gmd:description>
-                  <gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">INHOUD ATTRIBUTENTABEL:\n\nOBJECTID: (uniek, willekeurig) rijnummer uit de database.\nKADASTER_IDENTIFICATIE: BRK identificatie nummer van de onroerende zaak.\nTYPE: het type object (perceel of appartement).\nKA_DEELPERCEELNUMMER: deelperceel nummer van de kadastrale aanduiding.\nKA_APPARTEMENTSINDEX: appartementsindex van de kadastrale aanduiding.\nKA_PERCEELNUMMER: perceelnummer van de kadastrale aanduiding.\nKA_KAD_GEMEENTECODE: gemeente code van de kadastrale aanduiding.\nKA_SECTIE: sectie letter van de kadastrale aanduiding.\nBEGRENZING_PERCEEL: perceel geometrie (vlak).</gco:CharacterString>
+                  <gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">INHOUD ATTRIBUTENTABEL:\n\nOBJECTID: (uniek, willekeurig) rijnummer uit de database.\nKADASTER_IDENTIFICATIE: BRK identificatienummer van de onroerende zaak.\nTYPE: het type object (perceel of appartement).\nKA_DEELPERCEELNUMMER: deelperceel nummer van de kadastrale aanduiding.\nKA_APPARTEMENTSINDEX: appartementsindex van de kadastrale aanduiding.\nKA_PERCEELNUMMER: perceelnummer van de kadastrale aanduiding.\nKA_KAD_GEMEENTECODE: gemeentecode van de kadastrale aanduiding.\nKA_SECTIE: sectieletter van de kadastrale aanduiding.\nBEGRENZING_PERCEEL: perceel geometrie (vlak).</gco:CharacterString>
                 </gmd:description>
               </gmd:LI_ProcessStep>
             </gmd:processStep>

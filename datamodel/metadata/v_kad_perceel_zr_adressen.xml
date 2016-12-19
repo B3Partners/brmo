@@ -86,7 +86,7 @@
           </gmd:CI_Citation>
         </gmd:citation>
         <gmd:abstract>
-          <gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">Kadastrale percelen met BAG adres van de zakelijk gerechtigde (vlakken kunnen meer dan eens voorkomen; voor iedere gerechtigde 1x)</gco:CharacterString>
+          <gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">Kadastrale percelen met BAG adres van de zakelijk gerechtigde (vlakken kunnen meer dan eens voorkomen; voor iedere gerechtigde 1x).</gco:CharacterString>
         </gmd:abstract>
         <gmd:purpose>
           <gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">analyse en planning</gco:CharacterString>
@@ -313,7 +313,7 @@
             <gmd:temporalElement>
               <gmd:EX_TemporalExtent>
                 <gmd:extent>
-                  <gml:TimePeriod xmlns:gml="http://www.opengis.net/gml">
+                  <gml:TimePeriod xmlns:gml="http://www.opengis.net/gml" gml:id="t1">
                     <gml:begin>
                       <gml:TimeInstant gml:id="t11">
                         <gml:timePosition>1996-01-01</gml:timePosition>
@@ -382,7 +382,7 @@
             <gmd:temporalElement>
               <gmd:EX_TemporalExtent>
                 <gmd:extent>
-                  <gml:TimePeriod xmlns:gml="http://www.opengis.net/gml" gml:id="t1">
+                  <gml:TimePeriod xmlns:gml="http://www.opengis.net/gml">
                     <gml:begin>
                       <gml:TimeInstant gml:id="t11" />
                     </gml:begin>
@@ -456,7 +456,7 @@
             <gmd:processStep>
               <gmd:LI_ProcessStep>
                 <gmd:description>
-                  <gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">INHOUD ATTRIBUTENTABEL:\n\nOBJECTID: (uniek, willekeurig) rijnummer uit de database.\nSC_KAD_IDENTIF: BRK identificatie nummer van de onroerende zaak.\nBEGRENZING_PERCEEL: perceel geometrie (vlak).\nAANDUIDING: kadastrale aanduiding.\nGROOTTE_PERCEEL: grootte perceel in m².\nSTRAAT: straatnaam.\nHUISNUMMER: huisnummer.\nHUISLETTER: huisletter.\nTOEVOEGING: adres toevoeging.\nPOSTCODE: postcode.\nWOONPLAATS: woonplaats.\nAANDEEL_TELLER: teller deel van de aandeelsverhouding van het tenaamgestelde recht.\nAANDEEL_NOEMER: noemer deel van de aandeelsverhouding van het tenaamgestelde recht.\nAARD_RECHT_AAND: code van het zakelijk recht.\nSOORT_EIGENAAR: de soort rechtspersoon, bijvoorbeeld 'Natuurlijk persoon'.\nGESLACHTSNAAM: achternaam van de rechthebbende natuurlijke persoon.\nVOORVOEGSEL: voorvoegsel van de rechthebbende natuurlijke persoon.\nVOORNAMEN: voornamen van de rechthebbende natuurlijke persoon.\nGESLACHT: geslacht van de rechthebbende natuurlijke persoon, V of M.\nWOONADRES: woonadres van de rechthebbende natuurlijke persoon.\nGEBOORTEDATUM: geboortedatum van de rechthebbende natuurlijke persoon.\nGEBOORTEPLAATS: geboorteplaats van de rechthebbende natuurlijke persoon.\nOVERLIJDENSDATUM: overlijdensdatum van de rechthebbende natuurlijke persoon.\nNAAM_NIET_NATUURLIJK_PERSOON: naam van de rechthebbende niet natuurlijke persoon.\nRECHTSVORM: rechtsvorm van de rechthebbende niet natuurlijke persoon.\nSTATUTAIRE_ZETEL: statutaire zetel van de rechthebbende niet natuurlijke persoon.\nKVK_NUMMER: Kamer van Koophandel indentificatie van de rechthebbende niet natuurlijke persoon.</gco:CharacterString>
+                  <gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">INHOUD ATTRIBUTENTABEL:\n\nOBJECTID: (uniek, willekeurig) rijnummer uit de database.\nSC_KAD_IDENTIF: BRK identificatienummer van het perceel.\nBEGRENZING_PERCEEL: perceel geometrie (vlak).\nAANDUIDING: kadastrale aanduiding.\nGROOTTE_PERCEEL: grootte perceel in m².\nSTRAAT: straatnaam.\nHUISNUMMER: huisnummer.\nHUISLETTER: huisletter.\nTOEVOEGING: adres toevoeging.\nPOSTCODE: postcode.\nWOONPLAATS: woonplaats.\nAANDEEL_TELLER: teller deel van de aandeelsverhouding van het tenaamgestelde recht.\nAANDEEL_NOEMER: noemer deel van de aandeelsverhouding van het tenaamgestelde recht.\nAARD_RECHT_AAND: code van het zakelijk recht.\nSOORT_EIGENAAR: de soort rechtspersoon, bijvoorbeeld 'Natuurlijk persoon'.\nGESLACHTSNAAM: achternaam van de rechthebbende natuurlijke persoon.\nVOORVOEGSEL: voorvoegsel van de rechthebbende natuurlijke persoon.\nVOORNAMEN: voornamen van de rechthebbende natuurlijke persoon.\nGESLACHT: geslacht van de rechthebbende natuurlijke persoon (V of M).\nWOONADRES: woonadres van de rechthebbende natuurlijke persoon.\nGEBOORTEDATUM: geboortedatum van de rechthebbende natuurlijke persoon.\nGEBOORTEPLAATS: geboorteplaats van de rechthebbende natuurlijke persoon.\nOVERLIJDENSDATUM: overlijdensdatum van de rechthebbende natuurlijke persoon.\nNAAM_NIET_NATUURLIJK_PERSOON: naam van de rechthebbende niet natuurlijke persoon.\nRECHTSVORM: rechtsvorm van de rechthebbende niet natuurlijke persoon.\nSTATUTAIRE_ZETEL: statutaire zetel van de rechthebbende niet natuurlijke persoon.\nKVK_NUMMER: Kamer van Koophandel identificatie van de rechthebbende niet natuurlijke persoon.</gco:CharacterString>
                 </gmd:description>
               </gmd:LI_ProcessStep>
             </gmd:processStep>
@@ -584,7 +584,13 @@
   <gfc:FC_FeatureCatalogue xmlns:gfc="http://www.isotc211.org/2005/gfc">
     <gfc:featureType>
       <gfc:FC_FeatureType>
+        <gfc:isAbstract xmlns:gco="http://www.isotc211.org/2005/gco" gco:nilReason="inapplicable" />
         <gfc:featureCatalogue xmlns:gco="http://www.isotc211.org/2005/gco" gco:nilReason="inapplicable" />
+        <gfc:carrierOfCharacteristics>
+          <gfc:FC_FeatureAttribute>
+            <gfc:cardinality xmlns:gco="http://www.isotc211.org/2005/gco" gco:nilReason="inapplicable" />
+          </gfc:FC_FeatureAttribute>
+        </gfc:carrierOfCharacteristics>
       </gfc:FC_FeatureType>
     </gfc:featureType>
   </gfc:FC_FeatureCatalogue>

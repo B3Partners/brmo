@@ -86,7 +86,7 @@
           </gmd:CI_Citation>
         </gmd:citation>
         <gmd:abstract>
-          <gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">Kadastrale percelen met adres van de benoemde objecten uit de BAG (vlakken kunnen meer dan eens voorkomen; voor ieder benoemd object 1x)</gco:CharacterString>
+          <gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">Kadastrale percelen met adres van de benoemde objecten uit de BAG (vlakken kunnen meer dan eens voorkomen; voor ieder benoemd object 1x).</gco:CharacterString>
         </gmd:abstract>
         <gmd:purpose>
           <gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">analyse en planning</gco:CharacterString>
@@ -456,7 +456,7 @@
             <gmd:processStep>
               <gmd:LI_ProcessStep>
                 <gmd:description>
-                  <gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">INHOUD ATTRIBUTENTABEL:\n\n\nOBJECTID: (uniek, willekeurig) rijnummer uit de database.\nSC_KAD_IDENTIF: BRK identificatie nummer van het perceel\nBEGRENZING_PERCEEL: perceel geometrie (vlak).\nAANDUIDING: kadastrale aanduiding\nGROOTTE_PERCEEL: grootte perceel in m2\nKAD_BAG_KOPPELING_BENOBJ: BAG identificatie van het benoemd object\nSTRAAT: straatnaam\nHUISNUMMER: huisnummer\nHUISLETTER: huisletter\nTOEVOEGING: adres toevoeging\nPOSTCODE: postcode\nWOONPLAATS: woonplaats</gco:CharacterString>
+                  <gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">INHOUD ATTRIBUTENTABEL:\n\n\nOBJECTID: (uniek, willekeurig) rijnummer uit de database.\nSC_KAD_IDENTIF: BRK identificatienummer van het perceel.\nBEGRENZING_PERCEEL: perceel geometrie (vlak).\nAANDUIDING: kadastrale aanduiding.\nGROOTTE_PERCEEL: grootte perceel in m².\nKAD_BAG_KOPPELING_BENOBJ: BAG identificatie van het benoemd object.\nSTRAAT: straatnaam.\nHUISNUMMER: huisnummer.\nHUISLETTER: huisletter.\nTOEVOEGING: adres toevoeging.\nPOSTCODE: postcode.\nWOONPLAATS: woonplaats.</gco:CharacterString>
                 </gmd:description>
               </gmd:LI_ProcessStep>
             </gmd:processStep>
