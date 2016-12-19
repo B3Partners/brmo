@@ -2,10 +2,10 @@
 
 In deze directory zijn voor de views welke beschikbaar zijn voor arcgis ISO metadata documenten beschikbaar.
 
-Attribuutbeschrijvingen zijn ondergebracht onder de "beschrijving uitgevoerde bewerkingen" van de "specificatie kwaliteit data" (XPath /gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:lineage/gmd:LI_Lineage/gmd:processStep/gmd:LI_ProcessStep/gmd:description/gco:CharacterString)
+Attribuutbeschrijvingen zijn ondergebracht onder de "beschrijving uitgevoerde bewerkingen" van de "specificatie kwaliteit data" (XPath: `/gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:lineage/gmd:LI_Lineage/gmd:processStep/gmd:LI_ProcessStep/gmd:description/gco:CharacterString`)
 
 
-online versies:
+Online versies:
 
   - [v_bd_app_re_and_kad_perceel](http://solparc.kaartenbalie.nl/b3pcatalog/Metadata.action?view=t&path=0/brmo/v_bd_app_re_and_kad_perceel.xml&mode=file#)
   - [v_bd_app_re_bij_perceel](http://solparc.kaartenbalie.nl/b3pcatalog/Metadata.action?view=t&path=0/brmo/v_bd_app_re_bij_perceel.xml&mode=file#)
