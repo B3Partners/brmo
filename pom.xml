@@ -48,7 +48,7 @@
         <netbeans.hint.jdkPlatform>JDK_${java.version}</netbeans.hint.jdkPlatform>
         <netbeans.hint.license>default_1</netbeans.hint.license>
         <hibernate.version>3.6.10.Final</hibernate.version>
-        <geotools.version>16-SNAPSHOT</geotools.version>
+        <geotools.version>16.1</geotools.version>
         <postgresql.jdbc.version>9.4.1212</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2.2.1</postgresql.postgis-jdbc.version>
         <oracle.jdbc.version>12.1.0.2.0</oracle.jdbc.version>
@@ -116,6 +116,7 @@
 
             <!-- spatial -->
             <dependency>
+                <!-- geotools 16.1 gebruikt nog 1.13 -->
                 <groupId>com.vividsolutions</groupId>
                 <artifactId>jts</artifactId>
                 <version>1.13</version>
