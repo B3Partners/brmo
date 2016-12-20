@@ -87,7 +87,7 @@ public class IndexPageIntegrationTest extends WebTestUtil {
                 DBPROPS.getProperty("staging.username"),
                 DBPROPS.getProperty("staging.password")
         );
-        ResultSet rs = connection.createStatement().executeQuery("SELECT gebruikersnaam, wachtwoord FROM gebruiker_;");
+        ResultSet rs = connection.createStatement().executeQuery("SELECT gebruikersnaam, wachtwoord FROM gebruiker_");
 
         String actual_gebruikersnaam = "";
         String actual_hash = "";
