@@ -10,7 +10,7 @@
       <artifactId>brmo</artifactId>
       <version>1.4.2-SNAPSHOT</version>
     </parent>
-    <name>brmo rsgb datamodel</name>
+    <name>BRMO rsgb datamodel</name>
     <build>
         <defaultGoal>generate-resources</defaultGoal>
         <plugins>
