@@ -153,6 +153,7 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
             // in geval van niet waar gemaakte assumtions
             brmo.closeBrmoFramework();
         }
+        assumeTrue("Deze test werkt niet met de jTDS driver omdat die geen JtdsPreparedStatement#setNull() methode heeft.", !this.isMsSQL);
 
         /* cleanup rsgb, doet:
                 DELETE FROM brondocument;
@@ -175,6 +176,7 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
             new DefaultTable("kad_perceel_archief"),
             new DefaultTable("subject"),
             new DefaultTable("prs"),
+            new DefaultTable("nat_prs"),
             new DefaultTable("niet_nat_prs"),
             new DefaultTable("ingeschr_niet_nat_prs"),
             new DefaultTable("zak_recht"),
