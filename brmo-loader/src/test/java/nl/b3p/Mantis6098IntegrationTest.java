@@ -89,8 +89,6 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         }
-        // IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis6098IntegrationTest.class.getResource("/mantis6098/staging.xml").toURI())));
-        // IDataSet stagingDataSet = new FlatXmlDataSet(new FileInputStream(new File(Mantis6098IntegrationTest.class.getResource("/mantis6098/staging-flat.xml").toURI())));
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
         IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(Mantis6098IntegrationTest.class.getResource("/mantis6098/staging-flat.xml").toURI())));
@@ -136,6 +134,9 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
             new DefaultTable("kad_perceel_archief"),
             new DefaultTable("subject"),
             new DefaultTable("prs"),
+            new DefaultTable("nat_prs"),
+            new DefaultTable("ingeschr_nat_prs"),
+            new DefaultTable("ander_nat_prs"),
             new DefaultTable("niet_nat_prs"),
             new DefaultTable("ingeschr_niet_nat_prs"),
             new DefaultTable("zak_recht"),
@@ -210,14 +211,14 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
 
         assertEquals("Alle berichten zijn OK getransformeerd", 3l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
 
+        ITable brondocument = rsgb.createDataSet().getTable("brondocument");
+        assertEquals("Er zijn geen brondocumenten", 0, brondocument.getRowCount());
+
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
         assertEquals("Er zijn geen actuele percelen", 0, kad_perceel.getRowCount());
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
         assertEquals("Er zijn geen actuele onroerende zaken", 0, kad_onrrnd_zk.getRowCount());
-
-        ITable brondocument = rsgb.createDataSet().getTable("brondocument");
-        assertEquals("Er zijn geen brondocumenten", 0, brondocument.getRowCount());
     }
 
     /**

@@ -16,6 +16,7 @@ import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper;
 import nl.b3p.brmo.service.testutil.TestUtil;
+import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,6 +37,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.junit.Assume.assumeTrue;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
@@ -46,13 +48,14 @@ import org.junit.runners.Parameterized;
  * {@code mvn -Dit.test=AdvancedFunctionsActionBeanIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
  * voor bijvoorbeeld Oracle.
  *
- * Deze test werkt niet met de jTDS driver omdat die geen
+ * <strong>Deze test werkt niet met de jTDS driver omdat die geen
  * {@code PreparedStatement.setNull(int, int, String)} methode heeft
- * geimplementeerd.
+ * geimplementeerd.</strong>
  *
  * @author mprins
  */
 @RunWith(Parameterized.class)
+@Category(JTDSDriverBasedFailures.class)
 public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
 
     private static final Log LOG = LogFactory.getLog(AdvancedFunctionsActionBeanIntegrationTest.class);

@@ -12,6 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.RsgbProxy;
 import nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper;
+import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,6 +36,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
@@ -44,11 +46,13 @@ import org.junit.runners.Parameterized;
  * {@code mvn -Dit.test=Mantis6166IntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
  * voor bijvoorbeeld Oracle.
  *
- * <strong>NB. werkt niet op mssql, althans niet met de jTDS driver.</strong>
+ * <strong>NB. werkt niet op mssql, althans niet met de jTDS driver omdat die
+ * geen JtdsPreparedStatement#setNull() methode heeft.</strong>
  *
  * @author mprins
  */
 @RunWith(Parameterized.class)
+@Category(JTDSDriverBasedFailures.class)
 public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(Mantis6166IntegrationTest.class);
@@ -150,7 +154,7 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
     @After
     public void cleanup() throws Exception {
         if (brmo != null) {
-            // in geval van niet waar gemaakte assumtions
+            // in geval van niet waar gemaakte assumptions
             brmo.closeBrmoFramework();
         }
         assumeTrue("Deze test werkt niet met de jTDS driver omdat die geen JtdsPreparedStatement#setNull() methode heeft.", !this.isMsSQL);
@@ -177,6 +181,8 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
             new DefaultTable("subject"),
             new DefaultTable("prs"),
             new DefaultTable("nat_prs"),
+            new DefaultTable("ingeschr_nat_prs"),
+            new DefaultTable("ander_nat_prs"),
             new DefaultTable("niet_nat_prs"),
             new DefaultTable("ingeschr_niet_nat_prs"),
             new DefaultTable("zak_recht"),
@@ -193,7 +199,7 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
         try {
             sequential.unlock();
         } catch (IllegalMonitorStateException e) {
-            // in geval van niet waar gemaakte assumtions
+            // in geval van niet waar gemaakte assumptions
             LOG.debug("unlock van thread is mislukt, mogelijk niet ge-lock-ed");
         }
     }
