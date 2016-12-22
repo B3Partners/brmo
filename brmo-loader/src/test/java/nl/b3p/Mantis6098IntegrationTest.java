@@ -25,7 +25,7 @@ import org.dbunit.dataset.DefaultTable;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
-import org.dbunit.ext.oracle.OracleDataTypeFactory;
+import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.junit.After;
 import org.junit.Before;
@@ -78,17 +78,17 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
         } else if (this.isOracle) {
-            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()));
-            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()));
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new OracleDataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new OracleDataTypeFactory());
+            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), params.getProperty("rsgb.user").toUpperCase());
+            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
+            rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
+            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
+            staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
             // we hebben alleen nog postgres over
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         }
-        // IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis6098IntegrationTest.class.getResource("/mantis6098/staging.xml").toURI())));
-        // IDataSet stagingDataSet = new FlatXmlDataSet(new FileInputStream(new File(Mantis6098IntegrationTest.class.getResource("/mantis6098/staging-flat.xml").toURI())));
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
         IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(Mantis6098IntegrationTest.class.getResource("/mantis6098/staging-flat.xml").toURI())));
@@ -134,6 +134,9 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
             new DefaultTable("kad_perceel_archief"),
             new DefaultTable("subject"),
             new DefaultTable("prs"),
+            new DefaultTable("nat_prs"),
+            new DefaultTable("ingeschr_nat_prs"),
+            new DefaultTable("ander_nat_prs"),
             new DefaultTable("niet_nat_prs"),
             new DefaultTable("ingeschr_niet_nat_prs"),
             new DefaultTable("zak_recht"),
@@ -208,14 +211,14 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
 
         assertEquals("Alle berichten zijn OK getransformeerd", 3l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
 
+        ITable brondocument = rsgb.createDataSet().getTable("brondocument");
+        assertEquals("Er zijn geen brondocumenten", 0, brondocument.getRowCount());
+
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
         assertEquals("Er zijn geen actuele percelen", 0, kad_perceel.getRowCount());
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
         assertEquals("Er zijn geen actuele onroerende zaken", 0, kad_onrrnd_zk.getRowCount());
-
-        ITable brondocument = rsgb.createDataSet().getTable("brondocument");
-        assertEquals("Er zijn geen brondocumenten", 0, brondocument.getRowCount());
     }
 
     /**

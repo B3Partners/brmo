@@ -36,35 +36,22 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import org.junit.FixMethodOrder;
+import org.junit.Ignore;
+import org.junit.runners.MethodSorters;
 
 /**
  * Integration test for the index page.
  *
  * @author mprins
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class IndexPageIntegrationTest extends WebTestUtil {
 
     /**
      * onze test response.
      */
     private HttpResponse response;
-
-    /**
-     * Test of de brmo-service applicatie is gestart en de index pagina
-     * opgehaald kan worden.
-     *
-     *
-     * @throws IOException als die optreedt tijdens ophalen pagina
-     */
-    @Test
-    public void requestIndex() throws IOException {
-        response = client.execute(new HttpGet(BASE_TEST_URL + "/brmo-service/"));
-
-        final String body = EntityUtils.toString(response.getEntity());
-        assertThat("Response status is OK.", response.getStatusLine().getStatusCode(),
-                equalTo(HttpStatus.SC_OK));
-        assertNotNull("Response body mag niet null zijn.", body);
-    }
 
     /**
      * Test of de database bestaat en de default admin gebruiker is aangemaakt.
@@ -87,7 +74,7 @@ public class IndexPageIntegrationTest extends WebTestUtil {
                 DBPROPS.getProperty("staging.username"),
                 DBPROPS.getProperty("staging.password")
         );
-        ResultSet rs = connection.createStatement().executeQuery("SELECT gebruikersnaam, wachtwoord FROM gebruiker_;");
+        ResultSet rs = connection.createStatement().executeQuery("SELECT gebruikersnaam, wachtwoord FROM gebruiker_");
 
         String actual_gebruikersnaam = "";
         String actual_hash = "";
@@ -111,6 +98,22 @@ public class IndexPageIntegrationTest extends WebTestUtil {
 
         assertEquals("De record moet de verwachte naam hebben.", default_gebruikersnaam, actual_gebruikersnaam);
         assertEquals("De record moet de verwachte password hash hebben.", default_hash, actual_hash);
+    }
+
+    /**
+     * Test of de brmo-service applicatie is gestart en de index pagina
+     * opgehaald kan worden.
+     *
+     * @throws IOException als die optreedt tijdens ophalen pagina
+     */
+    @Test
+    public void testIndex() throws IOException {
+        response = client.execute(new HttpGet(BASE_TEST_URL + "/brmo-service/"));
+
+        final String body = EntityUtils.toString(response.getEntity());
+        assertThat("Response status is OK.", response.getStatusLine().getStatusCode(),
+                equalTo(HttpStatus.SC_OK));
+        assertNotNull("Response body mag niet null zijn.", body);
     }
 
     /**
@@ -139,13 +142,13 @@ public class IndexPageIntegrationTest extends WebTestUtil {
         response = client.execute(new HttpGet(BASE_TEST_URL + "index.jsp"));
         String body = EntityUtils.toString(response.getEntity());
         assertNotNull("Response body mag niet null zijn.", body);
-        assertTrue("Response moet 'BRMO Service' heading hebben.", body.contains("<h1>BRMO Service</h1>"));
+        assertTrue("Response moet 'BRMO Service' header hebben.", body.contains("<h1>BRMO Service</h1>"));
 
         // about
         response = client.execute(new HttpGet(BASE_TEST_URL + "about.jsp"));
         body = EntityUtils.toString(response.getEntity());
         assertNotNull("Response body mag niet null zijn.", body);
-        assertTrue("Response moet 'BRMO Service' heading hebben.", body.contains("<h1>BRMO versie informatie</h1>"));
+        assertTrue("Response moet 'BRMO versie' header hebben.", body.contains("<h1>BRMO versie informatie</h1>"));
 
         // logout
         response = client.execute(new HttpGet(BASE_TEST_URL + "logout.jsp"));
@@ -153,6 +156,6 @@ public class IndexPageIntegrationTest extends WebTestUtil {
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(),
                 equalTo(HttpStatus.SC_OK));
         assertNotNull("Response body mag niet null zijn.", body);
-        assertTrue("Response moet 'Uitgelogd' heading hebben.", body.contains("<h1>Uitgelogd</h1>"));
+        assertTrue("Response moet 'Opnieuw inloggen' tekst hebben.", body.contains("Opnieuw inloggen"));
     }
 }

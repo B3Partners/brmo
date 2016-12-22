@@ -12,6 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.RsgbProxy;
 import nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper;
+import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,7 +28,7 @@ import org.dbunit.dataset.DefaultTable;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
-import org.dbunit.ext.oracle.OracleDataTypeFactory;
+import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.junit.After;
 import org.junit.Before;
@@ -35,6 +36,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
@@ -44,11 +46,13 @@ import org.junit.runners.Parameterized;
  * {@code mvn -Dit.test=Mantis6166IntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
  * voor bijvoorbeeld Oracle.
  *
- * <strong>NB. werkt niet op mssql, althans niet met de jTDS driver.</strong>
+ * <strong>NB. werkt niet op mssql, althans niet met de jTDS driver omdat die
+ * geen JtdsPreparedStatement#setNull() methode heeft.</strong>
  *
  * @author mprins
  */
 @RunWith(Parameterized.class)
+@Category(JTDSDriverBasedFailures.class)
 public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(Mantis6166IntegrationTest.class);
@@ -112,10 +116,12 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
         } else if (this.isOracle) {
-            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()));
-            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()));
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new OracleDataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new OracleDataTypeFactory());
+            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), params.getProperty("rsgb.user").toUpperCase());
+            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
+            rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
+            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
+            staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
@@ -148,9 +154,10 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
     @After
     public void cleanup() throws Exception {
         if (brmo != null) {
-            // in geval van niet waar gemaakte assumtions
+            // in geval van niet waar gemaakte assumptions
             brmo.closeBrmoFramework();
         }
+        assumeTrue("Deze test werkt niet met de jTDS driver omdat die geen JtdsPreparedStatement#setNull() methode heeft.", !this.isMsSQL);
 
         /* cleanup rsgb, doet:
                 DELETE FROM brondocument;
@@ -173,6 +180,9 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
             new DefaultTable("kad_perceel_archief"),
             new DefaultTable("subject"),
             new DefaultTable("prs"),
+            new DefaultTable("nat_prs"),
+            new DefaultTable("ingeschr_nat_prs"),
+            new DefaultTable("ander_nat_prs"),
             new DefaultTable("niet_nat_prs"),
             new DefaultTable("ingeschr_niet_nat_prs"),
             new DefaultTable("zak_recht"),
@@ -189,7 +199,7 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
         try {
             sequential.unlock();
         } catch (IllegalMonitorStateException e) {
-            // in geval van niet waar gemaakte assumtions
+            // in geval van niet waar gemaakte assumptions
             LOG.debug("unlock van thread is mislukt, mogelijk niet ge-lock-ed");
         }
     }
