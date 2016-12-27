@@ -45,11 +45,11 @@ before_test:
 # create + set up RSGB DB
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE rsgb" -d "master"
   - dir -w .\datamodel\generated_scripts\
-  - sqlcmd -x -b -S (local)\SQL2016 -U sa -P Password12! -d "rsgb" -I -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
+  - sqlcmd -r0 -x -b -S (local)\SQL2016 -U sa -P Password12! -d "rsgb" -I -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
 # create + set up RSGBBGT DB
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE bgttest" -d "master"
   - dir -w .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\
-  - sqlcmd -b -S (local)\SQL2016 -I -U sa -P Password12! -d "bgttest" -i .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\create_rsgb_bgt.sql
+  - sqlcmd -r0 -b -S (local)\SQL2016 -I -U sa -P Password12! -d "bgttest" -i .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\create_rsgb_bgt.sql
   - cmd: echo "computer name:" %COMPUTERNAME%
   - cmd: echo "instance name:" %INSTANCENAME%
   - ps: .\.appveyor\setting-tcp-ip-ports.ps1
@@ -64,9 +64,6 @@ test_script:
   - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-loader"
   # run integratie tests voor brmo-service module
   - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-service"
-
-after_test:
-  - ps: Get-Date
 
 cache:
   - C:\Users\appveyor\.m2\repository -> pom.xml
