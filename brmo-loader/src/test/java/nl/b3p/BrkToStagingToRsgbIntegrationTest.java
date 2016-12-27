@@ -21,8 +21,8 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.DefaultDataSet;
 import org.dbunit.dataset.DefaultTable;
 import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.dbunit.ext.mssql.InsertIdentityOperation;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
@@ -59,8 +59,8 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
             {"brk", "/nl/b3p/brmo/loader/xml/MUTBX01-ASN00T1660-20091119-1-singleline.xml", 1, 1} /*
              * dit bestand zit in de DVD Proefbestanden BRK Levering oktober 2012 (Totaalstanden)
              * /mnt/v_b3p_projecten/BRMO/BRK/BRK_STUF_IMKAD/BRK/Levering(dvd)/Proefbestanden BRK Levering oktober 2012 (Totaalstanden)/20091130/
-             * en staat op de ignore lijst omdat 't 18.5MB groot is, grep -o KadastraalObjectSnapshot BURBX01.xml | wc -w geeft aantal berichten
-             */ //, {"brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-20091130-6000015280-9100000039.zip", 63104 / 2, 1}
+             * en staat op de ignore lijst omdat 't 18.5MB groot is, `grep -o KadastraalObjectSnapshot BURBX01.xml | wc -w`/2 geeft aantal berichten
+             */, {"brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-20091130-6000015280-9100000039.zip", (63104 / 2), 1}
         });
     }
 
@@ -85,8 +85,9 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
 
     // dbunit
     private IDatabaseConnection staging;
+    private IDatabaseConnection rsgb;
 
-    private final Lock sequential = new ReentrantLock();
+    private final Lock sequential = new ReentrantLock(true);
 
     public BrkToStagingToRsgbIntegrationTest(String bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen) {
         this.bestandType = bestandType;
@@ -111,17 +112,23 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
 
         staging = new DatabaseDataSourceConnection(dsStaging);
+        rsgb = new DatabaseDataSourceConnection(dsRsgb);
 
         if (this.isMsSQL) {
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
+            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
         } else if (this.isOracle) {
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
-            staging.getConfig().setProperty(DatabaseConfig.FEATURE_QUALIFIED_TABLE_NAMES, false);
+
+            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), params.getProperty("rsgb.user").toUpperCase());
+            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
+            rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
             // we hebben alleen nog postgres over
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         }
 
         brmo = new BrmoFramework(dsStaging, dsRsgb);
@@ -132,12 +139,7 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
 
         sequential.lock();
 
-        if (this.isMsSQL) {
-            // SET IDENTITY_INSERT op ON
-            InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        } else {
-            DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        }
+        DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
         assumeTrue("Er zijn geen STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
         assumeTrue("Er zijn geen STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"));
@@ -153,6 +155,25 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         }));
         staging.close();
 
+        DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
+            new DefaultTable("kad_onrrnd_zk"),
+            new DefaultTable("kad_onrrnd_zk_archief"),
+            new DefaultTable("kad_perceel"),
+            new DefaultTable("kad_perceel_archief"),
+            new DefaultTable("subject"),
+            new DefaultTable("prs"),
+            new DefaultTable("nat_prs"),
+            new DefaultTable("ingeschr_nat_prs"),
+            new DefaultTable("ander_nat_prs"),
+            new DefaultTable("niet_nat_prs"),
+            new DefaultTable("ingeschr_niet_nat_prs"),
+            new DefaultTable("zak_recht"),
+            new DefaultTable("herkomst_metadata"),
+            new DefaultTable("brondocument")}
+        ));
+
+        rsgb.close();
+
         sequential.unlock();
     }
 
@@ -161,15 +182,18 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         assumeNotNull("Het test bestand moet er zijn.", BrkToStagingToRsgbIntegrationTest.class.getResource(bestandNaam));
 
         brmo.loadFromFile(bestandType, BrkToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile());
+        LOG.debug("klaar met laden van berichten in staging DB.");
 
         List<Bericht> berichten = brmo.listBerichten();
         List<LaadProces> processen = brmo.listLaadProcessen();
+        assertNotNull("De verzameling berichten bestaat niet.", berichten);
+        assertEquals("Het aantal berichten is niet als verwacht.", aantalBerichten, berichten.size());
+        assertNotNull("De verzameling processen bestaat niet.", processen);
+        assertEquals("Het aantal processen is niet als verwacht.", aantalProcessen, processen.size());
 
-        assertNotNull("verzameling berichten bestaat", berichten);
-        assertEquals(aantalBerichten, processen.size());
-        assertNotNull("verzameling processen bestaat", processen);
-        assertEquals(aantalProcessen, processen.size());
-
+        LOG.debug("Transformeren berichten naar rsgb DB.");
+//        brmo.setBatchCapacity(1 + (int) aantalBerichten);
+//        brmo.setEnablePipeline(false);
         Thread t = brmo.toRsgb();
         t.join();
 
@@ -177,8 +201,11 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
 
         berichten = brmo.listBerichten();
         for (Bericht b : berichten) {
-            assertNotNull("Bericht is niet 'null'", b);
+            assertNotNull("Bericht is  'null'", b);
             assertNotNull("'db-xml' van bericht is niet 'null'", b.getDbXml());
         }
+
+        ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
+        assertEquals("Het aantal on", aantalBerichten, kad_onrrnd_zk.getRowCount());
     }
 }
