@@ -20,7 +20,7 @@ LEVELS: debug, info, warn, error, fatal en off, all -->
         <level value="debug" />
     </logger>
     <root>
-        <level value="debug" />
+        <level value="info" />
         <appender-ref ref="consoleAppender" />
     </root>
 </log4j:configuration>
