@@ -168,6 +168,7 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
             new DefaultTable("niet_nat_prs"),
             new DefaultTable("ingeschr_niet_nat_prs"),
             new DefaultTable("zak_recht"),
+            new DefaultTable("zak_recht_aantek"),
             new DefaultTable("herkomst_metadata"),
             new DefaultTable("brondocument")}
         ));
