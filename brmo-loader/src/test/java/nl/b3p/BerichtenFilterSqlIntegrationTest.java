@@ -89,8 +89,9 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
             DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         }
 
-        assumeTrue("Er zijn geen STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, "brk,bag,nhr", "STAGING_OK"));
-        assumeTrue("Er zijn geen STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, "brk,bag,nhr", "STAGING_OK"));
+        assumeTrue("Er zijn geen STAGING_OK berichten", 60l == brmo.getCountBerichten(null, null, "brk,bag,nhr", "STAGING_OK"));
+        assumeTrue("Er zijn BAG geen STAGING_OK laadprocessen", 6l == brmo.getCountLaadProcessen(null, null, "bag", "STAGING_OK"));
+        assumeTrue("Er zijn BRK STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"));
     }
 
     @After
@@ -109,8 +110,8 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
     public void emptyStagingDb() throws BrmoException {
         brmo.emptyStagingDb();
 
-        assertTrue("Er zijn geen STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, "brk,bag,nhr", "STAGING_OK"));
-        assertTrue("Er zijn geen STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, "brk,bag,nhr,bgtlight", "STAGING_OK"));
+        assertTrue("Er zijn STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, "brk,bag,nhr", "STAGING_OK"));
+        assertTrue("Er zijn STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, "bag", "STAGING_OK"));
     }
 
     @Test

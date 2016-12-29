@@ -10,6 +10,7 @@ import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
+import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,8 +18,6 @@ import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.DefaultDataSet;
-import org.dbunit.dataset.DefaultTable;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
@@ -121,12 +120,8 @@ public class BAGXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
     @After
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
-        DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{
-            new DefaultTable("laadproces"),
-            new DefaultTable("bericht")
-        }));
+        CleanUtil.cleanSTAGING(staging);
         staging.close();
-
         sequential.unlock();
     }
 

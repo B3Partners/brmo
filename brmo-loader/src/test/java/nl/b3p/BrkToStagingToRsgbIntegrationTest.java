@@ -149,33 +149,11 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
     @After
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
-        DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{
-            new DefaultTable("laadproces"),
-            new DefaultTable("bericht"),
-            new DefaultTable("job")
-        }));
+
+        CleanUtil.cleanSTAGING(staging);
         staging.close();
 
-//        DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
-//            new DefaultTable("kad_onrrnd_zk"),
-//            new DefaultTable("kad_onrrnd_zk_archief"),
-//            new DefaultTable("kad_perceel"),
-//            new DefaultTable("kad_perceel_archief"),
-//            new DefaultTable("subject"),
-//            new DefaultTable("prs"),
-//            new DefaultTable("nat_prs"),
-//            new DefaultTable("ingeschr_nat_prs"),
-//            new DefaultTable("ander_nat_prs"),
-//            new DefaultTable("niet_nat_prs"),
-//            new DefaultTable("ingeschr_niet_nat_prs"),
-//            new DefaultTable("zak_recht"),
-//            new DefaultTable("zak_recht_aantek"),
-//            new DefaultTable("herkomst_metadata"),
-//            new DefaultTable("brondocument")}
-//        ));
         CleanUtil.cleanRSGB(rsgb);
-
-
         rsgb.close();
 
         sequential.unlock();

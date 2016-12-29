@@ -17,6 +17,7 @@ import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper;
 import nl.b3p.brmo.service.testutil.TestUtil;
 import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
+import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -181,6 +182,7 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
             brmo.closeBrmoFramework();
         }
         if (rsgb != null) {
+            CleanUtil.cleanRSGB(rsgb);
             rsgb.close();
         }
         if (staging != null) {
