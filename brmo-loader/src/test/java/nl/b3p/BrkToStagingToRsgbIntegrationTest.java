@@ -11,6 +11,7 @@ import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper;
+import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -155,23 +156,25 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         }));
         staging.close();
 
-        DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
-            new DefaultTable("kad_onrrnd_zk"),
-            new DefaultTable("kad_onrrnd_zk_archief"),
-            new DefaultTable("kad_perceel"),
-            new DefaultTable("kad_perceel_archief"),
-            new DefaultTable("subject"),
-            new DefaultTable("prs"),
-            new DefaultTable("nat_prs"),
-            new DefaultTable("ingeschr_nat_prs"),
-            new DefaultTable("ander_nat_prs"),
-            new DefaultTable("niet_nat_prs"),
-            new DefaultTable("ingeschr_niet_nat_prs"),
-            new DefaultTable("zak_recht"),
-            new DefaultTable("zak_recht_aantek"),
-            new DefaultTable("herkomst_metadata"),
-            new DefaultTable("brondocument")}
-        ));
+//        DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
+//            new DefaultTable("kad_onrrnd_zk"),
+//            new DefaultTable("kad_onrrnd_zk_archief"),
+//            new DefaultTable("kad_perceel"),
+//            new DefaultTable("kad_perceel_archief"),
+//            new DefaultTable("subject"),
+//            new DefaultTable("prs"),
+//            new DefaultTable("nat_prs"),
+//            new DefaultTable("ingeschr_nat_prs"),
+//            new DefaultTable("ander_nat_prs"),
+//            new DefaultTable("niet_nat_prs"),
+//            new DefaultTable("ingeschr_niet_nat_prs"),
+//            new DefaultTable("zak_recht"),
+//            new DefaultTable("zak_recht_aantek"),
+//            new DefaultTable("herkomst_metadata"),
+//            new DefaultTable("brondocument")}
+//        ));
+        CleanUtil.cleanRSGB(rsgb);
+
 
         rsgb.close();
 
