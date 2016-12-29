@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+dit is een extract uit http://files.b3p.nl/brmo/bag/9999MUT08032016-08042016.zip/9999MUT08032016-08042016-000001.xml 
+voor object OPR:1884300000000464 ter illustratie van het probleem van verwerken van mutaties 
+verwerking mislukt omdat een object meerdere malen in de brondata voorkomt met identieke timestamp waardoor insert in 
+de bericht tabel mislukt met melding:
+
+org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "idx_bericht_refiddatumnr"
+  Detail: Key (object_ref, datum, volgordenummer)=(OPR:1884300000000464, 2016-03-09 15:30:12, 0) already exists. 
+
+-->
+<mb:BAG-Mutaties-Deelbestand-LVC xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mb="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-deelbestand-mutaties-lvc/v20090901" xmlns:selecties-extract="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-selecties/v20090901" xmlns:bagtype="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901" xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:product_LVC="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901" xmlns:bag_LVC="http://www.kadaster.nl/schemas/imbag/lvc/v20090901" xmlns:nen5825="http://www.kadaster.nl/schemas/imbag/nen5825/v20090901" xsi:schemaLocation="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-deelbestand-mutaties-lvc/v20090901 http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-deelbestand-mutaties-lvc/v20090901/BagvsExtractDeelbestandMutatieLvc-1.4.xsd">
+  <mb:antwoord>
+    <mb:vraag>
+      <selecties-extract:Gebied-Registratief>
+        <selecties-extract:Gebied-NLD>
+          <selecties-extract:GebiedIdentificatie>9999</selecties-extract:GebiedIdentificatie>
+          <selecties-extract:GebiedNaam>Nederland</selecties-extract:GebiedNaam>
+          <selecties-extract:gebiedTypeNederland>1</selecties-extract:gebiedTypeNederland>
+        </selecties-extract:Gebied-NLD>
+      </selecties-extract:Gebied-Registratief>
+      <selecties-extract:Mutatieperiode>
+        <selecties-extract:MutatiedatumVanaf>2016-03-08</selecties-extract:MutatiedatumVanaf>
+        <selecties-extract:MutatiedatumTot>2016-04-08</selecties-extract:MutatiedatumTot>
+      </selecties-extract:Mutatieperiode>
+    </mb:vraag>
+    <mb:producten>
+<!-- nieuw om 2016-03-09T15:30:12.000951 -->
+      <product_LVC:Mutatie-product>
+        <product_LVC:Verwerking>
+          <product_LVC:TijdstipVerwerking>2016-03-09T15:30:12.000951</product_LVC:TijdstipVerwerking>
+          <product_LVC:ObjectType>OPR</product_LVC:ObjectType>
+          <product_LVC:VolgnrVerwerking>0</product_LVC:VolgnrVerwerking>
+        </product_LVC:Verwerking>
+        <product_LVC:Nieuw>
+          <bag_LVC:OpenbareRuimte>
+            <bag_LVC:identificatie>1884300000000464</bag_LVC:identificatie>
+            <bag_LVC:aanduidingRecordInactief>N</bag_LVC:aanduidingRecordInactief>
+            <bag_LVC:aanduidingRecordCorrectie>0</bag_LVC:aanduidingRecordCorrectie>
+            <bag_LVC:openbareRuimteNaam>oeverloos</bag_LVC:openbareRuimteNaam>
+            <bag_LVC:officieel>N</bag_LVC:officieel>
+            <bag_LVC:tijdvakgeldigheid>
+              <bagtype:begindatumTijdvakGeldigheid>2016030900100001</bagtype:begindatumTijdvakGeldigheid>
+            </bag_LVC:tijdvakgeldigheid>
+            <bag_LVC:inOnderzoek>N</bag_LVC:inOnderzoek>
+            <bag_LVC:openbareRuimteType>Weg</bag_LVC:openbareRuimteType>
+            <bag_LVC:bron>
+              <bagtype:documentdatum>20160309</bagtype:documentdatum>
+              <bagtype:documentnummer>16.06132</bagtype:documentnummer>
+            </bag_LVC:bron>
+            <bag_LVC:openbareruimteStatus>Naamgeving uitgegeven</bag_LVC:openbareruimteStatus>
+            <bag_LVC:gerelateerdeWoonplaats>
+              <bag_LVC:identificatie>3042</bag_LVC:identificatie>
+            </bag_LVC:gerelateerdeWoonplaats>
+          </bag_LVC:OpenbareRuimte>
+        </product_LVC:Nieuw>
+      </product_LVC:Mutatie-product>
+<!-- nieuw om 2016-03-09T15:30:12.000997 -->
+      <product_LVC:Mutatie-product>
+        <product_LVC:Verwerking>
+          <product_LVC:TijdstipVerwerking>2016-03-09T15:30:12.000997</product_LVC:TijdstipVerwerking>
+          <product_LVC:ObjectType>OPR</product_LVC:ObjectType>
+          <product_LVC:VolgnrVerwerking>0</product_LVC:VolgnrVerwerking>
+        </product_LVC:Verwerking>
+        <product_LVC:Nieuw>
+          <bag_LVC:OpenbareRuimte>
+            <bag_LVC:identificatie>1884300000000464</bag_LVC:identificatie>
+            <bag_LVC:aanduidingRecordInactief>N</bag_LVC:aanduidingRecordInactief>
+            <bag_LVC:aanduidingRecordCorrectie>0</bag_LVC:aanduidingRecordCorrectie>
+            <bag_LVC:openbareRuimteNaam>Oeverloos</bag_LVC:openbareRuimteNaam>
+            <bag_LVC:officieel>N</bag_LVC:officieel>
+            <bag_LVC:tijdvakgeldigheid>
+              <bagtype:begindatumTijdvakGeldigheid>2016030900100002</bagtype:begindatumTijdvakGeldigheid>
+            </bag_LVC:tijdvakgeldigheid>
+            <bag_LVC:inOnderzoek>N</bag_LVC:inOnderzoek>
+            <bag_LVC:openbareRuimteType>Weg</bag_LVC:openbareRuimteType>
+            <bag_LVC:bron>
+              <bagtype:documentdatum>20160309</bagtype:documentdatum>
+              <bagtype:documentnummer>16.06248</bagtype:documentnummer>
+            </bag_LVC:bron>
+            <bag_LVC:openbareruimteStatus>Naamgeving uitgegeven</bag_LVC:openbareruimteStatus>
+            <bag_LVC:gerelateerdeWoonplaats>
+              <bag_LVC:identificatie>3042</bag_LVC:identificatie>
+            </bag_LVC:gerelateerdeWoonplaats>
+          </bag_LVC:OpenbareRuimte>
+        </product_LVC:Nieuw>
+      </product_LVC:Mutatie-product>
+<!-- geldigheid aanpassing om 2016-03-09T15:30:12.000997 -->
+      <product_LVC:Mutatie-product>
+        <product_LVC:Verwerking>
+          <product_LVC:TijdstipVerwerking>2016-03-09T15:30:12.000997</product_LVC:TijdstipVerwerking>
+          <product_LVC:ObjectType>OPR</product_LVC:ObjectType>
+          <product_LVC:VolgnrVerwerking>1</product_LVC:VolgnrVerwerking>
+        </product_LVC:Verwerking>
+        <product_LVC:Origineel>
+          <bag_LVC:OpenbareRuimte>
+            <bag_LVC:identificatie>1884300000000464</bag_LVC:identificatie>
+            <bag_LVC:aanduidingRecordInactief>N</bag_LVC:aanduidingRecordInactief>
+            <bag_LVC:aanduidingRecordCorrectie>0</bag_LVC:aanduidingRecordCorrectie>
+            <bag_LVC:openbareRuimteNaam>oeverloos</bag_LVC:openbareRuimteNaam>
+            <bag_LVC:officieel>N</bag_LVC:officieel>
+            <bag_LVC:tijdvakgeldigheid>
+              <bagtype:begindatumTijdvakGeldigheid>2016030900100001</bagtype:begindatumTijdvakGeldigheid>
+            </bag_LVC:tijdvakgeldigheid>
+            <bag_LVC:inOnderzoek>N</bag_LVC:inOnderzoek>
+            <bag_LVC:openbareRuimteType>Weg</bag_LVC:openbareRuimteType>
+            <bag_LVC:bron>
+              <bagtype:documentdatum>20160309</bagtype:documentdatum>
+              <bagtype:documentnummer>16.06132</bagtype:documentnummer>
+            </bag_LVC:bron>
+            <bag_LVC:openbareruimteStatus>Naamgeving uitgegeven</bag_LVC:openbareruimteStatus>
+            <bag_LVC:gerelateerdeWoonplaats>
+              <bag_LVC:identificatie>3042</bag_LVC:identificatie>
+            </bag_LVC:gerelateerdeWoonplaats>
+          </bag_LVC:OpenbareRuimte>
+        </product_LVC:Origineel>
+        <product_LVC:Wijziging>
+          <bag_LVC:OpenbareRuimte>
+            <bag_LVC:identificatie>1884300000000464</bag_LVC:identificatie>
+            <bag_LVC:aanduidingRecordInactief>N</bag_LVC:aanduidingRecordInactief>
+            <bag_LVC:aanduidingRecordCorrectie>0</bag_LVC:aanduidingRecordCorrectie>
+            <bag_LVC:openbareRuimteNaam>oeverloos</bag_LVC:openbareRuimteNaam>
+            <bag_LVC:officieel>N</bag_LVC:officieel>
+            <bag_LVC:tijdvakgeldigheid>
+              <bagtype:begindatumTijdvakGeldigheid>2016030900100001</bagtype:begindatumTijdvakGeldigheid>
+               <bagtype:einddatumTijdvakGeldigheid>2016030900100002</bagtype:einddatumTijdvakGeldigheid>
+            </bag_LVC:tijdvakgeldigheid>
+            <bag_LVC:inOnderzoek>N</bag_LVC:inOnderzoek>
+            <bag_LVC:openbareRuimteType>Weg</bag_LVC:openbareRuimteType>
+            <bag_LVC:bron>
+              <bagtype:documentdatum>20160309</bagtype:documentdatum>
+              <bagtype:documentnummer>16.06132</bagtype:documentnummer>
+            </bag_LVC:bron>
+            <bag_LVC:openbareruimteStatus>Naamgeving uitgegeven</bag_LVC:openbareruimteStatus>
+            <bag_LVC:gerelateerdeWoonplaats>
+              <bag_LVC:identificatie>3042</bag_LVC:identificatie>
+            </bag_LVC:gerelateerdeWoonplaats>
+          </bag_LVC:OpenbareRuimte>
+        </product_LVC:Wijziging>
+      </product_LVC:Mutatie-product>
+<!-- geldigheid aanpassing om 2016-03-09T15:30:12.000997 -->
+      <product_LVC:Mutatie-product>
+        <product_LVC:Verwerking>
+          <product_LVC:TijdstipVerwerking>2016-03-09T15:30:12.000997</product_LVC:TijdstipVerwerking>
+          <product_LVC:ObjectType>OPR</product_LVC:ObjectType>
+          <product_LVC:VolgnrVerwerking>1</product_LVC:VolgnrVerwerking>
+        </product_LVC:Verwerking>
+        <product_LVC:Origineel>
+          <bag_LVC:OpenbareRuimte>
+            <bag_LVC:identificatie>1884300000000464</bag_LVC:identificatie>
+            <bag_LVC:aanduidingRecordInactief>N</bag_LVC:aanduidingRecordInactief>
+            <bag_LVC:aanduidingRecordCorrectie>0</bag_LVC:aanduidingRecordCorrectie>
+            <bag_LVC:openbareRuimteNaam>oeverloos</bag_LVC:openbareRuimteNaam>
+            <bag_LVC:officieel>N</bag_LVC:officieel>
+            <bag_LVC:tijdvakgeldigheid>
+              <bagtype:begindatumTijdvakGeldigheid>2016030900100001</bagtype:begindatumTijdvakGeldigheid>
+            </bag_LVC:tijdvakgeldigheid>
+            <bag_LVC:inOnderzoek>N</bag_LVC:inOnderzoek>
+            <bag_LVC:openbareRuimteType>Weg</bag_LVC:openbareRuimteType>
+            <bag_LVC:bron>
+              <bagtype:documentdatum>20160309</bagtype:documentdatum>
+              <bagtype:documentnummer>16.06132</bagtype:documentnummer>
+            </bag_LVC:bron>
+            <bag_LVC:openbareruimteStatus>Naamgeving uitgegeven</bag_LVC:openbareruimteStatus>
+            <bag_LVC:gerelateerdeWoonplaats>
+              <bag_LVC:identificatie>3042</bag_LVC:identificatie>
+            </bag_LVC:gerelateerdeWoonplaats>
+          </bag_LVC:OpenbareRuimte>
+        </product_LVC:Origineel>
+        <product_LVC:Wijziging>
+          <bag_LVC:OpenbareRuimte>
+            <bag_LVC:identificatie>1884300000000464</bag_LVC:identificatie>
+            <bag_LVC:aanduidingRecordInactief>N</bag_LVC:aanduidingRecordInactief>
+            <bag_LVC:aanduidingRecordCorrectie>0</bag_LVC:aanduidingRecordCorrectie>
+            <bag_LVC:openbareRuimteNaam>oeverloos</bag_LVC:openbareRuimteNaam>
+            <bag_LVC:officieel>N</bag_LVC:officieel>
+            <bag_LVC:tijdvakgeldigheid>
+              <bagtype:begindatumTijdvakGeldigheid>2016030900100001</bagtype:begindatumTijdvakGeldigheid>
+              <bagtype:einddatumTijdvakGeldigheid>2016030900100002</bagtype:einddatumTijdvakGeldigheid>
+            </bag_LVC:tijdvakgeldigheid>
+            <bag_LVC:inOnderzoek>N</bag_LVC:inOnderzoek>
+            <bag_LVC:openbareRuimteType>Weg</bag_LVC:openbareRuimteType>
+            <bag_LVC:bron>
+              <bagtype:documentdatum>20160309</bagtype:documentdatum>
+              <bagtype:documentnummer>16.06132</bagtype:documentnummer>
+            </bag_LVC:bron>
+            <bag_LVC:openbareruimteStatus>Naamgeving uitgegeven</bag_LVC:openbareruimteStatus>
+            <bag_LVC:gerelateerdeWoonplaats>
+              <bag_LVC:identificatie>3042</bag_LVC:identificatie>
+            </bag_LVC:gerelateerdeWoonplaats>
+          </bag_LVC:OpenbareRuimte>
+        </product_LVC:Wijziging>
+      </product_LVC:Mutatie-product>
+      
+    </mb:producten>
+  </mb:antwoord>
+</mb:BAG-Mutaties-Deelbestand-LVC>
