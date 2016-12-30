@@ -50,7 +50,7 @@ public class BAGXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
             {"bag", "/nl/b3p/brmo/loader/xml/0197LIG01072014-01072014-000001.xml", 0, 1},
             {"bag", "/nl/b3p/brmo/loader/xml/0197STA01072014-01072014-000001.xml", 2, 1},
             {"bag", "/nl/b3p/brmo/loader/xml/9999MUT02012015-03012015.zip", 25718, 6},
-            {"bag", "/GH-275/OPR-1884300000000464.xml", 4, 1}
+            {/*bestand heeft 4 berichten voor object, maar we houden alleen de laatste mutatie in staging*/"bag", "/GH-275/OPR-1884300000000464.xml", 1, 1}
         });
     }
 
