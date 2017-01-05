@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 B3Partners B.V.
+ * Copyright (C) 2016 - 2017 B3Partners B.V.
  */
 package nl.b3p.brmo.loader.jdbc;
 
