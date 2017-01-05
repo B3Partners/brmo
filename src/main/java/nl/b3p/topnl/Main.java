@@ -53,7 +53,8 @@ public class Main {
             ds.setUsername("top50nl");
             ds.setPassword("top50nl");*/
             Processor p = new Processor(ds);
-            loadtop100nl("/mnt/data/Documents/TopNL/TOP100NL_GML_Filechunks_november_2016/TOP100NL_GML_Filechunks", p);
+            loadtopnl("/mnt/data/Documents/TopNL/Top50NL/TOP50NL_GML_Filechunks_november_2016/TOP50NL_GML_Filechunks", p,  TopNLType.TOP50NL);
+            //loadtopnl("/mnt/data/Documents/TopNL/TOP100NL_GML_Filechunks_november_2016/TOP100NL_GML_Filechunks", p,  TopNLType.TOP100NL);
             //process("top250NL.gml", p);
             //process("Hoogte_top250nl.xml", TopNLType.TOP250NL, p);
             //process("Hoogte_top100nl.xml", TopNLType.TOP100NL, p);
@@ -63,7 +64,7 @@ public class Main {
         }
     }
     
-    private static void loadtop100nl(String dir, Processor p)  throws ParseException, IOException, SAXException, ParserConfigurationException, JAXBException, TransformerException, JDOMException {
+    private static void loadtopnl(String dir, Processor p, TopNLType type)  throws ParseException, IOException, SAXException, ParserConfigurationException, JAXBException, TransformerException, JDOMException {
         File f = new File (dir);
         FilenameFilter filter = new  FilenameFilter() {
             @Override
@@ -77,7 +78,7 @@ public class Main {
         for (File file : files) {
             
             String fileString = file.getCanonicalPath();
-            p.importIntoDb(file.toURL(), TopNLType.TOP100NL);
+            p.importIntoDb(file.toURL(), type);
             
         }
     }
