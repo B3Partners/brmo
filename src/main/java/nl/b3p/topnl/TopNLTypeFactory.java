@@ -32,6 +32,7 @@ public class TopNLTypeFactory {
     private static final String TOP250NLNAMESPACE = "http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.0";
     private static final String TOP100NLNAMESPACE = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0";
     private static final String TOP50NLNAMESPACE = "http://www.kadaster.nl/top50nl/1.1";
+    private static final String TOP10NLNAMESPACE = "http://register.geostandaarden.nl/gmlapplicatieschema/top10nl/1.2.0";
 
     public static TopNLType getTopNLType(URL is) throws JDOMException, IOException {
         Document inputXml = new SAXBuilder().build(is);
@@ -56,6 +57,8 @@ public class TopNLTypeFactory {
                 return TopNLType.TOP100NL;
             case TOP50NLNAMESPACE:
                 return TopNLType.TOP50NL;
+            case TOP10NLNAMESPACE:
+                return TopNLType.TOP10NL;
             default:
                 throw new IllegalArgumentException("Type not recognized: " + currentNamespace);
         }

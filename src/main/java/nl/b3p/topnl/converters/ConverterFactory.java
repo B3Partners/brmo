@@ -23,25 +23,30 @@ public class ConverterFactory {
     private final Converter top250nlConverter = new Top250NLConverter();
     private final Converter top100nlConverter = new Top100NLConverter();
     private final Converter top50nlConverter = new Top50NLConverter();
+    private final Converter top10nlConverter = new Top10NLConverter();
     private JAXBContext context250nl = null;
     private JAXBContext context100nl = null;
     private JAXBContext context50nl = null;
+    private JAXBContext context10nl = null;
     
     public ConverterFactory() throws JAXBException{
         
         context250nl = JAXBContext.newInstance("nl.b3p.topnl.top250nl");
         context100nl = JAXBContext.newInstance("nl.b3p.topnl.top100nl");
         context50nl = JAXBContext.newInstance("nl.b3p.topnl.top50nl");
+        context10nl = JAXBContext.newInstance("nl.b3p.topnl.top10nl");
     }
     
     public Converter getConverter(TopNLType type){
         switch(type){
-            case TOP100NL:
-                return top100nlConverter;
             case TOP250NL:
                 return top250nlConverter;
+            case TOP100NL:
+                return top100nlConverter;
             case TOP50NL:
                 return top50nlConverter;
+            case TOP10NL:
+                return top10nlConverter;
             default:
                 throw new IllegalArgumentException("Converter not yet implemented: " + type.getType());
                 
@@ -50,6 +55,8 @@ public class ConverterFactory {
     
     public JAXBContext getContext(TopNLType type) {
         switch (type) {
+            case TOP10NL:
+                return context10nl;
             case TOP50NL:
                 return context50nl;
             case TOP100NL:

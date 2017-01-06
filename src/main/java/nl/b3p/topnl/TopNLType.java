@@ -21,6 +21,7 @@ package nl.b3p.topnl;
  * @author Meine Toonen
  */
 public enum TopNLType {
+    TOP10NL ("top10nl"), 
     TOP50NL ("top50nl"), 
     TOP100NL("top100nl"), 
     TOP250NL("top250nl");
