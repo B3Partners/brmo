@@ -39,7 +39,6 @@ import nl.b3p.topnl.entities.Terrein;
 import nl.b3p.topnl.entities.TopNLEntity;
 import nl.b3p.topnl.entities.Waterdeel;
 import nl.b3p.topnl.entities.Wegdeel;
-import nl.b3p.topnl.top100nl.JaNeeType;
 import nl.b3p.topnl.top10nl.BRTJaNeeWaardeType;
 import nl.b3p.topnl.top10nl.CodeType;
 import nl.b3p.topnl.top10nl.FeatureMemberType;
@@ -132,7 +131,7 @@ public class Top10NLConverter extends Converter {
         }
 
         log.debug("Converted type " + entity.getClass());
-        entity.setTopnltype(TopNLType.TOP50NL.getType());
+        entity.setTopnltype(TopNLType.TOP10NL.getType());
         return entity;
     }
 
@@ -165,6 +164,7 @@ public class Top10NLConverter extends Converter {
         entity.setBrontype(type.getBrontype().getValue());
         entity.setBronactualiteit(type.getBronactualiteit().getTime());
         entity.setBronbeschrijving(type.getBronbeschrijving());
+        entity.setBronnauwkeurigheid(type.getBronnauwkeurigheid());
         entity.setObjectBeginTijd(type.getObjectBeginTijd().getTime());
         entity.setVisualisatieCode(type.getVisualisatieCode() != null ? type.getVisualisatieCode().longValue() : null);
     }
@@ -202,6 +202,7 @@ public class Top10NLConverter extends Converter {
         gb.setHoogte(g.getHoogte());
         gb.setNaam(String.join(",", g.getNaam()));
         gb.setSoortnaam(g.getSoortnaam());
+        gb.setStatus(g.getStatus() != null ? g.getStatus().getValue() : null);
         gb.setGeometrie(gc.convertGeometry(g.getGeometrie()));
         return gb;
     }

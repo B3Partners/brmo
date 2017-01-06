@@ -172,6 +172,7 @@ public class Top10NLConverterTest extends TestUtil{
 
         expected.setIdentificatie("NL.TOP10NL.127584838");
         expected.setVisualisatieCode(new Long("13000"));
+        expected.setBronnauwkeurigheid(new Double("100"));
 
         assertNotNull(entity);
         assertTrue(entity instanceof Gebouw);
@@ -183,7 +184,6 @@ public class Top10NLConverterTest extends TestUtil{
         assertEquals( "overig", real.getTypeGebouw());
         assertEquals( "laagbouw", real.getHoogteklasse());
         assertEquals( "in gebruik", real.getStatus());
-        assertEquals( new Double(0.0), real.getHoogte());
     }
     
        
