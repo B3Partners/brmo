@@ -259,6 +259,8 @@ create table top250nl.Waterdeel (
   sluisnaam varchar(255),
   brugnaam varchar(255),
   hoogteniveau bigint,
+  functie varchar(255),
+  hoofdAfwatering Boolean,
     
   geometrie clob,
   primary key (id)
@@ -300,6 +302,7 @@ create table top250nl.Wegdeel (
   brugnaam varchar(255),
   tunnelnaam varchar(255),
 
+    hartGeometrie clob,
   geometrie clob,
   primary key (id)
   );

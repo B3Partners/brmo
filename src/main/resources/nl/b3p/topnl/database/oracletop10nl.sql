@@ -1,4 +1,4 @@
-create table  top50nl.Hoogte (
+create table  top10nl.Hoogte (
     topnltype varchar2(255),
     id Integer,
     identificatie varchar2(255),
@@ -18,7 +18,7 @@ create table  top50nl.Hoogte (
     
     );
 
-create table top50nl.FunctioneelGebied(
+create table top10nl.FunctioneelGebied(
 
     topnltype varchar2(255),
     id Integer,
@@ -42,7 +42,7 @@ create table top50nl.FunctioneelGebied(
   );
 
 
-create table top50nl.Gebouw(
+create table top10nl.Gebouw(
 
     topnltype varchar2(255),
     id Integer,
@@ -71,7 +71,7 @@ create table top50nl.Gebouw(
 
 
 
-create table top50nl.GeografischGebied(
+create table top10nl.GeografischGebied(
 
     topnltype varchar2(255),
     id Integer,
@@ -94,7 +94,7 @@ create table top50nl.GeografischGebied(
   );
 
 
-create table top50nl.Inrichtingselement(
+create table top10nl.Inrichtingselement(
 
     topnltype varchar2(255),
     id Integer,
@@ -119,7 +119,7 @@ create table top50nl.Inrichtingselement(
 
 
 
-create table top50nl.Plaats(
+create table top10nl.Plaats(
 
     topnltype varchar2(255),
     id Integer,
@@ -144,7 +144,7 @@ create table top50nl.Plaats(
   );
 
 
-create table top50nl.RegistratiefGebied(
+create table top10nl.RegistratiefGebied(
 
     topnltype varchar2(255),
     id Integer,
@@ -168,7 +168,7 @@ create table top50nl.RegistratiefGebied(
   );
 
 
-create table top50nl.Relief(
+create table top10nl.Relief(
 
     topnltype varchar2(255),
     id Integer,
@@ -189,7 +189,7 @@ create table top50nl.Relief(
   primary key (id)
   );
 
-create table top50nl.Spoorbaandeel (
+create table top10nl.Spoorbaandeel (
 
     topnltype varchar2(255),
     id Integer,
@@ -220,7 +220,7 @@ create table top50nl.Spoorbaandeel (
   primary key (id)
   );
 
-create table top50nl.Terrein(
+create table top10nl.Terrein(
 
     topnltype varchar2(255),
     id Integer,
@@ -242,7 +242,7 @@ create table top50nl.Terrein(
   );
 
 
-create table top50nl.Waterdeel (
+create table top10nl.Waterdeel (
 
     topnltype varchar2(255),
     id Integer,
@@ -277,7 +277,7 @@ create table top50nl.Waterdeel (
   );
 
 
-create table top50nl.Wegdeel (
+create table top10nl.Wegdeel (
 
     topnltype varchar2(255),
     id Integer,
@@ -453,7 +453,7 @@ CREATE SEQUENCE Wegdeel_seq START WITH 1;
 
 --/
 CREATE OR REPLACE TRIGGER Hoogte_trig 
-BEFORE INSERT ON top50nl.Hoogte 
+BEFORE INSERT ON top10nl.Hoogte 
 FOR EACH ROW
 
 BEGIN
@@ -464,7 +464,7 @@ END;
 /
 --/
 CREATE OR REPLACE TRIGGER FunctioneelGebied_trig 
-BEFORE INSERT ON top50nl.FunctioneelGebied 
+BEFORE INSERT ON top10nl.FunctioneelGebied 
 FOR EACH ROW
 
 BEGIN
@@ -475,7 +475,7 @@ END;
 /
 --/
 CREATE OR REPLACE TRIGGER Gebouw_trig 
-BEFORE INSERT ON top50nl.Gebouw 
+BEFORE INSERT ON top10nl.Gebouw 
 FOR EACH ROW
 
 BEGIN
@@ -486,7 +486,7 @@ END;
 /
 --/
 CREATE OR REPLACE TRIGGER GeografischGebied_trig 
-BEFORE INSERT ON top50nl.GeografischGebied 
+BEFORE INSERT ON top10nl.GeografischGebied 
 FOR EACH ROW
 
 BEGIN
@@ -497,7 +497,7 @@ END;
 /
 --/
 CREATE OR REPLACE TRIGGER Inrichtingselement_trig 
-BEFORE INSERT ON top50nl.Inrichtingselement 
+BEFORE INSERT ON top10nl.Inrichtingselement 
 FOR EACH ROW
 
 BEGIN
@@ -508,7 +508,7 @@ END;
 /
 --/
 CREATE OR REPLACE TRIGGER Plaats_trig 
-BEFORE INSERT ON top50nl.Plaats 
+BEFORE INSERT ON top10nl.Plaats 
 FOR EACH ROW
 
 BEGIN
@@ -519,7 +519,7 @@ END;
 /
 --/
 CREATE OR REPLACE TRIGGER RegistratiefGebied_trig 
-BEFORE INSERT ON top50nl.RegistratiefGebied 
+BEFORE INSERT ON top10nl.RegistratiefGebied 
 FOR EACH ROW
 
 BEGIN
@@ -530,7 +530,7 @@ END;
 /
 --/
 CREATE OR REPLACE TRIGGER Relief_trig 
-BEFORE INSERT ON top50nl.Relief 
+BEFORE INSERT ON top10nl.Relief 
 FOR EACH ROW
 
 BEGIN
@@ -541,7 +541,7 @@ END;
 /
 --/
 CREATE OR REPLACE TRIGGER Spoorbaandeel_trig 
-BEFORE INSERT ON top50nl.Spoorbaandeel 
+BEFORE INSERT ON top10nl.Spoorbaandeel 
 FOR EACH ROW
 
 BEGIN
@@ -552,7 +552,7 @@ END;
 /
 --/
 CREATE OR REPLACE TRIGGER Terrein_trig 
-BEFORE INSERT ON top50nl.Terrein 
+BEFORE INSERT ON top10nl.Terrein 
 FOR EACH ROW
 
 BEGIN
@@ -563,7 +563,7 @@ END;
 /
 --/
 CREATE OR REPLACE TRIGGER Waterdeel_trig 
-BEFORE INSERT ON top50nl.Waterdeel 
+BEFORE INSERT ON top10nl.Waterdeel 
 FOR EACH ROW
 
 BEGIN
@@ -574,7 +574,7 @@ END;
 /
 --/
 CREATE OR REPLACE TRIGGER Wegdeel_trig 
-BEFORE INSERT ON top50nl.Wegdeel 
+BEFORE INSERT ON top10nl.Wegdeel 
 FOR EACH ROW
 
 BEGIN

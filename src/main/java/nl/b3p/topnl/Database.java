@@ -258,6 +258,7 @@ public class Database {
 
         ResultSetHandler<Waterdeel> handler = new BeanHandler(Waterdeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
         Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
+        
         Object[] args = getVarargs(entity,
                 h.getTypeWater(),
                 h.getBreedteklasse(),
@@ -272,8 +273,10 @@ public class Database {
                 h.getSluisnaam(),
                 h.getBrugnaam(),
                 h.getHoogteniveau(),
+                h.getFunctie(),
+                h.isHoofdAfwatering(),
                 nativeGeom);
-        Waterdeel inserted = run.insert("INSERT INTO " + h.getTopnltype() + ".waterdeel (" + getTopNLEntityColumns() + ",typewater,breedteklasse,fysiekvoorkomen,voorkomen,getijdeinvloed,vaarwegklasse,naamofficieel,naamnl,naamfries,isbagnaam,sluisnaam,brugnaam,hoogteniveau,geometrie) VALUES (" + getTopNLEntityReplacementChars() + ",?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        Waterdeel inserted = run.insert("INSERT INTO " + h.getTopnltype() + ".waterdeel (" + getTopNLEntityColumns() + ",typewater,breedteklasse,fysiekvoorkomen,voorkomen,getijdeinvloed,vaarwegklasse,naamofficieel,naamnl,naamfries,isbagnaam,sluisnaam,brugnaam,hoogteniveau,functie,hoofdAfwatering,geometrie) VALUES (" + getTopNLEntityReplacementChars() + ",?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                 handler,
                 args);
 
@@ -285,6 +288,7 @@ public class Database {
 
         ResultSetHandler<Wegdeel> handler = new BeanHandler(Wegdeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
         Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
+        Object nativeHartGeom = gjc.convertToNativeGeometryObject(h.getHartGeometrie().toText());
         Object[] args = getVarargs(entity,
                 h.getTypeInfrastructuur(),
                 h.getTypeWeg(),
@@ -307,8 +311,9 @@ public class Database {
                 h.getKnooppuntnaam(),
                 h.getBrugnaam(),
                 h.getTunnelnaam(),
+                nativeHartGeom,
                 nativeGeom);
-        Wegdeel inserted = run.insert("INSERT INTO " + h.getTopnltype() + ".wegdeel (" + getTopNLEntityColumns() + ",typeInfrastructuur,typeWeg,hoofdverkeersgebruik,fysiekVoorkomen,verhardingsbreedteklasse,gescheidenRijbaan,verhardingstype,aantalRijstroken,hoogteniveau,status,naam,isBAGnaam,aWegnummer,nWegnummer,eWegnummer,sWegnummer,afritnummer,afritnaam,knooppuntnaam,brugnaam,tunnelnaam,geometrie) VALUES (" + getTopNLEntityReplacementChars() + ",?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        Wegdeel inserted = run.insert("INSERT INTO " + h.getTopnltype() + ".wegdeel (" + getTopNLEntityColumns() + ",typeInfrastructuur,typeWeg,hoofdverkeersgebruik,fysiekVoorkomen,verhardingsbreedteklasse,gescheidenRijbaan,verhardingstype,aantalRijstroken,hoogteniveau,status,naam,isBAGnaam,aWegnummer,nWegnummer,eWegnummer,sWegnummer,afritnummer,afritnaam,knooppuntnaam,brugnaam,tunnelnaam,hartGeometrie,geometrie) VALUES (" + getTopNLEntityReplacementChars() + ",?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                 handler,
                 args);
 

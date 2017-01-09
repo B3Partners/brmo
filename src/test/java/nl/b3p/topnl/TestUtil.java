@@ -60,6 +60,7 @@ public class TestUtil {
             initDB("initdb250nl.sql");
             initDB("initdb100nl.sql");
             initDB("initdb50nl.sql");
+            initDB("initdb10nl.sql");
             GeometryJdbcConverter gjc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection());
             run = new QueryRunner(datasource, gjc.isPmdKnownBroken() );
         }

@@ -69,9 +69,10 @@ public class DatabaseTest extends TestUtil{
     public static Collection<Object[]> params() {
         return Arrays.asList(new Object[][]
             {
+                {TopNLType.TOP10NL}/*,
                 {TopNLType.TOP50NL},
                 {TopNLType.TOP100NL},
-                {TopNLType.TOP250NL}
+                {TopNLType.TOP250NL}*/
             }
         );
     }
@@ -368,7 +369,8 @@ public class DatabaseTest extends TestUtil{
         e.setSluisnaam("lala");
         e.setBrugnaam("Ophaal");
         e.setHoogteniveau(8L);
-
+        e.setFunctie("functie");
+        e.setHoofdAfwatering(true);
         instance.save(e);
 
         ResultSetHandler<Waterdeel> h = new BeanHandler<>(Waterdeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
@@ -391,6 +393,8 @@ public class DatabaseTest extends TestUtil{
         assertEquals(e.getSluisnaam(), real.getSluisnaam());
         assertEquals(e.getBrugnaam(), real.getBrugnaam());
         assertEquals(e.getHoogteniveau(), real.getHoogteniveau());
+        assertEquals(e.getFunctie(), real.getFunctie());
+        assertEquals(e.isHoofdAfwatering(), real.isHoofdAfwatering());
     }
     
     @Test
@@ -427,6 +431,7 @@ public class DatabaseTest extends TestUtil{
         Wegdeel e = new Wegdeel();
         getStandardTestTopNLEntity(e, type);
         e.setGeometrie(p);
+        e.setHartGeometrie(p);
         e.setTypeInfrastructuur("Snelweg");
         e.setTypeWeg("snelweg");
         e.setHoofdverkeersgebruik("auto's");
@@ -458,6 +463,7 @@ public class DatabaseTest extends TestUtil{
         testStandardTopNLEntity(real, e);
 
         assertEquals(p, real.getGeometrie());
+        assertEquals(p, real.getHartGeometrie());
         assertEquals(e.getTypeInfrastructuur(), real.getTypeInfrastructuur());
         assertEquals(e.getTypeWeg(), real.getTypeWeg());
         assertEquals(e.getHoofdverkeersgebruik(), real.getHoofdverkeersgebruik());

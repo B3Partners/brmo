@@ -269,6 +269,8 @@ create table top100nl.Waterdeel (
   sluisnaam varchar2(255),
   brugnaam varchar2(255),
   hoogteniveau number,
+  functie varchar2(255),
+  hoofdAfwatering char(1),
     
   geometrie MDSYS.SDO_GEOMETRY,
   primary key (id)
@@ -312,6 +314,7 @@ create table top100nl.Wegdeel (
   tunnelnaam varchar2(255),
 
   geometrie MDSYS.SDO_GEOMETRY,
+  hartGeometrie MDSYS.SDO_GEOMETRY,
   primary key (id)
   );
 
@@ -320,110 +323,119 @@ create table top100nl.Wegdeel (
 
 
 insert into user_sdo_geom_metadata values('Hoogte', 'geometrie', MDSYS.SDO_DIM_ARRAY(
-	MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
-	MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
-	28992
+  MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+  MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
+  28992
 );
 CREATE INDEX Hoogte_geom_idx ON Hoogte (geometrie) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
 
 
 insert into user_sdo_geom_metadata values('FunctioneelGebied', 'geometrie', MDSYS.SDO_DIM_ARRAY(
-	MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
-	MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
-	28992
+  MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+  MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
+  28992
 );
 CREATE INDEX FunctioneelGebied_geom_idx ON FunctioneelGebied (geometrie) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
 
 
 insert into user_sdo_geom_metadata values('Gebouw', 'geometrie', MDSYS.SDO_DIM_ARRAY(
-	MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
-	MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
-	28992
+  MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+  MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
+  28992
 );
 CREATE INDEX Gebouw_geom_idx ON Gebouw (geometrie) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
 
 
 insert into user_sdo_geom_metadata values('GeografischGebied', 'geometrie', MDSYS.SDO_DIM_ARRAY(
-	MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
-	MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
-	28992
+  MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+  MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
+  28992
 );
 CREATE INDEX GeografischGebied_geom_idx ON GeografischGebied (geometrie) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
 
 
 insert into user_sdo_geom_metadata values('Inrichtingselement', 'geometrie', MDSYS.SDO_DIM_ARRAY(
-	MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
-	MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
-	28992
+  MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+  MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
+  28992
 );
 CREATE INDEX Inrichtingselement_geom_idx ON Inrichtingselement (geometrie) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
 
 
 insert into user_sdo_geom_metadata values('Plaats', 'geometrie', MDSYS.SDO_DIM_ARRAY(
-	MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
-	MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
-	28992
+  MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+  MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
+  28992
 );
 CREATE INDEX Plaats_geom_idx ON Plaats (geometrie) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
 
 
 insert into user_sdo_geom_metadata values('RegistratiefGebied', 'geometrie', MDSYS.SDO_DIM_ARRAY(
-	MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
-	MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
-	28992
+  MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+  MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
+  28992
 );
 CREATE INDEX RegistratiefGebied_geom_idx ON RegistratiefGebied (geometrie) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
 
 
 insert into user_sdo_geom_metadata values('Relief', 'geometrie', MDSYS.SDO_DIM_ARRAY(
-	MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
-	MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
-	28992
+  MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+  MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
+  28992
 );
 CREATE INDEX Relief_geom_idx ON Relief (geometrie) INDEXTYPE IS MDSYS.SPATIAL_INDEX PARAMETERS ( 'LAYER_GTYPE=LINE');
 
 
 
 insert into user_sdo_geom_metadata values('Spoorbaandeel', 'geometrie', MDSYS.SDO_DIM_ARRAY(
-	MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
-	MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
-	28992
+  MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+  MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
+  28992
 );
 CREATE INDEX Spoorbaandeel_geom_idx ON Spoorbaandeel (geometrie) INDEXTYPE IS MDSYS.SPATIAL_INDEX PARAMETERS ( 'LAYER_GTYPE=LINE');
 
 
 
 insert into user_sdo_geom_metadata values('Terrein', 'geometrie', MDSYS.SDO_DIM_ARRAY(
-	MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
-	MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
-	28992
+  MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+  MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
+  28992
 );
 CREATE INDEX Terrein_geom_idx ON Terrein (geometrie) INDEXTYPE IS MDSYS.SPATIAL_INDEX PARAMETERS ( 'LAYER_GTYPE=POLYGON');;
 
 
 
 insert into user_sdo_geom_metadata values('Waterdeel', 'geometrie', MDSYS.SDO_DIM_ARRAY(
-	MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
-	MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
-	28992
+  MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+  MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
+  28992
 );
 CREATE INDEX Waterdeel_geom_idx ON Waterdeel (geometrie) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
 
 
 insert into user_sdo_geom_metadata values('Wegdeel', 'geometrie', MDSYS.SDO_DIM_ARRAY(
-	MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
-	MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
-	28992
+  MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+  MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
+  28992
 );
 CREATE INDEX Wegdeel_geom_idx ON Wegdeel (geometrie) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
+
+
+
+insert into user_sdo_geom_metadata values('Wegdeel', 'hartGeometrie', MDSYS.SDO_DIM_ARRAY(
+  MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+  MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
+  28992
+);
+CREATE INDEX Wegdeel_geom2_idx ON Wegdeel (hartGeometrie) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
 CREATE SEQUENCE Hoogte_seq START WITH 1;
 CREATE SEQUENCE FunctioneelGebied_seq START WITH 1;
