@@ -3,7 +3,6 @@
  */
 package nl.b3p.brmo.service.scanner;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,22 +12,21 @@ import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import javax.persistence.NoResultException;
-import nl.b3p.brmo.loader.entity.BagBericht;
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoException;
-import nl.b3p.brmo.loader.xml.BagXMLReader;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
-import nl.b3p.brmo.persistence.staging.Bericht;
-import nl.b3p.brmo.persistence.staging.LaadProces;
 import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
+import nl.b3p.brmo.service.util.ConfigUtil;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.io.input.TeeInputStream;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
@@ -55,8 +53,17 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
 
     private ProgressUpdateListener listener;
 
+    private BrmoFramework brmo = null;
+
+    private int progress = 0, aantalZipGeladen = 0, aantalXMLGeladen = 0, filterXMLAlVerwerkt = 0;
+
     public WebMirrorBAGDirectoryScanner(WebMirrorBAGScannerProces config) {
         this.config = config;
+        try {
+            brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
+        } catch (BrmoException ex) {
+            log.fatal("Initialisatie van BRMO framework is mislukt", ex);
+        }
     }
 
     @Override
@@ -125,24 +132,15 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
             listener.total(items);
 
             String berichtUrl, bestandsnaam;
-            int progress = 0, aantalGeladen = 0, filterAlVerwerkt = 0;
+            progress = 0;
+            filterXMLAlVerwerkt = 0;
+            aantalZipGeladen = 0;
+            aantalXMLGeladen = 0;
             for (int i = 0; i < items; i++) {
                 berichtUrl = links.get(i).attr("abs:href");
                 bestandsnaam = links.get(i).text();
-
-                if (isBestandAlGeladen(berichtUrl)) {
-                    filterAlVerwerkt++;
-                    msg = bestandsnaam + " is al geladen.";
-                    listener.addLog(msg);
-                    if (log.isDebugEnabled()) {
-                        // omdat dit anders misschien wat verbose wordt in de logfile...
-                        config.addLogLine(msg);
-                        log.info(msg);
-                    }
-                } else {
-                    laadBestand(berichtUrl, bestandsnaam);
-                    aantalGeladen++;
-                }
+                laadBestand(berichtUrl, bestandsnaam);
+                aantalZipGeladen++;
                 listener.progress(++progress);
             }
 
@@ -150,16 +148,20 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
             listener.updateStatus(msg);
             listener.addLog(msg);
             listener.addLog("\n**** resultaat ****\n");
-            listener.addLog("Aantal url's die al waren geladen: " + filterAlVerwerkt);
-            listener.addLog("Aantal url's geladen: " + aantalGeladen + "\n");
+            listener.addLog("Aantal url's gedownloaded: " + aantalZipGeladen);
+            listener.addLog("Aantal xml's geladen: " + aantalXMLGeladen);
+            listener.addLog("Aantal xml's die al waren geladen: " + filterXMLAlVerwerkt);
 
-            config.updateSamenvattingEnLogfile(msg + "\nAantal url's die al waren geladen: "
-                    + filterAlVerwerkt + "\nAantal url's opgehaald: " + aantalGeladen);
+            config.updateSamenvattingEnLogfile(msg
+                    + "\nAantal url's gedownloaded: " + aantalZipGeladen
+                    + "\nAantal xml's geladen: " + aantalXMLGeladen
+                    + "\nAantal xml's die al waren geladen: " + filterXMLAlVerwerkt
+            );
             config.setStatus(WAITING);
             this.config.setLastrun(new Date());
             Stripersist.getEntityManager().merge(this.config);
             Stripersist.getEntityManager().getTransaction().commit();
-        } catch (MalformedURLException ex) {
+        } catch (MalformedURLException | SocketTimeoutException ex) {
             log.error(ex);
             config.addLogLine(ex.getLocalizedMessage());
             config.setStatus(ERROR);
@@ -169,11 +171,6 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
                     ex.getUrl(), ex.getStatusCode());
             log.error(msg);
             config.addLogLine(msg);
-            config.setStatus(ERROR);
-            listener.exception(ex);
-        } catch (SocketTimeoutException ex) {
-            log.error(ex);
-            config.addLogLine(ex.getLocalizedMessage());
             config.setStatus(ERROR);
             listener.exception(ex);
         } catch (IOException ex) {
@@ -204,35 +201,19 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
                 Stripersist.getEntityManager().getTransaction().commit();
             }
         }
-
-    }
-
-    private boolean isBestandAlGeladen(String naam) {
-        try {
-            Stripersist.getEntityManager().createQuery("select 1 from LaadProces lp where lp.bestand_naam = :n")
-                    .setParameter("n", naam)
-                    .getSingleResult();
-            log.debug("is al geladen: " + naam);
-            return true;
-        } catch (NoResultException nre) {
-            log.debug("nog niet geladen: " + naam);
-            return false;
-        }
     }
 
     /**
      * Laadt de berichten uit de xml documenten in een zipfile.
      *
-     * @param sUrl
-     * @param naam
-     * @param archiefDirectory
-     * @throws Exception
+     * @param sUrl te downloaden url van zip file
+     * @param naam te gebruiken naam voor zip file
+     * @throws Exception if any
      */
-    private void laadBestand(String sUrl, String naam) throws Exception {
+    private void laadBestand(String sUrl, final String naam) throws Exception {
         String msg = "Downloaden " + sUrl;
         listener.updateStatus(msg);
         listener.addLog(msg);
-        config.addLogLine(msg);
         log.info(msg);
 
         final URL url = new URL(sUrl);
@@ -251,92 +232,64 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
                     new File(this.config.getArchiefDirectory(), naam));
             zipData = new TeeInputStream(zipData, archiveFile, true);
         }
+
         ZipInputStream zis = new ZipInputStream(zipData);
         ZipEntry entry = zis.getNextEntry();
-
         if (entry == null) {
             msg = String.format("  Geen geschikt bestand gevonden in download %s.", sUrl);
             listener.addLog(msg);
-            config.addLogLine(msg);
             return;
         }
 
-        // maak een laadproces aan van de zipfile
-        LaadProces lp = new LaadProces();
-        lp.setBestand_naam(sUrl);
-        lp.setSoort("bag");
-        lp.setStatus(LaadProces.STATUS.STAGING_OK);
-        lp.setStatus_datum(new Date());
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        lp.setOpmerking("WebMirror download van " + url + " op " + sdf.format(new Date()));
-        lp.setAutomatischProces(Stripersist.getEntityManager().find(AutomatischProces.class, config.getId()));
-        // datum uit bestandsnaam halen 9999MUT01012015-02012015.zip
-        SimpleDateFormat sdFmt = new SimpleDateFormat("ddMMyyyy");
-        String d = naam.substring("9999MUT01012015-".length(), "9999MUT01012015-02012015".length());
-        lp.setBestand_datum(sdFmt.parse(d));
-        Stripersist.getEntityManager().persist(lp);
-
-        // haal de berichten uit xml bestand(en) in de zipfile
-        byte[] xml;
-        BagXMLReader bagreader;
-        BagBericht bag;
-        Bericht b;
         while (entry != null) {
             if (!entry.getName().toLowerCase().endsWith(".xml")) {
                 msg = "Overslaan zip entry geen XML: " + entry.getName();
                 listener.updateStatus(msg);
                 listener.addLog(msg);
-                config.addLogLine(msg);
                 log.info(msg);
             } else {
                 msg = String.format("  Lezen XML bestand: %s uit zip", entry.getName());
                 listener.updateStatus(msg);
                 listener.addLog(msg);
-                config.addLogLine(msg);
                 log.info(msg);
+                final String bestandNaam = naam + "/" + entry.getName();
 
-                // bagreader met een byte[] voeden om voortijdig sluiten van de (zip)inputstream te voorkomen
-                xml = IOUtils.toByteArray(zis);
-                bagreader = new BagXMLReader(new ByteArrayInputStream(xml));
-                if (bagreader.hasNext()) {
-                    // het komt voor dat er geen mutaties zijn in de xml
-                    while (bagreader.hasNext()) {
-                        b = new Bericht();
-                        b.setLaadprocesid(lp);
-                        b.setSoort("bag");
-                        b.setStatus(Bericht.STATUS.STAGING_OK);
-                        b.setStatus_datum(new Date());
-                        msg = String.format("Bericht uit bestand %s (zip file: %s)",
-                                entry.getName(), naam);
-                        b.setOpmerking(msg);
-                        listener.updateStatus(msg);
+                try {
+                    brmo.loadFromStream(BrmoFramework.BR_BAG, new CloseShieldInputStream(zis), bestandNaam,
+                            new nl.b3p.brmo.loader.ProgressUpdateListener() {
+                                @Override
+                                public void total(long total) {
+                                    listener.addLog(total + " berichten gelezen uit " + bestandNaam);
+                                    log.info(total + " berichten gelezen uit " + bestandNaam);
+                                }
 
-                        bag = bagreader.next();
-                        b.setBr_xml(bag.getBrXml());
-                        b.setVolgordenummer(bag.getVolgordeNummer());
-                        b.setObject_ref(bag.getObjectRef());
-                        b.setDatum(bag.getDatum());
-                        Stripersist.getEntityManager().persist(b);
-                    }
-                } else {
-                    msg = String.format("  Geen mutatie berichten in bestand %s (%d Kb) gevonden.",
-                            entry.getName(), entry.getSize() / 1024);
+                                @Override
+                                public void progress(long progress) {
+                                }
+
+                                @Override
+                        public void exception(Throwable t) {
+                            listener.exception(t);
+                        }
+                    });
+                    this.aantalXMLGeladen++;
+                } catch (BrmoDuplicaatLaadprocesException dup) {
+                    this.filterXMLAlVerwerkt++;
+                    msg = dup.getLocalizedMessage();
+                    listener.updateStatus(msg);
                     listener.addLog(msg);
-                    config.addLogLine(msg);
-                    log.warn(msg);
+                    log.info(msg);
+                } catch (BrmoLeegBestandException ex) {
+                    this.aantalXMLGeladen++;
+                    msg = ex.getLocalizedMessage();
+                    listener.updateStatus(msg);
+                    listener.addLog(msg);
+                    log.info(msg);
                 }
             }
             entry = zis.getNextEntry();
         }
         IOUtils.closeQuietly(zis);
-
-        Stripersist.getEntityManager().merge(lp);
-        Stripersist.getEntityManager().merge(this.config);
-        // om geheugen problemen te vookomen bij runs met veel downloads en berichten
-        // een flush/commit/clear forceren
-        Stripersist.getEntityManager().flush();
-        Stripersist.getEntityManager().getTransaction().commit();
-        Stripersist.getEntityManager().clear();
     }
 
     /**

@@ -15,7 +15,9 @@ import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
 import nl.b3p.brmo.loader.updates.UpdateProcess;
 import nl.b3p.brmo.loader.util.BGTLightRsgbTransformer;
+import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.io.IOUtils;
@@ -364,10 +366,29 @@ public class BrmoFramework {
         }
     }
 
-    public void loadFromStream(String type, InputStream stream, String fileName, ProgressUpdateListener listener) throws BrmoException {
+    /**
+     *
+     * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}
+     * @param stream datastream
+     * @param fileName te gebruiken bestandsnaam om laadproces te identificeren
+     * @param listener mag {@code null} zijn
+     * @throws BrmoException als er een algemene fout optreed
+     * @throws BrmoDuplicaatLaadprocesException als het "bestand"
+     * {@code fileName} al geladen is
+     * @throws BrmoLeegBestandException als het "bestand" {@code fileName} leeg
+     * is
+     */
+    public void loadFromStream(String type, InputStream stream, String fileName, ProgressUpdateListener listener)
+            throws BrmoException, BrmoDuplicaatLaadprocesException, BrmoLeegBestandException {
         try {
             stagingProxy.loadBr(stream, type, fileName, listener);
-        } catch(Exception e) {
+        } catch (Exception e) {
+            if (e instanceof BrmoDuplicaatLaadprocesException) {
+                throw new BrmoDuplicaatLaadprocesException(e.getLocalizedMessage());
+            }
+            if (e instanceof BrmoLeegBestandException) {
+                throw new BrmoLeegBestandException(e.getLocalizedMessage());
+            }
             throw new BrmoException("Fout bij loaden basisregistratie gegevens", e);
         }
     }
