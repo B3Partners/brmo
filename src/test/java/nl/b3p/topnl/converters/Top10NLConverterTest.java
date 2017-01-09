@@ -173,8 +173,8 @@ public class Top10NLConverterTest extends TestUtil{
         expected.setIdentificatie("NL.TOP10NL.127584838");
         expected.setVisualisatieCode(new Long("13000"));
         expected.setBronnauwkeurigheid(new Double("100"));
-
-        assertNotNull(entity);
+ 
+       assertNotNull(entity);
         assertTrue(entity instanceof Gebouw);
 
         Gebouw real = (Gebouw) entity;
@@ -357,6 +357,7 @@ public class Top10NLConverterTest extends TestUtil{
 
         expected.setIdentificatie("NL.TOP10NL.114492184");
         expected.setVisualisatieCode(new Long("10750"));
+        expected.setBronactualiteit(sdf.parse("2011-01-01"));
 
         assertNotNull(entity);
         assertTrue(entity instanceof Wegdeel);
@@ -365,16 +366,16 @@ public class Top10NLConverterTest extends TestUtil{
 
         testTopNLEntity(expected, real);
         assertEquals(LineString.class, real.getGeometrie().getClass());
+        assertEquals(LineString.class, real.getHartGeometrie().getClass());
         assertEquals("verbinding", real.getTypeInfrastructuur());
         assertEquals("overig", real.getTypeWeg());
         assertEquals("voetgangers", real.getHoofdverkeersgebruik());
         assertEquals(false, real.getGescheidenRijbaan());
         assertEquals("onbekend", real.getVerhardingstype());
-        assertEquals("Weijpoort", real.getNaam());
         assertEquals(new Long("0"), real.getHoogteniveau());
         assertEquals("in gebruik", real.getStatus());
         assertEquals(null, real.getAantalRijstroken());
-        assertEquals("> 2 meter", real.getVerhardingsbreedteklasse());
+        assertEquals("< 2 meter", real.getVerhardingsbreedteklasse());
     }
 
     public void testTopNLEntity(TopNLEntity expected, TopNLEntity real) {

@@ -376,7 +376,17 @@ public class Top10NLConverter extends Converter {
         rg.setHoofdverkeersgebruik(hoofdverkeersgebruikt);
         
         rg.setNaam(String.join(",",r.getNaam()));
-        rg.setGeometrie(gc.convertGeometry(r.getHoofdGeometrie()));
+        
+        Element [] els = r.getHartGeometrie();
+        for (Element el : els) {
+            String localname = el.getLocalName();
+            Geometry g = gc.convertGeometry(el);
+            if(localname.equals("hoofdGeometrie")){
+                rg.setGeometrie(g);
+            }else if(localname.equals("hartGeometrie")){
+                rg.setHartGeometrie(g);
+            }
+        }
         rg.setTypeInfrastructuur(r.getTypeInfrastructuur() != null ? r.getTypeInfrastructuur().getValue() : null);
         rg.setVerhardingstype(r.getVerhardingstype().getValue());
         rg.setVerhardingsbreedteklasse(r.getVerhardingsbreedteklasse().getValue());
@@ -391,6 +401,7 @@ public class Top10NLConverter extends Converter {
         rg.setBrugnaam(String.join(",",r.getBrugnaam()));
         rg.setTunnelnaam(String.join(",",r.getTunnelnaam()));
         rg.setHoogteniveau(r.getHoogteniveau().longValue());
+        rg.setStatus(r.getStatus().getValue());
         return rg;
     }
 }

@@ -48,6 +48,7 @@ public class Wegdeel extends TopNLEntity {
     private String tunnelnaam;
 
     private Geometry geometrie;
+    private Geometry hartGeometrie;
 
     public String getTypeInfrastructuur() {
         return typeInfrastructuur;
@@ -224,4 +225,12 @@ public class Wegdeel extends TopNLEntity {
     public void setHoogteniveau(Long hoogteniveau) {
         this.hoogteniveau = hoogteniveau;
     }    
+
+    public Geometry getHartGeometrie() {
+        return hartGeometrie;
+    }
+
+    public void setHartGeometrie(Geometry hartGeometrie) {
+        this.hartGeometrie = hartGeometrie;
+    }
 }
