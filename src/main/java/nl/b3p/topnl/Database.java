@@ -28,6 +28,7 @@ import nl.b3p.topnl.entities.GeografischGebied;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.Inrichtingselement;
 import nl.b3p.topnl.entities.Plaats;
+import nl.b3p.topnl.entities.PlanTopografie;
 import nl.b3p.topnl.entities.RegistratiefGebied;
 import nl.b3p.topnl.entities.Relief;
 import nl.b3p.topnl.entities.Spoorbaandeel;
@@ -90,7 +91,9 @@ public class Database {
                 saveWaterdeel(entity);
             } else if (entity instanceof Wegdeel) {
                 saveWegdeel(entity);
-            } else {
+            } else if (entity instanceof PlanTopografie) {
+                savePlanTopografie(entity);
+            } else{
                 throw new IllegalArgumentException("Type of entity not (yet) implemented.");
             }
 
@@ -115,6 +118,22 @@ public class Database {
                 h.getNaamFries(),
                 nativeGeom);
         Gebouw inserted = run.insert("INSERT INTO " + h.getTopnltype() + ".gebouw (" + getTopNLEntityColumns() + ",typegebouw,status,fysiekvoorkomen,hoogteklasse,hoogte,soortnaam,naam,naamfries,geometrie) VALUES (" + getTopNLEntityReplacementChars() + ",?,?,?,?,?,?,?,?,?)",
+                handler,
+                args);
+
+        return inserted;
+    }
+
+    private PlanTopografie savePlanTopografie(TopNLEntity entity) throws SQLException, ParseException {
+        PlanTopografie h = (PlanTopografie) entity;
+
+        ResultSetHandler<PlanTopografie> handler = new BeanHandler(PlanTopografie.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
+        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
+        Object[] args = getVarargs(entity,
+                h.getTypePlanTopografie(),
+                h.getNaam(),
+                nativeGeom);
+        PlanTopografie inserted = run.insert("INSERT INTO " + h.getTopnltype() + ".PlanTopoGrafie (" + getTopNLEntityColumns() + ",typePlanTopografie,naam,geometrie) VALUES (" + getTopNLEntityReplacementChars() + ",?,?,?)",
                 handler,
                 args);
 

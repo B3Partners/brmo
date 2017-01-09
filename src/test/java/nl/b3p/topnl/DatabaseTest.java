@@ -33,6 +33,7 @@ import nl.b3p.topnl.entities.GeografischGebied;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.Inrichtingselement;
 import nl.b3p.topnl.entities.Plaats;
+import nl.b3p.topnl.entities.PlanTopografie;
 import nl.b3p.topnl.entities.RegistratiefGebied;
 import nl.b3p.topnl.entities.Relief;
 import nl.b3p.topnl.entities.Spoorbaandeel;
@@ -69,10 +70,10 @@ public class DatabaseTest extends TestUtil{
     public static Collection<Object[]> params() {
         return Arrays.asList(new Object[][]
             {
-                {TopNLType.TOP10NL}/*,
+                {TopNLType.TOP10NL},
                 {TopNLType.TOP50NL},
                 {TopNLType.TOP100NL},
-                {TopNLType.TOP250NL}*/
+                {TopNLType.TOP250NL}
             }
         );
     }
@@ -111,6 +112,28 @@ public class DatabaseTest extends TestUtil{
         assertEquals(e.getTypeHoogte(),real.getTypeHoogte());
         assertEquals(e.getHoogte(),real.getHoogte());
         assertEquals(p,real.getGeometrie());
+    }
+
+    @Test
+    public void testSavePlanTopografie()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+        System.out.println("testSavePlanTopografie");
+        Geometry p = wkt.read("POINT (1 2)");
+        PlanTopografie e = new PlanTopografie();
+        getStandardTestTopNLEntity(e, type);
+        e.setGeometrie(p);
+        e.setNaam("plannetje");
+        e.setTypePlanTopografie("Typetje");
+        
+        instance.save(e);
+
+        ResultSetHandler<PlanTopografie> h = new BeanHandler<>(PlanTopografie.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
+
+        PlanTopografie real = run.query("SELECT * FROM "  + type.getType() + ".plantopografie WHERE identificatie=?", h, identificatie);
+        assertNotNull("Insert failed", real);
+        testStandardTopNLEntity(real, e);
+        assertEquals(p,real.getGeometrie());
+        assertEquals(e.getNaam(),real.getNaam());
+        assertEquals(e.getTypePlanTopografie(),real.getTypePlanTopografie());
     }
 
     @Test

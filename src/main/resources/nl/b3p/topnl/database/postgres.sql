@@ -24,6 +24,25 @@ create table top250nl.Hoogte (
     
     );
 
+
+create table top250nl.Hoogte (
+    topnltype text,
+    id serial not null,
+    identificatie text,
+    brontype text,
+    bronactualiteit timestamp without time zone,
+    bronbeschrijving text,
+    bronnauwkeurigheid double precision,
+    objectBeginTijd timestamp without time zone,
+    objectEindTijd timestamp without time zone,
+    visualisatieCode integer,
+
+    type text,
+    naam text,
+  primary key (id)
+    
+    );
+
 create table top250nl.FunctioneelGebied(
 
     topnltype text,
@@ -322,6 +341,24 @@ create table top250nl.Wegdeel (
   hartGeometrie Geometry,
   primary key (id)
   );
+
+create table top250nl.PlanTopografie (
+    topnltype text,
+    id serial not null,
+    identificatie text,
+    brontype text,
+    bronactualiteit timestamp without time zone,
+    bronbeschrijving text,
+    bronnauwkeurigheid double precision,
+    objectBeginTijd timestamp without time zone,
+    objectEindTijd timestamp without time zone,
+    visualisatieCode integer,
+
+    typePlanTopografie text,
+    naam text,
+  primary key (id)
+    
+    );
 
 
 create table top100nl.Hoogte (
@@ -643,6 +680,24 @@ create table top100nl.Wegdeel (
   primary key (id)
   );
 
+create table top100nl.PlanTopografie (
+    topnltype text,
+    id serial not null,
+    identificatie text,
+    brontype text,
+    bronactualiteit timestamp without time zone,
+    bronbeschrijving text,
+    bronnauwkeurigheid double precision,
+    objectBeginTijd timestamp without time zone,
+    objectEindTijd timestamp without time zone,
+    visualisatieCode integer,
+
+    typePlanTopografie text,
+    naam text,
+  primary key (id)
+    
+    );
+
 
 create table top50nl.Hoogte (
     topnltype text,
@@ -962,6 +1017,24 @@ create table top50nl.Wegdeel (
   hartGeometrie Geometry,
   primary key (id)
   );
+
+create table top50nl.PlanTopografie (
+    topnltype text,
+    id serial not null,
+    identificatie text,
+    brontype text,
+    bronactualiteit timestamp without time zone,
+    bronbeschrijving text,
+    bronnauwkeurigheid double precision,
+    objectBeginTijd timestamp without time zone,
+    objectEindTijd timestamp without time zone,
+    visualisatieCode integer,
+
+    typePlanTopografie text,
+    naam text,
+  primary key (id)
+    
+    );
 
 
 
@@ -1284,3 +1357,21 @@ create table top10nl.Wegdeel (
   primary key (id)
   );
 
+
+create table top10nl.PlanTopografie (
+    topnltype text,
+    id serial not null,
+    identificatie text,
+    brontype text,
+    bronactualiteit timestamp without time zone,
+    bronbeschrijving text,
+    bronnauwkeurigheid double precision,
+    objectBeginTijd timestamp without time zone,
+    objectEindTijd timestamp without time zone,
+    visualisatieCode integer,
+
+    typePlanTopografie text,
+    naam text,
+  primary key (id)
+    
+    );

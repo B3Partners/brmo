@@ -18,6 +18,29 @@ create table  top100nl.Hoogte (
     
     );
 
+
+create table top100nl.PlanTopografie(
+
+    topnltype varchar2(255),
+    id Integer,
+    identificatie varchar2(255),
+    brontype varchar2(255),
+    bronactualiteit Date,
+    bronbeschrijving varchar2(255),
+    bronnauwkeurigheid Double precision,
+    objectBeginTijd Date,
+    objectEindTijd Date,
+    visualisatieCode Long,
+
+    
+  typePlanTopografie varchar2(255),
+  soort varchar2(255),
+    
+  geometrie MDSYS.SDO_GEOMETRY,
+  primary key (id)
+  );
+
+
 create table top100nl.FunctioneelGebied(
 
     topnltype varchar2(255),
@@ -437,6 +460,14 @@ insert into user_sdo_geom_metadata values('Wegdeel', 'hartGeometrie', MDSYS.SDO_
 );
 CREATE INDEX Wegdeel_geom2_idx ON Wegdeel (hartGeometrie) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
+insert into user_sdo_geom_metadata values('PlanTopografie', 'geometrie', MDSYS.SDO_DIM_ARRAY(
+  MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+  MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
+  28992
+);
+CREATE INDEX PlanTopografie_geom_idx ON PlanTopografie (geometrie) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
+
+
 CREATE SEQUENCE Hoogte_seq START WITH 1;
 CREATE SEQUENCE FunctioneelGebied_seq START WITH 1;
 CREATE SEQUENCE Gebouw_seq START WITH 1;
@@ -449,6 +480,8 @@ CREATE SEQUENCE Spoorbaandeel_seq START WITH 1;
 CREATE SEQUENCE Terrein_seq START WITH 1;
 CREATE SEQUENCE Waterdeel_seq START WITH 1;
 CREATE SEQUENCE Wegdeel_seq START WITH 1;
+CREATE SEQUENCE PlanTopografie_seq START WITH 1;
+
 
 
 --/
@@ -583,3 +616,15 @@ BEGIN
   FROM   dual;
 END;
 /
+--/
+CREATE OR REPLACE TRIGGER PlanTopografie_trig 
+BEFORE INSERT ON top100nl.PlanTopografie 
+FOR EACH ROW
+
+BEGIN
+  SELECT PlanTopografie_seq.NEXTVAL
+  INTO   :new.id
+  FROM   dual;
+END;
+/
+
