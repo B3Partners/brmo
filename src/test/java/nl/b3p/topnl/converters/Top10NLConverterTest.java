@@ -189,8 +189,8 @@ public class Top10NLConverterTest extends TestUtil{
        
     @Test
     public void testConvertInrichtingselement() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-        System.out.println("testConvertInrichtingselement");
-        TopNLEntity entity = getEntity("top10nl/Inrichtingselement.xml");
+        System.out.println("testConvertInrichtingsElement");
+        TopNLEntity entity = getEntity("top10nl/InrichtingsElement.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
         expected.setBronactualiteit(sdf.parse("2006-01-01"));
@@ -198,6 +198,7 @@ public class Top10NLConverterTest extends TestUtil{
 
         expected.setIdentificatie("NL.TOP10NL.103869300");
         expected.setVisualisatieCode(new Long("15090"));
+        expected.setBronnauwkeurigheid(new Double(400));
 
         assertNotNull(entity);
         assertTrue(entity instanceof Inrichtingselement);
