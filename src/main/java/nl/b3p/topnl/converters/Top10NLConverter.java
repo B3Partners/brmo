@@ -150,7 +150,7 @@ public class Top10NLConverter extends Converter {
         Element el = h.getGeometrie();
         Geometry geom = gc.convertGeometry(el);
         hoogte.setGeometrie(geom);
-
+        hoogte.setReferentieVlak(h.getReferentievlak() != null ? h.getReferentievlak().getValue() : null );
         return hoogte;
     }
 
