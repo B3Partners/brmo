@@ -253,6 +253,7 @@ public class Top10NLConverter extends Converter {
 
         rg.setNaamFries(String.join(",", r.getNaamFries()));
         rg.setNaamNL(String.join(",", r.getNaamNL()));
+        rg.setNaamOfficieel(String.join(",", r.getNaamOfficieel()));
         rg.setNummer(String.join(",", r.getNummer()));
         rg.setTypeRegistratiefGebied(r.getTypeRegistratiefGebied() != null ? r.getTypeRegistratiefGebied().getValue() : null);
         return rg;

@@ -242,7 +242,11 @@ public class Top10NLConverterTest extends TestUtil{
 
         expected.setIdentificatie("NL.TOP10NL.129704430");
         expected.setVisualisatieCode(new Long("17010"));
-
+        expected.setBronnauwkeurigheid(new Double("20000"));
+        expected.setBrontype( "externe data");
+        expected.setBronbeschrijving("Externe data: Gemeentegrenzen. Gemeentegrenzen gebaseerd op grenswijzigingen in de Basisregistratie Kadaster (BRK). De gemeentegrenzen zijn gegeneraliseerd in de BRT opgenomen.");
+        expected.setBronactualiteit(sdf.parse("2016-01-01"));
+        expected.setObjectBeginTijd(sdf.parse("2016-11-01"));
         assertNotNull(entity);
         assertTrue(entity instanceof RegistratiefGebied);
 
