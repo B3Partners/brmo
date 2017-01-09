@@ -283,7 +283,7 @@ public class Top10NLConverterTest extends TestUtil{
         TopNLEntity entity = getEntity("top10nl/Spoorbaandeel.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
-        expected.setIdentificatie("NL.TOP10NL.16R11-0001444636");
+        expected.setIdentificatie("NL.TOP10NL.129726022");
 
         expected.setVisualisatieCode(new Long("-11000"));
 
@@ -333,6 +333,7 @@ public class Top10NLConverterTest extends TestUtil{
 
         expected.setIdentificatie("NL.TOP10NL.109888370");
         expected.setVisualisatieCode(new Long("12100"));
+        expected.setBronactualiteit(sdf.parse("2011-01-01"));
 
         assertNotNull(entity);
         assertTrue(entity instanceof Waterdeel);
@@ -342,9 +343,9 @@ public class Top10NLConverterTest extends TestUtil{
         testTopNLEntity(expected, real);
         assertEquals(LineString.class, real.getGeometrie().getClass());
         assertEquals("greppel, droge sloot", real.getTypeWater());
-        assertEquals("overig", real.getFysiekVoorkomen());
+        assertEquals(false, real.isHoofdAfwatering());
         assertEquals(false, real.getGetijdeinvloed());
-        assertEquals("overig", real.getVoorkomen());
+        assertEquals("overig", real.getFunctie());
         assertEquals(new Long("0"), real.getHoogteniveau());
     }
     

@@ -38,9 +38,11 @@ public class Waterdeel extends TopNLEntity {
     private String sluisnaam;
     private String brugnaam;
     private Long hoogteniveau;
+    private String functie;
+    private boolean hoofdAfwatering;
     
     private Geometry geometrie;
-
+    
     public String getTypeWater() {
         return typeWater;
     }
@@ -152,4 +154,21 @@ public class Waterdeel extends TopNLEntity {
     public void setHoogteniveau(Long hoogteniveau) {
         this.hoogteniveau = hoogteniveau;
     }
+
+    public boolean isHoofdAfwatering() {
+        return hoofdAfwatering;
+    }
+
+    public void setHoofdAfwatering(boolean hoofdAfwatering) {
+        this.hoofdAfwatering = hoofdAfwatering;
+    }
+
+    public String getFunctie() {
+        return functie;
+    }
+
+    public void setFunctie(String functie) {
+        this.functie = functie;
+    }
+    
 }

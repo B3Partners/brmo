@@ -333,8 +333,11 @@ public class Top10NLConverter extends Converter {
         }
         rg.setFysiekVoorkomen(fysieks);
         rg.setTypeWater(r.getTypeWater() != null ? r.getTypeWater().getValue() : null);
-        rg.setBreedteklasse( r.getBreedteklasse().getValue());
+        rg.setBreedteklasse( r.getBreedteklasse() != null ? r.getBreedteklasse().getValue() : null);
         rg.setHoogteniveau(r.getHoogteniveau().longValue());
+        rg.setGetijdeinvloed(r.getGetijdeinvloed() != null ? r.getGetijdeinvloed().equals(BRTJaNeeWaardeType.JA):false);
+        rg.setHoofdAfwatering(r.getHoofdafwatering()!= null ? r.getHoofdafwatering().equals(BRTJaNeeWaardeType.JA):false);
+        rg.setFunctie(r.getFunctie() != null ? r.getFunctie().getValue() : null);
         return rg;
     }
 
