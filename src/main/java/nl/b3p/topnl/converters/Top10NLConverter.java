@@ -270,7 +270,7 @@ public class Top10NLConverter extends Converter {
         rg.setHoogteklasse(r.getHoogteklasse().getValue());
         rg.setTypeRelief(r.getTypeRelief() != null ? r.getTypeRelief().getValue() : null);
         rg.setHoogteniveau(r.getHoogteniveau().longValue());
-
+        
         return rg;
     }
 
@@ -293,10 +293,13 @@ public class Top10NLConverter extends Converter {
         rg.setFysiekVoorkomen(fysieks);
         
         rg.setTypeSpoorbaan(r.getTypeSpoorbaan() != null ? r.getTypeSpoorbaan().getValue() : null);
-        rg.setAantalSporen(r.getAantalSporen().toString());
+        rg.setAantalSporen(r.getAantalSporen() != null ? r.getAantalSporen().getValue() : null);
         rg.setStatus(r.getStatus().getValue());
         rg.setHoogteniveau(r.getHoogteniveau().longValue());
-
+        rg.setTypeInfrastructuur(r.getTypeInfrastructuur() != null ? r.getTypeInfrastructuur().getValue() : null);
+        rg.setSpoorbreedte(r.getSpoorbreedte() != null ? r.getSpoorbreedte().getValue() : null);
+        rg.setVervoerfunctie(r.getVervoerfunctie()!= null ? r.getVervoerfunctie().getValue() : null);
+        rg.setElektrificatie(r.getElektrificatie() != null ? r.getElektrificatie().equals(BRTJaNeeWaardeType.JA) : null);
         return rg;
     }
 

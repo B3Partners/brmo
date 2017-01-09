@@ -286,6 +286,7 @@ public class Top10NLConverterTest extends TestUtil{
         expected.setIdentificatie("NL.TOP10NL.129726022");
 
         expected.setVisualisatieCode(new Long("-11000"));
+        expected.setObjectBeginTijd(sdf.parse("2016-11-01"));
 
         assertNotNull(entity);
         assertTrue(entity instanceof Spoorbaandeel);
