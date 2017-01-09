@@ -139,7 +139,6 @@ public class Top10NLConverterTest extends TestUtil{
         assertEquals(Polygon.class, real.getGeometrie().getClass());
     }
 
-    // GeografischGebied niet in Top100NL
     @Test
     public void testConvertGeografischGebied() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
         System.out.println("testConvertGeografischGebied");
@@ -149,6 +148,7 @@ public class Top10NLConverterTest extends TestUtil{
 
         expected.setIdentificatie("NL.TOP10NL.121199089");
         expected.setVisualisatieCode(new Long("18130"));
+        expected.setObjectBeginTijd(sdf.parse("2011-08-25"));
 
         assertNotNull(entity);
         assertTrue(entity instanceof GeografischGebied);
@@ -273,7 +273,7 @@ public class Top10NLConverterTest extends TestUtil{
         testTopNLEntity(expected, real);
         assertEquals(LineString.class, real.getGeometrie().getClass());
         assertEquals( "wal", real.getTypeRelief());
-        assertEquals( "> 1 meter", real.getHoogteklasse());
+        assertEquals( "< 1 meter", real.getHoogteklasse());
         assertEquals(new Long("0"), real.getHoogteniveau());
     }
     
