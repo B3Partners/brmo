@@ -208,6 +208,8 @@ create table top50nl.Relief(
 
   hoogteniveau number,
   geometrie  MDSYS.SDO_GEOMETRY,
+  taludLageZijde  MDSYS.SDO_GEOMETRY,
+  taludHogeZijde  MDSYS.SDO_GEOMETRY,
   primary key (id)
   );
 
@@ -466,6 +468,24 @@ insert into user_sdo_geom_metadata values('PlanTopografie', 'geometrie', MDSYS.S
   28992
 );
 CREATE INDEX PlanTopografie_geom_idx ON PlanTopografie (geometrie) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
+
+
+
+insert into user_sdo_geom_metadata values('Relief', 'taludLageZijde', MDSYS.SDO_DIM_ARRAY(
+  MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+  MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
+  28992
+);
+CREATE INDEX Relief_geom2_idx ON Relief (taludLageZijde) INDEXTYPE IS MDSYS.SPATIAL_INDEX PARAMETERS ( 'LAYER_GTYPE=LINE');
+
+
+insert into user_sdo_geom_metadata values('Relief', 'taludHogeZijde', MDSYS.SDO_DIM_ARRAY(
+  MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+  MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
+  28992
+);
+CREATE INDEX Relief_geom3_idx ON Relief (taludHogeZijde) INDEXTYPE IS MDSYS.SPATIAL_INDEX PARAMETERS ( 'LAYER_GTYPE=LINE');
+
 
 
 CREATE SEQUENCE Hoogte_seq START WITH 1;

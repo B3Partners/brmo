@@ -36,8 +36,11 @@ public class HSQLJdbcConverter  extends GeometryJdbcConverter {
     protected final static Log log = LogFactory.getLog(HSQLJdbcConverter.class);
     
     @Override
-    public Object convertToNativeGeometryObject(String param) throws SQLException, ParseException {
-        return param;
+    public Object convertToNativeGeometryObject(Geometry param) throws SQLException, ParseException {
+        if(param == null){
+            return null;
+        }
+        return param.toText();
     }
 
     @Override
@@ -55,6 +58,9 @@ public class HSQLJdbcConverter  extends GeometryJdbcConverter {
 
         try {
             Clob c = (Clob)nativeObj;
+            if(c == null){
+                return null;
+            }
             InputStream in = c.getAsciiStream();
             StringWriter w = new StringWriter();
             IOUtils.copy(in, w);

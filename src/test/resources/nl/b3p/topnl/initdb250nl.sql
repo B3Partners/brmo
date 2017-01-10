@@ -178,6 +178,8 @@ create table top250nl.Relief(
   typeRelief varchar(255),
   hoogteklasse varchar(255),
   geometrie clob,
+  taludLageZijde clob,
+  taludHogeZijde clob,
   hoogteniveau bigint,
   primary key (id)
   );

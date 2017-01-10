@@ -287,6 +287,8 @@ public class DatabaseTest extends TestUtil{
         Relief e = new Relief();
         getStandardTestTopNLEntity(e, type);
         e.setGeometrie(p);
+        e.setTaludHogeZijde(p);
+        e.setTaludLageZijde(p);
         e.setTypeRelief("Berg");
         e.setHoogteklasse("Superhoog");
         e.setHoogteniveau(666L);
@@ -300,6 +302,67 @@ public class DatabaseTest extends TestUtil{
         testStandardTopNLEntity(real, e);
 
         assertEquals(p, real.getGeometrie());
+        assertEquals(p, real.getTaludLageZijde());
+        assertEquals(p, real.getTaludHogeZijde());
+        assertEquals(e.getTypeRelief(), real.getTypeRelief());
+        assertEquals(e.getHoogteklasse(), real.getHoogteklasse());
+        assertEquals(e.getHoogteniveau(), real.getHoogteniveau());
+    }
+    
+
+    @Test
+    public void testSaveReliefEmptyTaludGeoms()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+        System.out.println("save");
+        LineString p = (LineString)wkt.read("LineString(1 2, 3 4, 5 6)");
+        Relief e = new Relief();
+        getStandardTestTopNLEntity(e, type);
+        e.setGeometrie(p);
+      //  e.setTaludHogeZijde(p);
+      //  e.setTaludLageZijde(p);
+        e.setTypeRelief("Berg");
+        e.setHoogteklasse("Superhoog");
+        e.setHoogteniveau(666L);
+
+        instance.save(e);
+
+        ResultSetHandler<Relief> h = new BeanHandler<>(Relief.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
+
+        Relief real = run.query("SELECT * FROM "  + type.getType() + ".relief WHERE identificatie=?", h, identificatie);
+        assertNotNull("Insert failed", real);
+        testStandardTopNLEntity(real, e);
+
+        assertEquals(p, real.getGeometrie());
+        assertEquals(null, real.getTaludLageZijde());
+        assertEquals(null, real.getTaludHogeZijde());
+        assertEquals(e.getTypeRelief(), real.getTypeRelief());
+        assertEquals(e.getHoogteklasse(), real.getHoogteklasse());
+        assertEquals(e.getHoogteniveau(), real.getHoogteniveau());
+    }
+
+    @Test
+    public void testSaveReliefEmptyHoofdGeom()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+        System.out.println("save");
+        LineString p = (LineString)wkt.read("LineString(1 2, 3 4, 5 6)");
+        Relief e = new Relief();
+        getStandardTestTopNLEntity(e, type);
+       // e.setGeometrie(p);
+        e.setTaludHogeZijde(p);
+        e.setTaludLageZijde(p);
+        e.setTypeRelief("Berg");
+        e.setHoogteklasse("Superhoog");
+        e.setHoogteniveau(666L);
+
+        instance.save(e);
+
+        ResultSetHandler<Relief> h = new BeanHandler<>(Relief.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
+
+        Relief real = run.query("SELECT * FROM "  + type.getType() + ".relief WHERE identificatie=?", h, identificatie);
+        assertNotNull("Insert failed", real);
+        testStandardTopNLEntity(real, e);
+
+        assertEquals(null, real.getGeometrie());
+        assertEquals(p, real.getTaludLageZijde());
+        assertEquals(p, real.getTaludHogeZijde());
         assertEquals(e.getTypeRelief(), real.getTypeRelief());
         assertEquals(e.getHoogteklasse(), real.getHoogteklasse());
         assertEquals(e.getHoogteniveau(), real.getHoogteniveau());

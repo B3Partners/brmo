@@ -23,7 +23,11 @@ public class PostgisJdbcConverter extends GeometryJdbcConverter {
     }
    
     @Override
-    public Object convertToNativeGeometryObject(String param) throws SQLException, ParseException {
+    public Object convertToNativeGeometryObject(Geometry g) throws SQLException, ParseException {
+        if(g == null){
+            return null;
+        }
+        String param = g.toText();
         //return param;
         if (param == null || param.trim().length() == 0) {
             return null;

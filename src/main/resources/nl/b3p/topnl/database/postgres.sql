@@ -209,6 +209,8 @@ create table top250nl.Relief(
   typeRelief text,
   hoogteklasse text,
   geometrie geometry (LineString, 28992),
+  taludLageZijde geometry (LineString, 28992),
+  taludHogeZijde geometry (LineString, 28992),
   hoogteniveau bigint,
   primary key (id)
   );
@@ -547,6 +549,8 @@ create table top100nl.Relief(
   typeRelief text,
   hoogteklasse text,
   geometrie geometry (LineString, 28992),
+  taludLageZijde geometry (LineString, 28992),
+  taludHogeZijde geometry (LineString, 28992),
   hoogteniveau bigint,
   primary key (id)
   );
@@ -885,6 +889,8 @@ create table top50nl.Relief(
   typeRelief text,
   hoogteklasse text,
   geometrie geometry (LineString, 28992),
+  taludLageZijde geometry (LineString, 28992),
+  taludHogeZijde geometry (LineString, 28992),
   hoogteniveau bigint,
   primary key (id)
   );
@@ -1224,6 +1230,8 @@ create table top10nl.Relief(
   typeRelief text,
   hoogteklasse text,
   geometrie geometry (LineString, 28992),
+  taludLageZijde geometry (LineString, 28992),
+  taludHogeZijde geometry (LineString, 28992),
   hoogteniveau bigint,
   primary key (id)
   );

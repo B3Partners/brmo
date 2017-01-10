@@ -106,7 +106,7 @@ public class Database {
         Gebouw h = (Gebouw) entity;
 
         ResultSetHandler<Gebouw> handler = new BeanHandler(Gebouw.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
-        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
+        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());
         Object[] args = getVarargs(entity,
                 h.getTypeGebouw(),
                 h.getStatus(),
@@ -128,7 +128,7 @@ public class Database {
         PlanTopografie h = (PlanTopografie) entity;
 
         ResultSetHandler<PlanTopografie> handler = new BeanHandler(PlanTopografie.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
-        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
+        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());
         Object[] args = getVarargs(entity,
                 h.getTypePlanTopografie(),
                 h.getNaam(),
@@ -144,7 +144,7 @@ public class Database {
         GeografischGebied h = (GeografischGebied) entity;
 
         ResultSetHandler<GeografischGebied> handler = new BeanHandler(GeografischGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
-        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
+        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());
         Object[] args = getVarargs(entity,
                 h.getTypeGeografischGebied(),
                 h.getNaamNL(),
@@ -161,7 +161,7 @@ public class Database {
         Inrichtingselement h = (Inrichtingselement) entity;
 
         ResultSetHandler<Inrichtingselement> handler = new BeanHandler(Inrichtingselement.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
-        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
+        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());
         Object[] args = getVarargs(entity,
                 h.getTypeInrichtingselement(),
                 h.getSoortnaam(),
@@ -179,7 +179,7 @@ public class Database {
         Plaats h = (Plaats) entity;
 
         ResultSetHandler<Plaats> handler = new BeanHandler(Plaats.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
-        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
+        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());
         Object[] args = getVarargs(entity,
                 h.getTypeGebied(),
                 h.getAantalInwoners(),
@@ -198,7 +198,7 @@ public class Database {
         RegistratiefGebied h = (RegistratiefGebied) entity;
 
         ResultSetHandler<RegistratiefGebied> handler = new BeanHandler(RegistratiefGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
-        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
+        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());
         Object[] args = getVarargs(entity,
                 h.getTypeRegistratiefGebied(),
                 h.getNaamOfficieel(),
@@ -217,13 +217,17 @@ public class Database {
         Relief h = (Relief) entity;
 
         ResultSetHandler<Relief> handler = new BeanHandler(Relief.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
-        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
+        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());
+        Object nativeLageZijde = gjc.convertToNativeGeometryObject(h.getTaludLageZijde());
+        Object nativeHogeZijde = gjc.convertToNativeGeometryObject(h.getTaludHogeZijde());
         Object[] args = getVarargs(entity,
                 h.getTypeRelief(),
                 h.getHoogteklasse(),
                 h.getHoogteniveau(),
-                nativeGeom);
-        Relief inserted = run.insert("INSERT INTO " + h.getTopnltype() + ".relief (" + getTopNLEntityColumns() + ",typeRelief,hoogteklasse,hoogteniveau,geometrie) VALUES (" + getTopNLEntityReplacementChars() + ",?,?,?,?)",
+                nativeGeom,
+                nativeLageZijde,
+                nativeHogeZijde);
+        Relief inserted = run.insert("INSERT INTO " + h.getTopnltype() + ".relief (" + getTopNLEntityColumns() + ",typeRelief,hoogteklasse,hoogteniveau,geometrie,taludLageZijde,taludHogeZijde) VALUES (" + getTopNLEntityReplacementChars() + ",?,?,?,?,?,?)",
                 handler,
                 args);
 
@@ -234,7 +238,7 @@ public class Database {
         Spoorbaandeel h = (Spoorbaandeel) entity;
 
         ResultSetHandler<Spoorbaandeel> handler = new BeanHandler(Spoorbaandeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
-        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
+        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());
         Object[] args = getVarargs(entity,
                 h.getTypeInfrastructuur(),
                 h.getTypeSpoorbaan(),
@@ -260,7 +264,7 @@ public class Database {
         Terrein h = (Terrein) entity;
 
         ResultSetHandler<Terrein> handler = new BeanHandler(Terrein.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
-        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
+        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());
         Object[] args = getVarargs(entity,
                 h.getTypeLandgebruik(),
                 h.getNaam(),
@@ -276,7 +280,7 @@ public class Database {
         Waterdeel h = (Waterdeel) entity;
 
         ResultSetHandler<Waterdeel> handler = new BeanHandler(Waterdeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
-        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
+        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());
         
         Object[] args = getVarargs(entity,
                 h.getTypeWater(),
@@ -306,8 +310,8 @@ public class Database {
         Wegdeel h = (Wegdeel) entity;
 
         ResultSetHandler<Wegdeel> handler = new BeanHandler(Wegdeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
-        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
-        Object nativeHartGeom = gjc.convertToNativeGeometryObject(h.getHartGeometrie().toText());
+        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());
+        Object nativeHartGeom = gjc.convertToNativeGeometryObject(h.getHartGeometrie());
         Object[] args = getVarargs(entity,
                 h.getTypeInfrastructuur(),
                 h.getTypeWeg(),
@@ -343,7 +347,7 @@ public class Database {
         FunctioneelGebied h = (FunctioneelGebied) entity;
 
         ResultSetHandler<FunctioneelGebied> handler = new BeanHandler(FunctioneelGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
-        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
+        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());
         Object[] args = getVarargs(entity,
                 h.getTypeFunctioneelGebied(),
                 h.getSoortnaam(),
@@ -361,7 +365,7 @@ public class Database {
         Hoogte h = (Hoogte) entity;
 
         ResultSetHandler<Hoogte> handler = new BeanHandler(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));
-        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie().toText());
+        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());
         Object[] args = getVarargs(entity,
                 h.getTypeHoogte(),
                 h.getReferentieVlak(),

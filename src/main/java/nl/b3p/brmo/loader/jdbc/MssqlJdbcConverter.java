@@ -28,7 +28,11 @@ public class MssqlJdbcConverter extends GeometryJdbcConverter {
     }
 
     @Override
-    public Object convertToNativeGeometryObject(String param) throws SQLException, ParseException {
+    public Object convertToNativeGeometryObject(com.vividsolutions.jts.geom.Geometry g) throws SQLException, ParseException {
+        if(g == null){
+            return null;
+        }
+        String param = g.toText();
         // return param;
         if (param == null || param.trim().length() == 0) {
             return null;

@@ -17,7 +17,7 @@ public abstract class GeometryJdbcConverter {
     //geconverteerd
     //defineer placeholder via native wkt-import functie als geometry als 
     //wkt-string wordt doorgegeven
-    public abstract Object convertToNativeGeometryObject(String param) throws SQLException, ParseException;
+    public abstract Object convertToNativeGeometryObject(Geometry param) throws SQLException, ParseException;
     public abstract Geometry convertToJTSGeometryObject(Object nativeObj);
     public abstract String createPSGeometryPlaceholder() throws SQLException;
     public abstract boolean isPmdKnownBroken();
