@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    <display-name>brmo-proxyservices</display-name>
+    <servlet>
+        <servlet-name>BRK_file</servlet-name>
+        <servlet-class>nl.b3p.brmo.service.proxy.BerichtEndpointFileServlet</servlet-class>
+        <init-param>
+            <param-name>save_dir</param-name>
+            <param-value>${java.io.tmpdir}/brk</param-value>
+            <description>directory waar bestanden terecht komen</description>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BRK_file</servlet-name>
+        <url-pattern>/post/brk</url-pattern>
+    </servlet-mapping>
+</web-app>
