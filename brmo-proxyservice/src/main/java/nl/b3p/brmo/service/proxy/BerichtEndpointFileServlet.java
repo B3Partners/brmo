@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 B3Partners B.V.
+ * Copyright (C) 2015-2016 B3Partners B.V.
  */
 package nl.b3p.brmo.service.proxy;
 
@@ -18,7 +18,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Endpoint servlet welke geposte bestanden opslaat in een directory conform de
  * configuratie. Voorbeeld:
- * {@code curl -X POST -H "Content-Type: application/xml" http://localhost:8084/brmo-proxyservice/post/brk  -d  @'/testbestanden/BRK_KLEIN_SNAPSHOT.xml'}
+ * {@code curl -X POST -H "Content-Type: application/xml" http://localhost:8037/brmo-proxyservice/post/brk  -d  @'pom.xml'}
  *
  * @author mprins
  */
@@ -40,6 +40,7 @@ public class BerichtEndpointFileServlet extends HttpServlet {
         this.saveDir = new File(_saveDir);
         try {
             FileUtils.forceMkdir(saveDir);
+            log.info("Initialisatie met directory: " + this.saveDir);
         } catch (IOException ex) {
             throw new ServletException(ex);
         }
@@ -69,7 +70,7 @@ public class BerichtEndpointFileServlet extends HttpServlet {
             throw new ServletException("De 'max_upload_size' is overschreden.");
         }
 
-        File _tmpfile = new File(FileUtils.getTempDirectory(), this.getFileName());
+        File _tmpfile = File.createTempFile(this.getFileName(), ".xml", FileUtils.getTempDirectory());
         FileUtils.copyInputStreamToFile(request.getInputStream(), _tmpfile);
         FileUtils.moveToDirectory(_tmpfile, this.saveDir, true);
         log.info(String.format("Aangeboden bestand '%s' opgeslagen in directory: %s.",
@@ -80,10 +81,10 @@ public class BerichtEndpointFileServlet extends HttpServlet {
     /**
      * "verzint" de bestandsnaam.
      *
-     * @return de bestandsnaam {@code post-op-yyyy-MM-dd-HH_mm_ss_SSS.xml}
+     * @return de bestandsnaam {@code post-op-yyyy-MM-dd-HH_mm_ss_SSS}
      */
     private String getFileName() {
-        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH_mm_ss_SSS");
-        return "post-op-" + sdf.format(new Date()) + ".xml";
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-SSS");
+        return "post-op_" + sdf.format(new Date()) + "_";
     }
 }
