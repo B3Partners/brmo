@@ -19,8 +19,8 @@ digraph G {
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + IndexPageIntegrationTest() </td></tr>
-<tr><td align="left" balign="left"> + requestIndex() </td></tr>
 <tr><td align="left" balign="left"> + testDefaultUserPresent() </td></tr>
+<tr><td align="left" balign="left"> + testIndex() </td></tr>
 <tr><td align="left" balign="left"> + testLoginLogout() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./IndexPageIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
