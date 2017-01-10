@@ -39,6 +39,7 @@ import nl.b3p.topnl.entities.Terrein;
 import nl.b3p.topnl.entities.TopNLEntity;
 import nl.b3p.topnl.entities.Waterdeel;
 import nl.b3p.topnl.entities.Wegdeel;
+import nl.b3p.topnl.top10nl.BRTHogeEnLageZijdeType;
 import nl.b3p.topnl.top10nl.BRTJaNeeWaardeType;
 import nl.b3p.topnl.top10nl.CodeType;
 import nl.b3p.topnl.top10nl.FeatureMemberType;
@@ -265,8 +266,23 @@ public class Top10NLConverter extends Converter {
 
         Relief rg = new Relief();
         convertTop10NlObjectType(r, rg);
-
-        rg.setGeometrie((LineString) gc.convertGeometry(r.getLijnGeometrie()));
+        
+        if(r.getLijnGeometrie() != null){
+            rg.setGeometrie((LineString) gc.convertGeometry(r.getLijnGeometrie()));
+        }
+        
+        if(r.getTaludGeometrie() != null){
+            BRTHogeEnLageZijdeType hl = r.getTaludGeometrie().getBRTHogeEnLageZijde();
+            Element[] els = hl.getHogeZijde();
+            for (Element el : els) {
+                LineString g = (LineString) gc.convertGeometry(el);
+                if(el.getLocalName().equals("lageZijde")){
+                    rg.setTaludLageZijde(g);
+                }else if(el.getLocalName().equals("hogeZijde")){
+                    rg.setTaludHogeZijde(g);
+                }
+            }
+        }
 
         rg.setHoogteklasse(r.getHoogteklasse().getValue());
         rg.setTypeRelief(r.getTypeRelief() != null ? r.getTypeRelief().getValue() : null);

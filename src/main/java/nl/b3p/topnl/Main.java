@@ -53,7 +53,8 @@ public class Main {
             ds.setUsername("top50nl");
             ds.setPassword("top50nl");*/
             Processor p = new Processor(ds);
-            loadtopnl("/mnt/data/Documents/TopNL/Top50NL/TOP50NL_GML_Filechunks_november_2016/TOP50NL_GML_Filechunks", p,  TopNLType.TOP50NL);
+         //   loadtopnl("/mnt/data/Documents/TopNL/Top50NL/TOP50NL_GML_Filechunks_november_2016/TOP50NL_GML_Filechunks", p,  TopNLType.TOP50NL);
+            loadtopnl("/mnt/data/Documents/TopNL/Top10NL/TOP10NL_GML_Filechuncks_november_2016/TOP10NL_GML_Filechuncks", p,  TopNLType.TOP10NL);
             //loadtopnl("/mnt/data/Documents/TopNL/TOP100NL_GML_Filechunks_november_2016/TOP100NL_GML_Filechunks", p,  TopNLType.TOP100NL);
             //process("top250NL.gml", p);
             //process("Hoogte_top250nl.xml", TopNLType.TOP250NL, p);

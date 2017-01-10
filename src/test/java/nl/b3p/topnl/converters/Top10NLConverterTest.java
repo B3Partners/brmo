@@ -281,6 +281,34 @@ public class Top10NLConverterTest extends TestUtil{
         assertEquals( "< 1 meter", real.getHoogteklasse());
         assertEquals(new Long("0"), real.getHoogteniveau());
     }
+    @Test
+    public void testConvertReliefTalud() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+        System.out.println("testConvertRelief");
+        TopNLEntity entity = getEntity("top10nl/ReliefTalud.xml");
+
+        TopNLEntity expected = getStandardTestTopNLEntity();
+
+        expected.setIdentificatie("NL.TOP10NL.104681205");
+        expected.setVisualisatieCode(new Long("16810"));
+        expected.setBrontype("TOP10vector");
+        expected.setBronnauwkeurigheid(2000d);
+        expected.setBronbeschrijving("Digitaal bestand met gecodeerde vectoren. Deze geven tezamen de topografie van Nederland weer op de schaal 1:10.000. Voorloper van TOP10NL.");
+        expected.setBronactualiteit(sdf.parse("2005-01-01"));
+        expected.setBronactualiteit(sdf.parse("2005-01-01"));
+        
+        assertNotNull(entity);
+        assertTrue(entity instanceof Relief);
+
+        Relief real = (Relief) entity;
+
+        testTopNLEntity(expected, real);
+        assertEquals(null, real.getGeometrie());
+        assertEquals(LineString.class, real.getTaludHogeZijde().getClass());
+        assertEquals(LineString.class, real.getTaludLageZijde().getClass());
+        assertEquals( "talud, hoogteverschil", real.getTypeRelief());
+        assertEquals( "> 2,5 meter", real.getHoogteklasse());
+        assertEquals(new Long("0"), real.getHoogteniveau());
+    }
     
     @Test
     public void testConvertSpoorbaandeel() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {

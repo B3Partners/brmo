@@ -28,6 +28,8 @@ public class Relief extends TopNLEntity{
     private String hoogteklasse;
     private Long hoogteniveau;
     private LineString geometrie;
+    private LineString taludLageZijde;
+    private LineString taludHogeZijde;
 
     public String getTypeRelief() {
         return typeRelief;
@@ -59,6 +61,22 @@ public class Relief extends TopNLEntity{
 
     public void setHoogteniveau(Long hoogteniveau) {
         this.hoogteniveau = hoogteniveau;
+    }
+
+    public LineString getTaludLageZijde() {
+        return taludLageZijde;
+    }
+
+    public void setTaludLageZijde(LineString taludLageZijde) {
+        this.taludLageZijde = taludLageZijde;
+    }
+
+    public LineString getTaludHogeZijde() {
+        return taludHogeZijde;
+    }
+
+    public void setTaludHogeZijde(LineString taludHogeZijde) {
+        this.taludHogeZijde = taludHogeZijde;
     }
     
     
