@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../../../apidocs/nl/b3p/brmo/service/proxy/BerichtEndpointFileServlet.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (C) 2015 B3Partners B.V.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (C) 2015-2016 B3Partners B.V.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">package</strong> nl.b3p.brmo.service.proxy;
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   
@@ -26,7 +26,7 @@
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> * Endpoint servlet welke geposte bestanden opslaat in een directory conform de</em>
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * configuratie. Voorbeeld:</em>
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * {@code curl -X POST -H "Content-Type: application/xml" <a href="http://localhost:8084/brmo-proxyservice/post/brk" target="alexandria_uri">http://localhost:8084/brmo-proxyservice/post/brk</a>  -d  @'/testbestanden/BRK_KLEIN_SNAPSHOT.xml'}</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * {@code curl -X POST -H "Content-Type: application/xml" <a href="http://localhost:8037/brmo-proxyservice/post/brk" target="alexandria_uri">http://localhost:8037/brmo-proxyservice/post/brk</a>  -d  @'pom.xml'}</em>
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * @author mprins</em>
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> */</em>
@@ -48,55 +48,56 @@
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>          <strong class="jxr_keyword">this</strong>.saveDir = <strong class="jxr_keyword">new</strong> File(_saveDir);
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>          <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>              FileUtils.forceMkdir(saveDir);
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>          } <strong class="jxr_keyword">catch</strong> (IOException ex) {
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> ServletException(ex);
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>          }
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>          <strong class="jxr_keyword">if</strong> (!<strong class="jxr_keyword">this</strong>.saveDir.canWrite()) {
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> ServletException(<span class="jxr_string">"De directory '"</span> + _saveDir + <span class="jxr_string">"' is niet schrijfbaar."</span>);
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>          }
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>          <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>              <strong class="jxr_keyword">this</strong>.maxUploadSize = Integer.parseInt(<strong class="jxr_keyword">this</strong>.getInitParameter(MAX_UPLOAD_SIZE)) * 1024;
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>          } <strong class="jxr_keyword">catch</strong> (NumberFormatException nfe) {
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>              <strong class="jxr_keyword">this</strong>.maxUploadSize = 25 * 1024 * 1024;
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>              log.warn(<span class="jxr_string">"De maximale upload size is ingesteld op 25 MB (default)."</span>);
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>          }
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>      }
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>      <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment">     * Handles the HTTP {@code POST}.</em>
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment">     * @param request servlet request</em>
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">     * @param response servlet response</em>
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment">     * @throws ServletException if a servlet-specific error occurs</em>
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment">     * @throws IOException if an I/O error occurs</em>
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>      @Override
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> doPost(HttpServletRequest request, HttpServletResponse response)
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>              <strong class="jxr_keyword">throws</strong> ServletException, IOException {
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>          <strong class="jxr_keyword">if</strong> (request.getContentLength() &gt; <strong class="jxr_keyword">this</strong>.maxUploadSize) {
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> ServletException(<span class="jxr_string">"De 'max_upload_size' is overschreden."</span>);
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>          }
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>  
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>          File _tmpfile = <strong class="jxr_keyword">new</strong> File(FileUtils.getTempDirectory(), <strong class="jxr_keyword">this</strong>.getFileName());
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>          FileUtils.copyInputStreamToFile(request.getInputStream(), _tmpfile);
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>          FileUtils.moveToDirectory(_tmpfile, <strong class="jxr_keyword">this</strong>.saveDir, <strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>          log.info(String.format(<span class="jxr_string">"Aangeboden bestand '%s' opgeslagen in directory: %s."</span>,
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>                  _tmpfile.getName(), <strong class="jxr_keyword">this</strong>.saveDir));
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>          response.setStatus(HttpServletResponse.SC_OK);
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>      }
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>  
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>      <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">     * "verzint" de bestandsnaam.</em>
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">     * @return de bestandsnaam {@code post-op-yyyy-MM-dd-HH_mm_ss_SSS.xml}</em>
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>      <strong class="jxr_keyword">private</strong> String getFileName() {
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>          <strong class="jxr_keyword">final</strong> SimpleDateFormat sdf = <strong class="jxr_keyword">new</strong> SimpleDateFormat(<span class="jxr_string">"yyyy-MM-dd-HH_mm_ss_SSS"</span>);
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>          <strong class="jxr_keyword">return</strong> <span class="jxr_string">"post-op-"</span> + sdf.format(<strong class="jxr_keyword">new</strong> Date()) + <span class="jxr_string">".xml"</span>;
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>      }
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>  }
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>              log.info(<span class="jxr_string">"Initialisatie met directory: "</span> + <strong class="jxr_keyword">this</strong>.saveDir);
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>          } <strong class="jxr_keyword">catch</strong> (IOException ex) {
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> ServletException(ex);
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>          }
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>          <strong class="jxr_keyword">if</strong> (!<strong class="jxr_keyword">this</strong>.saveDir.canWrite()) {
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> ServletException(<span class="jxr_string">"De directory '"</span> + _saveDir + <span class="jxr_string">"' is niet schrijfbaar."</span>);
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>          }
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>              <strong class="jxr_keyword">this</strong>.maxUploadSize = Integer.parseInt(<strong class="jxr_keyword">this</strong>.getInitParameter(MAX_UPLOAD_SIZE)) * 1024;
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>          } <strong class="jxr_keyword">catch</strong> (NumberFormatException nfe) {
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>              <strong class="jxr_keyword">this</strong>.maxUploadSize = 25 * 1024 * 1024;
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>              log.warn(<span class="jxr_string">"De maximale upload size is ingesteld op 25 MB (default)."</span>);
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>          }
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>      }
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment">     * Handles the HTTP {@code POST}.</em>
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">     * @param request servlet request</em>
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment">     * @param response servlet response</em>
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment">     * @throws ServletException if a servlet-specific error occurs</em>
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">     * @throws IOException if an I/O error occurs</em>
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      @Override
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> doPost(HttpServletRequest request, HttpServletResponse response)
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>              <strong class="jxr_keyword">throws</strong> ServletException, IOException {
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">if</strong> (request.getContentLength() &gt; <strong class="jxr_keyword">this</strong>.maxUploadSize) {
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> ServletException(<span class="jxr_string">"De 'max_upload_size' is overschreden."</span>);
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          }
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>          File _tmpfile = File.createTempFile(<strong class="jxr_keyword">this</strong>.getFileName(), <span class="jxr_string">".xml"</span>, FileUtils.getTempDirectory());
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>          FileUtils.copyInputStreamToFile(request.getInputStream(), _tmpfile);
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          FileUtils.moveToDirectory(_tmpfile, <strong class="jxr_keyword">this</strong>.saveDir, <strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>          log.info(String.format(<span class="jxr_string">"Aangeboden bestand '%s' opgeslagen in directory: %s."</span>,
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>                  _tmpfile.getName(), <strong class="jxr_keyword">this</strong>.saveDir));
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>          response.setStatus(HttpServletResponse.SC_OK);
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      }
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">     * "verzint" de bestandsnaam.</em>
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment">     * @return de bestandsnaam {@code post-op-yyyy-MM-dd-HH_mm_ss_SSS}</em>
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>      <strong class="jxr_keyword">private</strong> String getFileName() {
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>          <strong class="jxr_keyword">final</strong> SimpleDateFormat sdf = <strong class="jxr_keyword">new</strong> SimpleDateFormat(<span class="jxr_string">"yyyy-MM-dd_HH-mm-ss-SSS"</span>);
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>          <strong class="jxr_keyword">return</strong> <span class="jxr_string">"post-op_"</span> + sdf.format(<strong class="jxr_keyword">new</strong> Date()) + <span class="jxr_string">"_"</span>;
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>      }
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2016 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2017 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>
