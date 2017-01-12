@@ -34,6 +34,7 @@ import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces;
 import nl.b3p.brmo.persistence.staging.MailRapportageProces;
+import nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
 import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
 import nl.b3p.brmo.service.jobs.GeplandeTakenInit;
 import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.QUARTZ_FACTORY_KEY;
@@ -180,6 +181,8 @@ public class OphaalConfigActionBean implements ActionBean {
                 return new BGTLightOphaalProces();
             case LaadprocesTransformatieProces:
                 return new LaadprocesTransformatieProces();
+            case MaterializedViewRefresh:
+                return new MaterializedViewRefresh();
             default:
                 throw new IllegalArgumentException(type.name() + " is geen ondersteund proces type...");
         }

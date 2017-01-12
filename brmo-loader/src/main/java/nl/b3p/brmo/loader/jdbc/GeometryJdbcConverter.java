@@ -26,6 +26,10 @@ public abstract class GeometryJdbcConverter {
     public abstract boolean useSavepoints();
     public abstract boolean isPmdKnownBroken();
 
+    public abstract String getMViewsSQL();
+
+    public abstract String getMViewRefreshSQL(String mview);
+
     public abstract String getGeotoolsDBTypeName();
     
     static public Object convertToSQLObject(String stringValue, ColumnMetadata cm, 

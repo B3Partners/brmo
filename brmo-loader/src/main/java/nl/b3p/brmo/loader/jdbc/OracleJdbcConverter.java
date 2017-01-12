@@ -120,4 +120,15 @@ public class OracleJdbcConverter extends GeometryJdbcConverter {
     public String getGeotoolsDBTypeName() {
         return "oracle";
     }
+
+    @Override
+    public String getMViewsSQL() {
+        return "SELECT MVIEW_NAME FROM ALL_MVIEWS";
+    }
+
+    @Override
+    public String getMViewRefreshSQL(String mview) {
+        //return String.format("DBMS_MVIEW.REFRESH('%s','?','',FALSE,TRUE,0,0,0,FALSE,FALSE)", mview);
+        return String.format("execute dbms_mview.refresh('%s','C')", mview);
+    }
 }

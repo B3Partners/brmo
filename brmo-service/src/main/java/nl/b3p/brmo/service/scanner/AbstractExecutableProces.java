@@ -23,8 +23,9 @@ import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.persistence.staging.LaadProces;
 import nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces;
 import nl.b3p.brmo.persistence.staging.MailRapportageProces;
+import nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
 import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
-import static nl.b3p.brmo.service.scanner.ProcesExecutable.ProcessingImple.LaadprocesTransformatieProces;
+//import static nl.b3p.brmo.service.scanner.ProcesExecutable.ProcessingImple.LaadprocesTransformatieProces;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
@@ -76,7 +77,8 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
                 return new BGTLightDirectoryScanner((BGTLightScannerProces) config);
             case LaadprocesTransformatieProces:
                 return new LaadprocesTransformatieUitvoeren((LaadprocesTransformatieProces) config);
-
+            case MaterializedViewRefresh:
+                return new MaterializedViewRefreshUitvoeren((MaterializedViewRefresh) config);
             default:
                 throw new IllegalArgumentException(imple.name() + " is is geen ondersteund proces...");
         }
