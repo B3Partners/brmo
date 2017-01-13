@@ -127,13 +127,13 @@ public class MssqlJdbcConverter extends GeometryJdbcConverter {
     }
 
     /**
-     * return een dummy query omdat mssql geen m-views kent.
+     * return een dummy query omdat mssql geen materialized views kent.
      *
      * @return
      */
     @Override
     public String getMViewsSQL() {
-        return "select 1 from brondocument";
+        return "select 1 from brmo_metadata where 1 = 2";
     }
 
     @Override

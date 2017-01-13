@@ -21,12 +21,13 @@ import nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
-import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
+ * Proces om materilzed views te verversen.
  *
  * @author mprins
  */
@@ -69,12 +70,6 @@ public class MaterializedViewRefreshUitvoeren extends AbstractExecutableProces {
         });
     }
 
-    /**
-     * In de database moet een functie {@code brmo_refreshmview(text)} zijn
-     * gedefinieerd die een integer teruggeeft met waarde 1 in geval van succes.
-     *
-     * @param listener progress listener
-     */
     @Override
     public void execute(ProgressUpdateListener listener) {
         this.listener = listener;
@@ -88,35 +83,42 @@ public class MaterializedViewRefreshUitvoeren extends AbstractExecutableProces {
         listener.updateStatus(msg);
         listener.addLog(msg);
 
-        //this.active = true;
         String mview = "onbekend";
         try {
             mview = this.config.getMView();
             final DataSource ds = ConfigUtil.getDataSourceRsgb();
             final Connection conn = ds.getConnection();
             final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+            // "update" gebruiken omdat we een oracle stored procedure benaderen
+            Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(conn, geomToJdbc.getMViewRefreshSQL(mview));
+            LOG.debug("mview update resultaat: " + o);
+            String resultaat = null;
+            // oracle geeft 1 terug als resultaat, postgresql geeft 0 terug...
+            if (geomToJdbc.getGeotoolsDBTypeName().equalsIgnoreCase("oracle")) {
+                resultaat = (o.toString().equals("1") ? "OK" : "NOT OK");
+            } else {
+                resultaat = (o.toString().equals("0") ? "OK" : "NOT OK");
+            }
 
-            Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, geomToJdbc.getMViewRefreshSQL(mview), new ScalarHandler());
-
-            msg = String.format("De materialized view %s is ververst met resultaat %s", mview, (o == "1" ? "OK" : "NOT OK"));
+            msg = String.format("De materialized view %s is ververst met resultaat %s om %tc", mview, resultaat, Calendar.getInstance());
             LOG.info(msg);
             listener.updateStatus(msg);
             listener.addLog(msg);
 
             config.setStatus(WAITING);
             config.setLastrun(new Date());
-            Stripersist.getEntityManager().merge(config);
         } catch (BrmoException | SQLException e) {
             config.setStatus(ERROR);
-            listener.exception(e);
             LOG.error("Fout tijdens verversen materialized view: " + mview, e);
+            listener.exception(e);
+        } finally {
+            Stripersist.getEntityManager().merge(config);
         }
-//this.active = false;
     }
 
     /**
-     * Zoek materialized view in rsgb schema.
-       *
+     * Zoek materialized views in rsgb schema.
+     *
      * @return lijst met materialized views, de lijst kan leeg zijn
      */
     public static List<String> mviews() {
@@ -125,8 +127,9 @@ public class MaterializedViewRefreshUitvoeren extends AbstractExecutableProces {
             final Connection conn = ds.getConnection();
             final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
             List<String> mviews = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, geomToJdbc.getMViewsSQL(), new ColumnListHandler<String>());
+            mviews.sort(String::compareToIgnoreCase);
             return Collections.unmodifiableList(mviews);
-        } catch (BrmoException | SQLException ex) {
+        } catch (BrmoException | SQLException | ClassCastException | UnsupportedOperationException | IllegalArgumentException ex) {
             LOG.error("Ophalen materialized views is mislukt.", ex);
             return Collections.EMPTY_LIST;
         }

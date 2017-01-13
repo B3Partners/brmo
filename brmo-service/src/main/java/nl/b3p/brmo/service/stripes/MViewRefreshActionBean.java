@@ -12,10 +12,7 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.action.StrictBinding;
-import net.sourceforge.stripes.validation.SimpleError;
 import net.sourceforge.stripes.validation.Validate;
-import nl.b3p.brmo.loader.util.BrmoException;
-import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import nl.b3p.brmo.service.scanner.MaterializedViewRefreshUitvoeren;
@@ -77,7 +74,6 @@ public class MViewRefreshActionBean implements ActionBean, ProgressUpdateListene
     @Override
     public void updateStatus(String status) {
         this.status = status;
-
     }
 
     @Override

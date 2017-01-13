@@ -129,6 +129,6 @@ public class OracleJdbcConverter extends GeometryJdbcConverter {
     @Override
     public String getMViewRefreshSQL(String mview) {
         //return String.format("DBMS_MVIEW.REFRESH('%s','?','',FALSE,TRUE,0,0,0,FALSE,FALSE)", mview);
-        return String.format("execute dbms_mview.refresh('%s','C')", mview);
+        return String.format("begin\ndbms_mview.refresh('%s','C');\nend;", mview);
     }
 }

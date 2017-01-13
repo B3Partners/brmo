@@ -10,7 +10,7 @@
     <tr>
         <c:choose>
             <c:when test="${empty mviews}">
-                <td colspan="2">Geen materialized views gevonden</td>>
+                <td colspan="2">Geen materialized views gevonden</td>
             </c:when>
             <c:otherwise>
                 <td><stripes:label name="">Te verversen materialized view</stripes:label></td>
