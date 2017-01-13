@@ -1,0 +1,35 @@
+<?xml version='1.0'?>
+<product_LVC:Mutatie-product xmlns:product_LVC="http://www.kadaster.nl/schemas/bag-verstrekkingen/extract-producten-lvc/v20090901">
+  <product_LVC:Verwerking>
+    <product_LVC:TijdstipVerwerking>2016-03-08T16:00:12.000199</product_LVC:TijdstipVerwerking>
+    <product_LVC:ObjectType>PND</product_LVC:ObjectType>
+    <product_LVC:VolgnrVerwerking>0</product_LVC:VolgnrVerwerking>
+  </product_LVC:Verwerking>
+  <product_LVC:Nieuw>
+    <bag_LVC:Pand xmlns:bag_LVC="http://www.kadaster.nl/schemas/imbag/lvc/v20090901">
+      <bag_LVC:identificatie>0613100000136918</bag_LVC:identificatie>
+      <bag_LVC:aanduidingRecordInactief>N</bag_LVC:aanduidingRecordInactief>
+      <bag_LVC:aanduidingRecordCorrectie>0</bag_LVC:aanduidingRecordCorrectie>
+      <bag_LVC:officieel>N</bag_LVC:officieel>
+      <bag_LVC:pandGeometrie>
+        <gml:Polygon xmlns:gml="http://www.opengis.net/gml" srsName="urn:ogc:def:crs:EPSG::28992">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList srsDimension="3" count="7">87961.745 430278.767 0.0 87960.308 430275.641 0.0 87957.583 430276.894 0.0 87956.462 430274.455 0.0 87965.436 430270.453 0.0 87967.947 430275.917 0.0 87961.745 430278.767 0.0</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </bag_LVC:pandGeometrie>
+      <bag_LVC:bouwjaar>1937</bag_LVC:bouwjaar>
+      <bag_LVC:pandstatus>Pand in gebruik</bag_LVC:pandstatus>
+      <bag_LVC:tijdvakgeldigheid>
+        <bagtype:begindatumTijdvakGeldigheid xmlns:bagtype="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">2016030800000200</bagtype:begindatumTijdvakGeldigheid>
+      </bag_LVC:tijdvakgeldigheid>
+      <bag_LVC:inOnderzoek>N</bag_LVC:inOnderzoek>
+      <bag_LVC:bron>
+        <bagtype:documentdatum xmlns:bagtype="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">20160308</bagtype:documentdatum>
+        <bagtype:documentnummer xmlns:bagtype="http://www.kadaster.nl/schemas/imbag/imbag-types/v20090901">VA1071182</bagtype:documentnummer>
+      </bag_LVC:bron>
+    </bag_LVC:Pand>
+  </product_LVC:Nieuw>
+</product_LVC:Mutatie-product>
