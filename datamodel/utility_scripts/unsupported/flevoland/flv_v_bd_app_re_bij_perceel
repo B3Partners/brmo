@@ -2,7 +2,7 @@
 -- Door: Niek Bouma
 -- Februari 2016
 
-CREATE OR REPLACE VIEW v_bd_app_re_bij_perceel AS 
+CREATE OR REPLACE VIEW flv_v_bd_app_re_bij_perceel AS 
  SELECT ar.sc_kad_identif,
     ar.fk_2nnp_sc_identif,
     ar.ka_appartementsindex,
