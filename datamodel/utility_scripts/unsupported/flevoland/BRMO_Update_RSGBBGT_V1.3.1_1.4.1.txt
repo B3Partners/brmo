@@ -1,0 +1,30 @@
+RSGBBGT schema
+
+Aanmaken user/schema “brmo_rsgbbgt”
+Uitvoeren “create_rsgb_bgt.sql” op “brmo_rsgbbgt” schema, dit bestand is te vinden in de zipfile voor de installatie
+
+https://github.com/B3Partners/brmo/releases/tag/v1.4.1 --> brmo-dist-1.4.1-bin.zip --> \brmo-dist-1.4.1-bin.zip\db\rsgbbgt\oracle\create_rsgb_bgt.sql
+
+zie ook: https://github.com/B3Partners/brmo/wiki/Installatiehandleiding#databaseserver-installatie-oracle
+
+Vervolgens moet er een databron worden toegevoegd in de applicatie server (tomcat server.xml) voor het nieuwe schema. zie ook: https://github.com/B3Partners/brmo/wiki/Installatiehandleiding#voor-oracle
+
+Voorbeeld:
+
+    <Resource name="jdbc/brmo/rsgbbgt"
+        auth="Container"
+        type="javax.sql.DataSource"
+        driverClassName="oracle.driver.OracleDriver"
+        url="jdbc:oracle:thin:@hostname:1521:orcl"
+        username="brmo_rsgbbgt"
+        password="**"
+        maxActive="100"
+        maxIdle="30"
+        maxWait="8000"
+        validationQuery="select 1 from dual"
+        timeBetweenEvictionRunsMillis="30000"
+        minEvictableIdleTimeMillis="5000"
+        testOnBorrow="true"
+    />
+	
+let op: als er andere dan voorgestelde naamgeving wordt gebruikt moet ervoor worden zorggedragen dat de schemanamen blijven kloppen (oa. in een eventuele geometry_columns tabel en gt_pk_metadata tabel)	
