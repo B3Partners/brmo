@@ -39,7 +39,7 @@ INSERT INTO brmo_metadata (naam, waarde) VALUES ('brmoversie','</xsl:text><xsl:v
     </xsl:template>
     
     <xsl:template match="objecttype" mode="generateSQL">
-        <xsl:variable name="schema" select="'RSGBBGT'"/>
+        <xsl:variable name="schema" select="'BRMO_RSGBBGT'"/>
         <xsl:variable name="tableName" select="@table"/>
         <xsl:text>
 -- Klasse: </xsl:text>

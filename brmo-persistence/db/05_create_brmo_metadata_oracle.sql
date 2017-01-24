@@ -7,4 +7,4 @@ CREATE TABLE BRMO_METADATA (
 COMMENT ON TABLE BRMO_METADATA IS 'BRMO metadata en versie gegevens';
 
 -- brmo versienummer
-INSERT INTO brmo_metadata (naam, waarde) VALUES ('brmoversie','${project.version}');
+INSERT INTO brmo_metadata (naam, waarde) VALUES ('brmoversie','1.4.2-SNAPSHOT');
