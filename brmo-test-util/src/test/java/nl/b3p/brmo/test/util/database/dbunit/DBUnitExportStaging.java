@@ -31,26 +31,26 @@ import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
  */
 public class DBUnitExportStaging {
 
-    //private static final String _testDir = "src/test/resources/mantis6098/";
-    private static final String _testDir = "src/test/resources/";
+    private static final String _testDir = "target/";
     private static final String _dbFile = "staging-flat.xml";
     private static final String _dbFile2 = "staging.xml";
 
     // postgis
-    // private static final String _driverClass = "org.postgresql.Driver";
-    // private static final String _jdbcConnection = "jdbc:postgresql://localhost:5432/mantis6098";
-    // private static final String _user = "rsgb";
-    // private static final String _passwd = "rsgb";
+    private static final String _driverClass = "org.postgresql.Driver";
+    private static final String _jdbcConnection = "jdbc:postgresql://localhost:5433/itest_staging";
+    private static final String _user = "rsgb";
+    private static final String _passwd = "rsgb";
     // ms sql
     // private static final String _driverClass = "net.sourceforge.jtds.jdbc.Driver";
     // private static final String _jdbcConnection = "jdbc:jtds:sqlserver://192.168.1.15:1433/itest_brmo_staging;instance=SQLEXPRESS";
     // private static final String _user = "brmotest";
     // private static final String _passwd = "brmotest";
+
     // oracle
-    private static final String _driverClass = "oracle.jdbc.OracleDriver";
-    private static final String _jdbcConnection = "jdbc:oracle:thin:@192.168.1.40:1521:db01";
-    private static final String _user = "stagingitest";
-    private static final String _passwd = "stagingitest";
+//    private static final String _driverClass = "oracle.jdbc.OracleDriver";
+//    private static final String _jdbcConnection = "jdbc:oracle:thin:@192.168.1.40:1521:db01";
+//    private static final String _user = "stagingitest";
+//    private static final String _passwd = "stagingitest";
 
     // volgorde van tabellen belangrijk vanwege de constraint op laadproces-id
     private static final String[] _testTableNames = {"laadproces", "bericht"};
@@ -60,9 +60,9 @@ public class DBUnitExportStaging {
         Connection jdbcConnection = DriverManager.getConnection(_jdbcConnection, _user, _passwd);
         IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
 
-        // connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+        connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         // connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-        connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
+        //connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
 
         // voor alle tabellen:
         // ITableFilter filter = new DatabaseSequenceFilter(connection);
