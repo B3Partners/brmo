@@ -4,7 +4,7 @@ timestamps {
 
             stage('Prepare') {
                 // checkout([$class: 'GitSCM', branches: [[name: '**']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/B3Partners/brmo.git']]])
-                git branch: 'jenkins-oracle-integration-testing', url: 'https://github.com/B3Partners/brmo.git'
+                git branch: 'master', url: 'https://github.com/B3Partners/brmo.git'
             }
 
             stage('Build') {
