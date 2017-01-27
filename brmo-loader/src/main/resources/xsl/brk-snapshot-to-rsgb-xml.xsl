@@ -160,9 +160,18 @@
 			<xsl:variable name="vve_id" select="../recht:ZakelijkRecht[substring(recht:rustOp/KadastraalObjectRef:AppartementsrechtRef/@xlink:href,2) = $app_re_id]//recht:verenigingVanEigenaren[1]/PersoonRef:KADNietNatuurlijkPersoonRef/@xlink:href" xmlns:KadastraalObjectRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject-ref/v20120201" xmlns:PersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20120201"/>
 			<xsl:if test="$vve_id">
 				<fk_2nnp_sc_identif>
-					<xsl:call-template name="nen_identificatie">
-						<xsl:with-param name="id" select="../pers:KADNietNatuurlijkPersoon[@id = substring($vve_id,2)]/pers:identificatie"/>
-					</xsl:call-template>
+                    <xsl:choose>
+                        <xsl:when test="../pers:KADNietNatuurlijkPersoon[@id = substring($vve_id,2)]/pers:identificatie">
+                            <xsl:call-template name="nen_identificatie">
+                                <xsl:with-param name="id" select="../pers:KADNietNatuurlijkPersoon[@id = substring($vve_id,2)]/pers:identificatie"/>
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="nen_identificatie">
+                                <xsl:with-param name="id" select="../nhr:Rechtspersoon[@id = substring($vve_id,2)]/pers:identificatie"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
 				</fk_2nnp_sc_identif>
 			</xsl:if>
         </app_re>
