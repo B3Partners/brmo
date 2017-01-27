@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/brmo-service">
+    <!-- properties komen uit oracle.properties tijdens test phase -->
+
+    <Resource name="jdbc/brmo/staging"
+              auth="Container"
+              type="javax.sql.DataSource"
+              maxActive="40"
+              validationQuery="select 1 from dual"
+              timeBetweenEvictionRunsMillis="30000"
+              minEvictableIdleTimeMillis="5000"
+              username="${staging.username}"
+              password="${staging.password}"
+              driverClassName="${jdbc.driverClassName}"
+              url="${staging.url}"
+    />
+
+    <Resource name="jdbc/brmo/rsgb"
+              auth="Container"
+              type="javax.sql.DataSource"
+              maxActive="40"
+              validationQuery="select 1 from dual"
+              timeBetweenEvictionRunsMillis="30000"
+              minEvictableIdleTimeMillis="5000"
+              username="${rsgb.username}"
+              password="${rsgb.password}"
+              driverClassName="${jdbc.driverClassName}"
+              url="${rsgb.url}"
+    />
+
+    <Resource name="mail/session"
+              auth="Container"
+              type="javax.mail.Session"
+              mail.smtp.host="localhost"
+              mail.smtp.from="no-reply@b3partners.nl"
+    />
+
+    <Realm allRolesMode="authOnly"
+           className="org.apache.catalina.realm.DataSourceRealm"
+           digest="SHA-1"
+           roleNameCol="groep_"
+           userCredCol="wachtwoord"
+           userNameCol="gebruikersnaam"
+           userRoleTable="gebruiker_groepen"
+           userTable="gebruiker_"
+           dataSourceName="jdbc/brmo/staging"
+           localDataSource="true"
+    />
+</Context>
