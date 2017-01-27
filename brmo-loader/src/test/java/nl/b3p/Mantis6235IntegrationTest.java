@@ -9,6 +9,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper;
+import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
@@ -31,6 +32,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
+import org.junit.experimental.categories.Category;
 
 /**
  * Testcases voor mantis-6235; incorrect parsen van VVE identificatie. Draaien
@@ -38,8 +40,12 @@ import static org.junit.Assume.assumeTrue;
  * {@code mvn -Dit.test=Mantis6235IntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
  * voor bijvoorbeeld Oracle.
  *
+ * <strong>NB.</strong> werkt niet op mssql, althans niet met de jTDS driver
+ * omdat die geen JtdsPreparedStatement#setNull() methode heeft.
+ *
  * @author mprins
  */
+@Category(JTDSDriverBasedFailures.class)
 public class Mantis6235IntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(Mantis6235IntegrationTest.class);
