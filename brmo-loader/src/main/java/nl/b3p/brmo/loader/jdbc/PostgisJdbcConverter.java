@@ -76,4 +76,14 @@ public class PostgisJdbcConverter extends GeometryJdbcConverter {
     public String getGeotoolsDBTypeName() {
         return "postgis";
     }
+
+    @Override
+    public String getMViewsSQL() {
+        return "SELECT oid::regclass::text FROM pg_class WHERE relkind = 'm'";
+    }
+
+    @Override
+    public String getMViewRefreshSQL(String mview) {
+        return String.format("REFRESH MATERIALIZED VIEW %s;", mview);
+    }
 }

@@ -125,4 +125,19 @@ public class MssqlJdbcConverter extends GeometryJdbcConverter {
         // if(...){name = "sqlserver"}
         return name;
     }
+
+    /**
+     * return een dummy query omdat mssql geen materialized views kent.
+     *
+     * @return
+     */
+    @Override
+    public String getMViewsSQL() {
+        return "select 1 from brmo_metadata where 1 = 2";
+    }
+
+    @Override
+    public String getMViewRefreshSQL(String mview) {
+        return getMViewsSQL();
+    }
 }
