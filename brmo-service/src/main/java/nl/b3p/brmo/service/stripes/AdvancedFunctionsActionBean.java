@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,8 +32,6 @@ import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
-import nl.b3p.brmo.loader.util.TableData;
-import nl.b3p.brmo.loader.util.TableRow;
 import nl.b3p.brmo.loader.xml.BagXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.service.util.ConfigUtil;
@@ -562,7 +559,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
-        c.add(Calendar.MONTH, -1);
+        c.add(Calendar.MONTH, -3);
      
         String countsql = "select count(*) from " + BrmoFramework.BERICHT_TABLE 
                     + " where soort='" + soort + "' "
@@ -579,7 +576,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         }
         
         do {
-            log.debug(String.format("Ophalen berichten batch met offset %d, limit %d", offset, batch));
+            log.debug(String.format("Ophalen berichten batch met offset %d, limit %d, tot datum %tc", offset, batch, c));
             String sql = "select * from " + BrmoFramework.BERICHT_TABLE 
                     + " where soort='" + soort + "' "
                     + " and status='" + config + "'"
@@ -647,6 +644,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         } else {
             total((Long) o);
         }
+        log.debug("Totaal te verwijderen " + config + " berichten: " + o);
         
         o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(conn, "DELETE FROM " + BrmoFramework.BERICHT_TABLE
                 + " WHERE soort='" + soort + "' "

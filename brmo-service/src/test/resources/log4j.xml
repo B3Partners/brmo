@@ -28,6 +28,9 @@
     <logger name="org.apache.http.impl">
         <level value="info" />
     </logger>
+    <logger name="nl.b3p.brmo">
+        <level value="debug" />
+    </logger>
     <root>
         <level value="info" />
         <appender-ref ref="consoleAppender" />

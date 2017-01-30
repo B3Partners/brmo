@@ -207,7 +207,7 @@
                 <configuration>
                     <prefix>builddetails</prefix>
                     <dateFormat>dd.MM.yyyy '@' HH:mm:ss z</dateFormat>
-                    <verbose>true</verbose>
+                    <verbose>false</verbose>
                     <dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
                     <skipPoms>true</skipPoms>
                     <generateGitPropertiesFile>true</generateGitPropertiesFile>
@@ -331,7 +331,7 @@
                             <systemPropertyVariables>
                                 <database.properties.file>postgres.properties</database.properties.file>
                             </systemPropertyVariables>
-                            <rerunFailingTestsCount>2</rerunFailingTestsCount>
+                            <rerunFailingTestsCount>1</rerunFailingTestsCount>
                             <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
                         </configuration>
                     </plugin>
