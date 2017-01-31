@@ -22,14 +22,17 @@ public final class CleanUtil {
      * {@code @After} van een test case.
      *
      * @param rsgb database welke geleegd moet worden
+     *
      * @throws org.dbunit.DatabaseUnitException
      * @throws java.sql.SQLException als er iets misgaat in de database
      * @deprecated gebruik {@link #cleanRSGB_BRK(org.dbunit.database.IDatabaseConnection)
      * }
      */
     @Deprecated
-    public static void cleanRSGB(final IDatabaseConnection rsgb) throws DatabaseUnitException, SQLException {
-        cleanRSGB_BRK(rsgb);
+    public static void cleanRSGB(final IDatabaseConnection rsgb)
+            throws DatabaseUnitException, SQLException {
+
+        cleanRSGB_BRK(rsgb, true);
     }
 
     /**
@@ -37,12 +40,20 @@ public final class CleanUtil {
      * {@code @After} van een test case.
      *
      * @param rsgb database welke geleegd moet worden
+     * @param deleteBrondocument {@code true} als brondocumenten ook verwijderd
+     * moeten worden
      * @throws org.dbunit.DatabaseUnitException
      * @throws java.sql.SQLException als er iets misgaat in de database
      */
-    public static void cleanRSGB_BRK(final IDatabaseConnection rsgb) throws DatabaseUnitException, SQLException {
+    public static void cleanRSGB_BRK(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
+            throws DatabaseUnitException, SQLException {
+
+        if (deleteBrondocument) {
+            DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
+                new DefaultTable("brondocument")}
+            ));
+        }
         /* cleanup rsgb, doet:
-                DELETE FROM brondocument;
                 DELETE FROM herkomst_metadata;
                 DELETE FROM zak_recht;
                 DELETE FROM ingeschr_niet_nat_prs;
@@ -72,8 +83,7 @@ public final class CleanUtil {
             new DefaultTable("app_re_archief"),
             new DefaultTable("zak_recht"),
             new DefaultTable("zak_recht_aantek"),
-            new DefaultTable("herkomst_metadata"),
-            new DefaultTable("brondocument")}
+            new DefaultTable("herkomst_metadata")}
         ));
     }
 
@@ -82,10 +92,22 @@ public final class CleanUtil {
      * {@code @After} van een test case.
      *
      * @param rsgb database welke geleegd moet worden
+     * @param deleteBrondocument {@code true} als brondocumenten ook verwijderd
+     * moeten worden
+     *
      * @throws org.dbunit.DatabaseUnitException
      * @throws java.sql.SQLException als er iets misgaat in de database
      */
-    public static void cleanRSGB_BAG(final IDatabaseConnection rsgb) throws DatabaseUnitException, SQLException {
+    public static void cleanRSGB_BAG(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
+            throws DatabaseUnitException, SQLException {
+
+        if (deleteBrondocument) {
+            DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
+                new DefaultTable("brondocument")}
+            ));
+        }
+        // cleanup doet deletes in omgekeerde volgorde dan in onderstaande array met tabellen
+
         DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
             // TODO volgorde van de tabellen aanpassen aan constraints
             new DefaultTable("addresseerb_obj_aand"),
@@ -136,7 +158,7 @@ public final class CleanUtil {
     }
 
     /**
-     * leegt de bericht, laadproces en job tabellen in het statging schema. kan
+     * leegt de bericht, laadproces en job tabellen in het stating schema. kan
      * worden gebruikt in een {@code @After} van een test case.
      *
      * @param staging database welke geleegd moet worden

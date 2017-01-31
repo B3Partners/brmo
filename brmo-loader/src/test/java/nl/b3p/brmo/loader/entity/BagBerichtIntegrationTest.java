@@ -156,7 +156,7 @@ public class BagBerichtIntegrationTest extends AbstractDatabaseIntegrationTest {
         CleanUtil.cleanSTAGING(staging);
         staging.close();
 
-        CleanUtil.cleanRSGB_BAG(rsgb);
+        CleanUtil.cleanRSGB_BAG(rsgb, true);
         rsgb.close();
 
         try {
