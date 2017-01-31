@@ -216,9 +216,9 @@
             </cu_aard_cultuur_onbebouwd>
             <!-- extra adres, nuttig wanneer geen BAG koppeling, veld moet vergroot worden naar 255 -->
 			<xsl:for-each select="$oz/ko:heeftLocatie/ko:LocatieKadastraalObject[not(ko:adres)]">
-				<lo_loc_omschr>
+				<lo_loc__omschr>
 					<xsl:call-template name="describe-locatie"/>
-				</lo_loc_omschr>
+				</lo_loc__omschr>
 			</xsl:for-each>
         </kad_onrrnd_zk>
 
