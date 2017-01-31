@@ -214,6 +214,12 @@
             <cu_aard_cultuur_onbebouwd>
                 <xsl:value-of select="$oz/ko:aardCultuurOnbebouwd/typ:waarde"/>
             </cu_aard_cultuur_onbebouwd>
+            <!-- extra adres, nuttig wanneer geen BAG koppeling, veld moet vergroot worden naar 255 -->
+			<xsl:for-each select="$oz/ko:heeftLocatie/ko:LocatieKadastraalObject[not(ko:adres)]">
+				<lo_loc_omschr>
+					<xsl:call-template name="describe-locatie"/>
+				</lo_loc_omschr>
+			</xsl:for-each>
         </kad_onrrnd_zk>
 
         <xsl:for-each select="$oz/ko:heeftLocatie/ko:LocatieKadastraalObject/ko:adres">
