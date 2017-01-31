@@ -28,7 +28,7 @@ do
     then
       echo Bestand $DIR/$b.sql bestaal al.
     else
-      echo -- $'\n'-- upgrade ${b^^} datamodel van $PREVRELEASE naar $NEXTRELEASE $n $'\n'-- > $DIR/$b.sql
+      echo -- $'\n'-- upgrade $DB ${b^^} datamodel van $PREVRELEASE naar $NEXTRELEASE $n $'\n'-- > $DIR/$b.sql
       echo $'\n'-- versienummer update >> $DIR/$b.sql
       echo "UPDATE brmo_metadata SET waarde='$NEXTRELEASE' WHERE naam='brmoversie';" >> $DIR/$b.sql
     fi
