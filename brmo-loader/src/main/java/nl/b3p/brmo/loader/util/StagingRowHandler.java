@@ -8,6 +8,8 @@ import java.util.List;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import org.apache.commons.dbutils.BasicRowProcessor;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * creates laadproces or bericht bean from database row.
@@ -91,7 +93,9 @@ public class StagingRowHandler extends BasicRowProcessor {
                 b.setObjectRef(rs.getString("object_ref"));
             }
             if (namesList.contains("datum")) {
-                b.setDatum(rs.getDate("datum"));
+                // gebruik getTimestamp() (en niet getDate()) om tijdinfo ook op te halen.
+                // zie ook: https://stackoverflow.com/questions/3266530/jdbc-resultset-getdate-losing-precision
+                b.setDatum(rs.getTimestamp("datum"));
             }
             if (namesList.contains("volgordenummer")) {
                 b.setVolgordeNummer(rs.getInt("volgordenummer"));
@@ -106,7 +110,7 @@ public class StagingRowHandler extends BasicRowProcessor {
                 b.setStatus(Bericht.STATUS.valueOf(rs.getString("status")));
             }
             if (namesList.contains("status_datum")) {
-                b.setStatusDatum(rs.getDate("status_datum"));
+                b.setStatusDatum(rs.getTimestamp("status_datum"));
             }
             if (namesList.contains("job_id")) {
                 b.setJobId(rs.getString("job_id"));

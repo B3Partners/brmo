@@ -443,7 +443,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 //        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-            log.debug(String.format("RSGB verwerking van %s bericht met id %s, object_ref %s", ber.getSoort(), ber.getId(), ber.getObjectRef()));
+            log.debug(String.format("RSGB verwerking van %s bericht met id %s, object_ref %s, datum %tc", ber.getSoort(), ber.getId(), ber.getObjectRef(), ber.getDatum()));
             StringBuilder loadLog;
             if (pretransformedTableData == null) {
                 loadLog = new StringBuilder();
