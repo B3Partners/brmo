@@ -66,16 +66,16 @@ public class BrmoFrameworkIntegrationTest extends AbstractDatabaseIntegrationTes
 
     @Test
     public void testRsgbVersion() {
-        assertEquals("Versies komen overeen", currentVersion, brmo.getRsgbVersion());
+        assertEquals("Versies komen niet overeen", currentVersion, brmo.getRsgbVersion());
     }
 
     @Test
     public void testRsgbBgtVersion() {
-        assertEquals("Versies komen overeen", currentVersion, brmo.getRsgbBgtVersion());
+        assertEquals("Versies komen niet overeen", currentVersion, brmo.getRsgbBgtVersion());
     }
 
     @Test
     public void testStagingVersion() {
-        assertEquals("Versies komen overeen", currentVersion, brmo.getStagingVersion());
+        assertEquals("Versies komen niet overeen", currentVersion, brmo.getStagingVersion());
     }
 }

@@ -19,8 +19,6 @@ import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.DefaultDataSet;
-import org.dbunit.dataset.DefaultTable;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
@@ -52,16 +50,16 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
 
     private static final Log LOG = LogFactory.getLog(BrkToStagingToRsgbIntegrationTest.class);
 
-    @Parameterized.Parameters(name = "{index}: type: {0}, bestand: {1}")
+    @Parameterized.Parameters(name = "{index}: type: {0}, bestand: {1}, mutatiedatum: {4}")
     public static Collection params() {
         return Arrays.asList(new Object[][]{
-            // {"type","filename", aantalBerichten, aantalProcessen},
+            // {"type","filename", aantalBerichten, aantalProcessen, "datumEersteMutatie"},
 
-            {"brk", "/nl/b3p/brmo/loader/xml/MUTBX01-ASN00T1660-20091119-1-singleline.xml", 1, 1} /*
+            {"brk", "/nl/b3p/brmo/loader/xml/MUTBX01-ASN00T1660-20091119-1-singleline.xml", 1, 1, "2009-11-19"} /*
              * dit bestand zit in de DVD Proefbestanden BRK Levering oktober 2012 (Totaalstanden)
              * /mnt/v_b3p_projecten/BRMO/BRK/BRK_STUF_IMKAD/BRK/Levering(dvd)/Proefbestanden BRK Levering oktober 2012 (Totaalstanden)/20091130/
-             * en staat op de ignore lijst omdat 't 18.5MB groot is, `grep -o KadastraalObjectSnapshot BURBX01.xml | wc -w`/2 geeft aantal berichten
-             */, {"brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-20091130-6000015280-9100000039.zip", (63104 / 2), 1}
+             * en staat op de git-ignore lijst omdat 't 18.5MB groot is, `grep -o KadastraalObjectSnapshot BURBX01.xml | wc -w`/2 geeft aantal berichten
+             */, {"brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-20091130-6000015280-9100000039.zip", (63104 / 2), 1, "2009-10-31"}
         });
     }
 
@@ -81,6 +79,10 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
      * test parameter.
      */
     private final long aantalProcessen;
+    /**
+     * test parameter.
+     */
+    private final String datumEersteMutatie;
 
     private BrmoFramework brmo;
 
@@ -90,11 +92,12 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
 
     private final Lock sequential = new ReentrantLock(true);
 
-    public BrkToStagingToRsgbIntegrationTest(String bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen) {
+    public BrkToStagingToRsgbIntegrationTest(String bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen, String datumEersteMutatie) {
         this.bestandType = bestandType;
         this.bestandNaam = bestandNaam;
         this.aantalBerichten = aantalBerichten;
         this.aantalProcessen = aantalProcessen;
+        this.datumEersteMutatie = datumEersteMutatie;
     }
 
     @Before
@@ -153,7 +156,7 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         CleanUtil.cleanSTAGING(staging);
         staging.close();
 
-        CleanUtil.cleanRSGB(rsgb);
+        CleanUtil.cleanRSGB_BRK(rsgb, true);
         rsgb.close();
 
         sequential.unlock();
@@ -174,20 +177,18 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         assertEquals("Het aantal processen is niet als verwacht.", aantalProcessen, processen.size());
 
         LOG.debug("Transformeren berichten naar rsgb DB.");
-//        brmo.setBatchCapacity(1 + (int) aantalBerichten);
-//        brmo.setEnablePipeline(false);
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals("Alle berichten zijn OK getransformeerd", aantalBerichten, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
-
+        assertEquals("Niet alle berichten zijn OK getransformeerd", aantalBerichten, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
         berichten = brmo.listBerichten();
         for (Bericht b : berichten) {
-            assertNotNull("Bericht is  'null'", b);
-            assertNotNull("'db-xml' van bericht is niet 'null'", b.getDbXml());
+            assertNotNull("Bericht is 'null'", b);
+            assertNotNull("'db-xml' van bericht is 'null'", b.getDbXml());
         }
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
         assertEquals("Het aantal on", aantalBerichten, kad_onrrnd_zk.getRowCount());
+        assertEquals("Datum eerste record komt niet overeen", datumEersteMutatie, kad_onrrnd_zk.getValue(0, "dat_beg_geldh"));
     }
 }
