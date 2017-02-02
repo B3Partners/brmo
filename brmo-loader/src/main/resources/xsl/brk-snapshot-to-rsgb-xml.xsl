@@ -214,12 +214,34 @@
             <cu_aard_cultuur_onbebouwd>
                 <xsl:value-of select="$oz/ko:aardCultuurOnbebouwd/typ:waarde"/>
             </cu_aard_cultuur_onbebouwd>
-            <!-- extra adres, nuttig wanneer geen BAG koppeling, veld moet vergroot worden naar 255 -->
-			<xsl:for-each select="$oz/ko:heeftLocatie/ko:LocatieKadastraalObject[not(ko:adres)]">
-				<lo_loc__omschr>
-					<xsl:call-template name="describe-locatie"/>
-				</lo_loc__omschr>
-			</xsl:for-each>
+            <!-- extra adres, nuttig wanneer geen BAG koppeling -->
+
+            <!-- construeer extra adres wanneer geen BAG koppeling;
+                het is mogelijk dat er zowel een bagadres als 1 of meer gba en/of imkad adressen in een bericht voorkomen; in
+                dat geval vullen we 'lo_loc__omschr' met het eerste niet-bagadres dat we tegenkomen en wordt daar aangeplakt
+                dat er "x meer adressen" zijn, het bagadres wordt dan ook verwerkt natuurlijk.
+            -->
+            <lo_loc__omschr>
+                <xsl:variable name="countadressen" select="count($oz/ko:heeftLocatie/ko:LocatieKadastraalObject/ko:adres[not(bagadres:*)])" />
+                <!-- <xsl:for-each select="./ko:heeftLocatie/ko:LocatieKadastraalObject/ko:adres/adres:KADBuitenlandsAdres/..|
+                                    ./ko:heeftLocatie/ko:LocatieKadastraalObject/ko:adres/adres:KADBinnenlandsAdres/..|
+                                    ./ko:heeftLocatie/ko:LocatieKadastraalObject/ko:adres/adres:PostbusAdres/..|
+                                    ./ko:heeftLocatie/ko:LocatieKadastraalObject/ko:adres/gba:BuitenlandsAdres/.."
+                > -->
+                <xsl:for-each select="$oz/ko:heeftLocatie/ko:LocatieKadastraalObject/ko:adres[not(bagadres:*)]">
+                    <xsl:variable name="count" select="position()"/>
+                    <xsl:choose>
+                        <xsl:when test="($count = $countadressen) and ($countadressen > 1)">
+                            <xsl:text>  (</xsl:text>
+                            <xsl:value-of select="$count - 1"/>
+                            <xsl:text> meer adressen)</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="$count = 1">
+                            <xsl:call-template name="describe-locatie"/>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:for-each>
+            </lo_loc__omschr>
         </kad_onrrnd_zk>
 
         <xsl:for-each select="$oz/ko:heeftLocatie/ko:LocatieKadastraalObject/ko:adres">
