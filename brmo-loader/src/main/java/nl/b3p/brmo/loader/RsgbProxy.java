@@ -1079,6 +1079,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         loadLog.append(", params (");
         loadLog.append(params.toString());
         loadLog.append(")");
+        log.debug("insert SQL: " + sql + ", params: " + params);
 
         for (int i = 0; i < params.size(); i++) {
             Object param = params.get(i);
@@ -1185,6 +1186,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         loadLog.append(", params (");
         loadLog.append(params.toString());
         loadLog.append(")");
+        log.debug("update SQL: " + sql + ", params: " + params);
 
         for (int i = 0; i < params.size(); i++) {
             Object param = params.get(i);
