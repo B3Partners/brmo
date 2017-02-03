@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/brmo-service">
   <!-- ResourceLink werkt via server.xml van tomcat
-    1. Plaats xml blok onder <GlobalNamingResources> in server.xml van tomcat.
+    1. Plaats DataSource Resource xml blokken onder <GlobalNamingResources> in server.xml van tomcat.
 
-    NB. de opties kunne per Tomcat versie verschillen, zie:
+    NB. de opties kunnen per Tomcat versie verschillen, zie:
         https://tomcat.apache.org/tomcat-8.5-doc/jndi-datasource-examples-howto.html
         https://tomcat.apache.org/tomcat-8.0-doc/jndi-datasource-examples-howto.html
         https://tomcat.apache.org/tomcat-7.0-doc/jndi-datasource-examples-howto.html
+        daarnaast kunnen database drivers bepaalde eigenschappen wel/niet ondersteunen
 
     <Resource name="jdbc/brmo/staging"
         auth="Container"
@@ -80,12 +81,12 @@
   <ResourceLink global="jdbc/brmo/rsgb" name="jdbc/brmo/rsgb" type="javax.sql.DataSource"/>
   <ResourceLink global="jdbc/brmo/rsgbbgt" name="jdbc/brmo/rsgbbgt" type="javax.sql.DataSource"/>
   <!-- For Tomcat: define JavaMail resource in server.xml. See:
-    http://tomcat.apache.org/tomcat-6.0-doc/jndi-resources-howto.html#JavaMail_Sessions
+    http://tomcat.apache.org/tomcat-8.0-doc/jndi-resources-howto.html#JavaMail_Sessions
     Don't forget to put mail.jar in the Tomcat lib directory.
     To configure your mail server, use attributes like "mail.smtp.host" for
     the Resource element. See Appendix A of the JavaMail spec for which
     attributes you can use, possibly accessible at
-    http://www.oracle.com/technetwork/java/javamail/index-141777.html
+    http://www.oracle.com/technetwork/java/javamail/index.html
     <Server ...>
         ...
         <GlobalNamingResources>
