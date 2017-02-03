@@ -23,7 +23,7 @@ public final class CleanUtil {
      *
      * @param rsgb database welke geleegd moet worden
      *
-     * @throws org.dbunit.DatabaseUnitException
+     * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
      * @throws java.sql.SQLException als er iets misgaat in de database
      * @deprecated gebruik {@link #cleanRSGB_BRK(org.dbunit.database.IDatabaseConnection)
      * }
@@ -42,7 +42,7 @@ public final class CleanUtil {
      * @param rsgb database welke geleegd moet worden
      * @param deleteBrondocument {@code true} als brondocumenten ook verwijderd
      * moeten worden
-     * @throws org.dbunit.DatabaseUnitException
+     * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
      * @throws java.sql.SQLException als er iets misgaat in de database
      */
     public static void cleanRSGB_BRK(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
@@ -95,7 +95,7 @@ public final class CleanUtil {
      * @param deleteBrondocument {@code true} als brondocumenten ook verwijderd
      * moeten worden
      *
-     * @throws org.dbunit.DatabaseUnitException
+     * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
      * @throws java.sql.SQLException als er iets misgaat in de database
      */
     public static void cleanRSGB_BAG(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
@@ -107,7 +107,6 @@ public final class CleanUtil {
             ));
         }
         // cleanup doet deletes in omgekeerde volgorde dan in onderstaande array met tabellen
-
         DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
             // TODO volgorde van de tabellen aanpassen aan constraints
             new DefaultTable("addresseerb_obj_aand"),
@@ -162,14 +161,15 @@ public final class CleanUtil {
      * worden gebruikt in een {@code @After} van een test case.
      *
      * @param staging database welke geleegd moet worden
-     * @throws org.dbunit.DatabaseUnitException
+     * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
      * @throws java.sql.SQLException als er iets misgaat in de database
      */
     public static void cleanSTAGING(final IDatabaseConnection staging) throws DatabaseUnitException, SQLException {
         DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{
             new DefaultTable("laadproces"),
             new DefaultTable("bericht"),
-            new DefaultTable("job")}));
+            new DefaultTable("job")}
+        ));
     }
 
     /**
