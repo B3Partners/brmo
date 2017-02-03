@@ -25,7 +25,7 @@ public final class CleanUtil {
      *
      * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
      * @throws java.sql.SQLException als er iets misgaat in de database
-     * @deprecated gebruik {@link #cleanRSGB_BRK(org.dbunit.database.IDatabaseConnection)
+     * @deprecated gebruik {@link #cleanRSGB_BRK(org.dbunit.database.IDatabaseConnection, boolean)
      * }
      */
     @Deprecated
