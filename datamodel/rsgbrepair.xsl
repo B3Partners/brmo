@@ -241,4 +241,14 @@
 			<xsl:apply-templates select="@*[name()!='upperValueValue']|node()"/>
 		</xsl:copy>
 	</xsl:template>
+	<!-- Property elementType="Objecttype/Groepattribuutsoort - Property" id="EAID_584B0B4E_6AEA_469a_95F6_840132CEDA08" name="Locatie- omschrijving" type="EAJava_AN40" typeName="AN40" -->
+	<xsl:template match="*[@elementType='Objecttype/Groepattribuutsoort - Property' and @id='EAID_584B0B4E_6AEA_469a_95F6_840132CEDA08']">
+		<xsl:comment>
+			<xsl:text>repair.xsl: Locatie- omschrijving -  kolom vergroot van 40 naar 255</xsl:text>
+		</xsl:comment>
+		<xsl:copy>
+			<xsl:attribute name="typeName" select="'AN255'"/>
+			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
+		</xsl:copy>
+	</xsl:template>
 </xsl:stylesheet>
