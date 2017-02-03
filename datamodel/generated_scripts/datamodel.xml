@@ -2415,7 +2415,7 @@
               desc="Groepsattribuut Locatie onroerende zaak KADASTRALE ONROERENDE ZAAK.Cultuur bebouwd"/>
       <column name="lo_loc__omschr"
               fullname="Locatie- omschrijving"
-              type="varchar(40)"
+              type="varchar(255)"
               desc="Groepsattribuut Locatie onroerende zaak KADASTRALE ONROERENDE ZAAK.Locatie- omschrijving"/>
       <!-- Referentielijsten -->
    </table>
