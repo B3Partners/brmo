@@ -183,7 +183,7 @@ public class BrmoFramework {
      *
      * @param mode geeft aan wat ids zijn (laadprocessen of berichten)
      * @param ids array van ids
-     * @param listener
+     * @param listener voortgangs listener
      * @return running transformatie thread
      * @throws BrmoException if any
      */
@@ -276,9 +276,9 @@ public class BrmoFramework {
     /**
      * @see #loadFromFile(java.lang.String, java.lang.String,
      * nl.b3p.brmo.loader.ProgressUpdateListener)
-     * @param type
-     * @param fileName
-     * @throws BrmoException
+     * @param type basis registratie type
+     * @param fileName bestand
+     * @throws BrmoException als er een fout optreed tijdens verwerking
      */
     public void loadFromFile(String type, String fileName) throws BrmoException {
         try {
@@ -295,10 +295,10 @@ public class BrmoFramework {
     /**
      * NB na gebruik zelf de database verbinding sluiten / opruimen met {@link #closeBrmoFramework()}
      *
-     * @param type
-     * @param fileName
-     * @param listener
-     * @throws BrmoException
+     * @param type basis registratie type
+     * @param fileName bestand
+     * @param listener voortgangsmonitor
+     * @throws BrmoException als er een fout optreed tijdens verwerking
      */
     public void loadFromFile(String type, String fileName, final ProgressUpdateListener listener) throws BrmoException {
         try {

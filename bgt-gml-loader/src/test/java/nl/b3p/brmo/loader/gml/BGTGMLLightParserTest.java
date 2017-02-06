@@ -27,7 +27,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.opengis.feature.Feature;
 import org.opengis.feature.Property;
 import org.opengis.feature.type.Name;
@@ -42,6 +41,15 @@ import org.xml.sax.SAXException;
 public class BGTGMLLightParserTest {
 
     private static final Log LOG = LogFactory.getLog(BGTGMLLightParserTest.class);
+
+    @Parameterized.Parameters(name = "{index}: bestand: {0}")
+    public static Collection<Object[]> params() {
+        return Arrays.asList(new Object[][]{
+            //arrays of: {"gmlFileName", "typeNamespace", "elementName", expectedNumOfElements, expectedNumOfAtrr},
+            {"/gmllight/bgt_ondersteunendwaterdeel.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "OndersteunendWaterdeel", 47, 20},
+            {"/gmllight/bgt_ongeclassificeerdobject.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "OngeclassificeerdObject", 0, 18}
+        });
+    }
     private Parser parser;
 
     private final String gmlFileName;
@@ -56,6 +64,7 @@ public class BGTGMLLightParserTest {
      * @param typeNamespace element type namespace
      * @param elementName element
      * @param expectedNumOfElements number of elements in resources
+     * @param expectedNumOfAtrr verwacht aantal attributen
      *
      * @see #params()
      */
@@ -65,15 +74,6 @@ public class BGTGMLLightParserTest {
         this.elementName = elementName;
         this.expectedNumOfElements = expectedNumOfElements;
         this.expectedNumOfAtrr = expectedNumOfAtrr;
-    }
-
-    @Parameters
-    public static Collection<Object[]> params() {
-        return Arrays.asList(new Object[][]{
-            //arrays of: {"gmlFileName", "typeNamespace", "elementName", expectedNumOfElements, expectedNumOfAtrr},
-            {"/gmllight/bgt_ondersteunendwaterdeel.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "OndersteunendWaterdeel", 47, 20},
-            {"/gmllight/bgt_ongeclassificeerdobject.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "OngeclassificeerdObject", 0, 18}
-        });
     }
 
     @Before

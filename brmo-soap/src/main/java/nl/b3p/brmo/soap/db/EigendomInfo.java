@@ -73,7 +73,7 @@ public class EigendomInfo {
      *
      * @param eigendomMutatieContext map met parameters met vraag
      * @return berekende antwoord op vraag in map met parameters
-     * @throws EigendomMutatieException
+     * @throws EigendomMutatieException if any
      */
     public static EigendomMutatieResponse createEigendomMutatieResponse(Map<String, Object> eigendomMutatieContext) throws EigendomMutatieException {
 
@@ -110,7 +110,7 @@ public class EigendomInfo {
      *
      * @param mutatieListContext map met parameters met vraag
      * @return berekende antwoord op vraag in map met parameters
-     * @throws EigendomMutatieException
+     * @throws EigendomMutatieException if any
      */
     public static MutatieListResponse createMutatieListResponse(Map<String, Object> mutatieListContext) throws EigendomMutatieException {
 
@@ -146,7 +146,7 @@ public class EigendomInfo {
      *
      * @param request binnenkomend request met vraagstelling
      * @return map met parameters
-     * @throws EigendomMutatieException
+     * @throws EigendomMutatieException if any
      */
     public static Map<String, Object> createMutatieListContext(MutatieListRequest request) throws EigendomMutatieException {
         Map<String, Object> searchContext = new HashMap<String, Object>();
@@ -203,7 +203,7 @@ public class EigendomInfo {
      *
      * @param request binnenkomend request met vraagstelling
      * @return map met parameters
-     * @throws EigendomMutatieException
+     * @throws EigendomMutatieException if any
      */
     public static Map<String, Object> createEigendomMutatieContext(EigendomMutatieRequest request) throws EigendomMutatieException {
         Map<String, Object> searchContext = new HashMap<String, Object>();
@@ -369,10 +369,6 @@ public class EigendomInfo {
      * overige tabel waarden brondocument: openbareruimte KAD_ONRRND_ZAAK_AANTEK
      * nummeraanduiding ZAK_RECHT woonplaats BRONDOCUMENT pand
      *
-     * @param tables
-     * @param value
-     * @return
-     * @throws Exception
      */
     private static Brondocumenten findBrondocumenten(String value) throws Exception {
         DataSource ds = getDataSourceRsgb();
@@ -536,9 +532,6 @@ public class EigendomInfo {
      * ook nog de rechten van het grondperceel worden opgevraagd. Het bijbehorende
      * grondperceel wordt verkregen via de view: v_bd_app_re_all_kad_perceel.
      * 
-     * @param kad_id
-     * @return
-     * @throws Exception 
      */
     private static ZakelijkeRechten findZakelijkeRechten(long kad_id) throws Exception {
 

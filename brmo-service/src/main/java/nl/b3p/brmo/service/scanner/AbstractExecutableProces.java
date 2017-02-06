@@ -25,7 +25,6 @@ import nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces;
 import nl.b3p.brmo.persistence.staging.MailRapportageProces;
 import nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
 import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
-//import static nl.b3p.brmo.service.scanner.ProcesExecutable.ProcessingImple.LaadprocesTransformatieProces;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
@@ -51,7 +50,6 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
      *
      * @param config the type of {@code ProcesExecutable} to create.
      * @return an instance of the specified type
-     *
      *
      */
     public static ProcesExecutable getProces(AutomatischProces config) {
@@ -161,7 +159,7 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
     /**
      * bepaal bestandnaam.
      *
-     * @param f
+     * @param f het bestand
      * @return de naam van het bestand tbv oa. duplicaat controle
      * @see #isDuplicaatLaadProces(java.io.File, java.lang.String)
      */

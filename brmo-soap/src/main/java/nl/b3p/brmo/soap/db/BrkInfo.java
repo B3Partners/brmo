@@ -12,8 +12,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -100,9 +98,6 @@ public class BrkInfo {
 
     /**
      * Gezien de omvang van de datassets moet deze methode maar niet gebruikt worden.
-     * @param searchContext
-     * @return
-     * @throws Exception 
      */
     public static Integer countResults(Map<String, Object> searchContext) throws Exception {
 

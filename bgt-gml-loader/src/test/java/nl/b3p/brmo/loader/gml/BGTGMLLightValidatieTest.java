@@ -34,7 +34,7 @@ public class BGTGMLLightValidatieTest {
 
     private static final Log LOG = LogFactory.getLog(BGTGMLLightValidatieTest.class);
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "{index}: bestand: {0}")
     public static Collection<Object[]> params() {
         return Arrays.asList(new Object[][]{
             // arrays van: {"gmlFileName", hasKruinlijnElements },
@@ -80,13 +80,9 @@ public class BGTGMLLightValidatieTest {
         try {
             validator.validate(new DOMSource(document));
         } catch (SAXException e) {
-//            if (hasKruinlijnElements) {
-//                LOG.warn("Validatiefout: " + e.getMessage());
-//            } else {
-                // instance document is invalid!
-                LOG.error("Valitatiefout: ", e);
-                fail("Validation failed: " + e.getMessage());
-//            }
+            // instance document is invalid!
+            LOG.error("Valitatiefout: ", e);
+            fail("Validation failed: " + e.getMessage());
         }
     }
 

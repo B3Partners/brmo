@@ -6,16 +6,16 @@
     <version>1.4.3-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
+        <module>brmo-test-util</module>
         <module>datamodel</module>
         <module>brmo-persistence</module>
-        <module>brmo-loader</module>
         <module>bgt-gml-loader</module>
+        <module>brmo-loader</module>
         <module>brmo-taglib</module>
         <module>brmo-service</module>
         <module>brmo-proxyservice</module>
         <module>brmo-soap</module>
         <module>brmo-dist</module>
-        <module>brmo-test-util</module>
     </modules>
     <name>BRMO</name>
     <description>B3Partners BRMO applicatie</description>
@@ -452,12 +452,12 @@
             <plugins>
                 <!--
                 voor een update controle gebruik je het volgende maven commando:
-                mvn -U org.codehaus.mojo:versions-maven-plugin:2.3:display-plugin-updates > target/plugin-updates.log
+                mvn -U org.codehaus.mojo:versions-maven-plugin:2.3:display-plugin-updates -T1 > target/plugin-updates.log
                 -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>1.12</version>
+                    <version>3.0.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
