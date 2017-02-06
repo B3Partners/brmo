@@ -129,10 +129,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     /**
      *
-     * @param dataSourceRsgb
-     * @param stagingProxy
-     * @param mode
-     * @param listener
+     * @param dataSourceRsgb de te gebruiken RSGB database
+     * @param stagingProxy de te gebruiken StagingProxy
+     * @param mode geeft aan wat ids zijn (laadprocessen of berichten)
+     * @param ids record id's (afhankelijk van de {@code BerichtSelectMode})
+     * @param listener voortgangs listener
      */
     public RsgbProxy(DataSource dataSourceRsgb, StagingProxy stagingProxy, BerichtSelectMode mode, long[] ids, ProgressUpdateListener listener) {
         this.stagingProxy = stagingProxy;
@@ -1302,12 +1303,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     private final Map<String, PreparedStatement> getTableRowStatements = new HashMap();
 
     /**
-     *
-     * @param row
-     * @param loadLog
-     * @return
-     * @throws SQLException
-     * @throws ParseException
      *
      * @deprecated Momenteel niet in gebruik. Veel updates vinden nu niet plaats
      * nu brondocumenten al een specifieke optimalisatie hebben.

@@ -125,9 +125,9 @@ public class GeplandeTakenInit implements Servlet {
     /**
      * voeg een job toe op basis van het proces.
      *
-     * @param scheduler
-     * @param p
-     * @throws SchedulerException
+     * @param scheduler taakplanner van de brmo service
+     * @param p het te bewerken automatisch proces
+     * @throws SchedulerException als de bewerking mislukt
      */
     public static void addJobDetails(Scheduler scheduler, AutomatischProces p) throws SchedulerException {
         try {
