@@ -28,12 +28,12 @@ public class MssqlConnectionUnwrapper {
      * @throws SQLException Als unwrappen naar een JtdsConnection is mislukt
      */
     public static JtdsConnection unwrap(Connection c) throws SQLException {
-        LOG.debug("Unwrapping jTDS connection, connection class: " + c.getClass().getName());
+        LOG.trace("Unwrapping jTDS connection, connection class: " + c.getClass().getName());
         // Sometimes isWrapperFor() does not work for certain JDBC drivers. The
         // MetaData connection is always unwrapped, trick learned from Spring's
         // org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor
         Connection mdC = c.getMetaData().getConnection();
-        LOG.debug("MetaData connection class: " + mdC.getClass().getName());
+        LOG.trace("MetaData connection class: " + mdC.getClass().getName());
 
         JtdsConnection oc = null;
 
@@ -42,7 +42,7 @@ public class MssqlConnectionUnwrapper {
                 oc = mdC.unwrap(JtdsConnection.class);
             }
         } catch (AbstractMethodError e) {
-            LOG.debug("Connection ondersteund geen 'isWrapperFor' of 'unwrap' - dit is verwacht voor een DelegatingConnection|PoolableConnection.");
+            LOG.trace("Connection ondersteund geen 'isWrapperFor' of 'unwrap' - dit is verwacht voor een DelegatingConnection|PoolableConnection.");
         }
         if (oc == null) {
             if (mdC instanceof JtdsConnection) {

@@ -9,9 +9,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper;
@@ -76,7 +73,6 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
     private IDatabaseConnection staging;
 
     private final Lock sequential = new ReentrantLock();
-    private static boolean haveSetupJNDI = false;
 
     /*
      * test parameters.
@@ -133,24 +129,7 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
         } else {
             fail("Geen ondersteunde database aangegegeven");
         }
-
-        if (!haveSetupJNDI) {
-            try {
-                System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
-                System.setProperty(Context.URL_PKG_PREFIXES, "org.apache.naming");
-                InitialContext ic = new InitialContext();
-                ic.createSubcontext("java:");
-                ic.createSubcontext("java:comp");
-                ic.createSubcontext("java:comp/env");
-                ic.createSubcontext("java:comp/env/jdbc");
-                ic.createSubcontext("java:comp/env/jdbc/brmo");
-                ic.bind("java:comp/env/jdbc/brmo/rsgb", dsRsgb);
-                ic.bind("java:comp/env/jdbc/brmo/staging", dsStaging);
-                haveSetupJNDI = true;
-            } catch (NamingException ex) {
-                LOG.error("Opzetten van datasource jndi is mislukt", ex);
-            }
-        }
+        setupJNDI(dsRsgb, dsStaging);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);

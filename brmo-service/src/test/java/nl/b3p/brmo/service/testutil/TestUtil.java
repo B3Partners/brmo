@@ -5,7 +5,11 @@ package nl.b3p.brmo.service.testutil;
 
 import java.io.IOException;
 import java.util.Properties;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import nl.b3p.web.IndexPageIntegrationTest;
+import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.junit.Assume.assumeNotNull;
@@ -17,6 +21,8 @@ import org.junit.BeforeClass;
  * @author mprins
  */
 public class TestUtil {
+
+    private static boolean haveSetupJNDI = false;
 
     private static final Log LOG = LogFactory.getLog(TestUtil.class);
     /**
@@ -77,6 +83,32 @@ public class TestUtil {
             Class driverClass = Class.forName(DBPROPS.getProperty("jdbc.driverClassName"));
         } catch (ClassNotFoundException ex) {
             LOG.error("Database driver niet gevonden.", ex);
+        }
+    }
+
+    /**
+     * setup jndi voor testcases.
+     *
+     * @param dsRsgb rsgb databron
+     * @param dsStaging staging databron
+     */
+    protected void setupJNDI(final BasicDataSource dsRsgb, final BasicDataSource dsStaging) {
+        if (!haveSetupJNDI) {
+            try {
+                System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
+                System.setProperty(Context.URL_PKG_PREFIXES, "org.apache.naming");
+                InitialContext ic = new InitialContext();
+                ic.createSubcontext("java:");
+                ic.createSubcontext("java:comp");
+                ic.createSubcontext("java:comp/env");
+                ic.createSubcontext("java:comp/env/jdbc");
+                ic.createSubcontext("java:comp/env/jdbc/brmo");
+                ic.bind("java:comp/env/jdbc/brmo/rsgb", dsRsgb);
+                ic.bind("java:comp/env/jdbc/brmo/staging", dsStaging);
+                haveSetupJNDI = true;
+            } catch (NamingException ex) {
+                LOG.warn("Opzetten van datasource jndi is mislukt", ex);
+            }
         }
     }
 }
