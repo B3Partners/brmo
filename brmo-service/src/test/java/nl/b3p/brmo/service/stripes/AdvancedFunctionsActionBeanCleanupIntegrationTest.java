@@ -72,7 +72,8 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
     public static Collection testdata() {
         return Arrays.asList(new Object[][]{
             // {"sBestandsNaam", aantalBerichtenRsgbOk, aantalBerichtenToArchive, aantalBerichtenArchive, aantalBerichtenRsgbNok},
-            {"/GH-287/staging-flat.xml", 43, 42, 6, 1}
+            {"/GH-287/staging-flat.xml", 43, 42, 6, 1},
+            {"/GH-287/gh-292-staging-flat.xml", 4242, 4242, 0, 0}
         });
     }
 
