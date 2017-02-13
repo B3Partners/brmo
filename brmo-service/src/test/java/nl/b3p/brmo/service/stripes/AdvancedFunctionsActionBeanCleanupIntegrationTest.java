@@ -9,9 +9,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper;
@@ -47,7 +44,9 @@ import static org.junit.Assume.assumeTrue;
  * testcases voor GH issue 287; opschonen en archiveren van berichten ouder dan
  * 3 maanden. Draaien met:
  * {@code mvn -Dit.test=AdvancedFunctionsActionBeanCleanupIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
- * voor bijvoorbeeld PostgreSQL.
+ * voor bijvoorbeeld PostgreSQL en
+ * {@code mvn -Dit.test=AdvancedFunctionsActionBeanCleanupIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
+ * voor Oracle.
  *
  * <strong>Deze test werkt niet met de jTDS driver omdat die geen
  * {@code PreparedStatement.setNull(int, int, String)} methode heeft
@@ -61,18 +60,19 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
 
     private static final Log LOG = LogFactory.getLog(AdvancedFunctionsActionBeanCleanupIntegrationTest.class);
 
-    private static boolean haveSetupJNDI = false;
 
     /**
      *
      * @return een test data {@code Object[]} met daarin
-     * {@code {"sBestandsNaam", aantalBerichtenRsgbOk, aantalBerichtenToArchive, aantalBerichtenArchive}}
+     * {@code {"sBestandsNaam", aantalBerichtenRsgbOk, aantalBerichtenToArchive, aantalBerichtenArchive, aantalBerichtenRsgbNok}}
      */
-    @Parameterized.Parameters(name = "{index}: bestand: {0}")
+    @Parameterized.Parameters(name = "{index}: bestand: {0}, aantal berichten {1}")
     public static Collection testdata() {
         return Arrays.asList(new Object[][]{
             // {"sBestandsNaam", aantalBerichtenRsgbOk, aantalBerichtenToArchive, aantalBerichtenArchive, aantalBerichtenRsgbNok},
-            {"/GH-287/staging-flat.xml", 43, 42, 6, 1}
+            {"/GH-287/staging-flat.xml", 43, 42, 6, 1},
+            {"/GH-287/gh-292-staging-flat.xml", 2042, 2042, 0, 0},
+            {"/GH-287/gh-292-staging-flat-4242.xml", 4242, 4242, 0, 0}
         });
     }
 
@@ -100,7 +100,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
 
     @Before
     public void setUp() throws Exception {
-        assumeTrue("Het bestand met staging testdata zou moeten bestaan.", AdvancedFunctionsActionBeanIntegrationTest.class.getResource(sBestandsNaam) != null);
+        assumeTrue("Het bestand met staging testdata zou moeten bestaan.", AdvancedFunctionsActionBeanCleanupIntegrationTest.class.getResource(sBestandsNaam) != null);
         bean = new AdvancedFunctionsActionBean();
 
         BasicDataSource dsStaging = new BasicDataSource();
@@ -128,28 +128,11 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         } else {
             fail("Geen ondersteunde database aangegegeven");
         }
-
-        if (!haveSetupJNDI) {
-            try {
-                System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
-                System.setProperty(Context.URL_PKG_PREFIXES, "org.apache.naming");
-                InitialContext ic = new InitialContext();
-                ic.createSubcontext("java:");
-                ic.createSubcontext("java:comp");
-                ic.createSubcontext("java:comp/env");
-                ic.createSubcontext("java:comp/env/jdbc");
-                ic.createSubcontext("java:comp/env/jdbc/brmo");
-                ic.bind("java:comp/env/jdbc/brmo/rsgb", dsRsgb);
-                ic.bind("java:comp/env/jdbc/brmo/staging", dsStaging);
-                haveSetupJNDI = true;
-            } catch (NamingException ex) {
-                LOG.error("Opzetten van datasource jndi is mislukt", ex);
-            }
-        }
+        setupJNDI(dsRsgb, dsStaging);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
-        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(AdvancedFunctionsActionBeanIntegrationTest.class.getResource(sBestandsNaam).toURI())));
+        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(AdvancedFunctionsActionBeanCleanupIntegrationTest.class.getResource(sBestandsNaam).toURI())));
 
         sequential.lock();
 
@@ -168,14 +151,16 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
 
     @After
     public void cleanup() throws Exception {
+        // in geval van niet waar gemaakte assumptions zijn sommige objecten null
         if (brmo != null) {
-            // in geval van niet waar gemaakte assumptions
             brmo.closeBrmoFramework();
         }
 
+        if (staging != null) {
         CleanUtil.cleanSTAGING(staging);
         if (staging != null) {
             staging.close();
+            }
         }
         try {
             sequential.unlock();
@@ -217,8 +202,8 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
                 0,
                 brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, "ARCHIVE")
         );
-        assertEquals("Er zijn geen RSGB_NOK berichten",
-                1,
+        assertEquals("Er zijn nog RSGB_NOK berichten",
+                aantalBerichtenRsgbNok,
                 brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, "RSGB_NOK")
         );
     }

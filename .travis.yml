@@ -88,8 +88,11 @@ script:
   # run integratie tests voor brmo-loader module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader'
   # run integratie tests voor brmo-service module
-  - travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service'
-  # test of javadoc compliant is met java-8 strict checks
+  #- travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service'
+  - ulimit -a
+  - free -m
+  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service'
+  # test of de javadoc compliant is met java-8 strict checks
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
          travis_wait mvn -Ppostgresql javadoc:javadoc;
     fi

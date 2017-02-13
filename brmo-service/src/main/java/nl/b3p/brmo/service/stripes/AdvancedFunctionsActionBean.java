@@ -549,7 +549,8 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
     }
     
     public void cleanupBerichten(String config, String soort) throws Exception {
-        int offset = 0;
+        final int offset = 0;
+        int progress = 0;
         int batch = 1000;
         final MutableInt processed = new MutableInt(0);
         final DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
@@ -576,7 +577,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         }
         
         do {
-            log.debug(String.format("Ophalen berichten batch met offset %d, limit %d, tot datum %tc", offset, batch, c));
+            log.debug(String.format("Ophalen berichten batch met offset %d, limit %d, tot datum %tc, voortgang %d", offset, batch, c, progress));
             String sql = "select * from " + BrmoFramework.BERICHT_TABLE 
                     + " where soort='" + soort + "' "
                     + " and status='" + config + "'"
@@ -586,7 +587,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             log.debug("SQL voor ophalen berichten batch: " + sql);
             
             processed.setValue(0);
-            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new Timestamp(c.getTimeInMillis()), new ResultSetHandler<Exception>() {
+            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler<Exception>() {
                 @Override
                 public Exception handle(ResultSet rs) throws SQLException {
 
@@ -613,10 +614,10 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                     }
                     return null;
                 }
-            });
-            offset += processed.intValue();
+            }, new Timestamp(c.getTimeInMillis()));
+            progress += processed.intValue();
 
-            progress(offset);
+            progress(progress);
 
             // If handler threw exception processing row, rethrow it
             if (e != null) {

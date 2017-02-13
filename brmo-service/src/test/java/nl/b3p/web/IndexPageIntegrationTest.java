@@ -160,4 +160,9 @@ public class IndexPageIntegrationTest extends WebTestUtil {
         assertNotNull("Response body mag niet null zijn.", body);
         assertTrue("Response moet 'Opnieuw inloggen' tekst hebben.", body.contains("Opnieuw inloggen"));
     }
+
+    @Override
+    public void setUp() throws Exception {
+        // void implementatie
+    }
 }
