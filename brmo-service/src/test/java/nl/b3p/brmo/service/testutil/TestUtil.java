@@ -12,15 +12,18 @@ import nl.b3p.web.IndexPageIntegrationTest;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.After;
 import static org.junit.Assume.assumeNotNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.rules.TestName;
 
 /**
  *
  * @author mprins
  */
-public class TestUtil {
+public abstract class TestUtil {
 
     private static boolean haveSetupJNDI = false;
 
@@ -49,6 +52,12 @@ public class TestUtil {
     protected boolean isPostgis;
 
     /**
+     * logging rule.
+     */
+    @Rule
+    public TestName name = new TestName();
+
+    /**
      * test of de database properties zijn aangegeven, zo niet dan skippen we
      * alle tests in deze test.
      */
@@ -56,6 +65,16 @@ public class TestUtil {
     public static void checkDatabaseIsProvided() {
         assumeNotNull("Verwacht database omgeving te zijn aangegeven.", System.getProperty("database.properties.file"));
     }
+
+    /**
+     * subklassen dienen zelf een setup te hebben; vanwege de overerving gaat
+     * deze methode af na de {@code @Before} methoden van de superklasse, bijv.
+     * {@link #loadDBprop()}.
+     *
+     * @throws Exception if any
+     */
+    @Before
+    abstract public void setUp() throws Exception;
 
     /**
      * initialize database props using the environment provided file.
@@ -84,6 +103,22 @@ public class TestUtil {
         } catch (ClassNotFoundException ex) {
             LOG.error("Database driver niet gevonden.", ex);
         }
+    }
+
+    /**
+     * Log de naam van de test als deze begint.
+     */
+    @Before
+    public void startTest() {
+        LOG.info("==== Start test methode: " + name.getMethodName());
+    }
+
+    /**
+     * Log de naam van de test als deze eindigt.
+     */
+    @After
+    public void endTest() {
+        LOG.info("==== Einde test methode: " + name.getMethodName());
     }
 
     /**

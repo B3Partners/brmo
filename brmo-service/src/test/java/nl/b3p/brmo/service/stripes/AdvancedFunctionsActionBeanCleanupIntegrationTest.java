@@ -64,14 +64,15 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
     /**
      *
      * @return een test data {@code Object[]} met daarin
-     * {@code {"sBestandsNaam", aantalBerichtenRsgbOk, aantalBerichtenToArchive, aantalBerichtenArchive}}
+     * {@code {"sBestandsNaam", aantalBerichtenRsgbOk, aantalBerichtenToArchive, aantalBerichtenArchive, aantalBerichtenRsgbNok}}
      */
-    @Parameterized.Parameters(name = "{index}: bestand: {0}")
+    @Parameterized.Parameters(name = "{index}: bestand: {0}, aantal berichten {1}")
     public static Collection testdata() {
         return Arrays.asList(new Object[][]{
             // {"sBestandsNaam", aantalBerichtenRsgbOk, aantalBerichtenToArchive, aantalBerichtenArchive, aantalBerichtenRsgbNok},
             {"/GH-287/staging-flat.xml", 43, 42, 6, 1},
-            {"/GH-287/gh-292-staging-flat.xml", 4242, 4242, 0, 0}
+            {"/GH-287/gh-292-staging-flat.xml", 2042, 2042, 0, 0},
+            {"/GH-287/gh-292-staging-flat-4242.xml", 4242, 4242, 0, 0}
         });
     }
 
@@ -99,7 +100,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
 
     @Before
     public void setUp() throws Exception {
-        assumeTrue("Het bestand met staging testdata zou moeten bestaan.", AdvancedFunctionsActionBeanIntegrationTest.class.getResource(sBestandsNaam) != null);
+        assumeTrue("Het bestand met staging testdata zou moeten bestaan.", AdvancedFunctionsActionBeanCleanupIntegrationTest.class.getResource(sBestandsNaam) != null);
         bean = new AdvancedFunctionsActionBean();
 
         BasicDataSource dsStaging = new BasicDataSource();
@@ -131,7 +132,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
-        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(AdvancedFunctionsActionBeanIntegrationTest.class.getResource(sBestandsNaam).toURI())));
+        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(AdvancedFunctionsActionBeanCleanupIntegrationTest.class.getResource(sBestandsNaam).toURI())));
 
         sequential.lock();
 
@@ -150,14 +151,16 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
 
     @After
     public void cleanup() throws Exception {
+        // in geval van niet waar gemaakte assumptions zijn sommige objecten null
         if (brmo != null) {
-            // in geval van niet waar gemaakte assumptions
             brmo.closeBrmoFramework();
         }
 
+        if (staging != null) {
         CleanUtil.cleanSTAGING(staging);
         if (staging != null) {
             staging.close();
+            }
         }
         try {
             sequential.unlock();

@@ -94,10 +94,10 @@ script:
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service'
   # test of de javadoc compliant is met java-8 strict checks
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
-         travis_wait mvn javadoc:javadoc;
+         travis_wait mvn -Ppostgresql javadoc:javadoc;
     fi
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
-         travis_wait mvn javadoc:test-javadoc;
+         travis_wait mvn -Ppostgresql javadoc:test-javadoc;
     fi
 
 # after_script:
