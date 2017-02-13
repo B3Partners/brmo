@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015-2016 B3Partners B.V.
+ * Copyright (C) 2015-2017 B3Partners B.V.
  */
 package nl.b3p.brmo.service.proxy;
 
@@ -19,6 +19,8 @@ import org.apache.commons.logging.LogFactory;
  * Endpoint servlet welke geposte bestanden opslaat in een directory conform de
  * configuratie. Voorbeeld:
  * {@code curl -X POST -H "Content-Type: application/xml" http://localhost:8037/brmo-proxyservice/post/brk  -d  @'pom.xml'}
+ * of met certificaat authenticatie en wget:
+ * {@code wget --post-file="test.xml" --append-output=logs/wget.log --ca-cert=./ca.pem --certificate=./client.pem --private-key=./key.pem https://somehost.nl/brmo-proxyservice/post/brk -O - >> output.log}
  *
  * @author mprins
  */

@@ -72,6 +72,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
             // {"sBestandsNaam", aantalBerichtenRsgbOk, aantalBerichtenToArchive, aantalBerichtenArchive, aantalBerichtenRsgbNok},
             {"/GH-287/staging-flat.xml", 43, 42, 6, 1},
             {"/GH-287/gh-292-staging-flat.xml", 2042, 2042, 0, 0},
+            /* onderstaand staat op de ignore lijst omdat het op de build servers voor oom error zorgt, er zitten teveel berichten in.*/
             {"/GH-287/gh-292-staging-flat-4242.xml", 4242, 4242, 0, 0}
         });
     }

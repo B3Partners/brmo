@@ -65,6 +65,10 @@ timestamps {
                     sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
                 }
             }
+
+            stage('Publish Results') {
+                junit allowEmptyResults: true, testResults: '**/target/surefire-reports/TEST-*.xml, **/target/failsafe-reports/TEST-*.xml'
+            }
         }
     }
 }

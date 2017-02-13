@@ -26,3 +26,4 @@ rel-perform.log
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /target/
+/brmo-service/src/test/resources/GH-287/gh-292-staging-flat-4242.xml
