@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) 2017 B3Partners B.V.
+ */
 package nl.b3p.brmo.tool;
 
 import java.io.File;
@@ -36,14 +39,9 @@ import org.apache.commons.dbcp.BasicDataSource;
 /**
  *
  * @author Boy de Wit
+ * @author mprins
  */
 public class Main {
-
-    private static final String BAG_BR_TYPE = "bag";
-    private static final String BRK_BR_TYPE = "brk";
-
-    private static final String xslPathBrk = "/xsl/brk-snapshot-to-rsgb-xml.xsl";
-    private static final String xslPathBag = "/xsl/bag-mutatie-to-rsgb-xml.xsl";
 
     private static List<Option> stagingDbOpts;
     private static List<Option> modeOpts;
