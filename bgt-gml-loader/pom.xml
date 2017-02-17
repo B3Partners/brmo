@@ -163,7 +163,7 @@
                     <dependency>
                         <groupId>net.sf.saxon</groupId>
                         <artifactId>Saxon-HE</artifactId>
-                        <version>9.7.0-4</version>
+                        <version>9.7.0-15</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -183,7 +183,7 @@
                             </sources>
                         </configuration>
                     </execution>
-                    <execution>
+<!--                    <execution>
                         <id>attach-artifacts</id>
                         <phase>package</phase>
                         <goals>
@@ -198,7 +198,7 @@
                                 </artifact>
                             </artifacts>
                         </configuration>
-                    </execution>
+                    </execution>-->
                 </executions>
             </plugin>
             <plugin>
@@ -208,7 +208,7 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
@@ -219,7 +219,6 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <!-- Oracle JDBC driver uitsluiten -->
                             <excludeGroupIds>com.oracle</excludeGroupIds>
                             <overWriteReleases>false</overWriteReleases>
                             <overWriteSnapshots>true</overWriteSnapshots>
@@ -227,23 +226,24 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin-->
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
-                    <archive>
+                    <!--archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>nl.b3p.brmo.bgt.Main</mainClass>
                         </manifest>
-                    </archive>
+                    </archive-->
                     <excludes>
                         <exclude>bgtloader.properties</exclude>
+                        <exclude>voorbeeld.bgtloader.properties</exclude>
                     </excludes>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
@@ -265,7 +265,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin-->
         </plugins>
     </build>
     <profiles>

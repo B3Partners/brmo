@@ -14,6 +14,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.geotools.factory.GeoTools;
 
+/**
+ *
+ * @author mprins
+ * @deprecated Deze klasse niet meer gebruiken, gebruik de normale commandline
+ * tool
+ */
+@Deprecated
 public class Main {
 
     private static final Log LOG = LogFactory.getLog(Main.class);
@@ -34,7 +41,7 @@ public class Main {
             System.exit(1);
         }
 
-        LOG.warn("Let op, de commandline BGT GML Light loader maakt geen gebruik van de staging database; gebruik hiervoor de webinterface.");
+        LOG.warn("LET OP, de commandline BGT GML Light loader maakt geen gebruik van de staging database; gebruik hiervoor de webinterface of de reguliere commandline tool.");
         BGTGMLLightLoader ldr = new BGTGMLLightLoader();
         ldr.setDbConnProps(prop);
         ldr.setScanDirectory(prop.getProperty("scandirectory"));
