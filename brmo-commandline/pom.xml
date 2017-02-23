@@ -67,7 +67,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
+                            <classpathPrefix>../lib/</classpathPrefix>
                             <mainClass>nl.b3p.brmo.commandline.Main</mainClass>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
@@ -105,10 +105,13 @@
                         <phase>package</phase>
                         <configuration>
                             <target>
+                                <mkdir dir="${project.build.directory}/logs"/>
                                 <zip destfile="${project.build.directory}/${project.build.finalName}.zip">
                                     <zipfileset dir="${project.build.directory}" includes="lib/**" />
-                                    <zipfileset dir="${project.build.directory}" includes="${project.build.finalName}.jar" />
-                                    <zipfileset dir="${project.build.sourceDirectory}/../resources" includes="commandline-example.properties" fullpath="/commandline-example.properties"/>
+                                    <zipfileset dir="${project.build.directory}" includes="logs/**" />
+                                    <zipfileset dir="${project.build.directory}" includes="${project.build.finalName}.jar" fullpath="bin/${project.build.finalName}.jar"/>
+                                    <zipfileset dir="${project.build.sourceDirectory}/../resources" includes="commandline-example.properties" fullpath="conf/commandline-example.properties"/>
+                                    <zipfileset dir="${project.build.sourceDirectory}/../resources" includes="log4j.xml" fullpath="conf/log4j-example.xml"/>
                                     <zipfileset dir="${basedir}" includes="README.md" />
                                 </zip>
                             </target>

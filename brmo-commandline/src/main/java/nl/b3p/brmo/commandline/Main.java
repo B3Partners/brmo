@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import javax.naming.Context;
@@ -45,6 +46,8 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static nl.b3p.brmo.commandline.Main.sysexits.*;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
+import org.apache.commons.io.FileUtils;
 import org.geotools.factory.GeoTools;
 import org.geotools.util.logging.Logging;
 
@@ -76,15 +79,15 @@ public class Main {
         });
 
         modeOpts = Arrays.asList(new Option[]{
-            Option.builder("v").desc("Versie informatie van de verschillende schema's").longOpt("versieinfo").optionalArg(true).numberOfArgs(1).argName("format").build(),
-            Option.builder("l").desc("Geef overzicht van laadprocessen in staging database").longOpt("list").optionalArg(true).numberOfArgs(1).argName("format").build(),
-            Option.builder("s").desc("Geef aantallen van bericht status in staging database").longOpt("berichtstatus").optionalArg(true).numberOfArgs(1).argName("format").build(),
-            Option.builder("j").desc("Geef aantal berichten in job tabel van staging database").longOpt("jobstatus").optionalArg(true).numberOfArgs(1).argName("format").build(),
-            Option.builder("a").desc("Laad totaalstand of mutatie uit bestand (.zip of .xml) in database").longOpt("load").hasArg().numberOfArgs(2).argName("bestandsnaam type-br").build(),
-            Option.builder("ad").desc("Laad stand of mutatie berichten (.zip of .xml) uit directory in database").longOpt("loaddir").hasArg().numberOfArgs(2).argName("directory type-br").build(),
+            Option.builder("v").desc("Versie informatie van de verschillende schema's").longOpt("versieinfo").optionalArg(true).numberOfArgs(1).argName("[format]").build(),
+            Option.builder("l").desc("Geef overzicht van laadprocessen in staging database").longOpt("list").optionalArg(true).numberOfArgs(1).argName("[format]").build(),
+            Option.builder("s").desc("Geef aantallen van bericht status in staging database").longOpt("berichtstatus").optionalArg(true).numberOfArgs(1).argName("[format]").build(),
+            Option.builder("j").desc("Geef aantal berichten in job tabel van staging database").longOpt("jobstatus").optionalArg(true).numberOfArgs(1).argName("[format]").build(),
+            Option.builder("a").desc("Laad totaalstand of mutatie uit bestand (.zip of .xml) in database").longOpt("load").hasArg(true).numberOfArgs(2).argName("bestandsnaam <type-br> <[archief-directory]").build(),
+            Option.builder("ad").desc("Laad stand of mutatie berichten (.zip of .xml) uit directory in database").longOpt("loaddir").hasArg(true).numberOfArgs(2).argName("directory> <type-br> <[archief-directory]").build(),
             Option.builder("d").desc("Verwijder laadprocessen in database (geef id weer met -list)").longOpt("delete").hasArg().numberOfArgs(1).type(Integer.class).argName("id").build(),
-            Option.builder("t").desc("Transformeer alle 'STAGING_OK' berichten naar rsgb.").longOpt("torsgb").optionalArg(true).numberOfArgs(1).argName("error-state").build(),
-            Option.builder("tb").desc("Transformeer alle 'STAGING_OK' BGT-Light laadprocessen naar rsgbbgt.").longOpt("torsgbbgt").optionalArg(true).numberOfArgs(1).argName("loadingUpdate").build(),
+            Option.builder("t").desc("Transformeer alle 'STAGING_OK' berichten naar rsgb.").longOpt("torsgb").optionalArg(true).numberOfArgs(1).argName("[error-state]").build(),
+            Option.builder("tb").desc("Transformeer alle 'STAGING_OK' BGT-Light laadprocessen naar rsgbbgt.").longOpt("torsgbbgt").optionalArg(true).numberOfArgs(1).argName("[loadingUpdate]").build(),
             Option.builder("e").desc("Maak van berichten uit staging gezipte xml-files in de opgegeven directory. Dit zijn alleen BRK mutaties van GDS2 processen.")
             .longOpt("exportgds").hasArg().numberOfArgs(1).type(File.class).argName("output-directory").build()
         });
@@ -139,7 +142,7 @@ public class Main {
         System.err.println(sw.toString());
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         Options options = buildOptions();
         CommandLine cl = null;
         try {
@@ -206,9 +209,14 @@ public class Main {
             } else if (cl.hasOption("jobstatus")) {
                 exitcode = jobStatus(dsStaging, cl.getOptionValue("jobstatus", "text"));
             } else if (cl.hasOption("load")) {
-                exitcode = load(dsStaging, cl.getOptionValues("load"));
+                // omdat we 2 verplichte argumenten hebben en 1 optionele die als String[]
+                // worden doorgegeven een stream gebruike om eea aan mekaar te plakken
+                exitcode = load(dsStaging, Stream.of(cl.getOptionValues("load"), cl.getArgs())
+                        .flatMap(Stream::of).toArray(String[]::new));
             } else if (cl.hasOption("loaddir")) {
-                exitcode = loaddir(dsStaging, cl.getOptionValues("loaddir"));
+                exitcode = loaddir(dsStaging,
+                        Stream.of(cl.getOptionValues("loaddir"), cl.getArgs())
+                        .flatMap(Stream::of).toArray(String[]::new));
             } else if (cl.hasOption("delete")) {
                 exitcode = delete(dsStaging, cl.getOptionValue("delete"));
             } else if (cl.hasOption("exportgds")) {
@@ -318,9 +326,9 @@ public class Main {
 
         if (format.equalsIgnoreCase("json")) {
             StringBuilder sb = new StringBuilder();
-            sb.append("{\"aantalprocessen\":").append(processen.size());
+            sb.append("{\"aantal\":").append(processen.size());
             if (!processen.isEmpty()) {
-                sb.append(",\"processen\":[");
+                sb.append(",\"laadprocessen\":[");
                 for (LaadProces lp : processen) {
                     sb.append("{")
                             .append("\"id\":").append(lp.getId()).append(",")
@@ -336,9 +344,9 @@ public class Main {
             sb.append("}");
             System.out.println(sb);
         } else if (processen.isEmpty()) {
-            System.out.println("Geen processen gevonden.");
+            System.out.println("Geen laadprocessen gevonden.");
         } else {
-            System.out.println("Aantal processen: " + processen.size());
+            System.out.println("Aantal laadprocessen: " + processen.size());
             System.out.println("id, bestand_naam, bestand_datum, soort, status, contact");
 
             for (LaadProces lp : processen) {
@@ -412,7 +420,7 @@ public class Main {
         return 0;
     }
 
-    private static int getMutations(DataSource ds, String[] opts) {
+    private static int getMutations(DataSource ds, String... opts) {
         LOG.info("Start export GDS2 berichten naar " + opts[0]);
         Connection con = null;
         String dir = opts[0];
@@ -481,54 +489,105 @@ public class Main {
         }
     }
 
-    private static int load(DataSource ds, String[] opts) throws BrmoException {
+    /**
+     * verwerk xml of zip bestand naar staging db.
+     *
+     * @param ds datasource
+     * @param opts array met {vollidig pad naar bestand, type BR, optionele
+     * archief directory}
+     * @return {@code 0} als succesvol
+     * @throws BrmoException in geval van niet laadfout
+     */
+    private static int load(DataSource ds, String... opts) throws BrmoException {
         String fileName = opts[0];
         String brType = opts[1];
-        LOG.info(String.format("Begin laden van bestand: %s, type %s", fileName, brType));
+        String archiefDir = opts.length == 3 ? opts[2] : null;
+
+        LOG.debug(String.format("Begin laden van bestand: %s, type %s", fileName, brType));
         BrmoFramework brmo = new BrmoFramework(ds, null);
         brmo.setOrderBerichten(true);
         brmo.setErrorState("ignore");
         brmo.loadFromFile(brType, fileName);
         brmo.closeBrmoFramework();
         LOG.info(String.format("Klaar met laden van bestand: %s, type %s", fileName, brType));
+        archiveerBestand(fileName, archiefDir);
         return 0;
     }
 
-    private static int loaddir(DataSource ds, String[] opts) throws BrmoException {
-        String dirName = opts[0];
+    /**
+     * verwerk xml en zip betsanden uit directory naar staging db.
+     *
+     * @param ds datasource
+     * @param opts array met {directory, type BR, optionele archief directory}
+     * @return {@code 0} als succesvol,{@code EX_DATAERR} in geval van een
+     * waarschuwing
+     * @throws BrmoException in geval van niet herstalebare laadfout
+     */
+    private static int loaddir(DataSource ds, String... opts) throws BrmoException {
+        String scanDir = opts[0];
         String brType = opts[1];
+        String archiefDir = opts.length == 3 ? opts[2] : null;
+
         int exitcode = 0;
-        boolean withWarnings = false;
-        if (!dirName.endsWith(File.separator)) {
-            dirName += File.separator;
+        if (!scanDir.endsWith(File.separator)) {
+            scanDir += File.separator;
         }
-        LOG.info(String.format("Begin laden van directory: %s, type %s", dirName, brType));
-        File dir = new File(dirName);
+        LOG.info(String.format("Begin laden van directory: %s, type %s", scanDir, brType));
+
+        File dir = new File(scanDir);
         if (dir.isDirectory()) {
-            String[] fNames = dir.list(new FilenameFilter() {
-                @Override
-                public boolean accept(File dir, String name) {
-                    if (name.endsWith(".xml") || name.endsWith(".zip") || name.endsWith(".XML") || name.endsWith(".ZIP")) {
-                        return true;
-                    }
-                    return false;
-                }
+            boolean withWarnings = false;
+            String[] fNames = dir.list((File f, String name) -> {
+                return (name.endsWith(".xml") || name.endsWith(".XML") || name.endsWith(".zip") || name.endsWith(".ZIP"));
             });
+            BrmoFramework brmo = new BrmoFramework(ds, null);
+            brmo.setOrderBerichten(true);
+            brmo.setErrorState("ignore");
+
             for (String fName : fNames) {
                 try {
-                    exitcode = load(ds, new String[]{dirName + fName, brType});
+                    LOG.debug(String.format("Begin laden van bestand: %s, type %s", fName, brType));
+                    brmo.loadFromFile(brType, scanDir + fName);
+                    LOG.info(String.format("Klaar met laden van bestand: %s, type %s", fName, brType));
                 } catch (BrmoDuplicaatLaadprocesException dup) {
-                    LOG.warn("Laden duplicaat bestand overgeslagen.", dup);
+                    LOG.warn(String.format("Laden duplicaat bestand %s overgeslagen. Oorzaak: %s", fName, dup.getLocalizedMessage()));
                     withWarnings = true;
+                } catch (BrmoLeegBestandException leeg) {
+                    LOG.warn(String.format("Laden 'leeg' bestand %s overgeslagen. Oorzaak: %s", fName, leeg.getLocalizedMessage()));
+                    withWarnings = true;
+                } finally {
+                    brmo.closeBrmoFramework();
                 }
+                archiveerBestand(scanDir + fName, archiefDir);
             }
             if (withWarnings) {
                 exitcode = EX_DATAERR.code;
             }
         } else {
-            throw new BrmoException("Opgegeven directory " + dirName + " is geen directory.");
+            throw new BrmoException("Opgegeven directory " + scanDir + " is geen directory.");
         }
+        LOG.info(String.format("Klaar met laden van directory: %s, type %s", scanDir, brType));
         return exitcode;
+    }
+
+    /**
+     * verplaats bestand naar archief directory.
+     *
+     * @param fileName te verplaatsen bestandsnaam (volledig pad)
+     * @param archiefDir doel directory (in geval {@code null} dat wordt
+     * verplaatsen overgeslagen)
+     */
+    private static void archiveerBestand(final String fileName, final String archiefDir) {
+        if (archiefDir != null) {
+            File archiefDirectory = new File(archiefDir);
+            LOG.debug(String.format("Archiveren %s naar %s.", fileName, archiefDir));
+            try {
+                FileUtils.moveFileToDirectory(new File(fileName), archiefDirectory, true);
+                LOG.debug(String.format("Bestand %s is naar archief %s verplaatst.", fileName, archiefDirectory));
+            } catch (IOException e) {
+                LOG.error(String.format("Bestand %s is NIET naar archief %s verplaatst, oorzaak: (%s).", fileName, archiefDirectory, e.getLocalizedMessage()));
+            }
+        }
     }
 
     static enum sysexits {

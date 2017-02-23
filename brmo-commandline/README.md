@@ -8,35 +8,46 @@ De basis commandoregel is: `java -jar ./brmo-commandline.jar` deze geeft output 
 
 ```
 usage: java -jar brmo-commandline.jar --<actie> --dbprops <db-props>
-usage: [Oracle] java -cp "brmo-commandline.jar;ojdbc7.jar;lib/*"
+usage: [Oracle] java -cp "bin/brmo-commandline.jar;lib/*"
                 nl.b3p.brmo.commandline.Main --<actie> --dbprops <db-props>
 
                 [Omdat de Oracle jdbc driver niet gedistribueerd mag worden
                  dient deze zelf op de commando regel te worden opgegeven.]
 
 Acties:
-  -v,--versieinfo <format>           Versie informatie van de verschillende schema's
-  -l,--list <format>                 Geef overzicht van laadprocessen in staging database
-  -s,--berichtstatus <format>        Geef aantallen van bericht status in staging database
-  -j,--jobstatus <format>            Geef aantal berichten in job tabel van staging database
-  -a,--load <bestandsnaam type-br>   Laad totaalstand of mutatie uit bestand (.zip of .xml) in
-                                     database
-  -ad,--loaddir <directory type-br>  Laad stand of mutatie berichten (.zip of .xml) uit directory in
-                                     database
-  -d,--delete <id>                   Verwijder laadprocessen in database (geef id weer met -list)
-  -t,--torsgb <error-state>          Transformeer alle 'STAGING_OK' berichten naar rsgb.
-  -tb,--torsgbbgt <loadingUpdate>    Transformeer alle 'STAGING_OK' BGT-Light laadprocessen naar
-                                     rsgbbgt.
-  -e,--exportgds <output-directory>  Maak van berichten uit staging gezipte xml-files in de
-                                     opgegeven directory. Dit zijn alleen BRK mutaties van GDS2
-                                     processen.
+  -v,--versieinfo <[format]>                                 Versie informatie van de verschillende
+                                                             schema's
+  -l,--list <[format]>                                       Geef overzicht van laadprocessen in
+                                                             staging database
+  -s,--berichtstatus <[format]>                              Geef aantallen van bericht status in
+                                                             staging database
+  -j,--jobstatus <[format]>                                  Geef aantal berichten in job tabel van
+                                                             staging database
+  -a,--load <bestandsnaam <type-br> <[archief-directory]>    Laad totaalstand of mutatie uit bestand
+                                                             (.zip of .xml) in database
+  -ad,--loaddir <directory> <type-br> <[archief-directory]>  Laad stand of mutatie berichten (.zip
+                                                             of .xml) uit directory in database
+  -d,--delete <id>                                           Verwijder laadprocessen in database
+                                                             (geef id weer met -list)
+  -t,--torsgb <[error-state]>                                Transformeer alle 'STAGING_OK'
+                                                             berichten naar rsgb.
+  -tb,--torsgbbgt <[loadingUpdate]>                          Transformeer alle 'STAGING_OK'
+                                                             BGT-Light laadprocessen naar rsgbbgt.
+  -e,--exportgds <output-directory>                          Maak van berichten uit staging gezipte
+                                                             xml-files in de opgegeven directory.
+                                                             Dit zijn alleen BRK mutaties van GDS2
+                                                             processen.
 Configuratie:
   -db,--dbprops <bestand>  database properties file
 
-```
-De `<format>` optie is optioneel en kan de waarde "json" hebben, de default is tekst output, de `<error-state>` is optioneel, default is "ignore", de `<loadingUpdate>` optie is optioneel met een default waarde van "false".
 
-Omdat de Oracle jdbc driver niet gedistribueerd mag worden dient deze zelf op de commando regel te worden gespecificeerd.
+```
+De `[format]` optie is optioneel en kan de waarde "json" hebben, de default is tekst output.
+De `[archief-directory]` optie is optioneel en kan gebruikt worden om betsanden na laden in een archief directory te plaatsen.
+De `[error-state]` is optioneel, default is "ignore".
+De `[loadingUpdate]` optie is optioneel met een default waarde van "false".
+
+Omdat de Oracle jdbc driver niet gedistribueerd mag worden dient deze zelf in de lib directory te worden gezet met de aangepaste commando regel zal deze worden opgepikt.
 
 De transformatie naar rsgb wordt normaal met de "ignore" `error-state` optie gestart om te voorkomen dat het proces afbreekt als er een transformatie fout optreed bij de verwerking van een bericht, om dit te voorkomen kan er een andere waarde worden opgegeven, bijvoorbeeld "false".
 Na afloop van een transformatie kan de status van de berichten worden gecontroleerd met de `--berichtstatus` optie.
@@ -47,7 +58,7 @@ Omdat BGT Light bestanden niet in een bericht formaat zijn worden er geen berich
 
 Onderstaand een aantal voorbeelden.
 
-  - `java -jar ./brmo-commandline.jar --dbprops commandline-example.properties --versieinfo`
+  - `java -jar ./bin/brmo-commandline.jar --dbprops ./conf/commandline-example.properties --versieinfo`
   
      output:  
      
@@ -57,16 +68,16 @@ Onderstaand een aantal voorbeelden.
      rsgbbgt versie: 1.4.2-SNAPSHOT  
      ```
      
-  - `java -jar ./brmo-commandline.jar -db commandline-example.properties --load /home/mark/dev/projects/brmo/brmo-loader/src/test/resources/GH-275/OPR-1884300000000464.xml bag`
-  - `java -jar ./brmo-commandline.jar --dbprops commandline-example.properties --list json`
+  - `java -jar ./bin/brmo-commandline.jar -db conf/commandline-example.properties --load /home/mark/dev/projects/brmo/brmo-loader/src/test/resources/GH-275/OPR-1884300000000464.xml bag`
+  - `java -jar ./bin/brmo-commandline.jar --dbprops conf/commandline-example.properties --list json`
   
      output:  
      `{"aantalprocessen":0}`  
      of:
      `{"aantalprocessen":1,"processen":[{"id":86,"bestand_naam":"/home/mark/dev/projects/brmo/brmo-loader/src/test/resources/GH-275/OPR-1884300000000464.xml","bestand_datum":"2016-04-08","soort":"bag","status":"STAGING_OK","contact":"null"}]}`
 
-  - `java -jar ./brmo-commandline.jar --dbprops brmo-db.properties --torsgb`
-  - `java -jar ./brmo-commandline.jar --dbprops brmo-db.properties -s`
+  - `java -jar ./bin/brmo-commandline.jar --dbprops conf/brmo-db.properties --torsgb`
+  - `java -jar ./bin/brmo-commandline.jar --dbprops ./conf/brmo-db.properties -s`
   
      output:  
 
@@ -80,7 +91,7 @@ Onderstaand een aantal voorbeelden.
      ARCHIVE,0  
 
      ```
-  - `java -jar brmo-commandline.jar --dbprops brmo-db.properties -j`
+  - `java -jar bin/brmo-commandline.jar --dbprops brmo-db.properties -j`
   
      output:  
      
@@ -89,9 +100,9 @@ Onderstaand een aantal voorbeelden.
      0  
 
      ```
-  - `java -jar brmo-commandline.jar -db brmo-commandline.properties -ad /tmp/brk brk` 
-  - `java -jar ./brmo-commandline.jar -db commandline-example.properties -ad /tmp/gmllight/dated bgtlight`
-  - `java -jar ./brmo-commandline.jar -db commandline-example.properties --torsgbbgt`
+  - `java -jar bin/brmo-commandline.jar -db conf/brmo-commandline.properties -ad /tmp/brk brk`
+  - `java -jar ./bin/brmo-commandline.jar -db conf/commandline-example.properties -ad /tmp/gmllight/dated bgtlight`
+  - `java -jar ./bin/brmo-commandline.jar -db conf/commandline-example.properties --torsgbbgt`
   
 
 ## Logging configuratie
