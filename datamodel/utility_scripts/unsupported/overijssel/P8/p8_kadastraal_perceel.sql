@@ -62,45 +62,35 @@ INSERT INTO USER_SDO_GEOM_METADATA VALUES (
   );
   
 -- meest recente archief/historische percelen hulp view met percelen waarvan 
--- geen actuele versie meer is/die vervallen zijn,
+-- geen actuele versie meer is/die vervallen zijn
 CREATE OR REPLACE VIEW v_p8_kad_perceel_archief_hulp AS
 SELECT
-    p.sc_kad_identif,
-    p.aand_soort_grootte,
-    p.grootte_perceel,
-    p.omschr_deelperceel,
-    p.ka_deelperceelnummer,
-    p.ka_kad_gemeentecode,
-    p.ka_perceelnummer,
-    p.ka_sectie,
-    a.cu_aard_cultuur_onbebouwd,
-    a.cu_aard_bebouwing,
-    F_DATUM (a.dat_beg_geldh) as dat_beg_geldh,
-    F_DATUM (a.datum_einde_geldh) as datum_einde_geldh,
-    p.begrenzing_perceel
+    pp.sc_kad_identif,
+    pp.aand_soort_grootte,
+    pp.grootte_perceel,
+    pp.omschr_deelperceel,
+    pp.ka_deelperceelnummer,
+    pp.ka_kad_gemeentecode,
+    pp.ka_perceelnummer,
+    pp.ka_sectie,
+    aa.cu_aard_cultuur_onbebouwd,
+    aa.cu_aard_bebouwing,
+    F_DATUM (aa.dat_beg_geldh) AS dat_beg_geldh,
+    F_DATUM (aa.datum_einde_geldh) AS datum_einde_geldh,
+    pp.begrenzing_perceel
 FROM
-    -- kad_perceel_archief p
-    (SELECT
-        p.sc_kad_identif,
-        p.aand_soort_grootte,
-        p.grootte_perceel,
-        p.omschr_deelperceel,
-        p.ka_deelperceelnummer,
-        p.ka_kad_gemeentecode,
-        p.ka_perceelnummer,
-        p.ka_sectie,
-        p.begrenzing_perceel 
-            FROM kad_perceel_archief p WHERE 
-            -- NOT EXISTS (SELECT 0 FROM kad_perceel c WHERE p.sc_kad_identif = c.sc_kad_identif)
-            -- AND (p.sc_kad_identif, F_DATUM (p.sc_dat_beg_geldh)) IN (SELECT pa.sc_kad_identif, MAX(F_DATUM (pa.sc_dat_beg_geldh)) FROM kad_perceel_archief pa GROUP BY pa.sc_kad_identif)
-            -- niet ideaal; maar voorkomt dat er dubbele perceel records in het eindresultaat komen; bovenstaande variant zou beter zijn, 
-            -- nadeel van onderstaand is dat er geen match op datum is bij gevallen van data inconsistentie (voor constente gevallen maakt het niet uit, maar is het een extra table scan)
-            NOT EXISTS (SELECT 0 FROM kad_onrrnd_zk c WHERE p.sc_kad_identif = c.kad_identif)
-            AND (p.sc_kad_identif, F_DATUM (p.sc_dat_beg_geldh)) IN (SELECT az.kad_identif as sc_kad_identif, MAX(F_DATUM (az.dat_beg_geldh)) as sc_dat_beg_geldh FROM kad_onrrnd_zk_archief az GROUP BY az.kad_identif)
-    ) p, 
-    kad_onrrnd_zk_archief a
+    kad_perceel_archief pp, kad_onrrnd_zk_archief aa
 WHERE
-    p.sc_kad_identif = a.kad_identif;
+    -- geen actueel perceel meer
+    NOT EXISTS ( SELECT 0 FROM kad_perceel c WHERE pp.sc_kad_identif = c.sc_kad_identif)
+AND
+    -- jongste "archief" perceel voor een sc_kad_identif
+    (pp.sc_kad_identif, F_DATUM (pp.sc_dat_beg_geldh)) IN ( SELECT pa.sc_kad_identif, MAX ( F_DATUM ( pa.sc_dat_beg_geldh)) FROM kad_perceel_archief pa WHERE pa.sc_kad_identif=pp.sc_kad_identif GROUP BY pa.sc_kad_identif )
+AND
+    -- "archief" onroerende zaak behorhend bij bovenstaande jongste "archief" perceel
+    (aa.kad_identif, F_DATUM (aa.dat_beg_geldh)) IN ( SELECT pa.sc_kad_identif, MAX ( F_DATUM ( pa.sc_dat_beg_geldh)) FROM kad_perceel_archief pa WHERE pa.sc_kad_identif=pp.sc_kad_identif GROUP BY pa.sc_kad_identif )
+AND 
+    aa.kad_identif = pp.sc_kad_identif; 
     
 --metadata
 DELETE FROM USER_SDO_GEOM_METADATA WHERE table_name ='V_P8_KAD_PERCEEL_ARCHIEF_HULP';
