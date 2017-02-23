@@ -49,7 +49,7 @@
         <netbeans.hint.license>default_1</netbeans.hint.license>
         <hibernate.version>3.6.10.Final</hibernate.version>
         <geotools.version>16.2</geotools.version>
-        <postgresql.jdbc.version>9.4.1212</postgresql.jdbc.version>
+        <postgresql.jdbc.version>42.0.0</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2.2.1</postgresql.postgis-jdbc.version>
         <oracle.jdbc.version>12.1.0.2.0</oracle.jdbc.version>
         <oracle.jdbc.artifactId>ojdbc7</oracle.jdbc.artifactId>
@@ -85,7 +85,7 @@
                 <!-- oa. nodig voor hibernate, dbunit, cronparser -->
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.7.22</version>
+                <version>1.7.23</version>
             </dependency>
             <dependency>
                 <groupId>log4j</groupId>
