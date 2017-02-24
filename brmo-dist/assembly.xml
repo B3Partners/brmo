@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
               
     <id>bin</id>
     <formats>
@@ -21,17 +21,29 @@
                 <!-- expliciet exclude vanwege dat dit dependencies zijn in parent pom -->
                 <exclude>commons-logging:commons-logging</exclude>
                 <exclude>log4j:log4j</exclude>
-                <exclude>${project.groupId}:bgt-gml-loader</exclude>
+                <!-- commandline komt in de tools directory, zie hieronder -->
+                <exclude>${project.groupId}:brmo-commandline</exclude>
+                <!--<exclude>${project.groupId}:bgt-gml-loader</exclude>-->
             </excludes>
             <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>
-        <dependencySet>
+        <!--dependencySet>
             <useTransitiveDependencies>false</useTransitiveDependencies>
             <useProjectArtifact>${project.groupId}:bgt-gml-loader</useProjectArtifact>
             <outputDirectory>tools</outputDirectory>
             <unpack>false</unpack>
             <includes>
                 <include>${project.groupId}:bgt-gml-loader</include>
+            </includes>
+            <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
+        </dependencySet-->
+        <dependencySet>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <useProjectArtifact>${project.groupId}:brmo-commandline</useProjectArtifact>
+            <outputDirectory>tools</outputDirectory>
+            <unpack>false</unpack>
+            <includes>
+                <include>${project.groupId}:brmo-commandline</include>
             </includes>
             <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>
@@ -44,7 +56,7 @@
                 <include>**/*.sql</include>
             </includes>
             <excludes>
-				<exclude>brmo-persistence-h2.sql</exclude>
+                <exclude>brmo-persistence-h2.sql</exclude>
             </excludes>
             <filtered>true</filtered>
         </fileSet>

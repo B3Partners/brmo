@@ -477,4 +477,12 @@ public class BrmoFramework {
             throw new BrmoException(ex);
         }
     }
+
+    public long getCountJob() throws BrmoException {
+        try {
+            return stagingProxy.getCountJob();
+        } catch (SQLException ex) {
+            throw new BrmoException(ex);
+        }
+    }
 }

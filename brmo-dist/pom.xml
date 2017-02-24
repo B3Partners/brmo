@@ -55,7 +55,7 @@
         </dependency>
         <dependency>
             <groupId>nl.b3p</groupId>
-            <artifactId>bgt-gml-loader</artifactId>
+            <artifactId>brmo-commandline</artifactId>
             <version>${project.version}</version>
             <classifier>tool</classifier>
             <type>zip</type>
