@@ -63,9 +63,9 @@ Onderstaand een aantal voorbeelden.
      output:  
      
      ```
-     staging versie: 1.4.2-SNAPSHOT  
-     rsgb    versie: 1.4.2-SNAPSHOT  
-     rsgbbgt versie: 1.4.2-SNAPSHOT  
+     staging versie: 1.4.3  
+     rsgb    versie: 1.4.3  
+     rsgbbgt versie: 1.4.3  
      ```
      
   - `java -jar ./bin/brmo-commandline.jar -db conf/commandline-example.properties --load /home/mark/dev/projects/brmo/brmo-loader/src/test/resources/GH-275/OPR-1884300000000464.xml bag`
