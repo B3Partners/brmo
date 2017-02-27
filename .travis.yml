@@ -83,6 +83,8 @@ script:
   # run unit tests
   - mvn -e test -B -Ppostgresql -pl '!brmo-dist'
   # run integratie tests voor veschillende modules
+  # run integratie tests voor brmo-commandline module
+  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-commandline'
   # run integratie tests voor bgt-gml-loader module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
   # run integratie tests voor brmo-loader module
