@@ -58,6 +58,8 @@ test_script:
   # unit tests
   - mvn -e test -B -Pmssql -pl "!brmo-dist"
   # integratie tests
+  # run integratie tests voor brmo-commandline module
+  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-commandline"
   # run integratie tests voor bgt-gml-loader module
   - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-gml-loader"
   # run integratie tests voor brmo-loader module
