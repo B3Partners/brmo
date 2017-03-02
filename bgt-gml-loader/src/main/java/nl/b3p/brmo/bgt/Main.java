@@ -18,8 +18,7 @@ import org.geotools.factory.GeoTools;
  *
  * @author mprins
  * @deprecated Deze klasse niet meer gebruiken, gebruik de normale commandline
- * tool
- * @see nl.b3p.brmo.commandline.Main
+ * tool (nl.b3p.brmo.commandline.Main).
  */
 @Deprecated
 public class Main {
