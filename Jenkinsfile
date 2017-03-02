@@ -30,6 +30,15 @@ timestamps {
                     sh ".jenkins/db-prepare-rsgbbgt.sh"
                 }
 
+                stage('brmo-commandline Integration Test') {
+                    echo "run integratie tests voor brmo-commandline module"
+                    try {
+                        sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-commandline'"
+                    } catch (Exception e) {
+                        currentBuild.result = 'UNSTABLE'
+                    }
+                }
+
                 stage('bgt-gml-loader Integration Test') {
                     echo "run integratie tests voor bgt-gml-loader module"
                     try {
