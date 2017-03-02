@@ -8,12 +8,15 @@ import net.sourceforge.jtds.jdbc.JtdsConnection;
 import oracle.jdbc.OracleConnection;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
  * @author Chris
  */
 public class GeometryJdbcConverterFactory {
+    private static final Log LOG = LogFactory.getLog(GeometryJdbcConverterFactory.class);
 
     public static GeometryJdbcConverter getGeometryJdbcConverter(Connection conn) {
         String databaseProductName = null;
@@ -35,9 +38,20 @@ public class GeometryJdbcConverterFactory {
             }
             return geomToJdbc;
         } else if (databaseProductName.contains("Oracle")) {
+            boolean oracle11 = false;
+            try {
+                oracle11 = (conn.getMetaData().getDatabaseMajorVersion() == 11);
+            } catch (SQLException ex) {
+                LOG.warn("Uitlezen database versie is mislukt.", ex);
+            }
             try {
                 OracleConnection oc = OracleConnectionUnwrapper.unwrap(conn);
-                OracleJdbcConverter geomToJdbc = new OracleJdbcConverter(oc);
+                OracleJdbcConverter geomToJdbc;
+                if (oracle11) {
+                    geomToJdbc = new Oracle11JdbcConverter(oc);
+                } else {
+                    geomToJdbc = new OracleJdbcConverter(oc);
+                }
                 geomToJdbc.setSchema(oc.getCurrentSchema());
                 return geomToJdbc;
             } catch (SQLException ex) {

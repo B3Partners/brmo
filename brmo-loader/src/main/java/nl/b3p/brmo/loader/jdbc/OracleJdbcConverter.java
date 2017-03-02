@@ -99,9 +99,20 @@ public class OracleJdbcConverter extends GeometryJdbcConverter {
         return builder.toString();
     }
 
+    /**
+     * Voegt een limiet toe aan een query te gebruiken in geval van insert met
+     * select. Bijvoorbeeld zoals het plaatsen van stand-berichten in de job
+     * tabel.
+     * <b>NB</b> {@link #buildPaginationSql} is niet bruikbaar voor een
+     * insert+select
+     *
+     * @param sql query zonder limiet
+     * @param limit max aantal op te halen records dat voldoet aan query
+     * @return query met limiet
+     * @since 1.4.1
+     */
     @Override
     public StringBuilder buildLimitSql(StringBuilder sql, int limit) {
-        // NB #buildPaginationSql is niet bruikbaar voor een insert+select
         sql.append(" FETCH FIRST ").append(limit).append(" ROWS ONLY");
         return sql;
     }
