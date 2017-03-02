@@ -19,6 +19,7 @@ import org.geotools.factory.GeoTools;
  * @author mprins
  * @deprecated Deze klasse niet meer gebruiken, gebruik de normale commandline
  * tool
+ * @see nl.b3p.brmo.commandline.Main
  */
 @Deprecated
 public class Main {
@@ -42,6 +43,7 @@ public class Main {
         }
 
         LOG.warn("LET OP, de commandline BGT GML Light loader maakt geen gebruik van de staging database; gebruik hiervoor de webinterface of de reguliere commandline tool.");
+        LOG.warn("LET OP, de commandline BGT GML Light loader is niet ondersteund");
         BGTGMLLightLoader ldr = new BGTGMLLightLoader();
         ldr.setDbConnProps(prop);
         ldr.setScanDirectory(prop.getProperty("scandirectory"));

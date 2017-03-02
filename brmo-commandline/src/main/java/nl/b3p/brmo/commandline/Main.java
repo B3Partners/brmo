@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
+import java.util.function.Function;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -76,15 +77,28 @@ public class Main {
         });
 
         modeOpts = Arrays.asList(new Option[]{
-            Option.builder("v").desc("Versie informatie van de verschillende schema's").longOpt("versieinfo").optionalArg(true).numberOfArgs(1).argName("[format]").build(),
-            Option.builder("l").desc("Geef overzicht van laadprocessen in staging database").longOpt("list").optionalArg(true).numberOfArgs(1).argName("[format]").build(),
-            Option.builder("s").desc("Geef aantallen van bericht status in staging database").longOpt("berichtstatus").optionalArg(true).numberOfArgs(1).argName("[format]").build(),
-            Option.builder("j").desc("Geef aantal berichten in job tabel van staging database").longOpt("jobstatus").optionalArg(true).numberOfArgs(1).argName("[format]").build(),
-            Option.builder("a").desc("Laad totaalstand of mutatie uit bestand (.zip of .xml) in database").longOpt("load").hasArg(true).numberOfArgs(2).argName("bestandsnaam <type-br> <[archief-directory]").build(),
+            // info
+            Option.builder("v").desc("Versie informatie van de verschillende schema's").longOpt("versieinfo")
+            .optionalArg(true).numberOfArgs(1).argName("[format]").build(),
+            Option.builder("l").desc("Geef overzicht van laadprocessen in staging database").longOpt("list")
+            .optionalArg(true).numberOfArgs(1).argName("[format]").build(),
+            Option.builder("s").desc("Geef aantallen van bericht status in staging database").longOpt("berichtstatus")
+            .optionalArg(true).numberOfArgs(1).argName("[format]").build(),
+            Option.builder("j").desc("Geef aantal berichten in job tabel van staging database").longOpt("jobstatus")
+            .optionalArg(true).numberOfArgs(1).argName("[format]").build(),
+            // laden
+            Option.builder("a").desc("Laad totaalstand of mutatie uit bestand (.zip of .xml) in database").longOpt("load").hasArg(true)
+            .numberOfArgs(2).argName("bestandsnaam <type-br> <[archief-directory]").build(),
             Option.builder("ad").desc("Laad stand of mutatie berichten (.zip of .xml) uit directory in database").longOpt("loaddir").hasArg(true).numberOfArgs(2).argName("directory> <type-br> <[archief-directory]").build(),
-            Option.builder("d").desc("Verwijder laadprocessen in database (geef id weer met -list)").longOpt("delete").hasArg().numberOfArgs(1).type(Integer.class).argName("id").build(),
-            Option.builder("t").desc("Transformeer alle 'STAGING_OK' berichten naar rsgb.").longOpt("torsgb").optionalArg(true).numberOfArgs(1).argName("[error-state]").build(),
-            Option.builder("tb").desc("Transformeer alle 'STAGING_OK' BGT-Light laadprocessen naar rsgbbgt.").longOpt("torsgbbgt").optionalArg(true).numberOfArgs(1).argName("[loadingUpdate]").build(),
+            // verwijderen
+            Option.builder("d").desc("Verwijder laadprocessen in database (geef id weer met -list)").longOpt("delete")
+            .hasArg().numberOfArgs(1).type(Integer.class).argName("id").build(),
+            // transformeren
+            Option.builder("t").desc("Transformeer alle 'STAGING_OK' berichten naar rsgb.").longOpt("torsgb")
+            .optionalArg(true).numberOfArgs(1).argName("[error-state]").build(),
+            Option.builder("tb").desc("Transformeer alle 'STAGING_OK' BGT-Light laadprocessen naar rsgbbgt.")
+            .longOpt("torsgbbgt").optionalArg(true).numberOfArgs(1).argName("[loadingUpdate]").build(),
+            // export
             Option.builder("e").desc("Maak van berichten uit staging gezipte xml-files in de opgegeven directory. Dit zijn alleen BRK mutaties van GDS2 processen.")
             .longOpt("exportgds").hasArg().numberOfArgs(1).type(File.class).argName("output-directory").build()
         });
@@ -92,18 +106,22 @@ public class Main {
         Options options = new Options();
 
         dbOptions = new Options();
-        for (Option o : dbOpts) {
+        dbOpts.stream().map((Option o) -> {
             options.addOption(o);
+            return o;
+        }).forEach((o) -> {
             dbOptions.addOption(o);
-        }
+        });
 
         OptionGroup g = new OptionGroup();
         g.setRequired(true);
         modeOptions = new Options();
-        for (Option o : modeOpts) {
+        modeOpts.stream().map((o) -> {
             g.addOption(o);
+            return o;
+        }).forEach((o) -> {
             modeOptions.addOption(o);
-        }
+        });
         options.addOptionGroup(g);
 
         return options;
@@ -326,7 +344,7 @@ public class Main {
             sb.append("{\"aantal\":").append(processen.size());
             if (!processen.isEmpty()) {
                 sb.append(",\"laadprocessen\":[");
-                for (LaadProces lp : processen) {
+                processen.stream().forEach((lp) -> {
                     sb.append("{")
                             .append("\"id\":").append(lp.getId()).append(",")
                             .append("\"bestand_naam\":\"").append(lp.getBestandNaam()).append("\",")
@@ -334,7 +352,7 @@ public class Main {
                             .append("\"soort\":\"").append(lp.getSoort()).append("\",")
                             .append("\"status\":\"").append(lp.getStatus()).append("\",")
                             .append("\"contact\":\"").append(lp.getContactEmail()).append("\"},");
-                }
+                });
                 sb.deleteCharAt(sb.length() - 1);
                 sb.append("]");
             }
@@ -346,7 +364,7 @@ public class Main {
             System.out.println("Aantal laadprocessen: " + processen.size());
             System.out.println("id, bestand_naam, bestand_datum, soort, status, contact");
 
-            for (LaadProces lp : processen) {
+            processen.stream().forEach((lp) -> {
                 System.out.printf("%s,%s,%s,%s,%s,%s\n",
                         lp.getId(),
                         lp.getBestandNaam(),
@@ -354,7 +372,7 @@ public class Main {
                         lp.getSoort(),
                         lp.getStatus(),
                         lp.getContactEmail());
-            }
+            });
         }
         brmo.closeBrmoFramework();
         return 0;
