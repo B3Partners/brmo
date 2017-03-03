@@ -12,7 +12,7 @@
     <description>BRMO commandline tool.</description>
     <properties>
         <!-- de oracle driver uitsluiten -->
-        <exclude.groupid.inpackage>com.oracle</exclude.groupid.inpackage>
+        <exclude.groupid.inpackage>${oracle.jdbc.groupId}</exclude.groupid.inpackage>
     </properties>
     <dependencies>
         <dependency>
@@ -49,7 +49,7 @@
             <artifactId>jtds</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.oracle</groupId>
+            <groupId>${oracle.jdbc.groupId}</groupId>
             <artifactId>${oracle.jdbc.artifactId}</artifactId>
             <scope>provided</scope>
         </dependency>
@@ -246,7 +246,7 @@
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>com.oracle</groupId>
+                    <groupId>${oracle.jdbc.groupId}</groupId>
                     <artifactId>${oracle.jdbc.artifactId}</artifactId>
                 </dependency>
             </dependencies>
