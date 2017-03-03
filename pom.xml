@@ -422,18 +422,6 @@
             </releases>
         </repository>
         -->
-        <repository>
-            <id>nexus.codehaus.org</id>
-            <name>Former (now non-existant) CodeHaus Maven Repository</name>
-            <url>https://nexus.codehaus.org/snapshots/</url>
-            <!-- both releases and snapshots set to false -->
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
     </repositories>
     <dependencies>
         <dependency>
