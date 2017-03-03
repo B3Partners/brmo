@@ -128,6 +128,8 @@ public abstract class TestingBase {
                         LOG.warn("Mogelijke fout tijdens legen van tabellen: " + se.getLocalizedMessage());
                         LOG.debug(se);
                     }
+                } else {
+                    LOG.error("Verwacht een tabel " + tableName + " te hebben gevonden om te legen, maar tabel is niet gevonden.");
                 }
                 res.close();
             }
