@@ -44,6 +44,7 @@ public class BGTGMLLightLoaderIntegrationTest extends TestingBase {
 
     @After
     public void cleanUp() throws Exception {
+        clearTables();
         sequential.unlock();
     }
 
