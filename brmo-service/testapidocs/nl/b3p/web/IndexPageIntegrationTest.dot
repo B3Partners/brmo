@@ -22,6 +22,7 @@ digraph G {
 <tr><td align="left" balign="left"> + testDefaultUserPresent() </td></tr>
 <tr><td align="left" balign="left"> + testIndex() </td></tr>
 <tr><td align="left" balign="left"> + testLoginLogout() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./IndexPageIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.WebTestUtil
@@ -32,14 +33,11 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + BASE_TEST_URL : String </td></tr>
 <tr><td align="left" balign="left"> # client : CloseableHttpClient </td></tr>
-<tr><td align="left" balign="left"> + name : TestName </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + WebTestUtil() </td></tr>
 <tr><td align="left" balign="left"> + setUpClass() </td></tr>
 <tr><td align="left" balign="left"> + tearDownClass() </td></tr>
-<tr><td align="left" balign="left"> + startTest() </td></tr>
-<tr><td align="left" balign="left"> + endTest() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WebTestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.web.IndexPageIntegrationTest extends nl.b3p.web.WebTestUtil

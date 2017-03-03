@@ -557,227 +557,228 @@
 <a class="jxr_linenumber" name="L549" href="#L549">549</a>     }
 <a class="jxr_linenumber" name="L550" href="#L550">550</a>     
 <a class="jxr_linenumber" name="L551" href="#L551">551</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> cleanupBerichten(String config, String soort) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L552" href="#L552">552</a>         <strong class="jxr_keyword">int</strong> offset = 0;
-<a class="jxr_linenumber" name="L553" href="#L553">553</a>         <strong class="jxr_keyword">int</strong> batch = 1000;
-<a class="jxr_linenumber" name="L554" href="#L554">554</a>         <strong class="jxr_keyword">final</strong> MutableInt processed = <strong class="jxr_keyword">new</strong> MutableInt(0);
-<a class="jxr_linenumber" name="L555" href="#L555">555</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
-<a class="jxr_linenumber" name="L556" href="#L556">556</a>         <strong class="jxr_keyword">final</strong> Connection conn = dataSourceStaging.getConnection();
-<a class="jxr_linenumber" name="L557" href="#L557">557</a>         <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
-<a class="jxr_linenumber" name="L558" href="#L558">558</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> StagingRowHandler();
-<a class="jxr_linenumber" name="L559" href="#L559">559</a>         
-<a class="jxr_linenumber" name="L560" href="#L560">560</a>         Calendar c = Calendar.getInstance();
-<a class="jxr_linenumber" name="L561" href="#L561">561</a>         c.setTime(<strong class="jxr_keyword">new</strong> Date());
-<a class="jxr_linenumber" name="L562" href="#L562">562</a>         c.add(Calendar.MONTH, -3);
-<a class="jxr_linenumber" name="L563" href="#L563">563</a>      
-<a class="jxr_linenumber" name="L564" href="#L564">564</a>         String countsql = <span class="jxr_string">"select count(*) from "</span> + BrmoFramework.BERICHT_TABLE 
-<a class="jxr_linenumber" name="L565" href="#L565">565</a>                     + <span class="jxr_string">" where soort='"</span> + soort + <span class="jxr_string">"' "</span>
-<a class="jxr_linenumber" name="L566" href="#L566">566</a>                     + <span class="jxr_string">" and status='"</span> + config + <span class="jxr_string">"'"</span>
-<a class="jxr_linenumber" name="L567" href="#L567">567</a>                     + <span class="jxr_string">" and status_datum &lt; ? "</span>;
-<a class="jxr_linenumber" name="L568" href="#L568">568</a>         Object o = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn,
-<a class="jxr_linenumber" name="L569" href="#L569">569</a>                 countsql, <strong class="jxr_keyword">new</strong> Timestamp(c.getTimeInMillis()), <strong class="jxr_keyword">new</strong> ScalarHandler());
-<a class="jxr_linenumber" name="L570" href="#L570">570</a>         <strong class="jxr_keyword">if</strong> (o instanceof BigDecimal) {
-<a class="jxr_linenumber" name="L571" href="#L571">571</a>             total(((BigDecimal) o).longValue());
-<a class="jxr_linenumber" name="L572" href="#L572">572</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (o instanceof Integer) {
-<a class="jxr_linenumber" name="L573" href="#L573">573</a>             total(((Integer) o).longValue());
-<a class="jxr_linenumber" name="L574" href="#L574">574</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L575" href="#L575">575</a>             total((Long) o);
-<a class="jxr_linenumber" name="L576" href="#L576">576</a>         }
-<a class="jxr_linenumber" name="L577" href="#L577">577</a>         
-<a class="jxr_linenumber" name="L578" href="#L578">578</a>         <strong class="jxr_keyword">do</strong> {
-<a class="jxr_linenumber" name="L579" href="#L579">579</a>             log.debug(String.format(<span class="jxr_string">"Ophalen berichten batch met offset %d, limit %d, tot datum %tc"</span>, offset, batch, c));
-<a class="jxr_linenumber" name="L580" href="#L580">580</a>             String sql = <span class="jxr_string">"select * from "</span> + BrmoFramework.BERICHT_TABLE 
-<a class="jxr_linenumber" name="L581" href="#L581">581</a>                     + <span class="jxr_string">" where soort='"</span> + soort + <span class="jxr_string">"' "</span>
-<a class="jxr_linenumber" name="L582" href="#L582">582</a>                     + <span class="jxr_string">" and status='"</span> + config + <span class="jxr_string">"'"</span>
-<a class="jxr_linenumber" name="L583" href="#L583">583</a>                     + <span class="jxr_string">" and status_datum &lt; ? "</span>
-<a class="jxr_linenumber" name="L584" href="#L584">584</a>                     + <span class="jxr_string">" order by id "</span>;
-<a class="jxr_linenumber" name="L585" href="#L585">585</a>             sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
-<a class="jxr_linenumber" name="L586" href="#L586">586</a>             log.debug(<span class="jxr_string">"SQL voor ophalen berichten batch: "</span> + sql);
-<a class="jxr_linenumber" name="L587" href="#L587">587</a>             
-<a class="jxr_linenumber" name="L588" href="#L588">588</a>             processed.setValue(0);
-<a class="jxr_linenumber" name="L589" href="#L589">589</a>             Exception e = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, <strong class="jxr_keyword">new</strong> Timestamp(c.getTimeInMillis()), <strong class="jxr_keyword">new</strong> ResultSetHandler&lt;Exception&gt;() {
-<a class="jxr_linenumber" name="L590" href="#L590">590</a>                 @Override
-<a class="jxr_linenumber" name="L591" href="#L591">591</a>                 <strong class="jxr_keyword">public</strong> Exception handle(ResultSet rs) <strong class="jxr_keyword">throws</strong> SQLException {
-<a class="jxr_linenumber" name="L592" href="#L592">592</a> 
-<a class="jxr_linenumber" name="L593" href="#L593">593</a>                     <strong class="jxr_keyword">while</strong> (rs.next()) {
-<a class="jxr_linenumber" name="L594" href="#L594">594</a>                         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L595" href="#L595">595</a>                             Bericht bericht = processor.toBean(rs, Bericht.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L596" href="#L596">596</a> 
-<a class="jxr_linenumber" name="L597" href="#L597">597</a>                             bericht.setBrOrgineelXml(<span class="jxr_string">"opgeschoond"</span>);
-<a class="jxr_linenumber" name="L598" href="#L598">598</a>                             bericht.setBrXml(<span class="jxr_string">"opgeschoond"</span>);
-<a class="jxr_linenumber" name="L599" href="#L599">599</a>                             bericht.setOpmerking(<span class="jxr_string">"opgeschoond, status was: "</span> + bericht.getStatus().toString());
-<a class="jxr_linenumber" name="L600" href="#L600">600</a>                             bericht.setStatus(Bericht.STATUS.ARCHIVE);
-<a class="jxr_linenumber" name="L601" href="#L601">601</a>                             bericht.setStatusDatum(<strong class="jxr_keyword">new</strong> Date());
-<a class="jxr_linenumber" name="L602" href="#L602">602</a> 
-<a class="jxr_linenumber" name="L603" href="#L603">603</a>                             <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken())
-<a class="jxr_linenumber" name="L604" href="#L604">604</a>                                     .update(conn, <span class="jxr_string">"update "</span> + BrmoFramework.BERICHT_TABLE 
-<a class="jxr_linenumber" name="L605" href="#L605">605</a>                                             + <span class="jxr_string">" set status_datum = ?, status = ?, opmerking = ?, br_xml = ?, br_orgineel_xml = ? where id = ?"</span>,
-<a class="jxr_linenumber" name="L606" href="#L606">606</a>                                             <strong class="jxr_keyword">new</strong> Timestamp(bericht.getDatum().getTime()), bericht.getStatus().toString(), bericht.getOpmerking(), 
-<a class="jxr_linenumber" name="L607" href="#L607">607</a>                                             bericht.getBrXml(), bericht.getBrOrgineelXml(), bericht.getId());
-<a class="jxr_linenumber" name="L608" href="#L608">608</a>                                  
-<a class="jxr_linenumber" name="L609" href="#L609">609</a>                         } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L610" href="#L610">610</a>                             <strong class="jxr_keyword">return</strong> e;
-<a class="jxr_linenumber" name="L611" href="#L611">611</a>                         }
-<a class="jxr_linenumber" name="L612" href="#L612">612</a>                         processed.increment();
-<a class="jxr_linenumber" name="L613" href="#L613">613</a>                     }
-<a class="jxr_linenumber" name="L614" href="#L614">614</a>                     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L615" href="#L615">615</a>                 }
-<a class="jxr_linenumber" name="L616" href="#L616">616</a>             });
-<a class="jxr_linenumber" name="L617" href="#L617">617</a>             offset += processed.intValue();
-<a class="jxr_linenumber" name="L618" href="#L618">618</a> 
-<a class="jxr_linenumber" name="L619" href="#L619">619</a>             progress(offset);
-<a class="jxr_linenumber" name="L620" href="#L620">620</a> 
-<a class="jxr_linenumber" name="L621" href="#L621">621</a>             <em class="jxr_comment">// If handler threw exception processing row, rethrow it</em>
-<a class="jxr_linenumber" name="L622" href="#L622">622</a>             <strong class="jxr_keyword">if</strong> (e != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L623" href="#L623">623</a>                 <strong class="jxr_keyword">throw</strong> e;
-<a class="jxr_linenumber" name="L624" href="#L624">624</a>             }
-<a class="jxr_linenumber" name="L625" href="#L625">625</a>         } <strong class="jxr_keyword">while</strong> (processed.intValue() &gt; 0);
-<a class="jxr_linenumber" name="L626" href="#L626">626</a> 
-<a class="jxr_linenumber" name="L627" href="#L627">627</a>     }
-<a class="jxr_linenumber" name="L628" href="#L628">628</a> 
-<a class="jxr_linenumber" name="L629" href="#L629">629</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> deleteBerichten(String config, String soort) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L630" href="#L630">630</a>         <strong class="jxr_keyword">final</strong> MutableInt processed = <strong class="jxr_keyword">new</strong> MutableInt(0);
-<a class="jxr_linenumber" name="L631" href="#L631">631</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
-<a class="jxr_linenumber" name="L632" href="#L632">632</a>         <strong class="jxr_keyword">final</strong> Connection conn = dataSourceStaging.getConnection();
-<a class="jxr_linenumber" name="L633" href="#L633">633</a>         <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
-<a class="jxr_linenumber" name="L634" href="#L634">634</a>         
-<a class="jxr_linenumber" name="L635" href="#L635">635</a>         String countsql = <span class="jxr_string">"select count(*) from "</span> + BrmoFramework.BERICHT_TABLE 
-<a class="jxr_linenumber" name="L636" href="#L636">636</a>                     + <span class="jxr_string">" where soort='"</span> + soort + <span class="jxr_string">"' "</span>
-<a class="jxr_linenumber" name="L637" href="#L637">637</a>                     + <span class="jxr_string">" and status='"</span> + config + <span class="jxr_string">"'"</span>;
-<a class="jxr_linenumber" name="L638" href="#L638">638</a>         Object o = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn,
-<a class="jxr_linenumber" name="L639" href="#L639">639</a>                 countsql, <strong class="jxr_keyword">new</strong> ScalarHandler());
-<a class="jxr_linenumber" name="L640" href="#L640">640</a>         <strong class="jxr_keyword">if</strong> (o instanceof BigDecimal) {
-<a class="jxr_linenumber" name="L641" href="#L641">641</a>             total(((BigDecimal) o).longValue());
-<a class="jxr_linenumber" name="L642" href="#L642">642</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (o instanceof Integer) {
-<a class="jxr_linenumber" name="L643" href="#L643">643</a>             total(((Integer) o).longValue());
-<a class="jxr_linenumber" name="L644" href="#L644">644</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L645" href="#L645">645</a>             total((Long) o);
-<a class="jxr_linenumber" name="L646" href="#L646">646</a>         }
-<a class="jxr_linenumber" name="L647" href="#L647">647</a>         log.debug(<span class="jxr_string">"Totaal te verwijderen "</span> + config + <span class="jxr_string">" berichten: "</span> + o);
-<a class="jxr_linenumber" name="L648" href="#L648">648</a>         
-<a class="jxr_linenumber" name="L649" href="#L649">649</a>         o = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).update(conn, <span class="jxr_string">"DELETE FROM "</span> + BrmoFramework.BERICHT_TABLE
-<a class="jxr_linenumber" name="L650" href="#L650">650</a>                 + <span class="jxr_string">" WHERE soort='"</span> + soort + <span class="jxr_string">"' "</span>
-<a class="jxr_linenumber" name="L651" href="#L651">651</a>                 + <span class="jxr_string">" and status='"</span> + config + <span class="jxr_string">"'"</span>);
-<a class="jxr_linenumber" name="L652" href="#L652">652</a>         
-<a class="jxr_linenumber" name="L653" href="#L653">653</a>         <strong class="jxr_keyword">if</strong> (o instanceof BigDecimal) {
-<a class="jxr_linenumber" name="L654" href="#L654">654</a>             progress(((BigDecimal) o).longValue());
-<a class="jxr_linenumber" name="L655" href="#L655">655</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (o instanceof Integer) {
-<a class="jxr_linenumber" name="L656" href="#L656">656</a>             progress(((Integer) o).longValue());
-<a class="jxr_linenumber" name="L657" href="#L657">657</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L658" href="#L658">658</a>             progress((Long) o);
-<a class="jxr_linenumber" name="L659" href="#L659">659</a>         }
-<a class="jxr_linenumber" name="L660" href="#L660">660</a> 
-<a class="jxr_linenumber" name="L661" href="#L661">661</a>     }
-<a class="jxr_linenumber" name="L662" href="#L662">662</a> 
-<a class="jxr_linenumber" name="L663" href="#L663">663</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L664" href="#L664">664</a> <em class="jxr_javadoccomment">     * Deze actie loopt door de lijst brk verwijderberichten (={@code &lt;empty/&gt;}</em>
-<a class="jxr_linenumber" name="L665" href="#L665">665</a> <em class="jxr_javadoccomment">     * br_xml) met status RSGB_OK om ze nogmaals naar de rsgb te transformeren.</em>
-<a class="jxr_linenumber" name="L666" href="#L666">666</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L667" href="#L667">667</a> <em class="jxr_javadoccomment">     * @param status bericht status</em>
-<a class="jxr_linenumber" name="L668" href="#L668">668</a> <em class="jxr_javadoccomment">     * @param soort soort bericht</em>
-<a class="jxr_linenumber" name="L669" href="#L669">669</a> <em class="jxr_javadoccomment">     * @throws SQLException if any</em>
-<a class="jxr_linenumber" name="L670" href="#L670">670</a> <em class="jxr_javadoccomment">     * @throws BrmoException if any</em>
-<a class="jxr_linenumber" name="L671" href="#L671">671</a> <em class="jxr_javadoccomment">     * @throws Exception if any</em>
-<a class="jxr_linenumber" name="L672" href="#L672">672</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L673" href="#L673">673</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> replayBRKVerwijderBerichten(String soort, String status) <strong class="jxr_keyword">throws</strong> SQLException, BrmoException, Exception {
-<a class="jxr_linenumber" name="L674" href="#L674">674</a>         <strong class="jxr_keyword">int</strong> offset = 0;
-<a class="jxr_linenumber" name="L675" href="#L675">675</a>         <strong class="jxr_keyword">int</strong> batch = 1000;
-<a class="jxr_linenumber" name="L676" href="#L676">676</a>         <strong class="jxr_keyword">final</strong> MutableInt processed = <strong class="jxr_keyword">new</strong> MutableInt(0);
-<a class="jxr_linenumber" name="L677" href="#L677">677</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
-<a class="jxr_linenumber" name="L678" href="#L678">678</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();
-<a class="jxr_linenumber" name="L679" href="#L679">679</a>         <strong class="jxr_keyword">final</strong> Connection conn = dataSourceStaging.getConnection();
-<a class="jxr_linenumber" name="L680" href="#L680">680</a>         <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
-<a class="jxr_linenumber" name="L681" href="#L681">681</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> StagingRowHandler();
-<a class="jxr_linenumber" name="L682" href="#L682">682</a> 
-<a class="jxr_linenumber" name="L683" href="#L683">683</a>         log.debug(<span class="jxr_string">"staging datasource: "</span> + dataSourceStaging);
-<a class="jxr_linenumber" name="L684" href="#L684">684</a>         log.debug(<span class="jxr_string">"rsgb datasource: "</span> + dataSourceRsgb);
-<a class="jxr_linenumber" name="L685" href="#L685">685</a> 
-<a class="jxr_linenumber" name="L686" href="#L686">686</a>         String countsql = <span class="jxr_string">"select count(id) from "</span> + BrmoFramework.BERICHT_TABLE
-<a class="jxr_linenumber" name="L687" href="#L687">687</a>                 + <span class="jxr_string">" where soort='"</span> + soort + <span class="jxr_string">"'"</span>
-<a class="jxr_linenumber" name="L688" href="#L688">688</a>                 + <span class="jxr_string">" and status='"</span> + status + <span class="jxr_string">"'"</span>
-<a class="jxr_linenumber" name="L689" href="#L689">689</a>                 <em class="jxr_comment">// gebruik like (en niet =) omdat anders ORA-00932 want br_xml is clob</em>
-<a class="jxr_linenumber" name="L690" href="#L690">690</a>                 + <span class="jxr_string">" and br_xml like '&lt;empty/&gt;'"</span>;
-<a class="jxr_linenumber" name="L691" href="#L691">691</a>         log.debug(<span class="jxr_string">"SQL voor tellen van berichten batch: "</span> + countsql);
-<a class="jxr_linenumber" name="L692" href="#L692">692</a>         Object o = <strong class="jxr_keyword">new</strong> QueryRunner(
-<a class="jxr_linenumber" name="L693" href="#L693">693</a>                 geomToJdbc.isPmdKnownBroken()).query(conn,
-<a class="jxr_linenumber" name="L694" href="#L694">694</a>                 countsql, <strong class="jxr_keyword">new</strong> ScalarHandler());
-<a class="jxr_linenumber" name="L695" href="#L695">695</a>         log.debug(<span class="jxr_string">"Totaal te verwerken verwijder berichten: "</span> + o);
-<a class="jxr_linenumber" name="L696" href="#L696">696</a> 
-<a class="jxr_linenumber" name="L697" href="#L697">697</a>         <strong class="jxr_keyword">if</strong> (o instanceof BigDecimal) {
-<a class="jxr_linenumber" name="L698" href="#L698">698</a>             total(((BigDecimal) o).longValue());
-<a class="jxr_linenumber" name="L699" href="#L699">699</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (o instanceof Integer) {
-<a class="jxr_linenumber" name="L700" href="#L700">700</a>             total(((Integer) o).longValue());
-<a class="jxr_linenumber" name="L701" href="#L701">701</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L702" href="#L702">702</a>             total((Long) o);
-<a class="jxr_linenumber" name="L703" href="#L703">703</a>         }
-<a class="jxr_linenumber" name="L704" href="#L704">704</a> 
-<a class="jxr_linenumber" name="L705" href="#L705">705</a>         StagingProxy staging = <strong class="jxr_keyword">new</strong> StagingProxy(dataSourceStaging);
-<a class="jxr_linenumber" name="L706" href="#L706">706</a>         RsgbProxy rsgb = <strong class="jxr_keyword">new</strong> RsgbProxy(dataSourceRsgb, staging, Bericht.STATUS.RSGB_OK, <strong class="jxr_keyword">this</strong>);
-<a class="jxr_linenumber" name="L707" href="#L707">707</a>         rsgb.setOrderBerichten(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L708" href="#L708">708</a>         rsgb.init();
-<a class="jxr_linenumber" name="L709" href="#L709">709</a> 
-<a class="jxr_linenumber" name="L710" href="#L710">710</a>         <strong class="jxr_keyword">do</strong> {
-<a class="jxr_linenumber" name="L711" href="#L711">711</a>             log.debug(String.format(<span class="jxr_string">"Ophalen berichten batch met offset %d, limit %d"</span>, offset, batch));
-<a class="jxr_linenumber" name="L712" href="#L712">712</a>             String sql = <span class="jxr_string">"select * from "</span> + BrmoFramework.BERICHT_TABLE
-<a class="jxr_linenumber" name="L713" href="#L713">713</a>                     + <span class="jxr_string">" where soort='"</span> + soort + <span class="jxr_string">"'"</span>
-<a class="jxr_linenumber" name="L714" href="#L714">714</a>                     + <span class="jxr_string">" and status='"</span> + status + <span class="jxr_string">"'"</span>
-<a class="jxr_linenumber" name="L715" href="#L715">715</a>                     + <span class="jxr_string">" and br_xml like '&lt;empty/&gt;'"</span>
-<a class="jxr_linenumber" name="L716" href="#L716">716</a>                     + <span class="jxr_string">" order by id"</span>;
-<a class="jxr_linenumber" name="L717" href="#L717">717</a>             sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
-<a class="jxr_linenumber" name="L718" href="#L718">718</a>             log.debug(<span class="jxr_string">"SQL voor ophalen berichten batch: "</span> + sql);
-<a class="jxr_linenumber" name="L719" href="#L719">719</a> 
-<a class="jxr_linenumber" name="L720" href="#L720">720</a>             processed.setValue(0);
-<a class="jxr_linenumber" name="L721" href="#L721">721</a>             Exception e = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, <strong class="jxr_keyword">new</strong> ResultSetHandler&lt;Exception&gt;() {
-<a class="jxr_linenumber" name="L722" href="#L722">722</a>                 @Override
-<a class="jxr_linenumber" name="L723" href="#L723">723</a>                 <strong class="jxr_keyword">public</strong> Exception handle(ResultSet rs) <strong class="jxr_keyword">throws</strong> SQLException {
-<a class="jxr_linenumber" name="L724" href="#L724">724</a>                     <strong class="jxr_keyword">while</strong> (rs.next()) {
-<a class="jxr_linenumber" name="L725" href="#L725">725</a>                         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L726" href="#L726">726</a>                             Bericht bericht = processor.toBean(rs, Bericht.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L727" href="#L727">727</a>                             log.debug(<span class="jxr_string">"Opnieuw verwerken van bericht: "</span> + bericht);
-<a class="jxr_linenumber" name="L728" href="#L728">728</a>                             <em class="jxr_comment">// bewaar oude log</em>
-<a class="jxr_linenumber" name="L729" href="#L729">729</a>                             String oudeOpmerkingen = bericht.getOpmerking();
-<a class="jxr_linenumber" name="L730" href="#L730">730</a>                             <em class="jxr_comment">// forceer verwerking door bericht op STAGING_OK te zetten en dan opnieuw te verwerken</em>
-<a class="jxr_linenumber" name="L731" href="#L731">731</a>                             bericht.setStatus(Bericht.STATUS.STAGING_OK);
-<a class="jxr_linenumber" name="L732" href="#L732">732</a>                             <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken())
-<a class="jxr_linenumber" name="L733" href="#L733">733</a>                                     .update(conn, <span class="jxr_string">"update "</span> + BrmoFramework.BERICHT_TABLE
-<a class="jxr_linenumber" name="L734" href="#L734">734</a>                                             + <span class="jxr_string">" set status_datum = ?, status = ? where id = ?"</span>,
-<a class="jxr_linenumber" name="L735" href="#L735">735</a>                                             <strong class="jxr_keyword">new</strong> Timestamp(bericht.getStatusDatum().getTime()),
-<a class="jxr_linenumber" name="L736" href="#L736">736</a>                                             bericht.getStatus().toString(),
-<a class="jxr_linenumber" name="L737" href="#L737">737</a>                                             bericht.getId());
-<a class="jxr_linenumber" name="L738" href="#L738">738</a> 
-<a class="jxr_linenumber" name="L739" href="#L739">739</a>                             rsgb.handle(bericht, rsgb.transformToTableData(bericht), <strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L740" href="#L740">740</a> 
-<a class="jxr_linenumber" name="L741" href="#L741">741</a>                             bericht.setOpmerking(<span class="jxr_string">"Opnieuw verwerkt met geavanceerde functies optie.\nNieuwe verwerkingslog (oude log daaronder)\n"</span>
-<a class="jxr_linenumber" name="L742" href="#L742">742</a>                                     + bericht.getOpmerking()
-<a class="jxr_linenumber" name="L743" href="#L743">743</a>                                     + <span class="jxr_string">"\n\nOude verwerkingslog\n\n"</span>
-<a class="jxr_linenumber" name="L744" href="#L744">744</a>                                     + oudeOpmerkingen
-<a class="jxr_linenumber" name="L745" href="#L745">745</a>                             );
-<a class="jxr_linenumber" name="L746" href="#L746">746</a>                             bericht.setStatusDatum(<strong class="jxr_keyword">new</strong> Date());
-<a class="jxr_linenumber" name="L747" href="#L747">747</a>                             <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken())
-<a class="jxr_linenumber" name="L748" href="#L748">748</a>                                     .update(conn, <span class="jxr_string">"update "</span> + BrmoFramework.BERICHT_TABLE
-<a class="jxr_linenumber" name="L749" href="#L749">749</a>                                             + <span class="jxr_string">" set opmerking = ? where id = ?"</span>,
-<a class="jxr_linenumber" name="L750" href="#L750">750</a>                                             bericht.getOpmerking(),
-<a class="jxr_linenumber" name="L751" href="#L751">751</a>                                             bericht.getId());
-<a class="jxr_linenumber" name="L752" href="#L752">752</a>                         } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L753" href="#L753">753</a>                             <strong class="jxr_keyword">return</strong> e;
-<a class="jxr_linenumber" name="L754" href="#L754">754</a>                         }
-<a class="jxr_linenumber" name="L755" href="#L755">755</a>                         processed.increment();
-<a class="jxr_linenumber" name="L756" href="#L756">756</a>                     }
-<a class="jxr_linenumber" name="L757" href="#L757">757</a>                     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L758" href="#L758">758</a>                 }
-<a class="jxr_linenumber" name="L759" href="#L759">759</a>             });
-<a class="jxr_linenumber" name="L760" href="#L760">760</a>             offset += processed.intValue();
-<a class="jxr_linenumber" name="L761" href="#L761">761</a> 
-<a class="jxr_linenumber" name="L762" href="#L762">762</a>             progress(offset);
-<a class="jxr_linenumber" name="L763" href="#L763">763</a> 
-<a class="jxr_linenumber" name="L764" href="#L764">764</a>             <em class="jxr_comment">// If handler threw exception processing row, rethrow it</em>
-<a class="jxr_linenumber" name="L765" href="#L765">765</a>             <strong class="jxr_keyword">if</strong> (e != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L766" href="#L766">766</a>                 <strong class="jxr_keyword">throw</strong> e;
-<a class="jxr_linenumber" name="L767" href="#L767">767</a>             }
-<a class="jxr_linenumber" name="L768" href="#L768">768</a>         } <strong class="jxr_keyword">while</strong> (processed.intValue() &gt; 0);
-<a class="jxr_linenumber" name="L769" href="#L769">769</a> 
-<a class="jxr_linenumber" name="L770" href="#L770">770</a>         rsgb.close();
-<a class="jxr_linenumber" name="L771" href="#L771">771</a>     }
-<a class="jxr_linenumber" name="L772" href="#L772">772</a> }
+<a class="jxr_linenumber" name="L552" href="#L552">552</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> offset = 0;
+<a class="jxr_linenumber" name="L553" href="#L553">553</a>         <strong class="jxr_keyword">int</strong> progress = 0;
+<a class="jxr_linenumber" name="L554" href="#L554">554</a>         <strong class="jxr_keyword">int</strong> batch = 1000;
+<a class="jxr_linenumber" name="L555" href="#L555">555</a>         <strong class="jxr_keyword">final</strong> MutableInt processed = <strong class="jxr_keyword">new</strong> MutableInt(0);
+<a class="jxr_linenumber" name="L556" href="#L556">556</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
+<a class="jxr_linenumber" name="L557" href="#L557">557</a>         <strong class="jxr_keyword">final</strong> Connection conn = dataSourceStaging.getConnection();
+<a class="jxr_linenumber" name="L558" href="#L558">558</a>         <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+<a class="jxr_linenumber" name="L559" href="#L559">559</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> StagingRowHandler();
+<a class="jxr_linenumber" name="L560" href="#L560">560</a>         
+<a class="jxr_linenumber" name="L561" href="#L561">561</a>         Calendar c = Calendar.getInstance();
+<a class="jxr_linenumber" name="L562" href="#L562">562</a>         c.setTime(<strong class="jxr_keyword">new</strong> Date());
+<a class="jxr_linenumber" name="L563" href="#L563">563</a>         c.add(Calendar.MONTH, -3);
+<a class="jxr_linenumber" name="L564" href="#L564">564</a>      
+<a class="jxr_linenumber" name="L565" href="#L565">565</a>         String countsql = <span class="jxr_string">"select count(*) from "</span> + BrmoFramework.BERICHT_TABLE 
+<a class="jxr_linenumber" name="L566" href="#L566">566</a>                     + <span class="jxr_string">" where soort='"</span> + soort + <span class="jxr_string">"' "</span>
+<a class="jxr_linenumber" name="L567" href="#L567">567</a>                     + <span class="jxr_string">" and status='"</span> + config + <span class="jxr_string">"'"</span>
+<a class="jxr_linenumber" name="L568" href="#L568">568</a>                     + <span class="jxr_string">" and status_datum &lt; ? "</span>;
+<a class="jxr_linenumber" name="L569" href="#L569">569</a>         Object o = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn,
+<a class="jxr_linenumber" name="L570" href="#L570">570</a>                 countsql, <strong class="jxr_keyword">new</strong> Timestamp(c.getTimeInMillis()), <strong class="jxr_keyword">new</strong> ScalarHandler());
+<a class="jxr_linenumber" name="L571" href="#L571">571</a>         <strong class="jxr_keyword">if</strong> (o instanceof BigDecimal) {
+<a class="jxr_linenumber" name="L572" href="#L572">572</a>             total(((BigDecimal) o).longValue());
+<a class="jxr_linenumber" name="L573" href="#L573">573</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (o instanceof Integer) {
+<a class="jxr_linenumber" name="L574" href="#L574">574</a>             total(((Integer) o).longValue());
+<a class="jxr_linenumber" name="L575" href="#L575">575</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L576" href="#L576">576</a>             total((Long) o);
+<a class="jxr_linenumber" name="L577" href="#L577">577</a>         }
+<a class="jxr_linenumber" name="L578" href="#L578">578</a>         
+<a class="jxr_linenumber" name="L579" href="#L579">579</a>         <strong class="jxr_keyword">do</strong> {
+<a class="jxr_linenumber" name="L580" href="#L580">580</a>             log.debug(String.format(<span class="jxr_string">"Ophalen berichten batch met offset %d, limit %d, tot datum %tc, voortgang %d"</span>, offset, batch, c, progress));
+<a class="jxr_linenumber" name="L581" href="#L581">581</a>             String sql = <span class="jxr_string">"select * from "</span> + BrmoFramework.BERICHT_TABLE 
+<a class="jxr_linenumber" name="L582" href="#L582">582</a>                     + <span class="jxr_string">" where soort='"</span> + soort + <span class="jxr_string">"' "</span>
+<a class="jxr_linenumber" name="L583" href="#L583">583</a>                     + <span class="jxr_string">" and status='"</span> + config + <span class="jxr_string">"'"</span>
+<a class="jxr_linenumber" name="L584" href="#L584">584</a>                     + <span class="jxr_string">" and status_datum &lt; ? "</span>
+<a class="jxr_linenumber" name="L585" href="#L585">585</a>                     + <span class="jxr_string">" order by id "</span>;
+<a class="jxr_linenumber" name="L586" href="#L586">586</a>             sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
+<a class="jxr_linenumber" name="L587" href="#L587">587</a>             log.debug(<span class="jxr_string">"SQL voor ophalen berichten batch: "</span> + sql);
+<a class="jxr_linenumber" name="L588" href="#L588">588</a>             
+<a class="jxr_linenumber" name="L589" href="#L589">589</a>             processed.setValue(0);
+<a class="jxr_linenumber" name="L590" href="#L590">590</a>             Exception e = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, <strong class="jxr_keyword">new</strong> ResultSetHandler&lt;Exception&gt;() {
+<a class="jxr_linenumber" name="L591" href="#L591">591</a>                 @Override
+<a class="jxr_linenumber" name="L592" href="#L592">592</a>                 <strong class="jxr_keyword">public</strong> Exception handle(ResultSet rs) <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L593" href="#L593">593</a> 
+<a class="jxr_linenumber" name="L594" href="#L594">594</a>                     <strong class="jxr_keyword">while</strong> (rs.next()) {
+<a class="jxr_linenumber" name="L595" href="#L595">595</a>                         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L596" href="#L596">596</a>                             Bericht bericht = processor.toBean(rs, Bericht.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L597" href="#L597">597</a> 
+<a class="jxr_linenumber" name="L598" href="#L598">598</a>                             bericht.setBrOrgineelXml(<span class="jxr_string">"opgeschoond"</span>);
+<a class="jxr_linenumber" name="L599" href="#L599">599</a>                             bericht.setBrXml(<span class="jxr_string">"opgeschoond"</span>);
+<a class="jxr_linenumber" name="L600" href="#L600">600</a>                             bericht.setOpmerking(<span class="jxr_string">"opgeschoond, status was: "</span> + bericht.getStatus().toString());
+<a class="jxr_linenumber" name="L601" href="#L601">601</a>                             bericht.setStatus(Bericht.STATUS.ARCHIVE);
+<a class="jxr_linenumber" name="L602" href="#L602">602</a>                             bericht.setStatusDatum(<strong class="jxr_keyword">new</strong> Date());
+<a class="jxr_linenumber" name="L603" href="#L603">603</a> 
+<a class="jxr_linenumber" name="L604" href="#L604">604</a>                             <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken())
+<a class="jxr_linenumber" name="L605" href="#L605">605</a>                                     .update(conn, <span class="jxr_string">"update "</span> + BrmoFramework.BERICHT_TABLE 
+<a class="jxr_linenumber" name="L606" href="#L606">606</a>                                             + <span class="jxr_string">" set status_datum = ?, status = ?, opmerking = ?, br_xml = ?, br_orgineel_xml = ? where id = ?"</span>,
+<a class="jxr_linenumber" name="L607" href="#L607">607</a>                                             <strong class="jxr_keyword">new</strong> Timestamp(bericht.getDatum().getTime()), bericht.getStatus().toString(), bericht.getOpmerking(), 
+<a class="jxr_linenumber" name="L608" href="#L608">608</a>                                             bericht.getBrXml(), bericht.getBrOrgineelXml(), bericht.getId());
+<a class="jxr_linenumber" name="L609" href="#L609">609</a>                                  
+<a class="jxr_linenumber" name="L610" href="#L610">610</a>                         } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L611" href="#L611">611</a>                             <strong class="jxr_keyword">return</strong> e;
+<a class="jxr_linenumber" name="L612" href="#L612">612</a>                         }
+<a class="jxr_linenumber" name="L613" href="#L613">613</a>                         processed.increment();
+<a class="jxr_linenumber" name="L614" href="#L614">614</a>                     }
+<a class="jxr_linenumber" name="L615" href="#L615">615</a>                     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L616" href="#L616">616</a>                 }
+<a class="jxr_linenumber" name="L617" href="#L617">617</a>             }, <strong class="jxr_keyword">new</strong> Timestamp(c.getTimeInMillis()));
+<a class="jxr_linenumber" name="L618" href="#L618">618</a>             progress += processed.intValue();
+<a class="jxr_linenumber" name="L619" href="#L619">619</a> 
+<a class="jxr_linenumber" name="L620" href="#L620">620</a>             progress(progress);
+<a class="jxr_linenumber" name="L621" href="#L621">621</a> 
+<a class="jxr_linenumber" name="L622" href="#L622">622</a>             <em class="jxr_comment">// If handler threw exception processing row, rethrow it</em>
+<a class="jxr_linenumber" name="L623" href="#L623">623</a>             <strong class="jxr_keyword">if</strong> (e != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L624" href="#L624">624</a>                 <strong class="jxr_keyword">throw</strong> e;
+<a class="jxr_linenumber" name="L625" href="#L625">625</a>             }
+<a class="jxr_linenumber" name="L626" href="#L626">626</a>         } <strong class="jxr_keyword">while</strong> (processed.intValue() &gt; 0);
+<a class="jxr_linenumber" name="L627" href="#L627">627</a> 
+<a class="jxr_linenumber" name="L628" href="#L628">628</a>     }
+<a class="jxr_linenumber" name="L629" href="#L629">629</a> 
+<a class="jxr_linenumber" name="L630" href="#L630">630</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> deleteBerichten(String config, String soort) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L631" href="#L631">631</a>         <strong class="jxr_keyword">final</strong> MutableInt processed = <strong class="jxr_keyword">new</strong> MutableInt(0);
+<a class="jxr_linenumber" name="L632" href="#L632">632</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
+<a class="jxr_linenumber" name="L633" href="#L633">633</a>         <strong class="jxr_keyword">final</strong> Connection conn = dataSourceStaging.getConnection();
+<a class="jxr_linenumber" name="L634" href="#L634">634</a>         <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+<a class="jxr_linenumber" name="L635" href="#L635">635</a>         
+<a class="jxr_linenumber" name="L636" href="#L636">636</a>         String countsql = <span class="jxr_string">"select count(*) from "</span> + BrmoFramework.BERICHT_TABLE 
+<a class="jxr_linenumber" name="L637" href="#L637">637</a>                     + <span class="jxr_string">" where soort='"</span> + soort + <span class="jxr_string">"' "</span>
+<a class="jxr_linenumber" name="L638" href="#L638">638</a>                     + <span class="jxr_string">" and status='"</span> + config + <span class="jxr_string">"'"</span>;
+<a class="jxr_linenumber" name="L639" href="#L639">639</a>         Object o = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn,
+<a class="jxr_linenumber" name="L640" href="#L640">640</a>                 countsql, <strong class="jxr_keyword">new</strong> ScalarHandler());
+<a class="jxr_linenumber" name="L641" href="#L641">641</a>         <strong class="jxr_keyword">if</strong> (o instanceof BigDecimal) {
+<a class="jxr_linenumber" name="L642" href="#L642">642</a>             total(((BigDecimal) o).longValue());
+<a class="jxr_linenumber" name="L643" href="#L643">643</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (o instanceof Integer) {
+<a class="jxr_linenumber" name="L644" href="#L644">644</a>             total(((Integer) o).longValue());
+<a class="jxr_linenumber" name="L645" href="#L645">645</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L646" href="#L646">646</a>             total((Long) o);
+<a class="jxr_linenumber" name="L647" href="#L647">647</a>         }
+<a class="jxr_linenumber" name="L648" href="#L648">648</a>         log.debug(<span class="jxr_string">"Totaal te verwijderen "</span> + config + <span class="jxr_string">" berichten: "</span> + o);
+<a class="jxr_linenumber" name="L649" href="#L649">649</a>         
+<a class="jxr_linenumber" name="L650" href="#L650">650</a>         o = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).update(conn, <span class="jxr_string">"DELETE FROM "</span> + BrmoFramework.BERICHT_TABLE
+<a class="jxr_linenumber" name="L651" href="#L651">651</a>                 + <span class="jxr_string">" WHERE soort='"</span> + soort + <span class="jxr_string">"' "</span>
+<a class="jxr_linenumber" name="L652" href="#L652">652</a>                 + <span class="jxr_string">" and status='"</span> + config + <span class="jxr_string">"'"</span>);
+<a class="jxr_linenumber" name="L653" href="#L653">653</a>         
+<a class="jxr_linenumber" name="L654" href="#L654">654</a>         <strong class="jxr_keyword">if</strong> (o instanceof BigDecimal) {
+<a class="jxr_linenumber" name="L655" href="#L655">655</a>             progress(((BigDecimal) o).longValue());
+<a class="jxr_linenumber" name="L656" href="#L656">656</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (o instanceof Integer) {
+<a class="jxr_linenumber" name="L657" href="#L657">657</a>             progress(((Integer) o).longValue());
+<a class="jxr_linenumber" name="L658" href="#L658">658</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L659" href="#L659">659</a>             progress((Long) o);
+<a class="jxr_linenumber" name="L660" href="#L660">660</a>         }
+<a class="jxr_linenumber" name="L661" href="#L661">661</a> 
+<a class="jxr_linenumber" name="L662" href="#L662">662</a>     }
+<a class="jxr_linenumber" name="L663" href="#L663">663</a> 
+<a class="jxr_linenumber" name="L664" href="#L664">664</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L665" href="#L665">665</a> <em class="jxr_javadoccomment">     * Deze actie loopt door de lijst brk verwijderberichten (={@code &lt;empty/&gt;}</em>
+<a class="jxr_linenumber" name="L666" href="#L666">666</a> <em class="jxr_javadoccomment">     * br_xml) met status RSGB_OK om ze nogmaals naar de rsgb te transformeren.</em>
+<a class="jxr_linenumber" name="L667" href="#L667">667</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L668" href="#L668">668</a> <em class="jxr_javadoccomment">     * @param status bericht status</em>
+<a class="jxr_linenumber" name="L669" href="#L669">669</a> <em class="jxr_javadoccomment">     * @param soort soort bericht</em>
+<a class="jxr_linenumber" name="L670" href="#L670">670</a> <em class="jxr_javadoccomment">     * @throws SQLException if any</em>
+<a class="jxr_linenumber" name="L671" href="#L671">671</a> <em class="jxr_javadoccomment">     * @throws BrmoException if any</em>
+<a class="jxr_linenumber" name="L672" href="#L672">672</a> <em class="jxr_javadoccomment">     * @throws Exception if any</em>
+<a class="jxr_linenumber" name="L673" href="#L673">673</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L674" href="#L674">674</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> replayBRKVerwijderBerichten(String soort, String status) <strong class="jxr_keyword">throws</strong> SQLException, BrmoException, Exception {
+<a class="jxr_linenumber" name="L675" href="#L675">675</a>         <strong class="jxr_keyword">int</strong> offset = 0;
+<a class="jxr_linenumber" name="L676" href="#L676">676</a>         <strong class="jxr_keyword">int</strong> batch = 1000;
+<a class="jxr_linenumber" name="L677" href="#L677">677</a>         <strong class="jxr_keyword">final</strong> MutableInt processed = <strong class="jxr_keyword">new</strong> MutableInt(0);
+<a class="jxr_linenumber" name="L678" href="#L678">678</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
+<a class="jxr_linenumber" name="L679" href="#L679">679</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();
+<a class="jxr_linenumber" name="L680" href="#L680">680</a>         <strong class="jxr_keyword">final</strong> Connection conn = dataSourceStaging.getConnection();
+<a class="jxr_linenumber" name="L681" href="#L681">681</a>         <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+<a class="jxr_linenumber" name="L682" href="#L682">682</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> StagingRowHandler();
+<a class="jxr_linenumber" name="L683" href="#L683">683</a> 
+<a class="jxr_linenumber" name="L684" href="#L684">684</a>         log.debug(<span class="jxr_string">"staging datasource: "</span> + dataSourceStaging);
+<a class="jxr_linenumber" name="L685" href="#L685">685</a>         log.debug(<span class="jxr_string">"rsgb datasource: "</span> + dataSourceRsgb);
+<a class="jxr_linenumber" name="L686" href="#L686">686</a> 
+<a class="jxr_linenumber" name="L687" href="#L687">687</a>         String countsql = <span class="jxr_string">"select count(id) from "</span> + BrmoFramework.BERICHT_TABLE
+<a class="jxr_linenumber" name="L688" href="#L688">688</a>                 + <span class="jxr_string">" where soort='"</span> + soort + <span class="jxr_string">"'"</span>
+<a class="jxr_linenumber" name="L689" href="#L689">689</a>                 + <span class="jxr_string">" and status='"</span> + status + <span class="jxr_string">"'"</span>
+<a class="jxr_linenumber" name="L690" href="#L690">690</a>                 <em class="jxr_comment">// gebruik like (en niet =) omdat anders ORA-00932 want br_xml is clob</em>
+<a class="jxr_linenumber" name="L691" href="#L691">691</a>                 + <span class="jxr_string">" and br_xml like '&lt;empty/&gt;'"</span>;
+<a class="jxr_linenumber" name="L692" href="#L692">692</a>         log.debug(<span class="jxr_string">"SQL voor tellen van berichten batch: "</span> + countsql);
+<a class="jxr_linenumber" name="L693" href="#L693">693</a>         Object o = <strong class="jxr_keyword">new</strong> QueryRunner(
+<a class="jxr_linenumber" name="L694" href="#L694">694</a>                 geomToJdbc.isPmdKnownBroken()).query(conn,
+<a class="jxr_linenumber" name="L695" href="#L695">695</a>                 countsql, <strong class="jxr_keyword">new</strong> ScalarHandler());
+<a class="jxr_linenumber" name="L696" href="#L696">696</a>         log.debug(<span class="jxr_string">"Totaal te verwerken verwijder berichten: "</span> + o);
+<a class="jxr_linenumber" name="L697" href="#L697">697</a> 
+<a class="jxr_linenumber" name="L698" href="#L698">698</a>         <strong class="jxr_keyword">if</strong> (o instanceof BigDecimal) {
+<a class="jxr_linenumber" name="L699" href="#L699">699</a>             total(((BigDecimal) o).longValue());
+<a class="jxr_linenumber" name="L700" href="#L700">700</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (o instanceof Integer) {
+<a class="jxr_linenumber" name="L701" href="#L701">701</a>             total(((Integer) o).longValue());
+<a class="jxr_linenumber" name="L702" href="#L702">702</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L703" href="#L703">703</a>             total((Long) o);
+<a class="jxr_linenumber" name="L704" href="#L704">704</a>         }
+<a class="jxr_linenumber" name="L705" href="#L705">705</a> 
+<a class="jxr_linenumber" name="L706" href="#L706">706</a>         StagingProxy staging = <strong class="jxr_keyword">new</strong> StagingProxy(dataSourceStaging);
+<a class="jxr_linenumber" name="L707" href="#L707">707</a>         RsgbProxy rsgb = <strong class="jxr_keyword">new</strong> RsgbProxy(dataSourceRsgb, staging, Bericht.STATUS.RSGB_OK, <strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L708" href="#L708">708</a>         rsgb.setOrderBerichten(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L709" href="#L709">709</a>         rsgb.init();
+<a class="jxr_linenumber" name="L710" href="#L710">710</a> 
+<a class="jxr_linenumber" name="L711" href="#L711">711</a>         <strong class="jxr_keyword">do</strong> {
+<a class="jxr_linenumber" name="L712" href="#L712">712</a>             log.debug(String.format(<span class="jxr_string">"Ophalen berichten batch met offset %d, limit %d"</span>, offset, batch));
+<a class="jxr_linenumber" name="L713" href="#L713">713</a>             String sql = <span class="jxr_string">"select * from "</span> + BrmoFramework.BERICHT_TABLE
+<a class="jxr_linenumber" name="L714" href="#L714">714</a>                     + <span class="jxr_string">" where soort='"</span> + soort + <span class="jxr_string">"'"</span>
+<a class="jxr_linenumber" name="L715" href="#L715">715</a>                     + <span class="jxr_string">" and status='"</span> + status + <span class="jxr_string">"'"</span>
+<a class="jxr_linenumber" name="L716" href="#L716">716</a>                     + <span class="jxr_string">" and br_xml like '&lt;empty/&gt;'"</span>
+<a class="jxr_linenumber" name="L717" href="#L717">717</a>                     + <span class="jxr_string">" order by id"</span>;
+<a class="jxr_linenumber" name="L718" href="#L718">718</a>             sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
+<a class="jxr_linenumber" name="L719" href="#L719">719</a>             log.debug(<span class="jxr_string">"SQL voor ophalen berichten batch: "</span> + sql);
+<a class="jxr_linenumber" name="L720" href="#L720">720</a> 
+<a class="jxr_linenumber" name="L721" href="#L721">721</a>             processed.setValue(0);
+<a class="jxr_linenumber" name="L722" href="#L722">722</a>             Exception e = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, <strong class="jxr_keyword">new</strong> ResultSetHandler&lt;Exception&gt;() {
+<a class="jxr_linenumber" name="L723" href="#L723">723</a>                 @Override
+<a class="jxr_linenumber" name="L724" href="#L724">724</a>                 <strong class="jxr_keyword">public</strong> Exception handle(ResultSet rs) <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L725" href="#L725">725</a>                     <strong class="jxr_keyword">while</strong> (rs.next()) {
+<a class="jxr_linenumber" name="L726" href="#L726">726</a>                         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L727" href="#L727">727</a>                             Bericht bericht = processor.toBean(rs, Bericht.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L728" href="#L728">728</a>                             log.debug(<span class="jxr_string">"Opnieuw verwerken van bericht: "</span> + bericht);
+<a class="jxr_linenumber" name="L729" href="#L729">729</a>                             <em class="jxr_comment">// bewaar oude log</em>
+<a class="jxr_linenumber" name="L730" href="#L730">730</a>                             String oudeOpmerkingen = bericht.getOpmerking();
+<a class="jxr_linenumber" name="L731" href="#L731">731</a>                             <em class="jxr_comment">// forceer verwerking door bericht op STAGING_OK te zetten en dan opnieuw te verwerken</em>
+<a class="jxr_linenumber" name="L732" href="#L732">732</a>                             bericht.setStatus(Bericht.STATUS.STAGING_OK);
+<a class="jxr_linenumber" name="L733" href="#L733">733</a>                             <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken())
+<a class="jxr_linenumber" name="L734" href="#L734">734</a>                                     .update(conn, <span class="jxr_string">"update "</span> + BrmoFramework.BERICHT_TABLE
+<a class="jxr_linenumber" name="L735" href="#L735">735</a>                                             + <span class="jxr_string">" set status_datum = ?, status = ? where id = ?"</span>,
+<a class="jxr_linenumber" name="L736" href="#L736">736</a>                                             <strong class="jxr_keyword">new</strong> Timestamp(bericht.getStatusDatum().getTime()),
+<a class="jxr_linenumber" name="L737" href="#L737">737</a>                                             bericht.getStatus().toString(),
+<a class="jxr_linenumber" name="L738" href="#L738">738</a>                                             bericht.getId());
+<a class="jxr_linenumber" name="L739" href="#L739">739</a> 
+<a class="jxr_linenumber" name="L740" href="#L740">740</a>                             rsgb.handle(bericht, rsgb.transformToTableData(bericht), <strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L741" href="#L741">741</a> 
+<a class="jxr_linenumber" name="L742" href="#L742">742</a>                             bericht.setOpmerking(<span class="jxr_string">"Opnieuw verwerkt met geavanceerde functies optie.\nNieuwe verwerkingslog (oude log daaronder)\n"</span>
+<a class="jxr_linenumber" name="L743" href="#L743">743</a>                                     + bericht.getOpmerking()
+<a class="jxr_linenumber" name="L744" href="#L744">744</a>                                     + <span class="jxr_string">"\n\nOude verwerkingslog\n\n"</span>
+<a class="jxr_linenumber" name="L745" href="#L745">745</a>                                     + oudeOpmerkingen
+<a class="jxr_linenumber" name="L746" href="#L746">746</a>                             );
+<a class="jxr_linenumber" name="L747" href="#L747">747</a>                             bericht.setStatusDatum(<strong class="jxr_keyword">new</strong> Date());
+<a class="jxr_linenumber" name="L748" href="#L748">748</a>                             <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken())
+<a class="jxr_linenumber" name="L749" href="#L749">749</a>                                     .update(conn, <span class="jxr_string">"update "</span> + BrmoFramework.BERICHT_TABLE
+<a class="jxr_linenumber" name="L750" href="#L750">750</a>                                             + <span class="jxr_string">" set opmerking = ? where id = ?"</span>,
+<a class="jxr_linenumber" name="L751" href="#L751">751</a>                                             bericht.getOpmerking(),
+<a class="jxr_linenumber" name="L752" href="#L752">752</a>                                             bericht.getId());
+<a class="jxr_linenumber" name="L753" href="#L753">753</a>                         } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L754" href="#L754">754</a>                             <strong class="jxr_keyword">return</strong> e;
+<a class="jxr_linenumber" name="L755" href="#L755">755</a>                         }
+<a class="jxr_linenumber" name="L756" href="#L756">756</a>                         processed.increment();
+<a class="jxr_linenumber" name="L757" href="#L757">757</a>                     }
+<a class="jxr_linenumber" name="L758" href="#L758">758</a>                     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L759" href="#L759">759</a>                 }
+<a class="jxr_linenumber" name="L760" href="#L760">760</a>             });
+<a class="jxr_linenumber" name="L761" href="#L761">761</a>             offset += processed.intValue();
+<a class="jxr_linenumber" name="L762" href="#L762">762</a> 
+<a class="jxr_linenumber" name="L763" href="#L763">763</a>             progress(offset);
+<a class="jxr_linenumber" name="L764" href="#L764">764</a> 
+<a class="jxr_linenumber" name="L765" href="#L765">765</a>             <em class="jxr_comment">// If handler threw exception processing row, rethrow it</em>
+<a class="jxr_linenumber" name="L766" href="#L766">766</a>             <strong class="jxr_keyword">if</strong> (e != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L767" href="#L767">767</a>                 <strong class="jxr_keyword">throw</strong> e;
+<a class="jxr_linenumber" name="L768" href="#L768">768</a>             }
+<a class="jxr_linenumber" name="L769" href="#L769">769</a>         } <strong class="jxr_keyword">while</strong> (processed.intValue() &gt; 0);
+<a class="jxr_linenumber" name="L770" href="#L770">770</a> 
+<a class="jxr_linenumber" name="L771" href="#L771">771</a>         rsgb.close();
+<a class="jxr_linenumber" name="L772" href="#L772">772</a>     }
+<a class="jxr_linenumber" name="L773" href="#L773">773</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014&#x2013;2017 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
