@@ -67,7 +67,7 @@
             -Dpackaging=jar -DgeneratePom=true
         -->
         <dependency>
-            <groupId>com.oracle</groupId>
+            <groupId>${oracle.jdbc.groupId}</groupId>
             <artifactId>${oracle.jdbc.artifactId}</artifactId>
             <!-- Bij JNDI db verbinding moeten Oracle jars in tomcat lib staan -->
             <scope>provided</scope>
@@ -102,7 +102,7 @@
             <version>${project.parent.version}</version>
             <exclusions>
                 <exclusion>
-                    <groupId>com.oracle</groupId>
+                    <groupId>${oracle.jdbc.groupId}</groupId>
                     <artifactId>${oracle.jdbc.artifactId}</artifactId>
                 </exclusion>
                 <exclusion>

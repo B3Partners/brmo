@@ -52,6 +52,7 @@
         <geotools.version>16.2</geotools.version>
         <postgresql.jdbc.version>42.0.0</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2.2.1</postgresql.postgis-jdbc.version>
+        <oracle.jdbc.groupId>com.oracle</oracle.jdbc.groupId>
         <oracle.jdbc.version>12.1.0.2.0</oracle.jdbc.version>
         <oracle.jdbc.artifactId>ojdbc7</oracle.jdbc.artifactId>
         <sqlserver.jtds.version>1.3.1</sqlserver.jtds.version>
@@ -204,7 +205,7 @@
                 vanuit de /Mesa/Producten/third_party/oracle-drivers/ directory
             -->
             <dependency>
-                <groupId>com.oracle</groupId>
+                <groupId>${oracle.jdbc.groupId}</groupId>
                 <artifactId>${oracle.jdbc.artifactId}</artifactId>
                 <version>${oracle.jdbc.version}</version>
                 <!-- Bij JNDI db verbinding moeten Oracle jars in tomcat lib staan -->
@@ -385,7 +386,7 @@
         <repository>
             <id>Boundless</id>
             <name>Boundless Maven Repository</name>
-            <url>http://repo.boundlessgeo.com/main</url>
+            <url>http://repo.boundlessgeo.com/main/</url>
         </repository>
         <repository>
             <id>GeoSolutions</id>
@@ -400,7 +401,7 @@
         <repository>
             <id>B3Partners</id>
             <name>Releases hosted by B3Partners</name>
-            <url>http://repo.b3p.nl/nexus/content/repositories/public/</url>
+            <url>http://repo.b3p.nl/nexus/content/groups/public/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -791,37 +792,19 @@
             <!-- actief voor Travis-CI builds -->
             <id>postgresql</id>
             <properties>
+                <oracle.jdbc.groupId>com.oracle.weblogic</oracle.jdbc.groupId>
                 <oracle.jdbc.artifactId>ojdbc7</oracle.jdbc.artifactId>
-                <oracle.jdbc.version>12.1.0.2</oracle.jdbc.version>
+                <oracle.jdbc.version>12.1.3-0-0</oracle.jdbc.version>
             </properties>
-            <repositories>
-                <repository>
-                    <id>maven.oracle.com</id>
-                    <url>https://code.lds.org/nexus/content/groups/main-repo</url>
-                    <layout>default</layout>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                </repository>
-            </repositories>
         </profile>
         <profile>
             <!-- actief voor AppVeyor builds -->
             <id>mssql</id>
             <properties>
+                <oracle.jdbc.groupId>com.oracle.weblogic</oracle.jdbc.groupId>
                 <oracle.jdbc.artifactId>ojdbc7</oracle.jdbc.artifactId>
-                <oracle.jdbc.version>12.1.0.2</oracle.jdbc.version>
+                <oracle.jdbc.version>12.1.3-0-0</oracle.jdbc.version>
             </properties>
-            <repositories>
-                <repository>
-                    <id>maven.oracle.com</id>
-                    <url>https://code.lds.org/nexus/content/groups/main-repo</url>
-                    <layout>default</layout>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                </repository>
-            </repositories>
         </profile>
         <profile>
             <id>oracle</id>

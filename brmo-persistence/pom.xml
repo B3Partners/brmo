@@ -24,7 +24,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.oracle</groupId>
+            <groupId>${oracle.jdbc.groupId}</groupId>
             <artifactId>${oracle.jdbc.artifactId}</artifactId>
             <scope>provided</scope>
         </dependency>

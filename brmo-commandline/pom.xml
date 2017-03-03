@@ -10,6 +10,10 @@
     <packaging>jar</packaging>
     <name>BRMO commandline</name>
     <description>BRMO commandline tool.</description>
+    <properties>
+        <!-- de oracle driver uitsluiten -->
+        <exclude.groupid.inpackage>${oracle.jdbc.groupId}</exclude.groupid.inpackage>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>nl.b3p</groupId>
@@ -45,9 +49,20 @@
             <artifactId>jtds</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.oracle</groupId>
+            <groupId>${oracle.jdbc.groupId}</groupId>
             <artifactId>${oracle.jdbc.artifactId}</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>brmo-test-util</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
@@ -87,8 +102,7 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <!-- Oracle JDBC driver uitsluiten -->
-                            <excludeGroupIds>com.oracle</excludeGroupIds>
+                            <excludeGroupIds>${exclude.groupid.inpackage}</excludeGroupIds>
                             <overWriteReleases>false</overWriteReleases>
                             <overWriteSnapshots>true</overWriteSnapshots>
                             <overWriteIfNewer>true</overWriteIfNewer>
@@ -173,7 +187,7 @@
                             </execution>
                         </executions>
                     </plugin>
-                      <plugin>
+                    <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
@@ -185,5 +199,94 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>mssql</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>prepare-integration-test</id>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <target>
+                                        <mkdir dir="${project.build.directory}/itest"/>
+                                        <unzip src="${project.build.directory}/${project.build.finalName}.zip" dest="${project.build.directory}/itest" overwrite="true" />
+                                        <copy todir="${project.build.directory}/itest/conf" >
+                                            <fileset dir="${project.build.testSourceDirectory}/../resources/"/>
+                                        </copy>
+                                        <move file="${project.build.directory}/itest/conf/mssql.properties" tofile="${project.build.directory}/itest/conf/test.properties"/>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <database.properties.file>mssql.properties</database.properties.file>
+                            </systemPropertyVariables>
+                            <rerunFailingTestsCount>0</rerunFailingTestsCount>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>oracle</id>
+            <properties>
+                <!-- voor oracle profiel wel de driver insluiten -->
+                <exclude.groupid.inpackage />
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>${oracle.jdbc.groupId}</groupId>
+                    <artifactId>${oracle.jdbc.artifactId}</artifactId>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>prepare-integration-test</id>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <target>
+                                        <mkdir dir="${project.build.directory}/itest"/>
+                                        <unzip src="${project.build.directory}/${project.build.finalName}.zip" dest="${project.build.directory}/itest" overwrite="true" />
+                                        <copy todir="${project.build.directory}/itest/conf" >
+                                            <fileset dir="${project.build.testSourceDirectory}/../resources/"/>
+                                        </copy>
+                                        <move file="${project.build.directory}/itest/conf/oracle.properties" tofile="${project.build.directory}/itest/conf/test.properties"/>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <database.properties.file>oracle.properties</database.properties.file>
+                            </systemPropertyVariables>
+                            <rerunFailingTestsCount>0</rerunFailingTestsCount>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
     </profiles>
 </project>
