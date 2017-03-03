@@ -59,8 +59,21 @@ digraph G {
 <tr><td align="left" balign="left"> + convertToSQLObject(stringValue : String, cm : ColumnMetadata, tableName : String, column : String) : Object </td></tr>
 		</table></td></tr>
 		</table>>, URL="./GeometryJdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.jdbc.Oracle11JdbcConverter
+	c385 [label=<<table title="nl.b3p.brmo.loader.jdbc.Oracle11JdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Oracle11JdbcConverter.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Oracle11JdbcConverter </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Oracle11JdbcConverter(oc : OracleConnection) </td></tr>
+<tr><td align="left" balign="left"> + buildLimitSql(sql : StringBuilder, limit : int) : StringBuilder </td></tr>
+		</table></td></tr>
+		</table>>, URL="./Oracle11JdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.jdbc.PostgisJdbcConverter
-	c385 [label=<<table title="nl.b3p.brmo.loader.jdbc.PostgisJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PostgisJdbcConverter.html">
+	c386 [label=<<table title="nl.b3p.brmo.loader.jdbc.PostgisJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PostgisJdbcConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PostgisJdbcConverter </td></tr>
 		</table></td></tr>
@@ -85,7 +98,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PostgisJdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.jdbc.MssqlConnectionUnwrapper
-	c386 [label=<<table title="nl.b3p.brmo.loader.jdbc.MssqlConnectionUnwrapper" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MssqlConnectionUnwrapper.html">
+	c387 [label=<<table title="nl.b3p.brmo.loader.jdbc.MssqlConnectionUnwrapper" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MssqlConnectionUnwrapper.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MssqlConnectionUnwrapper </td></tr>
 		</table></td></tr>
@@ -98,7 +111,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./MssqlConnectionUnwrapper.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory
-	c387 [label=<<table title="nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GeometryJdbcConverterFactory.html">
+	c388 [label=<<table title="nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GeometryJdbcConverterFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GeometryJdbcConverterFactory </td></tr>
 		</table></td></tr>
@@ -111,7 +124,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./GeometryJdbcConverterFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.jdbc.ColumnMetadata
-	c388 [label=<<table title="nl.b3p.brmo.loader.jdbc.ColumnMetadata" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ColumnMetadata.html">
+	c389 [label=<<table title="nl.b3p.brmo.loader.jdbc.ColumnMetadata" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ColumnMetadata.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ColumnMetadata </td></tr>
 		</table></td></tr>
@@ -145,7 +158,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ColumnMetadata.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.jdbc.MssqlJdbcConverter
-	c389 [label=<<table title="nl.b3p.brmo.loader.jdbc.MssqlJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MssqlJdbcConverter.html">
+	c390 [label=<<table title="nl.b3p.brmo.loader.jdbc.MssqlJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MssqlJdbcConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MssqlJdbcConverter </td></tr>
 		</table></td></tr>
@@ -170,7 +183,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./MssqlJdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper
-	c390 [label=<<table title="nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OracleConnectionUnwrapper.html">
+	c391 [label=<<table title="nl.b3p.brmo.loader.jdbc.OracleConnectionUnwrapper" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OracleConnectionUnwrapper.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OracleConnectionUnwrapper </td></tr>
 		</table></td></tr>
@@ -183,7 +196,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./OracleConnectionUnwrapper.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.jdbc.LongColumnListHandler
-	c391 [label=<<table title="nl.b3p.brmo.loader.jdbc.LongColumnListHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LongColumnListHandler.html">
+	c392 [label=<<table title="nl.b3p.brmo.loader.jdbc.LongColumnListHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LongColumnListHandler.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LongColumnListHandler </td></tr>
 		</table></td></tr>
@@ -199,9 +212,11 @@ digraph G {
 		</table>>, URL="./LongColumnListHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.jdbc.OracleJdbcConverter extends nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
 	c384:p -> c383:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.loader.jdbc.Oracle11JdbcConverter extends nl.b3p.brmo.loader.jdbc.OracleJdbcConverter
+	c383:p -> c385:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.jdbc.PostgisJdbcConverter extends nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c384:p -> c385:p [dir=back,arrowtail=empty];
+	c384:p -> c386:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.jdbc.MssqlJdbcConverter extends nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c384:p -> c389:p [dir=back,arrowtail=empty];
+	c384:p -> c390:p [dir=back,arrowtail=empty];
 }
 

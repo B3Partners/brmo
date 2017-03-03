@@ -190,6 +190,7 @@ digraph G {
 <tr><td align="left" balign="left"> + getLaadProcessenIds(sort : String, dir : String, filterSoort : String, filterStatus : String) : Long[] </td></tr>
 <tr><td align="left" balign="left"> + getCountBerichten(sort : String, dir : String, filterSoort : String, filterStatus : String) : long </td></tr>
 <tr><td align="left" balign="left"> + getCountLaadProcessen(sort : String, dir : String, filterSoort : String, filterStatus : String) : long </td></tr>
+<tr><td align="left" balign="left"> + getCountJob() : long </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BrmoFramework.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.RsgbProxy implements nl.b3p.brmo.loader.BerichtenHandler

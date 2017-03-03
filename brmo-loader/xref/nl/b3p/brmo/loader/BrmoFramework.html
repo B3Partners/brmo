@@ -191,7 +191,7 @@
 <a class="jxr_linenumber" name="L183" href="#L183">183</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L184" href="#L184">184</a> <em class="jxr_javadoccomment">     * @param mode geeft aan wat ids zijn (laadprocessen of berichten)</em>
 <a class="jxr_linenumber" name="L185" href="#L185">185</a> <em class="jxr_javadoccomment">     * @param ids array van ids</em>
-<a class="jxr_linenumber" name="L186" href="#L186">186</a> <em class="jxr_javadoccomment">     * @param listener</em>
+<a class="jxr_linenumber" name="L186" href="#L186">186</a> <em class="jxr_javadoccomment">     * @param listener voortgangs listener</em>
 <a class="jxr_linenumber" name="L187" href="#L187">187</a> <em class="jxr_javadoccomment">     * @return running transformatie thread</em>
 <a class="jxr_linenumber" name="L188" href="#L188">188</a> <em class="jxr_javadoccomment">     * @throws BrmoException if any</em>
 <a class="jxr_linenumber" name="L189" href="#L189">189</a> <em class="jxr_javadoccomment">     */</em>
@@ -284,9 +284,9 @@
 <a class="jxr_linenumber" name="L276" href="#L276">276</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L277" href="#L277">277</a> <em class="jxr_javadoccomment">     * @see #loadFromFile(java.lang.String, java.lang.String,</em>
 <a class="jxr_linenumber" name="L278" href="#L278">278</a> <em class="jxr_javadoccomment">     * nl.b3p.brmo.loader.ProgressUpdateListener)</em>
-<a class="jxr_linenumber" name="L279" href="#L279">279</a> <em class="jxr_javadoccomment">     * @param type</em>
-<a class="jxr_linenumber" name="L280" href="#L280">280</a> <em class="jxr_javadoccomment">     * @param fileName</em>
-<a class="jxr_linenumber" name="L281" href="#L281">281</a> <em class="jxr_javadoccomment">     * @throws BrmoException</em>
+<a class="jxr_linenumber" name="L279" href="#L279">279</a> <em class="jxr_javadoccomment">     * @param type basis registratie type</em>
+<a class="jxr_linenumber" name="L280" href="#L280">280</a> <em class="jxr_javadoccomment">     * @param fileName bestand</em>
+<a class="jxr_linenumber" name="L281" href="#L281">281</a> <em class="jxr_javadoccomment">     * @throws BrmoException als er een fout optreed tijdens verwerking</em>
 <a class="jxr_linenumber" name="L282" href="#L282">282</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L283" href="#L283">283</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> loadFromFile(String type, String fileName) <strong class="jxr_keyword">throws</strong> BrmoException {
 <a class="jxr_linenumber" name="L284" href="#L284">284</a>         <strong class="jxr_keyword">try</strong> {
@@ -303,10 +303,10 @@
 <a class="jxr_linenumber" name="L295" href="#L295">295</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L296" href="#L296">296</a> <em class="jxr_javadoccomment">     * NB na gebruik zelf de database verbinding sluiten / opruimen met {@link #closeBrmoFramework()}</em>
 <a class="jxr_linenumber" name="L297" href="#L297">297</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L298" href="#L298">298</a> <em class="jxr_javadoccomment">     * @param type</em>
-<a class="jxr_linenumber" name="L299" href="#L299">299</a> <em class="jxr_javadoccomment">     * @param fileName</em>
-<a class="jxr_linenumber" name="L300" href="#L300">300</a> <em class="jxr_javadoccomment">     * @param listener</em>
-<a class="jxr_linenumber" name="L301" href="#L301">301</a> <em class="jxr_javadoccomment">     * @throws BrmoException</em>
+<a class="jxr_linenumber" name="L298" href="#L298">298</a> <em class="jxr_javadoccomment">     * @param type basis registratie type</em>
+<a class="jxr_linenumber" name="L299" href="#L299">299</a> <em class="jxr_javadoccomment">     * @param fileName bestand</em>
+<a class="jxr_linenumber" name="L300" href="#L300">300</a> <em class="jxr_javadoccomment">     * @param listener voortgangsmonitor</em>
+<a class="jxr_linenumber" name="L301" href="#L301">301</a> <em class="jxr_javadoccomment">     * @throws BrmoException als er een fout optreed tijdens verwerking</em>
 <a class="jxr_linenumber" name="L302" href="#L302">302</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L303" href="#L303">303</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> loadFromFile(String type, String fileName, <strong class="jxr_keyword">final</strong> <a href="../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html">ProgressUpdateListener</a> listener) <strong class="jxr_keyword">throws</strong> BrmoException {
 <a class="jxr_linenumber" name="L304" href="#L304">304</a>         <strong class="jxr_keyword">try</strong> {
@@ -485,7 +485,15 @@
 <a class="jxr_linenumber" name="L477" href="#L477">477</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
 <a class="jxr_linenumber" name="L478" href="#L478">478</a>         }
 <a class="jxr_linenumber" name="L479" href="#L479">479</a>     }
-<a class="jxr_linenumber" name="L480" href="#L480">480</a> }
+<a class="jxr_linenumber" name="L480" href="#L480">480</a> 
+<a class="jxr_linenumber" name="L481" href="#L481">481</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> getCountJob() <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L482" href="#L482">482</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L483" href="#L483">483</a>             <strong class="jxr_keyword">return</strong> stagingProxy.getCountJob();
+<a class="jxr_linenumber" name="L484" href="#L484">484</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
+<a class="jxr_linenumber" name="L485" href="#L485">485</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
+<a class="jxr_linenumber" name="L486" href="#L486">486</a>         }
+<a class="jxr_linenumber" name="L487" href="#L487">487</a>     }
+<a class="jxr_linenumber" name="L488" href="#L488">488</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014&#x2013;2017 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>

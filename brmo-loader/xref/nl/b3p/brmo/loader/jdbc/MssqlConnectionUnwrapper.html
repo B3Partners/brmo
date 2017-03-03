@@ -36,12 +36,12 @@
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment">     * @throws SQLException Als unwrappen naar een JtdsConnection is mislukt</em>
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> JtdsConnection unwrap(Connection c) <strong class="jxr_keyword">throws</strong> SQLException {
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>          LOG.debug(<span class="jxr_string">"Unwrapping jTDS connection, connection class: "</span> + c.getClass().getName());
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>          LOG.trace(<span class="jxr_string">"Unwrapping jTDS connection, connection class: "</span> + c.getClass().getName());
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>          <em class="jxr_comment">// Sometimes isWrapperFor() does not work for certain JDBC drivers. The</em>
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>          <em class="jxr_comment">// MetaData connection is always unwrapped, trick learned from Spring's</em>
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>          <em class="jxr_comment">// org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor</em>
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>          Connection mdC = c.getMetaData().getConnection();
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>          LOG.debug(<span class="jxr_string">"MetaData connection class: "</span> + mdC.getClass().getName());
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>          LOG.trace(<span class="jxr_string">"MetaData connection class: "</span> + mdC.getClass().getName());
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>          JtdsConnection oc = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  
@@ -50,7 +50,7 @@
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>                  oc = mdC.unwrap(JtdsConnection.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>              }
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>          } <strong class="jxr_keyword">catch</strong> (AbstractMethodError e) {
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>              LOG.debug(<span class="jxr_string">"Connection ondersteund geen 'isWrapperFor' of 'unwrap' - dit is verwacht voor een DelegatingConnection|PoolableConnection."</span>);
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>              LOG.trace(<span class="jxr_string">"Connection ondersteund geen 'isWrapperFor' of 'unwrap' - dit is verwacht voor een DelegatingConnection|PoolableConnection."</span>);
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>          }
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>          <strong class="jxr_keyword">if</strong> (oc == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>              <strong class="jxr_keyword">if</strong> (mdC instanceof JtdsConnection) {

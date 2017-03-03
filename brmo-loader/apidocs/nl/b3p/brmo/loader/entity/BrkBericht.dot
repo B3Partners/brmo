@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.entity.Bericht
-	c1156 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.html">
+	c1107 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Bericht </td></tr>
 		</table></td></tr>
@@ -52,7 +52,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Bericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.BrkBericht
-	c1160 [label=<<table title="nl.b3p.brmo.loader.entity.BrkBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BrkBericht.html">
+	c1111 [label=<<table title="nl.b3p.brmo.loader.entity.BrkBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BrkBericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrkBericht </td></tr>
 		</table></td></tr>
@@ -68,6 +68,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BrkBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.entity.BrkBericht extends nl.b3p.brmo.loader.entity.Bericht
-	c1156:p -> c1160:p [dir=back,arrowtail=empty];
+	c1107:p -> c1111:p [dir=back,arrowtail=empty];
 }
 

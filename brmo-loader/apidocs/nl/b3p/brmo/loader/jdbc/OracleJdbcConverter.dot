@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.jdbc.OracleJdbcConverter
-	c2248 [label=<<table title="nl.b3p.brmo.loader.jdbc.OracleJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OracleJdbcConverter.html">
+	c2199 [label=<<table title="nl.b3p.brmo.loader.jdbc.OracleJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OracleJdbcConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OracleJdbcConverter </td></tr>
 		</table></td></tr>
@@ -35,7 +35,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./OracleJdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c2249 [label=<<table title="nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GeometryJdbcConverter.html">
+	c2200 [label=<<table title="nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GeometryJdbcConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> GeometryJdbcConverter </font></td></tr>
 		</table></td></tr>
@@ -59,12 +59,27 @@ digraph G {
 <tr><td align="left" balign="left"> + convertToSQLObject(stringValue : String, cm : ColumnMetadata, tableName : String, column : String) : Object </td></tr>
 		</table></td></tr>
 		</table>>, URL="./GeometryJdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.jdbc.Oracle11JdbcConverter
+	c2201 [label=<<table title="nl.b3p.brmo.loader.jdbc.Oracle11JdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Oracle11JdbcConverter.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Oracle11JdbcConverter </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Oracle11JdbcConverter(oc : OracleConnection) </td></tr>
+<tr><td align="left" balign="left"> + buildLimitSql(sql : StringBuilder, limit : int) : StringBuilder </td></tr>
+		</table></td></tr>
+		</table>>, URL="./Oracle11JdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.jdbc.OracleJdbcConverter extends nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c2249:p -> c2248:p [dir=back,arrowtail=empty];
+	c2200:p -> c2199:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.loader.jdbc.Oracle11JdbcConverter extends nl.b3p.brmo.loader.jdbc.OracleJdbcConverter
+	c2199:p -> c2201:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.loader.jdbc.OracleJdbcConverter NAVASSOC com.vividsolutions.jts.geom.GeometryFactory
-	c2248:p -> c2258:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2199:p -> c2209:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.vividsolutions.jts.geom.GeometryFactory
-	c2258 [label=<<table title="com.vividsolutions.jts.geom.GeometryFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c2209 [label=<<table title="com.vividsolutions.jts.geom.GeometryFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GeometryFactory </td></tr>
 		</table></td></tr>

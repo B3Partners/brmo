@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.util.BGTLightRsgbTransformer
-	c2616 [label=<<table title="nl.b3p.brmo.loader.util.BGTLightRsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./util/BGTLightRsgbTransformer.html">
+	c2567 [label=<<table title="nl.b3p.brmo.loader.util.BGTLightRsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./util/BGTLightRsgbTransformer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTLightRsgbTransformer </td></tr>
 		</table></td></tr>
@@ -25,7 +25,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./util/BGTLightRsgbTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.RsgbProxy
-	c2620 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.html">
+	c2571 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RsgbProxy </td></tr>
 		</table></td></tr>
@@ -60,7 +60,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./RsgbProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.StagingProxy
-	c2623 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StagingProxy.html">
+	c2574 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StagingProxy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StagingProxy </td></tr>
 		</table></td></tr>
@@ -104,7 +104,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./StagingProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.BrmoFramework
-	c2624 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoFramework.html">
+	c2575 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoFramework.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoFramework </td></tr>
 		</table></td></tr>
@@ -156,10 +156,11 @@ digraph G {
 <tr><td align="left" balign="left"> + getLaadProcessenIds(sort : String, dir : String, filterSoort : String, filterStatus : String) : Long[] </td></tr>
 <tr><td align="left" balign="left"> + getCountBerichten(sort : String, dir : String, filterSoort : String, filterStatus : String) : long </td></tr>
 <tr><td align="left" balign="left"> + getCountLaadProcessen(sort : String, dir : String, filterSoort : String, filterStatus : String) : long </td></tr>
+<tr><td align="left" balign="left"> + getCountJob() : long </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BrmoFramework.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c2642 [label=<<table title="nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./jdbc/GeometryJdbcConverter.html">
+	c2593 [label=<<table title="nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./jdbc/GeometryJdbcConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> GeometryJdbcConverter </font></td></tr>
 		</table></td></tr>
@@ -184,16 +185,16 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./jdbc/GeometryJdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.util.BGTLightRsgbTransformer NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c2616:p -> c2623:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2567:p -> c2574:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.util.BGTLightRsgbTransformer NAVASSOC nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c2616:p -> c2642:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2567:p -> c2593:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c2620:p -> c2642:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2571:p -> c2593:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c2620:p -> c2623:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2571:p -> c2574:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.StagingProxy NAVASSOC nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c2623:p -> c2642:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2574:p -> c2593:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.BrmoFramework NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c2624:p -> c2623:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2575:p -> c2574:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.xml.BagXMLReader
-	c685 [label=<<table title="nl.b3p.brmo.loader.xml.BagXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../xml/BagXMLReader.html">
+	c636 [label=<<table title="nl.b3p.brmo.loader.xml.BagXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../xml/BagXMLReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BagXMLReader </td></tr>
 		</table></td></tr>
@@ -27,7 +27,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../xml/BagXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.Bericht
-	c715 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.html">
+	c666 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Bericht </td></tr>
 		</table></td></tr>
@@ -69,7 +69,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Bericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.BagBericht
-	c723 [label=<<table title="nl.b3p.brmo.loader.entity.BagBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BagBericht.html">
+	c674 [label=<<table title="nl.b3p.brmo.loader.entity.BagBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BagBericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BagBericht </td></tr>
 		</table></td></tr>
@@ -86,8 +86,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BagBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.entity.BagBericht extends nl.b3p.brmo.loader.entity.Bericht
-	c715:p -> c723:p [dir=back,arrowtail=empty];
+	c666:p -> c674:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.loader.xml.BagXMLReader NAVASSOC nl.b3p.brmo.loader.entity.BagBericht
-	c685:p -> c723:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c636:p -> c674:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

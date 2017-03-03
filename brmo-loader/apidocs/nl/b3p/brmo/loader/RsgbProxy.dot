@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.util.DataComfortXMLReader
-	c2422 [label=<<table title="nl.b3p.brmo.loader.util.DataComfortXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./util/DataComfortXMLReader.html">
+	c2373 [label=<<table title="nl.b3p.brmo.loader.util.DataComfortXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./util/DataComfortXMLReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DataComfortXMLReader </td></tr>
 		</table></td></tr>
@@ -23,7 +23,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./util/DataComfortXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.BerichtenHandler
-	c2423 [label=<<table title="nl.b3p.brmo.loader.BerichtenHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtenHandler.html">
+	c2374 [label=<<table title="nl.b3p.brmo.loader.BerichtenHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtenHandler.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> BerichtenHandler </td></tr>
@@ -40,7 +40,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BerichtenHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.RsgbProxy
-	c2424 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./RsgbProxy.html">
+	c2375 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./RsgbProxy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RsgbProxy </td></tr>
 		</table></td></tr>
@@ -75,7 +75,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./RsgbProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode
-	c2425 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.BerichtSelectMode.html">
+	c2376 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.BerichtSelectMode.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> BerichtSelectMode </td></tr>
@@ -92,7 +92,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./RsgbProxy.BerichtSelectMode.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.ProgressUpdateListener
-	c2426 [label=<<table title="nl.b3p.brmo.loader.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ProgressUpdateListener.html">
+	c2377 [label=<<table title="nl.b3p.brmo.loader.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ProgressUpdateListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
@@ -107,7 +107,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.StagingProxy
-	c2427 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StagingProxy.html">
+	c2378 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StagingProxy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StagingProxy </td></tr>
 		</table></td></tr>
@@ -151,7 +151,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./StagingProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.updates.UpdateProcess
-	c2429 [label=<<table title="nl.b3p.brmo.loader.updates.UpdateProcess" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./updates/UpdateProcess.html">
+	c2380 [label=<<table title="nl.b3p.brmo.loader.updates.UpdateProcess" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./updates/UpdateProcess.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> UpdateProcess </td></tr>
 		</table></td></tr>
@@ -169,7 +169,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./updates/UpdateProcess.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.Bericht.STATUS
-	c2437 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./entity/Bericht.STATUS.html">
+	c2388 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./entity/Bericht.STATUS.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> STATUS </td></tr>
@@ -190,7 +190,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./entity/Bericht.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c2446 [label=<<table title="nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./jdbc/GeometryJdbcConverter.html">
+	c2397 [label=<<table title="nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./jdbc/GeometryJdbcConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> GeometryJdbcConverter </font></td></tr>
 		</table></td></tr>
@@ -215,24 +215,24 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./jdbc/GeometryJdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.RsgbProxy implements nl.b3p.brmo.loader.BerichtenHandler
-	c2423:p -> c2424:p [dir=back,arrowtail=empty,style=dashed];
+	c2374:p -> c2375:p [dir=back,arrowtail=empty,style=dashed];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.ProgressUpdateListener
-	c2424:p -> c2426:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2375:p -> c2377:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode
-	c2424:p -> c2425:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2375:p -> c2376:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.updates.UpdateProcess
-	c2424:p -> c2429:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2375:p -> c2380:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.entity.Bericht.STATUS
-	c2424:p -> c2437:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2375:p -> c2388:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c2424:p -> c2446:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2375:p -> c2397:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c2424:p -> c2427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2375:p -> c2378:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.util.DataComfortXMLReader
-	c2424:p -> c2422:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2375:p -> c2373:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.util.DataComfortXMLReader
-	c2424:p -> c2422:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2375:p -> c2373:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.StagingProxy NAVASSOC nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c2427:p -> c2446:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2378:p -> c2397:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork
-	c1004 [label=<<table title="nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtTypeOfWork.html">
+	c955 [label=<<table title="nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtTypeOfWork.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> BerichtTypeOfWork </td></tr>
@@ -25,7 +25,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BerichtTypeOfWork.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.pipeline.BerichtWorkUnit
-	c1006 [label=<<table title="nl.b3p.brmo.loader.pipeline.BerichtWorkUnit" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BerichtWorkUnit.html">
+	c957 [label=<<table title="nl.b3p.brmo.loader.pipeline.BerichtWorkUnit" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BerichtWorkUnit.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BerichtWorkUnit </td></tr>
 		</table></td></tr>
@@ -43,7 +43,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BerichtWorkUnit.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.Bericht
-	c1009 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../entity/Bericht.html">
+	c960 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../entity/Bericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Bericht </td></tr>
 		</table></td></tr>
@@ -85,8 +85,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../entity/Bericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.pipeline.BerichtWorkUnit NAVASSOC nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork
-	c1006:p -> c1004:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c957:p -> c955:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.pipeline.BerichtWorkUnit NAVASSOC nl.b3p.brmo.loader.entity.Bericht
-	c1006:p -> c1009:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c957:p -> c960:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

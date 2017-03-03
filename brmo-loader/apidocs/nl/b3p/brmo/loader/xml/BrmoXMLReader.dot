@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.xml.BagXMLReader
-	c1421 [label=<<table title="nl.b3p.brmo.loader.xml.BagXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BagXMLReader.html">
+	c1372 [label=<<table title="nl.b3p.brmo.loader.xml.BagXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BagXMLReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BagXMLReader </td></tr>
 		</table></td></tr>
@@ -27,7 +27,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BagXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.BGTLightFileReader
-	c1422 [label=<<table title="nl.b3p.brmo.loader.xml.BGTLightFileReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightFileReader.html">
+	c1373 [label=<<table title="nl.b3p.brmo.loader.xml.BGTLightFileReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightFileReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTLightFileReader </td></tr>
 		</table></td></tr>
@@ -44,7 +44,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTLightFileReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader
-	c1423 [label=<<table title="nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkSnapshotXMLReader.html">
+	c1374 [label=<<table title="nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkSnapshotXMLReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrkSnapshotXMLReader </td></tr>
 		</table></td></tr>
@@ -59,7 +59,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BrkSnapshotXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c1424 [label=<<table title="nl.b3p.brmo.loader.xml.BrmoXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BrmoXMLReader.html">
+	c1375 [label=<<table title="nl.b3p.brmo.loader.xml.BrmoXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BrmoXMLReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> BrmoXMLReader </font></td></tr>
 		</table></td></tr>
@@ -92,7 +92,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BrmoXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.NhrXMLReader
-	c1425 [label=<<table title="nl.b3p.brmo.loader.xml.NhrXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NhrXMLReader.html">
+	c1376 [label=<<table title="nl.b3p.brmo.loader.xml.NhrXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NhrXMLReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NhrXMLReader </td></tr>
 		</table></td></tr>
@@ -108,12 +108,12 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./NhrXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.xml.BagXMLReader extends nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c1424:p -> c1421:p [dir=back,arrowtail=empty];
+	c1375:p -> c1372:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.xml.BGTLightFileReader extends nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c1424:p -> c1422:p [dir=back,arrowtail=empty];
+	c1375:p -> c1373:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader extends nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c1424:p -> c1423:p [dir=back,arrowtail=empty];
+	c1375:p -> c1374:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.xml.NhrXMLReader extends nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c1424:p -> c1425:p [dir=back,arrowtail=empty];
+	c1375:p -> c1376:p [dir=back,arrowtail=empty];
 }
 
