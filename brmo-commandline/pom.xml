@@ -53,6 +53,17 @@
             <artifactId>${oracle.jdbc.artifactId}</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>brmo-test-util</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
@@ -219,7 +230,7 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
-                                <database.properties.file>test.properties</database.properties.file>
+                                <database.properties.file>mssql.properties</database.properties.file>
                             </systemPropertyVariables>
                             <rerunFailingTestsCount>0</rerunFailingTestsCount>
                         </configuration>
@@ -268,7 +279,7 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
-                                <database.properties.file>test.properties</database.properties.file>
+                                <database.properties.file>oracle.properties</database.properties.file>
                             </systemPropertyVariables>
                             <rerunFailingTestsCount>0</rerunFailingTestsCount>
                         </configuration>

@@ -23,7 +23,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
+import org.dbunit.database.DatabaseDataSourceConnection;
 
 /**
  * run met:
@@ -39,7 +40,7 @@ public class MainIntegrationTest {
     private static File WORKDIR;
     private static final String BASE_COMMAND = "java -Dlog4j.configuration=file:./conf/test-log4j.xml -jar ./bin/brmo-commandline.jar --dbprops ./conf/test.properties ";
 
-    @Parameterized.Parameters(name = "{index}: args: {0}")
+    @Parameterized.Parameters(name = "param {index}: args: {0}")
     public static Collection params() {
         return Arrays.asList(new Object[][]{
             // {"args"},
@@ -68,9 +69,8 @@ public class MainIntegrationTest {
         dsStaging.setUsername(params.getProperty("staging.user"));
         dsStaging.setPassword(params.getProperty("staging.password"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
-        BrmoFramework brmo = new BrmoFramework(dsStaging, null);
-        brmo.emptyStagingDb();
-        brmo.closeBrmoFramework();
+        CleanUtil.cleanSTAGING(new DatabaseDataSourceConnection(dsStaging));
+        // omdat de insert van het bag object mislukt vanwege referentie check hoeft er niet opgeruimd in rsgb
     }
 
     /**
@@ -102,7 +102,7 @@ public class MainIntegrationTest {
     }
 
     @Test
-    public void test() throws Exception {
+    public void commandLine() throws Exception {
         Process p = Runtime.getRuntime().exec(BASE_COMMAND + args, new String[]{}, WORKDIR);
         LOG.info(IOUtils.toString(p.getInputStream(), Charset.defaultCharset()));
         LOG.error(IOUtils.toString(p.getErrorStream(), Charset.defaultCharset()));
