@@ -42,7 +42,7 @@
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(BGTGMLLightValidatieTest.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>      @Parameterized.Parameters
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>      @Parameterized.Parameters(name = <span class="jxr_string">"{index}: bestand: {0}"</span>)
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Collection&lt;Object[]&gt; params() {
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>          <strong class="jxr_keyword">return</strong> Arrays.asList(<strong class="jxr_keyword">new</strong> Object[][]{
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>              <em class="jxr_comment">// arrays van: {"gmlFileName", hasKruinlijnElements },</em>
@@ -88,17 +88,13 @@
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>          <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>              validator.validate(<strong class="jxr_keyword">new</strong> DOMSource(document));
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>          } <strong class="jxr_keyword">catch</strong> (SAXException e) {
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_comment">//            if (hasKruinlijnElements) {</em>
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_comment">//                LOG.warn("Validatiefout: " + e.getMessage());</em>
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_comment">//            } else {</em>
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>                  <em class="jxr_comment">// instance document is invalid!</em>
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>                  LOG.error(<span class="jxr_string">"Valitatiefout: "</span>, e);
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>                  fail(<span class="jxr_string">"Validation failed: "</span> + e.getMessage());
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>  <em class="jxr_comment">//            }</em>
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>          }
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>      }
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>  
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>  }
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>              <em class="jxr_comment">// instance document is invalid!</em>
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>              LOG.error(<span class="jxr_string">"Valitatiefout: "</span>, e);
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>              fail(<span class="jxr_string">"Validation failed: "</span> + e.getMessage());
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>          }
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>      }
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>  
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014&#x2013;2017 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
