@@ -1080,7 +1080,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         loadLog.append(", params (");
         loadLog.append(params.toString());
         loadLog.append(")");
-        log.debug("insert SQL: " + sql + ", params: " + params);
+        log.trace("insert SQL: " + sql + ", params: " + params);
 
         for (int i = 0; i < params.size(); i++) {
             Object param = params.get(i);
@@ -1571,12 +1571,12 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             if (row.isIgnoreDuplicates()) {
                 if (recentSavepoint == null) {
                     recentSavepoint = connRsgb.setSavepoint();
-                    log.debug("Created savepoint with id: " + recentSavepoint.getSavepointId());
+                    log.trace("Created savepoint with id: " + recentSavepoint.getSavepointId());
                 } else {
-                    log.debug("No need for new savepoint, previous insert caused rollback to recent savepoint with id " + recentSavepoint.getSavepointId());
+                    log.trace("No need for new savepoint, previous insert caused rollback to recent savepoint with id " + recentSavepoint.getSavepointId());
                 }
             } else if (recentSavepoint != null) {
-                log.debug("About to insert non-recoverable row, discarding savepoint with id " + recentSavepoint.getSavepointId());
+                log.trace("About to insert non-recoverable row, discarding savepoint with id " + recentSavepoint.getSavepointId());
                 connRsgb.releaseSavepoint(recentSavepoint);
                 recentSavepoint = null;
             }
