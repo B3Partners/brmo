@@ -38,6 +38,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
+import org.junit.Ignore;
 
 /**
  *
@@ -121,6 +122,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         if (this.isMsSQL) {
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
         } else if (this.isOracle) {
+            dsStaging.getConnection().setAutoCommit(true);
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), DBPROPS.getProperty("staging.username").toUpperCase());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
@@ -192,20 +194,25 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
     }
 
     @Test
+    @Ignore("Deze programma flow komt normaal niet voor; de GUI staat slechts 1 keuze per run toe.")
     public void testCleanupAndDeleteBerichten() throws Exception {
+        LOG.debug("Archiveren 'ok' berichten");
         bean.cleanupBerichten(Bericht.STATUS.RSGB_OK.toString(), BrmoFramework.BR_BAG);
+
+        LOG.debug("Verwijderen 'archief' berichten");
         bean.deleteBerichten(Bericht.STATUS.ARCHIVE.toString(), BrmoFramework.BR_BAG);
+
         assertEquals("Er zijn nog RSGB_OK berichten",
                 aantalBerichtenRsgbOk - aantalBerichtenToArchive,
-                brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, "RSGB_OK")
+                brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, Bericht.STATUS.RSGB_OK.toString())
         );
-        assertEquals("Er zijn nog ARCHIVE berichten",
+        assertEquals("Er zijn nog ARCHIVE berichten over",
                 0,
-                brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, "ARCHIVE")
+                brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, Bericht.STATUS.ARCHIVE.toString())
         );
-        assertEquals("Er zijn nog RSGB_NOK berichten",
+        assertEquals("Er zijn nog RSGB_NOK berichten over",
                 aantalBerichtenRsgbNok,
-                brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, "RSGB_NOK")
+                brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, Bericht.STATUS.RSGB_NOK.toString())
         );
     }
 }

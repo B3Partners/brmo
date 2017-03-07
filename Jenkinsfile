@@ -3,6 +3,8 @@ timestamps {
         withEnv(["JAVA_HOME=${ tool 'JDK8' }", "PATH+MAVEN=${tool 'Maven 3.3.9'}/bin:${env.JAVA_HOME}/bin"]) {
 
             stage('Prepare') {
+                sh "ulimit -a"
+                sh "free -m"
                 checkout scm
             }
 
@@ -32,34 +34,22 @@ timestamps {
 
                 stage('brmo-commandline Integration Test') {
                     echo "run integratie tests voor brmo-commandline module"
-                    try {
-                        sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-commandline'"
-                    } catch (Exception e) {
-                        currentBuild.result = 'UNSTABLE'
-                    }
+                    sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-commandline'"
                 }
 
                 stage('bgt-gml-loader Integration Test') {
                     echo "run integratie tests voor bgt-gml-loader module"
-                    try {
-                        sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bgt-gml-loader'"
-                    } catch (Exception e) {
-                        currentBuild.result = 'UNSTABLE'
-                    }
+                    sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bgt-gml-loader'"
                 }
-                    
+
                 stage('brmo-loader Integration Test') {
                     echo "run integratie tests voor brmo-loader module"
-                    try {
-                        sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-loader'"
-                    } catch (Exception e) {
-                        currentBuild.result = 'UNSTABLE'
-                    }
+                    sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-loader'"
                 }
 
                 stage('brmo-service Integration Test') {
                     echo "run integratie tests voor brmo-service module"
-                    timeout(30) {
+                    timeout(10) {
                         try {
                             sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-service'"
                         } catch (Exception e) {

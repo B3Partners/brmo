@@ -121,13 +121,14 @@ public abstract class TestingBase {
                 ResultSet res = connection.getMetaData().getTables(null, params.getProperty("schema"), tableName, new String[]{"TABLE"});
                 if (res.next()) {
                     String sql = "DELETE FROM \"" + params.getProperty("schema") + "\".\"" + tableName + "\"";
-                    LOG.info("legen tabel: " + tableName + " met sql: " + sql);
                     try {
                         connection.createStatement().executeUpdate(sql);
                     } catch (SQLException se) {
                         LOG.warn("Mogelijke fout tijdens legen van tabellen: " + se.getLocalizedMessage());
                         LOG.debug(se);
                     }
+                } else {
+                    LOG.error("Verwacht een tabel " + tableName + " te hebben gevonden om te legen, maar tabel is niet gevonden.");
                 }
                 res.close();
             }

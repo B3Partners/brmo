@@ -87,6 +87,7 @@ public class BGTNullGeomIntegrationTest extends TestingBase {
 
     @After
     public void cleanUp() throws Exception {
+        clearTables();
         sequential.unlock();
     }
 

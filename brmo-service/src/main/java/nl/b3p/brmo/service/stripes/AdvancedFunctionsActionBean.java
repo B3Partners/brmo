@@ -604,7 +604,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                             new QueryRunner(geomToJdbc.isPmdKnownBroken())
                                     .update(conn, "update " + BrmoFramework.BERICHT_TABLE 
                                             + " set status_datum = ?, status = ?, opmerking = ?, br_xml = ?, br_orgineel_xml = ? where id = ?",
-                                            new Timestamp(bericht.getDatum().getTime()), bericht.getStatus().toString(), bericht.getOpmerking(), 
+                                            new Timestamp(bericht.getStatusDatum().getTime()), bericht.getStatus().toString(), bericht.getOpmerking(),
                                             bericht.getBrXml(), bericht.getBrOrgineelXml(), bericht.getId());
                                  
                         } catch (Exception e) {
@@ -633,9 +633,9 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         final Connection conn = dataSourceStaging.getConnection();
         final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
         
-        String countsql = "select count(*) from " + BrmoFramework.BERICHT_TABLE 
-                    + " where soort='" + soort + "' "
-                    + " and status='" + config + "'";
+        String countsql = "select count(*) from " + BrmoFramework.BERICHT_TABLE
+                + " WHERE soort='" + soort + "' "
+                + " AND status='" + config + "'";
         Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn,
                 countsql, new ScalarHandler());
         if (o instanceof BigDecimal) {
@@ -649,7 +649,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         
         o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(conn, "DELETE FROM " + BrmoFramework.BERICHT_TABLE
                 + " WHERE soort='" + soort + "' "
-                + " and status='" + config + "'");
+                + " AND status='" + config + "'");
         
         if (o instanceof BigDecimal) {
             progress(((BigDecimal) o).longValue());
