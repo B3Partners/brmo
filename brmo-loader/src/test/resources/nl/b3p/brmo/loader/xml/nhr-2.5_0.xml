@@ -1,0 +1,267 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <SOAP-ENV:Header xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsa="http://www.w3.org/2005/08/addressing" />
+  <soap:Body wsu:Id="id-1-0cea4cf4004de5f14a17d91090dcda8e" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+    <ophalenInschrijvingResponse peilmoment="20160907141757616" xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/01">
+      <meldingen>
+        <informatie>
+          <code>IPD0000</code>
+          <omschrijving>Het product is succesvol geproduceerd.</omschrijving>
+          <referentie>12345678,98765432</referentie>
+        </informatie>
+      </meldingen>
+      <product>
+        <cat:maatschappelijkeActiviteit xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/01">
+          <cat:registratie registratieTijdstip="00000000000000000">
+            <cat:datumAanvang>19991209</cat:datumAanvang>
+          </cat:registratie>
+          <cat:kvkNummer>12345678</cat:kvkNummer>
+          <cat:nonMailing>Nee</cat:nonMailing>
+          <cat:incidenteelUitlenenArbeidskrachten>Nee</cat:incidenteelUitlenenArbeidskrachten>
+          <cat:naam>Test Automatisering B.V.</cat:naam>
+          <cat:manifesteertZichAls>
+            <cat:onderneming>
+              <cat:registratie registratieTijdstip="00000000000000000">
+                <cat:datumAanvang>19920416</cat:datumAanvang>
+              </cat:registratie>
+              <cat:kvkNummer>12345678</cat:kvkNummer>
+              <cat:hoofdSbiActiviteit>
+                <cat:sbiCode>6209</cat:sbiCode>
+                <cat:omschrijving>Overige dienstverlenende activiteiten op het gebied van informatietechnologie</cat:omschrijving>
+              </cat:hoofdSbiActiviteit>
+              <cat:nevenSbiActiviteit>
+                <cat:sbiCode>85592</cat:sbiCode>
+                <cat:omschrijving>Bedrijfsopleiding en -training</cat:omschrijving>
+              </cat:nevenSbiActiviteit>
+              <cat:nevenSbiActiviteit>
+                <cat:sbiCode>6202</cat:sbiCode>
+                <cat:omschrijving>Advisering op het gebied van informatietechnologie</cat:omschrijving>
+              </cat:nevenSbiActiviteit>
+              <cat:fulltimeWerkzamePersonen>13</cat:fulltimeWerkzamePersonen>
+              <cat:parttimeWerkzamePersonen>0</cat:parttimeWerkzamePersonen>
+              <cat:totaalWerkzamePersonen>13</cat:totaalWerkzamePersonen>
+              <cat:handeltOnder>
+                <cat:handelsnaam>
+                  <cat:naam>Test Automatisering B.V.</cat:naam>
+                </cat:handelsnaam>
+              </cat:handeltOnder>
+              <cat:handeltOnder>
+                <cat:handelsnaam>
+                  <cat:naam>Test ICT</cat:naam>
+                </cat:handelsnaam>
+              </cat:handeltOnder>
+              <cat:wordtUitgeoefendIn>
+                <cat:commercieleVestiging>
+                  <cat:vestigingsnummer>000016444663</cat:vestigingsnummer>
+                  <cat:bezoekLocatie>
+                    <cat:afgeschermd>Nee</cat:afgeschermd>
+                    <cat:binnenlandsAdres>
+                      <cat:straatnaam>Watermolen</cat:straatnaam>
+                      <cat:huisnummer>35</cat:huisnummer>
+                      <cat:postcode>
+                        <cat:cijfercombinatie>4751</cat:cijfercombinatie>
+                        <cat:lettercombinatie>VK</cat:lettercombinatie>
+                      </cat:postcode>
+                      <cat:plaats>Oud Gastel</cat:plaats>
+                      <cat:bagId>
+                        <cat:identificatieNummeraanduiding>1655200000515608</cat:identificatieNummeraanduiding>
+                        <cat:identificatieAdresseerbaarObject>1655010000515609</cat:identificatieAdresseerbaarObject>
+                      </cat:bagId>
+                    </cat:binnenlandsAdres>
+                    <cat:volledigAdres>Watermolen 35 4751VK Oud Gastel</cat:volledigAdres>
+                  </cat:bezoekLocatie>
+                  <cat:handeltOnder>
+                    <cat:handelsnaam>
+                      <cat:naam>Test Automatisering B.V.</cat:naam>
+                    </cat:handelsnaam>
+                  </cat:handeltOnder>
+                  <cat:handeltOnder>
+                    <cat:handelsnaam>
+                      <cat:naam>Test ICT</cat:naam>
+                    </cat:handelsnaam>
+                  </cat:handeltOnder>
+                </cat:commercieleVestiging>
+              </cat:wordtUitgeoefendIn>
+            </cat:onderneming>
+          </cat:manifesteertZichAls>
+          <cat:wordtGeleidVanuit>
+            <cat:commercieleVestiging>
+              <cat:registratie registratieTijdstip="00000000000000000">
+                <cat:datumAanvang>19920416</cat:datumAanvang>
+              </cat:registratie>
+              <cat:vestigingsnummer>000016444663</cat:vestigingsnummer>
+              <cat:bezoekLocatie>
+                <cat:afgeschermd>Nee</cat:afgeschermd>
+                <cat:binnenlandsAdres>
+                  <cat:straatnaam>Watermolen</cat:straatnaam>
+                  <cat:huisnummer>35</cat:huisnummer>
+                  <cat:postcode>
+                    <cat:cijfercombinatie>4751</cat:cijfercombinatie>
+                    <cat:lettercombinatie>VK</cat:lettercombinatie>
+                  </cat:postcode>
+                  <cat:plaats>Oud Gastel</cat:plaats>
+                  <cat:bagId>
+                    <cat:identificatieNummeraanduiding>1655200000515608</cat:identificatieNummeraanduiding>
+                    <cat:identificatieAdresseerbaarObject>1655010000515609</cat:identificatieAdresseerbaarObject>
+                  </cat:bagId>
+                </cat:binnenlandsAdres>
+                <cat:volledigAdres>Watermolen 35 4751VK Oud Gastel</cat:volledigAdres>
+              </cat:bezoekLocatie>
+              <cat:postLocatie>
+                <cat:afgeschermd>Nee</cat:afgeschermd>
+                <cat:binnenlandsAdres>
+                  <cat:straatnaam>Watermolen</cat:straatnaam>
+                  <cat:huisnummer>35</cat:huisnummer>
+                  <cat:postcode>
+                    <cat:cijfercombinatie>4751</cat:cijfercombinatie>
+                    <cat:lettercombinatie>VK</cat:lettercombinatie>
+                  </cat:postcode>
+                  <cat:plaats>Oud Gastel</cat:plaats>
+                  <cat:bagId>
+                    <cat:identificatieNummeraanduiding>1655200000515608</cat:identificatieNummeraanduiding>
+                    <cat:identificatieAdresseerbaarObject>1655010000515609</cat:identificatieAdresseerbaarObject>
+                  </cat:bagId>
+                </cat:binnenlandsAdres>
+                <cat:volledigAdres>Watermolen 35 4751VK Oud Gastel</cat:volledigAdres>
+              </cat:postLocatie>
+              <cat:communicatiegegevens>
+                <cat:communicatienummer>
+                  <cat:toegangscode>+31</cat:toegangscode>
+                  <cat:nummer>1234567890</cat:nummer>
+                  <cat:soort>Telefoon</cat:soort>
+                </cat:communicatienummer>
+                <cat:communicatienummer>
+                  <cat:toegangscode>+31</cat:toegangscode>
+                  <cat:nummer>9876543210</cat:nummer>
+                  <cat:soort>Fax</cat:soort>
+                </cat:communicatienummer>
+                <cat:emailAdres>info@test.nl.invalid</cat:emailAdres>
+                <cat:domeinNaam>www.test.nl.invalid</cat:domeinNaam>
+              </cat:communicatiegegevens>
+              <cat:totaalWerkzamePersonen>13</cat:totaalWerkzamePersonen>
+              <cat:activiteiten>
+                <cat:omschrijving>De exploitatie van software-ontwikkeling, groot- en kleinhandel in hard- en software en supplies, alsmede educatie en advisering op het gebied van automatisering. ICT oplossingen voor zorginstellingen, ontwikkeling van websites en netwerkbeheer.</cat:omschrijving>
+                <cat:hoofdSbiActiviteit>
+                  <cat:sbiCode>6209</cat:sbiCode>
+                  <cat:omschrijving>Overige dienstverlenende activiteiten op het gebied van informatietechnologie</cat:omschrijving>
+                </cat:hoofdSbiActiviteit>
+                <cat:sbiActiviteit>
+                  <cat:sbiCode>85592</cat:sbiCode>
+                  <cat:omschrijving>Bedrijfsopleiding en -training</cat:omschrijving>
+                </cat:sbiActiviteit>
+                <cat:sbiActiviteit>
+                  <cat:sbiCode>6202</cat:sbiCode>
+                  <cat:omschrijving>Advisering op het gebied van informatietechnologie</cat:omschrijving>
+                </cat:sbiActiviteit>
+                <cat:export>Nee</cat:export>
+                <cat:import>Nee</cat:import>
+              </cat:activiteiten>
+              <cat:handeltOnder>
+                <cat:handelsnaam>
+                  <cat:naam>Test Automatisering B.V.</cat:naam>
+                </cat:handelsnaam>
+              </cat:handeltOnder>
+              <cat:handeltOnder>
+                <cat:handelsnaam>
+                  <cat:naam>Test ICT</cat:naam>
+                </cat:handelsnaam>
+              </cat:handeltOnder>
+            </cat:commercieleVestiging>
+          </cat:wordtGeleidVanuit>
+          <cat:heeftAlsEigenaar>
+            <cat:rechtspersoon>
+              <cat:registratie registratieTijdstip="00000000000000000">
+                <cat:datumAanvang>19991209</cat:datumAanvang>
+              </cat:registratie>
+              <cat:persoonRechtsvorm>BeslotenVennootschap</cat:persoonRechtsvorm>
+              <cat:volledigeNaam>Test Automatisering B.V.</cat:volledigeNaam>
+              <cat:uitgebreideRechtsvorm>BeslotenVennootschap</cat:uitgebreideRechtsvorm>
+              <cat:heeft>
+                <cat:bestuursfunctie>
+                  <cat:registratie registratieTijdstip="20110617115432686">
+                    <cat:datumAanvang>20110614</cat:datumAanvang>
+                  </cat:registratie>
+                  <cat:functieTitel>
+                    <cat:functieTitel>Directeur</cat:functieTitel>
+                    <cat:indicatieStatutair>Ja</cat:indicatieStatutair>
+                  </cat:functieTitel>
+                  <cat:langstzittende>Nee</cat:langstzittende>
+                  <cat:door>
+                    <cat:rechtspersoon>
+                      <cat:volledigeNaam>Demo Holding B.V.</cat:volledigeNaam>
+                      <cat:bezoekLocatiePersoonDoor>
+                        <cat:afgeschermd>Nee</cat:afgeschermd>
+                        <cat:binnenlandsAdres>
+                          <cat:straatnaam>Emmastraat</cat:straatnaam>
+                          <cat:huisnummer>80</cat:huisnummer>
+                          <cat:postcode>
+                            <cat:cijfercombinatie>4701</cat:cijfercombinatie>
+                            <cat:lettercombinatie>GH</cat:lettercombinatie>
+                          </cat:postcode>
+                          <cat:plaats>Roosendaal</cat:plaats>
+                          <cat:bagId>
+                            <cat:identificatieNummeraanduiding>1674200000041407</cat:identificatieNummeraanduiding>
+                            <cat:identificatieAdresseerbaarObject>1674010000041407</cat:identificatieAdresseerbaarObject>
+                          </cat:bagId>
+                        </cat:binnenlandsAdres>
+                        <cat:volledigAdres>Emmastraat 80 4701GH Roosendaal</cat:volledigAdres>
+                      </cat:bezoekLocatiePersoonDoor>
+                      <cat:isEigenaarVan>
+                        <cat:maatschappelijkeActiviteit>
+                          <cat:kvkNummer>98765432</cat:kvkNummer>
+                        </cat:maatschappelijkeActiviteit>
+                      </cat:isEigenaarVan>
+                      <cat:rsin>850551833</cat:rsin>
+                    </cat:rechtspersoon>
+                  </cat:door>
+                  <cat:functie>Bestuurder</cat:functie>
+                  <cat:bevoegdheid>
+                    <cat:soort>AlleenZelfstandigBevoegd</cat:soort>
+                    <cat:bevoegdMetAnderePersonen>Nee</cat:bevoegdMetAnderePersonen>
+                  </cat:bevoegdheid>
+                </cat:bestuursfunctie>
+              </cat:heeft>
+              <cat:rsin>808350894</cat:rsin>
+              <cat:naam>Test Automatisering B.V.</cat:naam>
+              <cat:statutaireZetel>Oud Gastel</cat:statutaireZetel>
+              <cat:datumAkteOprichting>19991209</cat:datumAkteOprichting>
+              <cat:datumOprichting>00000000</cat:datumOprichting>
+              <cat:datumEersteInschrijving>19991215</cat:datumEersteInschrijving>
+              <cat:datumAkteStatutenWijziging>20110610</cat:datumAkteStatutenWijziging>
+              <cat:datumLaatsteStatutenWijziging>20110610</cat:datumLaatsteStatutenWijziging>
+              <cat:stelselInrichting>Dualistisch</cat:stelselInrichting>
+              <cat:geplaatstKapitaal>
+                <cat:bedrag>
+                  <cat:waarde>1</cat:waarde>
+                  <cat:valuta>Euro</cat:valuta>
+                </cat:bedrag>
+              </cat:geplaatstKapitaal>
+              <cat:gestortKapitaal>
+                <cat:bedrag>
+                  <cat:waarde>1</cat:waarde>
+                  <cat:valuta>Euro</cat:valuta>
+                </cat:bedrag>
+              </cat:gestortKapitaal>
+              <cat:bezoekLocatie>
+                <cat:afgeschermd>Nee</cat:afgeschermd>
+                <cat:binnenlandsAdres>
+                  <cat:straatnaam>Watermolen</cat:straatnaam>
+                  <cat:huisnummer>35</cat:huisnummer>
+                  <cat:postcode>
+                    <cat:cijfercombinatie>4751</cat:cijfercombinatie>
+                    <cat:lettercombinatie>VK</cat:lettercombinatie>
+                  </cat:postcode>
+                  <cat:plaats>Oud Gastel</cat:plaats>
+                  <cat:bagId>
+                    <cat:identificatieNummeraanduiding>1655200000515608</cat:identificatieNummeraanduiding>
+                    <cat:identificatieAdresseerbaarObject>1655010000515609</cat:identificatieAdresseerbaarObject>
+                  </cat:bagId>
+                </cat:binnenlandsAdres>
+                <cat:volledigAdres>Watermolen 35 4751VK Oud Gastel</cat:volledigAdres>
+              </cat:bezoekLocatie>
+            </cat:rechtspersoon>
+          </cat:heeftAlsEigenaar>
+        </cat:maatschappelijkeActiviteit>
+      </product>
+    </ophalenInschrijvingResponse>
+  </soap:Body>
+</soap:Envelope>

@@ -19,7 +19,7 @@ public class NhrXMLReaderTest {
     public void testMaatschappelijkeActiviteit() throws Exception {
         NhrXMLReader r;
 
-        r = new NhrXMLReader(NhrXMLReader.class.getResourceAsStream("nhr-maatschappelijkeActiviteit.xml"));
+        r = new NhrXMLReader(NhrXMLReader.class.getResourceAsStream("nhr-2.5_0.xml"));
         assertTrue(r.hasNext());
 
         int total = 0;
@@ -35,11 +35,11 @@ public class NhrXMLReaderTest {
             total++;
         }
         assertEquals(3, total);
-        
+
         assertArrayEquals(new String[] {
-            "nhr.rechtspersoon.rsin.001681965",
-            "nhr.maatschAct.kvk.16029104",
-            "nhr.comVestg.000002706229",
+            "nhr.rechtspersoon.rsin.808350894",
+            "nhr.maatschAct.kvk.12345678",
+            "nhr.comVestg.000016444663",
         }, objectRefs.toArray(new String[] {}));
     }
 }
