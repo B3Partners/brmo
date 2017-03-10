@@ -47,6 +47,8 @@ public class BasisregistratieFileUploadActionBean implements ActionBean {
         DataSource ds = ConfigUtil.getDataSourceStaging();
         BrmoFramework brmo = null;
         brmo = new BrmoFramework(ds, null);
+        ZipInputStream zip = null;
+        ZipEntry entry = null;
         try {
             final MutableLong theTotal = new MutableLong(0);
             int extractedFiles = 0;
@@ -72,14 +74,12 @@ public class BasisregistratieFileUploadActionBean implements ActionBean {
             int header = new DataInputStream(in).readInt();
             in.reset();
 
-            String unzippedFile = null;
-
             if(header == ZIP_HEADER) {
                 // Pak .xml bestanden in ZIP uit en verwerk deze
 
-                ZipInputStream zip = new ZipInputStream(in);
+                zip = new ZipInputStream(in);
                 try {
-                    ZipEntry entry = zip.getNextEntry();
+                    entry = zip.getNextEntry();
                     while(entry != null) {
                         if(!entry.getName().toLowerCase().endsWith(".xml")) {
                             log.warn("Overslaan zip entry geen XML: " + entry.getName());
@@ -101,9 +101,10 @@ public class BasisregistratieFileUploadActionBean implements ActionBean {
             getContext().getMessages().add(new SimpleMessage("Bestand " + bestand.getFileName() + " is ingelezen, " + theTotal.getValue() + " berichten" + (extractedFiles > 0 ? " (uit " + extractedFiles + " uitgepakte XML bestanden)" : "")));
             log.info(String.format("Stored %s data from file \"%s\" uploaded via form", basisregistratie, bestand.getFileName()));
         } catch(Exception ex) {
-            log.error("Fout bij inlezen bestand", ex);
+            String msg = "Fout bij inlezen bestand " + (zip != null && entry != null ? entry.getName() + " uit ZIP bestand " + bestand.getFileName() : bestand.getFileName());
+            log.error(msg, ex);
 
-            getContext().getMessages().add(new SimpleMessage("Fout bij inlezen bestand: " + ExceptionUtils.getRootCauseMessage(ex)));
+            getContext().getMessages().add(new SimpleMessage(msg + ": " + ExceptionUtils.getRootCauseMessage(ex)));
         } finally {
             try {
                 bestand.delete();
