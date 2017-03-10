@@ -94,6 +94,8 @@ script:
   - ulimit -a
   - free -m
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service'
+  # run integratie tests voor brmo-soap module
+  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-soap'
   # test of de javadoc compliant is met java-8 strict checks
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
          travis_wait mvn -Ppostgresql javadoc:javadoc;

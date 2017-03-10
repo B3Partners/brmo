@@ -34,9 +34,9 @@ public class BrkInfo {
     private static final String JNDI_NAME = "java:comp/env";
     private static final String JDBC_NAME_RSGB = "jdbc/brmo/rsgb";
 
-    private static final String DB_POSTGRES = "postgres";
-    private static final String DB_ORACLE = "oracle";
-    private static final String DB_MSSQL = "mssql";
+    public static final String DB_POSTGRES = "postgres";
+    public static final String DB_ORACLE = "oracle";
+    public static final String DB_MSSQL = "mssql";
 
     public static final String APPREVOLGNUMMER = "appReVolgnummer";
     public static final String WOONPLAATS = "gemeenteNaam";

@@ -360,6 +360,12 @@
                 <version>8.0.41</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-dbcp</artifactId>
+                <version>8.0.41</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <prerequisites>
