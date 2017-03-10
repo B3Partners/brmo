@@ -8,7 +8,6 @@ import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import nl.b3p.web.IndexPageIntegrationTest;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -84,11 +83,11 @@ public abstract class TestUtil {
     @Before
     public void loadDBprop() throws IOException {
         // the `database.properties.file`  is set in the pom.xml or using the commandline
-        DBPROPS.load(IndexPageIntegrationTest.class.getClassLoader()
+        DBPROPS.load(TestUtil.class.getClassLoader()
                 .getResourceAsStream(System.getProperty("database.properties.file")));
         try {
             // see if a local version exists and use that to override
-            DBPROPS.load(IndexPageIntegrationTest.class.getClassLoader()
+            DBPROPS.load(TestUtil.class.getClassLoader()
                     .getResourceAsStream("local." + System.getProperty("database.properties.file")));
         } catch (IOException | NullPointerException e) {
             // ignore this

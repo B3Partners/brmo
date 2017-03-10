@@ -2,13 +2,9 @@
 <assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
-              
     <id>bin</id>
     <formats>
-        <!--format>tar.gz</format -->
         <format>zip</format>
-        <!--format>tar.bz2</format-->
-        <!--format>dir</format -->
     </formats>
     <includeBaseDirectory>false</includeBaseDirectory>
     <dependencySets>
@@ -23,20 +19,9 @@
                 <exclude>log4j:log4j</exclude>
                 <!-- commandline komt in de tools directory, zie hieronder -->
                 <exclude>${project.groupId}:brmo-commandline</exclude>
-                <!--<exclude>${project.groupId}:bgt-gml-loader</exclude>-->
             </excludes>
             <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>
-        <!--dependencySet>
-            <useTransitiveDependencies>false</useTransitiveDependencies>
-            <useProjectArtifact>${project.groupId}:bgt-gml-loader</useProjectArtifact>
-            <outputDirectory>tools</outputDirectory>
-            <unpack>false</unpack>
-            <includes>
-                <include>${project.groupId}:bgt-gml-loader</include>
-            </includes>
-            <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
-        </dependencySet-->
         <dependencySet>
             <useTransitiveDependencies>false</useTransitiveDependencies>
             <useProjectArtifact>${project.groupId}:brmo-commandline</useProjectArtifact>
@@ -82,6 +67,21 @@
             <outputDirectory>db/rsgbbgt</outputDirectory>
             <includes>
                 <include>**/*.sql</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>../${project.basedir}/brmo-soap/target/</directory>
+            <outputDirectory>wars</outputDirectory>
+            <includes>
+                <include>**/TOMCAT-soaplibs.zip</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>../${project.basedir}/</directory>
+            <outputDirectory/>
+            <includes>
+                <include>**/LICENSE</include>
+                <include>**/README.md</include>
             </includes>
         </fileSet>
     </fileSets>
