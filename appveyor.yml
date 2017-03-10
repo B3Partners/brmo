@@ -67,7 +67,7 @@ test_script:
   # run integratie tests voor brmo-service module
   - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-service"
   # run integratie tests voor brmo-soap module
-  #TODO - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-soap"
+  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-soap"
 
 
 cache:

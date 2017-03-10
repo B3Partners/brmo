@@ -16,6 +16,8 @@ import static junit.framework.Assert.assertEquals;
 import nl.b3p.brmo.soap.brk.BrkInfoRequest;
 import nl.b3p.brmo.soap.brk.BrkInfoResponse;
 import nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse;
+import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
+import nl.b3p.brmo.test.util.database.OracleDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,6 +34,7 @@ import org.junit.After;
 import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
@@ -40,10 +43,17 @@ import org.junit.runners.Parameterized;
  * Draaien met:
  * {@code mvn -Dit.test=BrkInfoIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
  * voor bijvoorbeeld PostgreSQL.
+ * <strong>Werkt niet met Oracle omdat de test data in WKB staat en niet als
+ * oracle struct, mogelijk in een nieuwe versie van DBunit</strong>
+ *
+ * <strong>Werkt niet met MS SQl server omdat de JTDS een
+ * {@code java.lang.AbstractMethodError} opwerpt op aanroep van
+ * {@code JtdsConnection.isValid(..)}</strong>
  *
  * @author mprins
  */
 @RunWith(Parameterized.class)
+@Category({OracleDriverBasedFailures.class, JTDSDriverBasedFailures.class})
 public class BrkInfoIntegrationTest extends TestUtil {
 
     private static final Log LOG = LogFactory.getLog(BrkInfoIntegrationTest.class);

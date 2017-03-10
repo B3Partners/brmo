@@ -67,12 +67,11 @@ timestamps {
                     }
                 }
 
-                /* TODO 
+                /* TODO */
                 stage('brmo-soap Integration Test') {
                     echo "run integratie tests voor brmo-soap module"
                     sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-soap'"
                 }
-                */
 
                 stage('Cleanup Database') {
                     sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.41:1521/DB01 < ./bgt-gml-loader/target/generated-resources/ddl/oracle/drop_rsgb_bgt.sql"
