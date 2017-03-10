@@ -42,7 +42,7 @@ public class BrmoFramework {
 
     public static final String XSL_BRK = "/xsl/brk-snapshot-to-rsgb-xml.xsl";
     public static final String XSL_BAG = "/xsl/bag-mutatie-to-rsgb-xml.xsl";
-    public static final String XSL_NHR = "/xsl/nhr-to-rsgb-xml.xsl";
+    public static final String XSL_NHR = "/xsl/nhr-to-rsgb-xml-2.5.xsl";
 
     public static final String LAADPROCES_TABEL = "laadproces";
     public static final String BERICHT_TABLE = "bericht";
@@ -389,7 +389,7 @@ public class BrmoFramework {
             if (e instanceof BrmoLeegBestandException) {
                 throw new BrmoLeegBestandException(e.getLocalizedMessage());
             }
-            throw new BrmoException("Fout bij loaden basisregistratie gegevens", e);
+            throw new BrmoException("Fout bij laden " + type + " berichten uit bestand " + fileName, e);
         }
     }
 
