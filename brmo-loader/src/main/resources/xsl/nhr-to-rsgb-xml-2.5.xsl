@@ -30,6 +30,9 @@
 				<xsl:text>, soort: </xsl:text>
 				<xsl:value-of select="$soort"/>
 			</xsl:comment>
+			<xsl:comment>
+				<hoofdvestiging><xsl:value-of select="$hoofdvestiging"/></hoofdvestiging>
+			</xsl:comment>
             <data>
 				<xsl:apply-templates select="*"/>
             </data>
@@ -84,7 +87,9 @@
 			<clazz><xsl:value-of select="$class"/></clazz>
 			<typering><xsl:value-of select="substring($class,1,35)"/></typering>
 			<naam><xsl:value-of select="cat:naam"/></naam>
-
+			<xsl:for-each select="cat:manifesteertZichAls/cat:onderneming/cat:kvkNummer">
+				<kvk_nummer><xsl:value-of select="."/></kvk_nummer>
+			</xsl:for-each>			
 			<xsl:call-template name="subject"/>
 		</subject>
 		<prs>
@@ -147,6 +152,8 @@
 				<!--fk_1ond_kvk_nummer><xsl:value-of select="."/></fk_1ond_kvk_nummer-->
 			</xsl:for-each>
 		</ondrnmng>
+		
+		<!-- Geen hoofdvestiging transformeren hier, omdat deze bij de levering als completer bericht los is geleverd -->
 		<xsl:apply-templates select="cat:wordtUitgeoefendIn[cat:vestigingsnummer != $hoofdvestiging]"/>
 	</xsl:template>
 	
@@ -155,8 +162,13 @@
 
 		<xsl:variable name="naam">
 			<xsl:choose>
-				<xsl:when test="cat:eersteHandelsnaam">
-					<xsl:value-of select="substring(cat:eersteHandelsnaam,1,45)"/>
+				<xsl:when test="cat:eersteHandelsnaam"> <!-- commercieleVestiging -->
+					<!-- NHR max lenghte 625 naar RSGB 500 -->
+					<xsl:value-of select="substring(cat:eersteHandelsnaam,1,500)"/>
+				</xsl:when>
+				<xsl:when test="cat:naam"> <!-- nietCommercieleVestiging -->
+					<!-- max lengte NHR en RSGB beide 500 -->
+					<xsl:value-of select="cat:naam"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:value-of select="substring(cat:handeltOnder[position()=1]/cat:handelsnaam/cat:naam,1,45)"/>
@@ -203,7 +215,10 @@
 				</xsl:choose>
 			</typering>
 			<datum_voortzetting><xsl:value-of select="cat:datumVoortzetting"/></datum_voortzetting>
-			<verkorte_naam><xsl:value-of select="$naam"/></verkorte_naam>
+			<xsl:for-each select="cat:verkorteNaam"> <!-- nietCommercieleVestiging -->
+				<!-- max lengte NHR en RSGB beide 45 -->
+				<verkorte_naam><xsl:value-of select="."/></verkorte_naam>
+			</xsl:for-each>
 			<xsl:choose>
 				<xsl:when test="cat:fulltimeWerkzamePersonen and cat:parttimeWerkzamePersonen">
 					<fulltime_werkzame_mannen><xsl:value-of select="cat:fulltimeWerkzamePersonen"/></fulltime_werkzame_mannen>
@@ -279,7 +294,6 @@
 		<website_url><xsl:value-of select="cat:communicatiegegevens/cat:domeinNaam[position()=1]"/></website_url>
 	</xsl:template>
 
-	<!-- 2.5 OK -->
 	<xsl:template match="cat:rechtspersoon | cat:samenwerkingsverband">
 
 		<xsl:variable name="key"><xsl:apply-templates select="." mode="object_ref"/></xsl:variable>
@@ -300,7 +314,9 @@
 			<sc_identif><xsl:value-of select="$key"/></sc_identif>
 			<clazz><xsl:value-of select="$class"/></clazz>
 			<naam><xsl:value-of select="cat:volledigeNaam"/></naam>
-			<verkorte_naam><xsl:value-of select="substring(cat:volledigeNaam,1,45)"/></verkorte_naam>
+			<xsl:for-each select="cat:verkorteNaam">
+				<verkorte_naam><xsl:value-of select="."/></verkorte_naam>
+			</xsl:for-each>
 			<xsl:call-template name="registratie-datum">
 				<xsl:with-param name="einde" select="'datum_beeindiging'"/>
 			</xsl:call-template>
