@@ -34,9 +34,9 @@ public class BrkInfo {
     private static final String JNDI_NAME = "java:comp/env";
     private static final String JDBC_NAME_RSGB = "jdbc/brmo/rsgb";
 
-    private static final String DB_POSTGRES = "postgres";
-    private static final String DB_ORACLE = "oracle";
-    private static final String DB_MSSQL = "mssql";
+    public static final String DB_POSTGRES = "postgres";
+    public static final String DB_ORACLE = "oracle";
+    public static final String DB_MSSQL = "mssql";
 
     public static final String APPREVOLGNUMMER = "appReVolgnummer";
     public static final String WOONPLAATS = "gemeenteNaam";
@@ -369,31 +369,31 @@ public class BrkInfo {
             case DB_ORACLE:
                 if (bl != null) {
                     condition = "SDO_GEOM.RELATE(kad_perceel.begrenzing_perceel, 'ANYINTERACT', "
-                            + "SDO_GEOM.SDO_BUFFER(SDO_GEOMETRY(SDO_UTIL.TO_WKTGEOMETRY("
+                            + "SDO_GEOM.SDO_BUFFER(SDO_GEOMETRY(('"
                             + zg
-                            + "), 28992), 2, "
+                            + "'), 28992), 2, "
                             + bl
-                            + "), 0.005 ) ";
+                            + "), 0.005 )  = 'TRUE' ";
                 } else {
                     condition = "SDO_GEOM.RELATE(kad_perceel.begrenzing_perceel, 'ANYINTERACT', "
-                            + "SDO_GEOMETRY(SDO_UTIL.TO_WKTGEOMETRY("
+                            + "SDO_GEOMETRY(('"
                             + zg
-                            + "), 28992), 0.005 ) ";
+                            + "'), 28992), 0.005 ) = 'TRUE' ";
                 }
                 break;
             case DB_MSSQL:
                 if (bl != null) {
                     condition = "kad_perceel.begrenzing_perceel.STIntersects( "
-                            + "STGeomFromText("
+                            + "STGeomFromText('"
                             + zg
-                            + ",28992).STBuffer("
+                            + "',28992).STBuffer("
                             + bl
                             + ") ) ";
                 } else {
                     condition = "kad_perceel.begrenzing_perceel.STIntersects( "
-                            + "STGeomFromText("
+                            + "STGeomFromText('"
                             + zg
-                            + ",28992) ) ";
+                            + "',28992) ) ";
                     break;
                 }
             default:
