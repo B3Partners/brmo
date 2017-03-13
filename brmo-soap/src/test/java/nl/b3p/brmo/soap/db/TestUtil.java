@@ -59,6 +59,8 @@ public abstract class TestUtil {
     protected boolean isPostgis;
 
     protected BasicDataSource dsRsgb;
+    protected BasicDataSource dsStaging;
+
 
     /**
      * logging rule.
@@ -110,7 +112,13 @@ public abstract class TestUtil {
         dsRsgb.setPassword(DBPROPS.getProperty("rsgb.password"));
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
 
-        this.setupJNDI(dsRsgb, null);
+        dsStaging = new BasicDataSource();
+        dsStaging.setUrl(DBPROPS.getProperty("staging.url"));
+        dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
+        dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
+        dsStaging.setAccessToUnderlyingConnectionAllowed(true);
+
+        this.setupJNDI(dsRsgb, dsStaging);
     }
 
     /**
