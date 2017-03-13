@@ -220,7 +220,6 @@
                             <systemPropertyVariables>
                                 <database.properties.file>oracle.properties</database.properties.file>
                             </systemPropertyVariables>
-                            <rerunFailingTestsCount>1</rerunFailingTestsCount>
                             <excludedGroups>nl.b3p.brmo.test.util.database.OracleDriverBasedFailures</excludedGroups>
                             <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
                         </configuration>

@@ -12,17 +12,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import static junit.framework.Assert.assertEquals;
 import nl.b3p.brmo.soap.brk.BrkInfoRequest;
 import nl.b3p.brmo.soap.brk.BrkInfoResponse;
 import nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse;
 import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
-import nl.b3p.brmo.test.util.database.OracleDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseDataSourceConnection;
+import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
@@ -31,20 +28,20 @@ import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
-import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 /**
  *
  * Draaien met:
  * {@code mvn -Dit.test=BrkInfoIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
  * voor bijvoorbeeld PostgreSQL.
- * <strong>Werkt niet met Oracle omdat de test data in WKB staat en niet als
- * oracle struct, mogelijk in een nieuwe versie van DBunit</strong>
  *
  * <strong>Werkt niet met MS SQl server omdat de JTDS een
  * {@code java.lang.AbstractMethodError} opwerpt op aanroep van
@@ -53,15 +50,13 @@ import org.junit.runners.Parameterized;
  * @author mprins
  */
 @RunWith(Parameterized.class)
-@Category({OracleDriverBasedFailures.class, JTDSDriverBasedFailures.class})
+@Category(JTDSDriverBasedFailures.class)
 public class BrkInfoIntegrationTest extends TestUtil {
-
-    private static final Log LOG = LogFactory.getLog(BrkInfoIntegrationTest.class);
 
     @Parameterized.Parameters(name = "{index}: verwerken bestand: {0}")
     public static Collection params() {
         return Arrays.asList(new Object[][]{
-            // {"sBestandsNaam", aantalPercelen, zoekLocatie, bufferAfstand,eersteKadId,oppPerceel},
+            // {"sBestandsNaam", aantalPercelen, zoekLocatie, bufferAfstand,eersteKadId,oppPerceel,aardCultuurOnbebouwd},
             {"/rsgb.xml", 1, "POINT(230341 472237)", 100, 66860489870000L, 1050, "Wegen"}
         });
     }
@@ -95,20 +90,20 @@ public class BrkInfoIntegrationTest extends TestUtil {
     @Override
     public void setUp() throws Exception {
         rsgb = new DatabaseDataSourceConnection(this.dsRsgb);
+        IDataSet rsgbDataSet = new XmlDataSet(new FileInputStream(new File(BrkInfoIntegrationTest.class.getResource(sBestandsNaam).toURI())));
 
         if (this.isMsSQL) {
-            // TODO kijken of en hoe dit op mssql werkt
+            // TODO kijken of en hoe dit op mssql werkt, vooralsnog problemen met jDTS driver
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
         } else if (this.isOracle) {
-            // TODO kijken of en hoe dit op mssql werkt
-            //rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), params.getProperty("rsgb.user").toUpperCase());
+            rsgb = new DatabaseConnection(dsRsgb.getConnection().unwrap(oracle.jdbc.OracleConnection.class), DBPROPS.getProperty("rsgb.username").toUpperCase());
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+
+            rsgbDataSet = new XmlDataSet(new FileInputStream(new File(BrkInfoIntegrationTest.class.getResource("/oracle-" + sBestandsNaam.substring(1)).toURI())));
         } else if (this.isPostgis) {
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         }
-
-        IDataSet rsgbDataSet = new XmlDataSet(new FileInputStream(new File(BrkInfoIntegrationTest.class.getResource(sBestandsNaam).toURI())));
 
         sequential.lock();
 
@@ -121,6 +116,17 @@ public class BrkInfoIntegrationTest extends TestUtil {
         rsgb.close();
 
         sequential.unlock();
+    }
+
+    /**
+     * testcase voor {@link BrkInfo#getDataSourceRsgb()}.
+     *
+     * @throws Exception if any
+     * @see BrkInfo#getDataSourceRsgb()
+     */
+    @Test
+    public void testGetDataSourceRsgb() throws Exception {
+        assertNotNull(BrkInfo.getDataSourceRsgb());
     }
 
     /**
@@ -201,5 +207,4 @@ public class BrkInfoIntegrationTest extends TestUtil {
         assertEquals(oppPerceel, koz.getGroottePerceel(), 5);
         assertEquals(aardCultuurOnbebouwd, koz.getAardCultuurOnbebouwd());
     }
-
 }
