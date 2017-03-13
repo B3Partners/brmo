@@ -4,6 +4,8 @@ import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.sql.DataSource;
@@ -11,7 +13,9 @@ import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.validation.Validate;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.ProgressUpdateListener;
+import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -49,6 +53,10 @@ public class BasisregistratieFileUploadActionBean implements ActionBean {
         brmo = new BrmoFramework(ds, null);
         ZipInputStream zip = null;
         ZipEntry entry = null;
+        int errors = 0;
+        int empty = 0;
+        int duplicate = 0;
+        final int ERROR_LIMIT = 5;
         try {
             final MutableLong theTotal = new MutableLong(0);
             int extractedFiles = 0;
@@ -85,7 +93,21 @@ public class BasisregistratieFileUploadActionBean implements ActionBean {
                             log.warn("Overslaan zip entry geen XML: " + entry.getName());
                         } else {
                             log.debug("Lezen XML bestand uit zip: " + entry.getName());
-                            brmo.loadFromStream(basisregistratie, new CloseShieldInputStream(zip), bestand.getFileName() + "/" + entry.getName(), totalAdder);
+                            try {
+                                brmo.loadFromStream(basisregistratie, new CloseShieldInputStream(zip), bestand.getFileName() + "/" + entry.getName(), totalAdder);
+                            } catch(BrmoLeegBestandException e) {
+                                log.info("Negeer ZIP entry " + entry.getName() + ": " + e.getMessage());
+                                empty++;
+                            } catch(BrmoDuplicaatLaadprocesException e) {
+                                log.info("Negeer ZIP entry " + entry.getName() + ": duplicaat laadproces");
+                                duplicate++;
+                            } catch(BrmoException e) {
+                                errors++;
+                                log.error("BrmoException bij laden ZIP entry " + entry.getName() + (errors > ERROR_LIMIT ? "; afbreken" : "; doorgaan met volgende"), e);
+                                if(errors > ERROR_LIMIT) {
+                                    throw new BrmoException("Maximum aantal fouten (" + ERROR_LIMIT + ") bereikt bij inladen ZIP bestanden, inladen afgebroken. Controleer brmo-service.log", e);
+                                }
+                            }
                             extractedFiles++;
                         }
                         entry = zip.getNextEntry();
@@ -98,7 +120,20 @@ public class BasisregistratieFileUploadActionBean implements ActionBean {
                 brmo.loadFromStream(basisregistratie, in, bestand.getFileName(), totalAdder);
             }
 
-            getContext().getMessages().add(new SimpleMessage("Bestand " + bestand.getFileName() + " is ingelezen, " + theTotal.getValue() + " berichten" + (extractedFiles > 0 ? " (uit " + extractedFiles + " uitgepakte XML bestanden)" : "")));
+            List warnings = new ArrayList();
+            if(errors > 0) {
+                warnings.add("let op: " + errors + " bericht" + (errors > 1 ? "en" : "") + " niet ingeladen wegens fouten");
+            }
+            if(empty > 0) {
+                warnings.add("let op: " + empty + (empty > 1 ? " lege berichten" : " leeg bericht") + " overgeslagen");
+            }
+            if(duplicate > 0) {
+                warnings.add("let op: " + duplicate + (duplicate > 1 ? " duplicate berichten" : " duplicaat bericht") + " overgeslagen");
+            }
+
+            String warning = warnings.isEmpty() ? "" : ", " + String.join(", ", (String[])warnings.toArray(new String[] {})) + ", zie log voor bestandsnamen uit ZIP en details!";
+
+            getContext().getMessages().add(new SimpleMessage("Bestand " + bestand.getFileName() + " is ingelezen, " + theTotal.getValue() + " berichten" + (extractedFiles > 0 ? " (uit " + extractedFiles + " uitgepakte XML bestanden)" : "") + warning));
             log.info(String.format("Stored %s data from file \"%s\" uploaded via form", basisregistratie, bestand.getFileName()));
         } catch(Exception ex) {
             String msg = "Fout bij inlezen bestand " + (zip != null && entry != null ? entry.getName() + " uit ZIP bestand " + bestand.getFileName() : bestand.getFileName());

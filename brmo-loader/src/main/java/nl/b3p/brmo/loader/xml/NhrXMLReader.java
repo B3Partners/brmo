@@ -19,6 +19,7 @@ import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.NhrBericht;
 import nl.b3p.brmo.loader.entity.NhrBerichten;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -48,6 +49,10 @@ public class NhrXMLReader extends BrmoXMLReader {
         Unmarshaller unmarshaller = jc.createUnmarshaller();
 
         NhrBerichten b = (NhrBerichten)unmarshaller.unmarshal(new DOMSource(r.getNode()));
+
+        if(b == null || b.berichten == null) {
+            throw new BrmoLeegBestandException("Geen BRMO berichten gevonden in NHR XML");
+        }
 
         if(!b.berichten.isEmpty()) {
             setBestandsDatum(b.berichten.get(0).getDatum());

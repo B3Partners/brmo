@@ -384,10 +384,10 @@ public class BrmoFramework {
             stagingProxy.loadBr(stream, type, fileName, listener);
         } catch (Exception e) {
             if (e instanceof BrmoDuplicaatLaadprocesException) {
-                throw new BrmoDuplicaatLaadprocesException(e.getLocalizedMessage());
+                throw (BrmoDuplicaatLaadprocesException)e;
             }
             if (e instanceof BrmoLeegBestandException) {
-                throw new BrmoLeegBestandException(e.getLocalizedMessage());
+                throw (BrmoLeegBestandException)e;
             }
             throw new BrmoException("Fout bij laden " + type + " berichten uit bestand " + fileName, e);
         }
