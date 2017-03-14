@@ -71,7 +71,7 @@ public class BrkInfo {
             String dbType = getDbType(connRsgb);
 
             StringBuilder sql = createSelectSQL(searchContext, dbType);
-
+            LOG.trace(sql);
             stm = connRsgb.prepareStatement(sql.toString());
             stm = addParamsSQL(stm, searchContext, dbType);
             rs = stm.executeQuery();
@@ -110,7 +110,7 @@ public class BrkInfo {
             String dbType = getDbType(connRsgb);
 
             StringBuilder sql = createCountSQL(searchContext, dbType);
-
+            LOG.trace(sql);
             stm = connRsgb.prepareStatement(sql.toString());
             stm = addParamsSQL(stm, searchContext, dbType);
             rs = stm.executeQuery();

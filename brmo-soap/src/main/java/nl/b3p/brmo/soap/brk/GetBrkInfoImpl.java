@@ -9,13 +9,15 @@ import javax.jws.WebService;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 import nl.b3p.brmo.soap.db.BrkInfo;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 @WebService(
         targetNamespace = "http://brmo.b3p.nl/brk/1.0/soap-brk",
         wsdlLocation = "WEB-INF/wsdl/brkinfo.wsdl"
 )
 public class GetBrkInfoImpl {
-
+    private static final Log LOG = LogFactory.getLog(GetBrkInfoImpl.class);
     /**
      * Web service operation
      */
@@ -33,6 +35,7 @@ public class GetBrkInfoImpl {
         try {
             ids = BrkInfo.findKozIDs(searchContext);
         } catch (Exception ex) {
+            LOG.error(ex);
             throw new BrkInfoException("Database reported errors", ex.getLocalizedMessage());
         }
 
@@ -51,6 +54,7 @@ public class GetBrkInfoImpl {
         try {
             result = BrkInfo.createResponse(ids, searchContext);
         } catch (Exception ex) {
+            LOG.error(ex);
             throw new BrkInfoException("Database reported errors", ex.getLocalizedMessage());
         }
         

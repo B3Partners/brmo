@@ -240,7 +240,7 @@ public class EigendomInfo {
             String dbType = getDbType(conn);
 
             StringBuilder sql = createSelectStagingSQL(searchContext, dbType);
-
+            LOG.trace(sql);
             stm = conn.prepareStatement(sql.toString());
             stm = addParamsSQL(stm, searchContext);
             rs = stm.executeQuery();
@@ -286,6 +286,7 @@ public class EigendomInfo {
             String dbType = getDbType(conn);
 
             sql = createSelectRsgbSQL(searchContext, dbType);
+            LOG.trace(sql);
             stm = conn.prepareStatement(sql.toString());
             stm = addParamsSQL(stm, searchContext);
             rs = stm.executeQuery();
@@ -384,6 +385,7 @@ public class EigendomInfo {
 
             sql = createSelectSQL(resultNames, fromSQL,
                     whereSQL, null, dbType);
+            LOG.trace(sql);
             stm = conn.prepareStatement(sql.toString());
             stm.setString(1, value);
             rs = stm.executeQuery();
@@ -438,6 +440,7 @@ public class EigendomInfo {
 
             sql = createSelectSQL(resultNames, fromSQL,
                     whereSQL, null, dbType);
+            LOG.trace(sql);
             stm = conn.prepareStatement(sql.toString());
             stm.setString(1, vo_id);
             rs = stm.executeQuery();
@@ -493,6 +496,7 @@ public class EigendomInfo {
 
             sql = createSelectSQL(resultNames, fromSQL,
                     whereSQL, null, dbType);
+            LOG.trace(sql);
             stm = conn.prepareStatement(sql.toString());
             stm.setLong(1, value);
             rs = stm.executeQuery();
@@ -551,6 +555,7 @@ public class EigendomInfo {
 
             sql = createSelectSQL(resultNames, fromSQL,
                     whereSQL, null, dbType);
+            LOG.trace(sql);
             stm = conn.prepareStatement(sql.toString());
             stm.setString(1, Long.toString(kad_id));
             rs = stm.executeQuery();
@@ -626,6 +631,7 @@ public class EigendomInfo {
             
             sql = createSelectSQL(resultNames, fromSQL,
                     whereSQL, null, dbType);
+            LOG.trace(sql);
             stm = conn.prepareStatement(sql.toString());
             stm.setLong(1, kad_id);
             rs = stm.executeQuery();
