@@ -29,7 +29,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class BrkInfo {
 
-    private static final Log log = LogFactory.getLog(BrkInfo.class);
+    private static final Log LOG = LogFactory.getLog(BrkInfo.class);
 
     private static final String JNDI_NAME = "java:comp/env";
     private static final String JDBC_NAME_RSGB = "jdbc/brmo/rsgb";
@@ -451,7 +451,7 @@ public class BrkInfo {
             Context xmlContext = (Context) ic.lookup(JNDI_NAME);
             ds = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB);
         } catch (Exception ex) {
-            log.error("Fout verbinden naar rsgb db. ", ex);
+            LOG.error("Fout verbinden naar rsgb db. ", ex);
             throw ex;
         }
 
