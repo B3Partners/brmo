@@ -77,7 +77,7 @@ CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app_vlak AS
      JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif::varchar;
      
 
--- view om app_re' s bij percelen op te zoeken
+-- view om appartementsrechten bij percelen op te zoeken
 CREATE OR REPLACE VIEW v_bd_app_re_bij_perceel AS 
  SELECT 
     (row_number() OVER ())::integer AS ObjectID,

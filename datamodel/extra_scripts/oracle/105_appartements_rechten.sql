@@ -89,7 +89,7 @@ select * from v_bd_app_re_2_kad_perceel
 union 
 select * from v_bd_app_re_3_kad_perceel;
 
--- view om app_re' s bij percelen op te zoeken
+-- view om appartementsrechten bij percelen op te zoeken
 CREATE OR REPLACE VIEW v_bd_app_re_bij_perceel AS 
  SELECT 
     CAST(ROWNUM AS INTEGER) AS objectid,

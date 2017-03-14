@@ -1,4 +1,4 @@
---snijdt alle banden tussen BAG en ander BR's door
+--snijdt alle banden tussen BAG en andere BRs door
 --zodat BAG verwijderd en weer opnieuw geladen kan worden
 ALTER TABLE ADDRESSEERB_OBJ_AAND DROP CONSTRAINT FK_AOA_AS_6;
 ALTER TABLE BENOEMD_OBJ_KAD_ONRRND_ZK DROP CONSTRAINT FK_TGO_KOZ_NN_LH;
