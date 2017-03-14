@@ -1,4 +1,4 @@
-
+--
 create view v_map_kad_perceel as
 select
     CAST(ROWNUM AS INTEGER) AS objectid,
@@ -13,13 +13,13 @@ from kad_perceel p
 join kad_onrrnd_zk z on (z.kad_identif = p.sc_kad_identif);
 
 create table prs_eigendom (
-    fk_prs_sc_identif varchar(32), 
-    primary key (fk_prs_sc_identif), 
+    fk_prs_sc_identif varchar(32),
+    primary key (fk_prs_sc_identif),
     foreign key (fk_prs_sc_identif) references prs(sc_identif)
 );
 
 create or replace view v_kad_perceel_in_eigendom as
-select 
+select
     CAST(ROWNUM AS INTEGER) AS objectid,
     p.begrenzing_perceel,
     p.sc_kad_identif,
@@ -36,8 +36,8 @@ join prs_eigendom prs_e on (prs_e.fk_prs_sc_identif = zr.fk_8pes_sc_identif)
 left join niet_nat_prs nnprs on (nnprs.sc_identif = prs_e.fk_prs_sc_identif)
 where p.begrenzing_perceel.sdo_srid is not null;
 
-create or replace view v_kad_perceel_adres as 
-select distinct 
+create or replace view v_kad_perceel_adres as
+select distinct
         kp.sc_kad_identif,
         kpvbo.FK_NN_LH_TGO_IDENTIF as kad_bag_koppeling_benobj,
         gor.naam_openb_rmte as straat,
@@ -61,8 +61,8 @@ select
         p.sc_kad_identif,
         p.begrenzing_perceel,
         p.ka_sectie || ' ' || p.ka_perceelnummer AS aanduiding,
-        p.grootte_perceel,   
-        p_adr.kad_bag_koppeling_benobj,             
+        p.grootte_perceel,
+        p_adr.kad_bag_koppeling_benobj,
         p_adr.straat,
         p_adr.huisnummer,
         p_adr.huisletter,
@@ -73,14 +73,17 @@ from kad_perceel p
 join v_kad_perceel_adres p_adr on (p_adr.sc_kad_identif = p.sc_kad_identif);
 
 create or replace view v_kad_perceel_zak_recht as
-  select 
+  select
     p.sc_kad_identif as Kadaster_identificatie,
     zr.AR_TELLER  as Aandeel_teller,
     zr.AR_NOEMER as Aandeel_noemer,
     zr.FK_3AVR_AAND as Aard_recht_aand,
 --    ark.omschr as Aard_recht_omschrijving_verkort, XXX referentielijst niet gevuld
 --    ar.omschr_aard_verkregenr_recht as Aard_recht_omschrijving, XXX referentielijst niet gevuld
-    case when np.sc_identif is not null then 'Natuurlijk persoon' else 'Niet natuurlijk persoon' end as soort_eigenaar,
+    case when np.sc_identif is not null
+    then 'Natuurlijk persoon'
+    else 'Niet natuurlijk persoon'
+    end as soort_eigenaar,
     np.NM_GESLACHTSNAAM as Geslachtsnaam,
     np.NM_VOORVOEGSEL_GESLACHTSNAAM as Voorvoegsel,
     np.NM_VOORNAMEN as Voornamen,
@@ -104,9 +107,9 @@ create or replace view v_kad_perceel_zak_recht as
   left join ingeschr_niet_nat_prs innp on (innp.SC_IDENTIF = nnp.sc_identif)
   left join subject innp_subject on (innp_subject.identif = innp.sc_identif)
   where np.NM_GESLACHTSNAAM is not null or nnp.NAAM is not null;
-  
-create or replace view v_kad_perceel_zr_adressen as 
-select 
+
+create or replace view v_kad_perceel_zr_adressen as
+select
   CAST(ROWNUM AS INTEGER) AS objectid,
   kp.SC_KAD_IDENTIF,
   kp.BEGRENZING_PERCEEL,
@@ -138,7 +141,7 @@ from v_kad_perceel_eenvoudig kp
 join v_kad_perceel_zak_recht zr on (zr.KADASTER_IDENTIFICATIE = kp.sc_kad_identif);
 
 create or replace view v_kad_perceel_app_rechten as
-select 
+select
  kpe.SC_KAD_IDENTIF as perceel_identificatie,
 -- kpe.KA_SECTIE || ' ' || kpe.KA_PERCEELNUMMER as perceelnr,
  kpe.aanduiding,
@@ -147,20 +150,24 @@ select
 -- zr.kadaster_identif as links_zak_recht,
  zr.FK_3AVR_AAND as complex_zak_recht_aard_aand,
 -- zr.FK2_PERSOON as links_zak_recht_persoon,
-
 --    case when np1.PK_PERSOON is not null then 'Natuurlijk persoon' else 'Niet natuurlijk persoon' end as l_soort_eigenaar,
-    case when np1.sc_identif is not null then np1.NM_GESLACHTSNAAM || ', ' || np1.NM_VOORNAMEN || ' ' || np1.NM_VOORVOEGSEL_GESLACHTSNAAM else nnp1.NAAM end as perceel_zak_recht_naam,
+    CASE
+      WHEN np1.sc_identif IS NOT NULL
+      THEN np1.NM_GESLACHTSNAAM || ', ' || np1.NM_VOORNAMEN || ' ' || np1.NM_VOORVOEGSEL_GESLACHTSNAAM
+      ELSE nnp1.NAAM
+    END AS perceel_zak_recht_naam,
 --    nnp1.NAAM as l_nnp,
-    
--- bd1.identificatie as brondocument, 
+-- bd1.identificatie as brondocument,
 -- zr2.kadaster_identif as rechts_zak_recht,
  zr2.FK_3AVR_AAND as app_re_zak_recht_aard_aand,
 -- zr2.FK2_PERSOON as rechts_zak_recht_persoon,
-
 --    case when np2.PK_PERSOON is not null then 'Natuurlijk persoon' else 'Niet natuurlijk persoon' end as r_soort_eigenaar,
-    case when np2.sc_identif is not null then np2.NM_GESLACHTSNAAM || ', ' || np2.NM_VOORNAMEN || ' ' || np2.NM_VOORVOEGSEL_GESLACHTSNAAM else nnp2.NAAM end as app_re_zak_recht_naam,
+    CASE
+      WHEN np2.sc_identif IS NOT NULL
+      THEN np2.NM_GESLACHTSNAAM || ', ' || np2.NM_VOORNAMEN || ' ' || np2.NM_VOORVOEGSEL_GESLACHTSNAAM
+      ELSE nnp2.NAAM
+    END AS app_re_zak_recht_naam,
 --    nnp2.NAAM as r_nnp,
-
 ar.SC_KAD_IDENTIF as app_re_identificatie,
  to_number(ar.KA_APPARTEMENTSINDEX) as appartementsindex --,
 -- ar.FK1_NIET_NAT_PERSOON as app_re_vve,
@@ -169,22 +176,17 @@ ar.SC_KAD_IDENTIF as app_re_identificatie,
 -- ar_vve_innp.rsin as app_re_vve_rsin
 from v_kad_perceel_eenvoudig kpe
 join zak_recht zr on (zr.FK_7KOZ_KAD_IDENTIF = kpe.SC_KAD_IDENTIF)
-
   left join nat_prs np1 on (np1.SC_IDENTIF = zr.FK_8PES_SC_IDENTIF)
   left join ingeschr_nat_prs inp1 on (inp1.SC_IDENTIF = np1.SC_IDENTIF)
   left join niet_nat_prs nnp1 on (nnp1.sc_identif = zr.FK_8PES_SC_IDENTIF)
   left join ingeschr_niet_nat_prs innp1 on (innp1.sc_identif = nnp1.sc_identif)
-
 join brondocument bd1 on (bd1.tabel = 'ZAK_RECHT' and bd1.tabel_identificatie = zr.kadaster_identif)
 join brondocument bd2 on (bd2.tabel = 'ZAK_RECHT' and bd2.tabel_identificatie <> zr.kadaster_identif and bd2.identificatie = bd1.identificatie)
 join zak_recht zr2 on (zr2.kadaster_identif = bd2.tabel_identificatie)
-
-
   left join nat_prs np2 on (np2.SC_IDENTIF = zr2.FK_8PES_SC_IDENTIF)
   left join ingeschr_nat_prs inp2 on (inp2.SC_IDENTIF = np2.SC_IDENTIF)
   left join niet_nat_prs nnp2 on (nnp2.sc_identif = zr2.FK_8PES_SC_IDENTIF)
   left join ingeschr_niet_nat_prs innp2 on (innp2.sc_identif = nnp2.sc_identif)
-
 join app_re ar on (ar.SC_KAD_IDENTIF = zr2.FK_7KOZ_KAD_IDENTIF)
 join niet_nat_prs ar_vve_nnp on (ar_vve_nnp.sc_identif = ar.FK_2NNP_SC_IDENTIF)
 join INGESCHR_NIET_NAT_PRS ar_vve_innp on (ar_vve_innp.sc_identif = ar_vve_nnp.sc_identif)

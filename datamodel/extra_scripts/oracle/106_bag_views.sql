@@ -1,20 +1,6 @@
-/*
-Views for visualizing the bag data.
-*/
--- DROP VIEWS
--- DROP VIEW V_ADRES_TOTAAL;
--- DROP VIEW V_ADRES_STANDPLAATS;
--- DROP VIEW V_ADRES_LIGPLAATS;
--- DROP VIEW V_ADRES;
--- DROP VIEW V_LIGPLAATS;
--- DROP VIEW V_STANDPLAATS;
--- DROP VIEW V_LIGPLAATS_ALLES;
--- DROP VIEW V_STANDPLAATS_ALLES;
--- DROP VIEW V_PAND_GEBRUIK_NIET_INGEMETEN;
--- DROP VIEW V_PAND_IN_GEBRUIK;
--- DROP VIEW V_VERBLIJFSOBJECT;
--- DROP VIEW V_VERBLIJFSOBJECT_GEVORMD;
--- DROP VIEW V_VERBLIJFSOBJECT_ALLES;
+--
+-- Views for visualizing the bag data.
+--
 
 -------------------------------------------------
 -- V_VERBLIJFSOBJECT_ALLES
@@ -45,7 +31,7 @@ SELECT
          WHEN ADDROBJ.FK_6WPL_IDENTIF IS NOT NULL
          -- opzoeken want in andere woonplaats
          THEN  (SELECT NAAM FROM WNPLTS WHERE IDENTIF = FK_6WPL_IDENTIF)
-         ELSE WP.NAAM           
+         ELSE WP.NAAM
     END                         AS WOONPLAATS,
     GEOR.NAAM_OPENB_RMTE        AS STRAATNAAM,
     ADDROBJ.HUINUMMER           AS HUISNUMMER,
@@ -290,11 +276,8 @@ ON
     (
         LP.SC_IDENTIF = BT.SC_IDENTIF) ;
 -------------------------------------------------
--- V_LIGPLAATS_ALLES
+-- V_LIGPLAATS_ALLES, LIGPLAATS MET HOOFDADRES
 -------------------------------------------------
-/*
-LIGPLAATS MET HOOFDADRES
-*/		
 CREATE OR REPLACE VIEW
     V_LIGPLAATS_ALLES
     (
@@ -318,7 +301,7 @@ SELECT
          WHEN ADDROBJ.FK_6WPL_IDENTIF IS NOT NULL
          -- opzoeken want in andere woonplaats
          THEN  (SELECT NAAM FROM WNPLTS WHERE IDENTIF = FK_6WPL_IDENTIF)
-         ELSE WP.NAAM           
+         ELSE WP.NAAM
     END                     AS WOONPLAATS,
     GEOR.NAAM_OPENB_RMTE    AS STRAATNAAM,
     ADDROBJ.HUINUMMER       AS HUISNUMMER,
@@ -366,13 +349,10 @@ WHERE
         AND (
                 GEM.DATUM_EINDE_GELDH IS NULL))
     AND (
-            BT.DATUM_EINDE_GELDH IS NULL));	
+            BT.DATUM_EINDE_GELDH IS NULL));
 -------------------------------------------------
--- V_STANDPLAATS_ALLES
+-- V_STANDPLAATS_ALLES, STANDPLAATS MET HOOFDADRES
 -------------------------------------------------
-/*
-STANDPLAATS MET HOOFDADRES
-*/		
 CREATE OR REPLACE VIEW
     V_STANDPLAATS_ALLES
     (
@@ -396,7 +376,7 @@ SELECT
          WHEN ADDROBJ.FK_6WPL_IDENTIF IS NOT NULL
          -- opzoeken want in andere woonplaats
          THEN  (SELECT NAAM FROM WNPLTS WHERE IDENTIF = FK_6WPL_IDENTIF)
-         ELSE WP.NAAM           
+         ELSE WP.NAAM
     END                     AS WOONPLAATS,
     GEOR.NAAM_OPENB_RMTE    AS STRAATNAAM,
     ADDROBJ.HUINUMMER       AS HUISNUMMER,
@@ -444,16 +424,15 @@ WHERE
         AND (
                 GEM.DATUM_EINDE_GELDH IS NULL))
     AND (
-            BT.DATUM_EINDE_GELDH IS NULL));			
+            BT.DATUM_EINDE_GELDH IS NULL));
 -------------------------------------------------
 -- V_ADRES
 -------------------------------------------------
-/*
-VOLLEDIGE ADRESSENLIJST
-STANDPLAATS EN LIGPLAATS VIA BENOEMD_TERREIN, 
-WAARBIJ CENTROIDE VAN POLYGON WORDT GENOMEN
-PLUS VERBLIJFSOBJECT VIA PUNT OBJECT VAN GEBOUWD_OBJ
-*/
+--
+-- VOLLEDIGE ADRESSENLIJST
+-- STANDPLAATS EN LIGPLAATS VIA BENOEMD_TERREIN,
+-- WAARBIJ CENTROIDE VAN POLYGON WORDT GENOMEN
+-- PLUS VERBLIJFSOBJECT VIA PUNT OBJECT VAN GEBOUWD_OBJ
 CREATE OR REPLACE VIEW
     V_ADRES
     (
@@ -478,7 +457,7 @@ SELECT
          WHEN ADDROBJ.FK_6WPL_IDENTIF IS NOT NULL
          -- opzoeken want in andere woonplaats
          THEN  (SELECT NAAM FROM WNPLTS WHERE IDENTIF = FK_6WPL_IDENTIF)
-         ELSE WP.NAAM           
+         ELSE WP.NAAM
     END                     AS WOONPLAATS,
     GEOR.NAAM_OPENB_RMTE    AS STRAATNAAM,
     ADDROBJ.HUINUMMER       AS HUISNUMMER,
@@ -560,7 +539,7 @@ SELECT
          WHEN ADDROBJ.FK_6WPL_IDENTIF IS NOT NULL
          -- opzoeken want in andere woonplaats
          THEN  (SELECT NAAM FROM WNPLTS WHERE IDENTIF = FK_6WPL_IDENTIF)
-         ELSE WP.NAAM           
+         ELSE WP.NAAM
     END                  AS WOONPLAATS,
     GEOR.NAAM_OPENB_RMTE AS STRAATNAAM,
     ADDROBJ.HUINUMMER    AS HUISNUMMER,
@@ -640,7 +619,7 @@ SELECT
          WHEN ADDROBJ.FK_6WPL_IDENTIF IS NOT NULL
          -- opzoeken want in andere woonplaats
          THEN  (SELECT NAAM FROM WNPLTS WHERE IDENTIF = FK_6WPL_IDENTIF)
-         ELSE WP.NAAM           
+         ELSE WP.NAAM
     END                  AS WOONPLAATS,
     GEOR.NAAM_OPENB_RMTE AS STRAATNAAM,
     ADDROBJ.HUINUMMER    AS HUISNUMMER,
@@ -724,7 +703,7 @@ CREATE OR REPLACE VIEW
             HUISNUMMER_TOEV,
             POSTCODE,
             GEMEENTE,
-        		WOONPLAATS,
+            WOONPLAATS,
             THE_GEOM
         FROM
             V_ADRES
@@ -737,7 +716,7 @@ CREATE OR REPLACE VIEW
             HUISNUMMER_TOEV,
             POSTCODE,
             GEMEENTE,
-        		WOONPLAATS,
+            WOONPLAATS,
             CENTROIDE AS THE_GEOM
         FROM
             V_ADRES_LIGPLAATS
@@ -750,13 +729,13 @@ CREATE OR REPLACE VIEW
             HUISNUMMER_TOEV,
             POSTCODE,
             GEMEENTE,
-        		WOONPLAATS,
+            WOONPLAATS,
             CENTROIDE AS THE_GEOM
         FROM
             V_ADRES_STANDPLAATS
     ) QRY;
-    
-    
+
+
 -------------------------------------------------
 -- v_adres_pandvlak: adressen met (maaiveld) pandvlak
 -------------------------------------------------
@@ -785,7 +764,7 @@ SELECT
         WHEN addrobj.fk_6wpl_identif IS NOT NULL
         -- opzoeken want in andere woonplaats
         THEN  (select naam from wnplts where identif = fk_6wpl_identif)
-        ELSE wp.naam           
+        ELSE wp.naam
     END                  AS woonplaats,
     geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
@@ -793,28 +772,26 @@ SELECT
     addrobj.huinummertoevoeging AS huisnummer_toev,
     addrobj.postcode,
     vbo.status,
-    pand.geom_bovenaanzicht AS the_geom
+    pnd.geom_bovenaanzicht AS the_geom
 FROM (
     verblijfsobj vbo
 JOIN
     verblijfsobj_pand fkpand
 ON
     (fkpand.fk_nn_lh_vbo_sc_identif = vbo.sc_identif)
-JOIN 
-    pand 
-ON 
-    (fkpand.fk_nn_rh_pnd_identif = pand.identif) 
-)    
+JOIN
+    pand pnd
+ON
+    (fkpand.fk_nn_rh_pnd_identif = pnd.identif)
+)
 LEFT JOIN
     verblijfsobj_nummeraand vna
 ON
     (vna.fk_nn_lh_vbo_sc_identif = vbo.sc_identif)
-
 LEFT JOIN
     nummeraand na
 ON
     (na.sc_identif = vbo.fk_11nra_sc_identif)
-
 LEFT JOIN
     addresseerb_obj_aand addrobj
 ON
@@ -823,17 +800,14 @@ JOIN
     gem_openb_rmte geor
 ON
     ( geor.identifcode = addrobj.fk_7opr_identifcode )
-    
 LEFT JOIN
     openb_rmte_wnplts orwp
 ON
     ( geor.identifcode = orwp.fk_nn_lh_opr_identifcode)
-
 LEFT JOIN
     wnplts wp
 ON
     ( orwp.fk_nn_rh_wpl_identif = wp.identif)
-
 LEFT JOIN
     gemeente gem
 ON
@@ -844,10 +818,10 @@ AND ( vbo.status = 'Verblijfsobject in gebruik (niet ingemeten)'
     OR  vbo.status = 'Verblijfsobject in gebruik');
 
 -------------------------------------------------
--- v_adres_totaal_vlak: adressen met maaiveld vlak van pand 
+-- v_adres_totaal_vlak: adressen met maaiveld vlak van pand
 --   of openbare ruimte in geval stand of ligplaats
 -------------------------------------------------
-CREATE OR REPLACE VIEW 
+CREATE OR REPLACE VIEW
     v_adres_totaal_vlak
     (
         objectid,
@@ -861,7 +835,7 @@ CREATE OR REPLACE VIEW
         woonplaats,
         the_geom
     ) AS
-SELECT 
+SELECT
     CAST(ROWNUM AS INTEGER) AS OBJECTID,
     qry.*
     FROM (

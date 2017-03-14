@@ -1,3 +1,4 @@
+SET AUTOCOMMIT 100;
 INSERT INTO gemeente (code, naam) VALUES (1930, 'Nissewaard');
 INSERT INTO gemeente (code, naam) VALUES (1931, 'Krimpenerwaard');
 INSERT INTO gemeente (code, naam) VALUES (55, 'Boarnsterhim');

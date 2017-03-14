@@ -1,6 +1,5 @@
 -- opruimen schema
 DELETE from user_sdo_geom_metadata;
-
 BEGIN
    FOR cur_rec IN (SELECT object_name, object_type
                      FROM user_objects
@@ -42,8 +41,6 @@ BEGIN
    END LOOP;
 END;
 /
-
 COMMIT;
-
 PURGE RECYCLEBIN;
 COMMIT;
