@@ -20,7 +20,7 @@ public interface ProcesExecutable extends Runnable {
         // klassen uit nl.b3p.brmo.persistence.staging package
         BAGScannerProces, BRKScannerProces, MailRapportageProces, GDS2OphaalProces, BerichtTransformatieProces,
         BerichtDoorstuurProces, WebMirrorBAGScannerProces, BGTLightScannerProces, BGTLightOphaalProces, LaadprocesTransformatieProces,
-        MaterializedViewRefresh;
+        MaterializedViewRefresh, BerichtstatusRapportProces;
     }
 
     /**
