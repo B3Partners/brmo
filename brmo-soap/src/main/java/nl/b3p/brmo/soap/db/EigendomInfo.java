@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -25,7 +23,6 @@ import nl.b3p.brmo.soap.eigendom.EigendomMutatie;
 import nl.b3p.brmo.soap.eigendom.EigendomMutatieException;
 import nl.b3p.brmo.soap.eigendom.EigendomMutatieRequest;
 import nl.b3p.brmo.soap.eigendom.EigendomMutatieResponse;
-import nl.b3p.brmo.soap.eigendom.EigendomMutatieService;
 import nl.b3p.brmo.soap.eigendom.HistorischeRelatie;
 import nl.b3p.brmo.soap.eigendom.HistorischeRelaties;
 import nl.b3p.brmo.soap.eigendom.MutatieEntry;
@@ -44,7 +41,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class EigendomInfo {
 
-    private static final Log log = LogFactory.getLog(EigendomInfo.class);
+    private static final Log LOG = LogFactory.getLog(EigendomInfo.class);
 
     private static final String JNDI_NAME = "java:comp/env";
     private static final String JDBC_NAME_RSGB = "jdbc/brmo/rsgb";
@@ -86,7 +83,7 @@ public class EigendomInfo {
                 eir.getEigendomMutatie().add(e);
             }
         } catch (Exception ex) {
-            Logger.getLogger(EigendomInfo.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("EigendomMutatie opzoeken is mislukt.", ex);
         }
 
 //        EigendomMutatie em = EigendomMutatie.createDummy();
@@ -94,12 +91,10 @@ public class EigendomInfo {
         try {
             GregorianCalendar gregorianCalendar = new GregorianCalendar();
             DatatypeFactory datatypeFactory = DatatypeFactory.newInstance();
-            XMLGregorianCalendar now
-                    = datatypeFactory.newXMLGregorianCalendar(gregorianCalendar);
+            XMLGregorianCalendar now = datatypeFactory.newXMLGregorianCalendar(gregorianCalendar);
             eir.setTimestamp(now);
-
         } catch (DatatypeConfigurationException ex) {
-            Logger.getLogger(EigendomMutatieService.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("Datatype configuratie fout tijdens instellen datum.", ex);
         }
 
         return eir;
@@ -123,7 +118,7 @@ public class EigendomInfo {
                 mlr.getMutatieEntry().add(e);
             }
         } catch (Exception ex) {
-            Logger.getLogger(EigendomInfo.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("MutatieEntry opzoeken is mislukt.", ex);
         }
 
         XMLGregorianCalendar now = null;
@@ -132,9 +127,8 @@ public class EigendomInfo {
             DatatypeFactory datatypeFactory = DatatypeFactory.newInstance();
             now = datatypeFactory.newXMLGregorianCalendar(gregorianCalendar);
             mlr.setTimestamp(now);
-
         } catch (DatatypeConfigurationException ex) {
-            Logger.getLogger(EigendomInfo.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("Datatype configuratie fout tijdens instellen datum.", ex);
         }
 
         return mlr;
@@ -843,7 +837,7 @@ public class EigendomInfo {
                 try {
                     i = Long.parseLong(id);
                 } catch (NumberFormatException nfe) {
-                    log.error("Identificatie is geen nummer. ", nfe);
+                    LOG.error("Identificatie is geen nummer. ", nfe);
                 }
                 searchContext.put(IDENTIFICATIE, i);
             }
@@ -920,7 +914,7 @@ public class EigendomInfo {
             Context xmlContext = (Context) ic.lookup(JNDI_NAME);
             rsgbDs = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB);
         } catch (Exception ex) {
-            log.error("Fout verbinden naar rsgb db. ", ex);
+            LOG.error("Fout verbinden naar rsgb db. ", ex);
             throw ex;
         }
 
@@ -936,7 +930,7 @@ public class EigendomInfo {
             Context xmlContext = (Context) ic.lookup(JNDI_NAME);
             stagingDs = (DataSource) xmlContext.lookup(JDBC_NAME_STAGING);
         } catch (Exception ex) {
-            log.error("Fout verbinden naar rsgb db. ", ex);
+            LOG.error("Fout verbinden naar rsgb db. ", ex);
             throw ex;
         }
 
