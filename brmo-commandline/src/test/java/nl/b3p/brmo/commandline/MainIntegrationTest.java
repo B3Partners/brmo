@@ -24,7 +24,11 @@ import java.util.Collection;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
+import org.dbunit.database.DatabaseConfig;
+import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DatabaseDataSourceConnection;
+import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 
 /**
  * run met:
@@ -69,7 +73,14 @@ public class MainIntegrationTest {
         dsStaging.setUsername(params.getProperty("staging.user"));
         dsStaging.setPassword(params.getProperty("staging.password"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
-        CleanUtil.cleanSTAGING(new DatabaseDataSourceConnection(dsStaging));
+
+        IDatabaseConnection staging = new DatabaseDataSourceConnection(dsStaging);
+        if (params.getProperty("dbtype").equalsIgnoreCase("oracle")) {
+            staging = new DatabaseConnection(dsStaging.getConnection().unwrap(oracle.jdbc.OracleConnection.class), params.getProperty("staging.user").toUpperCase());
+            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
+            staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+        }
+        CleanUtil.cleanSTAGING(staging);
         // omdat de insert van het bag object mislukt vanwege referentie check hoeft er niet opgeruimd in rsgb
         dsStaging.close();
     }
