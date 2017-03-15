@@ -21,53 +21,60 @@
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.io.File;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> java.nio.file.Files;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.io.FileUtils;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNotNull;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertTrue;
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * @author mprins</em>
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/service/proxy/BerichtEndpointFileServletTest.html">BerichtEndpointFileServletTest</a> {
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">private</strong> String SAVE_DIR = <span class="jxr_string">"/brk"</span>;
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>      <strong class="jxr_keyword">private</strong> ServletUnitClient client;
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>      <strong class="jxr_keyword">private</strong> ServletRunner sr;
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>      @Before
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setUp() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>          sr = <strong class="jxr_keyword">new</strong> ServletRunner(BerichtEndpointFileServletTest.<strong class="jxr_keyword">class</strong>.getResourceAsStream(<span class="jxr_string">"/web.xml"</span>));
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>          sr.registerServlet(<span class="jxr_string">"BRK_file"</span>, BerichtEndpointFileServlet.<strong class="jxr_keyword">class</strong>.getName());
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>          client = sr.newClient();
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>          SAVE_DIR = System.getProperty(<span class="jxr_string">"java.io.tmpdir"</span>, <span class="jxr_string">"/tmp"</span>) + SAVE_DIR;
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>      }
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>      @After
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> tearDown() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>          sr.shutDown();
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>          FileUtils.cleanDirectory(<strong class="jxr_keyword">new</strong> File(SAVE_DIR));
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> java.security.SecureRandom;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> java.math.BigInteger;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> java.util.Hashtable;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.io.FileUtils;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNotNull;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertTrue;
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> * @author mprins</em>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/service/proxy/BerichtEndpointFileServletTest.html">BerichtEndpointFileServletTest</a> {
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">private</strong> String saveDir = <span class="jxr_string">"/bericht-post-test-"</span>;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">private</strong> ServletUnitClient client;
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">private</strong> ServletRunner sr;
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>      @Before
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setUp() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>          saveDir = System.getProperty(<span class="jxr_string">"java.io.tmpdir"</span>, <span class="jxr_string">"/tmp"</span>) + saveDir + <strong class="jxr_keyword">new</strong> BigInteger(130, <strong class="jxr_keyword">new</strong> SecureRandom()).toString(32);
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>          <em class="jxr_comment">// sr = new ServletRunner(BerichtEndpointFileServletTest.class.getResourceAsStream("/web.xml"));</em>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>          sr = <strong class="jxr_keyword">new</strong> ServletRunner();
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>          Hashtable&lt;String, String&gt; servletParams = <strong class="jxr_keyword">new</strong> Hashtable();
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>          servletParams.put(<span class="jxr_string">"save_dir"</span>, saveDir);
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>          sr.registerServlet(<span class="jxr_string">"/post/brk"</span>, BerichtEndpointFileServlet.<strong class="jxr_keyword">class</strong>.getName(), servletParams);
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>          client = sr.newClient();
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>      }
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>      @Test
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testPostBRK() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>          WebRequest p = <strong class="jxr_keyword">new</strong> PostMethodWebRequest(<span class="jxr_string">"http://localhost:8080/post/brk"</span>, BerichtEndpointFileServletTest.<strong class="jxr_keyword">class</strong>.getResourceAsStream(<span class="jxr_string">"/web.xml"</span>), <span class="jxr_string">"text/xml"</span>);
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>          WebResponse response = client.getResponse(p);
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>          assertNotNull(<span class="jxr_string">"No response received"</span>, response);
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>          assertEquals(<span class="jxr_string">"Response not OK"</span>, 200, response.getResponseCode());
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      @After
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> tearDown() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>          sr.shutDown();
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>          FileUtils.cleanDirectory(<strong class="jxr_keyword">new</strong> File(saveDir));
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>          FileUtils.deleteQuietly(<strong class="jxr_keyword">new</strong> File(saveDir));
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      }
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>          <em class="jxr_comment">// servlet scrijft naar SAVE_DIR, /tmp/brk/post-op_&lt;yyyy-MM-dd_HH-mm-ss-SSS&gt;_&lt;randomuniek&gt;.xml</em>
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>          File expected = <strong class="jxr_keyword">new</strong> File(BerichtEndpointFileServletTest.<strong class="jxr_keyword">class</strong>.getResource(<span class="jxr_string">"/web.xml"</span>).getFile());
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>          File actual = Files.newDirectoryStream(<strong class="jxr_keyword">new</strong> File(SAVE_DIR).toPath(), <span class="jxr_string">"*.{xml}"</span>).iterator().next().toFile();
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>  
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>          assertTrue(<span class="jxr_string">"Bestand begint niet met 'post-op"</span>, actual.getName().startsWith(<span class="jxr_string">"post-op"</span>));
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>          assertTrue(<span class="jxr_string">"File inhoud niet gelijk"</span>, FileUtils.contentEquals(
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>                  expected,
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>                  actual
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>          ));
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>      }
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>  }
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      @Test
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testPostBRK() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>          WebRequest p = <strong class="jxr_keyword">new</strong> PostMethodWebRequest(<span class="jxr_string">"http://localhost:8080/post/brk"</span>, BerichtEndpointFileServletTest.<strong class="jxr_keyword">class</strong>.getResourceAsStream(<span class="jxr_string">"/web.xml"</span>), <span class="jxr_string">"text/xml"</span>);
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>          WebResponse response = client.getResponse(p);
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>          assertNotNull(<span class="jxr_string">"No response received"</span>, response);
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>          assertEquals(<span class="jxr_string">"Response not OK"</span>, 200, response.getResponseCode());
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>          <em class="jxr_comment">// servlet scrijft naar saveDir, /tmp/brk/post-op_&lt;yyyy-MM-dd_HH-mm-ss-SSS&gt;_&lt;randomuniek&gt;.xml</em>
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          File expected = <strong class="jxr_keyword">new</strong> File(BerichtEndpointFileServletTest.<strong class="jxr_keyword">class</strong>.getResource(<span class="jxr_string">"/web.xml"</span>).getFile());
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>          File actual = Files.newDirectoryStream(<strong class="jxr_keyword">new</strong> File(saveDir).toPath(), <span class="jxr_string">"*.{xml}"</span>).iterator().next().toFile();
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          assertTrue(<span class="jxr_string">"Bestand begint niet met 'post-op"</span>, actual.getName().startsWith(<span class="jxr_string">"post-op"</span>));
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>          assertTrue(<span class="jxr_string">"File inhoud niet gelijk"</span>, FileUtils.contentEquals(
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>                  expected,
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>                  actual
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>          ));
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      }
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014&#x2013;2017 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
