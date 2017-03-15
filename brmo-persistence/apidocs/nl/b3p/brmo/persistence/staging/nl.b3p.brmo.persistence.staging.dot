@@ -152,8 +152,21 @@ digraph G {
 <tr><td align="left" balign="left"> ARCHIVE </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Bericht.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.MaterializedViewRefresh
+	c8 [label=<<table title="nl.b3p.brmo.persistence.staging.MaterializedViewRefresh" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MaterializedViewRefresh.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> MaterializedViewRefresh </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + MVIEW : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + MaterializedViewRefresh() </td></tr>
+<tr><td align="left" balign="left"> + getMView() : String </td></tr>
+		</table></td></tr>
+		</table>>, URL="./MaterializedViewRefresh.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c8 [label=<<table title="nl.b3p.brmo.persistence.staging.DirectoryScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DirectoryScannerProces.html">
+	c9 [label=<<table title="nl.b3p.brmo.persistence.staging.DirectoryScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DirectoryScannerProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> DirectoryScannerProces </font></td></tr>
 		</table></td></tr>
@@ -169,7 +182,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./DirectoryScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.BRKScannerProces
-	c9 [label=<<table title="nl.b3p.brmo.persistence.staging.BRKScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRKScannerProces.html">
+	c10 [label=<<table title="nl.b3p.brmo.persistence.staging.BRKScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRKScannerProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRKScannerProces </td></tr>
 		</table></td></tr>
@@ -181,7 +194,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BRKScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.AutomatischProces
-	c10 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
+	c11 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AutomatischProces </font></td></tr>
 		</table></td></tr>
@@ -209,14 +222,14 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AutomatischProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// Note annotation
-	n0cc10 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
+	n0cc11 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> Tabel "automatisch_proces" in de database. </td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0, shape=note];
-	n0cc10 -> c10:p[arrowhead=none];
+	n0cc11 -> c11:p[arrowhead=none];
 	// nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
-	c11 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.ProcessingStatus.html">
+	c12 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.ProcessingStatus.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> ProcessingStatus </td></tr>
@@ -232,7 +245,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AutomatischProces.ProcessingStatus.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.ClobElement
-	c12 [label=<<table title="nl.b3p.brmo.persistence.staging.ClobElement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ClobElement.html">
+	c13 [label=<<table title="nl.b3p.brmo.persistence.staging.ClobElement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ClobElement.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ClobElement </td></tr>
 		</table></td></tr>
@@ -252,7 +265,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ClobElement.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.MailRapportageProces
-	c13 [label=<<table title="nl.b3p.brmo.persistence.staging.MailRapportageProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MailRapportageProces.html">
+	c14 [label=<<table title="nl.b3p.brmo.persistence.staging.MailRapportageProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MailRapportageProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MailRapportageProces </td></tr>
 		</table></td></tr>
@@ -272,8 +285,20 @@ digraph G {
 <tr><td align="left" balign="left"> + getForStatus() : AutomatischProces.ProcessingStatus </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MailRapportageProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces
+	c15 [label=<<table title="nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtstatusRapportProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BerichtstatusRapportProces </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BerichtstatusRapportProces() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BerichtstatusRapportProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.LaadProces
-	c14 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProces.html">
+	c16 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LaadProces </td></tr>
 		</table></td></tr>
@@ -306,7 +331,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./LaadProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.LaadProces.STATUS
-	c15 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadProces.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProces.STATUS.html">
+	c17 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadProces.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProces.STATUS.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> STATUS </td></tr>
@@ -325,7 +350,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./LaadProces.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.GDS2OphaalProces
-	c16 [label=<<table title="nl.b3p.brmo.persistence.staging.GDS2OphaalProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GDS2OphaalProces.html">
+	c18 [label=<<table title="nl.b3p.brmo.persistence.staging.GDS2OphaalProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GDS2OphaalProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GDS2OphaalProces </td></tr>
 		</table></td></tr>
@@ -337,7 +362,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./GDS2OphaalProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.BGTLightScannerProces
-	c17 [label=<<table title="nl.b3p.brmo.persistence.staging.BGTLightScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightScannerProces.html">
+	c19 [label=<<table title="nl.b3p.brmo.persistence.staging.BGTLightScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightScannerProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTLightScannerProces </td></tr>
 		</table></td></tr>
@@ -349,7 +374,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTLightScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces
-	c18 [label=<<table title="nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtDoorstuurProces.html">
+	c20 [label=<<table title="nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtDoorstuurProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BerichtDoorstuurProces </td></tr>
 		</table></td></tr>
@@ -361,36 +386,40 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BerichtDoorstuurProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.persistence.staging.BAGScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c8:p -> c0:p [dir=back,arrowtail=empty];
+	c9:p -> c0:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c10:p -> c1:p [dir=back,arrowtail=empty];
+	c11:p -> c1:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.BerichtTransformatieProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c10:p -> c3:p [dir=back,arrowtail=empty];
+	c11:p -> c3:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c8:p -> c4:p [dir=back,arrowtail=empty];
+	c9:p -> c4:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.BGTLightOphaalProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c10:p -> c5:p [dir=back,arrowtail=empty];
+	c11:p -> c5:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.persistence.staging.MaterializedViewRefresh extends nl.b3p.brmo.persistence.staging.AutomatischProces
+	c11:p -> c8:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.DirectoryScannerProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c10:p -> c8:p [dir=back,arrowtail=empty];
+	c11:p -> c9:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.BRKScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c8:p -> c9:p [dir=back,arrowtail=empty];
+	c9:p -> c10:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.MailRapportageProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c10:p -> c13:p [dir=back,arrowtail=empty];
+	c11:p -> c14:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
+	c11:p -> c15:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.GDS2OphaalProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c10:p -> c16:p [dir=back,arrowtail=empty];
+	c11:p -> c18:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.BGTLightScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c8:p -> c17:p [dir=back,arrowtail=empty];
+	c9:p -> c19:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c10:p -> c18:p [dir=back,arrowtail=empty];
+	c11:p -> c20:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.persistence.staging.Bericht NAVASSOC nl.b3p.brmo.persistence.staging.LaadProces
-	c6:p -> c14:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c6:p -> c16:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.persistence.staging.Bericht NAVASSOC nl.b3p.brmo.persistence.staging.Bericht.STATUS
 	c6:p -> c7:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.persistence.staging.AutomatischProces NAVASSOC nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
-	c10:p -> c11:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c11:p -> c12:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.persistence.staging.LaadProces NAVASSOC nl.b3p.brmo.persistence.staging.LaadProces.STATUS
-	c14:p -> c15:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c16:p -> c17:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.persistence.staging.LaadProces NAVASSOC nl.b3p.brmo.persistence.staging.AutomatischProces
-	c14:p -> c10:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c16:p -> c11:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 
