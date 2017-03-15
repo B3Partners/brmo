@@ -612,7 +612,7 @@
 <a class="jxr_linenumber" name="L604" href="#L604">604</a>                             <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken())
 <a class="jxr_linenumber" name="L605" href="#L605">605</a>                                     .update(conn, <span class="jxr_string">"update "</span> + BrmoFramework.BERICHT_TABLE 
 <a class="jxr_linenumber" name="L606" href="#L606">606</a>                                             + <span class="jxr_string">" set status_datum = ?, status = ?, opmerking = ?, br_xml = ?, br_orgineel_xml = ? where id = ?"</span>,
-<a class="jxr_linenumber" name="L607" href="#L607">607</a>                                             <strong class="jxr_keyword">new</strong> Timestamp(bericht.getDatum().getTime()), bericht.getStatus().toString(), bericht.getOpmerking(), 
+<a class="jxr_linenumber" name="L607" href="#L607">607</a>                                             <strong class="jxr_keyword">new</strong> Timestamp(bericht.getStatusDatum().getTime()), bericht.getStatus().toString(), bericht.getOpmerking(),
 <a class="jxr_linenumber" name="L608" href="#L608">608</a>                                             bericht.getBrXml(), bericht.getBrOrgineelXml(), bericht.getId());
 <a class="jxr_linenumber" name="L609" href="#L609">609</a>                                  
 <a class="jxr_linenumber" name="L610" href="#L610">610</a>                         } <strong class="jxr_keyword">catch</strong> (Exception e) {
@@ -641,9 +641,9 @@
 <a class="jxr_linenumber" name="L633" href="#L633">633</a>         <strong class="jxr_keyword">final</strong> Connection conn = dataSourceStaging.getConnection();
 <a class="jxr_linenumber" name="L634" href="#L634">634</a>         <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
 <a class="jxr_linenumber" name="L635" href="#L635">635</a>         
-<a class="jxr_linenumber" name="L636" href="#L636">636</a>         String countsql = <span class="jxr_string">"select count(*) from "</span> + BrmoFramework.BERICHT_TABLE 
-<a class="jxr_linenumber" name="L637" href="#L637">637</a>                     + <span class="jxr_string">" where soort='"</span> + soort + <span class="jxr_string">"' "</span>
-<a class="jxr_linenumber" name="L638" href="#L638">638</a>                     + <span class="jxr_string">" and status='"</span> + config + <span class="jxr_string">"'"</span>;
+<a class="jxr_linenumber" name="L636" href="#L636">636</a>         String countsql = <span class="jxr_string">"select count(*) from "</span> + BrmoFramework.BERICHT_TABLE
+<a class="jxr_linenumber" name="L637" href="#L637">637</a>                 + <span class="jxr_string">" WHERE soort='"</span> + soort + <span class="jxr_string">"' "</span>
+<a class="jxr_linenumber" name="L638" href="#L638">638</a>                 + <span class="jxr_string">" AND status='"</span> + config + <span class="jxr_string">"'"</span>;
 <a class="jxr_linenumber" name="L639" href="#L639">639</a>         Object o = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn,
 <a class="jxr_linenumber" name="L640" href="#L640">640</a>                 countsql, <strong class="jxr_keyword">new</strong> ScalarHandler());
 <a class="jxr_linenumber" name="L641" href="#L641">641</a>         <strong class="jxr_keyword">if</strong> (o instanceof BigDecimal) {
@@ -657,7 +657,7 @@
 <a class="jxr_linenumber" name="L649" href="#L649">649</a>         
 <a class="jxr_linenumber" name="L650" href="#L650">650</a>         o = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).update(conn, <span class="jxr_string">"DELETE FROM "</span> + BrmoFramework.BERICHT_TABLE
 <a class="jxr_linenumber" name="L651" href="#L651">651</a>                 + <span class="jxr_string">" WHERE soort='"</span> + soort + <span class="jxr_string">"' "</span>
-<a class="jxr_linenumber" name="L652" href="#L652">652</a>                 + <span class="jxr_string">" and status='"</span> + config + <span class="jxr_string">"'"</span>);
+<a class="jxr_linenumber" name="L652" href="#L652">652</a>                 + <span class="jxr_string">" AND status='"</span> + config + <span class="jxr_string">"'"</span>);
 <a class="jxr_linenumber" name="L653" href="#L653">653</a>         
 <a class="jxr_linenumber" name="L654" href="#L654">654</a>         <strong class="jxr_keyword">if</strong> (o instanceof BigDecimal) {
 <a class="jxr_linenumber" name="L655" href="#L655">655</a>             progress(((BigDecimal) o).longValue());
