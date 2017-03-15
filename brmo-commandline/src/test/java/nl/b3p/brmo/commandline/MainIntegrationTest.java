@@ -71,6 +71,7 @@ public class MainIntegrationTest {
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
         CleanUtil.cleanSTAGING(new DatabaseDataSourceConnection(dsStaging));
         // omdat de insert van het bag object mislukt vanwege referentie check hoeft er niet opgeruimd in rsgb
+        dsStaging.close();
     }
 
     /**

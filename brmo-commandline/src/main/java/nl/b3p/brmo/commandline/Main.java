@@ -17,6 +17,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -169,6 +171,10 @@ public class Main {
         }
 
         int exitcode = 0;
+        BasicDataSource dsStaging = null;
+        BasicDataSource dsRsgb = null;
+        BasicDataSource dsRsgbbgt = null;
+
         try {
             dbProps.load(new FileInputStream(cl.getOptionValue("dbprops")));
             switch (dbProps.getProperty("dbtype")) {
@@ -185,10 +191,7 @@ public class Main {
                     throw new IllegalArgumentException("Het database type " + dbProps.getProperty("dbtype") + " wordt niet ondersteund of is niet opgegeven.");
             }
 
-            BasicDataSource dsStaging = new BasicDataSource();
-            BasicDataSource dsRsgb = null;
-            BasicDataSource dsRsgbbgt = null;
-
+            dsStaging = new BasicDataSource();
             LOG.info("Verbinding maken met Staging database... ");
             dsStaging.setUrl(dbProps.getProperty("staging.url"));
             dsStaging.setUsername(dbProps.getProperty("staging.user"));
@@ -248,7 +251,6 @@ public class Main {
             else if (cl.hasOption("versieinfo")) {
                 exitcode = versieInfo(dsStaging, dsRsgb, dsRsgbbgt, cl.getOptionValue("versieinfo", "text"));
             }
-
         } catch (BrmoException | InterruptedException ex) {
             LOG.error("Fout tijdens uitvoeren met argumenten: " + Arrays.toString(args), ex);
             System.err.println(ex.getLocalizedMessage());
@@ -261,6 +263,19 @@ public class Main {
             LOG.error("Het laden van het configuratie bestand is mislukt.", ex);
             System.err.println(ex.getLocalizedMessage());
             exitcode = EX_NOINPUT.code;
+        }
+        try {
+            if (dsStaging != null) {
+                dsStaging.close();
+            }
+            if (dsRsgb != null) {
+                dsRsgb.close();
+            }
+            if (dsRsgbbgt != null) {
+                dsRsgbbgt.close();
+            }
+        } catch (SQLException ex) {
+            LOG.debug("Mogelijke fout tijdens afsluiten database verbindingen.", ex);
         }
 
         System.exit(exitcode);
