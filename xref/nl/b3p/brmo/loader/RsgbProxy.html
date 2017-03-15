@@ -1088,7 +1088,7 @@
 <a class="jxr_linenumber" name="L1080" href="#L1080">1080</a>         loadLog.append(<span class="jxr_string">", params ("</span>);
 <a class="jxr_linenumber" name="L1081" href="#L1081">1081</a>         loadLog.append(params.toString());
 <a class="jxr_linenumber" name="L1082" href="#L1082">1082</a>         loadLog.append(<span class="jxr_string">")"</span>);
-<a class="jxr_linenumber" name="L1083" href="#L1083">1083</a>         log.debug(<span class="jxr_string">"insert SQL: "</span> + sql + <span class="jxr_string">", params: "</span> + params);
+<a class="jxr_linenumber" name="L1083" href="#L1083">1083</a>         log.trace(<span class="jxr_string">"insert SQL: "</span> + sql + <span class="jxr_string">", params: "</span> + params);
 <a class="jxr_linenumber" name="L1084" href="#L1084">1084</a> 
 <a class="jxr_linenumber" name="L1085" href="#L1085">1085</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; params.size(); i++) {
 <a class="jxr_linenumber" name="L1086" href="#L1086">1086</a>             Object param = params.get(i);
@@ -1579,12 +1579,12 @@
 <a class="jxr_linenumber" name="L1571" href="#L1571">1571</a>             <strong class="jxr_keyword">if</strong> (row.isIgnoreDuplicates()) {
 <a class="jxr_linenumber" name="L1572" href="#L1572">1572</a>                 <strong class="jxr_keyword">if</strong> (recentSavepoint == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L1573" href="#L1573">1573</a>                     recentSavepoint = connRsgb.setSavepoint();
-<a class="jxr_linenumber" name="L1574" href="#L1574">1574</a>                     log.debug(<span class="jxr_string">"Created savepoint with id: "</span> + recentSavepoint.getSavepointId());
+<a class="jxr_linenumber" name="L1574" href="#L1574">1574</a>                     log.trace(<span class="jxr_string">"Created savepoint with id: "</span> + recentSavepoint.getSavepointId());
 <a class="jxr_linenumber" name="L1575" href="#L1575">1575</a>                 } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L1576" href="#L1576">1576</a>                     log.debug(<span class="jxr_string">"No need for new savepoint, previous insert caused rollback to recent savepoint with id "</span> + recentSavepoint.getSavepointId());
+<a class="jxr_linenumber" name="L1576" href="#L1576">1576</a>                     log.trace(<span class="jxr_string">"No need for new savepoint, previous insert caused rollback to recent savepoint with id "</span> + recentSavepoint.getSavepointId());
 <a class="jxr_linenumber" name="L1577" href="#L1577">1577</a>                 }
 <a class="jxr_linenumber" name="L1578" href="#L1578">1578</a>             } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (recentSavepoint != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L1579" href="#L1579">1579</a>                 log.debug(<span class="jxr_string">"About to insert non-recoverable row, discarding savepoint with id "</span> + recentSavepoint.getSavepointId());
+<a class="jxr_linenumber" name="L1579" href="#L1579">1579</a>                 log.trace(<span class="jxr_string">"About to insert non-recoverable row, discarding savepoint with id "</span> + recentSavepoint.getSavepointId());
 <a class="jxr_linenumber" name="L1580" href="#L1580">1580</a>                 connRsgb.releaseSavepoint(recentSavepoint);
 <a class="jxr_linenumber" name="L1581" href="#L1581">1581</a>                 recentSavepoint = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L1582" href="#L1582">1582</a>             }

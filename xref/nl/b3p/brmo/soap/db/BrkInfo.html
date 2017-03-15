@@ -37,14 +37,14 @@
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/soap/db/BrkInfo.html">BrkInfo</a> {
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log log = LogFactory.getLog(BrkInfo.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(BrkInfo.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String JNDI_NAME = <span class="jxr_string">"java:comp/env"</span>;
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String JDBC_NAME_RSGB = <span class="jxr_string">"jdbc/brmo/rsgb"</span>;
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String DB_POSTGRES = <span class="jxr_string">"postgres"</span>;
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String DB_ORACLE = <span class="jxr_string">"oracle"</span>;
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String DB_MSSQL = <span class="jxr_string">"mssql"</span>;
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String DB_POSTGRES = <span class="jxr_string">"postgres"</span>;
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String DB_ORACLE = <span class="jxr_string">"oracle"</span>;
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String DB_MSSQL = <span class="jxr_string">"mssql"</span>;
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String APPREVOLGNUMMER = <span class="jxr_string">"appReVolgnummer"</span>;
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String WOONPLAATS = <span class="jxr_string">"gemeenteNaam"</span>;
@@ -79,7 +79,7 @@
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>              String dbType = getDbType(connRsgb);
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>              StringBuilder sql = createSelectSQL(searchContext, dbType);
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>  
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>              LOG.trace(sql);
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>              stm = connRsgb.prepareStatement(sql.toString());
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>              stm = addParamsSQL(stm, searchContext, dbType);
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>              rs = stm.executeQuery();
@@ -118,7 +118,7 @@
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>             String dbType = getDbType(connRsgb);
 <a class="jxr_linenumber" name="L111" href="#L111">111</a> 
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>             StringBuilder sql = createCountSQL(searchContext, dbType);
-<a class="jxr_linenumber" name="L113" href="#L113">113</a> 
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>             LOG.trace(sql);
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>             stm = connRsgb.prepareStatement(sql.toString());
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>             stm = addParamsSQL(stm, searchContext, dbType);
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>             rs = stm.executeQuery();
@@ -377,31 +377,31 @@
 <a class="jxr_linenumber" name="L369" href="#L369">369</a>             <strong class="jxr_keyword">case</strong> DB_ORACLE:
 <a class="jxr_linenumber" name="L370" href="#L370">370</a>                 <strong class="jxr_keyword">if</strong> (bl != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L371" href="#L371">371</a>                     condition = <span class="jxr_string">"SDO_GEOM.RELATE(kad_perceel.begrenzing_perceel, 'ANYINTERACT', "</span>
-<a class="jxr_linenumber" name="L372" href="#L372">372</a>                             + <span class="jxr_string">"SDO_GEOM.SDO_BUFFER(SDO_GEOMETRY(SDO_UTIL.TO_WKTGEOMETRY("</span>
+<a class="jxr_linenumber" name="L372" href="#L372">372</a>                             + <span class="jxr_string">"SDO_GEOM.SDO_BUFFER(SDO_GEOMETRY(('"</span>
 <a class="jxr_linenumber" name="L373" href="#L373">373</a>                             + zg
-<a class="jxr_linenumber" name="L374" href="#L374">374</a>                             + <span class="jxr_string">"), 28992), 2, "</span>
+<a class="jxr_linenumber" name="L374" href="#L374">374</a>                             + <span class="jxr_string">"'), 28992), 2, "</span>
 <a class="jxr_linenumber" name="L375" href="#L375">375</a>                             + bl
-<a class="jxr_linenumber" name="L376" href="#L376">376</a>                             + <span class="jxr_string">"), 0.005 ) "</span>;
+<a class="jxr_linenumber" name="L376" href="#L376">376</a>                             + <span class="jxr_string">"), 0.005 )  = 'TRUE' "</span>;
 <a class="jxr_linenumber" name="L377" href="#L377">377</a>                 } <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L378" href="#L378">378</a>                     condition = <span class="jxr_string">"SDO_GEOM.RELATE(kad_perceel.begrenzing_perceel, 'ANYINTERACT', "</span>
-<a class="jxr_linenumber" name="L379" href="#L379">379</a>                             + <span class="jxr_string">"SDO_GEOMETRY(SDO_UTIL.TO_WKTGEOMETRY("</span>
+<a class="jxr_linenumber" name="L379" href="#L379">379</a>                             + <span class="jxr_string">"SDO_GEOMETRY(('"</span>
 <a class="jxr_linenumber" name="L380" href="#L380">380</a>                             + zg
-<a class="jxr_linenumber" name="L381" href="#L381">381</a>                             + <span class="jxr_string">"), 28992), 0.005 ) "</span>;
+<a class="jxr_linenumber" name="L381" href="#L381">381</a>                             + <span class="jxr_string">"'), 28992), 0.005 ) = 'TRUE' "</span>;
 <a class="jxr_linenumber" name="L382" href="#L382">382</a>                 }
 <a class="jxr_linenumber" name="L383" href="#L383">383</a>                 <strong class="jxr_keyword">break</strong>;
 <a class="jxr_linenumber" name="L384" href="#L384">384</a>             <strong class="jxr_keyword">case</strong> DB_MSSQL:
 <a class="jxr_linenumber" name="L385" href="#L385">385</a>                 <strong class="jxr_keyword">if</strong> (bl != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L386" href="#L386">386</a>                     condition = <span class="jxr_string">"kad_perceel.begrenzing_perceel.STIntersects( "</span>
-<a class="jxr_linenumber" name="L387" href="#L387">387</a>                             + <span class="jxr_string">"STGeomFromText("</span>
+<a class="jxr_linenumber" name="L387" href="#L387">387</a>                             + <span class="jxr_string">"STGeomFromText('"</span>
 <a class="jxr_linenumber" name="L388" href="#L388">388</a>                             + zg
-<a class="jxr_linenumber" name="L389" href="#L389">389</a>                             + <span class="jxr_string">",28992).STBuffer("</span>
+<a class="jxr_linenumber" name="L389" href="#L389">389</a>                             + <span class="jxr_string">"',28992).STBuffer("</span>
 <a class="jxr_linenumber" name="L390" href="#L390">390</a>                             + bl
 <a class="jxr_linenumber" name="L391" href="#L391">391</a>                             + <span class="jxr_string">") ) "</span>;
 <a class="jxr_linenumber" name="L392" href="#L392">392</a>                 } <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L393" href="#L393">393</a>                     condition = <span class="jxr_string">"kad_perceel.begrenzing_perceel.STIntersects( "</span>
-<a class="jxr_linenumber" name="L394" href="#L394">394</a>                             + <span class="jxr_string">"STGeomFromText("</span>
+<a class="jxr_linenumber" name="L394" href="#L394">394</a>                             + <span class="jxr_string">"STGeomFromText('"</span>
 <a class="jxr_linenumber" name="L395" href="#L395">395</a>                             + zg
-<a class="jxr_linenumber" name="L396" href="#L396">396</a>                             + <span class="jxr_string">",28992) ) "</span>;
+<a class="jxr_linenumber" name="L396" href="#L396">396</a>                             + <span class="jxr_string">"',28992) ) "</span>;
 <a class="jxr_linenumber" name="L397" href="#L397">397</a>                     <strong class="jxr_keyword">break</strong>;
 <a class="jxr_linenumber" name="L398" href="#L398">398</a>                 }
 <a class="jxr_linenumber" name="L399" href="#L399">399</a>             <strong class="jxr_keyword">default</strong>:
@@ -459,7 +459,7 @@
 <a class="jxr_linenumber" name="L451" href="#L451">451</a>             Context xmlContext = (Context) ic.lookup(JNDI_NAME);
 <a class="jxr_linenumber" name="L452" href="#L452">452</a>             ds = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB);
 <a class="jxr_linenumber" name="L453" href="#L453">453</a>         } <strong class="jxr_keyword">catch</strong> (Exception ex) {
-<a class="jxr_linenumber" name="L454" href="#L454">454</a>             log.error(<span class="jxr_string">"Fout verbinden naar rsgb db. "</span>, ex);
+<a class="jxr_linenumber" name="L454" href="#L454">454</a>             LOG.error(<span class="jxr_string">"Fout verbinden naar rsgb db. "</span>, ex);
 <a class="jxr_linenumber" name="L455" href="#L455">455</a>             <strong class="jxr_keyword">throw</strong> ex;
 <a class="jxr_linenumber" name="L456" href="#L456">456</a>         }
 <a class="jxr_linenumber" name="L457" href="#L457">457</a> 
