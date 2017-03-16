@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo-persistence</artifactId>
-    <version>1.4.4-SNAPSHOT</version>
+    <version>1.4.4</version>
     <packaging>jar</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
-        <version>1.4.4-SNAPSHOT</version>
+        <version>1.4.4</version>
     </parent>
     <name>BRMO persistence</name>
     <description>JPA (staging) artifact voor de BRMO.</description>

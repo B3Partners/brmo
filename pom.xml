@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo</artifactId>
-    <version>1.4.4-SNAPSHOT</version>
+    <version>1.4.4</version>
     <packaging>pom</packaging>
     <modules>
         <module>brmo-test-util</module>
@@ -38,7 +38,7 @@
         <developerConnection>scm:git:git@github.com:B3Partners/brmo.git</developerConnection>
         <connection>scm:git:git@github.com:B3Partners/brmo.git</connection>
         <url>https://github.com/B3Partners/brmo/</url>
-        <tag>HEAD</tag>
+        <tag>v1.4.4</tag>
     </scm>
     <issueManagement>
         <system>Github</system>
