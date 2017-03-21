@@ -7,7 +7,7 @@ CREATE OR REPLACE VIEW v_bd_app_re_app_re AS
     b2.ref_id AS parent_app_re_identif
    FROM brondocument b1
      JOIN brondocument b2 ON b2.identificatie = b1.identificatie
-  WHERE b2.omschrijving = 'betrokkenBij Ondersplitsing' AND b1.omschrijving = 'ontstaanUit Ondersplitsing'
+	WHERE (b2.omschrijving = 'betrokkenBij Ondersplitsing' OR  b2.omschrijving = 'ontstaanUit HoofdSplitsing') AND b1.omschrijving = 'ontstaanUit Ondersplitsing'
   GROUP BY b1.ref_id, b2.ref_id;
 
 
@@ -16,7 +16,7 @@ CREATE OR REPLACE VIEW v_bd_kad_perceel_with_app_re AS
  SELECT DISTINCT b2.ref_id AS perceel_identif
    FROM brondocument b1
      JOIN brondocument b2 ON b2.identificatie = b1.identificatie
-  WHERE b2.omschrijving = 'betrokkenBij HoofdSplitsing' AND b1.omschrijving = 'ontstaanUit HoofdSplitsing';
+  WHERE b2.omschrijving = 'betrokkenBij HoofdSplitsing' AND (b1.omschrijving = 'ontstaanUit HoofdSplitsing' OR b1.omschrijving = 'ontstaanUit Ondersplitsing');
 
 -- view om kaart te maken met percelen die 1 of meerdere appartementen hebben
 CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app AS
@@ -60,7 +60,7 @@ CREATE OR REPLACE VIEW v_bd_app_re_kad_perceel AS
     b2.ref_id AS perceel_identif
    FROM brondocument b1
      JOIN brondocument b2 ON b2.identificatie = b1.identificatie
-  WHERE b2.omschrijving = 'betrokkenBij HoofdSplitsing' AND b1.omschrijving = 'ontstaanUit HoofdSplitsing'
+  WHERE b2.omschrijving = 'betrokkenBij HoofdSplitsing' AND (b1.omschrijving = 'ontstaanUit HoofdSplitsing' OR b1.omschrijving = 'ontstaanUit Ondersplitsing')
   GROUP BY b1.ref_id, b2.ref_id;
 
 CREATE OR REPLACE VIEW v_bd_app_re_2_kad_perceel AS
