@@ -439,14 +439,14 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         }
     }
 
-    private String getLaadprocesBestansanaam(AfgifteGBType a) {
+    private String getLaadprocesBestandsnaam(AfgifteGBType a) {
         return a.getBestand().getBestandsnaam() + " (" + a.getAfgifteID() + ")";
     }
 
     private boolean isAfgifteAlGeladen(AfgifteGBType a, String url) {
         try {
             Stripersist.getEntityManager().createQuery("select 1 from LaadProces lp where lp.bestand_naam = :n")
-                    .setParameter("n", getLaadprocesBestansanaam(a))
+                    .setParameter("n", getLaadprocesBestandsnaam(a))
                     .getSingleResult();
             return true;
         } catch (NoResultException nre) {
@@ -485,7 +485,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         }
 
         LaadProces lp = new LaadProces();
-        lp.setBestand_naam(getLaadprocesBestansanaam(a));
+        lp.setBestand_naam(getLaadprocesBestandsnaam(a));
 
         if (a.getDigikoppelingExternalDatareferences() != null
                 && a.getDigikoppelingExternalDatareferences().getDataReference() != null) {
@@ -494,7 +494,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 break;
             }
         }
-        lp.setSoort("brk");
+        lp.setSoort(this.config.getConfig().getOrDefault("gds2_br_soort", new ClobElement("brk")).getValue());
         lp.setStatus(LaadProces.STATUS.STAGING_OK);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         lp.setOpmerking("GDS2 download van " + url + " op " + sdf.format(new Date()));
@@ -503,7 +503,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         Bericht b = new Bericht();
         b.setLaadprocesid(lp);
         b.setDatum(lp.getBestand_datum());
-        b.setSoort("brk");
+        b.setSoort(this.config.getConfig().getOrDefault("gds2_br_soort", new ClobElement("brk")).getValue());
         b.setStatus_datum(new Date());
 
         ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(bos.toByteArray()));
