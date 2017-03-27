@@ -23,6 +23,12 @@ Voor het hele project kan dit even duren, oa. omdat de javadoc ook gebouwd wordt
 
 Na het maken van de release kun je het script `new-version-upgrades.sh` in de `datamodel/upgrade_scripts` directory gebruiken om upgrade scripts voor de volgende release te maken.
 
+```
+cd datamodel/upgrade_scripts
+./new-version-upgrades.sh
+git push
+```
+
 
 ### git configuratie
 

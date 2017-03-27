@@ -14,7 +14,7 @@ PREVMINOR=$(($MINOR-1))
 
 PREVRELEASE=$MAJOR.$PREVMINOR
 
-echo "Huidige snapshot:" $CURSNAPSHOT ", vorige release: " $PREVRELEASE " komende release" $NEXTRELEASE
+echo "Huidige snapshot:" $CURSNAPSHOT", vorige release: "$PREVRELEASE", komende release: "$NEXTRELEASE
 
 mkdir -p "$PREVRELEASE-$NEXTRELEASE"/{oracle,postgresql,sqlserver}
 
@@ -34,3 +34,6 @@ do
     fi
   done
 done
+
+git add "$PREVRELEASE-$NEXTRELEASE"/ 
+git commit -m "Migratie bestanden aanmaken voor upgrade $PREVRELEASE-$NEXTRELEASE"
