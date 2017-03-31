@@ -48,6 +48,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.handler.Handler;
 import net.sourceforge.stripes.util.Base64;
 import nl.b3p.brmo.loader.entity.BrkBericht;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
@@ -55,6 +56,7 @@ import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.LOG_NEWLINE;
 import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.gds2.Main;
+import nl.b3p.soap.logging.LogMessageHandler;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbopvragen.v20130701.BestandenlijstGbOpvragenType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20130701.AfgifteGBType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstopvragen.v20130701.BestandenlijstOpvragenType;
@@ -100,7 +102,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     private static final int AFGIFTE_DOWNLOAD_ATTEMPTS = 5;
     private static final int AFGIFTE_DOWNLOAD_RETRY_WAIT = 3000;
 
-    GDS2OphalenProces(GDS2OphaalProces config) {
+    public GDS2OphalenProces(GDS2OphaalProces config) {
         this.config = config;
     }
 
@@ -433,7 +435,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 } else {
                     l.addLog("Fout bij poging " + attempt + " om bestandenlijst op te halen: " + e.getClass().getName() + ": " + e.getMessage());
                     Thread.sleep(BESTANDENLIJST_RETRY_WAIT);
-                    l.addLog("Uitvoeren poging " + (attempt+1) + " om bestandenlijst op te halen...");
+                    l.addLog("Uitvoeren poging " + (attempt + 1) + " om bestandenlijst op te halen...");
                 }
             }
         }
@@ -479,7 +481,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 } else {
                     l.addLog("Fout bij poging " + attempt + " om afgifte te downloaden: " + e.getClass().getName() + ": " + e.getMessage());
                     Thread.sleep(AFGIFTE_DOWNLOAD_RETRY_WAIT);
-                    l.addLog("Uitvoeren poging " + (attempt+1) + " om afgifte " + url + " te downloaden...");
+                    l.addLog("Uitvoeren poging " + (attempt + 1) + " om afgifte " + url + " te downloaden...");
                 }
             }
         }
@@ -533,7 +535,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes("UTF-8")));
             BrkBericht bericht = reader.next();
 
-            if(bericht.getDatum() != null) {
+            if (bericht.getDatum() != null) {
                 b.setDatum(bericht.getDatum());
             }
             b.setBr_xml(bericht.getBrXml());
@@ -542,7 +544,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             //Als objectRef niet opgehaald kan worden,dan kan het
             //bericht niet verwerkt worden.
             String objectRef = bericht.getObjectRef();
-            if (objectRef!=null && !objectRef.isEmpty()) {
+            if (objectRef != null && !objectRef.isEmpty()) {
                 b.setObject_ref(bericht.getObjectRef());
                 b.setStatus(Bericht.STATUS.STAGING_OK);
                 b.setOpmerking("Klaar voor verwerking.");
@@ -550,7 +552,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 b.setStatus(Bericht.STATUS.STAGING_NOK);
                 b.setOpmerking("Object Ref niet gevonden in bericht-xml, neem contact op met leverancier.");
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             b.setStatus(Bericht.STATUS.STAGING_NOK);
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
@@ -753,6 +755,12 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         Gds2AfgifteServiceV20130701 gds2 = new Gds2AfgifteServiceV20130701Service().getAGds2AfgifteServiceV20130701();
         BindingProvider bp = (BindingProvider) gds2;
         Map<String, Object> ctxt = bp.getRequestContext();
+
+        // soap logger aanhaken
+        List<Handler> handlerChain = bp.getBinding().getHandlerChain();
+        handlerChain.add(new LogMessageHandler());
+        bp.getBinding().setHandlerChain(handlerChain);
+
         //ctxt.put(BindingProvider.USERNAME_PROPERTY, username);
         //ctxt.put(BindingProvider.PASSWORD_PROPERTY, password);
         String endpoint = (String) ctxt.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
