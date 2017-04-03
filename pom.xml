@@ -409,7 +409,7 @@
             <name>Releases hosted by B3Partners</name>
             <url>http://repo.b3p.nl/nexus/content/groups/public/</url>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
         </repository>
         <!-- see:

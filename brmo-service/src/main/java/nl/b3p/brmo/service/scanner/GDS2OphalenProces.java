@@ -36,6 +36,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.net.ssl.HttpsURLConnection;
@@ -50,11 +52,13 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
 import net.sourceforge.stripes.util.Base64;
+import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.BrkBericht;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.LOG_NEWLINE;
 import nl.b3p.brmo.persistence.staging.ClobElement;
+import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.gds2.Main;
 import nl.b3p.soap.logging.LogMessageHandler;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbopvragen.v20130701.BestandenlijstGbOpvragenType;
@@ -70,6 +74,7 @@ import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstgbopvragen.v201307
 import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20130701.BestandenlijstOpvragenRequest;
 import nl.logius.digikoppeling.gb._2010._10.DataReference;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -456,6 +461,75 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         }
     }
 
+    /**
+     * Ophalen en verwerken van BAG mutaties van GDS2. deze zijn anders dan BRK
+     * mutaties omdat de data in een geneste zip zit en er een paar andere
+     * bestanden inzitten waar we (nog) niks mee doen.
+     *
+     * @param a de afgifte uit het sopa verzoek
+     * @param url te downloaden bestand
+     * @throws Exception if any
+     * @see
+     * #laadAfgifte(nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20130701.AfgifteGBType,
+     * java.lang.String)
+     */
+    private void laadBagAfgifte(AfgifteGBType a, String url) throws Exception {
+        String msg = "Downloaden " + url;
+        l.updateStatus(msg);
+        l.addLog(msg);
+
+        HttpsURLConnection.setDefaultSSLSocketFactory(context.getSocketFactory());
+
+        InputStream input = null;
+        int attempt = 0;
+        while (true) {
+            try {
+                URLConnection connection = new URL(url).openConnection();
+                input = (InputStream) connection.getContent();
+                break;
+            } catch (Exception e) {
+                attempt++;
+                if (attempt == AFGIFTE_DOWNLOAD_ATTEMPTS) {
+                    l.addLog("Fout bij laatste poging downloaden afgifte: " + e.getClass().getName() + ": " + e.getMessage());
+                    throw e;
+                } else {
+                    l.addLog("Fout bij poging " + attempt + " om afgifte te downloaden: " + e.getClass().getName() + ": " + e.getMessage());
+                    Thread.sleep(AFGIFTE_DOWNLOAD_RETRY_WAIT);
+                    l.addLog("Uitvoeren poging " + (attempt + 1) + " om afgifte " + url + " te downloaden...");
+                }
+            }
+        }
+
+        BrmoFramework brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
+
+        ZipInputStream zip = new ZipInputStream(input);
+        ZipEntry entry = zip.getNextEntry();
+        while (entry != null) {
+            log.trace("gevonden " + entry.getName());
+            if (!entry.getName().toLowerCase().startsWith("gem-wpl-relatie")
+                    && !entry.getName().equalsIgnoreCase("Leveringsdocument-BAG-Mutaties.xml")) {
+                if (entry.getName().toLowerCase().endsWith(".zip")) {
+                    // alleen mutaties oppakken
+                    ZipInputStream innerzip = new ZipInputStream(zip);
+                    ZipEntry innerentry = innerzip.getNextEntry();
+                    while (innerentry != null && innerentry.getName().toLowerCase().endsWith(".xml")) {
+                        msg = "Verwerken " + entry.getName() + "/" + innerentry.getName() + " uit " + getLaadprocesBestandsnaam(a);
+                        l.updateStatus(msg);
+                        l.addLog(msg);
+                        log.debug(msg);
+                        brmo.loadFromStream("bag", new CloseShieldInputStream(innerzip), getLaadprocesBestandsnaam(a) + "/" + entry.getName() + "/" + innerentry.getName());
+                        innerentry = innerzip.getNextEntry();
+                    }
+                } else {
+                    log.warn("Overslaan van onbekend bestand in bag mutaties: " + entry.getName());
+                }
+            }
+            entry = zip.getNextEntry();
+        }
+        zip.close();
+        brmo.closeBrmoFramework();
+    }
+
     private Bericht laadAfgifte(AfgifteGBType a, String url) throws Exception {
         String msg = "Downloaden " + url;
         l.updateStatus(msg);
@@ -496,7 +570,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 break;
             }
         }
-        lp.setSoort(this.config.getConfig().getOrDefault("gds2_br_soort", new ClobElement("brk")).getValue());
+        lp.setSoort("brk");
         lp.setStatus(LaadProces.STATUS.STAGING_OK);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         lp.setOpmerking("GDS2 download van " + url + " op " + sdf.format(new Date()));
@@ -505,7 +579,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         Bericht b = new Bericht();
         b.setLaadprocesid(lp);
         b.setDatum(lp.getBestand_datum());
-        b.setSoort(this.config.getConfig().getOrDefault("gds2_br_soort", new ClobElement("brk")).getValue());
+        b.setSoort("brk");
         b.setStatus_datum(new Date());
 
         ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(bos.toByteArray()));
@@ -684,6 +758,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         int progress = 0;
         List<Long> geladenBerichtIds = new ArrayList();
         String doorsturenUrl = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
+        final String soort = this.config.getConfig().getOrDefault("gds2_br_soort", new ClobElement("brk")).getValue();
 
         for (AfgifteGBType a : afgiftesGb) {
             String url = null;
@@ -697,6 +772,9 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             if (url != null) {
                 if (isAfgifteAlGeladen(a, url)) {
                     filterAlVerwerkt++;
+                } else if (soort.equalsIgnoreCase("bag")) {
+                    laadBagAfgifte(a, url);
+                    aantalGeladen++;
                 } else {
                     Bericht b = laadAfgifte(a, url);
                     if (b != null && doorsturenUrl != null) {
@@ -756,7 +834,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         BindingProvider bp = (BindingProvider) gds2;
         Map<String, Object> ctxt = bp.getRequestContext();
 
-        // soap logger aanhaken
+        // soap berichten logger inhaken
         List<Handler> handlerChain = bp.getBinding().getHandlerChain();
         handlerChain.add(new LogMessageHandler());
         bp.getBinding().setHandlerChain(handlerChain);
