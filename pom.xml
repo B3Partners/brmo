@@ -67,7 +67,7 @@
         de schema's voor posgresql en oracle worden niet automatisch aangemaakt.
         -->
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
-        <test.h2.version>1.4.193</test.h2.version>
+        <test.h2.version>1.4.194</test.h2.version>
         <test.onlyITs>false</test.onlyITs>
         <maven.surefire.version>2.19.1</maven.surefire.version>
     </properties>
@@ -87,7 +87,7 @@
                 <!-- oa. nodig voor hibernate, dbunit, cronparser -->
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.7.24</version>
+                <version>1.7.25</version>
             </dependency>
             <dependency>
                 <groupId>log4j</groupId>
@@ -357,13 +357,13 @@
                 <!-- voor jndi context in een brmo-service integration test -->
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-catalina</artifactId>
-                <version>8.0.41</version>
+                <version>8.0.43</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-dbcp</artifactId>
-                <version>8.0.41</version>
+                <version>8.0.43</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
