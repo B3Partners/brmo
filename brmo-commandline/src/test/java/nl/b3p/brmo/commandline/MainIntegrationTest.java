@@ -52,9 +52,9 @@ public class MainIntegrationTest {
             {"--versieinfo json"},
             {"--load ../../../brmo-loader/src/test/resources/GH-275/OPR-1884300000000464.xml bag"},
             {"-l"},
-            {"-t"},
             {"--list json"}, {"-s"},
-            {"--berichtstatus json"}
+            {"--berichtstatus json"},
+            {"-t"}
         });
     }
 
@@ -82,6 +82,7 @@ public class MainIntegrationTest {
         }
         CleanUtil.cleanSTAGING(staging);
         // omdat de insert van het bag object mislukt vanwege referentie check hoeft er niet opgeruimd in rsgb
+        staging.close();
         dsStaging.close();
     }
 
