@@ -20,6 +20,16 @@
 </td>
 </tr>
 <tr><td>Contractnummer:</td><td><stripes:text name="config['gds2_contractnummer']" size="10"/></td></tr>
+<!-- 2516 dagelijks bag extract, 2508? maandelijks bag extract -->
+<tr><td>Artikelnummer:</td><td><stripes:text name="config['gds2_artikelnummer']" size="10"/></td></tr>
+<tr>
+    <td>Bericht soort:</td>
+    <td><stripes:select name="config['gds2_br_soort']" value="brk">
+            <stripes:option value="brk">BRK</stripes:option>
+            <stripes:option value="bag">BAG</stripes:option>
+        </stripes:select>
+    </td>
+</tr>
 <tr><td>Al gerapporteerde afgiftes:</td><td><label><stripes:checkbox name="config['gds2_al_gerapporteerde_afgiftes']"/>Ook ophalen</label></td></tr>
 <tr><td>Niet gerapporteerde afgiftes:</td><td><label><stripes:checkbox name="config['gds2_niet_gerapporteerde_afgiftes_niet_ophalen']"/>Nog niet ophalen (tbv test, alleen eerste 2000 afgiftes)</label></td></tr>
 <%--tr><td>Pad naar keystore:</td><td><stripes:text name="config['keystore_path']" size="80"/></td></tr--%>

@@ -48,13 +48,17 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.handler.Handler;
 import net.sourceforge.stripes.util.Base64;
+import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.BrkBericht;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.LOG_NEWLINE;
 import nl.b3p.brmo.persistence.staging.ClobElement;
+import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.gds2.Main;
+import nl.b3p.soap.logging.LogMessageHandler;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbopvragen.v20130701.BestandenlijstGbOpvragenType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20130701.AfgifteGBType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstopvragen.v20130701.BestandenlijstOpvragenType;
@@ -68,6 +72,7 @@ import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstgbopvragen.v201307
 import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20130701.BestandenlijstOpvragenRequest;
 import nl.logius.digikoppeling.gb._2010._10.DataReference;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -100,7 +105,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     private static final int AFGIFTE_DOWNLOAD_ATTEMPTS = 5;
     private static final int AFGIFTE_DOWNLOAD_RETRY_WAIT = 3000;
 
-    GDS2OphalenProces(GDS2OphaalProces config) {
+    public GDS2OphalenProces(GDS2OphaalProces config) {
         this.config = config;
     }
 
@@ -136,7 +141,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     }
 
     private static PrivateKey getPrivateKeyFromPEM(String pem) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        pem = pem.replaceAll("\n", "").trim();
         if (!pem.startsWith(PEM_KEY_START)) {
             throw new IllegalArgumentException("Private key moet beginnen met " + PEM_KEY_START);
         }
@@ -153,7 +157,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     }
 
     private static Certificate getCertificateFromPEM(String pem) throws CertificateException, UnsupportedEncodingException {
-        pem = pem.replaceAll("\n", "").trim();
         if (!pem.startsWith(PEM_CERT_START)) {
             throw new IllegalArgumentException("Certificaat moet beginnen met " + PEM_CERT_START);
         }
@@ -187,9 +190,17 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             BestandenlijstGBOpvragenRequest requestGb = new BestandenlijstGBOpvragenRequest();
             BestandenlijstGbOpvragenType verzoekGb = new BestandenlijstGbOpvragenType();
             requestGb.setVerzoek(verzoekGb);
-            String contractnummer = this.config.getConfig().get("gds2_contractnummer").getValue();
             criteria.setBestandKenmerken(new BestandKenmerkenType());
-            criteria.getBestandKenmerken().setContractnummer(contractnummer);
+            String contractnummer = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_contractnummer"));
+            log.warn("GDS2 contractnummer is 'null' (contractnummer is verplicht voor BRK download).");
+            l.addLog("GDS2 contractnummer is 'null' (contractnummer is verplicht voor BRK download).");
+            if (contractnummer != null) {
+                criteria.getBestandKenmerken().setContractnummer(contractnummer);
+            }
+            String artikelnummer = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_artikelnummer"));
+            if (artikelnummer != null) {
+                criteria.getBestandKenmerken().setArtikelnummer(artikelnummer);
+            }
 
             String alGerapporteerd = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_al_gerapporteerde_afgiftes"));
             if (!"true".equals(alGerapporteerd)) {
@@ -433,25 +444,94 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 } else {
                     l.addLog("Fout bij poging " + attempt + " om bestandenlijst op te halen: " + e.getClass().getName() + ": " + e.getMessage());
                     Thread.sleep(BESTANDENLIJST_RETRY_WAIT);
-                    l.addLog("Uitvoeren poging " + (attempt+1) + " om bestandenlijst op te halen...");
+                    l.addLog("Uitvoeren poging " + (attempt + 1) + " om bestandenlijst op te halen...");
                 }
             }
         }
     }
 
-    private String getLaadprocesBestansanaam(AfgifteGBType a) {
+    private String getLaadprocesBestandsnaam(AfgifteGBType a) {
         return a.getBestand().getBestandsnaam() + " (" + a.getAfgifteID() + ")";
     }
 
     private boolean isAfgifteAlGeladen(AfgifteGBType a, String url) {
         try {
             Stripersist.getEntityManager().createQuery("select 1 from LaadProces lp where lp.bestand_naam = :n")
-                    .setParameter("n", getLaadprocesBestansanaam(a))
+                    .setParameter("n", getLaadprocesBestandsnaam(a))
                     .getSingleResult();
             return true;
         } catch (NoResultException nre) {
             return false;
         }
+    }
+
+    /**
+     * Ophalen en verwerken van BAG mutaties van GDS2. Deze zijn anders dan BRK
+     * mutaties omdat de data in een geneste zip zit en er een paar andere
+     * bestanden inzitten waar we (nog) niks mee doen.
+     *
+     * @param a de afgifte uit het soap verzoek
+     * @param url te downloaden bestand
+     * @throws Exception if any
+     * @see
+     * #laadAfgifte(nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20130701.AfgifteGBType,
+     * java.lang.String)
+     */
+    private void laadBagAfgifte(AfgifteGBType a, String url) throws Exception {
+        String msg = "Downloaden " + url;
+        l.updateStatus(msg);
+        l.addLog(msg);
+
+        HttpsURLConnection.setDefaultSSLSocketFactory(context.getSocketFactory());
+
+        InputStream input = null;
+        int attempt = 0;
+        while (true) {
+            try {
+                URLConnection connection = new URL(url).openConnection();
+                input = (InputStream) connection.getContent();
+                break;
+            } catch (Exception e) {
+                attempt++;
+                if (attempt == AFGIFTE_DOWNLOAD_ATTEMPTS) {
+                    l.addLog("Fout bij laatste poging downloaden afgifte: " + e.getClass().getName() + ": " + e.getMessage());
+                    throw e;
+                } else {
+                    l.addLog("Fout bij poging " + attempt + " om afgifte te downloaden: " + e.getClass().getName() + ": " + e.getMessage());
+                    Thread.sleep(AFGIFTE_DOWNLOAD_RETRY_WAIT);
+                    l.addLog("Uitvoeren poging " + (attempt + 1) + " om afgifte " + url + " te downloaden...");
+                }
+            }
+        }
+
+        BrmoFramework brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
+
+        ZipInputStream zip = new ZipInputStream(input);
+        ZipEntry entry = zip.getNextEntry();
+        while (entry != null) {
+            log.trace("gevonden " + entry.getName());
+            if (!entry.getName().toLowerCase().startsWith("gem-wpl-relatie")
+                    && !entry.getName().equalsIgnoreCase("Leveringsdocument-BAG-Mutaties.xml")) {
+                if (entry.getName().toLowerCase().endsWith(".zip")) {
+                    // alleen mutaties oppakken
+                    ZipInputStream innerzip = new ZipInputStream(zip);
+                    ZipEntry innerentry = innerzip.getNextEntry();
+                    while (innerentry != null && innerentry.getName().toLowerCase().endsWith(".xml")) {
+                        msg = "Verwerken " + entry.getName() + "/" + innerentry.getName() + " uit " + getLaadprocesBestandsnaam(a);
+                        l.updateStatus(msg);
+                        l.addLog(msg);
+                        log.debug(msg);
+                        brmo.loadFromStream("bag", new CloseShieldInputStream(innerzip), getLaadprocesBestandsnaam(a) + "/" + entry.getName() + "/" + innerentry.getName());
+                        innerentry = innerzip.getNextEntry();
+                    }
+                } else {
+                    log.warn("Overslaan van onbekend bestand in bag mutaties: " + entry.getName());
+                }
+            }
+            entry = zip.getNextEntry();
+        }
+        zip.close();
+        brmo.closeBrmoFramework();
     }
 
     private Bericht laadAfgifte(AfgifteGBType a, String url) throws Exception {
@@ -479,13 +559,13 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 } else {
                     l.addLog("Fout bij poging " + attempt + " om afgifte te downloaden: " + e.getClass().getName() + ": " + e.getMessage());
                     Thread.sleep(AFGIFTE_DOWNLOAD_RETRY_WAIT);
-                    l.addLog("Uitvoeren poging " + (attempt+1) + " om afgifte " + url + " te downloaden...");
+                    l.addLog("Uitvoeren poging " + (attempt + 1) + " om afgifte " + url + " te downloaden...");
                 }
             }
         }
 
         LaadProces lp = new LaadProces();
-        lp.setBestand_naam(getLaadprocesBestansanaam(a));
+        lp.setBestand_naam(getLaadprocesBestandsnaam(a));
 
         if (a.getDigikoppelingExternalDatareferences() != null
                 && a.getDigikoppelingExternalDatareferences().getDataReference() != null) {
@@ -533,7 +613,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes("UTF-8")));
             BrkBericht bericht = reader.next();
 
-            if(bericht.getDatum() != null) {
+            if (bericht.getDatum() != null) {
                 b.setDatum(bericht.getDatum());
             }
             b.setBr_xml(bericht.getBrXml());
@@ -542,7 +622,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             //Als objectRef niet opgehaald kan worden,dan kan het
             //bericht niet verwerkt worden.
             String objectRef = bericht.getObjectRef();
-            if (objectRef!=null && !objectRef.isEmpty()) {
+            if (objectRef != null && !objectRef.isEmpty()) {
                 b.setObject_ref(bericht.getObjectRef());
                 b.setStatus(Bericht.STATUS.STAGING_OK);
                 b.setOpmerking("Klaar voor verwerking.");
@@ -550,7 +630,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 b.setStatus(Bericht.STATUS.STAGING_NOK);
                 b.setOpmerking("Object Ref niet gevonden in bericht-xml, neem contact op met leverancier.");
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             b.setStatus(Bericht.STATUS.STAGING_NOK);
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
@@ -682,6 +762,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         int progress = 0;
         List<Long> geladenBerichtIds = new ArrayList();
         String doorsturenUrl = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
+        final String soort = this.config.getConfig().getOrDefault("gds2_br_soort", new ClobElement("brk")).getValue();
 
         for (AfgifteGBType a : afgiftesGb) {
             String url = null;
@@ -695,6 +776,9 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             if (url != null) {
                 if (isAfgifteAlGeladen(a, url)) {
                     filterAlVerwerkt++;
+                } else if (soort.equalsIgnoreCase("bag")) {
+                    laadBagAfgifte(a, url);
+                    aantalGeladen++;
                 } else {
                     Bericht b = laadAfgifte(a, url);
                     if (b != null && doorsturenUrl != null) {
@@ -753,6 +837,12 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         Gds2AfgifteServiceV20130701 gds2 = new Gds2AfgifteServiceV20130701Service().getAGds2AfgifteServiceV20130701();
         BindingProvider bp = (BindingProvider) gds2;
         Map<String, Object> ctxt = bp.getRequestContext();
+
+        // soap berichten logger inhaken
+        List<Handler> handlerChain = bp.getBinding().getHandlerChain();
+        handlerChain.add(new LogMessageHandler());
+        bp.getBinding().setHandlerChain(handlerChain);
+
         //ctxt.put(BindingProvider.USERNAME_PROPERTY, username);
         //ctxt.put(BindingProvider.PASSWORD_PROPERTY, password);
         String endpoint = (String) ctxt.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
