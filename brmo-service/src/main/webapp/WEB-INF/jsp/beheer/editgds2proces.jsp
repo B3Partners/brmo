@@ -20,6 +20,8 @@
 </td>
 </tr>
 <tr><td>Contractnummer:</td><td><stripes:text name="config['gds2_contractnummer']" size="10"/></td></tr>
+<!-- 2516 dagelijks bag extract, 2508? maandelijks bag extract -->
+<tr><td>Artikelnummer:</td><td><stripes:text name="config['gds2_artikelnummer']" size="10"/></td></tr>
 <tr>
     <td>Bericht soort:</td>
     <td><stripes:select name="config['gds2_br_soort']" value="brk">

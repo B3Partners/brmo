@@ -36,8 +36,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.net.ssl.HttpsURLConnection;
@@ -143,7 +141,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     }
 
     private static PrivateKey getPrivateKeyFromPEM(String pem) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        pem = pem.replaceAll("\n", "").trim();
         if (!pem.startsWith(PEM_KEY_START)) {
             throw new IllegalArgumentException("Private key moet beginnen met " + PEM_KEY_START);
         }
@@ -160,7 +157,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     }
 
     private static Certificate getCertificateFromPEM(String pem) throws CertificateException, UnsupportedEncodingException {
-        pem = pem.replaceAll("\n", "").trim();
         if (!pem.startsWith(PEM_CERT_START)) {
             throw new IllegalArgumentException("Certificaat moet beginnen met " + PEM_CERT_START);
         }
@@ -194,9 +190,17 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             BestandenlijstGBOpvragenRequest requestGb = new BestandenlijstGBOpvragenRequest();
             BestandenlijstGbOpvragenType verzoekGb = new BestandenlijstGbOpvragenType();
             requestGb.setVerzoek(verzoekGb);
-            String contractnummer = this.config.getConfig().get("gds2_contractnummer").getValue();
             criteria.setBestandKenmerken(new BestandKenmerkenType());
-            criteria.getBestandKenmerken().setContractnummer(contractnummer);
+            String contractnummer = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_contractnummer"));
+            log.warn("GDS2 contractnummer is 'null' (contractnummer is verplicht voor BRK download).");
+            l.addLog("GDS2 contractnummer is 'null' (contractnummer is verplicht voor BRK download).");
+            if (contractnummer != null) {
+                criteria.getBestandKenmerken().setContractnummer(contractnummer);
+            }
+            String artikelnummer = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_artikelnummer"));
+            if (artikelnummer != null) {
+                criteria.getBestandKenmerken().setArtikelnummer(artikelnummer);
+            }
 
             String alGerapporteerd = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_al_gerapporteerde_afgiftes"));
             if (!"true".equals(alGerapporteerd)) {
@@ -462,11 +466,11 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     }
 
     /**
-     * Ophalen en verwerken van BAG mutaties van GDS2. deze zijn anders dan BRK
+     * Ophalen en verwerken van BAG mutaties van GDS2. Deze zijn anders dan BRK
      * mutaties omdat de data in een geneste zip zit en er een paar andere
      * bestanden inzitten waar we (nog) niks mee doen.
      *
-     * @param a de afgifte uit het sopa verzoek
+     * @param a de afgifte uit het soap verzoek
      * @param url te downloaden bestand
      * @throws Exception if any
      * @see

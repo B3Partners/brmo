@@ -118,7 +118,7 @@
 
             <!-- spatial -->
             <dependency>
-                <!-- geotools 16.2 gebruikt ook nog 1.13 -->
+                <!-- geotools 17 gebruikt ook nog 1.13 -->
                 <groupId>com.vividsolutions</groupId>
                 <artifactId>jts</artifactId>
                 <version>1.13</version>
