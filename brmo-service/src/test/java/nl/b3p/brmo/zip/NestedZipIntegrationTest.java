@@ -36,8 +36,8 @@ public class NestedZipIntegrationTest extends TestUtil {
         dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
         dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
-        setupJNDI(null, dsStaging);
-        brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
+
+        brmo = new BrmoFramework(dsStaging, null);
     }
 
     @After
