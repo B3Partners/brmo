@@ -70,13 +70,6 @@
             </includes>
         </fileSet>
         <fileSet>
-            <directory>../${project.basedir}/brmo-soap/target/</directory>
-            <outputDirectory>wars</outputDirectory>
-            <includes>
-                <include>**/TOMCAT-soaplibs.zip</include>
-            </includes>
-        </fileSet>
-        <fileSet>
             <directory>../${project.basedir}/</directory>
             <outputDirectory/>
             <includes>

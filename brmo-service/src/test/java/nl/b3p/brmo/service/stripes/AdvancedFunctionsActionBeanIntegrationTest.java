@@ -44,7 +44,9 @@ import org.junit.runners.Parameterized;
  * testcases voor GH issue 260; herhalen van brk verwijder berichten. Draaien
  * met:
  * {@code mvn -Dit.test=AdvancedFunctionsActionBeanIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
- * voor bijvoorbeeld Oracle.
+ * voor bijvoorbeeld Oracle of
+ * {@code mvn -Dit.test=AdvancedFunctionsActionBeanIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
+ * voor PostgreSQL.
  *
  * <strong>Deze test werkt niet met de jTDS driver omdat die geen
  * {@code PreparedStatement.setNull(int, int, String)} methode heeft

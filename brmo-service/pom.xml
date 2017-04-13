@@ -331,8 +331,7 @@
                             <systemPropertyVariables>
                                 <database.properties.file>postgres.properties</database.properties.file>
                             </systemPropertyVariables>
-                            <rerunFailingTestsCount>1</rerunFailingTestsCount>
-                            <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
+                            <rerunFailingTestsCount>0</rerunFailingTestsCount>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -437,7 +436,6 @@
                             </systemPropertyVariables>
                             <rerunFailingTestsCount>1</rerunFailingTestsCount>
                             <excludedGroups>nl.b3p.brmo.test.util.database.OracleDriverBasedFailures</excludedGroups>
-                            <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
                         </configuration>
                     </plugin>
                 </plugins>
