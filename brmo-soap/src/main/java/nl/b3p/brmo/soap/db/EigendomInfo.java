@@ -241,6 +241,7 @@ public class EigendomInfo {
 
             StringBuilder sql = createSelectStagingSQL(searchContext, dbType);
             LOG.trace(sql);
+            LOG.trace(searchContext);
             stm = conn.prepareStatement(sql.toString());
             stm = addParamsSQL(stm, searchContext);
             rs = stm.executeQuery();
@@ -287,6 +288,7 @@ public class EigendomInfo {
 
             sql = createSelectRsgbSQL(searchContext, dbType);
             LOG.trace(sql);
+            LOG.trace(searchContext);
             stm = conn.prepareStatement(sql.toString());
             stm = addParamsSQL(stm, searchContext);
             rs = stm.executeQuery();
@@ -386,6 +388,7 @@ public class EigendomInfo {
             sql = createSelectSQL(resultNames, fromSQL,
                     whereSQL, null, dbType);
             LOG.trace(sql);
+            LOG.trace(value);
             stm = conn.prepareStatement(sql.toString());
             stm.setString(1, value);
             rs = stm.executeQuery();
@@ -441,6 +444,7 @@ public class EigendomInfo {
             sql = createSelectSQL(resultNames, fromSQL,
                     whereSQL, null, dbType);
             LOG.trace(sql);
+            LOG.trace(vo_id);
             stm = conn.prepareStatement(sql.toString());
             stm.setString(1, vo_id);
             rs = stm.executeQuery();
@@ -497,6 +501,7 @@ public class EigendomInfo {
             sql = createSelectSQL(resultNames, fromSQL,
                     whereSQL, null, dbType);
             LOG.trace(sql);
+            LOG.trace(value);
             stm = conn.prepareStatement(sql.toString());
             stm.setLong(1, value);
             rs = stm.executeQuery();
@@ -556,6 +561,7 @@ public class EigendomInfo {
             sql = createSelectSQL(resultNames, fromSQL,
                     whereSQL, null, dbType);
             LOG.trace(sql);
+            LOG.trace(kad_id);
             stm = conn.prepareStatement(sql.toString());
             stm.setString(1, Long.toString(kad_id));
             rs = stm.executeQuery();
@@ -632,6 +638,7 @@ public class EigendomInfo {
             sql = createSelectSQL(resultNames, fromSQL,
                     whereSQL, null, dbType);
             LOG.trace(sql);
+            LOG.trace(kad_id);
             stm = conn.prepareStatement(sql.toString());
             stm.setLong(1, kad_id);
             rs = stm.executeQuery();

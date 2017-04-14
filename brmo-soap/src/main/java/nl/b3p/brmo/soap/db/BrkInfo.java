@@ -3,9 +3,11 @@ package nl.b3p.brmo.soap.db;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 import nl.b3p.brmo.soap.brk.BrkInfoRequest;
 import nl.b3p.brmo.soap.brk.BrkInfoResponse;
@@ -60,7 +63,20 @@ public class BrkInfo {
 
     private static DataSource ds = null;
 
-    public static ArrayList<Long> findKozIDs(Map<String, Object> searchContext) throws Exception {
+    /**
+     * Zoek onroerende zaak ids.
+     *
+     * @param searchContext zoek parameters
+     * @return lijst met onroerende zaak ids.
+     * @throws SQLException bij een SQL/database fout
+     * @throws ParseException als parsen van de geometrie mislukt
+     * @throws javax.naming.NamingException als er een fout optreedt bij het
+     * opzoeken van de JNDI naam
+     *
+     * @todo opschonen van commentaar na sluiten van
+     * https://github.com/B3Partners/brmo/issues/322
+     */
+    public static ArrayList<Long> findKozIDs(Map<String, Object> searchContext) throws SQLException, ParseException, NamingException {
 
         DataSource ds = getDataSourceRsgb();
         PreparedStatement stm = null;
@@ -72,12 +88,26 @@ public class BrkInfo {
 
             StringBuilder sql = createSelectSQL(searchContext, dbType);
             LOG.trace(sql);
+            LOG.trace(searchContext);
             stm = connRsgb.prepareStatement(sql.toString());
             stm = addParamsSQL(stm, searchContext, dbType);
             rs = stm.executeQuery();
 
+//            ResultSetMetaData rsmd = rs.getMetaData();
+//            int numberOfColumns = rsmd.getColumnCount();
+//            LOG.trace(numberOfColumns);
+//            for (int i = 1; i < numberOfColumns + 1; i++) {
+//                LOG.trace(rsmd.getColumnClassName(i));
+//                LOG.trace(rsmd.getColumnName(i));
+//                LOG.trace(rsmd.getColumnTypeName(i));
+//            }
             ArrayList<Long> ids = new ArrayList<Long>();
             while (rs.next()) {
+                // LOG.trace("gevonden: " + rs.getObject("identificatie", BigDecimal.class));
+                // LOG.trace(rs.getObject(1).getClass());
+                // LOG.trace(rs.getObject("identificatie").getClass());
+                // LOG.trace("gevonden: " + rs.getObject(1));
+                // gaat mis bij bepaalde Oracle drivers omdat er een BigDecimal uit Oracle komt ...
                 Long id = rs.getLong("identificatie");
                 ids.add(id);
             }
@@ -111,6 +141,7 @@ public class BrkInfo {
 
             StringBuilder sql = createCountSQL(searchContext, dbType);
             LOG.trace(sql);
+            LOG.trace(searchContext);
             stm = connRsgb.prepareStatement(sql.toString());
             stm = addParamsSQL(stm, searchContext, dbType);
             rs = stm.executeQuery();
@@ -442,7 +473,7 @@ public class BrkInfo {
         return index;
     }
 
-    public static DataSource getDataSourceRsgb() throws Exception {
+    public static DataSource getDataSourceRsgb() throws NamingException {
         if (ds != null) {
             return ds;
         }
@@ -450,7 +481,7 @@ public class BrkInfo {
             InitialContext ic = new InitialContext();
             Context xmlContext = (Context) ic.lookup(JNDI_NAME);
             ds = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB);
-        } catch (Exception ex) {
+        } catch (NamingException ex) {
             LOG.error("Fout verbinden naar rsgb db. ", ex);
             throw ex;
         }
