@@ -14,6 +14,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.soap.brk.BrkInfoRequest;
 import nl.b3p.brmo.soap.brk.BrkInfoResponse;
+import nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest;
 import nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse;
 import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
@@ -56,8 +57,8 @@ public class BrkInfoIntegrationTest extends TestUtil {
     @Parameterized.Parameters(name = "{index}: verwerken bestand: {0}")
     public static Collection params() {
         return Arrays.asList(new Object[][]{
-            // {"sBestandsNaam", aantalPercelen, zoekLocatie, bufferAfstand,eersteKadId,oppPerceel,aardCultuurOnbebouwd},
-            {"/rsgb.xml", 1, "POINT(230341 472237)", 100, 66860489870000L, 1050, "Wegen"}
+            // {"sBestandsNaam", aantalPercelen, zoekLocatie, bufferAfstand,eersteKadId,oppPerceel,aardCultuurOnbebouwd, gemCode, perceelNummer},
+            {"/rsgb.xml", 1, "POINT(230341 472237)", 100, 66860489870000L, 1050, "Wegen", "MKL00", 4898}
         });
     }
 
@@ -75,8 +76,12 @@ public class BrkInfoIntegrationTest extends TestUtil {
     private final long eersteKadId;
     private final double oppPerceel;
     private final String aardCultuurOnbebouwd;
+    private final String gemCode;
+    private final int perceelNummer;
 
-    public BrkInfoIntegrationTest(String sBestandsNaam, int aantalPercelen, String zoekLocatie, int bufferAfstand, long eersteKadId, double oppPerceel, String aardCultuurOnbebouwd) {
+    public BrkInfoIntegrationTest(String sBestandsNaam, int aantalPercelen, String zoekLocatie, int bufferAfstand, long eersteKadId,
+            double oppPerceel, String aardCultuurOnbebouwd, String gemCode, int perceelNummer) {
+
         this.sBestandsNaam = sBestandsNaam;
         this.aantalPercelen = aantalPercelen;
         this.zoekLocatie = zoekLocatie;
@@ -84,6 +89,9 @@ public class BrkInfoIntegrationTest extends TestUtil {
         this.eersteKadId = eersteKadId;
         this.oppPerceel = oppPerceel;
         this.aardCultuurOnbebouwd = aardCultuurOnbebouwd;
+        this.gemCode = gemCode;
+        this.perceelNummer = perceelNummer;
+
     }
 
     @Before
@@ -156,6 +164,51 @@ public class BrkInfoIntegrationTest extends TestUtil {
         r.setAdressenToevoegen(true);
         r.setBufferAfstand(bufferAfstand);
         r.setZoekgebied(zoekLocatie);
+        Map<String, Object> searchContext = BrkInfo.createSearchContext(r);
+
+        ArrayList<Long> kozIds = BrkInfo.findKozIDs(searchContext);
+        assertFalse(kozIds.isEmpty());
+        assertEquals(Long.valueOf(eersteKadId), kozIds.get(0));
+    }
+
+    /**
+     * testcase voor {@link BrkInfo#findKozIDs(java.util.Map)}.
+     *
+     * @throws Exception if any
+     * @see BrkInfo#findKozIDs(java.util.Map)
+     */
+    @Test
+    public void testFindKozIDsByID() throws Exception {
+        BrkInfoRequest r = new BrkInfoRequest();
+        r.setGevoeligeInfoOphalen(true);
+        r.setSubjectsToevoegen(true);
+        r.setAdressenToevoegen(true);
+        r.setKadOnrndZk(new KadOnrndZkInfoRequest());
+        r.getKadOnrndZk().setIdentificatie(Long.toString(eersteKadId));
+
+        Map<String, Object> searchContext = BrkInfo.createSearchContext(r);
+
+        ArrayList<Long> kozIds = BrkInfo.findKozIDs(searchContext);
+        assertFalse(kozIds.isEmpty());
+        assertEquals(Long.valueOf(eersteKadId), kozIds.get(0));
+    }
+
+    /**
+     * testcase voor {@link BrkInfo#findKozIDs(java.util.Map)}.
+     *
+     * @throws Exception if any
+     * @see BrkInfo#findKozIDs(java.util.Map)
+     */
+    @Test
+    public void testFindKozIDsByGemPercNum() throws Exception {
+        BrkInfoRequest r = new BrkInfoRequest();
+        r.setGevoeligeInfoOphalen(true);
+        r.setSubjectsToevoegen(true);
+        r.setAdressenToevoegen(true);
+        r.setKadOnrndZk(new KadOnrndZkInfoRequest());
+        r.getKadOnrndZk().setGemeentecode(gemCode);
+        r.getKadOnrndZk().setPerceelnummer(Integer.toString(perceelNummer));
+
         Map<String, Object> searchContext = BrkInfo.createSearchContext(r);
 
         ArrayList<Long> kozIds = BrkInfo.findKozIDs(searchContext);
