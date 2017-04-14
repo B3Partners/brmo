@@ -5,7 +5,6 @@ package nl.b3p.brmo.soap.util;
 
 import java.io.IOException;
 import java.sql.DatabaseMetaData;
-import java.util.Properties;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -31,9 +30,9 @@ public class DiagnosticsServlet implements Servlet {
             // lookup db connectie en log info
             DataSource rsgb = BrkInfo.getDataSourceRsgb();
             DatabaseMetaData metadata = rsgb.getConnection().getMetaData();
-            LOG.info(String.format("Database en driver informatie\nDatabase product: %s\nDatabase version: %s\nDatabase major:   %s\nDatabase minor:   %s\nDatabasedriver product: %s\nDatabasedriver version: %s\nDatabasedriver major:   %s\nDatabasedriver minor:   %s",
+            LOG.info(String.format("\nDatabase en driver informatie\n\n  Database product: %s\n  Database version: %s\n  Database major:   %s\n  Database minor:   %s\n\n  DBdriver product: %s\n  DBdriver version: %s\n  DBdriver major:   %s\n  DBdriver minor:   %s",
                     metadata.getDatabaseProductName(),
-                    metadata.getDatabaseProductVersion(),
+                    metadata.getDatabaseProductVersion().replace('\n', ' '),
                     metadata.getDatabaseMajorVersion(),
                     metadata.getDatabaseMinorVersion(),
                     metadata.getDriverName(),
@@ -42,6 +41,19 @@ public class DiagnosticsServlet implements Servlet {
                     metadata.getDriverMinorVersion()
             ));
 
+            // foute oracle drivers loggen
+            if (metadata.getDriverName().startsWith("Oracle")) {
+                if (metadata.getDriverVersion().startsWith("12.1.0.1")) {
+                    LOG.error("De geïnstalleerde JDBC driver heeft bekende problemen met prepared statements, de applicatie zal niet goed werken. Issue #322");
+                    LOG.info("zie: https://github.com/B3Partners/brmo/wiki/welke-jdbc-diver%3F voor meer informatie");
+                }
+
+                // 11.2.0.3
+                if (metadata.getDriverVersion().startsWith("11.2.0.3")) {
+                    LOG.error("De geïnstalleerde JDBC driver heeft bekende problemen met type conversies, de applicatie zal mogelijk niet goed werken. Issue #322");
+                    LOG.info("zie: https://github.com/B3Partners/brmo/wiki/welke-jdbc-diver%3F voor meer informatie");
+                }
+            }
         } catch (Exception ex) {
             LOG.error(ex);
         }
