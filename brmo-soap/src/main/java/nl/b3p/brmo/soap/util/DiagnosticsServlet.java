@@ -45,13 +45,13 @@ public class DiagnosticsServlet implements Servlet {
             if (metadata.getDriverName().startsWith("Oracle")) {
                 if (metadata.getDriverVersion().startsWith("12.1.0.1")) {
                     LOG.error("De geïnstalleerde JDBC driver heeft bekende problemen met prepared statements, de applicatie zal niet goed werken. Issue #322");
-                    LOG.info("zie: https://github.com/B3Partners/brmo/wiki/welke-jdbc-diver%3F voor meer informatie");
+                    LOG.info("zie: https://github.com/B3Partners/brmo/wiki/Welke-jdbc-driver voor meer informatie");
                 }
 
                 // 11.2.0.3
                 if (metadata.getDriverVersion().startsWith("11.2.0.3")) {
                     LOG.error("De geïnstalleerde JDBC driver heeft bekende problemen met type conversies, de applicatie zal mogelijk niet goed werken. Issue #322");
-                    LOG.info("zie: https://github.com/B3Partners/brmo/wiki/welke-jdbc-diver%3F voor meer informatie");
+                    LOG.info("zie: https://github.com/B3Partners/brmo/wiki/Welke-jdbc-driver voor meer informatie");
                 }
             }
         } catch (Exception ex) {
