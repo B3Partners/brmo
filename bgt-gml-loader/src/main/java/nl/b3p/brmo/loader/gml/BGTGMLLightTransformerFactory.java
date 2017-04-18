@@ -16,9 +16,12 @@ import java.util.Map;
 public enum BGTGMLLightTransformerFactory {
     // NB (mogelijk) geen geometrie,
     // TODO nog geen voorbeeld of bestand gezien...
+    // zie: https://github.com/B3Partners/brmo/issues/324
     inrichtingselement("", "Inrichtingselement"),
-    // TODO nog geen voorbeeld of bestand gezien, naam moet gecontroleerd... zit bovendien in BAG
+    // TODO nog geen voorbeeld of bestand gezien, naam moet gecontroleerd...
+    // zie: https://github.com/B3Partners/brmo/issues/324
     openbareruimte("", "OpenbareRuimte"),
+    
     // doen we niet
     // plaatsbepalingspunt("", ""),
     
@@ -37,10 +40,9 @@ public enum BGTGMLLightTransformerFactory {
     //
     openbareruimtelabel("bgt_openbareruimtelabel.gml", "OpenbareRuimteLabel"),
     functioneelgebied("bgt_functioneelgebied.gml", "FunctioneelGebied"),
-    // TODO bestuurlijke eenheden
-    // TODO nog geen gml bestand van gezien
+    // TODO bestuurlijke eenheden, nog geen gml bestand van gezien
+    // zie: https://github.com/B3Partners/brmo/issues/324
     // stadsdeel("", "Stadsdeel"),
-    // TODO nog geen gml bestand van gezien
     // waterschap("", "Waterschap"),
     // buurt("bgt_buurt.gml", "Buurt"),
     // wijk("bgt_wijk.gml", "Wijk"),
