@@ -34,6 +34,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Geparametriseerde test om features uit BGT/PDOK gmllight formaat te parsen.
+ * run: {@code mvn -Dtest=nl.b3p.brmo.loader.gml.BGTGMLLightParserTest test}.
  *
  * @author mprins
  */
@@ -50,7 +51,8 @@ public class BGTGMLLightParserTest {
             {"/gmllight/bgt_ondersteunendwaterdeel.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "OndersteunendWaterdeel", 47, 20},
             {"/gmllight/bgt_ongeclassificeerdobject.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "OngeclassificeerdObject", 0, 18},
             {"/gmllight/bgt_buurt.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "Buurt", 10, 21},
-            {"/gmllight/bgt_wijk.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "Wijk", 4, 21}
+            {"/gmllight/bgt_wijk.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "Wijk", 4, 21},
+            {"/gmllight/bgt_openbareruimte.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "OpenbareRuimte", 26, 20}
         });
     }
     private Parser parser;

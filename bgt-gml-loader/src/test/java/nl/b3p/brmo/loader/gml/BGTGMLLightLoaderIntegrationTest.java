@@ -48,12 +48,12 @@ public class BGTGMLLightLoaderIntegrationTest extends TestingBase {
         ldr.setDbConnProps(params);
         ldr.setCreateTables(false);
 
-        clearTables();
+//        clearTables();
     }
 
     @After
     public void cleanUp() throws Exception {
-        clearTables();
+//        clearTables();
         sequential.unlock();
     }
 
@@ -89,6 +89,17 @@ public class BGTGMLLightLoaderIntegrationTest extends TestingBase {
     public void testProcessWijkGMLFile() throws Exception {
         File gml = new File(BGTGMLLightLoaderIntegrationTest.class.getResource("/gmllight/bgt_wijk.gml").toURI());
         assertEquals("Aantal geschreven features", 4, ldr.processGMLFile(gml));
+    }
+
+    /**
+     * test parsen en laden van 1 bestand in bestaande tabel.
+     *
+     * @throws Exception if any
+     */
+    @Test
+    public void testProcessOpenbareRuimteGMLFile() throws Exception {
+        File gml = new File(BGTGMLLightLoaderIntegrationTest.class.getResource("/gmllight/bgt_openbareruimte.gml").toURI());
+        assertEquals("Aantal geschreven features", 26, ldr.processGMLFile(gml));
     }
 
     /**

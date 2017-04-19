@@ -297,12 +297,12 @@ Copyright (C) 2016 B3Partners B.V.
         <attribuut xslname="relatieveHoogteligging" sqlname="null" /> -->
     </objecttype>
 
-<!--    <objecttype clazz="OpenbareRuimte" table="bgt_openbareruimte">
+    <objecttype clazz="OpenbareRuimte" table="openbareruimte">
         <attribuut xslname="naam" sqlname="naam" sqltype="varchar(255)" />
-         naamEnIdOpenbareRuimte (gml:ReferenceType) blijkt niet voor te komen in de GML 
+        <!-- naamEnIdOpenbareRuimte (gml:ReferenceType) blijkt niet voor te komen in de GML -->
         <attribuut xslname="naamEnIdOpenbareRuimte" sqlname="naam_id_opr" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
-    </objecttype>-->
+        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="multipolygon" />
+    </objecttype>
     
 <!-- geen transformatie of tabel van onderstaande.
 
