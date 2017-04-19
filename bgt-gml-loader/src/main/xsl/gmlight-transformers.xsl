@@ -34,9 +34,9 @@
             <xsl:call-template name="fileheader"/>
             
             <xsl:text>
-/** GML Light transformer voor RSGB 3.0 objecttype </xsl:text>
+/** BGT Light GML transformer voor RSGB 3.0 objecttype </xsl:text>
             <xsl:value-of select="$className"/>
-            <xsl:text> */
+            <xsl:text>. */
 public class </xsl:text>
             <xsl:value-of select="$className" />
             <xsl:text> extends GMLLightFeatureTransformerImpl {

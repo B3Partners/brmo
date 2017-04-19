@@ -16,6 +16,15 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Testcases voor {@link BGTGMLLightLoader}. Om de tests te runnen gebruik je:
+ * {@code mvn -Dit.test=BGTGMLLightLoaderIntegrationTest -Dtest.onlyITs=true integration-test -Poracle > target/oracle.log}
+ * voor bijvoorbeeld Oracle of
+ * {@code mvn -Dit.test=BGTGMLLightLoaderIntegrationTest -Dtest.onlyITs=true integration-test -Ppostgresql > target/postgresql.log}
+ * voor Postgis.
+ *
+ * @author mprins
+ */
 public class BGTGMLLightLoaderIntegrationTest extends TestingBase {
 
     private static final Log LOG = LogFactory.getLog(BGTGMLLightLoaderIntegrationTest.class);
@@ -57,6 +66,29 @@ public class BGTGMLLightLoaderIntegrationTest extends TestingBase {
     public void testProcessGMLFile() throws Exception {
         File gml = new File(BGTGMLLightLoaderIntegrationTest.class.getResource("/gmllight/one/bgt_onbegroeidterreindeel.gml").toURI());
         assertEquals("Aantal geschreven features", 1, ldr.processGMLFile(gml));
+    }
+
+    /**
+     * test parsen en laden van 1 bestand in bestaande tabel.
+     *
+     * @throws Exception if any
+     */
+    @Test
+    public void testProcessBuurtGMLFile() throws Exception {
+        File gml = new File(BGTGMLLightLoaderIntegrationTest.class.getResource("/gmllight/bgt_buurt.gml").toURI());
+        // er zitten 10 buurten waarvan er 2 vervallen zijn
+        assertEquals("Aantal geschreven features", 10 - 2, ldr.processGMLFile(gml));
+    }
+
+    /**
+     * test parsen en laden van 1 bestand in bestaande tabel.
+     *
+     * @throws Exception if any
+     */
+    @Test
+    public void testProcessWijkGMLFile() throws Exception {
+        File gml = new File(BGTGMLLightLoaderIntegrationTest.class.getResource("/gmllight/bgt_wijk.gml").toURI());
+        assertEquals("Aantal geschreven features", 4, ldr.processGMLFile(gml));
     }
 
     /**

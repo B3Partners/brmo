@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.geotools.factory.CommonFactoryFinder;
 import org.geotools.factory.Hints;
 import org.geotools.feature.AttributeTypeBuilder;
 import org.geotools.feature.simple.SimpleFeatureBuilder;
@@ -63,10 +64,9 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
     protected final HashMap<String, AttributeDescriptor> composedAttr = new HashMap();
 
     // fail, see: https://osgeo-org.atlassian.net/browse/GEOT-5400
-    // protected final FeatureTypeFactory typeFactory = CommonFactoryFinder.getFeatureTypeFactory(null);
+    private final FeatureTypeFactory typeFactory = CommonFactoryFinder.getFeatureTypeFactory(null);
     // gebruik:
-    private final FeatureTypeFactory typeFactory = new FeatureTypeFactoryImpl();
-
+    //private final FeatureTypeFactory typeFactory = new FeatureTypeFactoryImpl();
     private final AttributeTypeBuilder builder = new AttributeTypeBuilder();
     private CoordinateReferenceSystem crs = null;
 
