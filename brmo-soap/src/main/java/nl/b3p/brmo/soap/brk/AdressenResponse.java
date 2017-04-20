@@ -5,16 +5,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
 import nl.b3p.brmo.soap.db.BrkInfo;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
  * @author Chris
  */
 public class AdressenResponse {
+    private static final Log LOG = LogFactory.getLog(AdressenResponse.class);
 
     private List<AdresResponse> BAGAdres = null;
 
@@ -81,8 +83,7 @@ public class AdressenResponse {
         return sql;
     }
 
-    public static AdressenResponse getAdressenByKoz(Long kozId,
-            Map<String, Object> searchContext) throws Exception {
+    public static AdressenResponse getAdressenByKoz(Long kozId) throws Exception {
 
         DataSource ds = BrkInfo.getDataSourceRsgb();
         PreparedStatement stm = null;
@@ -98,7 +99,8 @@ public class AdressenResponse {
             sql.append(createFromSQL());
             sql.append("WHERE ");
             sql.append(createWhereSQL());
-
+            LOG.trace(sql);
+            LOG.trace(kozId);
             stm = connRsgb.prepareStatement(sql.toString());
             stm.setObject(1, kozId);
             rs = stm.executeQuery();
@@ -109,7 +111,7 @@ public class AdressenResponse {
             while (rs.next()) {
                 if (ar == null) {
                     ar = new AdressenResponse();
-                    arl = new ArrayList<AdresResponse>();
+                    arl = new ArrayList<>();
                     ar.setBAGAdres(arl);
                 }
                 bagAdres = new AdresResponse();

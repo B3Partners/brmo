@@ -8,6 +8,8 @@ import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import nl.b3p.brmo.soap.db.BrkInfo;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -15,7 +17,7 @@ import nl.b3p.brmo.soap.db.BrkInfo;
  */
 @XmlType
 public class NietNatuurlijkPersoonResponse {
-
+    private static final Log LOG = LogFactory.getLog(NietNatuurlijkPersoonResponse.class);
     private String identificatie;
     private String rechtsvorm;
     private String statutaireZetel;
@@ -120,7 +122,8 @@ public class NietNatuurlijkPersoonResponse {
             sql.append(createFromSQL());
             sql.append("WHERE ");
             sql.append(createWhereSQL());
-
+            LOG.trace(sql);
+            LOG.trace(id);
             stm = connRsgb.prepareStatement(sql.toString());
             stm.setString(1, id);
             rs = stm.executeQuery();

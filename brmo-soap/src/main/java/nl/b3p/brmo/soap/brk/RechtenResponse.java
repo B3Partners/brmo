@@ -9,13 +9,15 @@ import java.util.Map;
 import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
 import nl.b3p.brmo.soap.db.BrkInfo;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
  * @author Chris
  */
 public class RechtenResponse {
-
+    private static final Log LOG = LogFactory.getLog(RechtenResponse.class);
     private List<ZakelijkRechtResponse> zakelijkRecht = null;
 
     /**
@@ -80,7 +82,8 @@ public class RechtenResponse {
             sql.append(createFromSQL());
             sql.append("WHERE ");
             sql.append(createWhereSQL());
-
+            LOG.trace(sql);
+            LOG.trace(kozId);
             stm = connRsgb.prepareStatement(sql.toString());
             stm.setObject(1, kozId);
             rs = stm.executeQuery();
