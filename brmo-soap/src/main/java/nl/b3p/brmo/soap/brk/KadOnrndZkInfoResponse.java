@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlType;
 import nl.b3p.brmo.soap.db.BrkInfo;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -15,6 +17,8 @@ import nl.b3p.brmo.soap.db.BrkInfo;
  */
 @XmlType
 public class KadOnrndZkInfoResponse {
+
+    private static final Log LOG = LogFactory.getLog(KadOnrndZkInfoResponse.class);
 
     private String gemeentecode;
     private String sectie;
@@ -388,7 +392,8 @@ public class KadOnrndZkInfoResponse {
             sql.append(createFromSQL());
             sql.append("WHERE ");
             sql.append(createWhereSQL());
-
+            LOG.trace(sql);
+            LOG.trace(id);
             stm = connRsgb.prepareStatement(sql.toString());
             stm.setLong(1, id);
             rs = stm.executeQuery();
@@ -402,8 +407,8 @@ public class KadOnrndZkInfoResponse {
                 koz.setDatumBeginGeldigheid(rs.getDate("dat_beg_geldh"));
                 koz.setDatumEindeGeldigheid(rs.getDate("datum_einde_geldh"));
                 koz.setKoopjaar(rs.getInt("ks_koopjaar"));
-                koz.setMeerOnroerendgoed(rs.getBoolean("ks_meer_onroerendgoed"));
-
+                // ks_meer_onroerendgoed is 'J' of 'N' string, geen boolean
+                koz.setMeerOnroerendgoed(rs.getString("ks_meer_onroerendgoed").equalsIgnoreCase("J"));
                 String type = "perceel";
                 if (rs.getString("ka_appartementsindex") != null) {
                     type = "appartement";
@@ -426,7 +431,7 @@ public class KadOnrndZkInfoResponse {
                 koz.setRechten(RechtenResponse.getRechtenByKoz(id, searchContext));
                 Boolean at = (Boolean) searchContext.get(BrkInfo.ADRESSENTOEVOEGEN);
                 if (at != null && at) {
-                    koz.setAdressen(AdressenResponse.getAdressenByKoz(id, searchContext));
+                    koz.setAdressen(AdressenResponse.getAdressenByKoz(id));
                 }
 //            koz.setRelaties(null);
 

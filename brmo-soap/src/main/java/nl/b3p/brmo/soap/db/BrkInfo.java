@@ -72,9 +72,6 @@ public class BrkInfo {
      * @throws ParseException als parsen van de geometrie mislukt
      * @throws javax.naming.NamingException als er een fout optreedt bij het
      * opzoeken van de JNDI naam
-     *
-     * @todo opschonen van commentaar na sluiten van
-     * https://github.com/B3Partners/brmo/issues/322
      */
     public static ArrayList<Long> findKozIDs(Map<String, Object> searchContext) throws SQLException, ParseException, NamingException {
 
@@ -92,26 +89,10 @@ public class BrkInfo {
             stm = connRsgb.prepareStatement(sql.toString());
             stm = addParamsSQL(stm, searchContext, dbType);
             rs = stm.executeQuery();
-
-//            ResultSetMetaData rsmd = rs.getMetaData();
-//            int numberOfColumns = rsmd.getColumnCount();
-//            LOG.trace(numberOfColumns);
-//            for (int i = 1; i < numberOfColumns + 1; i++) {
-//                LOG.trace(rsmd.getColumnClassName(i));
-//                LOG.trace(rsmd.getColumnName(i));
-//                LOG.trace(rsmd.getColumnTypeName(i));
-//            }
-            ArrayList<Long> ids = new ArrayList<Long>();
+            ArrayList<Long> ids = new ArrayList<>();
             while (rs.next()) {
-                // LOG.trace("gevonden: " + rs.getObject("identificatie", BigDecimal.class));
-                // LOG.trace(rs.getObject(1).getClass());
-                // LOG.trace(rs.getObject("identificatie").getClass());
-                // LOG.trace("gevonden: " + rs.getObject(1));
-                // gaat mis bij bepaalde Oracle drivers omdat er een BigDecimal uit Oracle komt ...
-                Long id = rs.getLong("identificatie");
-                ids.add(id);
+                ids.add(rs.getLong("identificatie"));
             }
-
             return ids;
         } finally {
             if (rs != null) {
@@ -503,7 +484,7 @@ public class BrkInfo {
     }
 
     public static Map<String, Object> createSearchContext(BrkInfoRequest request) {
-        Map<String, Object> searchContext = new HashMap<String, Object>();
+        Map<String, Object> searchContext = new HashMap<>();
         if (request == null) {
             return searchContext;
         }
