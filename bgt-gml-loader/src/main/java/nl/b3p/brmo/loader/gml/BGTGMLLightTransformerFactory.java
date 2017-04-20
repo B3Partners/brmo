@@ -18,11 +18,7 @@ public enum BGTGMLLightTransformerFactory {
     // TODO nog geen voorbeeld of bestand gezien...
     // zie: https://github.com/B3Partners/brmo/issues/324
     inrichtingselement("", "Inrichtingselement"),
-    // TODO nog geen voorbeeld of bestand gezien, naam moet gecontroleerd...
-    // zie: https://github.com/B3Partners/brmo/issues/324
-    openbareruimte("", "OpenbareRuimte"),
-    
-    // doen we niet
+    // doen we niet/nooit
     // plaatsbepalingspunt("", ""),
     
     bak("bgt_bak.gml", "Bak"),
@@ -38,14 +34,15 @@ public enum BGTGMLLightTransformerFactory {
     pand("bgt_buildingpart.gml", "Pand"),
     overig_bouwwerk("bgt_overigbouwwerk.gml", "OverigBouwwerk"),
     //
+    openbareruimte("bgt_openbareruimte.gml", "OpenbareRuimte"),
     openbareruimtelabel("bgt_openbareruimtelabel.gml", "OpenbareRuimteLabel"),
     functioneelgebied("bgt_functioneelgebied.gml", "FunctioneelGebied"),
     // TODO bestuurlijke eenheden, nog geen gml bestand van gezien
     // zie: https://github.com/B3Partners/brmo/issues/324
     // stadsdeel("", "Stadsdeel"),
     // waterschap("", "Waterschap"),
-    // buurt("bgt_buurt.gml", "Buurt"),
-    // wijk("bgt_wijk.gml", "Wijk"),
+    buurt("bgt_buurt.gml", "Buurt"),
+    wijk("bgt_wijk.gml", "Wijk"),
     //
     ongeclassificeerdobject("bgt_ongeclassificeerdobject.gml", "OngeclassificeerdObject"),
     //

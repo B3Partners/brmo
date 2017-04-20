@@ -266,6 +266,44 @@ Copyright (C) 2016 B3Partners B.V.
         <attribuut xslname="nummeraanduidingreeks_3.identificatieBAGVBOHoogsteHuisnummer" sqlname="nrar_3_id_bagvbo_max_huisnr" sqltype="varchar(255)" />
     </objecttype>
 
+    <objecttype clazz="Buurt" table="buurt">
+        <attribuut xslname="buurtcode" sqlname="buurtcode" sqltype="varchar(255)" />
+        <attribuut xslname="naam" sqlname="naam" sqltype="varchar(255)" />
+        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="multipolygon" />
+        <!--  TODO evt. relatie/constraint in datamodel aanbrengen
+            BUURT [1 .. *] ligt in WIJK [1]
+            wijk (gml:ReferenceType) blijkt niet voor te komen in de GML -->
+        <attribuut xslname="wijk" sqlname="wijk" sqltype="varchar(255)" />
+
+        <!-- komen niet voor in de RSGB 3.0 beschrijving, maar omdat het generieke (gedeelde) model attributen zijn komen ze toch mee
+        <attribuut xslname="bgt-status" sqlname="null" />
+        <attribuut xslname="plus-status" sqlname="null" />
+        <attribuut xslname="relatieveHoogteligging" sqlname="null" /> -->
+    </objecttype>
+
+    <objecttype clazz="Wijk" table="wijk">
+        <attribuut xslname="wijkcode" sqlname="wijkcode" sqltype="varchar(255)" />
+        <attribuut xslname="naam" sqlname="naam" sqltype="varchar(255)" />
+        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="multipolygon" />
+        <!-- TODO evt. relatie/constraint in datamodel aanbrengen
+            WIJK [1 .. *] ligt in GEMEENTE [1]
+            stadsdeel (gml:ReferenceType) blijkt niet voor te komen in de GML
+            stadsdeel komt niet voor in de beschrijving -->
+        <attribuut xslname="stadsdeel" sqlname="stadsdeel" sqltype="varchar(255)" />
+
+        <!-- komen niet voor in de RSGB 3.0 beschrijving, maar omdat het generieke (gedeelde) model attributen zijn komen ze toch mee
+        <attribuut xslname="bgt-status" sqlname="null" />
+        <attribuut xslname="plus-status" sqlname="null" />
+        <attribuut xslname="relatieveHoogteligging" sqlname="null" /> -->
+    </objecttype>
+
+    <objecttype clazz="OpenbareRuimte" table="openbareruimte">
+        <attribuut xslname="naam" sqlname="naam" sqltype="varchar(255)" />
+        <!-- naamEnIdOpenbareRuimte (gml:ReferenceType) blijkt niet voor te komen in de GML -->
+        <attribuut xslname="naamEnIdOpenbareRuimte" sqlname="naam_id_opr" sqltype="varchar(255)" />
+        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="multipolygon" />
+    </objecttype>
+    
 <!-- geen transformatie of tabel van onderstaande.
 
 doen we niet: plaatsbepalingspunt
@@ -274,48 +312,6 @@ nog geen gml bestand van inrichtingselement gezien
 
     <objecttype clazz="Inrichtingselement" table="inrichtingselement">
         <attribuut xslname="bgt-type" sqlname="bgt_type" sqltype="varchar(255)" />
-    </objecttype>
-
-nog geen gml bestand van bgt_openbareruimte bestand gezien, naam moet gecontroleerd... zit bovendien in BAG
-
-    <objecttype clazz="OpenbareRuimte" table="bgt_openbareruimte">
-        <attribuut xslname="naam" sqlname="naam" sqltype="varchar(255)" />
-            // naamEnIdOpenbareRuimte (gml:ReferenceType) blijkt niet voor te komen in de GML
-        <attribuut xslname="naamEnIdOpenbareRuimte" sqlname="naam_id_opr" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
-    </objecttype>
-
-bestuurlijke eenheden
-
-    <objecttype clazz="Buurt" table="buurt">
-        <attribuut xslname="buurtcode" sqlname="buurtcode" sqltype="varchar(255)" />
-        <attribuut xslname="naam" sqlname="naam" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="multipolygon" />
-            // TODO evt. relatie/constraint in datamodel aanbrengen
-            BUURT [1 .. *] ligt in WIJK [1]
-            wijk (gml:ReferenceType) blijkt niet voor te komen in de GML
-        <attribuut xslname="wijk" sqlname="wijk" sqltype="varchar(255)" />
-
-            // komen niet voor in de RSGB 3.0 beschrijving, op null zetten/niet transformeren
-        <attribuut xslname="bgt-status" sqlname="null" />
-        <attribuut xslname="plus-status" sqlname="null" />
-        <attribuut xslname="relatieveHoogteligging" sqlname="null" />
-    </objecttype>
-
-    <objecttype clazz="Wijk" table="wijk">
-        <attribuut xslname="wijkcode" sqlname="wijkcode" sqltype="varchar(255)" />
-        <attribuut xslname="naam" sqlname="naam" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="multipolygon" />
-            // TODO evt. relatie/constraint in datamodel aanbrengen
-            WIJK [1 .. *] ligt in GEMEENTE [1]
-            stadsdeel (gml:ReferenceType) blijkt niet voor te komen in de GML
-            stadsdeel komt niet voor in de beschrijving
-        <attribuut xslname="stadsdeel" sqlname="stadsdeel" sqltype="varchar(255)" />
-
-            // komen niet voor in de RSGB 3.0 beschrijving, op null zetten/niet transformeren
-        <attribuut xslname="bgt-status" sqlname="null" />
-        <attribuut xslname="plus-status" sqlname="null" />
-        <attribuut xslname="relatieveHoogteligging" sqlname="null" />
     </objecttype>
 
 nog geen gml bestand van stadsdeel gezien

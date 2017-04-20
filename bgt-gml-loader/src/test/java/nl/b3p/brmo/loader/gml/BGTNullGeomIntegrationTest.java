@@ -31,7 +31,7 @@ import static org.junit.Assert.fail;
 @RunWith(Parameterized.class)
 public class BGTNullGeomIntegrationTest extends TestingBase {
 
-    private static final Log LOG = LogFactory.getLog(BGTLightKruinlijnIntegrationTest.class);
+    private static final Log LOG = LogFactory.getLog(BGTNullGeomIntegrationTest.class);
 
     @Parameterized.Parameters(name = "{index}: gml:{0}")
     public static Collection<Object[]> params() {

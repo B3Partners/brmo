@@ -34,6 +34,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Geparametriseerde test om features uit BGT/PDOK gmllight formaat te parsen.
+ * run: {@code mvn -Dtest=nl.b3p.brmo.loader.gml.BGTGMLLightParserTest test}.
  *
  * @author mprins
  */
@@ -46,8 +47,12 @@ public class BGTGMLLightParserTest {
     public static Collection<Object[]> params() {
         return Arrays.asList(new Object[][]{
             //arrays of: {"gmlFileName", "typeNamespace", "elementName", expectedNumOfElements, expectedNumOfAtrr},
+            // NB. expectedNumOfAtrr bevat ook generieke GML attributen
             {"/gmllight/bgt_ondersteunendwaterdeel.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "OndersteunendWaterdeel", 47, 20},
-            {"/gmllight/bgt_ongeclassificeerdobject.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "OngeclassificeerdObject", 0, 18}
+            {"/gmllight/bgt_ongeclassificeerdobject.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "OngeclassificeerdObject", 0, 18},
+            {"/gmllight/bgt_buurt.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "Buurt", 10, 21},
+            {"/gmllight/bgt_wijk.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "Wijk", 4, 21},
+            {"/gmllight/bgt_openbareruimte.gml", "http://www.geostandaarden.nl/imgeo/2.1/simple/gml31", "OpenbareRuimte", 26, 20}
         });
     }
     private Parser parser;
@@ -110,11 +115,11 @@ public class BGTGMLLightParserTest {
 
                 Collection<Property> props = feature.getProperties();
                 assertEquals("There should be a number of properties", expectedNumOfAtrr, props.size());
-//                String s = "Feature " + feature.getIdentifier() + "\n";
-//                for (Property p : props) {
-//                    s = s.concat(" - " + p.getName() + " (" + p.getType() + "):\t " + p.getValue() + "\n");
-//                }
-//                LOG.debug(s);
+                String s = "Feature " + feature.getIdentifier() + "\n";
+                for (Property p : props) {
+                    s = s.concat(" - " + p.getName() + " (" + p.getType() + "):\t " + p.getValue() + "\n");
+                }
+                LOG.debug(s);
             }
 
         }, new NullProgressListener());
