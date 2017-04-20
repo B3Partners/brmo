@@ -17,7 +17,13 @@ LEVELS: debug, info, warn, error, fatal en off, all -->
         <level value="warn" />
     </logger>
     <logger name="org.postgresql">
-        <level value="debug" />
+        <level value="info" />
+    </logger>
+    <logger name="nl.b3p.brmo">
+        <level value="info" />
+    </logger>
+    <logger name="nl.b3p.brmo.loader.gml">
+        <level value="info" />
     </logger>
     <root>
         <level value="info" />
