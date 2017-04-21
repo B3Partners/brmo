@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanCleanupIntegrationTest
-	c7 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanCleanupIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdvancedFunctionsActionBeanCleanupIntegrationTest.html">
+	c15 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanCleanupIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdvancedFunctionsActionBeanCleanupIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AdvancedFunctionsActionBeanCleanupIntegrationTest </td></tr>
 		</table></td></tr>
@@ -28,7 +28,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AdvancedFunctionsActionBeanCleanupIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest
-	c8 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdvancedFunctionsActionBeanIntegrationTest.html">
+	c16 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdvancedFunctionsActionBeanIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AdvancedFunctionsActionBeanIntegrationTest </td></tr>
 		</table></td></tr>
@@ -44,11 +44,11 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AdvancedFunctionsActionBeanIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanCleanupIntegrationTest NAVASSOC nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean
-	c7:p -> c10:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c15:p -> c18:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest NAVASSOC nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean
-	c8:p -> c10:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c16:p -> c18:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean
-	c10 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c18 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AdvancedFunctionsActionBean </td></tr>
 		</table></td></tr>
