@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.soap.brk.ZakelijkRechtResponse
-	c0 [label=<<table title="nl.b3p.brmo.soap.brk.ZakelijkRechtResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ZakelijkRechtResponse.html">
+	c42 [label=<<table title="nl.b3p.brmo.soap.brk.ZakelijkRechtResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ZakelijkRechtResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ZakelijkRechtResponse </td></tr>
 		</table></td></tr>
@@ -34,7 +34,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ZakelijkRechtResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.GetBrkInfoImpl
-	c1 [label=<<table title="nl.b3p.brmo.soap.brk.GetBrkInfoImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GetBrkInfoImpl.html">
+	c43 [label=<<table title="nl.b3p.brmo.soap.brk.GetBrkInfoImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GetBrkInfoImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GetBrkInfoImpl </td></tr>
 		</table></td></tr>
@@ -47,7 +47,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./GetBrkInfoImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.RechtenResponse
-	c2 [label=<<table title="nl.b3p.brmo.soap.brk.RechtenResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RechtenResponse.html">
+	c44 [label=<<table title="nl.b3p.brmo.soap.brk.RechtenResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RechtenResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RechtenResponse </td></tr>
 		</table></td></tr>
@@ -62,7 +62,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./RechtenResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.AdresResponse
-	c3 [label=<<table title="nl.b3p.brmo.soap.brk.AdresResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdresResponse.html">
+	c45 [label=<<table title="nl.b3p.brmo.soap.brk.AdresResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdresResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AdresResponse </td></tr>
 		</table></td></tr>
@@ -86,7 +86,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AdresResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.BrkInfoRequest
-	c4 [label=<<table title="nl.b3p.brmo.soap.brk.BrkInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkInfoRequest.html">
+	c46 [label=<<table title="nl.b3p.brmo.soap.brk.BrkInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkInfoRequest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrkInfoRequest </td></tr>
 		</table></td></tr>
@@ -116,7 +116,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BrkInfoRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.BrkInfoException
-	c5 [label=<<table title="nl.b3p.brmo.soap.brk.BrkInfoException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkInfoException.html">
+	c47 [label=<<table title="nl.b3p.brmo.soap.brk.BrkInfoException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkInfoException.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrkInfoException </td></tr>
 		</table></td></tr>
@@ -129,7 +129,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BrkInfoException.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.BrkInfoResponse
-	c6 [label=<<table title="nl.b3p.brmo.soap.brk.BrkInfoResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkInfoResponse.html">
+	c48 [label=<<table title="nl.b3p.brmo.soap.brk.BrkInfoResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkInfoResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrkInfoResponse </td></tr>
 		</table></td></tr>
@@ -148,7 +148,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BrkInfoResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.HistorischeRelatieResponse
-	c7 [label=<<table title="nl.b3p.brmo.soap.brk.HistorischeRelatieResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HistorischeRelatieResponse.html">
+	c49 [label=<<table title="nl.b3p.brmo.soap.brk.HistorischeRelatieResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HistorischeRelatieResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HistorischeRelatieResponse </td></tr>
 		</table></td></tr>
@@ -166,7 +166,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./HistorischeRelatieResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse
-	c8 [label=<<table title="nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NatuurlijkPersoonResponse.html">
+	c50 [label=<<table title="nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NatuurlijkPersoonResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NatuurlijkPersoonResponse </td></tr>
 		</table></td></tr>
@@ -201,7 +201,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./NatuurlijkPersoonResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.AdressenResponse
-	c9 [label=<<table title="nl.b3p.brmo.soap.brk.AdressenResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdressenResponse.html">
+	c51 [label=<<table title="nl.b3p.brmo.soap.brk.AdressenResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdressenResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AdressenResponse </td></tr>
 		</table></td></tr>
@@ -212,11 +212,11 @@ digraph G {
 <tr><td align="left" balign="left"> + AdressenResponse() </td></tr>
 <tr><td align="left" balign="left"> + getBAGAdres() : List&lt;AdresResponse&gt; </td></tr>
 <tr><td align="left" balign="left"> + setBAGAdres(BAGAdres : List&lt;AdresResponse&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getAdressenByKoz(kozId : Long, searchContext : Map&lt;String, Object&gt;) : AdressenResponse </td></tr>
+<tr><td align="left" balign="left"> + getAdressenByKoz(kozId : Long) : AdressenResponse </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AdressenResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest
-	c10 [label=<<table title="nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KadOnrndZkInfoRequest.html">
+	c52 [label=<<table title="nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KadOnrndZkInfoRequest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KadOnrndZkInfoRequest </td></tr>
 		</table></td></tr>
@@ -238,7 +238,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./KadOnrndZkInfoRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest
-	c11 [label=<<table title="nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PerceelAdresInfoRequest.html">
+	c53 [label=<<table title="nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PerceelAdresInfoRequest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PerceelAdresInfoRequest </td></tr>
 		</table></td></tr>
@@ -258,7 +258,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PerceelAdresInfoRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse
-	c12 [label=<<table title="nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KadOnrndZkInfoResponse.html">
+	c54 [label=<<table title="nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KadOnrndZkInfoResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KadOnrndZkInfoResponse </td></tr>
 		</table></td></tr>
@@ -309,7 +309,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./KadOnrndZkInfoResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse
-	c13 [label=<<table title="nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NietNatuurlijkPersoonResponse.html">
+	c55 [label=<<table title="nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NietNatuurlijkPersoonResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NietNatuurlijkPersoonResponse </td></tr>
 		</table></td></tr>
@@ -330,7 +330,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./NietNatuurlijkPersoonResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.RelatiesResponse
-	c14 [label=<<table title="nl.b3p.brmo.soap.brk.RelatiesResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RelatiesResponse.html">
+	c56 [label=<<table title="nl.b3p.brmo.soap.brk.RelatiesResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RelatiesResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RelatiesResponse </td></tr>
 		</table></td></tr>
@@ -346,18 +346,18 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./RelatiesResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.ZakelijkRechtResponse NAVASSOC nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse
-	c0:p -> c8:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c42:p -> c50:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.soap.brk.ZakelijkRechtResponse NAVASSOC nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse
-	c0:p -> c13:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c42:p -> c55:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.soap.brk.BrkInfoRequest NAVASSOC nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest
-	c4:p -> c10:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c46:p -> c52:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.soap.brk.BrkInfoRequest NAVASSOC nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest
-	c4:p -> c11:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c46:p -> c53:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse NAVASSOC nl.b3p.brmo.soap.brk.AdressenResponse
-	c12:p -> c9:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c54:p -> c51:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse NAVASSOC nl.b3p.brmo.soap.brk.RechtenResponse
-	c12:p -> c2:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c54:p -> c44:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse NAVASSOC nl.b3p.brmo.soap.brk.RelatiesResponse
-	c12:p -> c14:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c54:p -> c56:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 
