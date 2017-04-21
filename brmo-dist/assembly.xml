@@ -73,8 +73,8 @@
             <directory>../${project.basedir}/</directory>
             <outputDirectory/>
             <includes>
-                <include>**/LICENSE</include>
-                <include>**/README.md</include>
+                <include>LICENSE</include>
+                <include>README.md</include>
             </includes>
         </fileSet>
     </fileSets>
