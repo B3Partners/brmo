@@ -1,8 +1,8 @@
 package nl.b3p.brmo.soap.brk;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
+import javax.jws.HandlerChain;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -16,6 +16,7 @@ import org.apache.commons.logging.LogFactory;
         targetNamespace = "http://brmo.b3p.nl/brk/1.0/soap-brk",
         wsdlLocation = "WEB-INF/wsdl/brkinfo.wsdl"
 )
+@HandlerChain(file = "/handler-chain.xml")
 public class GetBrkInfoImpl {
     private static final Log LOG = LogFactory.getLog(GetBrkInfoImpl.class);
     /**

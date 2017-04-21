@@ -1,6 +1,7 @@
 package nl.b3p.brmo.soap.eigendom;
 
 import java.util.Map;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -15,6 +16,7 @@ import nl.b3p.brmo.soap.db.EigendomInfo;
         targetNamespace = "http://brmo.b3p.nl/brmo/1.0/eigendom",
         wsdlLocation = "WEB-INF/wsdl/EigendomMutatie.wsdl"
 )
+@HandlerChain(file = "/handler-chain.xml")
 public class EigendomMutatieService {
 
     @WebMethod(operationName = "getEigendomMutaties")
