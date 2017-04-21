@@ -57,7 +57,7 @@
         <oracle.jdbc.artifactId>ojdbc8</oracle.jdbc.artifactId>
         <sqlserver.jtds.version>1.3.1</sqlserver.jtds.version>
         <javasimon.version>4.1.2</javasimon.version>
-        <quartz.version>2.2.3</quartz.version>
+        <quartz.version>2.3.0</quartz.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- om unit tests met postgres te draaien gebruik je
