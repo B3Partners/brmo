@@ -33,7 +33,7 @@ build: off
 
 before_test:
 # services worden na install gestart en we hebben gegenereerde sql nodig
-# create + set up STAGING DB
+  - cmd: echo "aanmaken en opzetten STAGING DB"
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE staging" -d "master"
   - dir -w .\brmo-persistence\db\
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\create-brmo-persistence-sqlserver.sql
@@ -42,11 +42,14 @@ before_test:
   - ps: ([xml]$pom=Get-Content .\pom.xml)
   - ps: (Get-Content .\brmo-persistence\db\05_create_brmo_metadata_sqlserver.sql) -replace '\${project.version}', $pom.project.version | Set-Content .\brmo-persistence\db\05_create_brmo_metadata_sqlserver.sql
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\05_create_brmo_metadata_sqlserver.sql
-# create + set up RSGB DB
+#
+  - cmd: echo "aanmaken en opzetten RSGB DB"
+  - cmd: SET SQLCMDINI=.\.appveyor\init.sql
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE rsgb" -d "master"
   - dir -w .\datamodel\generated_scripts\
   - sqlcmd -r0 -x -b -S (local)\SQL2016 -U sa -P Password12! -d "rsgb" -I -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
-# create + set up RSGBBGT DB
+#
+  - cmd: echo "aanmaken en opzetten RSGBBGT DB"
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE bgttest" -d "master"
   - dir -w .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\
   - sqlcmd -r0 -b -S (local)\SQL2016 -I -U sa -P Password12! -d "bgttest" -i .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\create_rsgb_bgt.sql
