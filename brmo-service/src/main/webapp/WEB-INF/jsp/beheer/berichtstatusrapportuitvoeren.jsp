@@ -1,6 +1,6 @@
 <%@include file="/WEB-INF/taglibs.jsp" %>
 <stripes:layout-render name="/WEB-INF/jsp/layout/default.jsp">
-    <stripes:layout-component name="title">Materialized view verversen</stripes:layout-component>
+    <stripes:layout-component name="title">Berichtstatus rapportage</stripes:layout-component>
     <stripes:layout-component name="contents">
 
         <h2>Bericht status overzicht</h2>
