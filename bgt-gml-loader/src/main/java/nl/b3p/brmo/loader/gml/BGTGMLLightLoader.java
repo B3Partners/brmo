@@ -167,6 +167,7 @@ public class BGTGMLLightLoader {
      */
     public int processZipFile(File zipExtract) throws FileNotFoundException, IOException {
         this.omhullendeVanZipFile = null;
+        this.resetStatus();
         if (this.bijwerkDatum == null) {
             this.bijwerkDatum = new Date();
         }
@@ -261,9 +262,10 @@ public class BGTGMLLightLoader {
     }
 
     /**
-     * Verwerk een GML bestand. <strong>Let op:</strong> alleen voor "stand"
-     * verwerking omdat de onderliggende geometrische data niet betrouwbaar kan
-     * worden verwijderd in dit geval.
+     * Verwerk een enkel GML bestand. <strong>Let op:</strong> alleen voor
+     * "stand"     * verwerking omdat de onderliggende geometrische data niet betrouwbaar kan
+     * worden verwijderd in dit geval. Waarschijnlijk wil je ook de status
+     * resetten voor deze Loader, gebruik {@link #resetStatus() }.
      *
      * @param gml GML Light bestand
      * @return aantal geschreven features
@@ -475,7 +477,7 @@ public class BGTGMLLightLoader {
     /**
      * scan directory for zipfiles in de geconfigueerde directory.
      *
-     * @return lijst met zipfiles
+     * @return lijst met zipfiles, mogelijk leeg
      * @see #setScanDirectory(java.io.File)
      * @see #setScanDirectory(java.lang.String)
      */
@@ -590,7 +592,7 @@ public class BGTGMLLightLoader {
      * @param file de te testen zipfile
      * @return {@code true} als de zipfile OK is, aders {@code false}
      */
-    public boolean isValidZipFile(final File file) {
+    private boolean isValidZipFile(final File file) {
         ZipFile zipfile = null;
         ZipInputStream zis = null;
         String path = null;
@@ -655,7 +657,9 @@ public class BGTGMLLightLoader {
     }
 
     /**
-     * geeft de verwerkingsstatus.
+     * geeft de verwerkingsstatus. Voorafgaand aan de verwerking moet de status
+     * reset worden als er een set losse GML bestanden wordt verwerkt (bij zip
+     * files gaat dat vanzelf).
      *
      * @return status van de verwerking
      */
@@ -668,5 +672,9 @@ public class BGTGMLLightLoader {
      */
     public enum STATUS {
         OK, NOK
+    }
+
+    public void resetStatus() {
+        this.status = STATUS.OK;
     }
 }
