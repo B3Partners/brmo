@@ -67,7 +67,7 @@
         de schema's voor posgresql en oracle worden niet automatisch aangemaakt.
         -->
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
-        <test.h2.version>1.4.194</test.h2.version>
+        <test.h2.version>1.4.195</test.h2.version>
         <test.onlyITs>false</test.onlyITs>
         <maven.surefire.version>2.20</maven.surefire.version>
     </properties>
@@ -200,8 +200,8 @@
                 Bij gebruik van oracle met maven moet je de oracle jdbc driver
                 handmatig toevoegen aan je locale mvn repo (OTN licentie blabla): Dit
                 kan met:
-                mvn install:install-file -Dfile=ojdbc7-12.1.0.2.0.jar -DpomFile=ojdbc7-12.1.0.2.0.pom -Dfile=ojdbc7-12.1.0.2.0.jar
-                mvn install:install-file -Dfile=ojdbc7-12.1.0.2.0-javadoc.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0.2.0 -Dclassifier=javadoc -Dpackaging=jar
+                mvn install:install-file -Dfile=ojdbc8-12.2.0.1.0.jar -DpomFile=ojdbc8-12.2.0.1.0.pom -Dfile=ojdbc8-12.2.0.1.0.jar
+                mvn install:install-file -Dfile=ojdbc8-12.2.0.1.0-javadoc.jar -DgroupId=com.oracle -DartifactId=ojdbc8 -Dversion=12.2.0.1.0 -Dclassifier=javadoc -Dpackaging=jar
                 vanuit de /Mesa/Producten/third_party/oracle-drivers/ directory
             -->
             <dependency>
@@ -694,9 +694,36 @@
                     <artifactId>taglist-maven-plugin</artifactId>
                     <version>2.4</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>1.4.1</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>[3.2.5,)</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>${java.version}</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
@@ -706,71 +733,6 @@
                     <outputEncoding>${project.build.sourceEncoding}</outputEncoding>
                     <locales>nl</locales>
                     <relativizeDecorationLinks>false</relativizeDecorationLinks>
-                    <reportPlugins>
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>versions-maven-plugin</artifactId>
-                            <reportSets>
-                                <reportSet>
-                                    <reports>
-                                        <report>dependency-updates-report</report>
-                                        <report>plugin-updates-report</report>
-                                    </reports>
-                                </reportSet>
-                            </reportSets>
-                        </plugin>
-                        <plugin>
-                            <artifactId>maven-project-info-reports-plugin</artifactId>
-                            <reportSets>
-                                <reportSet>
-                                    <reports>
-                                        <report>cim</report>
-                                        <report>dependencies</report>
-                                        <report>dependency-convergence</report>
-                                        <report>dependency-management</report>
-                                        <report>index</report>
-                                        <report>plugin-management</report>
-                                        <report>plugins</report>
-                                        <report>scm</report>
-                                        <report>summary</report>
-                                    </reports>
-                                </reportSet>
-                            </reportSets>
-                            <configuration>
-                                <dependencyLocationsEnabled>true</dependencyLocationsEnabled>
-                            </configuration>
-                        </plugin>
-                        <plugin>
-                            <artifactId>maven-jxr-plugin</artifactId>
-                            <configuration>
-                                <linkJavadoc>true</linkJavadoc>
-                                <javadocDir>${basedir}/target/site/apidocs</javadocDir>
-                            </configuration>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-javadoc-plugin</artifactId>
-                            <reportSets>
-                                <reportSet>
-                                    <reports>
-                                        <report>javadoc-no-fork</report>
-                                        <report>test-javadoc-no-fork</report>
-                                    </reports>
-                                </reportSet>
-                            </reportSets>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>taglist-maven-plugin</artifactId>
-                        </plugin>
-                        <plugin>
-                            <artifactId>maven-surefire-report-plugin</artifactId>
-                            <configuration>
-                                <linkXRef>true</linkXRef>
-                                <goal>report-only</goal>
-                            </configuration>
-                        </plugin>
-                    </reportPlugins>
                 </configuration>
             </plugin>
             <plugin>
@@ -781,6 +743,80 @@
             </plugin>
         </plugins>
     </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>dependency-updates-report</report>
+                            <report>plugin-updates-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>cim</report>
+                            <report>dependencies</report>
+                            <report>dependency-convergence</report>
+                            <report>dependency-management</report>
+                            <report>index</report>
+                            <report>plugin-management</report>
+                            <report>plugins</report>
+                            <report>scm</report>
+                            <report>summary</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+                <configuration>
+                    <dependencyLocationsEnabled>true</dependencyLocationsEnabled>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <configuration>
+                    <linkJavadoc>true</linkJavadoc>
+                    <javadocDir>${basedir}/target/site/apidocs</javadocDir>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>javadoc-no-fork</report>
+                            <report>test-javadoc-no-fork</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>taglist-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <configuration>
+                    <linkXRef>true</linkXRef>
+                    <goal>report-only</goal>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <configuration>
+                    <linkXRef>true</linkXRef>
+                    <goal>failsafe-report-only</goal>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
     <profiles>
         <profile>
             <!-- actief voor Travis-CI builds -->
