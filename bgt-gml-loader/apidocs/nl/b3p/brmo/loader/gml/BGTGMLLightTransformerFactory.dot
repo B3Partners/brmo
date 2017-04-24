@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.gml.BGTGMLLightTransformerFactory
-	c280 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightTransformerFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTGMLLightTransformerFactory.html">
+	c301 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightTransformerFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTGMLLightTransformerFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> BGTGMLLightTransformerFactory </td></tr>
@@ -20,7 +20,6 @@ digraph G {
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> inrichtingselement </td></tr>
-<tr><td align="left" balign="left"> openbareruimte </td></tr>
 <tr><td align="left" balign="left"> bak </td></tr>
 <tr><td align="left" balign="left"> bord </td></tr>
 <tr><td align="left" balign="left"> put </td></tr>
@@ -32,8 +31,11 @@ digraph G {
 <tr><td align="left" balign="left"> gebouw_installatie </td></tr>
 <tr><td align="left" balign="left"> pand </td></tr>
 <tr><td align="left" balign="left"> overig_bouwwerk </td></tr>
+<tr><td align="left" balign="left"> openbareruimte </td></tr>
 <tr><td align="left" balign="left"> openbareruimtelabel </td></tr>
 <tr><td align="left" balign="left"> functioneelgebied </td></tr>
+<tr><td align="left" balign="left"> buurt </td></tr>
+<tr><td align="left" balign="left"> wijk </td></tr>
 <tr><td align="left" balign="left"> ongeclassificeerdobject </td></tr>
 <tr><td align="left" balign="left"> begroeid_terreindeel </td></tr>
 <tr><td align="left" balign="left"> onbegroeid_terreindeel </td></tr>

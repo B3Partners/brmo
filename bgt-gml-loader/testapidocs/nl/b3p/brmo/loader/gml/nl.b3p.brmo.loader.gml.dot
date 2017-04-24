@@ -135,6 +135,9 @@ digraph G {
 <tr><td align="left" balign="left"> + setUp() </td></tr>
 <tr><td align="left" balign="left"> + cleanUp() </td></tr>
 <tr><td align="left" balign="left"> + testProcessGMLFile() </td></tr>
+<tr><td align="left" balign="left"> + testProcessBuurtGMLFile() </td></tr>
+<tr><td align="left" balign="left"> + testProcessWijkGMLFile() </td></tr>
+<tr><td align="left" balign="left"> + testProcessOpenbareRuimteGMLFile() </td></tr>
 <tr><td align="left" balign="left"> + testProcessDuplicateGMLFile() </td></tr>
 <tr><td align="left" balign="left"> + testProcessOutOFTimeGMLFile() </td></tr>
 <tr><td align="left" balign="left"> + testScanDirectory() </td></tr>

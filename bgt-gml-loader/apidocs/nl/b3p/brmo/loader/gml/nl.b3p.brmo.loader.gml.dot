@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer
-	c76 [label=<<table title="nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GMLLightFeatureTransformer.html">
+	c82 [label=<<table title="nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GMLLightFeatureTransformer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> GMLLightFeatureTransformer </td></tr>
@@ -33,7 +33,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./GMLLightFeatureTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightTransformerFactory
-	c77 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightTransformerFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightTransformerFactory.html">
+	c83 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightTransformerFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightTransformerFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> BGTGMLLightTransformerFactory </td></tr>
@@ -43,7 +43,6 @@ digraph G {
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> inrichtingselement </td></tr>
-<tr><td align="left" balign="left"> openbareruimte </td></tr>
 <tr><td align="left" balign="left"> bak </td></tr>
 <tr><td align="left" balign="left"> bord </td></tr>
 <tr><td align="left" balign="left"> put </td></tr>
@@ -55,8 +54,11 @@ digraph G {
 <tr><td align="left" balign="left"> gebouw_installatie </td></tr>
 <tr><td align="left" balign="left"> pand </td></tr>
 <tr><td align="left" balign="left"> overig_bouwwerk </td></tr>
+<tr><td align="left" balign="left"> openbareruimte </td></tr>
 <tr><td align="left" balign="left"> openbareruimtelabel </td></tr>
 <tr><td align="left" balign="left"> functioneelgebied </td></tr>
+<tr><td align="left" balign="left"> buurt </td></tr>
+<tr><td align="left" balign="left"> wijk </td></tr>
 <tr><td align="left" balign="left"> ongeclassificeerdobject </td></tr>
 <tr><td align="left" balign="left"> begroeid_terreindeel </td></tr>
 <tr><td align="left" balign="left"> onbegroeid_terreindeel </td></tr>
@@ -77,7 +79,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightTransformerFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader
-	c78 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoader.html">
+	c84 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoader </td></tr>
 		</table></td></tr>
@@ -106,7 +108,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS
-	c79 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoader.STATUS.html">
+	c85 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoader.STATUS.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> STATUS </td></tr>
@@ -120,6 +122,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoader.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS
-	c78:p -> c79:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c84:p -> c85:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

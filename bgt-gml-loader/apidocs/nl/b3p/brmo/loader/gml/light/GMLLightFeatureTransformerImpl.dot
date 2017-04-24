@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer
-	c501 [label=<<table title="nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../GMLLightFeatureTransformer.html">
+	c580 [label=<<table title="nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../GMLLightFeatureTransformer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> GMLLightFeatureTransformer </td></tr>
@@ -33,7 +33,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../GMLLightFeatureTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.VegetatieObject
-	c505 [label=<<table title="nl.b3p.brmo.loader.gml.light.VegetatieObject" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VegetatieObject.html">
+	c584 [label=<<table title="nl.b3p.brmo.loader.gml.light.VegetatieObject" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VegetatieObject.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VegetatieObject </td></tr>
 		</table></td></tr>
@@ -45,7 +45,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./VegetatieObject.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.GebouwInstallatie
-	c506 [label=<<table title="nl.b3p.brmo.loader.gml.light.GebouwInstallatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GebouwInstallatie.html">
+	c585 [label=<<table title="nl.b3p.brmo.loader.gml.light.GebouwInstallatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GebouwInstallatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GebouwInstallatie </td></tr>
 		</table></td></tr>
@@ -57,7 +57,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./GebouwInstallatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Bord
-	c507 [label=<<table title="nl.b3p.brmo.loader.gml.light.Bord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bord.html">
+	c586 [label=<<table title="nl.b3p.brmo.loader.gml.light.Bord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bord.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Bord </td></tr>
 		</table></td></tr>
@@ -69,7 +69,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Bord.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.OverigeScheiding
-	c508 [label=<<table title="nl.b3p.brmo.loader.gml.light.OverigeScheiding" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OverigeScheiding.html">
+	c587 [label=<<table title="nl.b3p.brmo.loader.gml.light.OverigeScheiding" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OverigeScheiding.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OverigeScheiding </td></tr>
 		</table></td></tr>
@@ -81,7 +81,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./OverigeScheiding.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.FunctioneelGebied
-	c509 [label=<<table title="nl.b3p.brmo.loader.gml.light.FunctioneelGebied" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FunctioneelGebied.html">
+	c588 [label=<<table title="nl.b3p.brmo.loader.gml.light.FunctioneelGebied" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FunctioneelGebied.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FunctioneelGebied </td></tr>
 		</table></td></tr>
@@ -93,7 +93,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./FunctioneelGebied.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.OnbegroeidTerreindeel
-	c510 [label=<<table title="nl.b3p.brmo.loader.gml.light.OnbegroeidTerreindeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OnbegroeidTerreindeel.html">
+	c589 [label=<<table title="nl.b3p.brmo.loader.gml.light.OnbegroeidTerreindeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OnbegroeidTerreindeel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OnbegroeidTerreindeel </td></tr>
 		</table></td></tr>
@@ -105,7 +105,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./OnbegroeidTerreindeel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.OngeclassificeerdObject
-	c511 [label=<<table title="nl.b3p.brmo.loader.gml.light.OngeclassificeerdObject" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OngeclassificeerdObject.html">
+	c590 [label=<<table title="nl.b3p.brmo.loader.gml.light.OngeclassificeerdObject" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OngeclassificeerdObject.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OngeclassificeerdObject </td></tr>
 		</table></td></tr>
@@ -117,7 +117,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./OngeclassificeerdObject.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Straatmeubilair
-	c512 [label=<<table title="nl.b3p.brmo.loader.gml.light.Straatmeubilair" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Straatmeubilair.html">
+	c591 [label=<<table title="nl.b3p.brmo.loader.gml.light.Straatmeubilair" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Straatmeubilair.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Straatmeubilair </td></tr>
 		</table></td></tr>
@@ -129,7 +129,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Straatmeubilair.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Bak
-	c513 [label=<<table title="nl.b3p.brmo.loader.gml.light.Bak" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bak.html">
+	c592 [label=<<table title="nl.b3p.brmo.loader.gml.light.Bak" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bak.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Bak </td></tr>
 		</table></td></tr>
@@ -141,7 +141,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Bak.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Sensor
-	c514 [label=<<table title="nl.b3p.brmo.loader.gml.light.Sensor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Sensor.html">
+	c593 [label=<<table title="nl.b3p.brmo.loader.gml.light.Sensor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Sensor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Sensor </td></tr>
 		</table></td></tr>
@@ -153,7 +153,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Sensor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.OndersteunendWegdeel
-	c515 [label=<<table title="nl.b3p.brmo.loader.gml.light.OndersteunendWegdeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OndersteunendWegdeel.html">
+	c594 [label=<<table title="nl.b3p.brmo.loader.gml.light.OndersteunendWegdeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OndersteunendWegdeel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OndersteunendWegdeel </td></tr>
 		</table></td></tr>
@@ -165,7 +165,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./OndersteunendWegdeel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.OpenbareRuimteLabel
-	c516 [label=<<table title="nl.b3p.brmo.loader.gml.light.OpenbareRuimteLabel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OpenbareRuimteLabel.html">
+	c595 [label=<<table title="nl.b3p.brmo.loader.gml.light.OpenbareRuimteLabel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OpenbareRuimteLabel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OpenbareRuimteLabel </td></tr>
 		</table></td></tr>
@@ -176,8 +176,20 @@ digraph G {
 <tr><td align="left" balign="left"> + OpenbareRuimteLabel() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./OpenbareRuimteLabel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.gml.light.Buurt
+	c596 [label=<<table title="nl.b3p.brmo.loader.gml.light.Buurt" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Buurt.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Buurt </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Buurt() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./Buurt.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Overbruggingsdeel
-	c517 [label=<<table title="nl.b3p.brmo.loader.gml.light.Overbruggingsdeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Overbruggingsdeel.html">
+	c597 [label=<<table title="nl.b3p.brmo.loader.gml.light.Overbruggingsdeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Overbruggingsdeel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Overbruggingsdeel </td></tr>
 		</table></td></tr>
@@ -189,7 +201,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Overbruggingsdeel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Waterinrichtingselement
-	c518 [label=<<table title="nl.b3p.brmo.loader.gml.light.Waterinrichtingselement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Waterinrichtingselement.html">
+	c598 [label=<<table title="nl.b3p.brmo.loader.gml.light.Waterinrichtingselement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Waterinrichtingselement.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Waterinrichtingselement </td></tr>
 		</table></td></tr>
@@ -201,7 +213,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Waterinrichtingselement.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Paal
-	c519 [label=<<table title="nl.b3p.brmo.loader.gml.light.Paal" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Paal.html">
+	c599 [label=<<table title="nl.b3p.brmo.loader.gml.light.Paal" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Paal.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Paal </td></tr>
 		</table></td></tr>
@@ -213,7 +225,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Paal.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Kast
-	c520 [label=<<table title="nl.b3p.brmo.loader.gml.light.Kast" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Kast.html">
+	c600 [label=<<table title="nl.b3p.brmo.loader.gml.light.Kast" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Kast.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Kast </td></tr>
 		</table></td></tr>
@@ -225,7 +237,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Kast.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.OverigBouwwerk
-	c521 [label=<<table title="nl.b3p.brmo.loader.gml.light.OverigBouwwerk" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OverigBouwwerk.html">
+	c601 [label=<<table title="nl.b3p.brmo.loader.gml.light.OverigBouwwerk" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OverigBouwwerk.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OverigBouwwerk </td></tr>
 		</table></td></tr>
@@ -237,7 +249,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./OverigBouwwerk.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Put
-	c522 [label=<<table title="nl.b3p.brmo.loader.gml.light.Put" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Put.html">
+	c602 [label=<<table title="nl.b3p.brmo.loader.gml.light.Put" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Put.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Put </td></tr>
 		</table></td></tr>
@@ -249,7 +261,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Put.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Kunstwerkdeel
-	c523 [label=<<table title="nl.b3p.brmo.loader.gml.light.Kunstwerkdeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Kunstwerkdeel.html">
+	c603 [label=<<table title="nl.b3p.brmo.loader.gml.light.Kunstwerkdeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Kunstwerkdeel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Kunstwerkdeel </td></tr>
 		</table></td></tr>
@@ -261,7 +273,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Kunstwerkdeel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.OndersteunendWaterdeel
-	c524 [label=<<table title="nl.b3p.brmo.loader.gml.light.OndersteunendWaterdeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OndersteunendWaterdeel.html">
+	c604 [label=<<table title="nl.b3p.brmo.loader.gml.light.OndersteunendWaterdeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OndersteunendWaterdeel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OndersteunendWaterdeel </td></tr>
 		</table></td></tr>
@@ -273,7 +285,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./OndersteunendWaterdeel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Weginrichtingselement
-	c525 [label=<<table title="nl.b3p.brmo.loader.gml.light.Weginrichtingselement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Weginrichtingselement.html">
+	c605 [label=<<table title="nl.b3p.brmo.loader.gml.light.Weginrichtingselement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Weginrichtingselement.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Weginrichtingselement </td></tr>
 		</table></td></tr>
@@ -285,7 +297,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Weginrichtingselement.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Tunneldeel
-	c526 [label=<<table title="nl.b3p.brmo.loader.gml.light.Tunneldeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Tunneldeel.html">
+	c606 [label=<<table title="nl.b3p.brmo.loader.gml.light.Tunneldeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Tunneldeel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Tunneldeel </td></tr>
 		</table></td></tr>
@@ -297,7 +309,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Tunneldeel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Pand
-	c527 [label=<<table title="nl.b3p.brmo.loader.gml.light.Pand" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Pand.html">
+	c607 [label=<<table title="nl.b3p.brmo.loader.gml.light.Pand" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Pand.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Pand </td></tr>
 		</table></td></tr>
@@ -309,7 +321,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Pand.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Installatie
-	c528 [label=<<table title="nl.b3p.brmo.loader.gml.light.Installatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Installatie.html">
+	c608 [label=<<table title="nl.b3p.brmo.loader.gml.light.Installatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Installatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Installatie </td></tr>
 		</table></td></tr>
@@ -321,7 +333,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Installatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Mast
-	c529 [label=<<table title="nl.b3p.brmo.loader.gml.light.Mast" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mast.html">
+	c609 [label=<<table title="nl.b3p.brmo.loader.gml.light.Mast" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mast.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Mast </td></tr>
 		</table></td></tr>
@@ -333,7 +345,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Mast.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Wegdeel
-	c530 [label=<<table title="nl.b3p.brmo.loader.gml.light.Wegdeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Wegdeel.html">
+	c610 [label=<<table title="nl.b3p.brmo.loader.gml.light.Wegdeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Wegdeel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Wegdeel </td></tr>
 		</table></td></tr>
@@ -344,8 +356,32 @@ digraph G {
 <tr><td align="left" balign="left"> + Wegdeel() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Wegdeel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.gml.light.OpenbareRuimte
+	c611 [label=<<table title="nl.b3p.brmo.loader.gml.light.OpenbareRuimte" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OpenbareRuimte.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> OpenbareRuimte </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + OpenbareRuimte() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./OpenbareRuimte.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.gml.light.Wijk
+	c612 [label=<<table title="nl.b3p.brmo.loader.gml.light.Wijk" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Wijk.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Wijk </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Wijk() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./Wijk.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.BegroeidTerreindeel
-	c531 [label=<<table title="nl.b3p.brmo.loader.gml.light.BegroeidTerreindeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BegroeidTerreindeel.html">
+	c613 [label=<<table title="nl.b3p.brmo.loader.gml.light.BegroeidTerreindeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BegroeidTerreindeel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BegroeidTerreindeel </td></tr>
 		</table></td></tr>
@@ -357,7 +393,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BegroeidTerreindeel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Spoor
-	c532 [label=<<table title="nl.b3p.brmo.loader.gml.light.Spoor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Spoor.html">
+	c614 [label=<<table title="nl.b3p.brmo.loader.gml.light.Spoor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Spoor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Spoor </td></tr>
 		</table></td></tr>
@@ -369,7 +405,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Spoor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Waterdeel
-	c533 [label=<<table title="nl.b3p.brmo.loader.gml.light.Waterdeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Waterdeel.html">
+	c615 [label=<<table title="nl.b3p.brmo.loader.gml.light.Waterdeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Waterdeel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Waterdeel </td></tr>
 		</table></td></tr>
@@ -381,7 +417,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Waterdeel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.Scheiding
-	c534 [label=<<table title="nl.b3p.brmo.loader.gml.light.Scheiding" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Scheiding.html">
+	c616 [label=<<table title="nl.b3p.brmo.loader.gml.light.Scheiding" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Scheiding.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Scheiding </td></tr>
 		</table></td></tr>
@@ -393,7 +429,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Scheiding.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535 [label=<<table title="nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./GMLLightFeatureTransformerImpl.html">
+	c617 [label=<<table title="nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./GMLLightFeatureTransformerImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GMLLightFeatureTransformerImpl </td></tr>
 		</table></td></tr>
@@ -408,66 +444,72 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./GMLLightFeatureTransformerImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.gml.light.VegetatieObject extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c505:p [dir=back,arrowtail=empty];
+	c617:p -> c584:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.GebouwInstallatie extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c506:p [dir=back,arrowtail=empty];
+	c617:p -> c585:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Bord extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c507:p [dir=back,arrowtail=empty];
+	c617:p -> c586:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.OverigeScheiding extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c508:p [dir=back,arrowtail=empty];
+	c617:p -> c587:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.FunctioneelGebied extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c509:p [dir=back,arrowtail=empty];
+	c617:p -> c588:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.OnbegroeidTerreindeel extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c510:p [dir=back,arrowtail=empty];
+	c617:p -> c589:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.OngeclassificeerdObject extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c511:p [dir=back,arrowtail=empty];
+	c617:p -> c590:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Straatmeubilair extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c512:p [dir=back,arrowtail=empty];
+	c617:p -> c591:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Bak extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c513:p [dir=back,arrowtail=empty];
+	c617:p -> c592:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Sensor extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c514:p [dir=back,arrowtail=empty];
+	c617:p -> c593:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.OndersteunendWegdeel extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c515:p [dir=back,arrowtail=empty];
+	c617:p -> c594:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.OpenbareRuimteLabel extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c516:p [dir=back,arrowtail=empty];
+	c617:p -> c595:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.loader.gml.light.Buurt extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
+	c617:p -> c596:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Overbruggingsdeel extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c517:p [dir=back,arrowtail=empty];
+	c617:p -> c597:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Waterinrichtingselement extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c518:p [dir=back,arrowtail=empty];
+	c617:p -> c598:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Paal extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c519:p [dir=back,arrowtail=empty];
+	c617:p -> c599:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Kast extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c520:p [dir=back,arrowtail=empty];
+	c617:p -> c600:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.OverigBouwwerk extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c521:p [dir=back,arrowtail=empty];
+	c617:p -> c601:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Put extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c522:p [dir=back,arrowtail=empty];
+	c617:p -> c602:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Kunstwerkdeel extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c523:p [dir=back,arrowtail=empty];
+	c617:p -> c603:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.OndersteunendWaterdeel extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c524:p [dir=back,arrowtail=empty];
+	c617:p -> c604:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Weginrichtingselement extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c525:p [dir=back,arrowtail=empty];
+	c617:p -> c605:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Tunneldeel extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c526:p [dir=back,arrowtail=empty];
+	c617:p -> c606:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Pand extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c527:p [dir=back,arrowtail=empty];
+	c617:p -> c607:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Installatie extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c528:p [dir=back,arrowtail=empty];
+	c617:p -> c608:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Mast extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c529:p [dir=back,arrowtail=empty];
+	c617:p -> c609:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Wegdeel extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c530:p [dir=back,arrowtail=empty];
+	c617:p -> c610:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.loader.gml.light.OpenbareRuimte extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
+	c617:p -> c611:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.loader.gml.light.Wijk extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
+	c617:p -> c612:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.BegroeidTerreindeel extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c531:p [dir=back,arrowtail=empty];
+	c617:p -> c613:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Spoor extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c532:p [dir=back,arrowtail=empty];
+	c617:p -> c614:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Waterdeel extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c533:p [dir=back,arrowtail=empty];
+	c617:p -> c615:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.Scheiding extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c535:p -> c534:p [dir=back,arrowtail=empty];
+	c617:p -> c616:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl implements nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer
-	c501:p -> c535:p [dir=back,arrowtail=empty,style=dashed];
+	c580:p -> c617:p [dir=back,arrowtail=empty,style=dashed];
 }
 
