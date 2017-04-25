@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <table name="laadproces">
+    <column>id</column>
+    <column>bestand_datum</column>
+    <column>bestand_naam</column>
+    <column>contact_email</column>
+    <column>gebied</column>
+    <column>opmerking</column>
+    <column>soort</column>
+    <column>status</column>
+    <column>status_datum</column>
+    <column>automatisch_proces</column>
+  </table>
+  <table name="bericht">
+    <column>id</column>
+    <column>br_orgineel_xml</column>
+    <column>br_xml</column>
+    <column>datum</column>
+    <column>db_xml</column>
+    <column>job_id</column>
+    <column>object_ref</column>
+    <column>opmerking</column>
+    <column>soort</column>
+    <column>status</column>
+    <column>status_datum</column>
+    <column>volgordenummer</column>
+    <column>xsl_version</column>
+    <column>laadprocesid</column>
+  </table>
+</dataset>
