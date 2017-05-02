@@ -144,9 +144,9 @@ public class BrmoFramework {
     }
 
     /**
-     * stel sortering van berichten in.
+     * stel bericht sortering van berichten in.
      *
-     * @param orderBerichten {@code false{ voor stand, {@code true} voor mutaties
+     * @param orderBerichten {@code false} voor stand, {@code true} voor mutaties
      */
     public void setOrderBerichten(boolean orderBerichten) {
         this.orderBerichten = orderBerichten;
