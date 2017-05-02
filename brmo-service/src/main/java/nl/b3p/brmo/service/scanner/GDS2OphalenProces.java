@@ -10,6 +10,8 @@ import nl.b3p.brmo.persistence.staging.LaadProces;
 import com.sun.xml.ws.developer.JAXWSProperties;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -853,7 +855,11 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         l.updateStatus("Laden keys...");
         l.addLog("Loading keystore");
         KeyStore ks = KeyStore.getInstance("jks");
-        ks.load(Main.class.getResourceAsStream("/pkioverheid.jks"), "changeit".toCharArray());
+        // niet de sleutel uit de GDS2 tool gebruiken, maar de default trust store van de jre
+        // wel moet het G2 certificaat daarin worden geladen, zie: https://github.com/B3Partners/brmo/wiki/BGTLightOphaalProces#ssl-fouten
+        // ks.load(Main.class.getResourceAsStream("/pkioverheid.jks"), "changeit".toCharArray());
+        String filename = System.getProperty("java.home") + "/lib/security/cacerts".replace('/', File.separatorChar);
+        ks.load(new FileInputStream(filename), "changeit".toCharArray());
 
         l.addLog("Initializing TrustManagerFactory");
         TrustManagerFactory tmf = TrustManagerFactory.getInstance("PKIX");
