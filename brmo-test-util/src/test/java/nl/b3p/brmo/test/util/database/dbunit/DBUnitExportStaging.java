@@ -12,9 +12,11 @@ import java.sql.SQLException;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.DatabaseSequenceFilter;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.FilteredDataSet;
 import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.filter.ITableFilter;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
@@ -36,10 +38,10 @@ public class DBUnitExportStaging {
     private static final String _dbFile2 = "staging.xml";
 
     // postgis
-//    private static final String _driverClass = "org.postgresql.Driver";
-//    private static final String _jdbcConnection = "jdbc:postgresql://localhost:5433/itest_staging";
-//    private static final String _user = "rsgb";
-//    private static final String _passwd = "rsgb";
+    private static final String _driverClass = "org.postgresql.Driver";
+    private static final String _jdbcConnection = "jdbc:postgresql://localhost:5432/mantis6380_staging";
+    private static final String _user = "rsgb";
+    private static final String _passwd = "rsgb";
     // ms sql
     // private static final String _driverClass = "net.sourceforge.jtds.jdbc.Driver";
     // private static final String _jdbcConnection = "jdbc:jtds:sqlserver://192.168.1.15:1433/itest_brmo_staging;instance=SQLEXPRESS";
@@ -47,10 +49,10 @@ public class DBUnitExportStaging {
     // private static final String _passwd = "brmotest";
 
     // oracle
-    private static final String _driverClass = "oracle.jdbc.OracleDriver";
-    private static final String _jdbcConnection = "jdbc:oracle:thin:@192.168.1.40:1521:db01";
-    private static final String _user = "stagingitest";
-    private static final String _passwd = "stagingitest";
+//    private static final String _driverClass = "oracle.jdbc.OracleDriver";
+//    private static final String _jdbcConnection = "jdbc:oracle:thin:@192.168.1.40:1521:db01";
+//    private static final String _user = "stagingitest";
+//    private static final String _passwd = "stagingitest";
 
     // volgorde van tabellen belangrijk vanwege de constraint op laadproces-id
     private static final String[] _testTableNames = {"laadproces", "bericht"};
@@ -58,16 +60,19 @@ public class DBUnitExportStaging {
     public static void main(String[] args) throws ClassNotFoundException, DatabaseUnitException, IOException, SQLException {
         Class driverClass = Class.forName(_driverClass);
         Connection jdbcConnection = DriverManager.getConnection(_jdbcConnection, _user, _passwd);
-        IDatabaseConnection connection = new DatabaseConnection(jdbcConnection, _user.toUpperCase());
-
-//        connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
-// connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-        connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-        connection.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+        IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
+        // postgis
+        connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+        // mssql
+        // connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
+        // oracle
+//        IDatabaseConnection connection = new DatabaseConnection(jdbcConnection, _user.toUpperCase());
+//        connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
+//        connection.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
 
         // voor alle tabellen:
-        // ITableFilter filter = new DatabaseSequenceFilter(connection);
-        // IDataSet dataset = new FilteredDataSet(filter, connection.createDataSet());
+//        ITableFilter filter = new DatabaseSequenceFilter(connection);
+//        IDataSet dataset = new FilteredDataSet(filter, connection.createDataSet());
         // voor een setje tabellen
         IDataSet dataset = new FilteredDataSet(_testTableNames, connection.createDataSet());
 
