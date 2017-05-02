@@ -10,9 +10,8 @@ import nl.b3p.brmo.persistence.staging.LaadProces;
 import com.sun.xml.ws.developer.JAXWSProperties;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -21,8 +20,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.KeyFactory;
+import java.security.KeyManagementException;
 import java.security.KeyStore;
+import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
@@ -43,7 +45,9 @@ import java.util.zip.ZipInputStream;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Transient;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -59,6 +63,7 @@ import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.LOG_NEWLINE;
 import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.service.util.ConfigUtil;
+import nl.b3p.brmo.service.util.TrustManagerDelegate;
 import nl.b3p.gds2.Main;
 import nl.b3p.soap.logging.LogMessageHandler;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbopvragen.v20130701.BestandenlijstGbOpvragenType;
@@ -484,13 +489,14 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         l.updateStatus(msg);
         l.addLog(msg);
 
-        HttpsURLConnection.setDefaultSSLSocketFactory(context.getSocketFactory());
-
         InputStream input = null;
         int attempt = 0;
         while (true) {
             try {
                 URLConnection connection = new URL(url).openConnection();
+                if (connection instanceof HttpsURLConnection) {
+                    ((HttpsURLConnection) connection).setSSLSocketFactory(context.getSocketFactory());
+                }
                 input = (InputStream) connection.getContent();
                 break;
             } catch (Exception e) {
@@ -540,9 +546,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         String msg = "Downloaden " + url;
         l.updateStatus(msg);
         l.addLog(msg);
-        this.config.addLogLine(msg);
-
-        HttpsURLConnection.setDefaultSSLSocketFactory(context.getSocketFactory());
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
@@ -550,6 +553,9 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         while (true) {
             try {
                 URLConnection connection = new URL(url).openConnection();
+                if (connection instanceof HttpsURLConnection) {
+                    ((HttpsURLConnection) connection).setSSLSocketFactory(context.getSocketFactory());
+                }
                 InputStream input = (InputStream) connection.getContent();
                 IOUtils.copy(input, bos);
                 break;
@@ -840,35 +846,19 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         BindingProvider bp = (BindingProvider) gds2;
         Map<String, Object> ctxt = bp.getRequestContext();
 
-        // soap berichten logger inhaken
+        // soap berichten logger inhaken (actief met TRACE level)
         List<Handler> handlerChain = bp.getBinding().getHandlerChain();
         handlerChain.add(new LogMessageHandler());
         bp.getBinding().setHandlerChain(handlerChain);
 
-        //ctxt.put(BindingProvider.USERNAME_PROPERTY, username);
-        //ctxt.put(BindingProvider.PASSWORD_PROPERTY, password);
         String endpoint = (String) ctxt.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
         l.addLog("Kadaster endpoint: " + endpoint);
-
-        //ctxt.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,  "http://localhost:8088/AfgifteService");
-        //l.addLog("Endpoint protocol gewijzigd naar mock");
         l.updateStatus("Laden keys...");
-        l.addLog("Loading keystore");
-        KeyStore ks = KeyStore.getInstance("jks");
-        // niet de sleutel uit de GDS2 tool gebruiken, maar de default trust store van de jre
-        // wel moet het G2 certificaat daarin worden geladen, zie: https://github.com/B3Partners/brmo/wiki/BGTLightOphaalProces#ssl-fouten
-        // ks.load(Main.class.getResourceAsStream("/pkioverheid.jks"), "changeit".toCharArray());
-        String filename = System.getProperty("java.home") + "/lib/security/cacerts".replace('/', File.separatorChar);
-        ks.load(new FileInputStream(filename), "changeit".toCharArray());
-
-        l.addLog("Initializing TrustManagerFactory");
-        TrustManagerFactory tmf = TrustManagerFactory.getInstance("PKIX");
-        tmf.init(ks);
 
         l.addLog("Initializing KeyManagerFactory");
         KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-        ks = KeyStore.getInstance("jks");
-        char[] thePassword = "changeit".toCharArray();
+        KeyStore ks = KeyStore.getInstance("jks");
+        final char[] thePassword = "changeit".toCharArray();
         PrivateKey privateKey = getPrivateKeyFromPEM(this.config.getConfig().get("gds2_privkey").getValue());
         Certificate certificate = getCertificateFromPEM(this.config.getConfig().get("gds2_pubkey").getValue());
         ks.load(null);
@@ -876,12 +866,37 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         kmf.init(ks, thePassword);
 
         l.updateStatus("Opzetten SSL context...");
-        l.addLog("Initializing SSLContext");
-        this.config.addLogLine("Initializing SSLContext");
-        context = SSLContext.getInstance("TLS", "SunJSSE");
-        context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+        context = createSslContext(kmf);
         ctxt.put(JAXWSProperties.SSL_SOCKET_FACTORY, context.getSocketFactory());
 
         return gds2;
+    }
+
+    private SSLContext createSslContext(KeyManagerFactory kmf) throws KeyStoreException, IOException, CertificateException, NoSuchProviderException, NoSuchAlgorithmException, KeyManagementException {
+        final SSLContext sslContext = SSLContext.getInstance("TLS", "SunJSSE");
+
+        l.addLog("Loading PIK Overheid keystore");
+        KeyStore ks = KeyStore.getInstance("jks");
+        ks.load(Main.class.getResourceAsStream("/pkioverheid.jks"), "changeit".toCharArray());
+
+        l.addLog("Initializing default TrustManagerFactory");
+        final TrustManagerFactory javaDefaultTrustManager = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+        javaDefaultTrustManager.init((KeyStore) null);
+        l.addLog("Initializing PKIX TrustManagerFactory");
+        final TrustManagerFactory customCaTrustManager = TrustManagerFactory.getInstance("PKIX");
+        customCaTrustManager.init(ks);
+
+        l.addLog("Initializing SSLContext");
+        sslContext.init(
+                kmf.getKeyManagers(),
+                new TrustManager[]{
+                    new TrustManagerDelegate(
+                            (X509TrustManager) customCaTrustManager.getTrustManagers()[0],
+                            (X509TrustManager) javaDefaultTrustManager.getTrustManagers()[0]
+                    )
+                },
+                null
+        );
+        return sslContext;
     }
 }
