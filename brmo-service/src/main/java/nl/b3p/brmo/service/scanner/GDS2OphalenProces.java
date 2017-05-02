@@ -875,13 +875,20 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     private SSLContext createSslContext(KeyManagerFactory kmf) throws KeyStoreException, IOException, CertificateException, NoSuchProviderException, NoSuchAlgorithmException, KeyManagementException {
         final SSLContext sslContext = SSLContext.getInstance("TLS", "SunJSSE");
 
-        l.addLog("Loading PIK Overheid keystore");
+        l.addLog("Loading PKIX Overheid keystore");
         KeyStore ks = KeyStore.getInstance("jks");
         ks.load(Main.class.getResourceAsStream("/pkioverheid.jks"), "changeit".toCharArray());
 
         l.addLog("Initializing default TrustManagerFactory");
         final TrustManagerFactory javaDefaultTrustManager = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
         javaDefaultTrustManager.init((KeyStore) null);
+        X509TrustManager defaultX509TrustManager = null;
+        for (TrustManager t : javaDefaultTrustManager.getTrustManagers()) {
+            if (t instanceof X509TrustManager) {
+                defaultX509TrustManager = (X509TrustManager) t;
+                break;
+            }
+        }
         l.addLog("Initializing PKIX TrustManagerFactory");
         final TrustManagerFactory customCaTrustManager = TrustManagerFactory.getInstance("PKIX");
         customCaTrustManager.init(ks);
@@ -891,8 +898,9 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 kmf.getKeyManagers(),
                 new TrustManager[]{
                     new TrustManagerDelegate(
+                            // customCaTrustManager is PKIX dus altijd X.509 (RFC3280)
                             (X509TrustManager) customCaTrustManager.getTrustManagers()[0],
-                            (X509TrustManager) javaDefaultTrustManager.getTrustManagers()[0]
+                            defaultX509TrustManager
                     )
                 },
                 null
