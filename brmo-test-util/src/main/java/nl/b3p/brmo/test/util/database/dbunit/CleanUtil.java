@@ -69,6 +69,7 @@ public final class CleanUtil {
             new DefaultTable("kad_onrrnd_zk_his_rel"),
             new DefaultTable("kad_onrrnd_zk_aantek"),
             new DefaultTable("kad_onrrnd_zk_archief"),
+            new DefaultTable("kad_onrrnd_zk_aantek_archief"),
             new DefaultTable("kad_perceel"),
             new DefaultTable("kad_perceel_archief"),
             new DefaultTable("subject"),
