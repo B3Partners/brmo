@@ -141,10 +141,10 @@ digraph G {
 <tr><td align="left" balign="left"> + setIsMSSQL(arg0 : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setLoadingUpdate(arg0 : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setBijwerkDatum(arg0 : Date) </td></tr>
-<tr><td align="left" balign="left"> + isValidZipFile(arg0 : File) : boolean </td></tr>
 <tr><td align="left" balign="left"> + getOmhullendeVanZipFile() : Geometry </td></tr>
 <tr><td align="left" balign="left"> + getOpmerkingen() : String </td></tr>
 <tr><td align="left" balign="left"> + getStatus() : BGTGMLLightLoader.STATUS </td></tr>
+<tr><td align="left" balign="left"> + resetStatus() </td></tr>
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

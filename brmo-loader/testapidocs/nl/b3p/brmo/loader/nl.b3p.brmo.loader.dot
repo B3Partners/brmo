@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.BrmoFrameworkIntegrationTest
-	c101 [label=<<table title="nl.b3p.brmo.loader.BrmoFrameworkIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoFrameworkIntegrationTest.html">
+	c107 [label=<<table title="nl.b3p.brmo.loader.BrmoFrameworkIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoFrameworkIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoFrameworkIntegrationTest </td></tr>
 		</table></td></tr>
@@ -28,9 +28,9 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BrmoFrameworkIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.BrmoFrameworkIntegrationTest NAVASSOC nl.b3p.brmo.loader.BrmoFramework
-	c101:p -> c102:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c107:p -> c108:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.BrmoFramework
-	c102 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c108 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoFramework </td></tr>
 		</table></td></tr>
