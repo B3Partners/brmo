@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.util.VersieInfo
-	c189 [label=<<table title="nl.b3p.brmo.service.util.VersieInfo" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VersieInfo.html">
+	c193 [label=<<table title="nl.b3p.brmo.service.util.VersieInfo" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VersieInfo.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VersieInfo </td></tr>
 		</table></td></tr>
@@ -27,7 +27,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./VersieInfo.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.util.ConfigUtil
-	c190 [label=<<table title="nl.b3p.brmo.service.util.ConfigUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigUtil.html">
+	c194 [label=<<table title="nl.b3p.brmo.service.util.ConfigUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConfigUtil </td></tr>
 		</table></td></tr>
@@ -47,5 +47,20 @@ digraph G {
 <tr><td align="left" balign="left"> + destroy() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConfigUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.util.TrustManagerDelegate
+	c195 [label=<<table title="nl.b3p.brmo.service.util.TrustManagerDelegate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TrustManagerDelegate.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> TrustManagerDelegate </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TrustManagerDelegate(mainTrustManager : X509TrustManager, fallbackTrustManager : X509TrustManager) </td></tr>
+<tr><td align="left" balign="left"> + checkClientTrusted(x509Certificates : X509Certificate[], authType : String) </td></tr>
+<tr><td align="left" balign="left"> + checkServerTrusted(x509Certificates : X509Certificate[], authType : String) </td></tr>
+<tr><td align="left" balign="left"> + getAcceptedIssuers() : X509Certificate[] </td></tr>
+		</table></td></tr>
+		</table>>, URL="./TrustManagerDelegate.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
