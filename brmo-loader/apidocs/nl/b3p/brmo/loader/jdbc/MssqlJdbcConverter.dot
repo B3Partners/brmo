@@ -9,33 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c1857 [label=<<table title="nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GeometryJdbcConverter.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> GeometryJdbcConverter </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + GeometryJdbcConverter() </td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertToNativeGeometryObject(param : String) : Object </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + createPSGeometryPlaceholder() : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getSchema() : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getGeomTypeName() : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isDuplicateKeyViolationMessage(message : String) : boolean </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + buildPaginationSql(sql : String, offset : int, limit : int) : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + buildLimitSql(sql : StringBuilder, limit : int) : StringBuilder </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + useSavepoints() : boolean </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isPmdKnownBroken() : boolean </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getMViewsSQL() : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getMViewRefreshSQL(mview : String) : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getGeotoolsDBTypeName() : String </font></td></tr>
-<tr><td align="left" balign="left"> + convertToSQLObject(stringValue : String, cm : ColumnMetadata, tableName : String, column : String) : Object </td></tr>
-		</table></td></tr>
-		</table>>, URL="./GeometryJdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.jdbc.MssqlJdbcConverter
-	c1863 [label=<<table title="nl.b3p.brmo.loader.jdbc.MssqlJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MssqlJdbcConverter.html">
+	c1823 [label=<<table title="nl.b3p.brmo.loader.jdbc.MssqlJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MssqlJdbcConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MssqlJdbcConverter </td></tr>
 		</table></td></tr>
@@ -59,7 +34,32 @@ digraph G {
 <tr><td align="left" balign="left"> + getMViewRefreshSQL(mview : String) : String </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MssqlJdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
+	c1826 [label=<<table title="nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GeometryJdbcConverter.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> GeometryJdbcConverter </font></td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GeometryJdbcConverter() </td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertToNativeGeometryObject(param : String) : Object </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + createPSGeometryPlaceholder() : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getSchema() : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getGeomTypeName() : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isDuplicateKeyViolationMessage(message : String) : boolean </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + buildPaginationSql(sql : String, offset : int, limit : int) : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + buildLimitSql(sql : StringBuilder, limit : int) : StringBuilder </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + useSavepoints() : boolean </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isPmdKnownBroken() : boolean </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getMViewsSQL() : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getMViewRefreshSQL(mview : String) : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getGeotoolsDBTypeName() : String </font></td></tr>
+<tr><td align="left" balign="left"> + convertToSQLObject(stringValue : String, cm : ColumnMetadata, tableName : String, column : String) : Object </td></tr>
+		</table></td></tr>
+		</table>>, URL="./GeometryJdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.jdbc.MssqlJdbcConverter extends nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c1857:p -> c1863:p [dir=back,arrowtail=empty];
+	c1826:p -> c1823:p [dir=back,arrowtail=empty];
 }
 

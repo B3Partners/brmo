@@ -9,8 +9,21 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.loader.jdbc.Oracle11JdbcConverter
+	c2067 [label=<<table title="nl.b3p.brmo.loader.jdbc.Oracle11JdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Oracle11JdbcConverter.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Oracle11JdbcConverter </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Oracle11JdbcConverter(oc : OracleConnection) </td></tr>
+<tr><td align="left" balign="left"> + buildLimitSql(sql : StringBuilder, limit : int) : StringBuilder </td></tr>
+		</table></td></tr>
+		</table>>, URL="./Oracle11JdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.jdbc.OracleJdbcConverter
-	c2101 [label=<<table title="nl.b3p.brmo.loader.jdbc.OracleJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OracleJdbcConverter.html">
+	c2069 [label=<<table title="nl.b3p.brmo.loader.jdbc.OracleJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OracleJdbcConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OracleJdbcConverter </td></tr>
 		</table></td></tr>
@@ -34,20 +47,7 @@ digraph G {
 <tr><td align="left" balign="left"> + getMViewRefreshSQL(mview : String) : String </td></tr>
 		</table></td></tr>
 		</table>>, URL="./OracleJdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.jdbc.Oracle11JdbcConverter
-	c2103 [label=<<table title="nl.b3p.brmo.loader.jdbc.Oracle11JdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Oracle11JdbcConverter.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Oracle11JdbcConverter </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Oracle11JdbcConverter(oc : OracleConnection) </td></tr>
-<tr><td align="left" balign="left"> + buildLimitSql(sql : StringBuilder, limit : int) : StringBuilder </td></tr>
-		</table></td></tr>
-		</table>>, URL="./Oracle11JdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.jdbc.Oracle11JdbcConverter extends nl.b3p.brmo.loader.jdbc.OracleJdbcConverter
-	c2101:p -> c2103:p [dir=back,arrowtail=empty];
+	c2069:p -> c2067:p [dir=back,arrowtail=empty];
 }
 

@@ -9,41 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork
-	c955 [label=<<table title="nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtTypeOfWork.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> BerichtTypeOfWork </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> TRANSFORM_TO_TABLEDATA </td></tr>
-<tr><td align="left" balign="left"> PROCESS_DBXML </td></tr>
-<tr><td align="left" balign="left"> UPDATE_RESULT </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BerichtTypeOfWork.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.pipeline.BerichtWorkUnit
-	c957 [label=<<table title="nl.b3p.brmo.loader.pipeline.BerichtWorkUnit" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BerichtWorkUnit.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BerichtWorkUnit </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BerichtWorkUnit(bericht : Bericht) </td></tr>
-<tr><td align="left" balign="left"> + getTypeOfWork() : BerichtTypeOfWork </td></tr>
-<tr><td align="left" balign="left"> + setTypeOfWork(typeOfWork : BerichtTypeOfWork) </td></tr>
-<tr><td align="left" balign="left"> + getBericht() : Bericht </td></tr>
-<tr><td align="left" balign="left"> + setBericht(bericht : Bericht) </td></tr>
-<tr><td align="left" balign="left"> + getTableData() : List&lt;TableData&gt; </td></tr>
-<tr><td align="left" balign="left"> + setTableData(tableData : List&lt;TableData&gt;) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BerichtWorkUnit.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.Bericht
-	c960 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../entity/Bericht.html">
+	c969 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../entity/Bericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Bericht </td></tr>
 		</table></td></tr>
@@ -84,9 +51,42 @@ digraph G {
 <tr><td align="left" balign="left"> + toString() : String </td></tr>
 		</table></td></tr>
 		</table>>, URL="../entity/Bericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.pipeline.BerichtWorkUnit
+	c976 [label=<<table title="nl.b3p.brmo.loader.pipeline.BerichtWorkUnit" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BerichtWorkUnit.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BerichtWorkUnit </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BerichtWorkUnit(bericht : Bericht) </td></tr>
+<tr><td align="left" balign="left"> + getTypeOfWork() : BerichtTypeOfWork </td></tr>
+<tr><td align="left" balign="left"> + setTypeOfWork(typeOfWork : BerichtTypeOfWork) </td></tr>
+<tr><td align="left" balign="left"> + getBericht() : Bericht </td></tr>
+<tr><td align="left" balign="left"> + setBericht(bericht : Bericht) </td></tr>
+<tr><td align="left" balign="left"> + getTableData() : List&lt;TableData&gt; </td></tr>
+<tr><td align="left" balign="left"> + setTableData(tableData : List&lt;TableData&gt;) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BerichtWorkUnit.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork
+	c978 [label=<<table title="nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtTypeOfWork.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> BerichtTypeOfWork </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> TRANSFORM_TO_TABLEDATA </td></tr>
+<tr><td align="left" balign="left"> PROCESS_DBXML </td></tr>
+<tr><td align="left" balign="left"> UPDATE_RESULT </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BerichtTypeOfWork.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.pipeline.BerichtWorkUnit NAVASSOC nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork
-	c957:p -> c955:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c976:p -> c978:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.pipeline.BerichtWorkUnit NAVASSOC nl.b3p.brmo.loader.entity.Bericht
-	c957:p -> c960:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c976:p -> c969:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

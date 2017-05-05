@@ -9,25 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.loader.xml.BGTLightFileReader
-	c534 [label=<<table title="nl.b3p.brmo.loader.xml.BGTLightFileReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTLightFileReader.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BGTLightFileReader </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTLightFileReader(fileName : String) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + getFileSize() : long </td></tr>
-<tr><td align="left" balign="left"> + setBestandsNaam(naam : String) </td></tr>
-<tr><td align="left" balign="left"> + hasNext() : boolean </td></tr>
-<tr><td align="left" balign="left"> + next() : Bericht </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BGTLightFileReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c536 [label=<<table title="nl.b3p.brmo.loader.xml.BrmoXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoXMLReader.html">
+	c550 [label=<<table title="nl.b3p.brmo.loader.xml.BrmoXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoXMLReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> BrmoXMLReader </font></td></tr>
 		</table></td></tr>
@@ -59,7 +42,24 @@ digraph G {
 <tr><td align="left" balign="left"> + setContactEmail(contactEmail : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BrmoXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.xml.BGTLightFileReader
+	c554 [label=<<table title="nl.b3p.brmo.loader.xml.BGTLightFileReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTLightFileReader.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BGTLightFileReader </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BGTLightFileReader(fileName : String) </td></tr>
+<tr><td align="left" balign="left"> + init() </td></tr>
+<tr><td align="left" balign="left"> + getFileSize() : long </td></tr>
+<tr><td align="left" balign="left"> + setBestandsNaam(naam : String) </td></tr>
+<tr><td align="left" balign="left"> + hasNext() : boolean </td></tr>
+<tr><td align="left" balign="left"> + next() : Bericht </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BGTLightFileReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.xml.BGTLightFileReader extends nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c536:p -> c534:p [dir=back,arrowtail=empty];
+	c550:p -> c554:p [dir=back,arrowtail=empty];
 }
 

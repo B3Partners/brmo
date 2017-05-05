@@ -9,38 +9,51 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.loader.util.DataComfortXMLReader
-	c2373 [label=<<table title="nl.b3p.brmo.loader.util.DataComfortXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./util/DataComfortXMLReader.html">
+	// nl.b3p.brmo.loader.updates.UpdateProcess
+	c2357 [label=<<table title="nl.b3p.brmo.loader.updates.UpdateProcess" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./updates/UpdateProcess.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> DataComfortXMLReader </td></tr>
+<tr><td align="center" balign="center"> UpdateProcess </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + DataComfortXMLReader() </td></tr>
-<tr><td align="left" balign="left"> + readDataXML(dataXML : Source) : List&lt;TableData&gt; </td></tr>
+<tr><td align="left" balign="left"> + UpdateProcess(name : String, soort : String, xsl : String) </td></tr>
+<tr><td align="left" balign="left"> + getName() : String </td></tr>
+<tr><td align="left" balign="left"> + setName(name : String) </td></tr>
+<tr><td align="left" balign="left"> + getSoort() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoort(soort : String) </td></tr>
+<tr><td align="left" balign="left"> + getXsl() : String </td></tr>
+<tr><td align="left" balign="left"> + setXsl(xsl : String) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./util/DataComfortXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.BerichtenHandler
-	c2374 [label=<<table title="nl.b3p.brmo.loader.BerichtenHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtenHandler.html">
+		</table>>, URL="./updates/UpdateProcess.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
+	c2366 [label=<<table title="nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./jdbc/GeometryJdbcConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> BerichtenHandler </td></tr>
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> GeometryJdbcConverter </font></td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateBerichtProcessing(b : Bericht) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + transformToTableData(ber : Bericht) : List&lt;TableData&gt; </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + handle(b : Bericht, pretransformedTableData : List&lt;TableData&gt;, updateResult : boolean) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateProcessingResult(b : Bericht) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + renewConnection() </font></td></tr>
+<tr><td align="left" balign="left"> + GeometryJdbcConverter() </td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertToNativeGeometryObject(param : String) : Object </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + createPSGeometryPlaceholder() : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getSchema() : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getGeomTypeName() : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isDuplicateKeyViolationMessage(message : String) : boolean </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + buildPaginationSql(sql : String, offset : int, limit : int) : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + buildLimitSql(sql : StringBuilder, limit : int) : StringBuilder </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + useSavepoints() : boolean </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isPmdKnownBroken() : boolean </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getMViewsSQL() : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getMViewRefreshSQL(mview : String) : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getGeotoolsDBTypeName() : String </font></td></tr>
+<tr><td align="left" balign="left"> + convertToSQLObject(stringValue : String, cm : ColumnMetadata, tableName : String, column : String) : Object </td></tr>
 		</table></td></tr>
-		</table>>, URL="./BerichtenHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./jdbc/GeometryJdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.RsgbProxy
-	c2375 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./RsgbProxy.html">
+	c2368 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./RsgbProxy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RsgbProxy </td></tr>
 		</table></td></tr>
@@ -75,7 +88,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./RsgbProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode
-	c2376 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.BerichtSelectMode.html">
+	c2369 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.BerichtSelectMode.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> BerichtSelectMode </td></tr>
@@ -92,7 +105,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./RsgbProxy.BerichtSelectMode.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.ProgressUpdateListener
-	c2377 [label=<<table title="nl.b3p.brmo.loader.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ProgressUpdateListener.html">
+	c2370 [label=<<table title="nl.b3p.brmo.loader.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ProgressUpdateListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
@@ -107,7 +120,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.StagingProxy
-	c2378 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StagingProxy.html">
+	c2372 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StagingProxy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StagingProxy </td></tr>
 		</table></td></tr>
@@ -150,26 +163,38 @@ digraph G {
 <tr><td align="left" balign="left"> + setLimitStandBerichtenToTransform(limitStandBerichtenToTransform : Integer) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./StagingProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.updates.UpdateProcess
-	c2380 [label=<<table title="nl.b3p.brmo.loader.updates.UpdateProcess" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./updates/UpdateProcess.html">
+	// nl.b3p.brmo.loader.BerichtenHandler
+	c2373 [label=<<table title="nl.b3p.brmo.loader.BerichtenHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtenHandler.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> UpdateProcess </td></tr>
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> BerichtenHandler </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + UpdateProcess(name : String, soort : String, xsl : String) </td></tr>
-<tr><td align="left" balign="left"> + getName() : String </td></tr>
-<tr><td align="left" balign="left"> + setName(name : String) </td></tr>
-<tr><td align="left" balign="left"> + getSoort() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoort(soort : String) </td></tr>
-<tr><td align="left" balign="left"> + getXsl() : String </td></tr>
-<tr><td align="left" balign="left"> + setXsl(xsl : String) </td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateBerichtProcessing(b : Bericht) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + transformToTableData(ber : Bericht) : List&lt;TableData&gt; </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + handle(b : Bericht, pretransformedTableData : List&lt;TableData&gt;, updateResult : boolean) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateProcessingResult(b : Bericht) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + renewConnection() </font></td></tr>
 		</table></td></tr>
-		</table>>, URL="./updates/UpdateProcess.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./BerichtenHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.util.DataComfortXMLReader
+	c2381 [label=<<table title="nl.b3p.brmo.loader.util.DataComfortXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./util/DataComfortXMLReader.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> DataComfortXMLReader </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + DataComfortXMLReader() </td></tr>
+<tr><td align="left" balign="left"> + readDataXML(dataXML : Source) : List&lt;TableData&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./util/DataComfortXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.Bericht.STATUS
-	c2388 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./entity/Bericht.STATUS.html">
+	c2397 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./entity/Bericht.STATUS.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> STATUS </td></tr>
@@ -189,50 +214,25 @@ digraph G {
 <tr><td align="left" balign="left"> ARCHIVE </td></tr>
 		</table></td></tr>
 		</table>>, URL="./entity/Bericht.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c2397 [label=<<table title="nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./jdbc/GeometryJdbcConverter.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> GeometryJdbcConverter </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + GeometryJdbcConverter() </td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertToNativeGeometryObject(param : String) : Object </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + createPSGeometryPlaceholder() : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getSchema() : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getGeomTypeName() : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isDuplicateKeyViolationMessage(message : String) : boolean </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + buildPaginationSql(sql : String, offset : int, limit : int) : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + buildLimitSql(sql : StringBuilder, limit : int) : StringBuilder </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + useSavepoints() : boolean </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isPmdKnownBroken() : boolean </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getMViewsSQL() : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getMViewRefreshSQL(mview : String) : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getGeotoolsDBTypeName() : String </font></td></tr>
-<tr><td align="left" balign="left"> + convertToSQLObject(stringValue : String, cm : ColumnMetadata, tableName : String, column : String) : Object </td></tr>
-		</table></td></tr>
-		</table>>, URL="./jdbc/GeometryJdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.RsgbProxy implements nl.b3p.brmo.loader.BerichtenHandler
-	c2374:p -> c2375:p [dir=back,arrowtail=empty,style=dashed];
+	c2373:p -> c2368:p [dir=back,arrowtail=empty,style=dashed];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.ProgressUpdateListener
-	c2375:p -> c2377:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2368:p -> c2370:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode
-	c2375:p -> c2376:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2368:p -> c2369:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.updates.UpdateProcess
-	c2375:p -> c2380:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2368:p -> c2357:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.entity.Bericht.STATUS
-	c2375:p -> c2388:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2368:p -> c2397:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c2375:p -> c2397:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2368:p -> c2366:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c2375:p -> c2378:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2368:p -> c2372:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.util.DataComfortXMLReader
-	c2375:p -> c2373:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2368:p -> c2381:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.util.DataComfortXMLReader
-	c2375:p -> c2373:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2368:p -> c2381:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.StagingProxy NAVASSOC nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c2378:p -> c2397:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2372:p -> c2366:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

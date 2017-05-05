@@ -9,8 +9,40 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.loader.entity.BagBericht
+	c329 [label=<<table title="nl.b3p.brmo.loader.entity.BagBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BagBericht.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BagBericht </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BagBericht(brXml : String) </td></tr>
+<tr><td align="left" balign="left"> + BagBericht(brXml : String, doc : Document) </td></tr>
+<tr><td align="left" balign="left"> + setDatumAsString(d : String) </td></tr>
+<tr><td align="left" balign="left"> + getObjectRef() : String </td></tr>
+<tr><td align="left" balign="left"> + getDatum() : Date </td></tr>
+<tr><td align="left" balign="left"> + getVolgordeNummer() : Integer </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BagBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.entity.NhrBericht
+	c330 [label=<<table title="nl.b3p.brmo.loader.entity.NhrBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NhrBericht.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> NhrBericht </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NhrBericht() </td></tr>
+<tr><td align="left" balign="left"> + NhrBericht(brXml : String) </td></tr>
+<tr><td align="left" balign="left"> + getNode() : Element </td></tr>
+<tr><td align="left" balign="left"> + setNode(node : Element) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./NhrBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.NhrPeildatumAdapter
-	c324 [label=<<table title="nl.b3p.brmo.loader.entity.NhrPeildatumAdapter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NhrPeildatumAdapter.html">
+	c331 [label=<<table title="nl.b3p.brmo.loader.entity.NhrPeildatumAdapter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NhrPeildatumAdapter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NhrPeildatumAdapter </td></tr>
 		</table></td></tr>
@@ -23,8 +55,34 @@ digraph G {
 <tr><td align="left" balign="left"> + unmarshal(v : String) : Date </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NhrPeildatumAdapter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.entity.BerichtenSorter
+	c332 [label=<<table title="nl.b3p.brmo.loader.entity.BerichtenSorter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtenSorter.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BerichtenSorter </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + SQL_ORDER_BY : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BerichtenSorter() </td></tr>
+<tr><td align="left" balign="left"> + compare(one : Bericht, another : Bericht) : int </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BerichtenSorter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.entity.NhrBerichten
+	c333 [label=<<table title="nl.b3p.brmo.loader.entity.NhrBerichten" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NhrBerichten.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> NhrBerichten </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NS_BRMO_BERICHT : String </td></tr>
+<tr><td align="left" balign="left"> + berichten : List&lt;NhrBericht&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NhrBerichten() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./NhrBerichten.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.Bericht
-	c325 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.html">
+	c334 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Bericht </td></tr>
 		</table></td></tr>
@@ -66,7 +124,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Bericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.Bericht.STATUS
-	c326 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.STATUS.html">
+	c335 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.STATUS.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> STATUS </td></tr>
@@ -86,36 +144,8 @@ digraph G {
 <tr><td align="left" balign="left"> ARCHIVE </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Bericht.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.entity.BerichtenSorter
-	c327 [label=<<table title="nl.b3p.brmo.loader.entity.BerichtenSorter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtenSorter.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BerichtenSorter </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + SQL_ORDER_BY : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BerichtenSorter() </td></tr>
-<tr><td align="left" balign="left"> + compare(one : Bericht, another : Bericht) : int </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BerichtenSorter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.entity.NhrBericht
-	c328 [label=<<table title="nl.b3p.brmo.loader.entity.NhrBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NhrBericht.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> NhrBericht </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + NhrBericht() </td></tr>
-<tr><td align="left" balign="left"> + NhrBericht(brXml : String) </td></tr>
-<tr><td align="left" balign="left"> + getNode() : Element </td></tr>
-<tr><td align="left" balign="left"> + setNode(node : Element) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./NhrBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.BrkBericht
-	c329 [label=<<table title="nl.b3p.brmo.loader.entity.BrkBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkBericht.html">
+	c336 [label=<<table title="nl.b3p.brmo.loader.entity.BrkBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkBericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrkBericht </td></tr>
 		</table></td></tr>
@@ -130,21 +160,8 @@ digraph G {
 <tr><td align="left" balign="left"> + getDatum() : Date </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BrkBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.entity.NhrBerichten
-	c330 [label=<<table title="nl.b3p.brmo.loader.entity.NhrBerichten" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NhrBerichten.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> NhrBerichten </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + NS_BRMO_BERICHT : String </td></tr>
-<tr><td align="left" balign="left"> + berichten : List&lt;NhrBericht&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + NhrBerichten() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./NhrBerichten.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.LaadProces
-	c331 [label=<<table title="nl.b3p.brmo.loader.entity.LaadProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProces.html">
+	c337 [label=<<table title="nl.b3p.brmo.loader.entity.LaadProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LaadProces </td></tr>
 		</table></td></tr>
@@ -175,7 +192,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./LaadProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.LaadProces.STATUS
-	c332 [label=<<table title="nl.b3p.brmo.loader.entity.LaadProces.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProces.STATUS.html">
+	c338 [label=<<table title="nl.b3p.brmo.loader.entity.LaadProces.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProces.STATUS.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> STATUS </td></tr>
@@ -193,32 +210,15 @@ digraph G {
 <tr><td align="left" balign="left"> RSGB_BGT_WAITING </td></tr>
 		</table></td></tr>
 		</table>>, URL="./LaadProces.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.entity.BagBericht
-	c333 [label=<<table title="nl.b3p.brmo.loader.entity.BagBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BagBericht.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BagBericht </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BagBericht(brXml : String) </td></tr>
-<tr><td align="left" balign="left"> + BagBericht(brXml : String, doc : Document) </td></tr>
-<tr><td align="left" balign="left"> + setDatumAsString(d : String) </td></tr>
-<tr><td align="left" balign="left"> + getObjectRef() : String </td></tr>
-<tr><td align="left" balign="left"> + getDatum() : Date </td></tr>
-<tr><td align="left" balign="left"> + getVolgordeNummer() : Integer </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BagBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//nl.b3p.brmo.loader.entity.NhrBericht extends nl.b3p.brmo.loader.entity.Bericht
-	c325:p -> c328:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.loader.entity.BrkBericht extends nl.b3p.brmo.loader.entity.Bericht
-	c325:p -> c329:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.entity.BagBericht extends nl.b3p.brmo.loader.entity.Bericht
-	c325:p -> c333:p [dir=back,arrowtail=empty];
+	c334:p -> c329:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.loader.entity.NhrBericht extends nl.b3p.brmo.loader.entity.Bericht
+	c334:p -> c330:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.loader.entity.BrkBericht extends nl.b3p.brmo.loader.entity.Bericht
+	c334:p -> c336:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.loader.entity.Bericht NAVASSOC nl.b3p.brmo.loader.entity.Bericht.STATUS
-	c325:p -> c326:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c334:p -> c335:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.entity.LaadProces NAVASSOC nl.b3p.brmo.loader.entity.LaadProces.STATUS
-	c331:p -> c332:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c337:p -> c338:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 
