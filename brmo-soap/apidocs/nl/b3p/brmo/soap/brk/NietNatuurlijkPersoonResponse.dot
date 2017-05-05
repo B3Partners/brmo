@@ -9,8 +9,29 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse
+	c1537 [label=<<table title="nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NietNatuurlijkPersoonResponse.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> NietNatuurlijkPersoonResponse </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NietNatuurlijkPersoonResponse() </td></tr>
+<tr><td align="left" balign="left"> + getIdentificatie() : String </td></tr>
+<tr><td align="left" balign="left"> + setIdentificatie(identificatie : String) </td></tr>
+<tr><td align="left" balign="left"> + getRechtsvorm() : String </td></tr>
+<tr><td align="left" balign="left"> + setRechtsvorm(rechtsvorm : String) </td></tr>
+<tr><td align="left" balign="left"> + getStatutaireZetel() : String </td></tr>
+<tr><td align="left" balign="left"> + setStatutaireZetel(statutaireZetel : String) </td></tr>
+<tr><td align="left" balign="left"> + getNaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaam(naam : String) </td></tr>
+<tr><td align="left" balign="left"> + getRecordById(id : String, searchContext : Map&lt;String, Object&gt;) : NietNatuurlijkPersoonResponse </td></tr>
+		</table></td></tr>
+		</table>>, URL="./NietNatuurlijkPersoonResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.ZakelijkRechtResponse
-	c1532 [label=<<table title="nl.b3p.brmo.soap.brk.ZakelijkRechtResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ZakelijkRechtResponse.html">
+	c1548 [label=<<table title="nl.b3p.brmo.soap.brk.ZakelijkRechtResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ZakelijkRechtResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ZakelijkRechtResponse </td></tr>
 		</table></td></tr>
@@ -33,28 +54,7 @@ digraph G {
 <tr><td align="left" balign="left"> + setNietNatuurlijkPersoon(nietNatuurlijkPersoon : NietNatuurlijkPersoonResponse) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ZakelijkRechtResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse
-	c1545 [label=<<table title="nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NietNatuurlijkPersoonResponse.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> NietNatuurlijkPersoonResponse </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + NietNatuurlijkPersoonResponse() </td></tr>
-<tr><td align="left" balign="left"> + getIdentificatie() : String </td></tr>
-<tr><td align="left" balign="left"> + setIdentificatie(identificatie : String) </td></tr>
-<tr><td align="left" balign="left"> + getRechtsvorm() : String </td></tr>
-<tr><td align="left" balign="left"> + setRechtsvorm(rechtsvorm : String) </td></tr>
-<tr><td align="left" balign="left"> + getStatutaireZetel() : String </td></tr>
-<tr><td align="left" balign="left"> + setStatutaireZetel(statutaireZetel : String) </td></tr>
-<tr><td align="left" balign="left"> + getNaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setNaam(naam : String) </td></tr>
-<tr><td align="left" balign="left"> + getRecordById(id : String, searchContext : Map&lt;String, Object&gt;) : NietNatuurlijkPersoonResponse </td></tr>
-		</table></td></tr>
-		</table>>, URL="./NietNatuurlijkPersoonResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.ZakelijkRechtResponse NAVASSOC nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse
-	c1532:p -> c1545:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1548:p -> c1537:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 
