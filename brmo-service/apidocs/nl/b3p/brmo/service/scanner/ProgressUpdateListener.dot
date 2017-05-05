@@ -9,8 +9,52 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.service.stripes.GDS2OphalenUitvoerActionBean
+	c2002 [label=<<table title="nl.b3p.brmo.service.stripes.GDS2OphalenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/GDS2OphalenUitvoerActionBean.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> GDS2OphalenUitvoerActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GDS2OphalenUitvoerActionBean() </td></tr>
+<tr><td align="left" balign="left"> + before() </td></tr>
+<tr><td align="left" balign="left"> + completed() </td></tr>
+<tr><td align="left" balign="left"> + total(total : long) </td></tr>
+<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
+<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
+<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getLog() : String </td></tr>
+<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
+<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
+<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
+<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
+<tr><td align="left" balign="left"> + setProcessed(processed : long) </td></tr>
+<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
+<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
+<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
+<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
+<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
+<tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
+<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
+<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
+<tr><td align="left" balign="left"> + getProces() : GDS2OphaalProces </td></tr>
+<tr><td align="left" balign="left"> + setProces(proces : GDS2OphaalProces) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
+<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
+<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../stripes/GDS2OphalenUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.MViewRefreshActionBean
-	c1999 [label=<<table title="nl.b3p.brmo.service.stripes.MViewRefreshActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/MViewRefreshActionBean.html">
+	c2003 [label=<<table title="nl.b3p.brmo.service.stripes.MViewRefreshActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/MViewRefreshActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MViewRefreshActionBean </td></tr>
 		</table></td></tr>
@@ -38,7 +82,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../stripes/MViewRefreshActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.BerichtDoorsturenUitvoerActionBean
-	c2002 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtDoorsturenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/BerichtDoorsturenUitvoerActionBean.html">
+	c2006 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtDoorsturenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/BerichtDoorsturenUitvoerActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BerichtDoorsturenUitvoerActionBean </td></tr>
 		</table></td></tr>
@@ -81,8 +125,36 @@ digraph G {
 <tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../stripes/BerichtDoorsturenUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean
+	c2007 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/BerichtstatusRapportActionBean.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BerichtstatusRapportActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BerichtstatusRapportActionBean() </td></tr>
+<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + total(total : long) </td></tr>
+<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
+<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
+<tr><td align="left" balign="left"> + getProces() : BerichtstatusRapportProces </td></tr>
+<tr><td align="left" balign="left"> + setProces(proces : BerichtstatusRapportProces) </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getLog() : String </td></tr>
+<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
+<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
+<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../stripes/BerichtstatusRapportActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.LaadprocesTransformatieUitvoerActionBean
-	c2003 [label=<<table title="nl.b3p.brmo.service.stripes.LaadprocesTransformatieUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/LaadprocesTransformatieUitvoerActionBean.html">
+	c2008 [label=<<table title="nl.b3p.brmo.service.stripes.LaadprocesTransformatieUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/LaadprocesTransformatieUitvoerActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LaadprocesTransformatieUitvoerActionBean </td></tr>
 		</table></td></tr>
@@ -125,8 +197,52 @@ digraph G {
 <tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../stripes/LaadprocesTransformatieUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean
+	c2009 [label=<<table title="nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/DirectoryScannerUitvoerActionBean.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> DirectoryScannerUitvoerActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + DirectoryScannerUitvoerActionBean() </td></tr>
+<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + before() </td></tr>
+<tr><td align="left" balign="left"> + completed() </td></tr>
+<tr><td align="left" balign="left"> + total(total : long) </td></tr>
+<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
+<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + addLog(log : String) </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getProces() : AutomatischProces </td></tr>
+<tr><td align="left" balign="left"> + setProces(proces : AutomatischProces) </td></tr>
+<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
+<tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
+<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
+<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
+<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
+<tr><td align="left" balign="left"> + setProcessed(processed : long) </td></tr>
+<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
+<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
+<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
+<tr><td align="left" balign="left"> + getLog() : String </td></tr>
+<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
+<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
+<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
+<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
+<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
+<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
+<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../stripes/DirectoryScannerUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean
-	c2007 [label=<<table title="nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/BGTOphalenUitvoerActionBean.html">
+	c2010 [label=<<table title="nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/BGTOphalenUitvoerActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTOphalenUitvoerActionBean </td></tr>
 		</table></td></tr>
@@ -171,124 +287,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setTitle(title : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../stripes/BGTOphalenUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean
-	c2009 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/BerichtstatusRapportActionBean.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BerichtstatusRapportActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BerichtstatusRapportActionBean() </td></tr>
-<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + total(total : long) </td></tr>
-<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
-<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
-<tr><td align="left" balign="left"> + getProces() : BerichtstatusRapportProces </td></tr>
-<tr><td align="left" balign="left"> + setProces(proces : BerichtstatusRapportProces) </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getLog() : String </td></tr>
-<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
-<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../stripes/BerichtstatusRapportActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean
-	c2015 [label=<<table title="nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/DirectoryScannerUitvoerActionBean.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> DirectoryScannerUitvoerActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + DirectoryScannerUitvoerActionBean() </td></tr>
-<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + before() </td></tr>
-<tr><td align="left" balign="left"> + completed() </td></tr>
-<tr><td align="left" balign="left"> + total(total : long) </td></tr>
-<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
-<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + addLog(log : String) </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getProces() : AutomatischProces </td></tr>
-<tr><td align="left" balign="left"> + setProces(proces : AutomatischProces) </td></tr>
-<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
-<tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
-<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
-<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
-<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
-<tr><td align="left" balign="left"> + setProcessed(processed : long) </td></tr>
-<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
-<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
-<tr><td align="left" balign="left"> + getLog() : String </td></tr>
-<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
-<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
-<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
-<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
-<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
-<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
-<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../stripes/DirectoryScannerUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.GDS2OphalenUitvoerActionBean
-	c2016 [label=<<table title="nl.b3p.brmo.service.stripes.GDS2OphalenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/GDS2OphalenUitvoerActionBean.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> GDS2OphalenUitvoerActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + GDS2OphalenUitvoerActionBean() </td></tr>
-<tr><td align="left" balign="left"> + before() </td></tr>
-<tr><td align="left" balign="left"> + completed() </td></tr>
-<tr><td align="left" balign="left"> + total(total : long) </td></tr>
-<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
-<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
-<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getLog() : String </td></tr>
-<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
-<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
-<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
-<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
-<tr><td align="left" balign="left"> + setProcessed(processed : long) </td></tr>
-<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
-<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
-<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
-<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
-<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
-<tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
-<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
-<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
-<tr><td align="left" balign="left"> + getProces() : GDS2OphaalProces </td></tr>
-<tr><td align="left" balign="left"> + setProces(proces : GDS2OphaalProces) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
-<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../stripes/GDS2OphalenUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.BerichtstatusRapport
-	c2024 [label=<<table title="nl.b3p.brmo.service.scanner.BerichtstatusRapport" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtstatusRapport.html">
+	c2023 [label=<<table title="nl.b3p.brmo.service.scanner.BerichtstatusRapport" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtstatusRapport.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BerichtstatusRapport </td></tr>
 		</table></td></tr>
@@ -302,7 +302,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BerichtstatusRapport.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.MaterializedViewRefreshUitvoeren
-	c2026 [label=<<table title="nl.b3p.brmo.service.scanner.MaterializedViewRefreshUitvoeren" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MaterializedViewRefreshUitvoeren.html">
+	c2025 [label=<<table title="nl.b3p.brmo.service.scanner.MaterializedViewRefreshUitvoeren" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MaterializedViewRefreshUitvoeren.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MaterializedViewRefreshUitvoeren </td></tr>
 		</table></td></tr>
@@ -316,50 +316,8 @@ digraph G {
 <tr><td align="left" balign="left"> + mviews() : List&lt;String&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MaterializedViewRefreshUitvoeren.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.scanner.LaadprocesTransformatieUitvoeren
-	c2027 [label=<<table title="nl.b3p.brmo.service.scanner.LaadprocesTransformatieUitvoeren" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadprocesTransformatieUitvoeren.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> LaadprocesTransformatieUitvoeren </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + LaadprocesTransformatieUitvoeren(config : LaadprocesTransformatieProces) </td></tr>
-<tr><td align="left" balign="left"> + execute() </td></tr>
-<tr><td align="left" balign="left"> + execute(listener : ProgressUpdateListener) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./LaadprocesTransformatieUitvoeren.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.scanner.WebMirrorBAGDirectoryScanner
-	c2028 [label=<<table title="nl.b3p.brmo.service.scanner.WebMirrorBAGDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebMirrorBAGDirectoryScanner.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> WebMirrorBAGDirectoryScanner </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + WebMirrorBAGDirectoryScanner(config : WebMirrorBAGScannerProces) </td></tr>
-<tr><td align="left" balign="left"> + execute() </td></tr>
-<tr><td align="left" balign="left"> + execute(listener : ProgressUpdateListener) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./WebMirrorBAGDirectoryScanner.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.scanner.BerichtDoorsturenProces
-	c2029 [label=<<table title="nl.b3p.brmo.service.scanner.BerichtDoorsturenProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtDoorsturenProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BerichtDoorsturenProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> ~ BerichtDoorsturenProces(config : BerichtDoorstuurProces) </td></tr>
-<tr><td align="left" balign="left"> + execute() </td></tr>
-<tr><td align="left" balign="left"> + execute(listener : ProgressUpdateListener) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BerichtDoorsturenProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2030 [label=<<table title="nl.b3p.brmo.service.scanner.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ProgressUpdateListener.html">
+	c2026 [label=<<table title="nl.b3p.brmo.service.scanner.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ProgressUpdateListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
@@ -375,8 +333,22 @@ digraph G {
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addLog(log : String) </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.scanner.BGTLightOphalenProces
+	c2027 [label=<<table title="nl.b3p.brmo.service.scanner.BGTLightOphalenProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightOphalenProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BGTLightOphalenProces </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BGTLightOphalenProces(config : BGTLightOphaalProces) </td></tr>
+<tr><td align="left" balign="left"> + execute() </td></tr>
+<tr><td align="left" balign="left"> + execute(listener : ProgressUpdateListener) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BGTLightOphalenProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.BRKDirectoryScanner
-	c2033 [label=<<table title="nl.b3p.brmo.service.scanner.BRKDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRKDirectoryScanner.html">
+	c2030 [label=<<table title="nl.b3p.brmo.service.scanner.BRKDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRKDirectoryScanner.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRKDirectoryScanner </td></tr>
 		</table></td></tr>
@@ -390,7 +362,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BRKDirectoryScanner.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.BGTLightDirectoryScanner
-	c2034 [label=<<table title="nl.b3p.brmo.service.scanner.BGTLightDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightDirectoryScanner.html">
+	c2032 [label=<<table title="nl.b3p.brmo.service.scanner.BGTLightDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightDirectoryScanner.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTLightDirectoryScanner </td></tr>
 		</table></td></tr>
@@ -403,6 +375,34 @@ digraph G {
 <tr><td align="left" balign="left"> + execute(listener : ProgressUpdateListener) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BGTLightDirectoryScanner.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.scanner.BerichtTransformatieUitvoeren
+	c2033 [label=<<table title="nl.b3p.brmo.service.scanner.BerichtTransformatieUitvoeren" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtTransformatieUitvoeren.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BerichtTransformatieUitvoeren </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BerichtTransformatieUitvoeren(config : BerichtTransformatieProces) </td></tr>
+<tr><td align="left" balign="left"> + execute() </td></tr>
+<tr><td align="left" balign="left"> + execute(listener : ProgressUpdateListener) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BerichtTransformatieUitvoeren.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.scanner.BerichtDoorsturenProces
+	c2034 [label=<<table title="nl.b3p.brmo.service.scanner.BerichtDoorsturenProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtDoorsturenProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BerichtDoorsturenProces </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> ~ BerichtDoorsturenProces(config : BerichtDoorstuurProces) </td></tr>
+<tr><td align="left" balign="left"> + execute() </td></tr>
+<tr><td align="left" balign="left"> + execute(listener : ProgressUpdateListener) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BerichtDoorsturenProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.GDS2OphalenProces
 	c2035 [label=<<table title="nl.b3p.brmo.service.scanner.GDS2OphalenProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GDS2OphalenProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
@@ -419,22 +419,8 @@ digraph G {
 <tr><td align="left" balign="left"> + doorsturenBericht(proces : AutomatischProces, l : ProgressUpdateListener, b : Bericht, endpoint : String) : boolean </td></tr>
 		</table></td></tr>
 		</table>>, URL="./GDS2OphalenProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.scanner.BGTLightOphalenProces
-	c2036 [label=<<table title="nl.b3p.brmo.service.scanner.BGTLightOphalenProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightOphalenProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BGTLightOphalenProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTLightOphalenProces(config : BGTLightOphaalProces) </td></tr>
-<tr><td align="left" balign="left"> + execute() </td></tr>
-<tr><td align="left" balign="left"> + execute(listener : ProgressUpdateListener) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BGTLightOphalenProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.BAGDirectoryScanner
-	c2038 [label=<<table title="nl.b3p.brmo.service.scanner.BAGDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BAGDirectoryScanner.html">
+	c2036 [label=<<table title="nl.b3p.brmo.service.scanner.BAGDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BAGDirectoryScanner.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BAGDirectoryScanner </td></tr>
 		</table></td></tr>
@@ -447,55 +433,69 @@ digraph G {
 <tr><td align="left" balign="left"> + execute(listener : ProgressUpdateListener) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BAGDirectoryScanner.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.scanner.BerichtTransformatieUitvoeren
-	c2039 [label=<<table title="nl.b3p.brmo.service.scanner.BerichtTransformatieUitvoeren" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtTransformatieUitvoeren.html">
+	// nl.b3p.brmo.service.scanner.WebMirrorBAGDirectoryScanner
+	c2037 [label=<<table title="nl.b3p.brmo.service.scanner.WebMirrorBAGDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebMirrorBAGDirectoryScanner.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BerichtTransformatieUitvoeren </td></tr>
+<tr><td align="center" balign="center"> WebMirrorBAGDirectoryScanner </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BerichtTransformatieUitvoeren(config : BerichtTransformatieProces) </td></tr>
+<tr><td align="left" balign="left"> + WebMirrorBAGDirectoryScanner(config : WebMirrorBAGScannerProces) </td></tr>
 <tr><td align="left" balign="left"> + execute() </td></tr>
 <tr><td align="left" balign="left"> + execute(listener : ProgressUpdateListener) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./BerichtTransformatieUitvoeren.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//nl.b3p.brmo.service.stripes.MViewRefreshActionBean implements nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2030:p -> c1999:p [dir=back,arrowtail=empty,style=dashed];
-	//nl.b3p.brmo.service.stripes.BerichtDoorsturenUitvoerActionBean implements nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2030:p -> c2002:p [dir=back,arrowtail=empty,style=dashed];
-	//nl.b3p.brmo.service.stripes.LaadprocesTransformatieUitvoerActionBean implements nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2030:p -> c2003:p [dir=back,arrowtail=empty,style=dashed];
-	//nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean implements nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2030:p -> c2007:p [dir=back,arrowtail=empty,style=dashed];
-	//nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean implements nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2030:p -> c2009:p [dir=back,arrowtail=empty,style=dashed];
-	//nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean implements nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2030:p -> c2015:p [dir=back,arrowtail=empty,style=dashed];
+		</table>>, URL="./WebMirrorBAGDirectoryScanner.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.scanner.LaadprocesTransformatieUitvoeren
+	c2038 [label=<<table title="nl.b3p.brmo.service.scanner.LaadprocesTransformatieUitvoeren" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadprocesTransformatieUitvoeren.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> LaadprocesTransformatieUitvoeren </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + LaadprocesTransformatieUitvoeren(config : LaadprocesTransformatieProces) </td></tr>
+<tr><td align="left" balign="left"> + execute() </td></tr>
+<tr><td align="left" balign="left"> + execute(listener : ProgressUpdateListener) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./LaadprocesTransformatieUitvoeren.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.stripes.GDS2OphalenUitvoerActionBean implements nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2030:p -> c2016:p [dir=back,arrowtail=empty,style=dashed];
+	c2026:p -> c2002:p [dir=back,arrowtail=empty,style=dashed];
+	//nl.b3p.brmo.service.stripes.MViewRefreshActionBean implements nl.b3p.brmo.service.scanner.ProgressUpdateListener
+	c2026:p -> c2003:p [dir=back,arrowtail=empty,style=dashed];
+	//nl.b3p.brmo.service.stripes.BerichtDoorsturenUitvoerActionBean implements nl.b3p.brmo.service.scanner.ProgressUpdateListener
+	c2026:p -> c2006:p [dir=back,arrowtail=empty,style=dashed];
+	//nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean implements nl.b3p.brmo.service.scanner.ProgressUpdateListener
+	c2026:p -> c2007:p [dir=back,arrowtail=empty,style=dashed];
+	//nl.b3p.brmo.service.stripes.LaadprocesTransformatieUitvoerActionBean implements nl.b3p.brmo.service.scanner.ProgressUpdateListener
+	c2026:p -> c2008:p [dir=back,arrowtail=empty,style=dashed];
+	//nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean implements nl.b3p.brmo.service.scanner.ProgressUpdateListener
+	c2026:p -> c2009:p [dir=back,arrowtail=empty,style=dashed];
+	//nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean implements nl.b3p.brmo.service.scanner.ProgressUpdateListener
+	c2026:p -> c2010:p [dir=back,arrowtail=empty,style=dashed];
 	// nl.b3p.brmo.service.scanner.BerichtstatusRapport NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2024:p -> c2030:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2023:p -> c2026:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.scanner.MaterializedViewRefreshUitvoeren NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2026:p -> c2030:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.service.scanner.LaadprocesTransformatieUitvoeren NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2027:p -> c2030:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.service.scanner.WebMirrorBAGDirectoryScanner NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2028:p -> c2030:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.service.scanner.BerichtDoorsturenProces NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2029:p -> c2030:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.service.scanner.BRKDirectoryScanner NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2033:p -> c2030:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.service.scanner.BGTLightDirectoryScanner NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2034:p -> c2030:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.service.scanner.GDS2OphalenProces NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2035:p -> c2030:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2025:p -> c2026:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.scanner.BGTLightOphalenProces NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2036:p -> c2030:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.service.scanner.BAGDirectoryScanner NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2038:p -> c2030:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2027:p -> c2026:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.service.scanner.BRKDirectoryScanner NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
+	c2030:p -> c2026:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.service.scanner.BGTLightDirectoryScanner NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
+	c2032:p -> c2026:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.scanner.BerichtTransformatieUitvoeren NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2039:p -> c2030:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2033:p -> c2026:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.service.scanner.BerichtDoorsturenProces NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
+	c2034:p -> c2026:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.service.scanner.GDS2OphalenProces NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
+	c2035:p -> c2026:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.service.scanner.BAGDirectoryScanner NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
+	c2036:p -> c2026:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.service.scanner.WebMirrorBAGDirectoryScanner NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
+	c2037:p -> c2026:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.service.scanner.LaadprocesTransformatieUitvoeren NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
+	c2038:p -> c2026:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

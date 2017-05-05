@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.stripes.MViewRefreshActionBean
-	c1687 [label=<<table title="nl.b3p.brmo.service.stripes.MViewRefreshActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MViewRefreshActionBean.html">
+	c1691 [label=<<table title="nl.b3p.brmo.service.stripes.MViewRefreshActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MViewRefreshActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MViewRefreshActionBean </td></tr>
 		</table></td></tr>
@@ -38,7 +38,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./MViewRefreshActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c1718 [label=<<table title="nl.b3p.brmo.service.scanner.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../scanner/ProgressUpdateListener.html">
+	c1714 [label=<<table title="nl.b3p.brmo.service.scanner.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../scanner/ProgressUpdateListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
@@ -55,13 +55,13 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../scanner/ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.stripes.MViewRefreshActionBean implements net.sourceforge.stripes.action.ActionBean
-	c1728:p -> c1687:p [dir=back,arrowtail=empty,style=dashed];
+	c1728:p -> c1691:p [dir=back,arrowtail=empty,style=dashed];
 	//nl.b3p.brmo.service.stripes.MViewRefreshActionBean implements nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c1718:p -> c1687:p [dir=back,arrowtail=empty,style=dashed];
+	c1714:p -> c1691:p [dir=back,arrowtail=empty,style=dashed];
 	// nl.b3p.brmo.service.stripes.MViewRefreshActionBean NAVASSOC nl.b3p.brmo.persistence.staging.MaterializedViewRefresh
-	c1687:p -> c1729:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1691:p -> c1729:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.stripes.MViewRefreshActionBean NAVASSOC net.sourceforge.stripes.action.ActionBeanContext
-	c1687:p -> c1730:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1691:p -> c1730:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// net.sourceforge.stripes.action.ActionBean
 	c1728 [label=<<table title="net.sourceforge.stripes.action.ActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
