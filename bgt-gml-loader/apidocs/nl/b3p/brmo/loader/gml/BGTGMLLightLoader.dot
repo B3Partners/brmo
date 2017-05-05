@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader
-	c177 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTGMLLightLoader.html">
+	c127 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTGMLLightLoader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoader </td></tr>
 		</table></td></tr>
@@ -32,14 +32,14 @@ digraph G {
 <tr><td align="left" balign="left"> + setIsMSSQL(isMSSQL : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setLoadingUpdate(loadingUpdate : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setBijwerkDatum(bijwerkDatum : Date) </td></tr>
-<tr><td align="left" balign="left"> + isValidZipFile(file : File) : boolean </td></tr>
 <tr><td align="left" balign="left"> + getOmhullendeVanZipFile() : Geometry </td></tr>
 <tr><td align="left" balign="left"> + getOpmerkingen() : String </td></tr>
 <tr><td align="left" balign="left"> + getStatus() : BGTGMLLightLoader.STATUS </td></tr>
+<tr><td align="left" balign="left"> + resetStatus() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS
-	c178 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoader.STATUS.html">
+	c128 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoader.STATUS.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> STATUS </td></tr>
@@ -53,11 +53,11 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoader.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader NAVASSOC com.vividsolutions.jts.geom.Geometry
-	c177:p -> c257:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c127:p -> c212:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS
-	c177:p -> c178:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c127:p -> c128:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.vividsolutions.jts.geom.Geometry
-	c257 [label=<<table title="com.vividsolutions.jts.geom.Geometry" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c212 [label=<<table title="com.vividsolutions.jts.geom.Geometry" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Geometry </font></td></tr>
 		</table></td></tr>

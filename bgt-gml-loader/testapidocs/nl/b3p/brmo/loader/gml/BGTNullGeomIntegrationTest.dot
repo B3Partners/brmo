@@ -26,7 +26,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTNullGeomIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.TestingBase
-	c124 [label=<<table title="nl.b3p.brmo.loader.gml.TestingBase" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestingBase.html">
+	c125 [label=<<table title="nl.b3p.brmo.loader.gml.TestingBase" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestingBase.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestingBase </font></td></tr>
 		</table></td></tr>
@@ -47,7 +47,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TestingBase.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.gml.BGTNullGeomIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c124:p -> c120:p [dir=back,arrowtail=empty];
+	c125:p -> c120:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.loader.gml.BGTNullGeomIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
 	c120:p -> c128:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader
@@ -73,10 +73,10 @@ digraph G {
 <tr><td align="left" balign="left"> + setIsMSSQL(arg0 : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setLoadingUpdate(arg0 : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setBijwerkDatum(arg0 : Date) </td></tr>
-<tr><td align="left" balign="left"> + isValidZipFile(arg0 : File) : boolean </td></tr>
 <tr><td align="left" balign="left"> + getOmhullendeVanZipFile() : Geometry </td></tr>
 <tr><td align="left" balign="left"> + getOpmerkingen() : String </td></tr>
 <tr><td align="left" balign="left"> + getStatus() : BGTGMLLightLoader.STATUS </td></tr>
+<tr><td align="left" balign="left"> + resetStatus() </td></tr>
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

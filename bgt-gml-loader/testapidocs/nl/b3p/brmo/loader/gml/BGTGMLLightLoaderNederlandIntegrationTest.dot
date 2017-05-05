@@ -9,23 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderNederlandIntegrationTest
-	c66 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderNederlandIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTGMLLightLoaderNederlandIntegrationTest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BGTGMLLightLoaderNederlandIntegrationTest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTGMLLightLoaderNederlandIntegrationTest() </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + testLaadNederland() </td></tr>
-<tr><td align="left" balign="left"> + testLaadNederlandMultiZip() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BGTGMLLightLoaderNederlandIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.TestingBase
-	c71 [label=<<table title="nl.b3p.brmo.loader.gml.TestingBase" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestingBase.html">
+	c72 [label=<<table title="nl.b3p.brmo.loader.gml.TestingBase" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestingBase.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestingBase </font></td></tr>
 		</table></td></tr>
@@ -45,10 +30,25 @@ digraph G {
 <tr><td align="left" balign="left"> # dropTables() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TestingBase.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderNederlandIntegrationTest
+	c74 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderNederlandIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTGMLLightLoaderNederlandIntegrationTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BGTGMLLightLoaderNederlandIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BGTGMLLightLoaderNederlandIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + testLaadNederland() </td></tr>
+<tr><td align="left" balign="left"> + testLaadNederlandMultiZip() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BGTGMLLightLoaderNederlandIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.gml.BGTGMLLightLoaderNederlandIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c71:p -> c66:p [dir=back,arrowtail=empty];
+	c72:p -> c74:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderNederlandIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
-	c66:p -> c75:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c74:p -> c75:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader
 	c75 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
@@ -72,10 +72,10 @@ digraph G {
 <tr><td align="left" balign="left"> + setIsMSSQL(arg0 : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setLoadingUpdate(arg0 : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setBijwerkDatum(arg0 : Date) </td></tr>
-<tr><td align="left" balign="left"> + isValidZipFile(arg0 : File) : boolean </td></tr>
 <tr><td align="left" balign="left"> + getOmhullendeVanZipFile() : Geometry </td></tr>
 <tr><td align="left" balign="left"> + getOpmerkingen() : String </td></tr>
 <tr><td align="left" balign="left"> + getStatus() : BGTGMLLightLoader.STATUS </td></tr>
+<tr><td align="left" balign="left"> + resetStatus() </td></tr>
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
