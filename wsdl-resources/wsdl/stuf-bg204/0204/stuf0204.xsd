@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:StUF="http://www.egem.nl/StUF/StUF0204" xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.egem.nl/StUF/StUF0204" elementFormDefault="qualified" attributeFormDefault="unqualified" version="020402">
+	<annotation>
+		<documentation xml:lang="nl">
+               Schema met de in StUF gebruikte elementen en attributen
+               Wijzigingen vergeleken met StUF020401:
+               In simpleType Foutomschrijving is length="200" gewijzigd in maxLength="200"
+           </documentation>
+	</annotation>
+	<!--  definitie van het element stuurgegevens in de SOAP header -->
+	<element name="stuurgegevens">
+		<complexType>
+			<sequence>
+				<element name="berichtsoort">
+					<simpleType>
+						<restriction base="string">
+							<minLength value="4"/>
+							<maxLength value="4"/>
+							<pattern value="Fo01"/>
+							<pattern value="Lv01"/>
+							<pattern value="Lv02"/>
+							<pattern value="La01"/>
+							<pattern value="La02"/>
+							<pattern value="Lk01"/>
+							<pattern value="Bv01"/>
+						</restriction>
+					</simpleType>
+				</element>
+				<element name="entiteittype">
+					<simpleType>
+						<restriction base="string">
+							<minLength value="3"/>
+							<maxLength value="3"/>
+						</restriction>
+					</simpleType>
+				</element>
+				<element name="sectormodel" type="string"/>
+				<element name="versieStUF" type="StUF:Versienr"/>
+				<element name="versieSectormodel" type="StUF:Versienr"/>
+				<element name="zender" type="StUF:Systeem"/>
+				<element name="ontvanger" type="StUF:Systeem"/>
+				<element name="referentienummer" type="StUF:RefNummer"/>
+				<element name="tijdstipBericht" type="StUF:Tijdstip"/>
+				<choice>
+					<element name="kennisgeving">
+						<complexType>
+							<sequence>
+								<element name="mutatiesoort" type="StUF:Mutatiesoort"/>
+								<element name="indicatorOvername" type="StUF:IndicatorOvername" default="I"/>
+								<element name="tijdstipMutatie" type="StUF:Tijdstip" minOccurs="0"/>
+							</sequence>
+						</complexType>
+					</element>
+					<element name="vraag">
+						<complexType>
+							<sequence>
+								<element name="sortering" type="StUF:Sortering" default="0" minOccurs="0"/>
+								<element name="maximumAantal" type="StUF:MaximumAantal" default="15" minOccurs="0"/>
+								<element name="indicatorHistorisch" type="boolean" default="false" minOccurs="0"/>
+								<element name="indicatorVervolgvraag" type="boolean" default="false" minOccurs="0"/>
+								<element name="indicatorAfnemerIndicatie" type="boolean" default="false" minOccurs="0"/>
+							</sequence>
+						</complexType>
+					</element>
+					<element name="antwoord">
+						<complexType>
+							<sequence>
+								<element name="indicatorVervolgvraag" type="boolean" default="false" minOccurs="0"/>
+								<element name="indicatorAfnemerIndicatie" type="boolean" default="false" minOccurs="0"/>
+								<element name="crossRefNummer" type="StUF:RefNummer"/>
+								<element name="foutmelding" type="string" minOccurs="0"/>
+							</sequence>
+						</complexType>
+					</element>
+					<element name="bevestiging">
+						<complexType>
+							<sequence>
+								<element name="crossRefNummer" type="StUF:RefNummer"/>
+							</sequence>
+						</complexType>
+					</element>
+					<element name="fout">
+						<complexType>
+							<sequence>
+								<element name="crossRefNummer" type="StUF:RefNummer"/>
+							</sequence>
+						</complexType>
+					</element>
+				</choice>
+			</sequence>
+		</complexType>
+	</element>
+	<!-- definitie van het foutbericht. -->
+	<element name="foutBericht">
+		<complexType>
+			<sequence>
+				<element ref="StUF:stuurgegevens"/>
+				<element name="body">
+					<complexType>
+						<sequence>
+							<element name="code" type="StUF:FoutCode"/>
+							<element name="plek" type="StUF:FoutPlek"/>
+							<element name="omschrijving" type="StUF:FoutOmschrijving"/>
+						</sequence>
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+	<!-- definitie van het bevestigingsbericht. -->
+	<element name="bevestigingsBericht">
+		<complexType>
+			<sequence>
+				<element ref="StUF:stuurgegevens"/>
+			</sequence>
+		</complexType>
+	</element>
+	<!-- definitie van het omhullende element voor uitwisseling via een bestand -->
+	<element name="StUF-berichtenSet">
+		<annotation>
+			<documentation xml:lang="nl">
+				In het schema van de StUF-standaard kan dit element slechts gedefinieerd worden met als types anyType voor de
+				elementen die voor kunnen komen in een berichtenbestand. De verschillende sectormodellen definieren deze 
+				elementen in meer detail. Een correcte validatie is mogelijk door in het bericht expliciet het sectormodel te specificeren
+				waartegen het bericht gevalideerd dient te worden.
+			</documentation>
+		</annotation>
+		<complexType>
+			<sequence minOccurs="0" maxOccurs="unbounded">
+				<choice>
+					<element name="kennisgevingsBericht" type="anyType"/>
+					<element name="vraagBericht" type="anyType"/>
+					<element name="asynchroonAntwoordBericht" type="anyType"/>
+					<element ref="StUF:foutBericht"/>
+				</choice>
+			</sequence>
+		</complexType>
+	</element>
+	<!-- definitie van het transmissionError element tbv WSDL beschrijvingen -->
+	<element name="transmissionError" type="string"/>
+	<!-- definitie van door StUF gedefinieerde elementen -->
+	<element name="extraElement" nillable="true">
+		<complexType>
+			<simpleContent>
+				<extension base="string">
+					<attributeGroup ref="StUF:element"/>
+					<attribute name="naam" type="string" use="required"/>
+				</extension>
+			</simpleContent>
+		</complexType>
+	</element>
+	<!-- attribute groups met de attributen van fundamentele, relatie en tabel entiteiten -->
+	<attributeGroup name="fundamenteel">
+		<attribute name="soortEntiteit" type="string" use="required" fixed="F"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:sleutelGegevensbeheer"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+		<attribute ref="StUF:noValue"/>
+	</attributeGroup>
+	<attributeGroup name="relatie">
+		<attribute name="soortEntiteit" type="string" use="required" fixed="R"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:sleutelGegevensbeheer"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+		<attribute ref="StUF:noValue"/>
+	</attributeGroup>
+	<attributeGroup name="tabel">
+		<attribute name="soortEntiteit" type="string" use="required" fixed="T"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+		<attribute ref="StUF:noValue"/>
+	</attributeGroup>
+	<attributeGroup name="element">
+		<attribute ref="StUF:noValue"/>
+		<attribute ref="StUF:exact"/>
+	</attributeGroup>
+	<attribute name="sleutelVerzendend" type="StUF:Sleutel"/>
+	<attribute name="sleutelOntvangend" type="StUF:Sleutel"/>
+	<attribute name="sleutelGegevensbeheer" type="StUF:Sleutel"/>
+	<attribute name="verwerkingssoort" type="StUF:Verwerkingssoort"/>
+	<attribute name="indOnvolledigeDatum" type="StUF:IndOnvolledigeDatum" default="V"/>
+	<attribute name="noValue" type="StUF:NoValue"/>
+	<attribute name="exact" type="boolean" default="true"/>
+	<!--  definitie van simpleTypes en complexTypes -->
+	<complexType name="ExtraElementen">
+		<sequence maxOccurs="unbounded">
+			<element ref="StUF:extraElement" minOccurs="0"/>
+		</sequence>
+	</complexType>
+	<complexType name="Systeem">
+		<sequence>
+			<element name="organisatie" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="10"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="applicatie">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="3"/>
+						<maxLength value="20"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="administratie" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="1"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="gebruiker" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="20"/>
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="DatumMetIndicator">
+		<simpleContent>
+			<extension base="StUF:Datum">
+				<attributeGroup ref="StUF:element"/>
+				<attribute ref="StUF:indOnvolledigeDatum"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="TijdvakGeldigheid">
+		<sequence>
+			<element name="begindatumTijdvakGeldigheid" type="StUF:DatumMetIndicator" nillable="true"/>
+			<element name="einddatumTijdvakGeldigheid" type="StUF:DatumMetIndicator" nillable="true"/>
+		</sequence>
+	</complexType>
+	<complexType name="TijdvakRelatie">
+		<sequence>
+			<element name="begindatumRelatie" type="StUF:DatumMetIndicator" nillable="true"/>
+			<element name="einddatumRelatie" type="StUF:DatumMetIndicator" nillable="true"/>
+		</sequence>
+	</complexType>
+	<simpleType name="Datum">
+		<restriction base="decimal">
+			<totalDigits value="8"/>
+			<fractionDigits value="0"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="FoutCode">
+		<restriction base="string">
+			<length value="7"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="FoutPlek">
+		<restriction base="string">
+			<enumeration value="client"/>
+			<enumeration value="server"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="FoutOmschrijving">
+		<restriction base="string">
+			<maxLength value="200"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="IndicatorOvername">
+		<restriction base="string">
+			<enumeration value="I">
+				<annotation>
+					<documentation xml:lang="nl">Informatief</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="V">
+				<annotation>
+					<documentation xml:lang="nl">Verplicht</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="IndOnvolledigeDatum">
+		<restriction base="string">
+			<enumeration value="M">
+				<annotation>
+					<documentation xml:lang="nl">maand en dag onbekend</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="D">
+				<annotation>
+					<documentation xml:lang="nl">dag onbekend</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="V">
+				<annotation>
+					<documentation xml:lang="nl">datum is volledig</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="MaximumAantal">
+		<restriction base="nonNegativeInteger">
+			<totalDigits value="8"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Mutatiesoort">
+		<restriction base="string">
+			<enumeration value="T">
+				<annotation>
+					<documentation xml:lang="nl">Toevoeging</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="W">
+				<annotation>
+					<documentation xml:lang="nl">Wijziging</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="V">
+				<annotation>
+					<documentation xml:lang="nl">Verwijdering</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="C">
+				<annotation>
+					<documentation xml:lang="nl">Correctie</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="NoValue">
+		<restriction base="string">
+			<enumeration value="nietOndersteund"/>
+			<enumeration value="nietGeautoriseerd"/>
+			<enumeration value="geenWaarde"/>
+			<enumeration value="waardeOnbekend"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="RefNummer">
+		<restriction base="string">
+			<maxLength value="12"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Sleutel">
+		<restriction base="string">
+			<maxLength value="40"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Sortering">
+		<restriction base="nonNegativeInteger">
+			<totalDigits value="2"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Tijdstip">
+		<restriction base="string">
+			<pattern value="[0-9]{16}"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Versienr">
+		<restriction base="string">
+			<minLength value="4"/>
+			<maxLength value="4"/>
+			<pattern value="[0-9][1-9][0-9][0-9]"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Verwerkingssoort">
+		<restriction base="string">
+			<maxLength value="1"/>
+			<enumeration value="T">
+				<annotation>
+					<documentation xml:lang="nl">Toevoeging</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="W">
+				<annotation>
+					<documentation xml:lang="nl">Wijziging of correctie</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="V">
+				<annotation>
+					<documentation xml:lang="nl">Verwijdering</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="E">
+				<annotation>
+					<documentation xml:lang="nl"> Een relatie entiteit wordt beeindigd.</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="I">
+				<annotation>
+					<documentation xml:lang="nl">Entiteit bevat alleen identificerende gegevens.</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="R">
+				<annotation>
+					<documentation xml:lang="nl">Een relatie entiteit wordt vervangen door een nieuwe relatie entiteit.</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="S">
+				<annotation>
+					<documentation xml:lang="nl"> De sleutel van een fundamentele entiteit wordt gewijzigd.</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+</schema>

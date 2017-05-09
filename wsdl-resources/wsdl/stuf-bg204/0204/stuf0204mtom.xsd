@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:StUF="http://www.egem.nl/StUF/StUF0204" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" targetNamespace="http://www.egem.nl/StUF/StUF0204" elementFormDefault="qualified" attributeFormDefault="unqualified" version="020400">
+	<annotation>
+		<documentation>
+			Dit schema definieert een complexType, een attribute en en een simpleType ten behoeve van het opnemen van binaire bijlagen in StUF-berichten. Het is een uitbreiding op StUF0204 ten behoeve van protocolbinding 0301 die het verzenden van binaire bijlagen door middel van MTOM voorschrijft.
+		</documentation>
+	</annotation>
+	<include schemaLocation="stuf0204.xsd"/>
+	<import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="http://www.w3.org/2005/05/xmlmime"/>
+	<complexType name="BinaireInhoud">
+		<simpleContent>
+			<restriction base="StUF:BinaireInhoud-basis">
+				<attribute ref="StUF:bestandsnaam" use="required"/>
+			</restriction>
+		</simpleContent>
+	</complexType>
+	<complexType name="BinaireInhoud-basis">
+		<simpleContent>
+			<extension base="xmime:base64Binary">
+				<attribute ref="StUF:bestandsnaam"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="BinaireInhoud-vraag">
+		<simpleContent>
+			<restriction base="StUF:BinaireInhoud-basis">
+				<attribute ref="xmime:contentType" use="prohibited"/>
+				<attribute ref="StUF:bestandsnaam" use="prohibited"/>
+			</restriction>
+		</simpleContent>
+	</complexType>
+	<attribute name="bestandsnaam" type="StUF:Bestandsnaam"/>
+	<simpleType name="Bestandsnaam">
+		<restriction base="string">
+			<maxLength value="255"/>
+		</restriction>
+	</simpleType>
+</schema>

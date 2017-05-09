@@ -1,0 +1,6039 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:BG="http://www.egem.nl/StUF/sector/bg/0310" xmlns:StUF="http://www.egem.nl/StUF/StUF0301" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" xmlns:xs="http://www.w3.org/2001/XMLSchema" name="StUF-BG0310" targetNamespace="http://www.egem.nl/StUF/sector/bg/0310">
+	<import namespace="http://www.egem.nl/StUF/StUF0301" location="../../0301/stuf0301_types.wsdl"/>
+	<documentation>
+		<xs:documentation>
+			   Dit document definieert de webservices voor het portType OntvangAsynchroon voor het sectormodel Basisgegevens voor het koppelvlak vraagAntwoord.
+		
+			   Versie 031001, wijzigingen vergeleken met versie 031000:
+			   - ERR206: Import gewijzigd n.a.v. naamwijziging van het bestand 'stuf0301.types.wsdl' in 'stuf0301_types.wsdl'.
+		
+			   Versie 031002, wijzigingen t.b.v. patch 21 (1-4-2015) vergeleken met versie 031001 zijn de volgende wijzigingen doorgevoerd:			
+			   - ERR276: Operation 'Bv01' toegevoegd.
+			   - ERR0353: Het documentation element is voorzien van een standaard 'appinfo' structuur met daarin informatie over het schema.
+			
+		</xs:documentation>
+		<xs:appinfo>
+			<StUF:onderdeel>http://www.egem.nl/StUF/sector/bg/0310</StUF:onderdeel>
+			<StUF:patch>22</StUF:patch>
+			<StUF:patchdatum>20150701</StUF:patchdatum>
+			<StUF:schemaversie>2</StUF:schemaversie>
+		</xs:appinfo>
+	</documentation>
+	<types>
+		<xs:schema>
+			<xs:import namespace="http://www.egem.nl/StUF/sector/bg/0310" schemaLocation="bg0310_msg_vraagAntwoord.xsd"/>
+		</xs:schema>
+	</types>
+	<message name="acdLa02">
+		<part name="body" element="BG:acdLa02"/>
+	</message>
+	<message name="acdLv02">
+		<part name="body" element="BG:acdLv02"/>
+	</message>
+	<message name="aoaLa02">
+		<part name="body" element="BG:aoaLa02"/>
+	</message>
+	<message name="aoaLa04">
+		<part name="body" element="BG:aoaLa04"/>
+	</message>
+	<message name="aoaLa06">
+		<part name="body" element="BG:aoaLa06"/>
+	</message>
+	<message name="aoaLa08">
+		<part name="body" element="BG:aoaLa08"/>
+	</message>
+	<message name="aoaLa10">
+		<part name="body" element="BG:aoaLa10"/>
+	</message>
+	<message name="aoaLv02">
+		<part name="body" element="BG:aoaLv02"/>
+	</message>
+	<message name="aoaLv04">
+		<part name="body" element="BG:aoaLv04"/>
+	</message>
+	<message name="aoaLv06">
+		<part name="body" element="BG:aoaLv06"/>
+	</message>
+	<message name="aoaLv08">
+		<part name="body" element="BG:aoaLv08"/>
+	</message>
+	<message name="aoaLv10">
+		<part name="body" element="BG:aoaLv10"/>
+	</message>
+	<message name="arvLa02">
+		<part name="body" element="BG:arvLa02"/>
+	</message>
+	<message name="arvLv02">
+		<part name="body" element="BG:arvLv02"/>
+	</message>
+	<message name="avrLa02">
+		<part name="body" element="BG:avrLa02"/>
+	</message>
+	<message name="avrLv02">
+		<part name="body" element="BG:avrLv02"/>
+	</message>
+	<message name="brtLa02">
+		<part name="body" element="BG:brtLa02"/>
+	</message>
+	<message name="brtLa04">
+		<part name="body" element="BG:brtLa04"/>
+	</message>
+	<message name="brtLa06">
+		<part name="body" element="BG:brtLa06"/>
+	</message>
+	<message name="brtLa08">
+		<part name="body" element="BG:brtLa08"/>
+	</message>
+	<message name="brtLa10">
+		<part name="body" element="BG:brtLa10"/>
+	</message>
+	<message name="brtLv02">
+		<part name="body" element="BG:brtLv02"/>
+	</message>
+	<message name="brtLv04">
+		<part name="body" element="BG:brtLv04"/>
+	</message>
+	<message name="brtLv06">
+		<part name="body" element="BG:brtLv06"/>
+	</message>
+	<message name="brtLv08">
+		<part name="body" element="BG:brtLv08"/>
+	</message>
+	<message name="brtLv10">
+		<part name="body" element="BG:brtLv10"/>
+	</message>
+	<message name="gemLa02">
+		<part name="body" element="BG:gemLa02"/>
+	</message>
+	<message name="gemLa04">
+		<part name="body" element="BG:gemLa04"/>
+	</message>
+	<message name="gemLa06">
+		<part name="body" element="BG:gemLa06"/>
+	</message>
+	<message name="gemLa08">
+		<part name="body" element="BG:gemLa08"/>
+	</message>
+	<message name="gemLa10">
+		<part name="body" element="BG:gemLa10"/>
+	</message>
+	<message name="gemLv02">
+		<part name="body" element="BG:gemLv02"/>
+	</message>
+	<message name="gemLv04">
+		<part name="body" element="BG:gemLv04"/>
+	</message>
+	<message name="gemLv06">
+		<part name="body" element="BG:gemLv06"/>
+	</message>
+	<message name="gemLv08">
+		<part name="body" element="BG:gemLv08"/>
+	</message>
+	<message name="gemLv10">
+		<part name="body" element="BG:gemLv10"/>
+	</message>
+	<message name="gorLa02">
+		<part name="body" element="BG:gorLa02"/>
+	</message>
+	<message name="gorLa04">
+		<part name="body" element="BG:gorLa04"/>
+	</message>
+	<message name="gorLa06">
+		<part name="body" element="BG:gorLa06"/>
+	</message>
+	<message name="gorLa08">
+		<part name="body" element="BG:gorLa08"/>
+	</message>
+	<message name="gorLa10">
+		<part name="body" element="BG:gorLa10"/>
+	</message>
+	<message name="gorLv02">
+		<part name="body" element="BG:gorLv02"/>
+	</message>
+	<message name="gorLv04">
+		<part name="body" element="BG:gorLv04"/>
+	</message>
+	<message name="gorLv06">
+		<part name="body" element="BG:gorLv06"/>
+	</message>
+	<message name="gorLv08">
+		<part name="body" element="BG:gorLv08"/>
+	</message>
+	<message name="gorLv10">
+		<part name="body" element="BG:gorLv10"/>
+	</message>
+	<message name="hhdLa02">
+		<part name="body" element="BG:hhdLa02"/>
+	</message>
+	<message name="hhdLa04">
+		<part name="body" element="BG:hhdLa04"/>
+	</message>
+	<message name="hhdLa06">
+		<part name="body" element="BG:hhdLa06"/>
+	</message>
+	<message name="hhdLa08">
+		<part name="body" element="BG:hhdLa08"/>
+	</message>
+	<message name="hhdLa10">
+		<part name="body" element="BG:hhdLa10"/>
+	</message>
+	<message name="hhdLv02">
+		<part name="body" element="BG:hhdLv02"/>
+	</message>
+	<message name="hhdLv04">
+		<part name="body" element="BG:hhdLv04"/>
+	</message>
+	<message name="hhdLv06">
+		<part name="body" element="BG:hhdLv06"/>
+	</message>
+	<message name="hhdLv08">
+		<part name="body" element="BG:hhdLv08"/>
+	</message>
+	<message name="hhdLv10">
+		<part name="body" element="BG:hhdLv10"/>
+	</message>
+	<message name="ireLa02">
+		<part name="body" element="BG:ireLa02"/>
+	</message>
+	<message name="ireLa04">
+		<part name="body" element="BG:ireLa04"/>
+	</message>
+	<message name="ireLa06">
+		<part name="body" element="BG:ireLa06"/>
+	</message>
+	<message name="ireLa08">
+		<part name="body" element="BG:ireLa08"/>
+	</message>
+	<message name="ireLa10">
+		<part name="body" element="BG:ireLa10"/>
+	</message>
+	<message name="ireLv02">
+		<part name="body" element="BG:ireLv02"/>
+	</message>
+	<message name="ireLv04">
+		<part name="body" element="BG:ireLv04"/>
+	</message>
+	<message name="ireLv06">
+		<part name="body" element="BG:ireLv06"/>
+	</message>
+	<message name="ireLv08">
+		<part name="body" element="BG:ireLv08"/>
+	</message>
+	<message name="ireLv10">
+		<part name="body" element="BG:ireLv10"/>
+	</message>
+	<message name="kgmLa02">
+		<part name="body" element="BG:kgmLa02"/>
+	</message>
+	<message name="kgmLv02">
+		<part name="body" element="BG:kgmLv02"/>
+	</message>
+	<message name="kozLa02">
+		<part name="body" element="BG:kozLa02"/>
+	</message>
+	<message name="kozLa04">
+		<part name="body" element="BG:kozLa04"/>
+	</message>
+	<message name="kozLa06">
+		<part name="body" element="BG:kozLa06"/>
+	</message>
+	<message name="kozLa08">
+		<part name="body" element="BG:kozLa08"/>
+	</message>
+	<message name="kozLa10">
+		<part name="body" element="BG:kozLa10"/>
+	</message>
+	<message name="kozLv02">
+		<part name="body" element="BG:kozLv02"/>
+	</message>
+	<message name="kozLv04">
+		<part name="body" element="BG:kozLv04"/>
+	</message>
+	<message name="kozLv06">
+		<part name="body" element="BG:kozLv06"/>
+	</message>
+	<message name="kozLv08">
+		<part name="body" element="BG:kozLv08"/>
+	</message>
+	<message name="kozLv10">
+		<part name="body" element="BG:kozLv10"/>
+	</message>
+	<message name="kwdLa02">
+		<part name="body" element="BG:kwdLa02"/>
+	</message>
+	<message name="kwdLa04">
+		<part name="body" element="BG:kwdLa04"/>
+	</message>
+	<message name="kwdLa06">
+		<part name="body" element="BG:kwdLa06"/>
+	</message>
+	<message name="kwdLa08">
+		<part name="body" element="BG:kwdLa08"/>
+	</message>
+	<message name="kwdLa10">
+		<part name="body" element="BG:kwdLa10"/>
+	</message>
+	<message name="kwdLv02">
+		<part name="body" element="BG:kwdLv02"/>
+	</message>
+	<message name="kwdLv04">
+		<part name="body" element="BG:kwdLv04"/>
+	</message>
+	<message name="kwdLv06">
+		<part name="body" element="BG:kwdLv06"/>
+	</message>
+	<message name="kwdLv08">
+		<part name="body" element="BG:kwdLv08"/>
+	</message>
+	<message name="kwdLv10">
+		<part name="body" element="BG:kwdLv10"/>
+	</message>
+	<message name="kzaLa02">
+		<part name="body" element="BG:kzaLa02"/>
+	</message>
+	<message name="kzaLa04">
+		<part name="body" element="BG:kzaLa04"/>
+	</message>
+	<message name="kzaLa06">
+		<part name="body" element="BG:kzaLa06"/>
+	</message>
+	<message name="kzaLa08">
+		<part name="body" element="BG:kzaLa08"/>
+	</message>
+	<message name="kzaLa10">
+		<part name="body" element="BG:kzaLa10"/>
+	</message>
+	<message name="kzaLv02">
+		<part name="body" element="BG:kzaLv02"/>
+	</message>
+	<message name="kzaLv04">
+		<part name="body" element="BG:kzaLv04"/>
+	</message>
+	<message name="kzaLv06">
+		<part name="body" element="BG:kzaLv06"/>
+	</message>
+	<message name="kzaLv08">
+		<part name="body" element="BG:kzaLv08"/>
+	</message>
+	<message name="kzaLv10">
+		<part name="body" element="BG:kzaLv10"/>
+	</message>
+	<message name="lndLa02">
+		<part name="body" element="BG:lndLa02"/>
+	</message>
+	<message name="lndLv02">
+		<part name="body" element="BG:lndLv02"/>
+	</message>
+	<message name="macLa02">
+		<part name="body" element="BG:macLa02"/>
+	</message>
+	<message name="macLa04">
+		<part name="body" element="BG:macLa04"/>
+	</message>
+	<message name="macLa06">
+		<part name="body" element="BG:macLa06"/>
+	</message>
+	<message name="macLa08">
+		<part name="body" element="BG:macLa08"/>
+	</message>
+	<message name="macLa10">
+		<part name="body" element="BG:macLa10"/>
+	</message>
+	<message name="macLv02">
+		<part name="body" element="BG:macLv02"/>
+	</message>
+	<message name="macLv04">
+		<part name="body" element="BG:macLv04"/>
+	</message>
+	<message name="macLv06">
+		<part name="body" element="BG:macLv06"/>
+	</message>
+	<message name="macLv08">
+		<part name="body" element="BG:macLv08"/>
+	</message>
+	<message name="macLv10">
+		<part name="body" element="BG:macLv10"/>
+	</message>
+	<message name="natLa02">
+		<part name="body" element="BG:natLa02"/>
+	</message>
+	<message name="natLv02">
+		<part name="body" element="BG:natLv02"/>
+	</message>
+	<message name="nnpLa02">
+		<part name="body" element="BG:nnpLa02"/>
+	</message>
+	<message name="nnpLa04">
+		<part name="body" element="BG:nnpLa04"/>
+	</message>
+	<message name="nnpLa06">
+		<part name="body" element="BG:nnpLa06"/>
+	</message>
+	<message name="nnpLa08">
+		<part name="body" element="BG:nnpLa08"/>
+	</message>
+	<message name="nnpLa10">
+		<part name="body" element="BG:nnpLa10"/>
+	</message>
+	<message name="nnpLv02">
+		<part name="body" element="BG:nnpLv02"/>
+	</message>
+	<message name="nnpLv04">
+		<part name="body" element="BG:nnpLv04"/>
+	</message>
+	<message name="nnpLv06">
+		<part name="body" element="BG:nnpLv06"/>
+	</message>
+	<message name="nnpLv08">
+		<part name="body" element="BG:nnpLv08"/>
+	</message>
+	<message name="nnpLv10">
+		<part name="body" element="BG:nnpLv10"/>
+	</message>
+	<message name="npsLa02">
+		<part name="body" element="BG:npsLa02"/>
+	</message>
+	<message name="npsLa04">
+		<part name="body" element="BG:npsLa04"/>
+	</message>
+	<message name="npsLa06">
+		<part name="body" element="BG:npsLa06"/>
+	</message>
+	<message name="npsLa08">
+		<part name="body" element="BG:npsLa08"/>
+	</message>
+	<message name="npsLa10">
+		<part name="body" element="BG:npsLa10"/>
+	</message>
+	<message name="npsLv02">
+		<part name="body" element="BG:npsLv02"/>
+	</message>
+	<message name="npsLv04">
+		<part name="body" element="BG:npsLv04"/>
+	</message>
+	<message name="npsLv06">
+		<part name="body" element="BG:npsLv06"/>
+	</message>
+	<message name="npsLv08">
+		<part name="body" element="BG:npsLv08"/>
+	</message>
+	<message name="npsLv10">
+		<part name="body" element="BG:npsLv10"/>
+	</message>
+	<message name="oprLa02">
+		<part name="body" element="BG:oprLa02"/>
+	</message>
+	<message name="oprLa04">
+		<part name="body" element="BG:oprLa04"/>
+	</message>
+	<message name="oprLa06">
+		<part name="body" element="BG:oprLa06"/>
+	</message>
+	<message name="oprLa08">
+		<part name="body" element="BG:oprLa08"/>
+	</message>
+	<message name="oprLa10">
+		<part name="body" element="BG:oprLa10"/>
+	</message>
+	<message name="oprLv02">
+		<part name="body" element="BG:oprLv02"/>
+	</message>
+	<message name="oprLv04">
+		<part name="body" element="BG:oprLv04"/>
+	</message>
+	<message name="oprLv06">
+		<part name="body" element="BG:oprLv06"/>
+	</message>
+	<message name="oprLv08">
+		<part name="body" element="BG:oprLv08"/>
+	</message>
+	<message name="oprLv10">
+		<part name="body" element="BG:oprLv10"/>
+	</message>
+	<message name="pndLa02">
+		<part name="body" element="BG:pndLa02"/>
+	</message>
+	<message name="pndLa04">
+		<part name="body" element="BG:pndLa04"/>
+	</message>
+	<message name="pndLa06">
+		<part name="body" element="BG:pndLa06"/>
+	</message>
+	<message name="pndLa08">
+		<part name="body" element="BG:pndLa08"/>
+	</message>
+	<message name="pndLa10">
+		<part name="body" element="BG:pndLa10"/>
+	</message>
+	<message name="pndLv02">
+		<part name="body" element="BG:pndLv02"/>
+	</message>
+	<message name="pndLv04">
+		<part name="body" element="BG:pndLv04"/>
+	</message>
+	<message name="pndLv06">
+		<part name="body" element="BG:pndLv06"/>
+	</message>
+	<message name="pndLv08">
+		<part name="body" element="BG:pndLv08"/>
+	</message>
+	<message name="pndLv10">
+		<part name="body" element="BG:pndLv10"/>
+	</message>
+	<message name="rdsLa02">
+		<part name="body" element="BG:rdsLa02"/>
+	</message>
+	<message name="rdsLv02">
+		<part name="body" element="BG:rdsLv02"/>
+	</message>
+	<message name="rpsLa02">
+		<part name="body" element="BG:rpsLa02"/>
+	</message>
+	<message name="rpsLv02">
+		<part name="body" element="BG:rpsLv02"/>
+	</message>
+	<message name="rsdLa02">
+		<part name="body" element="BG:rsdLa02"/>
+	</message>
+	<message name="rsdLa04">
+		<part name="body" element="BG:rsdLa04"/>
+	</message>
+	<message name="rsdLa06">
+		<part name="body" element="BG:rsdLa06"/>
+	</message>
+	<message name="rsdLa08">
+		<part name="body" element="BG:rsdLa08"/>
+	</message>
+	<message name="rsdLa10">
+		<part name="body" element="BG:rsdLa10"/>
+	</message>
+	<message name="rsdLv02">
+		<part name="body" element="BG:rsdLv02"/>
+	</message>
+	<message name="rsdLv04">
+		<part name="body" element="BG:rsdLv04"/>
+	</message>
+	<message name="rsdLv06">
+		<part name="body" element="BG:rsdLv06"/>
+	</message>
+	<message name="rsdLv08">
+		<part name="body" element="BG:rsdLv08"/>
+	</message>
+	<message name="rsdLv10">
+		<part name="body" element="BG:rsdLv10"/>
+	</message>
+	<message name="sbdLa02">
+		<part name="body" element="BG:sbdLa02"/>
+	</message>
+	<message name="sbdLa04">
+		<part name="body" element="BG:sbdLa04"/>
+	</message>
+	<message name="sbdLa06">
+		<part name="body" element="BG:sbdLa06"/>
+	</message>
+	<message name="sbdLa08">
+		<part name="body" element="BG:sbdLa08"/>
+	</message>
+	<message name="sbdLa10">
+		<part name="body" element="BG:sbdLa10"/>
+	</message>
+	<message name="sbdLv02">
+		<part name="body" element="BG:sbdLv02"/>
+	</message>
+	<message name="sbdLv04">
+		<part name="body" element="BG:sbdLv04"/>
+	</message>
+	<message name="sbdLv06">
+		<part name="body" element="BG:sbdLv06"/>
+	</message>
+	<message name="sbdLv08">
+		<part name="body" element="BG:sbdLv08"/>
+	</message>
+	<message name="sbdLv10">
+		<part name="body" element="BG:sbdLv10"/>
+	</message>
+	<message name="subLa02">
+		<part name="body" element="BG:subLa02"/>
+	</message>
+	<message name="subLv02">
+		<part name="body" element="BG:subLv02"/>
+	</message>
+	<message name="tdlLa02">
+		<part name="body" element="BG:tdlLa02"/>
+	</message>
+	<message name="tdlLa04">
+		<part name="body" element="BG:tdlLa04"/>
+	</message>
+	<message name="tdlLa06">
+		<part name="body" element="BG:tdlLa06"/>
+	</message>
+	<message name="tdlLa08">
+		<part name="body" element="BG:tdlLa08"/>
+	</message>
+	<message name="tdlLa10">
+		<part name="body" element="BG:tdlLa10"/>
+	</message>
+	<message name="tdlLv02">
+		<part name="body" element="BG:tdlLv02"/>
+	</message>
+	<message name="tdlLv04">
+		<part name="body" element="BG:tdlLv04"/>
+	</message>
+	<message name="tdlLv06">
+		<part name="body" element="BG:tdlLv06"/>
+	</message>
+	<message name="tdlLv08">
+		<part name="body" element="BG:tdlLv08"/>
+	</message>
+	<message name="tdlLv10">
+		<part name="body" element="BG:tdlLv10"/>
+	</message>
+	<message name="tgoLa02">
+		<part name="body" element="BG:tgoLa02"/>
+	</message>
+	<message name="tgoLa04">
+		<part name="body" element="BG:tgoLa04"/>
+	</message>
+	<message name="tgoLa06">
+		<part name="body" element="BG:tgoLa06"/>
+	</message>
+	<message name="tgoLa08">
+		<part name="body" element="BG:tgoLa08"/>
+	</message>
+	<message name="tgoLa10">
+		<part name="body" element="BG:tgoLa10"/>
+	</message>
+	<message name="tgoLv02">
+		<part name="body" element="BG:tgoLv02"/>
+	</message>
+	<message name="tgoLv04">
+		<part name="body" element="BG:tgoLv04"/>
+	</message>
+	<message name="tgoLv06">
+		<part name="body" element="BG:tgoLv06"/>
+	</message>
+	<message name="tgoLv08">
+		<part name="body" element="BG:tgoLv08"/>
+	</message>
+	<message name="tgoLv10">
+		<part name="body" element="BG:tgoLv10"/>
+	</message>
+	<message name="vbtLa02">
+		<part name="body" element="BG:vbtLa02"/>
+	</message>
+	<message name="vbtLv02">
+		<part name="body" element="BG:vbtLv02"/>
+	</message>
+	<message name="vesLa02">
+		<part name="body" element="BG:vesLa02"/>
+	</message>
+	<message name="vesLa04">
+		<part name="body" element="BG:vesLa04"/>
+	</message>
+	<message name="vesLa06">
+		<part name="body" element="BG:vesLa06"/>
+	</message>
+	<message name="vesLa08">
+		<part name="body" element="BG:vesLa08"/>
+	</message>
+	<message name="vesLa10">
+		<part name="body" element="BG:vesLa10"/>
+	</message>
+	<message name="vesLv02">
+		<part name="body" element="BG:vesLv02"/>
+	</message>
+	<message name="vesLv04">
+		<part name="body" element="BG:vesLv04"/>
+	</message>
+	<message name="vesLv06">
+		<part name="body" element="BG:vesLv06"/>
+	</message>
+	<message name="vesLv08">
+		<part name="body" element="BG:vesLv08"/>
+	</message>
+	<message name="vesLv10">
+		<part name="body" element="BG:vesLv10"/>
+	</message>
+	<message name="wdlLa02">
+		<part name="body" element="BG:wdlLa02"/>
+	</message>
+	<message name="wdlLa04">
+		<part name="body" element="BG:wdlLa04"/>
+	</message>
+	<message name="wdlLa06">
+		<part name="body" element="BG:wdlLa06"/>
+	</message>
+	<message name="wdlLa08">
+		<part name="body" element="BG:wdlLa08"/>
+	</message>
+	<message name="wdlLa10">
+		<part name="body" element="BG:wdlLa10"/>
+	</message>
+	<message name="wdlLv02">
+		<part name="body" element="BG:wdlLv02"/>
+	</message>
+	<message name="wdlLv04">
+		<part name="body" element="BG:wdlLv04"/>
+	</message>
+	<message name="wdlLv06">
+		<part name="body" element="BG:wdlLv06"/>
+	</message>
+	<message name="wdlLv08">
+		<part name="body" element="BG:wdlLv08"/>
+	</message>
+	<message name="wdlLv10">
+		<part name="body" element="BG:wdlLv10"/>
+	</message>
+	<message name="wdoLa02">
+		<part name="body" element="BG:wdoLa02"/>
+	</message>
+	<message name="wdoLa04">
+		<part name="body" element="BG:wdoLa04"/>
+	</message>
+	<message name="wdoLa08">
+		<part name="body" element="BG:wdoLa08"/>
+	</message>
+	<message name="wdoLv02">
+		<part name="body" element="BG:wdoLv02"/>
+	</message>
+	<message name="wdoLv04">
+		<part name="body" element="BG:wdoLv04"/>
+	</message>
+	<message name="wdoLv08">
+		<part name="body" element="BG:wdoLv08"/>
+	</message>
+	<message name="wgdLa02">
+		<part name="body" element="BG:wgdLa02"/>
+	</message>
+	<message name="wgdLa04">
+		<part name="body" element="BG:wgdLa04"/>
+	</message>
+	<message name="wgdLa06">
+		<part name="body" element="BG:wgdLa06"/>
+	</message>
+	<message name="wgdLa08">
+		<part name="body" element="BG:wgdLa08"/>
+	</message>
+	<message name="wgdLa10">
+		<part name="body" element="BG:wgdLa10"/>
+	</message>
+	<message name="wgdLv02">
+		<part name="body" element="BG:wgdLv02"/>
+	</message>
+	<message name="wgdLv04">
+		<part name="body" element="BG:wgdLv04"/>
+	</message>
+	<message name="wgdLv06">
+		<part name="body" element="BG:wgdLv06"/>
+	</message>
+	<message name="wgdLv08">
+		<part name="body" element="BG:wgdLv08"/>
+	</message>
+	<message name="wgdLv10">
+		<part name="body" element="BG:wgdLv10"/>
+	</message>
+	<message name="wozLa02">
+		<part name="body" element="BG:wozLa02"/>
+	</message>
+	<message name="wozLa04">
+		<part name="body" element="BG:wozLa04"/>
+	</message>
+	<message name="wozLa06">
+		<part name="body" element="BG:wozLa06"/>
+	</message>
+	<message name="wozLa08">
+		<part name="body" element="BG:wozLa08"/>
+	</message>
+	<message name="wozLa10">
+		<part name="body" element="BG:wozLa10"/>
+	</message>
+	<message name="wozLv02">
+		<part name="body" element="BG:wozLv02"/>
+	</message>
+	<message name="wozLv04">
+		<part name="body" element="BG:wozLv04"/>
+	</message>
+	<message name="wozLv06">
+		<part name="body" element="BG:wozLv06"/>
+	</message>
+	<message name="wozLv08">
+		<part name="body" element="BG:wozLv08"/>
+	</message>
+	<message name="wozLv10">
+		<part name="body" element="BG:wozLv10"/>
+	</message>
+	<message name="wplLa02">
+		<part name="body" element="BG:wplLa02"/>
+	</message>
+	<message name="wplLa04">
+		<part name="body" element="BG:wplLa04"/>
+	</message>
+	<message name="wplLa06">
+		<part name="body" element="BG:wplLa06"/>
+	</message>
+	<message name="wplLa08">
+		<part name="body" element="BG:wplLa08"/>
+	</message>
+	<message name="wplLa10">
+		<part name="body" element="BG:wplLa10"/>
+	</message>
+	<message name="wplLv02">
+		<part name="body" element="BG:wplLv02"/>
+	</message>
+	<message name="wplLv04">
+		<part name="body" element="BG:wplLv04"/>
+	</message>
+	<message name="wplLv06">
+		<part name="body" element="BG:wplLv06"/>
+	</message>
+	<message name="wplLv08">
+		<part name="body" element="BG:wplLv08"/>
+	</message>
+	<message name="wplLv10">
+		<part name="body" element="BG:wplLv10"/>
+	</message>
+	<message name="wrdLa02">
+		<part name="body" element="BG:wrdLa02"/>
+	</message>
+	<message name="wrdLa04">
+		<part name="body" element="BG:wrdLa04"/>
+	</message>
+	<message name="wrdLa06">
+		<part name="body" element="BG:wrdLa06"/>
+	</message>
+	<message name="wrdLa08">
+		<part name="body" element="BG:wrdLa08"/>
+	</message>
+	<message name="wrdLa10">
+		<part name="body" element="BG:wrdLa10"/>
+	</message>
+	<message name="wrdLv02">
+		<part name="body" element="BG:wrdLv02"/>
+	</message>
+	<message name="wrdLv04">
+		<part name="body" element="BG:wrdLv04"/>
+	</message>
+	<message name="wrdLv06">
+		<part name="body" element="BG:wrdLv06"/>
+	</message>
+	<message name="wrdLv08">
+		<part name="body" element="BG:wrdLv08"/>
+	</message>
+	<message name="wrdLv10">
+		<part name="body" element="BG:wrdLv10"/>
+	</message>
+	<message name="wykLa02">
+		<part name="body" element="BG:wykLa02"/>
+	</message>
+	<message name="wykLa04">
+		<part name="body" element="BG:wykLa04"/>
+	</message>
+	<message name="wykLa06">
+		<part name="body" element="BG:wykLa06"/>
+	</message>
+	<message name="wykLa08">
+		<part name="body" element="BG:wykLa08"/>
+	</message>
+	<message name="wykLa10">
+		<part name="body" element="BG:wykLa10"/>
+	</message>
+	<message name="wykLv02">
+		<part name="body" element="BG:wykLv02"/>
+	</message>
+	<message name="wykLv04">
+		<part name="body" element="BG:wykLv04"/>
+	</message>
+	<message name="wykLv06">
+		<part name="body" element="BG:wykLv06"/>
+	</message>
+	<message name="wykLv08">
+		<part name="body" element="BG:wykLv08"/>
+	</message>
+	<message name="wykLv10">
+		<part name="body" element="BG:wykLv10"/>
+	</message>
+	<message name="zkrLa02">
+		<part name="body" element="BG:zkrLa02"/>
+	</message>
+	<message name="zkrLa04">
+		<part name="body" element="BG:zkrLa04"/>
+	</message>
+	<message name="zkrLa06">
+		<part name="body" element="BG:zkrLa06"/>
+	</message>
+	<message name="zkrLa08">
+		<part name="body" element="BG:zkrLa08"/>
+	</message>
+	<message name="zkrLa10">
+		<part name="body" element="BG:zkrLa10"/>
+	</message>
+	<message name="zkrLv02">
+		<part name="body" element="BG:zkrLv02"/>
+	</message>
+	<message name="zkrLv04">
+		<part name="body" element="BG:zkrLv04"/>
+	</message>
+	<message name="zkrLv06">
+		<part name="body" element="BG:zkrLv06"/>
+	</message>
+	<message name="zkrLv08">
+		<part name="body" element="BG:zkrLv08"/>
+	</message>
+	<message name="zkrLv10">
+		<part name="body" element="BG:zkrLv10"/>
+	</message>
+	<message name="zraLa02">
+		<part name="body" element="BG:zraLa02"/>
+	</message>
+	<message name="zraLa04">
+		<part name="body" element="BG:zraLa04"/>
+	</message>
+	<message name="zraLa06">
+		<part name="body" element="BG:zraLa06"/>
+	</message>
+	<message name="zraLa08">
+		<part name="body" element="BG:zraLa08"/>
+	</message>
+	<message name="zraLa10">
+		<part name="body" element="BG:zraLa10"/>
+	</message>
+	<message name="zraLv02">
+		<part name="body" element="BG:zraLv02"/>
+	</message>
+	<message name="zraLv04">
+		<part name="body" element="BG:zraLv04"/>
+	</message>
+	<message name="zraLv06">
+		<part name="body" element="BG:zraLv06"/>
+	</message>
+	<message name="zraLv08">
+		<part name="body" element="BG:zraLv08"/>
+	</message>
+	<message name="zraLv10">
+		<part name="body" element="BG:zraLv10"/>
+	</message>
+	<portType name="OntvangAsynchroon">
+		<documentation>
+		Dit portType ondersteunt als operaties alle asynchrone berichten gedefinieerd binnen het sectormodel
+	</documentation>
+		<operation name="Bv01">
+			<input message="StUF:Bv01"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="Bv03">
+			<input message="StUF:Bv03"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="Fo01">
+			<input message="StUF:Fo01"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="Fo03">
+			<input message="StUF:Fo03"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="acdLa02">
+			<input message="BG:acdLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="acdLv02">
+			<input message="BG:acdLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="aoaLa02">
+			<input message="BG:aoaLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="aoaLa04">
+			<input message="BG:aoaLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="aoaLa06">
+			<input message="BG:aoaLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="aoaLa08">
+			<input message="BG:aoaLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="aoaLa10">
+			<input message="BG:aoaLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="aoaLv02">
+			<input message="BG:aoaLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="aoaLv04">
+			<input message="BG:aoaLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="aoaLv06">
+			<input message="BG:aoaLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="aoaLv08">
+			<input message="BG:aoaLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="aoaLv10">
+			<input message="BG:aoaLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="arvLa02">
+			<input message="BG:arvLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="arvLv02">
+			<input message="BG:arvLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="avrLa02">
+			<input message="BG:avrLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="avrLv02">
+			<input message="BG:avrLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="brtLa02">
+			<input message="BG:brtLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="brtLa04">
+			<input message="BG:brtLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="brtLa06">
+			<input message="BG:brtLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="brtLa08">
+			<input message="BG:brtLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="brtLa10">
+			<input message="BG:brtLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="brtLv02">
+			<input message="BG:brtLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="brtLv04">
+			<input message="BG:brtLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="brtLv06">
+			<input message="BG:brtLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="brtLv08">
+			<input message="BG:brtLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="brtLv10">
+			<input message="BG:brtLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gemLa02">
+			<input message="BG:gemLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gemLa04">
+			<input message="BG:gemLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gemLa06">
+			<input message="BG:gemLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gemLa08">
+			<input message="BG:gemLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gemLa10">
+			<input message="BG:gemLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gemLv02">
+			<input message="BG:gemLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gemLv04">
+			<input message="BG:gemLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gemLv06">
+			<input message="BG:gemLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gemLv08">
+			<input message="BG:gemLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gemLv10">
+			<input message="BG:gemLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gorLa02">
+			<input message="BG:gorLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gorLa04">
+			<input message="BG:gorLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gorLa06">
+			<input message="BG:gorLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gorLa08">
+			<input message="BG:gorLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gorLa10">
+			<input message="BG:gorLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gorLv02">
+			<input message="BG:gorLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gorLv04">
+			<input message="BG:gorLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gorLv06">
+			<input message="BG:gorLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gorLv08">
+			<input message="BG:gorLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="gorLv10">
+			<input message="BG:gorLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="hhdLa02">
+			<input message="BG:hhdLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="hhdLa04">
+			<input message="BG:hhdLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="hhdLa06">
+			<input message="BG:hhdLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="hhdLa08">
+			<input message="BG:hhdLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="hhdLa10">
+			<input message="BG:hhdLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="hhdLv02">
+			<input message="BG:hhdLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="hhdLv04">
+			<input message="BG:hhdLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="hhdLv06">
+			<input message="BG:hhdLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="hhdLv08">
+			<input message="BG:hhdLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="hhdLv10">
+			<input message="BG:hhdLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="ireLa02">
+			<input message="BG:ireLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="ireLa04">
+			<input message="BG:ireLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="ireLa06">
+			<input message="BG:ireLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="ireLa08">
+			<input message="BG:ireLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="ireLa10">
+			<input message="BG:ireLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="ireLv02">
+			<input message="BG:ireLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="ireLv04">
+			<input message="BG:ireLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="ireLv06">
+			<input message="BG:ireLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="ireLv08">
+			<input message="BG:ireLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="ireLv10">
+			<input message="BG:ireLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kgmLa02">
+			<input message="BG:kgmLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kgmLv02">
+			<input message="BG:kgmLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kozLa02">
+			<input message="BG:kozLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kozLa04">
+			<input message="BG:kozLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kozLa06">
+			<input message="BG:kozLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kozLa08">
+			<input message="BG:kozLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kozLa10">
+			<input message="BG:kozLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kozLv02">
+			<input message="BG:kozLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kozLv04">
+			<input message="BG:kozLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kozLv06">
+			<input message="BG:kozLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kozLv08">
+			<input message="BG:kozLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kozLv10">
+			<input message="BG:kozLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kwdLa02">
+			<input message="BG:kwdLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kwdLa04">
+			<input message="BG:kwdLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kwdLa06">
+			<input message="BG:kwdLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kwdLa08">
+			<input message="BG:kwdLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kwdLa10">
+			<input message="BG:kwdLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kwdLv02">
+			<input message="BG:kwdLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kwdLv04">
+			<input message="BG:kwdLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kwdLv06">
+			<input message="BG:kwdLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kwdLv08">
+			<input message="BG:kwdLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kwdLv10">
+			<input message="BG:kwdLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kzaLa02">
+			<input message="BG:kzaLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kzaLa04">
+			<input message="BG:kzaLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kzaLa06">
+			<input message="BG:kzaLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kzaLa08">
+			<input message="BG:kzaLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kzaLa10">
+			<input message="BG:kzaLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kzaLv02">
+			<input message="BG:kzaLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kzaLv04">
+			<input message="BG:kzaLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kzaLv06">
+			<input message="BG:kzaLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kzaLv08">
+			<input message="BG:kzaLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="kzaLv10">
+			<input message="BG:kzaLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="lndLa02">
+			<input message="BG:lndLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="lndLv02">
+			<input message="BG:lndLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="macLa02">
+			<input message="BG:macLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="macLa04">
+			<input message="BG:macLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="macLa06">
+			<input message="BG:macLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="macLa08">
+			<input message="BG:macLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="macLa10">
+			<input message="BG:macLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="macLv02">
+			<input message="BG:macLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="macLv04">
+			<input message="BG:macLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="macLv06">
+			<input message="BG:macLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="macLv08">
+			<input message="BG:macLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="macLv10">
+			<input message="BG:macLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="natLa02">
+			<input message="BG:natLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="natLv02">
+			<input message="BG:natLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="nnpLa02">
+			<input message="BG:nnpLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="nnpLa04">
+			<input message="BG:nnpLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="nnpLa06">
+			<input message="BG:nnpLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="nnpLa08">
+			<input message="BG:nnpLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="nnpLa10">
+			<input message="BG:nnpLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="nnpLv02">
+			<input message="BG:nnpLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="nnpLv04">
+			<input message="BG:nnpLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="nnpLv06">
+			<input message="BG:nnpLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="nnpLv08">
+			<input message="BG:nnpLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="nnpLv10">
+			<input message="BG:nnpLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="npsLa02">
+			<input message="BG:npsLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="npsLa04">
+			<input message="BG:npsLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="npsLa06">
+			<input message="BG:npsLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="npsLa08">
+			<input message="BG:npsLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="npsLa10">
+			<input message="BG:npsLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="npsLv02">
+			<input message="BG:npsLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="npsLv04">
+			<input message="BG:npsLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="npsLv06">
+			<input message="BG:npsLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="npsLv08">
+			<input message="BG:npsLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="npsLv10">
+			<input message="BG:npsLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="oprLa02">
+			<input message="BG:oprLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="oprLa04">
+			<input message="BG:oprLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="oprLa06">
+			<input message="BG:oprLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="oprLa08">
+			<input message="BG:oprLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="oprLa10">
+			<input message="BG:oprLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="oprLv02">
+			<input message="BG:oprLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="oprLv04">
+			<input message="BG:oprLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="oprLv06">
+			<input message="BG:oprLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="oprLv08">
+			<input message="BG:oprLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="oprLv10">
+			<input message="BG:oprLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="pndLa02">
+			<input message="BG:pndLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="pndLa04">
+			<input message="BG:pndLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="pndLa06">
+			<input message="BG:pndLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="pndLa08">
+			<input message="BG:pndLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="pndLa10">
+			<input message="BG:pndLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="pndLv02">
+			<input message="BG:pndLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="pndLv04">
+			<input message="BG:pndLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="pndLv06">
+			<input message="BG:pndLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="pndLv08">
+			<input message="BG:pndLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="pndLv10">
+			<input message="BG:pndLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="rdsLa02">
+			<input message="BG:rdsLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="rdsLv02">
+			<input message="BG:rdsLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="rpsLa02">
+			<input message="BG:rpsLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="rpsLv02">
+			<input message="BG:rpsLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="rsdLa02">
+			<input message="BG:rsdLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="rsdLa04">
+			<input message="BG:rsdLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="rsdLa06">
+			<input message="BG:rsdLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="rsdLa08">
+			<input message="BG:rsdLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="rsdLa10">
+			<input message="BG:rsdLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="rsdLv02">
+			<input message="BG:rsdLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="rsdLv04">
+			<input message="BG:rsdLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="rsdLv06">
+			<input message="BG:rsdLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="rsdLv08">
+			<input message="BG:rsdLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="rsdLv10">
+			<input message="BG:rsdLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="sbdLa02">
+			<input message="BG:sbdLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="sbdLa04">
+			<input message="BG:sbdLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="sbdLa06">
+			<input message="BG:sbdLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="sbdLa08">
+			<input message="BG:sbdLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="sbdLa10">
+			<input message="BG:sbdLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="sbdLv02">
+			<input message="BG:sbdLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="sbdLv04">
+			<input message="BG:sbdLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="sbdLv06">
+			<input message="BG:sbdLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="sbdLv08">
+			<input message="BG:sbdLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="sbdLv10">
+			<input message="BG:sbdLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="subLa02">
+			<input message="BG:subLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="subLv02">
+			<input message="BG:subLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tdlLa02">
+			<input message="BG:tdlLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tdlLa04">
+			<input message="BG:tdlLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tdlLa06">
+			<input message="BG:tdlLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tdlLa08">
+			<input message="BG:tdlLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tdlLa10">
+			<input message="BG:tdlLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tdlLv02">
+			<input message="BG:tdlLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tdlLv04">
+			<input message="BG:tdlLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tdlLv06">
+			<input message="BG:tdlLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tdlLv08">
+			<input message="BG:tdlLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tdlLv10">
+			<input message="BG:tdlLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tgoLa02">
+			<input message="BG:tgoLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tgoLa04">
+			<input message="BG:tgoLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tgoLa06">
+			<input message="BG:tgoLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tgoLa08">
+			<input message="BG:tgoLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tgoLa10">
+			<input message="BG:tgoLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tgoLv02">
+			<input message="BG:tgoLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tgoLv04">
+			<input message="BG:tgoLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tgoLv06">
+			<input message="BG:tgoLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tgoLv08">
+			<input message="BG:tgoLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="tgoLv10">
+			<input message="BG:tgoLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="vbtLa02">
+			<input message="BG:vbtLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="vbtLv02">
+			<input message="BG:vbtLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="vesLa02">
+			<input message="BG:vesLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="vesLa04">
+			<input message="BG:vesLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="vesLa06">
+			<input message="BG:vesLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="vesLa08">
+			<input message="BG:vesLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="vesLa10">
+			<input message="BG:vesLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="vesLv02">
+			<input message="BG:vesLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="vesLv04">
+			<input message="BG:vesLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="vesLv06">
+			<input message="BG:vesLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="vesLv08">
+			<input message="BG:vesLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="vesLv10">
+			<input message="BG:vesLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wdlLa02">
+			<input message="BG:wdlLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wdlLa04">
+			<input message="BG:wdlLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wdlLa06">
+			<input message="BG:wdlLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wdlLa08">
+			<input message="BG:wdlLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wdlLa10">
+			<input message="BG:wdlLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wdlLv02">
+			<input message="BG:wdlLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wdlLv04">
+			<input message="BG:wdlLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wdlLv06">
+			<input message="BG:wdlLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wdlLv08">
+			<input message="BG:wdlLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wdlLv10">
+			<input message="BG:wdlLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wdoLa02">
+			<input message="BG:wdoLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wdoLa04">
+			<input message="BG:wdoLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wdoLa08">
+			<input message="BG:wdoLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wdoLv02">
+			<input message="BG:wdoLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wdoLv04">
+			<input message="BG:wdoLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wdoLv08">
+			<input message="BG:wdoLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wgdLa02">
+			<input message="BG:wgdLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wgdLa04">
+			<input message="BG:wgdLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wgdLa06">
+			<input message="BG:wgdLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wgdLa08">
+			<input message="BG:wgdLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wgdLa10">
+			<input message="BG:wgdLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wgdLv02">
+			<input message="BG:wgdLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wgdLv04">
+			<input message="BG:wgdLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wgdLv06">
+			<input message="BG:wgdLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wgdLv08">
+			<input message="BG:wgdLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wgdLv10">
+			<input message="BG:wgdLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wozLa02">
+			<input message="BG:wozLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wozLa04">
+			<input message="BG:wozLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wozLa06">
+			<input message="BG:wozLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wozLa08">
+			<input message="BG:wozLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wozLa10">
+			<input message="BG:wozLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wozLv02">
+			<input message="BG:wozLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wozLv04">
+			<input message="BG:wozLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wozLv06">
+			<input message="BG:wozLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wozLv08">
+			<input message="BG:wozLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wozLv10">
+			<input message="BG:wozLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wplLa02">
+			<input message="BG:wplLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wplLa04">
+			<input message="BG:wplLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wplLa06">
+			<input message="BG:wplLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wplLa08">
+			<input message="BG:wplLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wplLa10">
+			<input message="BG:wplLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wplLv02">
+			<input message="BG:wplLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wplLv04">
+			<input message="BG:wplLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wplLv06">
+			<input message="BG:wplLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wplLv08">
+			<input message="BG:wplLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wplLv10">
+			<input message="BG:wplLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wrdLa02">
+			<input message="BG:wrdLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wrdLa04">
+			<input message="BG:wrdLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wrdLa06">
+			<input message="BG:wrdLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wrdLa08">
+			<input message="BG:wrdLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wrdLa10">
+			<input message="BG:wrdLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wrdLv02">
+			<input message="BG:wrdLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wrdLv04">
+			<input message="BG:wrdLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wrdLv06">
+			<input message="BG:wrdLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wrdLv08">
+			<input message="BG:wrdLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wrdLv10">
+			<input message="BG:wrdLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wykLa02">
+			<input message="BG:wykLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wykLa04">
+			<input message="BG:wykLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wykLa06">
+			<input message="BG:wykLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wykLa08">
+			<input message="BG:wykLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wykLa10">
+			<input message="BG:wykLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wykLv02">
+			<input message="BG:wykLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wykLv04">
+			<input message="BG:wykLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wykLv06">
+			<input message="BG:wykLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wykLv08">
+			<input message="BG:wykLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="wykLv10">
+			<input message="BG:wykLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zkrLa02">
+			<input message="BG:zkrLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zkrLa04">
+			<input message="BG:zkrLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zkrLa06">
+			<input message="BG:zkrLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zkrLa08">
+			<input message="BG:zkrLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zkrLa10">
+			<input message="BG:zkrLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zkrLv02">
+			<input message="BG:zkrLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zkrLv04">
+			<input message="BG:zkrLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zkrLv06">
+			<input message="BG:zkrLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zkrLv08">
+			<input message="BG:zkrLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zkrLv10">
+			<input message="BG:zkrLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zraLa02">
+			<input message="BG:zraLa02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zraLa04">
+			<input message="BG:zraLa04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zraLa06">
+			<input message="BG:zraLa06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zraLa08">
+			<input message="BG:zraLa08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zraLa10">
+			<input message="BG:zraLa10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zraLv02">
+			<input message="BG:zraLv02"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zraLv04">
+			<input message="BG:zraLv04"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zraLv06">
+			<input message="BG:zraLv06"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zraLv08">
+			<input message="BG:zraLv08"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+		<operation name="zraLv10">
+			<input message="BG:zraLv10"/>
+			<output message="StUF:Bv03"/>
+			<fault name="fout" message="StUF:Fo03"/>
+		</operation>
+	</portType>
+	<binding name="SOAPOntvangAsynchroon" type="BG:OntvangAsynchroon">
+		<documentation>
+			Omdat de uit te wisselen berichten volledig gedefinieerd zijn in het sectormodel cq de StUF-standaard, kunnen we ze zonder verdere encoding (“literal”) opnemen in de body.
+Niet ondersteunde berichten kunnen uit de binding en portType worden verwijderd.
+		</documentation>
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="Bv01">
+			<soap:operation soapAction="http://www.egem.nl/StUF/StUF0301/Bv01"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="Bv03">
+			<soap:operation soapAction="http://www.egem.nl/StUF/StUF0301/Bv03"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="Fo01">
+			<soap:operation soapAction="http://www.egem.nl/StUF/StUF0301/Fo01"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="Fo03">
+			<soap:operation soapAction="http://www.egem.nl/StUF/StUF0301/Fo03"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="acdLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/acdLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="acdLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/acdLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="aoaLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/aoaLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="aoaLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/aoaLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="aoaLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/aoaLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="aoaLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/aoaLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="aoaLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/aoaLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="aoaLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/aoaLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="aoaLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/aoaLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="aoaLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/aoaLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="aoaLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/aoaLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="aoaLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/aoaLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="arvLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/arvLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="arvLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/arvLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="avrLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/avrLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="avrLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/avrLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="brtLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/brtLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="brtLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/brtLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="brtLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/brtLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="brtLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/brtLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="brtLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/brtLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="brtLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/brtLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="brtLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/brtLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="brtLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/brtLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="brtLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/brtLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="brtLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/brtLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gemLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gemLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gemLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gemLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gemLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gemLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gemLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gemLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gemLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gemLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gemLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gemLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gemLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gemLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gemLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gemLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gemLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gemLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gemLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gemLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gorLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gorLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gorLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gorLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gorLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gorLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gorLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gorLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gorLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gorLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gorLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gorLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gorLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gorLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gorLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gorLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gorLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gorLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="gorLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/gorLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="hhdLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/hhdLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="hhdLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/hhdLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="hhdLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/hhdLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="hhdLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/hhdLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="hhdLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/hhdLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="hhdLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/hhdLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="hhdLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/hhdLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="hhdLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/hhdLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="hhdLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/hhdLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="hhdLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/hhdLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="ireLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/ireLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="ireLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/ireLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="ireLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/ireLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="ireLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/ireLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="ireLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/ireLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="ireLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/ireLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="ireLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/ireLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="ireLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/ireLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="ireLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/ireLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="ireLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/ireLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kgmLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kgmLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kgmLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kgmLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kozLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kozLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kozLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kozLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kozLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kozLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kozLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kozLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kozLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kozLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kozLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kozLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kozLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kozLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kozLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kozLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kozLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kozLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kozLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kozLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kwdLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kwdLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kwdLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kwdLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kwdLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kwdLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kwdLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kwdLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kwdLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kwdLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kwdLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kwdLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kwdLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kwdLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kwdLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kwdLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kwdLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kwdLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kwdLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kwdLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kzaLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kzaLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kzaLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kzaLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kzaLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kzaLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kzaLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kzaLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kzaLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kzaLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kzaLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kzaLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kzaLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kzaLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kzaLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kzaLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kzaLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kzaLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="kzaLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/kzaLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="lndLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/lndLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="lndLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/lndLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="macLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/macLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="macLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/macLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="macLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/macLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="macLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/macLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="macLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/macLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="macLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/macLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="macLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/macLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="macLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/macLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="macLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/macLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="macLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/macLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="natLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/natLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="natLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/natLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="nnpLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/nnpLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="nnpLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/nnpLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="nnpLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/nnpLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="nnpLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/nnpLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="nnpLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/nnpLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="nnpLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/nnpLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="nnpLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/nnpLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="nnpLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/nnpLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="nnpLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/nnpLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="nnpLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/nnpLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="npsLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/npsLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="npsLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/npsLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="npsLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/npsLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="npsLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/npsLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="npsLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/npsLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="npsLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/npsLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="npsLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/npsLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="npsLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/npsLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="npsLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/npsLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="npsLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/npsLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="oprLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/oprLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="oprLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/oprLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="oprLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/oprLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="oprLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/oprLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="oprLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/oprLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="oprLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/oprLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="oprLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/oprLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="oprLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/oprLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="oprLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/oprLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="oprLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/oprLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="pndLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/pndLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="pndLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/pndLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="pndLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/pndLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="pndLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/pndLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="pndLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/pndLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="pndLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/pndLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="pndLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/pndLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="pndLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/pndLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="pndLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/pndLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="pndLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/pndLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="rdsLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/rdsLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="rdsLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/rdsLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="rpsLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/rpsLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="rpsLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/rpsLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="rsdLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/rsdLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="rsdLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/rsdLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="rsdLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/rsdLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="rsdLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/rsdLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="rsdLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/rsdLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="rsdLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/rsdLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="rsdLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/rsdLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="rsdLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/rsdLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="rsdLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/rsdLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="rsdLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/rsdLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="sbdLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/sbdLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="sbdLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/sbdLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="sbdLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/sbdLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="sbdLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/sbdLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="sbdLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/sbdLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="sbdLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/sbdLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="sbdLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/sbdLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="sbdLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/sbdLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="sbdLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/sbdLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="sbdLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/sbdLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="subLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/subLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="subLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/subLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tdlLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tdlLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tdlLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tdlLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tdlLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tdlLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tdlLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tdlLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tdlLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tdlLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tdlLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tdlLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tdlLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tdlLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tdlLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tdlLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tdlLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tdlLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tdlLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tdlLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tgoLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tgoLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tgoLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tgoLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tgoLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tgoLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tgoLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tgoLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tgoLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tgoLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tgoLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tgoLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tgoLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tgoLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tgoLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tgoLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tgoLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tgoLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="tgoLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/tgoLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="vbtLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/vbtLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="vbtLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/vbtLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="vesLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/vesLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="vesLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/vesLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="vesLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/vesLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="vesLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/vesLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="vesLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/vesLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="vesLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/vesLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="vesLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/vesLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="vesLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/vesLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="vesLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/vesLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="vesLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/vesLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wdlLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wdlLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wdlLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wdlLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wdlLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wdlLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wdlLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wdlLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wdlLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wdlLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wdlLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wdlLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wdlLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wdlLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wdlLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wdlLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wdlLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wdlLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wdlLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wdlLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wdoLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wdoLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wdoLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wdoLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wdoLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wdoLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wdoLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wdoLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wdoLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wdoLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wdoLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wdoLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wgdLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wgdLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wgdLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wgdLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wgdLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wgdLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wgdLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wgdLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wgdLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wgdLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wgdLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wgdLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wgdLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wgdLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wgdLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wgdLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wgdLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wgdLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wgdLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wgdLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wozLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wozLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wozLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wozLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wozLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wozLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wozLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wozLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wozLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wozLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wozLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wozLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wozLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wozLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wozLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wozLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wozLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wozLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wozLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wozLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wplLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wplLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wplLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wplLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wplLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wplLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wplLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wplLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wplLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wplLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wplLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wplLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wplLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wplLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wplLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wplLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wplLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wplLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wplLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wplLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wrdLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wrdLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wrdLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wrdLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wrdLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wrdLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wrdLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wrdLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wrdLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wrdLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wrdLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wrdLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wrdLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wrdLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wrdLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wrdLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wrdLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wrdLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wrdLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wrdLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wykLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wykLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wykLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wykLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wykLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wykLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wykLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wykLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wykLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wykLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wykLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wykLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wykLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wykLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wykLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wykLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wykLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wykLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="wykLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/wykLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zkrLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zkrLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zkrLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zkrLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zkrLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zkrLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zkrLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zkrLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zkrLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zkrLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zkrLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zkrLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zkrLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zkrLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zkrLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zkrLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zkrLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zkrLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zkrLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zkrLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zraLa02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zraLa02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zraLa04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zraLa04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zraLa06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zraLa06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zraLa08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zraLa08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zraLa10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zraLa10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zraLv02">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zraLv02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zraLv04">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zraLv04"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zraLv06">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zraLv06"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zraLv08">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zraLv08"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="zraLv10">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0310/zraLv10"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+	</binding>
+	<service name="OntvangAsynchroon">
+		<documentation>
+	Hieronder wordt de concreet aan te roepen service voor het ontvangen van asynchrone BG0310-berichten gedefinieerd. 
+		</documentation>
+		<port name="OntvangAsynchroon" binding="BG:SOAPOntvangAsynchroon">
+			<documentation>
+				<wsi:Claim xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" conformsTo="http://ws-i.org/profiles/basic/1.1"/>
+			</documentation>
+			<soap:address location="http://example.com/OntvangAsynchroon"/>
+		</port>
+	</service>
+</definitions>

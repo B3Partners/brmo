@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 (http://www.altova.com) by Maarten van den Broek (messageDesign) -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:imgeo="http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo" xmlns:StUF="http://www.egem.nl/StUF/StUF0301" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns="http://www.egem.nl/StUF/sector/bg/0310" xmlns:ns1="http://www.logius.nl/digikoppeling/gb/2010/10" xmlns:ns2="http://www.opengis.net/citygml/2.0" xmlns:ns3="http://www.opengis.net/gml" xmlns:ns4="http://www.w3.org/1999/xlink" xmlns:ns5="http://www.w3.org/2001/SMIL20/" xmlns:ns6="http://www.w3.org/2001/SMIL20/Language" xmlns:ns7="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" targetNamespace="http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo">
+	<documentation>
+		Dit document definieert de webservices voor het portType OntvangAsynchroon voor de berichtencatalogus horizontaal en voor een bor-applicatie
+		Version: 030001
+		
+		Wijzigingen vergeleken met versie 030000:
+		- operations tbv synchronisatie verwijderd
+		- operation tbv respons op exploratieverzoek toegevoegd
+		- target namespace gewijzigd in http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo
+	</documentation>
+	<types>
+		<xs:schema>
+			   <xs:import namespace="http://www.egem.nl/StUF/StUF0301"
+           schemaLocation="../../xsds/stuf-imgeo0300-horizontaal-resolved/imgeo0300_stuf_msg_horizontaal_resolved.xsd"/>
+			<xs:import namespace="http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo" schemaLocation="../../xsds/imgeo0300_msg_horizontaal_resolved.xsd"/>
+		</xs:schema>
+	</types>
+	<message name="expDu01">
+		<part name="body" element="imgeo:expDu01"/>
+	</message>
+	<message name="mtbHorizontaalDi01">
+		<part name="body" element="imgeo:mtbHorizontaalDi01"/>
+	</message>
+	<message name="mtvWeigerDu01">
+		<part name="body" element="imgeo:mtvWeigerDu01"/>
+	</message>
+	<portType name="OntvangAsynchroon">
+		<documentation>
+		Dit portType ondersteunt als operaties alle asynchrone berichten gedefinieerd binnen het sectormodel
+	</documentation>
+		<operation name="expDu01">
+			<input message="imgeo:expDu01"/>
+			<output message="imgeo:Bv03"/>
+			<fault name="fout" message="imgeo:Fo03"/>
+		</operation>
+		<operation name="mtbHorizontaalDi01">
+			<input message="imgeo:mtbHorizontaalDi01"/>
+			<output message="imgeo:Bv03"/>
+			<fault name="fout" message="imgeo:Fo03"/>
+		</operation>
+		<operation name="mtvWeigerDu01">
+			<input message="imgeo:mtvWeigerDu01"/>
+			<output message="imgeo:Bv03"/>
+			<fault name="fout" message="imgeo:Fo03"/>
+		</operation>
+	</portType>
+	<binding name="SOAPOntvangAsynchroon" type="imgeo:OntvangAsynchroon">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<documentation>
+			Omdat de uit te wisselen berichten volledig gedefinieerd zijn in het sectormodel cq de StUF-standaard, kunnen we ze zonder verdere encoding (“literal”) opnemen in de body.
+Niet ondersteunde berichten kunnen uit de binding en portType worden verwijderd.
+		</documentation>
+		<operation name="expDu01">
+			<soap:operation soapAction="http://www.geostandaarden.nl/imgeo/2.0/expDu01"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="mtbHorizontaalDi01">
+			<soap:operation soapAction="http://www.geostandaarden.nl/imgeo/2.0/mtbHorizontaalDi01"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="mtvWeigerDu01">
+			<soap:operation soapAction="http://www.geostandaarden.nl/imgeo/2.0/mtvWeigerDu01"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+	</binding>
+	<service name="OntvangAsynchroon">
+		<documentation>
+	Hieronder wordt de concreet aan te roepen service voor het ontvangen van asynchrone IMGeo2.0 kennisgevingberichten gedefinieerd door een bor-applicatie. 
+		</documentation>
+		<port name="OntvangAsynchroon" binding="imgeo:SOAPOntvangAsynchroon">
+			<soap:address location="http://example.com/OntvangAsynchroon"/>
+			<documentation>
+				<wsi:Claim conformsTo="http://ws-i.org/profiles/basic/1.1"/>
+			</documentation>
+		</port>
+	</service>
+</definitions>

@@ -1,0 +1,3525 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:cit="http://www.opengis.net/citygml/2.0"
+        xmlns:gml="http://www.opengis.net/gml"
+        xmlns:imgeo="http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo/1.2"
+        xmlns:StUF="http://www.egem.nl/StUF/StUF0301"
+        xmlns:BG="http://www.egem.nl/StUF/sector/bg/0310"
+        xmlns:gb="http://www.logius.nl/digikoppeling/gb/2010/10"
+        xmlns:cgml="http://www.opengis.net/citygml/2.0"
+        xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
+        xmlns:sch="http://www.ascc.net/xml/schematron"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:tns="http://www.logius.nl/digikoppeling/gb/2010/10"
+        targetNamespace="http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo/1.2"
+        elementFormDefault="qualified"
+        attributeFormDefault="unqualified"
+        version="030100">
+   <import namespace="http://www.egem.nl/StUF/StUF0301"
+           schemaLocation="imgeo0301_stuf_msg_verticaal_resolved.xsd"/>
+   <import namespace="http://www.opengis.net/citygml/2.0"
+           schemaLocation="cityGMLBase_resolved.xsd"/>
+   <import namespace="http://www.opengis.net/gml"
+           schemaLocation="gml_resolved.xsd"/>
+   <import namespace="http://www.egem.nl/StUF/sector/bg/0310"
+           schemaLocation="bg0310_simpleTypes_resolved.xsd"/>
+   <import namespace="http://www.logius.nl/digikoppeling/gb/2010/10"
+           schemaLocation="gb1.0_resolved.xsd"/>
+   <annotation>
+		    <documentation>
+			Wijzigingen vergeleken met versie 030003:
+			- imgeo:namespace en target namespace gewijzigd in http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo/1.2
+			- schemaLocation in include gewijzigd van "imgeo0300_ent_verticaal.xsd" naar "imgeo0301_ent_verticaal.xsd"
+			- schemaLocation in import namespace "http://www.egem.nl/StUF/StUF0301" gewijzigd van "imgeo0300_stuf_msg_verticaal.xsd" naar "imgeo0301_stuf_msg_verticaal.xsd"
+			- De elementen mtoDu01 en vavDu01 verwijderd
+			- Binnen het element mtoDi01 het complexType voor het element mutatieoproep gewijzigd van MTO-verzoek in MTO-basis
+		</documentation>
+	  </annotation>
+   <annotation>
+		    <documentation>
+			Wijzigingen vergeleken met versioe 030100:
+			- In VAV-verzoek het element toelichting toegevoegd met minOccurs="1"
+			
+			Wijzigingen vergeleken met versie 030011:
+			- imgeo:namespace en target namespace gewijzigd in http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo/1.2
+			- schemaLocation in include gewijzigd van "../horVert/imgeo0300_ent_horVert.xsd" naar "../horVert/imgeo0301_ent_horVert.xsd"
+			- in het complexType VAV-verzoek de elementen begindatum en einddatum toegevoegd met minOccurs="1"
+			- complexTypes MTO-respons, MTO-verzoek en VAV-respons verwijderd
+		</documentation>
+	  </annotation>
+   <annotation>
+		    <documentation>
+			Wijzigingen vergeleken met versie 030008:
+			- imgeo:namespace en target namespace gewijzigd in http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo/1.2
+			- include gewijzigd naar "../entiteiten/imgeo0301_ent_basis.xsd"
+		</documentation>
+	  </annotation>
+   <annotation>
+		    <documentation>
+			Wijzigingen vergeleken met versie 030100:
+			- In VAV-basis het element toelichting toegevoegd met minOccurs="0"
+		
+			Wijzigingen vergeleken met versie 030006:
+			- imgeo:namespace en target namespace gewijzigd in http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo/1.2
+			- include gewijzigd naar imgeo0301_simpleTypes.xsd
+			- in complexType VAV-basis toegevoegd de elementen begindatum en einddatum met minOccurs="0" en maxOccurs="1"
+			- in complexType VAV-basis het element respons verwijderd en daarmee samenhangend de complexTypes ResponsVAV en NietGelocktObject verwijderd
+			- in complexType MTO-basis het element resultaat verwijderd
+		</documentation>
+	  </annotation>
+   <annotation>
+		    <documentation>
+			Wijzigingen vergeleken met versie 030004:
+			- imgeo:namespace en target namespace gewijzigd in http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo/1.2
+			- het simpleType Resultaat verwijderd
+		</documentation>
+	  </annotation>
+   <element name="mtbSVBDi01">
+		    <annotation>
+			      <documentation>Asynchroon vrij bericht voor het doorgeven van één of meer verplicht over te nemen wijzigingen van bronhouder aan SVB of van SVB aan bronhouder</documentation>
+		    </annotation>
+		    <complexType>
+			      <sequence>
+				        <element name="stuurgegevens" type="StUF:MTBVerticaal-StuurgegevensDi01"/>
+				        <element name="mutatiebericht">
+					          <complexType>
+						            <complexContent>
+							              <extension base="imgeo:MTB-verzoekVerticaal">
+								                <attribute ref="StUF:functie" use="required" fixed="entiteit"/>
+							              </extension>
+						            </complexContent>
+					          </complexType>
+				        </element>
+				        <group ref="imgeo:kennisgevingenSVB" maxOccurs="unbounded"/>
+			      </sequence>
+		    </complexType>
+	  </element>
+   <element name="mtbLVDi01">
+		    <annotation>
+			      <documentation>Asynchroon vrij bericht voor het doorgeven van één of meer verplicht over te nemen wijzigingen van SVB naar LV en van LV naar afnemers</documentation>
+		    </annotation>
+		    <complexType>
+			      <sequence>
+				        <element name="stuurgegevens" type="StUF:MTBVerticaal-StuurgegevensDi01"/>
+				        <element name="mutatiebericht">
+					          <complexType>
+						            <complexContent>
+							              <extension base="imgeo:MTB-verzoekVerticaal">
+								                <attribute ref="StUF:functie" use="required" fixed="entiteit"/>
+							              </extension>
+						            </complexContent>
+					          </complexType>
+				        </element>
+				        <choice maxOccurs="unbounded">
+					          <element name="bakLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:BAK-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="BAK"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="bakLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:BAK-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="BAK"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="brdLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:BRD-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="BRD"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="brdLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:BRD-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="BRD"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="brtLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:BRT-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="BRT"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="brtLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:BRT-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="BRT"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="btdLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:BTD-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="BTD"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="btdLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:BTD-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="BTD"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="fugLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:FUG-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="FUG"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="fugLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:FUG-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="FUG"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="gbiLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:GBI-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="GBI"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="gbiLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:GBI-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="GBI"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="insLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:INS-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="INS"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="insLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:INS-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="INS"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="kstLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:KST-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="KST"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="kstLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:KST-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="KST"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="kwdLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:KWD-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="KWD"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="kwdLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:KWD-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="KWD"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="mstLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:MST-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="MST"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="mstLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:MST-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="MST"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="obdLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:OBD-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="OBD"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="obdLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:OBD-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="OBD"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="obwLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:OBW-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="OBW"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="obwLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:OBW-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="OBW"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="ocoLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:OCO-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="OCO"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="ocoLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:OCO-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="OCO"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="oprLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:OPR-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="OPR"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="oprLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:OPR-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="OPR"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="orlLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:ORL-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="ORL"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="orlLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:ORL-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="ORL"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="oshLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:OSH-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="OSH"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="oshLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:OSH-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="OSH"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="otdLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:OTD-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="OTD"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="otdLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:OTD-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="OTD"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="owgLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:OWG-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="OWG"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="owgLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:OWG-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="OWG"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="owtLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:OWT-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="OWT"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="owtLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:OWT-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="OWT"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="palLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:PAL-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="PAL"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="palLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:PAL-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="PAL"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="pbpLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:PBP-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="PBP"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="pbpLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:PBP-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="PBP"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="pndLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:PND-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="PND"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="pndLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:PND-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="PND"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="putLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:PUT-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="PUT"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="putLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:PUT-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="PUT"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="shdLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:SHD-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="SHD"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="shdLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:SHD-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="SHD"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="snsLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:SNS-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="SNS"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="snsLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:SNS-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="SNS"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="sprLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:SPR-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="SPR"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="sprLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:SPR-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="SPR"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="stdLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:STD-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="STD"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="stdLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:STD-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="STD"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="stmLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:STM-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="STM"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="stmLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:STM-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="STM"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="tndLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:TND-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="TND"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="tndLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:TND-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="TND"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="vgoLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:VGO-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="VGO"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="vgoLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:VGO-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="VGO"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="wgdLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:WGD-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="WGD"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="wgdLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:WGD-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="WGD"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="wgiLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:WGI-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="WGI"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="wgiLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:WGI-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="WGI"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="wspLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:WSP-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="WSP"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="wspLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:WSP-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="WSP"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="wtdLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:WTD-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="WTD"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="wtdLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:WTD-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="WTD"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="wtiLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:WTI-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="WTI"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="wtiLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:WTI-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="WTI"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="wykLk01T">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xTV"/>
+								                <element name="object" type="imgeo:WYK-TW-verticaal"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="WYK"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+					          <element name="wykLk01W">
+						            <complexType>
+							              <sequence>
+								                <element name="parameters" type="StUF:ParametersLk0xWV"/>
+								                <element name="object"
+                                 type="imgeo:WYK-TW-verticaal"
+                                 minOccurs="2"
+                                 maxOccurs="2"/>
+							              </sequence>
+							              <attribute ref="StUF:entiteittype" use="required" fixed="WYK"/>
+							              <attribute ref="StUF:functie" use="required" fixed="update"/>
+						            </complexType>
+					          </element>
+				        </choice>
+			      </sequence>
+		    </complexType>
+	  </element>
+   <element name="mtbDu01">
+		    <annotation>
+			      <documentation>Asynchroon vrij bericht dat de respons is op een mutatiebericht</documentation>
+		    </annotation>
+		    <complexType>
+			      <sequence>
+				        <element name="stuurgegevens" type="StUF:MTBVerticaal-StuurgegevensDu01"/>
+				        <element name="mutatiebericht">
+					          <complexType>
+						            <complexContent>
+							              <extension base="imgeo:MTB-responsVerticaal">
+								                <attribute ref="StUF:functie" use="required" fixed="entiteit"/>
+							              </extension>
+						            </complexContent>
+					          </complexType>
+				        </element>
+			      </sequence>
+		    </complexType>
+	  </element>
+   <element name="mtoDi01">
+		    <annotation>
+			      <documentation>Asynchroon vrij bericht met een mutatieoproep van het SVB aan een rakende bronhouder</documentation>
+		    </annotation>
+		    <complexType>
+			      <sequence>
+				        <element name="stuurgegevens" type="StUF:MTO-StuurgegevensDi01"/>
+				        <element name="mutatieoproep">
+					          <complexType>
+						            <complexContent>
+							              <extension base="imgeo:MTO-basis">
+								                <attribute ref="StUF:functie" use="required" fixed="entiteit"/>
+							              </extension>
+						            </complexContent>
+					          </complexType>
+				        </element>
+				        <group ref="imgeo:kennisgevingenSVB" maxOccurs="unbounded"/>
+			      </sequence>
+		    </complexType>
+	  </element>
+   <element name="vavDi01">
+		    <annotation>
+			      <documentation>Asynchroon vrij bericht dat vraagt om het locken van één of meer objecten. Dit bericht wordt zowel gebruikt van bronhouder naar SVB als van SVB naar geraakte bronhouder bij een mutatiesignalering geinitieerd door een andere bronhouder</documentation>
+		    </annotation>
+		    <complexType>
+			      <sequence>
+				        <element name="stuurgegevens" type="StUF:MTS-StuurgegevensDi01"/>
+				        <element name="vooraankondigingVerzoek">
+					          <complexType>
+						            <complexContent>
+							              <extension base="imgeo:VAV-verzoek">
+								                <attribute ref="StUF:functie" use="required" fixed="entiteit"/>
+							              </extension>
+						            </complexContent>
+					          </complexType>
+				        </element>
+			      </sequence>
+		    </complexType>
+	  </element>
+   <element name="opvDi01">
+		    <annotation>
+			      <documentation>Asynchroon vrij bericht voor het verwittigen van de ontvanger dat er een groot bestand kan worden opgehaald</documentation>
+		    </annotation>
+		    <complexType>
+			      <sequence>
+				        <element name="stuurgegevens" type="StUF:OPV-StuurgegevensDi01"/>
+				        <element name="ophaalverzoek">
+					          <complexType>
+						            <complexContent>
+							              <extension base="imgeo:OPV-basis">
+								                <attribute ref="StUF:functie" use="required" fixed="entiteit"/>
+							              </extension>
+						            </complexContent>
+					          </complexType>
+				        </element>
+			      </sequence>
+		    </complexType>
+	  </element>
+   <group name="kennisgevingenSVB">
+		    <choice>
+			      <element name="bakLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:BAK-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="BAK"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="bakLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:BAK-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="BAK"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="brdLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:BRD-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="BRD"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="brdLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:BRD-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="BRD"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="brtLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:BRT-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="BRT"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="brtLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:BRT-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="BRT"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="btdLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:BTD-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="BTD"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="btdLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:BTD-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="BTD"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="fugLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:FUG-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="FUG"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="fugLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:FUG-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="FUG"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="gbiLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:GBI-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="GBI"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="gbiLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:GBI-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="GBI"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="insLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:INS-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="INS"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="insLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:INS-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="INS"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="kstLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:KST-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="KST"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="kstLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:KST-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="KST"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="kwdLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:KWD-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="KWD"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="kwdLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:KWD-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="KWD"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="mstLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:MST-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="MST"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="mstLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:MST-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="MST"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="obdLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:OBD-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="OBD"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="obdLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:OBD-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="OBD"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="obwLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:OBW-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="OBW"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="obwLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:OBW-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="OBW"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="ocoLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:OCO-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="OCO"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="ocoLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:OCO-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="OCO"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="oprLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:OPR-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="OPR"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="oprLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:OPR-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="OPR"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="orlLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:ORL-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="ORL"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="orlLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:ORL-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="ORL"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="oshLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:OSH-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="OSH"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="oshLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:OSH-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="OSH"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="otdLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:OTD-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="OTD"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="otdLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:OTD-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="OTD"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="owgLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:OWG-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="OWG"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="owgLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:OWG-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="OWG"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="owtLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:OWT-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="OWT"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="owtLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:OWT-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="OWT"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="palLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:PAL-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="PAL"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="palLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:PAL-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="PAL"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="pbpLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:PBP-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="PBP"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="pbpLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:PBP-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="PBP"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="pbpLk01V">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xVV"/>
+						            <element name="object" type="imgeo:PBP-V-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="PBP"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="pndLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:PND-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="PND"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="pndLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:PND-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="PND"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="putLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:PUT-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="PUT"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="putLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:PUT-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="PUT"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="shdLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:SHD-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="SHD"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="shdLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:SHD-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="SHD"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="snsLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:SNS-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="SNS"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="snsLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:SNS-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="SNS"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="sprLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:SPR-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="SPR"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="sprLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:SPR-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="SPR"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="stdLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:STD-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="STD"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="stdLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:STD-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="STD"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="stmLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:STM-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="STM"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="stmLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:STM-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="STM"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="tndLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:TND-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="TND"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="tndLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:TND-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="TND"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="vgoLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:VGO-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="VGO"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="vgoLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:VGO-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="VGO"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="wgdLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:WGD-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="WGD"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="wgdLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:WGD-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="WGD"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="wgiLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:WGI-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="WGI"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="wgiLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:WGI-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="WGI"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="wspLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:WSP-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="WSP"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="wspLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:WSP-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="WSP"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="wtdLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:WTD-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="WTD"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="wtdLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:WTD-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="WTD"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="wtiLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:WTI-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="WTI"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="wtiLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:WTI-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="WTI"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="wykLk01T">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xTV"/>
+						            <element name="object" type="imgeo:WYK-TW-verticaal"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="WYK"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+			      <element name="wykLk01W">
+				        <complexType>
+					          <sequence>
+						            <element name="parameters" type="StUF:ParametersLk0xWV"/>
+						            <element name="object"
+                           type="imgeo:WYK-TW-verticaal"
+                           minOccurs="2"
+                           maxOccurs="2"/>
+					          </sequence>
+					          <attribute ref="StUF:entiteittype" use="required" fixed="WYK"/>
+					          <attribute ref="StUF:functie" use="required" fixed="update"/>
+				        </complexType>
+			      </element>
+		    </choice>
+	  </group>
+   <complexType name="BAK-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="implicitRepresentation0Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation1Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation2Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation3Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dBak" type="gml:PointPropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="BAK"/>
+		
+	  </complexType>
+   <complexType name="BRD-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="implicitRepresentation0Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation1Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation2Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation3Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dBord" type="gml:PointPropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="BRD"/>
+		
+	  </complexType>
+   <complexType name="BRT-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod1MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod2MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod3MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="buurtcode" type="imgeo:BuurtIdentificatie-r"/>
+					    <element name="naam" type="BG:Omschrijving200-e" nillable="true"/>
+					    <element name="ligtIn" type="imgeo:BRTWYK-TW-horVert" nillable="true"/>
+					    <element name="geometrie2d" type="gml:MultiSurfacePropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="BRT"/>
+		
+	  </complexType>
+   <complexType name="BTD-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod1MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod2MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod3MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod1MultiSolid"
+                  type="gml:MultiSolidPropertyType"
+                  minOccurs="0"/>
+					    <element name="lod2MultiSolid"
+                  type="gml:MultiSolidPropertyType"
+                  minOccurs="0"/>
+					    <element name="lod3MultiSolid"
+                  type="gml:MultiSolidPropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-fysiekVoorkomen" type="imgeo:CodeType-r"/>
+					    <element name="plus-fysiekVoorkomen" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="begroeidTerreindeelOpTalud"
+                  type="imgeo:boolean-e"
+                  nillable="true"/>
+					    <element name="kruinlijnBegroeidTerreindeel"
+                  type="imgeo:CurvePropertyType-e"
+                  nillable="true"/>
+					    <element name="geometrie2dBegroeidTerreindeel" type="gml:SurfacePropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="BTD"/>
+		
+	  </complexType>
+   <complexType name="FUG-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod1MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod2MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod3MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="naam" type="BG:Omschrijving200-e" nillable="true"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dFunctioneelGebied" type="gml:SurfacePropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="FUG"/>
+		
+	  </complexType>
+   <complexType name="GBI-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="implicitRepresentation0Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation1Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation2Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation3Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dGebouwinstallatie" type="gml:SurfacePropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="GBI"/>
+		
+	  </complexType>
+   <complexType name="INS-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="implicitRepresentation0Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation1Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation2Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation3Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dInstallatie" type="gml:PointPropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="INS"/>
+		
+	  </complexType>
+   <complexType name="KST-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="implicitRepresentation0Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation1Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation2Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation3Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dKast" type="gml:PointPropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="KST"/>
+		
+	  </complexType>
+   <complexType name="KWD-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="implicitRepresentation0Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation1Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation2Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation3Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dOverigeConstructie"
+                  type="imgeo:MultiPuntOfMultiVlakOfLijnOfVlak"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="KWD"/>
+		
+	  </complexType>
+   <complexType name="MST-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="implicitRepresentation0Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation1Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation2Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation3Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dMast" type="gml:PointPropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="MST"/>
+		
+	  </complexType>
+   <complexType name="OBD-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1ImplicitRepresentation"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="lod2ImplicitRepresentation"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="lod3ImplicitRepresentation"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="lod0GeometrieOverbruggingsdeel"
+                  type="gml:SurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="typeOverbruggingsdeel"
+                  type="imgeo:CodeType-e"
+                  nillable="true"/>
+					    <element name="hoortBijTypeOverbrugging"
+                  type="imgeo:CodeType-e"
+                  nillable="true"/>
+					    <element name="overbruggingIsBeweegbaar"
+                  type="imgeo:boolean-e"
+                  nillable="true"/>
+					    <element name="geometrie2dOverbruggingsdeel" type="gml:SurfacePropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="OBD"/>
+		
+	  </complexType>
+   <complexType name="OBW-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="implicitRepresentation0Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation1Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation2Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation3Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dOverigeConstructie" type="imgeo:VlakOfMultiVlak"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="OBW"/>
+		
+	  </complexType>
+   <complexType name="OCO-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2d" type="gml:SurfacePropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="OCO"/>
+		
+	  </complexType>
+   <complexType name="OPR-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod1MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod2MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod3MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="identificatieBAG" type="BG:ObjectNummering-e" nillable="true"/>
+					    <element name="heeftLabels"
+                  type="imgeo:OPRORL-TW-horVert"
+                  nillable="true"
+                  minOccurs="0"
+                  maxOccurs="unbounded"/>
+					    <element name="geometrie2d" type="gml:MultiSurfacePropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="OPR"/>
+		
+	  </complexType>
+   <complexType name="ORL-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="identificatieBAG_OPR" type="BG:ObjectNummering-e"/>
+					    <element name="openbareRuimteNaam" type="imgeo:Label-toevoeging"/>
+					    <element name="openbareRuimteType" type="imgeo:CodeType-r"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="ORL"/>
+		
+	  </complexType>
+   <complexType name="OSH-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="implicitRepresentation0Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation1Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation2Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation3Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dOverigeConstructie" type="imgeo:LijnOfVlak"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="OSH"/>
+		
+	  </complexType>
+   <complexType name="OTD-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod1MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod2MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod3MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-fysiekVoorkomen" type="imgeo:CodeType-r"/>
+					    <element name="plus-fysiekVoorkomen" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="onbegroeidTerreindeelOpTalud"
+                  type="imgeo:boolean-e"
+                  nillable="true"/>
+					    <element name="kruinlijnOnbegroeidTerreindeel"
+                  type="imgeo:CurvePropertyType-e"
+                  nillable="true"/>
+					    <element name="geometrie2dOnbegroeidTerreindeel" type="gml:SurfacePropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="OTD"/>
+		
+	  </complexType>
+   <complexType name="OWG-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Surface" type="gml:SurfacePropertyType" minOccurs="0"/>
+					    <element name="bgt-functie" type="imgeo:CodeType-r"/>
+					    <element name="plus-functie" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="bgt-fysiekVoorkomen" type="imgeo:CodeType-r"/>
+					    <element name="plus-fysiekVoorkomen" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="ondersteunendWegdeelOpTalud"
+                  type="imgeo:boolean-e"
+                  nillable="true"/>
+					    <element name="kruinlijnOndersteunendWegdeel"
+                  type="imgeo:CurvePropertyType-e"
+                  nillable="true"/>
+					    <element name="geometrie2dOndersteunendWegdeel" type="gml:SurfacePropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="OWG"/>
+		
+	  </complexType>
+   <complexType name="OWT-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dOndersteunendWaterdeel" type="gml:SurfacePropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="OWT"/>
+		
+	  </complexType>
+   <complexType name="PAL-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="implicitRepresentation0Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation1Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation2Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation3Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="hectometeraanduiding"
+                  type="BG:Omschrijving200-e"
+                  nillable="true"/>
+					    <element name="geometrie2dPaal" type="gml:PointPropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="PAL"/>
+		
+	  </complexType>
+   <complexType name="PBP-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="nauwkeurigheid"
+                  type="imgeo:NauwkeurigheidGeometrie-e"
+                  nillable="true"/>
+					    <element name="datumInwinning" type="date"/>
+					    <element name="inwinnendeInstantie"
+                  type="imgeo:BronhouderCode-e"
+                  nillable="true"/>
+					    <element name="inwinningsmethode" type="imgeo:CodeType-r"/>
+					    <element name="geometrie" type="gml:PointPropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="PBP"/>
+		
+	  </complexType>
+   <complexType name="PBP-V-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required" fixed="V"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="PBP"/>
+		
+	  </complexType>
+   <complexType name="PND-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod0footprint"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod1MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod2MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod3MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="identificatieBAG" type="BG:ObjectNummering"/>
+					    <element name="nummeraanduidingreeks"
+                  type="imgeo:Nummeraanduidingreeks-basis"
+                  nillable="true"
+                  maxOccurs="unbounded"/>
+					    <element name="geometrie2dGrondvlak" type="gml:MultiSurfacePropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="PND"/>
+		
+	  </complexType>
+   <complexType name="PUT-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="implicitRepresentation0Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation1Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation2Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation3Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dPut" type="gml:PointPropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="PUT"/>
+		
+	  </complexType>
+   <complexType name="SHD-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="implicitRepresentation0Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation1Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation2Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation3Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dOverigeConstructie" type="imgeo:LijnOfVlak"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="SHD"/>
+		
+	  </complexType>
+   <complexType name="SNS-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="implicitRepresentation0Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation1Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation2Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation3Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dSensor" type="imgeo:LijnOfPunt"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="SNS"/>
+		
+	  </complexType>
+   <complexType name="SPR-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Curve" type="gml:CurvePropertyType" minOccurs="0"/>
+					    <element name="lod1MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod2MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod3MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-functie" type="imgeo:CodeType-r"/>
+					    <element name="plus-functie" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dSpoor" type="gml:CurvePropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="SPR"/>
+		
+	  </complexType>
+   <complexType name="STD-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod1MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod2MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod3MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="naam" type="imgeo:Omschrijving200-e" nillable="true"/>
+					    <element name="geometrie2d" type="gml:MultiSurfacePropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="STD"/>
+		
+	  </complexType>
+   <complexType name="STM-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="implicitRepresentation0Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation1Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation2Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation3Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dStraatmeubilair" type="gml:PointPropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="STM"/>
+		
+	  </complexType>
+   <complexType name="TND-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod1Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+					    <element name="lod2Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+					    <element name="lod3Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+					    <element name="lod1MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod2MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod3MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod0GeometrieTunneldeel"
+                  type="gml:SurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="geometrie2dTunneldeel" type="gml:SurfacePropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="TND"/>
+		
+	  </complexType>
+   <complexType name="VGO-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="implicitRepresentation0Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation1Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation2Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation3Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dVegetatieobject" type="imgeo:LijnOfPuntOfVlak"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="VGO"/>
+		
+	  </complexType>
+   <complexType name="WGD-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Surface" type="gml:SurfacePropertyType" minOccurs="0"/>
+					    <element name="lod2MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod3MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-functie" type="imgeo:CodeType-r"/>
+					    <element name="plus-functie" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="bgt-fysiekVoorkomen" type="imgeo:CodeType-r"/>
+					    <element name="plus-fysiekVoorkomen" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="wegdeelOpTalud" type="imgeo:boolean-e" nillable="true"/>
+					    <element name="kruinlijnWegdeel"
+                  type="imgeo:CurvePropertyType-e"
+                  nillable="true"/>
+					    <element name="geometrie2dWegdeel" type="gml:SurfacePropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="WGD"/>
+		
+	  </complexType>
+   <complexType name="WGI-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="implicitRepresentation0Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation1Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation2Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation3Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dWeginrichtingselement" type="imgeo:LijnOfPuntOfVlak"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="WGI"/>
+		
+	  </complexType>
+   <complexType name="WSP-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod1MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod2MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod3MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="naam" type="imgeo:Omschrijving200-e" nillable="true"/>
+					    <element name="geometrie2d" type="gml:MultiSurfacePropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="WSP"/>
+		
+	  </complexType>
+   <complexType name="WTD-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+					    <element name="lod1Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+					    <element name="lod2Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+					    <element name="lod3Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+					    <element name="lod0MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod1MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod0MultiCurve"
+                  type="gml:MultiCurvePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod1MultiCurve"
+                  type="gml:MultiCurvePropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dWaterdeel" type="gml:SurfacePropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="WTD"/>
+		
+	  </complexType>
+   <complexType name="WTI-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+					    <element name="implicitRepresentation0Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation1Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation2Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="implicitRepresentation3Geometry"
+                  type="cit:ImplicitRepresentationPropertyType"
+                  minOccurs="0"/>
+					    <element name="bgt-type" type="imgeo:CodeType-r"/>
+					    <element name="plus-type" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="geometrie2dWaterinrichtingselement" type="imgeo:LijnOfPunt"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="WTI"/>
+		
+	  </complexType>
+   <complexType name="WYK-TW-verticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+					    <element name="creationDate" type="imgeo:date-r"/>
+					    <element name="terminationDate" type="imgeo:date-e" nillable="true"/>
+					    <element ref="StUF:tijdstipRegistratie"/>
+					    <element name="bronhouder" type="imgeo:BronhouderCode-r"/>
+					    <element name="inOnderzoek"
+                  type="StUF:StatusMetagegevenNoValue"
+                  nillable="true"/>
+					    <element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging"/>
+					    <element name="bgt-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="plus-status" type="imgeo:CodeType-e" nillable="true"/>
+					    <element name="lod0MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod1MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod2MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="lod3MultiSurface"
+                  type="gml:MultiSurfacePropertyType"
+                  minOccurs="0"/>
+					    <element name="wijkcode" type="imgeo:WijkIdentificatie-r"/>
+					    <element name="naam" type="BG:Omschrijving200-e" nillable="true"/>
+					    <element name="ligtIn" type="imgeo:WYKSTD-TW-horVert" nillable="true"/>
+					    <element name="geometrie2d" type="gml:MultiSurfacePropertyType"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="WYK"/>
+		
+	  </complexType>
+   <complexType name="MTB-responsVerticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="StUF:Sleutel"/>
+					    <element name="respons" type="imgeo:ResponsMTB"/>
+				  </sequence>
+      <attribute ref="StUF:entiteittype" use="required" fixed="MTB"/>
+		
+	  </complexType>
+   <complexType name="MTB-verzoekVerticaal">
+		
+			   <sequence>
+					    <element name="identificatie" type="StUF:Sleutel"/>
+					    <element name="toelichting" type="imgeo:Omschrijving500" minOccurs="0"/>
+				  </sequence>
+      <attribute ref="StUF:entiteittype" use="required" fixed="MTB"/>
+		
+	  </complexType>
+   <complexType name="VAV-verzoek">
+		
+			   <sequence>
+					    <element name="identificatie" type="StUF:Sleutel"/>
+					    <element name="begindatum" type="imgeo:date-e" nillable="true"/>
+					    <element name="einddatum" type="imgeo:date-e" nillable="true"/>
+					    <element name="toelichting" type="imgeo:Omschrijving500"/>
+					    <element name="geometrie" type="gml:SurfacePropertyType"/>
+					    <element name="muterendeBronhouder"
+                  type="imgeo:BronhouderCode-e"
+                  nillable="true"/>
+				  </sequence>
+      <attribute ref="StUF:entiteittype" use="required" fixed="VAV"/>
+		
+	  </complexType>
+   <complexType name="Label-toevoeging">
+		
+			   <sequence>
+					    <element name="tekst" type="BG:Omschrijving200"/>
+					    <element name="positie"
+                  type="imgeo:Labelpositie-Toevoeging"
+                  maxOccurs="unbounded"/>
+				  </sequence>
+		
+	  </complexType>
+   <complexType name="Labelpositie-Toevoeging">
+		    <annotation>
+			      <documentation>ComplexType dat aangeeft waar een label gepositioneerd dient te worden</documentation>
+		    </annotation>
+		
+			   <sequence>
+					    <element name="plaatsingspunt" type="gml:PointPropertyType"/>
+					    <element name="hoek" type="imgeo:Rotatie"/>
+				  </sequence>
+		
+	  </complexType>
+   <complexType name="BRTWYK-TW-horVert">
+		
+			   <sequence>
+					    <element name="gerelateerde" type="imgeo:WYK-kerngegevensKennisgeving"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="BRTWYK"/>
+      <attribute ref="StUF:noValue"/>
+		
+	  </complexType>
+   <complexType name="OPRORL-TW-horVert">
+		
+			   <sequence>
+					    <element name="gerelateerde" type="imgeo:ORL-kerngegevensKennisgeving"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:noValue"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="OPRORL"/>
+		
+	  </complexType>
+   <complexType name="ORL-kerngegevensKennisgeving">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required" fixed="I"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="ORL"/>
+		
+	  </complexType>
+   <complexType name="STD-kerngegevensKennisgeving">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="STD"/>
+		
+	  </complexType>
+   <complexType name="WYK-kerngegevensKennisgeving">
+		
+			   <sequence>
+					    <element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required" fixed="I"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="WYK"/>
+		
+	  </complexType>
+   <complexType name="WYKSTD-TW-horVert">
+		
+			   <sequence>
+					    <element name="gerelateerde" type="imgeo:STD-kerngegevensKennisgeving"/>
+				  </sequence>
+      <attribute ref="StUF:verwerkingssoort" use="required"/>
+      <attribute ref="StUF:entiteittype" use="required" fixed="WYKSTD"/>
+      <attribute ref="StUF:noValue"/>
+		
+	  </complexType>
+   <complexType name="Label">
+		    <sequence>
+			      <element name="tekst" type="BG:Omschrijving200"/>
+			      <element name="positie" type="imgeo:Labelpositie" maxOccurs="unbounded"/>
+		    </sequence>
+	  </complexType>
+   <complexType name="Labelpositie">
+		    <annotation>
+			      <documentation>ComplexType dat aangeeft waar een label gepositioneerd dient te worden</documentation>
+		    </annotation>
+		    <sequence>
+			      <element name="plaatsingspunt" type="gml:PointPropertyType"/>
+			      <element name="hoek" type="imgeo:Rotatie"/>
+		    </sequence>
+	  </complexType>
+   <complexType name="LijnOfPunt">
+		    <choice>
+			      <element name="lijn" type="gml:CurvePropertyType"/>
+			      <element name="punt" type="gml:PointPropertyType"/>
+		    </choice>
+	  </complexType>
+   <complexType name="LijnOfPuntOfVlak">
+		    <choice>
+			      <element name="lijn" type="gml:CurvePropertyType"/>
+			      <element name="punt" type="gml:PointPropertyType"/>
+			      <element name="vlak" type="gml:SurfacePropertyType"/>
+		    </choice>
+	  </complexType>
+   <complexType name="LijnOfVlak">
+		    <choice>
+			      <element name="lijn" type="gml:CurvePropertyType"/>
+			      <element name="vlak" type="gml:SurfacePropertyType"/>
+		    </choice>
+	  </complexType>
+   <complexType name="MultiPuntOfMultiVlakOfLijnOfVlak">
+		    <choice>
+			      <element name="multiPunt" type="gml:MultiPointPropertyType"/>
+			      <element name="multiVlak" type="gml:MultiSurfacePropertyType"/>
+			      <element name="lijn" type="gml:CurvePropertyType"/>
+			      <element name="vlak" type="gml:SurfacePropertyType"/>
+		    </choice>
+	  </complexType>
+   <complexType name="VlakOfMultiVlak">
+		    <choice>
+			      <element name="vlak" type="gml:SurfacePropertyType"/>
+			      <element name="multivlak" type="gml:MultiSurfacePropertyType"/>
+		    </choice>
+	  </complexType>
+   <complexType name="NEN3610ID-r">
+		
+			   <sequence>
+					    <element name="namespace" type="imgeo:Namespace-r"/>
+					    <element name="lokaalID" type="imgeo:LokaalId-r"/>
+				  </sequence>
+		
+	  </complexType>
+   <complexType name="Nummeraanduidingreeks-basis">
+		    <sequence>
+			      <element name="nummeraanduidingreeks" type="imgeo:Label"/>
+			      <element name="identificatieBAGVBOLaagsteHuisnummer" type="BG:ObjectNummering"/>
+			      <element name="identificatieBAGVBOHoogsteHuisnummer"
+                  type="BG:ObjectNummering-e"
+                  nillable="true"/>
+		    </sequence>
+		    <attribute ref="StUF:noValue"/>
+	  </complexType>
+   <complexType name="ResponsMTB">
+		    <sequence>
+			      <element name="laatsteVerwerkingsactie" type="gml:CodeType"/>
+			      <element name="statusLaatsteVerwerkingsactie"
+                  type="imgeo:VerwerkingsactieStatus"/>
+			      <element name="urlVerwerkingsverslag" type="BG:Url" minOccurs="0"/>
+			      <element name="toelichting" type="imgeo:Omschrijving500" minOccurs="0"/>
+			      <element name="lvPublicatiedatum" type="imgeo:dateTime-r" minOccurs="0"/>
+		    </sequence>
+	  </complexType>
+   <complexType name="MTO-basis">
+		    <annotation>
+			      <documentation>Mutatieoproep aan een rakende bronhouder</documentation>
+		    </annotation>
+		    <sequence>
+			      <element name="identificatie" type="StUF:Sleutel"/>
+			      <element name="toelichting" type="imgeo:Omschrijving500" minOccurs="0"/>
+		    </sequence>
+		    <attribute ref="StUF:entiteittype" use="required" fixed="MTO"/>
+	  </complexType>
+   <complexType name="OPV-basis">
+		    <annotation>
+			      <documentation>Ophaalverzoek</documentation>
+		    </annotation>
+		    <sequence>
+			      <element name="identificatie" type="StUF:Sleutel"/>
+			      <element name="stuurgegevens" type="StUF:Stuurgegevens"/>
+			      <element ref="gb:digikoppeling-external-datareferences"/>
+		    </sequence>
+		    <attribute ref="StUF:entiteittype" use="required" fixed="OPV"/>
+	  </complexType>
+   <complexType name="boolean-e">
+		    <simpleContent>
+			      <extension base="boolean">
+				        <attribute ref="StUF:noValue"/>
+			      </extension>
+		    </simpleContent>
+	  </complexType>
+   <complexType name="BronhouderCode-e">
+		    <simpleContent>
+			      <extension base="imgeo:BronhouderCode">
+				        <attribute ref="StUF:noValue"/>
+			      </extension>
+		    </simpleContent>
+	  </complexType>
+   <complexType name="CodeType-e">
+		    <simpleContent>
+			      <extension base="gml:CodeType">
+            <attribute name="codeSpace" type="anyURI" use="required"/>
+            <attribute ref="StUF:noValue"/>
+         </extension>
+		    </simpleContent>
+	  </complexType>
+   <complexType name="CurvePropertyType-e">
+		    <complexContent>
+			      <extension base="gml:CurvePropertyType">
+				        <attributeGroup ref="StUF:element"/>
+			      </extension>
+		    </complexContent>
+	  </complexType>
+   <complexType name="date-e">
+		    <simpleContent>
+			      <extension base="date">
+				        <attribute ref="StUF:noValue"/>
+			      </extension>
+		    </simpleContent>
+	  </complexType>
+   <complexType name="NauwkeurigheidGeometrie-e">
+		    <simpleContent>
+			      <extension base="imgeo:NauwkeurigheidGeometrie">
+				        <attribute ref="StUF:noValue"/>
+			      </extension>
+		    </simpleContent>
+	  </complexType>
+   <complexType name="Omschrijving200-e">
+		    <simpleContent>
+			      <extension base="imgeo:Omschrijving200">
+				        <attribute ref="StUF:noValue"/>
+			      </extension>
+		    </simpleContent>
+	  </complexType>
+   <complexType name="BronhouderCode-r">
+		    <simpleContent>
+			      <extension base="imgeo:BronhouderCode"/>
+		    </simpleContent>
+	  </complexType>
+   <complexType name="BuurtIdentificatie-r">
+		    <simpleContent>
+			      <extension base="imgeo:BuurtIdentificatie"/>
+		    </simpleContent>
+	  </complexType>
+   <complexType name="CodeType-r">
+		    <simpleContent>
+			      <extension base="gml:CodeType">
+            <attribute name="codeSpace" type="anyURI" use="required"/>
+         </extension>
+		    </simpleContent>
+	  </complexType>
+   <complexType name="date-r">
+		    <simpleContent>
+			      <extension base="date"/>
+		    </simpleContent>
+	  </complexType>
+   <complexType name="dateTime-r">
+		    <simpleContent>
+			      <extension base="dateTime"/>
+		    </simpleContent>
+	  </complexType>
+   <complexType name="LokaalId-r">
+		    <simpleContent>
+			      <extension base="imgeo:LokaalId"/>
+		    </simpleContent>
+	  </complexType>
+   <complexType name="Namespace-r">
+		    <simpleContent>
+			      <extension base="imgeo:Namespace"/>
+		    </simpleContent>
+	  </complexType>
+   <complexType name="WijkIdentificatie-r">
+		    <simpleContent>
+			      <extension base="imgeo:WijkIdentificatie"/>
+		    </simpleContent>
+	  </complexType>
+   <simpleType name="BronhouderCode">
+		    <restriction base="string">
+			      <pattern value="[a-zA-Z0-9_,*\-]{5}"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="BuurtIdentificatie">
+		    <annotation>
+			      <documentation>Dient gevuld te worden met de concatenatie van gemeentecode, CBS wijk- en buurtcode</documentation>
+		    </annotation>
+		    <restriction base="string">
+			      <pattern value="[0-9]{8}"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="LokaalId">
+		    <restriction base="string">
+			      <pattern value="[a-zA-Z0-9_,*\-]{5}.[0-9a-fA-F]{32}"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Namespace">
+		    <restriction base="string">
+			      <enumeration value="NL.IMGEO"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="NauwkeurigheidGeometrie">
+		    <restriction base="integer"/>
+	  </simpleType>
+   <simpleType name="Omschrijving200">
+		    <restriction base="string">
+			      <maxLength value="200"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Omschrijving500">
+		    <restriction base="string">
+			      <maxLength value="500"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="RelatieveHoogteligging">
+		    <annotation>
+			      <documentation>Geeft de relatieve hoogteligging ten opzichte van andere geometrische objecten op hetzelfde punt</documentation>
+		    </annotation>
+		    <restriction base="integer">
+			      <minInclusive value="-10"/>
+			      <maxInclusive value="10"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="Rotatie">
+		    <restriction base="double"/>
+	  </simpleType>
+   <simpleType name="VerwerkingsactieStatus">
+		    <restriction base="string">
+			      <enumeration value="Succes"/>
+			      <enumeration value="Fout"/>
+			      <enumeration value="In uitvoering"/>
+			      <enumeration value="Niet uitgevoerd"/>
+		    </restriction>
+	  </simpleType>
+   <simpleType name="WijkIdentificatie">
+		    <annotation>
+			      <documentation>Dient gevuld te worden met de concatenatie van gemeentecode, CBS wijkcode</documentation>
+		    </annotation>
+		    <restriction base="string">
+			      <pattern value="[0-9]{6}"/>
+		    </restriction>
+	  </simpleType>
+</schema>

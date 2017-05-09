@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by Maarten van den Broek (messageDesign B.V.) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:cit="http://www.opengis.net/citygml/2.0" xmlns:gml="http://www.opengis.net/gml" xmlns:imgeo="http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo/1.2" xmlns:StUF="http://www.egem.nl/StUF/StUF0301" xmlns:BG="http://www.egem.nl/StUF/sector/bg/0310" targetNamespace="http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo/1.2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="030100">
+	<annotation>
+		<documentation>
+			Wijzigingen vergeleken met versie 030008:
+			- imgeo:namespace en target namespace gewijzigd in http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo/1.2
+			- include gewijzigd naar "../entiteiten/imgeo0301_ent_basis.xsd"
+		</documentation>
+	</annotation>
+	<!-- Correspondeert met IMBGT v1.2, IMGeo 2.1 -->
+	<import namespace="http://www.opengis.net/citygml/2.0" schemaLocation="../../citygml2.0/cityGMLBase.xsd"/>
+	<import namespace="http://www.opengis.net/gml" schemaLocation="../../gml-3.1.1.2/gml/3.1.1/base/gml.xsd"/>
+	<import namespace="http://www.egem.nl/StUF/StUF0301" schemaLocation="../../0301/stuf0301.xsd"/>
+	<import namespace="http://www.egem.nl/StUF/sector/bg/0310" schemaLocation="../../bg0310/entiteiten/bg0310_simpleTypes.xsd"/>
+	<include schemaLocation="../entiteiten/imgeo0301_ent_basis.xsd"/>
+	<!--ComplexTypes voor groepen-->
+	<complexType name="Label-toevoeging">
+		<complexContent>
+			<restriction base="imgeo:Label">
+				<sequence>
+					<element name="tekst" type="BG:Omschrijving200"/>
+					<element name="positie" type="imgeo:Labelpositie-Toevoeging" maxOccurs="unbounded"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="Labelpositie-Toevoeging">
+		<annotation>
+			<documentation>ComplexType dat aangeeft waar een label gepositioneerd dient te worden</documentation>
+		</annotation>
+		<complexContent>
+			<restriction base="imgeo:Labelpositie">
+				<sequence>
+					<element name="plaatsingspunt" type="gml:PointPropertyType"/>
+					<element name="hoek" type="imgeo:Rotatie"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<!--kennisgeving-complexTypes uit imgeo0301_ent_mutatie.xsd-->
+	<complexType name="BRTWYK-TW-horVert">
+		<complexContent>
+			<restriction base="imgeo:BRTWYK-basis">
+				<sequence>
+					<element name="gerelateerde" type="imgeo:WYK-kerngegevensKennisgeving"/>
+				</sequence>
+				<attribute ref="StUF:verwerkingssoort" use="required"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="OPRORL-TW-horVert">
+		<complexContent>
+			<restriction base="imgeo:OPRORL-basis">
+				<sequence>
+					<element name="gerelateerde" type="imgeo:ORL-kerngegevensKennisgeving"/>
+				</sequence>
+				<attribute ref="StUF:verwerkingssoort" use="required"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="ORL-kerngegevensKennisgeving">
+		<complexContent>
+			<restriction base="imgeo:ORL-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+				<attribute ref="StUF:sleutelVerzendend" use="prohibited"/>
+				<attribute ref="StUF:sleutelOntvangend" use="prohibited"/>
+				<attribute ref="StUF:verwerkingssoort" use="required" fixed="I"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="STD-kerngegevensKennisgeving">
+		<complexContent>
+			<restriction base="imgeo:STD-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+				<attribute ref="StUF:sleutelVerzendend" use="prohibited"/>
+				<attribute ref="StUF:sleutelOntvangend" use="prohibited"/>
+				<attribute ref="StUF:verwerkingssoort" use="required"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="WYK-kerngegevensKennisgeving">
+		<complexContent>
+			<restriction base="imgeo:WYK-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+				<attribute ref="StUF:sleutelVerzendend" use="prohibited"/>
+				<attribute ref="StUF:sleutelOntvangend" use="prohibited"/>
+				<attribute ref="StUF:verwerkingssoort" use="required" fixed="I"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="WYKSTD-TW-horVert">
+		<complexContent>
+			<restriction base="imgeo:WYKSTD-basis">
+				<sequence>
+					<element name="gerelateerde" type="imgeo:STD-kerngegevensKennisgeving"/>
+				</sequence>
+				<attribute ref="StUF:verwerkingssoort" use="required"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+</schema>

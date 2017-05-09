@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+   <rootSchema schemaLocation="D:/Chris/git/brmo/brmo-stuf/wsdl-resources/tools/XSD-Resolver/xsd-bgt-berichtenstandaard-1.2-imgeo0301/imgeo0301/verticaal/imgeo-simple.xsd"
+               namespace="http://www.geostandaarden.nl/imgeo/2.1/simple/gml31"/>
+   <import schemaLocation="D:/Chris/git/brmo/brmo-stuf/wsdl-resources/tools/XSD-Resolver/xsd-bgt-berichtenstandaard-1.2-imgeo0301/citygml2.0/cityGMLBase.xsd"
+           importingNamespace="http://www.geostandaarden.nl/imgeo/2.1/simple/gml31"
+           namespace="http://www.opengis.net/citygml/2.0"
+           processed="no"/>
+   <import schemaLocation="D:/Chris/git/brmo/brmo-stuf/wsdl-resources/tools/XSD-Resolver/xsd-bgt-berichtenstandaard-1.2-imgeo0301/gml-3.1.1.2/gml/3.1.1/base/gml.xsd"
+           importingNamespace="http://www.geostandaarden.nl/imgeo/2.1/simple/gml31"
+           namespace="http://www.opengis.net/gml"
+           processed="no"/>
+</schema>

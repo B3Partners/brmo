@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by Maarten van den Broek (messageDesign B.V.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:tns="http://www.logius.nl/digikoppeling/gb/2010/10" targetNamespace="http://www.logius.nl/digikoppeling/gb/2010/10">
+	<xs:element name="digikoppeling-external-datareferences" type="tns:external-data-reference">
+</xs:element>
+	<xs:complexType name="external-data-reference">
+		<xs:sequence>
+			<xs:element name="data-reference" maxOccurs="unbounded" type="tns:data-reference"/>
+		</xs:sequence>
+		<xs:attribute name="profile" type="tns:gb-profile"/>
+	</xs:complexType>
+	<xs:complexType name="data-reference">
+		<xs:sequence minOccurs="1">
+			<xs:element name="lifetime">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="creationTime" type="tns:datetimeType" minOccurs="0"/>
+						<xs:element name="expirationTime" type="tns:datetimeType" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="content">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="filename" type="xs:NCName"/>
+						<xs:element name="checksum" type="tns:checksumType"/>
+						<xs:element name="size" type="xs:unsignedLong"/>
+					</xs:sequence>
+					<xs:attribute name="contentType" use="required" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="transport">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="location">
+							<xs:complexType>
+								<xs:choice>
+									<xs:element name="senderUrl" type="tns:urlType"/>
+									<xs:element name="receiverUrl" type="tns:urlType"/>
+								</xs:choice>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="contextId" use="optional"/>
+	</xs:complexType>
+	<xs:simpleType name="gb-profile" final="restriction">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="digikoppeling-gb-1.0"/>
+			<!--
+DigiKoppeling GB profiel 1 aanduiding
+-->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="datetimeType">
+		<xs:simpleContent>
+			<xs:extension base="xs:dateTime">
+				<xs:attribute name="type" use="required" type="xs:string" fixed="xs:dateTime"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="checksumType">
+		<xs:simpleContent>
+			<xs:extension base="tns:md5String">
+				<xs:attribute name="type" use="required">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="MD5"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="urlType">
+		<xs:simpleContent>
+			<xs:extension base="tns:anyString">
+				<xs:attribute name="type" use="required" fixed="xs:anyURI"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="md5String">
+		<xs:simpleContent>
+			<xs:restriction base="tns:anyString">
+				<xs:pattern value="[0-9a-fA-F]*"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="anyString">
+		<xs:simpleContent>
+			<xs:extension base="xs:string"/>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

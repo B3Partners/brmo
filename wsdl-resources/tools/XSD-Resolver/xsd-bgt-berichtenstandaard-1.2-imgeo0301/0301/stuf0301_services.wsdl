@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:StUF="http://www.egem.nl/StUF/StUF0301" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xs="http://www.w3.org/2001/XMLSchema" name="StUF" targetNamespace="http://www.egem.nl/StUF/StUF0301">
+	<import namespace="http://www.egem.nl/StUF/StUF0301" location="stuf0301_types.wsdl"/>
+	<documentation>
+		Deze wsdl definieert het porttype en de binding voor het ontvangen van een triggerbericht. Een gebruiker dient zelf nog het 
+		service element te definiëren.
+		
+		Versie 030101, wijzigingen vergeleken met versie 030100:
+		- ERR206: Bestandsnaam 'stuf0301.services.wsdl' gewijzigd in 'stuf0301_services.wsdl' conform erratum ERR192. 
+						Naar aanleiding daarvan ook import gewijzigd.
+	</documentation>
+	<portType name="VerwerkTriggerbericht">
+		<operation name="Tr01">
+			<input message="StUF:Tr01"/>
+			<output message="StUF:Bv02"/>
+			<fault name="fout" message="StUF:Fo02"/>
+		</operation>
+	</portType>
+	<binding name="SOAPVerwerkTriggerbericht" type="StUF:VerwerkTriggerbericht">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="Tr01">
+			<soap:operation soapAction="http://www.egem.nl/StUF/StUF0301/Tr01"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="fout">
+				<soap:fault name="fout" use="literal"/>
+			</fault>
+		</operation>
+	</binding>
+</definitions>

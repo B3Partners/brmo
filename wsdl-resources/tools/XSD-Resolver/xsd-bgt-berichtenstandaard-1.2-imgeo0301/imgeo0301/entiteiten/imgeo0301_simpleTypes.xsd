@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2014 rel. 2 sp1 (x64) (http://www.altova.com) by Maarten van den Broek (messageDesign B.V.) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" xmlns:cit="http://www.opengis.net/citygml/2.0" xmlns:imgeo="http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo/1.2" xmlns:StUF="http://www.egem.nl/StUF/StUF0301" targetNamespace="http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo/1.2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="030100">
+	<annotation>
+		<documentation>
+			Wijzigingen vergeleken met versie 030004:
+			- imgeo:namespace en target namespace gewijzigd in http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo/1.2
+			- het simpleType Resultaat verwijderd
+		</documentation>
+	</annotation>
+	<!-- Correspondeert met IMBGT v1.0, IMGeo 2.0 februari 2012 -->
+	<import namespace="http://www.opengis.net/gml" schemaLocation="../../gml-3.1.1.2/gml/3.1.1/base/gml.xsd"/>
+	<import namespace="http://www.opengis.net/citygml/2.0" schemaLocation="../../citygml2.0/cityGMLBase.xsd"/>
+	<import namespace="http://www.egem.nl/StUF/StUF0301" schemaLocation="../../0301/stuf0301.xsd"/>
+	<!-- -e ComplexTypes-->
+	<complexType name="boolean-e">
+		<simpleContent>
+			<extension base="boolean">
+				<attribute ref="StUF:noValue"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="BronhouderCode-e">
+		<simpleContent>
+			<extension base="imgeo:BronhouderCode">
+				<attribute ref="StUF:noValue"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="BuurtIdentificatie-e">
+		<simpleContent>
+			<extension base="imgeo:BuurtIdentificatie">
+				<attribute ref="StUF:noValue"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="CodeType-e">
+		<simpleContent>
+			<restriction base="imgeo:CodeType-imgeo">
+				<attribute name="codeSpace" type="anyURI" use="required"/>
+			</restriction>
+		</simpleContent>
+	</complexType>
+	<complexType name="CodeType-imgeo">
+		<simpleContent>
+			<extension base="gml:CodeType">
+				<attribute ref="StUF:noValue"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="CurvePropertyType-e">
+		<complexContent>
+			<extension base="gml:CurvePropertyType">
+				<attributeGroup ref="StUF:element"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="date-e">
+		<simpleContent>
+			<extension base="date">
+				<attribute ref="StUF:noValue"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="dateTime-e">
+		<simpleContent>
+			<extension base="dateTime">
+				<attribute ref="StUF:noValue"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="LokaalId-e">
+		<simpleContent>
+			<extension base="imgeo:LokaalId">
+				<attribute ref="StUF:noValue"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="Namespace-e">
+		<simpleContent>
+			<extension base="imgeo:Namespace">
+				<attribute ref="StUF:noValue"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="NauwkeurigheidGeometrie-e">
+		<simpleContent>
+			<extension base="imgeo:NauwkeurigheidGeometrie">
+				<attribute ref="StUF:noValue"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="Omschrijving200-e">
+		<simpleContent>
+			<extension base="imgeo:Omschrijving200">
+				<attribute ref="StUF:noValue"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="WijkIdentificatie-e">
+		<simpleContent>
+			<extension base="imgeo:WijkIdentificatie">
+				<attribute ref="StUF:noValue"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<!---r ComplexTypes-->
+	<complexType name="BronhouderCode-r">
+		<simpleContent>
+			<restriction base="imgeo:BronhouderCode-e">
+				<attribute ref="StUF:noValue" use="prohibited"/>
+			</restriction>
+		</simpleContent>
+	</complexType>
+	<complexType name="BuurtIdentificatie-r">
+		<simpleContent>
+			<restriction base="imgeo:BuurtIdentificatie-e">
+				<attribute ref="StUF:noValue" use="prohibited"/>
+			</restriction>
+		</simpleContent>
+	</complexType>
+	<complexType name="CodeType-r">
+		<simpleContent>
+			<restriction base="imgeo:CodeType-e">
+				<attribute ref="StUF:noValue" use="prohibited"/>
+			</restriction>
+		</simpleContent>
+	</complexType>
+	<complexType name="date-r">
+		<simpleContent>
+			<restriction base="imgeo:date-e">
+				<attribute ref="StUF:noValue" use="prohibited"/>
+			</restriction>
+		</simpleContent>
+	</complexType>
+	<complexType name="dateTime-r">
+		<simpleContent>
+			<restriction base="imgeo:dateTime-e">
+				<attribute ref="StUF:noValue" use="prohibited"/>
+			</restriction>
+		</simpleContent>
+	</complexType>
+	<complexType name="LokaalId-r">
+		<simpleContent>
+			<restriction base="imgeo:LokaalId-e">
+				<attribute ref="StUF:noValue" use="prohibited"/>
+			</restriction>
+		</simpleContent>
+	</complexType>
+	<complexType name="Namespace-r">
+		<simpleContent>
+			<restriction base="imgeo:Namespace-e">
+				<attribute ref="StUF:noValue" use="prohibited"/>
+			</restriction>
+		</simpleContent>
+	</complexType>
+	<complexType name="WijkIdentificatie-r">
+		<simpleContent>
+			<restriction base="imgeo:WijkIdentificatie-e">
+				<attribute ref="StUF:noValue" use="prohibited"/>
+			</restriction>
+		</simpleContent>
+	</complexType>
+	<!--SimpleTypes-->
+	<simpleType name="Beheerder">
+		<restriction base="string">
+			<enumeration value="BO">
+				<annotation>
+					<documentation>Bomen</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="GR">
+				<annotation>
+					<documentation>Groenbeheer</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="KU">
+				<annotation>
+					<documentation>Kunstwerkbeheer</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="RI">
+				<annotation>
+					<documentation>Rioolbeheer</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SP">
+				<annotation>
+					<documentation>Speelwerktuigenbeheer</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="OP">
+				<annotation>
+					<documentation>Openbare verlichting</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="O1">
+				<annotation>
+					<documentation>Overig 1</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="O2">
+				<annotation>
+					<documentation>Overig 2</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="O3">
+				<annotation>
+					<documentation>Overig 3</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="ST">
+				<annotation>
+					<documentation>Straatmeubilair</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="WE">
+				<annotation>
+					<documentation>Wegbeheer</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="WA">
+				<annotation>
+					<documentation>Waterbeheer</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="BA">
+				<annotation>
+					<documentation>BAG</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="KL">
+				<annotation>
+					<documentation>K&amp;L</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="VE">
+				<annotation>
+					<documentation>Verkeersborden</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="VR">
+				<annotation>
+					<documentation>Verkeersregelsystemen</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="BronhouderCode">
+		<restriction base="string">
+			<pattern value="[a-zA-Z0-9_,*\-]{5}"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="BronhouderOmschrijving">
+		<restriction base="string">
+			<maxLength value="80"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="BuurtIdentificatie">
+		<annotation>
+			<documentation>Dient gevuld te worden met de concatenatie van gemeentecode, CBS wijk- en buurtcode</documentation>
+		</annotation>
+		<restriction base="string">
+			<pattern value="[0-9]{8}"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Entiteittype">
+		<restriction base="string">
+			<enumeration value="BAK"/>
+			<enumeration value="BRD"/>
+			<enumeration value="BRT"/>
+			<enumeration value="BTD"/>
+			<enumeration value="FUG"/>
+			<enumeration value="GBI"/>
+			<enumeration value="INS"/>
+			<enumeration value="KST"/>
+			<enumeration value="KWD"/>
+			<enumeration value="LDE"/>
+			<enumeration value="LDG"/>
+			<enumeration value="MST"/>
+			<enumeration value="OBD"/>
+			<enumeration value="OBW"/>
+			<enumeration value="OCO"/>
+			<enumeration value="OPR"/>
+			<enumeration value="ORL"/>
+			<enumeration value="OSH"/>
+			<enumeration value="OTD"/>
+			<enumeration value="OWG"/>
+			<enumeration value="OWT"/>
+			<enumeration value="PAL"/>
+			<enumeration value="PND"/>
+			<enumeration value="PUT"/>
+			<enumeration value="SHD"/>
+			<enumeration value="SNS"/>
+			<enumeration value="SPR"/>
+			<enumeration value="STD"/>
+			<enumeration value="STM"/>
+			<enumeration value="TND"/>
+			<enumeration value="VGO"/>
+			<enumeration value="WGD"/>
+			<enumeration value="WGI"/>
+			<enumeration value="WSP"/>
+			<enumeration value="WTD"/>
+			<enumeration value="WTI"/>
+			<enumeration value="WYK"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="LeidingElementType">
+		<restriction base="string">
+			<enumeration value="Mof"/>
+			<enumeration value="Verloopstuk"/>
+			<enumeration value="T-stuk"/>
+			<enumeration value="Verdeelstuk"/>
+			<enumeration value="Afsluiter"/>
+			<enumeration value="Kraan"/>
+			<enumeration value="Put (ondergronds)"/>
+			<enumeration value="Tappunt"/>
+			<enumeration value="Ontluchter"/>
+			<enumeration value="Inlaat"/>
+			<enumeration value="Aansluitpunt"/>
+			<enumeration value="Uitlaat/lozingswerk"/>
+			<enumeration value="Rioolvoorziening"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="LeidingFunctie">
+		<restriction base="string">
+			<enumeration value="Riolering"/>
+			<enumeration value="Riolering: Vrij verval"/>
+			<enumeration value="Riolering: Onder druk"/>
+			<enumeration value="Riolering: Drainage"/>
+			<enumeration value="Riolering: Huisaansluiting"/>
+			<enumeration value="Water"/>
+			<enumeration value="Water: Drinkwater"/>
+			<enumeration value="Water: Bluswater"/>
+			<enumeration value="Gas"/>
+			<enumeration value="Gas: Hoge druk"/>
+			<enumeration value="Gas: Midden druk"/>
+			<enumeration value="Gas: Lage druk"/>
+			<enumeration value="Electriciteit"/>
+			<enumeration value="Electriciteit: Landelijk hoogspanningsnet"/>
+			<enumeration value="Electriciteit: Hoog"/>
+			<enumeration value="Electriciteit: Midden"/>
+			<enumeration value="Electriciteit: Laag"/>
+			<enumeration value="Electriciteit: Openbare verlichting"/>
+			<enumeration value="Warmtenet"/>
+			<enumeration value="Datatransport"/>
+			<enumeration value="Datatransport: Telecom"/>
+			<enumeration value="Datatransport: CAI"/>
+			<enumeration value="Datatransport: Verkeersregeling"/>
+			<enumeration value="Datatransport: Gladheidsmeldingen (GMS)"/>
+			<enumeration value="Datatransport: Tellingen"/>
+			<enumeration value="Gevaarlijke inhoud"/>
+			<enumeration value="Gevaarlijke inhoud: Petro"/>
+			<enumeration value="Gevaarlijke inhoud: Chemie"/>
+			<enumeration value="Wees"/>
+			<enumeration value="Overig"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="LeidingType">
+		<restriction base="string">
+			<enumeration value="Kabel"/>
+			<enumeration value="Kabel: Aarddraad"/>
+			<enumeration value="Mantelbuis"/>
+			<enumeration value="HDPEBuis"/>
+			<enumeration value="Buis"/>
+			<enumeration value="Buis: Buisleiding"/>
+			<enumeration value="Kabelbed"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="LokaalId">
+		<restriction base="string">
+			<pattern value="[a-zA-Z0-9_,*\-]{5}.[0-9a-fA-F]{32}"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="MutatiesignaleringResultaat">
+		<restriction base="string">
+			<enumeration value="Goedgekeurd"/>
+			<enumeration value="Afgekeurd"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Namespace">
+		<restriction base="string">
+			<enumeration value="NL.IMGEO"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="NauwkeurigheidGeometrie">
+		<restriction base="integer"/>
+	</simpleType>
+	<simpleType name="Omschrijving200">
+		<restriction base="string">
+			<maxLength value="200"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Omschrijving500">
+		<restriction base="string">
+			<maxLength value="500"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Omschrijving80">
+		<restriction base="string">
+			<maxLength value="80"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="RelatieveHoogteligging">
+		<annotation>
+			<documentation>Geeft de relatieve hoogteligging ten opzichte van andere geometrische objecten op hetzelfde punt</documentation>
+		</annotation>
+		<restriction base="integer">
+			<minInclusive value="-10"/>
+			<maxInclusive value="10"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Rotatie">
+		<restriction base="double"/>
+	</simpleType>
+	<simpleType name="TerugmeldingResultaat">
+		<restriction base="string">
+			<enumeration value="Goedgekeurd"/>
+			<enumeration value="In onderzoek"/>
+			<enumeration value="Afgekeurd"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="VerwerkingsactieStatus">
+		<restriction base="string">
+			<enumeration value="Succes"/>
+			<enumeration value="Fout"/>
+			<enumeration value="In uitvoering"/>
+			<enumeration value="Niet uitgevoerd"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="WijkIdentificatie">
+		<annotation>
+			<documentation>Dient gevuld te worden met de concatenatie van gemeentecode, CBS wijkcode</documentation>
+		</annotation>
+		<restriction base="string">
+			<pattern value="[0-9]{6}"/>
+		</restriction>
+	</simpleType>
+</schema>

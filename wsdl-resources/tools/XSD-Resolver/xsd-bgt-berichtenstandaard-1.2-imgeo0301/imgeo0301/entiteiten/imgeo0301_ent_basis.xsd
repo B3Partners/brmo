@@ -1,0 +1,1771 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2014 rel. 2 sp1 (x64) (http://www.altova.com) by Maarten van den Broek (messageDesign B.V.) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:cit="http://www.opengis.net/citygml/2.0" xmlns:gml="http://www.opengis.net/gml" xmlns:gb="http://www.logius.nl/digikoppeling/gb/2010/10" xmlns:imgeo="http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo/1.2" xmlns:StUF="http://www.egem.nl/StUF/StUF0301" xmlns:BG="http://www.egem.nl/StUF/sector/bg/0310" targetNamespace="http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo/1.2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="030101">
+	<annotation>
+		<documentation>
+			Wijzigingen vergeleken met versie 030100:
+			- In VAV-basis het element toelichting toegevoegd met minOccurs="0"
+		
+			Wijzigingen vergeleken met versie 030006:
+			- imgeo:namespace en target namespace gewijzigd in http://www.geostandaarden.nl/imgeo/2.1/stuf-imgeo/1.2
+			- include gewijzigd naar imgeo0301_simpleTypes.xsd
+			- in complexType VAV-basis toegevoegd de elementen begindatum en einddatum met minOccurs="0" en maxOccurs="1"
+			- in complexType VAV-basis het element respons verwijderd en daarmee samenhangend de complexTypes ResponsVAV en NietGelocktObject verwijderd
+			- in complexType MTO-basis het element resultaat verwijderd
+		</documentation>
+	</annotation>
+	<import namespace="http://www.opengis.net/citygml/2.0" schemaLocation="../../citygml2.0/cityGMLBase.xsd"/>
+	<import namespace="http://www.opengis.net/gml" schemaLocation="../../gml-3.1.1.2/gml/3.1.1/base/gml.xsd"/>
+	<import namespace="http://www.logius.nl/digikoppeling/gb/2010/10" schemaLocation="../../digikoppeling/gb1.0.xsd"/>
+	<import namespace="http://www.egem.nl/StUF/StUF0301" schemaLocation="../../0301/stuf0301.xsd"/>
+	<import namespace="http://www.egem.nl/StUF/sector/bg/0310" schemaLocation="../../bg0310/entiteiten/bg0310_simpleTypes.xsd"/>
+	<include schemaLocation="imgeo0301_simpleTypes.xsd"/>
+	<!--ComplexTypes voor groepen-->
+	<complexType name="AfgekeurdObject">
+		<annotation>
+			<documentation>ComplexType met gegevens van een afgekeurd of geweigerd object</documentation>
+		</annotation>
+		<sequence>
+			<element name="entiteittype" type="StUF:Entiteittype"/>
+			<element name="identificatie" type="imgeo:NEN3610ID-e"/>
+			<element name="borId" minOccurs="0"/>
+			<element name="toelichting" minOccurs="0"/>
+			<element name="documentVerwijzing" type="BG:Url" minOccurs="0"/>
+		</sequence>
+	</complexType>
+	<complexType name="Label">
+		<sequence>
+			<element name="tekst" type="BG:Omschrijving200"/>
+			<element name="positie" type="imgeo:Labelpositie" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<complexType name="Labelpositie">
+		<annotation>
+			<documentation>ComplexType dat aangeeft waar een label gepositioneerd dient te worden</documentation>
+		</annotation>
+		<sequence>
+			<element name="plaatsingspunt" type="gml:PointPropertyType"/>
+			<element name="hoek" type="imgeo:Rotatie"/>
+		</sequence>
+	</complexType>
+	<complexType name="LijnOfPunt">
+		<choice>
+			<element name="lijn" type="gml:CurvePropertyType"/>
+			<element name="punt" type="gml:PointPropertyType"/>
+		</choice>
+	</complexType>
+	<complexType name="LijnOfPuntOfVlak">
+		<choice>
+			<element name="lijn" type="gml:CurvePropertyType"/>
+			<element name="punt" type="gml:PointPropertyType"/>
+			<element name="vlak" type="gml:SurfacePropertyType"/>
+		</choice>
+	</complexType>
+	<complexType name="LijnOfVlak">
+		<choice>
+			<element name="lijn" type="gml:CurvePropertyType"/>
+			<element name="vlak" type="gml:SurfacePropertyType"/>
+		</choice>
+	</complexType>
+	<complexType name="MultiPuntOfMultiVlakOfLijnOfVlak">
+		<choice>
+			<element name="multiPunt" type="gml:MultiPointPropertyType"/>
+			<element name="multiVlak" type="gml:MultiSurfacePropertyType"/>
+			<element name="lijn" type="gml:CurvePropertyType"/>
+			<element name="vlak" type="gml:SurfacePropertyType"/>
+		</choice>
+	</complexType>
+	<complexType name="VlakOfMultiVlak">
+		<choice>
+			<element name="vlak" type="gml:SurfacePropertyType"/>
+			<element name="multivlak" type="gml:MultiSurfacePropertyType"/>
+		</choice>
+	</complexType>
+	<complexType name="NEN3610ID-e">
+		<annotation>
+			<documentation>ComplexType met de identificatie conform NEN3610</documentation>
+		</annotation>
+		<sequence>
+			<element name="namespace" type="imgeo:Namespace-e" nillable="true"/>
+			<element name="lokaalID" type="imgeo:LokaalId-e" nillable="true"/>
+		</sequence>
+	</complexType>
+	<complexType name="NEN3610ID-r">
+		<complexContent>
+			<restriction base="imgeo:NEN3610ID-e">
+				<sequence>
+					<element name="namespace" type="imgeo:Namespace-r"/>
+					<element name="lokaalID" type="imgeo:LokaalId-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="Nummeraanduidingreeks-basis">
+		<sequence>
+			<element name="nummeraanduidingreeks" type="imgeo:Label"/>
+			<element name="identificatieBAGVBOLaagsteHuisnummer" type="BG:ObjectNummering"/>
+			<element name="identificatieBAGVBOHoogsteHuisnummer" type="BG:ObjectNummering-e" nillable="true"/>
+		</sequence>
+		<attribute ref="StUF:noValue"/>
+	</complexType>
+	<complexType name="ResponsMTB">
+		<sequence>
+			<element name="laatsteVerwerkingsactie" type="gml:CodeType"/>
+			<element name="statusLaatsteVerwerkingsactie" type="imgeo:VerwerkingsactieStatus"/>
+			<element name="urlVerwerkingsverslag" type="BG:Url" minOccurs="0"/>
+			<element name="toelichting" type="imgeo:Omschrijving500" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-r" minOccurs="0"/>
+		</sequence>
+	</complexType>
+	<!--Basis complexTypes imgeo-->
+	<complexType name="BAK-basis">
+		<annotation>
+			<documentation>Bak</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation0Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation1Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation2Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation3Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-r" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dBak" type="gml:PointPropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="BAK"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="BAK-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:BAK-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="BRD-basis">
+		<annotation>
+			<documentation>Bord</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation0Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation1Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation2Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation3Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-r" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dBord" type="gml:PointPropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="BRD"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="BRD-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:BRD-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="BRT-basis">
+		<annotation>
+			<documentation>Buurt</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod1MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="buurtcode" type="imgeo:BuurtIdentificatie-e" nillable="true" minOccurs="0"/>
+			<element name="naam" type="BG:Omschrijving200-e" nillable="true" minOccurs="0"/>
+			<element name="ligtIn" type="imgeo:BRTWYK-basis" nillable="true" minOccurs="0"/>
+			<element name="geometrie2d" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="BRT"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="BRT-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:BRT-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="BRTWYK-basis">
+		<sequence>
+			<element name="gerelateerde" type="imgeo:WYK-basis"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="BRTWYK"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+		<attribute ref="StUF:noValue"/>
+	</complexType>
+	<complexType name="BTD-basis">
+		<annotation>
+			<documentation>Begroeid terreindeel</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod1MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod1MultiSolid" type="gml:MultiSolidPropertyType" minOccurs="0"/>
+			<element name="lod2MultiSolid" type="gml:MultiSolidPropertyType" minOccurs="0"/>
+			<element name="lod3MultiSolid" type="gml:MultiSolidPropertyType" minOccurs="0"/>
+			<element name="bgt-fysiekVoorkomen" type="imgeo:CodeType-r" minOccurs="0"/>
+			<element name="plus-fysiekVoorkomen" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="begroeidTerreindeelOpTalud" type="imgeo:boolean-e" nillable="true" minOccurs="0"/>
+			<element name="kruinlijnBegroeidTerreindeel" type="imgeo:CurvePropertyType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dBegroeidTerreindeel" type="gml:SurfacePropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="BTD"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="BTD-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:BTD-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="FUG-basis">
+		<annotation>
+			<documentation>Functioneel gebied</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod1MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="naam" type="BG:Omschrijving200-e" nillable="true" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dFunctioneelGebied" type="gml:SurfacePropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="FUG"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="FUG-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:FUG-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="GBI-basis">
+		<annotation>
+			<documentation>Gebouwinstallatie</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation0Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation1Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation2Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation3Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-r" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dGebouwinstallatie" type="gml:SurfacePropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="GBI"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="GBI-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:GBI-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="INS-basis">
+		<annotation>
+			<documentation>Installatie</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation0Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation1Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation2Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation3Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-r" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dInstallatie" type="gml:PointPropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="INS"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="INS-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:INS-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="KST-basis">
+		<annotation>
+			<documentation>Kast</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation0Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation1Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation2Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation3Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-r" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dKast" type="gml:PointPropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="KST"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="KST-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:KST-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="KWD-basis">
+		<annotation>
+			<documentation>Kunstwerkdeel</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation0Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation1Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation2Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation3Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dOverigeConstructie" type="imgeo:MultiPuntOfMultiVlakOfLijnOfVlak" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="KWD"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="KWD-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:KWD-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="LDE-basis">
+		<annotation>
+			<documentation>Leidingelement</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="type" type="imgeo:LeidingElementType" minOccurs="0"/>
+			<element name="functie" type="imgeo:LeidingFunctie" minOccurs="0"/>
+			<element name="geometrie2d" type="imgeo:LijnOfPuntOfVlak" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="LDE"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="LDE-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:LDE-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="LDG-basis">
+		<annotation>
+			<documentation>Leiding</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="type" type="imgeo:LeidingType" minOccurs="0"/>
+			<element name="functie" type="imgeo:LeidingFunctie" minOccurs="0"/>
+			<element name="geometrie2d" type="imgeo:LijnOfVlak" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="LDG"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="LDG-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:LDG-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="MST-basis">
+		<annotation>
+			<documentation>Mast</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation0Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation1Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation2Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation3Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-r" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dMast" type="gml:PointPropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="MST"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="MST-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:MST-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="OBD-basis">
+		<annotation>
+			<documentation>Overbruggingsdeel</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1ImplicitRepresentation" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="lod2ImplicitRepresentation" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="lod3ImplicitRepresentation" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="lod0GeometrieOverbruggingsdeel" type="gml:SurfacePropertyType" minOccurs="0"/>
+			<element name="typeOverbruggingsdeel" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="hoortBijTypeOverbrugging" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="overbruggingIsBeweegbaar" type="imgeo:boolean-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dOverbruggingsdeel" type="gml:SurfacePropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="OBD"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="OBD-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:OBD-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="OBW-basis">
+		<annotation>
+			<documentation>Overig bouwwerk</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation0Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation1Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation2Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation3Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dOverigeConstructie" type="imgeo:VlakOfMultiVlak" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="OBW"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="OBW-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:OBW-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="OCO-basis">
+		<annotation>
+			<documentation>Ongeclassificeerd object</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2d" type="gml:SurfacePropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="OCO"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="OCO-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:OCO-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="OPR-basis">
+		<annotation>
+			<documentation>Openbare ruimte</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod1MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="identificatieBAG" type="BG:ObjectNummering-e" nillable="true" minOccurs="0"/>
+			<element name="heeftLabels" type="imgeo:OPRORL-basis" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="geometrie2d" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="OPR"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="OPR-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:OPR-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="OPRORL-basis">
+		<sequence>
+			<element name="gerelateerde" type="imgeo:ORL-basis"/>
+		</sequence>
+		<attribute ref="StUF:noValue"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+		<attribute ref="StUF:entiteittype" use="required" fixed="OPRORL"/>
+	</complexType>
+	<complexType name="ORL-basis">
+		<annotation>
+			<documentation>Openbare ruimte label</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="identificatieBAG_OPR" type="BG:ObjectNummering-e" nillable="true" minOccurs="0"/>
+			<element name="openbareRuimteNaam" type="imgeo:Label" minOccurs="0"/>
+			<element name="openbareRuimteType" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="ORL"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="ORL-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:ORL-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="OSH-basis">
+		<annotation>
+			<documentation>Overige scheiding</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation0Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation1Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation2Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation3Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dOverigeConstructie" type="imgeo:LijnOfVlak" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="OSH"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="OSH-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:OSH-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="OTD-basis">
+		<annotation>
+			<documentation>Onbegroeid terreindeel</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod1MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="bgt-fysiekVoorkomen" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-fysiekVoorkomen" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="onbegroeidTerreindeelOpTalud" type="imgeo:boolean-e" nillable="true" minOccurs="0"/>
+			<element name="kruinlijnOnbegroeidTerreindeel" type="imgeo:CurvePropertyType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dOnbegroeidTerreindeel" type="gml:SurfacePropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="OTD"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="OTD-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:OTD-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="OWG-basis">
+		<annotation>
+			<documentation>Ondersteunend wegdeel</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Surface" type="gml:SurfacePropertyType" minOccurs="0"/>
+			<element name="bgt-functie" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-functie" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="bgt-fysiekVoorkomen" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-fysiekVoorkomen" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="ondersteunendWegdeelOpTalud" type="imgeo:boolean-e" nillable="true" minOccurs="0"/>
+			<element name="kruinlijnOndersteunendWegdeel" type="imgeo:CurvePropertyType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dOndersteunendWegdeel" type="gml:SurfacePropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="OWG"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="OWG-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:OWG-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="OWT-basis">
+		<annotation>
+			<documentation>Ondersteunend waterdeel</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dOndersteunendWaterdeel" type="gml:SurfacePropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="OWT"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="OWT-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:OWT-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="PAL-basis">
+		<annotation>
+			<documentation>Paal</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation0Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation1Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation2Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation3Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-r" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="hectometeraanduiding" type="BG:Omschrijving200-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dPaal" type="gml:PointPropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="PAL"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="PAL-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:PAL-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="PBP-basis">
+		<annotation>
+			<documentation>Plaatsbepalingspunt</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="nauwkeurigheid" type="imgeo:NauwkeurigheidGeometrie-e" nillable="true" minOccurs="0"/>
+			<element name="datumInwinning" type="date" minOccurs="0"/>
+			<element name="inwinnendeInstantie" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="inwinningsmethode" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie" type="gml:PointPropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="PBP"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="PBP-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:PBP-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="PND-basis">
+		<annotation>
+			<documentation>Pand</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod0footprint" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod1MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="identificatieBAG" type="BG:ObjectNummering" minOccurs="0"/>
+			<element name="nummeraanduidingreeks" type="imgeo:Nummeraanduidingreeks-basis" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="geometrie2dGrondvlak" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="PND"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="PND-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:PND-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="PUT-basis">
+		<annotation>
+			<documentation>Put</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation0Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation1Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation2Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation3Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-r" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dPut" type="gml:PointPropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="PUT"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="PUT-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:PUT-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="SHD-basis">
+		<annotation>
+			<documentation>Scheiding</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation0Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation1Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation2Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation3Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dOverigeConstructie" type="imgeo:LijnOfVlak" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="SHD"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="SHD-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:SHD-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="SNS-basis">
+		<annotation>
+			<documentation>Sensor</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation0Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation1Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation2Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation3Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-r" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dSensor" type="imgeo:LijnOfPunt" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="SNS"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="SNS-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:SNS-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="SPR-basis">
+		<annotation>
+			<documentation>Spoor</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Curve" type="gml:CurvePropertyType" minOccurs="0"/>
+			<element name="lod1MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="bgt-functie" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-functie" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dSpoor" type="gml:CurvePropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="SPR"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="SPR-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:SPR-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="STD-basis">
+		<annotation>
+			<documentation>Stadsdeel</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod1MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="naam" type="imgeo:Omschrijving200-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2d" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="STD"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="STD-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:STD-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="STM-basis">
+		<annotation>
+			<documentation>Straatmeubilair</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation0Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation1Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation2Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation3Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-r" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dStraatmeubilair" type="gml:PointPropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="STM"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="STM-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:STM-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="TND-basis">
+		<annotation>
+			<documentation>Tunneldeel</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod1Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+			<element name="lod2Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+			<element name="lod3Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+			<element name="lod1MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod0GeometrieTunneldeel" type="gml:SurfacePropertyType" minOccurs="0"/>
+			<element name="geometrie2dTunneldeel" type="gml:SurfacePropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="TND"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="TND-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:TND-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="VGO-basis">
+		<annotation>
+			<documentation>Vegetatieobject</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation0Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation1Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation2Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation3Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-r" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dVegetatieobject" type="imgeo:LijnOfPuntOfVlak" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="VGO"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="VGO-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:VGO-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="WGD-basis">
+		<annotation>
+			<documentation>Wegdeel</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Surface" type="gml:SurfacePropertyType" minOccurs="0"/>
+			<element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="bgt-functie" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-functie" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="bgt-fysiekVoorkomen" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-fysiekVoorkomen" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="wegdeelOpTalud" type="imgeo:boolean-e" nillable="true" minOccurs="0"/>
+			<element name="kruinlijnWegdeel" type="imgeo:CurvePropertyType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dWegdeel" type="gml:SurfacePropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="WGD"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="WGD-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:WGD-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="WGI-basis">
+		<annotation>
+			<documentation>Weginrichtingselement</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation0Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation1Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation2Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation3Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-r" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dWeginrichtingselement" type="imgeo:LijnOfPuntOfVlak" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="WGI"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="WGI-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:WGI-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="WSP-basis">
+		<annotation>
+			<documentation>Waterschap</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod1MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="naam" type="imgeo:Omschrijving200-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2d" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="WSP"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="WSP-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:WSP-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="WTD-basis">
+		<annotation>
+			<documentation>Waterdeel</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+			<element name="lod1Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+			<element name="lod2Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+			<element name="lod3Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+			<element name="lod0MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod1MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod0MultiCurve" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+			<element name="lod1MultiCurve" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dWaterdeel" type="gml:SurfacePropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="WTD"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="WTD-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:WTD-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="WTI-basis">
+		<annotation>
+			<documentation>Waterinrichtingselement</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod1Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation0Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation1Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation2Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="implicitRepresentation3Geometry" type="cit:ImplicitRepresentationPropertyType" minOccurs="0"/>
+			<element name="bgt-type" type="imgeo:CodeType-r" minOccurs="0"/>
+			<element name="plus-type" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="geometrie2dWaterinrichtingselement" type="imgeo:LijnOfPunt" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="WTI"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="WTI-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:WTI-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="WYK-basis">
+		<annotation>
+			<documentation>Wijk</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="imgeo:NEN3610ID-e" minOccurs="0"/>
+			<element name="creationDate" type="imgeo:date-e" minOccurs="0"/>
+			<element name="terminationDate" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element ref="StUF:tijdstipRegistratie" minOccurs="0"/>
+			<element name="lvPublicatiedatum" type="imgeo:dateTime-e" nillable="true" minOccurs="0"/>
+			<element name="bronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+			<element name="beheerder" type="imgeo:Beheerder" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="inOnderzoek" type="StUF:StatusMetagegevenNoValue" nillable="true" minOccurs="0"/>
+			<element name="relatieveHoogteligging" type="imgeo:RelatieveHoogteligging" minOccurs="0"/>
+			<element name="bgt-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="plus-status" type="imgeo:CodeType-e" nillable="true" minOccurs="0"/>
+			<element name="lod0MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod1MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+			<element name="wijkcode" type="imgeo:WijkIdentificatie-e" minOccurs="0"/>
+			<element name="naam" type="BG:Omschrijving200-e" nillable="true" minOccurs="0"/>
+			<element name="ligtIn" type="imgeo:WYKSTD-basis" nillable="true" minOccurs="0"/>
+			<element name="geometrie2d" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="WYK"/>
+		<attribute ref="StUF:sleutelVerzendend"/>
+		<attribute ref="StUF:sleutelOntvangend"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+	</complexType>
+	<complexType name="WYK-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:WYK-basis">
+				<sequence>
+					<element name="identificatie" type="imgeo:NEN3610ID-r"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="WYKSTD-basis">
+		<sequence>
+			<element name="gerelateerde" type="imgeo:STD-basis"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="WYKSTD"/>
+		<attribute ref="StUF:verwerkingssoort"/>
+		<attribute ref="StUF:noValue"/>
+	</complexType>
+	<!--ComplexTypes tbv proces-->
+	<complexType name="EXP-basis">
+		<annotation>
+			<documentation>Exploratieverzoek</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="StUF:Sleutel"/>
+			<element name="geometrie" type="imgeo:LijnOfPuntOfVlak" minOccurs="0"/>
+			<element name="toelichting" type="imgeo:Omschrijving500" minOccurs="0"/>
+			<element name="documentVerwijzing" type="BG:Url" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="EXP"/>
+	</complexType>
+	<complexType name="MTB-basis">
+		<annotation>
+			<documentation>Mutatiebericht</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="StUF:Sleutel"/>
+			<element name="toelichting" type="imgeo:Omschrijving500" minOccurs="0"/>
+			<element name="documentVerwijzing" type="BG:Url" minOccurs="0"/>
+			<element name="respons" type="imgeo:ResponsMTB" minOccurs="0"/>
+			<element name="isNaarAanleidingVan" type="imgeo:MTBMTV-basis" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="MTB"/>
+	</complexType>
+	<complexType name="MTB-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:MTB-basis">
+				<sequence>
+					<element name="identificatie" type="StUF:Sleutel"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="MTBMTV-basis">
+		<annotation>
+			<documentation>Relatie naar het mutatieverzoek naar aanleiding waarvan dit mutatiebericht wordt verzonden</documentation>
+		</annotation>
+		<sequence>
+			<element name="gerelateerde" type="imgeo:MTV-kerngegevens"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="MTBMTV"/>
+	</complexType>
+	<complexType name="MTO-basis">
+		<annotation>
+			<documentation>Mutatieoproep aan een rakende bronhouder</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="StUF:Sleutel"/>
+			<element name="toelichting" type="imgeo:Omschrijving500" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="MTO"/>
+	</complexType>
+	<complexType name="MTO-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:MTO-basis">
+				<sequence>
+					<element name="identificatie" type="StUF:Sleutel"/>
+				</sequence>
+				<attribute ref="StUF:entiteittype" use="required" fixed="MTO"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="MTV-basis">
+		<annotation>
+			<documentation>Mutatieverzoek</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="StUF:Sleutel"/>
+			<element name="toelichting" type="imgeo:Omschrijving500" minOccurs="0"/>
+			<element name="documentVerwijzing" type="imgeo:Omschrijving80" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="MTV"/>
+	</complexType>
+	<complexType name="MTV-kerngegevens">
+		<complexContent>
+			<restriction base="imgeo:MTV-basis">
+				<sequence>
+					<element name="identificatie" type="StUF:Sleutel"/>
+				</sequence>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="OPV-basis">
+		<annotation>
+			<documentation>Ophaalverzoek</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="StUF:Sleutel"/>
+			<element name="stuurgegevens" type="StUF:Stuurgegevens"/>
+			<element ref="gb:digikoppeling-external-datareferences"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="OPV"/>
+	</complexType>
+	<complexType name="VAV-basis">
+		<annotation>
+			<documentation>Vooraankondigingverzoek</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificatie" type="StUF:Sleutel"/>
+			<element name="begindatum" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element name="einddatum" type="imgeo:date-e" nillable="true" minOccurs="0"/>
+			<element name="toelichting" type="imgeo:Omschrijving500" minOccurs="0"/>
+			<element name="geometrie" type="gml:SurfacePropertyType" minOccurs="0"/>
+			<element name="muterendeBronhouder" type="imgeo:BronhouderCode-e" nillable="true" minOccurs="0"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="VAV"/>
+	</complexType>
+	<complexType name="WGB-basis">
+		<annotation>
+			<documentation>Weigerbericht</documentation>
+		</annotation>
+		<sequence>
+			<element name="isWeigeringOp" type="imgeo:WGBMTV-basis"/>
+			<element name="afgekeurdObject" type="imgeo:AfgekeurdObject"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="WGB"/>
+	</complexType>
+	<complexType name="WGBMTV-basis">
+		<sequence>
+			<element name="gerelateerde" type="imgeo:MTV-kerngegevens"/>
+		</sequence>
+		<attribute ref="StUF:entiteittype" use="required" fixed="WGBMTV"/>
+	</complexType>
+</schema>
