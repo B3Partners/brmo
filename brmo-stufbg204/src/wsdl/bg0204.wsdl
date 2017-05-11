@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:BG="http://www.egem.nl/StUF/sector/bg/0204" xmlns:StUF="http://www.egem.nl/StUF/StUF0204" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xs="http://www.w3.org/2001/XMLSchema" name="StUFBG" targetNamespace="http://www.egem.nl/StUF/sector/bg/0204">
+	<documentation>
+Dit document definieert de webservices voor het sectormodel basisgegevens.
+Dit document gaat uit van twee webservices:
+1.	voor het ontvangen van asynchrone berichten (kennisgevingen, asynchrone antwoorden, asynchrone vragen en foutberichten)
+2.	voor het ontvangen van synchrone vragen.
+Dit kan natuurlijk anders worden ingericht en dit leidt tot aanpassingen in het WSDL-document met de definitie van deze andere services.
+
+Hieronder worden de verschillende berichten gedefinieerd die voorkomen in het sectormodel Basisgegevens. Dit wordt gedaan door per StUF-berichttype specifiek voor het sectormodel Basisgegevens (kennisgeving, vraag, synchroon antwoord en asynchroon antwoord) en per generiek StUF-berichttype (bevestiging en fout) een message te definieren. Voor de sectormodel specifieke berichten wordt gebruikt gemaakt van de berichtdefinitie in dat sectormodel.
+Version 020403
+Wijzigingen vergeleken met 020402:
+- ERR0116: aan schemaLocation van import van "http://www.egem.nl/StUF/StUF0204" gewijzigd in "../0204/stuf0204.xsd".
+
+Wijzigingen vergeleken met 020401:
+- import statements WS-I compliant gemaakt
+- namespace "http://www.egem.nl/StUF/wsdl/bg0204.wsdl" verwijderd en vervangen door "http://www.egem.nl/StUF/sector/bg/0204" en targetnamespace gewijzigd in "http://www.egem.nl/StUF/sector/bg/0204"
+- soapAction gevuld met namespaceUri sectormodel BG0204 gevolgd door '/' en de operation name.
+	</documentation>
+	<types>
+		<xs:schema>
+			<xs:import namespace="http://www.egem.nl/StUF/StUF0204" schemaLocation="bgstuf0204.xsd"/>
+			<xs:import namespace="http://www.egem.nl/StUF/sector/bg/0204" schemaLocation="bg0204.xsd"/>
+		</xs:schema>
+	</types>
+	<message name="StUFBG_Kennisgeving">
+		<part name="kennisgeving" element="BG:kennisgevingsBericht"/>
+	</message>
+	<message name="StUFBG_Vraag">
+		<part name="vraag" element="BG:vraagBericht"/>
+	</message>
+	<message name="StUFBG_AsynchroonAntwoord">
+		<part name="asynchroonAntwoord" element="BG:asynchroonAntwoordBericht"/>
+	</message>
+	<message name="StUFBG_SynchroonAntwoord">
+		<part name="synchroonAntwoord" element="BG:synchroonAntwoordBericht"/>
+	</message>
+	<message name="StUF_Bevestiging">
+		<part name="bevestiging" element="StUF:bevestigingsBericht"/>
+	</message>
+	<message name="StUF_Fout">
+		<part name="fout" element="StUF:foutBericht"/>
+	</message>
+	<portType name="StUFBG_AsynchroonPortType">
+		<documentation>
+Met behulp van portTypes worden op abstract niveau de verschillende varianten voor het uitwisselen van StUF-berichten gedefinieerd gegroepeerd naar de synchrone en de asynchrone uitwisseling.
+Asynchroon zijn er de varianten: ontvangKennisgeving, ontvang asynchroneVraag, ontvang asynchroonAntwoord en ontvangFout.
+	</documentation>
+		<operation name="ontvangKennisgeving">
+			<input message="BG:StUFBG_Kennisgeving"/>
+			<output message="BG:StUF_Bevestiging"/>
+		</operation>
+		<operation name="ontvangAsynchroneVraag">
+			<input message="BG:StUFBG_Vraag"/>
+			<output message="BG:StUF_Bevestiging"/>
+		</operation>
+		<operation name="ontvangAsynchroonAntwoord">
+			<input message="BG:StUFBG_AsynchroonAntwoord"/>
+			<output message="BG:StUF_Bevestiging"/>
+		</operation>
+		<operation name="ontvangFout">
+			<input message="BG:StUF_Fout"/>
+			<output message="BG:StUF_Bevestiging"/>
+		</operation>
+	</portType>
+	<portType name="StUFBG_SynchroonPortType">
+		<documentation>
+Synchroon is er alleen beantwoordVraag met als response hetzij het antwoord, hetzij een foutbericht.
+	</documentation>
+		<operation name="beantwoordSynchroneVraag">
+			<input message="BG:StUFBG_Vraag"/>
+			<output message="BG:StUFBG_SynchroonAntwoord"/>
+			<fault name="StUF_Fout" message="BG:StUF_Fout"/>
+		</operation>
+	</portType>
+	<binding name="StUFSOAPBindingAsynchroon" type="BG:StUFBG_AsynchroonPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="ontvangKennisgeving">
+			<documentation>
+We definieren als soapAction http://www.egem.nl/StUF om aan te geven dat de service uitsluitend door StUF gedefineerde berichten mag verwachten.
+Omdat de uit te wisselen berichten volledig gedefinieerd zijn in het sectormodel cq de StUF-standaard, kunnen we ze zonder verdere encoding (“literal”) opnemen in de body.
+			</documentation>
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0204/ontvangKennisgeving"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ontvangAsynchroneVraag">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0204/ontvangAsynchroneVraag"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ontvangAsynchroonAntwoord">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0204/ontvangAsynchroonAntwoord"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ontvangFout">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0204/ontvangFout"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<binding name="StUFSOAPBindingSynchroon" type="BG:StUFBG_SynchroonPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="beantwoordSynchroneVraag">
+			<soap:operation soapAction="http://www.egem.nl/StUF/sector/bg/0204/beantwoordSynchroneVraag"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="StUF_Fout">
+				<soap:fault name="StUF_Fout" use="literal"/>
+			</fault>
+		</operation>
+	</binding>
+	<service name="StUFBGAsynchroon">
+		<documentation>
+Hieronder worden de twee concreet aan te roepen services voor het ontvangen van asynchrone en van synchrone services gedefinieerd. Er is gekozen voor twee verschillende services, omdat een asynchrone service feitelijk als enige taak heeft het ontvangen bericht te persisteren en dit persisteren te bevestigen naar de zender van het bericht. Bij de synchrone service dient onmiddellijk een antwoord geformuleerd te worden op de gestelde vraag.
+Het beantwoorden van een vraag kan veel meer resources vergen en dient op een andere wijze getuned te kunnen worden, dan het opslaan van een inkomend bericht.
+In het endpoint dient de url nog correct te worden ingevuld.
+		</documentation>
+		<port name="StUFBGAsynchronePort" binding="BG:StUFSOAPBindingAsynchroon">
+			<soap:address location="http://example.com/StUFBGAsynchroon"/>
+		</port>
+	</service>
+	<service name="StUFBGSynchroon">
+		<port name="StUFBGSynchronePort" binding="BG:StUFSOAPBindingSynchroon">
+			<soap:address location="http://example.com/StUFBGSynchroon"/>
+		</port>
+	</service>
+</definitions>
