@@ -385,6 +385,39 @@
 			<fk_28nra_sc_identif><xsl:value-of select="cat:woonLocatie//cat:bagId//cat:identificatieAdresseerbaarObject"/></fk_28nra_sc_identif>
 		</ingeschr_nat_prs>
 	</xsl:template>
+	
+	<xsl:template match="cat:buitenlandseVennootschap">
+		<xsl:variable name="key"><xsl:apply-templates select="." mode="object_ref"/></xsl:variable>		
+		<xsl:variable name="class">ANDER BUITENLANDS NIET-NATUURLIJK
+PERSOON</xsl:variable>
+		<subject>
+			<identif><xsl:value-of select="$key"/></identif>
+			<clazz><xsl:value-of select="$class"/></clazz>
+			<typering><xsl:value-of select="substring($class,1,35)"/></typering>
+			<naam><xsl:value-of select="cat:volledigeNaam"/></naam>
+
+			<xsl:call-template name="subject"/>
+		</subject>
+		<prs>
+			<sc_identif><xsl:value-of select="$key"/></sc_identif>
+			<clazz><xsl:value-of select="$class"/></clazz>
+		</prs>
+		<niet_nat_prs>
+			<sc_identif><xsl:value-of select="$key"/></sc_identif>
+			<clazz><xsl:value-of select="$class"/></clazz>
+			<naam><xsl:value-of select="cat:naam"/></naam>
+			<xsl:for-each select="cat:verkorteNaam">
+				<!-- max lengte NHR en RSGB beide 45 -->
+				<verkorte_naam><xsl:value-of select="."/></verkorte_naam>
+			</xsl:for-each>
+			<xsl:call-template name="registratie-datum">
+				<xsl:with-param name="einde" select="'datum_beeindiging'"/>
+			</xsl:call-template>
+		</niet_nat_prs>	
+		<ander_btnlnds_niet_nat_prs>
+			<sc_identif><xsl:value-of select="$key"/></sc_identif>
+		</ander_btnlnds_niet_nat_prs>
+	</xsl:template>
 		
 	<xsl:template match="*">
 		<xsl:comment>Catch-all template voor onbekend element <xsl:value-of select="local-name()"/></xsl:comment>
