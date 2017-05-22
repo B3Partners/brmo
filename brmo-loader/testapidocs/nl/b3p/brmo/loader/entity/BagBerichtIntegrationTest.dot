@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.AbstractDatabaseIntegrationTest
-	c220 [label=<<table title="nl.b3p.AbstractDatabaseIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../AbstractDatabaseIntegrationTest.html">
+	c216 [label=<<table title="nl.b3p.AbstractDatabaseIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../AbstractDatabaseIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractDatabaseIntegrationTest </font></td></tr>
 		</table></td></tr>
@@ -48,7 +48,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BagBerichtIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.entity.BagBerichtIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c220:p -> c227:p [dir=back,arrowtail=empty];
+	c216:p -> c227:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.loader.entity.BagBerichtIntegrationTest NAVASSOC nl.b3p.brmo.loader.BrmoFramework
 	c227:p -> c230:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.BrmoFramework

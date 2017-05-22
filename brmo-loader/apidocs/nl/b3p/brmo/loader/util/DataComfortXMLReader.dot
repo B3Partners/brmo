@@ -9,8 +9,21 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.loader.util.DataComfortXMLReader
+	c1486 [label=<<table title="nl.b3p.brmo.loader.util.DataComfortXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DataComfortXMLReader.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> DataComfortXMLReader </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + DataComfortXMLReader() </td></tr>
+<tr><td align="left" balign="left"> + readDataXML(dataXML : Source) : List&lt;TableData&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./DataComfortXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.RsgbProxy
-	c1481 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../RsgbProxy.html">
+	c1488 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../RsgbProxy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RsgbProxy </td></tr>
 		</table></td></tr>
@@ -44,25 +57,12 @@ digraph G {
 <tr><td align="left" balign="left"> + setHerkomstMetadata(herkomstMetadata : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../RsgbProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.util.DataComfortXMLReader
-	c1494 [label=<<table title="nl.b3p.brmo.loader.util.DataComfortXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DataComfortXMLReader.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> DataComfortXMLReader </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + DataComfortXMLReader() </td></tr>
-<tr><td align="left" balign="left"> + readDataXML(dataXML : Source) : List&lt;TableData&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="./DataComfortXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.util.DataComfortXMLReader
-	c1481:p -> c1494:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.util.DataComfortXMLReader
-	c1481:p -> c1494:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.util.DataComfortXMLReader NAVASSOC com.vividsolutions.jts.geom.GeometryFactory
-	c1494:p -> c1522:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1486:p -> c1522:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.util.DataComfortXMLReader
+	c1488:p -> c1486:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.util.DataComfortXMLReader
+	c1488:p -> c1486:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.vividsolutions.jts.geom.GeometryFactory
 	c1522 [label=<<table title="com.vividsolutions.jts.geom.GeometryFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">

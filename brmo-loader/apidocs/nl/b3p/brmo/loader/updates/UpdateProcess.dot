@@ -9,26 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.loader.updates.UpdateProcess
-	c2798 [label=<<table title="nl.b3p.brmo.loader.updates.UpdateProcess" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./UpdateProcess.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> UpdateProcess </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + UpdateProcess(name : String, soort : String, xsl : String) </td></tr>
-<tr><td align="left" balign="left"> + getName() : String </td></tr>
-<tr><td align="left" balign="left"> + setName(name : String) </td></tr>
-<tr><td align="left" balign="left"> + getSoort() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoort(soort : String) </td></tr>
-<tr><td align="left" balign="left"> + getXsl() : String </td></tr>
-<tr><td align="left" balign="left"> + setXsl(xsl : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./UpdateProcess.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.RsgbProxy
-	c2809 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../RsgbProxy.html">
+	c2816 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../RsgbProxy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RsgbProxy </td></tr>
 		</table></td></tr>
@@ -62,7 +44,25 @@ digraph G {
 <tr><td align="left" balign="left"> + setHerkomstMetadata(herkomstMetadata : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../RsgbProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.updates.UpdateProcess
+	c2821 [label=<<table title="nl.b3p.brmo.loader.updates.UpdateProcess" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./UpdateProcess.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> UpdateProcess </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + UpdateProcess(name : String, soort : String, xsl : String) </td></tr>
+<tr><td align="left" balign="left"> + getName() : String </td></tr>
+<tr><td align="left" balign="left"> + setName(name : String) </td></tr>
+<tr><td align="left" balign="left"> + getSoort() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoort(soort : String) </td></tr>
+<tr><td align="left" balign="left"> + getXsl() : String </td></tr>
+<tr><td align="left" balign="left"> + setXsl(xsl : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./UpdateProcess.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.updates.UpdateProcess
-	c2809:p -> c2798:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2816:p -> c2821:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -9,33 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.loader.jdbc.PostgisJdbcConverter
-	c2218 [label=<<table title="nl.b3p.brmo.loader.jdbc.PostgisJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PostgisJdbcConverter.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PostgisJdbcConverter </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PostgisJdbcConverter() </td></tr>
-<tr><td align="left" balign="left"> + isDuplicateKeyViolationMessage(message : String) : boolean </td></tr>
-<tr><td align="left" balign="left"> + createPSGeometryPlaceholder() : String </td></tr>
-<tr><td align="left" balign="left"> + convertToNativeGeometryObject(param : String) : Object </td></tr>
-<tr><td align="left" balign="left"> + getSchema() : String </td></tr>
-<tr><td align="left" balign="left"> + setSchema(schema : String) </td></tr>
-<tr><td align="left" balign="left"> + getGeomTypeName() : String </td></tr>
-<tr><td align="left" balign="left"> + buildPaginationSql(sql : String, offset : int, limit : int) : String </td></tr>
-<tr><td align="left" balign="left"> + buildLimitSql(sql : StringBuilder, limit : int) : StringBuilder </td></tr>
-<tr><td align="left" balign="left"> + useSavepoints() : boolean </td></tr>
-<tr><td align="left" balign="left"> + isPmdKnownBroken() : boolean </td></tr>
-<tr><td align="left" balign="left"> + getGeotoolsDBTypeName() : String </td></tr>
-<tr><td align="left" balign="left"> + getMViewsSQL() : String </td></tr>
-<tr><td align="left" balign="left"> + getMViewRefreshSQL(mview : String) : String </td></tr>
-		</table></td></tr>
-		</table>>, URL="./PostgisJdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c2219 [label=<<table title="nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GeometryJdbcConverter.html">
+	c2250 [label=<<table title="nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GeometryJdbcConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> GeometryJdbcConverter </font></td></tr>
 		</table></td></tr>
@@ -59,7 +34,32 @@ digraph G {
 <tr><td align="left" balign="left"> + convertToSQLObject(stringValue : String, cm : ColumnMetadata, tableName : String, column : String) : Object </td></tr>
 		</table></td></tr>
 		</table>>, URL="./GeometryJdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.jdbc.PostgisJdbcConverter
+	c2252 [label=<<table title="nl.b3p.brmo.loader.jdbc.PostgisJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PostgisJdbcConverter.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PostgisJdbcConverter </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PostgisJdbcConverter() </td></tr>
+<tr><td align="left" balign="left"> + isDuplicateKeyViolationMessage(message : String) : boolean </td></tr>
+<tr><td align="left" balign="left"> + createPSGeometryPlaceholder() : String </td></tr>
+<tr><td align="left" balign="left"> + convertToNativeGeometryObject(param : String) : Object </td></tr>
+<tr><td align="left" balign="left"> + getSchema() : String </td></tr>
+<tr><td align="left" balign="left"> + setSchema(schema : String) </td></tr>
+<tr><td align="left" balign="left"> + getGeomTypeName() : String </td></tr>
+<tr><td align="left" balign="left"> + buildPaginationSql(sql : String, offset : int, limit : int) : String </td></tr>
+<tr><td align="left" balign="left"> + buildLimitSql(sql : StringBuilder, limit : int) : StringBuilder </td></tr>
+<tr><td align="left" balign="left"> + useSavepoints() : boolean </td></tr>
+<tr><td align="left" balign="left"> + isPmdKnownBroken() : boolean </td></tr>
+<tr><td align="left" balign="left"> + getGeotoolsDBTypeName() : String </td></tr>
+<tr><td align="left" balign="left"> + getMViewsSQL() : String </td></tr>
+<tr><td align="left" balign="left"> + getMViewRefreshSQL(mview : String) : String </td></tr>
+		</table></td></tr>
+		</table>>, URL="./PostgisJdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.jdbc.PostgisJdbcConverter extends nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c2219:p -> c2218:p [dir=back,arrowtail=empty];
+	c2250:p -> c2252:p [dir=back,arrowtail=empty];
 }
 

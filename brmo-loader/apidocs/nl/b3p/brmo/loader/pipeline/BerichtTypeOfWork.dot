@@ -9,8 +9,23 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork
+	c906 [label=<<table title="nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BerichtTypeOfWork.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> BerichtTypeOfWork </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> TRANSFORM_TO_TABLEDATA </td></tr>
+<tr><td align="left" balign="left"> PROCESS_DBXML </td></tr>
+<tr><td align="left" balign="left"> UPDATE_RESULT </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BerichtTypeOfWork.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.pipeline.BerichtWorkUnit
-	c927 [label=<<table title="nl.b3p.brmo.loader.pipeline.BerichtWorkUnit" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtWorkUnit.html">
+	c908 [label=<<table title="nl.b3p.brmo.loader.pipeline.BerichtWorkUnit" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtWorkUnit.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BerichtWorkUnit </td></tr>
 		</table></td></tr>
@@ -27,22 +42,7 @@ digraph G {
 <tr><td align="left" balign="left"> + setTableData(tableData : List&lt;TableData&gt;) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BerichtWorkUnit.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork
-	c929 [label=<<table title="nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BerichtTypeOfWork.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> BerichtTypeOfWork </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> TRANSFORM_TO_TABLEDATA </td></tr>
-<tr><td align="left" balign="left"> PROCESS_DBXML </td></tr>
-<tr><td align="left" balign="left"> UPDATE_RESULT </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BerichtTypeOfWork.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.pipeline.BerichtWorkUnit NAVASSOC nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork
-	c927:p -> c929:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c908:p -> c906:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

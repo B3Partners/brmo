@@ -9,8 +9,25 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.loader.xml.BagXMLReader
+	c685 [label=<<table title="nl.b3p.brmo.loader.xml.BagXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BagXMLReader.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BagXMLReader </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + MUTATIE_PRODUCT : String </td></tr>
+<tr><td align="left" balign="left"> + LVC_PRODUCT : String </td></tr>
+<tr><td align="left" balign="left"> + lvcProductToObjectType : Map&lt;String, String&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BagXMLReader(in : InputStream) </td></tr>
+<tr><td align="left" balign="left"> + init() </td></tr>
+<tr><td align="left" balign="left"> + hasNext() : boolean </td></tr>
+<tr><td align="left" balign="left"> + next() : BagBericht </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BagXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c702 [label=<<table title="nl.b3p.brmo.loader.xml.BrmoXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoXMLReader.html">
+	c688 [label=<<table title="nl.b3p.brmo.loader.xml.BrmoXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoXMLReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> BrmoXMLReader </font></td></tr>
 		</table></td></tr>
@@ -42,25 +59,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setContactEmail(contactEmail : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BrmoXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.xml.BagXMLReader
-	c703 [label=<<table title="nl.b3p.brmo.loader.xml.BagXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BagXMLReader.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BagXMLReader </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MUTATIE_PRODUCT : String </td></tr>
-<tr><td align="left" balign="left"> + LVC_PRODUCT : String </td></tr>
-<tr><td align="left" balign="left"> + lvcProductToObjectType : Map&lt;String, String&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BagXMLReader(in : InputStream) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + hasNext() : boolean </td></tr>
-<tr><td align="left" balign="left"> + next() : BagBericht </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BagXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.BagBericht
-	c719 [label=<<table title="nl.b3p.brmo.loader.entity.BagBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../entity/BagBericht.html">
+	c723 [label=<<table title="nl.b3p.brmo.loader.entity.BagBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../entity/BagBericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BagBericht </td></tr>
 		</table></td></tr>
@@ -77,8 +77,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../entity/BagBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.xml.BagXMLReader extends nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c702:p -> c703:p [dir=back,arrowtail=empty];
+	c688:p -> c685:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.loader.xml.BagXMLReader NAVASSOC nl.b3p.brmo.loader.entity.BagBericht
-	c703:p -> c719:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c685:p -> c723:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 
