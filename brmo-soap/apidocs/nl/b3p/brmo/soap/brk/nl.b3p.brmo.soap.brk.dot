@@ -9,26 +9,45 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.soap.brk.HistorischeRelatieResponse
-	c84 [label=<<table title="nl.b3p.brmo.soap.brk.HistorischeRelatieResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HistorischeRelatieResponse.html">
+	// nl.b3p.brmo.soap.brk.ZakelijkRechtResponse
+	c42 [label=<<table title="nl.b3p.brmo.soap.brk.ZakelijkRechtResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ZakelijkRechtResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> HistorischeRelatieResponse </td></tr>
+<tr><td align="center" balign="center"> ZakelijkRechtResponse </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + HistorischeRelatieResponse() </td></tr>
-<tr><td align="left" balign="left"> + getIdentificatie() : String </td></tr>
-<tr><td align="left" balign="left"> + setIdentificatie(identificatie : String) </td></tr>
-<tr><td align="left" balign="left"> + getAard() : String </td></tr>
-<tr><td align="left" balign="left"> + setAard(aard : String) </td></tr>
-<tr><td align="left" balign="left"> + getOvergangsgrootte() : Float </td></tr>
-<tr><td align="left" balign="left"> + setOvergangsgrootte(overgangsgrootte : Float) </td></tr>
+<tr><td align="left" balign="left"> + ZakelijkRechtResponse() </td></tr>
+<tr><td align="left" balign="left"> + getNoemer() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setNoemer(noemer : Integer) </td></tr>
+<tr><td align="left" balign="left"> + getTeller() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setTeller(teller : Integer) </td></tr>
+<tr><td align="left" balign="left"> + isIndicatieBetrokkenInSplitsing() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setIndicatieBetrokkenInSplitsing(indicatieBetrokkenInSplitsing : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getAardVerkregenRecht() : String </td></tr>
+<tr><td align="left" balign="left"> + setAardVerkregenRecht(aardVerkregenRecht : String) </td></tr>
+<tr><td align="left" balign="left"> + getNatuurlijkPersoon() : NatuurlijkPersoonResponse </td></tr>
+<tr><td align="left" balign="left"> + setNatuurlijkPersoon(natuurlijkPersoon : NatuurlijkPersoonResponse) </td></tr>
+<tr><td align="left" balign="left"> + getNietNatuurlijkPersoon() : NietNatuurlijkPersoonResponse </td></tr>
+<tr><td align="left" balign="left"> + setNietNatuurlijkPersoon(nietNatuurlijkPersoon : NietNatuurlijkPersoonResponse) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./HistorischeRelatieResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./ZakelijkRechtResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.brk.GetBrkInfoImpl
+	c43 [label=<<table title="nl.b3p.brmo.soap.brk.GetBrkInfoImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GetBrkInfoImpl.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> GetBrkInfoImpl </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GetBrkInfoImpl() </td></tr>
+<tr><td align="left" balign="left"> + getBrkInfo(request : BrkInfoRequest) : BrkInfoResponse </td></tr>
+		</table></td></tr>
+		</table>>, URL="./GetBrkInfoImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.RechtenResponse
-	c85 [label=<<table title="nl.b3p.brmo.soap.brk.RechtenResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RechtenResponse.html">
+	c44 [label=<<table title="nl.b3p.brmo.soap.brk.RechtenResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RechtenResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RechtenResponse </td></tr>
 		</table></td></tr>
@@ -42,8 +61,32 @@ digraph G {
 <tr><td align="left" balign="left"> + getRechtenByKoz(kozId : Long, searchContext : Map&lt;String, Object&gt;) : RechtenResponse </td></tr>
 		</table></td></tr>
 		</table>>, URL="./RechtenResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.brk.AdresResponse
+	c45 [label=<<table title="nl.b3p.brmo.soap.brk.AdresResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdresResponse.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> AdresResponse </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AdresResponse() </td></tr>
+<tr><td align="left" balign="left"> + getStraatNaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setStraatNaam(straatNaam : String) </td></tr>
+<tr><td align="left" balign="left"> + getHuisnummer() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setHuisnummer(huisnummer : Integer) </td></tr>
+<tr><td align="left" balign="left"> + getHuisLetter() : String </td></tr>
+<tr><td align="left" balign="left"> + setHuisLetter(huisLetter : String) </td></tr>
+<tr><td align="left" balign="left"> + getHuisLetterToevoeging() : String </td></tr>
+<tr><td align="left" balign="left"> + setHuisLetterToevoeging(huisLetterToevoeging : String) </td></tr>
+<tr><td align="left" balign="left"> + getPostcode() : String </td></tr>
+<tr><td align="left" balign="left"> + setPostcode(postcode : String) </td></tr>
+<tr><td align="left" balign="left"> + getWoonplaatsNaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setWoonplaatsNaam(woonplaatsNaam : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./AdresResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.BrkInfoRequest
-	c86 [label=<<table title="nl.b3p.brmo.soap.brk.BrkInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkInfoRequest.html">
+	c46 [label=<<table title="nl.b3p.brmo.soap.brk.BrkInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkInfoRequest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrkInfoRequest </td></tr>
 		</table></td></tr>
@@ -72,29 +115,93 @@ digraph G {
 <tr><td align="left" balign="left"> + setPerceelAdres(perceelAdres : PerceelAdresInfoRequest) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BrkInfoRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse
-	c87 [label=<<table title="nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NietNatuurlijkPersoonResponse.html">
+	// nl.b3p.brmo.soap.brk.BrkInfoException
+	c47 [label=<<table title="nl.b3p.brmo.soap.brk.BrkInfoException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkInfoException.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> NietNatuurlijkPersoonResponse </td></tr>
+<tr><td align="center" balign="center"> BrkInfoException </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> ~ detail : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BrkInfoException(message : String, detail : String) </td></tr>
+<tr><td align="left" balign="left"> + getDetail() : String </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BrkInfoException.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.brk.BrkInfoResponse
+	c48 [label=<<table title="nl.b3p.brmo.soap.brk.BrkInfoResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkInfoResponse.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BrkInfoResponse </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + NietNatuurlijkPersoonResponse() </td></tr>
+<tr><td align="left" balign="left"> + BrkInfoResponse() </td></tr>
+<tr><td align="left" balign="left"> + isBevatGevoeligeInfo() : Boolean </td></tr>
+<tr><td align="left" balign="left"> + setBevatGevoeligeInfo(bevatGevoeligeInfo : Boolean) </td></tr>
+<tr><td align="left" balign="left"> + getTimestamp() : Date </td></tr>
+<tr><td align="left" balign="left"> + setTimestamp(timestamp : Date) </td></tr>
+<tr><td align="left" balign="left"> + getKadOnrndZk() : List&lt;KadOnrndZkInfoResponse&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKadOnrndZk(kadOnrndZk : List&lt;KadOnrndZkInfoResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + addKadOnrndZk(koz : KadOnrndZkInfoResponse) : List&lt;KadOnrndZkInfoResponse&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BrkInfoResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.brk.HistorischeRelatieResponse
+	c49 [label=<<table title="nl.b3p.brmo.soap.brk.HistorischeRelatieResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HistorischeRelatieResponse.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> HistorischeRelatieResponse </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + HistorischeRelatieResponse() </td></tr>
 <tr><td align="left" balign="left"> + getIdentificatie() : String </td></tr>
 <tr><td align="left" balign="left"> + setIdentificatie(identificatie : String) </td></tr>
-<tr><td align="left" balign="left"> + getRechtsvorm() : String </td></tr>
-<tr><td align="left" balign="left"> + setRechtsvorm(rechtsvorm : String) </td></tr>
-<tr><td align="left" balign="left"> + getStatutaireZetel() : String </td></tr>
-<tr><td align="left" balign="left"> + setStatutaireZetel(statutaireZetel : String) </td></tr>
-<tr><td align="left" balign="left"> + getNaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setNaam(naam : String) </td></tr>
-<tr><td align="left" balign="left"> + getRecordById(id : String, searchContext : Map&lt;String, Object&gt;) : NietNatuurlijkPersoonResponse </td></tr>
+<tr><td align="left" balign="left"> + getAard() : String </td></tr>
+<tr><td align="left" balign="left"> + setAard(aard : String) </td></tr>
+<tr><td align="left" balign="left"> + getOvergangsgrootte() : Float </td></tr>
+<tr><td align="left" balign="left"> + setOvergangsgrootte(overgangsgrootte : Float) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./NietNatuurlijkPersoonResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./HistorischeRelatieResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse
+	c50 [label=<<table title="nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NatuurlijkPersoonResponse.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> NatuurlijkPersoonResponse </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NatuurlijkPersoonResponse() </td></tr>
+<tr><td align="left" balign="left"> + getIdentificatie() : String </td></tr>
+<tr><td align="left" balign="left"> + setIdentificatie(identificatie : String) </td></tr>
+<tr><td align="left" balign="left"> + getGeboortedatum() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setGeboortedatum(geboortedatum : Integer) </td></tr>
+<tr><td align="left" balign="left"> + getOverlijdensdatum() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setOverlijdensdatum(overlijdensdatum : Integer) </td></tr>
+<tr><td align="left" balign="left"> + getBsn() : String </td></tr>
+<tr><td align="left" balign="left"> + setBsn(bsn : String) </td></tr>
+<tr><td align="left" balign="left"> + getGeboorteplaats() : String </td></tr>
+<tr><td align="left" balign="left"> + setGeboorteplaats(geboorteplaats : String) </td></tr>
+<tr><td align="left" balign="left"> + getLocatieBeschrijving() : String </td></tr>
+<tr><td align="left" balign="left"> + setLocatieBeschrijving(locatieBeschrijving : String) </td></tr>
+<tr><td align="left" balign="left"> + getAanduidingNaamgebruik() : String </td></tr>
+<tr><td align="left" balign="left"> + setAanduidingNaamgebruik(aanduidingNaamgebruik : String) </td></tr>
+<tr><td align="left" balign="left"> + getGeslachtsaanduiding() : String </td></tr>
+<tr><td align="left" balign="left"> + setGeslachtsaanduiding(geslachtsaanduiding : String) </td></tr>
+<tr><td align="left" balign="left"> + getGeslachtsnaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setGeslachtsnaam(geslachtsnaam : String) </td></tr>
+<tr><td align="left" balign="left"> + getVoornamen() : String </td></tr>
+<tr><td align="left" balign="left"> + setVoornamen(voornamen : String) </td></tr>
+<tr><td align="left" balign="left"> + getVoorvoegsel() : String </td></tr>
+<tr><td align="left" balign="left"> + setVoorvoegsel(voorvoegsel : String) </td></tr>
+<tr><td align="left" balign="left"> + getRecordById(id : String, searchContext : Map&lt;String, Object&gt;) : NatuurlijkPersoonResponse </td></tr>
+		</table></td></tr>
+		</table>>, URL="./NatuurlijkPersoonResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.AdressenResponse
-	c88 [label=<<table title="nl.b3p.brmo.soap.brk.AdressenResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdressenResponse.html">
+	c51 [label=<<table title="nl.b3p.brmo.soap.brk.AdressenResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdressenResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AdressenResponse </td></tr>
 		</table></td></tr>
@@ -108,8 +215,50 @@ digraph G {
 <tr><td align="left" balign="left"> + getAdressenByKoz(kozId : Long) : AdressenResponse </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AdressenResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest
+	c52 [label=<<table title="nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KadOnrndZkInfoRequest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> KadOnrndZkInfoRequest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KadOnrndZkInfoRequest() </td></tr>
+<tr><td align="left" balign="left"> + getGemeentecode() : String </td></tr>
+<tr><td align="left" balign="left"> + setGemeentecode(gemeentecode : String) </td></tr>
+<tr><td align="left" balign="left"> + getSectie() : String </td></tr>
+<tr><td align="left" balign="left"> + setSectie(sectie : String) </td></tr>
+<tr><td align="left" balign="left"> + getPerceelnummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setPerceelnummer(perceelnummer : String) </td></tr>
+<tr><td align="left" balign="left"> + getAppReVolgnummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setAppReVolgnummer(appReVolgnummer : String) </td></tr>
+<tr><td align="left" balign="left"> + getIdentificatie() : String </td></tr>
+<tr><td align="left" balign="left"> + setIdentificatie(identificatie : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./KadOnrndZkInfoRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest
+	c53 [label=<<table title="nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PerceelAdresInfoRequest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PerceelAdresInfoRequest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PerceelAdresInfoRequest() </td></tr>
+<tr><td align="left" balign="left"> + getStraatNaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setStraatNaam(straatNaam : String) </td></tr>
+<tr><td align="left" balign="left"> + getHuisnummer() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setHuisnummer(huisnummer : Integer) </td></tr>
+<tr><td align="left" balign="left"> + getPostcode() : String </td></tr>
+<tr><td align="left" balign="left"> + setPostcode(postcode : String) </td></tr>
+<tr><td align="left" balign="left"> + getWoonplaatsNaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setWoonplaatsNaam(woonplaatsNaam : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./PerceelAdresInfoRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse
-	c89 [label=<<table title="nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KadOnrndZkInfoResponse.html">
+	c54 [label=<<table title="nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KadOnrndZkInfoResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KadOnrndZkInfoResponse </td></tr>
 		</table></td></tr>
@@ -159,117 +308,29 @@ digraph G {
 <tr><td align="left" balign="left"> + getRecord(id : Long, searchContext : Map&lt;String, Object&gt;) : KadOnrndZkInfoResponse </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KadOnrndZkInfoResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.brk.BrkInfoResponse
-	c90 [label=<<table title="nl.b3p.brmo.soap.brk.BrkInfoResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkInfoResponse.html">
+	// nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse
+	c55 [label=<<table title="nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NietNatuurlijkPersoonResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BrkInfoResponse </td></tr>
+<tr><td align="center" balign="center"> NietNatuurlijkPersoonResponse </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BrkInfoResponse() </td></tr>
-<tr><td align="left" balign="left"> + isBevatGevoeligeInfo() : Boolean </td></tr>
-<tr><td align="left" balign="left"> + setBevatGevoeligeInfo(bevatGevoeligeInfo : Boolean) </td></tr>
-<tr><td align="left" balign="left"> + getTimestamp() : Date </td></tr>
-<tr><td align="left" balign="left"> + setTimestamp(timestamp : Date) </td></tr>
-<tr><td align="left" balign="left"> + getKadOnrndZk() : List&lt;KadOnrndZkInfoResponse&gt; </td></tr>
-<tr><td align="left" balign="left"> + setKadOnrndZk(kadOnrndZk : List&lt;KadOnrndZkInfoResponse&gt;) </td></tr>
-<tr><td align="left" balign="left"> + addKadOnrndZk(koz : KadOnrndZkInfoResponse) : List&lt;KadOnrndZkInfoResponse&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BrkInfoResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest
-	c91 [label=<<table title="nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PerceelAdresInfoRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PerceelAdresInfoRequest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PerceelAdresInfoRequest() </td></tr>
-<tr><td align="left" balign="left"> + getStraatNaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setStraatNaam(straatNaam : String) </td></tr>
-<tr><td align="left" balign="left"> + getHuisnummer() : Integer </td></tr>
-<tr><td align="left" balign="left"> + setHuisnummer(huisnummer : Integer) </td></tr>
-<tr><td align="left" balign="left"> + getPostcode() : String </td></tr>
-<tr><td align="left" balign="left"> + setPostcode(postcode : String) </td></tr>
-<tr><td align="left" balign="left"> + getWoonplaatsNaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setWoonplaatsNaam(woonplaatsNaam : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./PerceelAdresInfoRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.brk.BrkInfoException
-	c92 [label=<<table title="nl.b3p.brmo.soap.brk.BrkInfoException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkInfoException.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BrkInfoException </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> ~ detail : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BrkInfoException(message : String, detail : String) </td></tr>
-<tr><td align="left" balign="left"> + getDetail() : String </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BrkInfoException.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest
-	c93 [label=<<table title="nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KadOnrndZkInfoRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> KadOnrndZkInfoRequest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + KadOnrndZkInfoRequest() </td></tr>
-<tr><td align="left" balign="left"> + getGemeentecode() : String </td></tr>
-<tr><td align="left" balign="left"> + setGemeentecode(gemeentecode : String) </td></tr>
-<tr><td align="left" balign="left"> + getSectie() : String </td></tr>
-<tr><td align="left" balign="left"> + setSectie(sectie : String) </td></tr>
-<tr><td align="left" balign="left"> + getPerceelnummer() : String </td></tr>
-<tr><td align="left" balign="left"> + setPerceelnummer(perceelnummer : String) </td></tr>
-<tr><td align="left" balign="left"> + getAppReVolgnummer() : String </td></tr>
-<tr><td align="left" balign="left"> + setAppReVolgnummer(appReVolgnummer : String) </td></tr>
+<tr><td align="left" balign="left"> + NietNatuurlijkPersoonResponse() </td></tr>
 <tr><td align="left" balign="left"> + getIdentificatie() : String </td></tr>
 <tr><td align="left" balign="left"> + setIdentificatie(identificatie : String) </td></tr>
+<tr><td align="left" balign="left"> + getRechtsvorm() : String </td></tr>
+<tr><td align="left" balign="left"> + setRechtsvorm(rechtsvorm : String) </td></tr>
+<tr><td align="left" balign="left"> + getStatutaireZetel() : String </td></tr>
+<tr><td align="left" balign="left"> + setStatutaireZetel(statutaireZetel : String) </td></tr>
+<tr><td align="left" balign="left"> + getNaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaam(naam : String) </td></tr>
+<tr><td align="left" balign="left"> + getRecordById(id : String, searchContext : Map&lt;String, Object&gt;) : NietNatuurlijkPersoonResponse </td></tr>
 		</table></td></tr>
-		</table>>, URL="./KadOnrndZkInfoRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse
-	c94 [label=<<table title="nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NatuurlijkPersoonResponse.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> NatuurlijkPersoonResponse </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + NatuurlijkPersoonResponse() </td></tr>
-<tr><td align="left" balign="left"> + getIdentificatie() : String </td></tr>
-<tr><td align="left" balign="left"> + setIdentificatie(identificatie : String) </td></tr>
-<tr><td align="left" balign="left"> + getGeboortedatum() : Integer </td></tr>
-<tr><td align="left" balign="left"> + setGeboortedatum(geboortedatum : Integer) </td></tr>
-<tr><td align="left" balign="left"> + getOverlijdensdatum() : Integer </td></tr>
-<tr><td align="left" balign="left"> + setOverlijdensdatum(overlijdensdatum : Integer) </td></tr>
-<tr><td align="left" balign="left"> + getBsn() : String </td></tr>
-<tr><td align="left" balign="left"> + setBsn(bsn : String) </td></tr>
-<tr><td align="left" balign="left"> + getGeboorteplaats() : String </td></tr>
-<tr><td align="left" balign="left"> + setGeboorteplaats(geboorteplaats : String) </td></tr>
-<tr><td align="left" balign="left"> + getLocatieBeschrijving() : String </td></tr>
-<tr><td align="left" balign="left"> + setLocatieBeschrijving(locatieBeschrijving : String) </td></tr>
-<tr><td align="left" balign="left"> + getAanduidingNaamgebruik() : String </td></tr>
-<tr><td align="left" balign="left"> + setAanduidingNaamgebruik(aanduidingNaamgebruik : String) </td></tr>
-<tr><td align="left" balign="left"> + getGeslachtsaanduiding() : String </td></tr>
-<tr><td align="left" balign="left"> + setGeslachtsaanduiding(geslachtsaanduiding : String) </td></tr>
-<tr><td align="left" balign="left"> + getGeslachtsnaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setGeslachtsnaam(geslachtsnaam : String) </td></tr>
-<tr><td align="left" balign="left"> + getVoornamen() : String </td></tr>
-<tr><td align="left" balign="left"> + setVoornamen(voornamen : String) </td></tr>
-<tr><td align="left" balign="left"> + getVoorvoegsel() : String </td></tr>
-<tr><td align="left" balign="left"> + setVoorvoegsel(voorvoegsel : String) </td></tr>
-<tr><td align="left" balign="left"> + getRecordById(id : String, searchContext : Map&lt;String, Object&gt;) : NatuurlijkPersoonResponse </td></tr>
-		</table></td></tr>
-		</table>>, URL="./NatuurlijkPersoonResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./NietNatuurlijkPersoonResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.RelatiesResponse
-	c95 [label=<<table title="nl.b3p.brmo.soap.brk.RelatiesResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RelatiesResponse.html">
+	c56 [label=<<table title="nl.b3p.brmo.soap.brk.RelatiesResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RelatiesResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RelatiesResponse </td></tr>
 		</table></td></tr>
@@ -284,80 +345,19 @@ digraph G {
 <tr><td align="left" balign="left"> + setGrondPerceel(grondPerceel : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./RelatiesResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.brk.GetBrkInfoImpl
-	c96 [label=<<table title="nl.b3p.brmo.soap.brk.GetBrkInfoImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GetBrkInfoImpl.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> GetBrkInfoImpl </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + GetBrkInfoImpl() </td></tr>
-<tr><td align="left" balign="left"> + getBrkInfo(request : BrkInfoRequest) : BrkInfoResponse </td></tr>
-		</table></td></tr>
-		</table>>, URL="./GetBrkInfoImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.brk.AdresResponse
-	c97 [label=<<table title="nl.b3p.brmo.soap.brk.AdresResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdresResponse.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> AdresResponse </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AdresResponse() </td></tr>
-<tr><td align="left" balign="left"> + getStraatNaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setStraatNaam(straatNaam : String) </td></tr>
-<tr><td align="left" balign="left"> + getHuisnummer() : Integer </td></tr>
-<tr><td align="left" balign="left"> + setHuisnummer(huisnummer : Integer) </td></tr>
-<tr><td align="left" balign="left"> + getHuisLetter() : String </td></tr>
-<tr><td align="left" balign="left"> + setHuisLetter(huisLetter : String) </td></tr>
-<tr><td align="left" balign="left"> + getHuisLetterToevoeging() : String </td></tr>
-<tr><td align="left" balign="left"> + setHuisLetterToevoeging(huisLetterToevoeging : String) </td></tr>
-<tr><td align="left" balign="left"> + getPostcode() : String </td></tr>
-<tr><td align="left" balign="left"> + setPostcode(postcode : String) </td></tr>
-<tr><td align="left" balign="left"> + getWoonplaatsNaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setWoonplaatsNaam(woonplaatsNaam : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./AdresResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.brk.ZakelijkRechtResponse
-	c98 [label=<<table title="nl.b3p.brmo.soap.brk.ZakelijkRechtResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ZakelijkRechtResponse.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ZakelijkRechtResponse </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ZakelijkRechtResponse() </td></tr>
-<tr><td align="left" balign="left"> + getNoemer() : Integer </td></tr>
-<tr><td align="left" balign="left"> + setNoemer(noemer : Integer) </td></tr>
-<tr><td align="left" balign="left"> + getTeller() : Integer </td></tr>
-<tr><td align="left" balign="left"> + setTeller(teller : Integer) </td></tr>
-<tr><td align="left" balign="left"> + isIndicatieBetrokkenInSplitsing() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setIndicatieBetrokkenInSplitsing(indicatieBetrokkenInSplitsing : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getAardVerkregenRecht() : String </td></tr>
-<tr><td align="left" balign="left"> + setAardVerkregenRecht(aardVerkregenRecht : String) </td></tr>
-<tr><td align="left" balign="left"> + getNatuurlijkPersoon() : NatuurlijkPersoonResponse </td></tr>
-<tr><td align="left" balign="left"> + setNatuurlijkPersoon(natuurlijkPersoon : NatuurlijkPersoonResponse) </td></tr>
-<tr><td align="left" balign="left"> + getNietNatuurlijkPersoon() : NietNatuurlijkPersoonResponse </td></tr>
-<tr><td align="left" balign="left"> + setNietNatuurlijkPersoon(nietNatuurlijkPersoon : NietNatuurlijkPersoonResponse) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ZakelijkRechtResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.brk.BrkInfoRequest NAVASSOC nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest
-	c86:p -> c93:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.soap.brk.BrkInfoRequest NAVASSOC nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest
-	c86:p -> c91:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse NAVASSOC nl.b3p.brmo.soap.brk.AdressenResponse
-	c89:p -> c88:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse NAVASSOC nl.b3p.brmo.soap.brk.RechtenResponse
-	c89:p -> c85:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse NAVASSOC nl.b3p.brmo.soap.brk.RelatiesResponse
-	c89:p -> c95:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.soap.brk.ZakelijkRechtResponse NAVASSOC nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse
-	c98:p -> c94:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c42:p -> c50:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.soap.brk.ZakelijkRechtResponse NAVASSOC nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse
-	c98:p -> c87:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c42:p -> c55:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.soap.brk.BrkInfoRequest NAVASSOC nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest
+	c46:p -> c52:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.soap.brk.BrkInfoRequest NAVASSOC nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest
+	c46:p -> c53:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse NAVASSOC nl.b3p.brmo.soap.brk.AdressenResponse
+	c54:p -> c51:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse NAVASSOC nl.b3p.brmo.soap.brk.RechtenResponse
+	c54:p -> c44:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse NAVASSOC nl.b3p.brmo.soap.brk.RelatiesResponse
+	c54:p -> c56:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

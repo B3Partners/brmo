@@ -9,19 +9,22 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.soap.eigendom.ZakelijkeRechten
-	c139 [label=<<table title="nl.b3p.brmo.soap.eigendom.ZakelijkeRechten" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ZakelijkeRechten.html">
+	// nl.b3p.brmo.soap.eigendom.MutatieListResponse
+	c139 [label=<<table title="nl.b3p.brmo.soap.eigendom.MutatieListResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MutatieListResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ZakelijkeRechten </td></tr>
+<tr><td align="center" balign="center"> MutatieListResponse </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # zakelijkRecht : List&lt;ZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> # mutatieEntry : List&lt;MutatieEntry&gt; </td></tr>
+<tr><td align="left" balign="left"> # timestamp : XMLGregorianCalendar </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ZakelijkeRechten() </td></tr>
-<tr><td align="left" balign="left"> + getZakelijkRecht() : List&lt;ZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> + MutatieListResponse() </td></tr>
+<tr><td align="left" balign="left"> + getMutatieEntry() : List&lt;MutatieEntry&gt; </td></tr>
+<tr><td align="left" balign="left"> + getTimestamp() : XMLGregorianCalendar </td></tr>
+<tr><td align="left" balign="left"> + setTimestamp(value : XMLGregorianCalendar) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./ZakelijkeRechten.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./MutatieListResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.eigendom.HistorischeRelatie
 	c140 [label=<<table title="nl.b3p.brmo.soap.eigendom.HistorischeRelatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HistorischeRelatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
@@ -39,51 +42,28 @@ digraph G {
 <tr><td align="left" balign="left"> + setAard(value : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./HistorischeRelatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.BenoemdObjecten
-	c141 [label=<<table title="nl.b3p.brmo.soap.eigendom.BenoemdObjecten" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BenoemdObjecten.html">
+	// nl.b3p.brmo.soap.eigendom.MutatieEntry
+	c141 [label=<<table title="nl.b3p.brmo.soap.eigendom.MutatieEntry" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MutatieEntry.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BenoemdObjecten </td></tr>
+<tr><td align="center" balign="center"> MutatieEntry </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # benoemdObject : List&lt;BenoemdObject&gt; </td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BenoemdObjecten() </td></tr>
-<tr><td align="left" balign="left"> + getBenoemdObject() : List&lt;BenoemdObject&gt; </td></tr>
+<tr><td align="left" balign="left"> + MutatieEntry() </td></tr>
+<tr><td align="left" balign="left"> + getObjectRef() : String </td></tr>
+<tr><td align="left" balign="left"> + setObjectRef(objectRef : String) </td></tr>
+<tr><td align="left" balign="left"> + getVolgnummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setVolgnummer(volgnummer : String) </td></tr>
+<tr><td align="left" balign="left"> + getDatum() : XMLGregorianCalendar </td></tr>
+<tr><td align="left" balign="left"> + setDatum(datum : XMLGregorianCalendar) </td></tr>
+<tr><td align="left" balign="left"> + getStatusDatum() : XMLGregorianCalendar </td></tr>
+<tr><td align="left" balign="left"> + setStatusDatum(statusDatum : XMLGregorianCalendar) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./BenoemdObjecten.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.GetMutatieList
-	c142 [label=<<table title="nl.b3p.brmo.soap.eigendom.GetMutatieList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GetMutatieList.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> GetMutatieList </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # request : MutatieListRequest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + GetMutatieList() </td></tr>
-<tr><td align="left" balign="left"> + getRequest() : MutatieListRequest </td></tr>
-<tr><td align="left" balign="left"> + setRequest(value : MutatieListRequest) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./GetMutatieList.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.MutatieListResponse
-	c143 [label=<<table title="nl.b3p.brmo.soap.eigendom.MutatieListResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MutatieListResponse.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> MutatieListResponse </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # mutatieEntry : List&lt;MutatieEntry&gt; </td></tr>
-<tr><td align="left" balign="left"> # timestamp : XMLGregorianCalendar </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MutatieListResponse() </td></tr>
-<tr><td align="left" balign="left"> + getMutatieEntry() : List&lt;MutatieEntry&gt; </td></tr>
-<tr><td align="left" balign="left"> + getTimestamp() : XMLGregorianCalendar </td></tr>
-<tr><td align="left" balign="left"> + setTimestamp(value : XMLGregorianCalendar) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./MutatieListResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./MutatieEntry.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.eigendom.Brondocumenten
-	c144 [label=<<table title="nl.b3p.brmo.soap.eigendom.Brondocumenten" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Brondocumenten.html">
+	c142 [label=<<table title="nl.b3p.brmo.soap.eigendom.Brondocumenten" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Brondocumenten.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Brondocumenten </td></tr>
 		</table></td></tr>
@@ -95,8 +75,269 @@ digraph G {
 <tr><td align="left" balign="left"> + getDocument() : List&lt;Document&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Brondocumenten.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.eigendom.EigendomMutatieResponse
+	c143 [label=<<table title="nl.b3p.brmo.soap.eigendom.EigendomMutatieResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EigendomMutatieResponse.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> EigendomMutatieResponse </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # eigendomMutatie : List&lt;EigendomMutatie&gt; </td></tr>
+<tr><td align="left" balign="left"> # timestamp : XMLGregorianCalendar </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + EigendomMutatieResponse() </td></tr>
+<tr><td align="left" balign="left"> + getEigendomMutatie() : List&lt;EigendomMutatie&gt; </td></tr>
+<tr><td align="left" balign="left"> + getTimestamp() : XMLGregorianCalendar </td></tr>
+<tr><td align="left" balign="left"> + setTimestamp(value : XMLGregorianCalendar) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./EigendomMutatieResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.eigendom.ZakelijkeRechten
+	c144 [label=<<table title="nl.b3p.brmo.soap.eigendom.ZakelijkeRechten" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ZakelijkeRechten.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ZakelijkeRechten </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # zakelijkRecht : List&lt;ZakelijkRecht&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ZakelijkeRechten() </td></tr>
+<tr><td align="left" balign="left"> + getZakelijkRecht() : List&lt;ZakelijkRecht&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ZakelijkeRechten.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.eigendom.ZakelijkRecht
+	c145 [label=<<table title="nl.b3p.brmo.soap.eigendom.ZakelijkRecht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ZakelijkRecht.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ZakelijkRecht </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # identificatienummer : String </td></tr>
+<tr><td align="left" balign="left"> # noemer : String </td></tr>
+<tr><td align="left" balign="left"> # teller : String </td></tr>
+<tr><td align="left" balign="left"> # bsn : String </td></tr>
+<tr><td align="left" balign="left"> # aardRecht : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ZakelijkRecht() </td></tr>
+<tr><td align="left" balign="left"> + getIdentificatienummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setIdentificatienummer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getNoemer() : String </td></tr>
+<tr><td align="left" balign="left"> + setNoemer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTeller() : String </td></tr>
+<tr><td align="left" balign="left"> + setTeller(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getBSN() : String </td></tr>
+<tr><td align="left" balign="left"> + setBSN(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getAardRecht() : String </td></tr>
+<tr><td align="left" balign="left"> + setAardRecht(value : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ZakelijkRecht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.eigendom.AddreseerbaarObjectAanduiding
+	c146 [label=<<table title="nl.b3p.brmo.soap.eigendom.AddreseerbaarObjectAanduiding" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AddreseerbaarObjectAanduiding.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> AddreseerbaarObjectAanduiding </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # identificatienummer : String </td></tr>
+<tr><td align="left" balign="left"> # postcode : String </td></tr>
+<tr><td align="left" balign="left"> # huisnummer : String </td></tr>
+<tr><td align="left" balign="left"> # huisletter : String </td></tr>
+<tr><td align="left" balign="left"> # huisnummertoevoeging : String </td></tr>
+<tr><td align="left" balign="left"> # woonplaatsIdentificatie : String </td></tr>
+<tr><td align="left" balign="left"> # openbareRuimteNaam : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AddreseerbaarObjectAanduiding() </td></tr>
+<tr><td align="left" balign="left"> + getIdentificatienummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setIdentificatienummer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getPostcode() : String </td></tr>
+<tr><td align="left" balign="left"> + setPostcode(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getHuisnummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setHuisnummer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getHuisletter() : String </td></tr>
+<tr><td align="left" balign="left"> + setHuisletter(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getHuisnummertoevoeging() : String </td></tr>
+<tr><td align="left" balign="left"> + setHuisnummertoevoeging(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getWoonplaatsIdentificatie() : String </td></tr>
+<tr><td align="left" balign="left"> + setWoonplaatsIdentificatie(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getOpenbareRuimteNaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setOpenbareRuimteNaam(value : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./AddreseerbaarObjectAanduiding.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.eigendom.Document
+	c147 [label=<<table title="nl.b3p.brmo.soap.eigendom.Document" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Document.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Document </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # value : String </td></tr>
+<tr><td align="left" balign="left"> # datum : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Document() </td></tr>
+<tr><td align="left" balign="left"> + getValue() : String </td></tr>
+<tr><td align="left" balign="left"> + setValue(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getDatum() : String </td></tr>
+<tr><td align="left" balign="left"> + setDatum(value : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./Document.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.eigendom.BenoemdObjecten
+	c148 [label=<<table title="nl.b3p.brmo.soap.eigendom.BenoemdObjecten" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BenoemdObjecten.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BenoemdObjecten </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # benoemdObject : List&lt;BenoemdObject&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BenoemdObjecten() </td></tr>
+<tr><td align="left" balign="left"> + getBenoemdObject() : List&lt;BenoemdObject&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BenoemdObjecten.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.eigendom.MutatieListRequest
+	c149 [label=<<table title="nl.b3p.brmo.soap.eigendom.MutatieListRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MutatieListRequest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> MutatieListRequest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # fromDate : XMLGregorianCalendar </td></tr>
+<tr><td align="left" balign="left"> # objectprefix : String </td></tr>
+<tr><td align="left" balign="left"> # toDate : XMLGregorianCalendar </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + MutatieListRequest() </td></tr>
+<tr><td align="left" balign="left"> + getFromDate() : XMLGregorianCalendar </td></tr>
+<tr><td align="left" balign="left"> + setFromDate(value : XMLGregorianCalendar) </td></tr>
+<tr><td align="left" balign="left"> + getObjectprefix() : String </td></tr>
+<tr><td align="left" balign="left"> + setObjectprefix(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getToDate() : XMLGregorianCalendar </td></tr>
+<tr><td align="left" balign="left"> + setToDate(value : XMLGregorianCalendar) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./MutatieListRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.eigendom.GetMutatieListResponse
+	c150 [label=<<table title="nl.b3p.brmo.soap.eigendom.GetMutatieListResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GetMutatieListResponse.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> GetMutatieListResponse </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # _return : MutatieListResponse </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GetMutatieListResponse() </td></tr>
+<tr><td align="left" balign="left"> + getReturn() : MutatieListResponse </td></tr>
+<tr><td align="left" balign="left"> + setReturn(value : MutatieListResponse) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./GetMutatieListResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.eigendom.GetEigendomMutatiesResponse
+	c151 [label=<<table title="nl.b3p.brmo.soap.eigendom.GetEigendomMutatiesResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GetEigendomMutatiesResponse.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> GetEigendomMutatiesResponse </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # _return : EigendomMutatieResponse </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GetEigendomMutatiesResponse() </td></tr>
+<tr><td align="left" balign="left"> + getReturn() : EigendomMutatieResponse </td></tr>
+<tr><td align="left" balign="left"> + setReturn(value : EigendomMutatieResponse) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./GetEigendomMutatiesResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.eigendom.EigendomMutatieService
+	c152 [label=<<table title="nl.b3p.brmo.soap.eigendom.EigendomMutatieService" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EigendomMutatieService.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> EigendomMutatieService </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + EigendomMutatieService() </td></tr>
+<tr><td align="left" balign="left"> + getEigendomMutaties(request : EigendomMutatieRequest) : EigendomMutatieResponse </td></tr>
+<tr><td align="left" balign="left"> + getMutatieList(request : MutatieListRequest) : MutatieListResponse </td></tr>
+		</table></td></tr>
+		</table>>, URL="./EigendomMutatieService.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.eigendom.HistorischeRelaties
+	c153 [label=<<table title="nl.b3p.brmo.soap.eigendom.HistorischeRelaties" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HistorischeRelaties.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> HistorischeRelaties </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # historischeRelatie : List&lt;HistorischeRelatie&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + HistorischeRelaties() </td></tr>
+<tr><td align="left" balign="left"> + getHistorischeRelatie() : List&lt;HistorischeRelatie&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./HistorischeRelaties.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.eigendom.EigendomMutatieException
+	c154 [label=<<table title="nl.b3p.brmo.soap.eigendom.EigendomMutatieException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EigendomMutatieException.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> EigendomMutatieException </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> ~ detail : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + EigendomMutatieException(message : String, detail : String) </td></tr>
+<tr><td align="left" balign="left"> + getDetail() : String </td></tr>
+		</table></td></tr>
+		</table>>, URL="./EigendomMutatieException.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.eigendom.EigendomMutatieRequest
+	c155 [label=<<table title="nl.b3p.brmo.soap.eigendom.EigendomMutatieRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EigendomMutatieRequest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> EigendomMutatieRequest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # identificatie : String </td></tr>
+<tr><td align="left" balign="left"> # maxAantalResultaten : Integer </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + EigendomMutatieRequest() </td></tr>
+<tr><td align="left" balign="left"> + getIdentificatie() : String </td></tr>
+<tr><td align="left" balign="left"> + setIdentificatie(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getMaxAantalResultaten() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setMaxAantalResultaten(value : Integer) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./EigendomMutatieRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.eigendom.BenoemdObject
+	c156 [label=<<table title="nl.b3p.brmo.soap.eigendom.BenoemdObject" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BenoemdObject.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BenoemdObject </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # identificatienummer : String </td></tr>
+<tr><td align="left" balign="left"> # gebouwdObjectOppervlakte : String </td></tr>
+<tr><td align="left" balign="left"> # gebouwdObjectGebruiksdoel : String </td></tr>
+<tr><td align="left" balign="left"> # addreseerbaarObjectAanduiding : List&lt;AddreseerbaarObjectAanduiding&gt; </td></tr>
+<tr><td align="left" balign="left"> # brondocumenten : Brondocumenten </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BenoemdObject() </td></tr>
+<tr><td align="left" balign="left"> + getIdentificatienummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setIdentificatienummer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getGebouwdObjectOppervlakte() : String </td></tr>
+<tr><td align="left" balign="left"> + setGebouwdObjectOppervlakte(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getGebouwdObjectGebruiksdoel() : String </td></tr>
+<tr><td align="left" balign="left"> + setGebouwdObjectGebruiksdoel(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getAddreseerbaarObjectAanduiding() : List&lt;AddreseerbaarObjectAanduiding&gt; </td></tr>
+<tr><td align="left" balign="left"> + getBrondocumenten() : Brondocumenten </td></tr>
+<tr><td align="left" balign="left"> + setBrondocumenten(value : Brondocumenten) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BenoemdObject.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.eigendom.GetEigendomMutaties
+	c157 [label=<<table title="nl.b3p.brmo.soap.eigendom.GetEigendomMutaties" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GetEigendomMutaties.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> GetEigendomMutaties </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # request : EigendomMutatieRequest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GetEigendomMutaties() </td></tr>
+<tr><td align="left" balign="left"> + getRequest() : EigendomMutatieRequest </td></tr>
+<tr><td align="left" balign="left"> + setRequest(value : EigendomMutatieRequest) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./GetEigendomMutaties.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.eigendom.EigendomMutatie
-	c145 [label=<<table title="nl.b3p.brmo.soap.eigendom.EigendomMutatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EigendomMutatie.html">
+	c158 [label=<<table title="nl.b3p.brmo.soap.eigendom.EigendomMutatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EigendomMutatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> EigendomMutatie </td></tr>
 		</table></td></tr>
@@ -134,278 +375,37 @@ digraph G {
 <tr><td align="left" balign="left"> + createDummy() : EigendomMutatie </td></tr>
 		</table></td></tr>
 		</table>>, URL="./EigendomMutatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.EigendomMutatieService
-	c146 [label=<<table title="nl.b3p.brmo.soap.eigendom.EigendomMutatieService" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EigendomMutatieService.html">
+	// nl.b3p.brmo.soap.eigendom.GetMutatieList
+	c159 [label=<<table title="nl.b3p.brmo.soap.eigendom.GetMutatieList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GetMutatieList.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> EigendomMutatieService </td></tr>
+<tr><td align="center" balign="center"> GetMutatieList </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
+<tr><td align="left" balign="left"> # request : MutatieListRequest </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + EigendomMutatieService() </td></tr>
-<tr><td align="left" balign="left"> + getEigendomMutaties(request : EigendomMutatieRequest) : EigendomMutatieResponse </td></tr>
-<tr><td align="left" balign="left"> + getMutatieList(request : MutatieListRequest) : MutatieListResponse </td></tr>
+<tr><td align="left" balign="left"> + GetMutatieList() </td></tr>
+<tr><td align="left" balign="left"> + getRequest() : MutatieListRequest </td></tr>
+<tr><td align="left" balign="left"> + setRequest(value : MutatieListRequest) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./EigendomMutatieService.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.MutatieEntry
-	c147 [label=<<table title="nl.b3p.brmo.soap.eigendom.MutatieEntry" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MutatieEntry.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> MutatieEntry </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MutatieEntry() </td></tr>
-<tr><td align="left" balign="left"> + getObjectRef() : String </td></tr>
-<tr><td align="left" balign="left"> + setObjectRef(objectRef : String) </td></tr>
-<tr><td align="left" balign="left"> + getVolgnummer() : String </td></tr>
-<tr><td align="left" balign="left"> + setVolgnummer(volgnummer : String) </td></tr>
-<tr><td align="left" balign="left"> + getDatum() : XMLGregorianCalendar </td></tr>
-<tr><td align="left" balign="left"> + setDatum(datum : XMLGregorianCalendar) </td></tr>
-<tr><td align="left" balign="left"> + getStatusDatum() : XMLGregorianCalendar </td></tr>
-<tr><td align="left" balign="left"> + setStatusDatum(statusDatum : XMLGregorianCalendar) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./MutatieEntry.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.GetMutatieListResponse
-	c148 [label=<<table title="nl.b3p.brmo.soap.eigendom.GetMutatieListResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GetMutatieListResponse.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> GetMutatieListResponse </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # _return : MutatieListResponse </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + GetMutatieListResponse() </td></tr>
-<tr><td align="left" balign="left"> + getReturn() : MutatieListResponse </td></tr>
-<tr><td align="left" balign="left"> + setReturn(value : MutatieListResponse) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./GetMutatieListResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.MutatieListRequest
-	c149 [label=<<table title="nl.b3p.brmo.soap.eigendom.MutatieListRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MutatieListRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> MutatieListRequest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # fromDate : XMLGregorianCalendar </td></tr>
-<tr><td align="left" balign="left"> # objectprefix : String </td></tr>
-<tr><td align="left" balign="left"> # toDate : XMLGregorianCalendar </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MutatieListRequest() </td></tr>
-<tr><td align="left" balign="left"> + getFromDate() : XMLGregorianCalendar </td></tr>
-<tr><td align="left" balign="left"> + setFromDate(value : XMLGregorianCalendar) </td></tr>
-<tr><td align="left" balign="left"> + getObjectprefix() : String </td></tr>
-<tr><td align="left" balign="left"> + setObjectprefix(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getToDate() : XMLGregorianCalendar </td></tr>
-<tr><td align="left" balign="left"> + setToDate(value : XMLGregorianCalendar) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./MutatieListRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.EigendomMutatieException
-	c150 [label=<<table title="nl.b3p.brmo.soap.eigendom.EigendomMutatieException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EigendomMutatieException.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> EigendomMutatieException </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> ~ detail : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + EigendomMutatieException(message : String, detail : String) </td></tr>
-<tr><td align="left" balign="left"> + getDetail() : String </td></tr>
-		</table></td></tr>
-		</table>>, URL="./EigendomMutatieException.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.GetEigendomMutaties
-	c151 [label=<<table title="nl.b3p.brmo.soap.eigendom.GetEigendomMutaties" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GetEigendomMutaties.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> GetEigendomMutaties </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # request : EigendomMutatieRequest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + GetEigendomMutaties() </td></tr>
-<tr><td align="left" balign="left"> + getRequest() : EigendomMutatieRequest </td></tr>
-<tr><td align="left" balign="left"> + setRequest(value : EigendomMutatieRequest) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./GetEigendomMutaties.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.EigendomMutatieResponse
-	c152 [label=<<table title="nl.b3p.brmo.soap.eigendom.EigendomMutatieResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EigendomMutatieResponse.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> EigendomMutatieResponse </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # eigendomMutatie : List&lt;EigendomMutatie&gt; </td></tr>
-<tr><td align="left" balign="left"> # timestamp : XMLGregorianCalendar </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + EigendomMutatieResponse() </td></tr>
-<tr><td align="left" balign="left"> + getEigendomMutatie() : List&lt;EigendomMutatie&gt; </td></tr>
-<tr><td align="left" balign="left"> + getTimestamp() : XMLGregorianCalendar </td></tr>
-<tr><td align="left" balign="left"> + setTimestamp(value : XMLGregorianCalendar) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./EigendomMutatieResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.Document
-	c153 [label=<<table title="nl.b3p.brmo.soap.eigendom.Document" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Document.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Document </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # value : String </td></tr>
-<tr><td align="left" balign="left"> # datum : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Document() </td></tr>
-<tr><td align="left" balign="left"> + getValue() : String </td></tr>
-<tr><td align="left" balign="left"> + setValue(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getDatum() : String </td></tr>
-<tr><td align="left" balign="left"> + setDatum(value : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./Document.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.EigendomMutatieRequest
-	c154 [label=<<table title="nl.b3p.brmo.soap.eigendom.EigendomMutatieRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EigendomMutatieRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> EigendomMutatieRequest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # identificatie : String </td></tr>
-<tr><td align="left" balign="left"> # maxAantalResultaten : Integer </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + EigendomMutatieRequest() </td></tr>
-<tr><td align="left" balign="left"> + getIdentificatie() : String </td></tr>
-<tr><td align="left" balign="left"> + setIdentificatie(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getMaxAantalResultaten() : Integer </td></tr>
-<tr><td align="left" balign="left"> + setMaxAantalResultaten(value : Integer) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./EigendomMutatieRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.GetEigendomMutatiesResponse
-	c155 [label=<<table title="nl.b3p.brmo.soap.eigendom.GetEigendomMutatiesResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GetEigendomMutatiesResponse.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> GetEigendomMutatiesResponse </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # _return : EigendomMutatieResponse </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + GetEigendomMutatiesResponse() </td></tr>
-<tr><td align="left" balign="left"> + getReturn() : EigendomMutatieResponse </td></tr>
-<tr><td align="left" balign="left"> + setReturn(value : EigendomMutatieResponse) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./GetEigendomMutatiesResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.AddreseerbaarObjectAanduiding
-	c156 [label=<<table title="nl.b3p.brmo.soap.eigendom.AddreseerbaarObjectAanduiding" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AddreseerbaarObjectAanduiding.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> AddreseerbaarObjectAanduiding </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # identificatienummer : String </td></tr>
-<tr><td align="left" balign="left"> # postcode : String </td></tr>
-<tr><td align="left" balign="left"> # huisnummer : String </td></tr>
-<tr><td align="left" balign="left"> # huisletter : String </td></tr>
-<tr><td align="left" balign="left"> # huisnummertoevoeging : String </td></tr>
-<tr><td align="left" balign="left"> # woonplaatsIdentificatie : String </td></tr>
-<tr><td align="left" balign="left"> # openbareRuimteNaam : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AddreseerbaarObjectAanduiding() </td></tr>
-<tr><td align="left" balign="left"> + getIdentificatienummer() : String </td></tr>
-<tr><td align="left" balign="left"> + setIdentificatienummer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getPostcode() : String </td></tr>
-<tr><td align="left" balign="left"> + setPostcode(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getHuisnummer() : String </td></tr>
-<tr><td align="left" balign="left"> + setHuisnummer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getHuisletter() : String </td></tr>
-<tr><td align="left" balign="left"> + setHuisletter(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getHuisnummertoevoeging() : String </td></tr>
-<tr><td align="left" balign="left"> + setHuisnummertoevoeging(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getWoonplaatsIdentificatie() : String </td></tr>
-<tr><td align="left" balign="left"> + setWoonplaatsIdentificatie(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getOpenbareRuimteNaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setOpenbareRuimteNaam(value : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./AddreseerbaarObjectAanduiding.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.BenoemdObject
-	c157 [label=<<table title="nl.b3p.brmo.soap.eigendom.BenoemdObject" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BenoemdObject.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BenoemdObject </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # identificatienummer : String </td></tr>
-<tr><td align="left" balign="left"> # gebouwdObjectOppervlakte : String </td></tr>
-<tr><td align="left" balign="left"> # gebouwdObjectGebruiksdoel : String </td></tr>
-<tr><td align="left" balign="left"> # addreseerbaarObjectAanduiding : List&lt;AddreseerbaarObjectAanduiding&gt; </td></tr>
-<tr><td align="left" balign="left"> # brondocumenten : Brondocumenten </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BenoemdObject() </td></tr>
-<tr><td align="left" balign="left"> + getIdentificatienummer() : String </td></tr>
-<tr><td align="left" balign="left"> + setIdentificatienummer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getGebouwdObjectOppervlakte() : String </td></tr>
-<tr><td align="left" balign="left"> + setGebouwdObjectOppervlakte(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getGebouwdObjectGebruiksdoel() : String </td></tr>
-<tr><td align="left" balign="left"> + setGebouwdObjectGebruiksdoel(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getAddreseerbaarObjectAanduiding() : List&lt;AddreseerbaarObjectAanduiding&gt; </td></tr>
-<tr><td align="left" balign="left"> + getBrondocumenten() : Brondocumenten </td></tr>
-<tr><td align="left" balign="left"> + setBrondocumenten(value : Brondocumenten) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BenoemdObject.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.ZakelijkRecht
-	c158 [label=<<table title="nl.b3p.brmo.soap.eigendom.ZakelijkRecht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ZakelijkRecht.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ZakelijkRecht </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # identificatienummer : String </td></tr>
-<tr><td align="left" balign="left"> # noemer : String </td></tr>
-<tr><td align="left" balign="left"> # teller : String </td></tr>
-<tr><td align="left" balign="left"> # bsn : String </td></tr>
-<tr><td align="left" balign="left"> # aardRecht : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ZakelijkRecht() </td></tr>
-<tr><td align="left" balign="left"> + getIdentificatienummer() : String </td></tr>
-<tr><td align="left" balign="left"> + setIdentificatienummer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getNoemer() : String </td></tr>
-<tr><td align="left" balign="left"> + setNoemer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getTeller() : String </td></tr>
-<tr><td align="left" balign="left"> + setTeller(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getBSN() : String </td></tr>
-<tr><td align="left" balign="left"> + setBSN(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getAardRecht() : String </td></tr>
-<tr><td align="left" balign="left"> + setAardRecht(value : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ZakelijkRecht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.HistorischeRelaties
-	c159 [label=<<table title="nl.b3p.brmo.soap.eigendom.HistorischeRelaties" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HistorischeRelaties.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> HistorischeRelaties </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # historischeRelatie : List&lt;HistorischeRelatie&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + HistorischeRelaties() </td></tr>
-<tr><td align="left" balign="left"> + getHistorischeRelatie() : List&lt;HistorischeRelatie&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="./HistorischeRelaties.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.GetMutatieList NAVASSOC nl.b3p.brmo.soap.eigendom.MutatieListRequest
-	c142:p -> c149:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.soap.eigendom.EigendomMutatie NAVASSOC nl.b3p.brmo.soap.eigendom.HistorischeRelaties
-	c145:p -> c159:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.soap.eigendom.EigendomMutatie NAVASSOC nl.b3p.brmo.soap.eigendom.Brondocumenten
-	c145:p -> c144:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.soap.eigendom.EigendomMutatie NAVASSOC nl.b3p.brmo.soap.eigendom.ZakelijkeRechten
-	c145:p -> c139:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.soap.eigendom.EigendomMutatie NAVASSOC nl.b3p.brmo.soap.eigendom.BenoemdObjecten
-	c145:p -> c141:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+		</table>>, URL="./GetMutatieList.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.eigendom.GetMutatieListResponse NAVASSOC nl.b3p.brmo.soap.eigendom.MutatieListResponse
-	c148:p -> c143:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.soap.eigendom.GetEigendomMutaties NAVASSOC nl.b3p.brmo.soap.eigendom.EigendomMutatieRequest
-	c151:p -> c154:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c150:p -> c139:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.soap.eigendom.GetEigendomMutatiesResponse NAVASSOC nl.b3p.brmo.soap.eigendom.EigendomMutatieResponse
-	c155:p -> c152:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c151:p -> c143:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.soap.eigendom.BenoemdObject NAVASSOC nl.b3p.brmo.soap.eigendom.Brondocumenten
-	c157:p -> c144:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c156:p -> c142:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.soap.eigendom.GetEigendomMutaties NAVASSOC nl.b3p.brmo.soap.eigendom.EigendomMutatieRequest
+	c157:p -> c155:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.soap.eigendom.EigendomMutatie NAVASSOC nl.b3p.brmo.soap.eigendom.HistorischeRelaties
+	c158:p -> c153:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.soap.eigendom.EigendomMutatie NAVASSOC nl.b3p.brmo.soap.eigendom.Brondocumenten
+	c158:p -> c142:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.soap.eigendom.EigendomMutatie NAVASSOC nl.b3p.brmo.soap.eigendom.ZakelijkeRechten
+	c158:p -> c144:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.soap.eigendom.EigendomMutatie NAVASSOC nl.b3p.brmo.soap.eigendom.BenoemdObjecten
+	c158:p -> c148:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.soap.eigendom.GetMutatieList NAVASSOC nl.b3p.brmo.soap.eigendom.MutatieListRequest
+	c159:p -> c149:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

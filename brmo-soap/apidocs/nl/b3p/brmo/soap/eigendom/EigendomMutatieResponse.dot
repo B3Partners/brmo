@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.soap.eigendom.EigendomMutatieResponse
-	c882 [label=<<table title="nl.b3p.brmo.soap.eigendom.EigendomMutatieResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./EigendomMutatieResponse.html">
+	c873 [label=<<table title="nl.b3p.brmo.soap.eigendom.EigendomMutatieResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./EigendomMutatieResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> EigendomMutatieResponse </td></tr>
 		</table></td></tr>
@@ -26,7 +26,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./EigendomMutatieResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.eigendom.GetEigendomMutatiesResponse
-	c885 [label=<<table title="nl.b3p.brmo.soap.eigendom.GetEigendomMutatiesResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GetEigendomMutatiesResponse.html">
+	c881 [label=<<table title="nl.b3p.brmo.soap.eigendom.GetEigendomMutatiesResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GetEigendomMutatiesResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GetEigendomMutatiesResponse </td></tr>
 		</table></td></tr>
@@ -40,6 +40,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./GetEigendomMutatiesResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.eigendom.GetEigendomMutatiesResponse NAVASSOC nl.b3p.brmo.soap.eigendom.EigendomMutatieResponse
-	c885:p -> c882:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c881:p -> c873:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 
