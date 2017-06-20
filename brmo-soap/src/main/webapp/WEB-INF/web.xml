@@ -18,32 +18,11 @@
     <security-role>
         <role-name>Admin</role-name>
     </security-role>
-    <listener>
-        <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
-    </listener>
     <servlet>
         <servlet-name>DiagnosticsServlet</servlet-name>
         <servlet-class>nl.b3p.brmo.soap.util.DiagnosticsServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    <servlet>
-        <servlet-name>GetBrkInfoImplService</servlet-name>
-        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet>
-        <servlet-name>EigendomMutatieService</servlet-name>
-        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>GetBrkInfoImplService</servlet-name>
-        <url-pattern>/GetBrkInfoImplService</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EigendomMutatieService</servlet-name>
-        <url-pattern>/EigendomMutatieService</url-pattern>
-    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
