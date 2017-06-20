@@ -336,7 +336,8 @@ public class Database {
                 h.getTunnelnaam(),
                 nativeHartGeom,
                 nativeGeom);
-        Wegdeel inserted = run.insert("INSERT INTO " + h.getTopnltype() + ".wegdeel (" + getTopNLEntityColumns() + ",typeInfrastructuur,typeWeg,hoofdverkeersgebruik,fysiekVoorkomen,verhardingsbreedteklasse,gescheidenRijbaan,verhardingstype,aantalRijstroken,hoogteniveau,status,naam,isBAGnaam,aWegnummer,nWegnummer,eWegnummer,sWegnummer,afritnummer,afritnaam,knooppuntnaam,brugnaam,tunnelnaam,hartGeometrie,geometrie) VALUES (" + getTopNLEntityReplacementChars() + ",?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        String query = "INSERT INTO " + h.getTopnltype() + ".wegdeel (" + getTopNLEntityColumns() + ",typeInfrastructuur,typeWeg,hoofdverkeersgebruik,fysiekVoorkomen,verhardingsbreedteklasse,gescheidenRijbaan,verhardingstype,aantalRijstroken,hoogteniveau,status,naam,isBAGnaam,aWegnummer,nWegnummer,eWegnummer,sWegnummer,afritnummer,afritnaam,knooppuntnaam,brugnaam,tunnelnaam,hartGeometrie,geometrie) VALUES (" + getTopNLEntityReplacementChars() + ",?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        Wegdeel inserted = run.insert(query,
                 handler,
                 args);
 

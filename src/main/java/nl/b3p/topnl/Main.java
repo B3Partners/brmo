@@ -41,21 +41,21 @@ public class Main {
     
     public static void main (String[] args) throws IOException, JAXBException, ParseException, SQLException, JDOMException{
         try {
-            BasicDataSource ds = new BasicDataSource();
+           /* BasicDataSource ds = new BasicDataSource();
             ds.setUrl("jdbc:postgresql://localhost:5432/rsgb_topnl");
             ds.setDriverClassName("org.postgresql.Driver");
             ds.setUsername("rsgb");
-            ds.setPassword("rsgb");
+            ds.setPassword("rsgb");*/
           
-           /* BasicDataSource ds = new BasicDataSource();
+            BasicDataSource ds = new BasicDataSource();
             ds.setUrl("jdbc:oracle:thin:@b3p-demoserver:1521/ORCL");
             ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
             ds.setUsername("top50nl");
-            ds.setPassword("top50nl");*/
+            ds.setPassword("top50nl");
             Processor p = new Processor(ds);
          //   loadtopnl("/mnt/data/Documents/TopNL/Top50NL/TOP50NL_GML_Filechunks_november_2016/TOP50NL_GML_Filechunks", p,  TopNLType.TOP50NL);
-            loadtopnl("/mnt/data/Documents/TopNL/Top10NL/TOP10NL_GML_Filechuncks_november_2016/TOP10NL_GML_Filechuncks", p,  TopNLType.TOP10NL);
-            //loadtopnl("/mnt/data/Documents/TopNL/TOP100NL_GML_Filechunks_november_2016/TOP100NL_GML_Filechunks", p,  TopNLType.TOP100NL);
+            //loadtopnl("/mnt/data/Documents/TopNL/Top10NL/TOP10NL_GML_Filechuncks_november_2016/TOP10NL_GML_Filechuncks", p,  TopNLType.TOP10NL);
+            loadtopnl("/mnt/data/Documents/TopNL/TOP100NL_GML_Filechunks_november_2016/TOP100NL_GML_Filechunks", p,  TopNLType.TOP100NL);
             //process("top250NL.gml", p);
             //process("Hoogte_top250nl.xml", TopNLType.TOP250NL, p);
             //process("Hoogte_top100nl.xml", TopNLType.TOP100NL, p);
