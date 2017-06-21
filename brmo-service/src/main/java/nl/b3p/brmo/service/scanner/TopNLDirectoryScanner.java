@@ -6,9 +6,14 @@ package nl.b3p.brmo.service.scanner;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.persistence.Transient;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
@@ -37,6 +42,15 @@ public class TopNLDirectoryScanner extends AbstractExecutableProces {
     private final int defaultCommitPageSize = 1000;
     @Transient
     private ProgressUpdateListener listener;
+    
+    @Transient
+    private Integer filterAlVerwerkt = 0;
+    @Transient
+    private Integer aantalGeladen = 0;
+    @Transient
+    private Integer progress = 0;
+
+    private String[] subdirectoryNames = {/*"Top10NL", "Top50NL",*/ "Top100NL", "Top250NL"};
 
     public TopNLDirectoryScanner(TopNLScannerProces config) {
         this.config = config;
@@ -82,7 +96,7 @@ public class TopNLDirectoryScanner extends AbstractExecutableProces {
             }
         }
 
-        String msg = String.format("De BGT Light scanner met ID %d is gestart op %tc.", config.getId(), Calendar.getInstance());
+        String msg = String.format("De TopNL scanner met ID %d is gestart op %tc.", config.getId(), Calendar.getInstance());
         LOG.info(msg);
         listener.addLog(msg);
         sb.append(msg);
@@ -99,20 +113,48 @@ public class TopNLDirectoryScanner extends AbstractExecutableProces {
         }
 
         config.setLogfile(sb.toString());
-
-        File files[] = scanDirectory.listFiles(new FilenameFilter() {
+        int total = 0;
+        Map<String, List<File>> filesPerDir = new HashMap<>();
+        FilenameFilter ff = new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                return name.toLowerCase().endsWith(".zip");
+                return name.toLowerCase().endsWith(".gml");
             }
-        });
-        Arrays.sort(files, NameFileComparator.NAME_COMPARATOR);
-
-        processZipFiles(files, scanDirectory);
-
+        };
+        for (String topNLDir : subdirectoryNames) {
+            File subdir = new File(scanDirectory, topNLDir);
+           // File files[] = subdir.listFiles();
+            List<File> fs = getFilesFromDirectory(subdir, ff);
+            total += fs.size();
+            filesPerDir.put(topNLDir, fs);
+        }
+        
+        listener.total(total);
+        for (String topNLDir : subdirectoryNames) {
+            List<File> files = filesPerDir.get(topNLDir);
+            Collections.sort(files);
+            
+            processTopNLDirectory(files, scanDirectory, topNLDir);
+        }
+        
         Stripersist.getEntityManager().flush();
         Stripersist.getEntityManager().getTransaction().commit();
         Stripersist.getEntityManager().clear();
+    }
+    
+    private List<File> getFilesFromDirectory(File dir, FilenameFilter ff){
+        List<File> files = new ArrayList<>();
+        File[] fs = dir.listFiles(ff);
+        files.addAll(Arrays.asList(fs));
+        
+        File[] dirs = dir.listFiles();
+        for (File d : dirs) {
+            if(d.isDirectory()){
+                files.addAll(getFilesFromDirectory(d, ff));
+            }
+        }
+        
+        return files;
     }
 
     /**
@@ -123,16 +165,16 @@ public class TopNLDirectoryScanner extends AbstractExecutableProces {
      * @param scanDirectory
      * @param archiefDirectory
      */
-    private void processZipFiles(File[] files, File scanDirectory) {
+    private void processTopNLDirectory(List<File> files, File scanDirectory, String soort ) {
         StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE + config.getLogfile());
         String msg;
-        int filterAlVerwerkt = 0;
-        int aantalGeladen = 0;
-        int progress = 0;
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         int commitPageSize = this.getCommitPageSize();
 
-        listener.total(files.length);
+        msg = String.format("Laden van TopNL type %s.", soort);
+        LOG.info(msg);
+        
+        listener.addLog(msg);
         for (File f : files) {
             if (f.isDirectory()) {
                 continue;
@@ -141,7 +183,7 @@ public class TopNLDirectoryScanner extends AbstractExecutableProces {
             LOG.info(msg);
             listener.addLog(msg);
             sb.append(AutomatischProces.LOG_NEWLINE).append(msg).append(AutomatischProces.LOG_NEWLINE);
-            if (this.isDuplicaatLaadProces(f, BrmoFramework.BR_BGTLIGHT)) {
+           if (this.isDuplicaatLaadProces(f, soort)) {
                 msg = String.format("  Bestand %s is een duplicaat en wordt overgeslagen.", f);
                 listener.addLog(msg);
                 LOG.info(msg);
@@ -151,15 +193,15 @@ public class TopNLDirectoryScanner extends AbstractExecutableProces {
                 LaadProces lp = new LaadProces();
                 lp.setBestand_naam(getBestandsNaam(f));
                 lp.setBestand_datum(getBestandsDatum(f));
-                lp.setSoort(BrmoFramework.BR_BGTLIGHT);
+                lp.setSoort(soort);
                 lp.setStatus(LaadProces.STATUS.STAGING_OK);
-                lp.setOpmerking(String.format("Bestand geladen van %s op %s", f.getAbsolutePath(), sdf.format(new Date())));
+                lp.setOpmerking(String.format("Type %s bestand geladen van %s op %s",soort, f.getAbsolutePath(), sdf.format(new Date())));
                 lp.setAutomatischProces(Stripersist.getEntityManager().find(AutomatischProces.class, config.getId()));
                 Stripersist.getEntityManager().persist(lp);
                 Stripersist.getEntityManager().merge(this.config);
 
                 aantalGeladen++;
-                msg = String.format("  Bestand %s is geladen en heeft status: %s.", f, lp.getStatus());
+                msg = String.format("  Bestand %s is geladen en heeft status: %s. En is van soort: %s", f, lp.getStatus(), soort);
                 LOG.info(msg);
                 this.listener.addLog(msg);
                 sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
@@ -170,7 +212,7 @@ public class TopNLDirectoryScanner extends AbstractExecutableProces {
                     Stripersist.getEntityManager().clear();
                 }
             }
-            listener.progress(++progress);
+            listener.progress( ++progress);
         }
         msg = String.format("Klaar met run op %tc", Calendar.getInstance());
         LOG.info(msg);

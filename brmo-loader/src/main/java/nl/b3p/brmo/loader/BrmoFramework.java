@@ -39,6 +39,7 @@ public class BrmoFramework {
     public static final String BR_BRK = "brk";
     public static final String BR_NHR = "nhr";
     public static final String BR_BGTLIGHT = "bgtlight";
+    public static final String BR_TOPNL = "topnl";
 
     public static final String XSL_BRK = "/xsl/brk-snapshot-to-rsgb-xml.xsl";
     public static final String XSL_BAG = "/xsl/bag-mutatie-to-rsgb-xml.xsl";
