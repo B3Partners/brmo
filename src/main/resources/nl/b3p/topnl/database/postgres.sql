@@ -1,4 +1,4 @@
-set session authorization rsgb;
+set session authorization brmo;
 create schema top250nl;
 create schema top100nl;
 create schema top50nl;
@@ -24,7 +24,7 @@ create table top250nl.Hoogte (
     
     );
 
-
+/*
 create table top250nl.Hoogte (
     topnltype text,
     id serial not null,
@@ -42,7 +42,7 @@ create table top250nl.Hoogte (
   primary key (id)
     
     );
-
+*/
 create table top250nl.FunctioneelGebied(
 
     topnltype text,

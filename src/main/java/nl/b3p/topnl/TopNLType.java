@@ -36,4 +36,13 @@ public enum TopNLType {
         return type;
     }
     
+    public static boolean isTopNLType(String type){
+        for (TopNLType value : TopNLType.values()) {
+            if(value.getType().equalsIgnoreCase(type)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
 }
