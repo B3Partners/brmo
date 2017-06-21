@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Transient;
-import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
@@ -24,13 +23,12 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
 import nl.b3p.brmo.persistence.staging.TopNLScannerProces;
 import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.persistence.staging.LaadProces;
-import org.apache.commons.io.comparator.NameFileComparator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
- * Directory scanner for BGT light zip files.
+ * Directory scanner for topNL 10/50/100/250 files.
  *
  * @author Meine Toonen
  */
@@ -50,7 +48,7 @@ public class TopNLDirectoryScanner extends AbstractExecutableProces {
     @Transient
     private Integer progress = 0;
 
-    private String[] subdirectoryNames = {/*"Top10NL", "Top50NL",*/ "Top100NL", "Top250NL"};
+    public static final String[] subdirectoryNames = {"Top10NL", "Top50NL", "Top100NL", "Top250NL"};
 
     public TopNLDirectoryScanner(TopNLScannerProces config) {
         this.config = config;

@@ -29,7 +29,8 @@ public class LaadprocesTransformatieProces extends AutomatischProces {
      */
     public enum LaadprocesSoorten {
         // zie ook: nl.b3p.brmo.loader.BrmoFramework#BR_BGTLIGHT
-        BR_BGTLIGHT("bgtlight");
+        BR_BGTLIGHT("bgtlight"),
+        BR_TOPNL("topnl");
 
         private static final ArrayList<String> soorten = new ArrayList();
 
@@ -44,7 +45,7 @@ public class LaadprocesTransformatieProces extends AutomatischProces {
             this.soort = soort;
         }
 
-        private String getSoort() {
+        public String getSoort() {
             return soort;
         }
 
