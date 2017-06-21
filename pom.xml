@@ -167,6 +167,28 @@
         </repository>
     </repositories>
     <build>
+        <pluginManagement>
+            <plugins>
+                <!--
+                    To check for plugin updates use the following command:
+                    mvn -U org.codehaus.mojo:versions-maven-plugin:2.2:display-plugin-updates
+                    and check the output for any available updates
+                -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.5.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.10.4</version>
+                    <configuration>
+                        <excludePackageNames>nl.b3p.topnl.top*</excludePackageNames>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.jacoco</groupId>
