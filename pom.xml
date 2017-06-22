@@ -132,6 +132,7 @@
             <groupId>${oracle.jdbc.groupId}</groupId>
             <artifactId>${oracle.jdbc.artifactId}</artifactId>
             <version>${oracle.jdbc.version}</version>
+            <scope>provided</scope>
             <!-- Bij JNDI db verbinding moeten Oracle jars in tomcat lib staan -->
         </dependency>
         <dependency>
