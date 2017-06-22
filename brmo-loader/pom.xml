@@ -16,12 +16,6 @@
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>topnlparser</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>${oracle.jdbc.groupId}</groupId>
-                    <artifactId>${oracle.jdbc.artifactId}</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>nl.b3p</groupId>
