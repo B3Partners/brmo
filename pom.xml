@@ -97,7 +97,7 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>jdbc-util</artifactId>
-                <version>1.3</version>
+                <version>1.4</version>
             </dependency>
             
             <dependency>
@@ -370,6 +370,17 @@
                 <artifactId>tomcat-dbcp</artifactId>
                 <version>8.0.44</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>nl.b3p</groupId>
+                <artifactId>topnlparser</artifactId>
+                <version>1.4</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>net.postgis</groupId>
+                        <artifactId>postgis-jdbc</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>

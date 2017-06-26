@@ -3,8 +3,11 @@
  */
 package nl.b3p.brmo.service.scanner;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Transient;
 import javax.sql.DataSource;
 import nl.b3p.brmo.loader.BrmoFramework;
@@ -100,10 +103,19 @@ public class LaadprocesTransformatieUitvoeren extends AbstractExecutableProces {
         try {
             DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
             DataSource dataSourceRsgbBgt = ConfigUtil.getDataSourceRsgbBgt();
-            brmo = new BrmoFramework(dataSourceStaging, null, dataSourceRsgbBgt);
-
-            long[] lpIds = ArrayUtils.toPrimitive(
-                    brmo.getLaadProcessenIds("bestand_datum", "ASC", config.getSoort(), "STAGING_OK"));
+            DataSource dataSourceTopNL = ConfigUtil.getDataSourceTopNL();
+            brmo = new BrmoFramework(dataSourceStaging, null, dataSourceRsgbBgt, dataSourceTopNL);
+            long[] lpIds = null;
+            
+            if(LaadprocesTransformatieProces.LaadprocesSoorten.BR_TOPNL.getSoort().equalsIgnoreCase(this.config.getSoort())){
+                List<Long> ids = new ArrayList<>();
+                for (String type : TopNLDirectoryScanner.subdirectoryNames) {
+                    ids.addAll(Arrays.asList(brmo.getLaadProcessenIds("bestand_datum", "ASC", type, "STAGING_OK")));
+                }
+                lpIds = ArrayUtils.toPrimitive(ids.toArray(new Long[ids.size()]));
+            }else{
+                lpIds = ArrayUtils.toPrimitive(brmo.getLaadProcessenIds("bestand_datum", "ASC", config.getSoort(), "STAGING_OK"));
+            }
             brmo.setOrderBerichten(!config.alsStandTransformeren());
             if (lpIds == null || lpIds.length == 0) {
                 msg = "Er zijn geen laadprocessen van soort " + config.getSoort() + " en status: 'STAGING_OK' om te transformeren.";

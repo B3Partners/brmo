@@ -15,6 +15,10 @@
     <dependencies>
         <dependency>
             <groupId>nl.b3p</groupId>
+            <artifactId>topnlparser</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
             <artifactId>jdbc-util</artifactId>
         </dependency>
         <dependency>

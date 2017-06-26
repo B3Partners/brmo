@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.sql.DataSource;
+import javax.xml.bind.JAXBException;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
@@ -18,6 +19,8 @@ import nl.b3p.brmo.loader.util.BGTLightRsgbTransformer;
 import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
+import nl.b3p.brmo.loader.util.TopNLRsgbTransformer;
+import nl.b3p.topnl.TopNLType;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.io.IOUtils;
@@ -39,6 +42,7 @@ public class BrmoFramework {
     public static final String BR_BRK = "brk";
     public static final String BR_NHR = "nhr";
     public static final String BR_BGTLIGHT = "bgtlight";
+    public static final String BR_TOPNL = "topnl";
 
     public static final String XSL_BRK = "/xsl/brk-snapshot-to-rsgb-xml.xsl";
     public static final String XSL_BAG = "/xsl/bag-mutatie-to-rsgb-xml.xsl";
@@ -53,6 +57,7 @@ public class BrmoFramework {
     private DataSource dataSourceRsgb = null;
     private DataSource dataSourceRsgbBgt = null;
     private DataSource dataSourceStaging = null;
+    private DataSource dataSourceTopNL = null;
 
     private boolean enablePipeline = false;
     private Integer pipelineCapacity;
@@ -84,8 +89,26 @@ public class BrmoFramework {
         this.dataSourceStaging = dataSourceStaging;
     }
 
+    public BrmoFramework(DataSource dataSourceStaging, DataSource dataSourceRsgb, DataSource dataSourceRsgbBgt, DataSource dataSourceTopNL) throws BrmoException {
+        if (dataSourceStaging != null) {
+            try {
+                stagingProxy = new StagingProxy(dataSourceStaging);
+            } catch (SQLException ex) {
+                throw new BrmoException(ex);
+            }
+        }
+        this.dataSourceRsgb = dataSourceRsgb;
+        this.dataSourceRsgbBgt = dataSourceRsgbBgt;
+        this.dataSourceStaging = dataSourceStaging;
+        this.dataSourceTopNL = dataSourceTopNL;
+    }
+
     public void setDataSourceRsgbBgt(DataSource dataSourceRsgbBgt) {
         this.dataSourceRsgbBgt = dataSourceRsgbBgt;
+    }
+
+    public void setDataSourceTopNL (DataSource dataSourceTopNL) {
+        this.dataSourceTopNL = dataSourceTopNL;
     }
 
     public String getStagingVersion() {
@@ -207,7 +230,13 @@ public class BrmoFramework {
             // filter soort, als bgt dan als proces verwerken, niet als berichtenset
             worker = new BGTLightRsgbTransformer(dataSourceRsgbBgt, stagingProxy, ids, listener);
             ((BGTLightRsgbTransformer) worker).setLoadingUpdate(this.orderBerichten);
-        } else {
+        } else if(TopNLType.isTopNLType(soort)){
+            try{
+                worker = new TopNLRsgbTransformer(dataSourceTopNL, stagingProxy, ids, listener);
+            } catch (JAXBException | SQLException ex) {
+                throw new BrmoException("Probleem met topparser initialiseren: ", ex);
+            }
+        }else{
             worker = new RsgbProxy(dataSourceRsgb, stagingProxy, mode, ids, listener);
             ((RsgbProxy) worker).setEnablePipeline(enablePipeline);
             if (pipelineCapacity != null) {

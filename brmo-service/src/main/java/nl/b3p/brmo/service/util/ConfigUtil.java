@@ -21,9 +21,11 @@ public class ConfigUtil implements Servlet {
     private static final String JDBC_NAME_STAGING = "jdbc/brmo/staging";
     private static final String JDBC_NAME_RSGB = "jdbc/brmo/rsgb";
     private static final String JDBC_NAME_RSGB_BGT = "jdbc/brmo/rsgbbgt";
+    private static final String JDBC_NAME_RSGB_TOPNL = "jdbc/brmo/rsgbtopnl";
 
     private static DataSource datasourceStaging = null;
     private static DataSource datasourceRsgb = null;
+    private static DataSource datasourceTopNL = null;
     
     public static Integer MAX_UPLOAD_SIZE;
     public static String TEMP_FOLDER;
@@ -88,6 +90,22 @@ public class ConfigUtil implements Servlet {
         } catch (Exception ex) {
             log.error("Fout verbinden naar 'rsgbbgt' schema.", ex);
             throw new BrmoException("Fout verbinden naar 'rsgbbgt' schema.", ex);
+        }
+
+        return ds;
+    }
+
+    public static DataSource getDataSourceTopNL() throws BrmoException {
+        DataSource ds = null;
+        try {
+            if (datasourceTopNL == null) {
+                InitialContext ic = new InitialContext();
+                Context xmlContext = (Context) ic.lookup(JNDI_NAME);
+                ds = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB_TOPNL);
+            }
+        } catch (Exception ex) {
+            log.error("Fout verbinden naar 'topnl' schema.", ex);
+            throw new BrmoException("Fout verbinden naar 'topnl' schema.", ex);
         }
 
         return ds;
