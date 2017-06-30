@@ -535,6 +535,12 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
                 Split commit = SimonManager.getStopwatch(simonNamePrefix + "commit").start();
                 connRsgb.commit();
+                
+                // try garbage collect to release cursors in Oracle
+                if (geomToJdbc instanceof OracleJdbcConverter) {
+                    System.gc();
+                }
+                
                 commit.stop();
                 ber.setStatus(newStatus);
 
@@ -1275,7 +1281,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 }
             }
 
-            stm = connRsgb.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            stm = connRsgb.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.CLOSE_CURSORS_AT_COMMIT);
             checkAndAddStatement(checkRowExistsStatements, tableName, stm);
         }
 
@@ -1299,7 +1305,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         return exists;
     }
-
+    
     private final Map<String, PreparedStatement> getTableRowStatements = new HashMap();
 
     /**
@@ -1337,7 +1343,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 }
             }
 
-            stm = connRsgb.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            stm = connRsgb.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.CLOSE_CURSORS_AT_COMMIT);
             checkAndAddStatement(checkRowExistsStatements, tableName, stm);
         }
 
@@ -1594,7 +1600,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         loadLog.append(")");
         PreparedStatement stmt = null;
         if (sql.contains("select")) {
-            stmt = connRsgb.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            stmt = connRsgb.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.CLOSE_CURSORS_AT_COMMIT);
         } else {
             stmt = connRsgb.prepareStatement(sql);
         }
