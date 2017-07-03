@@ -98,6 +98,9 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
             if(batchString != null) {
                 brmo.setBatchCapacity(Integer.parseInt(batchString));
             }
+            
+            boolean renewConnectionAfterCommit = "true".equals(getContext().getServletContext().getInitParameter("renewconnectionaftercommit"));
+            brmo.setRenewConnectionAfterCommit(renewConnectionAfterCommit);
 
             brmo.setOrderBerichten(orderBerichten);
             String errorState = getContext().getServletContext().getInitParameter("error.state");

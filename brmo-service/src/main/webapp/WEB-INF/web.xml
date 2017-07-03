@@ -16,6 +16,11 @@
         <param-value>100</param-value>
     </context-param>
     <context-param>
+        <description>Sluit en heropen database verbinding na commit (alleen voor sommige implementaties van Oracle)</description>
+        <param-name>renewconnectionaftercommit</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
         <description>Moet mutatieverwerking doorgaan (ignore) bij errors of niet (fail of iets anders)</description>
         <param-name>error.state</param-name>
         <param-value>ignore</param-value>
