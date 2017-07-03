@@ -10,6 +10,8 @@ import java.sql.Struct;
 import java.util.Arrays;
 import java.util.Collection;
 import nl.b3p.AbstractDatabaseIntegrationTest;
+import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
+import nl.b3p.loader.jdbc.OracleJdbcConverter;
 import oracle.jdbc.OracleConnection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

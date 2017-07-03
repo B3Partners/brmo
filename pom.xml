@@ -97,7 +97,7 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>jdbc-util</artifactId>
-                <version>1.4</version>
+                <version>1.6</version>
             </dependency>
             
             <dependency>
@@ -374,7 +374,7 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>topnlparser</artifactId>
-                <version>1.4</version>
+                <version>1.5</version>
                 <exclusions>
                     <exclusion>
                         <groupId>net.postgis</groupId>
