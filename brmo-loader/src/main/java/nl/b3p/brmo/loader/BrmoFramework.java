@@ -61,7 +61,7 @@ public class BrmoFramework {
 
     private boolean enablePipeline = false;
     private Integer pipelineCapacity;
-
+    private boolean renewConnectionAfterCommit = false;
     private boolean orderBerichten = true;
     private String errorState = null;
 
@@ -149,6 +149,10 @@ public class BrmoFramework {
     public void setEnablePipeline(boolean enablePipeline) {
         this.enablePipeline = enablePipeline;
     }
+    
+    public void setRenewConnectionAfterCommit(boolean renewConnectionAfterCommit) {
+        this.renewConnectionAfterCommit = renewConnectionAfterCommit;
+    }
 
     public void setTransformPipelineCapacity(int pipelineCapacity) {
         this.pipelineCapacity = pipelineCapacity;
@@ -200,6 +204,7 @@ public class BrmoFramework {
         if(pipelineCapacity != null) {
             rsgbProxy.setPipelineCapacity(pipelineCapacity);
         }
+        rsgbProxy.setRenewConnectionAfterCommit(renewConnectionAfterCommit);
         rsgbProxy.setOrderBerichten(orderBerichten);
         rsgbProxy.setErrorState(errorState);
         Thread t = new Thread(rsgbProxy);
@@ -242,6 +247,7 @@ public class BrmoFramework {
             if (pipelineCapacity != null) {
                 ((RsgbProxy) worker).setPipelineCapacity(pipelineCapacity);
             }
+            ((RsgbProxy) worker).setRenewConnectionAfterCommit(renewConnectionAfterCommit);
             ((RsgbProxy) worker).setOrderBerichten(orderBerichten);
             ((RsgbProxy) worker).setErrorState(errorState);
         }
@@ -256,6 +262,7 @@ public class BrmoFramework {
         if(pipelineCapacity != null) {
             rsgbProxy.setPipelineCapacity(pipelineCapacity);
         }
+        rsgbProxy.setRenewConnectionAfterCommit(renewConnectionAfterCommit);
         rsgbProxy.setOrderBerichten(orderBerichten);
         rsgbProxy.setErrorState(errorState);
         Thread t = new Thread(rsgbProxy);

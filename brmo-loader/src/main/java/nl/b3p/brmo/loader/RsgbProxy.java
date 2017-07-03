@@ -103,7 +103,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     private boolean enablePipeline = false;
     private int pipelineCapacity = 25;
-
+    private boolean renewConnectionAfterCommit = false;
     private boolean orderBerichten = true;
     private String errorState = null;
 
@@ -169,6 +169,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     public void setPipelineCapacity(int pipelineCapacity) {
         this.pipelineCapacity = pipelineCapacity;
     }
+    
+    public void setRenewConnectionAfterCommit(boolean renewConnectionAfterCommit) {
+        this.renewConnectionAfterCommit = renewConnectionAfterCommit;
+    }
 
     public void setOrderBerichten(boolean orderBerichten) {
         this.orderBerichten = orderBerichten;
@@ -200,10 +204,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
     }
 
-    private final Object LOCK = new Object();
     private final Map<String, PreparedStatement> checkRowExistsStatements = new HashMap();
     private final Map<String, PreparedStatement> insertSqlPreparedStatements = new HashMap();
     private final Map<String, PreparedStatement> updateSqlPreparedStatements = new HashMap();
+    private final Map<String, PreparedStatement> createDeleteSqlStatements = new HashMap();
     private PreparedStatement insertMetadataStatement;
 
     private PreparedStatement checkAndGetPreparedStatement(Map<String, PreparedStatement> m, String name) throws SQLException {
@@ -244,6 +248,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             DbUtils.closeQuietly(stmt);
         }
         updateSqlPreparedStatements.clear();
+        for (PreparedStatement stmt : createDeleteSqlStatements.values()) {
+            DbUtils.closeQuietly(stmt);
+        }
+        createDeleteSqlStatements.clear();
         if (insertMetadataStatement != null) {
             DbUtils.closeQuietly(insertMetadataStatement);
         }
@@ -254,13 +262,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     @Override
     public void renewConnection() throws SQLException {
-        //TODO check of dit echt werkt zoals bedoeld
-        synchronized (LOCK) {
-            synchronized (connRsgb) {
-                close();
-                init();
-            }
-        }
+        close();
+        init();
     }
 
     @Override
@@ -428,157 +431,160 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
      */
     @Override
     public void handle(Bericht ber, List<TableData> pretransformedTableData, boolean updateResult) throws BrmoException {
-        // lock on connection, omdat parent loop periodiek connectie wil verversen.
-        synchronized (LOCK) {
-        synchronized (connRsgb) {
 
-            if (updateProcess != null) {
-                update(ber, pretransformedTableData);
-                return;
-            }
+        if (updateProcess != null) {
+            update(ber, pretransformedTableData);
+            return;
+        }
 
-            Bericht.STATUS newStatus = Bericht.STATUS.RSGB_OK;
+        Bericht.STATUS newStatus = Bericht.STATUS.RSGB_OK;
 
-            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss:SSS");
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss:SSS");
 //        dateTimeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 //        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-            log.debug(String.format("RSGB verwerking van %s bericht met id %s, object_ref %s, datum %tc", ber.getSoort(), ber.getId(), ber.getObjectRef(), ber.getDatum()));
-            StringBuilder loadLog;
-            if (pretransformedTableData == null) {
-                loadLog = new StringBuilder();
+        log.debug(String.format("RSGB verwerking van %s bericht met id %s, object_ref %s, datum %tc", ber.getSoort(), ber.getId(), ber.getObjectRef(), ber.getDatum()));
+        StringBuilder loadLog;
+        if (pretransformedTableData == null) {
+            loadLog = new StringBuilder();
+        } else {
+            loadLog = new StringBuilder(ber.getOpmerking());
+        }
+        loadLog.append(String.format("%s: start verwerking %s bericht object ref %s, met id %s, berichtdatum %s\n", dateTimeFormat.format(new Date()), ber.getSoort(), ber.getObjectRef(), ber.getId(), dateFormat.format(ber.getDatum())));
+
+        setHerkomstMetadata(ber.getSoort());
+
+        long startTime = 0;
+        try {
+
+            if (connRsgb.getAutoCommit()) {
+                connRsgb.setAutoCommit(false);
+            }
+
+            List<TableData> newList;
+            if (pretransformedTableData != null) {
+                loadLog.append("Bericht was al getransformeerd in pipeline\n");
+                newList = pretransformedTableData;
             } else {
+                loadLog.append("Transformeren naar RSGB database-xml en lezen resultaat... ");
+                startTime = System.currentTimeMillis();
+                newList = transformToTableData(ber);
+                loadLog.append(String.format("%4.1fs\n", (System.currentTimeMillis() - startTime) / 1000.0));
+            }
+            // nieuwe starttijd voor laden in RSGB
+            startTime = System.currentTimeMillis();
+
+            // per bericht kijken of er een oud bericht is
+            Bericht oud = null;
+            if (orderBerichten) {
+                oud = stagingProxy.getOldBericht(ber, loadLog);
+            } else {
+                //als geen orderberichten dan wordt stand ingelezen
+                //en indien volgordenummer >=0 (geen stand) dan afbreken
+                if (ber.getVolgordeNummer() >= 0) {
+                    throw new BrmoException("Standverwerking, maar bericht is mutatie: niet verwerken!");
+                }
+                loadLog.append("Standverwerking, gegevens worden alleen toegevoegd als ze nog niet bestaan!\n");
+            }
+
+            // oud bericht
+            if (oud != null) {
+                loadLog.append(String.format("Eerder bericht (id: %d) voor zelfde object gevonden van datum %s, volgnummer %d,status %s op %s\n",
+                        oud.getId(),
+                        dateFormat.format(oud.getDatum()),
+                        oud.getVolgordeNummer(),
+                        oud.getStatus().toString(),
+                        dateTimeFormat.format(oud.getStatusDatum())));
+
+                if (ber.getDatum().equals(oud.getDatum()) && ber.getVolgordeNummer().equals(oud.getVolgordeNummer())) {
+                    if (ber.getId() == oud.getId()) {
+                        //dit kan voorkomen bij herstart van job terwijl bericht nog in pipeline van andere job zat
+                        //niets doen, log overnemen.
+                        loadLog.append(oud.getOpmerking());
+                    } else {
+                        loadLog.append("Datum en volgordenummer van nieuw bericht hetzelfde als de oude, negeer dit bericht!\n");
+                        boolean dbXmlEquals = ber.getDbXml().equals(oud.getDbXml());
+                        if (!dbXmlEquals) {
+                            String s = String.format("Bericht %d met zelfde datum en volgnummer als eerder verwerkt bericht %d heeft andere db xml! Object ref %s",
+                                    ber.getId(), oud.getId(), ber.getObjectRef());
+                            log.warn(s);
+                            loadLog.append("Waarschuwing: ").append(s).append("\n");
+                        }
+                    }
+                } else {
+                    // Check of eerder bericht toevallig niet nieuwere datum
+                    if (oud.getDatum().after(ber.getDatum())) {
+                        newStatus = Bericht.STATUS.RSGB_OUTDATED;
+                        loadLog.append("Bericht bevat oudere data dan eerder verwerkt bericht, status RSGB_OUTDATED\n");
+                        // Check of eerder bericht toevallig niet zelfde datum met hoger volgorde nummer, mantis-6098
+                    } else if (oud.getDatum().equals(ber.getDatum()) && oud.getVolgordeNummer() > ber.getVolgordeNummer()) {
+                        newStatus = Bericht.STATUS.RSGB_OUTDATED;
+                        loadLog.append("Bericht bevat oudere data dan eerder verwerkt bericht met hoger volgnummer, status RSGB_OUTDATED\n");
+                    } else {
+                        StringReader oReader = new StringReader(oud.getDbXml());
+                        List<TableData> oudList = oldDbXmlReader.readDataXML(new StreamSource(oReader));
+
+                        parseNewData(oudList, newList, dateFormat.format(oud.getDatum()), loadLog);
+                        parseOldData(oudList, newList, dateFormat.format(ber.getDatum()), dateFormat.format(oud.getDatum()), loadLog);
+                    }
+                }
+            } else {
+                parseNewData(null, newList, null, loadLog);
+            }
+
+            Split commit = SimonManager.getStopwatch(simonNamePrefix + "commit").start();
+            connRsgb.commit();
+            commit.stop();
+            ber.setStatus(newStatus);
+
+            this.processed++;
+            if (listener != null) {
+                listener.progress(this.processed);
+            }
+
+        } catch (Throwable ex) {
+            log.error("Fout bij verwerking bericht met id " + ber.getId(), ex);
+            try {
+                connRsgb.rollback();
+            } catch (SQLException e) {
+                log.debug("Rollback exception", e);
+            }
+            ber.setOpmerking(loadLog.toString());
+            loadLog = null;
+            updateBerichtException(ber, ex);
+
+        } finally {
+            if (loadLog == null) {
                 loadLog = new StringBuilder(ber.getOpmerking());
             }
-            loadLog.append(String.format("%s: start verwerking %s bericht object ref %s, met id %s, berichtdatum %s\n", dateTimeFormat.format(new Date()), ber.getSoort(), ber.getObjectRef(), ber.getId(), dateFormat.format(ber.getDatum())));
 
-            setHerkomstMetadata(ber.getSoort());
+            loadLog.append("\n\n");
+            loadLog.append(String.format("%s: einde verwerking, duur: %4.1fs", dateTimeFormat.format(new Date()), (System.currentTimeMillis() - startTime) / 1000.0));
+            ber.setOpmerking(loadLog.toString());
 
-            long startTime = 0;
-            try {
-
-                if (connRsgb.getAutoCommit()) {
-                    connRsgb.setAutoCommit(false);
-                }
-
-                List<TableData> newList;
-                if (pretransformedTableData != null) {
-                    loadLog.append("Bericht was al getransformeerd in pipeline\n");
-                    newList = pretransformedTableData;
-                } else {
-                    loadLog.append("Transformeren naar RSGB database-xml en lezen resultaat... ");
-                    startTime = System.currentTimeMillis();
-                    newList = transformToTableData(ber);
-                    loadLog.append(String.format("%4.1fs\n", (System.currentTimeMillis() - startTime) / 1000.0));
-                }
-                // nieuwe starttijd voor laden in RSGB
-                startTime = System.currentTimeMillis();
-
-                // per bericht kijken of er een oud bericht is
-                Bericht oud = null;
-                if (orderBerichten) {
-                    oud = stagingProxy.getOldBericht(ber, loadLog);
-                } else {
-                    //als geen orderberichten dan wordt stand ingelezen
-                    //en indien volgordenummer >=0 (geen stand) dan afbreken
-                    if (ber.getVolgordeNummer() >= 0) {
-                        throw new BrmoException("Standverwerking, maar bericht is mutatie: niet verwerken!");
-                    }
-                    loadLog.append("Standverwerking, gegevens worden alleen toegevoegd als ze nog niet bestaan!\n");
-                }
-
-                // oud bericht
-                if (oud != null) {
-                    loadLog.append(String.format("Eerder bericht (id: %d) voor zelfde object gevonden van datum %s, volgnummer %d,status %s op %s\n",
-                            oud.getId(),
-                            dateFormat.format(oud.getDatum()),
-                            oud.getVolgordeNummer(),
-                            oud.getStatus().toString(),
-                            dateTimeFormat.format(oud.getStatusDatum())));
-
-                    if (ber.getDatum().equals(oud.getDatum()) && ber.getVolgordeNummer().equals(oud.getVolgordeNummer())) {
-                        if (ber.getId() == oud.getId()) {
-                            //dit kan voorkomen bij herstart van job terwijl bericht nog in pipeline van andere job zat
-                            //niets doen, log overnemen.
-                            loadLog.append(oud.getOpmerking());
-                        } else {
-                            loadLog.append("Datum en volgordenummer van nieuw bericht hetzelfde als de oude, negeer dit bericht!\n");
-                            boolean dbXmlEquals = ber.getDbXml().equals(oud.getDbXml());
-                            if (!dbXmlEquals) {
-                                String s = String.format("Bericht %d met zelfde datum en volgnummer als eerder verwerkt bericht %d heeft andere db xml! Object ref %s",
-                                        ber.getId(), oud.getId(), ber.getObjectRef());
-                                log.warn(s);
-                                loadLog.append("Waarschuwing: ").append(s).append("\n");
-                            }
-                        }
-                    } else {
-                        // Check of eerder bericht toevallig niet nieuwere datum
-                        if (oud.getDatum().after(ber.getDatum())) {
-                            newStatus = Bericht.STATUS.RSGB_OUTDATED;
-                            loadLog.append("Bericht bevat oudere data dan eerder verwerkt bericht, status RSGB_OUTDATED\n");
-                            // Check of eerder bericht toevallig niet zelfde datum met hoger volgorde nummer, mantis-6098
-                        } else if (oud.getDatum().equals(ber.getDatum()) && oud.getVolgordeNummer() > ber.getVolgordeNummer()) {
-                            newStatus = Bericht.STATUS.RSGB_OUTDATED;
-                            loadLog.append("Bericht bevat oudere data dan eerder verwerkt bericht met hoger volgnummer, status RSGB_OUTDATED\n");
-                        } else {
-                            StringReader oReader = new StringReader(oud.getDbXml());
-                            List<TableData> oudList = oldDbXmlReader.readDataXML(new StreamSource(oReader));
-
-                            parseNewData(oudList, newList, dateFormat.format(oud.getDatum()), loadLog);
-                            parseOldData(oudList, newList, dateFormat.format(ber.getDatum()), dateFormat.format(oud.getDatum()), loadLog);
-                        }
-                    }
-                } else {
-                    parseNewData(null, newList, null, loadLog);
-                }
-
-                Split commit = SimonManager.getStopwatch(simonNamePrefix + "commit").start();
-                connRsgb.commit();
-                
-                // try garbage collect to release cursors in Oracle
-                if (geomToJdbc instanceof OracleJdbcConverter) {
-                    System.gc();
-                }
-                
-                commit.stop();
-                ber.setStatus(newStatus);
-
-                this.processed++;
-                if (listener != null) {
-                    listener.progress(this.processed);
-                }
-
-            } catch (Throwable ex) {
-                log.error("Fout bij verwerking bericht met id " + ber.getId(), ex);
-                try {
-                    connRsgb.rollback();
-                } catch (SQLException e) {
-                    log.debug("Rollback exception", e);
-                }
-                ber.setOpmerking(loadLog.toString());
-                loadLog = null;
-                updateBerichtException(ber, ex);
-
-            } finally {
-                if (loadLog == null) {
-                    loadLog = new StringBuilder(ber.getOpmerking());
-                }
-
-                loadLog.append("\n\n");
-                loadLog.append(String.format("%s: einde verwerking, duur: %4.1fs", dateTimeFormat.format(new Date()), (System.currentTimeMillis() - startTime) / 1000.0));
-                ber.setOpmerking(loadLog.toString());
-
-                if (updateResult) {
-                    updateProcessingResult(ber);
-                }
-
-                if (recentSavepoint != null) {
-                    // Set savepoint to null, as it is automatically released after commit the transaction.
-                    recentSavepoint = null;
-                }
+            if (updateResult) {
+                updateProcessingResult(ber);
             }
-        }
+
+            if (recentSavepoint != null) {
+                // Set savepoint to null, as it is automatically released after commit the transaction.
+                recentSavepoint = null;
+            }
+
+            if (renewConnectionAfterCommit) {
+                log.debug("Vernieuwen van verbinding om cursors in Oracle vrij te geven!");
+                if (!(geomToJdbc instanceof OracleJdbcConverter)) {
+                    log.info("Vernieuwen van verbinding is alleen nodig bij sommige Oracle implementeties: lijkt hier overbodig!");
+                }
+                try {
+                    renewConnection();
+                } catch (SQLException ex) {
+                    throw new BrmoException("Error renewing connection", ex);
+                }
+                // try garbage collect to release cursors in Oracle
+                // System.gc();
+            }
         }
     }
 
@@ -710,21 +716,16 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                         createInsertSql(row, false, loadLog);
                         split2.stop();
                     } else {
-                        // XXX kan momenteel niet werken; herkomst_metadata heeft alleen
-                        // superclass records.
-                        // Logisch ook niet mogelijk dat comfort data opeens authentiek wordt
-                        // momenteel (pas bij Basisregistratie Personen / NHR)
-
-                        //split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.isalreadyinmetadata").start();
-                        //boolean inMetaDataTable = isAlreadyInMetadata(row, loadLog);
-                        //split2.stop();
+                        split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.isalreadyinmetadata").start();
+                        boolean inMetaDataTable = isAlreadyInMetadata(row, loadLog);
+                        split2.stop();
                         // wis metadata en update hoofdtabel
-                        //if (inMetaDataTable) {
-                        //    loadLog.append("\nwis uit metadata tabel (upgrade van comfort naar authentiek). ");
-                        //    split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.deletefrommetadata").start();
-                        //    deleteFromMetadata(row, loadLog);
-                        //    split2.stop();
-                        //}
+                        if (inMetaDataTable) {
+                            loadLog.append("\nwis uit metadata tabel (upgrade van comfort naar authentiek). ");
+                            split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.deletefrommetadata").start();
+                            deleteFromMetadata(row, loadLog);
+                            split2.stop();
+                        }
                         if ("brondocument".equalsIgnoreCase(row.getTable())) {
                             // Nooit stukdeel wat al bestaat updaten, en ook alle
                             // volgende stukdelen niet
@@ -1281,7 +1282,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 }
             }
 
-            stm = connRsgb.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.CLOSE_CURSORS_AT_COMMIT);
+            stm = connRsgb.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             checkAndAddStatement(checkRowExistsStatements, tableName, stm);
         }
 
@@ -1306,31 +1307,82 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return exists;
     }
     
-    private final Map<String, PreparedStatement> getTableRowStatements = new HashMap();
+    public boolean isAlreadyInMetadata(TableRow row, StringBuilder loadLog)
+            throws SQLException, ParseException, BrmoException {
 
-    /**
-     *
-     * @deprecated Momenteel niet in gebruik. Veel updates vinden nu niet plaats
-     * nu brondocumenten al een specifieke optimalisatie hebben.
-     */
-    private TableRow getTableRowFromDb(TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
+        if (connRsgb == null || connRsgb.isClosed()) {
+            // if used not-threaded, init() required
+            throw new BrmoException("No connection found");
+        }
+        
+        List params = new ArrayList();
+        String herkomstTableName = "herkomst_metadata";
+        String tableName = row.getTable();
+        params.add(tableName);
+        List<String> pkColumns = getPrimaryKeys(tableName);
+        String column = null;
+        if (pkColumns.size()==1) {
+            column = pkColumns.get(0);
+        }
+        params.add(column);
+        String waarde = getValueFromTableRow(row, column);
+        params.add(waarde);
+        
+        
+        loadLog.append("\nControleer ").append(herkomstTableName).append(" op primary key: ").append(params.toString());
+
+        PreparedStatement stm = checkAndGetPreparedStatement(checkRowExistsStatements, herkomstTableName);
+        if (stm == null) {
+            StringBuilder sql = new StringBuilder("select 1 from ")
+                    .append(herkomstTableName)
+                    .append(" WHERE tabel = ? AND kolom = ? AND kolom = ?");
+
+            stm = connRsgb.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            checkAndAddStatement(checkRowExistsStatements, herkomstTableName, stm);
+        }
+
+
+        int i = 1;
+        for (Object p : params) {
+            stm.setObject(i++, p);
+        }
+
+        ResultSet rs = null;
+        boolean exists = false;
+        try {
+            rs = stm.executeQuery();
+            exists = rs.next();
+        } finally {
+            if(rs != null) {
+                rs.close();
+                checkAndCloseStatement(stm); // ???
+            }
+        }
+        loadLog.append(", rij bestaat: ").append(exists ? "ja" : "nee");
+
+        return exists;
+        
+    }
+
+    private boolean createDeleteSql(TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
+        doSavePoint(row);
 
         String tableName = row.getTable();
+        // Where clause using pk columns
         List<String> pkColumns = getPrimaryKeys(tableName);
-
+        
         List params = new ArrayList();
         for (String column : pkColumns) {
             String val = getValueFromTableRow(row, column);
             Object obj = getValueAsObject(row.getTable(), column, val, null);
             params.add(obj);
         }
-
-        loadLog.append("\nControleer ").append(tableName).append(" op primary key: ").append(params.toString());
-
-        PreparedStatement stm = checkAndGetPreparedStatement(checkRowExistsStatements, tableName);
+        loadLog.append("\nVerwijderen rij uit ").append(tableName).append(" met primary key: ").append(params.toString());
+        
+        PreparedStatement stm = checkAndGetPreparedStatement(createDeleteSqlStatements, tableName);
 
         if (stm == null) {
-            StringBuilder sql = new StringBuilder("select * from ")
+            StringBuilder sql = new StringBuilder("delete from ")
                     .append(tableName);
 
             boolean first = true;
@@ -1343,149 +1395,72 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 }
             }
 
-            stm = connRsgb.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.CLOSE_CURSORS_AT_COMMIT);
-            checkAndAddStatement(checkRowExistsStatements, tableName, stm);
+            stm = connRsgb.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            checkAndAddStatement(createDeleteSqlStatements, tableName, stm);
         }
 
         int i = 1;
         for (Object p : params) {
             stm.setObject(i++, p);
         }
-        ResultSet rs = null;
-        boolean exists = false;
-        TableRow existing = null;
+        
+        int count = 1; // all ok
         try {
-            rs = stm.executeQuery();
-            exists = rs.next();
-            if (exists) {
-                existing = new TableRow();
-                existing.setTable(tableName);
-                for (ColumnMetadata columnMd : getTableColumnMetadata(row.getTable())) {
-                    existing.getColumns().add(columnMd.getName());
-                    existing.getValues().add(getValueAsString(columnMd, rs.getObject(columnMd.getName())));
-                }
+            if (alsoExecuteSql) {
+                count = stm.executeUpdate();
             }
         } finally {
-            if (rs!=null) rs.close();
             checkAndCloseStatement(stm);
         }
+        loadLog.append(", aantal rijen verwijderd: ").append(count);
 
-        loadLog.append(", rij bestaat: ").append(exists ? "ja" : "nee");
+        return count >0;
 
-        return existing;
-    }
-
-    public boolean isAlreadyInMetadata(TableRow row, StringBuilder loadLog)
-            throws SQLException, ParseException, BrmoException {
-
-        if (connRsgb == null || connRsgb.isClosed()) {
-            // if used not-threaded, init() required
-            throw new BrmoException("No connection found");
-        }
-
-        StringBuilder sql = new StringBuilder("select 1 from ");
-
-        String metadataTable = "herkomst_metadata";
-        sql.append(metadataTable);
-
-        String tableName = row.getTable();
-
-        sql.append(" WHERE tabel = ?");
-
-        List params = new ArrayList();
-
-        params.add(tableName);
-
-        List<String> pkColumns = getPrimaryKeys(tableName);
-        String waarde = null;
-        for (String column : pkColumns) {
-            sql.append(" AND kolom = ?");
-            params.add(column);
-
-            waarde = getValueFromTableRow(row, column);
-        }
-
-        if (waarde != null) {
-            sql.append(" AND waarde = ?");
-            params.add(waarde);
-        }
-
-        PreparedStatement stm = getPreparedStatement(row, sql.toString(), params, null, loadLog);
-        ResultSet results = stm.executeQuery();
-        int count = getRowCount(results);
-        DbUtils.closeQuietly(results);
-
-        return count > 0;
     }
 
     private boolean deleteFromMetadata(TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
-        StringBuilder sql = new StringBuilder("delete from ");
-
-        String metadataTable = "herkomst_metadata";
-        sql.append(metadataTable);
-
-        String tableName = row.getTable();
-
-        sql.append(" WHERE tabel = ?");
-
+         
         List params = new ArrayList();
-
-        params.add(tableName);
-
-        List<String> pkColumns = getPrimaryKeys(tableName);
-        String waarde = null;
-        for (String column : pkColumns) {
-            sql.append(" AND kolom = ?");
-            params.add(column);
-
-            waarde = getValueFromTableRow(row, column);
-        }
-
-        if (waarde != null) {
-            sql.append(" AND waarde = ?");
-            params.add(waarde);
-        }
-
-        PreparedStatement stm = getPreparedStatement(row, sql.toString(), params, null, loadLog);
-
-        int count = 1; // all ok
-        if (alsoExecuteSql) {
-            count = stm.executeUpdate();
-        }
-
-        return count > 0;
-    }
-
-    private boolean createDeleteSql(TableRow row, StringBuilder loadLog) throws SQLException, ParseException {
-        doSavePoint(row);
-
-        StringBuilder sql = new StringBuilder("delete from ");
-
+        String herkomstTableName = "herkomst_metadata";
         String tableName = row.getTable();
-        sql.append(tableName);
-
-        SortedSet<ColumnMetadata> tableColumnMetadata = null;
-        tableColumnMetadata = getTableColumnMetadata(tableName);
-
-        // Where clause using pk columns
+        params.add(tableName);
         List<String> pkColumns = getPrimaryKeys(tableName);
+        String column = null;
+        if (pkColumns.size()==1) {
+            column = pkColumns.get(0);
+        }
+        params.add(column);
+        String waarde = getValueFromTableRow(row, column);
+        params.add(waarde);
+        
+        
+        loadLog.append("\nVerwijder rij uit ").append(herkomstTableName).append(" met primary key: ").append(params.toString());
 
-        int i = 0;
-        for (String column : pkColumns) {
-            if (i < 1) {
-                sql.append(" WHERE " + column + " = ?");
-            } else {
-                sql.append(" AND " + column + " = ?");
-            }
-            i++;
+        PreparedStatement stm = checkAndGetPreparedStatement(createDeleteSqlStatements, herkomstTableName);
+        if (stm == null) {
+            StringBuilder sql = new StringBuilder("delete from ")
+                    .append(herkomstTableName)
+                    .append(" WHERE tabel = ? AND kolom = ? AND kolom = ?");
+
+            stm = connRsgb.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            checkAndAddStatement(createDeleteSqlStatements, herkomstTableName, stm);
         }
 
-        PreparedStatement stm = getPreparedStatement(row, sql.toString(), null, pkColumns, loadLog);;
 
+        int i = 1;
+        for (Object p : params) {
+            stm.setObject(i++, p);
+        }
+        
         int count = 1; // all ok
-        if (alsoExecuteSql) {
-            count = stm.executeUpdate();
+        try {
+            if (alsoExecuteSql) {
+                count = stm.executeUpdate();
+            }
+        } finally {
+            checkAndCloseStatement(stm);
         }
+        loadLog.append(", aantal rijen verwijderd: ").append(count);
 
         return count >0;
     }
@@ -1589,47 +1564,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
     }
 
-    private PreparedStatement getPreparedStatement(TableRow row, String sql, List params, List<String> pkColumns, StringBuilder loadLog) throws SQLException, ParseException {
-        loadLog.append("\nSQL: ");
-        loadLog.append(sql);
-        loadLog.append(", params (");
-        loadLog.append(params == null ? "" : params.toString());
-        loadLog.append(")");
-        loadLog.append(", duplikaat negeren (");
-        loadLog.append(row.isIgnoreDuplicates() ? "ja" : "nee");
-        loadLog.append(")");
-        PreparedStatement stmt = null;
-        if (sql.contains("select")) {
-            stmt = connRsgb.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.CLOSE_CURSORS_AT_COMMIT);
-        } else {
-            stmt = connRsgb.prepareStatement(sql);
-        }
-        int counter = 0;
-        if (params != null && params.size() > 0) {
-            for (int i = 0; i < params.size(); i++) {
-                Object param = params.get(i);
-                stmt.setObject(i + 1, param);
-                counter = i + 1;
-            }
-        }
-        if (pkColumns != null && pkColumns.size() > 0) {
-            loadLog.append(", pkeys (");
-            for (String column : pkColumns) {
-                loadLog.append("[");
-                loadLog.append(column);
-                loadLog.append("=");
-                String val = getValueFromTableRow(row, column);
-                Object obj = getValueAsObject(row.getTable(), column, val, null);
-                loadLog.append(obj == null ? "" : obj.toString());
-                loadLog.append("] ");
-                stmt.setObject(counter + 1, obj);
-                counter++;
-            }
-            loadLog.append(")");
-        }
-        return stmt;
-    }
-
     private Object getValueAsObject(String tableName, String column, String value, ColumnMetadata cm) throws SQLException, ParseException {
 
         if (cm == null) {
@@ -1648,63 +1582,5 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
 
         return param;
-    }
-
-    /**
-     * Momenteel niet in gebruik
-     * ({@link #getTableRowFromDb(nl.b3p.brmo.loader.util.TableRow, java.lang.StringBuilder)}),
-     * werkt ook nog niet met geometrie.
-     *
-     * @see #getTableRowFromDb(nl.b3p.brmo.loader.util.TableRow,
-     * java.lang.StringBuilder)
-     * @deprecated
-     */
-    private String getValueAsString(ColumnMetadata cm, Object object) throws SQLException {
-        String value = null;
-        if (object != null) {
-            switch (cm.getDataType()) {
-                case Types.DECIMAL:
-                case Types.NUMERIC:
-                case Types.INTEGER:
-                case Types.CHAR:
-                case Types.VARCHAR:
-                    value = object.toString();
-                    break;
-                case Types.OTHER:
-// het enige dat deze code mogelijk zou doen is een fout opwerpen wat zinloos is omdat er geen niets met `value` wordt gedaan
-// related to #94
-//                    if (cm.getTypeName().equals("SDO_GEOMETRY") || cm.getTypeName().equals("geometry")) {
-//                        // XXX need to convert geometry back to WKT...
-//                        throw new UnsupportedOperationException();
-//                    } else {
-//                        throw new IllegalStateException(String.format("Column \"%s\" (value to convert \"%s\") type other but not geometry!", cm.getName(), object));
-//                    }
-                case Types.STRUCT:
-                // oracle 12 kan een struct voor geometrie geven
-                case Types.DATE:
-                case Types.TIMESTAMP:
-                    //Calendar cal = new GregorianCalendar();
-                    //cal.setTime(new Date(((java.sql.Date)object).getTime()));
-                    // XXX format calendar
-                    //value = format(cal);
-                    break;
-                default:
-                    throw new UnsupportedOperationException(String.format("Data type %s (#%d) of column \"%s\" not supported", cm.getTypeName(), cm.getDataType(), cm.getName()));
-            }
-        }
-        return value;
-    }
-
-    private int getRowCount(ResultSet rs) throws SQLException {
-        int size = 0;
-        try {
-            if (rs != null && rs.next()) {
-                size = rs.getInt(1);
-            }
-        } catch (SQLException ex) {
-            throw new SQLException("Fout ophalen row count: ", ex);
-        }
-
-        return size;
     }
 }
