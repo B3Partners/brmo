@@ -40,12 +40,12 @@ timestamps {
                     sh ".jenkins/db-prepare-rsgb.sh"
                     sh ".jenkins/db-prepare-rsgbbgt.sh"
                 }
-
+/*
                 stage('brmo-commandline Integration Test') {
                     echo "run integratie tests voor brmo-commandline module"
                     sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-commandline'"
                 }
-
+*/
                 stage('bgt-gml-loader Integration Test') {
                     echo "run integratie tests voor bgt-gml-loader module"
                     sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bgt-gml-loader'"
