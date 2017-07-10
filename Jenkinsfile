@@ -19,7 +19,7 @@ timestamps {
 
             stage('Build') {
                 echo "Building branch: ${env.BRANCH_NAME}"
-                sh "mvn install -Dmaven.test.skip=true -B -V -e -fae  -q -Poracle -pl '!brmo-dist'"
+                sh "mvn clean install -Dmaven.test.skip=true -B -V -e -fae  -q -Poracle -pl '!brmo-dist'"
             }
 
             stage('Test') {
@@ -40,12 +40,7 @@ timestamps {
                     sh ".jenkins/db-prepare-rsgb.sh"
                     sh ".jenkins/db-prepare-rsgbbgt.sh"
                 }
-/*
-                stage('brmo-commandline Integration Test') {
-                    echo "run integratie tests voor brmo-commandline module"
-                    sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-commandline'"
-                }
-*/
+
                 stage('bgt-gml-loader Integration Test') {
                     echo "run integratie tests voor bgt-gml-loader module"
                     sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bgt-gml-loader'"
@@ -71,6 +66,11 @@ timestamps {
                 stage('brmo-soap Integration Test') {
                     echo "run integratie tests voor brmo-soap module"
                     sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-soap'"
+                }
+
+                stage('brmo-commandline Integration Test') {
+                    echo "run integratie tests voor brmo-commandline module"
+                    sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-commandline'"
                 }
 
                 stage('Cleanup Database') {
