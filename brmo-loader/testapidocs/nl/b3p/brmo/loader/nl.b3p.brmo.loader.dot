@@ -39,6 +39,7 @@ digraph G {
 <tr><td align="left" balign="left"> + BR_BRK : String </td></tr>
 <tr><td align="left" balign="left"> + BR_NHR : String </td></tr>
 <tr><td align="left" balign="left"> + BR_BGTLIGHT : String </td></tr>
+<tr><td align="left" balign="left"> + BR_TOPNL : String </td></tr>
 <tr><td align="left" balign="left"> + XSL_BRK : String </td></tr>
 <tr><td align="left" balign="left"> + XSL_BAG : String </td></tr>
 <tr><td align="left" balign="left"> + XSL_NHR : String </td></tr>
@@ -50,11 +51,14 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + BrmoFramework(arg0 : DataSource, arg1 : DataSource) </td></tr>
 <tr><td align="left" balign="left"> + BrmoFramework(arg0 : DataSource, arg1 : DataSource, arg2 : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + BrmoFramework(arg0 : DataSource, arg1 : DataSource, arg2 : DataSource, arg3 : DataSource) </td></tr>
 <tr><td align="left" balign="left"> + setDataSourceRsgbBgt(arg0 : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + setDataSourceTopNL(arg0 : DataSource) </td></tr>
 <tr><td align="left" balign="left"> + getStagingVersion() : String </td></tr>
 <tr><td align="left" balign="left"> + getRsgbVersion() : String </td></tr>
 <tr><td align="left" balign="left"> + getRsgbBgtVersion() : String </td></tr>
 <tr><td align="left" balign="left"> + setEnablePipeline(arg0 : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setRenewConnectionAfterCommit(arg0 : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setTransformPipelineCapacity(arg0 : int) </td></tr>
 <tr><td align="left" balign="left"> + setBatchCapacity(arg0 : int) </td></tr>
 <tr><td align="left" balign="left"> + setLimitStandBerichtenToTransform(arg0 : Integer) </td></tr>

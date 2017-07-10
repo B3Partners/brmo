@@ -9,23 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.loader.util.BGTLightRsgbTransformer
-	c2567 [label=<<table title="nl.b3p.brmo.loader.util.BGTLightRsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./util/BGTLightRsgbTransformer.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BGTLightRsgbTransformer </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTLightRsgbTransformer(dataSourceRsgbBgt : DataSource, stagingProxy : StagingProxy, lpIDs : long[], listener : ProgressUpdateListener) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + setLoadingUpdate(loadingUpdate : boolean) </td></tr>
-<tr><td align="left" balign="left"> + run() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./util/BGTLightRsgbTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.RsgbProxy
-	c2571 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.html">
+	c1657 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RsgbProxy </td></tr>
 		</table></td></tr>
@@ -39,6 +24,7 @@ digraph G {
 <tr><td align="left" balign="left"> + setSimonNamePrefix(prefix : String) </td></tr>
 <tr><td align="left" balign="left"> + setEnablePipeline(enablePipeline : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setPipelineCapacity(pipelineCapacity : int) </td></tr>
+<tr><td align="left" balign="left"> + setRenewConnectionAfterCommit(renewConnectionAfterCommit : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setOrderBerichten(orderBerichten : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setErrorState(errorState : String) </td></tr>
 <tr><td align="left" balign="left"> + init() </td></tr>
@@ -59,8 +45,68 @@ digraph G {
 <tr><td align="left" balign="left"> + setHerkomstMetadata(herkomstMetadata : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./RsgbProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.BrmoFramework
+	c1660 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoFramework.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BrmoFramework </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BR_BAG : String </td></tr>
+<tr><td align="left" balign="left"> + BR_BRK : String </td></tr>
+<tr><td align="left" balign="left"> + BR_NHR : String </td></tr>
+<tr><td align="left" balign="left"> + BR_BGTLIGHT : String </td></tr>
+<tr><td align="left" balign="left"> + BR_TOPNL : String </td></tr>
+<tr><td align="left" balign="left"> + XSL_BRK : String </td></tr>
+<tr><td align="left" balign="left"> + XSL_BAG : String </td></tr>
+<tr><td align="left" balign="left"> + XSL_NHR : String </td></tr>
+<tr><td align="left" balign="left"> + LAADPROCES_TABEL : String </td></tr>
+<tr><td align="left" balign="left"> + BERICHT_TABLE : String </td></tr>
+<tr><td align="left" balign="left"> + JOB_TABLE : String </td></tr>
+<tr><td align="left" balign="left"> + BRMO_METADATA_TABEL : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BrmoFramework(dataSourceStaging : DataSource, dataSourceRsgb : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + BrmoFramework(dataSourceStaging : DataSource, dataSourceRsgb : DataSource, dataSourceRsgbBgt : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + BrmoFramework(dataSourceStaging : DataSource, dataSourceRsgb : DataSource, dataSourceRsgbBgt : DataSource, dataSourceTopNL : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + setDataSourceRsgbBgt(dataSourceRsgbBgt : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + setDataSourceTopNL(dataSourceTopNL : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + getStagingVersion() : String </td></tr>
+<tr><td align="left" balign="left"> + getRsgbVersion() : String </td></tr>
+<tr><td align="left" balign="left"> + getRsgbBgtVersion() : String </td></tr>
+<tr><td align="left" balign="left"> + setEnablePipeline(enablePipeline : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setRenewConnectionAfterCommit(renewConnectionAfterCommit : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setTransformPipelineCapacity(pipelineCapacity : int) </td></tr>
+<tr><td align="left" balign="left"> + setBatchCapacity(batchCapacity : int) </td></tr>
+<tr><td align="left" balign="left"> + setLimitStandBerichtenToTransform(limitStandBerichtenToTransform : Integer) </td></tr>
+<tr><td align="left" balign="left"> + setOrderBerichten(orderBerichten : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setErrorState(errorState : String) </td></tr>
+<tr><td align="left" balign="left"> + closeBrmoFramework() </td></tr>
+<tr><td align="left" balign="left"> + toRsgb() : Thread </td></tr>
+<tr><td align="left" balign="left"> + toRsgb(listener : ProgressUpdateListener) : Thread </td></tr>
+<tr><td align="left" balign="left"> + toRsgb(status : Bericht.STATUS, listener : ProgressUpdateListener) : Thread </td></tr>
+<tr><td align="left" balign="left"> + toRsgb(mode : RsgbProxy.BerichtSelectMode, ids : long[], listener : ProgressUpdateListener) : Thread </td></tr>
+<tr><td align="left" balign="left"> + toRsgb(updateProcess : UpdateProcess, listener : ProgressUpdateListener) : Thread </td></tr>
+<tr><td align="left" balign="left"> + delete(id : Long) </td></tr>
+<tr><td align="left" balign="left"> + listLaadProcessen() : List&lt;LaadProces&gt; </td></tr>
+<tr><td align="left" balign="left"> + listBerichten() : List&lt;Bericht&gt; </td></tr>
+<tr><td align="left" balign="left"> + loadFromFile(type : String, fileName : String) </td></tr>
+<tr><td align="left" balign="left"> + loadFromFile(type : String, fileName : String, listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + loadFromStream(type : String, stream : InputStream, fileName : String) </td></tr>
+<tr><td align="left" balign="left"> + loadFromStream(type : String, stream : InputStream, fileName : String, listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + emptyStagingDb() </td></tr>
+<tr><td align="left" balign="left"> + getLaadProcesIdByFileName(name : String) : Long </td></tr>
+<tr><td align="left" balign="left"> + getBerichtById(id : long) : Bericht </td></tr>
+<tr><td align="left" balign="left"> + getLaadProcesById(id : long) : LaadProces </td></tr>
+<tr><td align="left" balign="left"> + getBerichten(page : int, start : int, limit : int, sort : String, dir : String, filterSoort : String, filterStatus : String) : List&lt;Bericht&gt; </td></tr>
+<tr><td align="left" balign="left"> + getLaadprocessen(page : int, start : int, limit : int, sort : String, dir : String, filterSoort : String, filterStatus : String) : List&lt;LaadProces&gt; </td></tr>
+<tr><td align="left" balign="left"> + getLaadProcessenIds(sort : String, dir : String, filterSoort : String, filterStatus : String) : Long[] </td></tr>
+<tr><td align="left" balign="left"> + getCountBerichten(sort : String, dir : String, filterSoort : String, filterStatus : String) : long </td></tr>
+<tr><td align="left" balign="left"> + getCountLaadProcessen(sort : String, dir : String, filterSoort : String, filterStatus : String) : long </td></tr>
+<tr><td align="left" balign="left"> + getCountJob() : long </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BrmoFramework.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.StagingProxy
-	c2574 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StagingProxy.html">
+	c1661 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StagingProxy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StagingProxy </td></tr>
 		</table></td></tr>
@@ -103,98 +149,78 @@ digraph G {
 <tr><td align="left" balign="left"> + setLimitStandBerichtenToTransform(limitStandBerichtenToTransform : Integer) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./StagingProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.BrmoFramework
-	c2575 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoFramework.html">
+	// nl.b3p.brmo.loader.util.TopNLRsgbTransformer
+	c1668 [label=<<table title="nl.b3p.brmo.loader.util.TopNLRsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./util/TopNLRsgbTransformer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BrmoFramework </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BR_BAG : String </td></tr>
-<tr><td align="left" balign="left"> + BR_BRK : String </td></tr>
-<tr><td align="left" balign="left"> + BR_NHR : String </td></tr>
-<tr><td align="left" balign="left"> + BR_BGTLIGHT : String </td></tr>
-<tr><td align="left" balign="left"> + XSL_BRK : String </td></tr>
-<tr><td align="left" balign="left"> + XSL_BAG : String </td></tr>
-<tr><td align="left" balign="left"> + XSL_NHR : String </td></tr>
-<tr><td align="left" balign="left"> + LAADPROCES_TABEL : String </td></tr>
-<tr><td align="left" balign="left"> + BERICHT_TABLE : String </td></tr>
-<tr><td align="left" balign="left"> + JOB_TABLE : String </td></tr>
-<tr><td align="left" balign="left"> + BRMO_METADATA_TABEL : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BrmoFramework(dataSourceStaging : DataSource, dataSourceRsgb : DataSource) </td></tr>
-<tr><td align="left" balign="left"> + BrmoFramework(dataSourceStaging : DataSource, dataSourceRsgb : DataSource, dataSourceRsgbBgt : DataSource) </td></tr>
-<tr><td align="left" balign="left"> + setDataSourceRsgbBgt(dataSourceRsgbBgt : DataSource) </td></tr>
-<tr><td align="left" balign="left"> + getStagingVersion() : String </td></tr>
-<tr><td align="left" balign="left"> + getRsgbVersion() : String </td></tr>
-<tr><td align="left" balign="left"> + getRsgbBgtVersion() : String </td></tr>
-<tr><td align="left" balign="left"> + setEnablePipeline(enablePipeline : boolean) </td></tr>
-<tr><td align="left" balign="left"> + setTransformPipelineCapacity(pipelineCapacity : int) </td></tr>
-<tr><td align="left" balign="left"> + setBatchCapacity(batchCapacity : int) </td></tr>
-<tr><td align="left" balign="left"> + setLimitStandBerichtenToTransform(limitStandBerichtenToTransform : Integer) </td></tr>
-<tr><td align="left" balign="left"> + setOrderBerichten(orderBerichten : boolean) </td></tr>
-<tr><td align="left" balign="left"> + setErrorState(errorState : String) </td></tr>
-<tr><td align="left" balign="left"> + closeBrmoFramework() </td></tr>
-<tr><td align="left" balign="left"> + toRsgb() : Thread </td></tr>
-<tr><td align="left" balign="left"> + toRsgb(listener : ProgressUpdateListener) : Thread </td></tr>
-<tr><td align="left" balign="left"> + toRsgb(status : Bericht.STATUS, listener : ProgressUpdateListener) : Thread </td></tr>
-<tr><td align="left" balign="left"> + toRsgb(mode : RsgbProxy.BerichtSelectMode, ids : long[], listener : ProgressUpdateListener) : Thread </td></tr>
-<tr><td align="left" balign="left"> + toRsgb(updateProcess : UpdateProcess, listener : ProgressUpdateListener) : Thread </td></tr>
-<tr><td align="left" balign="left"> + delete(id : Long) </td></tr>
-<tr><td align="left" balign="left"> + listLaadProcessen() : List&lt;LaadProces&gt; </td></tr>
-<tr><td align="left" balign="left"> + listBerichten() : List&lt;Bericht&gt; </td></tr>
-<tr><td align="left" balign="left"> + loadFromFile(type : String, fileName : String) </td></tr>
-<tr><td align="left" balign="left"> + loadFromFile(type : String, fileName : String, listener : ProgressUpdateListener) </td></tr>
-<tr><td align="left" balign="left"> + loadFromStream(type : String, stream : InputStream, fileName : String) </td></tr>
-<tr><td align="left" balign="left"> + loadFromStream(type : String, stream : InputStream, fileName : String, listener : ProgressUpdateListener) </td></tr>
-<tr><td align="left" balign="left"> + emptyStagingDb() </td></tr>
-<tr><td align="left" balign="left"> + getLaadProcesIdByFileName(name : String) : Long </td></tr>
-<tr><td align="left" balign="left"> + getBerichtById(id : long) : Bericht </td></tr>
-<tr><td align="left" balign="left"> + getLaadProcesById(id : long) : LaadProces </td></tr>
-<tr><td align="left" balign="left"> + getBerichten(page : int, start : int, limit : int, sort : String, dir : String, filterSoort : String, filterStatus : String) : List&lt;Bericht&gt; </td></tr>
-<tr><td align="left" balign="left"> + getLaadprocessen(page : int, start : int, limit : int, sort : String, dir : String, filterSoort : String, filterStatus : String) : List&lt;LaadProces&gt; </td></tr>
-<tr><td align="left" balign="left"> + getLaadProcessenIds(sort : String, dir : String, filterSoort : String, filterStatus : String) : Long[] </td></tr>
-<tr><td align="left" balign="left"> + getCountBerichten(sort : String, dir : String, filterSoort : String, filterStatus : String) : long </td></tr>
-<tr><td align="left" balign="left"> + getCountLaadProcessen(sort : String, dir : String, filterSoort : String, filterStatus : String) : long </td></tr>
-<tr><td align="left" balign="left"> + getCountJob() : long </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BrmoFramework.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c2593 [label=<<table title="nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./jdbc/GeometryJdbcConverter.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> GeometryJdbcConverter </font></td></tr>
+<tr><td align="center" balign="center"> TopNLRsgbTransformer </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TopNLRsgbTransformer(dataSourceTopNL : DataSource, stagingProxy : StagingProxy, lpIDs : long[], listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + init() </td></tr>
+<tr><td align="left" balign="left"> + run() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./util/TopNLRsgbTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.util.BGTLightRsgbTransformer
+	c1672 [label=<<table title="nl.b3p.brmo.loader.util.BGTLightRsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./util/BGTLightRsgbTransformer.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BGTLightRsgbTransformer </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BGTLightRsgbTransformer(dataSourceRsgbBgt : DataSource, stagingProxy : StagingProxy, lpIDs : long[], listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + init() </td></tr>
+<tr><td align="left" balign="left"> + setLoadingUpdate(loadingUpdate : boolean) </td></tr>
+<tr><td align="left" balign="left"> + run() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./util/BGTLightRsgbTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.loader.jdbc.GeometryJdbcConverter
+	c1657:p -> c1696:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.StagingProxy
+	c1657:p -> c1661:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.BrmoFramework NAVASSOC nl.b3p.brmo.loader.StagingProxy
+	c1660:p -> c1661:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.StagingProxy NAVASSOC nl.b3p.loader.jdbc.GeometryJdbcConverter
+	c1661:p -> c1696:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.util.TopNLRsgbTransformer NAVASSOC nl.b3p.brmo.loader.StagingProxy
+	c1668:p -> c1661:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.util.BGTLightRsgbTransformer NAVASSOC nl.b3p.brmo.loader.StagingProxy
+	c1672:p -> c1661:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.util.BGTLightRsgbTransformer NAVASSOC nl.b3p.loader.jdbc.GeometryJdbcConverter
+	c1672:p -> c1696:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.loader.jdbc.GeometryJdbcConverter
+	c1696 [label=<<table title="nl.b3p.loader.jdbc.GeometryJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> GeometryJdbcConverter </font></td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # gf : GeometryFactory </td></tr>
+<tr><td align="left" balign="left"> # wkt : WKTReader </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + GeometryJdbcConverter() </td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertToNativeGeometryObject(param : String) : Object </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertToNativeGeometryObject(arg0 : Geometry) : Object </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertToNativeGeometryObject(arg0 : Geometry, arg1 : int) : Object </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertToJTSGeometryObject(arg0 : Object) : Geometry </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + createPSGeometryPlaceholder() : String </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getSchema() : String </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getGeomTypeName() : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isDuplicateKeyViolationMessage(message : String) : boolean </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + buildPaginationSql(sql : String, offset : int, limit : int) : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + buildLimitSql(sql : StringBuilder, limit : int) : StringBuilder </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isDuplicateKeyViolationMessage(arg0 : String) : boolean </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + buildPaginationSql(arg0 : String, arg1 : int, arg2 : int) : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + buildLimitSql(arg0 : StringBuilder, arg1 : int) : StringBuilder </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + useSavepoints() : boolean </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isPmdKnownBroken() : boolean </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getMViewsSQL() : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getMViewRefreshSQL(mview : String) : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getMViewRefreshSQL(arg0 : String) : String </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getGeotoolsDBTypeName() : String </font></td></tr>
-<tr><td align="left" balign="left"> + convertToSQLObject(stringValue : String, cm : ColumnMetadata, tableName : String, column : String) : Object </td></tr>
+<tr><td align="left" balign="left"> + convertToNativeGeometryObject(arg0 : String) : Object </td></tr>
+<tr><td align="left" balign="left"> + convertToSQLObject(arg0 : String, arg1 : ColumnMetadata, arg2 : String, arg3 : String) : Object </td></tr>
+<tr><td align="left" balign="left"> + createNativePoint(arg0 : double, arg1 : double, arg2 : int) : Object </td></tr>
 		</table></td></tr>
-		</table>>, URL="./jdbc/GeometryJdbcConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.util.BGTLightRsgbTransformer NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c2567:p -> c2574:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.util.BGTLightRsgbTransformer NAVASSOC nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c2567:p -> c2593:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c2571:p -> c2593:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c2571:p -> c2574:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.StagingProxy NAVASSOC nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter
-	c2574:p -> c2593:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.BrmoFramework NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c2575:p -> c2574:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
