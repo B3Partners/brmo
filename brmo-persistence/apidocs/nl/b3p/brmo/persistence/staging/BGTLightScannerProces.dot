@@ -9,8 +9,20 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.persistence.staging.BGTLightScannerProces
+	c176 [label=<<table title="nl.b3p.brmo.persistence.staging.BGTLightScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTLightScannerProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BGTLightScannerProces </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BGTLightScannerProces() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BGTLightScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c177 [label=<<table title="nl.b3p.brmo.persistence.staging.DirectoryScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DirectoryScannerProces.html">
+	c189 [label=<<table title="nl.b3p.brmo.persistence.staging.DirectoryScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DirectoryScannerProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> DirectoryScannerProces </font></td></tr>
 		</table></td></tr>
@@ -25,19 +37,7 @@ digraph G {
 <tr><td align="left" balign="left"> + setArchiefDirectory(archiefDirectory : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DirectoryScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.BGTLightScannerProces
-	c187 [label=<<table title="nl.b3p.brmo.persistence.staging.BGTLightScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTLightScannerProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BGTLightScannerProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTLightScannerProces() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BGTLightScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.persistence.staging.BGTLightScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c177:p -> c187:p [dir=back,arrowtail=empty];
+	c189:p -> c176:p [dir=back,arrowtail=empty];
 }
 

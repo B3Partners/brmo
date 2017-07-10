@@ -23,23 +23,8 @@ digraph G {
 <tr><td align="left" balign="left"> + shouldDeleteAllLaadProces() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./staging/LaadProcesTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.MailRapportageProcesTest
-	c72 [label=<<table title="nl.b3p.brmo.persistence.staging.MailRapportageProcesTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./staging/MailRapportageProcesTest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> MailRapportageProcesTest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MailRapportageProcesTest() </td></tr>
-<tr><td align="left" balign="left"> + testMailAdres() </td></tr>
-<tr><td align="left" balign="left"> + testMailAdressen() </td></tr>
-<tr><td align="left" balign="left"> + testRapportageLijst() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./staging/MailRapportageProcesTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.BRKScannerProcesTest
-	c73 [label=<<table title="nl.b3p.brmo.persistence.staging.BRKScannerProcesTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./staging/BRKScannerProcesTest.html">
+	c72 [label=<<table title="nl.b3p.brmo.persistence.staging.BRKScannerProcesTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./staging/BRKScannerProcesTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRKScannerProcesTest </td></tr>
 		</table></td></tr>
@@ -53,7 +38,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./staging/BRKScannerProcesTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.BAGScannerProcesTest
-	c74 [label=<<table title="nl.b3p.brmo.persistence.staging.BAGScannerProcesTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./staging/BAGScannerProcesTest.html">
+	c73 [label=<<table title="nl.b3p.brmo.persistence.staging.BAGScannerProcesTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./staging/BAGScannerProcesTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BAGScannerProcesTest </td></tr>
 		</table></td></tr>
@@ -66,7 +51,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./staging/BAGScannerProcesTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.BerichtTest
-	c75 [label=<<table title="nl.b3p.brmo.persistence.staging.BerichtTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./staging/BerichtTest.html">
+	c74 [label=<<table title="nl.b3p.brmo.persistence.staging.BerichtTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./staging/BerichtTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BerichtTest </td></tr>
 		</table></td></tr>
@@ -79,6 +64,21 @@ digraph G {
 <tr><td align="left" balign="left"> + shouldDeleteAllBericht() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./staging/BerichtTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.MailRapportageProcesTest
+	c75 [label=<<table title="nl.b3p.brmo.persistence.staging.MailRapportageProcesTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./staging/MailRapportageProcesTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> MailRapportageProcesTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + MailRapportageProcesTest() </td></tr>
+<tr><td align="left" balign="left"> + testMailAdres() </td></tr>
+<tr><td align="left" balign="left"> + testMailAdressen() </td></tr>
+<tr><td align="left" balign="left"> + testRapportageLijst() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./staging/MailRapportageProcesTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.TestUtil
 	c76 [label=<<table title="nl.b3p.brmo.persistence.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
@@ -113,13 +113,13 @@ digraph G {
 		</table>>, URL="./auth/GroepTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.persistence.staging.LaadProcesTest extends nl.b3p.brmo.persistence.TestUtil
 	c76:p -> c71:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.persistence.staging.MailRapportageProcesTest extends nl.b3p.brmo.persistence.TestUtil
-	c76:p -> c72:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.BRKScannerProcesTest extends nl.b3p.brmo.persistence.TestUtil
-	c76:p -> c73:p [dir=back,arrowtail=empty];
+	c76:p -> c72:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.BAGScannerProcesTest extends nl.b3p.brmo.persistence.TestUtil
-	c76:p -> c74:p [dir=back,arrowtail=empty];
+	c76:p -> c73:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.BerichtTest extends nl.b3p.brmo.persistence.TestUtil
+	c76:p -> c74:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.persistence.staging.MailRapportageProcesTest extends nl.b3p.brmo.persistence.TestUtil
 	c76:p -> c75:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.auth.GroepTest extends nl.b3p.brmo.persistence.TestUtil
 	c76:p -> c77:p [dir=back,arrowtail=empty];
