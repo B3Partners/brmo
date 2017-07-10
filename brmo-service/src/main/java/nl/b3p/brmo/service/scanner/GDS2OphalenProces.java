@@ -199,13 +199,16 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             requestGb.setVerzoek(verzoekGb);
             criteria.setBestandKenmerken(new BestandKenmerkenType());
             String contractnummer = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_contractnummer"));
-            log.warn("GDS2 contractnummer is 'null' (contractnummer is verplicht voor BRK download).");
-            l.addLog("GDS2 contractnummer is 'null' (contractnummer is verplicht voor BRK download).");
             if (contractnummer != null) {
+                log.debug("GDS2 contractnummer is:" + contractnummer);
                 criteria.getBestandKenmerken().setContractnummer(contractnummer);
+            } else {
+                log.warn("GDS2 contractnummer is 'null' (contractnummer is verplicht voor BRK download).");
+                l.addLog("GDS2 contractnummer is 'null' (contractnummer is verplicht voor BRK download).");
             }
             String artikelnummer = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_artikelnummer"));
             if (artikelnummer != null) {
+                log.debug("GDS2 artikelnummer is:" + artikelnummer);
                 criteria.getBestandKenmerken().setArtikelnummer(artikelnummer);
             }
 
