@@ -10,6 +10,8 @@ import nl.b3p.brmo.persistence.staging.LaadProces;
 import com.sun.xml.ws.developer.JAXWSProperties;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -80,6 +82,7 @@ import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20130701
 import nl.logius.digikoppeling.gb._2010._10.DataReference;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.CloseShieldInputStream;
+import org.apache.commons.io.input.TeeInputStream;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -501,6 +504,13 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                     ((HttpsURLConnection) connection).setSSLSocketFactory(context.getSocketFactory());
                 }
                 input = (InputStream) connection.getContent();
+                if (log.isDebugEnabled()) {
+                    // dump zip bestand naar /tmp/ voordat de xml wordt geparsed
+                    File dump = File.createTempFile(a.getBestand().getBestandsnaam() + "_id-" + a.getAfgifteID(), ".zip");
+                    log.debug("Dump BAG mutaties zip naar: " + dump.getAbsolutePath());
+                    FileOutputStream archiveFile = new FileOutputStream(dump);
+                    input = new TeeInputStream(input, archiveFile, true);
+                }
                 break;
             } catch (Exception e) {
                 attempt++;
@@ -615,7 +625,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
         if (log.isDebugEnabled()) {
             // dump xml bestand naar /tmp/ voordat de xml wordt geparsed
-            String fName = "/tmp/" + lp.getBestand_naam() + ".xml";
+            String fName = File.createTempFile(lp.getBestand_naam(), ".xml").getAbsolutePath();
             log.debug("Dump xml bericht naar: " + fName);
             IOUtils.write(b.getBr_orgineel_xml(), new FileWriter(fName));
         }
