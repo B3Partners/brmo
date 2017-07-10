@@ -36,13 +36,13 @@
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.StagingProxy;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.entity.Bericht;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.advancedfunctions.AdvancedFunctionProcess;
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.util.BrmoException;
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.util.StagingRowHandler;
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.xml.BagXMLReader;
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.service.util.ConfigUtil;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.util.BrmoException;
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.util.StagingRowHandler;
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.xml.BagXMLReader;
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.service.util.ConfigUtil;
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> nl.b3p.loader.jdbc.GeometryJdbcConverter;
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.dbutils.QueryRunner;
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.dbutils.ResultSetHandler;
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.dbutils.RowProcessor;
@@ -285,7 +285,7 @@
 <a class="jxr_linenumber" name="L277" href="#L277">277</a>         <strong class="jxr_keyword">final</strong> MutableInt processed = <strong class="jxr_keyword">new</strong> MutableInt(0);
 <a class="jxr_linenumber" name="L278" href="#L278">278</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
 <a class="jxr_linenumber" name="L279" href="#L279">279</a>         <strong class="jxr_keyword">final</strong> Connection conn = dataSourceStaging.getConnection();
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../nl/b3p/brmo/loader/jdbc/GeometryJdbcConverter.html">GeometryJdbcConverter</a> geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>         <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
 <a class="jxr_linenumber" name="L281" href="#L281">281</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>();
 <a class="jxr_linenumber" name="L282" href="#L282">282</a>         
 <a class="jxr_linenumber" name="L283" href="#L283">283</a>         <strong class="jxr_keyword">do</strong> {
@@ -370,7 +370,7 @@
 <a class="jxr_linenumber" name="L362" href="#L362">362</a>         <strong class="jxr_keyword">final</strong> MutableInt processed = <strong class="jxr_keyword">new</strong> MutableInt(0);
 <a class="jxr_linenumber" name="L363" href="#L363">363</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
 <a class="jxr_linenumber" name="L364" href="#L364">364</a>         <strong class="jxr_keyword">final</strong> Connection conn = dataSourceStaging.getConnection();
-<a class="jxr_linenumber" name="L365" href="#L365">365</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../nl/b3p/brmo/loader/jdbc/GeometryJdbcConverter.html">GeometryJdbcConverter</a> geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>         <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
 <a class="jxr_linenumber" name="L366" href="#L366">366</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>();
 <a class="jxr_linenumber" name="L367" href="#L367">367</a>         
 <a class="jxr_linenumber" name="L368" href="#L368">368</a>         <strong class="jxr_keyword">do</strong> {
@@ -456,7 +456,7 @@
 <a class="jxr_linenumber" name="L448" href="#L448">448</a>         <strong class="jxr_keyword">final</strong> MutableInt processed = <strong class="jxr_keyword">new</strong> MutableInt(0);
 <a class="jxr_linenumber" name="L449" href="#L449">449</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
 <a class="jxr_linenumber" name="L450" href="#L450">450</a>         <strong class="jxr_keyword">final</strong> Connection conn = dataSourceStaging.getConnection();
-<a class="jxr_linenumber" name="L451" href="#L451">451</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../nl/b3p/brmo/loader/jdbc/GeometryJdbcConverter.html">GeometryJdbcConverter</a> geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>         <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
 <a class="jxr_linenumber" name="L452" href="#L452">452</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>();
 <a class="jxr_linenumber" name="L453" href="#L453">453</a> 
 <a class="jxr_linenumber" name="L454" href="#L454">454</a>         <strong class="jxr_keyword">final</strong> File exportDir = <strong class="jxr_keyword">new</strong> File(locatie);
@@ -563,7 +563,7 @@
 <a class="jxr_linenumber" name="L555" href="#L555">555</a>         <strong class="jxr_keyword">final</strong> MutableInt processed = <strong class="jxr_keyword">new</strong> MutableInt(0);
 <a class="jxr_linenumber" name="L556" href="#L556">556</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
 <a class="jxr_linenumber" name="L557" href="#L557">557</a>         <strong class="jxr_keyword">final</strong> Connection conn = dataSourceStaging.getConnection();
-<a class="jxr_linenumber" name="L558" href="#L558">558</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../nl/b3p/brmo/loader/jdbc/GeometryJdbcConverter.html">GeometryJdbcConverter</a> geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+<a class="jxr_linenumber" name="L558" href="#L558">558</a>         <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
 <a class="jxr_linenumber" name="L559" href="#L559">559</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>();
 <a class="jxr_linenumber" name="L560" href="#L560">560</a>         
 <a class="jxr_linenumber" name="L561" href="#L561">561</a>         Calendar c = Calendar.getInstance();
@@ -639,7 +639,7 @@
 <a class="jxr_linenumber" name="L631" href="#L631">631</a>         <strong class="jxr_keyword">final</strong> MutableInt processed = <strong class="jxr_keyword">new</strong> MutableInt(0);
 <a class="jxr_linenumber" name="L632" href="#L632">632</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
 <a class="jxr_linenumber" name="L633" href="#L633">633</a>         <strong class="jxr_keyword">final</strong> Connection conn = dataSourceStaging.getConnection();
-<a class="jxr_linenumber" name="L634" href="#L634">634</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../nl/b3p/brmo/loader/jdbc/GeometryJdbcConverter.html">GeometryJdbcConverter</a> geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+<a class="jxr_linenumber" name="L634" href="#L634">634</a>         <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
 <a class="jxr_linenumber" name="L635" href="#L635">635</a>         
 <a class="jxr_linenumber" name="L636" href="#L636">636</a>         String countsql = <span class="jxr_string">"select count(*) from "</span> + BrmoFramework.BERICHT_TABLE
 <a class="jxr_linenumber" name="L637" href="#L637">637</a>                 + <span class="jxr_string">" WHERE soort='"</span> + soort + <span class="jxr_string">"' "</span>
@@ -686,7 +686,7 @@
 <a class="jxr_linenumber" name="L678" href="#L678">678</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
 <a class="jxr_linenumber" name="L679" href="#L679">679</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();
 <a class="jxr_linenumber" name="L680" href="#L680">680</a>         <strong class="jxr_keyword">final</strong> Connection conn = dataSourceStaging.getConnection();
-<a class="jxr_linenumber" name="L681" href="#L681">681</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../nl/b3p/brmo/loader/jdbc/GeometryJdbcConverter.html">GeometryJdbcConverter</a> geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+<a class="jxr_linenumber" name="L681" href="#L681">681</a>         <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
 <a class="jxr_linenumber" name="L682" href="#L682">682</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>();
 <a class="jxr_linenumber" name="L683" href="#L683">683</a> 
 <a class="jxr_linenumber" name="L684" href="#L684">684</a>         log.debug(<span class="jxr_string">"staging datasource: "</span> + dataSourceStaging);

@@ -19,14 +19,14 @@
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.List;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> javax.persistence.Transient;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> javax.sql.DataSource;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.util.BrmoException;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.service.util.ConfigUtil;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.util.BrmoException;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.service.util.ConfigUtil;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> nl.b3p.loader.jdbc.GeometryJdbcConverter;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.dbutils.QueryRunner;
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.dbutils.handlers.ColumnListHandler;
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.Log;
@@ -96,7 +96,7 @@
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>              mview = <strong class="jxr_keyword">this</strong>.config.getMView();
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>              <strong class="jxr_keyword">final</strong> DataSource ds = ConfigUtil.getDataSourceRsgb();
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>              <strong class="jxr_keyword">final</strong> Connection conn = ds.getConnection();
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../../nl/b3p/brmo/loader/jdbc/GeometryJdbcConverter.html">GeometryJdbcConverter</a> geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>              <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>              <em class="jxr_comment">// "update" gebruiken omdat we een oracle stored procedure benaderen</em>
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>              Object o = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).update(conn, geomToJdbc.getMViewRefreshSQL(mview));
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>              LOG.debug(<span class="jxr_string">"mview update resultaat: "</span> + o);
@@ -133,7 +133,7 @@
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>             <strong class="jxr_keyword">final</strong> DataSource ds = ConfigUtil.getDataSourceRsgb();
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>             <strong class="jxr_keyword">final</strong> Connection conn = ds.getConnection();
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../../nl/b3p/brmo/loader/jdbc/GeometryJdbcConverter.html">GeometryJdbcConverter</a> geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>             <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>             List&lt;String&gt; mviews = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, geomToJdbc.getMViewsSQL(), <strong class="jxr_keyword">new</strong> ColumnListHandler&lt;String&gt;());
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>             mviews.sort(String::compareToIgnoreCase);
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>             <strong class="jxr_keyword">return</strong> Collections.unmodifiableList(mviews);

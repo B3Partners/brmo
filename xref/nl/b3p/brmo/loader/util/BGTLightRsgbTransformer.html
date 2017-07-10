@@ -23,8 +23,8 @@
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.entity.LaadProces;
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> nl.b3p.brmo.loader.entity.LaadProces.STATUS;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.gml.BGTGMLLightLoader;
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.jdbc.GeometryJdbcConverterFactory;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> nl.b3p.loader.jdbc.GeometryJdbcConverter;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.Log;
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.LogFactory;
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  
@@ -40,7 +40,7 @@
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html">ProgressUpdateListener</a> listener;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong>[] lpIDs;
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Properties params = <strong class="jxr_keyword">new</strong> Properties();
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../nl/b3p/brmo/loader/jdbc/GeometryJdbcConverter.html">GeometryJdbcConverter</a> geomjdbc = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> GeometryJdbcConverter geomjdbc = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../nl/b3p/brmo/loader/gml/BGTGMLLightLoader.html">BGTGMLLightLoader</a> gmlLoader = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/gml/BGTGMLLightLoader.html">BGTGMLLightLoader</a>();
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/loader/util/BGTLightRsgbTransformer.html">BGTLightRsgbTransformer</a>(DataSource dataSourceRsgbBgt, <a href="../../../../../nl/b3p/brmo/loader/StagingProxy.html">StagingProxy</a> stagingProxy, <strong class="jxr_keyword">long</strong>[] lpIDs, <a href="../../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html">ProgressUpdateListener</a> listener) {
