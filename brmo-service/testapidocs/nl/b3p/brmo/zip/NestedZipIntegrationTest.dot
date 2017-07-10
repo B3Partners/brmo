@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.zip.NestedZipIntegrationTest
-	c71 [label=<<table title="nl.b3p.brmo.zip.NestedZipIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NestedZipIntegrationTest.html">
+	c69 [label=<<table title="nl.b3p.brmo.zip.NestedZipIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NestedZipIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NestedZipIntegrationTest </td></tr>
 		</table></td></tr>
@@ -25,7 +25,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./NestedZipIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.testutil.TestUtil
-	c74 [label=<<table title="nl.b3p.brmo.service.testutil.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../service/testutil/TestUtil.html">
+	c72 [label=<<table title="nl.b3p.brmo.service.testutil.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../service/testutil/TestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestUtil </font></td></tr>
 		</table></td></tr>
@@ -47,9 +47,9 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../service/testutil/TestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.zip.NestedZipIntegrationTest extends nl.b3p.brmo.service.testutil.TestUtil
-	c74:p -> c71:p [dir=back,arrowtail=empty];
+	c72:p -> c69:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.zip.NestedZipIntegrationTest NAVASSOC nl.b3p.brmo.loader.BrmoFramework
-	c71:p -> c75:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c69:p -> c75:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.BrmoFramework
 	c75 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
@@ -60,6 +60,7 @@ digraph G {
 <tr><td align="left" balign="left"> + BR_BRK : String </td></tr>
 <tr><td align="left" balign="left"> + BR_NHR : String </td></tr>
 <tr><td align="left" balign="left"> + BR_BGTLIGHT : String </td></tr>
+<tr><td align="left" balign="left"> + BR_TOPNL : String </td></tr>
 <tr><td align="left" balign="left"> + XSL_BRK : String </td></tr>
 <tr><td align="left" balign="left"> + XSL_BAG : String </td></tr>
 <tr><td align="left" balign="left"> + XSL_NHR : String </td></tr>
@@ -71,11 +72,14 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + BrmoFramework(arg0 : DataSource, arg1 : DataSource) </td></tr>
 <tr><td align="left" balign="left"> + BrmoFramework(arg0 : DataSource, arg1 : DataSource, arg2 : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + BrmoFramework(arg0 : DataSource, arg1 : DataSource, arg2 : DataSource, arg3 : DataSource) </td></tr>
 <tr><td align="left" balign="left"> + setDataSourceRsgbBgt(arg0 : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + setDataSourceTopNL(arg0 : DataSource) </td></tr>
 <tr><td align="left" balign="left"> + getStagingVersion() : String </td></tr>
 <tr><td align="left" balign="left"> + getRsgbVersion() : String </td></tr>
 <tr><td align="left" balign="left"> + getRsgbBgtVersion() : String </td></tr>
 <tr><td align="left" balign="left"> + setEnablePipeline(arg0 : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setRenewConnectionAfterCommit(arg0 : boolean) </td></tr>
 <tr><td align="left" balign="left"> + setTransformPipelineCapacity(arg0 : int) </td></tr>
 <tr><td align="left" balign="left"> + setBatchCapacity(arg0 : int) </td></tr>
 <tr><td align="left" balign="left"> + setLimitStandBerichtenToTransform(arg0 : Integer) </td></tr>
