@@ -22,6 +22,8 @@
 mvn.log
 rel-prepare.log
 rel-perform.log
+dependency-updates.log
+plugin-updates.log
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
