@@ -73,7 +73,7 @@
     <dependencyManagement>
         <!--
         voor een update controle gebruik je het volgende maven commando:
-        mvn -U org.codehaus.mojo:versions-maven-plugin:2.3:display-dependency-updates > target/dependency-updates.log
+        mvn -U org.codehaus.mojo:versions-maven-plugin:2.4:display-dependency-updates > dependency-updates.log
         -->
         <dependencies>
             <!-- logging libs -->
@@ -303,7 +303,7 @@
             <dependency>
                 <groupId>net.redhogs.cronparser</groupId>
                 <artifactId>cron-parser-core</artifactId>
-                <version>2.9</version>
+                <version>3.0</version>
             </dependency>
             <!-- parsing ed. -->
             <dependency>
@@ -464,7 +464,7 @@
             <plugins>
                 <!--
                 voor een update controle gebruik je het volgende maven commando:
-                mvn -U org.codehaus.mojo:versions-maven-plugin:2.3:display-plugin-updates -T1 > target/plugin-updates.log
+                mvn -U org.codehaus.mojo:versions-maven-plugin:2.4:display-plugin-updates -T1 > plugin-updates.log
                 -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -703,7 +703,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.3</version>
+                    <version>2.4</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
