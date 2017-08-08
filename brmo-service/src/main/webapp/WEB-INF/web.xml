@@ -31,9 +31,11 @@
         <param-value>1000000</param-value>
     </context-param>
     <context-param>
-        <description>Aantal uitvoerende threads voor ingeplande taken. Default 1, bij hogere waarden dient de gebruiker er voor te zorgen dat er geen in de tijd overlappende transformatie processen van eenzelfde type, bijvoorbeeld berichten, lopen.</description>
+        <description>Aantal uitvoerende threads voor ingeplande taken. Default waarde is 1, bij hogere waarden dient de gebruiker er voor te zorgen dat er geen
+            in de tijd overlappende transformatie of GDS2 processen van eenzelfde type, bijvoorbeeld berichten, lopen.
+            Het verhogen is met name zinvol voor BGT light download processen.</description>
         <param-name>quartz.threadCount</param-name>
-        <param-value>3</param-value>
+        <param-value>1</param-value>
     </context-param>
     <filter>
         <display-name>Stripes Filter</display-name>

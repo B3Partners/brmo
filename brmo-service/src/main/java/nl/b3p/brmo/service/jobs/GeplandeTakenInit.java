@@ -101,7 +101,7 @@ public class GeplandeTakenInit implements Servlet {
         if (threadCount != null) {
             if (Integer.parseInt(threadCount) > 1) {
                 log.warn("Instellen van quartz threadcount op niet-default waarde van " + threadCount
-                        + "Gebruiker moet zorg dragen dat er geen overlappende transformatieprocessen van eenzelfde soort zijn.");
+                        + " Gebruiker moet zorg dragen dat er geen overlappende transformatie- of GDS2 processen van eenzelfde soort zijn.");
                 props.put("org.quartz.threadPool.threadCount", threadCount);
             }
         } else {
