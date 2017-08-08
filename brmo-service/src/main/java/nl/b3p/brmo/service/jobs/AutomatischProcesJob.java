@@ -6,7 +6,6 @@ package nl.b3p.brmo.service.jobs;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Date;
-import javax.persistence.EntityManager;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
