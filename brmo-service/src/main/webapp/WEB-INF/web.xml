@@ -36,6 +36,13 @@
         <param-name>exportDir.brk</param-name>
         <param-value>/tmp/brkmutaties</param-value>
     </context-param>
+    <context-param>
+        <description>Aantal uitvoerende threads voor ingeplande taken. Default waarde is 1, bij hogere waarden dient de gebruiker er voor te zorgen dat er geen
+            in de tijd overlappende transformatie of GDS2 processen van eenzelfde type, bijvoorbeeld berichten, lopen.
+            Het verhogen is met name zinvol voor BGT light download processen.</description>
+        <param-name>quartz.threadCount</param-name>
+        <param-value>1</param-value>
+    </context-param>
     <filter>
         <display-name>Stripes Filter</display-name>
         <filter-name>StripesFilter</filter-name>

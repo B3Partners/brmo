@@ -97,10 +97,20 @@ public class GeplandeTakenInit implements Servlet {
     private void setupQuartz() throws SchedulerException {
         Properties props = new Properties();
         props.put("org.quartz.scheduler.instanceName", SCHEDULER_NAME);
-        props.put("org.quartz.threadPool.threadCount", "1");
+        String threadCount = this.getServletConfig().getServletContext().getInitParameter("quartz.threadCount");
+        if (threadCount != null) {
+            if (Integer.parseInt(threadCount) > 1) {
+                log.warn("Instellen van quartz threadcount op niet-default waarde van " + threadCount
+                        + " Gebruiker moet zorg dragen dat er geen overlappende transformatie- of GDS2 processen van eenzelfde soort zijn.");
+                props.put("org.quartz.threadPool.threadCount", threadCount);
+            }
+        } else {
+            props.put("org.quartz.threadPool.threadCount", "1");
+        }
         props.put("org.quartz.scheduler.interruptJobsOnShutdownWithWait", "true");
         props.put("org.quartz.jobStore.class", "org.quartz.simpl.RAMJobStore");
         props.put("org.quartz.scheduler.skipUpdateCheck", "true");
+        log.debug("Start quartz scheduler met de opties: " + props);
 
         StdSchedulerFactory factory = new StdSchedulerFactory(props);
         scheduler = factory.getScheduler();
@@ -113,8 +123,7 @@ public class GeplandeTakenInit implements Servlet {
         CriteriaQuery<AutomatischProces> cq = cb.createQuery(AutomatischProces.class);
         Root<AutomatischProces> from = cq.from(AutomatischProces.class);
         cq.where(cb.isNotNull(from.get("cronExpressie")));
-        List<AutomatischProces> procList = entityManager.
-                createQuery(cq).getResultList();
+        List<AutomatischProces> procList = entityManager.createQuery(cq).getResultList();
 
         for (AutomatischProces p : procList) {
             addJobDetails(scheduler, p);
