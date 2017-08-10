@@ -105,64 +105,73 @@
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> setupQuartz() <strong class="jxr_keyword">throws</strong> SchedulerException {
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>          Properties props = <strong class="jxr_keyword">new</strong> Properties();
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>          props.put(<span class="jxr_string">"org.quartz.scheduler.instanceName"</span>, SCHEDULER_NAME);
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>         props.put(<span class="jxr_string">"org.quartz.threadPool.threadCount"</span>, <span class="jxr_string">"1"</span>);
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>         props.put(<span class="jxr_string">"org.quartz.scheduler.interruptJobsOnShutdownWithWait"</span>, <span class="jxr_string">"true"</span>);
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>         props.put(<span class="jxr_string">"org.quartz.jobStore.class"</span>, <span class="jxr_string">"org.quartz.simpl.RAMJobStore"</span>);
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>         props.put(<span class="jxr_string">"org.quartz.scheduler.skipUpdateCheck"</span>, <span class="jxr_string">"true"</span>);
-<a class="jxr_linenumber" name="L104" href="#L104">104</a> 
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>         StdSchedulerFactory factory = <strong class="jxr_keyword">new</strong> StdSchedulerFactory(props);
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>         scheduler = factory.getScheduler();
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>         scheduler.start();
-<a class="jxr_linenumber" name="L108" href="#L108">108</a> 
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>         Stripersist.requestInit();
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>         EntityManager entityManager = Stripersist.getEntityManager();
-<a class="jxr_linenumber" name="L111" href="#L111">111</a> 
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-<a class="jxr_linenumber" name="L113" href="#L113">113</a>         CriteriaQuery&lt;AutomatischProces&gt; cq = cb.createQuery(AutomatischProces.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>         Root&lt;AutomatischProces&gt; from = cq.from(AutomatischProces.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>         cq.where(cb.isNotNull(from.get(<span class="jxr_string">"cronExpressie"</span>)));
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>         List&lt;AutomatischProces&gt; procList = entityManager.
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>                 createQuery(cq).getResultList();
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>         String threadCount = <strong class="jxr_keyword">this</strong>.getServletConfig().getServletContext().getInitParameter(<span class="jxr_string">"quartz.threadCount"</span>);
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>         <strong class="jxr_keyword">if</strong> (threadCount != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>             <strong class="jxr_keyword">if</strong> (Integer.parseInt(threadCount) &gt; 1) {
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>                 log.warn(<span class="jxr_string">"Instellen van quartz threadcount op niet-default waarde van "</span> + threadCount
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>                         + <span class="jxr_string">" Gebruiker moet zorg dragen dat er geen overlappende transformatie- of GDS2 processen van eenzelfde soort zijn."</span>);
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>                 props.put(<span class="jxr_string">"org.quartz.threadPool.threadCount"</span>, threadCount);
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>             }
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>             props.put(<span class="jxr_string">"org.quartz.threadPool.threadCount"</span>, <span class="jxr_string">"1"</span>);
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>         }
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>         props.put(<span class="jxr_string">"org.quartz.scheduler.interruptJobsOnShutdownWithWait"</span>, <span class="jxr_string">"true"</span>);
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>         props.put(<span class="jxr_string">"org.quartz.jobStore.class"</span>, <span class="jxr_string">"org.quartz.simpl.RAMJobStore"</span>);
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>         props.put(<span class="jxr_string">"org.quartz.scheduler.skipUpdateCheck"</span>, <span class="jxr_string">"true"</span>);
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>         log.debug(<span class="jxr_string">"Start quartz scheduler met de opties: "</span> + props);
+<a class="jxr_linenumber" name="L114" href="#L114">114</a> 
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>         StdSchedulerFactory factory = <strong class="jxr_keyword">new</strong> StdSchedulerFactory(props);
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>         scheduler = factory.getScheduler();
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>         scheduler.start();
 <a class="jxr_linenumber" name="L118" href="#L118">118</a> 
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>         <strong class="jxr_keyword">for</strong> (AutomatischProces p : procList) {
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>             addJobDetails(scheduler, p);
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>         }
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>         <strong class="jxr_keyword">this</strong>.getServletConfig().getServletContext().setAttribute(QUARTZ_FACTORY_KEY, factory);
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>     }
-<a class="jxr_linenumber" name="L124" href="#L124">124</a> 
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L126" href="#L126">126</a> <em class="jxr_javadoccomment">     * voeg een job toe op basis van het proces.</em>
-<a class="jxr_linenumber" name="L127" href="#L127">127</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L128" href="#L128">128</a> <em class="jxr_javadoccomment">     * @param scheduler taakplanner van de brmo service</em>
-<a class="jxr_linenumber" name="L129" href="#L129">129</a> <em class="jxr_javadoccomment">     * @param p het te bewerken automatisch proces</em>
-<a class="jxr_linenumber" name="L130" href="#L130">130</a> <em class="jxr_javadoccomment">     * @throws SchedulerException als de bewerking mislukt</em>
-<a class="jxr_linenumber" name="L131" href="#L131">131</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> addJobDetails(Scheduler scheduler, <a href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html">AutomatischProces</a> p) <strong class="jxr_keyword">throws</strong> SchedulerException {
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>             CronExpression cron = <strong class="jxr_keyword">new</strong> CronExpression(p.getCronExpressie());
-<a class="jxr_linenumber" name="L135" href="#L135">135</a> 
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>             JobDetail job = JobBuilder.newJob(AutomatischProcesJob.<strong class="jxr_keyword">class</strong>)
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>                     .usingJobData(<span class="jxr_string">"id"</span>, p.getId())
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>                     .withIdentity(JOBKEY_PREFIX + p.getId())
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>                     .build();
-<a class="jxr_linenumber" name="L140" href="#L140">140</a> 
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>             CronTrigger trigger = TriggerBuilder.newTrigger()
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>                     .startNow()
-<a class="jxr_linenumber" name="L143" href="#L143">143</a>                     .forJob(job)
-<a class="jxr_linenumber" name="L144" href="#L144">144</a>                     .withIdentity(TRIGGERKEY_PREFIX + p.getId())
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>                     .withSchedule(CronScheduleBuilder.cronSchedule(cron))
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>                     .build();
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>             scheduler.scheduleJob(job, trigger);
-<a class="jxr_linenumber" name="L148" href="#L148">148</a> 
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>             log.info(String.format(<span class="jxr_string">"%s met id: %d met cron expressie %s is toegevoegd (of bijgewerkt)."</span>,
-<a class="jxr_linenumber" name="L150" href="#L150">150</a>                     p.getClass().getSimpleName(), p.getId(), p.getCronExpressie()));
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>         } <strong class="jxr_keyword">catch</strong> (ParseException ex) {
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>             log.warn(String.format(<span class="jxr_string">"Ongeldige cron expressie voor %s met id %d. Het proces is niet ingepland."</span>,
-<a class="jxr_linenumber" name="L153" href="#L153">153</a>                     p.getClass().getSimpleName(), p.getId()), ex);
-<a class="jxr_linenumber" name="L154" href="#L154">154</a>         }
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>     }
-<a class="jxr_linenumber" name="L156" href="#L156">156</a> 
-<a class="jxr_linenumber" name="L157" href="#L157">157</a> }
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>         Stripersist.requestInit();
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>         EntityManager entityManager = Stripersist.getEntityManager();
+<a class="jxr_linenumber" name="L121" href="#L121">121</a> 
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>         CriteriaQuery&lt;AutomatischProces&gt; cq = cb.createQuery(AutomatischProces.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>         Root&lt;AutomatischProces&gt; from = cq.from(AutomatischProces.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>         cq.where(cb.isNotNull(from.get(<span class="jxr_string">"cronExpressie"</span>)));
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>         List&lt;AutomatischProces&gt; procList = entityManager.createQuery(cq).getResultList();
+<a class="jxr_linenumber" name="L127" href="#L127">127</a> 
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>         <strong class="jxr_keyword">for</strong> (AutomatischProces p : procList) {
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>             addJobDetails(scheduler, p);
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>         }
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>         <strong class="jxr_keyword">this</strong>.getServletConfig().getServletContext().setAttribute(QUARTZ_FACTORY_KEY, factory);
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>     }
+<a class="jxr_linenumber" name="L133" href="#L133">133</a> 
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L135" href="#L135">135</a> <em class="jxr_javadoccomment">     * voeg een job toe op basis van het proces.</em>
+<a class="jxr_linenumber" name="L136" href="#L136">136</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L137" href="#L137">137</a> <em class="jxr_javadoccomment">     * @param scheduler taakplanner van de brmo service</em>
+<a class="jxr_linenumber" name="L138" href="#L138">138</a> <em class="jxr_javadoccomment">     * @param p het te bewerken automatisch proces</em>
+<a class="jxr_linenumber" name="L139" href="#L139">139</a> <em class="jxr_javadoccomment">     * @throws SchedulerException als de bewerking mislukt</em>
+<a class="jxr_linenumber" name="L140" href="#L140">140</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> addJobDetails(Scheduler scheduler, <a href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html">AutomatischProces</a> p) <strong class="jxr_keyword">throws</strong> SchedulerException {
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>             CronExpression cron = <strong class="jxr_keyword">new</strong> CronExpression(p.getCronExpressie());
+<a class="jxr_linenumber" name="L144" href="#L144">144</a> 
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>             JobDetail job = JobBuilder.newJob(AutomatischProcesJob.<strong class="jxr_keyword">class</strong>)
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>                     .usingJobData(<span class="jxr_string">"id"</span>, p.getId())
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>                     .withIdentity(JOBKEY_PREFIX + p.getId())
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>                     .build();
+<a class="jxr_linenumber" name="L149" href="#L149">149</a> 
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>             CronTrigger trigger = TriggerBuilder.newTrigger()
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>                     .startNow()
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>                     .forJob(job)
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>                     .withIdentity(TRIGGERKEY_PREFIX + p.getId())
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>                     .withSchedule(CronScheduleBuilder.cronSchedule(cron))
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>                     .build();
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>             scheduler.scheduleJob(job, trigger);
+<a class="jxr_linenumber" name="L157" href="#L157">157</a> 
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>             log.info(String.format(<span class="jxr_string">"%s met id: %d met cron expressie %s is toegevoegd (of bijgewerkt)."</span>,
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>                     p.getClass().getSimpleName(), p.getId(), p.getCronExpressie()));
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>         } <strong class="jxr_keyword">catch</strong> (ParseException ex) {
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>             log.warn(String.format(<span class="jxr_string">"Ongeldige cron expressie voor %s met id %d. Het proces is niet ingepland."</span>,
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>                     p.getClass().getSimpleName(), p.getId()), ex);
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>         }
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>     }
+<a class="jxr_linenumber" name="L165" href="#L165">165</a> 
+<a class="jxr_linenumber" name="L166" href="#L166">166</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014&#x2013;2017 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
