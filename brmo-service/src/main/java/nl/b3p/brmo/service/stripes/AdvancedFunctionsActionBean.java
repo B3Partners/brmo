@@ -53,7 +53,7 @@ import org.stripesstuff.plugin.waitpage.WaitPage;
 @StrictBinding
 public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateListener {
 
-    private static final Log log = LogFactory.getLog(AdvancedFunctionsActionBean.class);
+    private static final Log LOG = LogFactory.getLog(AdvancedFunctionsActionBean.class);
 
     private static final String JSP = "/WEB-INF/jsp/transform/advancedfunctions.jsp";
     private static final String JSP_PROGRESS = "/WEB-INF/jsp/transform/advancedfunctionsprogress.jsp";
@@ -196,11 +196,13 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
     @Before(stages = LifecycleStage.BindingAndValidation)
     public void populateAdvancedFunctionProcesses() {
+        String brkExportDir = this.getContext().getServletContext().getInitParameter("exportDir.brk");
+        LOG.warn("Instellen BRK export directory op niet-default waarde: " + brkExportDir);
 
         // XXX move to configuration file
         // bij een nieuw proces ook de wiki bijwerken: https://github.com/B3Partners/brmo/wiki/Geavanceerde-functies
         advancedFunctionProcesses = Arrays.asList(new AdvancedFunctionProcess[]{
-            new AdvancedFunctionProcess("Exporteren BRK mutaties", BrmoFramework.BR_BRK, "/tmp/brkmutaties"),
+            new AdvancedFunctionProcess("Exporteren BRK mutaties", BrmoFramework.BR_BRK, brkExportDir == null ? "/tmp/brkmutaties" : brkExportDir),
             new AdvancedFunctionProcess("Repareren BRK mutaties met status STAGING_NOK", BrmoFramework.BR_BRK, Bericht.STATUS.STAGING_NOK.toString()),
             new AdvancedFunctionProcess("Repareren BAG mutaties met status STAGING_NOK", BrmoFramework.BR_BAG, Bericht.STATUS.STAGING_NOK.toString()),
             new AdvancedFunctionProcess("Opschonen en archiveren van BRK berichten met status RSGB_OK, ouder dan 3 maanden", BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString()),
@@ -232,7 +234,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         }
 
         start = new Date();
-        log.info("Start export process: " + process.getName());
+        LOG.info("Start export process: " + process.getName());
         processed = 0;
 
         // Get berichten
@@ -259,7 +261,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                 getContext().getMessages().add(new SimpleMessage("Geavanceerde functie afgerond."));
             }
         } catch (Throwable t) {
-            log.error("Fout bij geavanceerd functie", t);
+            LOG.error("Fout bij geavanceerd functie", t);
             String m = "Fout bij geavanceerd functie: " + ExceptionUtils.getMessage(t);
             if (t.getCause() != null) {
                 m += ", oorzaak: " + ExceptionUtils.getRootCauseMessage(t);
@@ -281,14 +283,14 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         final RowProcessor processor = new StagingRowHandler();
         
         do {
-            log.debug(String.format("Ophalen mutatieberichten batch met offset %d, limit %d", offset, batch));
+            LOG.debug(String.format("Ophalen mutatieberichten batch met offset %d, limit %d", offset, batch));
             String sql = "select * from " + BrmoFramework.BERICHT_TABLE 
                     + " where volgordenummer >= 0 "
                     + " and soort='brk' "
                     + " and status='" + config + "'"
                     + " order by id ";
             sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
-            log.debug("SQL voor ophalen berichten batch: " + sql);
+            LOG.debug("SQL voor ophalen berichten batch: " + sql);
             
             
             processed.setValue(0);
@@ -366,14 +368,14 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         final RowProcessor processor = new StagingRowHandler();
         
         do {
-            log.debug(String.format("Ophalen BAG mutatieberichten batch met offset %d, limit %d", offset, batch));
+            LOG.debug(String.format("Ophalen BAG mutatieberichten batch met offset %d, limit %d", offset, batch));
             String sql = "select * from " + BrmoFramework.BERICHT_TABLE 
                     + " where volgordenummer >= 0 "
                     + " and soort='bag' "
                     + " and status='" + config + "'"
                     + " order by id ";
             sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
-            log.debug("SQL voor ophalen berichten batch: " + sql);
+            LOG.debug("SQL voor ophalen berichten batch: " + sql);
             
             
             processed.setValue(0);
@@ -455,13 +457,13 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         FileUtils.forceMkdir(exportDir);
 
         do {
-            log.debug(String.format("Ophalen mutatieberichten batch met offset %d, limit %d", offset, batch));
+            LOG.info(String.format("Ophalen mutatieberichten export batch met offset %d, limit %d", offset, batch));
             String sql = "select * from " + BrmoFramework.BERICHT_TABLE 
                     + " where volgordenummer >= 0 "
                     + " and soort='brk' "
                     + " order by object_ref, datum, volgordenummer ";
             sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
-            log.debug("SQL voor ophalen berichten batch: " + sql);
+            LOG.debug("SQL voor ophalen berichten batch: " + sql);
 
             final File f = new File(exportDir, "batch" + offset + ".zip");
             final ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));
@@ -521,7 +523,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                                 }
                                 out.write(data, 0, data.length);
                             } catch (ZipException ze) {
-                                log.info(ze.getLocalizedMessage());
+                                LOG.info(ze.getLocalizedMessage());
                             } finally {
                                 out.closeEntry();
                             }
@@ -536,6 +538,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             if (out != null) {
                 out.close();
             }
+            LOG.info("Klaar met schrijven naar export bestand " + f);
             offset += processed.intValue();
 
             progress(offset);
@@ -577,14 +580,14 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         }
         
         do {
-            log.debug(String.format("Ophalen berichten batch met offset %d, limit %d, tot datum %tc, voortgang %d", offset, batch, c, progress));
+            LOG.debug(String.format("Ophalen berichten batch met offset %d, limit %d, tot datum %tc, voortgang %d", offset, batch, c, progress));
             String sql = "select * from " + BrmoFramework.BERICHT_TABLE 
                     + " where soort='" + soort + "' "
                     + " and status='" + config + "'"
                     + " and status_datum < ? "
                     + " order by id ";
             sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
-            log.debug("SQL voor ophalen berichten batch: " + sql);
+            LOG.debug("SQL voor ophalen berichten batch: " + sql);
             
             processed.setValue(0);
             Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler<Exception>() {
@@ -645,7 +648,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         } else {
             total((Long) o);
         }
-        log.debug("Totaal te verwijderen " + config + " berichten: " + o);
+        LOG.debug("Totaal te verwijderen " + config + " berichten: " + o);
         
         o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(conn, "DELETE FROM " + BrmoFramework.BERICHT_TABLE
                 + " WHERE soort='" + soort + "' "
@@ -681,19 +684,19 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
         final RowProcessor processor = new StagingRowHandler();
 
-        log.debug("staging datasource: " + dataSourceStaging);
-        log.debug("rsgb datasource: " + dataSourceRsgb);
+        LOG.debug("staging datasource: " + dataSourceStaging);
+        LOG.debug("rsgb datasource: " + dataSourceRsgb);
 
         String countsql = "select count(id) from " + BrmoFramework.BERICHT_TABLE
                 + " where soort='" + soort + "'"
                 + " and status='" + status + "'"
                 // gebruik like (en niet =) omdat anders ORA-00932 want br_xml is clob
                 + " and br_xml like '<empty/>'";
-        log.debug("SQL voor tellen van berichten batch: " + countsql);
+        LOG.debug("SQL voor tellen van berichten batch: " + countsql);
         Object o = new QueryRunner(
                 geomToJdbc.isPmdKnownBroken()).query(conn,
                 countsql, new ScalarHandler());
-        log.debug("Totaal te verwerken verwijder berichten: " + o);
+        LOG.debug("Totaal te verwerken verwijder berichten: " + o);
 
         if (o instanceof BigDecimal) {
             total(((BigDecimal) o).longValue());
@@ -709,14 +712,14 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         rsgb.init();
 
         do {
-            log.debug(String.format("Ophalen berichten batch met offset %d, limit %d", offset, batch));
+            LOG.debug(String.format("Ophalen berichten batch met offset %d, limit %d", offset, batch));
             String sql = "select * from " + BrmoFramework.BERICHT_TABLE
                     + " where soort='" + soort + "'"
                     + " and status='" + status + "'"
                     + " and br_xml like '<empty/>'"
                     + " order by id";
             sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
-            log.debug("SQL voor ophalen berichten batch: " + sql);
+            LOG.debug("SQL voor ophalen berichten batch: " + sql);
 
             processed.setValue(0);
             Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler<Exception>() {
@@ -725,7 +728,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                     while (rs.next()) {
                         try {
                             Bericht bericht = processor.toBean(rs, Bericht.class);
-                            log.debug("Opnieuw verwerken van bericht: " + bericht);
+                            LOG.debug("Opnieuw verwerken van bericht: " + bericht);
                             // bewaar oude log
                             String oudeOpmerkingen = bericht.getOpmerking();
                             // forceer verwerking door bericht op STAGING_OK te zetten en dan opnieuw te verwerken

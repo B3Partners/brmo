@@ -31,6 +31,12 @@
         <param-value>1000000</param-value>
     </context-param>
     <context-param>
+        <description>BRK export locatie, een bestaande directory waar de servlet container mag schrijven.
+            Default waarde is /tmp/brkmutaties</description>
+        <param-name>exportDir.brk</param-name>
+        <param-value>/tmp/brkmutaties</param-value>
+    </context-param>
+    <context-param>
         <description>Aantal uitvoerende threads voor ingeplande taken. Default waarde is 1, bij hogere waarden dient de gebruiker er voor te zorgen dat er geen
             in de tijd overlappende transformatie of GDS2 processen van eenzelfde type, bijvoorbeeld berichten, lopen.
             Het verhogen is met name zinvol voor BGT light download processen.</description>
