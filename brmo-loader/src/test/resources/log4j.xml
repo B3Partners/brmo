@@ -22,11 +22,14 @@
     <logger name="org.dbunit.ext">
         <level value="info" />
     </logger>
-   <logger name="nl.b3p.brmo">
-        <level value="info" />
+   <logger name="nl.b3p">
+        <level value="debug" />
+    </logger>
+    <logger name="nl.b3p.brmo">
+        <level value="debug" />
     </logger>
     <root>
-        <level value="info" />
+        <level value="debug" />
         <appender-ref ref="consoleAppender" />
     </root>
 </log4j:configuration>

@@ -434,9 +434,13 @@ public class StagingProxy {
             Split split = SimonManager.getStopwatch("b3p.staging.bericht.dbxml.transform").start();
             String dbxml = transformer.transformToDbXml(ber);
 
-            //HACK vanwege Oracle 8000 karakters bug, zie brmo wiki
-            if (geomToJdbc instanceof OracleJdbcConverter && dbxml!=null && dbxml.length()==8000) {
+            log.debug("BR XML is  " + ber.getBrXml().length() + " bytes.");
+            log.debug("DB XML is  " + dbxml.length() + " bytes.");
+            //HACK vanwege Oracle 8000 karakters bug, zie brmo wiki: https://github.com/B3Partners/brmo/wiki/Oracle-8000-bytes-bug
+            if (geomToJdbc instanceof OracleJdbcConverter && dbxml != null && dbxml.length() == 8000) {
+                log.debug("DB XML is 8000 bytes, er wordt een spatie aangeplakt.");
                 dbxml += " ";
+                log.debug("DB XML is nu " + dbxml.length() + " bytes.");
             }
 
             ber.setDbXml(dbxml);
@@ -448,8 +452,6 @@ public class StagingProxy {
     private PreparedStatement getOldBerichtStatementById;
 
     public Bericht getOldBericht(Bericht nieuwBericht, StringBuilder loadLog) throws SQLException {
-        // TODO use JPA entities
-
         Split split = SimonManager.getStopwatch("b3p.staging.bericht.getold").start();
 
         Bericht bericht = null;
@@ -515,9 +517,15 @@ public class StagingProxy {
     }
 
     public void updateBericht(Bericht b) throws SQLException {
-        // TODO use JPA entities
-
         Split split = SimonManager.getStopwatch("b3p.staging.bericht.update").start();
+        String brXML = b.getBrXml();
+        log.debug("BR XML is  " + brXML.length() + " bytes.");
+        //HACK vanwege Oracle 8000 karakters bug, zie brmo wiki: https://github.com/B3Partners/brmo/wiki/Oracle-8000-bytes-bug
+        if (geomToJdbc instanceof OracleJdbcConverter && brXML != null && brXML.length() == 8000) {
+            log.debug("BR XML is 8000 bytes, er wordt een spatie aangeplakt.");
+            brXML += " ";
+            log.debug("BR XML is nu " + brXML.length() + " bytes.");
+        }
 
         new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
                 "UPDATE " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?,"
@@ -528,15 +536,13 @@ public class StagingProxy {
                 b.getObjectRef(),
                 new Timestamp(b.getDatum().getTime()), b.getVolgordeNummer(),
                 b.getSoort(), b.getOpmerking(), b.getStatus().toString(),
-                new Timestamp(b.getStatusDatum().getTime()), b.getBrXml(),
+                new Timestamp(b.getStatusDatum().getTime()), brXML,
                 b.getBrOrgineelXml(), b.getDbXml(), b.getXslVersion(),
                 b.getId());
         split.stop();
     }
 
     public void updateBerichtProcessing(Bericht b) throws SQLException {
-        // TODO use JPA entities
-
         Split split = SimonManager.getStopwatch("b3p.staging.bericht.updateprocessing").start();
 
         new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
@@ -686,6 +692,14 @@ public class StagingProxy {
     }
 
     public void writeBericht(Bericht b) throws SQLException {
+        String brXML = b.getBrXml();
+        log.debug("BR XML is  " + brXML.length() + " bytes.");
+        //HACK vanwege Oracle 8000 karakters bug, zie brmo wiki: https://github.com/B3Partners/brmo/wiki/Oracle-8000-bytes-bug
+        if (geomToJdbc instanceof OracleJdbcConverter && brXML != null && brXML.length() == 8000) {
+            log.debug("BR XML is 8000 bytes, er wordt een spatie aangeplakt.");
+            brXML += " ";
+            log.debug("BR XML is nu " + brXML.length() + " bytes.");
+        }
         new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
                 "INSERT INTO " + BrmoFramework.BERICHT_TABLE + "(laadprocesid, object_ref,"
                 + " datum, volgordenummer, soort, opmerking, status,"
@@ -695,7 +709,7 @@ public class StagingProxy {
                 b.getLaadProcesId(), b.getObjectRef(),
                 new Timestamp(b.getDatum().getTime()), b.getVolgordeNummer(),
                 b.getSoort(), b.getOpmerking(), b.getStatus().toString(),
-                new Timestamp(b.getStatusDatum().getTime()), b.getBrXml(),
+                new Timestamp(b.getStatusDatum().getTime()), brXML,
                 b.getBrOrgineelXml(), b.getDbXml(), b.getXslVersion());
      }
 

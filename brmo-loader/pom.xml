@@ -165,8 +165,11 @@
         <profile>
             <id>oracle</id>
             <properties>
+                <!--
+                <oracle.jdbc.groupId>com.oracle</oracle.jdbc.groupId>
                 <oracle.jdbc.artifactId>ojdbc7</oracle.jdbc.artifactId>
                 <oracle.jdbc.version>12.1.0.2.0</oracle.jdbc.version>
+                -->
             </properties>
             <build>
                 <plugins>
@@ -195,6 +198,7 @@
                                 <database.properties.file>postgis.properties</database.properties.file>
                                 <project.version>${project.version}</project.version>
                             </systemPropertyVariables>
+                            <excludedGroups>nl.b3p.brmo.test.util.database.PostgreSQLDriverBasedFailures</excludedGroups>
                         </configuration>
                     </plugin>
                 </plugins>

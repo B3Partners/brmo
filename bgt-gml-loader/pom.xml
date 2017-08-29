@@ -259,8 +259,10 @@
         <profile>
             <id>oracle</id>
             <properties>
+                <!--
                 <oracle.jdbc.artifactId>ojdbc7</oracle.jdbc.artifactId>
                 <oracle.jdbc.version>12.1.0.2.0</oracle.jdbc.version>
+                -->
             </properties>
             <dependencies>
                 <dependency>
