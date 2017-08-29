@@ -127,7 +127,7 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         } else {
-            fail("Geen onstersteunde database aangegegeven");
+            fail("Geen ondersteunde database aangegegeven.");
         }
 
         assumeTrue("Het bestand met testdata zou moeten bestaan.", Mantis6166IntegrationTest.class.getResource(bestandsNaam) != null);

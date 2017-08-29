@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Savepoint;
-import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -414,11 +413,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
         //via job tabel, niet langer status aanpassen
         return;
-//        ber.setStatus(Bericht.STATUS.RSGB_PROCESSING);
-//        ber.setOpmerking("");
-//        ber.setStatusDatum(new Date());
-//        ber.setDbXml(null);
-//        stagingProxy.updateBerichtProcessing(ber);
     }
 
     /**

@@ -270,25 +270,7 @@ public class BrmoFramework {
         return t;
     }
 
-/*
-    // XXX methode wordt niet gebruikt
-    public void toDbXml(Long id) throws BrmoException  {
-        try {
-            LaadProces lp = stagingProxy.getLaadProcesById(id);
-            String brType = lp.getSoort();
-
-            List<Bericht> berichten = stagingProxy.getBerichtenByLaadProcesId(id);
-
-            RsgbTransformer transformer = getTransformer(brType);
-
-            stagingProxy.updateBerichtenDbXml(berichten, transformer);
-
-        } catch (Exception ex) {
-            throw new BrmoException(ex);
-        }
-    }
-*/
-    public void delete(Long id) throws BrmoException{
+    public void delete(Long id) throws BrmoException {
         if (id != null) {
             try {
                 stagingProxy.deleteByLaadProcesId(id);

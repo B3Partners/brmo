@@ -145,7 +145,7 @@ public class Main {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         formatter.printUsage(pw, 80, "java -jar brmo-commandline.jar --<actie> --dbprops <db-props>");
-        formatter.printUsage(pw, 80, "[Oracle] java -cp \"brmo-commandline.jar;ojdbc7.jar;lib/*\" nl.b3p.brmo.commandline.Main --<actie> --dbprops <db-props>");
+        formatter.printUsage(pw, 80, "[Oracle] java -cp \"brmo-commandline.jar;ojdbc8.jar;lib/*\" nl.b3p.brmo.commandline.Main --<actie> --dbprops <db-props>");
         pw.print("\n                [Omdat de Oracle jdbc driver niet gedistribueerd mag worden"
                 + "\n                 dient deze zelf op de commando regel te worden opgegeven.]\n");
         pw.print("\nActies:\n");
