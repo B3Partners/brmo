@@ -1,50 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-    <artifactId>brmo</artifactId>
-    <groupId>nl.b3p</groupId>
-    <version>1.4.6-SNAPSHOT</version>
-  </parent>
-
     <groupId>nl.b3p.brmo</groupId>
     <artifactId>brmo-stufbg204</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-
-    <name>brmo-stufbg204</name>
-
+    <parent>
+        <groupId>nl.b3p</groupId>
+        <artifactId>brmo</artifactId>
+        <version>1.4.6-SNAPSHOT</version>
+    </parent>
+    <name>BRMO STUF BG 204</name>
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
     </properties>
-    
     <dependencies>
+        <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>brmo-soap-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
-            <version>7.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-               
                 <configuration>
-                   
-
                     <compilerArguments>
                         <endorseddirs>${endorsed.dir}</endorseddirs>
                     </compilerArguments>
                 </configuration>
             </plugin>
             <plugin>
-            
                 <artifactId>maven-war-plugin</artifactId>
-                
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <webResources>
@@ -59,10 +54,8 @@
                     </webResources>
                 </configuration>
             </plugin>
-            <plugin>
-             
+            <plugin>             
                 <artifactId>maven-dependency-plugin</artifactId>
-               
                 <executions>
                     <execution>
                         <phase>validate</phase>
@@ -87,13 +80,15 @@
             <plugin>
                 <groupId>org.jvnet.jax-ws-commons</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.3.1-b20150201.1248</version>
+
                 <executions>
                     <execution>
                         <goals>
                             <goal>wsimport</goal>
                         </goals>
                         <configuration>
+                            <wsdlDirectory>src/main/webapp/WEB-INF/wsdl</wsdlDirectory>
                             <wsdlFiles>
                                 <wsdlFile>bg0204.wsdl</wsdlFile>
                             </wsdlFiles>
@@ -106,6 +101,7 @@
                         <phase>generate-sources</phase>
                     </execution>
                 </executions>
+                <!--
                 <dependencies>
                     <dependency>
                         <groupId>javax.xml</groupId>
@@ -113,6 +109,7 @@
                         <version>2.0</version>
                     </dependency>
                 </dependencies>
+                -->
                 <configuration>
                     <sourceDestDir>${project.build.directory}/generated-sources/jaxws-wsimport</sourceDestDir>
                     <xnocompile>true</xnocompile>
