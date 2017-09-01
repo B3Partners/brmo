@@ -6,6 +6,7 @@ package nl.b3p.brmo.stufbg204;
 import nl.egem.stuf.sector.bg._0204.StUFFout;
 import nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht;
 import nl.egem.stuf.sector.bg._0204.VraagBericht;
+import nl.egem.stuf.stuf0204.Stuurgegevens;
 import org.junit.After;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
@@ -30,11 +31,21 @@ public class StUFBGsynchroonIntegrationTest {
     }
 
     @Test
-    public void hello() throws StUFFout {
-        VraagBericht vraag = new VraagBericht();
-        vraag.getStuurgegevens().setBerichtsoort("test");
-        vraag.getStuurgegevens().setEntiteittype("test");
-        SynchroonAntwoordBericht antw = stub.beantwoordSynchroneVraag(vraag);
-        assertNotNull("Antwoord is null", antw);
+    public void hello() throws Exception {
+        Stuurgegevens s = new Stuurgegevens();
+        s.setBerichtsoort("test");
+        s.setEntiteittype("test");
+
+        VraagBericht v = new VraagBericht();
+        v.setStuurgegevens(s);
+
+        SynchroonAntwoordBericht a = stub.beantwoordSynchroneVraag(v);
+        assertNotNull("Antwoord is null", a);
+    }
+
+    @Test(expected = StUFFout.class)
+    public void fout() throws Exception {
+        SynchroonAntwoordBericht a = stub.beantwoordSynchroneVraag(null);
+        assertNotNull("Antwoord is null", a);
     }
 }

@@ -46,6 +46,11 @@
             <artifactId>${oracle.jdbc.artifactId}</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>brmo-test-util</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -131,4 +136,85 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>postgresql</id>
+            <properties>
+                <test.persistence.unit>brmo.persistence.postgresql</test.persistence.unit>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <database.properties.file>postgres.properties</database.properties.file>
+                            </systemPropertyVariables>
+                            <excludedGroups>nl.b3p.brmo.test.util.database.PostgreSQLDriverBasedFailures</excludedGroups>
+                            <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>oracle</id>
+            <properties>
+                <test.persistence.unit>brmo.persistence.oracle</test.persistence.unit>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>${oracle.jdbc.groupId}</groupId>
+                    <artifactId>${oracle.jdbc.artifactId}</artifactId>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <database.properties.file>oracle.properties</database.properties.file>
+                            </systemPropertyVariables>
+                            <excludedGroups>nl.b3p.brmo.test.util.database.OracleDriverBasedFailures</excludedGroups>
+                            <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>mssql</id>
+            <properties>
+                <test.persistence.unit>brmo.persistence.sqlserver</test.persistence.unit>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>net.sourceforge.jtds</groupId>
+                    <artifactId>jtds</artifactId>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <database.properties.file>sqlserver.properties</database.properties.file>
+                            </systemPropertyVariables>
+                            <excludedGroups>nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures</excludedGroups>
+                            <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>

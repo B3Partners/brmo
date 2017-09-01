@@ -25,18 +25,18 @@
     </listener>
     <servlet>
         <servlet-name>DiagnosticsServlet</servlet-name>
-        <servlet-class>nl.b3p.brmo.soap.util.DiagnosticsServlet</servlet-class>
+        <servlet-class>nl.b3p.brmo.stufbg204.util.DiagnosticsServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet>
         <servlet-name>StUFBGAsynchroon</servlet-name>
         <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
+        <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet>
         <servlet-name>StUFBGSynchroon</servlet-name>
         <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
+        <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>StUFBGAsynchroon</servlet-name>
@@ -47,7 +47,7 @@
         <url-pattern>/StUFBGSynchroon</url-pattern>
     </servlet-mapping>
     <session-config>
-        <session-timeout>30</session-timeout>
+        <session-timeout>10</session-timeout>
     </session-config>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>

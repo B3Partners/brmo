@@ -28,29 +28,37 @@ public class Stufbg204Service {
     public BevestigingsBericht ontvangAsynchroneVraag(VraagBericht vraag) {
         LOG.debug("Er is vraag ontvangen van soort: " + vraag.getStuurgegevens().getBerichtsoort());
 
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        BevestigingsBericht b = new BevestigingsBericht();
+        b.setStuurgegevens(vraag.getStuurgegevens());
+
+        return b;
     }
 
     public BevestigingsBericht ontvangAsynchroonAntwoord(AsynchroonAntwoordBericht asynchroonAntwoord) {
         LOG.debug("Er is antwoord ontvangen van soort: " + asynchroonAntwoord.getStuurgegevens().getBerichtsoort());
 
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        BevestigingsBericht b = new BevestigingsBericht();
+        b.setStuurgegevens(asynchroonAntwoord.getStuurgegevens());
+
+        return b;
     }
 
     public BevestigingsBericht ontvangFout(FoutBericht fout) {
         LOG.debug("Er is fout ontvangen van soort: " + fout.getStuurgegevens().getBerichtsoort());
 
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        BevestigingsBericht b = new BevestigingsBericht();
+        b.setStuurgegevens(fout.getStuurgegevens());
+
+        return b;
     }
 
     public BevestigingsBericht ontvangKennisgeving(KennisgevingsBericht kennisgeving) {
         LOG.debug("Er is kennisgeving ontvangen van soort: " + kennisgeving.getStuurgegevens().getBerichtsoort());
 
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        BevestigingsBericht b = new BevestigingsBericht();
+        b.setStuurgegevens(kennisgeving.getStuurgegevens());
+
+        return b;
     }
 
 }
