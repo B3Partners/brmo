@@ -19,6 +19,7 @@
 **/dependency-reduced-pom.xml
 **/buildNumber.properties
 
+# log files
 mvn.log
 rel-prepare.log
 rel-perform.log
@@ -29,3 +30,6 @@ plugin-updates.log
 hs_err_pid*
 /target/
 /brmo-service/src/test/resources/GH-287/gh-292-staging-flat-4242.xml
+
+# netbeans stuff
+**/nbproject/

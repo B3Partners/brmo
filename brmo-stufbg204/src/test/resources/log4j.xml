@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
+        <param name="Threshold" value="all" />
+        <layout class="org.apache.log4j.EnhancedPatternLayout">
+            <param name="ConversionPattern" value="BRMO-STUFBG204-TEST: %5p %d{HH:mm:ss} (%C{1.}#%M:%L) - %m%n" />
+        </layout>
+    </appender>
+    <logger name="org.dbunit.database">
+        <level value="info" />
+    </logger>
+    <logger name="org.dbunit.operation">
+        <level value="info" />
+    </logger>
+    <logger name="org.dbunit.util">
+        <level value="info" />
+    </logger>
+    <logger name="org.dbunit.dataset">
+        <level value="info" />
+    </logger>
+    <logger name="org.dbunit.ext">
+        <level value="info" />
+    </logger>
+    <logger name="org.apache.http.wire">
+        <level value="info" />
+    </logger>
+    <logger name="org.apache.http.impl">
+        <level value="info" />
+    </logger>
+    <logger name="nl.b3p.brmo">
+        <level value="trace" />
+    </logger>
+    <root>
+        <level value="info" />
+        <appender-ref ref="consoleAppender" />
+    </root>
+</log4j:configuration>

@@ -71,7 +71,8 @@ test_script:
   - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-service"
   # run integratie tests voor brmo-soap module
   - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-soap"
-
+  # run integratie tests voor brmo-stufbg204 module
+  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-stufbg204"
 
 cache:
   - C:\Users\appveyor\.m2\repository -> pom.xml

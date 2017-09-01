@@ -721,6 +721,11 @@
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>1.4.1</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.jvnet.jax-ws-commons</groupId>
+                    <artifactId>jaxws-maven-plugin</artifactId>
+                    <version>2.3.1-b20150201.1248</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
