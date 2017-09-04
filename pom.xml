@@ -230,7 +230,7 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>kadaster-gds2</artifactId>
-                <version>1.1</version>
+                <version>1.2-SNAPSHOT</version>
             </dependency>
             <!-- J2EE dependencies en stripes -->
             <dependency>
@@ -314,7 +314,7 @@
             <dependency>
                 <groupId>com.sun.xml.ws</groupId>
                 <artifactId>jaxws-rt</artifactId>
-                <version>2.2.10</version>
+                <version>2.3.0</version>
             </dependency>
             <dependency>
                 <groupId>org.json</groupId>
@@ -337,7 +337,7 @@
             <dependency>
                 <groupId>org.dbunit</groupId>
                 <artifactId>dbunit</artifactId>
-                <version>2.5.3</version>
+                <version>2.5.4</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -362,13 +362,13 @@
                 <!-- voor jndi context in een brmo-service integration test -->
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-catalina</artifactId>
-                <version>8.0.45</version>
+                <version>8.0.46</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-dbcp</artifactId>
-                <version>8.0.45</version>
+                <version>8.0.46</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -479,7 +479,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -678,7 +678,7 @@
                 <plugin>
                     <groupId>pl.project13.maven</groupId>
                     <artifactId>git-commit-id-plugin</artifactId>
-                    <version>2.2.2</version>
+                    <version>2.2.3</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
