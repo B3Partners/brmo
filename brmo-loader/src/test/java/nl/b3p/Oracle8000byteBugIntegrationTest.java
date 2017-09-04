@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 B3Partners B.V.
+ * Copyright (C) 2017 B3Partners B.V.
  */
 package nl.b3p;
 
@@ -49,11 +49,14 @@ import org.junit.runners.Parameterized;
  * -Doracle.jdbc.version=12.1.0.2.0 bijvoorbeeld..
  *
  * <pre>
+ * {@code
  * mvn -Dit.test=Oracle8000byteBugIntegrationTest -Dtest.onlyITs=true verify -Doracle.jdbc.artifactId=ojdbc6 -Doracle.jdbc.version=11.2.0.4.0 -Poracle > target/ojdbc6-11.2.0.4.0-oracle.log
  * mvn -Dit.test=Oracle8000byteBugIntegrationTest -Dtest.onlyITs=true verify -Doracle.jdbc.artifactId=ojdbc6 -Doracle.jdbc.version=12.1.0.2.0 -Poracle > target/ojdbc6-12.1.0.2.0-oracle.log
  * mvn -Dit.test=Oracle8000byteBugIntegrationTest -Dtest.onlyITs=true verify -Doracle.jdbc.artifactId=ojdbc7 -Doracle.jdbc.version=12.1.0.2.0 -Poracle > target/ojdbc7-12.1.0.2.0-oracle.log
  * mvn -Dit.test=Oracle8000byteBugIntegrationTest -Dtest.onlyITs=true verify -Doracle.jdbc.artifactId=ojdbc8 -Doracle.jdbc.version=12.2.0.1.0 -Poracle > target/ojdbc8-12.2.0.1.0-oracle.log
+ * }
  * </pre>
+ * 
  *
  * @author mprins
  */
