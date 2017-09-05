@@ -94,6 +94,8 @@ script:
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service'
   # run integratie tests voor brmo-soap module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-soap'
+  # run integratie tests voor brmo-stufbg204 module
+  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-stufbg204'
   # run integratie tests voor brmo-commandline module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-commandline'
   # test of de javadoc compliant is met java-8 strict checks

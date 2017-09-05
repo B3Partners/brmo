@@ -67,6 +67,11 @@ timestamps {
                     sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-soap'"
                 }
 
+                stage('brmo-stufbg204 Integration Test') {
+                    echo "run integratie tests voor brmo-stufbg204 module"
+                    sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-stufbg204'"
+                }
+
                 stage('brmo-commandline Integration Test') {
                     echo "run integratie tests voor brmo-commandline module"
                     sh "mvn -Djava.security.egd=file:/dev/./urandom -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-commandline'"

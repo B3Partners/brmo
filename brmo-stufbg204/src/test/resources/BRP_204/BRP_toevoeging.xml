@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-16"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Header>
+    <To s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">http://esb-gm-prd.maassluis.local/ListenerStUFBG204Asynchroon</To>
+    <Action s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">http://www.egem.nl/StUF/sector/bg/0204/ontvangKennisgeving</Action>
+  </s:Header>
+  <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <BG:kennisgevingsBericht xmlns:BG="http://www.egem.nl/StUF/sector/bg/0204" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:StUF="http://www.egem.nl/StUF/StUF0204">
+      <StUF0204:stuurgegevens xmlns:StUF0204="http://www.egem.nl/StUF/StUF0204" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">
+        <StUF0204:berichtsoort>Lk01</StUF0204:berichtsoort>
+        <StUF0204:entiteittype>PRS</StUF0204:entiteittype>
+        <StUF0204:sectormodel>BG</StUF0204:sectormodel>
+        <StUF0204:versieStUF>0204</StUF0204:versieStUF>
+        <StUF0204:versieSectormodel>0204</StUF0204:versieSectormodel>
+        <StUF0204:zender>
+          <StUF0204:applicatie>C2S</StUF0204:applicatie>
+        </StUF0204:zender>
+        <StUF0204:ontvanger>
+          <StUF0204:applicatie>Gegevensmagazijn</StUF0204:applicatie>
+        </StUF0204:ontvanger>
+        <StUF0204:referentienummer>XXX</StUF0204:referentienummer>
+        <StUF0204:tijdstipBericht>2017051610315071</StUF0204:tijdstipBericht>
+        <StUF0204:kennisgeving>
+          <StUF0204:mutatiesoort>T</StUF0204:mutatiesoort>
+          <StUF0204:indicatorOvername>V</StUF0204:indicatorOvername>
+        </StUF0204:kennisgeving>
+      </StUF0204:stuurgegevens>
+      <BG:body>
+        <BG:PRS soortEntiteit="F" StUF0204:sleutelVerzendend="XXX" StUF0204:sleutelGegevensbeheer="XXX" StUF0204:verwerkingssoort="T" xmlns:StUF0204="http://www.egem.nl/StUF/StUF0204">
+          <BG:a-nummer kerngegeven="true">XXX</BG:a-nummer>
+          <BG:bsn-nummer kerngegeven="true">XXX</BG:bsn-nummer>
+          <BG:voornamen kerngegeven="true" gegevengroep="PRS1">XXX</BG:voornamen>
+          <BG:voorletters kerngegeven="true" gegevengroep="PRS1">P</BG:voorletters>
+          <BG:voorvoegselGeslachtsnaam xsi:nil="true" kerngegeven="true" gegevengroep="PRS1" StUF0204:noValue="geenWaarde"></BG:voorvoegselGeslachtsnaam>
+          <BG:geslachtsnaam kerngegeven="true" gegevengroep="PRS1">XXX</BG:geslachtsnaam>
+          <BG:geboortedatum kerngegeven="true">XXX</BG:geboortedatum>
+          <BG:geboorteplaats gegevengroep="PRS3">XXX</BG:geboorteplaats>
+          <BG:codeGeboorteland gegevengroep="PRS3">XXX</BG:codeGeboorteland>
+          <BG:geslachtsaanduiding kerngegeven="true">V</BG:geslachtsaanduiding>
+          <BG:datumOverlijden xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:datumOverlijden>
+          <BG:plaatsOverlijden xsi:nil="true" gegevengroep="PRS4" StUF0204:noValue="geenWaarde"></BG:plaatsOverlijden>
+          <BG:codeLandOverlijden xsi:nil="true" gegevengroep="PRS4" StUF0204:noValue="geenWaarde"></BG:codeLandOverlijden>
+          <BG:indicatieGeheim>0</BG:indicatieGeheim>
+          <BG:adellijkeTitelPredikaat xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:adellijkeTitelPredikaat>
+          <BG:codeGemeenteVanInschrijving>0556</BG:codeGemeenteVanInschrijving>
+          <BG:datumInschrijvingGemeente>XXX</BG:datumInschrijvingGemeente>
+          <BG:datumOpschortingBijhouding xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:datumOpschortingBijhouding>
+          <BG:omschrijvingRedenOpschortingBijhouding xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:omschrijvingRedenOpschortingBijhouding>
+          <BG:codeLandEmigratie xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:codeLandEmigratie>
+          <BG:datumVertrekUitNederland xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:datumVertrekUitNederland>
+          <BG:codeLandImmigratie>XXX</BG:codeLandImmigratie>
+          <BG:datumVestigingInNederland>XXX</BG:datumVestigingInNederland>
+          <BG:indicatieGezagMinderjarige xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:indicatieGezagMinderjarige>
+          <BG:indicatieCuratelestelling xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:indicatieCuratelestelling>
+          <BG:verblijfstitel xsi:nil="true" gegevengroep="PRS2" StUF0204:noValue="geenWaarde"></BG:verblijfstitel>
+          <BG:datumVerkrijgingVerblijfstitel xsi:nil="true" gegevengroep="PRS2" StUF0204:noValue="geenWaarde"></BG:datumVerkrijgingVerblijfstitel>
+          <BG:datumVerliesVerblijfstitel xsi:nil="true" gegevengroep="PRS2" StUF0204:noValue="geenWaarde"></BG:datumVerliesVerblijfstitel>
+          <BG:aanduidingBijzonderNederlanderschap xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:aanduidingBijzonderNederlanderschap>
+          <BG:burgerlijkeStaat>4</BG:burgerlijkeStaat>
+          <BG:aanduidingNaamgebruik>V</BG:aanduidingNaamgebruik>
+          <BG:bankgiroRekeningnummer xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:bankgiroRekeningnummer>
+          <BG:tijdvakGeldigheid>
+            <StUF0204:begindatumTijdvakGeldigheid>XXX</StUF0204:begindatumTijdvakGeldigheid>
+            <StUF0204:einddatumTijdvakGeldigheid xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumTijdvakGeldigheid>
+          </BG:tijdvakGeldigheid>
+          <BG:extraElementen>
+            <StUF0204:extraElement naam="aanduidingGegevensInOnderzoek" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">N</StUF0204:extraElement>
+            <StUF0204:extraElement naam="aanduidingGegevensInOnderzoekOverlijden" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">N</StUF0204:extraElement>
+            <StUF0204:extraElement xsi:nil="true" StUF0204:noValue="geenWaarde" naam="iban" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204"></StUF0204:extraElement>
+            <StUF0204:extraElement naam="geslachtsNaamEchtgenoot" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">XXX</StUF0204:extraElement>
+            <StUF0204:extraElement xsi:nil="true" StUF0204:noValue="geenWaarde" naam="voorvoegselGeslachtsnaamEchtgenoot" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204"></StUF0204:extraElement>
+          </BG:extraElementen>
+          <BG:PRSADRINS soortEntiteit="R" StUF0204:verwerkingssoort="T">
+            <BG:tijdvakRelatie>
+              <StUF0204:begindatumRelatie>XXX</StUF0204:begindatumRelatie>
+              <StUF0204:einddatumRelatie xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumRelatie>
+            </BG:tijdvakRelatie>
+            <BG:tijdvakGeldigheid>
+              <StUF0204:begindatumTijdvakGeldigheid>XXX</StUF0204:begindatumTijdvakGeldigheid>
+              <StUF0204:einddatumTijdvakGeldigheid xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumTijdvakGeldigheid>
+            </BG:tijdvakGeldigheid>
+            <BG:ADR soortEntiteit="F" StUF0204:sleutelVerzendend="XXX" StUF0204:sleutelGegevensbeheer="XXX" StUF0204:verwerkingssoort="I">
+              <BG:adresBuitenland1 xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true" gegevengroep="ADR4"></BG:adresBuitenland1>
+              <BG:adresBuitenland2 xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true" gegevengroep="ADR4"></BG:adresBuitenland2>
+              <BG:adresBuitenland3 xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true" gegevengroep="ADR4"></BG:adresBuitenland3>
+              <BG:landcode xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true" gegevengroep="ADR4"></BG:landcode>
+              <BG:postcode kerngegeven="true" gegevengroep="ADR1">XXX</BG:postcode>
+              <BG:woonplaatsnaam kerngegeven="true">Maassluis</BG:woonplaatsnaam>
+              <BG:postbusnummer xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true"></BG:postbusnummer>
+              <BG:antwoordnummer xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true"></BG:antwoordnummer>
+              <BG:straatnaam kerngegeven="true" gegevengroep="ADR1">XXX</BG:straatnaam>
+              <BG:huisnummer kerngegeven="true" gegevengroep="ADR1">XXX</BG:huisnummer>
+              <BG:huisletter xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true" gegevengroep="ADR1"></BG:huisletter>
+              <BG:huisnummertoevoeging xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true" gegevengroep="ADR1"></BG:huisnummertoevoeging>
+              <BG:aanduidingBijHuisnummer xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true" gegevengroep="ADR1"></BG:aanduidingBijHuisnummer>
+              <BG:locatieomschrijving xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true" gegevengroep="ADR1"></BG:locatieomschrijving>
+              <BG:locatieadresnummer xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true"></BG:locatieadresnummer>
+              <BG:ingangsdatum StUF0204:noValue="geenWaarde" xsi:nil="true"></BG:ingangsdatum>
+              <BG:einddatum StUF0204:noValue="geenWaarde" xsi:nil="true"></BG:einddatum>
+              <BG:straatcode StUF0204:noValue="geenWaarde" xsi:nil="true"></BG:straatcode>
+              <BG:buurtcode StUF0204:noValue="geenWaarde" xsi:nil="true" gegevengroep="ADR2"></BG:buurtcode>
+              <BG:wijkcode StUF0204:noValue="geenWaarde" xsi:nil="true" gegevengroep="ADR2"></BG:wijkcode>
+              <BG:gemeentecode kerngegeven="true">0556</BG:gemeentecode>
+              <BG:centroidXCoordinaat StUF0204:noValue="geenWaarde" xsi:nil="true" gegevengroep="ADR3"></BG:centroidXCoordinaat>
+              <BG:centroidYCoordinaat StUF0204:noValue="geenWaarde" xsi:nil="true" gegevengroep="ADR3"></BG:centroidYCoordinaat>
+              <BG:centroidZCoordinaat StUF0204:noValue="geenWaarde" xsi:nil="true" gegevengroep="ADR3"></BG:centroidZCoordinaat>
+              <BG:extraElementen>
+                <StUF0204:extraElement naam="aanduidingGegevensInOnderzoek" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">N</StUF0204:extraElement>
+                <StUF0204:extraElement naam="openbareRuimteNaam" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">XXX</StUF0204:extraElement>
+                <StUF0204:extraElement naam="identificatieAOA" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">XXX</StUF0204:extraElement>
+                <StUF0204:extraElement naam="identificatieTGO" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">XXX</StUF0204:extraElement>
+                <StUF0204:extraElement naam="woonplaatsNaamBAG" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">Maassluis</StUF0204:extraElement>
+                <StUF0204:extraElement xsi:nil="true" StUF0204:noValue="geenWaarde" naam="identificatieWoonplaats" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204"></StUF0204:extraElement>
+                <StUF0204:extraElement xsi:nil="true" StUF0204:noValue="geenWaarde" naam="identificatieOpenbareRuimte" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204"></StUF0204:extraElement>
+              </BG:extraElementen>
+            </BG:ADR>
+          </BG:PRSADRINS>
+          <BG:PRSADRVBL kerngegeven="true" soortEntiteit="R" StUF0204:sleutelVerzendend="3649362" StUF0204:sleutelGegevensbeheer="3649362" StUF0204:verwerkingssoort="T">
+            <BG:tijdvakRelatie>
+              <StUF0204:begindatumRelatie>XXX</StUF0204:begindatumRelatie>
+              <StUF0204:einddatumRelatie xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumRelatie>
+            </BG:tijdvakRelatie>
+            <BG:tijdvakGeldigheid>
+              <StUF0204:begindatumTijdvakGeldigheid>XXX</StUF0204:begindatumTijdvakGeldigheid>
+              <StUF0204:einddatumTijdvakGeldigheid xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumTijdvakGeldigheid>
+            </BG:tijdvakGeldigheid>
+            <BG:ADR soortEntiteit="F" StUF0204:sleutelVerzendend="XXX" StUF0204:sleutelGegevensbeheer="XXX" StUF0204:verwerkingssoort="I">
+              <BG:adresBuitenland1 xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true" gegevengroep="ADR4"></BG:adresBuitenland1>
+              <BG:adresBuitenland2 xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true" gegevengroep="ADR4"></BG:adresBuitenland2>
+              <BG:adresBuitenland3 xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true" gegevengroep="ADR4"></BG:adresBuitenland3>
+              <BG:landcode xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true" gegevengroep="ADR4"></BG:landcode>
+              <BG:postcode kerngegeven="true" gegevengroep="ADR1">XXX</BG:postcode>
+              <BG:woonplaatsnaam kerngegeven="true">Maassluis</BG:woonplaatsnaam>
+              <BG:postbusnummer xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true"></BG:postbusnummer>
+              <BG:antwoordnummer xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true"></BG:antwoordnummer>
+              <BG:straatnaam kerngegeven="true" gegevengroep="ADR1">XXX</BG:straatnaam>
+              <BG:huisnummer kerngegeven="true" gegevengroep="ADR1">XXX</BG:huisnummer>
+              <BG:huisletter xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true" gegevengroep="ADR1"></BG:huisletter>
+              <BG:huisnummertoevoeging xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true" gegevengroep="ADR1"></BG:huisnummertoevoeging>
+              <BG:aanduidingBijHuisnummer xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true" gegevengroep="ADR1"></BG:aanduidingBijHuisnummer>
+              <BG:locatieomschrijving xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true" gegevengroep="ADR1"></BG:locatieomschrijving>
+              <BG:locatieadresnummer xsi:nil="true" StUF0204:noValue="geenWaarde" kerngegeven="true"></BG:locatieadresnummer>
+              <BG:ingangsdatum StUF0204:noValue="geenWaarde" xsi:nil="true"></BG:ingangsdatum>
+              <BG:einddatum StUF0204:noValue="geenWaarde" xsi:nil="true"></BG:einddatum>
+              <BG:straatcode StUF0204:noValue="geenWaarde" xsi:nil="true"></BG:straatcode>
+              <BG:buurtcode StUF0204:noValue="geenWaarde" xsi:nil="true" gegevengroep="ADR2"></BG:buurtcode>
+              <BG:wijkcode StUF0204:noValue="geenWaarde" xsi:nil="true" gegevengroep="ADR2"></BG:wijkcode>
+              <BG:gemeentecode kerngegeven="true">0556</BG:gemeentecode>
+              <BG:centroidXCoordinaat StUF0204:noValue="geenWaarde" xsi:nil="true" gegevengroep="ADR3"></BG:centroidXCoordinaat>
+              <BG:centroidYCoordinaat StUF0204:noValue="geenWaarde" xsi:nil="true" gegevengroep="ADR3"></BG:centroidYCoordinaat>
+              <BG:centroidZCoordinaat StUF0204:noValue="geenWaarde" xsi:nil="true" gegevengroep="ADR3"></BG:centroidZCoordinaat>
+              <BG:extraElementen>
+                <StUF0204:extraElement naam="aanduidingGegevensInOnderzoek" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">N</StUF0204:extraElement>
+                <StUF0204:extraElement naam="openbareRuimteNaam" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">XXX</StUF0204:extraElement>
+                <StUF0204:extraElement naam="identificatieAOA" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">XXX</StUF0204:extraElement>
+                <StUF0204:extraElement naam="identificatieTGO" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">XXX</StUF0204:extraElement>
+                <StUF0204:extraElement naam="woonplaatsNaamBAG" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">Maassluis</StUF0204:extraElement>
+                <StUF0204:extraElement xsi:nil="true" StUF0204:noValue="geenWaarde" naam="identificatieWoonplaats" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204"></StUF0204:extraElement>
+                <StUF0204:extraElement xsi:nil="true" StUF0204:noValue="geenWaarde" naam="identificatieOpenbareRuimte" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204"></StUF0204:extraElement>
+              </BG:extraElementen>
+            </BG:ADR>
+          </BG:PRSADRVBL>
+          <BG:PRSIDB soortEntiteit="R" StUF0204:sleutelVerzendend="348170" StUF0204:sleutelGegevensbeheer="348170" StUF0204:verwerkingssoort="T">
+            <BG:nummerIdentiteitsbewijs kerngegeven="true">XXX</BG:nummerIdentiteitsbewijs>
+            <BG:tijdvakRelatie>
+              <StUF0204:begindatumRelatie>XXX</StUF0204:begindatumRelatie>
+              <StUF0204:einddatumRelatie xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumRelatie>
+            </BG:tijdvakRelatie>
+            <BG:tijdvakGeldigheid>
+              <StUF0204:begindatumTijdvakGeldigheid>20160811</StUF0204:begindatumTijdvakGeldigheid>
+              <StUF0204:einddatumTijdvakGeldigheid xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumTijdvakGeldigheid>
+            </BG:tijdvakGeldigheid>
+            <BG:extraElementen>
+              <StUF0204:extraElement naam="datumAfgifte" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">XXX</StUF0204:extraElement>
+              <StUF0204:extraElement naam="datumEindeGeldigheid" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">20161114</StUF0204:extraElement>
+              <StUF0204:extraElement naam="aanduidingGegevensInOnderzoek" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">N</StUF0204:extraElement>
+              <StUF0204:extraElement naam="aanduidingInhoudingVermissing" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">I</StUF0204:extraElement>
+              <StUF0204:extraElement naam="autoriteitUitgifte" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">XXX</StUF0204:extraElement>
+              <StUF0204:extraElement naam="datumInhoudingVermissing" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">XXX</StUF0204:extraElement>
+              <StUF0204:extraElement xsi:nil="true" StUF0204:noValue="geenWaarde" naam="lengteHouder" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204"></StUF0204:extraElement>
+            </BG:extraElementen>
+            <BG:SIB soortEntiteit="T" StUF0204:verwerkingssoort="I">
+              <BG:soort kerngegeven="true">01</BG:soort>
+              <BG:omschrijving kerngegeven="true">Paspoort</BG:omschrijving>
+            </BG:SIB>
+          </BG:PRSIDB>
+          <BG:PRSIDB soortEntiteit="R" StUF0204:sleutelVerzendend="348171" StUF0204:sleutelGegevensbeheer="348171" StUF0204:verwerkingssoort="T">
+            <BG:nummerIdentiteitsbewijs kerngegeven="true">XXX</BG:nummerIdentiteitsbewijs>
+            <BG:tijdvakRelatie>
+              <StUF0204:begindatumRelatie>XXX</StUF0204:begindatumRelatie>
+              <StUF0204:einddatumRelatie xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumRelatie>
+            </BG:tijdvakRelatie>
+            <BG:tijdvakGeldigheid>
+              <StUF0204:begindatumTijdvakGeldigheid>XXX</StUF0204:begindatumTijdvakGeldigheid>
+              <StUF0204:einddatumTijdvakGeldigheid xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumTijdvakGeldigheid>
+            </BG:tijdvakGeldigheid>
+            <BG:extraElementen>
+              <StUF0204:extraElement naam="datumAfgifte" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">XXX</StUF0204:extraElement>
+              <StUF0204:extraElement naam="datumEindeGeldigheid" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">XXX</StUF0204:extraElement>
+              <StUF0204:extraElement naam="aanduidingGegevensInOnderzoek" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">N</StUF0204:extraElement>
+              <StUF0204:extraElement xsi:nil="true" StUF0204:noValue="geenWaarde" naam="aanduidingInhoudingVermissing" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204"></StUF0204:extraElement>
+              <StUF0204:extraElement naam="autoriteitUitgifte" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">XXX</StUF0204:extraElement>
+              <StUF0204:extraElement xsi:nil="true" StUF0204:noValue="geenWaarde" naam="datumInhoudingVermissing" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204"></StUF0204:extraElement>
+              <StUF0204:extraElement xsi:nil="true" StUF0204:noValue="geenWaarde" naam="lengteHouder" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204"></StUF0204:extraElement>
+            </BG:extraElementen>
+            <BG:SIB soortEntiteit="T" StUF0204:verwerkingssoort="I">
+              <BG:soort kerngegeven="true">01</BG:soort>
+              <BG:omschrijving kerngegeven="true">Paspoort</BG:omschrijving>
+            </BG:SIB>
+          </BG:PRSIDB>
+          <BG:PRSIDB soortEntiteit="R" StUF0204:sleutelVerzendend="348172" StUF0204:sleutelGegevensbeheer="348172" StUF0204:verwerkingssoort="T">
+            <BG:nummerIdentiteitsbewijs kerngegeven="true">XXX</BG:nummerIdentiteitsbewijs>
+            <BG:tijdvakRelatie>
+              <StUF0204:begindatumRelatie>XXX</StUF0204:begindatumRelatie>
+              <StUF0204:einddatumRelatie xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumRelatie>
+            </BG:tijdvakRelatie>
+            <BG:tijdvakGeldigheid>
+              <StUF0204:begindatumTijdvakGeldigheid>XXX</StUF0204:begindatumTijdvakGeldigheid>
+              <StUF0204:einddatumTijdvakGeldigheid xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumTijdvakGeldigheid>
+            </BG:tijdvakGeldigheid>
+            <BG:extraElementen>
+              <StUF0204:extraElement naam="datumAfgifte" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">XXX</StUF0204:extraElement>
+              <StUF0204:extraElement naam="datumEindeGeldigheid" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">20120110</StUF0204:extraElement>
+              <StUF0204:extraElement naam="aanduidingGegevensInOnderzoek" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">N</StUF0204:extraElement>
+              <StUF0204:extraElement naam="aanduidingInhoudingVermissing" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">I</StUF0204:extraElement>
+              <StUF0204:extraElement naam="autoriteitUitgifte" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">XXX</StUF0204:extraElement>
+              <StUF0204:extraElement naam="datumInhoudingVermissing" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">XXX</StUF0204:extraElement>
+              <StUF0204:extraElement xsi:nil="true" StUF0204:noValue="geenWaarde" naam="lengteHouder" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204"></StUF0204:extraElement>
+            </BG:extraElementen>
+            <BG:SIB soortEntiteit="T" StUF0204:verwerkingssoort="I">
+              <BG:soort kerngegeven="true">01</BG:soort>
+              <BG:omschrijving kerngegeven="true">Paspoort</BG:omschrijving>
+            </BG:SIB>
+          </BG:PRSIDB>
+          <BG:PRSNAT soortEntiteit="R" StUF0204:sleutelGegevensbeheer="0" StUF0204:verwerkingssoort="T">
+            <BG:datumVerkrijging>XXX</BG:datumVerkrijging>
+            <BG:datumVerlies xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:datumVerlies>
+            <BG:tijdvakRelatie>
+              <StUF0204:begindatumRelatie>XXX</StUF0204:begindatumRelatie>
+              <StUF0204:einddatumRelatie xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumRelatie>
+            </BG:tijdvakRelatie>
+            <BG:tijdvakGeldigheid>
+              <StUF0204:begindatumTijdvakGeldigheid>XXX</StUF0204:begindatumTijdvakGeldigheid>
+              <StUF0204:einddatumTijdvakGeldigheid xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumTijdvakGeldigheid>
+            </BG:tijdvakGeldigheid>
+            <BG:extraElementen>
+              <StUF0204:extraElement naam="aanduidingGegevensInOnderzoek" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">N</StUF0204:extraElement>
+            </BG:extraElementen>
+            <BG:NAT soortEntiteit="T" StUF0204:verwerkingssoort="I">
+              <BG:code kerngegeven="true">1</BG:code>
+              <BG:omschrijving kerngegeven="true">Nederlandse</BG:omschrijving>
+              <BG:datumVerkrijging StUF0204:noValue="geenWaarde" xsi:nil="true" kerngegeven="true"></BG:datumVerkrijging>
+              <BG:datumVerlies StUF0204:noValue="geenWaarde" xsi:nil="true" kerngegeven="true"></BG:datumVerlies>
+            </BG:NAT>
+          </BG:PRSNAT>
+          <BG:PRSPRSHUW soortEntiteit="R" StUF0204:sleutelGegevensbeheer="0" StUF0204:verwerkingssoort="T">
+            <BG:datumSluiting kerngegeven="true">XXX</BG:datumSluiting>
+            <BG:plaatsSluiting>0171</BG:plaatsSluiting>
+            <BG:landSluiting>XXX</BG:landSluiting>
+            <BG:soortVerbintenis>H</BG:soortVerbintenis>
+            <BG:datumOntbinding>XXX</BG:datumOntbinding>
+            <BG:plaatsOntbinding>XXX</BG:plaatsOntbinding>
+            <BG:landOntbinding>XXX</BG:landOntbinding>
+            <BG:redenOntbinding>O</BG:redenOntbinding>
+            <BG:datumInschrijvingVonnisOntbinding StUF0204:noValue="geenWaarde" xsi:nil="true"></BG:datumInschrijvingVonnisOntbinding>
+            <BG:tijdvakRelatie>
+              <StUF0204:begindatumRelatie>XXX</StUF0204:begindatumRelatie>
+              <StUF0204:einddatumRelatie xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumRelatie>
+            </BG:tijdvakRelatie>
+            <BG:tijdvakGeldigheid>
+              <StUF0204:begindatumTijdvakGeldigheid>XXX</StUF0204:begindatumTijdvakGeldigheid>
+              <StUF0204:einddatumTijdvakGeldigheid xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumTijdvakGeldigheid>
+            </BG:tijdvakGeldigheid>
+            <BG:extraElementen>
+              <StUF0204:extraElement xsi:nil="true" StUF0204:noValue="geenWaarde" naam="aanduidingGegevensInOnderzoek" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204"></StUF0204:extraElement>
+            </BG:extraElementen>
+            <BG:PRS soortEntiteit="F" StUF0204:sleutelVerzendend="XXX" StUF0204:sleutelGegevensbeheer="XXX" StUF0204:verwerkingssoort="I">
+              <BG:a-nummer kerngegeven="true">XXX</BG:a-nummer>
+              <BG:bsn-nummer kerngegeven="true">XXX</BG:bsn-nummer>
+              <BG:voornamen kerngegeven="true" gegevengroep="PRS1">XXX</BG:voornamen>
+              <BG:voorletters kerngegeven="true" gegevengroep="PRS1">NG</BG:voorletters>
+              <BG:voorvoegselGeslachtsnaam xsi:nil="true" kerngegeven="true" gegevengroep="PRS1" StUF0204:noValue="geenWaarde"></BG:voorvoegselGeslachtsnaam>
+              <BG:geslachtsnaam kerngegeven="true" gegevengroep="PRS1">XXX</BG:geslachtsnaam>
+              <BG:geboortedatum kerngegeven="true">XXX</BG:geboortedatum>
+              <BG:geboorteplaats gegevengroep="PRS3">XXX</BG:geboorteplaats>
+              <BG:codeGeboorteland gegevengroep="PRS3">XXX</BG:codeGeboorteland>
+              <BG:geslachtsaanduiding kerngegeven="true">M</BG:geslachtsaanduiding>
+              <BG:adellijkeTitelPredikaat xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:adellijkeTitelPredikaat>
+            </BG:PRS>
+          </BG:PRSPRSHUW>
+          <BG:PRSPRSKND soortEntiteit="R" StUF0204:sleutelGegevensbeheer="0" StUF0204:verwerkingssoort="T">
+            <BG:ingangsdatum>XXX</BG:ingangsdatum>
+            <BG:einddatum xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:einddatum>
+            <BG:tijdvakRelatie>
+              <StUF0204:begindatumRelatie>XXX</StUF0204:begindatumRelatie>
+              <StUF0204:einddatumRelatie xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumRelatie>
+            </BG:tijdvakRelatie>
+            <BG:tijdvakGeldigheid>
+              <StUF0204:begindatumTijdvakGeldigheid>XXX</StUF0204:begindatumTijdvakGeldigheid>
+              <StUF0204:einddatumTijdvakGeldigheid xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumTijdvakGeldigheid>
+            </BG:tijdvakGeldigheid>
+            <BG:extraElementen>
+              <StUF0204:extraElement naam="aanduidingGegevensInOnderzoek" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">N</StUF0204:extraElement>
+            </BG:extraElementen>
+            <BG:PRS soortEntiteit="F" StUF0204:sleutelVerzendend="XXX" StUF0204:sleutelGegevensbeheer="XXX" StUF0204:verwerkingssoort="I">
+              <BG:a-nummer kerngegeven="true">XXX</BG:a-nummer>
+              <BG:bsn-nummer kerngegeven="true">XXX</BG:bsn-nummer>
+              <BG:voornamen kerngegeven="true" gegevengroep="PRS1">XXX</BG:voornamen>
+              <BG:voorletters kerngegeven="true" gegevengroep="PRS1">NG</BG:voorletters>
+              <BG:voorvoegselGeslachtsnaam xsi:nil="true" kerngegeven="true" gegevengroep="PRS1" StUF0204:noValue="geenWaarde"></BG:voorvoegselGeslachtsnaam>
+              <BG:geslachtsnaam kerngegeven="true" gegevengroep="PRS1">XXX</BG:geslachtsnaam>
+              <BG:geboortedatum kerngegeven="true">XXX</BG:geboortedatum>
+              <BG:geboorteplaats gegevengroep="PRS3">XXX</BG:geboorteplaats>
+              <BG:codeGeboorteland gegevengroep="PRS3">XXX</BG:codeGeboorteland>
+              <BG:geslachtsaanduiding xsi:nil="true" kerngegeven="true" StUF0204:noValue="geenWaarde"></BG:geslachtsaanduiding>
+              <BG:adellijkeTitelPredikaat xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:adellijkeTitelPredikaat>
+            </BG:PRS>
+          </BG:PRSPRSKND>
+          <BG:PRSPRSKND soortEntiteit="R" StUF0204:sleutelGegevensbeheer="0" StUF0204:verwerkingssoort="T">
+            <BG:ingangsdatum>XXX</BG:ingangsdatum>
+            <BG:einddatum xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:einddatum>
+            <BG:tijdvakRelatie>
+              <StUF0204:begindatumRelatie>XXX</StUF0204:begindatumRelatie>
+              <StUF0204:einddatumRelatie xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumRelatie>
+            </BG:tijdvakRelatie>
+            <BG:tijdvakGeldigheid>
+              <StUF0204:begindatumTijdvakGeldigheid>XXX</StUF0204:begindatumTijdvakGeldigheid>
+              <StUF0204:einddatumTijdvakGeldigheid xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumTijdvakGeldigheid>
+            </BG:tijdvakGeldigheid>
+            <BG:extraElementen>
+              <StUF0204:extraElement naam="aanduidingGegevensInOnderzoek" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">N</StUF0204:extraElement>
+            </BG:extraElementen>
+            <BG:PRS soortEntiteit="F" StUF0204:sleutelVerzendend="XXX" StUF0204:sleutelGegevensbeheer="XXX" StUF0204:verwerkingssoort="I">
+              <BG:a-nummer kerngegeven="true">XXX</BG:a-nummer>
+              <BG:bsn-nummer kerngegeven="true">XXX</BG:bsn-nummer>
+              <BG:voornamen kerngegeven="true" gegevengroep="PRS1">XXX</BG:voornamen>
+              <BG:voorletters kerngegeven="true" gegevengroep="PRS1">XXX</BG:voorletters>
+              <BG:voorvoegselGeslachtsnaam xsi:nil="true" kerngegeven="true" gegevengroep="PRS1" StUF0204:noValue="geenWaarde"></BG:voorvoegselGeslachtsnaam>
+              <BG:geslachtsnaam kerngegeven="true" gegevengroep="PRS1">XXX</BG:geslachtsnaam>
+              <BG:geboortedatum kerngegeven="true">XXX</BG:geboortedatum>
+              <BG:geboorteplaats gegevengroep="PRS3">XXX</BG:geboorteplaats>
+              <BG:codeGeboorteland gegevengroep="PRS3">XXX</BG:codeGeboorteland>
+              <BG:geslachtsaanduiding xsi:nil="true" kerngegeven="true" StUF0204:noValue="geenWaarde"></BG:geslachtsaanduiding>
+              <BG:adellijkeTitelPredikaat xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:adellijkeTitelPredikaat>
+            </BG:PRS>
+          </BG:PRSPRSKND>
+          <BG:PRSPRSOUD soortEntiteit="R" StUF0204:sleutelGegevensbeheer="0" StUF0204:verwerkingssoort="T">
+            <BG:ingangsdatum>XXX</BG:ingangsdatum>
+            <BG:einddatum xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:einddatum>
+            <BG:tijdvakRelatie>
+              <StUF0204:begindatumRelatie>XXX</StUF0204:begindatumRelatie>
+              <StUF0204:einddatumRelatie xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumRelatie>
+            </BG:tijdvakRelatie>
+            <BG:tijdvakGeldigheid>
+              <StUF0204:begindatumTijdvakGeldigheid>XXX</StUF0204:begindatumTijdvakGeldigheid>
+              <StUF0204:einddatumTijdvakGeldigheid xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumTijdvakGeldigheid>
+            </BG:tijdvakGeldigheid>
+            <BG:extraElementen>
+              <StUF0204:extraElement naam="aanduidingGegevensInOnderzoek" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">N</StUF0204:extraElement>
+            </BG:extraElementen>
+            <BG:PRS soortEntiteit="F" StUF0204:sleutelGegevensbeheer="364931" StUF0204:verwerkingssoort="I">
+              <BG:a-nummer xsi:nil="true" kerngegeven="true" StUF0204:noValue="geenWaarde"></BG:a-nummer>
+              <BG:bsn-nummer xsi:nil="true" kerngegeven="true" StUF0204:noValue="geenWaarde"></BG:bsn-nummer>
+              <BG:voornamen kerngegeven="true" gegevengroep="PRS1">XXX</BG:voornamen>
+              <BG:voorletters kerngegeven="true" gegevengroep="PRS1">T</BG:voorletters>
+              <BG:voorvoegselGeslachtsnaam xsi:nil="true" kerngegeven="true" gegevengroep="PRS1" StUF0204:noValue="geenWaarde"></BG:voorvoegselGeslachtsnaam>
+              <BG:geslachtsnaam kerngegeven="true" gegevengroep="PRS1">XXX</BG:geslachtsnaam>
+              <BG:geboortedatum kerngegeven="true">XXX</BG:geboortedatum>
+              <BG:geboorteplaats gegevengroep="PRS3">XXX</BG:geboorteplaats>
+              <BG:codeGeboorteland gegevengroep="PRS3">XXX</BG:codeGeboorteland>
+              <BG:geslachtsaanduiding kerngegeven="true">V</BG:geslachtsaanduiding>
+              <BG:adellijkeTitelPredikaat xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:adellijkeTitelPredikaat>
+            </BG:PRS>
+          </BG:PRSPRSOUD>
+          <BG:PRSPRSOUD soortEntiteit="R" StUF0204:sleutelGegevensbeheer="0" StUF0204:verwerkingssoort="T">
+            <BG:ingangsdatum>XXX</BG:ingangsdatum>
+            <BG:einddatum xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:einddatum>
+            <BG:tijdvakRelatie>
+              <StUF0204:begindatumRelatie>XXX</StUF0204:begindatumRelatie>
+              <StUF0204:einddatumRelatie xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumRelatie>
+            </BG:tijdvakRelatie>
+            <BG:tijdvakGeldigheid>
+              <StUF0204:begindatumTijdvakGeldigheid>XXX</StUF0204:begindatumTijdvakGeldigheid>
+              <StUF0204:einddatumTijdvakGeldigheid xsi:nil="true" StUF0204:noValue="geenWaarde"></StUF0204:einddatumTijdvakGeldigheid>
+            </BG:tijdvakGeldigheid>
+            <BG:extraElementen>
+              <StUF0204:extraElement naam="aanduidingGegevensInOnderzoek" xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204">N</StUF0204:extraElement>
+            </BG:extraElementen>
+            <BG:PRS soortEntiteit="F" StUF0204:sleutelGegevensbeheer="364932" StUF0204:verwerkingssoort="I">
+              <BG:a-nummer xsi:nil="true" kerngegeven="true" StUF0204:noValue="geenWaarde"></BG:a-nummer>
+              <BG:bsn-nummer xsi:nil="true" kerngegeven="true" StUF0204:noValue="geenWaarde"></BG:bsn-nummer>
+              <BG:voornamen kerngegeven="true" gegevengroep="PRS1">XXX</BG:voornamen>
+              <BG:voorletters kerngegeven="true" gegevengroep="PRS1">XXX</BG:voorletters>
+              <BG:voorvoegselGeslachtsnaam xsi:nil="true" kerngegeven="true" gegevengroep="PRS1" StUF0204:noValue="geenWaarde"></BG:voorvoegselGeslachtsnaam>
+              <BG:geslachtsnaam kerngegeven="true" gegevengroep="PRS1">XXX</BG:geslachtsnaam>
+              <BG:geboortedatum kerngegeven="true">XXX</BG:geboortedatum>
+              <BG:geboorteplaats gegevengroep="PRS3">XXX</BG:geboorteplaats>
+              <BG:codeGeboorteland gegevengroep="PRS3">XXX</BG:codeGeboorteland>
+              <BG:geslachtsaanduiding kerngegeven="true">M</BG:geslachtsaanduiding>
+              <BG:adellijkeTitelPredikaat xsi:nil="true" StUF0204:noValue="geenWaarde"></BG:adellijkeTitelPredikaat>
+            </BG:PRS>
+          </BG:PRSPRSOUD>
+        </BG:PRS>
+      </BG:body>
+    </BG:kennisgevingsBericht>
+  </s:Body>
+</s:Envelope>

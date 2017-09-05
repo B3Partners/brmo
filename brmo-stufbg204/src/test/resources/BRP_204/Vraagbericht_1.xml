@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-16"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Header xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <To s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">https://esb-gm-prd.maassluis.nl/ListenerStUFBG204Synchroon</To>
+    <Action s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">http://www.egem.nl/StUF/sector/bg/0204/beantwoordSynchroneVraag</Action>
+  </s:Header>
+  <soapenv:Body>
+    <BG:vraagBericht xmlns:BG="http://www.egem.nl/StUF/sector/bg/0204" xmlns:StUF="http://www.egem.nl/StUF/StUF0204" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <StUF:stuurgegevens>
+        <StUF:berichtsoort>Lv01</StUF:berichtsoort>
+        <StUF:entiteittype>PRS</StUF:entiteittype>
+        <StUF:sectormodel>BG</StUF:sectormodel>
+        <StUF:versieStUF>0204</StUF:versieStUF>
+        <StUF:versieSectormodel>0204</StUF:versieSectormodel>
+        <StUF:zender>
+          <StUF:organisatie></StUF:organisatie>
+          <StUF:applicatie>CWIZ</StUF:applicatie>
+          <StUF:gebruiker></StUF:gebruiker>
+        </StUF:zender>
+        <StUF:ontvanger>
+          <StUF:applicatie>ESB</StUF:applicatie>
+        </StUF:ontvanger>
+        <StUF:referentienummer>86194</StUF:referentienummer>
+        <StUF:tijdstipBericht>2017051214000053</StUF:tijdstipBericht>
+        <StUF:vraag>
+          <StUF:sortering>7</StUF:sortering>
+          <StUF:indicatorHistorisch>false</StUF:indicatorHistorisch>
+        </StUF:vraag>
+      </StUF:stuurgegevens>
+      <BG:body>
+        <BG:PRS soortEntiteit="F">
+          <BG:bsn-nummer>XXX</BG:bsn-nummer>
+        </BG:PRS>
+        <BG:PRS soortEntiteit="F">
+          <BG:bsn-nummer>XXX</BG:bsn-nummer>
+        </BG:PRS>
+        <BG:PRS soortEntiteit="F">
+          <BG:a-nummer StUF:noValue="geenWaarde" xsi:nil="true"></BG:a-nummer>
+          <BG:bsn-nummer StUF:noValue="geenWaarde" xsi:nil="true"></BG:bsn-nummer>
+          <BG:voornamen StUF:noValue="geenWaarde" xsi:nil="true"></BG:voornamen>
+          <BG:voorletters StUF:noValue="geenWaarde" xsi:nil="true"></BG:voorletters>
+          <BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true"></BG:voorvoegselGeslachtsnaam>
+          <BG:geslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true"></BG:geslachtsnaam>
+          <BG:geboortedatum StUF:noValue="geenWaarde" xsi:nil="true"></BG:geboortedatum>
+          <BG:geslachtsaanduiding StUF:noValue="geenWaarde" xsi:nil="true"></BG:geslachtsaanduiding>
+          <BG:PRSADRVBL soortEntiteit="R">
+            <BG:ADR soortEntiteit="F">
+              <BG:postcode StUF:noValue="geenWaarde" xsi:nil="true"></BG:postcode>
+              <BG:woonplaatsnaam StUF:noValue="geenWaarde" xsi:nil="true"></BG:woonplaatsnaam>
+              <BG:straatnaam StUF:noValue="geenWaarde" xsi:nil="true"></BG:straatnaam>
+              <BG:huisnummer StUF:noValue="geenWaarde" xsi:nil="true"></BG:huisnummer>
+              <BG:huisletter StUF:noValue="geenWaarde" xsi:nil="true"></BG:huisletter>
+              <BG:huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"></BG:huisnummertoevoeging>
+              <BG:aanduidingBijHuisnummer StUF:noValue="geenWaarde" xsi:nil="true"></BG:aanduidingBijHuisnummer>
+            </BG:ADR>
+          </BG:PRSADRVBL>
+        </BG:PRS>
+      </BG:body>
+    </BG:vraagBericht>
+  </soapenv:Body>
+</soapenv:Envelope>

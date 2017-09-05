@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-16"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <s:Header xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <To s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">http://esb-gm-prd.maassluis.nl/ListenerStUFBG204Synchroon</To>
+    <Action s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">http://www.egem.nl/StUF</Action>
+  </s:Header>
+  <soap:Body>
+    <vraagBericht xmlns="http://www.egem.nl/StUF/sector/bg/0204">
+      <stuurgegevens xmlns="http://www.egem.nl/StUF/StUF0204">
+        <berichtsoort>Lv01</berichtsoort>
+        <entiteittype>PRS</entiteittype>
+        <sectormodel>BG</sectormodel>
+        <versieStUF>0204</versieStUF>
+        <versieSectormodel>0204</versieSectormodel>
+        <zender>
+          <applicatie>WMO</applicatie>
+          <gebruiker>Zorgned</gebruiker>
+        </zender>
+        <ontvanger>
+          <applicatie>DDS</applicatie>
+        </ontvanger>
+        <referentienummer>0000709723</referentienummer>
+        <tijdstipBericht>2017051711500543</tijdstipBericht>
+        <vraag>
+          <sortering>01</sortering>
+          <maximumAantal>100</maximumAantal>
+        </vraag>
+      </stuurgegevens>
+      <body>
+        <PRS soortEntiteit="F">
+          <PRSADRVBL soortEntiteit="R">
+            <ADR soortEntiteit="F">
+              <postcode>XXX</postcode>
+              <huisnummer>XXX</huisnummer>
+              <huisletter>XXX</huisletter>
+              <huisnummertoevoeging>XXX</huisnummertoevoeging>
+            </ADR>
+          </PRSADRVBL>
+        </PRS>
+        <PRS soortEntiteit="F">
+          <PRSADRVBL soortEntiteit="R">
+            <ADR soortEntiteit="F">
+              <postcode>XXX</postcode>
+              <huisnummer>XXX</huisnummer>
+              <huisletter>XXX</huisletter>
+              <huisnummertoevoeging>XXX</huisnummertoevoeging>
+            </ADR>
+          </PRSADRVBL>
+        </PRS>
+        <PRS soortEntiteit="F">
+          <bsn-nummer d6p1:noValue="geenWaarde" xsi:nil="true" xmlns:d6p1="http://www.egem.nl/StUF/StUF0204"></bsn-nummer>
+          <voornamen d6p1:noValue="geenWaarde" xsi:nil="true" xmlns:d6p1="http://www.egem.nl/StUF/StUF0204"></voornamen>
+          <voorletters d6p1:noValue="geenWaarde" xsi:nil="true" xmlns:d6p1="http://www.egem.nl/StUF/StUF0204"></voorletters>
+          <voorvoegselGeslachtsnaam d6p1:noValue="geenWaarde" xsi:nil="true" xmlns:d6p1="http://www.egem.nl/StUF/StUF0204"></voorvoegselGeslachtsnaam>
+          <geslachtsnaam d6p1:noValue="geenWaarde" xsi:nil="true" xmlns:d6p1="http://www.egem.nl/StUF/StUF0204"></geslachtsnaam>
+          <geboortedatum d6p1:noValue="geenWaarde" xsi:nil="true" xmlns:d6p1="http://www.egem.nl/StUF/StUF0204"></geboortedatum>
+          <geslachtsaanduiding d6p1:noValue="geenWaarde" xsi:nil="true" xmlns:d6p1="http://www.egem.nl/StUF/StUF0204"></geslachtsaanduiding>
+          <datumOverlijden d6p1:noValue="geenWaarde" xsi:nil="true" xmlns:d6p1="http://www.egem.nl/StUF/StUF0204"></datumOverlijden>
+          <indicatieGeheim d6p1:noValue="geenWaarde" xsi:nil="true" xmlns:d6p1="http://www.egem.nl/StUF/StUF0204"></indicatieGeheim>
+          <burgerlijkeStaat d6p1:noValue="geenWaarde" xsi:nil="true" xmlns:d6p1="http://www.egem.nl/StUF/StUF0204"></burgerlijkeStaat>
+          <aanduidingNaamgebruik d6p1:noValue="geenWaarde" xsi:nil="true" xmlns:d6p1="http://www.egem.nl/StUF/StUF0204"></aanduidingNaamgebruik>
+          <PRSADRCOR soortEntiteit="R">
+            <ADR soortEntiteit="F">
+              <adresBuitenland1 d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></adresBuitenland1>
+              <adresBuitenland2 d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></adresBuitenland2>
+              <adresBuitenland3 d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></adresBuitenland3>
+              <landcode d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></landcode>
+              <postcode d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></postcode>
+              <woonplaatsnaam d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></woonplaatsnaam>
+              <straatnaam d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></straatnaam>
+              <huisnummer d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></huisnummer>
+              <huisletter d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></huisletter>
+              <huisnummertoevoeging d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></huisnummertoevoeging>
+              <aanduidingBijHuisnummer d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></aanduidingBijHuisnummer>
+              <locatieomschrijving d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></locatieomschrijving>
+              <gemeentecode d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></gemeentecode>
+            </ADR>
+          </PRSADRCOR>
+          <PRSADRINS soortEntiteit="R">
+            <ADR soortEntiteit="F">
+              <adresBuitenland1 d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></adresBuitenland1>
+              <adresBuitenland2 d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></adresBuitenland2>
+              <adresBuitenland3 d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></adresBuitenland3>
+              <landcode d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></landcode>
+              <postcode d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></postcode>
+              <woonplaatsnaam d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></woonplaatsnaam>
+              <straatnaam d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></straatnaam>
+              <huisnummer d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></huisnummer>
+              <huisletter d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></huisletter>
+              <huisnummertoevoeging d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></huisnummertoevoeging>
+              <aanduidingBijHuisnummer d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></aanduidingBijHuisnummer>
+              <locatieomschrijving d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></locatieomschrijving>
+              <gemeentecode d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></gemeentecode>
+            </ADR>
+          </PRSADRINS>
+          <PRSADRVBL soortEntiteit="R">
+            <ADR soortEntiteit="F">
+              <adresBuitenland1 d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></adresBuitenland1>
+              <adresBuitenland2 d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></adresBuitenland2>
+              <adresBuitenland3 d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></adresBuitenland3>
+              <landcode d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></landcode>
+              <postcode d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></postcode>
+              <woonplaatsnaam d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></woonplaatsnaam>
+              <straatnaam d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></straatnaam>
+              <huisnummer d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></huisnummer>
+              <huisletter d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></huisletter>
+              <huisnummertoevoeging d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></huisnummertoevoeging>
+              <aanduidingBijHuisnummer d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></aanduidingBijHuisnummer>
+              <locatieomschrijving d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></locatieomschrijving>
+              <gemeentecode d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></gemeentecode>
+            </ADR>
+          </PRSADRVBL>
+          <PRSPRSHUW soortEntiteit="R">
+            <datumSluiting d7p1:noValue="geenWaarde" xsi:nil="true" xmlns:d7p1="http://www.egem.nl/StUF/StUF0204"></datumSluiting>
+            <datumOntbinding d7p1:noValue="geenWaarde" xsi:nil="true" xmlns:d7p1="http://www.egem.nl/StUF/StUF0204"></datumOntbinding>
+            <redenOntbinding d7p1:noValue="geenWaarde" xsi:nil="true" xmlns:d7p1="http://www.egem.nl/StUF/StUF0204"></redenOntbinding>
+            <PRS soortEntiteit="F">
+              <bsn-nummer d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></bsn-nummer>
+              <voornamen d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></voornamen>
+              <voorletters d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></voorletters>
+              <voorvoegselGeslachtsnaam d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></voorvoegselGeslachtsnaam>
+              <geslachtsnaam d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></geslachtsnaam>
+              <geboortedatum d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></geboortedatum>
+              <geslachtsaanduiding d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></geslachtsaanduiding>
+              <aanduidingNaamgebruik d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></aanduidingNaamgebruik>
+            </PRS>
+          </PRSPRSHUW>
+          <PRSPRSKND soortEntiteit="R">
+            <PRS soortEntiteit="F">
+              <bsn-nummer d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></bsn-nummer>
+            </PRS>
+          </PRSPRSKND>
+          <PRSPRSOUD soortEntiteit="R">
+            <PRS soortEntiteit="F">
+              <bsn-nummer d8p1:noValue="geenWaarde" xsi:nil="true" xmlns:d8p1="http://www.egem.nl/StUF/StUF0204"></bsn-nummer>
+            </PRS>
+          </PRSPRSOUD>
+        </PRS>
+      </body>
+    </vraagBericht>
+  </soap:Body>
+</soap:Envelope>
