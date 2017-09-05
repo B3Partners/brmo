@@ -22,7 +22,10 @@
     <logger name="org.dbunit.ext">
         <level value="info" />
     </logger>
-   <logger name="nl.b3p.brmo">
+   <logger name="nl.b3p">
+        <level value="debug" />
+    </logger>
+    <logger name="nl.b3p.brmo">
         <level value="info" />
     </logger>
     <root>

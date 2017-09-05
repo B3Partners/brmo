@@ -308,7 +308,7 @@ public class Main {
             ic.createSubcontext("java:comp/env/jdbc/brmo");
             ic.bind("java:comp/env/jdbc/brmo/rsgbbgt", dsRsgbbgt);
         } catch (ClassNotFoundException | IllegalArgumentException | NamingException ex) {
-            LOG.debug("Er is iets misgegaan bij de GeoTools initialisatie", ex);
+            LOG.debug("Er is iets misgegaan bij de GeoTools of JNDI initialisatie", ex);
         }
 
         BrmoFramework brmo = new BrmoFramework(dsStaging, null, dsRsgbbgt);
