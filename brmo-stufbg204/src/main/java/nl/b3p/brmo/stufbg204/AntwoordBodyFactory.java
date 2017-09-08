@@ -23,6 +23,7 @@ import nl.egem.stuf.sector.bg._0204.ADRAntwoord;
 import nl.egem.stuf.sector.bg._0204.ADRFund;
 import nl.egem.stuf.sector.bg._0204.AcademischeTitelPositieTovNaam;
 import nl.egem.stuf.sector.bg._0204.AdellijkeTitelSoort;
+import nl.egem.stuf.sector.bg._0204.GEMTabel;
 import nl.egem.stuf.sector.bg._0204.ObjectFactory;
 import nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht.Body;
 import nl.egem.stuf.sector.bg._0204.VraagBericht;
@@ -46,6 +47,7 @@ public class AntwoordBodyFactory {
     public static Body getBody(VraagBericht bericht) {
         Body b = new Body();
         String entiteitsType = bericht.getStuurgegevens().getEntiteittype();
+        
         switch (entiteitsType) {
             case "ACD": {
                 ACDTabel t = createAcademischeTitel("Professor", true, "pietje");
@@ -62,12 +64,34 @@ public class AntwoordBodyFactory {
                 b.getADR().add(a);
                 break;
             }
+            case "GEM": {
+                GEMTabel g = createGemeente("Utrecht", new BigInteger("42"));
+                b.getGEM().add(g);
+                break;
+            }
             default:
                 throw new IllegalArgumentException("Entiteitstype niet ondersteund: " + entiteitsType);
         }
         return b;
     }
 
+    
+    // <editor-fold defaultstate="collapsed" desc="Answermessage creators">
+    public static GEMTabel createGemeente(String naam, BigInteger code) {
+        GEMTabel g = new GEMTabel();
+        GEMTabel.Gemeentenaam n = new GEMTabel.Gemeentenaam();
+        n.setValue(naam);
+        
+        GEMTabel.Gemeentecode c = new GEMTabel.Gemeentecode();
+        c.setValue(code);
+        
+        g.setGemeentenaam(objFac.createGEMTabelGemeentenaam(n));
+        g.setGemeentecode(objFac.createGEMTabelGemeentecode(c));
+        
+        g.setSoortEntiteit("GEM");
+        return g;
+    }
+    
     public static ACDTabel createAcademischeTitel(String titel, boolean posVoorNaam, String code) {
         ACDTabel t = new ACDTabel();
         ACDTabel.Code c = new ACDTabel.Code();
@@ -143,4 +167,5 @@ public class AntwoordBodyFactory {
         return a;
     }
 
+    // </editor-fold>
 }
