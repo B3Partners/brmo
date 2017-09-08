@@ -25,6 +25,7 @@ import nl.egem.stuf.sector.bg._0204.AcademischeTitelPositieTovNaam;
 import nl.egem.stuf.sector.bg._0204.AdellijkeTitelSoort;
 import nl.egem.stuf.sector.bg._0204.GEMTabel;
 import nl.egem.stuf.sector.bg._0204.LNDTabel;
+import nl.egem.stuf.sector.bg._0204.NATTabel;
 import nl.egem.stuf.sector.bg._0204.ObjectFactory;
 import nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht.Body;
 import nl.egem.stuf.sector.bg._0204.VraagBericht;
@@ -75,6 +76,11 @@ public class AntwoordBodyFactory {
                 b.getLND().add(l);
                 break;
             }
+            case "NAT": {
+                NATTabel l = createNationaliteit("Nederlandse", new BigInteger("42"));
+                b.getNAT().add(l);
+                break;
+            }
             default:
                 throw new IllegalArgumentException("Entiteitstype niet ondersteund: " + entiteitsType);
         }
@@ -83,7 +89,21 @@ public class AntwoordBodyFactory {
 
     
     // <editor-fold defaultstate="collapsed" desc="Answermessage creators">
-    
+     
+    public static NATTabel createNationaliteit(String nationaliteit, BigInteger code){
+        NATTabel l = new NATTabel();
+      
+        NATTabel.Omschrijving o = new NATTabel.Omschrijving();
+        o.setValue(nationaliteit);
+        
+        NATTabel.Code c = new NATTabel.Code();
+        c.setValue(code);
+        
+        l.setOmschrijving(objFac.createNATTabelOmschrijving(o));
+        l.setCode(objFac.createNATTabelCode(c));        
+        l.setSoortEntiteit("NAT");
+        return l;
+    }
     public static LNDTabel createLand(String naam, BigInteger code){
         LNDTabel l = new LNDTabel();
         
