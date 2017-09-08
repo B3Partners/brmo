@@ -30,6 +30,7 @@ import nl.egem.stuf.sector.bg._0204.LNDTabel;
 import nl.egem.stuf.sector.bg._0204.NATTabel;
 import nl.egem.stuf.sector.bg._0204.ObjectFactory;
 import nl.egem.stuf.sector.bg._0204.PRSAntwoord;
+import nl.egem.stuf.sector.bg._0204.SIBTabel;
 import nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht.Body;
 import nl.egem.stuf.sector.bg._0204.VoornamenE;
 import nl.egem.stuf.sector.bg._0204.VraagBericht;
@@ -87,8 +88,12 @@ public class AntwoordBodyFactory {
             }
             case "PRS": {
                 PRSAntwoord p = createPersoon(new BigInteger("123456789"),"pietje", "puk");
-                
                 b.getPRS().add(p);
+                break;
+            }
+            case "SIB": {
+                SIBTabel s = createSoortIdentiteitsbewijs("Paspoort", BigInteger.ONE);
+                b.getSIB().add(s);
                 break;
             }
             default:
@@ -99,6 +104,22 @@ public class AntwoordBodyFactory {
 
     
     // <editor-fold defaultstate="collapsed" desc="Answermessage creators">
+    
+    public static SIBTabel createSoortIdentiteitsbewijs(String omschrijving, BigInteger soort){
+        SIBTabel l = new SIBTabel();
+      
+        SIBTabel.Soort s = new SIBTabel.Soort();
+        s.setValue(soort);
+        
+        SIBTabel.Omschrijving o = new SIBTabel.Omschrijving();
+        o.setValue(omschrijving);
+        
+        l.setOmschrijving(objFac.createSIBTabelOmschrijving(o));
+        l.setSoort(objFac.createSIBTabelSoort(s));
+        l.setSoortEntiteit("SIB");
+        return l;
+    }
+    
     public static PRSAntwoord createPersoon(BigInteger bs, String voornamen, String geslachtsnaam){
         PRSAntwoord p = new PRSAntwoord();
         
@@ -131,6 +152,7 @@ public class AntwoordBodyFactory {
         l.setSoortEntiteit("NAT");
         return l;
     }
+    
     public static LNDTabel createLand(String naam, BigInteger code){
         LNDTabel l = new LNDTabel();
         
