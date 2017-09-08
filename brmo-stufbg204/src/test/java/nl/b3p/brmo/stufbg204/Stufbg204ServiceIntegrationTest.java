@@ -20,12 +20,12 @@ import org.junit.Test;
  */
 public class Stufbg204ServiceIntegrationTest {
 
-    private Stufbg204Service service;
+    private StUFBGasynchroon service;
 
 
     @Before
     public void setUp() {
-        service = new Stufbg204Service();
+        service = new StUFBGasynchroon();
     }
 
     @After

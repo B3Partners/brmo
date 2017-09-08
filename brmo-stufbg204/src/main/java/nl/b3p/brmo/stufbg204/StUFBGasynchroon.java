@@ -21,9 +21,9 @@ import org.apache.commons.logging.LogFactory;
         wsdlLocation = "WEB-INF/wsdl/bg0204.wsdl"
 )
 @HandlerChain(file = "/handler-chain.xml")
-public class Stufbg204Service {
+public class StUFBGasynchroon {
 
-    private static final Log LOG = LogFactory.getLog(Stufbg204Service.class);
+    private static final Log LOG = LogFactory.getLog(StUFBGasynchroon.class);
 
     public BevestigingsBericht ontvangAsynchroneVraag(VraagBericht vraag) {
         LOG.debug("Er is vraag ontvangen van soort: " + vraag.getStuurgegevens().getBerichtsoort());
