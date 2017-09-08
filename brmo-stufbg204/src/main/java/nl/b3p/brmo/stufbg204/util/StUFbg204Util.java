@@ -3,7 +3,8 @@
  */
 package nl.b3p.brmo.stufbg204.util;
 
-import nl.egem.stuf.sector.bg._0204.VraagBericht;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import nl.egem.stuf.stuf0204.FoutBericht;
 import nl.egem.stuf.stuf0204.Stuurgegevens;
 import nl.egem.stuf.stuf0204.Systeem;
@@ -14,6 +15,8 @@ import nl.egem.stuf.stuf0204.Systeem;
  * @author mprins
  */
 public final class StUFbg204Util {
+    
+    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public static FoutBericht maakFout() {
         final FoutBericht fout = new FoutBericht();
@@ -31,6 +34,9 @@ public final class StUFbg204Util {
         s.setApplicatie("BRMO");
         s.setOrganisatie("B3Partners B.V.");
         sg.setZender(s);
+        sg.setVersieStUF("0204");
+        sg.setTijdstipBericht(sdf.format(new Date()));
+        
         return sg;
     }
 
