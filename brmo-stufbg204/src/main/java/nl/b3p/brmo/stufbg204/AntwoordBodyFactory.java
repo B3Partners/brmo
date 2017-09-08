@@ -32,6 +32,7 @@ import nl.egem.stuf.sector.bg._0204.ObjectFactory;
 import nl.egem.stuf.sector.bg._0204.PRSAntwoord;
 import nl.egem.stuf.sector.bg._0204.SIBTabel;
 import nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht.Body;
+import nl.egem.stuf.sector.bg._0204.VBTTabel;
 import nl.egem.stuf.sector.bg._0204.VoornamenE;
 import nl.egem.stuf.sector.bg._0204.VraagBericht;
 import nl.egem.stuf.stuf0204.ExtraElement;
@@ -96,6 +97,11 @@ public class AntwoordBodyFactory {
                 b.getSIB().add(s);
                 break;
             }
+            case "VBT": {
+                VBTTabel v = createVerblijfstitel("Inwonende", BigInteger.ONE);
+                b.getVBT().add(v);
+                break;
+            }
             default:
                 throw new IllegalArgumentException("Entiteitstype niet ondersteund: " + entiteitsType);
         }
@@ -104,6 +110,21 @@ public class AntwoordBodyFactory {
 
     
     // <editor-fold defaultstate="collapsed" desc="Answermessage creators">
+        
+    public static VBTTabel createVerblijfstitel(String omschrijving, BigInteger code){
+        VBTTabel l = new VBTTabel();
+      
+        VBTTabel.Omschrijving o = new VBTTabel.Omschrijving();
+        o.setValue(omschrijving);
+        
+        VBTTabel.Code c = new VBTTabel.Code();
+        c.setValue(code);
+        
+        l.setOmschrijving(objFac.createVBTTabelOmschrijving(o));
+        l.setCode(objFac.createVBTTabelCode(c));
+        
+        return l;
+    }
     
     public static SIBTabel createSoortIdentiteitsbewijs(String omschrijving, BigInteger soort){
         SIBTabel l = new SIBTabel();
