@@ -23,11 +23,15 @@ import nl.egem.stuf.sector.bg._0204.ADRAntwoord;
 import nl.egem.stuf.sector.bg._0204.ADRFund;
 import nl.egem.stuf.sector.bg._0204.AcademischeTitelPositieTovNaam;
 import nl.egem.stuf.sector.bg._0204.AdellijkeTitelSoort;
+import nl.egem.stuf.sector.bg._0204.BsnNummerE;
 import nl.egem.stuf.sector.bg._0204.GEMTabel;
+import nl.egem.stuf.sector.bg._0204.GeslachtsnaamE;
 import nl.egem.stuf.sector.bg._0204.LNDTabel;
 import nl.egem.stuf.sector.bg._0204.NATTabel;
 import nl.egem.stuf.sector.bg._0204.ObjectFactory;
+import nl.egem.stuf.sector.bg._0204.PRSAntwoord;
 import nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht.Body;
+import nl.egem.stuf.sector.bg._0204.VoornamenE;
 import nl.egem.stuf.sector.bg._0204.VraagBericht;
 import nl.egem.stuf.stuf0204.ExtraElement;
 import nl.egem.stuf.stuf0204.ExtraElementen;
@@ -81,6 +85,12 @@ public class AntwoordBodyFactory {
                 b.getNAT().add(l);
                 break;
             }
+            case "PRS": {
+                PRSAntwoord p = createPersoon(new BigInteger("123456789"),"pietje", "puk");
+                
+                b.getPRS().add(p);
+                break;
+            }
             default:
                 throw new IllegalArgumentException("Entiteitstype niet ondersteund: " + entiteitsType);
         }
@@ -89,7 +99,24 @@ public class AntwoordBodyFactory {
 
     
     // <editor-fold defaultstate="collapsed" desc="Answermessage creators">
-     
+    public static PRSAntwoord createPersoon(BigInteger bs, String voornamen, String geslachtsnaam){
+        PRSAntwoord p = new PRSAntwoord();
+        
+        BsnNummerE bsn = new BsnNummerE();
+        bsn.setValue(bs);
+        
+        VoornamenE v = new VoornamenE();
+        v.setValue(voornamen);
+        
+        GeslachtsnaamE g = new GeslachtsnaamE();
+        g.setValue(geslachtsnaam);
+        
+        p.setBsnNummer(objFac.createPRSFundBsnNummer(bsn));
+        p.setVoornamen(objFac.createPRSFundVoornamen(v));
+        p.setGeslachtsnaam(objFac.createPRSFundGeslachtsnaam(g));
+        return p;
+    }
+    
     public static NATTabel createNationaliteit(String nationaliteit, BigInteger code){
         NATTabel l = new NATTabel();
       
