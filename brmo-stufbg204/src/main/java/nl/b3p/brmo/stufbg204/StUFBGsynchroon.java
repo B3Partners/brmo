@@ -8,6 +8,7 @@ import javax.jws.WebService;
 import nl.b3p.brmo.stufbg204.util.StUFbg204Util;
 import nl.egem.stuf.sector.bg._0204.StUFFout;
 import nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht;
+import nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht.Body;
 import nl.egem.stuf.sector.bg._0204.VraagBericht;
 import nl.egem.stuf.stuf0204.FoutBericht;
 import org.apache.commons.logging.Log;
@@ -34,6 +35,8 @@ public class StUFBGsynchroon {
             LOG.debug("Er is antwoord ontvangen van soort: " + vraag.getStuurgegevens().getBerichtsoort());
             SynchroonAntwoordBericht antw = new SynchroonAntwoordBericht();
             antw.setStuurgegevens(vraag.getStuurgegevens());
+            Body b = AntwoordBodyFactory.getBody(vraag);
+            antw.setBody(b);
             return antw;
         } catch (Exception e) {
             FoutBericht fout = StUFbg204Util.maakFout();
