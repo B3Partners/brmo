@@ -24,6 +24,7 @@ import nl.egem.stuf.sector.bg._0204.ADRFund;
 import nl.egem.stuf.sector.bg._0204.AcademischeTitelPositieTovNaam;
 import nl.egem.stuf.sector.bg._0204.AdellijkeTitelSoort;
 import nl.egem.stuf.sector.bg._0204.GEMTabel;
+import nl.egem.stuf.sector.bg._0204.LNDTabel;
 import nl.egem.stuf.sector.bg._0204.ObjectFactory;
 import nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht.Body;
 import nl.egem.stuf.sector.bg._0204.VraagBericht;
@@ -69,6 +70,11 @@ public class AntwoordBodyFactory {
                 b.getGEM().add(g);
                 break;
             }
+            case "LND": {
+                LNDTabel l = createLand("Nederland", new BigInteger("42"));
+                b.getLND().add(l);
+                break;
+            }
             default:
                 throw new IllegalArgumentException("Entiteitstype niet ondersteund: " + entiteitsType);
         }
@@ -77,6 +83,22 @@ public class AntwoordBodyFactory {
 
     
     // <editor-fold defaultstate="collapsed" desc="Answermessage creators">
+    
+    public static LNDTabel createLand(String naam, BigInteger code){
+        LNDTabel l = new LNDTabel();
+        
+        LNDTabel.Landnaam n = new LNDTabel.Landnaam();
+        n.setValue(naam);
+        
+        LNDTabel.Landcode c = new LNDTabel.Landcode();
+        c.setValue(code);
+        
+        l.setLandnaam(objFac.createLNDTabelLandnaam(n));
+        l.setLandcode(objFac.createLNDTabelLandcode(c));
+        l.setSoortEntiteit("LND");
+        return l;
+    }
+    
     public static GEMTabel createGemeente(String naam, BigInteger code) {
         GEMTabel g = new GEMTabel();
         GEMTabel.Gemeentenaam n = new GEMTabel.Gemeentenaam();
