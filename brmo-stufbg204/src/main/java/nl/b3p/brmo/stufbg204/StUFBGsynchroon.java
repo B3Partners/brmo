@@ -34,7 +34,7 @@ public class StUFBGsynchroon {
         try {
             LOG.debug("Er is antwoord ontvangen van soort: " + vraag.getStuurgegevens().getBerichtsoort());
             SynchroonAntwoordBericht antw = new SynchroonAntwoordBericht();
-            antw.setStuurgegevens(vraag.getStuurgegevens());
+            antw.setStuurgegevens(StUFbg204Util.maakStuurgegevens(vraag.getStuurgegevens()));
             Body b = AntwoordBodyFactory.getBody(vraag);
             antw.setBody(b);
             return antw;

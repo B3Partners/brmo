@@ -2,6 +2,7 @@ package nl.b3p.brmo.stufbg204;
 
 import javax.jws.HandlerChain;
 import javax.jws.WebService;
+import nl.b3p.brmo.stufbg204.util.StUFbg204Util;
 import nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht;
 import nl.egem.stuf.sector.bg._0204.KennisgevingsBericht;
 import nl.egem.stuf.sector.bg._0204.VraagBericht;
@@ -29,7 +30,7 @@ public class StUFBGasynchroon {
         LOG.debug("Er is vraag ontvangen van soort: " + vraag.getStuurgegevens().getBerichtsoort());
 
         BevestigingsBericht b = new BevestigingsBericht();
-        b.setStuurgegevens(vraag.getStuurgegevens());
+        b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(vraag.getStuurgegevens()));
 
         return b;
     }
@@ -38,7 +39,7 @@ public class StUFBGasynchroon {
         LOG.debug("Er is antwoord ontvangen van soort: " + asynchroonAntwoord.getStuurgegevens().getBerichtsoort());
 
         BevestigingsBericht b = new BevestigingsBericht();
-        b.setStuurgegevens(asynchroonAntwoord.getStuurgegevens());
+        b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(asynchroonAntwoord.getStuurgegevens()));
 
         return b;
     }
@@ -47,7 +48,7 @@ public class StUFBGasynchroon {
         LOG.debug("Er is fout ontvangen van soort: " + fout.getStuurgegevens().getBerichtsoort());
 
         BevestigingsBericht b = new BevestigingsBericht();
-        b.setStuurgegevens(fout.getStuurgegevens());
+        b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(fout.getStuurgegevens()));
 
         return b;
     }
@@ -56,7 +57,7 @@ public class StUFBGasynchroon {
         LOG.debug("Er is kennisgeving ontvangen van soort: " + kennisgeving.getStuurgegevens().getBerichtsoort());
 
         BevestigingsBericht b = new BevestigingsBericht();
-        b.setStuurgegevens(kennisgeving.getStuurgegevens());
+        b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(kennisgeving.getStuurgegevens()));
 
         return b;
     }
