@@ -109,7 +109,7 @@
                 <artifactId>jdbc-util</artifactId>
                 <version>1.6</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
@@ -313,7 +313,7 @@
             <dependency>
                 <groupId>net.redhogs.cronparser</groupId>
                 <artifactId>cron-parser-core</artifactId>
-                <version>3.0</version>
+                <version>3.3</version>
             </dependency>
             <!-- parsing ed. -->
             <dependency>
@@ -506,7 +506,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.6.2</version>
+                    <version>3.7.0</version>
                     <configuration>
                         <source>${java.version}</source>
                         <target>${java.version}</target>
