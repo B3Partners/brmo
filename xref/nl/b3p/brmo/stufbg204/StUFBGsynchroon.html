@@ -16,39 +16,42 @@
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> nl.b3p.brmo.stufbg204.util.StUFbg204Util;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.StUFFout;
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.VraagBericht;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.stuf0204.FoutBericht;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.Log;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.LogFactory;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> * @author mprins</em>
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  @WebService(
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>          serviceName = <span class="jxr_string">"StUFBGSynchroon"</span>,
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>          portName = <span class="jxr_string">"StUFBGSynchronePort"</span>,
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>          endpointInterface = <span class="jxr_string">"nl.egem.stuf.sector.bg._0204.StUFBGSynchroonPortType"</span>,
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>          targetNamespace = <span class="jxr_string">"http://www.egem.nl/StUF/sector/bg/0204"</span>,
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>          wsdlLocation = <span class="jxr_string">"WEB-INF/wsdl/bg0204.wsdl"</span>
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  )
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  @HandlerChain(file = <span class="jxr_string">"/handler-chain.xml"</span>)
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../nl/b3p/brmo/stufbg204/StUFBGsynchroon.html">StUFBGsynchroon</a> {
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>      
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(StUFBGsynchroon.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>      
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">public</strong> SynchroonAntwoordBericht beantwoordSynchroneVraag(VraagBericht vraag) <strong class="jxr_keyword">throws</strong> StUFFout {
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>          <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>              LOG.debug(<span class="jxr_string">"Er is antwoord ontvangen van soort: "</span> + vraag.getStuurgegevens().getBerichtsoort());
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>              SynchroonAntwoordBericht antw = <strong class="jxr_keyword">new</strong> SynchroonAntwoordBericht();
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>              antw.setStuurgegevens(vraag.getStuurgegevens());
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>              <strong class="jxr_keyword">return</strong> antw;
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>          } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>              FoutBericht fout = StUFbg204Util.maakFout();
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> StUFFout(<span class="jxr_string">"Not implemented yet."</span>, fout, e);
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>          }
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>      }
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  }
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht.Body;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.VraagBericht;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.stuf0204.FoutBericht;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.Log;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.LogFactory;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> * @author mprins</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  @WebService(
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>          serviceName = <span class="jxr_string">"StUFBGSynchroon"</span>,
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>          portName = <span class="jxr_string">"StUFBGSynchronePort"</span>,
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>          endpointInterface = <span class="jxr_string">"nl.egem.stuf.sector.bg._0204.StUFBGSynchroonPortType"</span>,
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>          targetNamespace = <span class="jxr_string">"http://www.egem.nl/StUF/sector/bg/0204"</span>,
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>          wsdlLocation = <span class="jxr_string">"WEB-INF/wsdl/bg0204.wsdl"</span>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  )
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  @HandlerChain(file = <span class="jxr_string">"/handler-chain.xml"</span>)
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../nl/b3p/brmo/stufbg204/StUFBGsynchroon.html">StUFBGsynchroon</a> {
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(StUFBGsynchroon.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>      <strong class="jxr_keyword">public</strong> SynchroonAntwoordBericht beantwoordSynchroneVraag(VraagBericht vraag) <strong class="jxr_keyword">throws</strong> StUFFout {
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>          <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>              LOG.debug(<span class="jxr_string">"Er is antwoord ontvangen van soort: "</span> + vraag.getStuurgegevens().getBerichtsoort());
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>              SynchroonAntwoordBericht antw = <strong class="jxr_keyword">new</strong> SynchroonAntwoordBericht();
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>              antw.setStuurgegevens(StUFbg204Util.maakStuurgegevens(vraag.getStuurgegevens()));
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>              Body b = AntwoordBodyFactory.getBody(vraag);
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>              antw.setBody(b);
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>              <strong class="jxr_keyword">return</strong> antw;
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>          } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>              FoutBericht fout = StUFbg204Util.maakFout();
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> StUFFout(<span class="jxr_string">"Not implemented yet."</span>, fout, e);
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>          }
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      }
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014&#x2013;2017 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
