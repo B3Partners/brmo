@@ -84,7 +84,7 @@ public class GeplandeTakenInit implements Servlet {
         try {
             destroyQuartz();
         } catch (SchedulerException ex) {
-            log.error(ex);
+            log.warn(ex);
         }
     }
 
@@ -98,12 +98,10 @@ public class GeplandeTakenInit implements Servlet {
         Properties props = new Properties();
         props.put("org.quartz.scheduler.instanceName", SCHEDULER_NAME);
         String threadCount = this.getServletConfig().getServletContext().getInitParameter("quartz.threadCount");
-        if (threadCount != null) {
-            if (Integer.parseInt(threadCount) > 1) {
-                log.warn("Instellen van quartz threadcount op niet-default waarde van " + threadCount
-                        + " Gebruiker moet zorg dragen dat er geen overlappende transformatie- of GDS2 processen van eenzelfde soort zijn.");
-                props.put("org.quartz.threadPool.threadCount", threadCount);
-            }
+        if (threadCount != null && (Integer.parseInt(threadCount) > 1)) {
+            log.warn("Instellen van quartz threadcount op niet-default waarde van " + threadCount
+                    + " Gebruiker moet zorg dragen dat er geen overlappende transformatie- of GDS2 processen van eenzelfde soort zijn.");
+            props.put("org.quartz.threadPool.threadCount", threadCount);
         } else {
             props.put("org.quartz.threadPool.threadCount", "1");
         }
