@@ -89,7 +89,7 @@ h1 {
     margin-right: 5px;
 }
 
-.messagebox {
+.messagebox, .box {
     padding: 15px;
     border: 1px solid transparent;
     border-radius: 3px;
@@ -129,7 +129,7 @@ h1 {
     font-size: 22px;
 }
 
-.messagebox.visible {
+.messagebox.visible, .box {
     display: block;
 }
 
@@ -138,13 +138,13 @@ h1 {
     margin-right: 10px;
 }
 
-.messagebox.error {
+.messagebox.error, .errors {
     background-color: #f2dede;
     border-color: #ebccd1;
     color: #a94442;
 }
 
-.messagebox.success {
+.messagebox.success, .info{
     background-color: #dff0d8;
     border-color: #d6e9c6;
     color: #3c763d;

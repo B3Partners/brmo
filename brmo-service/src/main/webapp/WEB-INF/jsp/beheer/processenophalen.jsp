@@ -18,7 +18,7 @@
         <c:if test="${!empty l}">
             <table border="1" style="border-collapse: collapse" cellspacing="0">
                 <thead>
-                    <tr><th>Procestype (id)</th><th>Label</th><th>Laatste run</th><th>Status</th><th>Samenvatting</th><th>Log</th></tr>
+                    <tr><th>Procestype (id)</th><th>Label</th><th>Laatste run</th><th>Planning (cron)</th><th>Status</th><th>Samenvatting</th><th>Log</th></tr>
                 </thead>
                 <tbody>
                     <c:forEach var="p" items="${l}">
@@ -37,6 +37,7 @@
                             <td><%= pageContext.getAttribute("p").getClass().getSimpleName() %> (${p.id})</td>
                             <td><c:out value="${p.config['label']}"/></td>
                             <td style="white-space: nowrap"><fmt:formatDate pattern="dd-MM-yyyy HH:mm:ss" value="${p.lastrun}"/></td>
+                            <td style="white-space: nowrap"><c:out value="${p.cronExpressie}"/></td>
                             <td><c:out value="${p.status}"/></td>
                             <td><c:out value="${fn:replace(p.samenvatting, newLine, '<br />')}" escapeXml="false"/></td>
                             <td>

@@ -69,7 +69,7 @@ public class OphaalConfigActionBean implements ActionBean {
 
     @Validate(converter = EntityTypeConverter.class)
     @ValidateNestedProperties({
-        @Validate(field = "cronExpressie")
+        @Validate(field = "cronExpressie", on = "save")
     })
     private AutomatischProces proces;
 
@@ -248,6 +248,8 @@ public class OphaalConfigActionBean implements ActionBean {
                     CronExpression cron = new CronExpression(expr);
                 }
             } catch (ParseException ex) {
+                Stripersist.getEntityManager().refresh(proces);
+                load();
                 getContext().getValidationErrors().add("cronExpressie",
                         new SimpleError("{0} {2} is ongeldig.", expr));
             }
