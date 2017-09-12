@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.soap.brk.BrkInfoRequest
-	c1256 [label=<<table title="nl.b3p.brmo.soap.brk.BrkInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkInfoRequest.html">
+	c1223 [label=<<table title="nl.b3p.brmo.soap.brk.BrkInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkInfoRequest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrkInfoRequest </td></tr>
 		</table></td></tr>
@@ -40,7 +40,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BrkInfoRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest
-	c1263 [label=<<table title="nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KadOnrndZkInfoRequest.html">
+	c1230 [label=<<table title="nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KadOnrndZkInfoRequest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KadOnrndZkInfoRequest </td></tr>
 		</table></td></tr>
@@ -62,6 +62,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./KadOnrndZkInfoRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.BrkInfoRequest NAVASSOC nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest
-	c1256:p -> c1263:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1223:p -> c1230:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 
