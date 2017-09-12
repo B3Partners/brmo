@@ -251,7 +251,8 @@ public class OphaalConfigActionBean implements ActionBean {
                 Stripersist.getEntityManager().refresh(proces);
                 load();
                 getContext().getValidationErrors().add("cronExpressie",
-                        new SimpleError("{0} {2} is ongeldig.", expr));
+                        new SimpleError("{0} {2} is ongeldig, (melding: {4}, mogelijk nabij positie {3})",
+                                expr, ex.getErrorOffset(), ex.getLocalizedMessage()));
             }
         }
     }

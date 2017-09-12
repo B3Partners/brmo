@@ -66,10 +66,10 @@ public class CronFormatterTag extends SimpleTagSupport {
                 if (locale != null) {
                     formatted = CronExpressionDescriptor.getDescription(cronExpression, options, locale);
                 } else {
-                    formatted = CronExpressionDescriptor.getDescription(cronExpression);
+                    formatted = CronExpressionDescriptor.getDescription(cronExpression, options);
                 }
             } catch (ParseException e) {
-                // ignore this error
+                formatted = e.getLocalizedMessage();
             }
         }
         return formatted;
