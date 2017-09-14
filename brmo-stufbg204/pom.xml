@@ -82,7 +82,7 @@
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <!-- java 8 doclint van struikelt over de gegenereerde code; uitzetten! -->
+                    <!-- java 8 doclint van struikelt over de gegenereerde code; uitzetten van syntax check! -->
                     <additionalparam>-Xdoclint:-syntax</additionalparam>
                 </configuration>
             </plugin>
@@ -137,6 +137,17 @@
             </plugin>
         </plugins>
     </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <!-- java 8 doclint van struikelt over de gegenereerde code; uitzetten van syntax check! -->
+                    <additionalparam>-Xdoclint:-syntax</additionalparam>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
     <profiles>
         <profile>
             <id>postgresql</id>
@@ -217,5 +228,4 @@
             </build>
         </profile>
     </profiles>
-
 </project>

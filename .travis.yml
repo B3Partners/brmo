@@ -41,8 +41,6 @@ before_install:
   - sudo apt-get -qq install postgis-2.2 gdal-bin graphviz
   - sudo service postgresql stop
   - sudo service postgresql start 9.5
-  #- export PGHOST=localhost
-  #- export PGPORT=5432
   - export PAGER=cat
   - psql --version
   - psql -U postgres -d postgres -c 'SELECT Version();'
@@ -56,6 +54,7 @@ before_install:
   - psql -U postgres -c 'create database rsgbbgt;'
   - psql -U postgres -d rsgbbgt -c 'create extension postgis;'
   - psql -U postgres -d rsgbbgt -c 'SELECT PostGIS_full_version();'
+  - unset _JAVA_OPTIONS
 
 install:
   # install all dependencies + artifacts without any testing and create any DB scripts
