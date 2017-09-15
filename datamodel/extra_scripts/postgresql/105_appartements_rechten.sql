@@ -8,8 +8,9 @@ CREATE OR REPLACE VIEW v_bd_app_re_app_re AS
   WHERE (b2.omschrijving = 'betrokkenBij Ondersplitsing' OR  b2.omschrijving = 'ontstaanUit HoofdSplitsing') AND b1.omschrijving = 'ontstaanUit Ondersplitsing'
   GROUP BY b1.ref_id, b2.ref_id;
 
--- recursieve query om alle appartementsrechten te vinden bij percelen
+-- recursieve query om alle actuele appartementsrechten te vinden bij percelen
 CREATE OR REPLACE VIEW v_bd_app_re_all_kad_perceel AS 
+
 with recursive related_app_re (app_re_identif, perceel_identif) as (
 SELECT b1.ref_id AS app_re_identif,
     b2.ref_id AS perceel_identif
@@ -29,8 +30,10 @@ union
 )
 
 select 
-rar.*
-from related_app_re rar;
+app_re.sc_kad_identif::varchar(50) as app_re_identif, rar.perceel_identif
+from related_app_re rar
+left join app_re 
+on app_re.sc_kad_identif::text = rar.app_re_identif;
 
 
 -- Haalt alle percelen ids op met 1 of meer app_re (dient als basis voor de view voor de kaart)
