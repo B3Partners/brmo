@@ -78,11 +78,15 @@ CREATE OR REPLACE VIEW v_bd_app_re_3_kad_perceel AS
   GROUP BY vaa.app_re_identif, vap.perceel_identif;
 
 CREATE OR REPLACE VIEW v_bd_app_re_all_kad_perceel AS
+select to_char(re.sc_kad_identif) as app_re_identif, rar.perceel_identif from (
 select * from v_bd_app_re_kad_perceel
 union
 select * from v_bd_app_re_2_kad_perceel
 union
-select * from v_bd_app_re_3_kad_perceel;
+select * from v_bd_app_re_3_kad_perceel
+) rar
+left join app_re re 
+on to_char(re.sc_kad_identif) = rar.app_re_identif;
 
 -- view om appartementsrechten bij percelen op te zoeken
 CREATE OR REPLACE VIEW v_bd_app_re_bij_perceel AS

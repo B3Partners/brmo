@@ -98,12 +98,19 @@ CREATE VIEW v_bd_app_re_3_kad_perceel AS
 GO
 
 CREATE VIEW v_bd_app_re_all_kad_perceel AS 
-
+SELECT
+    CAST(re.sc_kad_identif AS VARCHAR(50)) AS app_re_identif,
+    rar.perceel_identif 
+from (
 select * from v_bd_app_re_kad_perceel
 union
 select * from v_bd_app_re_2_kad_perceel
 union 
-select * from v_bd_app_re_3_kad_perceel;
+select * from v_bd_app_re_3_kad_perceel
+) rar
+left join app_re re 
+on re.sc_kad_identif = rar.app_re_identif;
+
 
 -- view om appartementsrechten bij percelen op te zoeken
 GO
