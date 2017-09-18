@@ -74,7 +74,7 @@
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
         <test.h2.version>1.4.196</test.h2.version>
         <test.onlyITs>false</test.onlyITs>
-        <maven.surefire.version>2.20</maven.surefire.version>
+        <maven.surefire.version>2.20.1</maven.surefire.version>
     </properties>
     <dependencyManagement>
         <!--
@@ -530,7 +530,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.0.1</version>
+                    <version>3.0.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
