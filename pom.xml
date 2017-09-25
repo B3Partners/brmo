@@ -133,10 +133,10 @@
 
             <!-- spatial -->
             <dependency>
-                <!-- geotools 17 gebruikt ook nog 1.13 -->
+                <!-- geotools 18 gebruikt JTS 1.14 -->
                 <groupId>com.vividsolutions</groupId>
-                <artifactId>jts</artifactId>
-                <version>1.13</version>
+                <artifactId>jts-core</artifactId>
+                <version>1.14.0</version>
             </dependency>
             <dependency>
                 <groupId>org.geotools</groupId>
