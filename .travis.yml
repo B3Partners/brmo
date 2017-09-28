@@ -20,15 +20,15 @@ before_install:
 
 install:
   # install all dependencies + artifacts without any testing
-  - mvn install -Dmaven.test.skip=true -B -V -fae -q
+  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Ptravis-ci
 
 script:
   # run unit tests
-  - mvn -e test -B
+  - mvn -e test -B -Ptravis-ci
   # test of de javadoc compliant is met java-8 strict checks
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
-         travis_wait mvn javadoc:javadoc;
+         travis_wait mvn javadoc:javadoc -Ptravis-ci;
     fi
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
-         travis_wait mvn javadoc:test-javadoc;
+         travis_wait mvn javadoc:test-javadoc -Ptravis-ci;
     fi
