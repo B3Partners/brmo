@@ -1,0 +1,34 @@
+language: java
+
+addons:
+   hostname: travis-brmo
+   hosts: travis-brmo
+
+jdk:
+  - oraclejdk8
+  - openjdk8
+
+matrix:
+  fast_finish: true
+
+cache:
+  directories:
+  - $HOME/.m2
+
+before_install:
+  - unset _JAVA_OPTIONS
+
+install:
+  # install all dependencies + artifacts without any testing
+  - mvn install -Dmaven.test.skip=true -B -V -fae -q
+
+script:
+  # run unit tests
+  - mvn -e test -B
+  # test of de javadoc compliant is met java-8 strict checks
+  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
+         travis_wait mvn javadoc:javadoc;
+    fi
+  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
+         travis_wait mvn javadoc:test-javadoc;
+    fi
