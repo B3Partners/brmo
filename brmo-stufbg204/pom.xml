@@ -132,7 +132,7 @@
                 </executions>
                 <configuration>
                     <xnocompile>true</xnocompile>
-                    <verbose>true</verbose>
+                    <verbose>false</verbose>
                 </configuration>
             </plugin>
         </plugins>
