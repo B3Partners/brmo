@@ -11,8 +11,9 @@
     <name>BRMO commandline</name>
     <description>BRMO commandline tool.</description>
     <properties>
-        <!-- de oracle driver uitsluiten -->
-        <exclude.groupid.inpackage>${oracle.jdbc.groupId}</exclude.groupid.inpackage>
+        <!-- de oracle driver van zip file uitsluiten-->
+        <exclude.groupIds.fromPackaging>${oracle.jdbc.groupId}</exclude.groupIds.fromPackaging>
+        <include.scope.inPackaging>runtime</include.scope.inPackaging>
     </properties>
     <dependencies>
         <dependency>
@@ -145,10 +146,10 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <excludeGroupIds>${exclude.groupid.inpackage}</excludeGroupIds>
-                            <excludeClassifiers>test</excludeClassifiers>
+                            <excludeGroupIds>${exclude.groupIds.fromPackaging}</excludeGroupIds>
+                            <includeScope>${include.scope.inPackaging}</includeScope>
                             <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>true</overWriteSnapshots>
+                            <overWriteSnapshots>false</overWriteSnapshots>
                             <overWriteIfNewer>true</overWriteIfNewer>
                         </configuration>
                     </execution>
@@ -286,7 +287,7 @@
             <id>oracle</id>
             <properties>
                 <!-- voor oracle profiel wel de driver insluiten -->
-                <exclude.groupid.inpackage />
+                <exclude.groupIds.fromPackaging/>
             </properties>
             <dependencies>
                 <dependency>
