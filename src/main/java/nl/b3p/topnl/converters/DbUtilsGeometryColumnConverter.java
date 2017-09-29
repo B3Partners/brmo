@@ -19,7 +19,7 @@ package nl.b3p.topnl.converters;
 import com.vividsolutions.jts.geom.Geometry;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import nl.b3p.brmo.loader.jdbc.GeometryJdbcConverter;
+import nl.b3p.loader.jdbc.GeometryJdbcConverter;
 import org.apache.commons.dbutils.BeanProcessor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
