@@ -230,14 +230,14 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.6</version>
-                    <!--dependencies>
+                    <dependencies>
                         <dependency>
                             <groupId>net.trajano.wagon</groupId>
                             <artifactId>wagon-git</artifactId>
-                            //2.0.4 heeft problemen met accepteren/toevoegen van de RSA fingerprint
+                            <!-- 2.0.4 heeft problemen met accepteren/toevoegen van de RSA fingerprint -->
                             <version>2.0.3</version>
                         </dependency>
-                    </dependencies -->
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -338,9 +338,102 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.3</version>
+                <configuration>
+                    <pushChanges>true</pushChanges>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <configuration>
+                    <generateSitemap>true</generateSitemap>
+                    <attach>false</attach>
+                    <outputEncoding>${project.build.sourceEncoding}</outputEncoding>
+                    <locales>nl</locales>
+                    <relativizeDecorationLinks>false</relativizeDecorationLinks>
+                </configuration>
             </plugin>
         </plugins>
     </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.4</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>dependency-updates-report</report>
+                            <report>plugin-updates-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.9</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>cim</report>
+                            <report>dependencies</report>
+                            <report>dependency-convergence</report>
+                            <report>dependency-management</report>
+                            <report>index</report>
+                            <report>plugin-management</report>
+                            <report>plugins</report>
+                            <report>scm</report>
+                            <report>summary</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+                <configuration>
+                    <dependencyLocationsEnabled>true</dependencyLocationsEnabled>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.9</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <linkJavadoc>true</linkJavadoc>
+                    <javadocDir>${basedir}/target/site/apidocs</javadocDir>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>javadoc-no-fork</report>
+                            <report>test-javadoc-no-fork</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.20.1</version>
+                <configuration>
+                    <linkXRef>true</linkXRef>
+                    <goal>report-only</goal>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
     <distributionManagement>
         <repository>
             <id>repo.b3p.nl</id>
@@ -352,6 +445,11 @@
             <name>B3Partners snapshots repository</name>
             <url>http://repo.b3p.nl/nexus/content/repositories/snapshots/</url>
         </snapshotRepository>
+        <site>
+            <id>gh-pages</id>
+            <name>github pages site</name>
+            <url>github:http://b3partners.github.io/topparser/</url>
+        </site>
     </distributionManagement>
     <profiles>
         <profile>
