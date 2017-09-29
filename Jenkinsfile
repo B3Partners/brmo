@@ -89,14 +89,10 @@ timestamps {
             }
 
             stage('OWASP Dependency Check') {
-                // if (env.BRANCH_NAME == 'master') {
                 echo "Uitvoeren OWASP dependency check"
                 dependencyCheckAnalyzer datadir: '', hintsFile: '', includeCsvReports: false, includeHtmlReports: true, includeJsonReports: false, isAutoupdateDisabled: false, outdir: '', scanpath: '**/brmo-*.jar,**/brmo-*.war,**/brmo-*.zip', skipOnScmChange: false, skipOnUpstreamChange: false, suppressionFile: '', zipExtensions: ''
 
                 dependencyCheckPublisher canComputeNew: false, defaultEncoding: '', healthy: '85', pattern: '**/dependency-check-report.xml', shouldDetectModules: true, unHealthy: ''
-                //} else {
-                //    echo "Overslaan OWASP dependency check voor deze branch"
-                //}
             }
         }
     }
