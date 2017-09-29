@@ -9,7 +9,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <geotools.version>17.2</geotools.version>
+        <geotools.version>18-RC1</geotools.version>
         <postgresql.version>42.1.4</postgresql.version>
         <oracle.jdbc.groupId>com.oracle</oracle.jdbc.groupId>
         <oracle.jdbc.version>12.2.0.1.0</oracle.jdbc.version>
