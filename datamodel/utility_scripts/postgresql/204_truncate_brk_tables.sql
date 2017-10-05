@@ -27,6 +27,7 @@ truncate zak_recht_aantek cascade;
 --
 --truncate ander_btnlnds_niet_nat_prs cascade;
 --truncate ander_nat_prs cascade;
+--truncate herkomst_metadata cascade;
 --truncate ingeschr_nat_prs cascade;
 --truncate ingeschr_niet_nat_prs cascade;
 --truncate nat_prs cascade;
