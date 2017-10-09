@@ -70,6 +70,13 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>${project.build.directory}/topnlschemas/nl/b3p/topnl/database</directory>
+            <outputDirectory>db/topnl</outputDirectory>
+            <includes>
+                <include>**/*.sql</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>../${project.basedir}/</directory>
             <outputDirectory/>
             <includes>
