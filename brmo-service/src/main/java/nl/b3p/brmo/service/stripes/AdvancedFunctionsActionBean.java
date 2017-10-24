@@ -35,6 +35,7 @@ import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
+import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.RowProcessor;
@@ -352,10 +353,11 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
             // If handler threw exception processing row, rethrow it
             if (e != null) {
+                DbUtils.closeQuietly(conn);
                 throw e;
             }
         } while (processed.intValue() > 0);
-
+        DbUtils.closeQuietly(conn);
     }
 
     public void repairBAGMutatieBerichten(String config) throws Exception {
@@ -433,10 +435,11 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
             // If handler threw exception processing row, rethrow it
             if (e != null) {
+                DbUtils.closeQuietly(conn);
                 throw e;
             }
         } while (processed.intValue() > 0);
-
+        DbUtils.closeQuietly(conn);
     }
 
     public void exportBRKMutatieBerichten(String locatie) throws Exception {
@@ -545,10 +548,11 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
             // If handler threw exception processing row, rethrow it
             if (e != null) {
+                DbUtils.closeQuietly(conn);
                 throw e;
             }
         } while (processed.intValue() > 0);
-
+        DbUtils.closeQuietly(conn);
     }
     
     public void cleanupBerichten(String config, String soort) throws Exception {
@@ -624,10 +628,11 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
             // If handler threw exception processing row, rethrow it
             if (e != null) {
+                DbUtils.closeQuietly(conn);
                 throw e;
             }
         } while (processed.intValue() > 0);
-
+        DbUtils.closeQuietly(conn);
     }
 
     public void deleteBerichten(String config, String soort) throws Exception {
@@ -661,7 +666,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         } else {
             progress((Long) o);
         }
-
+        DbUtils.closeQuietly(conn);
     }
 
     /**
@@ -767,10 +772,11 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
             // If handler threw exception processing row, rethrow it
             if (e != null) {
+                DbUtils.closeQuietly(conn);
                 throw e;
             }
         } while (processed.intValue() > 0);
-
+        DbUtils.closeQuietly(conn);
         rsgb.close();
     }
 }

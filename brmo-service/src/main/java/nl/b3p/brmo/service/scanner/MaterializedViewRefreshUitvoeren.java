@@ -19,6 +19,7 @@ import nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
+import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.apache.commons.logging.Log;
@@ -88,6 +89,7 @@ public class MaterializedViewRefreshUitvoeren extends AbstractExecutableProces {
             mview = this.config.getMView();
             final DataSource ds = ConfigUtil.getDataSourceRsgb();
             final Connection conn = ds.getConnection();
+            conn.setAutoCommit(true);
             final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
             // "update" gebruiken omdat we een oracle stored procedure benaderen
             Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(conn, geomToJdbc.getMViewRefreshSQL(mview));
@@ -99,6 +101,7 @@ public class MaterializedViewRefreshUitvoeren extends AbstractExecutableProces {
             } else {
                 resultaat = (o.toString().equals("0") ? "OK" : "NOT OK");
             }
+            DbUtils.closeQuietly(conn);
 
             msg = String.format("De materialized view %s is ververst met resultaat %s om %tc", mview, resultaat, Calendar.getInstance());
             LOG.info(msg);
@@ -128,6 +131,7 @@ public class MaterializedViewRefreshUitvoeren extends AbstractExecutableProces {
             final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
             List<String> mviews = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, geomToJdbc.getMViewsSQL(), new ColumnListHandler<String>());
             mviews.sort(String::compareToIgnoreCase);
+            DbUtils.closeQuietly(conn);
             return Collections.unmodifiableList(mviews);
         } catch (BrmoException | SQLException | ClassCastException | UnsupportedOperationException | IllegalArgumentException ex) {
             LOG.error("Ophalen materialized views is mislukt.", ex);

@@ -21,6 +21,7 @@ import nl.b3p.brmo.loader.util.TopNLRsgbTransformer;
 import nl.b3p.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
 import nl.b3p.topnl.TopNLType;
+import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.io.IOUtils;
@@ -140,9 +141,10 @@ public class BrmoFramework {
 
     private String getVersion(DataSource dataSource) throws SQLException {
         String sql = "SELECT waarde FROM " + BrmoFramework.BRMO_METADATA_TABEL + " WHERE naam = 'brmoversie'";
-        Connection c = dataSource.getConnection();
+        final Connection c = dataSource.getConnection();
         GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(c);
         Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(c, sql, new ScalarHandler());
+        DbUtils.closeQuietly(c);
         return o.toString();
     }
 
