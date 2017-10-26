@@ -9,7 +9,7 @@ timestamps {
         ]]);
     
     node {
-        withEnv(["JAVA_HOME=${ tool 'JDK8' }", "PATH+MAVEN=${tool 'Maven 3.5.0'}/bin:${env.JAVA_HOME}/bin"]) {
+        withEnv(["JAVA_HOME=${ tool 'JDK8' }", "PATH+MAVEN=${tool 'Maven 3.5.2'}/bin:${env.JAVA_HOME}/bin"]) {
 
             stage('Prepare') {
                 sh "ulimit -a"
