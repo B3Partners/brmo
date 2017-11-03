@@ -31,9 +31,9 @@ cache:
 
 before_install:
   # installeer een up-2-date Maven versie
-  - wget https://www-eu.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.zip
-  - unzip -qq apache-maven-3.5.0-bin.zip
-  - export M2_HOME=$PWD/apache-maven-3.5.0
+  - wget https://www-eu.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.zip
+  - unzip -qq apache-maven-3.5.2-bin.zip
+  - export M2_HOME=$PWD/apache-maven-3.5.2
   - export PATH=$M2_HOME/bin:$PATH
   # installeer/update postgis 2.2 op postgresql 9.5
   - sudo service postgresql stop
@@ -54,11 +54,14 @@ before_install:
   - psql -U postgres -c 'create database rsgbbgt;'
   - psql -U postgres -d rsgbbgt -c 'create extension postgis;'
   - psql -U postgres -d rsgbbgt -c 'SELECT PostGIS_full_version();'
+  - psql -U postgres -c 'create database topnl;'
+  - psql -U postgres -d topnl -c 'create extension postgis;'
+  - psql -U postgres -d topnl -c 'SELECT PostGIS_full_version();'
   - unset _JAVA_OPTIONS
 
 install:
   # install all dependencies + artifacts without any testing and create any DB scripts
-  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Ppostgresql -pl '!brmo-dist'
+  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Ppostgresql
 
 before_script:
   # dit dient na afloop van de 'install' gedaan te worden omdat (een deel van) de sql gegenereerd wordt
@@ -77,6 +80,9 @@ before_script:
   #- travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/113a_update_wijk_geom.sql
   # set up rsgbbgt tabellen
   - psql -U postgres -w -q -d rsgbbgt -f ./bgt-gml-loader/target/generated-resources/ddl/postgresql/create_rsgb_bgt.sql
+  # set up topnl tabellen
+  - ls -l ./brmo-dist/target/topnlschemas/nl/b3p/topnl/database
+  - psql -U postgres -w -q -d topnl -f ./brmo-dist/target/topnlschemas/nl/b3p/topnl/database/postgres.sql
 
 script:
   # run unit tests
