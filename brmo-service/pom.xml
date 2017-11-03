@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo-service</artifactId>
-    <version>1.5.1-SNAPSHOT</version>
+    <version>1.5.1</version>
     <packaging>war</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
-        <version>1.5.1-SNAPSHOT</version>
+        <version>1.5.1</version>
     </parent>
     <name>BRMO service</name>
     <description>BRMO webapplicatie</description>
@@ -58,7 +58,7 @@
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>brmo-persistence</artifactId>
-            <version>1.5.1-SNAPSHOT</version>
+            <version>1.5.1</version>
         </dependency>
         <dependency>
             <groupId>nl.b3p</groupId>
@@ -86,7 +86,7 @@
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>brmo-taglib</artifactId>
-            <version>1.5.1-SNAPSHOT</version>
+            <version>1.5.1</version>
         </dependency>
         <dependency>
             <groupId>org.javasimon</groupId>
