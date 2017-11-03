@@ -38,7 +38,7 @@
     <dependencies>
         <!--
         voor een update controle gebruik je het volgende maven commando:
-        mvn -U org.codehaus.mojo:versions-maven-plugin:2.4:display-dependency-updates
+        mvn -U org.codehaus.mojo:versions-maven-plugin:2.5:display-dependency-updates
         -->
         <dependency>
             <groupId>nl.b3p</groupId>
@@ -78,7 +78,7 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.5</version>
+            <version>2.6</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -147,7 +147,7 @@
         <dependency>
             <groupId>org.geolatte</groupId>
             <artifactId>geolatte-geom</artifactId>
-            <version>1.1.0</version>
+            <version>1.2.0</version>
         </dependency>
     </dependencies>
     <repositories>
@@ -155,21 +155,6 @@
             <id>repo.b3p.nl</id>
             <name>B3Partners public repository</name>
             <url>http://repo.b3p.nl/nexus/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>Boundless</id>
-            <name>Boundless Maven Repository</name>
-            <url>http://repo.boundlessgeo.com/main</url>
-        </repository>
-        <repository>
-            <id>GeoSolutions</id>
-            <name>GeoSolutions Maven Repository</name>
-            <url>http://maven.geo-solutions.it/</url>
-        </repository>
-        <repository>
-            <id>OSGeo</id>
-            <name>Open Source Geospatial Foundation Repository</name>
-            <url>http://download.osgeo.org/webdav/geotools/</url>
         </repository>
     </repositories>
     <prerequisites>
@@ -180,7 +165,7 @@
             <plugins>
                 <!--
                     To check for plugin updates use the following command:
-                    mvn -U org.codehaus.mojo:versions-maven-plugin:2.4:display-plugin-updates -T1
+                    mvn -U org.codehaus.mojo:versions-maven-plugin:2.5:display-plugin-updates -T1
                     and check the output for any available updates
                 -->
                 <plugin>
@@ -360,7 +345,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>2.4</version>
+                <version>2.5</version>
                 <reportSets>
                     <reportSet>
                         <reports>
