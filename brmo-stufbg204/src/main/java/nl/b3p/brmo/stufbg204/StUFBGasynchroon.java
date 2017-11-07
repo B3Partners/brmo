@@ -1,7 +1,35 @@
 package nl.b3p.brmo.stufbg204;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.jws.HandlerChain;
 import javax.jws.WebService;
+import javax.sql.DataSource;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.stufbg204.util.DiagnosticsServlet;
 import nl.b3p.brmo.stufbg204.util.StUFbg204Util;
 import nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht;
 import nl.egem.stuf.sector.bg._0204.KennisgevingsBericht;
@@ -10,6 +38,12 @@ import nl.egem.stuf.stuf0204.BevestigingsBericht;
 import nl.egem.stuf.stuf0204.FoutBericht;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  * @author mprins
@@ -27,16 +61,16 @@ public class StUFBGasynchroon {
     private static final Log LOG = LogFactory.getLog(StUFBGasynchroon.class);
 
     public BevestigingsBericht ontvangAsynchroneVraag(VraagBericht vraag) {
-        LOG.debug("Er is vraag ontvangen van soort: " + vraag.getStuurgegevens().getBerichtsoort());
+        // LOG.debug("Er is vraag ontvangen van soort: " + vraag.getStuurgegevens().getBerichtsoort());
 
         BevestigingsBericht b = new BevestigingsBericht();
         b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(vraag.getStuurgegevens()));
-
+        saveBericht(vraag.getBody(), "");
         return b;
     }
 
     public BevestigingsBericht ontvangAsynchroonAntwoord(AsynchroonAntwoordBericht asynchroonAntwoord) {
-        LOG.debug("Er is antwoord ontvangen van soort: " + asynchroonAntwoord.getStuurgegevens().getBerichtsoort());
+        //    LOG.debug("Er is antwoord ontvangen van soort: " + asynchroonAntwoord.getStuurgegevens().getBerichtsoort());
 
         BevestigingsBericht b = new BevestigingsBericht();
         b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(asynchroonAntwoord.getStuurgegevens()));
@@ -45,7 +79,7 @@ public class StUFBGasynchroon {
     }
 
     public BevestigingsBericht ontvangFout(FoutBericht fout) {
-        LOG.debug("Er is fout ontvangen van soort: " + fout.getStuurgegevens().getBerichtsoort());
+        //  LOG.debug("Er is fout ontvangen van soort: " + fout.getStuurgegevens().getBerichtsoort());
 
         BevestigingsBericht b = new BevestigingsBericht();
         b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(fout.getStuurgegevens()));
@@ -54,12 +88,112 @@ public class StUFBGasynchroon {
     }
 
     public BevestigingsBericht ontvangKennisgeving(KennisgevingsBericht kennisgeving) {
-        LOG.debug("Er is kennisgeving ontvangen van soort: " + kennisgeving.getStuurgegevens().getBerichtsoort());
-
+        //  LOG.debug("Er is kennisgeving ontvangen van soort: " + kennisgeving.getStuurgegevens().getBerichtsoort());
         BevestigingsBericht b = new BevestigingsBericht();
         b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(kennisgeving.getStuurgegevens()));
-
+        saveBericht(kennisgeving, kennisgeving.getStuurgegevens().getKennisgeving().getTijdstipMutatie());
         return b;
+    }
+
+    private void saveBericht(Object body, String datum) {
+        try {
+            DataSource ds = DiagnosticsServlet.getDataSourceStaging();
+            BrmoFramework brmo = new BrmoFramework(ds, null);
+            InputStream in = getXml(body);
+
+            Date d = StUFbg204Util.sdf.parse(datum);
+            String name = "Upload op " + StUFbg204Util.sdf.format(new Date());
+
+           brmo.loadFromStream(BrmoFramework.BR_BRP, in, name, d);
+        } catch (BrmoException ex) {
+            LOG.error("Cannot create BRMO Framework:", ex);
+        } catch (Exception ex) {
+            LOG.error("Cannot get datasource:", ex);
+        }
+
+    }
+
+    private InputStream getXml(Object o) throws JAXBException {
+
+        try {
+            // maak van POJO een inputstream
+            Marshaller jaxbMarshaller = DiagnosticsServlet.getStufJaxbContext().createMarshaller();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            jaxbMarshaller.marshal(o, baos);
+            InputStream in = new ByteArrayInputStream(baos.toByteArray());
+
+            // maak er een document van
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setNamespaceAware(true);
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            
+            Document doc = builder.parse(in);
+            List<SimpleEntry<String,String>> prefixes = new ArrayList<>();
+            getPrefixesRecursive(doc.getDocumentElement(), prefixes);
+            //haal de body eruit met xpath
+            XPathFactory xPathfactory = XPathFactory.newInstance();
+            XPath xpath = xPathfactory.newXPath();
+            XPathExpression expr = xpath.compile("//*[local-name() = 'body']/*");
+            NodeList nodelist = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
+            Node root = doc.createElement("root");
+          /*  
+            for (SimpleEntry<String, String> ns : prefixes) {
+                Element el = doc.createElementNS(ns.getValue(),ns.getKey().substring(6));
+                Node m = root.appendChild(el);
+                int a = 0;
+            }*/
+            
+            for (int i = 0; i < nodelist.getLength(); i++) {
+                Node n = nodelist.item(i);
+                root.appendChild(n);
+                
+            }
+            /*xmlns:ns="http://www.egem.nl/StUF/sector/bg/0204" xmlns:stuf="http://www.egem.nl/StUF/StUF0204"
+             */
+
+            // Vertaal xml naar inputstream voor verwerking in brmo framework
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            Transformer t = TransformerFactory.newInstance().newTransformer();
+            t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            t.transform(new DOMSource(root), new StreamResult(outputStream));
+            InputStream is = new ByteArrayInputStream(outputStream.toByteArray());
+
+            return is;
+        } catch (ParserConfigurationException | SAXException | IOException | XPathExpressionException ex) {
+            LOG.error("Cannot parse body", ex);
+        } catch (TransformerException ex) {
+            LOG.error("Cannot parse body", ex);
+        }
+        return null;
+    }
+
+    private static final String XMLNAMESPACE = "xmlns";
+
+    public static void getPrefixesRecursive(Element element, List<SimpleEntry<String,String>> prefixes) {
+        getPrefixes(element, prefixes);
+        Node parent = element.getParentNode();
+        if (parent instanceof Element) {
+            getPrefixesRecursive((Element) parent, prefixes);
+        }
+    }
+
+    /**
+     * Get all prefixes defined on this element for the specified namespace.
+     *
+     * @param element
+     * @param namespaceUri
+     * @param prefixes
+     */
+    public static void getPrefixes(Element element, List<SimpleEntry<String,String>> prefixes) {
+        NamedNodeMap atts = element.getAttributes();
+        for (int i = 0; i < atts.getLength(); i++) {
+            Node node = atts.item(i);
+            String name = node.getNodeName();
+            if (name != null && (XMLNAMESPACE.equals(name) || name.startsWith(XMLNAMESPACE + ":"))) {
+                SimpleEntry s = new SimpleEntry(name, node.getNodeValue());
+                prefixes.add(s);
+            }
+        }
     }
 
 }

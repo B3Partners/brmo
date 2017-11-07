@@ -16,7 +16,7 @@ import nl.egem.stuf.stuf0204.Systeem;
  */
 public final class StUFbg204Util {
     
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddkkkmmssSSS");
+    public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddkkkmmssSSS");
 
     public static FoutBericht maakFout() {
         final FoutBericht fout = new FoutBericht();

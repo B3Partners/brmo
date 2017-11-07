@@ -24,6 +24,11 @@
             <artifactId>brmo-soap-util</artifactId>
         </dependency>
         <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>brmo-loader</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-rt</artifactId>
         </dependency>

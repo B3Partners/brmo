@@ -29,6 +29,7 @@ import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
 import nl.b3p.brmo.loader.util.TableData;
 import nl.b3p.brmo.loader.xml.BGTLightFileReader;
+import nl.b3p.brmo.loader.xml.BRPXMLReader;
 import nl.b3p.brmo.loader.xml.BagXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.BrmoXMLReader;
@@ -250,7 +251,7 @@ public class StagingProxy {
         }
         log.debug("pre-transformatie SQL: " + q);
         return new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                .update(getConnection(), q.toString(), status.toString(), new java.sql.Timestamp((new Date()).getTime()));
+                .update(getConnection(), q.toString(), status.toString(), new java.sql.Date((new Date()).getTime()));
     }
 
     public long setBerichtenJobForUpdate(String soort, boolean orderBerichten) throws SQLException {
@@ -268,7 +269,7 @@ public class StagingProxy {
         }
         log.debug("pre-transformatie SQL: " + q);
         return new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                .update(getConnection(), q.toString(), Bericht.STATUS.RSGB_OK.toString(), soort, new java.sql.Timestamp((new Date()).getTime()));
+                .update(getConnection(), q.toString(), Bericht.STATUS.RSGB_OK.toString(), soort, new java.sql.Date((new Date()).getTime()));
    }
 
     public long setBerichtenJobByIds(long[] ids, boolean orderBerichten) throws SQLException {
@@ -293,7 +294,7 @@ public class StagingProxy {
         }
         log.debug("pre-transformatie SQL: " + q);
         return new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                .update(getConnection(), q.toString(), new java.sql.Timestamp((new Date()).getTime()));
+                .update(getConnection(), q.toString(), new java.sql.Date((new Date()).getTime()));
     }
 
     public long setBerichtenJobByLaadprocessen(long[] laadprocesIds, boolean orderBerichten) throws SQLException {
@@ -319,7 +320,7 @@ public class StagingProxy {
         }
         log.debug("pre-transformatie SQL: " + q);
         return new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                .update(getConnection(), q.toString(), Bericht.STATUS.STAGING_OK.toString(), new java.sql.Timestamp((new Date()).getTime()));
+                .update(getConnection(), q.toString(), Bericht.STATUS.STAGING_OK.toString(), new java.sql.Date((new Date()).getTime()));
     }
 
     public void handleBerichtenByJob(long total, final BerichtenHandler handler, final boolean enablePipeline, int transformPipelineCapacity, boolean orderBerichten) throws Exception {
@@ -579,10 +580,11 @@ public class StagingProxy {
      * @param stream input
      * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}
      * @param fileName naam van het bestand (ter identificatie)
+     * @param d datum van het bericht: alleen gebruikt voor BRP
      * @param listener progress listener
      * @throws Exception if any
      */
-    public void loadBr(InputStream stream, String type, String fileName, ProgressUpdateListener listener) throws Exception {
+    public void loadBr(InputStream stream, String type, String fileName, Date d, ProgressUpdateListener listener) throws Exception {
 
         CountingInputStream cis = new CountingInputStream(stream);
 
@@ -597,6 +599,8 @@ public class StagingProxy {
             brmoXMLReader = new BGTLightFileReader(fileName);
         } else if (type.equals(BrmoFramework.BR_TOPNL)) {
             brmoXMLReader = new TopNLFileReader(fileName);
+        } else if(type.equals(BrmoFramework.BR_BRP)){
+            brmoXMLReader = new BRPXMLReader(cis, d);
         } else {
             throw new UnsupportedOperationException("Ongeldige basisregistratie: " + type);
         }

@@ -17,6 +17,7 @@ import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.web.stripes.DirectResponseResolution;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,6 +26,7 @@ import org.apache.commons.logging.LogFactory;
  * Endpoint voor het ontvangen van mutatieberichten van basisregistraties in de
  * request body.
  *
+
  * @author Matthijs Laan
  */
 @UrlBinding("/post/{basisregistratie}")
@@ -75,7 +77,7 @@ public class BasisregistratieServiceActionBean implements ActionBean {
             brmo = new BrmoFramework(ds, null);
 
             // Check of bestand begint met ZIP header
-
+            
             InputStream in = new BufferedInputStream(req.getInputStream());
             in.mark(4);
             int header = new DataInputStream(in).readInt();
@@ -108,7 +110,7 @@ public class BasisregistratieServiceActionBean implements ActionBean {
 
             log.info(String.format("Stored %s data received via service endpoint", basisregistratie));
             return new DirectResponseResolution(200, "Data successfully received" + (header == ZIP_HEADER ? ", unzipped \"" + unzippedFile + "\"": "") + " and stored\n");
-        } catch(Exception e) {
+            } catch(Exception e) {
             log.error("Fout bij ontvangen basisregistratiegegevens via directe POST", e);
 
             return new DirectResponseResolution(500, String.format("Error receiving data: %s\n", ExceptionUtils.getRootCauseMessage(e)));
