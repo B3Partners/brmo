@@ -65,7 +65,6 @@ public class StUFBGasynchroon {
 
         BevestigingsBericht b = new BevestigingsBericht();
         b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(vraag.getStuurgegevens()));
-        saveBericht(vraag.getBody(), "");
         return b;
     }
 
@@ -91,7 +90,7 @@ public class StUFBGasynchroon {
         //  LOG.debug("Er is kennisgeving ontvangen van soort: " + kennisgeving.getStuurgegevens().getBerichtsoort());
         BevestigingsBericht b = new BevestigingsBericht();
         b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(kennisgeving.getStuurgegevens()));
-        saveBericht(kennisgeving, kennisgeving.getStuurgegevens().getKennisgeving().getTijdstipMutatie());
+        saveBericht(kennisgeving, kennisgeving.getStuurgegevens().getTijdstipBericht());
         return b;
     }
 
@@ -136,20 +135,12 @@ public class StUFBGasynchroon {
             XPathExpression expr = xpath.compile("//*[local-name() = 'body']/*");
             NodeList nodelist = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
             Node root = doc.createElement("root");
-          /*  
-            for (SimpleEntry<String, String> ns : prefixes) {
-                Element el = doc.createElementNS(ns.getValue(),ns.getKey().substring(6));
-                Node m = root.appendChild(el);
-                int a = 0;
-            }*/
-            
+
             for (int i = 0; i < nodelist.getLength(); i++) {
                 Node n = nodelist.item(i);
                 root.appendChild(n);
                 
             }
-            /*xmlns:ns="http://www.egem.nl/StUF/sector/bg/0204" xmlns:stuf="http://www.egem.nl/StUF/StUF0204"
-             */
 
             // Vertaal xml naar inputstream voor verwerking in brmo framework
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -159,9 +150,7 @@ public class StUFBGasynchroon {
             InputStream is = new ByteArrayInputStream(outputStream.toByteArray());
 
             return is;
-        } catch (ParserConfigurationException | SAXException | IOException | XPathExpressionException ex) {
-            LOG.error("Cannot parse body", ex);
-        } catch (TransformerException ex) {
+        } catch (ParserConfigurationException | SAXException | IOException | XPathExpressionException | TransformerException ex) {
             LOG.error("Cannot parse body", ex);
         }
         return null;
