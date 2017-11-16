@@ -279,7 +279,9 @@ public class Top50NLConverter extends Converter {
     }
 
     @Override
-    public Spoorbaandeel convertSpoorbaandeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public Spoorbaandeel convertSpoorbaandeel(Object jaxbObject) throws IOException, SAXException,
+            ParserConfigurationException, TransformerException, ClassCastException {
+
         SpoorbaandeelType r = (SpoorbaandeelType) jaxbObject;
 
         Spoorbaandeel rg = new Spoorbaandeel();
