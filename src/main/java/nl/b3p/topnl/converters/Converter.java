@@ -57,7 +57,13 @@ public abstract class Converter {
     public abstract Plaats convertPlaats(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
     public abstract RegistratiefGebied convertRegistratiefGebied(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
     public abstract Relief convertRelief(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract Spoorbaandeel convertSpoorbaandeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+    /**
+     * @throws ClassCastException Als er een onverwacht type geometrie in de
+     * data zit.
+     */
+    public abstract Spoorbaandeel convertSpoorbaandeel(Object jaxbObject) throws IOException, SAXException,
+            ParserConfigurationException, TransformerException, ClassCastException;
     public abstract Terrein convertTerrein(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
     public abstract Waterdeel convertWaterdeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
     public abstract Wegdeel convertWegdeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
