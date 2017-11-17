@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:gco="http://www.isotc211.org/2005/gco"
+        xmlns:gml="http://www.opengis.net/gml/3.2"
+        targetNamespace="http://www.isotc211.org/2005/gco"
+        elementFormDefault="qualified"
+        version="2012-07-13">
+   <import namespace="http://www.opengis.net/gml/3.2"
+           schemaLocation="gml_resolved.xsd"/>
+   <import namespace="http://www.w3.org/1999/xlink"
+           schemaLocation="xlinks_resolved.xsd"/>
+   <xs:annotation>
+		    <xs:documentation>Geographic COmmon (GCO) extensible markup language is a component of the XML Schema Implementation of Geographic Information Metadata documented in ISO/TS 19139:2007. GCO includes all the definitions of http://www.isotc211.org/2005/gco namespace. The root document of this namespace is the file gco.xsd.</xs:documentation>
+	  </xs:annotation>
+   <xs:annotation>
+		    <xs:documentation>Geographic COmmon (GCO) extensible markup language is a component of the XML Schema Implementation of Geographic
+Information Metadata documented in ISO/TS 19139:2007. GCO includes all the definitions of http://www.isotc211.org/2005/gco namespace. The root document of this namespace is the file gco.xsd. This basicTypes.xsd schema implements concepts from the "basic types" package of ISO/TS 19103.</xs:documentation>
+	  </xs:annotation>
+   <xs:annotation>
+		    <xs:documentation>Geographic COmmon (GCO) extensible markup language is a component of the XML Schema Implementation of Geographic
+Information Metadata documented in ISO/TS 19139:2007. GCO includes all the definitions of http://www.isotc211.org/2005/gco namespace. The root document of this namespace is the file gco.xsd. This gcoBase.xsd schema provides:
+		1.  tools to handle specific objects like "code lists" and "record";
+		2. Some XML types representing that do not follow the general encoding rules.</xs:documentation>
+	  </xs:annotation>
+</schema>

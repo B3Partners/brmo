@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:gmd="http://www.isotc211.org/2005/gmd"
+        xmlns:gco="http://www.isotc211.org/2005/gco"
+        xmlns:gss="http://www.isotc211.org/2005/gss"
+        xmlns:gts="http://www.isotc211.org/2005/gts"
+        xmlns:gsr="http://www.isotc211.org/2005/gsr"
+        targetNamespace="http://www.isotc211.org/2005/gmd"
+        elementFormDefault="qualified"
+        version="2012-07-13">
+   <import namespace="http://www.isotc211.org/2005/gco"
+           schemaLocation="gco_resolved.xsd"/>
+   <import namespace="http://www.isotc211.org/2005/gss"
+           schemaLocation="gss_resolved.xsd"/>
+   <import namespace="http://www.isotc211.org/2005/gts"
+           schemaLocation="gts_resolved.xsd"/>
+   <import namespace="http://www.isotc211.org/2005/gsr"
+           schemaLocation="gsr_resolved.xsd"/>
+   <xs:annotation>
+		    <xs:documentation>Geographic MetaData (GMD) extensible markup language is a component of the XML Schema Implementation of Geographic Information Metadata documented in ISO/TS 19139:2007. GMD includes all the definitions of http://www.isotc211.org/2005/gmd namespace. The root document of this namespace is the file gmd.xsd.</xs:documentation>
+	  </xs:annotation>
+   <xs:annotation>
+		    <xs:documentation>Geographic MetaData (GMD) extensible markup language is a component of the XML Schema Implementation of Geographic Information Metadata documented in ISO/TS 19139:2007. GMD includes all the definitions of http://www.isotc211.org/2005/gmd namespace. The root document of this namespace is the file gmd.xsd. This metadataApplication.xsd schema implements the UML conceptual schema defined in A.2.12 of ISO 19115:2003. It contains the implementation of the class: MD_ApplicationSchemaInformation.</xs:documentation>
+	  </xs:annotation>
+   <xs:annotation>
+		    <xs:documentation>Geographic MetaData (GMD) extensible markup language is a component of the XML Schema Implementation of Geographic Information Metadata documented in ISO/TS 19139:2007. GMD includes all the definitions of http://www.isotc211.org/2005/gmd namespace. The root document of this namespace is the file gmd.xsd. This metadataEntity.xsd schema implements the UML conceptual schema defined in A.2.1 of ISO 19115:2003. It contains the implementation of the class MD_Metadata.</xs:documentation>
+	  </xs:annotation>
+   <xs:annotation>
+		    <xs:documentation>Geographic MetaData (GMD) extensible markup language is a component of the XML Schema Implementation of Geographic Information Metadata documented in ISO/TS 19139:2007. GMD includes all the definitions of http://www.isotc211.org/2005/gmd namespace. The root document of this namespace is the file gmd.xsd. This portrayalCatalogue.xsd schema implements the UML conceptual schema defined in A.2.6 of ISO 19115:2003. It contains the implementation of the following classes: MD_GridSpatialRepresentation, MD_VectorSpatialRepresentation, MD_SpatialRepresentation, MD_Georeferenceable, MD_Dimension, MD_Georectified, MD_GeometricObjects, MD_TopologyLevelCode, MD_GeometricObjectTypeCode, MD_CellGeometryCode, MD_DimensionNameTypeCode, MD_PixelOrientationCode.</xs:documentation>
+	  </xs:annotation>
+   <xs:annotation>
+		    <xs:documentation>Geographic MetaData (GMD) extensible markup language is a component of the XML Schema Implementation of Geographic Information Metadata documented in ISO/TS 19139:2007. GMD includes all the definitions of http://www.isotc211.org/2005/gmd namespace. The root document of this namespace is the file gmd.xsd. This metadataExtension.xsd schema implements the UML conceptual schema defined in A.2.11 of ISO 19115:2003. It contains the implementation of the following classes: MD_ExtendedElementInformation, MD_MetadataExtensionInformation, MD_ObligationCode, MD_DatatypeCode.</xs:documentation>
+	  </xs:annotation>
+   <xs:annotation>
+		    <xs:documentation>Geographic MetaData (GMD) extensible markup language is a component of the XML Schema Implementation of Geographic Information Metadata documented in ISO/TS 19139:2007. GMD includes all the definitions of http://www.isotc211.org/2005/gmd namespace. The root document of this namespace is the file gmd.xsd. This content.xsd schema implements the UML conceptual schema defined in ISO 19115:2003, A.2.8. It contains the implementation of the following classes: MD_FeatureCatalogueDescription, MD_CoverageDescription,
+MD_ImageDescription, MD_ContentInformation, MD_RangeDimension, MD_Band, MD_CoverageContentTypeCode, MD_ImagingConditionCode.</xs:documentation>
+	  </xs:annotation>
+   <xs:annotation>
+		    <xs:documentation>Geographic MetaData (GMD) extensible markup language is a component of the XML Schema Implementation of Geographic Information Metadata documented in ISO/TS 19139:2007. GMD includes all the definitions of http://www.isotc211.org/2005/gmd namespace. The root document of this namespace is the file gmd.xsd. This applicationSchema.xsd schema implements the UML conceptual schema defined in A.2.12 of ISO 19115:2003. It contains the implementation of the class MD_ApplicationSchemaInformation.</xs:documentation>
+	  </xs:annotation>
+   <xs:annotation>
+		    <xs:documentation>Geographic MetaData (GMD) extensible markup language is a component of the XML Schema Implementation of Geographic Information Metadata documented in ISO/TS 19139:2007. GMD includes all the definitions of http://www.isotc211.org/2005/gmd namespace. The root document of this namespace is the file gmd.xsd. This portrayalCatalogue.xsd schema implements the UML conceptual schema defined in A.2.9 of ISO 19115:2003. It contains the implementation of the class MD_PortrayalCatalogueReference.</xs:documentation>
+	  </xs:annotation>
+   <xs:annotation>
+		    <xs:documentation>Geographic MetaData (GMD) extensible markup language is a component of the XML Schema Implementation of Geographic Information Metadata documented in ISO/TS 19139:2007. GMD includes all the definitions of http://www.isotc211.org/2005/gmd namespace. The root document of this namespace is the file gmd.xsd. This dataQuality.xsd schema implements the UML conceptual schema defined in A.2.4 of ISO 19115:2003. It contains the implementation of the following classes: LI_ProcessStep, LI_Source, LI_Lineage,
+DQ_ConformanceResult, DQ_QuantitativeResult, DQ_Result, DQ_TemporalValidity, DQ_AccuracyOfATimeMeasurement, DQ_QuantitativeAttributeAccuracy, DQ_NonQuantitativeAttributeAccuracy, DQ_ThematicClassificationCorrectness, DQ_RelativeInternalPositionalAccuracy, DQ_GriddedDataPositionalAccuracy, DQ_AbsoluteExternalPositionalAccuracy, DQ_TopologicalConsistency, DQ_FormatConsistency, DQ_DomainConsistency, DQ_ConceptualConsistency, DQ_CompletenessOmission, DQ_CompletenessCommission, DQ_TemporalAccuracy, DQ_ThematicAccuracy, DQ_PositionalAccuracy, DQ_LogicalConsistency, DQ_Completeness, DQ_Element, DQ_DataQuality.</xs:documentation>
+	  </xs:annotation>
+   <xs:annotation>
+		    <xs:documentation>Geographic MetaData (GMD) extensible markup language is a component of the XML Schema Implementation of Geographic Information Metadata documented in ISO/TS 19139:2007. GMD includes all the definitions of http://www.isotc211.org/2005/gmd namespace. The root document of this namespace is the file gmd.xsd. This freeText.xsd schema implements cultural and linguistic adaptability extensions defined in 7.3 of ISO/TS 19139:2007. This extension essentially formalizes the free text concept described in Annex J of ISO 19115:2003. For this reason, and in order to simplify the organization of overall geographic metadata XML schema, this schema has been included as part of the gmd namespace instead of the gmx namespace.</xs:documentation>
+	  </xs:annotation>
+   <xs:annotation>
+		    <xs:documentation>Geographic MetaData (GMD) extensible markup language is a component of the XML Schema Implementation of Geographic Information Metadata documented in ISO/TS 19139:2007. GMD includes all the definitions of http://www.isotc211.org/2005/gmd namespace. The root document of this namespace is the file gmd.xsd. This citation.xsd schema implements the UML conceptual schema defined in A.3.2 of ISO 19115:2003. It contains the implementation of the following classes: CI_ResponsibleParty, CI_Citation, CI_Address, CI_OnlineResource, CI_Contact, CI_Telephone, URL, CI_Date, CI_Series, CI_RoleCode, CI_PresentationFormCode, CI_OnLineFunctionCode, CI_DateTypeCode.</xs:documentation>
+	  </xs:annotation>
+   <xs:annotation>
+		    <xs:documentation>Geographic MetaData (GMD) extensible markup language is a component of the XML Schema Implementation of Geographic Information Metadata documented in ISO/TS 19139:2007. GMD includes all the definitions of http://www.isotc211.org/2005/gmd namespace. The root document of this namespace is the file gmd.xsd. This identification.xsd schema implements the UML conceptual schema defined in A.2.2 of ISO 19115:2003. It contains the implementation of the following classes: MD_Identification, MD_BrowseGraphic, MD_DataIdentification, MD_ServiceIdentification, MD_RepresentativeFraction, MD_Usage, MD_Keywords, DS_Association, MD_AggregateInformation, MD_CharacterSetCode, MD_SpatialRepresentationTypeCode, MD_TopicCategoryCode, MD_ProgressCode, MD_KeywordTypeCode, DS_AssociationTypeCode, DS_InitiativeTypeCode, MD_ResolutionType.</xs:documentation>
+	  </xs:annotation>
+   <xs:annotation>
+		    <xs:documentation>Geographic MetaData (GMD) extensible markup language is a component of the XML Schema Implementation of Geographic Information Metadata documented in ISO/TS 19139:2007. GMD includes all the definitions of http://www.isotc211.org/2005/gmd namespace. The root document of this namespace is the file gmd.xsd. This referenceSystem.xsd schema implements the UML conceptual schema defined in A.2.7 of ISO 19115:2003 and ISO 19115:2003/Cor. 1:2006. It contains the implementation of the following classes: RS_Identifier, MD_ReferenceSystem, MD_Identifier and RS_Reference System.</xs:documentation>
+	  </xs:annotation>
+   <xs:annotation>
+		    <xs:documentation>Geographic MetaData (GMD) extensible markup language is a component of the XML Schema Implementation of Geographic Information Metadata documented in ISO/TS 19139:2007. GMD includes all the definitions of http://www.isotc211.org/2005/gmd namespace. The root document of this namespace is the file gmd.xsd. This constraints.xsd schema implements the UML conceptual schema defined in A.2.3 of ISO 19115:2003. It contains the implementation of the following classes: MD_Constraints, MD_LegalConstraints, MD_SecurityConstraints, MD_ClassificationCode, MD_RestrictionCode.</xs:documentation>
+	  </xs:annotation>
+   <xs:annotation>
+		    <xs:documentation>Geographic MetaData (GMD) extensible markup language is a component of the XML Schema Implementation of Geographic Information Metadata documented in ISO/TS 19139:2007. GMD includes all the definitions of http://www.isotc211.org/2005/gmd namespace. The root document of this namespace is the file gmd.xsd. This distribution.xsd schema implements the UML conceptual schema defined in A.2.10 of ISO 19115:2003. It contains the implementation of the following classes: MD_Medium, MD_DigitalTransferOptions, MD_StandardOrderProcess, MD_Distributor, MD_Distribution, MD_Format, MD_MediumFormatCode, MD_MediumNameCode.</xs:documentation>
+	  </xs:annotation>
+   <xs:annotation>
+		    <xs:documentation>Geographic MetaData (GMD) extensible markup language is a component of the XML Schema Implementation of Geographic Information Metadata documented in ISO/TS 19139:2007. GMD includes all the definitions of http://www.isotc211.org/2005/gmd namespace. The root document of this namespace is the file gmd.xsd. This maintenance.xsd schema implements the UML conceptual schema defined in A.2.5 of ISO 19115:2003. It contains the implementation of the following classes: MD_MaintenanceInformation, MD_MaintenanceFrequencyCode, MD_ScopeCode, MD_ScopeDescription.</xs:documentation>
+	  </xs:annotation>
+   <xs:annotation>
+		    <xs:documentation>Geographic MetaData (GMD) extensible markup language is a component of the XML Schema Implementation of Geographic Information Metadata documented in ISO/TS 19139:2007. GMD includes all the definitions of http://www.isotc211.org/2005/gmd namespace. The root document of this namespace is the file gmd.xsd. This extent.xsd schema implements the UML conceptual schema defined in A.3.1 of ISO 19115:2003 and the associated corrigendum. It contains the implementation of the following classes: EX_TemporalExtent, EX_VerticalExtent, EX_BoundingPolygon, EX_Extent, EX_GeographicExtent, EX_GeographicBoundingBox, EX_SpatialTemporalExtent, EX_GeographicDescription.</xs:documentation>
+	  </xs:annotation>
+</schema>
