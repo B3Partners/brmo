@@ -39,6 +39,7 @@ import nl.b3p.topnl.entities.GeografischGebied;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.Inrichtingselement;
 import nl.b3p.topnl.entities.Plaats;
+import nl.b3p.topnl.entities.PlanTopografie;
 import nl.b3p.topnl.entities.RegistratiefGebied;
 import nl.b3p.topnl.entities.Relief;
 import nl.b3p.topnl.entities.Spoorbaandeel;
@@ -232,7 +233,31 @@ public class Top10NLConverterTest extends TestUtil{
         assertEquals( "woonkern", real.getTypeGebied());
         assertEquals( "Aldegea", real.getNaamFries());
     }
-       
+              
+    @Test
+    public void testConvertPlantopografie() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+        System.out.println("testConvertPlantopografie");
+        TopNLEntity entity = getEntity("top10nl/Plantopografie2.xml");
+
+        TopNLEntity expected = getStandardTestTopNLEntity();
+
+        expected.setIdentificatie("NL.TOP10NL.130146508");
+        expected.setVisualisatieCode(new Long("999"));
+        expected.setBronnauwkeurigheid(new Double("100"));
+        expected.setBrontype( "luchtfoto");
+        expected.setBronbeschrijving("Geometrie ingetekend door Kadaster, op basis van luchtfoto's. Voor de objectklasse Terrein is het type_landgebruik gebaseerd op BRP-Gewaspercelen 2016, bron: RVO.nl");
+        expected.setBronactualiteit(sdf.parse("2016-01-01"));
+        expected.setObjectBeginTijd(sdf.parse("2017-06-01"));
+        assertNotNull(entity);
+        assertTrue(entity instanceof PlanTopografie);
+
+        PlanTopografie real = (PlanTopografie) entity;
+
+        testTopNLEntity(expected, real);
+        assertEquals(Polygon.class, real.getGeometrie().getClass());
+        assertEquals( "|A7/N7 Zuidelijke Ringweg Groningen|", real.getNaam());
+    }
+    
     @Test
     public void testConvertRegistratiefGebied() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
         System.out.println("testConvertRegistratiefGebied");
