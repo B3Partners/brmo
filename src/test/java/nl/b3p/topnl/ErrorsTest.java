@@ -31,7 +31,9 @@ import nl.b3p.topnl.entities.TopNLEntity;
 import org.apache.commons.dbutils.BasicRowProcessor;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -90,7 +92,13 @@ public class ErrorsTest  extends TestUtil{
         URL in = ErrorsTest.class.getResource("problems/SpoorDePunt.xml");
         TopNLType type = TopNLType.TOP10NL;
         List jaxb = instance.parse(in);
-        List<TopNLEntity> spoorbaandeel = instance.convert(jaxb, type);
+        List<TopNLEntity> spoorbaandeel = null;
+        try{
+             spoorbaandeel = instance.convert(jaxb, type);
+        }catch(ClassCastException e){
+            fail("Cannot convert spoorbaandeel with point geometry type");
+        }
+        assertEquals(1,spoorbaandeel.size());
         instance.save(spoorbaandeel.get(0), type);
 
         ResultSetHandler<Terrein> handler = new BeanHandler<>(Terrein.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection()))));
