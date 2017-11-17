@@ -1264,6 +1264,7 @@ create table top10nl.Spoorbaandeel (
   hoogteniveau bigint,
     
   geometrie geometry (LineString, 28992),
+  puntGeometrie geometry (Point, 28992),
   primary key (id)
   );
 

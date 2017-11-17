@@ -17,7 +17,7 @@
 package nl.b3p.topnl.entities;
 
 import com.vividsolutions.jts.geom.LineString;
-import java.math.BigInteger;
+import com.vividsolutions.jts.geom.Point;
 
 /**
  *
@@ -39,6 +39,7 @@ public class Spoorbaandeel extends TopNLEntity {
     private Long hoogteniveau;
     
     private LineString geometrie;
+    private Point puntGeometrie;
 
     public String getTypeInfrastructuur() {
         return typeInfrastructuur;
@@ -144,5 +145,11 @@ public class Spoorbaandeel extends TopNLEntity {
         this.hoogteniveau = hoogteniveau;
     }
 
-    
+    public Point getPuntGeometrie() {
+        return puntGeometrie;
+    }
+
+    public void setPuntGeometrie(Point puntGeometrie) {
+        this.puntGeometrie = puntGeometrie;
+    }
 }
