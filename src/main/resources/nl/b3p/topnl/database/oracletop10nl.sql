@@ -241,6 +241,7 @@ create table top10nl.Spoorbaandeel (
   hoogteniveau number,
     
   geometrie  MDSYS.SDO_GEOMETRY,
+  puntGeometrie MDSYS.SDO_GEOMETRY,
   primary key (id)
   );
 

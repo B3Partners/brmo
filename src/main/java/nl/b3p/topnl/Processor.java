@@ -21,16 +21,21 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import javax.sql.DataSource;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.Unmarshaller.Listener;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.TransformerException;
+import javax.xml.stream.Location;
 import nl.b3p.topnl.converters.Converter;
 import nl.b3p.topnl.converters.ConverterFactory;
 import nl.b3p.topnl.entities.TopNLEntity;
@@ -42,6 +47,7 @@ import org.xml.sax.SAXException;
 /**
  *
  * @author Meine Toonen
+ * @author mprins
  */
 public class Processor {
     protected final static Log log = LogFactory.getLog(Processor.class);
@@ -63,6 +69,8 @@ public class Processor {
             Unmarshaller jaxbUnmarshaller = converterFactory.getContext(type).createUnmarshaller();
 
             XMLStreamReader xsr = xif.createXMLStreamReader(in.openStream());
+            LocationListener ll = new LocationListener(xsr);
+            jaxbUnmarshaller.setListener(ll);
 
             while (xsr.hasNext()) {
                 int eventType = xsr.next();
@@ -70,8 +78,9 @@ public class Processor {
                 if (eventType == XMLStreamReader.START_ELEMENT) {
                     String localname = xsr.getLocalName();
                     if (xsr.getLocalName().equals("FeatureMember")) {
+                        JAXBElement jb = null;
                         try {
-                            JAXBElement jb = (JAXBElement) jaxbUnmarshaller.unmarshal(xsr);
+                            jb = (JAXBElement) jaxbUnmarshaller.unmarshal(xsr);
                             Object obj = jb.getValue();
                             ArrayList list = new ArrayList();
                             list.add(obj);
@@ -79,6 +88,8 @@ public class Processor {
                             save(entities, type);
                         } catch (JAXBException | IOException | SAXException | ParserConfigurationException | TransformerException | ParseException ex) {
                             log.error("Error parsing", ex);
+                        } catch (ClassCastException cce) {
+                            log.error(String.format(Locale.ROOT, "Verwerkingsfout van element %s locatie %s", localname, (jb == null ? "onbekend" : ll.getLocation(jb))), cce);
                         }
                     }
                 }
@@ -120,8 +131,15 @@ public class Processor {
         }
         return list;
     }
-    
-    public List<TopNLEntity> convert(List listOfJaxbObjects, TopNLType type)  throws IOException, SAXException, ParserConfigurationException, TransformerException{
+
+    /**
+     *
+     * @throws ClassCastException Als er een onverwacht type geometrie in de
+     * data zit, bijvoorbeeld een punt ipv een lijn
+     */
+    public List<TopNLEntity> convert(List listOfJaxbObjects, TopNLType type) throws IOException, SAXException,
+            ParserConfigurationException, TransformerException, ClassCastException {
+
         Converter converter = converterFactory.getConverter(type);
         List<TopNLEntity> entity = converter.convert(listOfJaxbObjects);
         return entity;
@@ -137,4 +155,23 @@ public class Processor {
         }
     }
 
+    private class LocationListener extends Listener {
+        private XMLStreamReader xsr;
+        private Map<Object, Location> locations;
+
+        public LocationListener(XMLStreamReader xsr) {
+            this.xsr = xsr;
+            this.locations = new HashMap<Object, Location>();
+        }
+
+        @Override
+        public void beforeUnmarshal(Object target, Object parent) {
+            locations.put(target, xsr.getLocation());
+        }
+
+        public Location getLocation(Object o) {
+            return locations.get(o);
+        }
+
+    }
 }

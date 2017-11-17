@@ -18,6 +18,7 @@ package nl.b3p.topnl.converters;
 
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.LineString;
+import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -292,13 +293,18 @@ public class Top10NLConverter extends Converter {
     }
 
     @Override
-    public Spoorbaandeel convertSpoorbaandeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public Spoorbaandeel convertSpoorbaandeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException, ClassCastException {
         SpoorbaandeelType r = (SpoorbaandeelType) jaxbObject;
 
         Spoorbaandeel rg = new Spoorbaandeel();
         convertTop10NlObjectType(r, rg);
 
-        rg.setGeometrie((LineString) gc.convertGeometry(r.getGeometrie()));
+        final Geometry g = gc.convertGeometry(r.getGeometrie());
+        if (g instanceof LineString) {
+            rg.setGeometrie((LineString) g);
+        } else {
+            rg.setPuntGeometrie((Point) g);
+        }
 
         String fysieks = "";
         for (CodeType fk : r.getFysiekVoorkomen()) {
