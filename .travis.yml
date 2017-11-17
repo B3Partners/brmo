@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 dist: trusty
 sudo: required
 language: java
@@ -23,8 +22,6 @@ jdk:
 
 matrix:
   fast_finish: true
-
-  allow_failures:
 
 cache:
   directories:
