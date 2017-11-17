@@ -256,6 +256,8 @@ public class Top10NLConverterTest extends TestUtil{
         testTopNLEntity(expected, real);
         assertEquals(Polygon.class, real.getGeometrie().getClass());
         assertEquals( "|A7/N7 Zuidelijke Ringweg Groningen|", real.getNaam());
+        assertEquals( "weg", real.getTypePlanTopografie());
+        
     }
     
     @Test

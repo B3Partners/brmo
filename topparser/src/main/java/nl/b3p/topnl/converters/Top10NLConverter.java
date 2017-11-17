@@ -33,6 +33,7 @@ import nl.b3p.topnl.entities.GeografischGebied;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.Inrichtingselement;
 import nl.b3p.topnl.entities.Plaats;
+import nl.b3p.topnl.entities.PlanTopografie;
 import nl.b3p.topnl.entities.RegistratiefGebied;
 import nl.b3p.topnl.entities.Relief;
 import nl.b3p.topnl.entities.Spoorbaandeel;
@@ -52,6 +53,7 @@ import nl.b3p.topnl.top10nl.SpoorbaandeelType;
 import nl.b3p.topnl.top10nl.TerreinType;
 import nl.b3p.topnl.top10nl.GeografischGebiedType;
 import nl.b3p.topnl.top10nl.InrichtingselementType;
+import nl.b3p.topnl.top10nl.PlanTopografieType;
 import nl.b3p.topnl.top10nl.ReliefType;
 import nl.b3p.topnl.top10nl.Top10NlObjectType;
 import nl.b3p.topnl.top10nl.Top10NlObjectType.Identificatie;
@@ -128,6 +130,8 @@ public class Top10NLConverter extends Converter {
             entity = convertWaterdeel(featureMember);
         } else if (featureMember instanceof WegdeelType) {
             entity = convertWegdeel(featureMember);
+        }else if (featureMember instanceof PlanTopografieType) {
+            entity = convertPlanTopografie(featureMember);
         } else {
             throw new IllegalArgumentException("Type not recognized: " + featureMember.getClass());
         }
@@ -338,6 +342,20 @@ public class Top10NLConverter extends Converter {
         rg.setTypeLandgebruik(r.getTypeLandgebruik() != null ? r.getTypeLandgebruik().getValue() : null);
 
         return rg;
+    }
+
+    @Override
+    public PlanTopografie convertPlanTopografie(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        PlanTopografieType r = (PlanTopografieType) jaxbObject;
+
+        PlanTopografie pt = new PlanTopografie();
+        convertTop10NlObjectType(r, pt);
+
+        pt.setGeometrie( gc.convertGeometry(r.getGeometrie()));
+        pt.setNaam(r.getNaam());
+        pt.setTypePlanTopografie(r.getTypeObject().getValue());
+        
+        return pt;
     }
 
     @Override

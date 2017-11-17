@@ -26,6 +26,7 @@ import nl.b3p.topnl.entities.GeografischGebied;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.Inrichtingselement;
 import nl.b3p.topnl.entities.Plaats;
+import nl.b3p.topnl.entities.PlanTopografie;
 import nl.b3p.topnl.entities.RegistratiefGebied;
 import nl.b3p.topnl.entities.Relief;
 import nl.b3p.topnl.entities.Spoorbaandeel;
@@ -57,6 +58,7 @@ public abstract class Converter {
     public abstract Plaats convertPlaats(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
     public abstract RegistratiefGebied convertRegistratiefGebied(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
     public abstract Relief convertRelief(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
+    public abstract PlanTopografie convertPlanTopografie(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
 
     /**
      * @throws ClassCastException Als er een onverwacht type geometrie in de

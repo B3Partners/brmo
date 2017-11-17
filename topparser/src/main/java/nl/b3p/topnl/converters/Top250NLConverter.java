@@ -33,6 +33,7 @@ import nl.b3p.topnl.entities.GeografischGebied;
 import nl.b3p.topnl.entities.Hoogte;
 import nl.b3p.topnl.entities.Inrichtingselement;
 import nl.b3p.topnl.entities.Plaats;
+import nl.b3p.topnl.entities.PlanTopografie;
 import nl.b3p.topnl.entities.RegistratiefGebied;
 import nl.b3p.topnl.entities.Relief;
 import nl.b3p.topnl.entities.Spoorbaandeel;
@@ -399,4 +400,9 @@ public class Top250NLConverter extends Converter {
         rg.setTunnelnaam(r.getTunnelnaam());
         return rg;
     }    
+
+    @Override
+    public PlanTopografie convertPlanTopografie(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
