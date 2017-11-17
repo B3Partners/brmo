@@ -39,7 +39,7 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html">ProgressUpdateListener</a> listener;
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong>[] lpIDs;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Properties params = <strong class="jxr_keyword">new</strong> Properties();
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">private</strong> Processor processor = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../nl/b3p/topnl/Processor.html">Processor</a> processor = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/loader/util/TopNLRsgbTransformer.html">TopNLRsgbTransformer</a>(DataSource dataSourceTopNL, <a href="../../../../../nl/b3p/brmo/loader/StagingProxy.html">StagingProxy</a> stagingProxy, <strong class="jxr_keyword">long</strong>[] lpIDs, <a href="../../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html">ProgressUpdateListener</a> listener) <strong class="jxr_keyword">throws</strong> JAXBException, SQLException {
@@ -47,7 +47,7 @@
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>          <strong class="jxr_keyword">this</strong>.dataSourceTopNL = dataSourceTopNL;
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>          <strong class="jxr_keyword">this</strong>.lpIDs = lpIDs;
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>          <strong class="jxr_keyword">this</strong>.listener = listener;
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>          <strong class="jxr_keyword">this</strong>.processor = <strong class="jxr_keyword">new</strong> Processor(dataSourceTopNL);
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>          <strong class="jxr_keyword">this</strong>.processor = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/topnl/Processor.html">Processor</a>(dataSourceTopNL);
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>      }
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> transform(<strong class="jxr_keyword">long</strong> lpID) <strong class="jxr_keyword">throws</strong> SQLException  {
