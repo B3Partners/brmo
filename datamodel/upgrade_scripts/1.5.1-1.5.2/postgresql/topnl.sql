@@ -3,3 +3,4 @@
 --
 
 alter table top10nl.Spoorbaandeel add column puntGeometrie geometry (Point, 28992);
+alter table top10nl.plantopografie add column geometrie geometry (Geometry, 28992);
