@@ -19,6 +19,7 @@
         <module>brmo-soap</module>
         <module>brmo-stufbg204</module>
         <module>brmo-dist</module>
+        <module>topparser</module>
     </modules>
     <name>BRMO</name>
     <description>B3Partners BRMO applicatie</description>
@@ -385,13 +386,7 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>topnlparser</artifactId>
-                <version>1.7-SNAPSHOT</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>net.postgis</groupId>
-                        <artifactId>postgis-jdbc</artifactId>
-                    </exclusion>
-                </exclusions>
+                <version>1.5.2-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

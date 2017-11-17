@@ -1,0 +1,26 @@
+<top50nl:FeatureMember xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:top50nl="http://www.kadaster.nl/top50nl/1.1" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gss="http://www.isotc211.org/2005/gss" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:gsr="http://www.isotc211.org/2005/gsr" xsi:schemaLocation="http://www.kadaster.nl/top50nl/1.1 top50nl_1_1.xsd" >
+    <top50nl:Terrein gml:id="NL.TOP50NL.16R11-0005413060">
+        <top50nl:identificatie>
+            <top50nl:NEN3610ID>
+                <top50nl:namespace>NL.TOP50NL</top50nl:namespace>
+                <top50nl:lokaalID>16R11-0005413060</top50nl:lokaalID>
+            </top50nl:NEN3610ID>
+        </top50nl:identificatie>
+        <top50nl:objectBeginTijd>2016-11-01T00:00:00.000</top50nl:objectBeginTijd>
+        <top50nl:brontype>TOP10NL</top50nl:brontype>
+        <top50nl:bronbeschrijving>Automatische generalisatie vanuit TOP10NL</top50nl:bronbeschrijving>
+        <top50nl:bronactualiteit>2016-11-01</top50nl:bronactualiteit>
+        <top50nl:tdnCode>1526</top50nl:tdnCode>
+        <top50nl:visualisatieCode>15260</top50nl:visualisatieCode>
+        <top50nl:geometrie>
+            <gml:Polygon srsName="urn:ogc:def:crs:EPSG::28992" gml:id="LOCAL_ID_2490780">
+                <gml:exterior>
+                    <gml:LinearRing>
+                        <gml:posList srsDimension="2" count="27">210692.774700001 372680.949499998 210674.5009 372685.235300001 210655.272100002 372686.315900002 210622.677299999 372677.962699998 210607.502500001 372678.147100002 210611.357099999 372670.248100001 210610.736099999 372659.087099999 210594.3301 372654.355099998 210604.746100001 372614.984900001 210611.881700002 372606.732099999 210608.866700001 372602.3565 210610.734099999 372595.387499999 210600.254900001 372595.8937 210601.7797 372590.331700001 210604.531300001 372580.717700001 210614.749699999 372544.846700002 210621.425500002 372521.390299998 210666.309500001 372533.9219 210659.550900001 372559.2755 210648.949900001 372596.085900001 210649.475099999 372596.401500002 210664.914900001 372601.0869 210676.800500002 372604.3873 210677.635899998 372618.5143 210695.271699999 372657.748100001 210692.8301 372681.364500001 210692.774700001 372680.949499998</gml:posList>
+                    </gml:LinearRing>
+                </gml:exterior>
+            </gml:Polygon>
+        </top50nl:geometrie>
+        <top50nl:typeLandgebruik>overig</top50nl:typeLandgebruik>
+    </top50nl:Terrein>
+</top50nl:FeatureMember>

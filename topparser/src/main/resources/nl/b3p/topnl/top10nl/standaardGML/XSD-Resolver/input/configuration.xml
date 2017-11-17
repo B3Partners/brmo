@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--	This XML Configuration file is used to configure a set of XSLT stylesheets which are used to proces a set of XML-Schema's to enable them to be used in code generation.
+		 
+		Copyright (C) 2013  Robert Melskens, KING
+
+		This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public
+		License as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version.
+
+		This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+
+		You should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
+		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA. -->
+<application:configuration xmlns:application="http://www.kinggemeenten.nl/2011/applicationConfiguration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.kinggemeenten.nl/2011/applicationConfiguration Configuration.xsd">
+	<application:processingParameters>
+		<!-- De volgende parameter kan ook d.m.v. commandline parameters worden ingesteld. -->
+		<!-- The 'restrictionMode' parameter kan de volgende waardes aannemen:
+				'true'						zal alle 'xs:restriction' constructies oplossen.
+				'false'					zal alle 'xs:restriction' constructies intact laten. In dit geval worden alleen de 'xs:include' opgelost. -->
+		<application:restrictionMode>true</application:restrictionMode>
+		<application:path>/home/meine/dev/topparser/src/main/resources/nl/b3p/topnl/top10nl/standaardGML/XSD-Resolver</application:path>
+	</application:processingParameters>
+	<!-- Standaard worden alleen de berichten meegenomen die gedefinieerd zijn in het mainschema van de te verwerken berichtencatalogus of koppelvlak.
+		  Daarnaast kunnen ook berichten in andere namespaces gewenst zijn.
+		  De onderstaande lijst bevat daarom alle berichten die standaard beschikbaar moeten zijn in alle berichtencatalogi en koppelvlakken. -->
+	<application:standardApplicableMessages>
+		<application:message namespace="http://www.egem.nl/StUF/StUF0301">Fo01Bericht</application:message>
+		<application:message namespace="http://www.egem.nl/StUF/StUF0301">Fo02Bericht</application:message>
+		<application:message namespace="http://www.egem.nl/StUF/StUF0301">Fo03Bericht</application:message>
+		<application:message namespace="http://www.egem.nl/StUF/StUF0301">Bv01Bericht</application:message>
+		<application:message namespace="http://www.egem.nl/StUF/StUF0301">Bv02Bericht</application:message>
+		<application:message namespace="http://www.egem.nl/StUF/StUF0301">Bv03Bericht</application:message>
+		<application:message namespace="http://www.egem.nl/StUF/StUF0301">Bv04Bericht</application:message>
+		<application:message namespace="http://www.egem.nl/StUF/StUF0301">Tr01Bericht</application:message>
+	</application:standardApplicableMessages>
+	<!-- In de onderstaande lijst worden prefixes gedefinieerd voor het geval er voor een namespace in de schema's geen prefix gedefinieerd is.
+		  Dit dient om conflicten te vermijden in het geval er meerdere namespaces zijn waarvoor geen prefix is gedefinieerd. -->
+	<application:namespacePrefixes>
+		<application:prefix namespace="http://www.opengis.net/citygml/2.0">cgml</application:prefix>
+	</application:namespacePrefixes>
+	<!-- =========================== 1. Configuratie sectormodel ============================= -->
+	<!-- Het te processen sectormodel kan gedefinieerd worden door voor het 'active' attribuut van het 'application:configurationSectorModel' element de waarde 'yes' te specificeren.
+		  Er mag steeds maar 1 'application:configurationSectorModel' element met de waarde 'yes' voor het 'active' attribuut aanwezig zijn. -->
+	<!--StUF-ZKN-domain -->
+	<application:configurationSectorModel domain="StUF-ZKN-vraagAntwoord" Id="StUF-ZKN3.01-vraagAntwoord" active="no">
+		<!-- ======================================================================== -->
+		<!-- ===== Basis folder van het sectormodel ========================================== -->
+		<!-- In het 'path' element moet het path vermeld worden waar het te converteren sectormodel te vinden is.
+			  Evt. backslashes worden geconverteerd naar gewone slashes. -->
+		<application:pathSectormodel>C:\StUF\zkn0310\vraagAntwoord</application:pathSectormodel>
+		<application:resolve>
+			<application:schema>
+				<application:schemaName>zkn0310_msg_vraagAntwoord.xsd</application:schemaName>
+			</application:schema>
+		</application:resolve>
+	</application:configurationSectorModel>
+	<application:configurationSectorModel domain="StUF-ZKN-mutatie" Id="StUF-ZKN3.01-mutatie" active="no">
+		<!-- ======================================================================== -->
+		<!-- ===== Basis folder van het sectormodel ========================================== -->
+		<!-- In het 'path' element moet het path vermeld worden waar het te converteren sectormodel te vinden is.
+			  Evt. backslashes worden geconverteerd naar gewone slashes. -->
+		<application:pathSectormodel>C:\StUF\zkn0310\mutatie</application:pathSectormodel>
+		<application:resolve>
+			<application:schema>
+				<application:schemaName>zkn0310_msg_mutatie.xsd</application:schemaName>
+			</application:schema>
+		</application:resolve>
+		<!--<application:doNotResolve>
+			<application:schema>
+				<application:namespace>http://www.opengis.net/gml</application:namespace>
+				<application:schemaName>gml.xsd</application:schemaName>
+			</application:schema>
+		</application:doNotResolve>-->
+	</application:configurationSectorModel>
+	<!--StUF-BG-domain -->
+	<application:configurationSectorModel domain="StUF-BG-vraagAntwoord" Id="StUF-BG3.01-vraagAntwoord" active="no">
+		<!-- ======================================================================== -->
+		<!-- ===== Basis folder van het sectormodel ========================================== -->
+		<!-- In het 'path' element moet het path vermeld worden waar het te converteren sectormodel te vinden is.
+			  Evt. backslashes worden geconverteerd naar gewone slashes. -->
+		<application:pathSectormodel>C:\StUF\bg0310\vraagAntwoord</application:pathSectormodel>
+		<application:resolve>
+			<application:schema>
+				<application:schemaName>bg0310_msg_vraagAntwoord.xsd</application:schemaName>
+			</application:schema>
+		</application:resolve>
+		<!--<application:doNotResolve>
+			<application:schema>
+				<application:namespace>http://www.opengis.net/gml</application:namespace>
+				<application:schemaName>gml.xsd</application:schemaName>
+			</application:schema>
+		</application:doNotResolve>-->
+	</application:configurationSectorModel>
+	<application:configurationSectorModel domain="StUF-BG-mutatie" Id="StUF-BG3.01-mutatie" active="no">
+		<!-- ======================================================================== -->
+		<!-- ===== Basis folder van het sectormodel ========================================== -->
+		<!-- In het 'path' element moet het path vermeld worden waar het te converteren sectormodel te vinden is.
+			  Evt. backslashes worden geconverteerd naar gewone slashes. -->
+		<application:pathSectormodel>C:\StUF\bg0310\mutatie</application:pathSectormodel>
+		<application:resolve>
+			<application:schema>
+				<application:schemaName>bg0310_msg_mutatie.xsd</application:schemaName>
+			</application:schema>
+		</application:resolve>
+		<!--<application:doNotResolve>
+			<application:schema>
+				<application:namespace>http://www.opengis.net/gml</application:namespace>
+				<application:schemaName>gml.xsd</application:schemaName>
+			</application:schema>
+		</application:doNotResolve>-->
+	</application:configurationSectorModel>
+	<!--StUF-BAG-domain -->
+	<application:configurationSectorModel domain="StUF-BAG" Id="StUF-BAG" active="no">
+		<!-- ======================================================================== -->
+		<!-- ===== Basis folder van het sectormodel ========================================== -->
+		<!-- In het 'path' element moet het path vermeld worden waar het te converteren sectormodel te vinden is.
+			  Evt. backslashes worden geconverteerd naar gewone slashes. -->
+		<application:pathSectormodel>C:\StUF\bg0310\bag</application:pathSectormodel>
+		<application:resolve>
+			<application:schema>
+				<application:schemaName>bg0310_msg_bag.xsd</application:schemaName>
+			</application:schema>
+		</application:resolve>
+		<!--<application:doNotResolve>
+			<application:schema>
+				<application:namespace>http://www.opengis.net/gml</application:namespace>
+				<application:schemaName>gml.xsd</application:schemaName>
+			</application:schema>
+		</application:doNotResolve>-->
+	</application:configurationSectorModel>
+	<!--StUF-ZTC -->
+	<application:configurationSectorModel domain="StUF-ZTC" Id="StUF-ZTC" active="no">
+		<!-- ======================================================================== -->
+		<!-- ===== Basis folder van het sectormodel ========================================== -->
+		<!-- In het 'path' element moet het path vermeld worden waar het te converteren sectormodel te vinden is.
+			  Evt. backslashes worden geconverteerd naar gewone slashes. -->
+		<application:pathSectormodel>C:\StUF\ZTC\ztc0100</application:pathSectormodel>
+		<application:resolve>
+			<application:schema>
+				<application:schemaName>ztc0100.xsd</application:schemaName>
+			</application:schema>
+		</application:resolve>
+		<!--<application:doNotResolve>
+			<application:schema>
+				<application:namespace>http://www.opengis.net/gml</application:namespace>
+				<application:schemaName>gml.xsd</application:schemaName>
+			</application:schema>
+		</application:doNotResolve>-->
+	</application:configurationSectorModel>
+	<!--StUF-WOZ -->
+	<application:configurationSectorModel domain="StUF-WOZ" Id="StUF-WOZ" active="no">
+		<!-- ======================================================================== -->
+		<!-- ===== Basis folder van het sectormodel ========================================== -->
+		<!-- In het 'path' element moet het path vermeld worden waar het te converteren sectormodel te vinden is.
+			  Evt. backslashes worden geconverteerd naar gewone slashes. -->
+		<application:pathSectormodel>C:\StUF\StUF_WOZ_3.10\woz0312_20120514\woz0312\proces</application:pathSectormodel>
+		<application:resolve>
+			<application:schema>
+				<application:schemaName>woz0312_msg_proces.xsd</application:schemaName>
+			</application:schema>
+		</application:resolve>
+		<!--<application:doNotResolve>
+			<application:schema>
+				<application:namespace>http://www.opengis.net/gml</application:namespace>
+				<application:schemaName>gml.xsd</application:schemaName>
+			</application:schema>
+		</application:doNotResolve>-->
+	</application:configurationSectorModel>
+	<!--BPR_open -->
+	<application:configurationSectorModel domain="BPR" Id="BPR_open" active="no">
+		<!-- ======================================================================== -->
+		<!-- ===== Basis folder van het sectormodel ========================================== -->
+		<!-- In het 'path' element moet het path vermeld worden waar het te converteren sectormodel te vinden is.
+			  Evt. backslashes worden geconverteerd naar gewone slashes. -->
+		<application:pathSectormodel>C:\StUF\BPR_open\bg0310\bpr_open</application:pathSectormodel>
+		<application:resolve>
+			<application:schema>
+				<application:schemaName>bg0310_msg_bpr.xsd</application:schemaName>
+			</application:schema>
+		</application:resolve>
+		<!--<application:doNotResolve>
+			<application:schema>
+				<application:namespace>http://www.opengis.net/gml</application:namespace>
+				<application:schemaName>gml.xsd</application:schemaName>
+			</application:schema>
+		</application:doNotResolve>-->
+	</application:configurationSectorModel>
+	<!--Lopendezaken -->
+	<application:configurationSectorModel domain="Lopendezaken" Id="Lopendezaken" active="no">
+		<!-- ======================================================================== -->
+		<!-- ===== Basis folder van het sectormodel ========================================== -->
+		<!-- In het 'path' element moet het path vermeld worden waar het te converteren sectormodel te vinden is.
+			  Evt. backslashes worden geconverteerd naar gewone slashes. -->
+		<application:pathSectormodel>C:\StUF\zkn0310\lopende-zaken0310</application:pathSectormodel>
+		<application:resolve>
+			<application:schema>
+				<application:schemaName>zkn0310_msg_lopende-zaken.xsd</application:schemaName>
+			</application:schema>
+		</application:resolve>
+		<!--<application:doNotResolve>
+			<application:schema>
+				<application:namespace>http://www.opengis.net/gml</application:namespace>
+				<application:schemaName>gml.xsd</application:schemaName>
+			</application:schema>
+		</application:doNotResolve>-->
+	</application:configurationSectorModel>
+	<!--KvK -->
+	<!-- Deze verwijst nog naar een oude versie van openGIS. -->
+	<application:configurationSectorModel domain="StUF-KvK" Id="StUF-KvK" active="no">
+		<!-- ======================================================================== -->
+		<!-- ===== Basis folder van het sectormodel ========================================== -->
+		<!-- In het 'path' element moet het path vermeld worden waar het te converteren sectormodel te vinden is.
+			  Evt. backslashes worden geconverteerd naar gewone slashes. -->
+		<application:pathSectormodel>C:\StUF\KvK\kvk0100\vrij</application:pathSectormodel>
+		<application:resolve>
+			<application:schema>
+				<application:schemaName>kvk0100_msg_vrij.xsd</application:schemaName>
+			</application:schema>
+		</application:resolve>
+		<!--<application:doNotResolve>
+			<application:schema>
+				<application:namespace>http://www.opengis.net/gml</application:namespace>
+				<application:schemaName>gml.xsd</application:schemaName>
+			</application:schema>
+		</application:doNotResolve>-->
+	</application:configurationSectorModel>
+	<!--IMGeo -->
+	<application:configurationSectorModel domain="top50nl" Id="top50nl" active="yes">
+		<!-- ======================================================================== -->
+		<!-- ===== Basis folder van het sectormodel ========================================== -->
+		<!-- In het 'path' element moet het path vermeld worden waar het te converteren sectormodel te vinden is.
+			  Evt. backslashes worden geconverteerd naar gewone slashes. -->
+		<application:pathSectormodel>/home/meine/dev/topparser/src/main/resources/nl/b3p/topnl/top10nl/standaardGML</application:pathSectormodel>
+		<application:resolve>
+			<application:schema>
+				<application:schemaName>top10nl.xsd</application:schemaName>
+			</application:schema>
+		</application:resolve>
+		<!--<application:doNotResolve>
+			<application:schema>
+				<application:namespace>http://www.opengis.net/gml</application:namespace>
+				<application:schemaName>gml.xsd</application:schemaName>
+			</application:schema>
+		</application:doNotResolve>-->
+	</application:configurationSectorModel>
+</application:configuration>
