@@ -31,7 +31,9 @@ import nl.b3p.topnl.entities.TopNLEntity;
 import org.apache.commons.dbutils.BasicRowProcessor;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -81,6 +83,27 @@ public class ErrorsTest  extends TestUtil{
         ResultSetHandler<Terrein> handler = new BeanHandler<>(Terrein.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection()))));
 
         Terrein real = run.query("SELECT * FROM top250nl.terrein WHERE identificatie=?", handler, "NL.TOP250NL.16R09-0000064539");
+        assertNotNull(real);
+    }
+    
+    @Test
+    public void spoorbaanDePunt() throws JAXBException, IOException, SAXException, ParserConfigurationException, TransformerException, ParseException, SQLException {
+        System.out.println("save");
+        URL in = ErrorsTest.class.getResource("problems/SpoorDePunt.xml");
+        TopNLType type = TopNLType.TOP10NL;
+        List jaxb = instance.parse(in);
+        List<TopNLEntity> spoorbaandeel = null;
+        try{
+             spoorbaandeel = instance.convert(jaxb, type);
+        }catch(ClassCastException e){
+            fail("Cannot convert spoorbaandeel with point geometry type");
+        }
+        assertEquals(1,spoorbaandeel.size());
+        instance.save(spoorbaandeel.get(0), type);
+
+        ResultSetHandler<Terrein> handler = new BeanHandler<>(Terrein.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection()))));
+
+        Terrein real = run.query("SELECT * FROM top10nl.spoorbaandeel WHERE identificatie=?", handler, "NL.TOP10NL.105531727");
         assertNotNull(real);
     }
 }
