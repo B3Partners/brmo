@@ -19,7 +19,7 @@ public class LaadProces {
     private String contactEmail;
 
     /**
-     * @see nl.b3p.brmo.persistence.staging.LaadProces
+     * see nl.b3p.brmo.persistence.staging.LaadProces
      */
     public static enum STATUS {
         // als je er bij maakt ook in de andere LaadProces klasse toevoegen
