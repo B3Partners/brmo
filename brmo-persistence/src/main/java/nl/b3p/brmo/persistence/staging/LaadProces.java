@@ -57,7 +57,7 @@ public class LaadProces implements Serializable {
     private AutomatischProces automatischProces;
 
     /**
-     * @see nl.b3p.brmo.loader.entity.LaadProces
+     * see nl.b3p.brmo.loader.entity.LaadProces
      */
     public static enum STATUS {
         // als je er bij maakt ook in de andere LaadProces klasse toevoegen

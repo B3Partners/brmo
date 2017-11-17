@@ -49,7 +49,11 @@
     </issueManagement>
     <properties>
         <java.version>1.8</java.version>
-        <netbeans.hint.license>default_1</netbeans.hint.license>
+        <project.build.sourceVersion>${java.version}</project.build.sourceVersion>
+        <project.build.targetVersion>${java.version}</project.build.targetVersion>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <netbeans.hint.license>gpl30</netbeans.hint.license>
         <hibernate.version>3.6.10.Final</hibernate.version>
         <geotools.version>18.0</geotools.version>
         <postgresql.jdbc.version>42.1.4</postgresql.jdbc.version>
@@ -592,6 +596,7 @@
                         <javadocVersion>${java.version}</javadocVersion>
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <packagesheader>${project.artifactId}</packagesheader>
+                        <detectLinks>true</detectLinks>
                         <tags>
                             <tag>
                                 <name>todo</name>
@@ -694,6 +699,11 @@
                     <groupId>org.jvnet.jax-ws-commons</groupId>
                     <artifactId>jaxws-maven-plugin</artifactId>
                     <version>2.3.1-b20150201.1248</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.7.9</version>
                 </plugin>
             </plugins>
         </pluginManagement>

@@ -21,13 +21,14 @@
   <body>
     <head />
     <links>
-      <item name="Wiki" href="https://github.com/B3Partners/topparser/wiki" />
+      <item name="Wiki" href="https://github.com/B3Partners/brmo/wiki" />
       <item name="Issues dashboard" href="${this.issueManagement.url}" />
     </links>
-    <menu name="Informatie" inherit="top">
+    <menu name="Informatie">
       <item name="Home" href="/index.html" />
-      <item name="Developer Notes" href="/developer-notes.html" />
     </menu>
+    <menu ref="parent" />
+    <menu ref="modules" />
     <menu ref="reports" />
   </body>
   <poweredBy />
