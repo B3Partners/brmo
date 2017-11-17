@@ -50,6 +50,7 @@ public class BrmoFramework {
     public static final String XSL_BRK = "/xsl/brk-snapshot-to-rsgb-xml.xsl";
     public static final String XSL_BAG = "/xsl/bag-mutatie-to-rsgb-xml.xsl";
     public static final String XSL_NHR = "/xsl/nhr-to-rsgb-xml-2.5.xsl";
+    public static final String XSL_BRP = "/xsl/brp-to-rsgb-xml.xsl";
 
     public static final String LAADPROCES_TABEL = "laadproces";
     public static final String BERICHT_TABLE = "bericht";

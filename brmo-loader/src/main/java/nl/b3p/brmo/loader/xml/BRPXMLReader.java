@@ -16,20 +16,34 @@
  */
 package nl.b3p.brmo.loader.xml;
 
+import java.beans.XMLEncoder;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
-import org.apache.commons.io.IOUtils;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -37,19 +51,18 @@ import org.w3c.dom.NodeList;
  *
  * @author Meine Toonen
  */
-public class BRPXMLReader extends BrmoXMLReader{
+public class BRPXMLReader extends BrmoXMLReader {
 
     private InputStream in;
     private NodeList nodes = null;
     private int index;
-    
-    
-    public BRPXMLReader(InputStream in, Date d) throws Exception{
+
+    public BRPXMLReader(InputStream in, Date d) throws Exception {
         this.in = in;
         setBestandsDatum(d);
         init();
     }
-    
+
     @Override
     public void init() throws Exception {
         soort = BrmoFramework.BR_BRP;
@@ -70,16 +83,66 @@ public class BRPXMLReader extends BrmoXMLReader{
     public Bericht next() throws Exception {
         Node n = nodes.item(index);
         index++;
+
         StringWriter sw = new StringWriter();
         Transformer t = TransformerFactory.newInstance().newTransformer();
         t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
         t.transform(new DOMSource(n), new StreamResult(sw));//new StreamResult(outputStream));
-        
-        String brXML = sw.toString();
+ 
+        Map<String, String> bsns = extractBSN(n);
+
+        String el = getXML(bsns);
+        String brXML = "<root>" + sw.toString();
+        brXML += el + "</root>";
         Bericht b = new Bericht(brXML);
+        b.setVolgordeNummer(index);
+        b.setObjectRef(getObjectRef(n));
         b.setSoort(BrmoFramework.BR_BRP);
         b.setDatum(new Date());
         return b;
     }
-    
+
+    private String getObjectRef(Node n) {
+        NodeList childs = n.getChildNodes();
+        String hash = null;
+        for (int i = 0; i < childs.getLength(); i++) {
+            Node child = childs.item(i);
+            String name = child.getNodeName();
+            if (name.contains("bsn-nummer")) {
+                hash = child.getTextContent();
+                hash = DigestUtils.shaHex(hash);
+                break;
+            }
+        }
+        return "NL.BRP." + hash;
+    }
+
+    public Map<String, String> extractBSN(Node n) throws XPathExpressionException {
+        Map<String, String> hashes = new HashMap<>();
+
+        XPathFactory xPathfactory = XPathFactory.newInstance();
+        XPath xpath = xPathfactory.newXPath();
+        XPathExpression expr = xpath.compile("//*[local-name() = 'bsn-nummer']");
+        NodeList nodelist = (NodeList) expr.evaluate(n, XPathConstants.NODESET);
+        for (int i = 0; i < nodelist.getLength(); i++) {
+            Node bsn = nodelist.item(i);
+            String bsnString = bsn.getTextContent();
+            String hash = DigestUtils.shaHex(bsnString);
+            hashes.put(bsnString, hash);
+            
+        }
+        return hashes;
+    }
+
+    public String getXML(Map<String, String> map) throws ParserConfigurationException {
+        String root = "<bsnhashes>";
+        for (Entry<String, String> entry : map.entrySet()) {
+            if (!entry.getKey().isEmpty() && !entry.getValue().isEmpty()) {
+                String el = "<NL.BRP.Persoon." + entry.getKey() + ">" + entry.getValue() + "</NL.BRP.Persoon." + entry.getKey() + ">";
+                root += el;
+            }
+        }
+        root += "</bsnhashes>";
+        return root;
+    }
 }

@@ -294,7 +294,7 @@ public class StagingProxy {
         }
         log.debug("pre-transformatie SQL: " + q);
         return new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                .update(getConnection(), q.toString(), new java.sql.Date((new Date()).getTime()));
+                .update(getConnection(), q.toString(), new java.sql.Timestamp((new Date()).getTime()));
     }
 
     public long setBerichtenJobByLaadprocessen(long[] laadprocesIds, boolean orderBerichten) throws SQLException {
