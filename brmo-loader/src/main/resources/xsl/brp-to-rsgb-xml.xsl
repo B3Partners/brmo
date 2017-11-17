@@ -85,11 +85,18 @@
         </ingeschr_nat_prs>
 
 
-        <xsl:apply-templates select="ns2:PRSIDB"/>
+        <!--xsl:apply-templates select="ns2:PRSIDB"/>
         <xsl:apply-templates select="ns2:PRSPRSHUW"/>
-        <xsl:apply-templates select="ns2:PRSPRSKND"/>
+        <xsl:apply-templates select="ns2:PRSPRSKND"/-->
         <xsl:apply-templates select="ns2:PRSPRSOUD"/>
 
+    </xsl:template>
+
+    <xsl:template name="getHash">
+        <xsl:param name="bsn"/>
+        <xsl:variable name="pietje"><xsl:value-of select="'NL.BRP.Persoon.'"/><xsl:value-of select="$bsn"/></xsl:variable>
+        <xsl:variable name="aap"><xsl:value-of select="/root/bsnhashes/*[name() ='$pietje']/*"/></xsl:variable>
+        <xsl:value-of select="$aap"/>
     </xsl:template>
 
     <xsl:template match="ns2:PRSPRSKND">
@@ -105,7 +112,9 @@
     <xsl:template match="ns2:PRSPRSOUD">
         <ouder_kind_rel>
             <fk_sc_lh_inp_sc_identif><xsl:value-of select="$objectRef"/></fk_sc_lh_inp_sc_identif>
-            <fk_sc_rh_inp_sc_identif><xsl:value-of select="ns2:PRS/ns2:bsn-nummer"/></fk_sc_rh_inp_sc_identif>
+            <!--fk_sc_rh_inp_sc_identif><xsl:value-of select="ns2:PRS/ns2:bsn-nummer"/></fk_sc_rh_inp_sc_identif-->
+            <fk_sc_rh_inp_sc_identif><xsl:call-template name="getHash"><xsl:with-param name="bsn" 
+                select="ns2:PRS/ns2:bsn-nummer"/></xsl:call-template></fk_sc_rh_inp_sc_identif>
             <datum_einde_fam_recht_betr><xsl:value-of select="ns2:ingangsdatum"/></datum_einde_fam_recht_betr>
             <datum_ingang_fam_recht_betr><xsl:value-of select="ns2:einddatum"/></datum_ingang_fam_recht_betr>
             <ouder_aand><xsl:value-of select="'OUDER'"/></ouder_aand>

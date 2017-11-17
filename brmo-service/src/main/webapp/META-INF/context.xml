@@ -102,5 +102,12 @@
     </Server>
     -->
   <ResourceLink global="mail/session" name="mail/session" type="javax.mail.Session"/>
-  <Realm allRolesMode="authOnly" className="org.apache.catalina.realm.DataSourceRealm" dataSourceName="jdbc/brmo/staging" digest="SHA-1" roleNameCol="groep_" userCredCol="wachtwoord" userNameCol="gebruikersnaam" userRoleTable="gebruiker_groepen" userTable="gebruiker_"/>
+  <Realm allRolesMode="authOnly" className="org.apache.catalina.realm.DataSourceRealm" 
+         dataSourceName="jdbc/brmo/staging" 
+         digest="SHA-1" 
+         roleNameCol="groep_" 
+         userCredCol="wachtwoord" 
+         userNameCol="gebruikersnaam" 
+         userRoleTable="gebruiker_groepen" 
+         userTable="gebruiker_"/>
 </Context>
