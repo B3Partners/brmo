@@ -378,6 +378,9 @@ digraph G {
 <tr><td align="left" balign="left"> RSGB_BGT_OK </td></tr>
 <tr><td align="left" balign="left"> RSGB_BGT_NOK </td></tr>
 <tr><td align="left" balign="left"> RSGB_BGT_WAITING </td></tr>
+<tr><td align="left" balign="left"> RSGB_TOPNL_WAITING </td></tr>
+<tr><td align="left" balign="left"> RSGB_TOPNL_OK </td></tr>
+<tr><td align="left" balign="left"> RSGB_TOPNL_NOK </td></tr>
 		</table></td></tr>
 		</table>>, URL="./LaadProces.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.BGTLightOphaalProces
