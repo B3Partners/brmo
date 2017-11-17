@@ -17,61 +17,63 @@
 package nl.b3p.topnl;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jdom2.JDOMException;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.rules.TestName;
 
 /**
  *
  * @author Meine Toonen meinetoonen@b3partners.nl
+ * @author mprins
+ *
  */
 public class TopNLTypeFactoryTest {
+
+    private final static Log LOG = LogFactory.getLog(TopNLTypeFactoryTest.class);
     private TopNLTypeFactory instance = new TopNLTypeFactory();
+
     
-    public TopNLTypeFactoryTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+    @Rule
+    public TestName testName = new TestName();
+
+    /**
+     * Log de naam van de test als deze begint.
+     */
     @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
+    public void startTest() {
+        LOG.info("==== Start test methode: " + testName.getMethodName());
     }
 
+    /**
+     * Log de naam van de test als deze eindigt.
+     */
+    @After
+    public void endTest() {
+        LOG.info("==== Einde test methode: " + testName.getMethodName());
+    }
     /**
      * Test of getTopNLType method, of class TopNLTypeFactory.
      */
     //@Test
     public void testGetTopNLType50() throws JDOMException, IOException {
-        System.out.println("getTopNLType");
         URL is = null;
         TopNLTypeFactory instance = new TopNLTypeFactory();
         TopNLType expResult = TopNLType.TOP50NL;
         TopNLType result = instance.getTopNLType(is);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
     }
     
     @Test
     public void testGetTopNLType250() throws JDOMException, IOException {
         URL is = TopNLTypeFactoryTest.class.getResource("top250nl_Hoogte.xml");
-        
-        System.out.println("getTopNLType");
+
         TopNLType expResult = TopNLType.TOP250NL;
         TopNLType result = instance.getTopNLType(is);
         assertEquals(expResult, result);
@@ -82,7 +84,6 @@ public class TopNLTypeFactoryTest {
     public void testGetTopNLType100() throws JDOMException, IOException {
         URL is = TopNLTypeFactoryTest.class.getResource("top100nl_Hoogte.xml");
         
-        System.out.println("getTopNLType");
         TopNLType expResult = TopNLType.TOP100NL;
         TopNLType result = instance.getTopNLType(is);
         assertEquals(expResult, result);

@@ -13,8 +13,8 @@ addons:
    #  - https://docs.travis-ci.com/user/hostname
    #  - https://github.com/travis-ci/travis-ci/issues/5227
    #  - https://github.com/travis-ci/travis-ci/issues/5669
-   hostname: travis-brmo
-   hosts: travis-brmo
+   # hostname: travis-brmo
+   # hosts: travis-brmo
 
 jdk:
   - oraclejdk8
@@ -33,6 +33,7 @@ before_install:
   - unzip -qq apache-maven-3.5.2-bin.zip
   - export M2_HOME=$PWD/apache-maven-3.5.2
   - export PATH=$M2_HOME/bin:$PATH
+  - mvn -v
   # installeer/update postgis 2.2 op postgresql 9.5
   - sudo service postgresql stop
   - sudo -E apt-get -qq update &>> ~/apt-get-update.log
@@ -59,7 +60,7 @@ before_install:
 
 install:
   # install all dependencies + artifacts without any testing and create any DB scripts
-  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Ppostgresql
+  - travis_wait 20 mvn install -Dmaven.test.skip=true -B -V -fae -Ppostgresql
 
 before_script:
   # dit dient na afloop van de 'install' gedaan te worden omdat (een deel van) de sql gegenereerd wordt
@@ -83,8 +84,8 @@ before_script:
   - psql -U postgres -w -q -d topnl -f ./brmo-dist/target/topnlschemas/nl/b3p/topnl/database/postgres.sql
 
 script:
-  # run unit tests
-  - mvn -e test -B -Ppostgresql -pl '!brmo-dist'
+  # run unit tests voor alle modules
+  - travis_wait 20 mvn -e test -B -Ppostgresql -pl '!brmo-dist'
   # run integratie tests voor veschillende modules
   # run integratie tests voor bgt-gml-loader module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
