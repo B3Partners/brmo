@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bindings xmlns="http://java.sun.com/xml/ns/jaxb" xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="2.0" xmlns:gml="http://www.opengis.net/gml">
+	<globalBindings typesafeEnumMaxMembers="1000">
+		<javaType name="java.util.Calendar" xmlType="xsd:date" parseMethod="javax.xml.bind.DatatypeConverter.parseDate" printMethod="javax.xml.bind.DatatypeConverter.printDate"/>
+		<javaType name="java.util.Calendar" xmlType="xsd:dateTime" parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime" printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
+	</globalBindings>
+	<bindings schemaLocation="top100nl_resolved.xsd">
+		<!--schemaBindings>
+			<package name="nl.b3p.harvester.imro2012"/>
+		</schemaBindings-->
+		<bindings node="/xsd:schema">
+			<!--
+				attributen worden via jaxb bindings niet omgezet naar objecten.
+				Deze worden als xml fragment verder verwerkt.
+			-->
+			
+			<bindings node="xsd:complexType[@name='FunctioneelGebiedType']//xsd:element[@type='top100nl:VlakMultivlakOfPuntPropertyType']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GebouwType']//xsd:element[@type='top100nl:VlakOfPuntPropertyType']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='GeografischGebiedType']//xsd:element[@type='top100nl:VlakMultivlakOfPuntPropertyType']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='HoogteType']//xsd:element[@type='top100nl:LijnOfPuntPropertyType']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='InrichtingselementType']//xsd:element[@type='top100nl:LijnOfPuntPropertyType']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='RegistratiefGebiedType']//xsd:element[@type='top100nl:VlakOfMultivlakPropertyType']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='ReliefType']//xsd:element[@type='gml:CurvePropertyType']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='SpoorbaandeelType']//xsd:element[@type='gml:CurvePropertyType']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='TerreinType']//xsd:element[@type='gml:SurfacePropertyType']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WaterdeelType']//xsd:element[@type='top100nl:VlakOfLijnPropertyType']">
+				<dom/>
+			</bindings>
+			<bindings node="xsd:complexType[@name='WegdeelType']//xsd:element[@type='top100nl:VlakOfLijnPropertyType']">
+				<dom/>
+			</bindings>
+		</bindings>
+	</bindings>
+
+	<!--bindings schemaLocation="gml_resolved.xsd">
+		<schemaBindings map="false"/>
+	</bindings-->
+</bindings>

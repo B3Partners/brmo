@@ -23,8 +23,6 @@ jdk:
 matrix:
   fast_finish: true
 
-  allow_failures:
-
 cache:
   directories:
   - $HOME/.m2
@@ -118,5 +116,3 @@ after_success:
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
          travis_wait mvn -B -e -Ppostgresql site-deploy --settings .travis/settings.xml;
     fi
-
-# after_failure:
