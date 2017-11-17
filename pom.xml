@@ -385,7 +385,7 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>topnlparser</artifactId>
-                <version>1.6</version>
+                <version>1.7-SNAPSHOT</version>
                 <exclusions>
                     <exclusion>
                         <groupId>net.postgis</groupId>
