@@ -14,11 +14,6 @@ addons:
    #  - https://docs.travis-ci.com/user/hostname
    #  - https://github.com/travis-ci/travis-ci/issues/5227
    #  - https://github.com/travis-ci/travis-ci/issues/5669
-=======
-language: java
-
-addons:
->>>>>>> temp/master
    hostname: travis-brmo
    hosts: travis-brmo
 
@@ -29,17 +24,13 @@ jdk:
 matrix:
   fast_finish: true
 
-<<<<<<< HEAD
   allow_failures:
 
-=======
->>>>>>> temp/master
 cache:
   directories:
   - $HOME/.m2
 
 before_install:
-<<<<<<< HEAD
   # installeer een up-2-date Maven versie
   - wget https://www-eu.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.zip
   - unzip -qq apache-maven-3.5.2-bin.zip
@@ -128,23 +119,3 @@ after_success:
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
          travis_wait mvn -B -e -Ppostgresql site-deploy --settings .travis/settings.xml;
     fi
-
-# after_failure:
-=======
-  - unset _JAVA_OPTIONS
-
-install:
-  # install all dependencies + artifacts without any testing
-  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Ptravis-ci
-
-script:
-  # run unit tests
-  - mvn -e test -B -Ptravis-ci
-  # test of de javadoc compliant is met java-8 strict checks
-  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
-         travis_wait mvn javadoc:javadoc -Ptravis-ci;
-    fi
-  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
-         travis_wait mvn javadoc:test-javadoc -Ptravis-ci;
-    fi
->>>>>>> temp/master
