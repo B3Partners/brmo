@@ -56,6 +56,8 @@ public class BRPXMLReader extends BrmoXMLReader {
     private InputStream in;
     private NodeList nodes = null;
     private int index;
+    
+    public static final String PREFIX = "NL.BRP.Persoon.";
 
     public BRPXMLReader(InputStream in, Date d) throws Exception {
         this.in = in;
@@ -92,9 +94,11 @@ public class BRPXMLReader extends BrmoXMLReader {
         Map<String, String> bsns = extractBSN(n);
 
         String el = getXML(bsns);
-        String brXML = "<root>" + sw.toString();
+        String origXML = sw.toString();
+        String brXML = "<root>" + origXML;
         brXML += el + "</root>";
         Bericht b = new Bericht(brXML);
+        b.setBrOrgineelXml(origXML);
         b.setVolgordeNummer(index);
         b.setObjectRef(getObjectRef(n));
         b.setSoort(BrmoFramework.BR_BRP);
@@ -110,11 +114,11 @@ public class BRPXMLReader extends BrmoXMLReader {
             String name = child.getNodeName();
             if (name.contains("bsn-nummer")) {
                 hash = child.getTextContent();
-                hash = DigestUtils.shaHex(hash);
+                hash = getHash(hash);
                 break;
             }
         }
-        return "NL.BRP." + hash;
+        return hash;
     }
 
     public Map<String, String> extractBSN(Node n) throws XPathExpressionException {
@@ -127,7 +131,7 @@ public class BRPXMLReader extends BrmoXMLReader {
         for (int i = 0; i < nodelist.getLength(); i++) {
             Node bsn = nodelist.item(i);
             String bsnString = bsn.getTextContent();
-            String hash = DigestUtils.shaHex(bsnString);
+            String hash = getHash(bsnString);
             hashes.put(bsnString, hash);
             
         }
@@ -138,11 +142,20 @@ public class BRPXMLReader extends BrmoXMLReader {
         String root = "<bsnhashes>";
         for (Entry<String, String> entry : map.entrySet()) {
             if (!entry.getKey().isEmpty() && !entry.getValue().isEmpty()) {
-                String el = "<NL.BRP.Persoon." + entry.getKey() + ">" + entry.getValue() + "</NL.BRP.Persoon." + entry.getKey() + ">";
+                String hash = entry.getValue();
+              
+                String el = "<" + PREFIX + entry.getKey() + ">" + hash + "</" + PREFIX + entry.getKey() + ">";
                 root += el;
             }
         }
         root += "</bsnhashes>";
         return root;
+    }
+    
+    public String getHash(String bsn) {
+        int maxsize = 32 - PREFIX.length();
+        String hash = DigestUtils.shaHex(bsn);
+        String trimmedhash = hash.length() > maxsize ? hash.substring(0, maxsize) : hash;
+        return  PREFIX + trimmedhash;
     }
 }
