@@ -34,13 +34,13 @@ timestamps {
                     sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
                     sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
                     sh "sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
-                    # TODO sh "sqlplus -l -S jenkins_topnl/jenkins_topnl@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
+                    // TODO sh "sqlplus -l -S jenkins_topnl/jenkins_topnl@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
                     
                     echo "init schema's"
                     sh ".jenkins/db-prepare-staging.sh"
                     sh ".jenkins/db-prepare-rsgb.sh"
                     sh ".jenkins/db-prepare-rsgbbgt.sh"
-                    # TODO sh ".jenkins/db-prepare-topnl.sh"
+                    // TODO sh ".jenkins/db-prepare-topnl.sh"
                 }
 
                 stage('bgt-gml-loader Integration Test') {
