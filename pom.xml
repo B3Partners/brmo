@@ -150,7 +150,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.6</version>
+                <version>3.7</version>
             </dependency>
             <dependency>
                 <groupId>commons-fileupload</groupId>
@@ -351,7 +351,7 @@
             <dependency>
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
-                <version>1.10.3</version>
+                <version>1.11.2</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.xml.ws</groupId>
