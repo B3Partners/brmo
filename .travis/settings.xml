@@ -28,9 +28,5 @@
         </repository>
       </repositories>
     </profile>
-    <profile>
-      <!-- actief voor AppVeyor builds -->
-      <id>mssql</id>
-    </profile>
   </profiles>
 </settings>
