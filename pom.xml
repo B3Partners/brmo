@@ -277,6 +277,11 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
+                <groupId>javax.activation</groupId>
+                <artifactId>activation</artifactId>
+                <version>1.1.1</version>
+            </dependency>
+            <dependency>
                 <!-- de volledige mail api dient door de servlet container te worden geleverd. -->
                 <groupId>javax.mail</groupId>
                 <artifactId>javax.mail-api</artifactId>
