@@ -309,8 +309,8 @@
                         </executions>
                         <dependencies>
                             <dependency>
-                                <groupId>javax.mail</groupId>
-                                <artifactId>mail</artifactId>
+                                <groupId>com.sun.mail</groupId>
+                                <artifactId>javax.mail</artifactId>
                                 <version>${javax.mail.version}</version>
                             </dependency>
                             <dependency>
@@ -349,7 +349,7 @@
                 </dependency>
             </dependencies>
             <build>
-                 <filters>
+                <filters>
                     <filter>${project.basedir}/src/test/resources/oracle.properties</filter>
                 </filters>
                 <testResources>
@@ -417,8 +417,8 @@
                         </executions>
                         <dependencies>
                             <dependency>
-                                <groupId>javax.mail</groupId>
-                                <artifactId>mail</artifactId>
+                                <groupId>com.sun.mail</groupId>
+                                <artifactId>javax.mail</artifactId>
                                 <version>${javax.mail.version}</version>
                             </dependency>
                             <dependency>
@@ -521,8 +521,8 @@
                         </executions>
                         <dependencies>
                             <dependency>
-                                <groupId>javax.mail</groupId>
-                                <artifactId>mail</artifactId>
+                                <groupId>com.sun.mail</groupId>
+                                <artifactId>javax.mail</artifactId>
                                 <version>${javax.mail.version}</version>
                             </dependency>
                             <dependency>

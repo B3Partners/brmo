@@ -60,7 +60,7 @@ before_install:
 
 install:
   # install all dependencies + artifacts without any testing and create any DB scripts
-  - travis_wait 20 mvn install -Dmaven.test.skip=true -B -V -fae -Ppostgresql
+  - travis_wait 20 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql
 
 before_script:
   # dit dient na afloop van de 'install' gedaan te worden omdat (een deel van) de sql gegenereerd wordt
@@ -80,12 +80,12 @@ before_script:
   # set up rsgbbgt tabellen
   - psql -U postgres -w -q -d rsgbbgt -f ./bgt-gml-loader/target/generated-resources/ddl/postgresql/create_rsgb_bgt.sql
   # set up topnl tabellen
-  - ls -l ./brmo-dist/target/topnlschemas/nl/b3p/topnl/database
-  - psql -U postgres -w -q -d topnl -f ./brmo-dist/target/topnlschemas/nl/b3p/topnl/database/postgres.sql
+  - ls -l ./topparser/src/main/resources/nl/b3p/topnl/database
+  - psql -U postgres -w -q -d topnl -f ./topparser/src/main/resources/nl/b3p/topnl/database/postgres.sql
 
 script:
   # run unit tests voor alle modules
-  - travis_wait 20 mvn -e test -B -Ppostgresql -pl '!brmo-dist'
+  - travis_wait 20 mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false
   # run integratie tests voor veschillende modules
   # run integratie tests voor bgt-gml-loader module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
