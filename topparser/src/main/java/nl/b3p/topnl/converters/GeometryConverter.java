@@ -18,10 +18,6 @@ package nl.b3p.topnl.converters;
 
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.LineString;
-import com.vividsolutions.jts.geom.MultiLineString;
-import com.vividsolutions.jts.geom.MultiPolygon;
-import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.geom.PrecisionModel;
 import com.vividsolutions.jts.simplify.DouglasPeuckerSimplifier;
 import java.io.IOException;
@@ -34,10 +30,8 @@ import org.apache.commons.logging.LogFactory;
 import org.geotools.gml3.ArcParameters;
 import org.geotools.gml3.CircleRadiusTolerance;
 import org.geotools.xml.Parser;
-import org.jdom.input.DOMBuilder;
-import org.jdom.output.XMLOutputter;
-//import org.jdom2.input.DOMBuilder;
-//import org.jdom2.output.XMLOutputter;
+import org.jdom2.input.DOMBuilder;
+import org.jdom2.output.XMLOutputter;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
@@ -82,7 +76,7 @@ public class GeometryConverter {
         }
         // TODO: maybe convert node directly to a source / inputsource / reader / stream for parser.
         // instead of JDOM detour.
-        org.jdom.Element elem = new DOMBuilder().build((org.w3c.dom.Element) el);
+        org.jdom2.Element elem = new DOMBuilder().build((org.w3c.dom.Element) el);
         String gmlString = new XMLOutputter().outputString(elem);
         gmlString = gmlString.replaceAll("gml:", "");
         //tySstem.out.println("gmlString:" + gmlString);

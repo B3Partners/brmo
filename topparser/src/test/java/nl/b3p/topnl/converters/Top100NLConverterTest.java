@@ -20,13 +20,13 @@ import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -46,8 +46,6 @@ import nl.b3p.topnl.entities.Terrein;
 import nl.b3p.topnl.entities.TopNLEntity;
 import nl.b3p.topnl.entities.Waterdeel;
 import nl.b3p.topnl.entities.Wegdeel;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.xml.sax.SAXException;
@@ -61,26 +59,15 @@ public class Top100NLConverterTest extends TestUtil{
     private final Top100NLConverter instance;
     private final Processor processor;
 
-    protected SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    protected SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
 
     public Top100NLConverterTest() throws JAXBException, SQLException {
         this.processor = new Processor(null);
         this.instance = new Top100NLConverter();
     }
 
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
-
     @Test
     public void testConvertNoFeatureCollection() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException {
-        System.out.println("convert");
         Hoogte hoogte = new Hoogte();
         URL in = Top100NLConverterTest.class.getResource("top100nl/Hoogte.xml");
         List jaxb = processor.parse(in);
@@ -97,7 +84,6 @@ public class Top100NLConverterTest extends TestUtil{
      */
     @Test
     public void testConvertHoogte() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-        System.out.println("convert");
         TopNLEntity expected = getStandardTestTopNLEntity();
 
         expected.setVisualisatieCode(new Long("17320"));
@@ -119,7 +105,6 @@ public class Top100NLConverterTest extends TestUtil{
 
     @Test
     public void testConvertFunctioneelGebied() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-        System.out.println("testConvertFunctioneelGebied");
         TopNLEntity entity = getEntity("top100nl/FunctioneelGebied.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
@@ -142,7 +127,6 @@ public class Top100NLConverterTest extends TestUtil{
     // GeografischGebied niet in Top100NL
     //@Test
     public void testConvertGeografischGebied() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-        System.out.println("testConvertGeografischGebied");
         TopNLEntity entity = getEntity("top100nl/GeografischGebied.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
@@ -163,7 +147,6 @@ public class Top100NLConverterTest extends TestUtil{
     
     @Test
     public void testConvertGebouw() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-        System.out.println("testConvertGebouw");
         TopNLEntity entity = getEntity("top100nl/Gebouw.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
@@ -185,7 +168,6 @@ public class Top100NLConverterTest extends TestUtil{
        
     @Test
     public void testConvertInrichtingselement() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-        System.out.println("testConvertInrichtingselement");
         TopNLEntity entity = getEntity("top100nl/Inrichtingselement.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
@@ -208,7 +190,6 @@ public class Top100NLConverterTest extends TestUtil{
     // Plaats niet in Top100NL
     //@Test
     public void testConvertPlaats() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-        System.out.println("testConvertPlaats");
         TopNLEntity entity = getEntity("top100nl/Plaats.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
@@ -229,7 +210,6 @@ public class Top100NLConverterTest extends TestUtil{
        
     @Test
     public void testConvertRegistratiefGebied() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-        System.out.println("testConvertRegistratiefGebied");
         TopNLEntity entity = getEntity("top100nl/RegistratiefGebied.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
@@ -251,7 +231,6 @@ public class Top100NLConverterTest extends TestUtil{
 
     @Test
     public void testConvertRelief() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-        System.out.println("testConvertRRelief");
         TopNLEntity entity = getEntity("top100nl/Relief.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
@@ -273,7 +252,6 @@ public class Top100NLConverterTest extends TestUtil{
     
     @Test
     public void testConvertSpoorbaandeel() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-        System.out.println("testConvertSpoorbaandeel");
         TopNLEntity entity = getEntity("top100nl/Spoorbaandeel.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
@@ -296,7 +274,6 @@ public class Top100NLConverterTest extends TestUtil{
     
     @Test
     public void testConvertTerrein() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-        System.out.println("testConvertTerrein");
         TopNLEntity entity = getEntity("top100nl/Terrein.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
@@ -316,7 +293,6 @@ public class Top100NLConverterTest extends TestUtil{
     
     @Test
     public void testConvertWaterdeel() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-        System.out.println("testConvertWaterdeel");
         TopNLEntity entity = getEntity("top100nl/Waterdeel.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
@@ -338,7 +314,6 @@ public class Top100NLConverterTest extends TestUtil{
     
     @Test
     public void testConvertWegdeel() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-        System.out.println("testConvertWegdeel");
         TopNLEntity entity = getEntity("top100nl/Wegdeel.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();

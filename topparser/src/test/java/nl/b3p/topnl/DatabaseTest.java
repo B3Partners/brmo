@@ -20,7 +20,6 @@ import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.io.WKTReader;
-import java.math.BigInteger;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,9 +41,10 @@ import nl.b3p.topnl.entities.TopNLEntity;
 import nl.b3p.topnl.entities.Waterdeel;
 import nl.b3p.topnl.entities.Wegdeel;
 import org.apache.commons.dbutils.BasicRowProcessor;
-import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -56,42 +56,40 @@ import org.junit.runners.Parameterized.Parameters;
  *
  * @author Meine Toonen meinetoonen@b3partners.nl
  */
-
 @RunWith(Parameterized.class)
-public class DatabaseTest extends TestUtil{
-    
+public class DatabaseTest extends TestUtil {
+
+    private final static Log LOG = LogFactory.getLog(DatabaseTest.class);
     private Database instance = null;
-    private final WKTReader wkt= new WKTReader();
+    private final WKTReader wkt = new WKTReader();
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private final String identificatie = "1616161616";
     private TopNLType type;
-    
-    @Parameters(name="Type: {0}")
+
+    @Parameters(name = "Type: {0}")
     public static Collection<Object[]> params() {
-        return Arrays.asList(new Object[][]
-            {
-                {TopNLType.TOP10NL},
-                {TopNLType.TOP50NL},
-                {TopNLType.TOP100NL},
-                {TopNLType.TOP250NL}
-            }
+        return Arrays.asList(new Object[][]{
+            {TopNLType.TOP10NL},
+            {TopNLType.TOP50NL},
+            {TopNLType.TOP100NL},
+            {TopNLType.TOP250NL}
+        }
         );
     }
-    
+
     public DatabaseTest(TopNLType type) {
         this.type = type;
-        this.useDB = true; 
+        this.useDB = true;
     }
-    
 
     @Before
-    public void before() throws SQLException{
+    public void before() throws SQLException {
         instance = new Database(datasource);
     }
 
     @Test
-    public void testSaveHoogte()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        System.out.println("save");
+    public void testSaveHoogte() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+        LOG.debug("save");
         Geometry p = wkt.read("POINT (1 2)");
         Hoogte e = new Hoogte();
         getStandardTestTopNLEntity(e, type);
@@ -99,46 +97,44 @@ public class DatabaseTest extends TestUtil{
         e.setReferentieVlak("uitgevlakt");
         e.setTypeHoogte("superhoog");
         e.setHoogte(16.06);
-        
+
         instance.save(e);
 
         ResultSetHandler<Hoogte> h = new BeanHandler<>(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
-        Hoogte real = run.query("SELECT * FROM "  + type.getType() + ".hoogte WHERE identificatie=?", h, identificatie);
+        Hoogte real = run.query("SELECT * FROM " + type.getType() + ".hoogte WHERE identificatie=?", h, identificatie);
         assertNotNull("Insert failed", real);
         testStandardTopNLEntity(real, e);
-        
-        assertEquals(e.getReferentieVlak(),real.getReferentieVlak());
-        assertEquals(e.getTypeHoogte(),real.getTypeHoogte());
-        assertEquals(e.getHoogte(),real.getHoogte());
-        assertEquals(p,real.getGeometrie());
+
+        assertEquals(e.getReferentieVlak(), real.getReferentieVlak());
+        assertEquals(e.getTypeHoogte(), real.getTypeHoogte());
+        assertEquals(e.getHoogte(), real.getHoogte());
+        assertEquals(p, real.getGeometrie());
     }
 
     @Test
-    public void testSavePlanTopografie()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        System.out.println("testSavePlanTopografie");
+    public void testSavePlanTopografie() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         PlanTopografie e = new PlanTopografie();
         getStandardTestTopNLEntity(e, type);
         e.setGeometrie(p);
         e.setNaam("plannetje");
         e.setTypePlanTopografie("Typetje");
-        
+
         instance.save(e);
 
         ResultSetHandler<PlanTopografie> h = new BeanHandler<>(PlanTopografie.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
-        PlanTopografie real = run.query("SELECT * FROM "  + type.getType() + ".plantopografie WHERE identificatie=?", h, identificatie);
+        PlanTopografie real = run.query("SELECT * FROM " + type.getType() + ".plantopografie WHERE identificatie=?", h, identificatie);
         assertNotNull("Insert failed", real);
         testStandardTopNLEntity(real, e);
-        assertEquals(p,real.getGeometrie());
-        assertEquals(e.getNaam(),real.getNaam());
-        assertEquals(e.getTypePlanTopografie(),real.getTypePlanTopografie());
+        assertEquals(p, real.getGeometrie());
+        assertEquals(e.getNaam(), real.getNaam());
+        assertEquals(e.getTypePlanTopografie(), real.getTypePlanTopografie());
     }
 
     @Test
-    public void testSaveGebouw()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        System.out.println("save");
+    public void testSaveGebouw() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         Gebouw e = new Gebouw();
         getStandardTestTopNLEntity(e, type);
@@ -151,15 +147,15 @@ public class DatabaseTest extends TestUtil{
         e.setSoortnaam("superflat");
         e.setNaam("flatje");
         e.setNaamFries("flaotjah");
-        
+
         instance.save(e);
 
         ResultSetHandler<Gebouw> h = new BeanHandler<>(Gebouw.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
-        Gebouw real = run.query("SELECT * FROM "  + type.getType() + ".gebouw WHERE identificatie=?", h, identificatie);
+        Gebouw real = run.query("SELECT * FROM " + type.getType() + ".gebouw WHERE identificatie=?", h, identificatie);
         assertNotNull("Insert failed", real);
         testStandardTopNLEntity(real, e);
-        
+
         assertEquals(e.getHoogte(), real.getHoogte());
         assertEquals(p, real.getGeometrie());
         assertEquals(e.getTypeGebouw(), real.getTypeGebouw());
@@ -172,8 +168,7 @@ public class DatabaseTest extends TestUtil{
     }
 
     @Test
-    public void testSaveGeografischGebied()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        System.out.println("save");
+    public void testSaveGeografischGebied() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         GeografischGebied e = new GeografischGebied();
         getStandardTestTopNLEntity(e, type);
@@ -181,15 +176,15 @@ public class DatabaseTest extends TestUtil{
         e.setTypeGeografischGebied("landgoed");
         e.setNaamNL("Naamnl");
         e.setNaamFries("NaamFrysk");
-        
+
         instance.save(e);
 
         ResultSetHandler<GeografischGebied> h = new BeanHandler<>(GeografischGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
-        GeografischGebied real = run.query("SELECT * FROM "  + type.getType() + ".geografischgebied WHERE identificatie=?", h, identificatie);
+        GeografischGebied real = run.query("SELECT * FROM " + type.getType() + ".geografischgebied WHERE identificatie=?", h, identificatie);
         assertNotNull("Insert failed", real);
         testStandardTopNLEntity(real, e);
-        
+
         assertEquals(p, real.getGeometrie());
         assertEquals(e.getNaamNL(), real.getNaamNL());
         assertEquals(e.getNaamFries(), real.getNaamFries());
@@ -197,8 +192,7 @@ public class DatabaseTest extends TestUtil{
     }
 
     @Test
-    public void testSaveInrichtingselement()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        System.out.println("save");
+    public void testSaveInrichtingselement() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         Inrichtingselement e = new Inrichtingselement();
         getStandardTestTopNLEntity(e, type);
@@ -207,15 +201,15 @@ public class DatabaseTest extends TestUtil{
         e.setHoogteniveau(778L);
         e.setSoortnaam("MaxPen");
         e.setStatus("in gebruik");
-        
+
         instance.save(e);
 
         ResultSetHandler<Inrichtingselement> h = new BeanHandler<>(Inrichtingselement.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
-        Inrichtingselement real = run.query("SELECT * FROM "  + type.getType() + ".inrichtingselement WHERE identificatie=?", h, identificatie);
+        Inrichtingselement real = run.query("SELECT * FROM " + type.getType() + ".inrichtingselement WHERE identificatie=?", h, identificatie);
         assertNotNull("Insert failed", real);
         testStandardTopNLEntity(real, e);
-        
+
         assertEquals(p, real.getGeometrie());
         assertEquals(e.getTypeInrichtingselement(), real.getTypeInrichtingselement());
         assertEquals(e.getHoogteniveau(), real.getHoogteniveau());
@@ -224,8 +218,7 @@ public class DatabaseTest extends TestUtil{
     }
 
     @Test
-    public void testSavePlaats()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        System.out.println("save");
+    public void testSavePlaats() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         Plaats e = new Plaats();
         getStandardTestTopNLEntity(e, type);
@@ -239,7 +232,7 @@ public class DatabaseTest extends TestUtil{
 
         ResultSetHandler<Plaats> h = new BeanHandler<>(Plaats.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
-        Plaats real = run.query("SELECT * FROM "  + type.getType() + ".plaats WHERE identificatie=?", h, identificatie);
+        Plaats real = run.query("SELECT * FROM " + type.getType() + ".plaats WHERE identificatie=?", h, identificatie);
         assertNotNull("Insert failed", real);
         testStandardTopNLEntity(real, e);
 
@@ -252,8 +245,7 @@ public class DatabaseTest extends TestUtil{
     }
 
     @Test
-    public void testSaveRegistratiefGebied()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        System.out.println("save");
+    public void testSaveRegistratiefGebied() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         RegistratiefGebied e = new RegistratiefGebied();
         getStandardTestTopNLEntity(e, type);
@@ -267,7 +259,7 @@ public class DatabaseTest extends TestUtil{
 
         ResultSetHandler<RegistratiefGebied> h = new BeanHandler<>(RegistratiefGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
-        RegistratiefGebied real = run.query("SELECT * FROM "  + type.getType() + ".registratiefgebied WHERE identificatie=?", h, identificatie);
+        RegistratiefGebied real = run.query("SELECT * FROM " + type.getType() + ".registratiefgebied WHERE identificatie=?", h, identificatie);
         assertNotNull("Insert failed", real);
         testStandardTopNLEntity(real, e);
 
@@ -278,12 +270,10 @@ public class DatabaseTest extends TestUtil{
         assertEquals(e.getNaamNL(), real.getNaamNL());
         assertEquals(e.getNaamFries(), real.getNaamFries());
     }
-    
 
     @Test
-    public void testSaveRelief()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        System.out.println("save");
-        LineString p = (LineString)wkt.read("LineString(1 2, 3 4, 5 6)");
+    public void testSaveRelief() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+        LineString p = (LineString) wkt.read("LineString(1 2, 3 4, 5 6)");
         Relief e = new Relief();
         getStandardTestTopNLEntity(e, type);
         e.setGeometrie(p);
@@ -297,7 +287,7 @@ public class DatabaseTest extends TestUtil{
 
         ResultSetHandler<Relief> h = new BeanHandler<>(Relief.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
-        Relief real = run.query("SELECT * FROM "  + type.getType() + ".relief WHERE identificatie=?", h, identificatie);
+        Relief real = run.query("SELECT * FROM " + type.getType() + ".relief WHERE identificatie=?", h, identificatie);
         assertNotNull("Insert failed", real);
         testStandardTopNLEntity(real, e);
 
@@ -308,17 +298,15 @@ public class DatabaseTest extends TestUtil{
         assertEquals(e.getHoogteklasse(), real.getHoogteklasse());
         assertEquals(e.getHoogteniveau(), real.getHoogteniveau());
     }
-    
 
     @Test
-    public void testSaveReliefEmptyTaludGeoms()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        System.out.println("save");
-        LineString p = (LineString)wkt.read("LineString(1 2, 3 4, 5 6)");
+    public void testSaveReliefEmptyTaludGeoms() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+        LineString p = (LineString) wkt.read("LineString(1 2, 3 4, 5 6)");
         Relief e = new Relief();
         getStandardTestTopNLEntity(e, type);
         e.setGeometrie(p);
-      //  e.setTaludHogeZijde(p);
-      //  e.setTaludLageZijde(p);
+        //  e.setTaludHogeZijde(p);
+        //  e.setTaludLageZijde(p);
         e.setTypeRelief("Berg");
         e.setHoogteklasse("Superhoog");
         e.setHoogteniveau(666L);
@@ -327,7 +315,7 @@ public class DatabaseTest extends TestUtil{
 
         ResultSetHandler<Relief> h = new BeanHandler<>(Relief.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
-        Relief real = run.query("SELECT * FROM "  + type.getType() + ".relief WHERE identificatie=?", h, identificatie);
+        Relief real = run.query("SELECT * FROM " + type.getType() + ".relief WHERE identificatie=?", h, identificatie);
         assertNotNull("Insert failed", real);
         testStandardTopNLEntity(real, e);
 
@@ -340,12 +328,11 @@ public class DatabaseTest extends TestUtil{
     }
 
     @Test
-    public void testSaveReliefEmptyHoofdGeom()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        System.out.println("save");
-        LineString p = (LineString)wkt.read("LineString(1 2, 3 4, 5 6)");
+    public void testSaveReliefEmptyHoofdGeom() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+        LineString p = (LineString) wkt.read("LineString(1 2, 3 4, 5 6)");
         Relief e = new Relief();
         getStandardTestTopNLEntity(e, type);
-       // e.setGeometrie(p);
+        // e.setGeometrie(p);
         e.setTaludHogeZijde(p);
         e.setTaludLageZijde(p);
         e.setTypeRelief("Berg");
@@ -356,7 +343,7 @@ public class DatabaseTest extends TestUtil{
 
         ResultSetHandler<Relief> h = new BeanHandler<>(Relief.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
-        Relief real = run.query("SELECT * FROM "  + type.getType() + ".relief WHERE identificatie=?", h, identificatie);
+        Relief real = run.query("SELECT * FROM " + type.getType() + ".relief WHERE identificatie=?", h, identificatie);
         assertNotNull("Insert failed", real);
         testStandardTopNLEntity(real, e);
 
@@ -369,9 +356,8 @@ public class DatabaseTest extends TestUtil{
     }
 
     @Test
-    public void testSaveSpoorbaandeel()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        System.out.println("save");
-        LineString p = (LineString)wkt.read("LineString(1 2, 3 4, 5 6)");
+    public void testSaveSpoorbaandeel() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+        LineString p = (LineString) wkt.read("LineString(1 2, 3 4, 5 6)");
         Spoorbaandeel e = new Spoorbaandeel();
         getStandardTestTopNLEntity(e, type);
         e.setGeometrie(p);
@@ -392,7 +378,7 @@ public class DatabaseTest extends TestUtil{
 
         ResultSetHandler<Spoorbaandeel> h = new BeanHandler<>(Spoorbaandeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
-        Spoorbaandeel real = run.query("SELECT * FROM "  + type.getType() + ".spoorbaandeel WHERE identificatie=?", h, identificatie);
+        Spoorbaandeel real = run.query("SELECT * FROM " + type.getType() + ".spoorbaandeel WHERE identificatie=?", h, identificatie);
         assertNotNull("Insert failed", real);
         testStandardTopNLEntity(real, e);
 
@@ -410,12 +396,10 @@ public class DatabaseTest extends TestUtil{
         assertEquals(e.getBaanvaknaam(), real.getBaanvaknaam());
         assertEquals(e.getHoogteniveau(), real.getHoogteniveau());
     }
-    
 
     @Test
-    public void testSaveTerrein()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        System.out.println("save");
-        Polygon p = (Polygon)wkt.read("Polygon((1 2, 3 4, 5 6, 1 2))");
+    public void testSaveTerrein() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+        Polygon p = (Polygon) wkt.read("Polygon((1 2, 3 4, 5 6, 1 2))");
         Terrein e = new Terrein();
         getStandardTestTopNLEntity(e, type);
         e.setGeometrie(p);
@@ -426,7 +410,7 @@ public class DatabaseTest extends TestUtil{
 
         ResultSetHandler<Terrein> h = new BeanHandler<>(Terrein.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
-        Terrein real = run.query("SELECT * FROM "  + type.getType() + ".terrein WHERE identificatie=?", h, identificatie);
+        Terrein real = run.query("SELECT * FROM " + type.getType() + ".terrein WHERE identificatie=?", h, identificatie);
         assertNotNull("Insert failed", real);
         testStandardTopNLEntity(real, e);
 
@@ -436,8 +420,7 @@ public class DatabaseTest extends TestUtil{
     }
 
     @Test
-    public void testWaterdeel()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        System.out.println("save");
+    public void testWaterdeel() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
         Geometry p = wkt.read("Polygon((1 2, 3 4, 5 6, 1 2))");
         Waterdeel e = new Waterdeel();
         getStandardTestTopNLEntity(e, type);
@@ -461,7 +444,7 @@ public class DatabaseTest extends TestUtil{
 
         ResultSetHandler<Waterdeel> h = new BeanHandler<>(Waterdeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
-        Waterdeel real = run.query("SELECT * FROM "  + type.getType() + ".waterdeel WHERE identificatie=?", h, identificatie);
+        Waterdeel real = run.query("SELECT * FROM " + type.getType() + ".waterdeel WHERE identificatie=?", h, identificatie);
         assertNotNull("Insert failed", real);
         testStandardTopNLEntity(real, e);
 
@@ -482,10 +465,9 @@ public class DatabaseTest extends TestUtil{
         assertEquals(e.getFunctie(), real.getFunctie());
         assertEquals(e.isHoofdAfwatering(), real.isHoofdAfwatering());
     }
-    
+
     @Test
-    public void testSaveFunctioneelgebied()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        System.out.println("save");
+    public void testSaveFunctioneelgebied() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         FunctioneelGebied e = new FunctioneelGebied();
         getStandardTestTopNLEntity(e, type);
@@ -494,25 +476,24 @@ public class DatabaseTest extends TestUtil{
         e.setNaamNL("normaal");
         e.setSoortnaam("iets");
         e.setTypeFunctioneelGebied("typerdepiep");
-        
+
         instance.save(e);
 
         ResultSetHandler<FunctioneelGebied> h = new BeanHandler<>(FunctioneelGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
-        FunctioneelGebied real = run.query("SELECT * FROM "  + type.getType() + ".functioneelgebied WHERE identificatie=?", h, identificatie);
+        FunctioneelGebied real = run.query("SELECT * FROM " + type.getType() + ".functioneelgebied WHERE identificatie=?", h, identificatie);
         assertNotNull("Insert failed", real);
         testStandardTopNLEntity(real, e);
-        
-        assertEquals(p,real.getGeometrie());
-        assertEquals(e.getNaamFries(),real.getNaamFries());
-        assertEquals(e.getNaamNL(),real.getNaamNL());
-        assertEquals(e.getTypeFunctioneelGebied(),real.getTypeFunctioneelGebied());
-        assertEquals(e.getSoortnaam(),real.getSoortnaam());
+
+        assertEquals(p, real.getGeometrie());
+        assertEquals(e.getNaamFries(), real.getNaamFries());
+        assertEquals(e.getNaamNL(), real.getNaamNL());
+        assertEquals(e.getTypeFunctioneelGebied(), real.getTypeFunctioneelGebied());
+        assertEquals(e.getSoortnaam(), real.getSoortnaam());
     }
-    
+
     @Test
-    public void testSaveWegdeel()throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
-        System.out.println("save");
+    public void testSaveWegdeel() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         Wegdeel e = new Wegdeel();
         getStandardTestTopNLEntity(e, type);
@@ -539,12 +520,12 @@ public class DatabaseTest extends TestUtil{
         e.setKnooppuntnaam("Knooppunt lucifer");
         e.setBrugnaam("Vagevuur");
         e.setTunnelnaam("Hades");
-        
+
         instance.save(e);
 
         ResultSetHandler<Wegdeel> h = new BeanHandler<>(Wegdeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
-        Wegdeel real = run.query("SELECT * FROM "  + type.getType() + ".wegdeel WHERE identificatie=?", h, identificatie);
+        Wegdeel real = run.query("SELECT * FROM " + type.getType() + ".wegdeel WHERE identificatie=?", h, identificatie);
         assertNotNull("Insert failed", real);
         testStandardTopNLEntity(real, e);
 
@@ -572,8 +553,8 @@ public class DatabaseTest extends TestUtil{
         assertEquals(e.getBrugnaam(), real.getBrugnaam());
         assertEquals(e.getTunnelnaam(), real.getTunnelnaam());
     }
-    
-    public void getStandardTestTopNLEntity(TopNLEntity e,TopNLType type) throws ParseException {
+
+    public void getStandardTestTopNLEntity(TopNLEntity e, TopNLType type) throws ParseException {
         e.setIdentificatie(identificatie);
         e.setBronactualiteit(sdf.parse("2016-06-16"));
         e.setBronbeschrijving("beschrijving");
@@ -583,7 +564,7 @@ public class DatabaseTest extends TestUtil{
         e.setVisualisatieCode(166L);
         e.setTopnltype(type.getType());
     }
-    
+
     public void testStandardTopNLEntity(TopNLEntity real, TopNLEntity e) {
         assertEquals(e.getBronactualiteit(), real.getBronactualiteit());
         assertEquals(e.getBronbeschrijving(), real.getBronbeschrijving());

@@ -16,6 +16,7 @@
  */
 package nl.b3p.topnl;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -27,7 +28,6 @@ import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.geotools.gml3.GML.dataSource;
 import org.hsqldb.jdbc.JDBCDataSource;
 import org.junit.After;
 import org.junit.Before;
@@ -37,10 +37,11 @@ import org.junit.rules.TestName;
 /**
  *
  * @author Meine Toonen meinetoonen@b3partners.nl
+ * @author mprins
  */
 public class TestUtil {
     
-    protected final static Log log = LogFactory.getLog(TestUtil.class);
+    private final static Log LOG = LogFactory.getLog(TestUtil.class);
     protected DataSource datasource;
     protected boolean useDB = false;
     
@@ -48,14 +49,22 @@ public class TestUtil {
     
     @Rule 
     public TestName testName = new TestName();
-    
+
+    /**
+     * Log de naam van de test als deze begint.
+     */
+    @Before
+    public void startTest() {
+        LOG.info("==== Start test methode: " + testName.getMethodName());
+    }
+
     @Before
     public void setUpClass() throws SQLException, IOException {
         if(useDB){
             JDBCDataSource ds = new JDBCDataSource();
             String testname = testName.getMethodName();
             long randomizer = System.currentTimeMillis();
-            ds.setUrl("jdbc:hsqldb:file:./target/unittest-hsqldb/" + testname + "_" + randomizer + "/db;shutdown=true");
+            ds.setUrl("jdbc:hsqldb:file:." + File.separator + "target" + File.separator + "unittest-hsqldb" + File.separator + testname + "_" + randomizer + File.separator + "db;shutdown=true");
             datasource = ds;
             initDB("initdb250nl.sql");
             initDB("initdb100nl.sql");
@@ -66,8 +75,12 @@ public class TestUtil {
         }
     }
     
+    /**
+     * Log de naam van de test als deze eindigt.
+     */
     @After
-    public void after() throws SQLException{
+    public void endTest() {
+        LOG.info("==== Einde test methode: " + testName.getMethodName());
     }
     
     private void initDB(String file) throws IOException{
@@ -75,7 +88,7 @@ public class TestUtil {
             Reader f = new InputStreamReader(TestUtil.class.getResourceAsStream(file));
             executeScript(f);
         } catch (SQLException sqle) {
-            log.error("Error initializing testdb:",sqle);
+            LOG.error("Error initializing testdb:", sqle);
         }
 
     }

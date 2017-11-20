@@ -7,7 +7,7 @@ LEVELS: debug, info, warn, error, fatal en off, all -->
     <appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
         <param name="Threshold" value="all" />
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%c %5p %d{HH:mm:ss} (%C#%M:%L) - %m%n" />
+            <param name="ConversionPattern" value="TOPPARSER: %5p %d{HH:mm:ss} (%C#%M:%L) - %m%n" />
         </layout>
     </appender>
     <appender name="file" class="org.apache.log4j.RollingFileAppender">
@@ -27,7 +27,7 @@ LEVELS: debug, info, warn, error, fatal en off, all -->
         <level value="warn" />
     </logger>
     <logger name="org.postgresql">
-        <level value="debug" />
+        <level value="info" />
     </logger>
     <logger name="hsqldb">
         <level value="error" />

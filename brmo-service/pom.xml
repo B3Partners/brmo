@@ -19,7 +19,6 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>${postgresql.jdbc.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -58,12 +57,10 @@
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>brmo-persistence</artifactId>
-            <version>1.5.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>brmo-loader</artifactId>
-            <version>${project.parent.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>${oracle.jdbc.groupId}</groupId>
@@ -86,7 +83,6 @@
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>brmo-taglib</artifactId>
-            <version>1.5.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.javasimon</groupId>
@@ -313,9 +309,9 @@
                         </executions>
                         <dependencies>
                             <dependency>
-                                <groupId>javax.mail</groupId>
-                                <artifactId>mail</artifactId>
-                                <version>1.4.7</version>
+                                <groupId>com.sun.mail</groupId>
+                                <artifactId>javax.mail</artifactId>
+                                <version>${javax.mail.version}</version>
                             </dependency>
                             <dependency>
                                 <groupId>org.postgresql</groupId>
@@ -353,7 +349,7 @@
                 </dependency>
             </dependencies>
             <build>
-                 <filters>
+                <filters>
                     <filter>${project.basedir}/src/test/resources/oracle.properties</filter>
                 </filters>
                 <testResources>
@@ -421,9 +417,9 @@
                         </executions>
                         <dependencies>
                             <dependency>
-                                <groupId>javax.mail</groupId>
-                                <artifactId>mail</artifactId>
-                                <version>1.4.7</version>
+                                <groupId>com.sun.mail</groupId>
+                                <artifactId>javax.mail</artifactId>
+                                <version>${javax.mail.version}</version>
                             </dependency>
                             <dependency>
                                 <groupId>${oracle.jdbc.groupId}</groupId>
@@ -525,9 +521,9 @@
                         </executions>
                         <dependencies>
                             <dependency>
-                                <groupId>javax.mail</groupId>
-                                <artifactId>mail</artifactId>
-                                <version>1.4.7</version>
+                                <groupId>com.sun.mail</groupId>
+                                <artifactId>javax.mail</artifactId>
+                                <version>${javax.mail.version}</version>
                             </dependency>
                             <dependency>
                                 <groupId>net.sourceforge.jtds</groupId>
