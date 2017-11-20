@@ -79,6 +79,7 @@
         -->
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
         <test.h2.version>1.4.196</test.h2.version>
+        <test.hsqldb.version>2.4.0</test.hsqldb.version>
         <test.onlyITs>false</test.onlyITs>
         <maven.surefire.version>2.20.1</maven.surefire.version>
     </properties>
@@ -105,9 +106,29 @@
                 <artifactId>log4j</artifactId>
                 <version>1.2.17</version>
             </dependency>
+                    <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>brmo-taglib</artifactId>
+            <version>${project.version}</version>
+        </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-soap-util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>nl.b3p</groupId>
+                <artifactId>brmo-persistence</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>nl.b3p</groupId>
+                <artifactId>brmo-loader</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>nl.b3p</groupId>
+                <artifactId>topnlparser</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -217,6 +238,12 @@
                 <!-- Bij JNDI db verbinding moeten postgis jars in tomcat lib samen
                 met postgresql jdbc driver staan -->
             </dependency>
+            <dependency>
+                <groupId>net.postgis</groupId>
+                <artifactId>postgis-jdbc</artifactId>
+                <version>${postgresql.postgis-jdbc.version}</version>
+                <!-- Bij JNDI db voor postgis verbinding moeten postgis jars in tomcat lib staan -->
+            </dependency>
             <!--
                 Bij gebruik van oracle met maven moet je de oracle jdbc driver
                 handmatig toevoegen aan je locale mvn repo (OTN licentie blabla): Dit
@@ -236,12 +263,6 @@
                 <artifactId>jtds</artifactId>
                 <version>${sqlserver.jtds.version}</version>
                 <!-- Bij JNDI db verbinding moeten jtds jars in tomcat lib staan -->
-            </dependency>
-            <dependency>
-                <groupId>net.postgis</groupId>
-                <artifactId>postgis-jdbc</artifactId>
-                <version>${postgresql.postgis-jdbc.version}</version>
-                <!-- Bij JNDI db voor postgis verbinding moeten postgis jars in tomcat lib staan -->
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
@@ -342,11 +363,27 @@
                 <artifactId>json</artifactId>
                 <version>20171018</version>
             </dependency>
+            <dependency>
+                <groupId>commons-dbcp</groupId>
+                <artifactId>commons-dbcp</artifactId>
+                <version>1.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jdom</groupId>
+                <artifactId>jdom2</artifactId>
+                <version>2.0.6</version>
+            </dependency>
             <!-- test dependencies -->
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>${test.h2.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hsqldb</groupId>
+                <artifactId>hsqldb</artifactId>
+                <version>${test.hsqldb.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -391,11 +428,6 @@
                 <artifactId>tomcat-dbcp</artifactId>
                 <version>8.0.47</version>
                 <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>nl.b3p</groupId>
-                <artifactId>topnlparser</artifactId>
-                <version>1.5.2-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
