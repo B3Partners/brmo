@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2016 B3Partners B.V.
  */
-package nl.b3p.brmo.soap.util;
+package nl.b3p.brmo.service.util;
 
 import java.io.IOException;
 import java.sql.DatabaseMetaData;

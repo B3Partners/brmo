@@ -128,17 +128,6 @@ public class BrkInfoIntegrationTest extends TestUtil {
     }
 
     /**
-     * testcase voor {@link BrkInfo#getDataSourceRsgb()}.
-     *
-     * @throws Exception if any
-     * @see BrkInfo#getDataSourceRsgb()
-     */
-    @Test
-    public void testGetDataSourceRsgb() throws Exception {
-        assertNotNull(ConfigUtil.getDataSourceRsgb());
-    }
-
-    /**
      * testcase voor {@link BrkInfo#getDbType(java.sql.Connection)}.
      *
      * @throws Exception if any
