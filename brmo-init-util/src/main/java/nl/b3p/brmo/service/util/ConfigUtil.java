@@ -25,15 +25,16 @@ public class ConfigUtil implements Servlet {
 
     private static DataSource datasourceStaging = null;
     private static DataSource datasourceRsgb = null;
+    private static DataSource datasourceRsgbbgt = null;
     private static DataSource datasourceTopNL = null;
     
     public static Integer MAX_UPLOAD_SIZE;
     public static String TEMP_FOLDER;
 
+    @Override
     public void init(ServletConfig config) throws ServletException {
         String tempSize = config.getInitParameter("max_upload_size");
-        
-        if (tempSize != null && !tempSize.isEmpty()) {          
+        if (tempSize != null && !tempSize.isEmpty()) {
             MAX_UPLOAD_SIZE = new Integer(tempSize) * 1024;
         } else {
             MAX_UPLOAD_SIZE = 500 * 1024;
@@ -43,56 +44,53 @@ public class ConfigUtil implements Servlet {
         if (tempFolder != null && !tempFolder.isEmpty()) {          
             TEMP_FOLDER = tempFolder;
         } else {
-            TEMP_FOLDER = "/tmp";
-        }    
+            TEMP_FOLDER = System.getProperty("java.io.tmpdir");
+        }        
     }
 
     public static DataSource getDataSourceStaging() throws BrmoException {
-        DataSource ds = null;
         try {
             if (datasourceStaging == null) {
                 InitialContext ic = new InitialContext();
                 Context xmlContext = (Context) ic.lookup(JNDI_NAME);
-                ds = (DataSource) xmlContext.lookup(JDBC_NAME_STAGING);
+                datasourceStaging = (DataSource) xmlContext.lookup(JDBC_NAME_STAGING);
             }
         } catch (Exception ex) {
             log.error("Fout verbinden naar staging db. ", ex);
             throw new BrmoException(ex);
         }
 
-        return ds;
+        return datasourceStaging;
     }
     
     public static DataSource getDataSourceRsgb() throws BrmoException {
-        DataSource ds = null;
         try {
             if (datasourceRsgb == null) {
                 InitialContext ic = new InitialContext();
                 Context xmlContext = (Context) ic.lookup(JNDI_NAME);
-                ds = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB);
+                datasourceRsgb = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB);
             }
         } catch (Exception ex) {
             log.error("Fout verbinden naar rsgb db. ", ex);
             throw new BrmoException(ex);
         }
 
-        return ds;
+        return datasourceRsgb;
     }
 
     public static DataSource getDataSourceRsgbBgt() throws BrmoException {
-        DataSource ds = null;
         try {
-            if (datasourceRsgb == null) {
+            if (datasourceRsgbbgt == null) {
                 InitialContext ic = new InitialContext();
                 Context xmlContext = (Context) ic.lookup(JNDI_NAME);
-                ds = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB_BGT);
+                datasourceRsgbbgt = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB_BGT);
             }
         } catch (Exception ex) {
             log.error("Fout verbinden naar 'rsgbbgt' schema.", ex);
             throw new BrmoException("Fout verbinden naar 'rsgbbgt' schema.", ex);
         }
 
-        return ds;
+        return datasourceRsgbbgt;
     }
 
     /**
@@ -102,19 +100,18 @@ public class ConfigUtil implements Servlet {
      * mislukt
      */
     public static DataSource getDataSourceTopNL() throws BrmoException {
-        DataSource ds = null;
         try {
             if (datasourceTopNL == null) {
                 InitialContext ic = new InitialContext();
                 Context xmlContext = (Context) ic.lookup(JNDI_NAME);
-                ds = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB_TOPNL);
+                datasourceTopNL = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB_TOPNL);
             }
         } catch (Exception ex) {
             log.error("Fout verbinden naar 'topnl' schema.", ex);
             throw new BrmoException("Fout verbinden naar 'topnl' schema.", ex);
         }
 
-        return ds;
+        return datasourceTopNL;
     }
 
     public ServletConfig getServletConfig() {
