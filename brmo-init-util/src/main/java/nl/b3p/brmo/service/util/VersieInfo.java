@@ -4,6 +4,7 @@
 package nl.b3p.brmo.service.util;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Properties;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
@@ -17,16 +18,24 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * log versie informatie van de gebruikte schema's. Maakt gebruik van
- * {@link ConfigUtil} om de datasources op te halen.
+ * {@link ConfigUtil} om de datasources op te halen. Voeg deze servlet toe aan
+ * de web.xml van jouw brmo webapp met een startup parameter hoger dan de
+ * {@link ConfigUtil} servlet. Voorbeeld:
+ * <pre>
+ * &lt;servlet&gt;
+ *      &lt;servlet-name&gt;VersieInfo&lt;/servlet-name&gt;
+ *      &lt;description&gt;versie info controle&lt;/description&gt;
+ *      &lt;servlet-class&gt;nl.b3p.brmo.service.util.VersieInfo&lt;/servlet-class&gt;
+ *      &lt;load-on-startup&gt;4&lt;/load-on-startup&gt;
+ * &lt;/servlet&gt;
+ * </pre>
  *
  * @author mprins
  * @since 1.4.1
  */
 public class VersieInfo implements Servlet {
 
-    private static final Log log = LogFactory.getLog(VersieInfo.class);
-
-
+    private static final Log LOG = LogFactory.getLog(VersieInfo.class);
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -37,19 +46,21 @@ public class VersieInfo implements Servlet {
             props.load(VersieInfo.class.getClassLoader().getResourceAsStream("git.properties"));
             appVersie = props.getProperty("builddetails.build.version", "onbekend");
         } catch (IOException ex) {
-            log.warn("Ophalen BRMO applicatie versie informatie is mislukt.", ex);
+            String name = config.getServletContext().getContextPath();
+            name = name.startsWith("/") ? name.substring(1).toUpperCase(Locale.ROOT) : "ROOT";
+            LOG.warn("Ophalen " + name + " applicatie versie informatie is mislukt.", ex);
         }
 
         try {
             brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), ConfigUtil.getDataSourceRsgb(), ConfigUtil.getDataSourceRsgbBgt());
-            log.info("BRMO versie informatie:");
-            log.info("  staging schema versie is:  " + brmo.getStagingVersion());
-            log.info("  rsgb schema versie is:     " + brmo.getRsgbVersion());
-            log.info("  rsgbbgt schema versie is:  " + brmo.getRsgbBgtVersion());
-            log.info("  brmo applicatie versie is: " + appVersie);
+            LOG.info("BRMO versie informatie:");
+            LOG.info("  staging schema versie is:  " + brmo.getStagingVersion());
+            LOG.info("  rsgb schema versie is:     " + brmo.getRsgbVersion());
+            LOG.info("  rsgbbgt schema versie is:  " + brmo.getRsgbBgtVersion());
+            LOG.info("  brmo applicatie versie is: " + appVersie);
             // TODO check voor passende versies
         } catch (BrmoException ex) {
-            log.warn("Ophalen BRMO versie informatie is mislukt.", ex);
+            LOG.warn("Ophalen BRMO versie informatie is mislukt.", ex);
         } finally {
             if (brmo != null) {
                 brmo.closeBrmoFramework();

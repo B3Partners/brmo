@@ -95,6 +95,12 @@ public class ConfigUtil implements Servlet {
         return ds;
     }
 
+    /**
+     *
+     * @return de gevraagde datasource
+     * @throws BrmoException als opzoeken van de datasource in de jndi context
+     * mislukt
+     */
     public static DataSource getDataSourceTopNL() throws BrmoException {
         DataSource ds = null;
         try {
@@ -120,7 +126,7 @@ public class ConfigUtil implements Servlet {
     }
 
     public String getServletInfo() {
-        return "Servlet used for cofngiuration parameters in web.xml";
+        return "Servlet voor configuratie parameters in web.xml";
     }
 
     public void destroy() {

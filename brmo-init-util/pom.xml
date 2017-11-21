@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>nl.b3p</groupId>
+    <artifactId>brmo-init-util</artifactId>
+    <version>1.5.2-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <parent>
+        <groupId>nl.b3p</groupId>
+        <artifactId>brmo</artifactId>
+        <version>1.5.2-SNAPSHOT</version>
+    </parent>
+    <name>BRMO initialisatie utilities</name>
+    <description>Bevat functies voor het opzoeken van databronnen en parameters voor de BRMO.</description>
+    <build>
+        <plugins>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>brmo-loader</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

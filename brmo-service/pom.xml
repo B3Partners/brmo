@@ -60,6 +60,10 @@
         </dependency>
         <dependency>
             <groupId>nl.b3p</groupId>
+            <artifactId>brmo-init-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
             <artifactId>brmo-loader</artifactId>
             <exclusions>
                 <exclusion>
