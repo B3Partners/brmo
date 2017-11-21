@@ -103,7 +103,8 @@ public class StUFBGasynchroon {
             Date d = StUFbg204Util.sdf.parse(datum);
             String name = "Upload op " + StUFbg204Util.sdf.format(new Date());
 
-           brmo.loadFromStream(BrmoFramework.BR_BRP, in, name, d);
+            brmo.loadFromStream(BrmoFramework.BR_BRP, in, name, d);
+            brmo.closeBrmoFramework();
         } catch (BrmoException ex) {
             LOG.error("Cannot create BRMO Framework:", ex);
         } catch (Exception ex) {

@@ -93,10 +93,10 @@
             <a_nummer><xsl:value-of select="ns2:a-nummer"/></a_nummer>
             <gb_geboortedatum><xsl:value-of select="ns2:geboortedatum"/></gb_geboortedatum>
             <gb_geboorteplaats><xsl:value-of select="ns2:geboorteplaats"/></gb_geboorteplaats>
-            <fk_gb_lnd_code_iso><xsl:value-of select="ns2:codeGeboorteland"/></fk_gb_lnd_code_iso>
+            <!--fk_gb_lnd_code_iso><xsl:value-of select="ns2:codeGeboorteland"/></fk_gb_lnd_code_iso-->
             <ol_overlijdensdatum><xsl:value-of select="ns2:datumOverlijden"/></ol_overlijdensdatum>
             <ol_overlijdensplaats><xsl:value-of select="ns2:plaatsOverlijden"/></ol_overlijdensplaats>
-            <fk_ol_lnd_code_iso><xsl:value-of select="ns2:codeLandOverlijden"/></fk_ol_lnd_code_iso>
+            <!--fk_ol_lnd_code_iso><xsl:value-of select="ns2:codeLandOverlijden"/></fk_ol_lnd_code_iso-->
         </ingeschr_nat_prs>
     </xsl:template>
 
@@ -161,10 +161,10 @@
             <fk_sc_lh_inp_sc_identif><xsl:value-of select="$objectRef"/></fk_sc_lh_inp_sc_identif>
             <fk_sc_rh_inp_sc_identif><xsl:call-template name="getHash"><xsl:with-param name="bsn" select="ns2:PRS/ns2:bsn-nummer"/></xsl:call-template></fk_sc_rh_inp_sc_identif>
             <hs_datum_aangaan><xsl:value-of select="ns2:datumSluiting"/></hs_datum_aangaan>
-            <fk_hs_lnd_code_iso><xsl:value-of select="ns2:landSluiting"/></fk_hs_lnd_code_iso>
+            <!--fk_hs_lnd_code_iso><xsl:value-of select="ns2:landSluiting"/></fk_hs_lnd_code_iso-->
             <hs_plaats><xsl:value-of select="ns2:plaatsSluiting"/></hs_plaats>
             <ho_datum_ontb_huw_ger_partn><xsl:value-of select="ns2:datumOntbinding"/></ho_datum_ontb_huw_ger_partn>
-            <fk_ho_lnd_code_iso><xsl:value-of select="ns2:landOntbinding"/></fk_ho_lnd_code_iso>
+            <!--fk_ho_lnd_code_iso><xsl:value-of select="ns2:landOntbinding"/></fk_ho_lnd_code_iso-->
             <ho_plaats_ontb_huw_ger_partn><xsl:value-of select="ns2:plaatsOntbinding"/></ho_plaats_ontb_huw_ger_partn>
             <ho_reden_ontb_huw_ger_partn><xsl:value-of select="ns2:redenOntbinding"/></ho_reden_ontb_huw_ger_partn>
             <soort_verbintenis><xsl:value-of select="ns2:soortVerbintenis"/></soort_verbintenis>
@@ -207,7 +207,7 @@
 
         <pa_postadres_postcode><xsl:value-of select="ns2:ADR/ns2:postcode"/></pa_postadres_postcode>
         <pa_postbus__of_antwoordnummer><xsl:value-of select="ns2:ADR/ns2:postbusnummer"/><xsl:if test="ns2:ADR/ns2:antwoordnummer != ''"> </xsl:if><xsl:value-of select="ns2:ADR/ns2:antwoordnummer"/></pa_postbus__of_antwoordnummer>
-        <fk_vb_lnd_code_iso><xsl:value-of select="ns2:ADR/ns2:landcode"/></fk_vb_lnd_code_iso>
+        <!--fk_vb_lnd_code_iso><xsl:value-of select="ns2:ADR/ns2:landcode"/></fk_vb_lnd_code_iso-->
 
         <vb_adres_buitenland_1><xsl:value-of select="ns2:ADR/ns2:adresBuitenland1"/></vb_adres_buitenland_1>
         <vb_adres_buitenland_2><xsl:value-of select="ns2:ADR/ns2:adresBuitenland2"/></vb_adres_buitenland_2>
