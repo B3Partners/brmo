@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.brmo.soap.brk.BrkInfoRequest;
 import nl.b3p.brmo.soap.brk.BrkInfoResponse;
 import nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest;
@@ -124,17 +125,6 @@ public class BrkInfoIntegrationTest extends TestUtil {
         rsgb.close();
 
         sequential.unlock();
-    }
-
-    /**
-     * testcase voor {@link BrkInfo#getDataSourceRsgb()}.
-     *
-     * @throws Exception if any
-     * @see BrkInfo#getDataSourceRsgb()
-     */
-    @Test
-    public void testGetDataSourceRsgb() throws Exception {
-        assertNotNull(BrkInfo.getDataSourceRsgb());
     }
 
     /**

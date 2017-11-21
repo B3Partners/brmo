@@ -9,12 +9,11 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.brmo.soap.eigendom.BenoemdObject;
 import nl.b3p.brmo.soap.eigendom.BenoemdObjecten;
 import nl.b3p.brmo.soap.eigendom.Brondocumenten;
@@ -43,10 +42,6 @@ public class EigendomInfo {
 
     private static final Log LOG = LogFactory.getLog(EigendomInfo.class);
 
-    private static final String JNDI_NAME = "java:comp/env";
-    private static final String JDBC_NAME_RSGB = "jdbc/brmo/rsgb";
-    private static final String JDBC_NAME_STAGING = "jdbc/brmo/staging";
-
     private static final String DB_POSTGRES = "postgres";
     private static final String DB_ORACLE = "oracle";
     private static final String DB_MSSQL = "mssql";
@@ -61,9 +56,6 @@ public class EigendomInfo {
 
     public static final String MAXAANTALRESULTATEN = "MaxAantalResultaten";
     public static final Integer DBMAXRESULTS = 10000;
-
-    private static DataSource stagingDs = null;
-    private static DataSource rsgbDs = null;
 
     /**
      * Berekend Soap antwoord op vraag.
@@ -231,7 +223,7 @@ public class EigendomInfo {
     }
 
     private static ArrayList<MutatieEntry> findMutatieEntries(Map<String, Object> searchContext) throws Exception {
-        DataSource ds = getDataSourceStaging();
+        DataSource ds = ConfigUtil.getDataSourceStaging();
         PreparedStatement stm = null;
         Connection conn = null;
         ResultSet rs = null;
@@ -277,7 +269,7 @@ public class EigendomInfo {
 
     private static ArrayList<EigendomMutatie> findEigendomMutatie(Map<String, Object> searchContext) throws Exception {
 
-        DataSource ds = getDataSourceRsgb();
+        DataSource ds = ConfigUtil.getDataSourceRsgb();
         StringBuilder sql = null;
         PreparedStatement stm = null;
         Connection conn = null;
@@ -368,7 +360,7 @@ public class EigendomInfo {
      *
      */
     private static Brondocumenten findBrondocumenten(String value) throws Exception {
-        DataSource ds = getDataSourceRsgb();
+        DataSource ds = ConfigUtil.getDataSourceRsgb();
         StringBuilder sql = null;
         PreparedStatement stm = null;
         Connection conn = null;
@@ -420,7 +412,7 @@ public class EigendomInfo {
     }
 
     private static BenoemdObjecten findBenoemdObjecten(String vo_id) throws Exception {
-        DataSource ds = getDataSourceRsgb();
+        DataSource ds = ConfigUtil.getDataSourceRsgb();
         StringBuilder sql = null;
         PreparedStatement stm = null;
         Connection conn = null;
@@ -482,7 +474,7 @@ public class EigendomInfo {
     }
 
     private static HistorischeRelaties findHistorischeRelaties(long value) throws Exception {
-        DataSource ds = getDataSourceRsgb();
+        DataSource ds = ConfigUtil.getDataSourceRsgb();
         StringBuilder sql = null;
         PreparedStatement stm = null;
         Connection conn = null;
@@ -543,7 +535,7 @@ public class EigendomInfo {
         
         // zoek grondperceel grondperceel_kad_id
         long grondperceel_kad_id = 0l;
-        DataSource ds = getDataSourceRsgb();
+        DataSource ds = ConfigUtil.getDataSourceRsgb();
         StringBuilder sql = null;
         PreparedStatement stm = null;
         Connection conn = null;
@@ -588,7 +580,7 @@ public class EigendomInfo {
     }
     
     private static ZakelijkeRechten addZakelijkeRechten(ZakelijkeRechten zrn, long kad_id, String type) throws Exception {
-        DataSource ds = getDataSourceRsgb();
+        DataSource ds = ConfigUtil.getDataSourceRsgb();
         StringBuilder sql = null;
         PreparedStatement stm = null;
         Connection conn = null;
@@ -916,38 +908,6 @@ public class EigendomInfo {
             }
         }
         return index;
-    }
-
-    private static DataSource getDataSourceRsgb() throws Exception {
-        if (rsgbDs != null) {
-            return rsgbDs;
-        }
-        try {
-            InitialContext ic = new InitialContext();
-            Context xmlContext = (Context) ic.lookup(JNDI_NAME);
-            rsgbDs = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB);
-        } catch (Exception ex) {
-            LOG.error("Fout verbinden naar rsgb db. ", ex);
-            throw ex;
-        }
-
-        return rsgbDs;
-    }
-
-    private static DataSource getDataSourceStaging() throws Exception {
-        if (stagingDs != null) {
-            return stagingDs;
-        }
-        try {
-            InitialContext ic = new InitialContext();
-            Context xmlContext = (Context) ic.lookup(JNDI_NAME);
-            stagingDs = (DataSource) xmlContext.lookup(JDBC_NAME_STAGING);
-        } catch (Exception ex) {
-            LOG.error("Fout verbinden naar rsgb db. ", ex);
-            throw ex;
-        }
-
-        return stagingDs;
     }
 
     private static String getDbType(Connection conn) throws SQLException {

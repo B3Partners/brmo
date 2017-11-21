@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
-import nl.b3p.brmo.soap.db.BrkInfo;
+import nl.b3p.brmo.service.util.ConfigUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -85,7 +85,7 @@ public class AdressenResponse {
 
     public static AdressenResponse getAdressenByKoz(Long kozId) throws Exception {
 
-        DataSource ds = BrkInfo.getDataSourceRsgb();
+        DataSource ds = ConfigUtil.getDataSourceRsgb();
         PreparedStatement stm = null;
         Connection connRsgb = null;
         ResultSet rs = null;
