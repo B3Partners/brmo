@@ -46,7 +46,7 @@ public abstract class Converter {
     
     public abstract List<TopNLEntity> convert(List jaxbObjects)  throws IOException, SAXException, ParserConfigurationException, TransformerException;
     
-    public abstract TopNLEntity convertObject(Object jaxbObject)  throws IOException, SAXException, ParserConfigurationException, TransformerException;
+    public abstract TopNLEntity convertObject(Object jaxbObject)  throws IOException, SAXException, ParserConfigurationException, TransformerException,IllegalArgumentException;
     
     public abstract List<TopNLEntity> convertFeatureCollection(List jaxbObject)  throws IOException, SAXException, ParserConfigurationException, TransformerException;
     

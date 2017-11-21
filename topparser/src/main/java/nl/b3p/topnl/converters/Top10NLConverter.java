@@ -53,6 +53,7 @@ import nl.b3p.topnl.top10nl.SpoorbaandeelType;
 import nl.b3p.topnl.top10nl.TerreinType;
 import nl.b3p.topnl.top10nl.GeografischGebiedType;
 import nl.b3p.topnl.top10nl.InrichtingselementType;
+import nl.b3p.topnl.top10nl.PlaatsType;
 import nl.b3p.topnl.top10nl.PlanTopografieType;
 import nl.b3p.topnl.top10nl.ReliefType;
 import nl.b3p.topnl.top10nl.Top10NlObjectType;
@@ -99,7 +100,7 @@ public class Top10NLConverter extends Converter {
     }
 
     @Override
-    public TopNLEntity convertObject(Object featureMember) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public TopNLEntity convertObject(Object featureMember) throws IOException, SAXException, ParserConfigurationException, TransformerException,IllegalArgumentException {
         TopNLEntity entity = null;
 
          if(featureMember instanceof FeatureMemberType){
@@ -116,8 +117,8 @@ public class Top10NLConverter extends Converter {
             entity = convertGeografischGebied(featureMember);
         } else if (featureMember instanceof InrichtingselementType) {
             entity = convertInrichtingselement(featureMember);
-       /* } else if (featureMember instanceof PlaatsType) {
-            entity = convertPlaats(featureMember);*/
+        } else if (featureMember instanceof PlaatsType) {
+            entity = convertPlaats(featureMember);
         } else if (featureMember instanceof RegistratiefGebiedType) {
             entity = convertRegistratiefGebied(featureMember);
         } else if (featureMember instanceof ReliefType) {
@@ -245,7 +246,19 @@ public class Top10NLConverter extends Converter {
 
     @Override
     public Plaats convertPlaats(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
-        throw new IllegalArgumentException("Plaats does not exist in Top10NL");
+        PlaatsType p = (PlaatsType) jaxbObject;
+
+        Plaats pl = new Plaats();
+        convertTop10NlObjectType(p, pl);
+
+        pl.setGeometrie(gc.convertGeometry(p.getGeometrie()));
+
+        pl.setAantalInwoners(p.getAantalinwoners() != null ? p.getAantalinwoners().longValue() : null);
+        pl.setNaamFries(p.getNaamFries());
+        pl.setNaamNL(p.getNaamNL());
+        pl.setNaamOfficieel(p.getNaamOfficieel());
+        pl.setTypeGebied(p.getTypeGebied().getValue());
+        return pl;
     }
 
     @Override
@@ -436,7 +449,7 @@ public class Top10NLConverter extends Converter {
         }
         rg.setTypeInfrastructuur(r.getTypeInfrastructuur() != null ? r.getTypeInfrastructuur().getValue() : null);
         rg.setVerhardingstype(r.getVerhardingstype().getValue());
-        rg.setVerhardingsbreedteklasse(r.getVerhardingsbreedteklasse().getValue());
+        rg.setVerhardingsbreedteklasse(r.getVerhardingsbreedteklasse() != null ? r.getVerhardingsbreedteklasse().getValue() : null);
         rg.setGescheidenRijbaan(r.getGescheidenRijbaan() ==BRTJaNeeWaardeType.JA);
         rg.setaWegnummer(String.join(",", r.getAWegnummer()));
         rg.setnWegnummer(String.join(",", r.getNWegnummer()));

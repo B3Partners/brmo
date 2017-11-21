@@ -194,15 +194,21 @@ public class Top10NLConverterTest extends TestUtil{
         assertEquals(new Long("0"), real.getHoogteniveau());
     }
  
-    // Plaats niet in Top100NL
-    //@Test
+    @Test
     public void testConvertPlaats() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
         TopNLEntity entity = getEntity("top10nl/Plaats.xml");
 
-        TopNLEntity expected = getStandardTestTopNLEntity();
+        assertNotNull(entity);
 
-        expected.setIdentificatie("NL.TOP10NL.16R11-0000079618");
-        expected.setVisualisatieCode(new Long("48110"));
+        
+        TopNLEntity expected = getStandardTestTopNLEntity();
+        expected.setBronactualiteit(sdf.parse("2016-07-01"));
+        expected.setObjectBeginTijd(sdf.parse("2015-11-01"));
+        expected.setBrontype("externe data");
+        expected.setBronbeschrijving("Geometrie ingetekend door Kadaster, op basis van luchtfoto's van 2016. Aantal inwoners: in de BRP geregistreerde inwoners op 30 juni 2016, berekend door het Centraal Bureau\n" +
+" voor de Statistiek, Voorburg/Heerlen.");
+        expected.setIdentificatie("NL.TOP10NL.128994154");
+        expected.setVisualisatieCode(new Long("18400"));
 
         assertNotNull(entity);
         assertTrue(entity instanceof Plaats);
@@ -210,9 +216,10 @@ public class Top10NLConverterTest extends TestUtil{
         Plaats real = (Plaats) entity;
 
         testTopNLEntity(expected, real);
-        assertEquals(Point.class, real.getGeometrie().getClass());
+        assertEquals(Polygon.class, real.getGeometrie().getClass());
         assertEquals( "woonkern", real.getTypeGebied());
-        assertEquals( "Aldegea", real.getNaamFries());
+        assertEquals( new Long(65), real.getAantalInwoners());
+        assertEquals( "Stitswerd", real.getNaamNL());
     }
               
     @Test
@@ -365,7 +372,6 @@ public class Top10NLConverterTest extends TestUtil{
         TopNLEntity entity = getEntity("top10nl/Waterdeel.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
-
         expected.setIdentificatie("NL.TOP10NL.109888370");
         expected.setVisualisatieCode(new Long("12100"));
         expected.setBronactualiteit(sdf.parse("2011-01-01"));
