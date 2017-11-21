@@ -11,7 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.sql.DataSource;
-import nl.b3p.brmo.soap.db.BrkInfo;
+import nl.b3p.brmo.service.util.ConfigUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -28,7 +28,7 @@ public class DiagnosticsServlet implements Servlet {
 
         try {
             // lookup db connectie en log info
-            DataSource rsgb = BrkInfo.getDataSourceRsgb();
+            DataSource rsgb = ConfigUtil.getDataSourceRsgb();
             DatabaseMetaData metadata = rsgb.getConnection().getMetaData();
             LOG.info(String.format("\nDatabase en driver informatie\n\n  Database product: %s\n  Database version: %s\n  Database major:   %s\n  Database minor:   %s\n\n  DBdriver product: %s\n  DBdriver version: %s\n  DBdriver major:   %s\n  DBdriver minor:   %s",
                     metadata.getDatabaseProductName(),
@@ -54,6 +54,7 @@ public class DiagnosticsServlet implements Servlet {
                     LOG.info("zie: https://github.com/B3Partners/brmo/wiki/Welke-jdbc-driver voor meer informatie");
                 }
             }
+            metadata.getConnection().close();
         } catch (Exception ex) {
             LOG.error(ex);
         }

@@ -20,6 +20,32 @@
             <artifactId>brmo-soap-util</artifactId>
         </dependency>
         <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>brmo-init-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>brmo-loader</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>${oracle.jdbc.groupId}</groupId>
+                    <artifactId>${oracle.jdbc.artifactId}</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>org.postgresql</artifactId>
+                    <groupId>postgresql</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>net.postgis</groupId>
+                    <artifactId>postgis-jdbc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>net.sourceforge.jtds</groupId>
+                    <artifactId>jtds</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-rt</artifactId>
         </dependency>
