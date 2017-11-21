@@ -102,7 +102,7 @@
             </includes>
         </fileSet>
         <fileSet>
-            <directory>${project.build.directory}/topnlschemas/nl/b3p/topnl/database</directory>
+            <directory>../${project.basedir}/topparser/src/main/resources/nl/b3p/topnl/database/</directory>
             <outputDirectory>db/topnl</outputDirectory>
             <includes>
                 <include>**/*.sql</include>

@@ -1,0 +1,55 @@
+<top100nl:FeatureMember
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:top100nl="http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0" 
+xmlns:gml="http://www.opengis.net/gml/3.2" 
+xmlns:xlink="http://www.w3.org/1999/xlink" 
+xmlns:gmd="http://www.isotc211.org/2005/gmd" 
+xmlns:gco="http://www.isotc211.org/2005/gco" 
+xmlns:gss="http://www.isotc211.org/2005/gss" 
+xmlns:gts="http://www.isotc211.org/2005/gts" 
+xmlns:gsr="http://www.isotc211.org/2005/gsr" 
+xsi:schemaLocation="http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0 http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0/top100nl.xsd">
+ <top100nl:RegistratiefGebied gml:id="NL.TOP100NL.16R11-0000078632"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:top100nl="http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0" 
+xmlns:gml="http://www.opengis.net/gml/3.2" 
+xmlns:xlink="http://www.w3.org/1999/xlink" 
+xmlns:gmd="http://www.isotc211.org/2005/gmd" 
+xmlns:gco="http://www.isotc211.org/2005/gco" 
+xmlns:gss="http://www.isotc211.org/2005/gss" 
+xmlns:gts="http://www.isotc211.org/2005/gts" 
+xmlns:gsr="http://www.isotc211.org/2005/gsr" 
+xsi:schemaLocation="http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0 http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0/top100nl.xsd">
+  <top100nl:identificatie>
+    <top100nl:NEN3610ID>
+      <top100nl:namespace>NL.TOP100NL</top100nl:namespace>
+      <top100nl:lokaalID>16R11-0000078632</top100nl:lokaalID>
+    </top100nl:NEN3610ID>
+  </top100nl:identificatie>
+  <top100nl:objectBeginTijd>2016-11-02T00:00:00.000</top100nl:objectBeginTijd>
+  <top100nl:brontype>TOP10NL</top100nl:brontype>
+  <top100nl:bronbeschrijving>Automatische generalisatie vanuit TOP10NL</top100nl:bronbeschrijving>
+  <top100nl:bronactualiteit>2016-11-01</top100nl:bronactualiteit>
+  <top100nl:tdnCode>1234</top100nl:tdnCode>
+  <top100nl:visualisatieCode>12345</top100nl:visualisatieCode>
+  <top100nl:geometrie>
+    <top100nl:VlakOfMultivlak>
+      <top100nl:vlakGeometrie>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::28992" gml:id="LOCAL_ID_235263">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList srsDimension="2" count="44">99768.743999999 428507.712000001 98754.9600000009 429044.425700001 98667.5603 428879.2542 98400.5201000013 428501.406399999 97997.1519999988 428135.872000001 97895.7840000018 427917.375999998 97924.2399999984 427911.296 97906.1999999993 427805.600000002 97750.9679999985 427494.368000001 97526.2899999991 427150.359999999 97674.0 427000.0 97785.5 426800.0 97920.5 426400.0 97978.0 426000.0 98145.5 425600.0 98267.5 425400.0 98600.0 425080.5 98926.4479999989 424872.256000001 99256.0080000013 424718.816 99569.8079999983 424634.688000001 100560.168000001 424487.936000001 101821.344000001 423964.607999999 102166.0 423884.0 102555.120000001 423900.576000001 102923.664000001 423989.024 103286.607999999 424139.488000002 103581.952 424308.736000001 103829.760000002 424532.927999999 104397.394400001 425232.675000001 104961.300999999 425756.870000001 105229.921999998 425921.796 105661.138999999 426056.408 105568.927999999 426452.384 105231.960000001 426789.471999999 105010.202 427237.557999998 104844.585000001 427196.888999999 104850.219999999 427173.370000001 103813.855999999 426785.839000002 103766.162 426812.636 103692.059999999 426693.019000001 103489.02 426683.017000001 103297.098999999 426572.087000001 100722.627099998 428101.5671 99768.743999999 428507.712000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </top100nl:vlakGeometrie>
+    </top100nl:VlakOfMultivlak>
+  </top100nl:geometrie>
+  <top100nl:naamNL>Zwijndrecht</top100nl:naamNL>
+  <top100nl:nummer>642</top100nl:nummer>
+  <top100nl:typeRegistratiefGebied>gemeente</top100nl:typeRegistratiefGebied>
+</top100nl:RegistratiefGebied>
+
+</top100nl:FeatureMember>

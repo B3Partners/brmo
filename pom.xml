@@ -19,6 +19,7 @@
         <module>brmo-soap</module>
         <module>brmo-stufbg204</module>
         <module>brmo-dist</module>
+        <module>topparser</module>
     </modules>
     <name>BRMO</name>
     <description>B3Partners BRMO applicatie</description>
@@ -48,7 +49,11 @@
     </issueManagement>
     <properties>
         <java.version>1.8</java.version>
-        <netbeans.hint.license>default_1</netbeans.hint.license>
+        <project.build.sourceVersion>${java.version}</project.build.sourceVersion>
+        <project.build.targetVersion>${java.version}</project.build.targetVersion>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <netbeans.hint.license>gpl30</netbeans.hint.license>
         <hibernate.version>3.6.10.Final</hibernate.version>
         <geotools.version>18.0</geotools.version>
         <postgresql.jdbc.version>42.1.4</postgresql.jdbc.version>
@@ -74,6 +79,7 @@
         -->
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
         <test.h2.version>1.4.196</test.h2.version>
+        <test.hsqldb.version>2.4.0</test.hsqldb.version>
         <test.onlyITs>false</test.onlyITs>
         <maven.surefire.version>2.20.1</maven.surefire.version>
     </properties>
@@ -100,9 +106,29 @@
                 <artifactId>log4j</artifactId>
                 <version>1.2.17</version>
             </dependency>
+                    <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>brmo-taglib</artifactId>
+            <version>${project.version}</version>
+        </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-soap-util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>nl.b3p</groupId>
+                <artifactId>brmo-persistence</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>nl.b3p</groupId>
+                <artifactId>brmo-loader</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>nl.b3p</groupId>
+                <artifactId>topnlparser</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -124,7 +150,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.6</version>
+                <version>3.7</version>
             </dependency>
             <dependency>
                 <groupId>commons-fileupload</groupId>
@@ -212,6 +238,12 @@
                 <!-- Bij JNDI db verbinding moeten postgis jars in tomcat lib samen
                 met postgresql jdbc driver staan -->
             </dependency>
+            <dependency>
+                <groupId>net.postgis</groupId>
+                <artifactId>postgis-jdbc</artifactId>
+                <version>${postgresql.postgis-jdbc.version}</version>
+                <!-- Bij JNDI db voor postgis verbinding moeten postgis jars in tomcat lib staan -->
+            </dependency>
             <!--
                 Bij gebruik van oracle met maven moet je de oracle jdbc driver
                 handmatig toevoegen aan je locale mvn repo (OTN licentie blabla): Dit
@@ -231,12 +263,6 @@
                 <artifactId>jtds</artifactId>
                 <version>${sqlserver.jtds.version}</version>
                 <!-- Bij JNDI db verbinding moeten jtds jars in tomcat lib staan -->
-            </dependency>
-            <dependency>
-                <groupId>net.postgis</groupId>
-                <artifactId>postgis-jdbc</artifactId>
-                <version>${postgresql.postgis-jdbc.version}</version>
-                <!-- Bij JNDI db voor postgis verbinding moeten postgis jars in tomcat lib staan -->
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
@@ -270,6 +296,11 @@
                 <artifactId>javaee-endorsed-api</artifactId>
                 <version>7.0</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.activation</groupId>
+                <artifactId>activation</artifactId>
+                <version>1.1.1</version>
             </dependency>
             <dependency>
                 <!-- de volledige mail api dient door de servlet container te worden geleverd. -->
@@ -320,7 +351,7 @@
             <dependency>
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
-                <version>1.10.3</version>
+                <version>1.11.2</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.xml.ws</groupId>
@@ -332,11 +363,27 @@
                 <artifactId>json</artifactId>
                 <version>20171018</version>
             </dependency>
+            <dependency>
+                <groupId>commons-dbcp</groupId>
+                <artifactId>commons-dbcp</artifactId>
+                <version>1.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jdom</groupId>
+                <artifactId>jdom2</artifactId>
+                <version>2.0.6</version>
+            </dependency>
             <!-- test dependencies -->
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>${test.h2.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hsqldb</groupId>
+                <artifactId>hsqldb</artifactId>
+                <version>${test.hsqldb.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -381,17 +428,6 @@
                 <artifactId>tomcat-dbcp</artifactId>
                 <version>8.0.47</version>
                 <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>nl.b3p</groupId>
-                <artifactId>topnlparser</artifactId>
-                <version>1.6</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>net.postgis</groupId>
-                        <artifactId>postgis-jdbc</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -597,6 +633,7 @@
                         <javadocVersion>${java.version}</javadocVersion>
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <packagesheader>${project.artifactId}</packagesheader>
+                        <detectLinks>true</detectLinks>
                         <tags>
                             <tag>
                                 <name>todo</name>
@@ -699,6 +736,11 @@
                     <groupId>org.jvnet.jax-ws-commons</groupId>
                     <artifactId>jaxws-maven-plugin</artifactId>
                     <version>2.3.1-b20150201.1248</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.7.9</version>
                 </plugin>
             </plugins>
         </pluginManagement>

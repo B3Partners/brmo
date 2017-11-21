@@ -1,0 +1,27 @@
+<top50nl:FeatureMember xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:gsr="http://www.isotc211.org/2005/gsr" xmlns:gss="http://www.isotc211.org/2005/gss" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:top50nl="http://www.kadaster.nl/top50nl/1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.kadaster.nl/top50nl/1.1 top50nl_1_1.xsd">
+	<top50nl:Hoogte gml:id="NL.TOP50NL.16R11-0004176412">
+		<top50nl:identificatie>
+			<top50nl:NEN3610ID>
+				<top50nl:namespace>NL.TOP50NL</top50nl:namespace>
+				<top50nl:lokaalID>16R11-0004176412</top50nl:lokaalID>
+			</top50nl:NEN3610ID>
+		</top50nl:identificatie>
+		<top50nl:objectBeginTijd>2016-11-01T00:00:00.000</top50nl:objectBeginTijd>
+		<top50nl:brontype>TOP10NL</top50nl:brontype>
+		<top50nl:bronbeschrijving>Automatische generalisatie vanuit TOP10NL</top50nl:bronbeschrijving>
+		<top50nl:bronactualiteit>2016-11-01</top50nl:bronactualiteit>
+		<top50nl:tdnCode>1730</top50nl:tdnCode>
+		<top50nl:visualisatieCode>17300</top50nl:visualisatieCode>
+		<top50nl:geometrie>
+			<top50nl:LijnOfPunt>
+				<top50nl:lijnGeometrie>
+					<gml:LineString gml:id="LOCAL_ID_865494" srsName="urn:ogc:def:crs:EPSG::28992">
+						<gml:posList count="26" srsDimension="2">212730.451000001 431361.427000001 212772.881999999 431364.491999999 212835.578000002 431371.807999998 212863.511 431378.131000001 212910.076000001 431394.175000001 212932.346999999 431404.493999999 212943.535999998 431413.171999998 212951.875999998 431426.431000002 212953.638999999 431438.079999998 212952.607999999 431443.826000001 212944.129000001 431457.280000001 212933.620999999 431464.129000001 212926.614999998 431466.763 212899.109000001 431472.670000002 212875.434999999 431472.829999998 212848.916999999 431469.431000002 212808.791000001 431458.212000001 212729.539000001 431432.219000001 212715.960999999 431426.077 212698.074000001 431415.177999999 212689.596000001 431402.546999998 212687.379000001 431389.041000001 212690.473999999 431377.456999999 212702.022 431368.008000001 212713.434 431363.289000001 212730.451000001 431361.427000001</gml:posList>
+					</gml:LineString>
+				</top50nl:lijnGeometrie>
+			</top50nl:LijnOfPunt>
+		</top50nl:geometrie>
+		<top50nl:hoogte>15</top50nl:hoogte>
+		<top50nl:typeHoogte>hoogtelijn</top50nl:typeHoogte>
+	</top50nl:Hoogte>
+</top50nl:FeatureMember>

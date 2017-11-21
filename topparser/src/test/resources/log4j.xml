@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- for ConversionPattern parameters see:
+http://logging.apache.org/log4j/docs/api/org/apache/log4j/PatternLayout.html
+LEVELS: debug, info, warn, error, fatal en off, all -->
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
+        <param name="Threshold" value="all" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="TOPPARSER: %5p %d{HH:mm:ss} (%C#%M:%L) - %m%n" />
+        </layout>
+    </appender>
+    <appender name="file" class="org.apache.log4j.RollingFileAppender">
+        <param name="append" value="false" />
+        <param name="maxFileSize" value="10KB" />
+        <param name="maxBackupIndex" value="5" />
+        <!-- For Tomcat -->
+        <param name="file" value="target/topparser.log" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+        </layout>
+    </appender>
+    <logger name="org.geotools">
+        <level value="all" />
+    </logger>
+    <logger name="org.geotools.jdbc">
+        <level value="warn" />
+    </logger>
+    <logger name="org.postgresql">
+        <level value="info" />
+    </logger>
+    <logger name="hsqldb">
+        <level value="error" />
+    </logger>
+    <root>
+        <level value="info" />
+        <appender-ref ref="consoleAppender" />
+        <appender-ref ref="file" />
+    </root>
+</log4j:configuration>

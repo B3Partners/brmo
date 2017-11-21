@@ -1,0 +1,18 @@
+<simpleType name="NilReasonEnumeration">
+		<union>
+			<simpleType>
+				<restriction base="string">
+					<enumeration value="inapplicable"/>
+					<enumeration value="missing"/>
+					<enumeration value="template"/>
+					<enumeration value="unknown"/>
+					<enumeration value="withheld"/>
+				</restriction>
+			</simpleType>
+			<simpleType>
+				<restriction base="string">
+					<pattern value="other:\w{2,}"/>
+				</restriction>
+			</simpleType>
+		</union>
+	</simpleType>
