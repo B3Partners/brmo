@@ -17,7 +17,7 @@ create table top250nl.Hoogte (
     visualisatieCode integer,
 
     typeHoogte text,
-    geometrie Geometry,
+    geometrie Geometry (Geometry,28992),
     referentieVlak text,
     hoogte double precision,
   primary key (id)
@@ -62,7 +62,7 @@ create table top250nl.FunctioneelGebied(
   naamNL text,
   naamFries text,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -90,7 +90,7 @@ create table top250nl.Gebouw(
   naamFries text,
     
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -114,7 +114,7 @@ create table top250nl.GeografischGebied(
   naamNL text,
   naamFries text,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -138,7 +138,7 @@ create table top250nl.Inrichtingselement(
   status text,
   hoogteniveau bigint,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -164,7 +164,7 @@ create table top250nl.Plaats(
   naamNL text,
   naamFries text,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -188,7 +188,7 @@ create table top250nl.RegistratiefGebied(
   naamNL text,
   naamFries text,
   nummer text,
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -298,7 +298,7 @@ create table top250nl.Waterdeel (
   functie text,
   hoofdAfwatering Boolean,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -339,8 +339,8 @@ create table top250nl.Wegdeel (
   brugnaam text,
   tunnelnaam text,
 
-  geometrie Geometry,
-  hartGeometrie Geometry,
+  geometrie Geometry (Geometry,28992),
+  hartgeometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -376,7 +376,7 @@ create table top100nl.Hoogte (
     visualisatieCode integer,
 
     typeHoogte text,
-    geometrie Geometry,
+    geometrie Geometry (Geometry,28992),
     referentieVlak text,
     hoogte double precision,
   primary key (id)
@@ -402,7 +402,7 @@ create table top100nl.FunctioneelGebied(
   naamNL text,
   naamFries text,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -430,7 +430,7 @@ create table top100nl.Gebouw(
   naamFries text,
     
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -454,7 +454,7 @@ create table top100nl.GeografischGebied(
   naamNL text,
   naamFries text,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -478,7 +478,7 @@ create table top100nl.Inrichtingselement(
   status text,
   hoogteniveau bigint,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -504,7 +504,7 @@ create table top100nl.Plaats(
   naamNL text,
   naamFries text,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -528,7 +528,7 @@ create table top100nl.RegistratiefGebied(
   naamNL text,
   naamFries text,
   nummer text,
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -638,7 +638,7 @@ create table top100nl.Waterdeel (
   functie text,
   hoofdAfwatering Boolean,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -679,8 +679,8 @@ create table top100nl.Wegdeel (
   brugnaam text,
   tunnelnaam text,
 
-  geometrie Geometry,
-  hartGeometrie Geometry,
+  geometrie Geometry (Geometry,28992),
+  hartgeometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -716,7 +716,7 @@ create table top50nl.Hoogte (
     visualisatieCode integer,
 
     typeHoogte text,
-    geometrie Geometry,
+    geometrie Geometry (Geometry,28992),
     referentieVlak text,
     hoogte double precision,
   primary key (id)
@@ -742,7 +742,7 @@ create table top50nl.FunctioneelGebied(
   naamNL text,
   naamFries text,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -770,7 +770,7 @@ create table top50nl.Gebouw(
   naamFries text,
     
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -794,7 +794,7 @@ create table top50nl.GeografischGebied(
   naamNL text,
   naamFries text,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -818,7 +818,7 @@ create table top50nl.Inrichtingselement(
   status text,
   hoogteniveau bigint,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -844,7 +844,7 @@ create table top50nl.Plaats(
   naamNL text,
   naamFries text,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -868,7 +868,7 @@ create table top50nl.RegistratiefGebied(
   naamNL text,
   naamFries text,
   nummer text,
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -978,7 +978,7 @@ create table top50nl.Waterdeel (
   functie text,
   hoofdAfwatering Boolean,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -1019,8 +1019,8 @@ create table top50nl.Wegdeel (
   brugnaam text,
   tunnelnaam text,
 
-  geometrie Geometry,
-  hartGeometrie Geometry,
+  geometrie Geometry (Geometry,28992),
+  hartgeometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -1057,7 +1057,7 @@ create table top10nl.Hoogte (
     visualisatieCode integer,
 
     typeHoogte text,
-    geometrie Geometry,
+    geometrie Geometry (Geometry,28992),
     referentieVlak text,
     hoogte double precision,
   primary key (id)
@@ -1083,7 +1083,7 @@ create table top10nl.FunctioneelGebied(
   naamNL text,
   naamFries text,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -1111,7 +1111,7 @@ create table top10nl.Gebouw(
   naamFries text,
     
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -1135,7 +1135,7 @@ create table top10nl.GeografischGebied(
   naamNL text,
   naamFries text,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -1159,7 +1159,7 @@ create table top10nl.Inrichtingselement(
   status text,
   hoogteniveau bigint,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -1185,7 +1185,7 @@ create table top10nl.Plaats(
   naamNL text,
   naamFries text,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -1209,7 +1209,7 @@ create table top10nl.RegistratiefGebied(
   naamNL text,
   naamFries text,
   nummer text,
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -1320,7 +1320,7 @@ create table top10nl.Waterdeel (
   functie text,
   hoofdAfwatering Boolean,
     
-  geometrie Geometry,
+  geometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
@@ -1361,8 +1361,8 @@ create table top10nl.Wegdeel (
   brugnaam text,
   tunnelnaam text,
 
-  geometrie Geometry,
-  hartGeometrie Geometry,
+  geometrie Geometry (Geometry,28992),
+  hartgeometrie Geometry (Geometry,28992),
   primary key (id)
   );
 
