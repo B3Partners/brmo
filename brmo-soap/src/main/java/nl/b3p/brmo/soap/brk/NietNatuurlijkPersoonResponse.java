@@ -7,7 +7,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-import nl.b3p.brmo.soap.db.BrkInfo;
+import nl.b3p.brmo.service.util.ConfigUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -108,7 +108,7 @@ public class NietNatuurlijkPersoonResponse {
     public static NietNatuurlijkPersoonResponse getRecordById(String id,
             Map<String, Object> searchContext) throws Exception {
 
-        DataSource ds = BrkInfo.getDataSourceRsgb();
+        DataSource ds = ConfigUtil.getDataSourceRsgb();
         PreparedStatement stm = null;
         Connection connRsgb = null;
         ResultSet rs = null;

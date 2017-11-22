@@ -16,6 +16,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.brmo.soap.brk.BrkInfoRequest;
 import nl.b3p.brmo.soap.brk.BrkInfoResponse;
 import nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest;
@@ -59,8 +61,6 @@ public class BrkInfo {
 
     public static final Integer DBMAXRESULTS = 1000;
 
-    private static DataSource ds = null;
-
     /**
      * Zoek onroerende zaak ids.
      *
@@ -71,9 +71,9 @@ public class BrkInfo {
      * @throws javax.naming.NamingException als er een fout optreedt bij het
      * opzoeken van de JNDI naam
      */
-    public static ArrayList<Long> findKozIDs(Map<String, Object> searchContext) throws SQLException, ParseException, NamingException {
+    public static ArrayList<Long> findKozIDs(Map<String, Object> searchContext) throws SQLException, ParseException, NamingException, BrmoException {
 
-        DataSource ds = getDataSourceRsgb();
+        DataSource ds = ConfigUtil.getDataSourceRsgb();
         PreparedStatement stm = null;
         Connection connRsgb = null;
         ResultSet rs = null;
@@ -110,7 +110,7 @@ public class BrkInfo {
      */
     public static Integer countResults(Map<String, Object> searchContext) throws Exception {
 
-        DataSource ds = getDataSourceRsgb();
+        DataSource ds = ConfigUtil.getDataSourceRsgb();
         PreparedStatement stm = null;
         Connection connRsgb = null;
         ResultSet rs = null;
@@ -450,22 +450,6 @@ public class BrkInfo {
             }
         }
         return index;
-    }
-
-    public static DataSource getDataSourceRsgb() throws NamingException {
-        if (ds != null) {
-            return ds;
-        }
-        try {
-            InitialContext ic = new InitialContext();
-            Context xmlContext = (Context) ic.lookup(JNDI_NAME);
-            ds = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB);
-        } catch (NamingException ex) {
-            LOG.error("Fout verbinden naar rsgb db. ", ex);
-            throw ex;
-        }
-
-        return ds;
     }
 
     public static String getDbType(Connection connRsgb) throws SQLException {
