@@ -4,18 +4,11 @@
 package nl.b3p.brmo.stufbg204.util;
 
 import java.io.IOException;
-import java.sql.DatabaseMetaData;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.sql.DataSource;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -26,11 +19,6 @@ import org.apache.commons.logging.LogFactory;
 public class DiagnosticsServlet implements Servlet {
 
     private static final Log LOG = LogFactory.getLog(DiagnosticsServlet.class);
-    private static DataSource stagingDs = null;
-    private static JAXBContext jaxbContext;
-    private static final String JNDI_NAME = "java:comp/env";
-    private static final String JDBC_NAME_STAGING = "jdbc/brmo/staging";
-
     @Override
     public void init(ServletConfig config) throws ServletException {
         try {
@@ -88,28 +76,5 @@ public class DiagnosticsServlet implements Servlet {
     @Override
     public void destroy() {
         // nothing
-    }
-    
-    public static JAXBContext getStufJaxbContext() throws JAXBException{
-        if(jaxbContext == null){
-            jaxbContext = JAXBContext.newInstance("nl.egem.stuf.sector.bg._0204:nl.egem.stuf.stuf0204");
-        }
-        return jaxbContext;
-    }
-
-    public static DataSource getDataSourceStaging() throws Exception {
-        if (stagingDs != null) {
-            return stagingDs;
-        }
-        try {
-            InitialContext ic = new InitialContext();
-            Context xmlContext = (Context) ic.lookup(JNDI_NAME);
-            stagingDs = (DataSource) xmlContext.lookup(JDBC_NAME_STAGING);
-        } catch (NamingException ex) {
-            LOG.error("Fout verbinden naar rsgb db. ", ex);
-            throw ex;
-        }
-
-        return stagingDs;
     }
 }

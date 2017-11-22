@@ -29,6 +29,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.brmo.stufbg204.util.DiagnosticsServlet;
 import nl.b3p.brmo.stufbg204.util.StUFbg204Util;
 import nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht;
@@ -96,7 +97,7 @@ public class StUFBGasynchroon {
 
     private void saveBericht(Object body, String datum) {
         try {
-            DataSource ds = DiagnosticsServlet.getDataSourceStaging();
+            DataSource ds = ConfigUtil.getDataSourceStaging();
             BrmoFramework brmo = new BrmoFramework(ds, null);
             InputStream in = getXml(body);
 
@@ -117,7 +118,7 @@ public class StUFBGasynchroon {
 
         try {
             // maak van POJO een inputstream
-            Marshaller jaxbMarshaller = DiagnosticsServlet.getStufJaxbContext().createMarshaller();
+            Marshaller jaxbMarshaller = StUFbg204Util.getStufJaxbContext().createMarshaller();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             jaxbMarshaller.marshal(o, baos);
             InputStream in = new ByteArrayInputStream(baos.toByteArray());

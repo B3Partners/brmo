@@ -29,6 +29,15 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet>
+        <servlet-name>ConfigUtil</servlet-name>
+        <servlet-class>nl.b3p.brmo.service.util.ConfigUtil</servlet-class>
+        <init-param>
+            <param-name>temp_folder</param-name>
+            <param-value>/tmp</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    <servlet>
         <servlet-name>StUFBGAsynchroon</servlet-name>
         <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
         <load-on-startup>2</load-on-startup>

@@ -5,6 +5,8 @@ package nl.b3p.brmo.stufbg204.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import nl.egem.stuf.stuf0204.FoutBericht;
 import nl.egem.stuf.stuf0204.Stuurgegevens;
 import nl.egem.stuf.stuf0204.Systeem;
@@ -17,7 +19,11 @@ import nl.egem.stuf.stuf0204.Systeem;
 public final class StUFbg204Util {
     
     public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddkkkmmssSSS");
+    private static JAXBContext jaxbContext;
 
+    private StUFbg204Util() {
+    }
+    
     public static FoutBericht maakFout() {
         final FoutBericht fout = new FoutBericht();
         Stuurgegevens s = new Stuurgegevens();
@@ -39,7 +45,11 @@ public final class StUFbg204Util {
         
         return sg;
     }
-
-    private StUFbg204Util() {
+        
+    public static JAXBContext getStufJaxbContext() throws JAXBException{
+        if(jaxbContext == null){
+            jaxbContext = JAXBContext.newInstance("nl.egem.stuf.sector.bg._0204:nl.egem.stuf.stuf0204");
+        }
+        return jaxbContext;
     }
 }

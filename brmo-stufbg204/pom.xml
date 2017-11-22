@@ -26,7 +26,10 @@
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>brmo-loader</artifactId>
-            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>brmo-init-util</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
