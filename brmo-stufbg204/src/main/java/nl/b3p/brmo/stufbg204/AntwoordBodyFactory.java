@@ -23,20 +23,39 @@ import nl.egem.stuf.sector.bg._0204.ACDTabel;
 import nl.egem.stuf.sector.bg._0204.ADLTabel;
 import nl.egem.stuf.sector.bg._0204.ADRAntwoord;
 import nl.egem.stuf.sector.bg._0204.ADRFund;
+import nl.egem.stuf.sector.bg._0204.ANummerE;
 import nl.egem.stuf.sector.bg._0204.AcademischeTitelPositieTovNaam;
+import nl.egem.stuf.sector.bg._0204.AdellijkeTitelPredikaatE;
 import nl.egem.stuf.sector.bg._0204.AdellijkeTitelSoort;
 import nl.egem.stuf.sector.bg._0204.BsnNummerE;
+import nl.egem.stuf.sector.bg._0204.CodeGeboortelandE;
 import nl.egem.stuf.sector.bg._0204.GEMTabel;
+import nl.egem.stuf.sector.bg._0204.GeboortedatumE;
+import nl.egem.stuf.sector.bg._0204.GeboorteplaatsE;
+import nl.egem.stuf.sector.bg._0204.Geslachtsaanduiding;
+import nl.egem.stuf.sector.bg._0204.GeslachtsaanduidingE;
 import nl.egem.stuf.sector.bg._0204.GeslachtsnaamE;
 import nl.egem.stuf.sector.bg._0204.LNDTabel;
 import nl.egem.stuf.sector.bg._0204.NATTabel;
 import nl.egem.stuf.sector.bg._0204.ObjectFactory;
 import nl.egem.stuf.sector.bg._0204.PRSAntwoord;
+import nl.egem.stuf.sector.bg._0204.PRSFund.AanduidingNaamgebruik;
+import nl.egem.stuf.sector.bg._0204.PRSFund.AcademischeTitel;
+import nl.egem.stuf.sector.bg._0204.PRSFund.BurgerlijkeStaat;
+import nl.egem.stuf.sector.bg._0204.PRSFund.CodeGemeenteVanInschrijving;
+import nl.egem.stuf.sector.bg._0204.PRSFund.CodeLandOverlijden;
+import nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerkrijgingVerblijfstitel;
+import nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerliesVerblijfstitel;
+import nl.egem.stuf.sector.bg._0204.PRSFund.OmschrijvingRedenOpschortingBijhouding;
+import nl.egem.stuf.sector.bg._0204.PRSFund.PlaatsOverlijden;
 import nl.egem.stuf.sector.bg._0204.SIBTabel;
 import nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht.Body;
 import nl.egem.stuf.sector.bg._0204.VBTTabel;
+import nl.egem.stuf.sector.bg._0204.VoorlettersE;
 import nl.egem.stuf.sector.bg._0204.VoornamenE;
+import nl.egem.stuf.sector.bg._0204.VoorvoegselGeslachtsnaamE;
 import nl.egem.stuf.sector.bg._0204.VraagBericht;
+import nl.egem.stuf.stuf0204.DatumMetIndicator;
 import nl.egem.stuf.stuf0204.ExtraElement;
 import nl.egem.stuf.stuf0204.ExtraElementen;
 import nl.egem.stuf.stuf0204.NoValue;
@@ -53,166 +72,196 @@ public class AntwoordBodyFactory {
     public AntwoordBodyFactory() {
 
     }
-
-    public static Body getBody(VraagBericht bericht) {
-        Body b = new Body();
-        String entiteitsType = bericht.getStuurgegevens().getEntiteittype();
-        
-        switch (entiteitsType) {
-            case "ACD": {
-                ACDTabel t = createAcademischeTitel("Professor", true, "pietje");
-                b.getACD().add(t);
-                break;
-            }
-            case "ADL": {
-                ADLTabel t = createAdelijkeTitel("Koning");
-                b.getADL().add(t);
-                break;
-            }
-            case "ADR": {
-                ADRAntwoord a = createAdres("Zonnebaan", new BigInteger("12"), "c", "3542EC", new BigInteger("42"));
-                b.getADR().add(a);
-                break;
-            }
-            case "GEM": {
-                GEMTabel g = createGemeente("Utrecht", new BigInteger("42"));
-                b.getGEM().add(g);
-                break;
-            }
-            case "LND": {
-                LNDTabel l = createLand("Nederland", new BigInteger("42"));
-                b.getLND().add(l);
-                break;
-            }
-            case "NAT": {
-                NATTabel l = createNationaliteit("Nederlandse", new BigInteger("42"));
-                b.getNAT().add(l);
-                break;
-            }
-            case "PRS": {
-                PRSAntwoord p = createPersoon(new BigInteger("123456789"),"pietje", "puk");
-                b.getPRS().add(p);
-                break;
-            }
-            case "SIB": {
-                SIBTabel s = createSoortIdentiteitsbewijs("Paspoort", BigInteger.ONE);
-                b.getSIB().add(s);
-                break;
-            }
-            case "VBT": {
-                VBTTabel v = createVerblijfstitel("Inwonende", BigInteger.ONE);
-                b.getVBT().add(v);
-                break;
-            }
-            default:
-                throw new IllegalArgumentException("Entiteitstype niet ondersteund: " + entiteitsType);
-        }
-        return b;
-    }
-
-    
     // <editor-fold defaultstate="collapsed" desc="Answermessage creators">
-        
-    public static VBTTabel createVerblijfstitel(String omschrijving, BigInteger code){
+    public static VBTTabel createVerblijfstitel(String omschrijving, BigInteger code) {
         VBTTabel l = new VBTTabel();
-      
+
         VBTTabel.Omschrijving o = new VBTTabel.Omschrijving();
         o.setValue(omschrijving);
-        
+
         VBTTabel.Code c = new VBTTabel.Code();
         c.setValue(code);
-        
+
         l.setOmschrijving(objFac.createVBTTabelOmschrijving(o));
         l.setCode(objFac.createVBTTabelCode(c));
-        
+
         return l;
     }
-    
-    public static SIBTabel createSoortIdentiteitsbewijs(String omschrijving, BigInteger soort){
+
+    public static SIBTabel createSoortIdentiteitsbewijs(String omschrijving, BigInteger soort) {
         SIBTabel l = new SIBTabel();
-      
+
         SIBTabel.Soort s = new SIBTabel.Soort();
         s.setValue(soort);
-        
+
         SIBTabel.Omschrijving o = new SIBTabel.Omschrijving();
         o.setValue(omschrijving);
-        
+
         l.setOmschrijving(objFac.createSIBTabelOmschrijving(o));
         l.setSoort(objFac.createSIBTabelSoort(s));
         l.setSoortEntiteit("SIB");
         return l;
     }
-    
-    public static PRSAntwoord createPersoon(Map<String, Object> values){
-        BigDecimal bsn = (BigDecimal)values.get("bsn");
-        BigInteger bsnInt = bsn.toBigInteger();
-        
-        return createPersoon(bsnInt, values.get("nm_voornamen").toString(), values.get("nm_geslachtsnaam").toString());
-    }
-    
-    public static PRSAntwoord createPersoon(BigInteger bs, String voornamen, String geslachtsnaam){
+
+    public static PRSAntwoord createPersoon(Map<String, Object> values) {
+        BigDecimal bsnBD = (BigDecimal) values.get("bsn");
+        BigInteger bsnInt = bsnBD.toBigInteger();
+
         PRSAntwoord p = new PRSAntwoord();
-        
+
         BsnNummerE bsn = new BsnNummerE();
-        bsn.setValue(bs);
-        
-        VoornamenE v = new VoornamenE();
-        v.setValue(voornamen);
-        
-        GeslachtsnaamE g = new GeslachtsnaamE();
-        g.setValue(geslachtsnaam);
-        
+        bsn.setValue(bsnInt);
         p.setBsnNummer(objFac.createPRSFundBsnNummer(bsn));
+
+        VoornamenE v = new VoornamenE();
+        v.setValue(nullIfEmpty(values.get("nm_voornamen")));
         p.setVoornamen(objFac.createPRSFundVoornamen(v));
+
+        GeslachtsnaamE g = new GeslachtsnaamE();
+        g.setValue(nullIfEmpty(values.get("nm_geslachtsnaam")));
         p.setGeslachtsnaam(objFac.createPRSFundGeslachtsnaam(g));
+
+        GeboortedatumE gd = new GeboortedatumE();
+        gd.setValue(nullIfEmptyBD(values.get("gb_geboortedatum")));
+        p.setGeboortedatum(objFac.createPRSFundGeboortedatum(gd));
+
+        VoorlettersE vl = new VoorlettersE();
+        vl.setValue(nullIfEmpty(values.get("na_voorletters_aanschrijving")));
+        p.setVoorletters(objFac.createPRSFundVoorletters(vl));
+
+        VoorvoegselGeslachtsnaamE vvgn = new VoorvoegselGeslachtsnaamE();
+        vvgn.setValue(nullIfEmpty(values.get("nm_voorvoegsel_geslachtsnaam")));
+        p.setVoorvoegselGeslachtsnaam(objFac.createPRSFundVoorvoegselGeslachtsnaam(vvgn));
+
+        AdellijkeTitelPredikaatE a = new AdellijkeTitelPredikaatE();
+        a.setValue(nullIfEmpty(values.get("nm_adellijke_titel_predikaat")));
+        p.setAdellijkeTitelPredikaat(objFac.createPRSFundAdellijkeTitelPredikaat(a));
+
+        if (values.get("geslachtsaand") != null) {
+            GeslachtsaanduidingE ga = new GeslachtsaanduidingE();
+            Geslachtsaanduiding ge = Geslachtsaanduiding.fromValue(nullIfEmpty(values.get("geslachtsaand")));
+            ga.setValue(ge);
+            p.setGeslachtsaanduiding(objFac.createPRSFundGeslachtsaanduiding(ga));
+        }
+        AcademischeTitel at = new AcademischeTitel();
+        at.setValue(nullIfEmpty(values.get("fk_2acd_code")));
+        p.getAcademischeTitel().add(at);
+        
+        if(values.get("aand_naamgebruik") != null ){
+            AanduidingNaamgebruik an = new AanduidingNaamgebruik();
+            an.setValue(nl.egem.stuf.sector.bg._0204.AanduidingNaamgebruik.fromValue(nullIfEmpty(values.get("aand_naamgebruik"))));
+            p.setAanduidingNaamgebruik(objFac.createPRSFundAanduidingNaamgebruik(an));
+        }
+        
+        ANummerE aN = new ANummerE();
+        aN.setValue(nullIfEmptyBI(values.get("a_nummer")));
+        p.setANummer(objFac.createPRSFundANummer(aN));
+
+        BurgerlijkeStaat bu = new BurgerlijkeStaat();
+        bu.setValue(nullIfEmptyBI(values.get("burgerlijke_staat")));
+        p.setBurgerlijkeStaat(objFac.createPRSFundBurgerlijkeStaat(bu));
+
+        
+        DatumMetIndicator da = new DatumMetIndicator();
+        da.setValue(nullIfEmptyBD(values.get("datum_inschrijving_in_gemeente")));
+        p.setDatumInschrijvingGemeente(objFac.createPRSFundDatumInschrijvingGemeente(da));
+
+        DatumVerkrijgingVerblijfstitel dav = new DatumVerkrijgingVerblijfstitel();
+        dav.setValue(nullIfEmptyBD(values.get("datum_verkr_nation")));
+        p.setDatumVerkrijgingVerblijfstitel(objFac.createPRSFundDatumVerkrijgingVerblijfstitel(dav));
+
+        DatumVerliesVerblijfstitel dvt = new DatumVerliesVerblijfstitel();
+        dvt.setValue(nullIfEmptyBD(values.get("datum_verlies_nation")));
+        p.setDatumVerliesVerblijfstitel(objFac.createPRSFundDatumVerliesVerblijfstitel(dvt));
+
+        da = new DatumMetIndicator();
+        da.setValue(nullIfEmptyBD(values.get("datum_vertrek_uit_nederland")));
+        p.setDatumVertrekUitNederland(objFac.createPRSFundDatumVertrekUitNederland(da));
+
+        da = new DatumMetIndicator();
+        da.setValue(nullIfEmptyBD(values.get("datum_vestg_in_nederland")));
+        p.setDatumVestigingInNederland(objFac.createPRSFundDatumVestigingInNederland(da));
+
+        CodeGemeenteVanInschrijving co = new CodeGemeenteVanInschrijving();
+        co.setValue(nullIfEmptyBI(values.get("gemeente_van_inschrijving")));
+        p.setCodeGemeenteVanInschrijving(objFac.createPRSFundCodeGemeenteVanInschrijving(co));
+
+        GeboorteplaatsE gp = new GeboorteplaatsE();
+        gp.setValue(nullIfEmpty(values.get("gb_geboorteplaats")));
+        p.setGeboorteplaats(objFac.createPRSFundGeboorteplaats(gp));
+
+        CodeGeboortelandE cg = new CodeGeboortelandE();
+        cg.setValue(nullIfEmptyBI(values.get("fk_gb_lnd_code_iso")));
+        p.setCodeGeboorteland(objFac.createPRSFundCodeGeboorteland(cg));
+
+        da = new DatumMetIndicator();
+        da.setValue(nullIfEmptyBD(values.get("ol_overlijdensdatum")));
+        p.setDatumOverlijden(objFac.createPRSFundDatumOverlijden(da));
+
+        PlaatsOverlijden pl = new PlaatsOverlijden();
+        pl.setValue(nullIfEmpty(values.get("fk_gb_lnd_code_iso")));
+        p.setPlaatsOverlijden(objFac.createPRSFundPlaatsOverlijden(pl));
+
+        CodeLandOverlijden clo = new CodeLandOverlijden();
+        clo.setValue(nullIfEmptyBI(values.get("fk_ol_lnd_code_iso")));
+        p.setCodeLandOverlijden(objFac.createPRSFundCodeLandOverlijden(clo));
+
+        da = new DatumMetIndicator();
+        da.setValue(nullIfEmptyBD(values.get("datum_opschorting_bijhouding")));
+        p.setDatumOpschortingBijhouding(objFac.createPRSFundDatumOpschortingBijhouding(da));
+
+        OmschrijvingRedenOpschortingBijhouding om = new OmschrijvingRedenOpschortingBijhouding();
+        om.setValue(nullIfEmpty(values.get("reden_opschorting_bijhouding")));
+        p.setOmschrijvingRedenOpschortingBijhouding(objFac.createPRSFundOmschrijvingRedenOpschortingBijhouding(om));
+
         return p;
     }
-    
-    public static NATTabel createNationaliteit(String nationaliteit, BigInteger code){
+
+    public static NATTabel createNationaliteit(String nationaliteit, BigInteger code) {
         NATTabel l = new NATTabel();
-      
+
         NATTabel.Omschrijving o = new NATTabel.Omschrijving();
         o.setValue(nationaliteit);
-        
+
         NATTabel.Code c = new NATTabel.Code();
         c.setValue(code);
-        
+
         l.setOmschrijving(objFac.createNATTabelOmschrijving(o));
-        l.setCode(objFac.createNATTabelCode(c));        
+        l.setCode(objFac.createNATTabelCode(c));
         l.setSoortEntiteit("NAT");
         return l;
     }
-    
-    public static LNDTabel createLand(String naam, BigInteger code){
+
+    public static LNDTabel createLand(String naam, BigInteger code) {
         LNDTabel l = new LNDTabel();
-        
+
         LNDTabel.Landnaam n = new LNDTabel.Landnaam();
         n.setValue(naam);
-        
+
         LNDTabel.Landcode c = new LNDTabel.Landcode();
         c.setValue(code);
-        
+
         l.setLandnaam(objFac.createLNDTabelLandnaam(n));
         l.setLandcode(objFac.createLNDTabelLandcode(c));
         l.setSoortEntiteit("LND");
         return l;
     }
-    
+
     public static GEMTabel createGemeente(String naam, BigInteger code) {
         GEMTabel g = new GEMTabel();
         GEMTabel.Gemeentenaam n = new GEMTabel.Gemeentenaam();
         n.setValue(naam);
-        
+
         GEMTabel.Gemeentecode c = new GEMTabel.Gemeentecode();
         c.setValue(code);
-        
+
         g.setGemeentenaam(objFac.createGEMTabelGemeentenaam(n));
         g.setGemeentecode(objFac.createGEMTabelGemeentecode(c));
-        
+
         g.setSoortEntiteit("GEM");
         return g;
     }
-    
+
     public static ACDTabel createAcademischeTitel(String titel, boolean posVoorNaam, String code) {
         ACDTabel t = new ACDTabel();
         ACDTabel.Code c = new ACDTabel.Code();
@@ -286,6 +335,18 @@ public class AntwoordBodyFactory {
         a.setGemeentecode(objFac.createADRFundGemeentecode(g));
         a.setPostcode(objFac.createADRFundPostcode(p));
         return a;
+    }
+
+    public static String nullIfEmpty(Object e) {
+        return e == null ? null : e.toString();
+    }
+
+    public static BigDecimal nullIfEmptyBD(Object e) {
+        return e == null ? null : new BigDecimal(e.toString());
+    }
+
+    public static BigInteger nullIfEmptyBI(Object e) {
+        return e == null ? null : new BigInteger(e.toString());
     }
 
     // </editor-fold>
