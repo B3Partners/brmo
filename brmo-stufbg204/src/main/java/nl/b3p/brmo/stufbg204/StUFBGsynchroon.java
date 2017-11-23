@@ -51,7 +51,7 @@ public class StUFBGsynchroon {
             antw.setBody(b);
             return antw;
         } catch (SQLException | BrmoException e) {
-            FoutBericht fout = StUFbg204Util.maakFout("StUF0011", e);
+            FoutBericht fout = StUFbg204Util.maakFout("StUF0011");
             throw new StUFFout("Not implemented yet.", fout, e);
         }catch(StUFFout e){
             throw e;
@@ -65,7 +65,7 @@ public class StUFBGsynchroon {
             q = createQuery(vraag);
         }catch(IllegalArgumentException e){
             LOG.error("Cannot parse query: ", e);
-            FoutBericht fout = StUFbg204Util.maakFout("StUF0011", e);
+            FoutBericht fout = StUFbg204Util.maakFout("StUF0011");
             throw new StUFFout("Cannot parse query: ", fout, e);
         }
         // haal resultaten op
