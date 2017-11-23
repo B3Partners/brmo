@@ -56,7 +56,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <netbeans.hint.license>gpl30</netbeans.hint.license>
         <hibernate.version>3.6.10.Final</hibernate.version>
-        <geotools.version>18.0</geotools.version>
+        <geotools.version>18.1</geotools.version>
         <postgresql.jdbc.version>42.1.4</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2.2.1</postgresql.postgis-jdbc.version>
         <oracle.jdbc.groupId>com.oracle</oracle.jdbc.groupId>
@@ -140,7 +140,7 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>jdbc-util</artifactId>
-                <version>1.6</version>
+                <version>1.7</version>
             </dependency>
 
             <dependency>
