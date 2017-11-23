@@ -3,18 +3,26 @@
  */
 package nl.b3p.brmo.stufbg204;
 
+import java.math.BigInteger;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.jws.HandlerChain;
 import javax.jws.WebService;
+import javax.sql.DataSource;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.brmo.stufbg204.util.StUFbg204Util;
-import nl.egem.stuf.sector.bg._0204.PRSVraag;
+import nl.egem.stuf.sector.bg._0204.PRSAntwoord;
 import nl.egem.stuf.sector.bg._0204.StUFFout;
 import nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht;
 import nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht.Body;
 import nl.egem.stuf.sector.bg._0204.VraagBericht;
 import nl.egem.stuf.stuf0204.FoutBericht;
 import nl.egem.stuf.stuf0204.Stuurgegevens;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -31,9 +39,9 @@ import org.apache.commons.logging.LogFactory;
 )
 @HandlerChain(file = "/handler-chain.xml")
 public class StUFBGsynchroon {
-    
+
     private static final Log LOG = LogFactory.getLog(StUFBGsynchroon.class);
-    
+
     public SynchroonAntwoordBericht beantwoordSynchroneVraag(VraagBericht vraag) throws StUFFout {
         try {
             LOG.debug("Er is antwoord ontvangen van soort: " + vraag.getStuurgegevens().getBerichtsoort());
@@ -42,68 +50,83 @@ public class StUFBGsynchroon {
             Body b = process(vraag);
             antw.setBody(b);
             return antw;
-        } catch (Exception e) {
-            FoutBericht fout = StUFbg204Util.maakFout();
+        } catch (SQLException | BrmoException e) {
+            FoutBericht fout = StUFbg204Util.maakFout("StUF0011", e);
             throw new StUFFout("Not implemented yet.", fout, e);
+        }catch(StUFFout e){
+            throw e;
         }
     }
-    
-    private Body process(VraagBericht vraag){
+
+    private Body process(VraagBericht vraag) throws BrmoException, SQLException, StUFFout {
         // interpreteer vraag
-        String q = createQuery(vraag);
+        String q = null;
+        try{
+            q = createQuery(vraag);
+        }catch(IllegalArgumentException e){
+            LOG.error("Cannot parse query: ", e);
+            FoutBericht fout = StUFbg204Util.maakFout("StUF0011", e);
+            throw new StUFFout("Cannot parse query: ", fout, e);
+        }
         // haal resultaten op
-        List<Map<String,Object>> results = getResults(q, vraag);
+        List<Map<String, Object>> results = getResults(q, vraag);
         // Sorteer resultaten
         sort(results, vraag);
         // maak entities adhv gevraagde elementen
-        List<Object> res = createResults(results, vraag);
-        // stuur antwoord
-        Body b = createBody(res);
+        Body b = createResults(results, vraag);
         return b;
     }
-    
-    private String createQuery(VraagBericht vraag){
-        
+
+    private String createQuery(VraagBericht vraag) throws IllegalArgumentException{
         Stuurgegevens sg = vraag.getStuurgegevens();
         String q = "select * from ";
         String entiteitType = sg.getEntiteittype();
         nl.egem.stuf.sector.bg._0204.VraagBericht.Body b = vraag.getBody();
+        // Haal op wat de gevraagde entiteit is
+        // haal de rsgb tabellen op
         switch (entiteitType) {
             case "PRS": {
-                q += "ingeschr_nat_prs inp inner join subject s on inp.sc_identif = s.identif inner join nat_prs np on np.sc_identif = s.identif";
+                q += "ingeschr_nat_prs inp inner join subject s on inp.sc_identif = s.identif inner join nat_prs np on np.sc_identif = s.identif ";
                 break;
             }
             default:
                 throw new IllegalArgumentException("Entiteitstype niet ondersteund: " + entiteitType);
         }
-        // Haal op wat de gevraagde entiteit is
-            // haal de rsgb tabellen op
         // Haal op wat het criterium is
         CriteriaParser cp = new CriteriaParser();
-        q += cp.getCriteria(vraag);
-        
-      //  vraag.getStuurgegevens().
+
         // Stel query samen
+        q += "WHERE " + cp.getCriteria(vraag);
         return q;
     }
-    
-    private List<Map<String,Object>> getResults(String query, VraagBericht vraag){
-        List<Map<String,Object>> results = null;
+
+    private List<Map<String, Object>> getResults(String query, VraagBericht vraag) throws BrmoException, SQLException {
+        List<Map<String, Object>> results;
+        DataSource d = ConfigUtil.getDataSourceRsgb();
+        MapListHandler mlh = new MapListHandler();
+        QueryRunner qr = new QueryRunner(d);
+        results = qr.query(query, mlh);
         return results;
     }
-    
-    private void sort(List<Map<String,Object>> results, VraagBericht vraag){
-        
+
+    private void sort(List<Map<String, Object>> results, VraagBericht vraag) {
+
     }
-    
-    private List<Object> createResults(List<Map<String,Object>> resultsMap, VraagBericht vraag){
-        List<Object> results = null;
-        return results;
-    }
-    
-    private Body createBody(List<Object> objs){
+
+    private Body createResults(List<Map<String, Object>> resultsMap, VraagBericht vraag) {
         Body b = new Body();
-        
+        String entiteitType = vraag.getStuurgegevens().getEntiteittype();
+        switch (entiteitType) {
+            case "PRS": {
+                for (Map<String,Object> obj : resultsMap) {
+                    PRSAntwoord prs = AntwoordBodyFactory.createPersoon(obj);
+                    b.getPRS().add(prs);
+                }
+                break;
+            }
+            default:
+                throw new IllegalArgumentException("Entiteitstype niet ondersteund: " + entiteitType);
+        }
         return b;
     }
 }

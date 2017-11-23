@@ -16,7 +16,9 @@
  */
 package nl.b3p.brmo.stufbg204;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Map;
 import nl.egem.stuf.sector.bg._0204.ACDTabel;
 import nl.egem.stuf.sector.bg._0204.ADLTabel;
 import nl.egem.stuf.sector.bg._0204.ADRAntwoord;
@@ -139,6 +141,13 @@ public class AntwoordBodyFactory {
         l.setSoort(objFac.createSIBTabelSoort(s));
         l.setSoortEntiteit("SIB");
         return l;
+    }
+    
+    public static PRSAntwoord createPersoon(Map<String, Object> values){
+        BigDecimal bsn = (BigDecimal)values.get("bsn");
+        BigInteger bsnInt = bsn.toBigInteger();
+        
+        return createPersoon(bsnInt, values.get("nm_voornamen").toString(), values.get("nm_geslachtsnaam").toString());
     }
     
     public static PRSAntwoord createPersoon(BigInteger bs, String voornamen, String geslachtsnaam){

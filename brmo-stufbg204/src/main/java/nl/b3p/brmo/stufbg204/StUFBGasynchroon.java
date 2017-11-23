@@ -141,7 +141,6 @@ public class StUFBGasynchroon {
             for (int i = 0; i < nodelist.getLength(); i++) {
                 Node n = nodelist.item(i);
                 root.appendChild(n);
-                
             }
 
             // Vertaal xml naar inputstream voor verwerking in brmo framework

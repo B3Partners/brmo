@@ -24,12 +24,20 @@ public final class StUFbg204Util {
     private StUFbg204Util() {
     }
     
-    public static FoutBericht maakFout() {
+    public static FoutBericht maakFout(String errorcode, Exception e) {
         final FoutBericht fout = new FoutBericht();
+        Stuurgegevens.Fout f = new Stuurgegevens.Fout();
+        f.setCrossRefNummer(errorcode);
         Stuurgegevens s = new Stuurgegevens();
         s.setBerichtsoort("Fo01");
+        s.setFout(f);
+        
         fout.setStuurgegevens(s);
-        fout.setBody(new FoutBericht.Body());
+        FoutBericht.Body  b = new FoutBericht.Body();
+        b.setCode(errorcode);
+        b.setOmschrijving(e.getLocalizedMessage());
+        fout.setBody(b);
+        
 
         return fout;
     }
