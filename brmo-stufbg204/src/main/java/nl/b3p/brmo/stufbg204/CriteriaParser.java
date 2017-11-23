@@ -16,7 +16,9 @@
  */
 package nl.b3p.brmo.stufbg204;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import nl.egem.stuf.sector.bg._0204.PRSVraag;
 import nl.egem.stuf.sector.bg._0204.VraagBericht;
 import nl.egem.stuf.sector.bg._0204.VraagBericht.Body;
@@ -26,6 +28,58 @@ import nl.egem.stuf.sector.bg._0204.VraagBericht.Body;
  * @author Meine Toonen
  */
 public class CriteriaParser {
+
+    private static Map<String, String> vraagToColumn = new HashMap();
+
+    static {
+        vraagToColumn.put("prsadrcor", "");
+        vraagToColumn.put("prsadrins", "");
+        vraagToColumn.put("prsadrvbl", "");
+        vraagToColumn.put("prsidb", "");
+        vraagToColumn.put("prsnat", "");
+        vraagToColumn.put("prsprshuw", "");
+        vraagToColumn.put("prsprsknd", "");
+        vraagToColumn.put("prsprsoud", "");
+        vraagToColumn.put("aNummer", "");
+        vraagToColumn.put("bsnNummer", "");
+        vraagToColumn.put("voornamen", "");
+        vraagToColumn.put("voorletters", "");
+        vraagToColumn.put("voorvoegselGeslachtsnaam", "");
+        vraagToColumn.put("geslachtsnaam", "");
+        vraagToColumn.put("geboortedatum", "");
+        vraagToColumn.put("geboorteplaats", "");
+        vraagToColumn.put("codeGeboorteland", "");
+        vraagToColumn.put("geslachtsaanduiding", "");
+        vraagToColumn.put("datumOverlijden", "");
+        vraagToColumn.put("plaatsOverlijden", "");
+        vraagToColumn.put("codeLandOverlijden", "");
+        vraagToColumn.put("indicatieGeheim", "");
+        vraagToColumn.put("academischeTitel", "");
+        vraagToColumn.put("adellijkeTitelPredikaat", "");
+        vraagToColumn.put("codeGemeenteVanInschrijving", "");
+        vraagToColumn.put("datumInschrijvingGemeente", "");
+        vraagToColumn.put("datumOpschortingBijhouding", "");
+        vraagToColumn.put("omschrijvingRedenOpschortingBijhouding", "");
+        vraagToColumn.put("codeLandEmigratie", "");
+        vraagToColumn.put("datumVertrekUitNederland", "");
+        vraagToColumn.put("codeLandImmigratie", "");
+        vraagToColumn.put("datumVestigingInNederland", "");
+        vraagToColumn.put("indicatieGezagMinderjarige", "");
+        vraagToColumn.put("indicatieCuratelestelling", "");
+        vraagToColumn.put("verblijfstitel", "");
+        vraagToColumn.put("datumVerkrijgingVerblijfstitel", "");
+        vraagToColumn.put("datumVerliesVerblijfstitel", "");
+        vraagToColumn.put("aanduidingBijzonderNederlanderschap", "");
+        vraagToColumn.put("burgerlijkeStaat", "");
+        vraagToColumn.put("aanduidingNaamgebruik", "");
+        vraagToColumn.put("bankgiroRekeningnummer", "");
+        vraagToColumn.put("subjectnrAKR", "");
+        vraagToColumn.put("eMailAdres", "");
+        vraagToColumn.put("telefoonnummer", "");
+        vraagToColumn.put("faxnummer", "");
+        vraagToColumn.put("tijdvakGeldigheid", "");
+        vraagToColumn.put("extraElementen", "");
+    }
 
     public CriteriaParser() {
 
@@ -57,6 +111,8 @@ public class CriteriaParser {
     }
     
     private String getPRSCriteria(PRSVraag prs){
+        PRSVraag.
+        prs.getANummer().getName().getLocalPart()
 prs.getPRSADRCOR();
 prs.getPRSADRINS();
 prs.getPRSADRVBL();
@@ -104,6 +160,54 @@ prs.getTelefoonnummer();
 prs.getFaxnummer();
 prs.getTijdvakGeldigheid();
 prs.getExtraElementen();
+prs.getANummer().getName().getLocalPart();
+prs.getPRSADRCOR().getName().getLocalPart();
+prs.getPRSADRINS().getName().getLocalPart();
+prs.getPRSADRVBL().getName().getLocalPart();
+prs.getPRSIDB().getName().getLocalPart();
+prs.getPRSNAT().getName().getLocalPart();
+prs.getPRSPRSHUW().getName().getLocalPart();
+prs.getPRSPRSKND().getName().getLocalPart();
+prs.getPRSPRSOUD().getName().getLocalPart();
+prs.getANummer().getName().getLocalPart();
+prs.getBsnNummer().getName().getLocalPart();
+prs.getVoornamen().getName().getLocalPart();
+prs.getVoorletters().getName().getLocalPart();
+prs.getVoorvoegselGeslachtsnaam().getName().getLocalPart();
+prs.getGeslachtsnaam().getName().getLocalPart();
+prs.getGeboortedatum().getName().getLocalPart();
+prs.getGeboorteplaats().getName().getLocalPart();
+prs.getCodeGeboorteland().getName().getLocalPart();
+prs.getGeslachtsaanduiding().getName().getLocalPart();
+prs.getDatumOverlijden().getName().getLocalPart();
+prs.getPlaatsOverlijden().getName().getLocalPart();
+prs.getCodeLandOverlijden().getName().getLocalPart();
+prs.getIndicatieGeheim().getName().getLocalPart();
+prs.getAcademischeTitel().getName().getLocalPart();
+prs.getAdellijkeTitelPredikaat().getName().getLocalPart();
+prs.getCodeGemeenteVanInschrijving().getName().getLocalPart();
+prs.getDatumInschrijvingGemeente().getName().getLocalPart();
+prs.getDatumOpschortingBijhouding().getName().getLocalPart();
+prs.getOmschrijvingRedenOpschortingBijhouding().getName().getLocalPart();
+prs.getCodeLandEmigratie().getName().getLocalPart();
+prs.getDatumVertrekUitNederland().getName().getLocalPart();
+prs.getCodeLandImmigratie().getName().getLocalPart();
+prs.getDatumVestigingInNederland().getName().getLocalPart();
+prs.getIndicatieGezagMinderjarige().getName().getLocalPart();
+prs.getIndicatieCuratelestelling().getName().getLocalPart();
+prs.getVerblijfstitel().getName().getLocalPart();
+prs.getDatumVerkrijgingVerblijfstitel().getName().getLocalPart();
+prs.getDatumVerliesVerblijfstitel().getName().getLocalPart();
+prs.getAanduidingBijzonderNederlanderschap().getName().getLocalPart();
+prs.getBurgerlijkeStaat().getName().getLocalPart();
+prs.getAanduidingNaamgebruik().getName().getLocalPart();
+prs.getBankgiroRekeningnummer().getName().getLocalPart();
+prs.getSubjectnrAKR().getName().getLocalPart();
+prs.getEMailAdres().getName().getLocalPart();
+prs.getTelefoonnummer().getName().getLocalPart();
+prs.getFaxnummer().getName().getLocalPart();
+prs.getTijdvakGeldigheid().getName().getLocalPart();
+prs.getExtraElementen().getName().getLocalPart();
         return "";
     }
 
