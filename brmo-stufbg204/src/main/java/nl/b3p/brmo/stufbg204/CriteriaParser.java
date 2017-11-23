@@ -292,7 +292,11 @@ public class CriteriaParser {
         }
         String query = column;
         query += first ? " > " : " <= ";
-        query += String.valueOf(value);
+        char quote = ' ';
+        if(value instanceof String){
+            quote = '\'';
+        }
+        query += quote + String.valueOf(value) + quote;
         return query;
     }
 }
