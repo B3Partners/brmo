@@ -77,7 +77,7 @@ public class StUFBGsynchroon {
         return b;
     }
 
-    private String createQuery(VraagBericht vraag) throws IllegalArgumentException {
+    private String createQuery(VraagBericht vraag) throws IllegalArgumentException, StUFFout {
         Stuurgegevens sg = vraag.getStuurgegevens();
         String q = "select * from ";
         String entiteitType = sg.getEntiteittype();
@@ -97,20 +97,48 @@ public class StUFBGsynchroon {
 
         // Stel query samen
         q += "WHERE " + cp.getCriteria(vraag);
+
+        String order = getOrderString(vraag);
+        q += " " + order;
         return q;
     }
 
-    private List<Map<String, Object>> getResults(String query, VraagBericht vraag) throws BrmoException, SQLException {
-        List<Map<String, Object>> results;
-        DataSource d = ConfigUtil.getDataSourceRsgb();
-        try {
-            MapListHandler mlh = new MapListHandler();
-            QueryRunner qr = new QueryRunner(d);
-            results = qr.query(query, mlh);
-            return results;
-        } finally {
-            DbUtils.closeQuietly(d.getConnection());
+    private String getOrderString(VraagBericht vraag) throws StUFFout {
+        String sort = "";
+        BigInteger sortering = vraag.getStuurgegevens().getVraag().getSortering();
+        if (sortering != null) {
+            if (sortering.compareTo(new BigInteger("1")) == -1 || sortering.compareTo(new BigInteger("9")) == 1) {
+                FoutBericht fout = StUFbg204Util.maakFout("StUF004");
+                throw new StUFFout("Sortering niet ondersteund: " + sortering, fout);
+            } else {
+                sort = "ORDER BY ";
+                switch (sortering.toString()) {
+                    case "1":
+                        sort += "nm_geslachtsnaam,nl_voorvoegsel_geslachtsnaam, nm_voorletters_aanschrijving";
+                        break;
+                    case "6":
+                        sort += "gb_geboortedatum,nm_geslachtsnaam,nl_voorvoegsel_geslachtsnaam, nm_voorletters_aanschrijving";
+                        break;
+                    case "7":
+                        sort += "bsn";
+                        break;
+                    case "8":
+                        sort += "a_nummer";
+                        break;
+                    case "2":
+                    case "3":
+                    case "4":
+                    case "5":
+                    case "9":
+                        // 2,3,4,5,9 worden via post processing gedaan
+                        break;
+                    default:
+                        FoutBericht fout = StUFbg204Util.maakFout("StUF004");
+                        throw new StUFFout("Sortering niet ondersteund: " + sortering, fout);
+                }
+            }
         }
+        return sort;
     }
 
     private void sort(List<Map<String, Object>> results, VraagBericht vraag) throws StUFFout {
@@ -124,14 +152,23 @@ public class StUFBGsynchroon {
             07: SoFi-nummer
             08: A-nummer
             09: Subjectnummer AKR Omdat een persoon meerdere subjectnummers AKR kan hebben kan een persoon bij deze sortering meerdere keren in het bericht voorkomen.
-        */
+         */
         BigInteger sortering = vraag.getStuurgegevens().getVraag().getSortering();
-        if(sortering != null){
-            if( sortering.compareTo(new BigInteger("1")) == -1 || sortering.compareTo(new BigInteger("9")) == 1){
-                FoutBericht fout = StUFbg204Util.maakFout("StUF004");
-                throw new StUFFout("Sortering niet ondersteund: " + sortering, fout);
-                
-            }
+        if (sortering != null) {
+
+        }
+    }
+
+    private List<Map<String, Object>> getResults(String query, VraagBericht vraag) throws BrmoException, SQLException {
+        List<Map<String, Object>> results;
+        DataSource d = ConfigUtil.getDataSourceRsgb();
+        try {
+            MapListHandler mlh = new MapListHandler();
+            QueryRunner qr = new QueryRunner(d);
+            results = qr.query(query, mlh);
+            return results;
+        } finally {
+            DbUtils.closeQuietly(d.getConnection());
         }
     }
 
