@@ -91,6 +91,7 @@ public class StUFBGasynchroon {
         //  LOG.debug("Er is kennisgeving ontvangen van soort: " + kennisgeving.getStuurgegevens().getBerichtsoort());
         BevestigingsBericht b = new BevestigingsBericht();
         b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(kennisgeving.getStuurgegevens()));
+        
         saveBericht(kennisgeving, kennisgeving.getStuurgegevens().getTijdstipBericht());
         return b;
     }

@@ -5,7 +5,6 @@ package nl.b3p.brmo.stufbg204;
 
 import java.math.BigInteger;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.jws.HandlerChain;
@@ -21,6 +20,7 @@ import nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht.Body;
 import nl.egem.stuf.sector.bg._0204.VraagBericht;
 import nl.egem.stuf.stuf0204.FoutBericht;
 import nl.egem.stuf.stuf0204.Stuurgegevens;
+import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.logging.Log;
@@ -51,9 +51,9 @@ public class StUFBGsynchroon {
             antw.setBody(b);
             return antw;
         } catch (SQLException | BrmoException e) {
-            FoutBericht fout = StUFbg204Util.maakFout("StUF0011");
+            FoutBericht fout = StUFbg204Util.maakFout("StUF011");
             throw new StUFFout("Not implemented yet.", fout, e);
-        }catch(StUFFout e){
+        } catch (StUFFout e) {
             throw e;
         }
     }
@@ -61,11 +61,11 @@ public class StUFBGsynchroon {
     private Body process(VraagBericht vraag) throws BrmoException, SQLException, StUFFout {
         // interpreteer vraag
         String q = null;
-        try{
+        try {
             q = createQuery(vraag);
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             LOG.error("Cannot parse query: ", e);
-            FoutBericht fout = StUFbg204Util.maakFout("StUF0011");
+            FoutBericht fout = StUFbg204Util.maakFout("StUF011");
             throw new StUFFout("Cannot parse query: ", fout, e);
         }
         // haal resultaten op
@@ -77,7 +77,7 @@ public class StUFBGsynchroon {
         return b;
     }
 
-    private String createQuery(VraagBericht vraag) throws IllegalArgumentException{
+    private String createQuery(VraagBericht vraag) throws IllegalArgumentException {
         Stuurgegevens sg = vraag.getStuurgegevens();
         String q = "select * from ";
         String entiteitType = sg.getEntiteittype();
@@ -103,14 +103,36 @@ public class StUFBGsynchroon {
     private List<Map<String, Object>> getResults(String query, VraagBericht vraag) throws BrmoException, SQLException {
         List<Map<String, Object>> results;
         DataSource d = ConfigUtil.getDataSourceRsgb();
-        MapListHandler mlh = new MapListHandler();
-        QueryRunner qr = new QueryRunner(d);
-        results = qr.query(query, mlh);
-        return results;
+        try {
+            MapListHandler mlh = new MapListHandler();
+            QueryRunner qr = new QueryRunner(d);
+            results = qr.query(query, mlh);
+            return results;
+        } finally {
+            DbUtils.closeQuietly(d.getConnection());
+        }
     }
 
-    private void sort(List<Map<String, Object>> results, VraagBericht vraag) {
-
+    private void sort(List<Map<String, Object>> results, VraagBericht vraag) throws StUFFout {
+        /*
+            01: Geslachtsnaam, voorvoegsel geslachtsnaam, voorletters
+            02: Postcode, huisnummer, huisletter van het verblijfsadres
+            03: Straatnaam, huisnummer, huisletter van het verblijfsadres
+            04: Postcode, huisnummer, huisletter van het inschrijvingsadres
+            05: Straatnaam, huisnummer, huisletter van het inschrijvingsadres
+            06: Geboortedatum, geslachtsnaam, voorvoegsel geslachtsnaam, voorletters
+            07: SoFi-nummer
+            08: A-nummer
+            09: Subjectnummer AKR Omdat een persoon meerdere subjectnummers AKR kan hebben kan een persoon bij deze sortering meerdere keren in het bericht voorkomen.
+        */
+        BigInteger sortering = vraag.getStuurgegevens().getVraag().getSortering();
+        if(sortering != null){
+            if( sortering.compareTo(new BigInteger("1")) == -1 || sortering.compareTo(new BigInteger("9")) == 1){
+                FoutBericht fout = StUFbg204Util.maakFout("StUF004");
+                throw new StUFFout("Sortering niet ondersteund: " + sortering, fout);
+                
+            }
+        }
     }
 
     private Body createResults(List<Map<String, Object>> resultsMap, VraagBericht vraag) {
@@ -118,7 +140,7 @@ public class StUFBGsynchroon {
         String entiteitType = vraag.getStuurgegevens().getEntiteittype();
         switch (entiteitType) {
             case "PRS": {
-                for (Map<String,Object> obj : resultsMap) {
+                for (Map<String, Object> obj : resultsMap) {
                     PRSAntwoord prs = AntwoordBodyFactory.createPersoon(obj, vraag.getBody().getPRS().get(2));
                     b.getPRS().add(prs);
                 }
