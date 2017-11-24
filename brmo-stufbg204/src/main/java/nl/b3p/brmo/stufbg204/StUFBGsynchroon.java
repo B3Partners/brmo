@@ -119,7 +119,7 @@ public class StUFBGsynchroon {
         switch (entiteitType) {
             case "PRS": {
                 for (Map<String,Object> obj : resultsMap) {
-                    PRSAntwoord prs = AntwoordBodyFactory.createPersoon(obj);
+                    PRSAntwoord prs = AntwoordBodyFactory.createPersoon(obj, vraag.getBody().getPRS().get(2));
                     b.getPRS().add(prs);
                 }
                 break;
