@@ -86,7 +86,7 @@ public class Processor {
                             list.add(obj);
                             List<TopNLEntity> entities = convert(list, type);
                             save(entities, type);
-                        } catch (JAXBException | IOException | SAXException | ParserConfigurationException | TransformerException | ParseException ex) {
+                        } catch (JAXBException | IOException | SAXException | ParserConfigurationException | TransformerException | ParseException | IllegalArgumentException ex) {
                             log.error("Error parsing", ex);
                         } catch (ClassCastException cce) {
                             log.error(String.format(Locale.ROOT, "Verwerkingsfout van element %s locatie %s", localname, (jb == null ? "onbekend" : ll.getLocation(jb))), cce);

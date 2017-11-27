@@ -1,3 +1,16 @@
+truncate table top10nl.Hoogte;
+truncate table top10nl.FunctioneelGebied;
+truncate table top10nl.Gebouw;
+truncate table top10nl.GeografischGebied;
+truncate table top10nl.Inrichtingselement;
+truncate table top10nl.Plaats;
+truncate table top10nl.RegistratiefGebied;
+truncate table top10nl.Relief;
+truncate table top10nl.Spoorbaandeel;
+truncate table top10nl.Terrein;
+truncate table top10nl.Waterdeel;
+truncate table top10nl.Wegdeel;
+
 truncate table top50nl.Hoogte;
 truncate table top50nl.FunctioneelGebied;
 truncate table top50nl.Gebouw;

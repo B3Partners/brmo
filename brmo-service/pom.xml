@@ -119,10 +119,6 @@
             <artifactId>gt-main</artifactId>
         </dependency>
         <dependency>
-            <groupId>nl.b3p</groupId>
-            <artifactId>topnlparser</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <scope>test</scope>
