@@ -103,6 +103,9 @@ public class CriteriaParser {
             default:
                 throw new IllegalArgumentException("Entiteitstype niet ondersteund: " + entiteitType);
         }
+        if (q != null){
+            q = "WHERE " + q;
+        }
         return q;
     }
 
@@ -113,6 +116,9 @@ public class CriteriaParser {
         String from = getPRSCriteria(prs.get(0), true);
         String toCheck = getPRSCriteria(prs.get(1), true); // maak even een tweede filter aan met dezelfde operator, om te checken of er op hetzelfde gecheckt wordt == equals 
         String to = getPRSCriteria(prs.get(1), false);
+        if(from == null && to == null){
+            return null;
+        }
         if (from.equals(toCheck)) {
             q = from.replace(">", "=");
         } else {
@@ -287,6 +293,9 @@ public class CriteriaParser {
             value = prs.getAcademischeTitel().getValue().getValue();
         }*/
         String column = vraagToColumn.get(vraag);
+        if(vraag == null){
+            return null;
+        }
         if (column == null) {
             throw new IllegalArgumentException("Request filtercolumn not supported: " + vraag);
         }

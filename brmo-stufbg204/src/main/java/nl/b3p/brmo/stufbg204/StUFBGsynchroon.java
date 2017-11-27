@@ -96,7 +96,10 @@ public class StUFBGsynchroon {
         CriteriaParser cp = new CriteriaParser();
 
         // Stel query samen
-        q += "WHERE " + cp.getCriteria(vraag);
+        String whereClause = cp.getCriteria(vraag);
+        if(whereClause != null){
+            q += whereClause;
+        }
 
         String order = getOrderString(vraag);
         q += " " + order;
