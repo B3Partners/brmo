@@ -64,6 +64,10 @@
             <artifactId>brmo-test-util</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>jdbc-util</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

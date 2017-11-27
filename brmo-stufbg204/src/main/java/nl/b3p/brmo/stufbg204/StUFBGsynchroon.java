@@ -4,6 +4,7 @@
 package nl.b3p.brmo.stufbg204;
 
 import java.math.BigInteger;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,8 @@ import javax.sql.DataSource;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.brmo.stufbg204.util.StUFbg204Util;
+import nl.b3p.loader.jdbc.GeometryJdbcConverter;
+import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
 import nl.egem.stuf.sector.bg._0204.PRSAntwoord;
 import nl.egem.stuf.sector.bg._0204.StUFFout;
 import nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht;
@@ -61,15 +64,19 @@ public class StUFBGsynchroon {
     private Body process(VraagBericht vraag) throws BrmoException, SQLException, StUFFout {
         // interpreteer vraag
         String q = null;
+        DataSource d = ConfigUtil.getDataSourceRsgb();
+        Connection c = d.getConnection();
+        
         try {
-            q = createQuery(vraag);
+            q = createQuery(vraag,c);
         } catch (IllegalArgumentException e) {
             LOG.error("Cannot parse query: ", e);
             FoutBericht fout = StUFbg204Util.maakFout("StUF011");
             throw new StUFFout("Cannot parse query: ", fout, e);
         }
         // haal resultaten op
-        List<Map<String, Object>> results = getResults(q, vraag);
+        List<Map<String, Object>> results = getResults(q, vraag,c);
+        DbUtils.closeQuietly(c);
         // Sorteer resultaten
         sort(results, vraag);
         // maak entities adhv gevraagde elementen
@@ -77,7 +84,7 @@ public class StUFBGsynchroon {
         return b;
     }
 
-    private String createQuery(VraagBericht vraag) throws IllegalArgumentException, StUFFout {
+    private String createQuery(VraagBericht vraag, Connection c) throws IllegalArgumentException, StUFFout {
         Stuurgegevens sg = vraag.getStuurgegevens();
         String q = "select * from ";
         String entiteitType = sg.getEntiteittype();
@@ -97,12 +104,17 @@ public class StUFBGsynchroon {
 
         // Stel query samen
         String whereClause = cp.getCriteria(vraag);
-        if(whereClause != null){
+        if (whereClause != null) {
             q += whereClause;
         }
 
         String order = getOrderString(vraag);
         q += " " + order;
+
+        if (vraag.getStuurgegevens().getVraag().getMaximumAantal() != null) {
+            GeometryJdbcConverter converter = GeometryJdbcConverterFactory.getGeometryJdbcConverter(c);
+            q = converter.buildLimitSql(new StringBuilder(q), vraag.getStuurgegevens().getVraag().getMaximumAantal().intValue()).toString();
+        }
         return q;
     }
 
@@ -140,6 +152,8 @@ public class StUFBGsynchroon {
                         throw new StUFFout("Sortering niet ondersteund: " + sortering, fout);
                 }
             }
+        } else {
+            sort = "ORDER BY identif";
         }
         return sort;
     }
@@ -162,17 +176,14 @@ public class StUFBGsynchroon {
         }
     }
 
-    private List<Map<String, Object>> getResults(String query, VraagBericht vraag) throws BrmoException, SQLException {
+    private List<Map<String, Object>> getResults(String query, VraagBericht vraag, Connection c) throws BrmoException, SQLException {
         List<Map<String, Object>> results;
-        DataSource d = ConfigUtil.getDataSourceRsgb();
-        try {
-            MapListHandler mlh = new MapListHandler();
-            QueryRunner qr = new QueryRunner(d);
-            results = qr.query(query, mlh);
-            return results;
-        } finally {
-            DbUtils.closeQuietly(d.getConnection());
-        }
+
+        MapListHandler mlh = new MapListHandler();
+        QueryRunner qr = new QueryRunner();
+        results = qr.query(c, query, mlh);
+        return results;
+       
     }
 
     private Body createResults(List<Map<String, Object>> resultsMap, VraagBericht vraag) {
