@@ -19,8 +19,6 @@ digraph G {
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + Top50NLConverterTest() </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + tearDown() </td></tr>
 <tr><td align="left" balign="left"> + testConvertNoFeatureCollection() </td></tr>
 <tr><td align="left" balign="left"> + testConvertHoogte() </td></tr>
 <tr><td align="left" balign="left"> + testConvertFunctioneelGebied() </td></tr>
@@ -48,8 +46,6 @@ digraph G {
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + Top10NLConverterTest() </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + tearDown() </td></tr>
 <tr><td align="left" balign="left"> + testConvertNoFeatureCollection() </td></tr>
 <tr><td align="left" balign="left"> + testConvertHoogte() </td></tr>
 <tr><td align="left" balign="left"> + testConvertFunctioneelGebied() </td></tr>
@@ -79,8 +75,6 @@ digraph G {
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + Top250NLConverterTest() </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + tearDown() </td></tr>
 <tr><td align="left" balign="left"> + testConvertFeatureCollection() </td></tr>
 <tr><td align="left" balign="left"> + testConvertNoFeatureCollection() </td></tr>
 <tr><td align="left" balign="left"> + testConvertHoogte() </td></tr>
@@ -109,8 +103,6 @@ digraph G {
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + Top100NLConverterTest() </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + tearDown() </td></tr>
 <tr><td align="left" balign="left"> + testConvertNoFeatureCollection() </td></tr>
 <tr><td align="left" balign="left"> + testConvertHoogte() </td></tr>
 <tr><td align="left" balign="left"> + testConvertFunctioneelGebied() </td></tr>

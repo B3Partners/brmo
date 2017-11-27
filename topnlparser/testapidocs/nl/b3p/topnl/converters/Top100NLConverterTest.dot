@@ -15,7 +15,6 @@ digraph G {
 <tr><td align="center" balign="center"> TestUtil </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # log : Log </td></tr>
 <tr><td align="left" balign="left"> # datasource : DataSource </td></tr>
 <tr><td align="left" balign="left"> # useDB : boolean </td></tr>
 <tr><td align="left" balign="left"> # run : QueryRunner </td></tr>
@@ -23,8 +22,9 @@ digraph G {
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + TestUtil() </td></tr>
+<tr><td align="left" balign="left"> + startTest() </td></tr>
 <tr><td align="left" balign="left"> + setUpClass() </td></tr>
-<tr><td align="left" balign="left"> + after() </td></tr>
+<tr><td align="left" balign="left"> + endTest() </td></tr>
 <tr><td align="left" balign="left"> + executeScript(f : Reader) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../TestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
@@ -38,8 +38,6 @@ digraph G {
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + Top100NLConverterTest() </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + tearDown() </td></tr>
 <tr><td align="left" balign="left"> + testConvertNoFeatureCollection() </td></tr>
 <tr><td align="left" balign="left"> + testConvertHoogte() </td></tr>
 <tr><td align="left" balign="left"> + testConvertFunctioneelGebied() </td></tr>
