@@ -24,50 +24,50 @@
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> javax.naming.InitialContext;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> javax.naming.NamingException;
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> javax.sql.DataSource;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.soap.brk.BrkInfoRequest;
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.soap.brk.BrkInfoResponse;
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest;
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse;
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest;
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.Log;
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.LogFactory;
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> * @author Chris</em>
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/soap/db/BrkInfo.html">BrkInfo</a> {
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(BrkInfo.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.loader.util.BrmoException;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.service.util.ConfigUtil;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.soap.brk.BrkInfoRequest;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.soap.brk.BrkInfoResponse;
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.Log;
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.LogFactory;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> * @author Chris</em>
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/soap/db/BrkInfo.html">BrkInfo</a> {
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String JNDI_NAME = <span class="jxr_string">"java:comp/env"</span>;
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String JDBC_NAME_RSGB = <span class="jxr_string">"jdbc/brmo/rsgb"</span>;
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String DB_POSTGRES = <span class="jxr_string">"postgres"</span>;
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String DB_ORACLE = <span class="jxr_string">"oracle"</span>;
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String DB_MSSQL = <span class="jxr_string">"mssql"</span>;
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String APPREVOLGNUMMER = <span class="jxr_string">"appReVolgnummer"</span>;
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String WOONPLAATS = <span class="jxr_string">"gemeenteNaam"</span>;
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String GEMEENTECODE = <span class="jxr_string">"gemeentecode"</span>;
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String HUISNUMMER = <span class="jxr_string">"huisnummer"</span>;
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String IDENTIFICATIE = <span class="jxr_string">"identificatie"</span>;
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String PERCEELNUMMER = <span class="jxr_string">"perceelnummer"</span>;
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String POSTCODE = <span class="jxr_string">"postcode"</span>;
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String SECTIE = <span class="jxr_string">"sectie"</span>;
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String STRAATNAAM = <span class="jxr_string">"straatNaam"</span>;
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String SUBJECTNAAM = <span class="jxr_string">"subjectNaam"</span>;
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String ZOEKGEBIED = <span class="jxr_string">"zoekgebied"</span>;
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String BUFFERLENGTE = <span class="jxr_string">"bufferLengte"</span>;
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String MAXAANTALRESULTATEN = <span class="jxr_string">"MaxAantalResultaten"</span>;
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String ADRESSENTOEVOEGEN = <span class="jxr_string">"AdressenToevoegen"</span>;
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String GEVOELIGEINFOOPHALEN = <span class="jxr_string">"GevoeligeInfoOphalen"</span>;
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String SUBJECTSTOEVOEGEN = <span class="jxr_string">"SubjectsToevoegen"</span>;
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Integer DBMAXRESULTS = 1000;
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(BrkInfo.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String JNDI_NAME = <span class="jxr_string">"java:comp/env"</span>;
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String JDBC_NAME_RSGB = <span class="jxr_string">"jdbc/brmo/rsgb"</span>;
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String DB_POSTGRES = <span class="jxr_string">"postgres"</span>;
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String DB_ORACLE = <span class="jxr_string">"oracle"</span>;
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String DB_MSSQL = <span class="jxr_string">"mssql"</span>;
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String APPREVOLGNUMMER = <span class="jxr_string">"appReVolgnummer"</span>;
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String WOONPLAATS = <span class="jxr_string">"gemeenteNaam"</span>;
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String GEMEENTECODE = <span class="jxr_string">"gemeentecode"</span>;
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String HUISNUMMER = <span class="jxr_string">"huisnummer"</span>;
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String IDENTIFICATIE = <span class="jxr_string">"identificatie"</span>;
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String PERCEELNUMMER = <span class="jxr_string">"perceelnummer"</span>;
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String POSTCODE = <span class="jxr_string">"postcode"</span>;
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String SECTIE = <span class="jxr_string">"sectie"</span>;
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String STRAATNAAM = <span class="jxr_string">"straatNaam"</span>;
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String SUBJECTNAAM = <span class="jxr_string">"subjectNaam"</span>;
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String ZOEKGEBIED = <span class="jxr_string">"zoekgebied"</span>;
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String BUFFERLENGTE = <span class="jxr_string">"bufferLengte"</span>;
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String MAXAANTALRESULTATEN = <span class="jxr_string">"MaxAantalResultaten"</span>;
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String ADRESSENTOEVOEGEN = <span class="jxr_string">"AdressenToevoegen"</span>;
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String GEVOELIGEINFOOPHALEN = <span class="jxr_string">"GevoeligeInfoOphalen"</span>;
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String SUBJECTSTOEVOEGEN = <span class="jxr_string">"SubjectsToevoegen"</span>;
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> DataSource ds = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Integer DBMAXRESULTS = 1000;
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment">     * Zoek onroerende zaak ids.</em>
@@ -79,9 +79,9 @@
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">     * @throws javax.naming.NamingException als er een fout optreedt bij het</em>
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment">     * opzoeken van de JNDI naam</em>
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> ArrayList&lt;Long&gt; findKozIDs(Map&lt;String, Object&gt; searchContext) <strong class="jxr_keyword">throws</strong> SQLException, ParseException, NamingException {
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> ArrayList&lt;Long&gt; findKozIDs(Map&lt;String, Object&gt; searchContext) <strong class="jxr_keyword">throws</strong> SQLException, ParseException, NamingException, BrmoException {
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>          DataSource ds = getDataSourceRsgb();
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>          DataSource ds = ConfigUtil.getDataSourceRsgb();
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>          PreparedStatement stm = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>          Connection connRsgb = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>          ResultSet rs = <strong class="jxr_keyword">null</strong>;
@@ -118,7 +118,7 @@
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Integer countResults(Map&lt;String, Object&gt; searchContext) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L112" href="#L112">112</a> 
-<a class="jxr_linenumber" name="L113" href="#L113">113</a>         DataSource ds = getDataSourceRsgb();
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>         DataSource ds = ConfigUtil.getDataSourceRsgb();
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>         PreparedStatement stm = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>         Connection connRsgb = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>         ResultSet rs = <strong class="jxr_keyword">null</strong>;
@@ -460,123 +460,107 @@
 <a class="jxr_linenumber" name="L452" href="#L452">452</a>         <strong class="jxr_keyword">return</strong> index;
 <a class="jxr_linenumber" name="L453" href="#L453">453</a>     }
 <a class="jxr_linenumber" name="L454" href="#L454">454</a> 
-<a class="jxr_linenumber" name="L455" href="#L455">455</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> DataSource getDataSourceRsgb() <strong class="jxr_keyword">throws</strong> NamingException {
-<a class="jxr_linenumber" name="L456" href="#L456">456</a>         <strong class="jxr_keyword">if</strong> (ds != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L457" href="#L457">457</a>             <strong class="jxr_keyword">return</strong> ds;
-<a class="jxr_linenumber" name="L458" href="#L458">458</a>         }
-<a class="jxr_linenumber" name="L459" href="#L459">459</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L460" href="#L460">460</a>             InitialContext ic = <strong class="jxr_keyword">new</strong> InitialContext();
-<a class="jxr_linenumber" name="L461" href="#L461">461</a>             Context xmlContext = (Context) ic.lookup(JNDI_NAME);
-<a class="jxr_linenumber" name="L462" href="#L462">462</a>             ds = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB);
-<a class="jxr_linenumber" name="L463" href="#L463">463</a>         } <strong class="jxr_keyword">catch</strong> (NamingException ex) {
-<a class="jxr_linenumber" name="L464" href="#L464">464</a>             LOG.error(<span class="jxr_string">"Fout verbinden naar rsgb db. "</span>, ex);
-<a class="jxr_linenumber" name="L465" href="#L465">465</a>             <strong class="jxr_keyword">throw</strong> ex;
-<a class="jxr_linenumber" name="L466" href="#L466">466</a>         }
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> String getDbType(Connection connRsgb) <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L456" href="#L456">456</a>         String databaseProductName = connRsgb.getMetaData().getDatabaseProductName();
+<a class="jxr_linenumber" name="L457" href="#L457">457</a>         <strong class="jxr_keyword">if</strong> (databaseProductName.contains(<span class="jxr_string">"PostgreSQL"</span>)) {
+<a class="jxr_linenumber" name="L458" href="#L458">458</a>             <strong class="jxr_keyword">return</strong> DB_POSTGRES;
+<a class="jxr_linenumber" name="L459" href="#L459">459</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (databaseProductName.contains(<span class="jxr_string">"Oracle"</span>)) {
+<a class="jxr_linenumber" name="L460" href="#L460">460</a>             <strong class="jxr_keyword">return</strong> DB_ORACLE;
+<a class="jxr_linenumber" name="L461" href="#L461">461</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (databaseProductName.contains(<span class="jxr_string">"Microsoft"</span>)) {
+<a class="jxr_linenumber" name="L462" href="#L462">462</a>             <strong class="jxr_keyword">return</strong> DB_MSSQL;
+<a class="jxr_linenumber" name="L463" href="#L463">463</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L464" href="#L464">464</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException(<span class="jxr_string">"Unknown database: "</span> + connRsgb.getMetaData().getDatabaseProductName());
+<a class="jxr_linenumber" name="L465" href="#L465">465</a>         }
+<a class="jxr_linenumber" name="L466" href="#L466">466</a>     }
 <a class="jxr_linenumber" name="L467" href="#L467">467</a> 
-<a class="jxr_linenumber" name="L468" href="#L468">468</a>         <strong class="jxr_keyword">return</strong> ds;
-<a class="jxr_linenumber" name="L469" href="#L469">469</a>     }
-<a class="jxr_linenumber" name="L470" href="#L470">470</a> 
-<a class="jxr_linenumber" name="L471" href="#L471">471</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> String getDbType(Connection connRsgb) <strong class="jxr_keyword">throws</strong> SQLException {
-<a class="jxr_linenumber" name="L472" href="#L472">472</a>         String databaseProductName = connRsgb.getMetaData().getDatabaseProductName();
-<a class="jxr_linenumber" name="L473" href="#L473">473</a>         <strong class="jxr_keyword">if</strong> (databaseProductName.contains(<span class="jxr_string">"PostgreSQL"</span>)) {
-<a class="jxr_linenumber" name="L474" href="#L474">474</a>             <strong class="jxr_keyword">return</strong> DB_POSTGRES;
-<a class="jxr_linenumber" name="L475" href="#L475">475</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (databaseProductName.contains(<span class="jxr_string">"Oracle"</span>)) {
-<a class="jxr_linenumber" name="L476" href="#L476">476</a>             <strong class="jxr_keyword">return</strong> DB_ORACLE;
-<a class="jxr_linenumber" name="L477" href="#L477">477</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (databaseProductName.contains(<span class="jxr_string">"Microsoft"</span>)) {
-<a class="jxr_linenumber" name="L478" href="#L478">478</a>             <strong class="jxr_keyword">return</strong> DB_MSSQL;
-<a class="jxr_linenumber" name="L479" href="#L479">479</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L480" href="#L480">480</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException(<span class="jxr_string">"Unknown database: "</span> + connRsgb.getMetaData().getDatabaseProductName());
+<a class="jxr_linenumber" name="L468" href="#L468">468</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Map&lt;String, Object&gt; createSearchContext(<a href="../../../../../nl/b3p/brmo/soap/brk/BrkInfoRequest.html">BrkInfoRequest</a> request) {
+<a class="jxr_linenumber" name="L469" href="#L469">469</a>         Map&lt;String, Object&gt; searchContext = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
+<a class="jxr_linenumber" name="L470" href="#L470">470</a>         <strong class="jxr_keyword">if</strong> (request == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L471" href="#L471">471</a>             <strong class="jxr_keyword">return</strong> searchContext;
+<a class="jxr_linenumber" name="L472" href="#L472">472</a>         }
+<a class="jxr_linenumber" name="L473" href="#L473">473</a>         <strong class="jxr_keyword">if</strong> (request.getSubjectNaam() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L474" href="#L474">474</a>             searchContext.put(BrkInfo.SUBJECTNAAM, request.getSubjectNaam());
+<a class="jxr_linenumber" name="L475" href="#L475">475</a>         }
+<a class="jxr_linenumber" name="L476" href="#L476">476</a>         <strong class="jxr_keyword">if</strong> (request.getZoekgebied() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L477" href="#L477">477</a>             searchContext.put(BrkInfo.ZOEKGEBIED, request.getZoekgebied());
+<a class="jxr_linenumber" name="L478" href="#L478">478</a>         }
+<a class="jxr_linenumber" name="L479" href="#L479">479</a>         <strong class="jxr_keyword">if</strong> (request.getBufferAfstand() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L480" href="#L480">480</a>             searchContext.put(BrkInfo.BUFFERLENGTE, request.getBufferAfstand());
 <a class="jxr_linenumber" name="L481" href="#L481">481</a>         }
-<a class="jxr_linenumber" name="L482" href="#L482">482</a>     }
-<a class="jxr_linenumber" name="L483" href="#L483">483</a> 
-<a class="jxr_linenumber" name="L484" href="#L484">484</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Map&lt;String, Object&gt; createSearchContext(<a href="../../../../../nl/b3p/brmo/soap/brk/BrkInfoRequest.html">BrkInfoRequest</a> request) {
-<a class="jxr_linenumber" name="L485" href="#L485">485</a>         Map&lt;String, Object&gt; searchContext = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
-<a class="jxr_linenumber" name="L486" href="#L486">486</a>         <strong class="jxr_keyword">if</strong> (request == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L487" href="#L487">487</a>             <strong class="jxr_keyword">return</strong> searchContext;
-<a class="jxr_linenumber" name="L488" href="#L488">488</a>         }
-<a class="jxr_linenumber" name="L489" href="#L489">489</a>         <strong class="jxr_keyword">if</strong> (request.getSubjectNaam() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L490" href="#L490">490</a>             searchContext.put(BrkInfo.SUBJECTNAAM, request.getSubjectNaam());
-<a class="jxr_linenumber" name="L491" href="#L491">491</a>         }
-<a class="jxr_linenumber" name="L492" href="#L492">492</a>         <strong class="jxr_keyword">if</strong> (request.getZoekgebied() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L493" href="#L493">493</a>             searchContext.put(BrkInfo.ZOEKGEBIED, request.getZoekgebied());
-<a class="jxr_linenumber" name="L494" href="#L494">494</a>         }
-<a class="jxr_linenumber" name="L495" href="#L495">495</a>         <strong class="jxr_keyword">if</strong> (request.getBufferAfstand() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L496" href="#L496">496</a>             searchContext.put(BrkInfo.BUFFERLENGTE, request.getBufferAfstand());
-<a class="jxr_linenumber" name="L497" href="#L497">497</a>         }
-<a class="jxr_linenumber" name="L498" href="#L498">498</a> 
-<a class="jxr_linenumber" name="L499" href="#L499">499</a>         <a href="../../../../../nl/b3p/brmo/soap/brk/KadOnrndZkInfoRequest.html">KadOnrndZkInfoRequest</a> koz = request.getKadOnrndZk();
-<a class="jxr_linenumber" name="L500" href="#L500">500</a>         <strong class="jxr_keyword">if</strong> (koz != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L501" href="#L501">501</a>             <strong class="jxr_keyword">if</strong> (koz.getIdentificatie() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L502" href="#L502">502</a>                 searchContext.put(BrkInfo.IDENTIFICATIE, Long.parseLong(koz.getIdentificatie()));
-<a class="jxr_linenumber" name="L503" href="#L503">503</a>             }
-<a class="jxr_linenumber" name="L504" href="#L504">504</a>             <strong class="jxr_keyword">if</strong> (koz.getAppReVolgnummer() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L505" href="#L505">505</a>                 searchContext.put(BrkInfo.APPREVOLGNUMMER, koz.getAppReVolgnummer());
-<a class="jxr_linenumber" name="L506" href="#L506">506</a>             }
-<a class="jxr_linenumber" name="L507" href="#L507">507</a>             <strong class="jxr_keyword">if</strong> (koz.getGemeentecode() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L508" href="#L508">508</a>                 searchContext.put(BrkInfo.GEMEENTECODE, koz.getGemeentecode());
-<a class="jxr_linenumber" name="L509" href="#L509">509</a>             }
-<a class="jxr_linenumber" name="L510" href="#L510">510</a>             <strong class="jxr_keyword">if</strong> (koz.getPerceelnummer() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L511" href="#L511">511</a>                 searchContext.put(BrkInfo.PERCEELNUMMER, koz.getPerceelnummer());
-<a class="jxr_linenumber" name="L512" href="#L512">512</a>             }
-<a class="jxr_linenumber" name="L513" href="#L513">513</a>             <strong class="jxr_keyword">if</strong> (koz.getSectie() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L514" href="#L514">514</a>                 searchContext.put(BrkInfo.SECTIE, koz.getSectie());
-<a class="jxr_linenumber" name="L515" href="#L515">515</a>             }
-<a class="jxr_linenumber" name="L516" href="#L516">516</a>         }
-<a class="jxr_linenumber" name="L517" href="#L517">517</a>         <a href="../../../../../nl/b3p/brmo/soap/brk/PerceelAdresInfoRequest.html">PerceelAdresInfoRequest</a> pa = request.getPerceelAdres();
-<a class="jxr_linenumber" name="L518" href="#L518">518</a>         <strong class="jxr_keyword">if</strong> (pa != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L519" href="#L519">519</a>             <strong class="jxr_keyword">if</strong> (pa.getWoonplaatsNaam() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L520" href="#L520">520</a>                 searchContext.put(BrkInfo.WOONPLAATS, pa.getWoonplaatsNaam());
-<a class="jxr_linenumber" name="L521" href="#L521">521</a>             }
-<a class="jxr_linenumber" name="L522" href="#L522">522</a>             <strong class="jxr_keyword">if</strong> (pa.getHuisnummer() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L523" href="#L523">523</a>                 searchContext.put(BrkInfo.HUISNUMMER, pa.getHuisnummer());
-<a class="jxr_linenumber" name="L524" href="#L524">524</a>             }
-<a class="jxr_linenumber" name="L525" href="#L525">525</a>             <strong class="jxr_keyword">if</strong> (pa.getPostcode() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L526" href="#L526">526</a>                 searchContext.put(BrkInfo.POSTCODE, pa.getPostcode());
-<a class="jxr_linenumber" name="L527" href="#L527">527</a>             }
-<a class="jxr_linenumber" name="L528" href="#L528">528</a>             <strong class="jxr_keyword">if</strong> (pa.getStraatNaam() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L529" href="#L529">529</a>                 searchContext.put(BrkInfo.STRAATNAAM, pa.getStraatNaam());
-<a class="jxr_linenumber" name="L530" href="#L530">530</a>             }
-<a class="jxr_linenumber" name="L531" href="#L531">531</a>         }
-<a class="jxr_linenumber" name="L532" href="#L532">532</a>         <strong class="jxr_keyword">if</strong> (!searchContext.isEmpty()) {
-<a class="jxr_linenumber" name="L533" href="#L533">533</a>             <strong class="jxr_keyword">if</strong> (request.getMaxAantalResultaten() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L534" href="#L534">534</a>                 searchContext.put(BrkInfo.MAXAANTALRESULTATEN, request.getMaxAantalResultaten());
-<a class="jxr_linenumber" name="L535" href="#L535">535</a>             }
-<a class="jxr_linenumber" name="L536" href="#L536">536</a>             <strong class="jxr_keyword">if</strong> (request.getAdressenToevoegen() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L537" href="#L537">537</a>                 searchContext.put(BrkInfo.ADRESSENTOEVOEGEN, request.getAdressenToevoegen());
-<a class="jxr_linenumber" name="L538" href="#L538">538</a>             }
-<a class="jxr_linenumber" name="L539" href="#L539">539</a>             <strong class="jxr_keyword">if</strong> (request.getGevoeligeInfoOphalen() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L540" href="#L540">540</a>                 searchContext.put(BrkInfo.GEVOELIGEINFOOPHALEN, request.getGevoeligeInfoOphalen());
-<a class="jxr_linenumber" name="L541" href="#L541">541</a>             }
-<a class="jxr_linenumber" name="L542" href="#L542">542</a>             <strong class="jxr_keyword">if</strong> (request.getSubjectsToevoegen() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L543" href="#L543">543</a>                 searchContext.put(BrkInfo.SUBJECTSTOEVOEGEN, request.getSubjectsToevoegen());
-<a class="jxr_linenumber" name="L544" href="#L544">544</a>             }
-<a class="jxr_linenumber" name="L545" href="#L545">545</a>         }
-<a class="jxr_linenumber" name="L546" href="#L546">546</a>         <strong class="jxr_keyword">return</strong> searchContext;
-<a class="jxr_linenumber" name="L547" href="#L547">547</a>     }
-<a class="jxr_linenumber" name="L548" href="#L548">548</a> 
-<a class="jxr_linenumber" name="L549" href="#L549">549</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../nl/b3p/brmo/soap/brk/BrkInfoResponse.html">BrkInfoResponse</a> createResponse(List&lt;Long&gt; ids,
-<a class="jxr_linenumber" name="L550" href="#L550">550</a>             Map&lt;String, Object&gt; searchContext) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L551" href="#L551">551</a>         <a href="../../../../../nl/b3p/brmo/soap/brk/BrkInfoResponse.html">BrkInfoResponse</a> result = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/brk/BrkInfoResponse.html">BrkInfoResponse</a>();
-<a class="jxr_linenumber" name="L552" href="#L552">552</a> 
-<a class="jxr_linenumber" name="L553" href="#L553">553</a>         Boolean at = (Boolean) searchContext.get(BrkInfo.SUBJECTSTOEVOEGEN);
-<a class="jxr_linenumber" name="L554" href="#L554">554</a>         <strong class="jxr_keyword">if</strong> (at != <strong class="jxr_keyword">null</strong> &amp;&amp; at) {
-<a class="jxr_linenumber" name="L555" href="#L555">555</a>             at = (Boolean) searchContext.get(BrkInfo.GEVOELIGEINFOOPHALEN);
-<a class="jxr_linenumber" name="L556" href="#L556">556</a>             <strong class="jxr_keyword">if</strong> (at != <strong class="jxr_keyword">null</strong> &amp;&amp; at) {
-<a class="jxr_linenumber" name="L557" href="#L557">557</a>                 result.setBevatGevoeligeInfo(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L558" href="#L558">558</a>             }
-<a class="jxr_linenumber" name="L559" href="#L559">559</a>         }
-<a class="jxr_linenumber" name="L560" href="#L560">560</a>         result.setTimestamp(<strong class="jxr_keyword">new</strong> Date());
-<a class="jxr_linenumber" name="L561" href="#L561">561</a> 
-<a class="jxr_linenumber" name="L562" href="#L562">562</a>         <strong class="jxr_keyword">for</strong> (Long id : ids) {
-<a class="jxr_linenumber" name="L563" href="#L563">563</a>             <a href="../../../../../nl/b3p/brmo/soap/brk/KadOnrndZkInfoResponse.html">KadOnrndZkInfoResponse</a> koz
-<a class="jxr_linenumber" name="L564" href="#L564">564</a>                     = KadOnrndZkInfoResponse.getRecord(id, searchContext);
-<a class="jxr_linenumber" name="L565" href="#L565">565</a>             result.addKadOnrndZk(koz);
-<a class="jxr_linenumber" name="L566" href="#L566">566</a>         }
-<a class="jxr_linenumber" name="L567" href="#L567">567</a> 
-<a class="jxr_linenumber" name="L568" href="#L568">568</a>         <strong class="jxr_keyword">return</strong> result;
-<a class="jxr_linenumber" name="L569" href="#L569">569</a>     }
-<a class="jxr_linenumber" name="L570" href="#L570">570</a> 
-<a class="jxr_linenumber" name="L571" href="#L571">571</a> }
+<a class="jxr_linenumber" name="L482" href="#L482">482</a> 
+<a class="jxr_linenumber" name="L483" href="#L483">483</a>         <a href="../../../../../nl/b3p/brmo/soap/brk/KadOnrndZkInfoRequest.html">KadOnrndZkInfoRequest</a> koz = request.getKadOnrndZk();
+<a class="jxr_linenumber" name="L484" href="#L484">484</a>         <strong class="jxr_keyword">if</strong> (koz != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L485" href="#L485">485</a>             <strong class="jxr_keyword">if</strong> (koz.getIdentificatie() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L486" href="#L486">486</a>                 searchContext.put(BrkInfo.IDENTIFICATIE, Long.parseLong(koz.getIdentificatie()));
+<a class="jxr_linenumber" name="L487" href="#L487">487</a>             }
+<a class="jxr_linenumber" name="L488" href="#L488">488</a>             <strong class="jxr_keyword">if</strong> (koz.getAppReVolgnummer() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L489" href="#L489">489</a>                 searchContext.put(BrkInfo.APPREVOLGNUMMER, koz.getAppReVolgnummer());
+<a class="jxr_linenumber" name="L490" href="#L490">490</a>             }
+<a class="jxr_linenumber" name="L491" href="#L491">491</a>             <strong class="jxr_keyword">if</strong> (koz.getGemeentecode() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L492" href="#L492">492</a>                 searchContext.put(BrkInfo.GEMEENTECODE, koz.getGemeentecode());
+<a class="jxr_linenumber" name="L493" href="#L493">493</a>             }
+<a class="jxr_linenumber" name="L494" href="#L494">494</a>             <strong class="jxr_keyword">if</strong> (koz.getPerceelnummer() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L495" href="#L495">495</a>                 searchContext.put(BrkInfo.PERCEELNUMMER, koz.getPerceelnummer());
+<a class="jxr_linenumber" name="L496" href="#L496">496</a>             }
+<a class="jxr_linenumber" name="L497" href="#L497">497</a>             <strong class="jxr_keyword">if</strong> (koz.getSectie() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L498" href="#L498">498</a>                 searchContext.put(BrkInfo.SECTIE, koz.getSectie());
+<a class="jxr_linenumber" name="L499" href="#L499">499</a>             }
+<a class="jxr_linenumber" name="L500" href="#L500">500</a>         }
+<a class="jxr_linenumber" name="L501" href="#L501">501</a>         <a href="../../../../../nl/b3p/brmo/soap/brk/PerceelAdresInfoRequest.html">PerceelAdresInfoRequest</a> pa = request.getPerceelAdres();
+<a class="jxr_linenumber" name="L502" href="#L502">502</a>         <strong class="jxr_keyword">if</strong> (pa != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L503" href="#L503">503</a>             <strong class="jxr_keyword">if</strong> (pa.getWoonplaatsNaam() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L504" href="#L504">504</a>                 searchContext.put(BrkInfo.WOONPLAATS, pa.getWoonplaatsNaam());
+<a class="jxr_linenumber" name="L505" href="#L505">505</a>             }
+<a class="jxr_linenumber" name="L506" href="#L506">506</a>             <strong class="jxr_keyword">if</strong> (pa.getHuisnummer() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L507" href="#L507">507</a>                 searchContext.put(BrkInfo.HUISNUMMER, pa.getHuisnummer());
+<a class="jxr_linenumber" name="L508" href="#L508">508</a>             }
+<a class="jxr_linenumber" name="L509" href="#L509">509</a>             <strong class="jxr_keyword">if</strong> (pa.getPostcode() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L510" href="#L510">510</a>                 searchContext.put(BrkInfo.POSTCODE, pa.getPostcode());
+<a class="jxr_linenumber" name="L511" href="#L511">511</a>             }
+<a class="jxr_linenumber" name="L512" href="#L512">512</a>             <strong class="jxr_keyword">if</strong> (pa.getStraatNaam() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L513" href="#L513">513</a>                 searchContext.put(BrkInfo.STRAATNAAM, pa.getStraatNaam());
+<a class="jxr_linenumber" name="L514" href="#L514">514</a>             }
+<a class="jxr_linenumber" name="L515" href="#L515">515</a>         }
+<a class="jxr_linenumber" name="L516" href="#L516">516</a>         <strong class="jxr_keyword">if</strong> (!searchContext.isEmpty()) {
+<a class="jxr_linenumber" name="L517" href="#L517">517</a>             <strong class="jxr_keyword">if</strong> (request.getMaxAantalResultaten() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L518" href="#L518">518</a>                 searchContext.put(BrkInfo.MAXAANTALRESULTATEN, request.getMaxAantalResultaten());
+<a class="jxr_linenumber" name="L519" href="#L519">519</a>             }
+<a class="jxr_linenumber" name="L520" href="#L520">520</a>             <strong class="jxr_keyword">if</strong> (request.getAdressenToevoegen() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L521" href="#L521">521</a>                 searchContext.put(BrkInfo.ADRESSENTOEVOEGEN, request.getAdressenToevoegen());
+<a class="jxr_linenumber" name="L522" href="#L522">522</a>             }
+<a class="jxr_linenumber" name="L523" href="#L523">523</a>             <strong class="jxr_keyword">if</strong> (request.getGevoeligeInfoOphalen() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L524" href="#L524">524</a>                 searchContext.put(BrkInfo.GEVOELIGEINFOOPHALEN, request.getGevoeligeInfoOphalen());
+<a class="jxr_linenumber" name="L525" href="#L525">525</a>             }
+<a class="jxr_linenumber" name="L526" href="#L526">526</a>             <strong class="jxr_keyword">if</strong> (request.getSubjectsToevoegen() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L527" href="#L527">527</a>                 searchContext.put(BrkInfo.SUBJECTSTOEVOEGEN, request.getSubjectsToevoegen());
+<a class="jxr_linenumber" name="L528" href="#L528">528</a>             }
+<a class="jxr_linenumber" name="L529" href="#L529">529</a>         }
+<a class="jxr_linenumber" name="L530" href="#L530">530</a>         <strong class="jxr_keyword">return</strong> searchContext;
+<a class="jxr_linenumber" name="L531" href="#L531">531</a>     }
+<a class="jxr_linenumber" name="L532" href="#L532">532</a> 
+<a class="jxr_linenumber" name="L533" href="#L533">533</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../nl/b3p/brmo/soap/brk/BrkInfoResponse.html">BrkInfoResponse</a> createResponse(List&lt;Long&gt; ids,
+<a class="jxr_linenumber" name="L534" href="#L534">534</a>             Map&lt;String, Object&gt; searchContext) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L535" href="#L535">535</a>         <a href="../../../../../nl/b3p/brmo/soap/brk/BrkInfoResponse.html">BrkInfoResponse</a> result = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/brk/BrkInfoResponse.html">BrkInfoResponse</a>();
+<a class="jxr_linenumber" name="L536" href="#L536">536</a> 
+<a class="jxr_linenumber" name="L537" href="#L537">537</a>         Boolean at = (Boolean) searchContext.get(BrkInfo.SUBJECTSTOEVOEGEN);
+<a class="jxr_linenumber" name="L538" href="#L538">538</a>         <strong class="jxr_keyword">if</strong> (at != <strong class="jxr_keyword">null</strong> &amp;&amp; at) {
+<a class="jxr_linenumber" name="L539" href="#L539">539</a>             at = (Boolean) searchContext.get(BrkInfo.GEVOELIGEINFOOPHALEN);
+<a class="jxr_linenumber" name="L540" href="#L540">540</a>             <strong class="jxr_keyword">if</strong> (at != <strong class="jxr_keyword">null</strong> &amp;&amp; at) {
+<a class="jxr_linenumber" name="L541" href="#L541">541</a>                 result.setBevatGevoeligeInfo(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L542" href="#L542">542</a>             }
+<a class="jxr_linenumber" name="L543" href="#L543">543</a>         }
+<a class="jxr_linenumber" name="L544" href="#L544">544</a>         result.setTimestamp(<strong class="jxr_keyword">new</strong> Date());
+<a class="jxr_linenumber" name="L545" href="#L545">545</a> 
+<a class="jxr_linenumber" name="L546" href="#L546">546</a>         <strong class="jxr_keyword">for</strong> (Long id : ids) {
+<a class="jxr_linenumber" name="L547" href="#L547">547</a>             <a href="../../../../../nl/b3p/brmo/soap/brk/KadOnrndZkInfoResponse.html">KadOnrndZkInfoResponse</a> koz
+<a class="jxr_linenumber" name="L548" href="#L548">548</a>                     = KadOnrndZkInfoResponse.getRecord(id, searchContext);
+<a class="jxr_linenumber" name="L549" href="#L549">549</a>             result.addKadOnrndZk(koz);
+<a class="jxr_linenumber" name="L550" href="#L550">550</a>         }
+<a class="jxr_linenumber" name="L551" href="#L551">551</a> 
+<a class="jxr_linenumber" name="L552" href="#L552">552</a>         <strong class="jxr_keyword">return</strong> result;
+<a class="jxr_linenumber" name="L553" href="#L553">553</a>     }
+<a class="jxr_linenumber" name="L554" href="#L554">554</a> 
+<a class="jxr_linenumber" name="L555" href="#L555">555</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014&#x2013;2017 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>

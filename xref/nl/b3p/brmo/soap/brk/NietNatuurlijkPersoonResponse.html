@@ -15,7 +15,7 @@
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> javax.sql.DataSource;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> javax.xml.bind.annotation.XmlElement;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> javax.xml.bind.annotation.XmlType;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.soap.db.BrkInfo;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.service.util.ConfigUtil;
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.Log;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.LogFactory;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  
@@ -116,7 +116,7 @@
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../nl/b3p/brmo/soap/brk/NietNatuurlijkPersoonResponse.html">NietNatuurlijkPersoonResponse</a> getRecordById(String id,
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>             Map&lt;String, Object&gt; searchContext) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>         DataSource ds = BrkInfo.getDataSourceRsgb();
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>         DataSource ds = ConfigUtil.getDataSourceRsgb();
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>         PreparedStatement stm = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         Connection connRsgb = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>         ResultSet rs = <strong class="jxr_keyword">null</strong>;

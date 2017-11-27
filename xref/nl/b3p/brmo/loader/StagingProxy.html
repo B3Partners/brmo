@@ -257,7 +257,7 @@
 <a class="jxr_linenumber" name="L249" href="#L249">249</a>         }
 <a class="jxr_linenumber" name="L250" href="#L250">250</a>         log.debug(<span class="jxr_string">"pre-transformatie SQL: "</span> + q);
 <a class="jxr_linenumber" name="L251" href="#L251">251</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken())
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>                 .update(getConnection(), q.toString(), status.toString(), <strong class="jxr_keyword">new</strong> java.sql.Date((<strong class="jxr_keyword">new</strong> Date()).getTime()));
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>                 .update(getConnection(), q.toString(), status.toString(), <strong class="jxr_keyword">new</strong> java.sql.Timestamp((<strong class="jxr_keyword">new</strong> Date()).getTime()));
 <a class="jxr_linenumber" name="L253" href="#L253">253</a>     }
 <a class="jxr_linenumber" name="L254" href="#L254">254</a> 
 <a class="jxr_linenumber" name="L255" href="#L255">255</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> setBerichtenJobForUpdate(String soort, <strong class="jxr_keyword">boolean</strong> orderBerichten) <strong class="jxr_keyword">throws</strong> SQLException {
@@ -275,7 +275,7 @@
 <a class="jxr_linenumber" name="L267" href="#L267">267</a>         }
 <a class="jxr_linenumber" name="L268" href="#L268">268</a>         log.debug(<span class="jxr_string">"pre-transformatie SQL: "</span> + q);
 <a class="jxr_linenumber" name="L269" href="#L269">269</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken())
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>                 .update(getConnection(), q.toString(), Bericht.STATUS.RSGB_OK.toString(), soort, <strong class="jxr_keyword">new</strong> java.sql.Date((<strong class="jxr_keyword">new</strong> Date()).getTime()));
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>                 .update(getConnection(), q.toString(), Bericht.STATUS.RSGB_OK.toString(), soort, <strong class="jxr_keyword">new</strong> java.sql.Timestamp((<strong class="jxr_keyword">new</strong> Date()).getTime()));
 <a class="jxr_linenumber" name="L271" href="#L271">271</a>    }
 <a class="jxr_linenumber" name="L272" href="#L272">272</a> 
 <a class="jxr_linenumber" name="L273" href="#L273">273</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> setBerichtenJobByIds(<strong class="jxr_keyword">long</strong>[] ids, <strong class="jxr_keyword">boolean</strong> orderBerichten) <strong class="jxr_keyword">throws</strong> SQLException {
@@ -300,7 +300,7 @@
 <a class="jxr_linenumber" name="L292" href="#L292">292</a>         }
 <a class="jxr_linenumber" name="L293" href="#L293">293</a>         log.debug(<span class="jxr_string">"pre-transformatie SQL: "</span> + q);
 <a class="jxr_linenumber" name="L294" href="#L294">294</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken())
-<a class="jxr_linenumber" name="L295" href="#L295">295</a>                 .update(getConnection(), q.toString(), <strong class="jxr_keyword">new</strong> java.sql.Date((<strong class="jxr_keyword">new</strong> Date()).getTime()));
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>                 .update(getConnection(), q.toString(), <strong class="jxr_keyword">new</strong> java.sql.Timestamp((<strong class="jxr_keyword">new</strong> Date()).getTime()));
 <a class="jxr_linenumber" name="L296" href="#L296">296</a>     }
 <a class="jxr_linenumber" name="L297" href="#L297">297</a> 
 <a class="jxr_linenumber" name="L298" href="#L298">298</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> setBerichtenJobByLaadprocessen(<strong class="jxr_keyword">long</strong>[] laadprocesIds, <strong class="jxr_keyword">boolean</strong> orderBerichten) <strong class="jxr_keyword">throws</strong> SQLException {
@@ -326,7 +326,7 @@
 <a class="jxr_linenumber" name="L318" href="#L318">318</a>         }
 <a class="jxr_linenumber" name="L319" href="#L319">319</a>         log.debug(<span class="jxr_string">"pre-transformatie SQL: "</span> + q);
 <a class="jxr_linenumber" name="L320" href="#L320">320</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken())
-<a class="jxr_linenumber" name="L321" href="#L321">321</a>                 .update(getConnection(), q.toString(), Bericht.STATUS.STAGING_OK.toString(), <strong class="jxr_keyword">new</strong> java.sql.Date((<strong class="jxr_keyword">new</strong> Date()).getTime()));
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>                 .update(getConnection(), q.toString(), Bericht.STATUS.STAGING_OK.toString(), <strong class="jxr_keyword">new</strong> java.sql.Timestamp((<strong class="jxr_keyword">new</strong> Date()).getTime()));
 <a class="jxr_linenumber" name="L322" href="#L322">322</a>     }
 <a class="jxr_linenumber" name="L323" href="#L323">323</a> 
 <a class="jxr_linenumber" name="L324" href="#L324">324</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> handleBerichtenByJob(<strong class="jxr_keyword">long</strong> total, <strong class="jxr_keyword">final</strong> <a href="../../../../nl/b3p/brmo/loader/BerichtenHandler.html">BerichtenHandler</a> handler, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> enablePipeline, <strong class="jxr_keyword">int</strong> transformPipelineCapacity, <strong class="jxr_keyword">boolean</strong> orderBerichten) <strong class="jxr_keyword">throws</strong> Exception {

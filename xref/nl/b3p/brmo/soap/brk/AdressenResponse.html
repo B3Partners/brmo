@@ -15,7 +15,7 @@
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.util.List;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> javax.sql.DataSource;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> javax.xml.bind.annotation.XmlElement;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.soap.db.BrkInfo;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.service.util.ConfigUtil;
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.Log;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.LogFactory;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  
@@ -93,7 +93,7 @@
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../nl/b3p/brmo/soap/brk/AdressenResponse.html">AdressenResponse</a> getAdressenByKoz(Long kozId) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>          DataSource ds = BrkInfo.getDataSourceRsgb();
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>          DataSource ds = ConfigUtil.getDataSourceRsgb();
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>          PreparedStatement stm = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>          Connection connRsgb = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          ResultSet rs = <strong class="jxr_keyword">null</strong>;
