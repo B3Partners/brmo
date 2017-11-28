@@ -103,7 +103,7 @@ public class CriteriaParser {
             default:
                 throw new IllegalArgumentException("Entiteitstype niet ondersteund: " + entiteitType);
         }
-        if (q != null){
+        if (q != null) {
             q = "WHERE " + q;
         }
         return q;
@@ -116,7 +116,7 @@ public class CriteriaParser {
         String from = getPRSCriteria(prs.get(0), true);
         String toCheck = getPRSCriteria(prs.get(1), true); // maak even een tweede filter aan met dezelfde operator, om te checken of er op hetzelfde gecheckt wordt == equals 
         String to = getPRSCriteria(prs.get(1), false);
-        if(from == null && to == null){
+        if (from == null && to == null) {
             return null;
         }
         if (from.equals(toCheck)) {
@@ -131,100 +131,132 @@ public class CriteriaParser {
     private String getPRSCriteria(PRSVraag prs, boolean first) throws IllegalArgumentException {
         String vraag = null;
         Object value = null;
+        boolean exact = true;
 
         if (prs.getANummer() != null) {
             vraag = prs.getANummer().getName().getLocalPart();
             value = prs.getANummer().getValue().getValue();
+            exact = prs.getANummer().getValue().isExact();
         } else if (prs.getBsnNummer() != null) {
             vraag = prs.getBsnNummer().getName().getLocalPart();
             value = prs.getBsnNummer().getValue().getValue();
+            exact = prs.getBsnNummer().getValue().isExact();
         } else if (prs.getGeboortedatum() != null) {
             vraag = prs.getGeboortedatum().getName().getLocalPart();
             value = prs.getGeboortedatum().getValue().getValue();
+            exact = prs.getGeboortedatum().getValue().isExact();
         } else if (prs.getVoornamen() != null) {
             vraag = prs.getVoornamen().getName().getLocalPart();
             value = prs.getVoornamen().getValue().getValue();
+            exact = prs.getVoornamen().getValue().isExact();
         } else if (prs.getVoorletters() != null) {
             vraag = prs.getVoorletters().getName().getLocalPart();
             value = prs.getVoorletters().getValue().getValue();
+            exact = prs.getVoorletters().getValue().isExact();
         } else if (prs.getVoorvoegselGeslachtsnaam() != null) {
             vraag = prs.getVoorvoegselGeslachtsnaam().getName().getLocalPart();
             value = prs.getVoorvoegselGeslachtsnaam().getValue().getValue();
+            exact = prs.getVoorvoegselGeslachtsnaam().getValue().isExact();
         } else if (prs.getGeslachtsnaam() != null) {
             vraag = prs.getGeslachtsnaam().getName().getLocalPart();
             value = prs.getGeslachtsnaam().getValue().getValue();
+            exact = prs.getGeslachtsnaam().getValue().isExact();
         } else if (prs.getGeboorteplaats() != null) {
             vraag = prs.getGeboorteplaats().getName().getLocalPart();
             value = prs.getGeboorteplaats().getValue().getValue();
+            exact = prs.getGeboorteplaats().getValue().isExact();
         } else if (prs.getCodeGeboorteland() != null) {
             vraag = prs.getCodeGeboorteland().getName().getLocalPart();
             value = prs.getCodeGeboorteland().getValue().getValue();
+            exact = prs.getCodeGeboorteland().getValue().isExact();
         } else if (prs.getGeslachtsaanduiding() != null) {
             vraag = prs.getGeslachtsaanduiding().getName().getLocalPart();
             value = prs.getGeslachtsaanduiding().getValue().getValue();
+            exact = prs.getGeslachtsaanduiding().getValue().isExact();
         } else if (prs.getDatumOverlijden() != null) {
             vraag = prs.getDatumOverlijden().getName().getLocalPart();
             value = prs.getDatumOverlijden().getValue().getValue();
+            exact = prs.getDatumOverlijden().getValue().isExact();
         } else if (prs.getPlaatsOverlijden() != null) {
             vraag = prs.getPlaatsOverlijden().getName().getLocalPart();
             value = prs.getPlaatsOverlijden().getValue().getValue();
+            exact = prs.getPlaatsOverlijden().getValue().isExact();
         } else if (prs.getCodeLandOverlijden() != null) {
             vraag = prs.getCodeLandOverlijden().getName().getLocalPart();
             value = prs.getCodeLandOverlijden().getValue().getValue();
+            exact = prs.getCodeLandOverlijden().getValue().isExact();
         } else if (prs.getIndicatieGeheim() != null) {
             vraag = prs.getIndicatieGeheim().getName().getLocalPart();
             value = prs.getIndicatieGeheim().getValue().getValue();
+            exact = prs.getIndicatieGeheim().getValue().isExact();
         } else if (prs.getAdellijkeTitelPredikaat() != null) {
             vraag = prs.getAdellijkeTitelPredikaat().getName().getLocalPart();
             value = prs.getAdellijkeTitelPredikaat().getValue().getValue();
+            exact = prs.getAdellijkeTitelPredikaat().getValue().isExact();
         } else if (prs.getCodeGemeenteVanInschrijving() != null) {
             vraag = prs.getCodeGemeenteVanInschrijving().getName().getLocalPart();
             value = prs.getCodeGemeenteVanInschrijving().getValue().getValue();
+            exact = prs.getCodeGemeenteVanInschrijving().getValue().isExact();
         } else if (prs.getDatumInschrijvingGemeente() != null) {
             vraag = prs.getDatumInschrijvingGemeente().getName().getLocalPart();
             value = prs.getDatumInschrijvingGemeente().getValue().getValue();
+            exact = prs.getDatumInschrijvingGemeente().getValue().isExact();
         } else if (prs.getDatumOpschortingBijhouding() != null) {
             vraag = prs.getDatumOpschortingBijhouding().getName().getLocalPart();
             value = prs.getDatumOpschortingBijhouding().getValue().getValue();
+            exact = prs.getDatumOpschortingBijhouding().getValue().isExact();
         } else if (prs.getOmschrijvingRedenOpschortingBijhouding() != null) {
             vraag = prs.getOmschrijvingRedenOpschortingBijhouding().getName().getLocalPart();
             value = prs.getOmschrijvingRedenOpschortingBijhouding().getValue().getValue();
+            exact = prs.getOmschrijvingRedenOpschortingBijhouding().getValue().isExact();
         } else if (prs.getCodeLandEmigratie() != null) {
             vraag = prs.getCodeLandEmigratie().getName().getLocalPart();
             value = prs.getCodeLandEmigratie().getValue().getValue();
+            exact = prs.getCodeLandEmigratie().getValue().isExact();
         } else if (prs.getDatumVertrekUitNederland() != null) {
             vraag = prs.getDatumVertrekUitNederland().getName().getLocalPart();
             value = prs.getDatumVertrekUitNederland().getValue().getValue();
+            exact = prs.getDatumVertrekUitNederland().getValue().isExact();
         } else if (prs.getCodeLandImmigratie() != null) {
             vraag = prs.getCodeLandImmigratie().getName().getLocalPart();
             value = prs.getCodeLandImmigratie().getValue().getValue();
+            exact = prs.getCodeLandImmigratie().getValue().isExact();
         } else if (prs.getDatumVestigingInNederland() != null) {
             vraag = prs.getDatumVestigingInNederland().getName().getLocalPart();
             value = prs.getDatumVestigingInNederland().getValue().getValue();
+            exact = prs.getDatumVestigingInNederland().getValue().isExact();
         } else if (prs.getIndicatieGezagMinderjarige() != null) {
             vraag = prs.getIndicatieGezagMinderjarige().getName().getLocalPart();
             value = prs.getIndicatieGezagMinderjarige().getValue().getValue();
+            exact = prs.getIndicatieGezagMinderjarige().getValue().isExact();
         } else if (prs.getIndicatieCuratelestelling() != null) {
             vraag = prs.getIndicatieCuratelestelling().getName().getLocalPart();
             value = prs.getIndicatieCuratelestelling().getValue().getValue();
+            exact = prs.getIndicatieCuratelestelling().getValue().isExact();
         } else if (prs.getVerblijfstitel() != null) {
             vraag = prs.getVerblijfstitel().getName().getLocalPart();
             value = prs.getVerblijfstitel().getValue().getValue();
+            exact = prs.getVerblijfstitel().getValue().isExact();
         } else if (prs.getDatumVerkrijgingVerblijfstitel() != null) {
             vraag = prs.getDatumVerkrijgingVerblijfstitel().getName().getLocalPart();
             value = prs.getDatumVerkrijgingVerblijfstitel().getValue().getValue();
+            exact = prs.getDatumVerkrijgingVerblijfstitel().getValue().isExact();
         } else if (prs.getDatumVerliesVerblijfstitel() != null) {
             vraag = prs.getDatumVerliesVerblijfstitel().getName().getLocalPart();
             value = prs.getDatumVerliesVerblijfstitel().getValue().getValue();
+            exact = prs.getDatumVerliesVerblijfstitel().getValue().isExact();
         } else if (prs.getAanduidingBijzonderNederlanderschap() != null) {
             vraag = prs.getAanduidingBijzonderNederlanderschap().getName().getLocalPart();
             value = prs.getAanduidingBijzonderNederlanderschap().getValue().getValue();
+            exact = prs.getAanduidingBijzonderNederlanderschap().getValue().isExact();
         } else if (prs.getBurgerlijkeStaat() != null) {
             vraag = prs.getBurgerlijkeStaat().getName().getLocalPart();
             value = prs.getBurgerlijkeStaat().getValue().getValue();
+            exact = prs.getBurgerlijkeStaat().getValue().isExact();
         } else if (prs.getAanduidingNaamgebruik() != null) {
             vraag = prs.getAanduidingNaamgebruik().getName().getLocalPart();
             value = prs.getAanduidingNaamgebruik().getValue().getValue();
+            exact = prs.getAanduidingNaamgebruik().getValue().isExact();
         }
 
         /*
@@ -293,19 +325,27 @@ public class CriteriaParser {
             value = prs.getAcademischeTitel().getValue().getValue();
         }*/
         String column = vraagToColumn.get(vraag);
-        if(vraag == null){
+        if (vraag == null) {
             return null;
         }
         if (column == null) {
             throw new IllegalArgumentException("Request filtercolumn not supported: " + vraag);
         }
-        String query = column;
-        query += first ? " > " : " <= ";
-        char quote = ' ';
-        if(value instanceof String){
-            quote = '\'';
+
+        String operator = null;
+        String quote = "";
+        String wildcard = "";
+        if (value instanceof String) {
+            quote = "\'";
         }
-        query += quote + String.valueOf(value) + quote;
+        if (exact) {
+            operator = first ? " > " : " <= ";
+        }else{
+            wildcard = "%";
+            operator = " LIKE ";
+        }
+        String valuePart = quote + wildcard + String.valueOf(value) + wildcard + quote;
+        String query = column + operator + valuePart;
         return query;
     }
 }
