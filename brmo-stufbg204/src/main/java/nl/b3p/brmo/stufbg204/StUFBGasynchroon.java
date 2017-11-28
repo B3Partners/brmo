@@ -34,9 +34,11 @@ import nl.b3p.brmo.stufbg204.util.DiagnosticsServlet;
 import nl.b3p.brmo.stufbg204.util.StUFbg204Util;
 import nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht;
 import nl.egem.stuf.sector.bg._0204.KennisgevingsBericht;
+import nl.egem.stuf.sector.bg._0204.StUFFout;
 import nl.egem.stuf.sector.bg._0204.VraagBericht;
 import nl.egem.stuf.stuf0204.BevestigingsBericht;
 import nl.egem.stuf.stuf0204.FoutBericht;
+import nl.egem.stuf.stuf0204.Mutatiesoort;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
@@ -91,8 +93,9 @@ public class StUFBGasynchroon {
         //  LOG.debug("Er is kennisgeving ontvangen van soort: " + kennisgeving.getStuurgegevens().getBerichtsoort());
         BevestigingsBericht b = new BevestigingsBericht();
         b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(kennisgeving.getStuurgegevens()));
-        
-        saveBericht(kennisgeving, kennisgeving.getStuurgegevens().getTijdstipBericht());
+        if(kennisgeving.getStuurgegevens().getKennisgeving().getMutatiesoort().equals(Mutatiesoort.T)){
+            saveBericht(kennisgeving, kennisgeving.getStuurgegevens().getTijdstipBericht());
+        }
         return b;
     }
 

@@ -16,16 +16,12 @@
  */
 package nl.b3p.brmo.loader.xml;
 
-import java.beans.XMLEncoder;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -43,7 +39,6 @@ import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -153,9 +148,7 @@ public class BRPXMLReader extends BrmoXMLReader {
     }
     
     public String getHash(String bsn) {
-        int maxsize = 32 - PREFIX.length();
         String hash = DigestUtils.shaHex(bsn);
-        String trimmedhash = hash.length() > maxsize ? hash.substring(0, maxsize) : hash;
-        return  PREFIX + trimmedhash;
+        return  hash;
     }
 }

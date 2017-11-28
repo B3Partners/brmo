@@ -3,6 +3,7 @@ Views for visualizing the BAG data.
 25-06-2015
 */
 -- DROP VIEWS
+-- DROP VIEW v_adres_totaal_vlak;
 -- DROP VIEW v_adres_totaal;
 -- DROP VIEW v_adres_standplaats;
 -- DROP VIEW v_adres_ligplaats;
