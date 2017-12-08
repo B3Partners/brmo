@@ -102,28 +102,29 @@
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>              Class rsgbDriverClass = Class.forName(params.getProperty(<span class="jxr_string">"rsgb.jdbc.driverClassName"</span>));
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>              Class stagingDriverClass = Class.forName(params.getProperty(<span class="jxr_string">"staging.jdbc.driverClassName"</span>));
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>              Class rsgbbgtDriverClass = Class.forName(params.getProperty(<span class="jxr_string">"rsgbbgt.jdbc.driverClassName"</span>));
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>          } <strong class="jxr_keyword">catch</strong> (ClassNotFoundException ex) {
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>              LOG.error(<span class="jxr_string">"Database driver niet gevonden."</span>, ex);
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>          }
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>     }
-<a class="jxr_linenumber" name="L101" href="#L101">101</a> 
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L103" href="#L103">103</a> <em class="jxr_javadoccomment">     * Log de naam van de test als deze begint.</em>
-<a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>     @Before
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> startTest() {
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>         LOG.info(<span class="jxr_string">"==== Start test methode: "</span> + name.getMethodName());
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>     }
-<a class="jxr_linenumber" name="L109" href="#L109">109</a> 
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L111" href="#L111">111</a> <em class="jxr_javadoccomment">     * Log de naam van de test als deze eindigt.</em>
-<a class="jxr_linenumber" name="L112" href="#L112">112</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L113" href="#L113">113</a>     @After
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> endTest() {
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>         LOG.info(<span class="jxr_string">"==== Einde test methode: "</span> + name.getMethodName());
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>     }
-<a class="jxr_linenumber" name="L117" href="#L117">117</a> 
-<a class="jxr_linenumber" name="L118" href="#L118">118</a> }
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>              Class topnlDriverClass = Class.forName(params.getProperty(<span class="jxr_string">"topnl.jdbc.driverClassName"</span>));
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>          } <strong class="jxr_keyword">catch</strong> (ClassNotFoundException ex) {
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>              LOG.error(<span class="jxr_string">"Database driver niet gevonden."</span>, ex);
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>         }
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>     }
+<a class="jxr_linenumber" name="L102" href="#L102">102</a> 
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_javadoccomment">     * Log de naam van de test als deze begint.</em>
+<a class="jxr_linenumber" name="L105" href="#L105">105</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>     @Before
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> startTest() {
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>         LOG.info(<span class="jxr_string">"==== Start test methode: "</span> + name.getMethodName());
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>     }
+<a class="jxr_linenumber" name="L110" href="#L110">110</a> 
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L112" href="#L112">112</a> <em class="jxr_javadoccomment">     * Log de naam van de test als deze eindigt.</em>
+<a class="jxr_linenumber" name="L113" href="#L113">113</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>     @After
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> endTest() {
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>         LOG.info(<span class="jxr_string">"==== Einde test methode: "</span> + name.getMethodName());
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>     }
+<a class="jxr_linenumber" name="L118" href="#L118">118</a> 
+<a class="jxr_linenumber" name="L119" href="#L119">119</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014&#x2013;2017 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
