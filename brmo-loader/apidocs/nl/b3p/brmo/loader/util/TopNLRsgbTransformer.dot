@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.ProgressUpdateListener
-	c1860 [label=<<table title="nl.b3p.brmo.loader.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ProgressUpdateListener.html">
+	c1947 [label=<<table title="nl.b3p.brmo.loader.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ProgressUpdateListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
@@ -25,7 +25,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.StagingProxy
-	c1862 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../StagingProxy.html">
+	c1949 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../StagingProxy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StagingProxy </td></tr>
 		</table></td></tr>
@@ -69,7 +69,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../StagingProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.util.TopNLRsgbTransformer
-	c1869 [label=<<table title="nl.b3p.brmo.loader.util.TopNLRsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TopNLRsgbTransformer.html">
+	c1957 [label=<<table title="nl.b3p.brmo.loader.util.TopNLRsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TopNLRsgbTransformer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TopNLRsgbTransformer </td></tr>
 		</table></td></tr>
@@ -83,13 +83,13 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TopNLRsgbTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.util.TopNLRsgbTransformer NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c1869:p -> c1862:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1957:p -> c1949:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.util.TopNLRsgbTransformer NAVASSOC nl.b3p.brmo.loader.ProgressUpdateListener
-	c1869:p -> c1860:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1957:p -> c1947:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.util.TopNLRsgbTransformer NAVASSOC nl.b3p.topnl.Processor
-	c1869:p -> c1897:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1957:p -> c1985:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.Processor
-	c1897 [label=<<table title="nl.b3p.topnl.Processor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c1985 [label=<<table title="nl.b3p.topnl.Processor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Processor </td></tr>
 		</table></td></tr>
@@ -103,6 +103,8 @@ digraph G {
 <tr><td align="left" balign="left"> + convert(arg0 : List&lt;&gt;, arg1 : TopNLType) : List&lt;TopNLEntity&gt; </td></tr>
 <tr><td align="left" balign="left"> + save(arg0 : TopNLEntity, arg1 : TopNLType) </td></tr>
 <tr><td align="left" balign="left"> + save(arg0 : List&lt;TopNLEntity&gt;, arg1 : TopNLType) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : Processor.STATUS </td></tr>
+<tr><td align="left" balign="left"> + resetStatus() </td></tr>
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
