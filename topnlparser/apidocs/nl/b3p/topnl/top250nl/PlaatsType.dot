@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top250nl.Top250NlObjectType
-	c27490 [label=<<table title="nl.b3p.topnl.top250nl.Top250NlObjectType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Top250NlObjectType.html">
+	c27579 [label=<<table title="nl.b3p.topnl.top250nl.Top250NlObjectType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Top250NlObjectType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Top250NlObjectType </font></td></tr>
 		</table></td></tr>
@@ -45,7 +45,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Top250NlObjectType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.CodeType
-	c27499 [label=<<table title="nl.b3p.topnl.top250nl.CodeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CodeType.html">
+	c27588 [label=<<table title="nl.b3p.topnl.top250nl.CodeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CodeType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CodeType </td></tr>
 		</table></td></tr>
@@ -62,7 +62,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./CodeType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.PlaatsType
-	c27513 [label=<<table title="nl.b3p.topnl.top250nl.PlaatsType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PlaatsType.html">
+	c27602 [label=<<table title="nl.b3p.topnl.top250nl.PlaatsType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PlaatsType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PlaatsType </td></tr>
 		</table></td></tr>
@@ -91,10 +91,10 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PlaatsType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.top250nl.PlaatsType extends nl.b3p.topnl.top250nl.Top250NlObjectType
-	c27490:p -> c27513:p [dir=back,arrowtail=empty];
+	c27579:p -> c27602:p [dir=back,arrowtail=empty];
 	// nl.b3p.topnl.top250nl.Top250NlObjectType NAVASSOC nl.b3p.topnl.top250nl.CodeType
-	c27490:p -> c27499:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c27579:p -> c27588:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.PlaatsType NAVASSOC nl.b3p.topnl.top250nl.CodeType
-	c27513:p -> c27499:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c27602:p -> c27588:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

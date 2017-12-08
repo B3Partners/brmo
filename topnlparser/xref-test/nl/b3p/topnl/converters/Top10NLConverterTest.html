@@ -202,276 +202,282 @@
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>         assertEquals(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"0"</span>), real.getHoogteniveau());
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>     }
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>  
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>     <em class="jxr_comment">// Plaats niet in Top100NL</em>
-<a class="jxr_linenumber" name="L198" href="#L198">198</a>     <em class="jxr_comment">//@Test</em>
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConvertPlaats() <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>         TopNLEntity entity = getEntity(<span class="jxr_string">"top10nl/Plaats.xml"</span>);
-<a class="jxr_linenumber" name="L201" href="#L201">201</a> 
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>         TopNLEntity expected = getStandardTestTopNLEntity();
-<a class="jxr_linenumber" name="L203" href="#L203">203</a> 
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>         expected.setIdentificatie(<span class="jxr_string">"NL.TOP10NL.16R11-0000079618"</span>);
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>         expected.setVisualisatieCode(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"48110"</span>));
-<a class="jxr_linenumber" name="L206" href="#L206">206</a> 
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>         assertNotNull(entity);
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>         assertTrue(entity instanceof Plaats);
-<a class="jxr_linenumber" name="L209" href="#L209">209</a> 
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>         Plaats real = (Plaats) entity;
-<a class="jxr_linenumber" name="L211" href="#L211">211</a> 
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>         testTopNLEntity(expected, real);
-<a class="jxr_linenumber" name="L213" href="#L213">213</a>         assertEquals(Point.<strong class="jxr_keyword">class</strong>, real.getGeometrie().getClass());
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>         assertEquals( <span class="jxr_string">"woonkern"</span>, real.getTypeGebied());
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>         assertEquals( <span class="jxr_string">"Aldegea"</span>, real.getNaamFries());
-<a class="jxr_linenumber" name="L216" href="#L216">216</a>     }
-<a class="jxr_linenumber" name="L217" href="#L217">217</a>               
-<a class="jxr_linenumber" name="L218" href="#L218">218</a>     @Test
-<a class="jxr_linenumber" name="L219" href="#L219">219</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConvertPlantopografie() <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-<a class="jxr_linenumber" name="L220" href="#L220">220</a>         TopNLEntity entity = getEntity(<span class="jxr_string">"top10nl/Plantopografie2.xml"</span>);
-<a class="jxr_linenumber" name="L221" href="#L221">221</a> 
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>         TopNLEntity expected = getStandardTestTopNLEntity();
-<a class="jxr_linenumber" name="L223" href="#L223">223</a> 
-<a class="jxr_linenumber" name="L224" href="#L224">224</a>         expected.setIdentificatie(<span class="jxr_string">"NL.TOP10NL.130146508"</span>);
-<a class="jxr_linenumber" name="L225" href="#L225">225</a>         expected.setVisualisatieCode(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"999"</span>));
-<a class="jxr_linenumber" name="L226" href="#L226">226</a>         expected.setBronnauwkeurigheid(<strong class="jxr_keyword">new</strong> Double(<span class="jxr_string">"100"</span>));
-<a class="jxr_linenumber" name="L227" href="#L227">227</a>         expected.setBrontype( <span class="jxr_string">"luchtfoto"</span>);
-<a class="jxr_linenumber" name="L228" href="#L228">228</a>         expected.setBronbeschrijving(<span class="jxr_string">"Geometrie ingetekend door Kadaster, op basis van luchtfoto's. Voor de objectklasse Terrein is het type_landgebruik gebaseerd op BRP-Gewaspercelen 2016, bron: RVO.nl"</span>);
-<a class="jxr_linenumber" name="L229" href="#L229">229</a>         expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2016-01-01"</span>));
-<a class="jxr_linenumber" name="L230" href="#L230">230</a>         expected.setObjectBeginTijd(sdf.parse(<span class="jxr_string">"2017-06-01"</span>));
-<a class="jxr_linenumber" name="L231" href="#L231">231</a>         assertNotNull(entity);
-<a class="jxr_linenumber" name="L232" href="#L232">232</a>         assertTrue(entity instanceof PlanTopografie);
-<a class="jxr_linenumber" name="L233" href="#L233">233</a> 
-<a class="jxr_linenumber" name="L234" href="#L234">234</a>         PlanTopografie real = (PlanTopografie) entity;
-<a class="jxr_linenumber" name="L235" href="#L235">235</a> 
-<a class="jxr_linenumber" name="L236" href="#L236">236</a>         testTopNLEntity(expected, real);
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>         assertEquals(Polygon.<strong class="jxr_keyword">class</strong>, real.getGeometrie().getClass());
-<a class="jxr_linenumber" name="L238" href="#L238">238</a>         assertEquals( <span class="jxr_string">"|A7/N7 Zuidelijke Ringweg Groningen|"</span>, real.getNaam());
-<a class="jxr_linenumber" name="L239" href="#L239">239</a>         assertEquals( <span class="jxr_string">"weg"</span>, real.getTypePlanTopografie());
-<a class="jxr_linenumber" name="L240" href="#L240">240</a>         
-<a class="jxr_linenumber" name="L241" href="#L241">241</a>     }
-<a class="jxr_linenumber" name="L242" href="#L242">242</a>     
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>     @Test
-<a class="jxr_linenumber" name="L244" href="#L244">244</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConvertRegistratiefGebied() <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-<a class="jxr_linenumber" name="L245" href="#L245">245</a>         TopNLEntity entity = getEntity(<span class="jxr_string">"top10nl/RegistratiefGebied.xml"</span>);
-<a class="jxr_linenumber" name="L246" href="#L246">246</a> 
-<a class="jxr_linenumber" name="L247" href="#L247">247</a>         TopNLEntity expected = getStandardTestTopNLEntity();
-<a class="jxr_linenumber" name="L248" href="#L248">248</a> 
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>         expected.setIdentificatie(<span class="jxr_string">"NL.TOP10NL.129704430"</span>);
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>         expected.setVisualisatieCode(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"17010"</span>));
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>         expected.setBronnauwkeurigheid(<strong class="jxr_keyword">new</strong> Double(<span class="jxr_string">"20000"</span>));
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>         expected.setBrontype( <span class="jxr_string">"externe data"</span>);
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>         expected.setBronbeschrijving(<span class="jxr_string">"Externe data: Gemeentegrenzen. Gemeentegrenzen gebaseerd op grenswijzigingen in de Basisregistratie Kadaster (BRK). De gemeentegrenzen zijn gegeneraliseerd in de BRT opgenomen."</span>);
-<a class="jxr_linenumber" name="L254" href="#L254">254</a>         expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2016-01-01"</span>));
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>         expected.setObjectBeginTijd(sdf.parse(<span class="jxr_string">"2016-11-01"</span>));
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>         assertNotNull(entity);
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>         assertTrue(entity instanceof RegistratiefGebied);
-<a class="jxr_linenumber" name="L258" href="#L258">258</a> 
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>         RegistratiefGebied real = (RegistratiefGebied) entity;
-<a class="jxr_linenumber" name="L260" href="#L260">260</a> 
-<a class="jxr_linenumber" name="L261" href="#L261">261</a>         testTopNLEntity(expected, real);
-<a class="jxr_linenumber" name="L262" href="#L262">262</a>         assertEquals(Polygon.<strong class="jxr_keyword">class</strong>, real.getGeometrie().getClass());
-<a class="jxr_linenumber" name="L263" href="#L263">263</a>         assertEquals( <span class="jxr_string">"provincie"</span>, real.getTypeRegistratiefGebied());
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>         assertEquals( <span class="jxr_string">"31"</span>, real.getNummer());
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>         assertEquals( <span class="jxr_string">"Limburg"</span>, real.getNaamNL());
-<a class="jxr_linenumber" name="L266" href="#L266">266</a>         assertEquals( <span class="jxr_string">"Limburg"</span>, real.getNaamOfficieel());
-<a class="jxr_linenumber" name="L267" href="#L267">267</a>     }
-<a class="jxr_linenumber" name="L268" href="#L268">268</a> 
-<a class="jxr_linenumber" name="L269" href="#L269">269</a>     @Test
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConvertRelief() <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>         TopNLEntity entity = getEntity(<span class="jxr_string">"top10nl/Relief.xml"</span>);
-<a class="jxr_linenumber" name="L272" href="#L272">272</a> 
-<a class="jxr_linenumber" name="L273" href="#L273">273</a>         TopNLEntity expected = getStandardTestTopNLEntity();
-<a class="jxr_linenumber" name="L274" href="#L274">274</a> 
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>         expected.setIdentificatie(<span class="jxr_string">"NL.TOP10NL.105335729"</span>);
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>         expected.setVisualisatieCode(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"16400"</span>));
-<a class="jxr_linenumber" name="L277" href="#L277">277</a> 
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>         assertNotNull(entity);
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>         assertTrue(entity instanceof Relief);
-<a class="jxr_linenumber" name="L280" href="#L280">280</a> 
-<a class="jxr_linenumber" name="L281" href="#L281">281</a>         Relief real = (Relief) entity;
-<a class="jxr_linenumber" name="L282" href="#L282">282</a> 
-<a class="jxr_linenumber" name="L283" href="#L283">283</a>         testTopNLEntity(expected, real);
-<a class="jxr_linenumber" name="L284" href="#L284">284</a>         assertEquals(LineString.<strong class="jxr_keyword">class</strong>, real.getGeometrie().getClass());
-<a class="jxr_linenumber" name="L285" href="#L285">285</a>         assertEquals( <span class="jxr_string">"wal"</span>, real.getTypeRelief());
-<a class="jxr_linenumber" name="L286" href="#L286">286</a>         assertEquals( <span class="jxr_string">"&lt; 1 meter"</span>, real.getHoogteklasse());
-<a class="jxr_linenumber" name="L287" href="#L287">287</a>         assertEquals(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"0"</span>), real.getHoogteniveau());
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>     }
-<a class="jxr_linenumber" name="L289" href="#L289">289</a>     @Test
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConvertReliefTalud() <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>         TopNLEntity entity = getEntity(<span class="jxr_string">"top10nl/ReliefTalud.xml"</span>);
-<a class="jxr_linenumber" name="L292" href="#L292">292</a> 
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>         TopNLEntity expected = getStandardTestTopNLEntity();
-<a class="jxr_linenumber" name="L294" href="#L294">294</a> 
-<a class="jxr_linenumber" name="L295" href="#L295">295</a>         expected.setIdentificatie(<span class="jxr_string">"NL.TOP10NL.104681205"</span>);
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>         expected.setVisualisatieCode(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"16810"</span>));
-<a class="jxr_linenumber" name="L297" href="#L297">297</a>         expected.setBrontype(<span class="jxr_string">"TOP10vector"</span>);
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>         expected.setBronnauwkeurigheid(2000d);
-<a class="jxr_linenumber" name="L299" href="#L299">299</a>         expected.setBronbeschrijving(<span class="jxr_string">"Digitaal bestand met gecodeerde vectoren. Deze geven tezamen de topografie van Nederland weer op de schaal 1:10.000. Voorloper van TOP10NL."</span>);
-<a class="jxr_linenumber" name="L300" href="#L300">300</a>         expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2005-01-01"</span>));
-<a class="jxr_linenumber" name="L301" href="#L301">301</a>         expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2005-01-01"</span>));
-<a class="jxr_linenumber" name="L302" href="#L302">302</a>         
-<a class="jxr_linenumber" name="L303" href="#L303">303</a>         assertNotNull(entity);
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>         assertTrue(entity instanceof Relief);
-<a class="jxr_linenumber" name="L305" href="#L305">305</a> 
-<a class="jxr_linenumber" name="L306" href="#L306">306</a>         Relief real = (Relief) entity;
-<a class="jxr_linenumber" name="L307" href="#L307">307</a> 
-<a class="jxr_linenumber" name="L308" href="#L308">308</a>         testTopNLEntity(expected, real);
-<a class="jxr_linenumber" name="L309" href="#L309">309</a>         assertEquals(<strong class="jxr_keyword">null</strong>, real.getGeometrie());
-<a class="jxr_linenumber" name="L310" href="#L310">310</a>         assertEquals(LineString.<strong class="jxr_keyword">class</strong>, real.getTaludHogeZijde().getClass());
-<a class="jxr_linenumber" name="L311" href="#L311">311</a>         assertEquals(LineString.<strong class="jxr_keyword">class</strong>, real.getTaludLageZijde().getClass());
-<a class="jxr_linenumber" name="L312" href="#L312">312</a>         assertEquals( <span class="jxr_string">"talud, hoogteverschil"</span>, real.getTypeRelief());
-<a class="jxr_linenumber" name="L313" href="#L313">313</a>         assertEquals( <span class="jxr_string">"&gt; 2,5 meter"</span>, real.getHoogteklasse());
-<a class="jxr_linenumber" name="L314" href="#L314">314</a>         assertEquals(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"0"</span>), real.getHoogteniveau());
-<a class="jxr_linenumber" name="L315" href="#L315">315</a>     }
-<a class="jxr_linenumber" name="L316" href="#L316">316</a>     
-<a class="jxr_linenumber" name="L317" href="#L317">317</a>     @Test
-<a class="jxr_linenumber" name="L318" href="#L318">318</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConvertSpoorbaandeel() <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-<a class="jxr_linenumber" name="L319" href="#L319">319</a>         TopNLEntity entity = getEntity(<span class="jxr_string">"top10nl/Spoorbaandeel.xml"</span>);
-<a class="jxr_linenumber" name="L320" href="#L320">320</a> 
-<a class="jxr_linenumber" name="L321" href="#L321">321</a>         TopNLEntity expected = getStandardTestTopNLEntity();
-<a class="jxr_linenumber" name="L322" href="#L322">322</a>         expected.setIdentificatie(<span class="jxr_string">"NL.TOP10NL.129726022"</span>);
-<a class="jxr_linenumber" name="L323" href="#L323">323</a> 
-<a class="jxr_linenumber" name="L324" href="#L324">324</a>         expected.setVisualisatieCode(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"-11000"</span>));
-<a class="jxr_linenumber" name="L325" href="#L325">325</a>         expected.setObjectBeginTijd(sdf.parse(<span class="jxr_string">"2016-11-01"</span>));
-<a class="jxr_linenumber" name="L326" href="#L326">326</a> 
-<a class="jxr_linenumber" name="L327" href="#L327">327</a>         assertNotNull(entity);
-<a class="jxr_linenumber" name="L328" href="#L328">328</a>         assertTrue(entity instanceof Spoorbaandeel);
-<a class="jxr_linenumber" name="L329" href="#L329">329</a> 
-<a class="jxr_linenumber" name="L330" href="#L330">330</a>         Spoorbaandeel real = (Spoorbaandeel) entity;
-<a class="jxr_linenumber" name="L331" href="#L331">331</a> 
-<a class="jxr_linenumber" name="L332" href="#L332">332</a>         testTopNLEntity(expected, real);
-<a class="jxr_linenumber" name="L333" href="#L333">333</a>         assertEquals(LineString.<strong class="jxr_keyword">class</strong>, real.getGeometrie().getClass());
-<a class="jxr_linenumber" name="L334" href="#L334">334</a>         assertEquals(<span class="jxr_string">"metro"</span>, real.getTypeSpoorbaan());
-<a class="jxr_linenumber" name="L335" href="#L335">335</a>         assertEquals(<span class="jxr_string">"verbinding"</span>, real.getTypeInfrastructuur());
-<a class="jxr_linenumber" name="L336" href="#L336">336</a>         assertEquals(<span class="jxr_string">"normaalspoor"</span>, real.getSpoorbreedte());
-<a class="jxr_linenumber" name="L337" href="#L337">337</a>         assertEquals(<span class="jxr_string">"in gebruik"</span>, real.getStatus());
-<a class="jxr_linenumber" name="L338" href="#L338">338</a>         assertEquals(<span class="jxr_string">"enkel"</span>, real.getAantalSporen());
-<a class="jxr_linenumber" name="L339" href="#L339">339</a>         assertEquals(<span class="jxr_string">"personenvervoer"</span>, real.getVervoerfunctie());
-<a class="jxr_linenumber" name="L340" href="#L340">340</a>         assertEquals(<strong class="jxr_keyword">true</strong>, real.getElektrificatie());
-<a class="jxr_linenumber" name="L341" href="#L341">341</a>         assertEquals(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"-1"</span>), real.getHoogteniveau());
-<a class="jxr_linenumber" name="L342" href="#L342">342</a>     }
-<a class="jxr_linenumber" name="L343" href="#L343">343</a>     
-<a class="jxr_linenumber" name="L344" href="#L344">344</a>     @Test
-<a class="jxr_linenumber" name="L345" href="#L345">345</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConvertTerrein() <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-<a class="jxr_linenumber" name="L346" href="#L346">346</a>         TopNLEntity entity = getEntity(<span class="jxr_string">"top10nl/Terrein.xml"</span>);
-<a class="jxr_linenumber" name="L347" href="#L347">347</a> 
-<a class="jxr_linenumber" name="L348" href="#L348">348</a>         TopNLEntity expected = getStandardTestTopNLEntity();
-<a class="jxr_linenumber" name="L349" href="#L349">349</a> 
-<a class="jxr_linenumber" name="L350" href="#L350">350</a>         expected.setIdentificatie(<span class="jxr_string">"NL.TOP10NL.106687191"</span>);
-<a class="jxr_linenumber" name="L351" href="#L351">351</a>         expected.setVisualisatieCode(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"14160"</span>));
-<a class="jxr_linenumber" name="L352" href="#L352">352</a> 
-<a class="jxr_linenumber" name="L353" href="#L353">353</a>         assertNotNull(entity);
-<a class="jxr_linenumber" name="L354" href="#L354">354</a>         assertTrue(entity instanceof Terrein);
-<a class="jxr_linenumber" name="L355" href="#L355">355</a> 
-<a class="jxr_linenumber" name="L356" href="#L356">356</a>         Terrein real = (Terrein) entity;
-<a class="jxr_linenumber" name="L357" href="#L357">357</a> 
-<a class="jxr_linenumber" name="L358" href="#L358">358</a>         testTopNLEntity(expected, real);
-<a class="jxr_linenumber" name="L359" href="#L359">359</a>         assertEquals(Polygon.<strong class="jxr_keyword">class</strong>, real.getGeometrie().getClass());
-<a class="jxr_linenumber" name="L360" href="#L360">360</a>         assertEquals(<span class="jxr_string">"overig"</span>, real.getTypeLandgebruik());
-<a class="jxr_linenumber" name="L361" href="#L361">361</a>     }
-<a class="jxr_linenumber" name="L362" href="#L362">362</a>     
-<a class="jxr_linenumber" name="L363" href="#L363">363</a>     @Test
-<a class="jxr_linenumber" name="L364" href="#L364">364</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConvertWaterdeel() <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-<a class="jxr_linenumber" name="L365" href="#L365">365</a>         TopNLEntity entity = getEntity(<span class="jxr_string">"top10nl/Waterdeel.xml"</span>);
-<a class="jxr_linenumber" name="L366" href="#L366">366</a> 
-<a class="jxr_linenumber" name="L367" href="#L367">367</a>         TopNLEntity expected = getStandardTestTopNLEntity();
-<a class="jxr_linenumber" name="L368" href="#L368">368</a> 
-<a class="jxr_linenumber" name="L369" href="#L369">369</a>         expected.setIdentificatie(<span class="jxr_string">"NL.TOP10NL.109888370"</span>);
-<a class="jxr_linenumber" name="L370" href="#L370">370</a>         expected.setVisualisatieCode(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"12100"</span>));
-<a class="jxr_linenumber" name="L371" href="#L371">371</a>         expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2011-01-01"</span>));
-<a class="jxr_linenumber" name="L372" href="#L372">372</a> 
-<a class="jxr_linenumber" name="L373" href="#L373">373</a>         assertNotNull(entity);
-<a class="jxr_linenumber" name="L374" href="#L374">374</a>         assertTrue(entity instanceof Waterdeel);
-<a class="jxr_linenumber" name="L375" href="#L375">375</a> 
-<a class="jxr_linenumber" name="L376" href="#L376">376</a>         Waterdeel real = (Waterdeel) entity;
-<a class="jxr_linenumber" name="L377" href="#L377">377</a> 
-<a class="jxr_linenumber" name="L378" href="#L378">378</a>         testTopNLEntity(expected, real);
-<a class="jxr_linenumber" name="L379" href="#L379">379</a>         assertEquals(LineString.<strong class="jxr_keyword">class</strong>, real.getGeometrie().getClass());
-<a class="jxr_linenumber" name="L380" href="#L380">380</a>         assertEquals(<span class="jxr_string">"greppel, droge sloot"</span>, real.getTypeWater());
-<a class="jxr_linenumber" name="L381" href="#L381">381</a>         assertEquals(false, real.isHoofdAfwatering());
-<a class="jxr_linenumber" name="L382" href="#L382">382</a>         assertEquals(false, real.getGetijdeinvloed());
-<a class="jxr_linenumber" name="L383" href="#L383">383</a>         assertEquals(<span class="jxr_string">"overig"</span>, real.getFunctie());
-<a class="jxr_linenumber" name="L384" href="#L384">384</a>         assertEquals(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"0"</span>), real.getHoogteniveau());
-<a class="jxr_linenumber" name="L385" href="#L385">385</a>     }
-<a class="jxr_linenumber" name="L386" href="#L386">386</a>     
-<a class="jxr_linenumber" name="L387" href="#L387">387</a>     @Test
-<a class="jxr_linenumber" name="L388" href="#L388">388</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConvertWegdeel() <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
-<a class="jxr_linenumber" name="L389" href="#L389">389</a>         TopNLEntity entity = getEntity(<span class="jxr_string">"top10nl/Wegdeel.xml"</span>);
-<a class="jxr_linenumber" name="L390" href="#L390">390</a> 
-<a class="jxr_linenumber" name="L391" href="#L391">391</a>         TopNLEntity expected = getStandardTestTopNLEntity();
-<a class="jxr_linenumber" name="L392" href="#L392">392</a> 
-<a class="jxr_linenumber" name="L393" href="#L393">393</a>         expected.setIdentificatie(<span class="jxr_string">"NL.TOP10NL.114492184"</span>);
-<a class="jxr_linenumber" name="L394" href="#L394">394</a>         expected.setVisualisatieCode(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"10750"</span>));
-<a class="jxr_linenumber" name="L395" href="#L395">395</a>         expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2011-01-01"</span>));
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>     @Test
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConvertPlaats() <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>         TopNLEntity entity = getEntity(<span class="jxr_string">"top10nl/Plaats.xml"</span>);
+<a class="jxr_linenumber" name="L200" href="#L200">200</a> 
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>         assertNotNull(entity);
+<a class="jxr_linenumber" name="L202" href="#L202">202</a> 
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>         
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>         TopNLEntity expected = getStandardTestTopNLEntity();
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>         expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2016-07-01"</span>));
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>         expected.setObjectBeginTijd(sdf.parse(<span class="jxr_string">"2015-11-01"</span>));
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>         expected.setBrontype(<span class="jxr_string">"externe data"</span>);
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>         expected.setBronbeschrijving(<span class="jxr_string">"Geometrie ingetekend door Kadaster, op basis van luchtfoto's van 2016. Aantal inwoners: in de BRP geregistreerde inwoners op 30 juni 2016, berekend door het Centraal Bureau\n"</span> +
+<a class="jxr_linenumber" name="L209" href="#L209">209</a> <span class="jxr_string">" voor de Statistiek, Voorburg/Heerlen."</span>);
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>         expected.setIdentificatie(<span class="jxr_string">"NL.TOP10NL.128994154"</span>);
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>         expected.setVisualisatieCode(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"18400"</span>));
+<a class="jxr_linenumber" name="L212" href="#L212">212</a> 
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>         assertNotNull(entity);
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>         assertTrue(entity instanceof Plaats);
+<a class="jxr_linenumber" name="L215" href="#L215">215</a> 
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>         Plaats real = (Plaats) entity;
+<a class="jxr_linenumber" name="L217" href="#L217">217</a> 
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>         testTopNLEntity(expected, real);
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>         assertEquals(Polygon.<strong class="jxr_keyword">class</strong>, real.getGeometrie().getClass());
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>         assertEquals( <span class="jxr_string">"woonkern"</span>, real.getTypeGebied());
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>         assertEquals( <strong class="jxr_keyword">new</strong> Long(65), real.getAantalInwoners());
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>         assertEquals( <span class="jxr_string">"Stitswerd"</span>, real.getNaamNL());
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>     }
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>               
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>     @Test
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConvertPlantopografie() <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>         TopNLEntity entity = getEntity(<span class="jxr_string">"top10nl/Plantopografie2.xml"</span>);
+<a class="jxr_linenumber" name="L228" href="#L228">228</a> 
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>         TopNLEntity expected = getStandardTestTopNLEntity();
+<a class="jxr_linenumber" name="L230" href="#L230">230</a> 
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>         expected.setIdentificatie(<span class="jxr_string">"NL.TOP10NL.130146508"</span>);
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>         expected.setVisualisatieCode(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"999"</span>));
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>         expected.setBronnauwkeurigheid(<strong class="jxr_keyword">new</strong> Double(<span class="jxr_string">"100"</span>));
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>         expected.setBrontype( <span class="jxr_string">"luchtfoto"</span>);
+<a class="jxr_linenumber" name="L235" href="#L235">235</a>         expected.setBronbeschrijving(<span class="jxr_string">"Geometrie ingetekend door Kadaster, op basis van luchtfoto's. Voor de objectklasse Terrein is het type_landgebruik gebaseerd op BRP-Gewaspercelen 2016, bron: RVO.nl"</span>);
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>         expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2016-01-01"</span>));
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>         expected.setObjectBeginTijd(sdf.parse(<span class="jxr_string">"2017-06-01"</span>));
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>         assertNotNull(entity);
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>         assertTrue(entity instanceof PlanTopografie);
+<a class="jxr_linenumber" name="L240" href="#L240">240</a> 
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>         PlanTopografie real = (PlanTopografie) entity;
+<a class="jxr_linenumber" name="L242" href="#L242">242</a> 
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>         testTopNLEntity(expected, real);
+<a class="jxr_linenumber" name="L244" href="#L244">244</a>         assertEquals(Polygon.<strong class="jxr_keyword">class</strong>, real.getGeometrie().getClass());
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>         assertEquals( <span class="jxr_string">"|A7/N7 Zuidelijke Ringweg Groningen|"</span>, real.getNaam());
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>         assertEquals( <span class="jxr_string">"weg"</span>, real.getTypePlanTopografie());
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>         
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>     }
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>     
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>     @Test
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConvertRegistratiefGebied() <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>         TopNLEntity entity = getEntity(<span class="jxr_string">"top10nl/RegistratiefGebied.xml"</span>);
+<a class="jxr_linenumber" name="L253" href="#L253">253</a> 
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>         TopNLEntity expected = getStandardTestTopNLEntity();
+<a class="jxr_linenumber" name="L255" href="#L255">255</a> 
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>         expected.setIdentificatie(<span class="jxr_string">"NL.TOP10NL.129704430"</span>);
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>         expected.setVisualisatieCode(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"17010"</span>));
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>         expected.setBronnauwkeurigheid(<strong class="jxr_keyword">new</strong> Double(<span class="jxr_string">"20000"</span>));
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>         expected.setBrontype( <span class="jxr_string">"externe data"</span>);
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>         expected.setBronbeschrijving(<span class="jxr_string">"Externe data: Gemeentegrenzen. Gemeentegrenzen gebaseerd op grenswijzigingen in de Basisregistratie Kadaster (BRK). De gemeentegrenzen zijn gegeneraliseerd in de BRT opgenomen."</span>);
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>         expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2016-01-01"</span>));
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>         expected.setObjectBeginTijd(sdf.parse(<span class="jxr_string">"2016-11-01"</span>));
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>         assertNotNull(entity);
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>         assertTrue(entity instanceof RegistratiefGebied);
+<a class="jxr_linenumber" name="L265" href="#L265">265</a> 
+<a class="jxr_linenumber" name="L266" href="#L266">266</a>         RegistratiefGebied real = (RegistratiefGebied) entity;
+<a class="jxr_linenumber" name="L267" href="#L267">267</a> 
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>         testTopNLEntity(expected, real);
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>         assertEquals(Polygon.<strong class="jxr_keyword">class</strong>, real.getGeometrie().getClass());
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>         assertEquals( <span class="jxr_string">"provincie"</span>, real.getTypeRegistratiefGebied());
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>         assertEquals( <span class="jxr_string">"31"</span>, real.getNummer());
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>         assertEquals( <span class="jxr_string">"Limburg"</span>, real.getNaamNL());
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>         assertEquals( <span class="jxr_string">"Limburg"</span>, real.getNaamOfficieel());
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>     }
+<a class="jxr_linenumber" name="L275" href="#L275">275</a> 
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>     @Test
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConvertRelief() <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>         TopNLEntity entity = getEntity(<span class="jxr_string">"top10nl/Relief.xml"</span>);
+<a class="jxr_linenumber" name="L279" href="#L279">279</a> 
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>         TopNLEntity expected = getStandardTestTopNLEntity();
+<a class="jxr_linenumber" name="L281" href="#L281">281</a> 
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>         expected.setIdentificatie(<span class="jxr_string">"NL.TOP10NL.105335729"</span>);
+<a class="jxr_linenumber" name="L283" href="#L283">283</a>         expected.setVisualisatieCode(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"16400"</span>));
+<a class="jxr_linenumber" name="L284" href="#L284">284</a> 
+<a class="jxr_linenumber" name="L285" href="#L285">285</a>         assertNotNull(entity);
+<a class="jxr_linenumber" name="L286" href="#L286">286</a>         assertTrue(entity instanceof Relief);
+<a class="jxr_linenumber" name="L287" href="#L287">287</a> 
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>         Relief real = (Relief) entity;
+<a class="jxr_linenumber" name="L289" href="#L289">289</a> 
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>         testTopNLEntity(expected, real);
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>         assertEquals(LineString.<strong class="jxr_keyword">class</strong>, real.getGeometrie().getClass());
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>         assertEquals( <span class="jxr_string">"wal"</span>, real.getTypeRelief());
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>         assertEquals( <span class="jxr_string">"&lt; 1 meter"</span>, real.getHoogteklasse());
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>         assertEquals(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"0"</span>), real.getHoogteniveau());
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>     }
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>     @Test
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConvertReliefTalud() <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>         TopNLEntity entity = getEntity(<span class="jxr_string">"top10nl/ReliefTalud.xml"</span>);
+<a class="jxr_linenumber" name="L299" href="#L299">299</a> 
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>         TopNLEntity expected = getStandardTestTopNLEntity();
+<a class="jxr_linenumber" name="L301" href="#L301">301</a> 
+<a class="jxr_linenumber" name="L302" href="#L302">302</a>         expected.setIdentificatie(<span class="jxr_string">"NL.TOP10NL.104681205"</span>);
+<a class="jxr_linenumber" name="L303" href="#L303">303</a>         expected.setVisualisatieCode(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"16810"</span>));
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>         expected.setBrontype(<span class="jxr_string">"TOP10vector"</span>);
+<a class="jxr_linenumber" name="L305" href="#L305">305</a>         expected.setBronnauwkeurigheid(2000d);
+<a class="jxr_linenumber" name="L306" href="#L306">306</a>         expected.setBronbeschrijving(<span class="jxr_string">"Digitaal bestand met gecodeerde vectoren. Deze geven tezamen de topografie van Nederland weer op de schaal 1:10.000. Voorloper van TOP10NL."</span>);
+<a class="jxr_linenumber" name="L307" href="#L307">307</a>         expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2005-01-01"</span>));
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>         expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2005-01-01"</span>));
+<a class="jxr_linenumber" name="L309" href="#L309">309</a>         
+<a class="jxr_linenumber" name="L310" href="#L310">310</a>         assertNotNull(entity);
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>         assertTrue(entity instanceof Relief);
+<a class="jxr_linenumber" name="L312" href="#L312">312</a> 
+<a class="jxr_linenumber" name="L313" href="#L313">313</a>         Relief real = (Relief) entity;
+<a class="jxr_linenumber" name="L314" href="#L314">314</a> 
+<a class="jxr_linenumber" name="L315" href="#L315">315</a>         testTopNLEntity(expected, real);
+<a class="jxr_linenumber" name="L316" href="#L316">316</a>         assertEquals(<strong class="jxr_keyword">null</strong>, real.getGeometrie());
+<a class="jxr_linenumber" name="L317" href="#L317">317</a>         assertEquals(LineString.<strong class="jxr_keyword">class</strong>, real.getTaludHogeZijde().getClass());
+<a class="jxr_linenumber" name="L318" href="#L318">318</a>         assertEquals(LineString.<strong class="jxr_keyword">class</strong>, real.getTaludLageZijde().getClass());
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>         assertEquals( <span class="jxr_string">"talud, hoogteverschil"</span>, real.getTypeRelief());
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>         assertEquals( <span class="jxr_string">"&gt; 2,5 meter"</span>, real.getHoogteklasse());
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>         assertEquals(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"0"</span>), real.getHoogteniveau());
+<a class="jxr_linenumber" name="L322" href="#L322">322</a>     }
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>     
+<a class="jxr_linenumber" name="L324" href="#L324">324</a>     @Test
+<a class="jxr_linenumber" name="L325" href="#L325">325</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConvertSpoorbaandeel() <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+<a class="jxr_linenumber" name="L326" href="#L326">326</a>         TopNLEntity entity = getEntity(<span class="jxr_string">"top10nl/Spoorbaandeel.xml"</span>);
+<a class="jxr_linenumber" name="L327" href="#L327">327</a> 
+<a class="jxr_linenumber" name="L328" href="#L328">328</a>         TopNLEntity expected = getStandardTestTopNLEntity();
+<a class="jxr_linenumber" name="L329" href="#L329">329</a>         expected.setIdentificatie(<span class="jxr_string">"NL.TOP10NL.129726022"</span>);
+<a class="jxr_linenumber" name="L330" href="#L330">330</a> 
+<a class="jxr_linenumber" name="L331" href="#L331">331</a>         expected.setVisualisatieCode(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"-11000"</span>));
+<a class="jxr_linenumber" name="L332" href="#L332">332</a>         expected.setObjectBeginTijd(sdf.parse(<span class="jxr_string">"2016-11-01"</span>));
+<a class="jxr_linenumber" name="L333" href="#L333">333</a> 
+<a class="jxr_linenumber" name="L334" href="#L334">334</a>         assertNotNull(entity);
+<a class="jxr_linenumber" name="L335" href="#L335">335</a>         assertTrue(entity instanceof Spoorbaandeel);
+<a class="jxr_linenumber" name="L336" href="#L336">336</a> 
+<a class="jxr_linenumber" name="L337" href="#L337">337</a>         Spoorbaandeel real = (Spoorbaandeel) entity;
+<a class="jxr_linenumber" name="L338" href="#L338">338</a> 
+<a class="jxr_linenumber" name="L339" href="#L339">339</a>         testTopNLEntity(expected, real);
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>         assertEquals(LineString.<strong class="jxr_keyword">class</strong>, real.getGeometrie().getClass());
+<a class="jxr_linenumber" name="L341" href="#L341">341</a>         assertEquals(<span class="jxr_string">"metro"</span>, real.getTypeSpoorbaan());
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>         assertEquals(<span class="jxr_string">"verbinding"</span>, real.getTypeInfrastructuur());
+<a class="jxr_linenumber" name="L343" href="#L343">343</a>         assertEquals(<span class="jxr_string">"normaalspoor"</span>, real.getSpoorbreedte());
+<a class="jxr_linenumber" name="L344" href="#L344">344</a>         assertEquals(<span class="jxr_string">"in gebruik"</span>, real.getStatus());
+<a class="jxr_linenumber" name="L345" href="#L345">345</a>         assertEquals(<span class="jxr_string">"enkel"</span>, real.getAantalSporen());
+<a class="jxr_linenumber" name="L346" href="#L346">346</a>         assertEquals(<span class="jxr_string">"personenvervoer"</span>, real.getVervoerfunctie());
+<a class="jxr_linenumber" name="L347" href="#L347">347</a>         assertEquals(<strong class="jxr_keyword">true</strong>, real.getElektrificatie());
+<a class="jxr_linenumber" name="L348" href="#L348">348</a>         assertEquals(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"-1"</span>), real.getHoogteniveau());
+<a class="jxr_linenumber" name="L349" href="#L349">349</a>     }
+<a class="jxr_linenumber" name="L350" href="#L350">350</a>     
+<a class="jxr_linenumber" name="L351" href="#L351">351</a>     @Test
+<a class="jxr_linenumber" name="L352" href="#L352">352</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConvertTerrein() <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+<a class="jxr_linenumber" name="L353" href="#L353">353</a>         TopNLEntity entity = getEntity(<span class="jxr_string">"top10nl/Terrein.xml"</span>);
+<a class="jxr_linenumber" name="L354" href="#L354">354</a> 
+<a class="jxr_linenumber" name="L355" href="#L355">355</a>         TopNLEntity expected = getStandardTestTopNLEntity();
+<a class="jxr_linenumber" name="L356" href="#L356">356</a> 
+<a class="jxr_linenumber" name="L357" href="#L357">357</a>         expected.setIdentificatie(<span class="jxr_string">"NL.TOP10NL.106687191"</span>);
+<a class="jxr_linenumber" name="L358" href="#L358">358</a>         expected.setVisualisatieCode(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"14160"</span>));
+<a class="jxr_linenumber" name="L359" href="#L359">359</a> 
+<a class="jxr_linenumber" name="L360" href="#L360">360</a>         assertNotNull(entity);
+<a class="jxr_linenumber" name="L361" href="#L361">361</a>         assertTrue(entity instanceof Terrein);
+<a class="jxr_linenumber" name="L362" href="#L362">362</a> 
+<a class="jxr_linenumber" name="L363" href="#L363">363</a>         Terrein real = (Terrein) entity;
+<a class="jxr_linenumber" name="L364" href="#L364">364</a> 
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>         testTopNLEntity(expected, real);
+<a class="jxr_linenumber" name="L366" href="#L366">366</a>         assertEquals(Polygon.<strong class="jxr_keyword">class</strong>, real.getGeometrie().getClass());
+<a class="jxr_linenumber" name="L367" href="#L367">367</a>         assertEquals(<span class="jxr_string">"overig"</span>, real.getTypeLandgebruik());
+<a class="jxr_linenumber" name="L368" href="#L368">368</a>     }
+<a class="jxr_linenumber" name="L369" href="#L369">369</a>     
+<a class="jxr_linenumber" name="L370" href="#L370">370</a>     @Test
+<a class="jxr_linenumber" name="L371" href="#L371">371</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConvertWaterdeel() <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+<a class="jxr_linenumber" name="L372" href="#L372">372</a>         TopNLEntity entity = getEntity(<span class="jxr_string">"top10nl/Waterdeel.xml"</span>);
+<a class="jxr_linenumber" name="L373" href="#L373">373</a> 
+<a class="jxr_linenumber" name="L374" href="#L374">374</a>         TopNLEntity expected = getStandardTestTopNLEntity();
+<a class="jxr_linenumber" name="L375" href="#L375">375</a>         expected.setIdentificatie(<span class="jxr_string">"NL.TOP10NL.109888370"</span>);
+<a class="jxr_linenumber" name="L376" href="#L376">376</a>         expected.setVisualisatieCode(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"12100"</span>));
+<a class="jxr_linenumber" name="L377" href="#L377">377</a>         expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2011-01-01"</span>));
+<a class="jxr_linenumber" name="L378" href="#L378">378</a> 
+<a class="jxr_linenumber" name="L379" href="#L379">379</a>         assertNotNull(entity);
+<a class="jxr_linenumber" name="L380" href="#L380">380</a>         assertTrue(entity instanceof Waterdeel);
+<a class="jxr_linenumber" name="L381" href="#L381">381</a> 
+<a class="jxr_linenumber" name="L382" href="#L382">382</a>         Waterdeel real = (Waterdeel) entity;
+<a class="jxr_linenumber" name="L383" href="#L383">383</a> 
+<a class="jxr_linenumber" name="L384" href="#L384">384</a>         testTopNLEntity(expected, real);
+<a class="jxr_linenumber" name="L385" href="#L385">385</a>         assertEquals(LineString.<strong class="jxr_keyword">class</strong>, real.getGeometrie().getClass());
+<a class="jxr_linenumber" name="L386" href="#L386">386</a>         assertEquals(<span class="jxr_string">"greppel, droge sloot"</span>, real.getTypeWater());
+<a class="jxr_linenumber" name="L387" href="#L387">387</a>         assertEquals(false, real.isHoofdAfwatering());
+<a class="jxr_linenumber" name="L388" href="#L388">388</a>         assertEquals(false, real.getGetijdeinvloed());
+<a class="jxr_linenumber" name="L389" href="#L389">389</a>         assertEquals(<span class="jxr_string">"overig"</span>, real.getFunctie());
+<a class="jxr_linenumber" name="L390" href="#L390">390</a>         assertEquals(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"0"</span>), real.getHoogteniveau());
+<a class="jxr_linenumber" name="L391" href="#L391">391</a>     }
+<a class="jxr_linenumber" name="L392" href="#L392">392</a>     
+<a class="jxr_linenumber" name="L393" href="#L393">393</a>     @Test
+<a class="jxr_linenumber" name="L394" href="#L394">394</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testConvertWegdeel() <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+<a class="jxr_linenumber" name="L395" href="#L395">395</a>         TopNLEntity entity = getEntity(<span class="jxr_string">"top10nl/Wegdeel.xml"</span>);
 <a class="jxr_linenumber" name="L396" href="#L396">396</a> 
-<a class="jxr_linenumber" name="L397" href="#L397">397</a>         assertNotNull(entity);
-<a class="jxr_linenumber" name="L398" href="#L398">398</a>         assertTrue(entity instanceof Wegdeel);
-<a class="jxr_linenumber" name="L399" href="#L399">399</a> 
-<a class="jxr_linenumber" name="L400" href="#L400">400</a>         Wegdeel real = (Wegdeel) entity;
-<a class="jxr_linenumber" name="L401" href="#L401">401</a> 
-<a class="jxr_linenumber" name="L402" href="#L402">402</a>         testTopNLEntity(expected, real);
-<a class="jxr_linenumber" name="L403" href="#L403">403</a>         assertEquals(LineString.<strong class="jxr_keyword">class</strong>, real.getGeometrie().getClass());
-<a class="jxr_linenumber" name="L404" href="#L404">404</a>         assertEquals(LineString.<strong class="jxr_keyword">class</strong>, real.getHartGeometrie().getClass());
-<a class="jxr_linenumber" name="L405" href="#L405">405</a>         assertEquals(<span class="jxr_string">"verbinding"</span>, real.getTypeInfrastructuur());
-<a class="jxr_linenumber" name="L406" href="#L406">406</a>         assertEquals(<span class="jxr_string">"overig"</span>, real.getTypeWeg());
-<a class="jxr_linenumber" name="L407" href="#L407">407</a>         assertEquals(<span class="jxr_string">"voetgangers"</span>, real.getHoofdverkeersgebruik());
-<a class="jxr_linenumber" name="L408" href="#L408">408</a>         assertEquals(false, real.getGescheidenRijbaan());
-<a class="jxr_linenumber" name="L409" href="#L409">409</a>         assertEquals(<span class="jxr_string">"onbekend"</span>, real.getVerhardingstype());
-<a class="jxr_linenumber" name="L410" href="#L410">410</a>         assertEquals(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"0"</span>), real.getHoogteniveau());
-<a class="jxr_linenumber" name="L411" href="#L411">411</a>         assertEquals(<span class="jxr_string">"in gebruik"</span>, real.getStatus());
-<a class="jxr_linenumber" name="L412" href="#L412">412</a>         assertEquals(<strong class="jxr_keyword">null</strong>, real.getAantalRijstroken());
-<a class="jxr_linenumber" name="L413" href="#L413">413</a>         assertEquals(<span class="jxr_string">"&lt; 2 meter"</span>, real.getVerhardingsbreedteklasse());
-<a class="jxr_linenumber" name="L414" href="#L414">414</a>     }
-<a class="jxr_linenumber" name="L415" href="#L415">415</a> 
-<a class="jxr_linenumber" name="L416" href="#L416">416</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testTopNLEntity(TopNLEntity expected, TopNLEntity real) {
-<a class="jxr_linenumber" name="L417" href="#L417">417</a>         assertEquals(expected.getTopnltype(), real.getTopnltype());
-<a class="jxr_linenumber" name="L418" href="#L418">418</a> 
-<a class="jxr_linenumber" name="L419" href="#L419">419</a>         assertEquals(expected.getId(), real.getId());
-<a class="jxr_linenumber" name="L420" href="#L420">420</a>         assertEquals(expected.getIdentificatie(), real.getIdentificatie());
-<a class="jxr_linenumber" name="L421" href="#L421">421</a>         assertEquals(expected.getBrontype(), real.getBrontype());
-<a class="jxr_linenumber" name="L422" href="#L422">422</a>         assertEquals(expected.getBronactualiteit(), real.getBronactualiteit());
-<a class="jxr_linenumber" name="L423" href="#L423">423</a>         assertEquals(expected.getBronbeschrijving(), real.getBronbeschrijving());
-<a class="jxr_linenumber" name="L424" href="#L424">424</a>         assertEquals(expected.getBronnauwkeurigheid(), real.getBronnauwkeurigheid());
-<a class="jxr_linenumber" name="L425" href="#L425">425</a>         assertEquals(expected.getObjectBeginTijd(), real.getObjectBeginTijd());
-<a class="jxr_linenumber" name="L426" href="#L426">426</a>         assertEquals(expected.getObjectEindTijd(), real.getObjectEindTijd());
-<a class="jxr_linenumber" name="L427" href="#L427">427</a>         assertEquals(expected.getVisualisatieCode(), real.getVisualisatieCode());
-<a class="jxr_linenumber" name="L428" href="#L428">428</a>     }
-<a class="jxr_linenumber" name="L429" href="#L429">429</a> 
-<a class="jxr_linenumber" name="L430" href="#L430">430</a>     <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L431" href="#L431">431</a> <em class="jxr_comment">    top10nl:FunctioneelGebied</em>
-<a class="jxr_linenumber" name="L432" href="#L432">432</a> <em class="jxr_comment">    top10nl:Hoogte</em>
-<a class="jxr_linenumber" name="L433" href="#L433">433</a> <em class="jxr_comment">    top10nl:Gebouw</em>
-<a class="jxr_linenumber" name="L434" href="#L434">434</a> <em class="jxr_comment">    top10nl:Inrichtingselement</em>
-<a class="jxr_linenumber" name="L435" href="#L435">435</a> <em class="jxr_comment">    top10nl:Plaats</em>
-<a class="jxr_linenumber" name="L436" href="#L436">436</a> <em class="jxr_comment">    top10nl:GeografischGebied</em>
-<a class="jxr_linenumber" name="L437" href="#L437">437</a> <em class="jxr_comment">    </em>
-<a class="jxr_linenumber" name="L438" href="#L438">438</a> <em class="jxr_comment">    top10nl:RegistratiefGebied</em>
-<a class="jxr_linenumber" name="L439" href="#L439">439</a> <em class="jxr_comment">    top10nl:Relief</em>
-<a class="jxr_linenumber" name="L440" href="#L440">440</a> <em class="jxr_comment">    top10nl:Spoorbaandeel</em>
-<a class="jxr_linenumber" name="L441" href="#L441">441</a> <em class="jxr_comment">    top10nl:Terrein</em>
-<a class="jxr_linenumber" name="L442" href="#L442">442</a> <em class="jxr_comment">    top10nl:Waterdeel</em>
-<a class="jxr_linenumber" name="L443" href="#L443">443</a> <em class="jxr_comment">    top10nl:Wegdeel</em>
-<a class="jxr_linenumber" name="L444" href="#L444">444</a> 
-<a class="jxr_linenumber" name="L445" href="#L445">445</a> <em class="jxr_comment">     */</em>
-<a class="jxr_linenumber" name="L446" href="#L446">446</a>     <strong class="jxr_keyword">private</strong> TopNLEntity getEntity(String file) <strong class="jxr_keyword">throws</strong> JAXBException, IOException, SAXException, ParserConfigurationException, TransformerException {
-<a class="jxr_linenumber" name="L447" href="#L447">447</a>         URL in = Top10NLConverterTest.<strong class="jxr_keyword">class</strong>.getResource(file);
-<a class="jxr_linenumber" name="L448" href="#L448">448</a>         List jaxb = processor.parse(in);
-<a class="jxr_linenumber" name="L449" href="#L449">449</a>         TopNLEntity entity = instance.convertObject(jaxb.get(0));
-<a class="jxr_linenumber" name="L450" href="#L450">450</a>         <strong class="jxr_keyword">return</strong> entity;
-<a class="jxr_linenumber" name="L451" href="#L451">451</a>     }
-<a class="jxr_linenumber" name="L452" href="#L452">452</a>     
-<a class="jxr_linenumber" name="L453" href="#L453">453</a>       
-<a class="jxr_linenumber" name="L454" href="#L454">454</a>     <strong class="jxr_keyword">public</strong> TopNLEntity getStandardTestTopNLEntity() <strong class="jxr_keyword">throws</strong> ParseException {
-<a class="jxr_linenumber" name="L455" href="#L455">455</a>         TopNLEntity expected = <strong class="jxr_keyword">new</strong> TopNLEntity() {};
-<a class="jxr_linenumber" name="L456" href="#L456">456</a> 
-<a class="jxr_linenumber" name="L457" href="#L457">457</a>         expected.setTopnltype(TopNLType.TOP10NL.getType());
-<a class="jxr_linenumber" name="L458" href="#L458">458</a>         expected.setBrontype(<span class="jxr_string">"luchtfoto"</span>);
-<a class="jxr_linenumber" name="L459" href="#L459">459</a>         expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2015-01-01"</span>));
-<a class="jxr_linenumber" name="L460" href="#L460">460</a>         expected.setBronnauwkeurigheid(100.0);
-<a class="jxr_linenumber" name="L461" href="#L461">461</a>         expected.setBronbeschrijving(<span class="jxr_string">"Een orthogerectificeerde fotografische opname van een deel van het aardoppervlak. Gemaakt vanuit een vliegtuig."</span>);
-<a class="jxr_linenumber" name="L462" href="#L462">462</a>         expected.setObjectBeginTijd(sdf.parse(<span class="jxr_string">"2008-11-24"</span>));
-<a class="jxr_linenumber" name="L463" href="#L463">463</a>         
-<a class="jxr_linenumber" name="L464" href="#L464">464</a>         <strong class="jxr_keyword">return</strong> expected;
-<a class="jxr_linenumber" name="L465" href="#L465">465</a>     }
-<a class="jxr_linenumber" name="L466" href="#L466">466</a> }
+<a class="jxr_linenumber" name="L397" href="#L397">397</a>         TopNLEntity expected = getStandardTestTopNLEntity();
+<a class="jxr_linenumber" name="L398" href="#L398">398</a> 
+<a class="jxr_linenumber" name="L399" href="#L399">399</a>         expected.setIdentificatie(<span class="jxr_string">"NL.TOP10NL.114492184"</span>);
+<a class="jxr_linenumber" name="L400" href="#L400">400</a>         expected.setVisualisatieCode(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"10750"</span>));
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>         expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2011-01-01"</span>));
+<a class="jxr_linenumber" name="L402" href="#L402">402</a> 
+<a class="jxr_linenumber" name="L403" href="#L403">403</a>         assertNotNull(entity);
+<a class="jxr_linenumber" name="L404" href="#L404">404</a>         assertTrue(entity instanceof Wegdeel);
+<a class="jxr_linenumber" name="L405" href="#L405">405</a> 
+<a class="jxr_linenumber" name="L406" href="#L406">406</a>         Wegdeel real = (Wegdeel) entity;
+<a class="jxr_linenumber" name="L407" href="#L407">407</a> 
+<a class="jxr_linenumber" name="L408" href="#L408">408</a>         testTopNLEntity(expected, real);
+<a class="jxr_linenumber" name="L409" href="#L409">409</a>         assertEquals(LineString.<strong class="jxr_keyword">class</strong>, real.getGeometrie().getClass());
+<a class="jxr_linenumber" name="L410" href="#L410">410</a>         assertEquals(LineString.<strong class="jxr_keyword">class</strong>, real.getHartGeometrie().getClass());
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>         assertEquals(<span class="jxr_string">"verbinding"</span>, real.getTypeInfrastructuur());
+<a class="jxr_linenumber" name="L412" href="#L412">412</a>         assertEquals(<span class="jxr_string">"overig"</span>, real.getTypeWeg());
+<a class="jxr_linenumber" name="L413" href="#L413">413</a>         assertEquals(<span class="jxr_string">"voetgangers"</span>, real.getHoofdverkeersgebruik());
+<a class="jxr_linenumber" name="L414" href="#L414">414</a>         assertEquals(false, real.getGescheidenRijbaan());
+<a class="jxr_linenumber" name="L415" href="#L415">415</a>         assertEquals(<span class="jxr_string">"onbekend"</span>, real.getVerhardingstype());
+<a class="jxr_linenumber" name="L416" href="#L416">416</a>         assertEquals(<strong class="jxr_keyword">new</strong> Long(<span class="jxr_string">"0"</span>), real.getHoogteniveau());
+<a class="jxr_linenumber" name="L417" href="#L417">417</a>         assertEquals(<span class="jxr_string">"in gebruik"</span>, real.getStatus());
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>         assertEquals(<strong class="jxr_keyword">null</strong>, real.getAantalRijstroken());
+<a class="jxr_linenumber" name="L419" href="#L419">419</a>         assertEquals(<span class="jxr_string">"&lt; 2 meter"</span>, real.getVerhardingsbreedteklasse());
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>     }
+<a class="jxr_linenumber" name="L421" href="#L421">421</a> 
+<a class="jxr_linenumber" name="L422" href="#L422">422</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testTopNLEntity(TopNLEntity expected, TopNLEntity real) {
+<a class="jxr_linenumber" name="L423" href="#L423">423</a>         assertEquals(expected.getTopnltype(), real.getTopnltype());
+<a class="jxr_linenumber" name="L424" href="#L424">424</a> 
+<a class="jxr_linenumber" name="L425" href="#L425">425</a>         assertEquals(expected.getId(), real.getId());
+<a class="jxr_linenumber" name="L426" href="#L426">426</a>         assertEquals(expected.getIdentificatie(), real.getIdentificatie());
+<a class="jxr_linenumber" name="L427" href="#L427">427</a>         assertEquals(expected.getBrontype(), real.getBrontype());
+<a class="jxr_linenumber" name="L428" href="#L428">428</a>         assertEquals(expected.getBronactualiteit(), real.getBronactualiteit());
+<a class="jxr_linenumber" name="L429" href="#L429">429</a>         assertEquals(expected.getBronbeschrijving(), real.getBronbeschrijving());
+<a class="jxr_linenumber" name="L430" href="#L430">430</a>         assertEquals(expected.getBronnauwkeurigheid(), real.getBronnauwkeurigheid());
+<a class="jxr_linenumber" name="L431" href="#L431">431</a>         assertEquals(expected.getObjectBeginTijd(), real.getObjectBeginTijd());
+<a class="jxr_linenumber" name="L432" href="#L432">432</a>         assertEquals(expected.getObjectEindTijd(), real.getObjectEindTijd());
+<a class="jxr_linenumber" name="L433" href="#L433">433</a>         assertEquals(expected.getVisualisatieCode(), real.getVisualisatieCode());
+<a class="jxr_linenumber" name="L434" href="#L434">434</a>     }
+<a class="jxr_linenumber" name="L435" href="#L435">435</a> 
+<a class="jxr_linenumber" name="L436" href="#L436">436</a>     <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L437" href="#L437">437</a> <em class="jxr_comment">    top10nl:FunctioneelGebied</em>
+<a class="jxr_linenumber" name="L438" href="#L438">438</a> <em class="jxr_comment">    top10nl:Hoogte</em>
+<a class="jxr_linenumber" name="L439" href="#L439">439</a> <em class="jxr_comment">    top10nl:Gebouw</em>
+<a class="jxr_linenumber" name="L440" href="#L440">440</a> <em class="jxr_comment">    top10nl:Inrichtingselement</em>
+<a class="jxr_linenumber" name="L441" href="#L441">441</a> <em class="jxr_comment">    top10nl:Plaats</em>
+<a class="jxr_linenumber" name="L442" href="#L442">442</a> <em class="jxr_comment">    top10nl:GeografischGebied</em>
+<a class="jxr_linenumber" name="L443" href="#L443">443</a> <em class="jxr_comment">    </em>
+<a class="jxr_linenumber" name="L444" href="#L444">444</a> <em class="jxr_comment">    top10nl:RegistratiefGebied</em>
+<a class="jxr_linenumber" name="L445" href="#L445">445</a> <em class="jxr_comment">    top10nl:Relief</em>
+<a class="jxr_linenumber" name="L446" href="#L446">446</a> <em class="jxr_comment">    top10nl:Spoorbaandeel</em>
+<a class="jxr_linenumber" name="L447" href="#L447">447</a> <em class="jxr_comment">    top10nl:Terrein</em>
+<a class="jxr_linenumber" name="L448" href="#L448">448</a> <em class="jxr_comment">    top10nl:Waterdeel</em>
+<a class="jxr_linenumber" name="L449" href="#L449">449</a> <em class="jxr_comment">    top10nl:Wegdeel</em>
+<a class="jxr_linenumber" name="L450" href="#L450">450</a> 
+<a class="jxr_linenumber" name="L451" href="#L451">451</a> <em class="jxr_comment">     */</em>
+<a class="jxr_linenumber" name="L452" href="#L452">452</a>     <strong class="jxr_keyword">private</strong> TopNLEntity getEntity(String file) <strong class="jxr_keyword">throws</strong> JAXBException, IOException, SAXException, ParserConfigurationException, TransformerException {
+<a class="jxr_linenumber" name="L453" href="#L453">453</a>         URL in = Top10NLConverterTest.<strong class="jxr_keyword">class</strong>.getResource(file);
+<a class="jxr_linenumber" name="L454" href="#L454">454</a>         List jaxb = processor.parse(in);
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>         TopNLEntity entity = instance.convertObject(jaxb.get(0));
+<a class="jxr_linenumber" name="L456" href="#L456">456</a>         <strong class="jxr_keyword">return</strong> entity;
+<a class="jxr_linenumber" name="L457" href="#L457">457</a>     }
+<a class="jxr_linenumber" name="L458" href="#L458">458</a>     
+<a class="jxr_linenumber" name="L459" href="#L459">459</a>       
+<a class="jxr_linenumber" name="L460" href="#L460">460</a>     <strong class="jxr_keyword">public</strong> TopNLEntity getStandardTestTopNLEntity() <strong class="jxr_keyword">throws</strong> ParseException {
+<a class="jxr_linenumber" name="L461" href="#L461">461</a>         TopNLEntity expected = <strong class="jxr_keyword">new</strong> TopNLEntity() {};
+<a class="jxr_linenumber" name="L462" href="#L462">462</a> 
+<a class="jxr_linenumber" name="L463" href="#L463">463</a>         expected.setTopnltype(TopNLType.TOP10NL.getType());
+<a class="jxr_linenumber" name="L464" href="#L464">464</a>         expected.setBrontype(<span class="jxr_string">"luchtfoto"</span>);
+<a class="jxr_linenumber" name="L465" href="#L465">465</a>         expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2015-01-01"</span>));
+<a class="jxr_linenumber" name="L466" href="#L466">466</a>         expected.setBronnauwkeurigheid(100.0);
+<a class="jxr_linenumber" name="L467" href="#L467">467</a>         expected.setBronbeschrijving(<span class="jxr_string">"Een orthogerectificeerde fotografische opname van een deel van het aardoppervlak. Gemaakt vanuit een vliegtuig."</span>);
+<a class="jxr_linenumber" name="L468" href="#L468">468</a>         expected.setObjectBeginTijd(sdf.parse(<span class="jxr_string">"2008-11-24"</span>));
+<a class="jxr_linenumber" name="L469" href="#L469">469</a>         
+<a class="jxr_linenumber" name="L470" href="#L470">470</a>         <strong class="jxr_keyword">return</strong> expected;
+<a class="jxr_linenumber" name="L471" href="#L471">471</a>     }
+<a class="jxr_linenumber" name="L472" href="#L472">472</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014&#x2013;2017 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>

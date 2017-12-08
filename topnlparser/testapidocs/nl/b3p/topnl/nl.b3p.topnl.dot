@@ -200,6 +200,8 @@ digraph G {
 <tr><td align="left" balign="left"> + convert(arg0 : List&lt;&gt;, arg1 : TopNLType) : List&lt;TopNLEntity&gt; </td></tr>
 <tr><td align="left" balign="left"> + save(arg0 : TopNLEntity, arg1 : TopNLType) </td></tr>
 <tr><td align="left" balign="left"> + save(arg0 : List&lt;TopNLEntity&gt;, arg1 : TopNLType) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : Processor.STATUS </td></tr>
+<tr><td align="left" balign="left"> + resetStatus() </td></tr>
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

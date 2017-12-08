@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.Database
-	c29056 [label=<<table title="nl.b3p.topnl.Database" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Database.html">
+	c29150 [label=<<table title="nl.b3p.topnl.Database" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Database.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Database </td></tr>
 		</table></td></tr>
@@ -24,7 +24,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Database.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.Processor
-	c29060 [label=<<table title="nl.b3p.topnl.Processor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Processor.html">
+	c29154 [label=<<table title="nl.b3p.topnl.Processor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Processor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Processor </td></tr>
 		</table></td></tr>
@@ -38,10 +38,26 @@ digraph G {
 <tr><td align="left" balign="left"> + convert(listOfJaxbObjects : List&lt;&gt;, type : TopNLType) : List&lt;TopNLEntity&gt; </td></tr>
 <tr><td align="left" balign="left"> + save(entity : TopNLEntity, type : TopNLType) </td></tr>
 <tr><td align="left" balign="left"> + save(entities : List&lt;TopNLEntity&gt;, type : TopNLType) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : Processor.STATUS </td></tr>
+<tr><td align="left" balign="left"> + resetStatus() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Processor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.Processor.STATUS
+	c29155 [label=<<table title="nl.b3p.topnl.Processor.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Processor.STATUS.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> STATUS </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> OK </td></tr>
+<tr><td align="left" balign="left"> NOK </td></tr>
+		</table></td></tr>
+		</table>>, URL="./Processor.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.converters.ConverterFactory
-	c29205 [label=<<table title="nl.b3p.topnl.converters.ConverterFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./converters/ConverterFactory.html">
+	c29300 [label=<<table title="nl.b3p.topnl.converters.ConverterFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./converters/ConverterFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConverterFactory </td></tr>
 		</table></td></tr>
@@ -55,8 +71,10 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./converters/ConverterFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.Processor NAVASSOC nl.b3p.topnl.Database
-	c29060:p -> c29056:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c29154:p -> c29150:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.Processor NAVASSOC nl.b3p.topnl.converters.ConverterFactory
-	c29060:p -> c29205:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c29154:p -> c29300:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.Processor NAVASSOC nl.b3p.topnl.Processor.STATUS
+	c29154:p -> c29155:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

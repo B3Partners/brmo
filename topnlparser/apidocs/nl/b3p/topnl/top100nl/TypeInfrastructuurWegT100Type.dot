@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top100nl.TypeInfrastructuurWegT100Type
-	c41468 [label=<<table title="nl.b3p.topnl.top100nl.TypeInfrastructuurWegT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeInfrastructuurWegT100Type.html">
+	c41912 [label=<<table title="nl.b3p.topnl.top100nl.TypeInfrastructuurWegT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeInfrastructuurWegT100Type.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> TypeInfrastructuurWegT100Type </td></tr>
@@ -24,7 +24,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TypeInfrastructuurWegT100Type.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top100nl.WegdeelType
-	c41473 [label=<<table title="nl.b3p.topnl.top100nl.WegdeelType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WegdeelType.html">
+	c41917 [label=<<table title="nl.b3p.topnl.top100nl.WegdeelType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WegdeelType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WegdeelType </td></tr>
 		</table></td></tr>
@@ -84,6 +84,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./WegdeelType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top100nl.WegdeelType NAVASSOC nl.b3p.topnl.top100nl.TypeInfrastructuurWegT100Type
-	c41473:p -> c41468:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c41917:p -> c41912:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

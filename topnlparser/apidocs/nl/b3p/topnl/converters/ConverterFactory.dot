@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.Processor
-	c12413 [label=<<table title="nl.b3p.topnl.Processor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../Processor.html">
+	c12453 [label=<<table title="nl.b3p.topnl.Processor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../Processor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Processor </td></tr>
 		</table></td></tr>
@@ -24,10 +24,12 @@ digraph G {
 <tr><td align="left" balign="left"> + convert(listOfJaxbObjects : List&lt;&gt;, type : TopNLType) : List&lt;TopNLEntity&gt; </td></tr>
 <tr><td align="left" balign="left"> + save(entity : TopNLEntity, type : TopNLType) </td></tr>
 <tr><td align="left" balign="left"> + save(entities : List&lt;TopNLEntity&gt;, type : TopNLType) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : Processor.STATUS </td></tr>
+<tr><td align="left" balign="left"> + resetStatus() </td></tr>
 		</table></td></tr>
 		</table>>, URL="../Processor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.converters.ConverterFactory
-	c12558 [label=<<table title="nl.b3p.topnl.converters.ConverterFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ConverterFactory.html">
+	c12599 [label=<<table title="nl.b3p.topnl.converters.ConverterFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ConverterFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConverterFactory </td></tr>
 		</table></td></tr>
@@ -41,7 +43,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ConverterFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.converters.Converter
-	c12560 [label=<<table title="nl.b3p.topnl.converters.Converter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Converter.html">
+	c12601 [label=<<table title="nl.b3p.topnl.converters.Converter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Converter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Converter </font></td></tr>
 		</table></td></tr>
@@ -69,14 +71,14 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Converter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.Processor NAVASSOC nl.b3p.topnl.converters.ConverterFactory
-	c12413:p -> c12558:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c12453:p -> c12599:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.converters.ConverterFactory NAVASSOC nl.b3p.topnl.converters.Converter
-	c12558:p -> c12560:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c12599:p -> c12601:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.converters.ConverterFactory NAVASSOC nl.b3p.topnl.converters.Converter
-	c12558:p -> c12560:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c12599:p -> c12601:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.converters.ConverterFactory NAVASSOC nl.b3p.topnl.converters.Converter
-	c12558:p -> c12560:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c12599:p -> c12601:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.converters.ConverterFactory NAVASSOC nl.b3p.topnl.converters.Converter
-	c12558:p -> c12560:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c12599:p -> c12601:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

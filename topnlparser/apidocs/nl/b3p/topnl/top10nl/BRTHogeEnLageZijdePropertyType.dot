@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top10nl.ReliefType
-	c6573 [label=<<table title="nl.b3p.topnl.top10nl.ReliefType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ReliefType.html">
+	c6595 [label=<<table title="nl.b3p.topnl.top10nl.ReliefType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ReliefType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ReliefType </td></tr>
 		</table></td></tr>
@@ -39,7 +39,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ReliefType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top10nl.BRTHogeEnLageZijdePropertyType
-	c6597 [label=<<table title="nl.b3p.topnl.top10nl.BRTHogeEnLageZijdePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BRTHogeEnLageZijdePropertyType.html">
+	c6619 [label=<<table title="nl.b3p.topnl.top10nl.BRTHogeEnLageZijdePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BRTHogeEnLageZijdePropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTHogeEnLageZijdePropertyType </td></tr>
 		</table></td></tr>
@@ -53,7 +53,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BRTHogeEnLageZijdePropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top10nl.BRTHogeEnLageZijdeType
-	c6610 [label=<<table title="nl.b3p.topnl.top10nl.BRTHogeEnLageZijdeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRTHogeEnLageZijdeType.html">
+	c6632 [label=<<table title="nl.b3p.topnl.top10nl.BRTHogeEnLageZijdeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRTHogeEnLageZijdeType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTHogeEnLageZijdeType </td></tr>
 		</table></td></tr>
@@ -70,8 +70,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BRTHogeEnLageZijdeType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top10nl.ReliefType NAVASSOC nl.b3p.topnl.top10nl.BRTHogeEnLageZijdePropertyType
-	c6573:p -> c6597:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c6595:p -> c6619:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top10nl.BRTHogeEnLageZijdePropertyType NAVASSOC nl.b3p.topnl.top10nl.BRTHogeEnLageZijdeType
-	c6597:p -> c6610:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c6619:p -> c6632:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

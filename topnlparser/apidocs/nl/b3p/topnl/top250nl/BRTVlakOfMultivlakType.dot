@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top250nl.SurfacePropertyType
-	c10190 [label=<<table title="nl.b3p.topnl.top250nl.SurfacePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SurfacePropertyType.html">
+	c10223 [label=<<table title="nl.b3p.topnl.top250nl.SurfacePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SurfacePropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SurfacePropertyType </td></tr>
 		</table></td></tr>
@@ -53,7 +53,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./SurfacePropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BRTVlakOfMultivlakType
-	c10197 [label=<<table title="nl.b3p.topnl.top250nl.BRTVlakOfMultivlakType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BRTVlakOfMultivlakType.html">
+	c10230 [label=<<table title="nl.b3p.topnl.top250nl.BRTVlakOfMultivlakType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BRTVlakOfMultivlakType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTVlakOfMultivlakType </td></tr>
 		</table></td></tr>
@@ -70,12 +70,13 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BRTVlakOfMultivlakType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.MultiSurfacePropertyType
-	c10198 [label=<<table title="nl.b3p.topnl.top250nl.MultiSurfacePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MultiSurfacePropertyType.html">
+	c10231 [label=<<table title="nl.b3p.topnl.top250nl.MultiSurfacePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MultiSurfacePropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MultiSurfacePropertyType </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> # multiSurface : MultiSurfaceType </td></tr>
+<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
 <tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
 <tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
 <tr><td align="left" balign="left"> # type : TypeType </td></tr>
@@ -85,12 +86,13 @@ digraph G {
 <tr><td align="left" balign="left"> # title : String </td></tr>
 <tr><td align="left" balign="left"> # show : ShowType </td></tr>
 <tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
-<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + MultiSurfacePropertyType() </td></tr>
 <tr><td align="left" balign="left"> + getMultiSurface() : MultiSurfaceType </td></tr>
 <tr><td align="left" balign="left"> + setMultiSurface(value : MultiSurfaceType) </td></tr>
+<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
 <tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
 <tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
 <tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
@@ -108,12 +110,10 @@ digraph G {
 <tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
 <tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
 <tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
-<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MultiSurfacePropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BRTVlakOfMultivlakPropertyType
-	c10215 [label=<<table title="nl.b3p.topnl.top250nl.BRTVlakOfMultivlakPropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRTVlakOfMultivlakPropertyType.html">
+	c10248 [label=<<table title="nl.b3p.topnl.top250nl.BRTVlakOfMultivlakPropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRTVlakOfMultivlakPropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTVlakOfMultivlakPropertyType </td></tr>
 		</table></td></tr>
@@ -127,10 +127,10 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BRTVlakOfMultivlakPropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BRTVlakOfMultivlakType NAVASSOC nl.b3p.topnl.top250nl.SurfacePropertyType
-	c10197:p -> c10190:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c10230:p -> c10223:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.BRTVlakOfMultivlakType NAVASSOC nl.b3p.topnl.top250nl.MultiSurfacePropertyType
-	c10197:p -> c10198:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c10230:p -> c10231:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.BRTVlakOfMultivlakPropertyType NAVASSOC nl.b3p.topnl.top250nl.BRTVlakOfMultivlakType
-	c10215:p -> c10197:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c10248:p -> c10230:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

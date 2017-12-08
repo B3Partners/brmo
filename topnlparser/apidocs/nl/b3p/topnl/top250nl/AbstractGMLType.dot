@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top250nl.CodeWithAuthorityType
-	c3416 [label=<<table title="nl.b3p.topnl.top250nl.CodeWithAuthorityType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CodeWithAuthorityType.html">
+	c3427 [label=<<table title="nl.b3p.topnl.top250nl.CodeWithAuthorityType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CodeWithAuthorityType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CodeWithAuthorityType </td></tr>
 		</table></td></tr>
@@ -27,7 +27,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./CodeWithAuthorityType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.AbstractGMLType
-	c3426 [label=<<table title="nl.b3p.topnl.top250nl.AbstractGMLType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AbstractGMLType.html">
+	c3437 [label=<<table title="nl.b3p.topnl.top250nl.AbstractGMLType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AbstractGMLType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractGMLType </font></td></tr>
 		</table></td></tr>
@@ -54,7 +54,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AbstractGMLType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.AbstractGeometryType
-	c3432 [label=<<table title="nl.b3p.topnl.top250nl.AbstractGeometryType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractGeometryType.html">
+	c3443 [label=<<table title="nl.b3p.topnl.top250nl.AbstractGeometryType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractGeometryType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractGeometryType </font></td></tr>
 		</table></td></tr>
@@ -75,7 +75,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AbstractGeometryType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.FeatureCollectionT250NLType
-	c3440 [label=<<table title="nl.b3p.topnl.top250nl.FeatureCollectionT250NLType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FeatureCollectionT250NLType.html">
+	c3451 [label=<<table title="nl.b3p.topnl.top250nl.FeatureCollectionT250NLType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FeatureCollectionT250NLType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FeatureCollectionT250NLType </td></tr>
 		</table></td></tr>
@@ -88,7 +88,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./FeatureCollectionT250NLType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.AbstractFeatureType
-	c3451 [label=<<table title="nl.b3p.topnl.top250nl.AbstractFeatureType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractFeatureType.html">
+	c3462 [label=<<table title="nl.b3p.topnl.top250nl.AbstractFeatureType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractFeatureType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractFeatureType </font></td></tr>
 		</table></td></tr>
@@ -105,7 +105,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AbstractFeatureType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.StringOrRefType
-	c3453 [label=<<table title="nl.b3p.topnl.top250nl.StringOrRefType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StringOrRefType.html">
+	c3464 [label=<<table title="nl.b3p.topnl.top250nl.StringOrRefType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StringOrRefType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StringOrRefType </td></tr>
 		</table></td></tr>
@@ -145,11 +145,12 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./StringOrRefType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.ReferenceType
-	c3455 [label=<<table title="nl.b3p.topnl.top250nl.ReferenceType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ReferenceType.html">
+	c3466 [label=<<table title="nl.b3p.topnl.top250nl.ReferenceType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ReferenceType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ReferenceType </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
 <tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
 <tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
 <tr><td align="left" balign="left"> # type : TypeType </td></tr>
@@ -159,10 +160,11 @@ digraph G {
 <tr><td align="left" balign="left"> # title : String </td></tr>
 <tr><td align="left" balign="left"> # show : ShowType </td></tr>
 <tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
-<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + ReferenceType() </td></tr>
+<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
 <tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
 <tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
 <tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
@@ -180,21 +182,19 @@ digraph G {
 <tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
 <tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
 <tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
-<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ReferenceType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.top250nl.AbstractGeometryType extends nl.b3p.topnl.top250nl.AbstractGMLType
-	c3426:p -> c3432:p [dir=back,arrowtail=empty];
+	c3437:p -> c3443:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.top250nl.FeatureCollectionT250NLType extends nl.b3p.topnl.top250nl.AbstractGMLType
-	c3426:p -> c3440:p [dir=back,arrowtail=empty];
+	c3437:p -> c3451:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.top250nl.AbstractFeatureType extends nl.b3p.topnl.top250nl.AbstractGMLType
-	c3426:p -> c3451:p [dir=back,arrowtail=empty];
+	c3437:p -> c3462:p [dir=back,arrowtail=empty];
 	// nl.b3p.topnl.top250nl.AbstractGMLType NAVASSOC nl.b3p.topnl.top250nl.StringOrRefType
-	c3426:p -> c3453:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c3437:p -> c3464:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.AbstractGMLType NAVASSOC nl.b3p.topnl.top250nl.ReferenceType
-	c3426:p -> c3455:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c3437:p -> c3466:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.AbstractGMLType NAVASSOC nl.b3p.topnl.top250nl.CodeWithAuthorityType
-	c3426:p -> c3416:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c3437:p -> c3427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

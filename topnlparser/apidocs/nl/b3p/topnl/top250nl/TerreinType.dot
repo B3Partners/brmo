@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top250nl.Top250NlObjectType
-	c33661 [label=<<table title="nl.b3p.topnl.top250nl.Top250NlObjectType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Top250NlObjectType.html">
+	c34079 [label=<<table title="nl.b3p.topnl.top250nl.Top250NlObjectType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Top250NlObjectType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Top250NlObjectType </font></td></tr>
 		</table></td></tr>
@@ -45,7 +45,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Top250NlObjectType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.CodeType
-	c33670 [label=<<table title="nl.b3p.topnl.top250nl.CodeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CodeType.html">
+	c34088 [label=<<table title="nl.b3p.topnl.top250nl.CodeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CodeType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CodeType </td></tr>
 		</table></td></tr>
@@ -62,30 +62,32 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./CodeType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.TerreinType
-	c33685 [label=<<table title="nl.b3p.topnl.top250nl.TerreinType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TerreinType.html">
+	c34103 [label=<<table title="nl.b3p.topnl.top250nl.TerreinType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TerreinType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TerreinType </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # typeLandgebruik : CodeType </td></tr>
-<tr><td align="left" balign="left"> # naam : String </td></tr>
 <tr><td align="left" balign="left"> # geometrieVlak : Element </td></tr>
+<tr><td align="left" balign="left"> # naam : String </td></tr>
+<tr><td align="left" balign="left"> # typeLandgebruik : CodeType </td></tr>
+<tr><td align="left" balign="left"> # voorkomen : List&lt;CodeType&gt; </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + TerreinType() </td></tr>
-<tr><td align="left" balign="left"> + getTypeLandgebruik() : CodeType </td></tr>
-<tr><td align="left" balign="left"> + setTypeLandgebruik(value : CodeType) </td></tr>
-<tr><td align="left" balign="left"> + getNaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setNaam(value : String) </td></tr>
 <tr><td align="left" balign="left"> + getGeometrieVlak() : Element </td></tr>
 <tr><td align="left" balign="left"> + setGeometrieVlak(value : Element) </td></tr>
+<tr><td align="left" balign="left"> + getNaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaam(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTypeLandgebruik() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setTypeLandgebruik(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getVoorkomen() : List&lt;CodeType&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TerreinType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.top250nl.TerreinType extends nl.b3p.topnl.top250nl.Top250NlObjectType
-	c33661:p -> c33685:p [dir=back,arrowtail=empty];
+	c34079:p -> c34103:p [dir=back,arrowtail=empty];
 	// nl.b3p.topnl.top250nl.Top250NlObjectType NAVASSOC nl.b3p.topnl.top250nl.CodeType
-	c33661:p -> c33670:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c34079:p -> c34088:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.TerreinType NAVASSOC nl.b3p.topnl.top250nl.CodeType
-	c33685:p -> c33670:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c34103:p -> c34088:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

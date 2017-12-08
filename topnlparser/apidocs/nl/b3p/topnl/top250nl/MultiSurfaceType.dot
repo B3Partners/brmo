@@ -10,12 +10,13 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top250nl.MultiSurfacePropertyType
-	c26230 [label=<<table title="nl.b3p.topnl.top250nl.MultiSurfacePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MultiSurfacePropertyType.html">
+	c26315 [label=<<table title="nl.b3p.topnl.top250nl.MultiSurfacePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MultiSurfacePropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MultiSurfacePropertyType </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> # multiSurface : MultiSurfaceType </td></tr>
+<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
 <tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
 <tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
 <tr><td align="left" balign="left"> # type : TypeType </td></tr>
@@ -25,12 +26,13 @@ digraph G {
 <tr><td align="left" balign="left"> # title : String </td></tr>
 <tr><td align="left" balign="left"> # show : ShowType </td></tr>
 <tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
-<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + MultiSurfacePropertyType() </td></tr>
 <tr><td align="left" balign="left"> + getMultiSurface() : MultiSurfaceType </td></tr>
 <tr><td align="left" balign="left"> + setMultiSurface(value : MultiSurfaceType) </td></tr>
+<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
 <tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
 <tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
 <tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
@@ -48,12 +50,10 @@ digraph G {
 <tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
 <tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
 <tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
-<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MultiSurfacePropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.AbstractGeometricAggregateType
-	c26235 [label=<<table title="nl.b3p.topnl.top250nl.AbstractGeometricAggregateType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractGeometricAggregateType.html">
+	c26320 [label=<<table title="nl.b3p.topnl.top250nl.AbstractGeometricAggregateType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractGeometricAggregateType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractGeometricAggregateType </font></td></tr>
 		</table></td></tr>
@@ -67,7 +67,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AbstractGeometricAggregateType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.SurfaceArrayPropertyType
-	c26256 [label=<<table title="nl.b3p.topnl.top250nl.SurfaceArrayPropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SurfaceArrayPropertyType.html">
+	c26341 [label=<<table title="nl.b3p.topnl.top250nl.SurfaceArrayPropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SurfaceArrayPropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SurfaceArrayPropertyType </td></tr>
 		</table></td></tr>
@@ -83,7 +83,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./SurfaceArrayPropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.MultiSurfaceType
-	c26265 [label=<<table title="nl.b3p.topnl.top250nl.MultiSurfaceType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MultiSurfaceType.html">
+	c26350 [label=<<table title="nl.b3p.topnl.top250nl.MultiSurfaceType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MultiSurfaceType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MultiSurfaceType </td></tr>
 		</table></td></tr>
@@ -99,10 +99,10 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./MultiSurfaceType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.top250nl.MultiSurfaceType extends nl.b3p.topnl.top250nl.AbstractGeometricAggregateType
-	c26235:p -> c26265:p [dir=back,arrowtail=empty];
+	c26320:p -> c26350:p [dir=back,arrowtail=empty];
 	// nl.b3p.topnl.top250nl.MultiSurfacePropertyType NAVASSOC nl.b3p.topnl.top250nl.MultiSurfaceType
-	c26230:p -> c26265:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c26315:p -> c26350:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.MultiSurfaceType NAVASSOC nl.b3p.topnl.top250nl.SurfaceArrayPropertyType
-	c26265:p -> c26256:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c26350:p -> c26341:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

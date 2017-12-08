@@ -223,6 +223,7 @@ digraph G {
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> # multiSurface : MultiSurfaceType </td></tr>
+<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
 <tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
 <tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
 <tr><td align="left" balign="left"> # type : TypeType </td></tr>
@@ -232,12 +233,13 @@ digraph G {
 <tr><td align="left" balign="left"> # title : String </td></tr>
 <tr><td align="left" balign="left"> # show : ShowType </td></tr>
 <tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
-<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + MultiSurfacePropertyType() </td></tr>
 <tr><td align="left" balign="left"> + getMultiSurface() : MultiSurfaceType </td></tr>
 <tr><td align="left" balign="left"> + setMultiSurface(value : MultiSurfaceType) </td></tr>
+<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
 <tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
 <tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
 <tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
@@ -255,8 +257,6 @@ digraph G {
 <tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
 <tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
 <tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
-<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MultiSurfacePropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.PointType
@@ -982,7 +982,7 @@ digraph G {
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> # typeHoogte : CodeType </td></tr>
-<tr><td align="left" balign="left"> # hoogte : Double </td></tr>
+<tr><td align="left" balign="left"> # hoogte : double </td></tr>
 <tr><td align="left" balign="left"> # referentievlak : CodeType </td></tr>
 <tr><td align="left" balign="left"> # geometrie : Element </td></tr>
 		</table></td></tr>
@@ -990,8 +990,8 @@ digraph G {
 <tr><td align="left" balign="left"> + HoogteType() </td></tr>
 <tr><td align="left" balign="left"> + getTypeHoogte() : CodeType </td></tr>
 <tr><td align="left" balign="left"> + setTypeHoogte(value : CodeType) </td></tr>
-<tr><td align="left" balign="left"> + getHoogte() : Double </td></tr>
-<tr><td align="left" balign="left"> + setHoogte(value : Double) </td></tr>
+<tr><td align="left" balign="left"> + getHoogte() : double </td></tr>
+<tr><td align="left" balign="left"> + setHoogte(value : double) </td></tr>
 <tr><td align="left" balign="left"> + getReferentievlak() : CodeType </td></tr>
 <tr><td align="left" balign="left"> + setReferentievlak(value : CodeType) </td></tr>
 <tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
@@ -1098,12 +1098,12 @@ digraph G {
 <tr><td align="left" balign="left"> + createAbstractFeature(value : AbstractFeatureType) : JAXBElement&lt;AbstractFeatureType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createCoordinates(value : CoordinatesType) : JAXBElement&lt;CoordinatesType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createPoint(value : PointType) : JAXBElement&lt;PointType&gt; </td></tr>
-<tr><td align="left" balign="left"> + createGebouw(value : GebouwType) : JAXBElement&lt;GebouwType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createBRTVlakOfLijn(value : BRTVlakOfLijnType) : JAXBElement&lt;BRTVlakOfLijnType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createGebouw(value : GebouwType) : JAXBElement&lt;GebouwType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createBoundedBy(value : BoundingShapeType) : JAXBElement&lt;BoundingShapeType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createIdentifier(value : CodeWithAuthorityType) : JAXBElement&lt;CodeWithAuthorityType&gt; </td></tr>
-<tr><td align="left" balign="left"> + createLocationString(value : StringOrRefType) : JAXBElement&lt;StringOrRefType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createInrichtingselement(value : InrichtingselementType) : JAXBElement&lt;InrichtingselementType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createLocationString(value : StringOrRefType) : JAXBElement&lt;StringOrRefType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createLocationKeyWord(value : CodeType) : JAXBElement&lt;CodeType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createAbstractGeometricAggregate(value : AbstractGeometricAggregateType) : JAXBElement&lt;AbstractGeometricAggregateType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createWegdeel(value : WegdeelType) : JAXBElement&lt;WegdeelType&gt; </td></tr>
@@ -1115,8 +1115,8 @@ digraph G {
 <tr><td align="left" balign="left"> + createAbstractObject(value : Object) : JAXBElement&lt;Object&gt; </td></tr>
 <tr><td align="left" balign="left"> + createGeografischGebied(value : GeografischGebiedType) : JAXBElement&lt;GeografischGebiedType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createHoogte(value : HoogteType) : JAXBElement&lt;HoogteType&gt; </td></tr>
-<tr><td align="left" balign="left"> + createRelief(value : ReliefType) : JAXBElement&lt;ReliefType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createBRTVlakOfMultivlak(value : BRTVlakOfMultivlakType) : JAXBElement&lt;BRTVlakOfMultivlakType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createRelief(value : ReliefType) : JAXBElement&lt;ReliefType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createEnvelope(value : EnvelopeType) : JAXBElement&lt;EnvelopeType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createAbstractGML(value : AbstractGMLType) : JAXBElement&lt;AbstractGMLType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createDescription(value : StringOrRefType) : JAXBElement&lt;StringOrRefType&gt; </td></tr>
@@ -1133,11 +1133,11 @@ digraph G {
 <tr><td align="left" balign="left"> + createNull(value : List&lt;String&gt;) : JAXBElement&lt;List&lt;String&gt;&gt; </td></tr>
 <tr><td align="left" balign="left"> + createMetaDataProperty(value : MetaDataPropertyType) : JAXBElement&lt;MetaDataPropertyType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createPlanTopografie(value : PlanTopografieType) : JAXBElement&lt;PlanTopografieType&gt; </td></tr>
-<tr><td align="left" balign="left"> + createFeatureMember(value : FeatureMemberType) : JAXBElement&lt;FeatureMemberType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createAbstractMetaData(value : AbstractMetaDataType) : JAXBElement&lt;AbstractMetaDataType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createFeatureMember(value : FeatureMemberType) : JAXBElement&lt;FeatureMemberType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createFeatureCollectionT250NL(value : FeatureCollectionT250NLType) : JAXBElement&lt;FeatureCollectionT250NLType&gt; </td></tr>
-<tr><td align="left" balign="left"> + createPos(value : DirectPositionType) : JAXBElement&lt;DirectPositionType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createTerrein(value : TerreinType) : JAXBElement&lt;TerreinType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createPos(value : DirectPositionType) : JAXBElement&lt;DirectPositionType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createRegistratiefGebied(value : RegistratiefGebiedType) : JAXBElement&lt;RegistratiefGebiedType&gt; </td></tr>
 <tr><td align="left" balign="left"> + createBRTVlakLijnOfPunt(value : BRTVlakLijnOfPuntType) : JAXBElement&lt;BRTVlakLijnOfPuntType&gt; </td></tr>
 		</table></td></tr>
@@ -1148,6 +1148,7 @@ digraph G {
 <tr><td align="center" balign="center"> ReferenceType </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
 <tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
 <tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
 <tr><td align="left" balign="left"> # type : TypeType </td></tr>
@@ -1157,10 +1158,11 @@ digraph G {
 <tr><td align="left" balign="left"> # title : String </td></tr>
 <tr><td align="left" balign="left"> # show : ShowType </td></tr>
 <tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
-<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + ReferenceType() </td></tr>
+<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
 <tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
 <tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
 <tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
@@ -1178,8 +1180,6 @@ digraph G {
 <tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
 <tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
 <tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
-<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ReferenceType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.PointPropertyType
@@ -1555,18 +1555,20 @@ digraph G {
 <tr><td align="center" balign="center"> TerreinType </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # typeLandgebruik : CodeType </td></tr>
-<tr><td align="left" balign="left"> # naam : String </td></tr>
 <tr><td align="left" balign="left"> # geometrieVlak : Element </td></tr>
+<tr><td align="left" balign="left"> # naam : String </td></tr>
+<tr><td align="left" balign="left"> # typeLandgebruik : CodeType </td></tr>
+<tr><td align="left" balign="left"> # voorkomen : List&lt;CodeType&gt; </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + TerreinType() </td></tr>
-<tr><td align="left" balign="left"> + getTypeLandgebruik() : CodeType </td></tr>
-<tr><td align="left" balign="left"> + setTypeLandgebruik(value : CodeType) </td></tr>
-<tr><td align="left" balign="left"> + getNaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setNaam(value : String) </td></tr>
 <tr><td align="left" balign="left"> + getGeometrieVlak() : Element </td></tr>
 <tr><td align="left" balign="left"> + setGeometrieVlak(value : Element) </td></tr>
+<tr><td align="left" balign="left"> + getNaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaam(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTypeLandgebruik() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setTypeLandgebruik(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getVoorkomen() : List&lt;CodeType&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TerreinType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.top250nl.AbstractGeometricPrimitiveType extends nl.b3p.topnl.top250nl.AbstractGeometryType

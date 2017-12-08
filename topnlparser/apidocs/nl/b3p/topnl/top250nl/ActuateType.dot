@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top250nl.SurfacePropertyType
-	c5262 [label=<<table title="nl.b3p.topnl.top250nl.SurfacePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SurfacePropertyType.html">
+	c5279 [label=<<table title="nl.b3p.topnl.top250nl.SurfacePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SurfacePropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SurfacePropertyType </td></tr>
 		</table></td></tr>
@@ -53,7 +53,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./SurfacePropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.FeatureMemberType
-	c5263 [label=<<table title="nl.b3p.topnl.top250nl.FeatureMemberType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FeatureMemberType.html">
+	c5280 [label=<<table title="nl.b3p.topnl.top250nl.FeatureMemberType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FeatureMemberType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FeatureMemberType </td></tr>
 		</table></td></tr>
@@ -93,7 +93,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./FeatureMemberType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.ActuateType
-	c5266 [label=<<table title="nl.b3p.topnl.top250nl.ActuateType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ActuateType.html">
+	c5283 [label=<<table title="nl.b3p.topnl.top250nl.ActuateType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ActuateType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> ActuateType </td></tr>
@@ -109,12 +109,13 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ActuateType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.MultiSurfacePropertyType
-	c5270 [label=<<table title="nl.b3p.topnl.top250nl.MultiSurfacePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MultiSurfacePropertyType.html">
+	c5287 [label=<<table title="nl.b3p.topnl.top250nl.MultiSurfacePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MultiSurfacePropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MultiSurfacePropertyType </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> # multiSurface : MultiSurfaceType </td></tr>
+<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
 <tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
 <tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
 <tr><td align="left" balign="left"> # type : TypeType </td></tr>
@@ -124,12 +125,13 @@ digraph G {
 <tr><td align="left" balign="left"> # title : String </td></tr>
 <tr><td align="left" balign="left"> # show : ShowType </td></tr>
 <tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
-<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + MultiSurfacePropertyType() </td></tr>
 <tr><td align="left" balign="left"> + getMultiSurface() : MultiSurfaceType </td></tr>
 <tr><td align="left" balign="left"> + setMultiSurface(value : MultiSurfaceType) </td></tr>
+<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
 <tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
 <tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
 <tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
@@ -147,12 +149,10 @@ digraph G {
 <tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
 <tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
 <tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
-<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MultiSurfacePropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.MetaDataPropertyType
-	c5272 [label=<<table title="nl.b3p.topnl.top250nl.MetaDataPropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MetaDataPropertyType.html">
+	c5289 [label=<<table title="nl.b3p.topnl.top250nl.MetaDataPropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MetaDataPropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MetaDataPropertyType </td></tr>
 		</table></td></tr>
@@ -195,7 +195,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./MetaDataPropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.LocationPropertyType
-	c5285 [label=<<table title="nl.b3p.topnl.top250nl.LocationPropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LocationPropertyType.html">
+	c5302 [label=<<table title="nl.b3p.topnl.top250nl.LocationPropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LocationPropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LocationPropertyType </td></tr>
 		</table></td></tr>
@@ -243,7 +243,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./LocationPropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.CurvePropertyType
-	c5294 [label=<<table title="nl.b3p.topnl.top250nl.CurvePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CurvePropertyType.html">
+	c5311 [label=<<table title="nl.b3p.topnl.top250nl.CurvePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CurvePropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CurvePropertyType </td></tr>
 		</table></td></tr>
@@ -286,7 +286,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./CurvePropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.StringOrRefType
-	c5301 [label=<<table title="nl.b3p.topnl.top250nl.StringOrRefType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StringOrRefType.html">
+	c5318 [label=<<table title="nl.b3p.topnl.top250nl.StringOrRefType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StringOrRefType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StringOrRefType </td></tr>
 		</table></td></tr>
@@ -326,11 +326,12 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./StringOrRefType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.ReferenceType
-	c5303 [label=<<table title="nl.b3p.topnl.top250nl.ReferenceType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ReferenceType.html">
+	c5320 [label=<<table title="nl.b3p.topnl.top250nl.ReferenceType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ReferenceType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ReferenceType </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
 <tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
 <tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
 <tr><td align="left" balign="left"> # type : TypeType </td></tr>
@@ -340,10 +341,11 @@ digraph G {
 <tr><td align="left" balign="left"> # title : String </td></tr>
 <tr><td align="left" balign="left"> # show : ShowType </td></tr>
 <tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
-<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + ReferenceType() </td></tr>
+<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
 <tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
 <tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
 <tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
@@ -361,12 +363,10 @@ digraph G {
 <tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
 <tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
 <tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
-<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ReferenceType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.PointPropertyType
-	c5304 [label=<<table title="nl.b3p.topnl.top250nl.PointPropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PointPropertyType.html">
+	c5321 [label=<<table title="nl.b3p.topnl.top250nl.PointPropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PointPropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PointPropertyType </td></tr>
 		</table></td></tr>
@@ -409,24 +409,24 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PointPropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.SurfacePropertyType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
-	c5262:p -> c5266:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c5279:p -> c5283:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.FeatureMemberType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
-	c5263:p -> c5266:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c5280:p -> c5283:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.MultiSurfacePropertyType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
-	c5270:p -> c5266:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c5287:p -> c5283:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.MetaDataPropertyType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
-	c5272:p -> c5266:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c5289:p -> c5283:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.LocationPropertyType NAVASSOC nl.b3p.topnl.top250nl.StringOrRefType
-	c5285:p -> c5301:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c5302:p -> c5318:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.LocationPropertyType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
-	c5285:p -> c5266:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c5302:p -> c5283:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.CurvePropertyType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
-	c5294:p -> c5266:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c5311:p -> c5283:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.StringOrRefType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
-	c5301:p -> c5266:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c5318:p -> c5283:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.ReferenceType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
-	c5303:p -> c5266:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c5320:p -> c5283:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.PointPropertyType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
-	c5304:p -> c5266:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c5321:p -> c5283:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 
