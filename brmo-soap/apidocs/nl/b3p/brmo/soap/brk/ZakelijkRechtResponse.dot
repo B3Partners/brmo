@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse
-	c1653 [label=<<table title="nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NietNatuurlijkPersoonResponse.html">
+	c1533 [label=<<table title="nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NietNatuurlijkPersoonResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NietNatuurlijkPersoonResponse </td></tr>
 		</table></td></tr>
@@ -31,7 +31,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./NietNatuurlijkPersoonResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse
-	c1660 [label=<<table title="nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NatuurlijkPersoonResponse.html">
+	c1540 [label=<<table title="nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NatuurlijkPersoonResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NatuurlijkPersoonResponse </td></tr>
 		</table></td></tr>
@@ -66,7 +66,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./NatuurlijkPersoonResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.ZakelijkRechtResponse
-	c1664 [label=<<table title="nl.b3p.brmo.soap.brk.ZakelijkRechtResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ZakelijkRechtResponse.html">
+	c1544 [label=<<table title="nl.b3p.brmo.soap.brk.ZakelijkRechtResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ZakelijkRechtResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ZakelijkRechtResponse </td></tr>
 		</table></td></tr>
@@ -90,8 +90,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ZakelijkRechtResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.ZakelijkRechtResponse NAVASSOC nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse
-	c1664:p -> c1660:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1544:p -> c1540:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.soap.brk.ZakelijkRechtResponse NAVASSOC nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse
-	c1664:p -> c1653:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1544:p -> c1533:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

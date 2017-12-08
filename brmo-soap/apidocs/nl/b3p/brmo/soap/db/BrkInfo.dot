@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.soap.db.BrkInfo
-	c399 [label=<<table title="nl.b3p.brmo.soap.db.BrkInfo" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BrkInfo.html">
+	c350 [label=<<table title="nl.b3p.brmo.soap.db.BrkInfo" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BrkInfo.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrkInfo </td></tr>
 		</table></td></tr>
@@ -40,7 +40,6 @@ digraph G {
 <tr><td align="left" balign="left"> + BrkInfo() </td></tr>
 <tr><td align="left" balign="left"> + findKozIDs(searchContext : Map&lt;String, Object&gt;) : ArrayList&lt;Long&gt; </td></tr>
 <tr><td align="left" balign="left"> + countResults(searchContext : Map&lt;String, Object&gt;) : Integer </td></tr>
-<tr><td align="left" balign="left"> + getDataSourceRsgb() : DataSource </td></tr>
 <tr><td align="left" balign="left"> + getDbType(connRsgb : Connection) : String </td></tr>
 <tr><td align="left" balign="left"> + createSearchContext(request : BrkInfoRequest) : Map&lt;String, Object&gt; </td></tr>
 <tr><td align="left" balign="left"> + createResponse(ids : List&lt;Long&gt;, searchContext : Map&lt;String, Object&gt;) : BrkInfoResponse </td></tr>

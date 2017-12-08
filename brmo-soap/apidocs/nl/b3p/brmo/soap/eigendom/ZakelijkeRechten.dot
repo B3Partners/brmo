@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.soap.eigendom.ZakelijkeRechten
-	c1704 [label=<<table title="nl.b3p.brmo.soap.eigendom.ZakelijkeRechten" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ZakelijkeRechten.html">
+	c1583 [label=<<table title="nl.b3p.brmo.soap.eigendom.ZakelijkeRechten" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ZakelijkeRechten.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ZakelijkeRechten </td></tr>
 		</table></td></tr>
@@ -23,7 +23,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ZakelijkeRechten.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.eigendom.EigendomMutatie
-	c1710 [label=<<table title="nl.b3p.brmo.soap.eigendom.EigendomMutatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EigendomMutatie.html">
+	c1589 [label=<<table title="nl.b3p.brmo.soap.eigendom.EigendomMutatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EigendomMutatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> EigendomMutatie </td></tr>
 		</table></td></tr>
@@ -62,6 +62,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./EigendomMutatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.eigendom.EigendomMutatie NAVASSOC nl.b3p.brmo.soap.eigendom.ZakelijkeRechten
-	c1710:p -> c1704:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1589:p -> c1583:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

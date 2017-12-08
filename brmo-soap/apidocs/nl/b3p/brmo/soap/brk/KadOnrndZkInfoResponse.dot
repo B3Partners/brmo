@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.soap.brk.RechtenResponse
-	c1261 [label=<<table title="nl.b3p.brmo.soap.brk.RechtenResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RechtenResponse.html">
+	c1151 [label=<<table title="nl.b3p.brmo.soap.brk.RechtenResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RechtenResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RechtenResponse </td></tr>
 		</table></td></tr>
@@ -25,7 +25,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./RechtenResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.AdressenResponse
-	c1264 [label=<<table title="nl.b3p.brmo.soap.brk.AdressenResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdressenResponse.html">
+	c1154 [label=<<table title="nl.b3p.brmo.soap.brk.AdressenResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdressenResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AdressenResponse </td></tr>
 		</table></td></tr>
@@ -40,7 +40,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AdressenResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse
-	c1265 [label=<<table title="nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KadOnrndZkInfoResponse.html">
+	c1155 [label=<<table title="nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KadOnrndZkInfoResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KadOnrndZkInfoResponse </td></tr>
 		</table></td></tr>
@@ -91,7 +91,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./KadOnrndZkInfoResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.RelatiesResponse
-	c1271 [label=<<table title="nl.b3p.brmo.soap.brk.RelatiesResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RelatiesResponse.html">
+	c1161 [label=<<table title="nl.b3p.brmo.soap.brk.RelatiesResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RelatiesResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RelatiesResponse </td></tr>
 		</table></td></tr>
@@ -107,10 +107,10 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./RelatiesResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse NAVASSOC nl.b3p.brmo.soap.brk.AdressenResponse
-	c1265:p -> c1264:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1155:p -> c1154:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse NAVASSOC nl.b3p.brmo.soap.brk.RechtenResponse
-	c1265:p -> c1261:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1155:p -> c1151:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse NAVASSOC nl.b3p.brmo.soap.brk.RelatiesResponse
-	c1265:p -> c1271:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1155:p -> c1161:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 
