@@ -1,0 +1,39 @@
+
+  <top250nl:FeatureMember
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+               xmlns:top250nl="http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.0" 
+               xmlns:brt="http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0" 
+               xmlns:gml="http://www.opengis.net/gml/3.2" 
+               xmlns:xlink="http://www.w3.org/1999/xlink"
+               xmlns:gmd="http://www.isotc211.org/2005/gmd"
+               xmlns:gco="http://www.isotc211.org/2005/gco" 
+               xmlns:gss="http://www.isotc211.org/2005/gss" 
+               xmlns:gts="http://www.isotc211.org/2005/gts" 
+               xmlns:gsr="http://www.isotc211.org/2005/gsr" 
+               xsi:schemaLocation="http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.0 top250nl.xsd">
+     <top250nl:Inrichtingselement gml:id="NL.TOP250NL.16R09-0000087058">
+    <top250nl:identificatie>
+      <brt:NEN3610ID>
+        <brt:namespace>NL.TOP250NL</brt:namespace>
+        <brt:lokaalID>16R09-0000087058</brt:lokaalID>
+      </brt:NEN3610ID>
+    </top250nl:identificatie>
+    <top250nl:brontype>TOP50NL</top250nl:brontype>
+    <top250nl:bronactualiteit>2016-09-01</top250nl:bronactualiteit>
+    <top250nl:bronbeschrijving>TOP50NL wordt als bron gebruikt bij het bijwerken van EuroRegionalMap (ERM). Via een automatisch proces worden de gegevens van ERM omgezet naar TOP250NL</top250nl:bronbeschrijving>
+    <top250nl:bronnauwkeurigheid>125</top250nl:bronnauwkeurigheid>
+    <top250nl:objectBeginTijd>2016-09-12</top250nl:objectBeginTijd>
+    <top250nl:visualisatieCode>45650</top250nl:visualisatieCode>
+    <top250nl:typeInrichtingselement>strekdam, krib, golfbreker</top250nl:typeInrichtingselement>
+    <top250nl:geometrie>
+      <brt:BRTLijnOfPunt>
+        <brt:lijnGeometrie>
+          <gml:LineString srsName="urn:ogc:def:crs:EPSG::28992" gml:id="LOCAL_ID_3786">
+            <gml:posList srsDimension="2" count="4">27715.5313000008 380527.552499998 27751.2870999984 380595.826299999 27791.8374999985 380673.495900001 27860.1787000001 380804.5594</gml:posList>
+          </gml:LineString>
+        </brt:lijnGeometrie>
+      </brt:BRTLijnOfPunt>
+    </top250nl:geometrie>
+  </top250nl:Inrichtingselement>
+  </top250nl:FeatureMember>

@@ -1,0 +1,26 @@
+<top250nl:FeatureMember xmlns:brt="http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:gsr="http://www.isotc211.org/2005/gsr" xmlns:gss="http://www.isotc211.org/2005/gss" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:top250nl="http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.0 top250nl.xsd">
+	<top250nl:Hoogte gml:id="NL.TOP250NL.16R09-0000084246">
+		<top250nl:identificatie>
+			<brt:NEN3610ID>
+				<brt:namespace>NL.TOP250NL</brt:namespace>
+				<brt:lokaalID>16R09-0000084246</brt:lokaalID>
+			</brt:NEN3610ID>
+		</top250nl:identificatie>
+		<top250nl:brontype>TOP50NL</top250nl:brontype>
+		<top250nl:bronactualiteit>2016-09-01</top250nl:bronactualiteit>
+		<top250nl:bronbeschrijving>TOP50NL wordt als bron gebruikt bij het bijwerken van EuroRegionalMap (ERM). Via een automatisch proces worden de gegevens van ERM omgezet naar TOP250NL</top250nl:bronbeschrijving>
+		<top250nl:bronnauwkeurigheid>125</top250nl:bronnauwkeurigheid>
+		<top250nl:objectBeginTijd>2016-09-12</top250nl:objectBeginTijd>
+		<top250nl:visualisatieCode>45550</top250nl:visualisatieCode>
+		<top250nl:typeHoogte>hoogwaterlijn</top250nl:typeHoogte>
+		<top250nl:geometrie>
+			<brt:BRTLijnOfPunt>
+				<brt:lijnGeometrie>
+					<gml:LineString gml:id="LOCAL_ID_88515" srsName="urn:ogc:def:crs:EPSG::28992">
+						<gml:posList count="22" srsDimension="2">145701.488499999 585148.735800002 145734.5889 585059.305300001 145754.447700001 584903.626699999 145843.8435 584790.996399999 146015.9866 584734.6371 146376.807799999 584790.9582 146601.916900001 584979.810400002 146757.499499999 584996.346500002 146962.769099999 584969.846099999 147161.389899999 585019.544 147187.8741 585072.5867 147134.913699999 585135.496599998 147019.0319 585188.494899999 146601.9078 585281.241999999 146421.191 585313.1116 146244.379500002 585344.201900002 145833.881000001 585466.7742 145663.429400001 585434.215300001 145589.847199999 585382.775199998 145562.6404 585292.627099998 145575.665899999 585178.583900001 145701.488499999 585148.735800002</gml:posList>
+					</gml:LineString>
+				</brt:lijnGeometrie>
+			</brt:BRTLijnOfPunt>
+		</top250nl:geometrie>
+	</top250nl:Hoogte>
+</top250nl:FeatureMember>

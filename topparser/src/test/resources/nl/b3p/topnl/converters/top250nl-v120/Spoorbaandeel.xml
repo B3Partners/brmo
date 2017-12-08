@@ -1,0 +1,41 @@
+
+  <top250nl:FeatureMember
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                 xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+                 xmlns:top250nl="http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.0" 
+                 xmlns:brt="http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0" 
+                 xmlns:gml="http://www.opengis.net/gml/3.2" 
+                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                 xmlns:gmd="http://www.isotc211.org/2005/gmd"
+                 xmlns:gco="http://www.isotc211.org/2005/gco" 
+                 xmlns:gss="http://www.isotc211.org/2005/gss" 
+                 xmlns:gts="http://www.isotc211.org/2005/gts" 
+                 xmlns:gsr="http://www.isotc211.org/2005/gsr" 
+                 xsi:schemaLocation="http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.0 top250nl.xsd">
+    <top250nl:Spoorbaandeel gml:id="NL.TOP250NL.16R09-0000080534">
+    <top250nl:identificatie>
+      <brt:NEN3610ID>
+        <brt:namespace>NL.TOP250NL</brt:namespace>
+        <brt:lokaalID>16R09-0000080534</brt:lokaalID>
+      </brt:NEN3610ID>
+    </top250nl:identificatie>
+    <top250nl:brontype>TOP50NL</top250nl:brontype>
+    <top250nl:bronactualiteit>2016-09-01</top250nl:bronactualiteit>
+    <top250nl:bronbeschrijving>TOP50NL wordt als bron gebruikt bij het bijwerken van EuroRegionalMap (ERM). Via een automatisch proces worden de gegevens van ERM omgezet naar TOP250NL</top250nl:bronbeschrijving>
+    <top250nl:bronnauwkeurigheid>125</top250nl:bronnauwkeurigheid>
+    <top250nl:objectBeginTijd>2016-09-12</top250nl:objectBeginTijd>
+    <top250nl:visualisatieCode>41100</top250nl:visualisatieCode>
+    <top250nl:typeInfrastructuur>verbinding</top250nl:typeInfrastructuur>
+    <top250nl:typeSpoorbaan>trein</top250nl:typeSpoorbaan>
+    <top250nl:spoorbreedte>normaalspoor</top250nl:spoorbreedte>
+    <top250nl:aantalSporen>enkel</top250nl:aantalSporen>
+    <top250nl:vervoerfunctie>gemengd gebruik</top250nl:vervoerfunctie>
+    <top250nl:elektrificatie>nee</top250nl:elektrificatie>
+    <top250nl:status>in gebruik</top250nl:status>
+    <top250nl:geometrie>
+      <gml:LineString srsName="urn:ogc:def:crs:EPSG::28992" gml:id="LOCAL_ID_8334">
+        <gml:posList srsDimension="2" count="8">270215.890999999 575811.661600001 269395.187100001 575367.449099999 269185.978700001 575253.331099998 268717.1424 574999.3299 268420.848700002 574838.828499999 268275.488200001 574760.041900001 268186.317899998 574709.52 268148.4987 574688.259300001</gml:posList>
+      </gml:LineString>
+    </top250nl:geometrie>
+  </top250nl:Spoorbaandeel>
+  </top250nl:FeatureMember>
