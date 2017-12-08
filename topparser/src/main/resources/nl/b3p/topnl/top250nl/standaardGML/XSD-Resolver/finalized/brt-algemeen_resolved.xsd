@@ -28,13 +28,10 @@ Alleen de waarden 'ja' en 'nee' zijn toegestaan.  Niet alle databases kennen het
       </annotation>
   </element>
    <complexType name="BRTLijnOfPuntType">
-    <!--choice>
-      <element name="lijnGeometrie" type="gml:CurvePropertyType"/>
-      <element name="puntGeometrie" type="gml:PointPropertyType"/>
-    </choice-->
-    <sequence>
-         <element name="lijnGeometrie" type="gml:PointPropertyType"/>
-      </sequence>
+      <choice>
+         <element name="lijnGeometrie" type="gml:CurvePropertyType"/>
+         <element name="puntGeometrie" type="gml:PointPropertyType"/>
+      </choice>
   </complexType>
    <complexType name="BRTLijnOfPuntPropertyType">
       <sequence>
