@@ -56,6 +56,7 @@ public class Processor {
     private Database database;
     private ConverterFactory converterFactory;
 
+    private STATUS status = STATUS.OK;
     
     public Processor(DataSource ds) throws JAXBException, SQLException{
         database = new Database(ds);
@@ -64,6 +65,7 @@ public class Processor {
     
     public void importIntoDb(URL in, TopNLType type) throws JDOMException {
         XMLInputFactory xif = XMLInputFactory.newFactory();
+        this.resetStatus();
         try {
             log.info("Importing file " + in.toExternalForm() + ", type: " + type.getType());
             Unmarshaller jaxbUnmarshaller = converterFactory.getContext(type).createUnmarshaller();
@@ -88,6 +90,7 @@ public class Processor {
                             save(entities, type);
                         } catch (JAXBException | IOException | SAXException | ParserConfigurationException | TransformerException | ParseException | IllegalArgumentException ex) {
                             log.error("Error parsing", ex);
+                            this.status = STATUS.NOK;
                         } catch (ClassCastException cce) {
                             log.error(String.format(Locale.ROOT, "Verwerkingsfout van element %s locatie %s", localname, (jb == null ? "onbekend" : ll.getLocation(jb))), cce);
                         }
@@ -97,6 +100,7 @@ public class Processor {
 
             xsr.close();
         } catch (XMLStreamException | IOException | JAXBException ex) {
+            this.status = STATUS.NOK;
             log.error("cannot correctly stream xml file:", ex);
         } 
     }
@@ -153,6 +157,28 @@ public class Processor {
         for (TopNLEntity entity : entities) {
             save(entity, type);
         }
+    }
+
+    /**
+     * geeft de verwerkingsstatus. Voorafgaand aan de verwerking moet de status
+     * reset worden als er een set losse GML bestanden wordt verwerkt (bij zip
+     * files gaat dat vanzelf).
+     *
+     * @return status van de verwerking
+     */
+    public STATUS getStatus() {
+        return this.status;
+    }
+
+    /**
+     * verwerkingsstatus
+     */
+    public enum STATUS {
+        OK, NOK
+    }
+
+    public void resetStatus() {
+        this.status = STATUS.OK;
     }
 
     private class LocationListener extends Listener {
