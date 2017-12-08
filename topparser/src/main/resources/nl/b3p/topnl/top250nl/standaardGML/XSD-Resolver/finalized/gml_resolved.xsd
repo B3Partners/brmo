@@ -833,6 +833,25 @@ gml:NilReasonType is used as a member of a union in a number of simple content t
 		    </annotation>
 		    <union memberTypes="gml:NilReasonEnumeration anyURI"/>
 	  </simpleType>
+
+	  <simpleType name="NilReasonEnumeration">
+		<union>
+			<simpleType>
+				<restriction base="string">
+					<enumeration value="inapplicable"/>
+					<enumeration value="missing"/>
+					<enumeration value="template"/>
+					<enumeration value="unknown"/>
+					<enumeration value="withheld"/>
+				</restriction>
+			</simpleType>
+			<simpleType>
+				<restriction base="string">
+					<pattern value="other:\w{2,}"/>
+				</restriction>
+			</simpleType>
+		</union>
+	</simpleType>
    <complexType name="CodeType">
 		    <annotation>
 			      <documentation>gml:CodeType is a generalized type to be used for a term, keyword or name.
