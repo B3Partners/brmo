@@ -46,6 +46,7 @@ before_install:
   - psql -U postgres -a -c "CREATE ROLE staging LOGIN PASSWORD 'staging' SUPERUSER CREATEDB;"
   - psql -U postgres -a -c "CREATE ROLE rsgb LOGIN PASSWORD 'rsgb' SUPERUSER CREATEDB;"
   - psql -U postgres -a -c "CREATE ROLE rsgbbgt LOGIN PASSWORD 'rsgbbgt' SUPERUSER CREATEDB;"
+  - psql -U postgres -a -c "CREATE ROLE topnl LOGIN PASSWORD 'topnl' SUPERUSER CREATEDB;"
   - psql -U postgres -c 'create database staging;'
   - psql -U postgres -c 'create database rsgb;'
   - psql -U postgres -d rsgb -c 'create extension postgis;'
@@ -91,10 +92,9 @@ script:
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
   # run integratie tests voor brmo-loader module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader'
-  # run integratie tests voor brmo-service module
-  #- travis_wait mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service'
   - ulimit -a
   - free -m
+  # run integratie tests voor brmo-service module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service'
   # run integratie tests voor brmo-soap module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-soap'
