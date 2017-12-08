@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:brt="http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:top250nl="http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.1" elementFormDefault="qualified" targetNamespace="http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.1" version="1.2.1">
-  <import namespace="http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0" schemaLocation="http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0/brt-algemeen.xsd"/>
-  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+  <import namespace="http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0" schemaLocation="brt-algemeen.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="gml/3.2.1/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
   <element name="FeatureCollectionT250NL" substitutionGroup="gml:AbstractGML" type="top250nl:FeatureCollectionT250NLType"/>
   <complexType name="FeatureCollectionT250NLType">
