@@ -40,6 +40,7 @@ import nl.b3p.loader.jdbc.LongColumnListHandler;
 import nl.b3p.loader.jdbc.MssqlJdbcConverter;
 import nl.b3p.loader.jdbc.OracleJdbcConverter;
 import nl.b3p.loader.jdbc.PostgisJdbcConverter;
+import nl.b3p.topnl.TopNLType;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
@@ -595,8 +596,8 @@ public class StagingProxy {
             brmoXMLReader = new NhrXMLReader(cis);
         } else if (type.equals(BrmoFramework.BR_BGTLIGHT)) {
             brmoXMLReader = new BGTLightFileReader(fileName);
-        } else if (type.equals(BrmoFramework.BR_TOPNL)) {
-            brmoXMLReader = new TopNLFileReader(fileName);
+        } else if (TopNLType.isTopNLType(type)) {
+            brmoXMLReader = new TopNLFileReader(fileName, type);
         } else {
             throw new UnsupportedOperationException("Ongeldige basisregistratie: " + type);
         }
@@ -625,7 +626,7 @@ public class StagingProxy {
                 listener.total(((BGTLightFileReader) brmoXMLReader).getFileSize());
                 listener.progress(((BGTLightFileReader) brmoXMLReader).getFileSize());
             }
-        } else if (type.equalsIgnoreCase(BrmoFramework.BR_TOPNL)) {
+        } else if (TopNLType.isTopNLType(type)) {
             // van een TopNL GML bestand maken we alleen een LP, geen bericht,
             // de datum halen we van het zip bestand
             if (listener != null) {

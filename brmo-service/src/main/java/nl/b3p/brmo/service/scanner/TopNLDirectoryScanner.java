@@ -23,6 +23,7 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
 import nl.b3p.brmo.persistence.staging.TopNLScannerProces;
 import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.persistence.staging.LaadProces;
+import static nl.b3p.topnl.TopNLType.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
@@ -48,7 +49,7 @@ public class TopNLDirectoryScanner extends AbstractExecutableProces {
     @Transient
     private Integer progress = 0;
 
-    public static final String[] subdirectoryNames = {"Top10NL", "Top50NL", "Top100NL", "Top250NL"};
+    public static final String[] subdirectoryNames = {TOP10NL.getType(), TOP50NL.getType(), TOP100NL.getType(), TOP250NL.getType()};
 
     public TopNLDirectoryScanner(TopNLScannerProces config) {
         this.config = config;
