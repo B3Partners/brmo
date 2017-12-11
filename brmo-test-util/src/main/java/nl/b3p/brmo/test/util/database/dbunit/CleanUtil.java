@@ -173,6 +173,28 @@ public final class CleanUtil {
         ));
     }
 
+    public static void cleanTOPNL(final IDatabaseConnection topnl) throws DatabaseUnitException, SQLException {
+
+        for (String schema : new String[]{"top10nl", "top50nl", "top100nl", "top250nl"}) {
+            topnl.getConnection().setSchema(schema);
+            DatabaseOperation.DELETE_ALL.execute(topnl, new DefaultDataSet(new DefaultTable[]{
+                new DefaultTable("hoogte"),
+                new DefaultTable("fuctioneelgebied"),
+                new DefaultTable("gebouw"),
+                new DefaultTable("geografischgebied"),
+                new DefaultTable("inrichtingselement"),
+                new DefaultTable("plaats"),
+                new DefaultTable("registratiefgebied"),
+                new DefaultTable("relief"),
+                new DefaultTable("spoorbaandeel"),
+                new DefaultTable("terrein"),
+                new DefaultTable("waterdeel"),
+                new DefaultTable("wegdeel")}
+            ));
+        }
+
+    }
+
     /**
      * private by design.
      */

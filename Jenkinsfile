@@ -13,7 +13,7 @@ timestamps {
 
             stage('Prepare') {
                 sh "ulimit -a"
-                sh "free -m"
+                sh "free -h"
                 checkout scm
             }
 
@@ -34,13 +34,16 @@ timestamps {
                     sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
                     sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
                     sh "sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
-                    // TODO sh "sqlplus -l -S jenkins_topnl/jenkins_topnl@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
+                    sh "sqlplus -l -S top10nl/top10nl@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
+                    sh "sqlplus -l -S top50nl/top50nl@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
+                    sh "sqlplus -l -S top100nl/top100nl@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
+                    sh "sqlplus -l -S top250nl/top250nl@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
                     
                     echo "init schema's"
                     sh ".jenkins/db-prepare-staging.sh"
                     sh ".jenkins/db-prepare-rsgb.sh"
                     sh ".jenkins/db-prepare-rsgbbgt.sh"
-                    // TODO sh ".jenkins/db-prepare-topnl.sh"
+                    sh ".jenkins/db-prepare-topnl.sh"
                 }
 
                 stage('bgt-gml-loader Integration Test') {
@@ -83,6 +86,10 @@ timestamps {
                     sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.41:1521/DB01 < ./bgt-gml-loader/target/generated-resources/ddl/oracle/drop_rsgb_bgt.sql"
                     sh "sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.41:1521/DB01 < ./brmo-persistence/db/drop-brmo-persistence-oracle.sql"
                     sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
+                    sh "sqlplus -l -S top10nl/top10nl@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
+                    sh "sqlplus -l -S top50nl/top50nl@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
+                    sh "sqlplus -l -S top100nl/top100nl@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
+                    sh "sqlplus -l -S top250nl/top250nl@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
                 }
             }
 
