@@ -173,9 +173,16 @@ public final class CleanUtil {
         ));
     }
 
+    /**
+     * schema switchen werkt soms niet...
+     *
+     * @param topnl verbinding die wordt gebruikt
+     * @throws DatabaseUnitException if any
+     * @throws SQLException if any
+     */
     public static void cleanTOPNL(final IDatabaseConnection topnl) throws DatabaseUnitException, SQLException {
 
-        for (String schema : new String[]{"top10nl", "top50nl", "top100nl", "top250nl"}) {
+        for (String schema : new String[]{"TOP10NL", "TOP50NL", "TOP100NL", "TOP250NL"}) {
             topnl.getConnection().setSchema(schema);
             DatabaseOperation.DELETE_ALL.execute(topnl, new DefaultDataSet(new DefaultTable[]{
                 new DefaultTable("hoogte"),

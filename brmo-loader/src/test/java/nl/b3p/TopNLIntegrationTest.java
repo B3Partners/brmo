@@ -81,8 +81,8 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
             // {"bestandType","filename", aantalBerichten, aantalProcessen, "lpGebied"},
             {TopNLType.TOP250NL, "/topnl/top250nl.gml", 0, 1, "Nederland"},
             {TopNLType.TOP100NL, "/topnl/Top100NL_000001.gml", 0, 1, "Top100NL blad 000001"},
-            {TopNLType.TOP10NL, "/topnl/TOP10NL_07W.gml", 0, 1, "TOP10NL blad 07W"},
-            {TopNLType.TOP50NL, "/topnl/Top50NL_07West.gml", 0, 1, "Top50NL blad 07West"}
+            {TopNLType.TOP50NL, "/topnl/Top50NL_07West.gml", 0, 1, "Top50NL blad 07West"},
+            {TopNLType.TOP10NL, "/topnl/TOP10NL_07W.gml", 0, 1, "TOP10NL blad 07W"}
         });
     }
 

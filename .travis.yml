@@ -97,7 +97,7 @@ script:
   # run integratie tests voor bgt-gml-loader module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
   # run integratie tests voor brmo-loader module
-  - travis_wait 20 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader'
+  - travis_wait 30 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader'
   - ulimit -a
   - free -h
   # run integratie tests voor brmo-service module
