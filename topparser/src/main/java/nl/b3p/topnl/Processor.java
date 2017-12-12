@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sql.DataSource;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -88,6 +90,9 @@ public class Processor {
                             list.add(obj);
                             List<TopNLEntity> entities = convert(list, type);
                             save(entities, type);
+                        } catch (SQLException ex) {
+                            log.error("Error inserting", ex);
+                            this.status = STATUS.NOK;
                         } catch (JAXBException | IOException | SAXException | ParserConfigurationException | TransformerException | ParseException | IllegalArgumentException ex) {
                             log.error("Error parsing", ex);
                             this.status = STATUS.NOK;
@@ -149,11 +154,11 @@ public class Processor {
         return entity;
     }
     
-    public void save(TopNLEntity entity, TopNLType type) throws ParseException{
+    public void save(TopNLEntity entity, TopNLType type) throws ParseException, SQLException {
         database.save(entity);
     }
     
-    public void save(List<TopNLEntity> entities, TopNLType type) throws ParseException {
+    public void save(List<TopNLEntity> entities, TopNLType type) throws ParseException, SQLException {
         for (TopNLEntity entity : entities) {
             save(entity, type);
         }
