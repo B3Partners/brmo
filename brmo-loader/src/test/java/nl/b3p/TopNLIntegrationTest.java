@@ -59,17 +59,21 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 
 /**
- *
- * Draaien met:
+  * Draaien met:
  * {@code mvn -Dit.test=TopNLIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
- * voor bijvoorbeeld PostgreSQL.
+ * voor bijvoorbeeld PostgreSQL of
+ * {@code mvn -Dit.test=TopNLIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
+ * voor Oracle.
+ *
  *
  * @author Mark Prins
  */
 @RunWith(Parameterized.class)
+// overslaan op mssql
 @Category(JTDSDriverBasedFailures.class)
 public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
 
@@ -79,10 +83,10 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
     public static Collection params() {
         return Arrays.asList(new Object[][]{
             // {"bestandType","filename", aantalBerichten, aantalProcessen, "lpGebied"},
-            {TopNLType.TOP250NL, "/topnl/top250nl.gml", 0, 1, "Nederland"},
-            {TopNLType.TOP100NL, "/topnl/Top100NL_000001.gml", 0, 1, "Top100NL blad 000001"},
+            // {TopNLType.TOP250NL, "/topnl/top250nl.gml", 0, 1, "Nederland"},
+            //{TopNLType.TOP100NL, "/topnl/Top100NL_000001.gml", 0, 1, "Top100NL blad 000001"},
             {TopNLType.TOP50NL, "/topnl/Top50NL_07West.gml", 0, 1, "Top50NL blad 07West"},
-            {TopNLType.TOP10NL, "/topnl/TOP10NL_07W.gml", 0, 1, "TOP10NL blad 07W"}
+ // {TopNLType.TOP10NL, "/topnl/TOP10NL_07W.gml", 0, 1, "TOP10NL blad 07W"}
         });
     }
 
@@ -165,6 +169,8 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
 
         assumeTrue("Er zijn STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, null, "STAGING_OK"));
         assumeTrue("Er zijn STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, null, "STAGING_OK"));
+
+        assumeNotNull("Het test bestand moet er zijn.", BrkToStagingToRsgbIntegrationTest.class.getResource(bestandNaam));
     }
 
     @After
@@ -173,7 +179,7 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
 
         CleanUtil.cleanSTAGING(staging);
         staging.close();
-        CleanUtil.cleanTOPNL(topnl);
+
         topnl.close();
         try {
             sequential.unlock();
@@ -183,10 +189,8 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
         }
     }
 
-
     @Test
-    public void loadInStaging() throws BrmoException {
-        assumeNotNull("Het test bestand moet er zijn.", BrkToStagingToRsgbIntegrationTest.class.getResource(bestandNaam));
+    public void loadTopNLInStaging() throws BrmoException {
         brmo.loadFromFile(bestandType.getType(), TopNLIntegrationTest.class.getResource(bestandNaam).getFile());
 
         final List<LaadProces> processen = brmo.listLaadProcessen();
@@ -201,9 +205,9 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
     }
 
     @Test
-    public void process() throws BrmoException, InterruptedException, SQLException, DataSetException {
-        assumeNotNull("Het test bestand moet er zijn.", BrkToStagingToRsgbIntegrationTest.class.getResource(bestandNaam));
-         brmo.loadFromFile(bestandType.getType(), TopNLIntegrationTest.class.getResource(bestandNaam).getFile());
+    public void processTopNL() throws BrmoException, InterruptedException, SQLException, DataSetException {
+
+        brmo.loadFromFile(bestandType.getType(), TopNLIntegrationTest.class.getResource(bestandNaam).getFile());
         final List<LaadProces> processen = brmo.listLaadProcessen();
         assertEquals("Er is 1 laadproces.", aantalProcessen, processen.size());
 
@@ -215,10 +219,25 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
         LOG.debug("Te verwerken LP ids:" + ids);
         long[] lpIds = ArrayUtils.toPrimitive(ids.toArray(new Long[ids.size()]));
 
-        Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, lpIds, (ProgressUpdateListener) null);
-        t.join();
+        Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, lpIds, new ProgressUpdateListener() {
+            @Override
+            public void total(long total) {
+                LOG.info("Totaal te verwerken: " + total);
+            }
 
-        assertEquals("Alles OK", LaadProces.STATUS.RSGB_TOPNL_OK, staging.createDataSet().getTable("laadproces").getValue(0, "status"));
+            @Override
+            public void progress(long progress) {
+                LOG.info("Verwerkt: " + progress);
+            }
+
+            @Override
+            public void exception(Throwable t) {
+                LOG.error(t);
+                fail(t.getLocalizedMessage());
+            }
+        });
+        t.join();
+        assertEquals("Alles OK", LaadProces.STATUS.RSGB_TOPNL_OK.toString(), staging.createDataSet().getTable("laadproces").getValue(0, "status"));
     }
 
 }

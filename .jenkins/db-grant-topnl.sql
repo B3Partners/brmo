@@ -5,3 +5,11 @@ BEGIN
     END LOOP;
 END;
 /
+
+BEGIN
+    FOR t IN (SELECT * FROM USER_SEQUENCES)
+    LOOP
+        EXECUTE IMMEDIATE 'GRANT SELECT ON ' || t.sequence_name || ' TO JENKINS_TOPNL';
+    END LOOP;
+END;
+/
