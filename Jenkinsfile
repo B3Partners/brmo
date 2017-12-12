@@ -17,6 +17,10 @@ timestamps {
                 checkout scm
             }
 
+            stage('Prepare data') {
+                sh ".jenkins/data-prepare-topnl.sh"
+            }
+
             stage('Build') {
                 echo "Building branch: ${env.BRANCH_NAME}"
                 sh "mvn clean install -Dmaven.test.skip=true -B -V -e -fae  -q -Poracle -pl '!brmo-dist'"

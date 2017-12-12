@@ -147,7 +147,7 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
 
-            topnl = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsTopnl.getConnection()), params.getProperty("rsgb.user").toUpperCase());
+            topnl = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsTopnl.getConnection()), params.getProperty("topnl.user").toUpperCase());
             topnl.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             topnl.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
