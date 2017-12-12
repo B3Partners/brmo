@@ -6,7 +6,6 @@ package nl.b3p.brmo.loader.util;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
-import java.util.Properties;
 import javax.sql.DataSource;
 import javax.xml.bind.JAXBException;
 import nl.b3p.brmo.loader.ProgressUpdateListener;
@@ -30,7 +29,6 @@ public class TopNLRsgbTransformer implements Runnable {
     private final DataSource dataSourceTopNL;
     private final ProgressUpdateListener listener;
     private final long[] lpIDs;
-    private final Properties params = new Properties();
     private Processor processor = null;
     
 
@@ -39,11 +37,12 @@ public class TopNLRsgbTransformer implements Runnable {
         this.dataSourceTopNL = dataSourceTopNL;
         this.lpIDs = lpIDs;
         this.listener = listener;
-        this.processor = new Processor(dataSourceTopNL);
+        this.processor = new Processor(this.dataSourceTopNL);
     }
 
     private void transform(long lpID) throws SQLException  {
         STATUS status;
+        String opmerkingen;
         LaadProces lp = stagingProxy.getLaadProcesById(lpID);
         
         if (TopNLType.isTopNLType(lp.getSoort()) && lp.getStatus() == STATUS.STAGING_OK) {
@@ -51,11 +50,22 @@ public class TopNLRsgbTransformer implements Runnable {
             File gml = new File(lp.getBestandNaam());
             try {
                 processor.importIntoDb(gml.toURI().toURL(), TopNLType.valueOf(lp.getSoort().toUpperCase()));
-                stagingProxy.updateLaadProcesStatus(lp, STATUS.RSGB_TOPNL_OK, "Geen fouten bij inladen");
+                switch (processor.getStatus()) {
+                    case OK:
+                        status = STATUS.RSGB_TOPNL_OK;
+                        opmerkingen = "Geen fouten bij inladen.";
+                        break;
+                    case NOK:
+                    default:
+                        status = STATUS.RSGB_TOPNL_NOK;
+                        opmerkingen = "Er zijn herstelbare fouten bij inladen opgetreden. Waarschijnlijk is niet alle data geladen van bestand " + gml;
+                }
+                stagingProxy.updateLaadProcesStatus(lp, status, opmerkingen);
             } catch (JDOMException | MalformedURLException ex) {
                 LOG.debug("Error loading gml file", ex);
-                String opmerkingen = "Laden van bestand " + gml + " is mislukt: " + ex.getLocalizedMessage();
-                stagingProxy.updateLaadProcesStatus(lp, STATUS.RSGB_TOPNL_NOK, opmerkingen);
+                opmerkingen = "Laden van bestand " + gml + " is mislukt: " + ex.getLocalizedMessage();
+                status = STATUS.RSGB_TOPNL_NOK;
+                stagingProxy.updateLaadProcesStatus(lp, status, opmerkingen);
             }
         } else {
             LOG.warn("LaadProces " + lp.getId() + " van soort " + lp.getSoort() + " met status: " + lp.getStatus() + " is overgeslagen.");

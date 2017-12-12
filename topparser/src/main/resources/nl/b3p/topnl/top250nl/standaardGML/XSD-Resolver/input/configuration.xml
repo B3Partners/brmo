@@ -18,7 +18,11 @@
 				'true'						zal alle 'xs:restriction' constructies oplossen.
 				'false'					zal alle 'xs:restriction' constructies intact laten. In dit geval worden alleen de 'xs:include' opgelost. -->
 		<application:restrictionMode>true</application:restrictionMode>
+<<<<<<< HEAD
 		<application:path>/home/meine/dev/brmo/topparser/src/main/resources/nl/b3p/topnl/top250nl/standaardGML/XSD-Resolver</application:path>
+=======
+		<application:path>/mnt/tera1/home/mark/dev/projects/brmo/topparser/src/main/resources/nl/b3p/topnl/top250nl/standaardGML/XSD-Resolver</application:path>
+>>>>>>> fc8835e62f2fa4222fe5a07ddf119e7785a6e26a
 	</application:processingParameters>
 	<!-- Standaard worden alleen de berichten meegenomen die gedefinieerd zijn in het mainschema van de te verwerken berichtencatalogus of koppelvlak.
 		  Daarnaast kunnen ook berichten in andere namespaces gewenst zijn.
@@ -230,7 +234,11 @@
 		<!-- ===== Basis folder van het sectormodel ========================================== -->
 		<!-- In het 'path' element moet het path vermeld worden waar het te converteren sectormodel te vinden is.
 			  Evt. backslashes worden geconverteerd naar gewone slashes. -->
+<<<<<<< HEAD
 		<application:pathSectormodel>/home/meine/dev/brmo/topparser/src/main/resources/nl/b3p/topnl/top250nl/standaardGML</application:pathSectormodel>
+=======
+		<application:pathSectormodel>/mnt/tera1/home/mark/dev/projects/brmo/topparser/src/main/resources/nl/b3p/topnl/top250nl/standaardGML</application:pathSectormodel>
+>>>>>>> fc8835e62f2fa4222fe5a07ddf119e7785a6e26a
 		<application:resolve>
 			<application:schema>
 				<application:schemaName>top250nl.xsd</application:schemaName>

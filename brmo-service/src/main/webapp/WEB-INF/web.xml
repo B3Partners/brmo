@@ -109,6 +109,11 @@
         <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet>
+        <servlet-name>DiagnosticsServlet</servlet-name>
+        <servlet-class>nl.b3p.brmo.service.util.DiagnosticsServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    <servlet>
         <servlet-name>GeplandeTakenInit</servlet-name>
         <servlet-class>nl.b3p.brmo.service.jobs.GeplandeTakenInit</servlet-class>
         <load-on-startup>3</load-on-startup>

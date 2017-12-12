@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:brt="http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:top250nl="http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.0" elementFormDefault="qualified" targetNamespace="http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.0" version="1.2.0">
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:brt="http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:top250nl="http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.1" elementFormDefault="qualified" targetNamespace="http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.1" version="1.2.1">
   <import namespace="http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0" schemaLocation="brt-algemeen.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="gml/3.2.1/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
@@ -191,12 +191,12 @@ NOTE Onder de klasse Hoogte vallen de hoogte- en dieptelijnen alsmede hoogte- en
               <documentation>Het soort hoogte object, bijv. hoogtlijn</documentation>
             </annotation>
           </element>
-          <element minOccurs="0" name="hoogte" type="double">
+          <element name="hoogte" type="double">
             <annotation>
               <documentation>Hoogte van het object t.o.v. NAP in meters met een nauwkeurigheid van 1 decimeter. / De diepte van het water</documentation>
             </annotation>
           </element>
-          <element minOccurs="0" name="referentievlak" type="gml:CodeType">
+          <element name="referentievlak" type="gml:CodeType">
             <annotation>
               <documentation>Referentievlak ten opzichte waarvan de hoogten gedefinieerd zijn.</documentation>
             </annotation>
@@ -519,9 +519,9 @@ NOTE Onder de klasse Relief vallen objecten die een hoogteverschil in het terrei
     <complexContent>
       <extension base="top250nl:_Top250nlObjectType">
         <sequence>
-          <element name="typeLandgebruik" type="gml:CodeType">
+          <element name="geometrieVlak" type="gml:SurfacePropertyType">
             <annotation>
-              <documentation>De gebruiksbestemming van het terrein.</documentation>
+              <documentation>De vlakgeometrie van een terrein object.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="naam" type="string">
@@ -529,9 +529,14 @@ NOTE Onder de klasse Relief vallen objecten die een hoogteverschil in het terrei
               <documentation>De naam die eventueel voor het terrrein in gebruik is.</documentation>
             </annotation>
           </element>
-          <element name="geometrieVlak" type="gml:SurfacePropertyType">
+          <element name="typeLandgebruik" type="gml:CodeType">
             <annotation>
-              <documentation>De vlakgeometrie van een terrein object.</documentation>
+              <documentation>De gebruiksbestemming van het terrein.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="voorkomen" type="gml:CodeType">
+            <annotation>
+              <documentation>Aanduiding dat er riet op het terrein voorkomt of dat het drassig/moerassig is.</documentation>
             </annotation>
           </element>
         </sequence>
