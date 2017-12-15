@@ -42,7 +42,7 @@ Ext.define('B3P.brmo.Berichten', {
                         dataIndex: 'status',
                         filter: {
                             type: 'list',
-                            options: ['STAGING_OK', 'STAGING_NOK', 'STAGING_FORWARDED', 'RSGB_WAITING', 'RSGB_PROCESSING', 'RSGB_OK', 'RSGB_NOK', 'RSGB_OUTDATED', 'ARCHIVE']
+                            options: ['STAGING_OK', 'STAGING_NOK', 'STAGING_FORWARDED', 'RSGB_WAITING', 'RSGB_PROCESSING', 'RSGB_OK', 'RSGB_NOK', 'RSGB_BAG_NOK', 'RSGB_OUTDATED', 'ARCHIVE']
                         },
                         editor: {
                             xtype: 'combobox',
