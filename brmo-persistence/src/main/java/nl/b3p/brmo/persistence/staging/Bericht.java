@@ -71,8 +71,8 @@ public class Bericht implements Serializable {
     private String xsl_version;
 
     public static enum STATUS {
-
-        STAGING_OK, STAGING_NOK, STAGING_FORWARDED, RSGB_WAITING, RSGB_PROCESSING, RSGB_OK, RSGB_OUTDATED, RSGB_NOK, ARCHIVE
+// bij toevoegen van een status deze ook in nl.b3p.brmo.loader.entity.Bericht en /brmo-service/src/main/webapp/scripts/berichten.js toevoegen
+        STAGING_OK, STAGING_NOK, STAGING_FORWARDED, RSGB_WAITING, RSGB_PROCESSING, RSGB_OK, RSGB_OUTDATED, RSGB_NOK, ARCHIVE, RSGB_BAG_NOK
     };
 
     public Bericht() {

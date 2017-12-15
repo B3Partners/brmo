@@ -19,7 +19,6 @@
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>brmo-loader</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-cli</groupId>
@@ -95,7 +94,6 @@
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>brmo-test-util</artifactId>
-            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -149,7 +147,7 @@
                             <excludeGroupIds>${exclude.groupIds.fromPackaging}</excludeGroupIds>
                             <includeScope>${include.scope.inPackaging}</includeScope>
                             <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteSnapshots>true</overWriteSnapshots>
                             <overWriteIfNewer>true</overWriteIfNewer>
                         </configuration>
                     </execution>
