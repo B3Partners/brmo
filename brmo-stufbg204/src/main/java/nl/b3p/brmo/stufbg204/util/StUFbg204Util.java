@@ -25,6 +25,10 @@ public final class StUFbg204Util {
     }
     
     public static FoutBericht maakFout(String errorcode) {
+        return maakFout(errorcode, null);
+    }
+    
+    public static FoutBericht maakFout(String errorcode, Exception e) {
         final FoutBericht fout = new FoutBericht();
         Stuurgegevens.Fout f = new Stuurgegevens.Fout();
         f.setCrossRefNummer(errorcode);
@@ -35,6 +39,9 @@ public final class StUFbg204Util {
         fout.setStuurgegevens(s);
         FoutBericht.Body  b = new FoutBericht.Body();
         b.setCode(errorcode);
+        if(e != null){
+            b.setOmschrijving(e.getLocalizedMessage());
+        }
         fout.setBody(b);
         
 

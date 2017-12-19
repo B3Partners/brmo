@@ -18,11 +18,13 @@ package nl.b3p.brmo.stufbg204;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Map;
 import nl.egem.stuf.sector.bg._0204.ACDTabel;
 import nl.egem.stuf.sector.bg._0204.ADLTabel;
 import nl.egem.stuf.sector.bg._0204.ADRAntwoord;
 import nl.egem.stuf.sector.bg._0204.ADRFund;
+import nl.egem.stuf.sector.bg._0204.ADRRelFund;
 import nl.egem.stuf.sector.bg._0204.ANummerE;
 import nl.egem.stuf.sector.bg._0204.AcademischeTitelPositieTovNaam;
 import nl.egem.stuf.sector.bg._0204.AdellijkeTitelPredikaatE;
@@ -109,11 +111,10 @@ public class AntwoordBodyFactory {
 
         PRSAntwoord p = new PRSAntwoord();
 
-        if (prs.getBsnNummer() != null) {
-            BsnNummerE bsn = new BsnNummerE();
-            bsn.setValue(bsnInt);
-            p.setBsnNummer(objFac.createPRSFundBsnNummer(bsn));
-        }
+        BsnNummerE bsn = new BsnNummerE();
+        bsn.setValue(bsnInt);
+        p.setBsnNummer(objFac.createPRSFundBsnNummer(bsn));
+
         if (prs.getVoornamen() != null) {
             VoornamenE v = new VoornamenE();
             v.setValue(nullIfEmpty(values.get("nm_voornamen")));
@@ -145,7 +146,7 @@ public class AntwoordBodyFactory {
             p.setAdellijkeTitelPredikaat(objFac.createPRSFundAdellijkeTitelPredikaat(a));
         }
 
-        if (prs.getAcademischeTitel() != null && prs.getAcademischeTitel().size() >0) {
+        if (prs.getAcademischeTitel() != null && prs.getAcademischeTitel().size() > 0) {
             AcademischeTitel at = new AcademischeTitel();
             at.setValue(nullIfEmpty(values.get("fk_2acd_code")));
             p.getAcademischeTitel().add(at);
@@ -238,6 +239,25 @@ public class AntwoordBodyFactory {
             Geslachtsaanduiding ge = Geslachtsaanduiding.fromValue(nullIfEmpty(values.get("geslachtsaand")));
             ga.setValue(ge);
             p.setGeslachtsaanduiding(objFac.createPRSFundGeslachtsaanduiding(ga));
+        }
+
+        if (prs.getPRSADRCOR() != null) {
+            List<ADRRelFund> adrcor = p.getPRSADRCOR();
+            ADRRelFund a = createAdres("teststraat", new BigInteger("16"), "d", "1212", new BigInteger("0556"), prs.getPRSADRCOR().getValue().getADR());
+            adrcor.add(a);
+        }
+
+        if (prs.getPRSADRVBL() != null) {
+            List<ADRRelFund> adrcor = p.getPRSADRVBL();
+            ADRRelFund a = createAdres("teststraat", new BigInteger("16"), "d", "1212", new BigInteger("0556"), prs.getPRSADRVBL().getValue().getADR());
+            adrcor.add(a);
+        }
+
+        if (prs.getPRSNAT() != null) {
+            NATTabel n = createNationaliteit("NL", new BigInteger("42"));
+            PRSAntwoord.PRSNAT nat = new PRSAntwoord.PRSNAT();
+            nat.setNAT(n);
+            p.getPRSNAT().add(nat);
         }
 
         return p;
@@ -337,7 +357,9 @@ public class AntwoordBodyFactory {
         return t;
     }
 
-    public static ADRAntwoord createAdres(String straat, BigInteger huisnummer, String huisletter, String postcode, BigInteger gemeentecode) {
+    public static ADRRelFund createAdres(String straat, BigInteger huisnummer, String huisletter, String postcode, BigInteger gemeentecode, ADRFund vraag) {
+        ADRRelFund aa = new ADRRelFund();
+
         ADRAntwoord a = new ADRAntwoord();
 
         ADRFund.Straatnaam s = new ADRFund.Straatnaam();
@@ -355,12 +377,54 @@ public class AntwoordBodyFactory {
         ADRFund.Postcode p = new ADRFund.Postcode();
         p.setValue(postcode);
 
-        a.setStraatnaam(objFac.createADRFundStraatnaam(s));
-        a.setHuisnummer(objFac.createADRFundHuisnummer(h));
-        a.setHuisletter(objFac.createADRFundHuisletter(hl));
-        a.setGemeentecode(objFac.createADRFundGemeentecode(g));
-        a.setPostcode(objFac.createADRFundPostcode(p));
-        return a;
+        ADRFund.Woonplaatsnaam w = new ADRFund.Woonplaatsnaam();
+        w.setValue("Maassluis");
+
+        if (vraag.getStraatnaam() != null) {
+            a.setStraatnaam(objFac.createADRFundStraatnaam(s));
+        }
+        if (vraag.getHuisnummer() != null) {
+            a.setHuisnummer(objFac.createADRFundHuisnummer(h));
+        }
+        if (vraag.getHuisletter() != null) {
+            a.setHuisletter(objFac.createADRFundHuisletter(hl));
+        }
+        if (vraag.getGemeentecode() != null) {
+            a.setGemeentecode(objFac.createADRFundGemeentecode(g));
+        }
+        if (vraag.getPostcode() != null) {
+            a.setPostcode(objFac.createADRFundPostcode(p));
+        }
+        if (vraag.getWoonplaatsnaam() != null) {
+            a.setWoonplaatsnaam(objFac.createADRFundWoonplaatsnaam(w));
+        }
+        if (vraag.getAdresBuitenland1() != null) {
+            a.setAdresBuitenland1(objFac.createADRFundAdresBuitenland1(new ADRFund.AdresBuitenland1()));
+        }
+        if (vraag.getAdresBuitenland2() != null) {
+            a.setAdresBuitenland2(objFac.createADRFundAdresBuitenland2(new ADRFund.AdresBuitenland2()));
+        }
+        if (vraag.getAdresBuitenland3() != null) {
+            a.setAdresBuitenland3(objFac.createADRFundAdresBuitenland3(new ADRFund.AdresBuitenland3()));
+        }
+        if (vraag.getLandcode() != null) {
+            a.setLandcode(objFac.createADRFundLandcode(new ADRFund.Landcode()));
+        }
+        if (vraag.getPostbusnummer() != null) {
+            a.setPostbusnummer(objFac.createADRFundPostbusnummer(new ADRFund.Postbusnummer()));
+        }
+        if (vraag.getAntwoordnummer() != null) {
+            a.setAntwoordnummer(objFac.createADRFundAntwoordnummer(new ADRFund.Antwoordnummer()));
+        }
+        if (vraag.getHuisnummertoevoeging() != null) {
+            a.setHuisnummertoevoeging(objFac.createADRFundHuisnummertoevoeging(new ADRFund.Huisnummertoevoeging()));
+        }
+        if (vraag.getAanduidingBijHuisnummer() != null) {
+            a.setAanduidingBijHuisnummer(objFac.createADRFundAanduidingBijHuisnummer(new ADRFund.AanduidingBijHuisnummer()));
+        }
+
+        aa.setADR(a);
+        return aa;
     }
 
     public static String nullIfEmpty(Object e) {

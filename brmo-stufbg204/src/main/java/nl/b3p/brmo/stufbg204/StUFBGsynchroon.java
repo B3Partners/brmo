@@ -3,14 +3,19 @@
  */
 package nl.b3p.brmo.stufbg204;
 
+import java.io.ByteArrayOutputStream;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.sql.DataSource;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.brmo.stufbg204.util.StUFbg204Util;
@@ -47,14 +52,22 @@ public class StUFBGsynchroon {
 
     public SynchroonAntwoordBericht beantwoordSynchroneVraag(VraagBericht vraag) throws StUFFout {
         try {
-            LOG.debug("Er is antwoord ontvangen van soort: " + vraag.getStuurgegevens().getBerichtsoort());
+            LOG.debug("Er is vraag ontvangen van soort: " + vraag.getStuurgegevens().getBerichtsoort());
             SynchroonAntwoordBericht antw = new SynchroonAntwoordBericht();
             antw.setStuurgegevens(StUFbg204Util.maakStuurgegevens(vraag.getStuurgegevens()));
             Body b = process(vraag);
             antw.setBody(b);
+            try {
+                String vraagXml = getXml(vraag);
+                LOG.debug("Vraagbericht: " + vraagXml);
+                String antwoordXml = getXml(antw);
+                LOG.debug("Antwoordbericht: " + antwoordXml);
+            } catch (JAXBException ex) {
+                LOG.debug("Cannot output vraag/antwoord:",ex);
+            }
             return antw;
         } catch (SQLException | BrmoException e) {
-            FoutBericht fout = StUFbg204Util.maakFout("StUF011");
+            FoutBericht fout = StUFbg204Util.maakFout("StUF011", e);
             throw new StUFFout("Not implemented yet.", fout, e);
         } catch (StUFFout e) {
             throw e;
@@ -69,9 +82,9 @@ public class StUFBGsynchroon {
         
         try {
             q = createQuery(vraag,c);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | UnsupportedOperationException e) {
             LOG.error("Cannot parse query: ", e);
-            FoutBericht fout = StUFbg204Util.maakFout("StUF011");
+            FoutBericht fout = StUFbg204Util.maakFout("StUF011", e);
             throw new StUFFout("Cannot parse query: ", fout, e);
         }
         // haal resultaten op
@@ -84,7 +97,7 @@ public class StUFBGsynchroon {
         return b;
     }
 
-    private String createQuery(VraagBericht vraag, Connection c) throws IllegalArgumentException, StUFFout {
+    private String createQuery(VraagBericht vraag, Connection c) throws IllegalArgumentException, StUFFout,UnsupportedOperationException {
         Stuurgegevens sg = vraag.getStuurgegevens();
         String q = "select * from ";
         String entiteitType = sg.getEntiteittype();
@@ -201,5 +214,12 @@ public class StUFBGsynchroon {
                 throw new IllegalArgumentException("Entiteitstype niet ondersteund: " + entiteitType);
         }
         return b;
+    }
+    
+    private String getXml(Object o ) throws JAXBException{
+        Marshaller jaxbMarshaller = StUFbg204Util.getStufJaxbContext().createMarshaller();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        jaxbMarshaller.marshal(o, baos);
+        return baos.toString();
     }
 }

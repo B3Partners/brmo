@@ -91,7 +91,7 @@ public class CriteriaParser {
 
     }
 
-    public String getCriteria(VraagBericht bericht) throws IllegalArgumentException {
+    public String getCriteria(VraagBericht bericht) throws IllegalArgumentException,UnsupportedOperationException {
         String q;
         String entiteitType = bericht.getStuurgegevens().getEntiteittype();
         Body b = bericht.getBody();
@@ -109,7 +109,7 @@ public class CriteriaParser {
         return q;
     }
 
-    private String getPRSCriterias(Body b) throws IllegalArgumentException {
+    private String getPRSCriterias(Body b) throws IllegalArgumentException,UnsupportedOperationException {
         String q;
         List<PRSVraag> prs = b.getPRS();
 
@@ -128,7 +128,7 @@ public class CriteriaParser {
         return q;
     }
 
-    private String getPRSCriteria(PRSVraag prs, boolean first) throws IllegalArgumentException {
+    private String getPRSCriteria(PRSVraag prs, boolean first) throws IllegalArgumentException, UnsupportedOperationException {
         String vraag = null;
         Object value = null;
         boolean exact = true;
@@ -335,8 +335,12 @@ public class CriteriaParser {
         String operator = null;
         String quote = "";
         String wildcard = "";
-        if (value instanceof String) {
+        boolean valueIsString = value instanceof String;
+        if (valueIsString) {
             quote = "\'";
+        }
+        if(!exact && !valueIsString){
+            throw new UnsupportedOperationException("Inexacte datums niet ondersteund");
         }
         if (exact) {
             operator = first ? " > " : " <= ";
