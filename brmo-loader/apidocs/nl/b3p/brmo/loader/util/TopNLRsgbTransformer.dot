@@ -9,102 +9,19 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.loader.ProgressUpdateListener
-	c1947 [label=<<table title="nl.b3p.brmo.loader.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ProgressUpdateListener.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + total(total : long) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + progress(progress : long) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + exception(t : Throwable) </font></td></tr>
-		</table></td></tr>
-		</table>>, URL="../ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.StagingProxy
-	c1949 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../StagingProxy.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> StagingProxy </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + StagingProxy(dataSourceStaging : DataSource) </td></tr>
-<tr><td align="left" balign="left"> + closeStagingProxy() </td></tr>
-<tr><td align="left" balign="left"> + getLaadProcesById(id : Long) : LaadProces </td></tr>
-<tr><td align="left" balign="left"> + getBerichtById(id : Long) : Bericht </td></tr>
-<tr><td align="left" balign="left"> + getLaadProcesByFileName(name : String) : LaadProces </td></tr>
-<tr><td align="left" balign="left"> + getExistingBericht(b : Bericht) : Bericht </td></tr>
-<tr><td align="left" balign="left"> + getCountJob() : long </td></tr>
-<tr><td align="left" balign="left"> + removeJob() : boolean </td></tr>
-<tr><td align="left" balign="left"> + cleanJob() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setBerichtenJobByStatus(status : Bericht.STATUS, orderBerichten : boolean) : long </td></tr>
-<tr><td align="left" balign="left"> + setBerichtenJobForUpdate(soort : String, orderBerichten : boolean) : long </td></tr>
-<tr><td align="left" balign="left"> + setBerichtenJobByIds(ids : long[], orderBerichten : boolean) : long </td></tr>
-<tr><td align="left" balign="left"> + setBerichtenJobByLaadprocessen(laadprocesIds : long[], orderBerichten : boolean) : long </td></tr>
-<tr><td align="left" balign="left"> + handleBerichtenByJob(total : long, handler : BerichtenHandler, enablePipeline : boolean, transformPipelineCapacity : int, orderBerichten : boolean) </td></tr>
-<tr><td align="left" balign="left"> + updateBerichtenDbXml(berichten : List&lt;Bericht&gt;, transformer : RsgbTransformer) </td></tr>
-<tr><td align="left" balign="left"> + getOldBericht(nieuwBericht : Bericht, loadLog : StringBuilder) : Bericht </td></tr>
-<tr><td align="left" balign="left"> + updateBericht(b : Bericht) </td></tr>
-<tr><td align="left" balign="left"> + updateBerichtProcessing(b : Bericht) </td></tr>
-<tr><td align="left" balign="left"> + deleteByLaadProcesId(id : Long) </td></tr>
-<tr><td align="left" balign="left"> + getLaadProcessen() : List&lt;LaadProces&gt; </td></tr>
-<tr><td align="left" balign="left"> + getBerichten() : List&lt;Bericht&gt; </td></tr>
-<tr><td align="left" balign="left"> + loadBr(stream : InputStream, type : String, fileName : String, listener : ProgressUpdateListener) </td></tr>
-<tr><td align="left" balign="left"> + writeBericht(b : Bericht) </td></tr>
-<tr><td align="left" balign="left"> + updateLaadProcesStatus(lp : LaadProces, status : LaadProces.STATUS, opmerking : String) </td></tr>
-<tr><td align="left" balign="left"> + emptyStagingDb() </td></tr>
-<tr><td align="left" balign="left"> + getBerichten(page : int, start : int, limit : int, sort : String, dir : String, filterSoort : String, filterStatus : String) : List&lt;Bericht&gt; </td></tr>
-<tr><td align="left" balign="left"> + getCountBerichten(sort : String, dir : String, filterSoort : String, filterStatus : String) : long </td></tr>
-<tr><td align="left" balign="left"> + getCountLaadProces(sort : String, dir : String, filterSoort : String, filterStatus : String) : long </td></tr>
-<tr><td align="left" balign="left"> + getLaadprocessen(page : int, start : int, limit : int, sort : String, dir : String, filterSoort : String, filterStatus : String) : List&lt;LaadProces&gt; </td></tr>
-<tr><td align="left" balign="left"> + getLaadProcessenIds(sort : String, dir : String, filterSoort : String, filterStatus : String) : Long[] </td></tr>
-<tr><td align="left" balign="left"> ~ getOldBericht(nieuwBericht : Bericht) : Bericht </td></tr>
-<tr><td align="left" balign="left"> + setBatchCapacity(batchCapacity : Integer) </td></tr>
-<tr><td align="left" balign="left"> + setLimitStandBerichtenToTransform(limitStandBerichtenToTransform : Integer) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../StagingProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.util.TopNLRsgbTransformer
-	c1957 [label=<<table title="nl.b3p.brmo.loader.util.TopNLRsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TopNLRsgbTransformer.html">
+	c1923 [label=<<table title="nl.b3p.brmo.loader.util.TopNLRsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TopNLRsgbTransformer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TopNLRsgbTransformer </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TopNLRsgbTransformer(dataSourceTopNL : DataSource, stagingProxy : StagingProxy, lpIDs : long[], listener : ProgressUpdateListener) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + run() </td></tr>
-		</table></td></tr>
 		</table>>, URL="./TopNLRsgbTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.util.TopNLRsgbTransformer NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c1957:p -> c1949:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.util.TopNLRsgbTransformer NAVASSOC nl.b3p.brmo.loader.ProgressUpdateListener
-	c1957:p -> c1947:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.util.TopNLRsgbTransformer NAVASSOC nl.b3p.topnl.Processor
-	c1957:p -> c1985:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.topnl.Processor
-	c1985 [label=<<table title="nl.b3p.topnl.Processor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	//nl.b3p.brmo.loader.util.TopNLRsgbTransformer implements java.lang.Runnable
+	c1951:p -> c1923:p [dir=back,arrowtail=empty,style=dashed];
+	// java.lang.Runnable
+	c1951 [label=<<table title="java.lang.Runnable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Processor </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # log : Log </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Processor(arg0 : DataSource) </td></tr>
-<tr><td align="left" balign="left"> + importIntoDb(arg0 : URL, arg1 : TopNLType) </td></tr>
-<tr><td align="left" balign="left"> + parse(arg0 : URL) : List&lt;&gt; </td></tr>
-<tr><td align="left" balign="left"> + convert(arg0 : List&lt;&gt;, arg1 : TopNLType) : List&lt;TopNLEntity&gt; </td></tr>
-<tr><td align="left" balign="left"> + save(arg0 : TopNLEntity, arg1 : TopNLType) </td></tr>
-<tr><td align="left" balign="left"> + save(arg0 : List&lt;TopNLEntity&gt;, arg1 : TopNLType) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : Processor.STATUS </td></tr>
-<tr><td align="left" balign="left"> + resetStatus() </td></tr>
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> Runnable </td></tr>
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

@@ -14,49 +14,11 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> BrmoXMLReader </font></td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # soort : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BrmoXMLReader() </td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + init() </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + hasNext() : boolean </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + next() : Bericht </font></td></tr>
-<tr><td align="left" balign="left"> + setDatumAsString(brkDatumString : String, simpleDateFormat : String) </td></tr>
-<tr><td align="left" balign="left"> + setDatumAsString(brkDatumString : String) </td></tr>
-<tr><td align="left" balign="left"> + getBestandsNaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setBestandsNaam(bestandsNaam : String) </td></tr>
-<tr><td align="left" balign="left"> + getBestandsDatum() : Date </td></tr>
-<tr><td align="left" balign="left"> + setBestandsDatum(bestandsDatum : Date) </td></tr>
-<tr><td align="left" balign="left"> + getSoort() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoort(soort : String) </td></tr>
-<tr><td align="left" balign="left"> + getGebied() : String </td></tr>
-<tr><td align="left" balign="left"> + setGebied(gebied : String) </td></tr>
-<tr><td align="left" balign="left"> + getOpmerking() : String </td></tr>
-<tr><td align="left" balign="left"> + setOpmerking(opmerking : String) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + getStatusDatum() : Date </td></tr>
-<tr><td align="left" balign="left"> + setStatusDatum(statusDatum : Date) </td></tr>
-<tr><td align="left" balign="left"> + getContactEmail() : String </td></tr>
-<tr><td align="left" balign="left"> + setContactEmail(contactEmail : String) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BrmoXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.TopNLFileReader
 	c90 [label=<<table title="nl.b3p.brmo.loader.xml.TopNLFileReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLFileReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TopNLFileReader </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TopNLFileReader(fileName : String) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + getFileSize() : long </td></tr>
-<tr><td align="left" balign="left"> + setBestandsNaam(naam : String) </td></tr>
-<tr><td align="left" balign="left"> + hasNext() : boolean </td></tr>
-<tr><td align="left" balign="left"> + next() : Bericht </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TopNLFileReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.BagXMLReader
@@ -64,32 +26,11 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BagXMLReader </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MUTATIE_PRODUCT : String </td></tr>
-<tr><td align="left" balign="left"> + LVC_PRODUCT : String </td></tr>
-<tr><td align="left" balign="left"> + lvcProductToObjectType : Map&lt;String, String&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BagXMLReader(in : InputStream) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + hasNext() : boolean </td></tr>
-<tr><td align="left" balign="left"> + next() : BagBericht </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BagXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.NhrXMLReader
 	c92 [label=<<table title="nl.b3p.brmo.loader.xml.NhrXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NhrXMLReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NhrXMLReader </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> ~ iterator : Iterator&lt;NhrBericht&gt; </td></tr>
-<tr><td align="left" balign="left"> ~ volgorde : int </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + NhrXMLReader(in : InputStream) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + hasNext() : boolean </td></tr>
-<tr><td align="left" balign="left"> + next() : NhrBericht </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NhrXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader
@@ -97,31 +38,11 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrkSnapshotXMLReader </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BrkSnapshotXMLReader(in : InputStream) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + hasNext() : boolean </td></tr>
-<tr><td align="left" balign="left"> + next() : BrkBericht </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BrkSnapshotXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.BGTLightFileReader
 	c94 [label=<<table title="nl.b3p.brmo.loader.xml.BGTLightFileReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightFileReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTLightFileReader </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTLightFileReader(fileName : String) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + getFileSize() : long </td></tr>
-<tr><td align="left" balign="left"> + setBestandsNaam(naam : String) </td></tr>
-<tr><td align="left" balign="left"> + hasNext() : boolean </td></tr>
-<tr><td align="left" balign="left"> + next() : Bericht </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BGTLightFileReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.xml.TopNLFileReader extends nl.b3p.brmo.loader.xml.BrmoXMLReader
@@ -134,22 +55,5 @@ digraph G {
 	c89:p -> c93:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.xml.BGTLightFileReader extends nl.b3p.brmo.loader.xml.BrmoXMLReader
 	c89:p -> c94:p [dir=back,arrowtail=empty];
-	// nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader NAVASSOC nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader.MutatieGegevens
-	c93:p -> c123:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader.MutatieGegevens
-	c123 [label=<<table title="nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader.MutatieGegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> MutatieGegevens </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> ~ inMutatieObjectRef : boolean </td></tr>
-<tr><td align="left" balign="left"> ~ mutatieObjectRef : String </td></tr>
-<tr><td align="left" balign="left"> ~ isMutatieZonderWordt : boolean </td></tr>
-<tr><td align="left" balign="left"> ~ volgnummerKadastraalObjectDatum : Integer </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

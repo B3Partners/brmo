@@ -10,53 +10,34 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.util.BrmoLeegBestandException
-	c1006 [label=<<table title="nl.b3p.brmo.loader.util.BrmoLeegBestandException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoLeegBestandException.html">
+	c969 [label=<<table title="nl.b3p.brmo.loader.util.BrmoLeegBestandException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoLeegBestandException.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoLeegBestandException </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BrmoLeegBestandException() </td></tr>
-<tr><td align="left" balign="left"> + BrmoLeegBestandException(message : String) </td></tr>
-<tr><td align="left" balign="left"> + BrmoLeegBestandException(cause : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + BrmoLeegBestandException(message : String, cause : Throwable) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BrmoLeegBestandException.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException
-	c1014 [label=<<table title="nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoDuplicaatLaadprocesException.html">
+	c977 [label=<<table title="nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoDuplicaatLaadprocesException.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoDuplicaatLaadprocesException </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BrmoDuplicaatLaadprocesException() </td></tr>
-<tr><td align="left" balign="left"> + BrmoDuplicaatLaadprocesException(message : String) </td></tr>
-<tr><td align="left" balign="left"> + BrmoDuplicaatLaadprocesException(cause : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + BrmoDuplicaatLaadprocesException(message : String, cause : Throwable) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BrmoDuplicaatLaadprocesException.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.util.BrmoException
-	c1015 [label=<<table title="nl.b3p.brmo.loader.util.BrmoException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BrmoException.html">
+	c978 [label=<<table title="nl.b3p.brmo.loader.util.BrmoException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BrmoException.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoException </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BrmoException() </td></tr>
-<tr><td align="left" balign="left"> + BrmoException(message : String) </td></tr>
-<tr><td align="left" balign="left"> + BrmoException(cause : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + BrmoException(message : String, cause : Throwable) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BrmoException.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.util.BrmoLeegBestandException extends nl.b3p.brmo.loader.util.BrmoException
-	c1015:p -> c1006:p [dir=back,arrowtail=empty];
+	c978:p -> c969:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException extends nl.b3p.brmo.loader.util.BrmoException
-	c1015:p -> c1014:p [dir=back,arrowtail=empty];
+	c978:p -> c977:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.loader.util.BrmoException extends java.lang.Exception
+	c996:p -> c978:p [dir=back,arrowtail=empty];
+	// java.lang.Exception
+	c996 [label=<<table title="java.lang.Exception" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Exception </td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

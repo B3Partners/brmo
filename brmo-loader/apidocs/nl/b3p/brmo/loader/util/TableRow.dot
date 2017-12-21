@@ -10,32 +10,9 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.util.TableRow
-	c1880 [label=<<table title="nl.b3p.brmo.loader.util.TableRow" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TableRow.html">
+	c1846 [label=<<table title="nl.b3p.brmo.loader.util.TableRow" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TableRow.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TableRow </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TableRow() </td></tr>
-<tr><td align="left" balign="left"> + getTable() : String </td></tr>
-<tr><td align="left" balign="left"> + setTable(table : String) </td></tr>
-<tr><td align="left" balign="left"> + getColumns() : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> + setColumns(columns : List&lt;String&gt;) </td></tr>
-<tr><td align="left" balign="left"> + isAlleenArchiefColumn(column : String) : boolean </td></tr>
-<tr><td align="left" balign="left"> + setAlleenArchiefColumn(column : String) </td></tr>
-<tr><td align="left" balign="left"> + getValues() : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> + setValues(values : List&lt;String&gt;) </td></tr>
-<tr><td align="left" balign="left"> + isIgnoreDuplicates() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setIgnoreDuplicates(ignoreDuplicates : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getColumnDatumBeginGeldigheid() : String </td></tr>
-<tr><td align="left" balign="left"> + setColumnDatumBeginGeldigheid(columnDatumBeginGeldigheid : String) </td></tr>
-<tr><td align="left" balign="left"> + getColumnDatumEindeGeldigheid() : String </td></tr>
-<tr><td align="left" balign="left"> + setColumnDatumEindeGeldigheid(columnDatumEindeGeldigheid : String) </td></tr>
-<tr><td align="left" balign="left"> + toString(displayColumns : List&lt;String&gt;) : String </td></tr>
-<tr><td align="left" balign="left"> + toString() : String </td></tr>
-<tr><td align="left" balign="left"> + getColumnValue(column : String) : String </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TableRow.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

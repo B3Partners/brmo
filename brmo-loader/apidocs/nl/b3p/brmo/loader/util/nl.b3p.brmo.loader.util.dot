@@ -10,207 +10,80 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.util.TopNLRsgbTransformer
-	c137 [label=<<table title="nl.b3p.brmo.loader.util.TopNLRsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLRsgbTransformer.html">
+	c136 [label=<<table title="nl.b3p.brmo.loader.util.TopNLRsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLRsgbTransformer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TopNLRsgbTransformer </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TopNLRsgbTransformer(dataSourceTopNL : DataSource, stagingProxy : StagingProxy, lpIDs : long[], listener : ProgressUpdateListener) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + run() </td></tr>
-		</table></td></tr>
 		</table>>, URL="./TopNLRsgbTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.util.BrmoLeegBestandException
-	c138 [label=<<table title="nl.b3p.brmo.loader.util.BrmoLeegBestandException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoLeegBestandException.html">
+	c137 [label=<<table title="nl.b3p.brmo.loader.util.BrmoLeegBestandException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoLeegBestandException.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoLeegBestandException </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BrmoLeegBestandException() </td></tr>
-<tr><td align="left" balign="left"> + BrmoLeegBestandException(message : String) </td></tr>
-<tr><td align="left" balign="left"> + BrmoLeegBestandException(cause : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + BrmoLeegBestandException(message : String, cause : Throwable) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BrmoLeegBestandException.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.util.TableData
-	c139 [label=<<table title="nl.b3p.brmo.loader.util.TableData" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TableData.html">
+	c138 [label=<<table title="nl.b3p.brmo.loader.util.TableData" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TableData.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TableData </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> ~ rows : List&lt;TableRow&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TableData(row : TableRow) </td></tr>
-<tr><td align="left" balign="left"> + TableData(comfortSearchTable : String, comfortSearchColumn : String, comfortSearchValue : String, comfortSnapshotDate : String) </td></tr>
-<tr><td align="left" balign="left"> + TableData() </td></tr>
-<tr><td align="left" balign="left"> + addRow(row : TableRow) </td></tr>
-<tr><td align="left" balign="left"> + isComfortData() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setComfortData(comfortData : boolean) </td></tr>
-<tr><td align="left" balign="left"> + isDeleteData() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setDeleteData(deleteData : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getComfortSearchTable() : String </td></tr>
-<tr><td align="left" balign="left"> + setComfortSearchTable(comfortSearchTable : String) </td></tr>
-<tr><td align="left" balign="left"> + getComfortSearchColumn() : String </td></tr>
-<tr><td align="left" balign="left"> + setComfortSearchColumn(comfortSearchColumn : String) </td></tr>
-<tr><td align="left" balign="left"> + getComfortSearchValue() : String </td></tr>
-<tr><td align="left" balign="left"> + setComfortSearchValue(comfortSearchValue : String) </td></tr>
-<tr><td align="left" balign="left"> + getRows() : List&lt;TableRow&gt; </td></tr>
-<tr><td align="left" balign="left"> + setRows(rows : List&lt;TableRow&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getComfortSnapshotDate() : String </td></tr>
-<tr><td align="left" balign="left"> + setComfortSnapshotDate(comfortSnapshotDate : String) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./TableData.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.util.DataComfortXMLReader
-	c140 [label=<<table title="nl.b3p.brmo.loader.util.DataComfortXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DataComfortXMLReader.html">
+	c139 [label=<<table title="nl.b3p.brmo.loader.util.DataComfortXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DataComfortXMLReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DataComfortXMLReader </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + DataComfortXMLReader() </td></tr>
-<tr><td align="left" balign="left"> + readDataXML(dataXML : Source) : List&lt;TableData&gt; </td></tr>
-		</table></td></tr>
 		</table>>, URL="./DataComfortXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.util.BGTLightRsgbTransformer
-	c141 [label=<<table title="nl.b3p.brmo.loader.util.BGTLightRsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightRsgbTransformer.html">
+	c140 [label=<<table title="nl.b3p.brmo.loader.util.BGTLightRsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightRsgbTransformer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTLightRsgbTransformer </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTLightRsgbTransformer(dataSourceRsgbBgt : DataSource, stagingProxy : StagingProxy, lpIDs : long[], listener : ProgressUpdateListener) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + setLoadingUpdate(loadingUpdate : boolean) </td></tr>
-<tr><td align="left" balign="left"> + run() </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BGTLightRsgbTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.util.TableRow
-	c142 [label=<<table title="nl.b3p.brmo.loader.util.TableRow" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TableRow.html">
+	c141 [label=<<table title="nl.b3p.brmo.loader.util.TableRow" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TableRow.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TableRow </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TableRow() </td></tr>
-<tr><td align="left" balign="left"> + getTable() : String </td></tr>
-<tr><td align="left" balign="left"> + setTable(table : String) </td></tr>
-<tr><td align="left" balign="left"> + getColumns() : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> + setColumns(columns : List&lt;String&gt;) </td></tr>
-<tr><td align="left" balign="left"> + isAlleenArchiefColumn(column : String) : boolean </td></tr>
-<tr><td align="left" balign="left"> + setAlleenArchiefColumn(column : String) </td></tr>
-<tr><td align="left" balign="left"> + getValues() : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> + setValues(values : List&lt;String&gt;) </td></tr>
-<tr><td align="left" balign="left"> + isIgnoreDuplicates() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setIgnoreDuplicates(ignoreDuplicates : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getColumnDatumBeginGeldigheid() : String </td></tr>
-<tr><td align="left" balign="left"> + setColumnDatumBeginGeldigheid(columnDatumBeginGeldigheid : String) </td></tr>
-<tr><td align="left" balign="left"> + getColumnDatumEindeGeldigheid() : String </td></tr>
-<tr><td align="left" balign="left"> + setColumnDatumEindeGeldigheid(columnDatumEindeGeldigheid : String) </td></tr>
-<tr><td align="left" balign="left"> + toString(displayColumns : List&lt;String&gt;) : String </td></tr>
-<tr><td align="left" balign="left"> + toString() : String </td></tr>
-<tr><td align="left" balign="left"> + getColumnValue(column : String) : String </td></tr>
-		</table></td></tr>
 		</table>>, URL="./TableRow.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.util.StagingRowHandler
-	c143 [label=<<table title="nl.b3p.brmo.loader.util.StagingRowHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StagingRowHandler.html">
+	c142 [label=<<table title="nl.b3p.brmo.loader.util.StagingRowHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StagingRowHandler.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StagingRowHandler </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + StagingRowHandler() </td></tr>
-<tr><td align="left" balign="left"> + toBeanList(rs : ResultSet, clazz : Class&lt;&gt;) : List&lt;&gt; </td></tr>
-<tr><td align="left" balign="left"> + toBean(rs : ResultSet, type : Class&lt;&gt;) : Object </td></tr>
-		</table></td></tr>
 		</table>>, URL="./StagingRowHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.util.StagingRowHandler.IgnoreCaseStringList
-	c144 [label=<<table title="nl.b3p.brmo.loader.util.StagingRowHandler.IgnoreCaseStringList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StagingRowHandler.IgnoreCaseStringList.html">
+	c143 [label=<<table title="nl.b3p.brmo.loader.util.StagingRowHandler.IgnoreCaseStringList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StagingRowHandler.IgnoreCaseStringList.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> IgnoreCaseStringList </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> ~ IgnoreCaseStringList() </td></tr>
-<tr><td align="left" balign="left"> + contains(o : Object) : boolean </td></tr>
-		</table></td></tr>
 		</table>>, URL="./StagingRowHandler.IgnoreCaseStringList.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.util.RsgbTransformer
-	c145 [label=<<table title="nl.b3p.brmo.loader.util.RsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbTransformer.html">
+	c144 [label=<<table title="nl.b3p.brmo.loader.util.RsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbTransformer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RsgbTransformer </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + RsgbTransformer(pathToXsl : String) </td></tr>
-<tr><td align="left" balign="left"> + transformToDbXml(bericht : Bericht) : String </td></tr>
-<tr><td align="left" balign="left"> + transformToDbXmlNode(bericht : Bericht) : Node </td></tr>
-		</table></td></tr>
 		</table>>, URL="./RsgbTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException
-	c146 [label=<<table title="nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoDuplicaatLaadprocesException.html">
+	c145 [label=<<table title="nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoDuplicaatLaadprocesException.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoDuplicaatLaadprocesException </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BrmoDuplicaatLaadprocesException() </td></tr>
-<tr><td align="left" balign="left"> + BrmoDuplicaatLaadprocesException(message : String) </td></tr>
-<tr><td align="left" balign="left"> + BrmoDuplicaatLaadprocesException(cause : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + BrmoDuplicaatLaadprocesException(message : String, cause : Throwable) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BrmoDuplicaatLaadprocesException.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.util.BrmoException
-	c147 [label=<<table title="nl.b3p.brmo.loader.util.BrmoException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoException.html">
+	c146 [label=<<table title="nl.b3p.brmo.loader.util.BrmoException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoException.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoException </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BrmoException() </td></tr>
-<tr><td align="left" balign="left"> + BrmoException(message : String) </td></tr>
-<tr><td align="left" balign="left"> + BrmoException(cause : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + BrmoException(message : String, cause : Throwable) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BrmoException.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.util.StagingBeanProcessor
-	c148 [label=<<table title="nl.b3p.brmo.loader.util.StagingBeanProcessor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StagingBeanProcessor.html">
+	c147 [label=<<table title="nl.b3p.brmo.loader.util.StagingBeanProcessor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StagingBeanProcessor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StagingBeanProcessor </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + StagingBeanProcessor() </td></tr>
-<tr><td align="left" balign="left"> # mapColumnsToProperties(rsmd : ResultSetMetaData, props : PropertyDescriptor[]) : int[] </td></tr>
-		</table></td></tr>
 		</table>>, URL="./StagingBeanProcessor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.util.BrmoLeegBestandException extends nl.b3p.brmo.loader.util.BrmoException
-	c147:p -> c138:p [dir=back,arrowtail=empty];
+	c146:p -> c137:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException extends nl.b3p.brmo.loader.util.BrmoException
-	c147:p -> c146:p [dir=back,arrowtail=empty];
+	c146:p -> c145:p [dir=back,arrowtail=empty];
 }
 

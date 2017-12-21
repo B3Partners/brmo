@@ -10,35 +10,15 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.entity.BagBerichtIntegrationTest
-	c97 [label=<<table title="nl.b3p.brmo.loader.entity.BagBerichtIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BagBerichtIntegrationTest.html">
+	c102 [label=<<table title="nl.b3p.brmo.loader.entity.BagBerichtIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BagBerichtIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BagBerichtIntegrationTest </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BagBerichtIntegrationTest(bestandNaam : String, aantalBerichten : long, aantalProcessen : long, timestamp : String) </td></tr>
-<tr><td align="left" balign="left"> + testdata() : Collection&lt;&gt; </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + cleanup() </td></tr>
-<tr><td align="left" balign="left"> + loadInStaging() </td></tr>
-<tr><td align="left" balign="left"> + loadAll() </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BagBerichtIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.BagBerichtTest
-	c98 [label=<<table title="nl.b3p.brmo.loader.entity.BagBerichtTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BagBerichtTest.html">
+	c103 [label=<<table title="nl.b3p.brmo.loader.entity.BagBerichtTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BagBerichtTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BagBerichtTest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BagBerichtTest() </td></tr>
-<tr><td align="left" balign="left"> + cleanup() </td></tr>
-<tr><td align="left" balign="left"> + dateTimeUnequalTest() </td></tr>
-<tr><td align="left" balign="left"> + dateTimeEqualTest() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BagBerichtTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

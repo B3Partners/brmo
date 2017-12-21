@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.util.StagingRowHandler
-	c1758 [label=<<table title="nl.b3p.brmo.loader.util.StagingRowHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StagingRowHandler.html">
+	c1716 [label=<<table title="nl.b3p.brmo.loader.util.StagingRowHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StagingRowHandler.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StagingRowHandler </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + StagingRowHandler() </td></tr>
-<tr><td align="left" balign="left"> + toBeanList(rs : ResultSet, clazz : Class&lt;&gt;) : List&lt;&gt; </td></tr>
-<tr><td align="left" balign="left"> + toBean(rs : ResultSet, type : Class&lt;&gt;) : Object </td></tr>
-		</table></td></tr>
 		</table>>, URL="./StagingRowHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	//nl.b3p.brmo.loader.util.StagingRowHandler extends org.apache.commons.dbutils.BasicRowProcessor
+	c1739:p -> c1716:p [dir=back,arrowtail=empty];
+	// org.apache.commons.dbutils.BasicRowProcessor
+	c1739 [label=<<table title="org.apache.commons.dbutils.BasicRowProcessor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BasicRowProcessor </td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

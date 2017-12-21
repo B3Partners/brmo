@@ -9,60 +9,12 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.loader.entity.LaadProces
-	c1276 [label=<<table title="nl.b3p.brmo.loader.entity.LaadProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> LaadProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + LaadProces() </td></tr>
-<tr><td align="left" balign="left"> + LaadProces(bestandNaam : String, soort : String) </td></tr>
-<tr><td align="left" balign="left"> + getId() : Long </td></tr>
-<tr><td align="left" balign="left"> + setId(id : Long) </td></tr>
-<tr><td align="left" balign="left"> + getBestandNaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setBestandNaam(bestandNaam : String) </td></tr>
-<tr><td align="left" balign="left"> + getBestandDatum() : Date </td></tr>
-<tr><td align="left" balign="left"> + setBestandDatum(bestandDatum : Date) </td></tr>
-<tr><td align="left" balign="left"> + getSoort() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoort(soort : String) </td></tr>
-<tr><td align="left" balign="left"> + getGebied() : String </td></tr>
-<tr><td align="left" balign="left"> + setGebied(gebied : String) </td></tr>
-<tr><td align="left" balign="left"> + getOpmerking() : String </td></tr>
-<tr><td align="left" balign="left"> + setOpmerking(opmerking : String) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : LaadProces.STATUS </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : LaadProces.STATUS) </td></tr>
-<tr><td align="left" balign="left"> + getStatusDatum() : Date </td></tr>
-<tr><td align="left" balign="left"> + setStatusDatum(statusDatum : Date) </td></tr>
-<tr><td align="left" balign="left"> + getContactEmail() : String </td></tr>
-<tr><td align="left" balign="left"> + setContactEmail(contactEmail : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./LaadProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.LaadProces.STATUS
-	c1277 [label=<<table title="nl.b3p.brmo.loader.entity.LaadProces.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./LaadProces.STATUS.html">
+	c1237 [label=<<table title="nl.b3p.brmo.loader.entity.LaadProces.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./LaadProces.STATUS.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> STATUS </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> STAGING_OK </td></tr>
-<tr><td align="left" balign="left"> STAGING_NOK </td></tr>
-<tr><td align="left" balign="left"> ARCHIVE </td></tr>
-<tr><td align="left" balign="left"> STAGING_DUPLICAAT </td></tr>
-<tr><td align="left" balign="left"> RSGB_BGT_OK </td></tr>
-<tr><td align="left" balign="left"> RSGB_BGT_NOK </td></tr>
-<tr><td align="left" balign="left"> RSGB_BGT_WAITING </td></tr>
-<tr><td align="left" balign="left"> RSGB_TOPNL_WAITING </td></tr>
-<tr><td align="left" balign="left"> RSGB_TOPNL_OK </td></tr>
-<tr><td align="left" balign="left"> RSGB_TOPNL_NOK </td></tr>
-		</table></td></tr>
 		</table>>, URL="./LaadProces.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.entity.LaadProces NAVASSOC nl.b3p.brmo.loader.entity.LaadProces.STATUS
-	c1276:p -> c1277:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

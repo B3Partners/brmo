@@ -10,129 +10,50 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c1122 [label=<<table title="nl.b3p.brmo.loader.xml.BrmoXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BrmoXMLReader.html">
+	c1086 [label=<<table title="nl.b3p.brmo.loader.xml.BrmoXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BrmoXMLReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> BrmoXMLReader </font></td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # soort : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BrmoXMLReader() </td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + init() </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + hasNext() : boolean </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + next() : Bericht </font></td></tr>
-<tr><td align="left" balign="left"> + setDatumAsString(brkDatumString : String, simpleDateFormat : String) </td></tr>
-<tr><td align="left" balign="left"> + setDatumAsString(brkDatumString : String) </td></tr>
-<tr><td align="left" balign="left"> + getBestandsNaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setBestandsNaam(bestandsNaam : String) </td></tr>
-<tr><td align="left" balign="left"> + getBestandsDatum() : Date </td></tr>
-<tr><td align="left" balign="left"> + setBestandsDatum(bestandsDatum : Date) </td></tr>
-<tr><td align="left" balign="left"> + getSoort() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoort(soort : String) </td></tr>
-<tr><td align="left" balign="left"> + getGebied() : String </td></tr>
-<tr><td align="left" balign="left"> + setGebied(gebied : String) </td></tr>
-<tr><td align="left" balign="left"> + getOpmerking() : String </td></tr>
-<tr><td align="left" balign="left"> + setOpmerking(opmerking : String) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + getStatusDatum() : Date </td></tr>
-<tr><td align="left" balign="left"> + setStatusDatum(statusDatum : Date) </td></tr>
-<tr><td align="left" balign="left"> + getContactEmail() : String </td></tr>
-<tr><td align="left" balign="left"> + setContactEmail(contactEmail : String) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BrmoXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.TopNLFileReader
-	c1123 [label=<<table title="nl.b3p.brmo.loader.xml.TopNLFileReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLFileReader.html">
+	c1087 [label=<<table title="nl.b3p.brmo.loader.xml.TopNLFileReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLFileReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TopNLFileReader </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TopNLFileReader(fileName : String) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + getFileSize() : long </td></tr>
-<tr><td align="left" balign="left"> + setBestandsNaam(naam : String) </td></tr>
-<tr><td align="left" balign="left"> + hasNext() : boolean </td></tr>
-<tr><td align="left" balign="left"> + next() : Bericht </td></tr>
-		</table></td></tr>
 		</table>>, URL="./TopNLFileReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.BagXMLReader
-	c1124 [label=<<table title="nl.b3p.brmo.loader.xml.BagXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BagXMLReader.html">
+	c1088 [label=<<table title="nl.b3p.brmo.loader.xml.BagXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BagXMLReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BagXMLReader </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MUTATIE_PRODUCT : String </td></tr>
-<tr><td align="left" balign="left"> + LVC_PRODUCT : String </td></tr>
-<tr><td align="left" balign="left"> + lvcProductToObjectType : Map&lt;String, String&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BagXMLReader(in : InputStream) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + hasNext() : boolean </td></tr>
-<tr><td align="left" balign="left"> + next() : BagBericht </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BagXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.NhrXMLReader
-	c1125 [label=<<table title="nl.b3p.brmo.loader.xml.NhrXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NhrXMLReader.html">
+	c1089 [label=<<table title="nl.b3p.brmo.loader.xml.NhrXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NhrXMLReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NhrXMLReader </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> ~ iterator : Iterator&lt;NhrBericht&gt; </td></tr>
-<tr><td align="left" balign="left"> ~ volgorde : int </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + NhrXMLReader(in : InputStream) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + hasNext() : boolean </td></tr>
-<tr><td align="left" balign="left"> + next() : NhrBericht </td></tr>
-		</table></td></tr>
 		</table>>, URL="./NhrXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader
-	c1126 [label=<<table title="nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkSnapshotXMLReader.html">
+	c1090 [label=<<table title="nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkSnapshotXMLReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrkSnapshotXMLReader </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BrkSnapshotXMLReader(in : InputStream) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + hasNext() : boolean </td></tr>
-<tr><td align="left" balign="left"> + next() : BrkBericht </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BrkSnapshotXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.BGTLightFileReader
-	c1127 [label=<<table title="nl.b3p.brmo.loader.xml.BGTLightFileReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightFileReader.html">
+	c1091 [label=<<table title="nl.b3p.brmo.loader.xml.BGTLightFileReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightFileReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTLightFileReader </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTLightFileReader(fileName : String) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + getFileSize() : long </td></tr>
-<tr><td align="left" balign="left"> + setBestandsNaam(naam : String) </td></tr>
-<tr><td align="left" balign="left"> + hasNext() : boolean </td></tr>
-<tr><td align="left" balign="left"> + next() : Bericht </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BGTLightFileReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.xml.TopNLFileReader extends nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c1122:p -> c1123:p [dir=back,arrowtail=empty];
+	c1086:p -> c1087:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.xml.BagXMLReader extends nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c1122:p -> c1124:p [dir=back,arrowtail=empty];
+	c1086:p -> c1088:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.xml.NhrXMLReader extends nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c1122:p -> c1125:p [dir=back,arrowtail=empty];
+	c1086:p -> c1089:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader extends nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c1122:p -> c1126:p [dir=back,arrowtail=empty];
+	c1086:p -> c1090:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.xml.BGTLightFileReader extends nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c1122:p -> c1127:p [dir=back,arrowtail=empty];
+	c1086:p -> c1091:p [dir=back,arrowtail=empty];
 }
 

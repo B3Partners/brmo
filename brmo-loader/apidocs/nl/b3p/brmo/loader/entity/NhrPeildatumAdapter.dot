@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.entity.NhrPeildatumAdapter
-	c1393 [label=<<table title="nl.b3p.brmo.loader.entity.NhrPeildatumAdapter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NhrPeildatumAdapter.html">
+	c1353 [label=<<table title="nl.b3p.brmo.loader.entity.NhrPeildatumAdapter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NhrPeildatumAdapter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NhrPeildatumAdapter </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + NHR_PEILDATUM_FORMAT : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + NhrPeildatumAdapter() </td></tr>
-<tr><td align="left" balign="left"> + marshal(v : Date) : String </td></tr>
-<tr><td align="left" balign="left"> + unmarshal(v : String) : Date </td></tr>
-		</table></td></tr>
 		</table>>, URL="./NhrPeildatumAdapter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	//nl.b3p.brmo.loader.entity.NhrPeildatumAdapter extends javax.xml.bind.annotation.adapters.XmlAdapter<java.lang.String, java.util.Date>
+	c1366:p -> c1353:p [dir=back,arrowtail=empty];
+	// javax.xml.bind.annotation.adapters.XmlAdapter<ValueType, BoundType>
+	c1366 [label=<<table title="javax.xml.bind.annotation.adapters.XmlAdapter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> XmlAdapter&lt;ValueType, BoundType&gt; </font></td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
