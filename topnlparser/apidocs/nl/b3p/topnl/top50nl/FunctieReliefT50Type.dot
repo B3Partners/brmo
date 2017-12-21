@@ -9,52 +9,12 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.topnl.top50nl.ReliefType
-	c16643 [label=<<table title="nl.b3p.topnl.top50nl.ReliefType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ReliefType.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ReliefType </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # typeRelief : TypeReliefT50Type </td></tr>
-<tr><td align="left" balign="left"> # hoogteklasse : String </td></tr>
-<tr><td align="left" balign="left"> # functie : FunctieReliefT50Type </td></tr>
-<tr><td align="left" balign="left"> # naamFries : String </td></tr>
-<tr><td align="left" balign="left"> # naamNL : String </td></tr>
-<tr><td align="left" balign="left"> # hoogteniveau : BigInteger </td></tr>
-<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ReliefType() </td></tr>
-<tr><td align="left" balign="left"> + getTypeRelief() : TypeReliefT50Type </td></tr>
-<tr><td align="left" balign="left"> + setTypeRelief(value : TypeReliefT50Type) </td></tr>
-<tr><td align="left" balign="left"> + getHoogteklasse() : String </td></tr>
-<tr><td align="left" balign="left"> + setHoogteklasse(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getFunctie() : FunctieReliefT50Type </td></tr>
-<tr><td align="left" balign="left"> + setFunctie(value : FunctieReliefT50Type) </td></tr>
-<tr><td align="left" balign="left"> + getNaamFries() : String </td></tr>
-<tr><td align="left" balign="left"> + setNaamFries(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getNaamNL() : String </td></tr>
-<tr><td align="left" balign="left"> + setNaamNL(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getHoogteniveau() : BigInteger </td></tr>
-<tr><td align="left" balign="left"> + setHoogteniveau(value : BigInteger) </td></tr>
-<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
-<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ReliefType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top50nl.FunctieReliefT50Type
-	c16683 [label=<<table title="nl.b3p.topnl.top50nl.FunctieReliefT50Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./FunctieReliefT50Type.html">
+	c16658 [label=<<table title="nl.b3p.topnl.top50nl.FunctieReliefT50Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./FunctieReliefT50Type.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> FunctieReliefT50Type </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> GELUID_WEREN </td></tr>
-		</table></td></tr>
 		</table>>, URL="./FunctieReliefT50Type.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.topnl.top50nl.ReliefType NAVASSOC nl.b3p.topnl.top50nl.FunctieReliefT50Type
-	c16643:p -> c16683:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -9,76 +9,11 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.topnl.top250nl.EnvelopeType
-	c11180 [label=<<table title="nl.b3p.topnl.top250nl.EnvelopeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EnvelopeType.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> EnvelopeType </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # lowerCorner : DirectPositionType </td></tr>
-<tr><td align="left" balign="left"> # upperCorner : DirectPositionType </td></tr>
-<tr><td align="left" balign="left"> # pos : List&lt;DirectPositionType&gt; </td></tr>
-<tr><td align="left" balign="left"> # coordinates : CoordinatesType </td></tr>
-<tr><td align="left" balign="left"> # srsName : String </td></tr>
-<tr><td align="left" balign="left"> # srsDimension : BigInteger </td></tr>
-<tr><td align="left" balign="left"> # axisLabels : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> # uomLabels : List&lt;String&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + EnvelopeType() </td></tr>
-<tr><td align="left" balign="left"> + getLowerCorner() : DirectPositionType </td></tr>
-<tr><td align="left" balign="left"> + setLowerCorner(value : DirectPositionType) </td></tr>
-<tr><td align="left" balign="left"> + getUpperCorner() : DirectPositionType </td></tr>
-<tr><td align="left" balign="left"> + setUpperCorner(value : DirectPositionType) </td></tr>
-<tr><td align="left" balign="left"> + getPos() : List&lt;DirectPositionType&gt; </td></tr>
-<tr><td align="left" balign="left"> + getCoordinates() : CoordinatesType </td></tr>
-<tr><td align="left" balign="left"> + setCoordinates(value : CoordinatesType) </td></tr>
-<tr><td align="left" balign="left"> + getSrsName() : String </td></tr>
-<tr><td align="left" balign="left"> + setSrsName(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSrsDimension() : BigInteger </td></tr>
-<tr><td align="left" balign="left"> + setSrsDimension(value : BigInteger) </td></tr>
-<tr><td align="left" balign="left"> + getAxisLabels() : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> + getUomLabels() : List&lt;String&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="./EnvelopeType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.topnl.top250nl.AbstractFeatureType
-	c11187 [label=<<table title="nl.b3p.topnl.top250nl.AbstractFeatureType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractFeatureType.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractFeatureType </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # boundedBy : BoundingShapeType </td></tr>
-<tr><td align="left" balign="left"> # location : LocationPropertyType </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AbstractFeatureType() </td></tr>
-<tr><td align="left" balign="left"> + getBoundedBy() : BoundingShapeType </td></tr>
-<tr><td align="left" balign="left"> + setBoundedBy(value : BoundingShapeType) </td></tr>
-<tr><td align="left" balign="left"> + getLocation() : LocationPropertyType </td></tr>
-<tr><td align="left" balign="left"> + setLocation(value : LocationPropertyType) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./AbstractFeatureType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BoundingShapeType
-	c11202 [label=<<table title="nl.b3p.topnl.top250nl.BoundingShapeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BoundingShapeType.html">
+	c11182 [label=<<table title="nl.b3p.topnl.top250nl.BoundingShapeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BoundingShapeType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BoundingShapeType </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # envelope : EnvelopeType </td></tr>
-<tr><td align="left" balign="left"> # _null : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BoundingShapeType() </td></tr>
-<tr><td align="left" balign="left"> + getEnvelope() : EnvelopeType </td></tr>
-<tr><td align="left" balign="left"> + setEnvelope(value : EnvelopeType) </td></tr>
-<tr><td align="left" balign="left"> + getNull() : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BoundingShapeType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.topnl.top250nl.AbstractFeatureType NAVASSOC nl.b3p.topnl.top250nl.BoundingShapeType
-	c11187:p -> c11202:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.topnl.top250nl.BoundingShapeType NAVASSOC nl.b3p.topnl.top250nl.EnvelopeType
-	c11202:p -> c11180:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

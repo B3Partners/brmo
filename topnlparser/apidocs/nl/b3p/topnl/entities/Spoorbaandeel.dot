@@ -10,160 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.entities.TopNLEntity
-	c31865 [label=<<table title="nl.b3p.topnl.entities.TopNLEntity" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLEntity.html">
+	c31824 [label=<<table title="nl.b3p.topnl.entities.TopNLEntity" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLEntity.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TopNLEntity </font></td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # topnltype : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TopNLEntity() </td></tr>
-<tr><td align="left" balign="left"> + getTopnltype() : String </td></tr>
-<tr><td align="left" balign="left"> + setTopnltype(topnltype : String) </td></tr>
-<tr><td align="left" balign="left"> + getId() : Integer </td></tr>
-<tr><td align="left" balign="left"> + setId(id : Integer) </td></tr>
-<tr><td align="left" balign="left"> + getIdentificatie() : String </td></tr>
-<tr><td align="left" balign="left"> + setIdentificatie(identificatie : String) </td></tr>
-<tr><td align="left" balign="left"> + getBrontype() : String </td></tr>
-<tr><td align="left" balign="left"> + setBrontype(brontype : String) </td></tr>
-<tr><td align="left" balign="left"> + getBronactualiteit() : Date </td></tr>
-<tr><td align="left" balign="left"> + setBronactualiteit(bronactualiteit : Date) </td></tr>
-<tr><td align="left" balign="left"> + getBronbeschrijving() : String </td></tr>
-<tr><td align="left" balign="left"> + setBronbeschrijving(bronbeschrijving : String) </td></tr>
-<tr><td align="left" balign="left"> + getBronnauwkeurigheid() : Double </td></tr>
-<tr><td align="left" balign="left"> + setBronnauwkeurigheid(bronnauwkeurigheid : Double) </td></tr>
-<tr><td align="left" balign="left"> + getObjectBeginTijd() : Date </td></tr>
-<tr><td align="left" balign="left"> + setObjectBeginTijd(objectBeginTijd : Date) </td></tr>
-<tr><td align="left" balign="left"> + getVisualisatieCode() : Long </td></tr>
-<tr><td align="left" balign="left"> + setVisualisatieCode(visualisatieCode : Long) </td></tr>
-<tr><td align="left" balign="left"> + getObjectEindTijd() : Date </td></tr>
-<tr><td align="left" balign="left"> + setObjectEindTijd(objectEindTijd : Date) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./TopNLEntity.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.entities.Spoorbaandeel
-	c31866 [label=<<table title="nl.b3p.topnl.entities.Spoorbaandeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Spoorbaandeel.html">
+	c31825 [label=<<table title="nl.b3p.topnl.entities.Spoorbaandeel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Spoorbaandeel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Spoorbaandeel </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Spoorbaandeel() </td></tr>
-<tr><td align="left" balign="left"> + getTypeInfrastructuur() : String </td></tr>
-<tr><td align="left" balign="left"> + setTypeInfrastructuur(typeInfrastructuur : String) </td></tr>
-<tr><td align="left" balign="left"> + getTypeSpoorbaan() : String </td></tr>
-<tr><td align="left" balign="left"> + setTypeSpoorbaan(typeSpoorbaan : String) </td></tr>
-<tr><td align="left" balign="left"> + getFysiekVoorkomen() : String </td></tr>
-<tr><td align="left" balign="left"> + setFysiekVoorkomen(fysiekVoorkomen : String) </td></tr>
-<tr><td align="left" balign="left"> + getSpoorbreedte() : String </td></tr>
-<tr><td align="left" balign="left"> + setSpoorbreedte(spoorbreedte : String) </td></tr>
-<tr><td align="left" balign="left"> + getAantalSporen() : String </td></tr>
-<tr><td align="left" balign="left"> + setAantalSporen(aantalSporen : String) </td></tr>
-<tr><td align="left" balign="left"> + getVervoerfunctie() : String </td></tr>
-<tr><td align="left" balign="left"> + setVervoerfunctie(vervoerfunctie : String) </td></tr>
-<tr><td align="left" balign="left"> + getElektrificatie() : Boolean </td></tr>
-<tr><td align="left" balign="left"> + setElektrificatie(elektrificatie : Boolean) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + getBrugnaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setBrugnaam(brugnaam : String) </td></tr>
-<tr><td align="left" balign="left"> + getTunnelnaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setTunnelnaam(tunnelnaam : String) </td></tr>
-<tr><td align="left" balign="left"> + getBaanvaknaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setBaanvaknaam(baanvaknaam : String) </td></tr>
-<tr><td align="left" balign="left"> + getGeometrie() : LineString </td></tr>
-<tr><td align="left" balign="left"> + setGeometrie(geometrie : LineString) </td></tr>
-<tr><td align="left" balign="left"> + getHoogteniveau() : Long </td></tr>
-<tr><td align="left" balign="left"> + setHoogteniveau(hoogteniveau : Long) </td></tr>
-<tr><td align="left" balign="left"> + getPuntGeometrie() : Point </td></tr>
-<tr><td align="left" balign="left"> + setPuntGeometrie(puntGeometrie : Point) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./Spoorbaandeel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.entities.Spoorbaandeel extends nl.b3p.topnl.entities.TopNLEntity
-	c31865:p -> c31866:p [dir=back,arrowtail=empty];
-	// nl.b3p.topnl.entities.Spoorbaandeel NAVASSOC com.vividsolutions.jts.geom.LineString
-	c31866:p -> c31873:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.topnl.entities.Spoorbaandeel NAVASSOC com.vividsolutions.jts.geom.Point
-	c31866:p -> c31875:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.vividsolutions.jts.geom.Point
-	c31875 [label=<<table title="com.vividsolutions.jts.geom.Point" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Point </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Point(arg0 : Coordinate, arg1 : PrecisionModel, arg2 : int) </td></tr>
-<tr><td align="left" balign="left"> + Point(arg0 : CoordinateSequence, arg1 : GeometryFactory) </td></tr>
-<tr><td align="left" balign="left"> + getCoordinates() : Coordinate[] </td></tr>
-<tr><td align="left" balign="left"> + getNumPoints() : int </td></tr>
-<tr><td align="left" balign="left"> + isEmpty() : boolean </td></tr>
-<tr><td align="left" balign="left"> + isSimple() : boolean </td></tr>
-<tr><td align="left" balign="left"> + getDimension() : int </td></tr>
-<tr><td align="left" balign="left"> + getBoundaryDimension() : int </td></tr>
-<tr><td align="left" balign="left"> + getX() : double </td></tr>
-<tr><td align="left" balign="left"> + getY() : double </td></tr>
-<tr><td align="left" balign="left"> + getCoordinate() : Coordinate </td></tr>
-<tr><td align="left" balign="left"> + getGeometryType() : String </td></tr>
-<tr><td align="left" balign="left"> + getBoundary() : Geometry </td></tr>
-<tr><td align="left" balign="left"> # computeEnvelopeInternal() : Envelope </td></tr>
-<tr><td align="left" balign="left"> + equalsExact(arg0 : Geometry, arg1 : double) : boolean </td></tr>
-<tr><td align="left" balign="left"> + apply(arg0 : CoordinateFilter) </td></tr>
-<tr><td align="left" balign="left"> + apply(arg0 : CoordinateSequenceFilter) </td></tr>
-<tr><td align="left" balign="left"> + apply(arg0 : GeometryFilter) </td></tr>
-<tr><td align="left" balign="left"> + apply(arg0 : GeometryComponentFilter) </td></tr>
-<tr><td align="left" balign="left"> + clone() : Object </td></tr>
-<tr><td align="left" balign="left"> + reverse() : Geometry </td></tr>
-<tr><td align="left" balign="left"> + normalize() </td></tr>
-<tr><td align="left" balign="left"> # compareToSameClass(arg0 : Object) : int </td></tr>
-<tr><td align="left" balign="left"> # compareToSameClass(arg0 : Object, arg1 : CoordinateSequenceComparator) : int </td></tr>
-<tr><td align="left" balign="left"> + getCoordinateSequence() : CoordinateSequence </td></tr>
-		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// com.vividsolutions.jts.geom.LineString
-	c31873 [label=<<table title="com.vividsolutions.jts.geom.LineString" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> LineString </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # points : CoordinateSequence </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + LineString(arg0 : Coordinate[], arg1 : PrecisionModel, arg2 : int) </td></tr>
-<tr><td align="left" balign="left"> + LineString(arg0 : CoordinateSequence, arg1 : GeometryFactory) </td></tr>
-<tr><td align="left" balign="left"> + getCoordinates() : Coordinate[] </td></tr>
-<tr><td align="left" balign="left"> + getCoordinateSequence() : CoordinateSequence </td></tr>
-<tr><td align="left" balign="left"> + getCoordinateN(arg0 : int) : Coordinate </td></tr>
-<tr><td align="left" balign="left"> + getCoordinate() : Coordinate </td></tr>
-<tr><td align="left" balign="left"> + getDimension() : int </td></tr>
-<tr><td align="left" balign="left"> + getBoundaryDimension() : int </td></tr>
-<tr><td align="left" balign="left"> + isEmpty() : boolean </td></tr>
-<tr><td align="left" balign="left"> + getNumPoints() : int </td></tr>
-<tr><td align="left" balign="left"> + getPointN(arg0 : int) : Point </td></tr>
-<tr><td align="left" balign="left"> + getStartPoint() : Point </td></tr>
-<tr><td align="left" balign="left"> + getEndPoint() : Point </td></tr>
-<tr><td align="left" balign="left"> + isClosed() : boolean </td></tr>
-<tr><td align="left" balign="left"> + isRing() : boolean </td></tr>
-<tr><td align="left" balign="left"> + getGeometryType() : String </td></tr>
-<tr><td align="left" balign="left"> + getLength() : double </td></tr>
-<tr><td align="left" balign="left"> + getBoundary() : Geometry </td></tr>
-<tr><td align="left" balign="left"> + reverse() : Geometry </td></tr>
-<tr><td align="left" balign="left"> + isCoordinate(arg0 : Coordinate) : boolean </td></tr>
-<tr><td align="left" balign="left"> # computeEnvelopeInternal() : Envelope </td></tr>
-<tr><td align="left" balign="left"> + equalsExact(arg0 : Geometry, arg1 : double) : boolean </td></tr>
-<tr><td align="left" balign="left"> + apply(arg0 : CoordinateFilter) </td></tr>
-<tr><td align="left" balign="left"> + apply(arg0 : CoordinateSequenceFilter) </td></tr>
-<tr><td align="left" balign="left"> + apply(arg0 : GeometryFilter) </td></tr>
-<tr><td align="left" balign="left"> + apply(arg0 : GeometryComponentFilter) </td></tr>
-<tr><td align="left" balign="left"> + clone() : Object </td></tr>
-<tr><td align="left" balign="left"> + normalize() </td></tr>
-<tr><td align="left" balign="left"> # isEquivalentClass(arg0 : Geometry) : boolean </td></tr>
-<tr><td align="left" balign="left"> # compareToSameClass(arg0 : Object) : int </td></tr>
-<tr><td align="left" balign="left"> # compareToSameClass(arg0 : Object, arg1 : CoordinateSequenceComparator) : int </td></tr>
-		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	c31824:p -> c31825:p [dir=back,arrowtail=empty];
 }
 

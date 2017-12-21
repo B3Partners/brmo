@@ -10,98 +10,10 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top100nl.TypeGebouwT100Type
-	c40092 [label=<<table title="nl.b3p.topnl.top100nl.TypeGebouwT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeGebouwT100Type.html">
+	c40045 [label=<<table title="nl.b3p.topnl.top100nl.TypeGebouwT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeGebouwT100Type.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> TypeGebouwT100Type </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> BEZOEKERSCENTRUM </td></tr>
-<tr><td align="left" balign="left"> BRANDTOREN </td></tr>
-<tr><td align="left" balign="left"> BUNKER </td></tr>
-<tr><td align="left" balign="left"> CREMATORIUM </td></tr>
-<tr><td align="left" balign="left"> DEELRAADSECRETARIE </td></tr>
-<tr><td align="left" balign="left"> DOK </td></tr>
-<tr><td align="left" balign="left"> ELEKTRICITEITSCENTRALE </td></tr>
-<tr><td align="left" balign="left"> FABRIEK </td></tr>
-<tr><td align="left" balign="left"> FORT </td></tr>
-<tr><td align="left" balign="left"> GASCOMPRESSIESTATION </td></tr>
-<tr><td align="left" balign="left"> GEMAAL </td></tr>
-<tr><td align="left" balign="left"> GEMEENTEHUIS </td></tr>
-<tr><td align="left" balign="left"> GEVANGENIS </td></tr>
-<tr><td align="left" balign="left"> GRENSKANTOOR </td></tr>
-<tr><td align="left" balign="left"> HOTEL </td></tr>
-<tr><td align="left" balign="left"> HUIZENBLOK </td></tr>
-<tr><td align="left" balign="left"> HULPSECRETARIE </td></tr>
-<tr><td align="left" balign="left"> KAPEL </td></tr>
-<tr><td align="left" balign="left"> KAS_WARENHUIS </td></tr>
-<tr><td align="left" balign="left"> KASTEEL </td></tr>
-<tr><td align="left" balign="left"> KERK </td></tr>
-<tr><td align="left" balign="left"> KERNCENTRALE_KERNREACTOR </td></tr>
-<tr><td align="left" balign="left"> KLINIEK_INRICHTING_SANATORIUM </td></tr>
-<tr><td align="left" balign="left"> KLOKKENTOREN </td></tr>
-<tr><td align="left" balign="left"> KLOOSTER_ABDIJ </td></tr>
-<tr><td align="left" balign="left"> KOELTOREN </td></tr>
-<tr><td align="left" balign="left"> KOEPEL </td></tr>
-<tr><td align="left" balign="left"> KUNSTIJSBAAN </td></tr>
-<tr><td align="left" balign="left"> LICHTTOREN </td></tr>
-<tr><td align="left" balign="left"> LUCHTWACHTTOREN </td></tr>
-<tr><td align="left" balign="left"> MANEGE </td></tr>
-<tr><td align="left" balign="left"> METROSTATION </td></tr>
-<tr><td align="left" balign="left"> MILITAIR_GEBOUW </td></tr>
-<tr><td align="left" balign="left"> MOTEL </td></tr>
-<tr><td align="left" balign="left"> MUSEUM </td></tr>
-<tr><td align="left" balign="left"> OBSERVATORIUM </td></tr>
-<tr><td align="left" balign="left"> OVERHEIDSGEBOUW </td></tr>
-<tr><td align="left" balign="left"> PALEIS </td></tr>
-<tr><td align="left" balign="left"> PARKEERDAK_PARKEERDEK_PARKEERGARAGE </td></tr>
-<tr><td align="left" balign="left"> PEILMEETSTATION </td></tr>
-<tr><td align="left" balign="left"> POLITIEBUREAU </td></tr>
-<tr><td align="left" balign="left"> POMPSTATION </td></tr>
-<tr><td align="left" balign="left"> POSTKANTOOR </td></tr>
-<tr><td align="left" balign="left"> PSYCHIATRISCH_ZIEKENHUIS_PSYCHIATRISCH_CENTRUM </td></tr>
-<tr><td align="left" balign="left"> RADARPOST </td></tr>
-<tr><td align="left" balign="left"> RADARTOREN </td></tr>
-<tr><td align="left" balign="left"> RADIOTOREN_TELEVISIETOREN </td></tr>
-<tr><td align="left" balign="left"> RECREATIECENTRUM </td></tr>
-<tr><td align="left" balign="left"> REDDINGBOOTHUISJE </td></tr>
-<tr><td align="left" balign="left"> REDDINGHUISJE_SCHUILHUT </td></tr>
-<tr><td align="left" balign="left"> RELIGIEUS_GEBOUW </td></tr>
-<tr><td align="left" balign="left"> REMISE </td></tr>
-<tr><td align="left" balign="left"> RUÏNE </td></tr>
-<tr><td align="left" balign="left"> SCHAAPSKOOI </td></tr>
-<tr><td align="left" balign="left"> SCHOOL </td></tr>
-<tr><td align="left" balign="left"> SCHOORSTEEN </td></tr>
-<tr><td align="left" balign="left"> SPORTHAL </td></tr>
-<tr><td align="left" balign="left"> STADION </td></tr>
-<tr><td align="left" balign="left"> STADSKANTOOR </td></tr>
-<tr><td align="left" balign="left"> TANK </td></tr>
-<tr><td align="left" balign="left"> TANKSTATION </td></tr>
-<tr><td align="left" balign="left"> TELECOMMUNICATIETOREN </td></tr>
-<tr><td align="left" balign="left"> TOREN </td></tr>
-<tr><td align="left" balign="left"> TRANSFORMATORSTATION </td></tr>
-<tr><td align="left" balign="left"> TREINSTATION </td></tr>
-<tr><td align="left" balign="left"> UITZICHTTOREN </td></tr>
-<tr><td align="left" balign="left"> UNIVERSITEIT </td></tr>
-<tr><td align="left" balign="left"> VEILING </td></tr>
-<tr><td align="left" balign="left"> VERKEERSTOREN </td></tr>
-<tr><td align="left" balign="left"> VUURTOREN </td></tr>
-<tr><td align="left" balign="left"> WATERRADMOLEN </td></tr>
-<tr><td align="left" balign="left"> WATERTOREN </td></tr>
-<tr><td align="left" balign="left"> WEGENWACHTSTATION </td></tr>
-<tr><td align="left" balign="left"> WEGRESTAURANT </td></tr>
-<tr><td align="left" balign="left"> WERF </td></tr>
-<tr><td align="left" balign="left"> WINDMOLEN </td></tr>
-<tr><td align="left" balign="left"> WINDMOLEN_KORENMOLEN </td></tr>
-<tr><td align="left" balign="left"> WINDMOLEN_WATERMOLEN </td></tr>
-<tr><td align="left" balign="left"> WINDTURBINE </td></tr>
-<tr><td align="left" balign="left"> ZENDTOREN </td></tr>
-<tr><td align="left" balign="left"> ZIEKENHUIS </td></tr>
-<tr><td align="left" balign="left"> ZWEMBAD </td></tr>
-<tr><td align="left" balign="left"> OVERIG </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TypeGebouwT100Type.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

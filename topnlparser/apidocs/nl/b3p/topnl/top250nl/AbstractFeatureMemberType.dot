@@ -10,60 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top250nl.FeatureMemberType
-	c2808 [label=<<table title="nl.b3p.topnl.top250nl.FeatureMemberType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FeatureMemberType.html">
+	c2786 [label=<<table title="nl.b3p.topnl.top250nl.FeatureMemberType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FeatureMemberType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FeatureMemberType </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # top250NlObject : JAXBElement&lt;?&gt; </td></tr>
-<tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
-<tr><td align="left" balign="left"> # type : TypeType </td></tr>
-<tr><td align="left" balign="left"> # href : String </td></tr>
-<tr><td align="left" balign="left"> # role : String </td></tr>
-<tr><td align="left" balign="left"> # arcrole : String </td></tr>
-<tr><td align="left" balign="left"> # title : String </td></tr>
-<tr><td align="left" balign="left"> # show : ShowType </td></tr>
-<tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + FeatureMemberType() </td></tr>
-<tr><td align="left" balign="left"> + getTop250NlObject() : JAXBElement&lt;?&gt; </td></tr>
-<tr><td align="left" balign="left"> + setTop250NlObject(value : JAXBElement&lt;?&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
-<tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getType() : TypeType </td></tr>
-<tr><td align="left" balign="left"> + setType(value : TypeType) </td></tr>
-<tr><td align="left" balign="left"> + getHref() : String </td></tr>
-<tr><td align="left" balign="left"> + setHref(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getRole() : String </td></tr>
-<tr><td align="left" balign="left"> + setRole(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getArcrole() : String </td></tr>
-<tr><td align="left" balign="left"> + setArcrole(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getTitle() : String </td></tr>
-<tr><td align="left" balign="left"> + setTitle(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getShow() : ShowType </td></tr>
-<tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
-<tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
-<tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./FeatureMemberType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.AbstractFeatureMemberType
-	c2810 [label=<<table title="nl.b3p.topnl.top250nl.AbstractFeatureMemberType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AbstractFeatureMemberType.html">
+	c2788 [label=<<table title="nl.b3p.topnl.top250nl.AbstractFeatureMemberType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AbstractFeatureMemberType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractFeatureMemberType </font></td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AbstractFeatureMemberType() </td></tr>
-<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./AbstractFeatureMemberType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.top250nl.FeatureMemberType extends nl.b3p.topnl.top250nl.AbstractFeatureMemberType
-	c2810:p -> c2808:p [dir=back,arrowtail=empty];
+	c2788:p -> c2786:p [dir=back,arrowtail=empty];
 }
 

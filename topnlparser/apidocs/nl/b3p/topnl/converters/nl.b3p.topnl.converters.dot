@@ -14,41 +14,11 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DbUtilsGeometryColumnConverter </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # log : Log </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + DbUtilsGeometryColumnConverter(gjc : GeometryJdbcConverter) </td></tr>
-<tr><td align="left" balign="left"> # processColumn(rs : ResultSet, index : int, propType : Class&lt;?&gt;) : Object </td></tr>
-		</table></td></tr>
 		</table>>, URL="./DbUtilsGeometryColumnConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.converters.Top10NLConverter
 	c1445 [label=<<table title="nl.b3p.topnl.converters.Top10NLConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Top10NLConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Top10NLConverter </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # log : Log </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Top10NLConverter() </td></tr>
-<tr><td align="left" balign="left"> + convert(jaxbObject : List&lt;&gt;) : List&lt;TopNLEntity&gt; </td></tr>
-<tr><td align="left" balign="left"> + convertFeatureCollection(jaxbFeatureCollection : List&lt;&gt;) : List&lt;TopNLEntity&gt; </td></tr>
-<tr><td align="left" balign="left"> + convertObject(featureMember : Object) : TopNLEntity </td></tr>
-<tr><td align="left" balign="left"> + convertHoogte(jaxbObject : Object) : Hoogte </td></tr>
-<tr><td align="left" balign="left"> + convertIdentificatie(identificatie : Top10NlObjectType.Identificatie) : String </td></tr>
-<tr><td align="left" balign="left"> + convertFunctioneelGebied(jaxbObject : Object) : FunctioneelGebied </td></tr>
-<tr><td align="left" balign="left"> + convertGebouw(jaxbObject : Object) : Gebouw </td></tr>
-<tr><td align="left" balign="left"> + convertGeografischGebied(jaxbObject : Object) : GeografischGebied </td></tr>
-<tr><td align="left" balign="left"> + convertInrichtingselement(jaxbObject : Object) : Inrichtingselement </td></tr>
-<tr><td align="left" balign="left"> + convertPlaats(jaxbObject : Object) : Plaats </td></tr>
-<tr><td align="left" balign="left"> + convertRegistratiefGebied(jaxbObject : Object) : RegistratiefGebied </td></tr>
-<tr><td align="left" balign="left"> + convertRelief(jaxbObject : Object) : Relief </td></tr>
-<tr><td align="left" balign="left"> + convertSpoorbaandeel(jaxbObject : Object) : Spoorbaandeel </td></tr>
-<tr><td align="left" balign="left"> + convertTerrein(jaxbObject : Object) : Terrein </td></tr>
-<tr><td align="left" balign="left"> + convertPlanTopografie(jaxbObject : Object) : PlanTopografie </td></tr>
-<tr><td align="left" balign="left"> + convertWaterdeel(jaxbObject : Object) : Waterdeel </td></tr>
-<tr><td align="left" balign="left"> + convertWegdeel(jaxbObject : Object) : Wegdeel </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Top10NLConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.converters.Top50NLConverter
@@ -56,58 +26,11 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Top50NLConverter </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # log : Log </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Top50NLConverter() </td></tr>
-<tr><td align="left" balign="left"> + convert(jaxbObject : List&lt;&gt;) : List&lt;TopNLEntity&gt; </td></tr>
-<tr><td align="left" balign="left"> + convertFeatureCollection(jaxbFeatureCollection : List&lt;&gt;) : List&lt;TopNLEntity&gt; </td></tr>
-<tr><td align="left" balign="left"> + convertObject(featureMember : Object) : TopNLEntity </td></tr>
-<tr><td align="left" balign="left"> + convertHoogte(jaxbObject : Object) : Hoogte </td></tr>
-<tr><td align="left" balign="left"> + convertIdentificatie(identificatie : Top50NlObjectType.Identificatie) : String </td></tr>
-<tr><td align="left" balign="left"> + convertFunctioneelGebied(jaxbObject : Object) : FunctioneelGebied </td></tr>
-<tr><td align="left" balign="left"> + convertGebouw(jaxbObject : Object) : Gebouw </td></tr>
-<tr><td align="left" balign="left"> + convertGeografischGebied(jaxbObject : Object) : GeografischGebied </td></tr>
-<tr><td align="left" balign="left"> + convertInrichtingselement(jaxbObject : Object) : Inrichtingselement </td></tr>
-<tr><td align="left" balign="left"> + convertPlaats(jaxbObject : Object) : Plaats </td></tr>
-<tr><td align="left" balign="left"> + convertRegistratiefGebied(jaxbObject : Object) : RegistratiefGebied </td></tr>
-<tr><td align="left" balign="left"> + convertRelief(jaxbObject : Object) : Relief </td></tr>
-<tr><td align="left" balign="left"> + convertSpoorbaandeel(jaxbObject : Object) : Spoorbaandeel </td></tr>
-<tr><td align="left" balign="left"> + convertTerrein(jaxbObject : Object) : Terrein </td></tr>
-<tr><td align="left" balign="left"> + convertWaterdeel(jaxbObject : Object) : Waterdeel </td></tr>
-<tr><td align="left" balign="left"> + convertWegdeel(jaxbObject : Object) : Wegdeel </td></tr>
-<tr><td align="left" balign="left"> + convertPlanTopografie(jaxbObject : Object) : PlanTopografie </td></tr>
-		</table></td></tr>
 		</table>>, URL="./Top50NLConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.converters.Top250NLConverter
 	c1447 [label=<<table title="nl.b3p.topnl.converters.Top250NLConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Top250NLConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Top250NLConverter </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # log : Log </td></tr>
-<tr><td align="left" balign="left"> # sdf : SimpleDateFormat </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Top250NLConverter() </td></tr>
-<tr><td align="left" balign="left"> + convert(jaxbObject : List&lt;&gt;) : List&lt;TopNLEntity&gt; </td></tr>
-<tr><td align="left" balign="left"> + convertFeatureCollection(featureMembers : List&lt;&gt;) : List&lt;TopNLEntity&gt; </td></tr>
-<tr><td align="left" balign="left"> + convertObject(featureMember : Object) : TopNLEntity </td></tr>
-<tr><td align="left" balign="left"> + convertHoogte(jaxbObject : Object) : Hoogte </td></tr>
-<tr><td align="left" balign="left"> + convertIdentificatie(identificatie : Identificatie) : String </td></tr>
-<tr><td align="left" balign="left"> + convertFunctioneelGebied(jaxbObject : Object) : FunctioneelGebied </td></tr>
-<tr><td align="left" balign="left"> + convertGebouw(jaxbObject : Object) : Gebouw </td></tr>
-<tr><td align="left" balign="left"> + convertGeografischGebied(jaxbObject : Object) : GeografischGebied </td></tr>
-<tr><td align="left" balign="left"> + convertInrichtingselement(jaxbObject : Object) : Inrichtingselement </td></tr>
-<tr><td align="left" balign="left"> + convertPlaats(jaxbObject : Object) : Plaats </td></tr>
-<tr><td align="left" balign="left"> + convertRegistratiefGebied(jaxbObject : Object) : RegistratiefGebied </td></tr>
-<tr><td align="left" balign="left"> + convertRelief(jaxbObject : Object) : Relief </td></tr>
-<tr><td align="left" balign="left"> + convertSpoorbaandeel(jaxbObject : Object) : Spoorbaandeel </td></tr>
-<tr><td align="left" balign="left"> + convertTerrein(jaxbObject : Object) : Terrein </td></tr>
-<tr><td align="left" balign="left"> + convertWaterdeel(jaxbObject : Object) : Waterdeel </td></tr>
-<tr><td align="left" balign="left"> + convertWegdeel(jaxbObject : Object) : Wegdeel </td></tr>
-<tr><td align="left" balign="left"> + convertPlanTopografie(jaxbObject : Object) : PlanTopografie </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Top250NLConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.converters.ConverterFactory
@@ -115,28 +38,11 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConverterFactory </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ConverterFactory() </td></tr>
-<tr><td align="left" balign="left"> + getConverter(type : TopNLType) : Converter </td></tr>
-<tr><td align="left" balign="left"> + getContext(type : TopNLType) : JAXBContext </td></tr>
-		</table></td></tr>
 		</table>>, URL="./ConverterFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.converters.GeometryConverter
 	c1449 [label=<<table title="nl.b3p.topnl.converters.GeometryConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GeometryConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GeometryConverter </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # log : Log </td></tr>
-<tr><td align="left" balign="left"> # LINEARIZATION_TOLERANCE_MULTIPLIER : double </td></tr>
-<tr><td align="left" balign="left"> # SRID : int </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + GeometryConverter() </td></tr>
-<tr><td align="left" balign="left"> + convertGeometry(el : Element) : Geometry </td></tr>
 		</table></td></tr>
 		</table>>, URL="./GeometryConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.converters.Converter
@@ -144,56 +50,11 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Converter </font></td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # gc : GeometryConverter </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Converter() </td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convert(jaxbObjects : List&lt;&gt;) : List&lt;TopNLEntity&gt; </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertObject(jaxbObject : Object) : TopNLEntity </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertFeatureCollection(jaxbObject : List&lt;&gt;) : List&lt;TopNLEntity&gt; </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertHoogte(jaxbObject : Object) : Hoogte </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertFunctioneelGebied(jaxbObject : Object) : FunctioneelGebied </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertGebouw(jaxbObject : Object) : Gebouw </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertGeografischGebied(jaxbObject : Object) : GeografischGebied </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertInrichtingselement(jaxbObject : Object) : Inrichtingselement </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertPlaats(jaxbObject : Object) : Plaats </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertRegistratiefGebied(jaxbObject : Object) : RegistratiefGebied </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertRelief(jaxbObject : Object) : Relief </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertPlanTopografie(jaxbObject : Object) : PlanTopografie </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertSpoorbaandeel(jaxbObject : Object) : Spoorbaandeel </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertTerrein(jaxbObject : Object) : Terrein </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertWaterdeel(jaxbObject : Object) : Waterdeel </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + convertWegdeel(jaxbObject : Object) : Wegdeel </font></td></tr>
-		</table></td></tr>
 		</table>>, URL="./Converter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.converters.Top100NLConverter
 	c1451 [label=<<table title="nl.b3p.topnl.converters.Top100NLConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Top100NLConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Top100NLConverter </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # log : Log </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Top100NLConverter() </td></tr>
-<tr><td align="left" balign="left"> + convert(jaxbObject : List&lt;&gt;) : List&lt;TopNLEntity&gt; </td></tr>
-<tr><td align="left" balign="left"> + convertFeatureCollection(jaxbFeatureCollection : List&lt;&gt;) : List&lt;TopNLEntity&gt; </td></tr>
-<tr><td align="left" balign="left"> + convertObject(featureMember : Object) : TopNLEntity </td></tr>
-<tr><td align="left" balign="left"> + convertHoogte(jaxbObject : Object) : Hoogte </td></tr>
-<tr><td align="left" balign="left"> + convertIdentificatie(identificatie : Top100NlObjectType.Identificatie) : String </td></tr>
-<tr><td align="left" balign="left"> + convertFunctioneelGebied(jaxbObject : Object) : FunctioneelGebied </td></tr>
-<tr><td align="left" balign="left"> + convertGebouw(jaxbObject : Object) : Gebouw </td></tr>
-<tr><td align="left" balign="left"> + convertGeografischGebied(jaxbObject : Object) : GeografischGebied </td></tr>
-<tr><td align="left" balign="left"> + convertInrichtingselement(jaxbObject : Object) : Inrichtingselement </td></tr>
-<tr><td align="left" balign="left"> + convertPlaats(jaxbObject : Object) : Plaats </td></tr>
-<tr><td align="left" balign="left"> + convertRegistratiefGebied(jaxbObject : Object) : RegistratiefGebied </td></tr>
-<tr><td align="left" balign="left"> + convertRelief(jaxbObject : Object) : Relief </td></tr>
-<tr><td align="left" balign="left"> + convertSpoorbaandeel(jaxbObject : Object) : Spoorbaandeel </td></tr>
-<tr><td align="left" balign="left"> + convertTerrein(jaxbObject : Object) : Terrein </td></tr>
-<tr><td align="left" balign="left"> + convertWaterdeel(jaxbObject : Object) : Waterdeel </td></tr>
-<tr><td align="left" balign="left"> + convertWegdeel(jaxbObject : Object) : Wegdeel </td></tr>
-<tr><td align="left" balign="left"> + convertPlanTopografie(jaxbObject : Object) : PlanTopografie </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Top100NLConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.converters.Top10NLConverter extends nl.b3p.topnl.converters.Converter
@@ -204,15 +65,5 @@ digraph G {
 	c1450:p -> c1447:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.converters.Top100NLConverter extends nl.b3p.topnl.converters.Converter
 	c1450:p -> c1451:p [dir=back,arrowtail=empty];
-	// nl.b3p.topnl.converters.ConverterFactory NAVASSOC nl.b3p.topnl.converters.Converter
-	c1448:p -> c1450:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.topnl.converters.ConverterFactory NAVASSOC nl.b3p.topnl.converters.Converter
-	c1448:p -> c1450:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.topnl.converters.ConverterFactory NAVASSOC nl.b3p.topnl.converters.Converter
-	c1448:p -> c1450:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.topnl.converters.ConverterFactory NAVASSOC nl.b3p.topnl.converters.Converter
-	c1448:p -> c1450:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.topnl.converters.Converter NAVASSOC nl.b3p.topnl.converters.GeometryConverter
-	c1450:p -> c1449:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

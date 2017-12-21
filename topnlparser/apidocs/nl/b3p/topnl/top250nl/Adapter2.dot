@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top250nl.Adapter2
-	c5926 [label=<<table title="nl.b3p.topnl.top250nl.Adapter2" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Adapter2.html">
+	c5905 [label=<<table title="nl.b3p.topnl.top250nl.Adapter2" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Adapter2.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Adapter2 </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Adapter2() </td></tr>
-<tr><td align="left" balign="left"> + unmarshal(value : String) : Calendar </td></tr>
-<tr><td align="left" balign="left"> + marshal(value : Calendar) : String </td></tr>
-		</table></td></tr>
 		</table>>, URL="./Adapter2.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	//nl.b3p.topnl.top250nl.Adapter2 extends javax.xml.bind.annotation.adapters.XmlAdapter<java.lang.String, java.util.Calendar>
+	c6183:p -> c5905:p [dir=back,arrowtail=empty];
+	// javax.xml.bind.annotation.adapters.XmlAdapter<ValueType, BoundType>
+	c6183 [label=<<table title="javax.xml.bind.annotation.adapters.XmlAdapter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> XmlAdapter&lt;ValueType, BoundType&gt; </font></td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

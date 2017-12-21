@@ -10,150 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.entities.PlanTopografie
-	c28151 [label=<<table title="nl.b3p.topnl.entities.PlanTopografie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PlanTopografie.html">
+	c28115 [label=<<table title="nl.b3p.topnl.entities.PlanTopografie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PlanTopografie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PlanTopografie </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PlanTopografie() </td></tr>
-<tr><td align="left" balign="left"> + getTypePlanTopografie() : String </td></tr>
-<tr><td align="left" balign="left"> + setTypePlanTopografie(typePlanTopografie : String) </td></tr>
-<tr><td align="left" balign="left"> + getNaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setNaam(naam : String) </td></tr>
-<tr><td align="left" balign="left"> + getGeometrie() : Geometry </td></tr>
-<tr><td align="left" balign="left"> + setGeometrie(geometrie : Geometry) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./PlanTopografie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.entities.TopNLEntity
-	c28152 [label=<<table title="nl.b3p.topnl.entities.TopNLEntity" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLEntity.html">
+	c28116 [label=<<table title="nl.b3p.topnl.entities.TopNLEntity" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLEntity.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TopNLEntity </font></td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # topnltype : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TopNLEntity() </td></tr>
-<tr><td align="left" balign="left"> + getTopnltype() : String </td></tr>
-<tr><td align="left" balign="left"> + setTopnltype(topnltype : String) </td></tr>
-<tr><td align="left" balign="left"> + getId() : Integer </td></tr>
-<tr><td align="left" balign="left"> + setId(id : Integer) </td></tr>
-<tr><td align="left" balign="left"> + getIdentificatie() : String </td></tr>
-<tr><td align="left" balign="left"> + setIdentificatie(identificatie : String) </td></tr>
-<tr><td align="left" balign="left"> + getBrontype() : String </td></tr>
-<tr><td align="left" balign="left"> + setBrontype(brontype : String) </td></tr>
-<tr><td align="left" balign="left"> + getBronactualiteit() : Date </td></tr>
-<tr><td align="left" balign="left"> + setBronactualiteit(bronactualiteit : Date) </td></tr>
-<tr><td align="left" balign="left"> + getBronbeschrijving() : String </td></tr>
-<tr><td align="left" balign="left"> + setBronbeschrijving(bronbeschrijving : String) </td></tr>
-<tr><td align="left" balign="left"> + getBronnauwkeurigheid() : Double </td></tr>
-<tr><td align="left" balign="left"> + setBronnauwkeurigheid(bronnauwkeurigheid : Double) </td></tr>
-<tr><td align="left" balign="left"> + getObjectBeginTijd() : Date </td></tr>
-<tr><td align="left" balign="left"> + setObjectBeginTijd(objectBeginTijd : Date) </td></tr>
-<tr><td align="left" balign="left"> + getVisualisatieCode() : Long </td></tr>
-<tr><td align="left" balign="left"> + setVisualisatieCode(visualisatieCode : Long) </td></tr>
-<tr><td align="left" balign="left"> + getObjectEindTijd() : Date </td></tr>
-<tr><td align="left" balign="left"> + setObjectEindTijd(objectEindTijd : Date) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./TopNLEntity.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.entities.PlanTopografie extends nl.b3p.topnl.entities.TopNLEntity
-	c28152:p -> c28151:p [dir=back,arrowtail=empty];
-	// nl.b3p.topnl.entities.PlanTopografie NAVASSOC com.vividsolutions.jts.geom.Geometry
-	c28151:p -> c28160:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.vividsolutions.jts.geom.Geometry
-	c28160 [label=<<table title="com.vividsolutions.jts.geom.Geometry" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Geometry </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # envelope : Envelope </td></tr>
-<tr><td align="left" balign="left"> # factory : GeometryFactory </td></tr>
-<tr><td align="left" balign="left"> # SRID : int </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Geometry(arg0 : GeometryFactory) </td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getGeometryType() : String </font></td></tr>
-<tr><td align="left" balign="left"> # hasNonEmptyElements(arg0 : Geometry[]) : boolean </td></tr>
-<tr><td align="left" balign="left"> # hasNullElements(arg0 : Object[]) : boolean </td></tr>
-<tr><td align="left" balign="left"> + getSRID() : int </td></tr>
-<tr><td align="left" balign="left"> + setSRID(arg0 : int) </td></tr>
-<tr><td align="left" balign="left"> + getFactory() : GeometryFactory </td></tr>
-<tr><td align="left" balign="left"> + getUserData() : Object </td></tr>
-<tr><td align="left" balign="left"> + getNumGeometries() : int </td></tr>
-<tr><td align="left" balign="left"> + getGeometryN(arg0 : int) : Geometry </td></tr>
-<tr><td align="left" balign="left"> + setUserData(arg0 : Object) </td></tr>
-<tr><td align="left" balign="left"> + getPrecisionModel() : PrecisionModel </td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getCoordinate() : Coordinate </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getCoordinates() : Coordinate[] </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getNumPoints() : int </font></td></tr>
-<tr><td align="left" balign="left"> + isSimple() : boolean </td></tr>
-<tr><td align="left" balign="left"> + isValid() : boolean </td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isEmpty() : boolean </font></td></tr>
-<tr><td align="left" balign="left"> + distance(arg0 : Geometry) : double </td></tr>
-<tr><td align="left" balign="left"> + isWithinDistance(arg0 : Geometry, arg1 : double) : boolean </td></tr>
-<tr><td align="left" balign="left"> + isRectangle() : boolean </td></tr>
-<tr><td align="left" balign="left"> + getArea() : double </td></tr>
-<tr><td align="left" balign="left"> + getLength() : double </td></tr>
-<tr><td align="left" balign="left"> + getCentroid() : Point </td></tr>
-<tr><td align="left" balign="left"> + getInteriorPoint() : Point </td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getDimension() : int </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getBoundary() : Geometry </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getBoundaryDimension() : int </font></td></tr>
-<tr><td align="left" balign="left"> + getEnvelope() : Geometry </td></tr>
-<tr><td align="left" balign="left"> + getEnvelopeInternal() : Envelope </td></tr>
-<tr><td align="left" balign="left"> + geometryChanged() </td></tr>
-<tr><td align="left" balign="left"> # geometryChangedAction() </td></tr>
-<tr><td align="left" balign="left"> + disjoint(arg0 : Geometry) : boolean </td></tr>
-<tr><td align="left" balign="left"> + touches(arg0 : Geometry) : boolean </td></tr>
-<tr><td align="left" balign="left"> + intersects(arg0 : Geometry) : boolean </td></tr>
-<tr><td align="left" balign="left"> + crosses(arg0 : Geometry) : boolean </td></tr>
-<tr><td align="left" balign="left"> + within(arg0 : Geometry) : boolean </td></tr>
-<tr><td align="left" balign="left"> + contains(arg0 : Geometry) : boolean </td></tr>
-<tr><td align="left" balign="left"> + overlaps(arg0 : Geometry) : boolean </td></tr>
-<tr><td align="left" balign="left"> + covers(arg0 : Geometry) : boolean </td></tr>
-<tr><td align="left" balign="left"> + coveredBy(arg0 : Geometry) : boolean </td></tr>
-<tr><td align="left" balign="left"> + relate(arg0 : Geometry, arg1 : String) : boolean </td></tr>
-<tr><td align="left" balign="left"> + relate(arg0 : Geometry) : IntersectionMatrix </td></tr>
-<tr><td align="left" balign="left"> + equals(arg0 : Geometry) : boolean </td></tr>
-<tr><td align="left" balign="left"> + equalsTopo(arg0 : Geometry) : boolean </td></tr>
-<tr><td align="left" balign="left"> + equals(arg0 : Object) : boolean </td></tr>
-<tr><td align="left" balign="left"> + hashCode() : int </td></tr>
-<tr><td align="left" balign="left"> + toString() : String </td></tr>
-<tr><td align="left" balign="left"> + toText() : String </td></tr>
-<tr><td align="left" balign="left"> + buffer(arg0 : double) : Geometry </td></tr>
-<tr><td align="left" balign="left"> + buffer(arg0 : double, arg1 : int) : Geometry </td></tr>
-<tr><td align="left" balign="left"> + buffer(arg0 : double, arg1 : int, arg2 : int) : Geometry </td></tr>
-<tr><td align="left" balign="left"> + convexHull() : Geometry </td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + reverse() : Geometry </font></td></tr>
-<tr><td align="left" balign="left"> + intersection(arg0 : Geometry) : Geometry </td></tr>
-<tr><td align="left" balign="left"> + union(arg0 : Geometry) : Geometry </td></tr>
-<tr><td align="left" balign="left"> + difference(arg0 : Geometry) : Geometry </td></tr>
-<tr><td align="left" balign="left"> + symDifference(arg0 : Geometry) : Geometry </td></tr>
-<tr><td align="left" balign="left"> + union() : Geometry </td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + equalsExact(arg0 : Geometry, arg1 : double) : boolean </font></td></tr>
-<tr><td align="left" balign="left"> + equalsExact(arg0 : Geometry) : boolean </td></tr>
-<tr><td align="left" balign="left"> + equalsNorm(arg0 : Geometry) : boolean </td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + apply(arg0 : CoordinateFilter) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + apply(arg0 : CoordinateSequenceFilter) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + apply(arg0 : GeometryFilter) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + apply(arg0 : GeometryComponentFilter) </font></td></tr>
-<tr><td align="left" balign="left"> + clone() : Object </td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + normalize() </font></td></tr>
-<tr><td align="left" balign="left"> + norm() : Geometry </td></tr>
-<tr><td align="left" balign="left"> + compareTo(arg0 : Object) : int </td></tr>
-<tr><td align="left" balign="left"> + compareTo(arg0 : Object, arg1 : CoordinateSequenceComparator) : int </td></tr>
-<tr><td align="left" balign="left"> # isEquivalentClass(arg0 : Geometry) : boolean </td></tr>
-<tr><td align="left" balign="left"> # checkNotGeometryCollection(arg0 : Geometry) </td></tr>
-<tr><td align="left" balign="left"> # isGeometryCollection() : boolean </td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> # computeEnvelopeInternal() : Envelope </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> # compareToSameClass(arg0 : Object) : int </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> # compareToSameClass(arg0 : Object, arg1 : CoordinateSequenceComparator) : int </font></td></tr>
-<tr><td align="left" balign="left"> # compare(arg0 : Collection&lt;&gt;, arg1 : Collection&lt;&gt;) : int </td></tr>
-<tr><td align="left" balign="left"> # equal(arg0 : Coordinate, arg1 : Coordinate, arg2 : double) : boolean </td></tr>
-		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	c28116:p -> c28115:p [dir=back,arrowtail=empty];
 }
 

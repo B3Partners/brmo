@@ -10,84 +10,11 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top100nl.TypeFunctioneelGebiedT100Type
-	c39454 [label=<<table title="nl.b3p.topnl.top100nl.TypeFunctioneelGebiedT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeFunctioneelGebiedT100Type.html">
+	c39407 [label=<<table title="nl.b3p.topnl.top100nl.TypeFunctioneelGebiedT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeFunctioneelGebiedT100Type.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> TypeFunctioneelGebiedT100Type </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> ARBORETUM </td></tr>
-<tr><td align="left" balign="left"> BEDRIJVENTERREIN </td></tr>
-<tr><td align="left" balign="left"> BEGRAAFPLAATS </td></tr>
-<tr><td align="left" balign="left"> BUNGALOWPARK </td></tr>
-<tr><td align="left" balign="left"> CAMPING_KAMPEERTERREIN </td></tr>
-<tr><td align="left" balign="left"> CIRCUIT </td></tr>
-<tr><td align="left" balign="left"> CROSSBAAN </td></tr>
-<tr><td align="left" balign="left"> DIERENTUIN_SAFARIPARK </td></tr>
-<tr><td align="left" balign="left"> EMPLACEMENT </td></tr>
-<tr><td align="left" balign="left"> EREBEGRAAFPLAATS </td></tr>
-<tr><td align="left" balign="left"> GASWINNING </td></tr>
-<tr><td align="left" balign="left"> GROEVE </td></tr>
-<tr><td align="left" balign="left"> HAVEN </td></tr>
-<tr><td align="left" balign="left"> HEEMTUIN </td></tr>
-<tr><td align="left" balign="left"> HELIKOPTERLANDINGSTERREIN </td></tr>
-<tr><td align="left" balign="left"> JACHTHAVEN </td></tr>
-<tr><td align="left" balign="left"> MIJN </td></tr>
-<tr><td align="left" balign="left"> MILITAIR_OEFENGEBIED_SCHIETTERREIN </td></tr>
-<tr><td align="left" balign="left"> MOSSELBANK </td></tr>
-<tr><td align="left" balign="left"> NATUURGEBIED_NATUURRESERVAAT </td></tr>
-<tr><td align="left" balign="left"> OLIEWINNING </td></tr>
-<tr><td align="left" balign="left"> OPENLUCHTMUSEUM </td></tr>
-<tr><td align="left" balign="left"> OPENLUCHTTHEATER </td></tr>
-<tr><td align="left" balign="left"> PARK </td></tr>
-<tr><td align="left" balign="left"> PINETUM </td></tr>
-<tr><td align="left" balign="left"> PRODUCTIE_INSTALLATIE </td></tr>
-<tr><td align="left" balign="left"> RECREATIEGEBIED </td></tr>
-<tr><td align="left" balign="left"> RENBAAN </td></tr>
-<tr><td align="left" balign="left"> SKIBAAN </td></tr>
-<tr><td align="left" balign="left"> SLUIZENCOMPLEX </td></tr>
-<tr><td align="left" balign="left"> SPORTTERREIN_SPORTCOMPLEX </td></tr>
-<tr><td align="left" balign="left"> STORTPLAATS </td></tr>
-<tr><td align="left" balign="left"> TENNISPARK </td></tr>
-<tr><td align="left" balign="left"> VERZORGINGSPLAATS </td></tr>
-<tr><td align="left" balign="left"> VLIEGVELD_LUCHTHAVEN </td></tr>
-<tr><td align="left" balign="left"> VOLKSTUINEN </td></tr>
-<tr><td align="left" balign="left"> WILDWISSEL </td></tr>
-<tr><td align="left" balign="left"> WINDTURBINEPARK </td></tr>
-<tr><td align="left" balign="left"> WOONWAGENCENTRUM </td></tr>
-<tr><td align="left" balign="left"> ZANDWINNING </td></tr>
-<tr><td align="left" balign="left"> ZENDERPARK </td></tr>
-<tr><td align="left" balign="left"> ZOUTWINNING </td></tr>
-<tr><td align="left" balign="left"> ZUIVERINGSINSTALLATIE </td></tr>
-<tr><td align="left" balign="left"> ZWEEFVLIEGVELDTERREIN </td></tr>
-<tr><td align="left" balign="left"> IJSBAAN </td></tr>
-		</table></td></tr>
 		</table>>, URL="./TypeFunctioneelGebiedT100Type.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.topnl.top100nl.FunctioneelGebiedType
-	c39496 [label=<<table title="nl.b3p.topnl.top100nl.FunctioneelGebiedType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FunctioneelGebiedType.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> FunctioneelGebiedType </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # typeFunctioneelGebied : TypeFunctioneelGebiedT100Type </td></tr>
-<tr><td align="left" balign="left"> # naamNL : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> # naamFries : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + FunctioneelGebiedType() </td></tr>
-<tr><td align="left" balign="left"> + getTypeFunctioneelGebied() : TypeFunctioneelGebiedT100Type </td></tr>
-<tr><td align="left" balign="left"> + setTypeFunctioneelGebied(value : TypeFunctioneelGebiedT100Type) </td></tr>
-<tr><td align="left" balign="left"> + getNaamNL() : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> + getNaamFries() : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
-<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./FunctioneelGebiedType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.topnl.top100nl.FunctioneelGebiedType NAVASSOC nl.b3p.topnl.top100nl.TypeFunctioneelGebiedT100Type
-	c39496:p -> c39454:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

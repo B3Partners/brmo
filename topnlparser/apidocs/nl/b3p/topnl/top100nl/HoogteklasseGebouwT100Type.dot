@@ -10,49 +10,11 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top100nl.HoogteklasseGebouwT100Type
-	c22725 [label=<<table title="nl.b3p.topnl.top100nl.HoogteklasseGebouwT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HoogteklasseGebouwT100Type.html">
+	c22691 [label=<<table title="nl.b3p.topnl.top100nl.HoogteklasseGebouwT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HoogteklasseGebouwT100Type.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> HoogteklasseGebouwT100Type </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> LAAGBOUW </td></tr>
-<tr><td align="left" balign="left"> HOOGBOUW </td></tr>
-		</table></td></tr>
 		</table>>, URL="./HoogteklasseGebouwT100Type.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.topnl.top100nl.GebouwType
-	c22794 [label=<<table title="nl.b3p.topnl.top100nl.GebouwType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GebouwType.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> GebouwType </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # fysiekVoorkomen : FysiekVoorkomenGebouwT100Type </td></tr>
-<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
-<tr><td align="left" balign="left"> # hoogte : Double </td></tr>
-<tr><td align="left" balign="left"> # hoogteklasse : HoogteklasseGebouwT100Type </td></tr>
-<tr><td align="left" balign="left"> # naamFries : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> # naamNL : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> # typeGebouw : List&lt;TypeGebouwT100Type&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + GebouwType() </td></tr>
-<tr><td align="left" balign="left"> + getFysiekVoorkomen() : FysiekVoorkomenGebouwT100Type </td></tr>
-<tr><td align="left" balign="left"> + setFysiekVoorkomen(value : FysiekVoorkomenGebouwT100Type) </td></tr>
-<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
-<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
-<tr><td align="left" balign="left"> + getHoogte() : Double </td></tr>
-<tr><td align="left" balign="left"> + setHoogte(value : Double) </td></tr>
-<tr><td align="left" balign="left"> + getHoogteklasse() : HoogteklasseGebouwT100Type </td></tr>
-<tr><td align="left" balign="left"> + setHoogteklasse(value : HoogteklasseGebouwT100Type) </td></tr>
-<tr><td align="left" balign="left"> + getNaamFries() : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> + getNaamNL() : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> + getTypeGebouw() : List&lt;TypeGebouwT100Type&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="./GebouwType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.topnl.top100nl.GebouwType NAVASSOC nl.b3p.topnl.top100nl.HoogteklasseGebouwT100Type
-	c22794:p -> c22725:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

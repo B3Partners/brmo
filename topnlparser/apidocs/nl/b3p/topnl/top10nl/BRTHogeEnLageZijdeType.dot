@@ -9,38 +9,11 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.topnl.top10nl.BRTHogeEnLageZijdePropertyType
-	c6928 [label=<<table title="nl.b3p.topnl.top10nl.BRTHogeEnLageZijdePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRTHogeEnLageZijdePropertyType.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BRTHogeEnLageZijdePropertyType </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # brtHogeEnLageZijde : BRTHogeEnLageZijdeType </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BRTHogeEnLageZijdePropertyType() </td></tr>
-<tr><td align="left" balign="left"> + getBRTHogeEnLageZijde() : BRTHogeEnLageZijdeType </td></tr>
-<tr><td align="left" balign="left"> + setBRTHogeEnLageZijde(value : BRTHogeEnLageZijdeType) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BRTHogeEnLageZijdePropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top10nl.BRTHogeEnLageZijdeType
-	c6941 [label=<<table title="nl.b3p.topnl.top10nl.BRTHogeEnLageZijdeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BRTHogeEnLageZijdeType.html">
+	c6921 [label=<<table title="nl.b3p.topnl.top10nl.BRTHogeEnLageZijdeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BRTHogeEnLageZijdeType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTHogeEnLageZijdeType </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # hogeZijde : Element[] </td></tr>
-<tr><td align="left" balign="left"> # lageZijde : Element </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BRTHogeEnLageZijdeType() </td></tr>
-<tr><td align="left" balign="left"> + getHogeZijde() : Element[] </td></tr>
-<tr><td align="left" balign="left"> + setHogeZijde(value : Element[]) </td></tr>
-<tr><td align="left" balign="left"> + getLageZijde() : Element </td></tr>
-<tr><td align="left" balign="left"> + setLageZijde(value : Element) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BRTHogeEnLageZijdeType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.topnl.top10nl.BRTHogeEnLageZijdePropertyType NAVASSOC nl.b3p.topnl.top10nl.BRTHogeEnLageZijdeType
-	c6928:p -> c6941:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

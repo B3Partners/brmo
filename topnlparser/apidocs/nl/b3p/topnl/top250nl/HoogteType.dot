@@ -10,87 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top250nl.Top250NlObjectType
-	c22324 [label=<<table title="nl.b3p.topnl.top250nl.Top250NlObjectType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Top250NlObjectType.html">
+	c22290 [label=<<table title="nl.b3p.topnl.top250nl.Top250NlObjectType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Top250NlObjectType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Top250NlObjectType </font></td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # identificatie : Identificatie </td></tr>
-<tr><td align="left" balign="left"> # brontype : CodeType </td></tr>
-<tr><td align="left" balign="left"> # bronactualiteit : Calendar </td></tr>
-<tr><td align="left" balign="left"> # bronbeschrijving : String </td></tr>
-<tr><td align="left" balign="left"> # bronnauwkeurigheid : double </td></tr>
-<tr><td align="left" balign="left"> # objectBeginTijd : Calendar </td></tr>
-<tr><td align="left" balign="left"> # objectEindTijd : Calendar </td></tr>
-<tr><td align="left" balign="left"> # visualisatieCode : BigInteger </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Top250NlObjectType() </td></tr>
-<tr><td align="left" balign="left"> + getIdentificatie() : Identificatie </td></tr>
-<tr><td align="left" balign="left"> + setIdentificatie(value : Identificatie) </td></tr>
-<tr><td align="left" balign="left"> + getBrontype() : CodeType </td></tr>
-<tr><td align="left" balign="left"> + setBrontype(value : CodeType) </td></tr>
-<tr><td align="left" balign="left"> + getBronactualiteit() : Calendar </td></tr>
-<tr><td align="left" balign="left"> + setBronactualiteit(value : Calendar) </td></tr>
-<tr><td align="left" balign="left"> + getBronbeschrijving() : String </td></tr>
-<tr><td align="left" balign="left"> + setBronbeschrijving(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getBronnauwkeurigheid() : double </td></tr>
-<tr><td align="left" balign="left"> + setBronnauwkeurigheid(value : double) </td></tr>
-<tr><td align="left" balign="left"> + getObjectBeginTijd() : Calendar </td></tr>
-<tr><td align="left" balign="left"> + setObjectBeginTijd(value : Calendar) </td></tr>
-<tr><td align="left" balign="left"> + getObjectEindTijd() : Calendar </td></tr>
-<tr><td align="left" balign="left"> + setObjectEindTijd(value : Calendar) </td></tr>
-<tr><td align="left" balign="left"> + getVisualisatieCode() : BigInteger </td></tr>
-<tr><td align="left" balign="left"> + setVisualisatieCode(value : BigInteger) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./Top250NlObjectType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.HoogteType
-	c22327 [label=<<table title="nl.b3p.topnl.top250nl.HoogteType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HoogteType.html">
+	c22293 [label=<<table title="nl.b3p.topnl.top250nl.HoogteType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HoogteType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HoogteType </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # typeHoogte : CodeType </td></tr>
-<tr><td align="left" balign="left"> # hoogte : double </td></tr>
-<tr><td align="left" balign="left"> # referentievlak : CodeType </td></tr>
-<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + HoogteType() </td></tr>
-<tr><td align="left" balign="left"> + getTypeHoogte() : CodeType </td></tr>
-<tr><td align="left" balign="left"> + setTypeHoogte(value : CodeType) </td></tr>
-<tr><td align="left" balign="left"> + getHoogte() : double </td></tr>
-<tr><td align="left" balign="left"> + setHoogte(value : double) </td></tr>
-<tr><td align="left" balign="left"> + getReferentievlak() : CodeType </td></tr>
-<tr><td align="left" balign="left"> + setReferentievlak(value : CodeType) </td></tr>
-<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
-<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./HoogteType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.topnl.top250nl.CodeType
-	c22333 [label=<<table title="nl.b3p.topnl.top250nl.CodeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CodeType.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> CodeType </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # value : String </td></tr>
-<tr><td align="left" balign="left"> # codeSpace : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + CodeType() </td></tr>
-<tr><td align="left" balign="left"> + getValue() : String </td></tr>
-<tr><td align="left" balign="left"> + setValue(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getCodeSpace() : String </td></tr>
-<tr><td align="left" balign="left"> + setCodeSpace(value : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./CodeType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.top250nl.HoogteType extends nl.b3p.topnl.top250nl.Top250NlObjectType
-	c22324:p -> c22327:p [dir=back,arrowtail=empty];
-	// nl.b3p.topnl.top250nl.Top250NlObjectType NAVASSOC nl.b3p.topnl.top250nl.CodeType
-	c22324:p -> c22333:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.topnl.top250nl.HoogteType NAVASSOC nl.b3p.topnl.top250nl.CodeType
-	c22327:p -> c22333:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.topnl.top250nl.HoogteType NAVASSOC nl.b3p.topnl.top250nl.CodeType
-	c22327:p -> c22333:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c22290:p -> c22293:p [dir=back,arrowtail=empty];
 }
 

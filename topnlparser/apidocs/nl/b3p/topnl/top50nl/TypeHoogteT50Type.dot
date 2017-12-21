@@ -10,46 +10,11 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top50nl.TypeHoogteT50Type
-	c41690 [label=<<table title="nl.b3p.topnl.top50nl.TypeHoogteT50Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeHoogteT50Type.html">
+	c41643 [label=<<table title="nl.b3p.topnl.top50nl.TypeHoogteT50Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeHoogteT50Type.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> TypeHoogteT50Type </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> DIEPTELIJN </td></tr>
-<tr><td align="left" balign="left"> DIEPTEPUNT </td></tr>
-<tr><td align="left" balign="left"> HOOGTELIJN </td></tr>
-<tr><td align="left" balign="left"> HOOGTEPUNT </td></tr>
-<tr><td align="left" balign="left"> HOOGWATERLIJN </td></tr>
-<tr><td align="left" balign="left"> LAAGWATERLIJN </td></tr>
-<tr><td align="left" balign="left"> PEIL_WINTERPEIL </td></tr>
-<tr><td align="left" balign="left"> PEIL_ZOMERPEIL </td></tr>
-		</table></td></tr>
 		</table>>, URL="./TypeHoogteT50Type.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.topnl.top50nl.HoogteType
-	c41725 [label=<<table title="nl.b3p.topnl.top50nl.HoogteType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HoogteType.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> HoogteType </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
-<tr><td align="left" balign="left"> # hoogte : double </td></tr>
-<tr><td align="left" balign="left"> # typeHoogte : TypeHoogteT50Type </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + HoogteType() </td></tr>
-<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
-<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
-<tr><td align="left" balign="left"> + getHoogte() : double </td></tr>
-<tr><td align="left" balign="left"> + setHoogte(value : double) </td></tr>
-<tr><td align="left" balign="left"> + getTypeHoogte() : TypeHoogteT50Type </td></tr>
-<tr><td align="left" balign="left"> + setTypeHoogte(value : TypeHoogteT50Type) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./HoogteType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.topnl.top50nl.HoogteType NAVASSOC nl.b3p.topnl.top50nl.TypeHoogteT50Type
-	c41725:p -> c41690:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 
