@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
+    <suppress>
+        <notes><![CDATA[
+      Negeer melding mbt tomcat-catalina-8.0.47.jar omdat we geen tomcat mee leveren en deze alleen voor bepaalde deployments geldt.
+      ]]></notes>
+        <filePath regex="true">.*\tomcat-catalina-8.0.47\.jar</filePath>
+        <cve>CVE-2016-5388</cve>
+        <cve>CVE-2016-5425</cve>
+        <cve>CVE-2016-6325</cve>
+        <cve>CVE-2017-6056</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+      Negeer melding mbt postgresql-42.1.4.jar, false positive, CVE heeft betrekking op perl scripts.
+      ]]></notes>
+        <filePath regex="true">.*\postgresql-42.1.4\.jar</filePath>
+        <cve>CVE-2017-8806</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+      Negeer melding mbt gt-coverage jar, false positive mbt jpeg thumbnail disclosure.
+      ]]></notes>
+        <gav regex="true">org\.geotools:gt-coverage.*</gav>
+        <cve>CVE-2005-0406</cve>
+    </suppress>
+
+   
+</suppressions>

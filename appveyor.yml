@@ -53,9 +53,16 @@ before_test:
   - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE bgttest" -d "master"
   - dir -w .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\
   - sqlcmd -r0 -b -S (local)\SQL2016 -I -U sa -P Password12! -d "bgttest" -i .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\create_rsgb_bgt.sql
+#
+  - cmd: echo "aanmaken en opzetten TOPNL DB"
+  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE topnl" -d "master"
+  - dir -w .\topparser\src\main\resources\nl\b3p\topnl\database
+  - sqlcmd -r0 -b -S (local)\SQL2016 -I -U sa -P Password12! -d "topnl" -i .\topparser\src\main\resources\nl\b3p\topnl\database\sqlserver.sql
+#
   - cmd: echo "computer name:" %COMPUTERNAME%
   - cmd: echo "instance name:" %INSTANCENAME%
   - ps: .\.appveyor\setting-tcp-ip-ports.ps1
+
 
 test_script:
   # unit tests

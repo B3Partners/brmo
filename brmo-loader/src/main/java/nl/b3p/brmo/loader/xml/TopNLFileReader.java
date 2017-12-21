@@ -33,10 +33,11 @@ public class TopNLFileReader extends BrmoXMLReader {
 
     private long fileSize = 0;
 
-    public TopNLFileReader(String fileName) throws Exception {
+    public TopNLFileReader(String fileName, String soort) throws Exception {
         if (fileName != null) {
             this.setBestandsNaam(fileName);
         }
+        this.soort = (soort == null ? BrmoFramework.BR_TOPNL : soort);
         this.init();
     }
 
@@ -46,7 +47,6 @@ public class TopNLFileReader extends BrmoXMLReader {
      */
     @Override
     public void init() throws Exception {
-        soort = BrmoFramework.BR_TOPNL;
         File input = new File(this.getBestandsNaam());
         fileSize = input.length();
         this.setBestandsDatum(new Date());

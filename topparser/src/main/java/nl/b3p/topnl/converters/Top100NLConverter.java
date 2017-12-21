@@ -135,7 +135,7 @@ public class Top100NLConverter extends Converter {
             throw new IllegalArgumentException("Type not recognized: " + featureMember.getClass());
         }
 
-        log.debug("Converted type " + entity.getClass());
+        log.debug("Converted type " + entity.getClass() + ", identificatie: " + entity.getIdentificatie());
         entity.setTopnltype(TopNLType.TOP100NL.getType());
         return entity;
     }

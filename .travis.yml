@@ -83,6 +83,8 @@ before_script:
   # set up topnl tabellen
   - ls -l ./topparser/src/main/resources/nl/b3p/topnl/database
   - psql -U postgres -w -q -d topnl -f ./topparser/src/main/resources/nl/b3p/topnl/database/postgres.sql
+  # ophalen topnl test data
+  - sh ".jenkins/data-prepare-topnl.sh"
 
 script:
   # run unit tests voor alle modules
@@ -91,9 +93,9 @@ script:
   # run integratie tests voor bgt-gml-loader module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
   # run integratie tests voor brmo-loader module
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader'
+  - travis_wait 30 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader'
   - ulimit -a
-  - free -m
+  - free -h
   # run integratie tests voor brmo-service module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service'
   # run integratie tests voor brmo-soap module
