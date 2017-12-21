@@ -14,42 +14,12 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoader </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTGMLLightLoader() </td></tr>
-<tr><td align="left" balign="left"> + BGTGMLLightLoader(scanDirectory : File, dbConnProps : Properties) </td></tr>
-<tr><td align="left" balign="left"> + processZipFiles(zipFiles : List&lt;File&gt;) </td></tr>
-<tr><td align="left" balign="left"> + processZipFile(zipExtract : File) : int </td></tr>
-<tr><td align="left" balign="left"> + processGMLFile(gml : File) : int </td></tr>
-<tr><td align="left" balign="left"> + scanDirectory() : List&lt;File&gt; </td></tr>
-<tr><td align="left" balign="left"> + setScanDirectory(scanDirectory : String) </td></tr>
-<tr><td align="left" balign="left"> + setScanDirectory(scanDirectory : File) </td></tr>
-<tr><td align="left" balign="left"> + setDbConnProps(dbConnProps : Properties) </td></tr>
-<tr><td align="left" balign="left"> + setCreateTables(createTables : boolean) </td></tr>
-<tr><td align="left" balign="left"> + setIsOracle(isOracle : boolean) </td></tr>
-<tr><td align="left" balign="left"> + setIsMSSQL(isMSSQL : boolean) </td></tr>
-<tr><td align="left" balign="left"> + setLoadingUpdate(loadingUpdate : boolean) </td></tr>
-<tr><td align="left" balign="left"> + setBijwerkDatum(bijwerkDatum : Date) </td></tr>
-<tr><td align="left" balign="left"> + getOmhullendeVanZipFile() : Geometry </td></tr>
-<tr><td align="left" balign="left"> + getOpmerkingen() : String </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : BGTGMLLightLoader.STATUS </td></tr>
-<tr><td align="left" balign="left"> + resetStatus() </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS
 	c41 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoader.STATUS.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> STATUS </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> OK </td></tr>
-<tr><td align="left" balign="left"> NOK </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoader.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightTransformerFactory
@@ -58,45 +28,6 @@ digraph G {
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> BGTGMLLightTransformerFactory </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> inrichtingselement </td></tr>
-<tr><td align="left" balign="left"> bak </td></tr>
-<tr><td align="left" balign="left"> bord </td></tr>
-<tr><td align="left" balign="left"> put </td></tr>
-<tr><td align="left" balign="left"> paal </td></tr>
-<tr><td align="left" balign="left"> mast </td></tr>
-<tr><td align="left" balign="left"> sensor </td></tr>
-<tr><td align="left" balign="left"> installatie </td></tr>
-<tr><td align="left" balign="left"> kast </td></tr>
-<tr><td align="left" balign="left"> gebouw_installatie </td></tr>
-<tr><td align="left" balign="left"> pand </td></tr>
-<tr><td align="left" balign="left"> overig_bouwwerk </td></tr>
-<tr><td align="left" balign="left"> openbareruimte </td></tr>
-<tr><td align="left" balign="left"> openbareruimtelabel </td></tr>
-<tr><td align="left" balign="left"> functioneelgebied </td></tr>
-<tr><td align="left" balign="left"> buurt </td></tr>
-<tr><td align="left" balign="left"> wijk </td></tr>
-<tr><td align="left" balign="left"> ongeclassificeerdobject </td></tr>
-<tr><td align="left" balign="left"> begroeid_terreindeel </td></tr>
-<tr><td align="left" balign="left"> onbegroeid_terreindeel </td></tr>
-<tr><td align="left" balign="left"> vegetatieobject </td></tr>
-<tr><td align="left" balign="left"> spoor </td></tr>
-<tr><td align="left" balign="left"> scheiding </td></tr>
-<tr><td align="left" balign="left"> overige_scheiding </td></tr>
-<tr><td align="left" balign="left"> waterdeel </td></tr>
-<tr><td align="left" balign="left"> ondersteunend_waterdeel </td></tr>
-<tr><td align="left" balign="left"> waterinrichtingselement </td></tr>
-<tr><td align="left" balign="left"> overbruggingsdeel </td></tr>
-<tr><td align="left" balign="left"> kunstwerkdeel </td></tr>
-<tr><td align="left" balign="left"> ondersteunend_wegdeel </td></tr>
-<tr><td align="left" balign="left"> wegdeel </td></tr>
-<tr><td align="left" balign="left"> tunneldeel </td></tr>
-<tr><td align="left" balign="left"> straatmeubilair </td></tr>
-<tr><td align="left" balign="left"> weginrichtingselement </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BGTGMLLightTransformerFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer
 	c43 [label=<<table title="nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GMLLightFeatureTransformer.html">
@@ -104,24 +35,6 @@ digraph G {
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> GMLLightFeatureTransformer </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + DEFAULT_GEOM_NAME : String </td></tr>
-<tr><td align="left" balign="left"> + KRUINLIJN_GEOM_NAME : String </td></tr>
-<tr><td align="left" balign="left"> + LOD0_GEOM_NAME : String </td></tr>
-<tr><td align="left" balign="left"> + LOD1_GEOM_NAME : String </td></tr>
-<tr><td align="left" balign="left"> + LOD2_GEOM_NAME : String </td></tr>
-<tr><td align="left" balign="left"> + LOD3_GEOM_NAME : String </td></tr>
-<tr><td align="left" balign="left"> + ID_NAME : String </td></tr>
-<tr><td align="left" balign="left"> + BIJWERKDATUM_NAME : String </td></tr>
-<tr><td align="left" balign="left"> + BEGINTIJD_NAME : String </td></tr>
-<tr><td align="left" balign="left"> + EINDTIJD_NAME : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getTargetSchema(gmlSchema : SimpleFeatureType, targetTableName : String, shouldUppercase : boolean) : SimpleFeatureType </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + transform(inFeature : SimpleFeature, targetType : SimpleFeatureType, shouldUppercase : boolean, userDefinedPrimaryKey : boolean, bijwerkDatum : Date) : SimpleFeature </font></td></tr>
-		</table></td></tr>
 		</table>>, URL="./GMLLightFeatureTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS
-	c40:p -> c41:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

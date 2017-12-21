@@ -10,74 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderCreateTablesIntegrationTest
-	c38 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderCreateTablesIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTGMLLightLoaderCreateTablesIntegrationTest.html">
+	c32 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderCreateTablesIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTGMLLightLoaderCreateTablesIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoaderCreateTablesIntegrationTest </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTGMLLightLoaderCreateTablesIntegrationTest() </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + testProcessGMLFileFail() </td></tr>
-<tr><td align="left" balign="left"> + testProcessGMLFile() </td></tr>
-<tr><td align="left" balign="left"> + testScanDirectory() </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoaderCreateTablesIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.TestingBase
-	c43 [label=<<table title="nl.b3p.brmo.loader.gml.TestingBase" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestingBase.html">
+	c35 [label=<<table title="nl.b3p.brmo.loader.gml.TestingBase" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestingBase.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestingBase </font></td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # params : Properties </td></tr>
-<tr><td align="left" balign="left"> # isOracle : boolean </td></tr>
-<tr><td align="left" balign="left"> # isMsSQL : boolean </td></tr>
-<tr><td align="left" balign="left"> + name : TestName </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TestingBase() </td></tr>
-<tr><td align="left" balign="left"> + checkDatabaseIsProvided() </td></tr>
-<tr><td align="left" balign="left"> + startTest() </td></tr>
-<tr><td align="left" balign="left"> + endTest() </td></tr>
-<tr><td align="left" balign="left"> # loadProps() </td></tr>
-<tr><td align="left" balign="left"> # clearTables() </td></tr>
-<tr><td align="left" balign="left"> # dropTables() </td></tr>
-		</table></td></tr>
 		</table>>, URL="./TestingBase.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.gml.BGTGMLLightLoaderCreateTablesIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c43:p -> c38:p [dir=back,arrowtail=empty];
-	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderCreateTablesIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
-	c38:p -> c53:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader
-	c53 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BGTGMLLightLoader </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTGMLLightLoader() </td></tr>
-<tr><td align="left" balign="left"> + BGTGMLLightLoader(arg0 : File, arg1 : Properties) </td></tr>
-<tr><td align="left" balign="left"> + processZipFiles(arg0 : List&lt;File&gt;) </td></tr>
-<tr><td align="left" balign="left"> + processZipFile(arg0 : File) : int </td></tr>
-<tr><td align="left" balign="left"> + processGMLFile(arg0 : File) : int </td></tr>
-<tr><td align="left" balign="left"> + scanDirectory() : List&lt;File&gt; </td></tr>
-<tr><td align="left" balign="left"> + setScanDirectory(arg0 : String) </td></tr>
-<tr><td align="left" balign="left"> + setScanDirectory(arg0 : File) </td></tr>
-<tr><td align="left" balign="left"> + setDbConnProps(arg0 : Properties) </td></tr>
-<tr><td align="left" balign="left"> + setCreateTables(arg0 : boolean) </td></tr>
-<tr><td align="left" balign="left"> + setIsOracle(arg0 : boolean) </td></tr>
-<tr><td align="left" balign="left"> + setIsMSSQL(arg0 : boolean) </td></tr>
-<tr><td align="left" balign="left"> + setLoadingUpdate(arg0 : boolean) </td></tr>
-<tr><td align="left" balign="left"> + setBijwerkDatum(arg0 : Date) </td></tr>
-<tr><td align="left" balign="left"> + getOmhullendeVanZipFile() : Geometry </td></tr>
-<tr><td align="left" balign="left"> + getOpmerkingen() : String </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : BGTGMLLightLoader.STATUS </td></tr>
-<tr><td align="left" balign="left"> + resetStatus() </td></tr>
-		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	c35:p -> c32:p [dir=back,arrowtail=empty];
 }
 
