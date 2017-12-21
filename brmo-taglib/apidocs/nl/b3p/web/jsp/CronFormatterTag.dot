@@ -10,20 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.web.jsp.CronFormatterTag
-	c5 [label=<<table title="nl.b3p.web.jsp.CronFormatterTag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./CronFormatterTag.html">
+	c3 [label=<<table title="nl.b3p.web.jsp.CronFormatterTag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./CronFormatterTag.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CronFormatterTag </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + CronFormatterTag() </td></tr>
-<tr><td align="left" balign="left"> + setCronExpression(cronExpression : String) </td></tr>
-<tr><td align="left" balign="left"> + setLocale(locale : String) </td></tr>
-<tr><td align="left" balign="left"> + doTag() </td></tr>
-<tr><td align="left" balign="left"> + buildOutput() : String </td></tr>
-		</table></td></tr>
 		</table>>, URL="./CronFormatterTag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	//nl.b3p.web.jsp.CronFormatterTag extends javax.servlet.jsp.tagext.SimpleTagSupport
+	c5:p -> c3:p [dir=back,arrowtail=empty];
+	// javax.servlet.jsp.tagext.SimpleTagSupport
+	c5 [label=<<table title="javax.servlet.jsp.tagext.SimpleTagSupport" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> SimpleTagSupport </td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

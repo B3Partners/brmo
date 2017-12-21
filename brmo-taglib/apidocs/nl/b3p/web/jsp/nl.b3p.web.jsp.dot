@@ -14,16 +14,6 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CronFormatterTag </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + CronFormatterTag() </td></tr>
-<tr><td align="left" balign="left"> + setCronExpression(cronExpression : String) </td></tr>
-<tr><td align="left" balign="left"> + setLocale(locale : String) </td></tr>
-<tr><td align="left" balign="left"> + doTag() </td></tr>
-<tr><td align="left" balign="left"> + buildOutput() : String </td></tr>
-		</table></td></tr>
 		</table>>, URL="./CronFormatterTag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
