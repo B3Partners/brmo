@@ -10,110 +10,27 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean
-	c1093 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BerichtstatusRapportActionBean.html">
+	c1037 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BerichtstatusRapportActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BerichtstatusRapportActionBean </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BerichtstatusRapportActionBean() </td></tr>
-<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + total(total : long) </td></tr>
-<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
-<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
-<tr><td align="left" balign="left"> + getProces() : BerichtstatusRapportProces </td></tr>
-<tr><td align="left" balign="left"> + setProces(proces : BerichtstatusRapportProces) </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getLog() : String </td></tr>
-<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
-<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BerichtstatusRapportActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c1111 [label=<<table title="nl.b3p.brmo.service.scanner.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../scanner/ProgressUpdateListener.html">
+	c1055 [label=<<table title="nl.b3p.brmo.service.scanner.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../scanner/ProgressUpdateListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + total(total : long) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + progress(progress : long) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + exception(t : Throwable) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateStatus(status : String) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addLog(log : String) </font></td></tr>
-		</table></td></tr>
 		</table>>, URL="../scanner/ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean implements net.sourceforge.stripes.action.ActionBean
-	c1125:p -> c1093:p [dir=back,arrowtail=empty,style=dashed];
+	c1069:p -> c1037:p [dir=back,arrowtail=empty,style=dashed];
 	//nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean implements nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c1111:p -> c1093:p [dir=back,arrowtail=empty,style=dashed];
-	// nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean NAVASSOC nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces
-	c1093:p -> c1126:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean NAVASSOC net.sourceforge.stripes.action.ActionBeanContext
-	c1093:p -> c1127:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1055:p -> c1037:p [dir=back,arrowtail=empty,style=dashed];
 	// net.sourceforge.stripes.action.ActionBean
-	c1125 [label=<<table title="net.sourceforge.stripes.action.ActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c1069 [label=<<table title="net.sourceforge.stripes.action.ActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + setContext(arg0 : ActionBeanContext) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getContext() : ActionBeanContext </font></td></tr>
-		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces
-	c1126 [label=<<table title="nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BerichtstatusRapportProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BerichtstatusRapportProces() </td></tr>
-		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// net.sourceforge.stripes.action.ActionBeanContext
-	c1127 [label=<<table title="net.sourceforge.stripes.action.ActionBeanContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ActionBeanContext </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ActionBeanContext() </td></tr>
-<tr><td align="left" balign="left"> + getRequest() : HttpServletRequest </td></tr>
-<tr><td align="left" balign="left"> + setRequest(arg0 : HttpServletRequest) </td></tr>
-<tr><td align="left" balign="left"> + getResponse() : HttpServletResponse </td></tr>
-<tr><td align="left" balign="left"> + setResponse(arg0 : HttpServletResponse) </td></tr>
-<tr><td align="left" balign="left"> + getServletContext() : ServletContext </td></tr>
-<tr><td align="left" balign="left"> + setServletContext(arg0 : ServletContext) </td></tr>
-<tr><td align="left" balign="left"> + getEventName() : String </td></tr>
-<tr><td align="left" balign="left"> + setEventName(arg0 : String) </td></tr>
-<tr><td align="left" balign="left"> + getValidationErrors() : ValidationErrors </td></tr>
-<tr><td align="left" balign="left"> + setValidationErrors(arg0 : ValidationErrors) </td></tr>
-<tr><td align="left" balign="left"> + getMessages() : List&lt;Message&gt; </td></tr>
-<tr><td align="left" balign="left"> + getMessages(arg0 : String) : List&lt;Message&gt; </td></tr>
-<tr><td align="left" balign="left"> + getLocale() : Locale </td></tr>
-<tr><td align="left" balign="left"> + getSourcePageResolution() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + getSourcePage() : String </td></tr>
-<tr><td align="left" balign="left"> + toString() : String </td></tr>
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

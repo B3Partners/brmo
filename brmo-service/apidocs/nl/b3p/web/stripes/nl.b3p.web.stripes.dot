@@ -14,16 +14,6 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DirectResponseResolution </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + DirectResponseResolution(message : String) </td></tr>
-<tr><td align="left" balign="left"> + DirectResponseResolution(status : int, message : String) </td></tr>
-<tr><td align="left" balign="left"> + DirectResponseResolution(json : JSONObject) </td></tr>
-<tr><td align="left" balign="left"> + DirectResponseResolution(status : int, json : JSONObject) </td></tr>
-<tr><td align="left" balign="left"> # stream(response : HttpServletResponse) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./DirectResponseResolution.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

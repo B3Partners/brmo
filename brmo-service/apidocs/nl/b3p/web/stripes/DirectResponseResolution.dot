@@ -10,46 +10,17 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.web.stripes.DirectResponseResolution
-	c1169 [label=<<table title="nl.b3p.web.stripes.DirectResponseResolution" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DirectResponseResolution.html">
+	c1111 [label=<<table title="nl.b3p.web.stripes.DirectResponseResolution" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DirectResponseResolution.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DirectResponseResolution </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + DirectResponseResolution(message : String) </td></tr>
-<tr><td align="left" balign="left"> + DirectResponseResolution(status : int, message : String) </td></tr>
-<tr><td align="left" balign="left"> + DirectResponseResolution(json : JSONObject) </td></tr>
-<tr><td align="left" balign="left"> + DirectResponseResolution(status : int, json : JSONObject) </td></tr>
-<tr><td align="left" balign="left"> # stream(response : HttpServletResponse) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./DirectResponseResolution.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.web.stripes.DirectResponseResolution extends net.sourceforge.stripes.action.StreamingResolution
-	c1173:p -> c1169:p [dir=back,arrowtail=empty];
+	c1113:p -> c1111:p [dir=back,arrowtail=empty];
 	// net.sourceforge.stripes.action.StreamingResolution
-	c1173 [label=<<table title="net.sourceforge.stripes.action.StreamingResolution" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c1113 [label=<<table title="net.sourceforge.stripes.action.StreamingResolution" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StreamingResolution </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + StreamingResolution(arg0 : String) </td></tr>
-<tr><td align="left" balign="left"> + StreamingResolution(arg0 : String, arg1 : InputStream) </td></tr>
-<tr><td align="left" balign="left"> + StreamingResolution(arg0 : String, arg1 : Reader) </td></tr>
-<tr><td align="left" balign="left"> + StreamingResolution(arg0 : String, arg1 : String) </td></tr>
-<tr><td align="left" balign="left"> + setFilename(arg0 : String) : StreamingResolution </td></tr>
-<tr><td align="left" balign="left"> + setCharacterEncoding(arg0 : String) </td></tr>
-<tr><td align="left" balign="left"> + setLastModified(arg0 : long) : StreamingResolution </td></tr>
-<tr><td align="left" balign="left"> + setLength(arg0 : long) : StreamingResolution </td></tr>
-<tr><td align="left" balign="left"> + setAttachment(arg0 : boolean) : StreamingResolution </td></tr>
-<tr><td align="left" balign="left"> + setRangeSupport(arg0 : boolean) : StreamingResolution </td></tr>
-<tr><td align="left" balign="left"> + execute(arg0 : HttpServletRequest, arg1 : HttpServletResponse) </td></tr>
-<tr><td align="left" balign="left"> # applyHeaders(arg0 : HttpServletResponse) </td></tr>
-<tr><td align="left" balign="left"> # parseRangeHeader(arg0 : String) : List&lt;Range&lt;Long&gt;&gt; </td></tr>
-<tr><td align="left" balign="left"> # stream(arg0 : HttpServletResponse) </td></tr>
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

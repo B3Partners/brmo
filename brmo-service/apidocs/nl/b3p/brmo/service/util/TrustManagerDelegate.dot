@@ -10,19 +10,19 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.util.TrustManagerDelegate
-	c2110 [label=<<table title="nl.b3p.brmo.service.util.TrustManagerDelegate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TrustManagerDelegate.html">
+	c2035 [label=<<table title="nl.b3p.brmo.service.util.TrustManagerDelegate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TrustManagerDelegate.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TrustManagerDelegate </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TrustManagerDelegate(mainTrustManager : X509TrustManager, fallbackTrustManager : X509TrustManager) </td></tr>
-<tr><td align="left" balign="left"> + checkClientTrusted(x509Certificates : X509Certificate[], authType : String) </td></tr>
-<tr><td align="left" balign="left"> + checkServerTrusted(x509Certificates : X509Certificate[], authType : String) </td></tr>
-<tr><td align="left" balign="left"> + getAcceptedIssuers() : X509Certificate[] </td></tr>
-		</table></td></tr>
 		</table>>, URL="./TrustManagerDelegate.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	//nl.b3p.brmo.service.util.TrustManagerDelegate implements javax.net.ssl.X509TrustManager
+	c2055:p -> c2035:p [dir=back,arrowtail=empty,style=dashed];
+	// javax.net.ssl.X509TrustManager
+	c2055 [label=<<table title="javax.net.ssl.X509TrustManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> X509TrustManager </td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

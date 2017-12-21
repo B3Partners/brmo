@@ -10,66 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.stripes.BasisregistratieServiceActionBean
-	c828 [label=<<table title="nl.b3p.brmo.service.stripes.BasisregistratieServiceActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BasisregistratieServiceActionBean.html">
+	c779 [label=<<table title="nl.b3p.brmo.service.stripes.BasisregistratieServiceActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BasisregistratieServiceActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BasisregistratieServiceActionBean </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BasisregistratieServiceActionBean() </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getBasisregistratie() : String </td></tr>
-<tr><td align="left" balign="left"> + setBasisregistratie(basisregistratie : String) </td></tr>
-<tr><td align="left" balign="left"> + read() : Resolution </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BasisregistratieServiceActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.stripes.BasisregistratieServiceActionBean implements net.sourceforge.stripes.action.ActionBean
-	c863:p -> c828:p [dir=back,arrowtail=empty,style=dashed];
-	// nl.b3p.brmo.service.stripes.BasisregistratieServiceActionBean NAVASSOC net.sourceforge.stripes.action.ActionBeanContext
-	c828:p -> c864:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c814:p -> c779:p [dir=back,arrowtail=empty,style=dashed];
 	// net.sourceforge.stripes.action.ActionBean
-	c863 [label=<<table title="net.sourceforge.stripes.action.ActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c814 [label=<<table title="net.sourceforge.stripes.action.ActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + setContext(arg0 : ActionBeanContext) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getContext() : ActionBeanContext </font></td></tr>
-		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// net.sourceforge.stripes.action.ActionBeanContext
-	c864 [label=<<table title="net.sourceforge.stripes.action.ActionBeanContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ActionBeanContext </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ActionBeanContext() </td></tr>
-<tr><td align="left" balign="left"> + getRequest() : HttpServletRequest </td></tr>
-<tr><td align="left" balign="left"> + setRequest(arg0 : HttpServletRequest) </td></tr>
-<tr><td align="left" balign="left"> + getResponse() : HttpServletResponse </td></tr>
-<tr><td align="left" balign="left"> + setResponse(arg0 : HttpServletResponse) </td></tr>
-<tr><td align="left" balign="left"> + getServletContext() : ServletContext </td></tr>
-<tr><td align="left" balign="left"> + setServletContext(arg0 : ServletContext) </td></tr>
-<tr><td align="left" balign="left"> + getEventName() : String </td></tr>
-<tr><td align="left" balign="left"> + setEventName(arg0 : String) </td></tr>
-<tr><td align="left" balign="left"> + getValidationErrors() : ValidationErrors </td></tr>
-<tr><td align="left" balign="left"> + setValidationErrors(arg0 : ValidationErrors) </td></tr>
-<tr><td align="left" balign="left"> + getMessages() : List&lt;Message&gt; </td></tr>
-<tr><td align="left" balign="left"> + getMessages(arg0 : String) : List&lt;Message&gt; </td></tr>
-<tr><td align="left" balign="left"> + getLocale() : Locale </td></tr>
-<tr><td align="left" balign="left"> + getSourcePageResolution() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + getSourcePage() : String </td></tr>
-<tr><td align="left" balign="left"> + toString() : String </td></tr>
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

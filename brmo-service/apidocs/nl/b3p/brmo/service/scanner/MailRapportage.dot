@@ -10,63 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c1723 [label=<<table title="nl.b3p.brmo.service.scanner.AbstractExecutableProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractExecutableProces.html">
+	c1655 [label=<<table title="nl.b3p.brmo.service.scanner.AbstractExecutableProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractExecutableProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractExecutableProces </font></td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # OLD_LOG_LENGTH : int </td></tr>
-<tr><td align="left" balign="left"> ~ active : boolean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AbstractExecutableProces() </td></tr>
-<tr><td align="left" balign="left"> + getProces(config : AutomatischProces) : ProcesExecutable </td></tr>
-<tr><td align="left" balign="left"> + isRunning() : boolean </td></tr>
-<tr><td align="left" balign="left"> + stop() </td></tr>
-<tr><td align="left" balign="left"> + run() </td></tr>
-<tr><td align="left" balign="left"> # isDuplicaatLaadProces(input : File, soort : String) : boolean </td></tr>
-<tr><td align="left" balign="left"> # getBestandsNaam(f : File) : String </td></tr>
-<tr><td align="left" balign="left"> # getBestandsDatum(f : File) : Date </td></tr>
-		</table></td></tr>
 		</table>>, URL="./AbstractExecutableProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.MailRapportage
-	c1730 [label=<<table title="nl.b3p.brmo.service.scanner.MailRapportage" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MailRapportage.html">
+	c1662 [label=<<table title="nl.b3p.brmo.service.scanner.MailRapportage" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MailRapportage.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MailRapportage </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MailRapportage(config : MailRapportageProces) </td></tr>
-<tr><td align="left" balign="left"> + execute() </td></tr>
-<tr><td align="left" balign="left"> + execute(listener : ProgressUpdateListener) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./MailRapportage.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.scanner.MailRapportage extends nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c1723:p -> c1730:p [dir=back,arrowtail=empty];
-	// nl.b3p.brmo.service.scanner.MailRapportage NAVASSOC nl.b3p.brmo.persistence.staging.MailRapportageProces
-	c1730:p -> c1739:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.persistence.staging.MailRapportageProces
-	c1739 [label=<<table title="nl.b3p.brmo.persistence.staging.MailRapportageProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> MailRapportageProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + DELIM : String </td></tr>
-<tr><td align="left" balign="left"> + EMAIL : String </td></tr>
-<tr><td align="left" balign="left"> + PIDS : String </td></tr>
-<tr><td align="left" balign="left"> + FOR_STATUS : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MailRapportageProces() </td></tr>
-<tr><td align="left" balign="left"> + getMailAdressen() : String </td></tr>
-<tr><td align="left" balign="left"> + getMailAdressenArray() : String[] </td></tr>
-<tr><td align="left" balign="left"> + setMailAdressen(arg0 : String[]) </td></tr>
-<tr><td align="left" balign="left"> + setMailAdressen(arg0 : String) </td></tr>
-<tr><td align="left" balign="left"> + setForStatus(arg0 : AutomatischProces.ProcessingStatus) </td></tr>
-<tr><td align="left" balign="left"> + getForStatus() : AutomatischProces.ProcessingStatus </td></tr>
-		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	c1655:p -> c1662:p [dir=back,arrowtail=empty];
 }
 
