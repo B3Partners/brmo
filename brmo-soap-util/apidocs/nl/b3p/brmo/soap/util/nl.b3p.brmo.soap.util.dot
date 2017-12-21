@@ -14,16 +14,6 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LogMessageHandler </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + LogMessageHandler() </td></tr>
-<tr><td align="left" balign="left"> + getHeaders() : Set&lt;QName&gt; </td></tr>
-<tr><td align="left" balign="left"> + handleMessage(context : SOAPMessageContext) : boolean </td></tr>
-<tr><td align="left" balign="left"> + handleFault(context : SOAPMessageContext) : boolean </td></tr>
-<tr><td align="left" balign="left"> + close(context : MessageContext) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./LogMessageHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
