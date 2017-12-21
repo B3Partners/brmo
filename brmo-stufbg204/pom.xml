@@ -83,7 +83,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <!-- java 8 doclint van struikelt over de gegenereerde code; uitzetten van syntax check! -->
-                    <additionalparam>-Xdoclint:-syntax</additionalparam>
+                    <doclint>none</doclint>
                 </configuration>
             </plugin>
             <plugin>             
@@ -143,7 +143,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <!-- java 8 doclint van struikelt over de gegenereerde code; uitzetten van syntax check! -->
-                    <additionalparam>-Xdoclint:-syntax</additionalparam>
+                    <doclint>none</doclint>
                 </configuration>
             </plugin>
         </plugins>

@@ -634,11 +634,13 @@
                             <link>http://docs.geotools.org/stable/javadocs/</link>
                             <link>https://logging.apache.org/log4j/1.2/apidocs/</link>
                             <link>http://junit.sourceforge.net/javadoc/</link>
+                            <link>http://b3partners.github.io/kadaster-gds2/apidocs/</link>
+                            <link>http://b3partners.github.io/jdbc-util/apidocs/</link>
                         </links>
-                        <javadocVersion>${java.version}</javadocVersion>
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <packagesheader>${project.artifactId}</packagesheader>
-                        <detectLinks>true</detectLinks>
+                        <!-- dit werkt niet voor veel projecten omdat de detected-link ${project.url}/apidocs is -->
+                        <detectLinks>false</detectLinks>
                         <tags>
                             <tag>
                                 <name>todo</name>
@@ -834,8 +836,8 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0</version>
                 <reportSets>
                     <reportSet>
                         <reports>
