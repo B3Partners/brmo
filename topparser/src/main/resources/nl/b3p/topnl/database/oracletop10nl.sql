@@ -49,6 +49,7 @@ CREATE TABLE top10nl.PlanTopografie
     visualisatieCode LONG,
     typePlanTopografie VARCHAR2(255),
     soort              VARCHAR2(255),
+    naam               VARCHAR2(255),
     geometrie MDSYS.SDO_GEOMETRY,
     PRIMARY KEY (id)
   );
