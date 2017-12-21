@@ -14,22 +14,15 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConfigUtil </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MAX_UPLOAD_SIZE : Integer </td></tr>
-<tr><td align="left" balign="left"> + TEMP_FOLDER : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ConfigUtil() </td></tr>
-<tr><td align="left" balign="left"> + init(config : ServletConfig) </td></tr>
-<tr><td align="left" balign="left"> + getDataSourceStaging() : DataSource </td></tr>
-<tr><td align="left" balign="left"> + getDataSourceRsgb() : DataSource </td></tr>
-<tr><td align="left" balign="left"> + getDataSourceRsgbBgt() : DataSource </td></tr>
-<tr><td align="left" balign="left"> + getDataSourceTopNL() : DataSource </td></tr>
-<tr><td align="left" balign="left"> + getServletConfig() : ServletConfig </td></tr>
-<tr><td align="left" balign="left"> + service(sr : ServletRequest, sr1 : ServletResponse) </td></tr>
-<tr><td align="left" balign="left"> + getServletInfo() : String </td></tr>
-<tr><td align="left" balign="left"> + destroy() </td></tr>
-		</table></td></tr>
 		</table>>, URL="./ConfigUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	//nl.b3p.brmo.service.util.ConfigUtil implements javax.servlet.Servlet
+	c10:p -> c5:p [dir=back,arrowtail=empty,style=dashed];
+	// javax.servlet.Servlet
+	c10 [label=<<table title="javax.servlet.Servlet" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> Servlet </td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

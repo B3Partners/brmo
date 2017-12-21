@@ -10,21 +10,19 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.util.DiagnosticsServlet
-	c12 [label=<<table title="nl.b3p.brmo.service.util.DiagnosticsServlet" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DiagnosticsServlet.html">
+	c13 [label=<<table title="nl.b3p.brmo.service.util.DiagnosticsServlet" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DiagnosticsServlet.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DiagnosticsServlet </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + DiagnosticsServlet() </td></tr>
-<tr><td align="left" balign="left"> + init(config : ServletConfig) </td></tr>
-<tr><td align="left" balign="left"> + getServletConfig() : ServletConfig </td></tr>
-<tr><td align="left" balign="left"> + service(req : ServletRequest, res : ServletResponse) </td></tr>
-<tr><td align="left" balign="left"> + getServletInfo() : String </td></tr>
-<tr><td align="left" balign="left"> + destroy() </td></tr>
-		</table></td></tr>
 		</table>>, URL="./DiagnosticsServlet.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	//nl.b3p.brmo.service.util.DiagnosticsServlet implements javax.servlet.Servlet
+	c14:p -> c13:p [dir=back,arrowtail=empty,style=dashed];
+	// javax.servlet.Servlet
+	c14 [label=<<table title="javax.servlet.Servlet" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> Servlet </td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
