@@ -10,20 +10,9 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.soap.eigendom.Document
-	c571 [label=<<table title="nl.b3p.brmo.soap.eigendom.Document" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Document.html">
+	c566 [label=<<table title="nl.b3p.brmo.soap.eigendom.Document" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Document.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Document </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # value : String </td></tr>
-<tr><td align="left" balign="left"> # datum : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Document() </td></tr>
-<tr><td align="left" balign="left"> + getValue() : String </td></tr>
-<tr><td align="left" balign="left"> + setValue(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getDatum() : String </td></tr>
-<tr><td align="left" balign="left"> + setDatum(value : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Document.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

@@ -9,59 +9,11 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.soap.eigendom.EigendomMutatie
-	c1095 [label=<<table title="nl.b3p.brmo.soap.eigendom.EigendomMutatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EigendomMutatie.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> EigendomMutatie </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # identificatienummer : String </td></tr>
-<tr><td align="left" balign="left"> # gemeentecode : String </td></tr>
-<tr><td align="left" balign="left"> # appartementsindex : String </td></tr>
-<tr><td align="left" balign="left"> # perceelnummer : String </td></tr>
-<tr><td align="left" balign="left"> # sectie : String </td></tr>
-<tr><td align="left" balign="left"> # historischeRelaties : HistorischeRelaties </td></tr>
-<tr><td align="left" balign="left"> # brondocumenten : Brondocumenten </td></tr>
-<tr><td align="left" balign="left"> # zakelijkeRechten : ZakelijkeRechten </td></tr>
-<tr><td align="left" balign="left"> # benoemdObjecten : BenoemdObjecten </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + EigendomMutatie() </td></tr>
-<tr><td align="left" balign="left"> + getIdentificatienummer() : String </td></tr>
-<tr><td align="left" balign="left"> + setIdentificatienummer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getGemeentecode() : String </td></tr>
-<tr><td align="left" balign="left"> + setGemeentecode(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getAppartementsindex() : String </td></tr>
-<tr><td align="left" balign="left"> + setAppartementsindex(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getPerceelnummer() : String </td></tr>
-<tr><td align="left" balign="left"> + setPerceelnummer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSectie() : String </td></tr>
-<tr><td align="left" balign="left"> + setSectie(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getHistorischeRelaties() : HistorischeRelaties </td></tr>
-<tr><td align="left" balign="left"> + setHistorischeRelaties(value : HistorischeRelaties) </td></tr>
-<tr><td align="left" balign="left"> + getBrondocumenten() : Brondocumenten </td></tr>
-<tr><td align="left" balign="left"> + setBrondocumenten(value : Brondocumenten) </td></tr>
-<tr><td align="left" balign="left"> + getZakelijkeRechten() : ZakelijkeRechten </td></tr>
-<tr><td align="left" balign="left"> + setZakelijkeRechten(value : ZakelijkeRechten) </td></tr>
-<tr><td align="left" balign="left"> + getBenoemdObjecten() : BenoemdObjecten </td></tr>
-<tr><td align="left" balign="left"> + setBenoemdObjecten(value : BenoemdObjecten) </td></tr>
-<tr><td align="left" balign="left"> + createDummy() : EigendomMutatie </td></tr>
-		</table></td></tr>
-		</table>>, URL="./EigendomMutatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.eigendom.HistorischeRelaties
-	c1109 [label=<<table title="nl.b3p.brmo.soap.eigendom.HistorischeRelaties" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HistorischeRelaties.html">
+	c1105 [label=<<table title="nl.b3p.brmo.soap.eigendom.HistorischeRelaties" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HistorischeRelaties.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HistorischeRelaties </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # historischeRelatie : List&lt;HistorischeRelatie&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + HistorischeRelaties() </td></tr>
-<tr><td align="left" balign="left"> + getHistorischeRelatie() : List&lt;HistorischeRelatie&gt; </td></tr>
-		</table></td></tr>
 		</table>>, URL="./HistorischeRelaties.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.EigendomMutatie NAVASSOC nl.b3p.brmo.soap.eigendom.HistorischeRelaties
-	c1095:p -> c1109:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

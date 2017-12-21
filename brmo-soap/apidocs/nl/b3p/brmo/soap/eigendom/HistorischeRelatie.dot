@@ -10,20 +10,9 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.soap.eigendom.HistorischeRelatie
-	c1014 [label=<<table title="nl.b3p.brmo.soap.eigendom.HistorischeRelatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HistorischeRelatie.html">
+	c1010 [label=<<table title="nl.b3p.brmo.soap.eigendom.HistorischeRelatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HistorischeRelatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HistorischeRelatie </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # identificatienummer : String </td></tr>
-<tr><td align="left" balign="left"> # aard : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + HistorischeRelatie() </td></tr>
-<tr><td align="left" balign="left"> + getIdentificatienummer() : String </td></tr>
-<tr><td align="left" balign="left"> + setIdentificatienummer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getAard() : String </td></tr>
-<tr><td align="left" balign="left"> + setAard(value : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./HistorischeRelatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

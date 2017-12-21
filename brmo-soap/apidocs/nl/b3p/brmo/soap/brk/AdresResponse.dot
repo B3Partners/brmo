@@ -10,27 +10,9 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.soap.brk.AdresResponse
-	c213 [label=<<table title="nl.b3p.brmo.soap.brk.AdresResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AdresResponse.html">
+	c206 [label=<<table title="nl.b3p.brmo.soap.brk.AdresResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AdresResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AdresResponse </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AdresResponse() </td></tr>
-<tr><td align="left" balign="left"> + getStraatNaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setStraatNaam(straatNaam : String) </td></tr>
-<tr><td align="left" balign="left"> + getHuisnummer() : Integer </td></tr>
-<tr><td align="left" balign="left"> + setHuisnummer(huisnummer : Integer) </td></tr>
-<tr><td align="left" balign="left"> + getHuisLetter() : String </td></tr>
-<tr><td align="left" balign="left"> + setHuisLetter(huisLetter : String) </td></tr>
-<tr><td align="left" balign="left"> + getHuisLetterToevoeging() : String </td></tr>
-<tr><td align="left" balign="left"> + setHuisLetterToevoeging(huisLetterToevoeging : String) </td></tr>
-<tr><td align="left" balign="left"> + getPostcode() : String </td></tr>
-<tr><td align="left" balign="left"> + setPostcode(postcode : String) </td></tr>
-<tr><td align="left" balign="left"> + getWoonplaatsNaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setWoonplaatsNaam(woonplaatsNaam : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AdresResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

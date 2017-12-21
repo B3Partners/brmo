@@ -10,36 +10,10 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.soap.eigendom.MutatieListResponse
-	c1283 [label=<<table title="nl.b3p.brmo.soap.eigendom.MutatieListResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MutatieListResponse.html">
+	c1279 [label=<<table title="nl.b3p.brmo.soap.eigendom.MutatieListResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MutatieListResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MutatieListResponse </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # mutatieEntry : List&lt;MutatieEntry&gt; </td></tr>
-<tr><td align="left" balign="left"> # timestamp : XMLGregorianCalendar </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MutatieListResponse() </td></tr>
-<tr><td align="left" balign="left"> + getMutatieEntry() : List&lt;MutatieEntry&gt; </td></tr>
-<tr><td align="left" balign="left"> + getTimestamp() : XMLGregorianCalendar </td></tr>
-<tr><td align="left" balign="left"> + setTimestamp(value : XMLGregorianCalendar) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./MutatieListResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.GetMutatieListResponse
-	c1288 [label=<<table title="nl.b3p.brmo.soap.eigendom.GetMutatieListResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GetMutatieListResponse.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> GetMutatieListResponse </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # _return : MutatieListResponse </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + GetMutatieListResponse() </td></tr>
-<tr><td align="left" balign="left"> + getReturn() : MutatieListResponse </td></tr>
-<tr><td align="left" balign="left"> + setReturn(value : MutatieListResponse) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./GetMutatieListResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.eigendom.GetMutatieListResponse NAVASSOC nl.b3p.brmo.soap.eigendom.MutatieListResponse
-	c1288:p -> c1283:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -10,20 +10,9 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.soap.db.EigendomInfo
-	c579 [label=<<table title="nl.b3p.brmo.soap.db.EigendomInfo" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./EigendomInfo.html">
+	c574 [label=<<table title="nl.b3p.brmo.soap.db.EigendomInfo" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./EigendomInfo.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> EigendomInfo </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MAXAANTALRESULTATEN : String </td></tr>
-<tr><td align="left" balign="left"> + DBMAXRESULTS : Integer </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + EigendomInfo() </td></tr>
-<tr><td align="left" balign="left"> + createEigendomMutatieResponse(eigendomMutatieContext : Map&lt;String, Object&gt;) : EigendomMutatieResponse </td></tr>
-<tr><td align="left" balign="left"> + createMutatieListResponse(mutatieListContext : Map&lt;String, Object&gt;) : MutatieListResponse </td></tr>
-<tr><td align="left" balign="left"> + createMutatieListContext(request : MutatieListRequest) : Map&lt;String, Object&gt; </td></tr>
-<tr><td align="left" balign="left"> + createEigendomMutatieContext(request : EigendomMutatieRequest) : Map&lt;String, Object&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./EigendomInfo.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
