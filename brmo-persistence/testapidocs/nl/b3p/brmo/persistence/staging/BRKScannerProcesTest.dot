@@ -10,39 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.persistence.staging.BRKScannerProcesTest
-	c37 [label=<<table title="nl.b3p.brmo.persistence.staging.BRKScannerProcesTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BRKScannerProcesTest.html">
+	c36 [label=<<table title="nl.b3p.brmo.persistence.staging.BRKScannerProcesTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BRKScannerProcesTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRKScannerProcesTest </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BRKScannerProcesTest() </td></tr>
-<tr><td align="left" balign="left"> + roundtrip() </td></tr>
-<tr><td align="left" balign="left"> + testUpdateSamenvattingEnLogfile() </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BRKScannerProcesTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.TestUtil
-	c41 [label=<<table title="nl.b3p.brmo.persistence.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../TestUtil.html">
+	c40 [label=<<table title="nl.b3p.brmo.persistence.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../TestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestUtil </font></td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + NAAM_BESCHIJVING : String </td></tr>
-<tr><td align="left" balign="left"> + NAAM : String </td></tr>
-<tr><td align="left" balign="left"> + DIR : String </td></tr>
-<tr><td align="left" balign="left"> + EEN_ADRES : String </td></tr>
-<tr><td align="left" balign="left"> + ADRESLIJST : String[] </td></tr>
-<tr><td align="left" balign="left"> # entityManager : EntityManager </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TestUtil() </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + close() </td></tr>
-		</table></td></tr>
 		</table>>, URL="../TestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.persistence.staging.BRKScannerProcesTest extends nl.b3p.brmo.persistence.TestUtil
-	c41:p -> c37:p [dir=back,arrowtail=empty];
+	c40:p -> c36:p [dir=back,arrowtail=empty];
 }
 

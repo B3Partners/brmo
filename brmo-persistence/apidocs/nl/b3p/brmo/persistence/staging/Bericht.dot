@@ -10,103 +10,19 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.persistence.staging.Bericht
-	c238 [label=<<table title="nl.b3p.brmo.persistence.staging.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Bericht.html">
+	c233 [label=<<table title="nl.b3p.brmo.persistence.staging.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Bericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Bericht </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Bericht() </td></tr>
-<tr><td align="left" balign="left"> + Bericht(br_xml : String) </td></tr>
-<tr><td align="left" balign="left"> + getId() : Long </td></tr>
-<tr><td align="left" balign="left"> + setId(id : Long) </td></tr>
-<tr><td align="left" balign="left"> + getLaadprocesid() : LaadProces </td></tr>
-<tr><td align="left" balign="left"> + setLaadprocesid(laadprocesid : LaadProces) </td></tr>
-<tr><td align="left" balign="left"> + getDatum() : Date </td></tr>
-<tr><td align="left" balign="left"> + setDatum(datum : Date) </td></tr>
-<tr><td align="left" balign="left"> + getObject_ref() : String </td></tr>
-<tr><td align="left" balign="left"> + setObject_ref(object_ref : String) </td></tr>
-<tr><td align="left" balign="left"> + getVolgordenummer() : Integer </td></tr>
-<tr><td align="left" balign="left"> + setVolgordenummer(volgordenummer : Integer) </td></tr>
-<tr><td align="left" balign="left"> + getSoort() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoort(soort : String) </td></tr>
-<tr><td align="left" balign="left"> + getOpmerking() : String </td></tr>
-<tr><td align="left" balign="left"> + setOpmerking(opmerking : String) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : Bericht.STATUS </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : Bericht.STATUS) </td></tr>
-<tr><td align="left" balign="left"> + getStatus_datum() : Date </td></tr>
-<tr><td align="left" balign="left"> + setStatus_datum(status_datum : Date) </td></tr>
-<tr><td align="left" balign="left"> + getJob_id() : String </td></tr>
-<tr><td align="left" balign="left"> + setJob_id(job_id : String) </td></tr>
-<tr><td align="left" balign="left"> + getBr_xml() : String </td></tr>
-<tr><td align="left" balign="left"> + setBr_xml(br_xml : String) </td></tr>
-<tr><td align="left" balign="left"> + getBr_orgineel_xml() : String </td></tr>
-<tr><td align="left" balign="left"> + setBr_orgineel_xml(br_orgineel_xml : String) </td></tr>
-<tr><td align="left" balign="left"> + getDb_xml() : String </td></tr>
-<tr><td align="left" balign="left"> + setDb_xml(db_xml : String) </td></tr>
-<tr><td align="left" balign="left"> + getXsl_version() : String </td></tr>
-<tr><td align="left" balign="left"> + setXsl_version(xsl_version : String) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./Bericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.Bericht.STATUS
-	c239 [label=<<table title="nl.b3p.brmo.persistence.staging.Bericht.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.STATUS.html">
+	//nl.b3p.brmo.persistence.staging.Bericht implements java.io.Serializable
+	c242:p -> c233:p [dir=back,arrowtail=empty,style=dashed];
+	// java.io.Serializable
+	c242 [label=<<table title="java.io.Serializable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> STATUS </td></tr>
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> Serializable </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> STAGING_OK </td></tr>
-<tr><td align="left" balign="left"> STAGING_NOK </td></tr>
-<tr><td align="left" balign="left"> STAGING_FORWARDED </td></tr>
-<tr><td align="left" balign="left"> RSGB_WAITING </td></tr>
-<tr><td align="left" balign="left"> RSGB_PROCESSING </td></tr>
-<tr><td align="left" balign="left"> RSGB_OK </td></tr>
-<tr><td align="left" balign="left"> RSGB_OUTDATED </td></tr>
-<tr><td align="left" balign="left"> RSGB_NOK </td></tr>
-<tr><td align="left" balign="left"> ARCHIVE </td></tr>
-		</table></td></tr>
-		</table>>, URL="./Bericht.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.LaadProces
-	c242 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> LaadProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + LaadProces() </td></tr>
-<tr><td align="left" balign="left"> + LaadProces(bestand_naam : String, soort : String) </td></tr>
-<tr><td align="left" balign="left"> + getId() : Long </td></tr>
-<tr><td align="left" balign="left"> + setId(id : Long) </td></tr>
-<tr><td align="left" balign="left"> + getBestand_naam() : String </td></tr>
-<tr><td align="left" balign="left"> + setBestand_naam(bestand_naam : String) </td></tr>
-<tr><td align="left" balign="left"> + getBestand_datum() : Date </td></tr>
-<tr><td align="left" balign="left"> + setBestand_datum(bestand_datum : Date) </td></tr>
-<tr><td align="left" balign="left"> + getSoort() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoort(soort : String) </td></tr>
-<tr><td align="left" balign="left"> + getGebied() : String </td></tr>
-<tr><td align="left" balign="left"> + setGebied(gebied : String) </td></tr>
-<tr><td align="left" balign="left"> + getOpmerking() : String </td></tr>
-<tr><td align="left" balign="left"> + setOpmerking(opmerking : String) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : LaadProces.STATUS </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : LaadProces.STATUS) </td></tr>
-<tr><td align="left" balign="left"> + getStatus_datum() : Date </td></tr>
-<tr><td align="left" balign="left"> + setStatus_datum(status_datum : Date) </td></tr>
-<tr><td align="left" balign="left"> + getContact_email() : String </td></tr>
-<tr><td align="left" balign="left"> + setContact_email(contact_email : String) </td></tr>
-<tr><td align="left" balign="left"> + getAutomatischProces() : AutomatischProces </td></tr>
-<tr><td align="left" balign="left"> + setAutomatischProces(automatischProces : AutomatischProces) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./LaadProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.Bericht NAVASSOC nl.b3p.brmo.persistence.staging.LaadProces
-	c238:p -> c242:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.persistence.staging.Bericht NAVASSOC nl.b3p.brmo.persistence.staging.Bericht.STATUS
-	c238:p -> c239:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

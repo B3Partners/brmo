@@ -10,127 +10,65 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.persistence.staging.TopNLScannerProces
-	c367 [label=<<table title="nl.b3p.brmo.persistence.staging.TopNLScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLScannerProces.html">
+	c364 [label=<<table title="nl.b3p.brmo.persistence.staging.TopNLScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLScannerProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TopNLScannerProces </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TopNLScannerProces() </td></tr>
-		</table></td></tr>
 		</table>>, URL="./TopNLScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.BGTLightScannerProces
-	c368 [label=<<table title="nl.b3p.brmo.persistence.staging.BGTLightScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightScannerProces.html">
+	c365 [label=<<table title="nl.b3p.brmo.persistence.staging.BGTLightScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightScannerProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTLightScannerProces </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTLightScannerProces() </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BGTLightScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.AutomatischProces
-	c369 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
+	c366 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AutomatischProces </font></td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + LOG_NEWLINE : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AutomatischProces() </td></tr>
-<tr><td align="left" balign="left"> + updateSamenvattingEnLogfile(samenvatting : String) </td></tr>
-<tr><td align="left" balign="left"> + addLogLine(line : String) </td></tr>
-<tr><td align="left" balign="left"> + getConfig() : Map&lt;String, ClobElement&gt; </td></tr>
-<tr><td align="left" balign="left"> + setConfig(config : Map&lt;String, ClobElement&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getLastrun() : Date </td></tr>
-<tr><td align="left" balign="left"> + setLastrun(lastrun : Date) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : AutomatischProces.ProcessingStatus </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : AutomatischProces.ProcessingStatus) </td></tr>
-<tr><td align="left" balign="left"> + getSamenvatting() : String </td></tr>
-<tr><td align="left" balign="left"> + setSamenvatting(samenvatting : String) </td></tr>
-<tr><td align="left" balign="left"> + getLogfile() : String </td></tr>
-<tr><td align="left" balign="left"> + setLogfile(logfile : String) </td></tr>
-<tr><td align="left" balign="left"> + getId() : Long </td></tr>
-<tr><td align="left" balign="left"> + setId(id : Long) </td></tr>
-<tr><td align="left" balign="left"> + getCronExpressie() : String </td></tr>
-<tr><td align="left" balign="left"> + setCronExpressie(cronExpressie : String) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./AutomatischProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// Note annotation
-	n0cc369 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
+	n0cc366 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> Tabel "automatisch_proces" in de database. </td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0, shape=note];
-	n0cc369 -> c369:p[arrowhead=none];
+	n0cc366 -> c366:p[arrowhead=none];
 	// nl.b3p.brmo.persistence.staging.BRKScannerProces
-	c374 [label=<<table title="nl.b3p.brmo.persistence.staging.BRKScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRKScannerProces.html">
+	c371 [label=<<table title="nl.b3p.brmo.persistence.staging.BRKScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRKScannerProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRKScannerProces </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BRKScannerProces() </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BRKScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces
-	c379 [label=<<table title="nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebMirrorBAGScannerProces.html">
+	c376 [label=<<table title="nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebMirrorBAGScannerProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WebMirrorBAGScannerProces </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + WebMirrorBAGScannerProces() </td></tr>
-		</table></td></tr>
 		</table>>, URL="./WebMirrorBAGScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c381 [label=<<table title="nl.b3p.brmo.persistence.staging.DirectoryScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DirectoryScannerProces.html">
+	c378 [label=<<table title="nl.b3p.brmo.persistence.staging.DirectoryScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DirectoryScannerProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> DirectoryScannerProces </font></td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + DirectoryScannerProces() </td></tr>
-<tr><td align="left" balign="left"> + getScanDirectory() : String </td></tr>
-<tr><td align="left" balign="left"> + getArchiefDirectory() : String </td></tr>
-<tr><td align="left" balign="left"> + setScanDirectory(scanDirectory : String) </td></tr>
-<tr><td align="left" balign="left"> + setArchiefDirectory(archiefDirectory : String) </td></tr>
-		</table></td></tr>
 		</table>>, URL="./DirectoryScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.BAGScannerProces
-	c385 [label=<<table title="nl.b3p.brmo.persistence.staging.BAGScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BAGScannerProces.html">
+	c382 [label=<<table title="nl.b3p.brmo.persistence.staging.BAGScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BAGScannerProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BAGScannerProces </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BAGScannerProces() </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BAGScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.persistence.staging.TopNLScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c381:p -> c367:p [dir=back,arrowtail=empty];
+	c378:p -> c364:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.BGTLightScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c381:p -> c368:p [dir=back,arrowtail=empty];
+	c378:p -> c365:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.BRKScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c381:p -> c374:p [dir=back,arrowtail=empty];
+	c378:p -> c371:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c381:p -> c379:p [dir=back,arrowtail=empty];
+	c378:p -> c376:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.DirectoryScannerProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c369:p -> c381:p [dir=back,arrowtail=empty];
+	c366:p -> c378:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.BAGScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c381:p -> c385:p [dir=back,arrowtail=empty];
+	c378:p -> c382:p [dir=back,arrowtail=empty];
 }
 

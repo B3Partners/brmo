@@ -14,19 +14,6 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestUtil </font></td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + NAAM_BESCHIJVING : String </td></tr>
-<tr><td align="left" balign="left"> + NAAM : String </td></tr>
-<tr><td align="left" balign="left"> + DIR : String </td></tr>
-<tr><td align="left" balign="left"> + EEN_ADRES : String </td></tr>
-<tr><td align="left" balign="left"> + ADRESLIJST : String[] </td></tr>
-<tr><td align="left" balign="left"> # entityManager : EntityManager </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TestUtil() </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + close() </td></tr>
-		</table></td></tr>
 		</table>>, URL="./TestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
