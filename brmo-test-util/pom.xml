@@ -4,11 +4,11 @@
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
-        <version>1.5.2-SNAPSHOT</version>
+        <version>1.5.2</version>
     </parent>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo-test-util</artifactId>
-    <version>1.5.2-SNAPSHOT</version>
+    <version>1.5.2</version>
     <packaging>jar</packaging>
     <name>BRMO test-util</name>
     <description>Test utilities voor de BRMO</description>
