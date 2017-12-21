@@ -14,18 +14,6 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MainIntegrationTest </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + name : TestName </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MainIntegrationTest(args : String) </td></tr>
-<tr><td align="left" balign="left"> + params() : Collection&lt;&gt; </td></tr>
-<tr><td align="left" balign="left"> + getWorkDir() </td></tr>
-<tr><td align="left" balign="left"> + cleanupDB() </td></tr>
-<tr><td align="left" balign="left"> + startTest() </td></tr>
-<tr><td align="left" balign="left"> + endTest() </td></tr>
-<tr><td align="left" balign="left"> + commandLine() </td></tr>
-		</table></td></tr>
 		</table>>, URL="./MainIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
