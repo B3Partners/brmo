@@ -10,73 +10,10 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.proxy.BerichtEndpointFileServletTest
-	c5 [label=<<table title="nl.b3p.brmo.service.proxy.BerichtEndpointFileServletTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BerichtEndpointFileServletTest.html">
+	c2 [label=<<table title="nl.b3p.brmo.service.proxy.BerichtEndpointFileServletTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BerichtEndpointFileServletTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BerichtEndpointFileServletTest </td></tr>
 		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BerichtEndpointFileServletTest() </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + tearDown() </td></tr>
-<tr><td align="left" balign="left"> + testPostBRK() </td></tr>
-		</table></td></tr>
 		</table>>, URL="./BerichtEndpointFileServletTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.proxy.BerichtEndpointFileServletTest NAVASSOC com.meterware.servletunit.ServletUnitClient
-	c5:p -> c8:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.service.proxy.BerichtEndpointFileServletTest NAVASSOC com.meterware.servletunit.ServletRunner
-	c5:p -> c11:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.meterware.servletunit.ServletUnitClient
-	c8 [label=<<table title="com.meterware.servletunit.ServletUnitClient" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ServletUnitClient </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + newClient(arg0 : InvocationContextFactory) : ServletUnitClient </td></tr>
-<tr><td align="left" balign="left"> + setProxyServer(arg0 : String, arg1 : int) </td></tr>
-<tr><td align="left" balign="left"> + newInvocation(arg0 : String) : InvocationContext </td></tr>
-<tr><td align="left" balign="left"> + newInvocation(arg0 : WebRequest) : InvocationContext </td></tr>
-<tr><td align="left" balign="left"> ~ newInvocation(arg0 : WebRequest, arg1 : FrameSelector) : InvocationContext </td></tr>
-<tr><td align="left" balign="left"> ~ getMessageBody(arg0 : WebRequest) : ByteArrayOutputStream </td></tr>
-<tr><td align="left" balign="left"> + getResponse(arg0 : InvocationContext) : WebResponse </td></tr>
-<tr><td align="left" balign="left"> + getSession(arg0 : boolean) : HttpSession </td></tr>
-<tr><td align="left" balign="left"> # newResponse(arg0 : WebRequest, arg1 : FrameSelector) : WebResponse </td></tr>
-		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// com.meterware.servletunit.ServletRunner
-	c11 [label=<<table title="com.meterware.servletunit.ServletRunner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ServletRunner </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + JASPER_DESCRIPTOR : JSPServletDescriptor </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ServletRunner() </td></tr>
-<tr><td align="left" balign="left"> + ServletRunner(arg0 : String) </td></tr>
-<tr><td align="left" balign="left"> + ServletRunner(arg0 : String, arg1 : String) </td></tr>
-<tr><td align="left" balign="left"> + ServletRunner(arg0 : File) </td></tr>
-<tr><td align="left" balign="left"> + ServletRunner(arg0 : File, arg1 : String) </td></tr>
-<tr><td align="left" balign="left"> + ServletRunner(arg0 : String, arg1 : EntityResolver) </td></tr>
-<tr><td align="left" balign="left"> + ServletRunner(arg0 : InputStream) </td></tr>
-<tr><td align="left" balign="left"> + ServletRunner(arg0 : InputStream, arg1 : String) </td></tr>
-<tr><td align="left" balign="left"> + registerServlet(arg0 : String, arg1 : String) </td></tr>
-<tr><td align="left" balign="left"> + registerServlet(arg0 : String, arg1 : String, arg2 : Hashtable&lt;&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getResponse(arg0 : WebRequest) : WebResponse </td></tr>
-<tr><td align="left" balign="left"> + getResponse(arg0 : String) : WebResponse </td></tr>
-<tr><td align="left" balign="left"> + getSession(arg0 : boolean) : HttpSession </td></tr>
-<tr><td align="left" balign="left"> + getContextParameter(arg0 : String) : String </td></tr>
-<tr><td align="left" balign="left"> + setContextParameter(arg0 : String, arg1 : Object) </td></tr>
-<tr><td align="left" balign="left"> + shutDown() </td></tr>
-<tr><td align="left" balign="left"> + newClient() : ServletUnitClient </td></tr>
-<tr><td align="left" balign="left"> ~ getContext() : ServletUnitContext </td></tr>
-<tr><td align="left" balign="left"> ~ getApplication() : WebApplication </td></tr>
-		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
