@@ -9,8 +9,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.sql.DataSource;
@@ -28,6 +26,7 @@ import nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht.Body;
 import nl.egem.stuf.sector.bg._0204.VraagBericht;
 import nl.egem.stuf.stuf0204.FoutBericht;
 import nl.egem.stuf.stuf0204.Stuurgegevens;
+import nl.egem.stuf.stuf0204.Verwerkingssoort;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
@@ -142,10 +141,10 @@ public class StUFBGsynchroon {
                 sort = "ORDER BY ";
                 switch (sortering.toString()) {
                     case "1":
-                        sort += "nm_geslachtsnaam,nl_voorvoegsel_geslachtsnaam, nm_voorletters_aanschrijving";
+                        sort += "nm_geslachtsnaam,nm_voorvoegsel_geslachtsnaam, na_voorletters_aanschrijving";
                         break;
                     case "6":
-                        sort += "gb_geboortedatum,nm_geslachtsnaam,nl_voorvoegsel_geslachtsnaam, nm_voorletters_aanschrijving";
+                        sort += "gb_geboortedatum,nm_geslachtsnaam,nm_voorvoegsel_geslachtsnaam, na_voorletters_aanschrijving";
                         break;
                     case "7":
                         sort += "bsn";
@@ -206,6 +205,10 @@ public class StUFBGsynchroon {
             case "PRS": {
                 for (Map<String, Object> obj : resultsMap) {
                     PRSAntwoord prs = AntwoordBodyFactory.createPersoon(obj, vraag.getBody().getPRS().get(2));
+                    prs.setSoortEntiteit("F");
+                    String sleutel = obj.get("sc_identif").toString();
+                    prs.setSleutelVerzendend(sleutel);
+                    prs.setVerwerkingssoort(Verwerkingssoort.I);
                     b.getPRS().add(prs);
                 }
                 break;
