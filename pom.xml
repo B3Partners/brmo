@@ -425,13 +425,13 @@
                 <!-- voor jndi context in een brmo-service integration test -->
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-catalina</artifactId>
-                <version>8.0.47</version>
+                <version>8.0.48</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-dbcp</artifactId>
-                <version>8.0.47</version>
+                <version>8.0.48</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
