@@ -578,12 +578,13 @@
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>${maven.surefire.version}</version>
                     <configuration>
+                        <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
+                        <trimStackTrace>false</trimStackTrace>
+                        <useFile>false</useFile>
                         <includes>
                             <include>**/*IntegrationTest.java</include>
                         </includes>
                         <systemPropertyVariables />
-                        <trimStackTrace>false</trimStackTrace>
-                        <useFile>false</useFile>
                         <skipTests>!${test.onlyITs}</skipTests>
                     </configuration>
                     <executions>

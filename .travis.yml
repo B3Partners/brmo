@@ -88,8 +88,8 @@ before_script:
 
 script:
   # run unit tests voor alle modules
-  - travis_wait 20 mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false
-  # run integratie tests voor veschillende modules
+  - mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false
+  # run integratie tests voor veschillende modules, per module
   # run integratie tests voor bgt-gml-loader module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
   # run integratie tests voor brmo-loader module
@@ -106,10 +106,10 @@ script:
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-commandline'
   # test of de javadoc compliant is met java-8 strict checks
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
-         travis_wait mvn -Ppostgresql javadoc:javadoc;
+         travis_wait 20 mvn -Ppostgresql javadoc:javadoc;
     fi
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
-         travis_wait mvn -Ppostgresql javadoc:test-javadoc;
+         travis_wait 20 mvn -Ppostgresql javadoc:test-javadoc;
     fi
 
 # after_script:
@@ -117,5 +117,5 @@ script:
 after_success:
   # deploy maven site
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
-         travis_wait mvn -B -e -Ppostgresql site-deploy --settings .travis/settings.xml;
+         travis_wait 20 mvn -B -e -Ppostgresql site-deploy --settings .travis/settings.xml;
     fi
