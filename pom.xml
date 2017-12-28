@@ -140,7 +140,7 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>jdbc-util</artifactId>
-                <version>1.9</version>
+                <version>1.10</version>
             </dependency>
 
             <dependency>
@@ -166,7 +166,7 @@
 
             <!-- spatial -->
             <dependency>
-                <!-- geotools 18 gebruikt JTS 1.14 -->
+                <!-- geotools 18.1 gebruikt JTS 1.14.0 -->
                 <groupId>com.vividsolutions</groupId>
                 <artifactId>jts-core</artifactId>
                 <version>1.14.0</version>
