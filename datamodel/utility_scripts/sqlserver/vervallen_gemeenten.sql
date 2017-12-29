@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 -- vervallen gemeenten per 1 jan 2014
--- http://www.cbs.nl/nl-NL/menu/methoden/classificaties/overzicht/gemeentelijke-indeling/2014/default.htm
+-- https://www.cbs.nl/nl-nl/onze-diensten/methoden/classificaties/overig/gemeentelijke-indelingen-per-jaar/indeling%20per%20jaar/gemeentelijke-indeling-op-1-januari-2014
 -- Op 1 januari 2014 is het aantal gemeenten afgenomen met vijf, zodat het aantal gemeenten in Nederland 403 bedraagt.
 UPDATE gemeente SET datum_einde_geldh = '2014-01-01', dat_beg_geldh = '2009-01-01' WHERE code IN (
 -- Boskoop (0499) en Rijnwoude (1672)
@@ -20,6 +20,7 @@ DELETE FROM gemeente WHERE code IN (
 -- Gaasterlân-Sleat (0653), Lemsterland (0082), Skasterlân (0051), Boarnsterhim1 (0055)
    653, 82, 51, 55
 );
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2014-01-01', 1921, 'De Friese Meren');
 COMMIT;
 
 
@@ -27,7 +28,7 @@ COMMIT;
 
 BEGIN TRANSACTION;
 -- vervallen gemeenten per 1 jan 2015
--- http://www.cbs.nl/nl-NL/menu/methoden/classificaties/overzicht/gemeentelijke-indeling/2015/default.htm
+-- https://www.cbs.nl/nl-nl/onze-diensten/methoden/classificaties/overig/gemeentelijke-indelingen-per-jaar/indeling%20per%20jaar/gemeentelijke-indeling-op-1-januari-2015
 -- Op 1 januari 2015 is het aantal gemeenten afgenomen met tien, zodat het aantal gemeenten in Nederland 393 bedraagt.
 UPDATE gemeente SET datum_einde_geldh = '2015-01-01', dat_beg_geldh = '2009-01-01' WHERE code IN (
 -- Graft-De Rijp (0365) & Schermer (0458) te vervallen
@@ -65,15 +66,14 @@ DELETE FROM gemeente WHERE code IN (
 -- Maasdonk (1671) komt te vervallen
    1671
 );
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2015-01-01', 1930, 'Nissewaard');
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2015-01-01', 1931, 'Krimpenerwaard');
 COMMIT;
-
-
-
 
 
 BEGIN TRANSACTION;
 -- vervallen gemeenten per 1 juli 2015
-UPDATE gemeente SET datum_einde_geldh = '2015-07-01', dat_beg_geldh = '2009-01-01' WHERE code IN (
+UPDATE gemeente SET datum_einde_geldh = '2015-07-01', dat_beg_geldh = '2014-01-01' WHERE code IN (
 -- De Friese Meren (1921) is hernoemt naar De Fryske Marren (1940)
   1921
 );
@@ -85,6 +85,7 @@ DELETE FROM gemeente WHERE code IN (
 -- De Friese Meren (1921) is hernoemt naar De Fryske Marren (1940)
   1921
 );
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2015-07-01', 1940, 'De Fryske Marren');
 COMMIT;
 
 
@@ -119,6 +120,8 @@ DELETE FROM gemeente WHERE code IN (
 -- Zeevang (0478) komt te vervallen
    478
 );
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2016-01-01', 1945, 'Berg en Dal');
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2016-01-01', 1942, 'Gooise Meren');
 COMMIT;
 
 
@@ -139,6 +142,7 @@ DELETE FROM gemeente WHERE code IN (
 -- Schijndel (0844), Sint-Oedenrode (0846) en Veghel (0860) komen te vervallen
    844,846,860
 );
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1948, 'Meierijstad');
 COMMIT;
 
 
@@ -189,4 +193,7 @@ DELETE FROM gemeente WHERE code IN (
 -- Rijnwaarden (0196) gaat op in Zevenaar
    196
 );
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1949, 'Waadhoeke');
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1950, 'Westerwolde');
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1952, 'Midden-Groningen');
 COMMIT;
