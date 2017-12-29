@@ -120,3 +120,73 @@ DELETE FROM gemeente WHERE code IN (
    478
 );
 COMMIT;
+
+
+
+BEGIN TRANSACTION;
+-- vervallen gemeenten per 1 jan 2017
+-- Op 1 januari 2017 is het aantal gemeenten afgenomen met drie
+-- zie: https://www.cbs.nl/nl-nl/onze-diensten/methoden/classificaties/overig/gemeentelijke-indelingen-per-jaar/indeling%20per%20jaar/gemeentelijke-indeling-op-1-januari-2017
+UPDATE gemeente SET datum_einde_geldh = '2017-01-01', dat_beg_geldh = '2009-01-01' WHERE code IN (
+-- Schijndel (0844), Sint-Oedenrode (0846) en Veghel (0860) komen te vervallen
+   844,846,860
+);
+INSERT INTO gemeente_archief SELECT * FROM gemeente WHERE code IN (
+-- Schijndel (0844), Sint-Oedenrode (0846) en Veghel (0860) komen te vervallen
+   844,846,860
+);
+DELETE FROM gemeente WHERE code IN (
+-- Schijndel (0844), Sint-Oedenrode (0846) en Veghel (0860) komen te vervallen
+   844,846,860
+);
+COMMIT;
+
+
+
+BEGIN TRANSACTION;
+-- vervallen gemeenten per 1 jan 2018
+-- Op 1 januari 2018 is het aantal gemeenten afgenomen met elf
+-- zie: https://www.cbs.nl/nl-nl/onze-diensten/methoden/classificaties/overig/gemeentelijke-indelingen-per-jaar/indeling%20per%20jaar/gemeentelijke-indeling-op-1-januari-2018
+UPDATE gemeente SET datum_einde_geldh = '2018-01-01', dat_beg_geldh = '2009-01-01' WHERE code IN (
+-- Bellingwedde (0007) en Vlagtwedde (0048) komen te vervallen
+   07,48,
+-- Hoogezand-Sappenmeer (0018), Slochteren (0040) en Menterwolde (1987) komen te vervallen
+   18,40,1987,
+-- het Bildt (0063), Franekeradeel (0070) en Menameradiel (1908) komen te vervallen
+   63,70,1908,
+-- Littenseradiel (0140) wordt heringedeeld in Leeuwarden, Súdwest-Fryslân en Waadhoeke.
+   140, 
+-- Leeuwarderadeel (0081) gaat op in Leeuwarden
+   81, 
+-- Rijnwaarden (0196) gaat op in Zevenaar
+   196
+);
+INSERT INTO gemeente_archief SELECT * FROM gemeente WHERE code IN (
+-- Bellingwedde (0007) en Vlagtwedde (0048) komen te vervallen
+   07,48,
+-- Hoogezand-Sappenmeer (0018), Slochteren (0040) en Menterwolde (1987) komen te vervallen
+   18,40,1987,
+-- het Bildt (0063), Franekeradeel (0070) en Menameradiel (1908) komen te vervallen
+   63,70,1908,
+-- Littenseradiel (0140) wordt heringedeeld in Leeuwarden, Súdwest-Fryslân en Waadhoeke.
+   140, 
+-- Leeuwarderadeel (0081) gaat op in Leeuwarden
+   81, 
+-- Rijnwaarden (0196) gaat op in Zevenaar
+   196
+);
+DELETE FROM gemeente WHERE code IN (
+-- Bellingwedde (0007) en Vlagtwedde (0048) komen te vervallen
+   07,48,
+-- Hoogezand-Sappenmeer (0018), Slochteren (0040) en Menterwolde (1987) komen te vervallen
+   18,40,1987,
+-- het Bildt (0063), Franekeradeel (0070) en Menameradiel (1908) komen te vervallen
+   63,70,1908,
+-- Littenseradiel (0140) wordt heringedeeld in Leeuwarden, Súdwest-Fryslân en Waadhoeke.
+   140, 
+-- Leeuwarderadeel (0081) gaat op in Leeuwarden
+   81, 
+-- Rijnwaarden (0196) gaat op in Zevenaar
+   196
+);
+COMMIT;
