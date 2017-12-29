@@ -1,5 +1,5 @@
 BEGIN
-    FOR t IN (SELECT * FROM user_tables)
+    FOR t IN (SELECT * FROM USER_TABLES)
     LOOP
         EXECUTE IMMEDIATE 'GRANT SELECT, UPDATE, INSERT, DELETE ON ' || t.table_name || ' TO JENKINS_TOPNL';
     END LOOP;

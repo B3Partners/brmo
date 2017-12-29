@@ -140,7 +140,7 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>jdbc-util</artifactId>
-                <version>1.9</version>
+                <version>1.10</version>
             </dependency>
 
             <dependency>
@@ -166,7 +166,7 @@
 
             <!-- spatial -->
             <dependency>
-                <!-- geotools 18 gebruikt JTS 1.14 -->
+                <!-- geotools 18.1 gebruikt JTS 1.14.0 -->
                 <groupId>com.vividsolutions</groupId>
                 <artifactId>jts-core</artifactId>
                 <version>1.14.0</version>
@@ -425,13 +425,13 @@
                 <!-- voor jndi context in een brmo-service integration test -->
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-catalina</artifactId>
-                <version>8.0.47</version>
+                <version>8.0.48</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-dbcp</artifactId>
-                <version>8.0.47</version>
+                <version>8.0.48</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
@@ -578,12 +578,13 @@
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>${maven.surefire.version}</version>
                     <configuration>
+                        <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
+                        <trimStackTrace>false</trimStackTrace>
+                        <useFile>false</useFile>
                         <includes>
                             <include>**/*IntegrationTest.java</include>
                         </includes>
                         <systemPropertyVariables />
-                        <trimStackTrace>false</trimStackTrace>
-                        <useFile>false</useFile>
                         <skipTests>!${test.onlyITs}</skipTests>
                     </configuration>
                     <executions>
