@@ -88,7 +88,7 @@ before_script:
 
 script:
   # run unit tests voor alle modules
-  - mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false
+  - travis_wait 20 mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false
   # run integratie tests voor veschillende modules, per module
   # run integratie tests voor bgt-gml-loader module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
