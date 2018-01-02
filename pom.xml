@@ -11,6 +11,7 @@
         <module>brmo-init-util</module>
         <module>brmo-persistence</module>
         <module>bgt-gml-loader</module>
+        <module>topparser</module>
         <module>brmo-loader</module>
         <module>brmo-taglib</module>
         <module>brmo-service</module>
@@ -20,7 +21,6 @@
         <module>brmo-soap</module>
         <module>brmo-stufbg204</module>
         <module>brmo-dist</module>
-        <module>topparser</module>
     </modules>
     <name>BRMO</name>
     <description>B3Partners BRMO applicatie</description>
@@ -59,13 +59,13 @@
         <geotools.version>18.1</geotools.version>
         <postgresql.jdbc.version>42.1.4</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2.2.1</postgresql.postgis-jdbc.version>
+        <oracle.jdbc.artifactId>ojdbc8</oracle.jdbc.artifactId>
         <oracle.jdbc.groupId>com.oracle</oracle.jdbc.groupId>
         <oracle.jdbc.version>12.2.0.1.0</oracle.jdbc.version>
         <!--
         <oracle.jdbc.groupId>com.oracle.jdbc</oracle.jdbc.groupId>
         <oracle.jdbc.version>12.2.0.1</oracle.jdbc.version>
         -->
-        <oracle.jdbc.artifactId>ojdbc8</oracle.jdbc.artifactId>
         <sqlserver.jtds.version>1.3.1</sqlserver.jtds.version>
         <javasimon.version>4.1.3</javasimon.version>
         <javax.mail.version>1.6.0</javax.mail.version>
@@ -481,6 +481,7 @@
         </dependency>
     </dependencies>
     <build>
+        <defaultGoal>package</defaultGoal>
         <pluginManagement>
             <plugins>
                 <!--
@@ -520,7 +521,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.6</version>
+                    <version>3.7</version>
                     <dependencies>
                         <dependency>
                             <groupId>net.trajano.wagon</groupId>
@@ -629,14 +630,14 @@
                         <show>package</show>
                         <useStandardDocletOptions>true</useStandardDocletOptions>
                         <links>
-                            <link>http://www.slf4j.org/apidocs/</link>
-                            <link>http://download.oracle.com/javaee/7/api/</link>
+                            <link>https://www.slf4j.org/apidocs/</link>
+                            <link>https://download.oracle.com/javaee/7/api/</link>
                             <link>https://docs.jboss.org/hibernate/core/3.6/javadocs/</link>
                             <link>http://docs.geotools.org/stable/javadocs/</link>
                             <link>https://logging.apache.org/log4j/1.2/apidocs/</link>
                             <link>http://junit.sourceforge.net/javadoc/</link>
-                            <link>http://b3partners.github.io/kadaster-gds2/apidocs/</link>
-                            <link>http://b3partners.github.io/jdbc-util/apidocs/</link>
+                            <link>https://b3partners.github.io/kadaster-gds2/apidocs/</link>
+                            <link>https://b3partners.github.io/jdbc-util/apidocs/</link>
                         </links>
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <packagesheader>${project.artifactId}</packagesheader>
@@ -873,18 +874,18 @@
             <!-- actief voor Travis-CI builds -->
             <id>postgresql</id>
             <properties>
-                <oracle.jdbc.groupId>com.oracle.weblogic</oracle.jdbc.groupId>
-                <oracle.jdbc.artifactId>ojdbc7</oracle.jdbc.artifactId>
-                <oracle.jdbc.version>12.1.3-0-0</oracle.jdbc.version>
+                <oracle.jdbc.groupId>com.oracle.jdbc</oracle.jdbc.groupId>
+                <oracle.jdbc.artifactId>ojdbc8</oracle.jdbc.artifactId>
+                <oracle.jdbc.version>12.2.0.1</oracle.jdbc.version>
             </properties>
         </profile>
         <profile>
             <!-- actief voor AppVeyor builds -->
             <id>mssql</id>
             <properties>
-                <oracle.jdbc.groupId>com.oracle.weblogic</oracle.jdbc.groupId>
-                <oracle.jdbc.artifactId>ojdbc7</oracle.jdbc.artifactId>
-                <oracle.jdbc.version>12.1.3-0-0</oracle.jdbc.version>
+                <oracle.jdbc.groupId>com.oracle.jdbc</oracle.jdbc.groupId>
+                <oracle.jdbc.artifactId>ojdbc8</oracle.jdbc.artifactId>
+                <oracle.jdbc.version>12.2.0.1</oracle.jdbc.version>
             </properties>
         </profile>
         <profile>
