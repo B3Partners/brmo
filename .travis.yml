@@ -115,14 +115,14 @@ after_failure:
 after_success:
   # test of de javadoc compliant is met java-8 strict checks
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
-         travis_wait 30 mvn -Ppostgresql javadoc:javadoc;
+         travis_wait 30 mvn javadoc:javadoc;
     fi
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
-         travis_wait 30 mvn -Ppostgresql javadoc:test-javadoc;
+         travis_wait 30 mvn javadoc:test-javadoc;
     fi
 
 after_script:
   # deploy maven site van master branch als test succes
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_TEST_RESULT" == 0 ]; then
-         travis_wait 30 mvn -B -e -Ppostgresql site-deploy --settings .travis/settings.xml;
+         travis_wait 30 mvn -B -e site-deploy --settings .travis/settings.xml;
     fi
