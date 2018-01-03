@@ -10,7 +10,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
+import org.apache.commons.dbcp.BasicDataSource;
 import org.junit.After;
 import static org.junit.Assume.assumeNotNull;
 import org.junit.Before;
