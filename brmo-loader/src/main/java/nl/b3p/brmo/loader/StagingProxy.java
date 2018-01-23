@@ -584,7 +584,7 @@ public class StagingProxy {
      * @param listener progress listener
      * @throws Exception if any
      */
-    public void loadBr(InputStream stream, String type, String fileName, ProgressUpdateListener listener) throws Exception {
+    public void loadBr(InputStream stream, String type, String fileName, Date d, ProgressUpdateListener listener) throws Exception {
 
         CountingInputStream cis = new CountingInputStream(stream);
 
