@@ -63,9 +63,9 @@ Onderstaand een aantal voorbeelden.
      output:  
      
      ```
-     staging versie: 1.4.3  
-     rsgb    versie: 1.4.3  
-     rsgbbgt versie: 1.4.3  
+     staging versie: 1.5.3
+     rsgb    versie: 1.5.3
+     rsgbbgt versie: 1.5.3
      ```
      
   - `java -jar ./bin/brmo-commandline.jar -db conf/commandline-example.properties --load /home/mark/dev/projects/brmo/brmo-loader/src/test/resources/GH-275/OPR-1884300000000464.xml bag`
@@ -86,7 +86,8 @@ Onderstaand een aantal voorbeelden.
      STAGING_OK,0  
      STAGING_NOK,0  
      RSGB_OK,0  
-     RSGB_NOK,1  
+     RSGB_NOK,1
+     RSGB_BAG_NOK,123
      RSGB_OUTDATED,0  
      ARCHIVE,0  
 

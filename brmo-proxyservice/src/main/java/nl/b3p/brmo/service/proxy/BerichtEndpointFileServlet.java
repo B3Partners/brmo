@@ -69,7 +69,7 @@ public class BerichtEndpointFileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getContentLength() > this.maxUploadSize) {
-            throw new ServletException("De 'max_upload_size' is overschreden.");
+            throw new ServletException("De 'max_upload_size' van " + this.maxUploadSize + " is overschreden.");
         }
 
         File _tmpfile = File.createTempFile(this.getFileName(), ".xml", FileUtils.getTempDirectory());

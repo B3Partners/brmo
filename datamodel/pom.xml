@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>datamodel</artifactId>
-    <version>1.5.2-SNAPSHOT</version>
+    <version>1.5.3-SNAPSHOT</version>
     <packaging>pom</packaging>
     <parent>
       <groupId>nl.b3p</groupId>
       <artifactId>brmo</artifactId>
-      <version>1.5.2-SNAPSHOT</version>
+      <version>1.5.3-SNAPSHOT</version>
     </parent>
     <name>BRMO rsgb datamodel</name>
     <build>
@@ -169,7 +169,7 @@
                     <dependency>
                         <groupId>net.sf.saxon</groupId>
                         <artifactId>Saxon-HE</artifactId>
-                        <version>9.8.0-6</version>
+                        <version>9.8.0-7</version>
                     </dependency>
                 </dependencies>
             </plugin>

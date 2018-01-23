@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo-stufbg204</artifactId>
-    <version>1.5.2-SNAPSHOT</version>
+    <version>1.5.3-SNAPSHOT</version>
     <packaging>war</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
-        <version>1.5.2-SNAPSHOT</version>
+        <version>1.5.3-SNAPSHOT</version>
     </parent>
     <name>BRMO STUF BG 204</name>
     <properties>
@@ -99,7 +99,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <!-- java 8 doclint van struikelt over de gegenereerde code; uitzetten van syntax check! -->
-                    <additionalparam>-Xdoclint:-syntax</additionalparam>
+                    <doclint>none</doclint>
                 </configuration>
             </plugin>
             <plugin>             
@@ -159,7 +159,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <!-- java 8 doclint van struikelt over de gegenereerde code; uitzetten van syntax check! -->
-                    <additionalparam>-Xdoclint:-syntax</additionalparam>
+                    <doclint>none</doclint>
                 </configuration>
             </plugin>
         </plugins>

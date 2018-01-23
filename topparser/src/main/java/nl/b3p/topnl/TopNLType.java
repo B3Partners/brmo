@@ -16,33 +16,49 @@
  */
 package nl.b3p.topnl;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  *
  * @author Meine Toonen
  */
 public enum TopNLType {
-    TOP10NL ("top10nl"), 
-    TOP50NL ("top50nl"), 
-    TOP100NL("top100nl"), 
-    TOP250NL("top250nl");
-    
+    TOP10NL("Top10NL"),
+    TOP50NL("Top50NL"),
+    TOP100NL("Top100NL"),
+    TOP250NL("Top250NL");
+
     private final String type;
-    
-    TopNLType(String type){
-        this.type =  type;
+
+    private static final ArrayList<String> typen = new ArrayList();
+
+    static {
+        for (TopNLType s : values()) {
+            typen.add(s.getType());
+        }
+    }
+
+    TopNLType(String type) {
+        this.type = type;
     }
 
     public String getType() {
         return type;
     }
-    
-    public static boolean isTopNLType(String type){
+
+    public static List<String> typen() {
+        return Collections.unmodifiableList(typen);
+    }
+
+    public static boolean isTopNLType(String type) {
         for (TopNLType value : TopNLType.values()) {
-            if(value.getType().equalsIgnoreCase(type)){
+            if (value.getType().equalsIgnoreCase(type)) {
                 return true;
             }
         }
         return false;
     }
-    
+
 }

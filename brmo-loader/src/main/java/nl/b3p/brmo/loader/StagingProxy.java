@@ -41,6 +41,7 @@ import nl.b3p.loader.jdbc.LongColumnListHandler;
 import nl.b3p.loader.jdbc.MssqlJdbcConverter;
 import nl.b3p.loader.jdbc.OracleJdbcConverter;
 import nl.b3p.loader.jdbc.PostgisJdbcConverter;
+import nl.b3p.topnl.TopNLType;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
@@ -251,7 +252,7 @@ public class StagingProxy {
         }
         log.debug("pre-transformatie SQL: " + q);
         return new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                .update(getConnection(), q.toString(), status.toString(), new java.sql.Date((new Date()).getTime()));
+                .update(getConnection(), q.toString(), status.toString(), new java.sql.Timestamp((new Date()).getTime()));
     }
 
     public long setBerichtenJobForUpdate(String soort, boolean orderBerichten) throws SQLException {
@@ -269,7 +270,7 @@ public class StagingProxy {
         }
         log.debug("pre-transformatie SQL: " + q);
         return new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                .update(getConnection(), q.toString(), Bericht.STATUS.RSGB_OK.toString(), soort, new java.sql.Date((new Date()).getTime()));
+                .update(getConnection(), q.toString(), Bericht.STATUS.RSGB_OK.toString(), soort, new java.sql.Timestamp((new Date()).getTime()));
    }
 
     public long setBerichtenJobByIds(long[] ids, boolean orderBerichten) throws SQLException {
@@ -320,7 +321,7 @@ public class StagingProxy {
         }
         log.debug("pre-transformatie SQL: " + q);
         return new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                .update(getConnection(), q.toString(), Bericht.STATUS.STAGING_OK.toString(), new java.sql.Date((new Date()).getTime()));
+                .update(getConnection(), q.toString(), Bericht.STATUS.STAGING_OK.toString(), new java.sql.Timestamp((new Date()).getTime()));
     }
 
     public void handleBerichtenByJob(long total, final BerichtenHandler handler, final boolean enablePipeline, int transformPipelineCapacity, boolean orderBerichten) throws Exception {
@@ -580,11 +581,10 @@ public class StagingProxy {
      * @param stream input
      * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}
      * @param fileName naam van het bestand (ter identificatie)
-     * @param d datum van het bericht: alleen gebruikt voor BRP
      * @param listener progress listener
      * @throws Exception if any
      */
-    public void loadBr(InputStream stream, String type, String fileName, Date d, ProgressUpdateListener listener) throws Exception {
+    public void loadBr(InputStream stream, String type, String fileName, ProgressUpdateListener listener) throws Exception {
 
         CountingInputStream cis = new CountingInputStream(stream);
 
@@ -597,8 +597,8 @@ public class StagingProxy {
             brmoXMLReader = new NhrXMLReader(cis);
         } else if (type.equals(BrmoFramework.BR_BGTLIGHT)) {
             brmoXMLReader = new BGTLightFileReader(fileName);
-        } else if (type.equals(BrmoFramework.BR_TOPNL)) {
-            brmoXMLReader = new TopNLFileReader(fileName);
+        } else if (TopNLType.isTopNLType(type)) {
+            brmoXMLReader = new TopNLFileReader(fileName, type);
         } else if(type.equals(BrmoFramework.BR_BRP)){
             brmoXMLReader = new BRPXMLReader(cis, d);
         } else {
@@ -629,7 +629,7 @@ public class StagingProxy {
                 listener.total(((BGTLightFileReader) brmoXMLReader).getFileSize());
                 listener.progress(((BGTLightFileReader) brmoXMLReader).getFileSize());
             }
-        } else if (type.equalsIgnoreCase(BrmoFramework.BR_TOPNL)) {
+        } else if (TopNLType.isTopNLType(type)) {
             // van een TopNL GML bestand maken we alleen een LP, geen bericht,
             // de datum halen we van het zip bestand
             if (listener != null) {

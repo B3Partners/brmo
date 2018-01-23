@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 **/target/**
 **/git.properties
 **/local.*.properties
@@ -11,6 +10,9 @@
 /bgt-gml-loader/src/test/resources/nederlandmultizip/**/*.zip
 /brmo-loader/src/test/resources/mantis6098/staging.xml
 /brmo-loader/src/test/resources/8000byteBericht/*.xml
+/brmo-loader/src/test/resources/topnl/*.gml
+/brmo-loader/src/test/resources/topnl/*.zip
+/brmo-service/src/test/resources/GH-287/gh-292-staging-flat-4242.xml
 
 # maven release procedure files
 **/pom.xml.tag
@@ -30,23 +32,10 @@ plugin-updates.log
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-/target/
-/brmo-service/src/test/resources/GH-287/gh-292-staging-flat-4242.xml
 
-# netbeans stuff
-**/nbproject/
-=======
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
 /nbproject/
+**/nbproject/
 **/XSD-Resolver/generated/
 **/XSD-Resolver/consolidated/
 nb-configuration.xml
->>>>>>> temp/master
+

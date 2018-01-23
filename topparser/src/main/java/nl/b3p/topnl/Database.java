@@ -63,7 +63,7 @@ public class Database {
         }
     }
 
-    public void save(TopNLEntity entity) throws ParseException {
+    public void save(TopNLEntity entity) throws ParseException, SQLException {
 
         try {
 
@@ -99,6 +99,7 @@ public class Database {
 
         } catch (SQLException e) {
             log.error("Error inserting entity: ", e);
+            throw e;
         }
     }
 

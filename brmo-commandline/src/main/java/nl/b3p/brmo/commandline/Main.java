@@ -397,13 +397,14 @@ public class Main {
         long staging_nok = brmo.getCountBerichten(null, null, null, Bericht.STATUS.STAGING_NOK.name());
         long rsgb_ok = brmo.getCountBerichten(null, null, null, Bericht.STATUS.RSGB_OK.name());
         long rsgb_nok = brmo.getCountBerichten(null, null, null, Bericht.STATUS.RSGB_NOK.name());
+        long rsgb_bag_nok = brmo.getCountBerichten(null, null, null, Bericht.STATUS.RSGB_BAG_NOK.name());
         long rsgb_outdated = brmo.getCountBerichten(null, null, null, Bericht.STATUS.RSGB_OUTDATED.name());
         long archive = brmo.getCountBerichten(null, null, null, Bericht.STATUS.ARCHIVE.name());
 
         if (format.equalsIgnoreCase("json")) {
             System.out.printf(
-                    "{\"status\":[{\"STAGING_OK\":%s},{\"STAGING_NOK\":%s},{\"RSGB_OK\":%s},{\"RSGB_NOK\":%s},{\"RSGB_OUTDATED\":%s},{\"ARCHIVE\":%s}]}\n",
-                    staging_ok, staging_nok, rsgb_ok, rsgb_nok, rsgb_outdated, archive
+                    "{\"status\":[{\"STAGING_OK\":%s},{\"STAGING_NOK\":%s},{\"RSGB_OK\":%s},{\"RSGB_NOK\":%s},{\"RSGB_BAG_NOK\":%s},{\"RSGB_OUTDATED\":%s},{\"ARCHIVE\":%s}]}\n",
+                    staging_ok, staging_nok, rsgb_ok, rsgb_nok, rsgb_bag_nok, rsgb_outdated, archive
             );
         } else {
             System.out.println("status, aantal");
@@ -411,6 +412,7 @@ public class Main {
             System.out.printf("STAGING_NOK,%s\n", staging_nok);
             System.out.printf("RSGB_OK,%s\n", rsgb_ok);
             System.out.printf("RSGB_NOK,%s\n", rsgb_nok);
+            System.out.printf("RSGB_BAG_NOK,%s\n", rsgb_bag_nok);
             System.out.printf("RSGB_OUTDATED,%s\n", rsgb_outdated);
             System.out.printf("ARCHIVE,%s\n", archive);
         }
