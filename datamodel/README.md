@@ -10,3 +10,13 @@ mvn generate-resources
 ``` 
 
 De scripts in de map utility_scripts worden niet opgenomen in het totaal script. Deze zijn vaak klantspecifiek en dienen naar behoefte handmatig gedraaid te worden.
+
+## GEM-WPL koppeling script bijwerken
+
+- Plaats de zipfile `GEM-WPL-RELATIE-<datum>.zip` uit een recente landelijke BAG levering in de `referentiedata` directory
+- Pas de property `filename.GEM-WPL-zipfile` in de datamodel pom file aan naar de bestandsnaam
+- voer het commando `mvn clean package` uit in de datamodel module
+- controleer de bijgewerkte versies van `201_update_wnplts_gemcode.sql`
+- indien akkoord commit en push de bijgewerkte versies van `201_update_wnplts_gemcode.sql` naar github
+- verwijder `GEM-WPL-RELATIE-<datum>.zip` uit de `referentiedata` directory
+
