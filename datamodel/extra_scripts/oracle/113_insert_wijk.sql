@@ -1,6 +1,9 @@
 --ALTER TABLE wijk ALTER COLUMN code TYPE NUMERIC(6,0);
 --ALTER TABLE wijk ALTER COLUMN naam TYPE CHARACTER VARYING(80);
 -- wijken van dec 2017
+-- voor ander tooling dan sqldeveloper define evt. uitzetten omdat er ampersand 
+--   tekens in sommige gemeente/plaats/buurt namen voorkomen.
+-- set define off;
 INSERT INTO wijk (code, naam) VALUES ('300', 'Wijk 00');
 INSERT INTO wijk (code, naam) VALUES ('500', 'Wijk 00');
 INSERT INTO wijk (code, naam) VALUES ('700', 'Wijk 00 Bellingwolde');

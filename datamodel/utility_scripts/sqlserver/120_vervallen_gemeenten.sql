@@ -1,3 +1,7 @@
+INSERT INTO brmo_metadata (naam, waarde)
+  SELECT 'update_gem_tabel',(SELECT waarde FROM brmo_metadata WHERE naam = 'brmoversie') FROM DUAL
+  WHERE NOT EXISTS (SELECT naam FROM brmo_metadata WHERE naam = 'update_gem_tabel');
+  
 BEGIN TRANSACTION;
 -- vervallen gemeenten per 1 jan 2014
 -- https://www.cbs.nl/nl-nl/onze-diensten/methoden/classificaties/overig/gemeentelijke-indelingen-per-jaar/indeling%20per%20jaar/gemeentelijke-indeling-op-1-januari-2014
@@ -20,12 +24,13 @@ DELETE FROM gemeente WHERE code IN (
 -- Gaasterlân-Sleat (0653), Lemsterland (0082), Skasterlân (0051), Boarnsterhim1 (0055)
    653, 82, 51, 55
 );
-INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2014-01-01', 1921, 'De Friese Meren');
+--hebben we al: INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2014-01-01', 1921, 'De Friese Meren');
+UPDATE brmo_metadata SET waarde = '2014' WHERE naam = 'update_gem_tabel';
 COMMIT;
 
 
 
-
+/*
 BEGIN TRANSACTION;
 -- vervallen gemeenten per 1 jan 2015
 -- https://www.cbs.nl/nl-nl/onze-diensten/methoden/classificaties/overig/gemeentelijke-indelingen-per-jaar/indeling%20per%20jaar/gemeentelijke-indeling-op-1-januari-2015
@@ -68,8 +73,9 @@ DELETE FROM gemeente WHERE code IN (
 );
 INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2015-01-01', 1930, 'Nissewaard');
 INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2015-01-01', 1931, 'Krimpenerwaard');
+UPDATE brmo_metadata SET waarde = 'jan2015' WHERE naam = 'update_gem_tabel';
 COMMIT;
-
+*/
 
 BEGIN TRANSACTION;
 -- vervallen gemeenten per 1 juli 2015
@@ -86,6 +92,7 @@ DELETE FROM gemeente WHERE code IN (
   1921
 );
 INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2015-07-01', 1940, 'De Fryske Marren');
+UPDATE brmo_metadata SET waarde = 'jul2015' WHERE naam = 'update_gem_tabel';
 COMMIT;
 
 
@@ -122,6 +129,7 @@ DELETE FROM gemeente WHERE code IN (
 );
 INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2016-01-01', 1945, 'Berg en Dal');
 INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2016-01-01', 1942, 'Gooise Meren');
+UPDATE brmo_metadata SET waarde = '2016' WHERE naam = 'update_gem_tabel';
 COMMIT;
 
 
@@ -143,6 +151,7 @@ DELETE FROM gemeente WHERE code IN (
    844,846,860
 );
 INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1948, 'Meierijstad');
+UPDATE brmo_metadata SET waarde = '2017' WHERE naam = 'update_gem_tabel';
 COMMIT;
 
 
@@ -159,9 +168,9 @@ UPDATE gemeente SET datum_einde_geldh = '2018-01-01', dat_beg_geldh = '2009-01-0
 -- het Bildt (0063), Franekeradeel (0070) en Menameradiel (1908) komen te vervallen
    63,70,1908,
 -- Littenseradiel (0140) wordt heringedeeld in Leeuwarden, Súdwest-Fryslân en Waadhoeke.
-   140, 
+   140,
 -- Leeuwarderadeel (0081) gaat op in Leeuwarden
-   81, 
+   81,
 -- Rijnwaarden (0196) gaat op in Zevenaar
    196
 );
@@ -173,9 +182,9 @@ INSERT INTO gemeente_archief SELECT * FROM gemeente WHERE code IN (
 -- het Bildt (0063), Franekeradeel (0070) en Menameradiel (1908) komen te vervallen
    63,70,1908,
 -- Littenseradiel (0140) wordt heringedeeld in Leeuwarden, Súdwest-Fryslân en Waadhoeke.
-   140, 
+   140,
 -- Leeuwarderadeel (0081) gaat op in Leeuwarden
-   81, 
+   81,
 -- Rijnwaarden (0196) gaat op in Zevenaar
    196
 );
@@ -187,13 +196,14 @@ DELETE FROM gemeente WHERE code IN (
 -- het Bildt (0063), Franekeradeel (0070) en Menameradiel (1908) komen te vervallen
    63,70,1908,
 -- Littenseradiel (0140) wordt heringedeeld in Leeuwarden, Súdwest-Fryslân en Waadhoeke.
-   140, 
+   140,
 -- Leeuwarderadeel (0081) gaat op in Leeuwarden
-   81, 
+   81,
 -- Rijnwaarden (0196) gaat op in Zevenaar
    196
 );
 INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1949, 'Waadhoeke');
 INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1950, 'Westerwolde');
 INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1952, 'Midden-Groningen');
+UPDATE brmo_metadata SET waarde = '2018' WHERE naam = 'update_gem_tabel';
 COMMIT;

@@ -1,6 +1,9 @@
 --ALTER TABLE buurt ALTER COLUMN code TYPE NUMERIC(8,0);
 --ALTER TABLE buurt ALTER COLUMN naam TYPE CHARACTER VARYING(80);
 -- buurten dec 2017
+-- voor ander tooling dan sqldeveloper define evt. uitzetten omdat er ampersand 
+--   tekens in sommige gemeente/plaats/buurt namen voorkomen.
+-- set define off;
 INSERT INTO buurt (code, naam) VALUES (30000, 'Appingedam-Centrum');
 INSERT INTO buurt (code, naam) VALUES (30001, 'Appingedam-West');
 INSERT INTO buurt (code, naam) VALUES (30002, 'Appingedam-Oost');
