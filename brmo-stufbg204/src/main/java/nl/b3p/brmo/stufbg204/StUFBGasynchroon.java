@@ -30,7 +30,6 @@ import javax.xml.xpath.XPathFactory;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.service.util.ConfigUtil;
-import nl.b3p.brmo.stufbg204.util.DiagnosticsServlet;
 import nl.b3p.brmo.stufbg204.util.StUFbg204Util;
 import nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht;
 import nl.egem.stuf.sector.bg._0204.KennisgevingsBericht;
