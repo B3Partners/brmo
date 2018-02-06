@@ -4,13 +4,17 @@
 package nl.b3p.brmo.stufbg204;
 
 import nl.egem.stuf.sector.bg._0204.KennisgevingsBericht;
+import nl.egem.stuf.sector.bg._0204.KennisgevingsBericht.Body;
 import nl.egem.stuf.stuf0204.BevestigingsBericht;
+import nl.egem.stuf.stuf0204.Mutatiesoort;
 import nl.egem.stuf.stuf0204.Stuurgegevens;
+import nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -49,15 +53,17 @@ public class Stufbg204ServiceIntegrationTest extends TestStub {
     }
     
     @Test
-    public void hello() {
+    public void testOntvangKennisgeving() {
         Stuurgegevens s = new Stuurgegevens();
         s.setBerichtsoort("test");
         s.setEntiteittype("test");
+        Kennisgeving k = new Kennisgeving();
+        k.setMutatiesoort(Mutatiesoort.V);
+        s.setKennisgeving(k);
+        KennisgevingsBericht kb = new KennisgevingsBericht();
+        kb.setStuurgegevens(s);
 
-        KennisgevingsBericht k = new KennisgevingsBericht();
-        k.setStuurgegevens(s);
-
-        BevestigingsBericht b = service.ontvangKennisgeving(k);
+        BevestigingsBericht b = service.ontvangKennisgeving(kb);
         assertNotNull("BevestigingsBericht is null.", b);
         assertEquals("Verwacht 'BRMO'", "BRMO", b.getStuurgegevens().getZender().getApplicatie());
     }
