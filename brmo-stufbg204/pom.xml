@@ -64,6 +64,11 @@
             <artifactId>brmo-test-util</artifactId>
             <scope>test</scope>
         </dependency>
+       <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-catalina</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>jdbc-util</artifactId>
