@@ -19,6 +19,7 @@ addons:
 jdk:
   - oraclejdk8
   - openjdk8
+  - ibmjava8
 
 matrix:
   fast_finish: true
