@@ -20,10 +20,17 @@ jdk:
   - oraclejdk8
   - openjdk8
 
+os:
+  - linux
+  
+services:
+  - haveged
+
 matrix:
   fast_finish: true
   include:
     - os: linux
+      jdk: openjdk8
       env: DOCKERIZED_MAVEN=TRUE
       services: 
         - docker
@@ -106,8 +113,6 @@ before_script:
 
 script:
   - if [ "$DOCKERIZED_MAVEN" == "TRUE" ] ; then
-          echo "using dockerized maven";
-          docker pull maven:3.5.2-ibmjava-8;
           # run unit tests voor alle modules
           docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false;
           # run integratie tests voor veschillende modules, per module
