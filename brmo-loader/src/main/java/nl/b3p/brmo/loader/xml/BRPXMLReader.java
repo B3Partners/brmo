@@ -97,7 +97,7 @@ public class BRPXMLReader extends BrmoXMLReader {
         b.setVolgordeNummer(index);
         b.setObjectRef(getObjectRef(n));
         b.setSoort(BrmoFramework.BR_BRP);
-        b.setDatum(new Date());
+        b.setDatum(getBestandsDatum());
         return b;
     }
 
