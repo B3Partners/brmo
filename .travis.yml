@@ -73,7 +73,7 @@ before_install:
 
 install:
   # install all dependencies + artifacts and create any DB scripts without any testing
-  - if [ "$DOCKERIZED_JAVA" == "TRUE" ] ; then
+  - if [ "$DOCKERIZED_MAVEN" == "TRUE" ] ; then
           echo "using dockerized maven";
           docker pull maven:3.5.2-ibmjava-8;
           docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql;
@@ -105,36 +105,57 @@ before_script:
   - sh ".jenkins/data-prepare-topnl.sh"
 
 script:
-  # run unit tests voor alle modules
-  - travis_wait 20 mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false
-  # run integratie tests voor veschillende modules, per module
-  # run integratie tests voor bgt-gml-loader module
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
-  # run integratie tests voor brmo-loader module
-  - travis_wait 30 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader'
-  # run integratie tests voor brmo-service module
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service'
-  # run integratie tests voor brmo-soap module
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-soap'
-  # run integratie tests voor brmo-stufbg204 module
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-stufbg204'
-  # run integratie tests voor brmo-commandline module
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-commandline'
+  - if [ "$DOCKERIZED_MAVEN" == "TRUE" ] ; then
+          echo "using dockerized maven";
+          docker pull maven:3.5.2-ibmjava-8;
+          # run unit tests voor alle modules
+          docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false;
+          # run integratie tests voor veschillende modules, per module
+          # run integratie tests voor bgt-gml-loader module
+          docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader';
+          # run integratie tests voor brmo-loader module
+          docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader';
+          # run integratie tests voor brmo-service module
+          docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service';
+          # run integratie tests voor brmo-soap module
+          docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-soap';
+          # run integratie tests voor brmo-stufbg204 module
+          docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-stufbg204';
+          # run integratie tests voor brmo-commandline module
+          docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-commandline';
+    else
+          # run unit tests voor alle modules
+          travis_wait 20 mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false;
+          # run integratie tests voor veschillende modules, per module
+          # run integratie tests voor bgt-gml-loader module
+          mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader';
+          # run integratie tests voor brmo-loader module
+          travis_wait 30 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader';
+          # run integratie tests voor brmo-service module
+          mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service';
+          # run integratie tests voor brmo-soap module
+          mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-soap';
+          # run integratie tests voor brmo-stufbg204 module
+          mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-stufbg204';
+          # run integratie tests voor brmo-commandline module
+          mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-commandline';
+    fi
+
 
 after_failure:
   - echo "Hmm... dat is vervelend!"
 
 after_success:
   # test of de javadoc compliant is met java-8 strict checks
-  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
+  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$DOCKERIZED_MAVEN" != "TRUE" ]; then
          travis_wait 30 mvn javadoc:javadoc;
     fi
-  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
+  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$DOCKERIZED_MAVEN" != "TRUE" ]; then
          travis_wait 30 mvn javadoc:test-javadoc;
     fi
 
 after_script:
   # deploy maven site van master branch als test succes
-  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_TEST_RESULT" == 0 ]; then
+  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$DOCKERIZED_MAVEN" != "TRUE" ] && [ "$TRAVIS_TEST_RESULT" == 0 ]; then
          travis_wait 30 mvn -B -e site-deploy --settings .travis/settings.xml;
     fi
