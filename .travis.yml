@@ -22,7 +22,7 @@ jdk:
 
 os:
   - linux
-  
+
 services:
   - haveged
 
@@ -30,6 +30,7 @@ matrix:
   fast_finish: true
   include:
     - os: linux
+      sudo: required
       jdk: openjdk8
       env: DOCKERIZED_MAVEN=TRUE
       services: 
@@ -112,7 +113,8 @@ before_script:
   - sh ".jenkins/data-prepare-topnl.sh"
 
 script:
-  - if [ "$DOCKERIZED_MAVEN" == "TRUE" ] ; then
+  - echo "start testing"
+  - if [ "$DOCKERIZED_MAVEN" == "TRUE" ]; then
           # run unit tests voor alle modules
           docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false;
           # run integratie tests voor veschillende modules, per module
@@ -146,21 +148,20 @@ script:
           mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-commandline';
     fi
 
-
 after_failure:
   - echo "Hmm... dat is vervelend!"
 
 after_success:
   # test of de javadoc compliant is met java-8 strict checks
-  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$DOCKERIZED_MAVEN" != "TRUE" ]; then
+  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
          travis_wait 30 mvn javadoc:javadoc;
     fi
-  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$DOCKERIZED_MAVEN" != "TRUE" ]; then
+  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
          travis_wait 30 mvn javadoc:test-javadoc;
     fi
 
 after_script:
   # deploy maven site van master branch als test succes
-  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$DOCKERIZED_MAVEN" != "TRUE" ] && [ "$TRAVIS_TEST_RESULT" == 0 ]; then
+  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_TEST_RESULT" == 0 ]; then
          travis_wait 30 mvn -B -e site-deploy --settings .travis/settings.xml;
     fi
