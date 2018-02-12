@@ -19,10 +19,15 @@ addons:
 jdk:
   - oraclejdk8
   - openjdk8
-  - ibmjava8
 
 matrix:
   fast_finish: true
+  include:
+    - os: linux
+      env: DOCKERIZED_MAVEN=TRUE
+      services: 
+        - docker
+        - haveged
 
 cache:
   directories:
@@ -68,7 +73,13 @@ before_install:
 
 install:
   # install all dependencies + artifacts and create any DB scripts without any testing
-  - travis_wait 20 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql
+  - if [ "$DOCKERIZED_JAVA" == "TRUE" ] ; then
+          echo "using dockerized maven";
+          docker pull maven:3.5.2-ibmjava-8;
+          docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql;
+    else
+          travis_wait 20 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql;
+    fi
 
 before_script:
   # dit dient na afloop van de 'install' gedaan te worden omdat (een deel van) de sql gegenereerd wordt
