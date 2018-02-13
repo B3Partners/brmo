@@ -9,19 +9,26 @@ env:
 
 addons:
    postgresql: "9.5"
-   # fix voor OpenJDK bufferoverflow, zie:
-   #  - https://docs.travis-ci.com/user/hostname
-   #  - https://github.com/travis-ci/travis-ci/issues/5227
-   #  - https://github.com/travis-ci/travis-ci/issues/5669
-   # hostname: travis-brmo
-   # hosts: travis-brmo
+   hostname: travis-brmo
+   hosts: 
+     - travis-brmo
 
 jdk:
   - oraclejdk8
   - openjdk8
 
+os:
+  - linux
+
+services:
+  - haveged
+  - docker
+
 matrix:
   fast_finish: true
+  include:
+    - env: DOCKERIZED_MAVEN=TRUE
+      jdk: openjdk8
 
 cache:
   directories:
@@ -30,12 +37,6 @@ cache:
 # before_cache:
 
 before_install:
-  # installeer een up-2-date Maven versie
-  # NB          sinds 2017-12-12 is maven 3.5.2 de default op trusty
-  # - wget https://www-eu.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.zip
-  # - unzip -qq apache-maven-3.5.2-bin.zip
-  # - export M2_HOME=$PWD/apache-maven-3.5.2
-  # - export PATH=$M2_HOME/bin:$PATH
   - mvn -v
   # installeer/update postgis 2.2 op postgresql 9.5
   # zie ook: https://docs.travis-ci.com/user/database-setup/
@@ -67,7 +68,13 @@ before_install:
 
 install:
   # install all dependencies + artifacts and create any DB scripts without any testing
-  - travis_wait 20 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql
+  - if [ "$DOCKERIZED_MAVEN" == "TRUE" ] ; then
+          echo "gebruik dockerized maven voor bouwen";
+          docker pull maven:3.5.2-ibmjava-8;
+          docker run -it --rm --volume "$PWD"/pom.xml://usr/src/app/pom.xml --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql;
+    else
+          travis_wait 20 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql;
+    fi
 
 before_script:
   # dit dient na afloop van de 'install' gedaan te worden omdat (een deel van) de sql gegenereerd wordt
@@ -93,21 +100,41 @@ before_script:
   - sh ".jenkins/data-prepare-topnl.sh"
 
 script:
-  # run unit tests voor alle modules
-  - travis_wait 20 mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false
-  # run integratie tests voor veschillende modules, per module
-  # run integratie tests voor bgt-gml-loader module
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
-  # run integratie tests voor brmo-loader module
-  - travis_wait 30 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader'
-  # run integratie tests voor brmo-service module
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service'
-  # run integratie tests voor brmo-soap module
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-soap'
-  # run integratie tests voor brmo-stufbg204 module
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-stufbg204'
-  # run integratie tests voor brmo-commandline module
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-commandline'
+  - |
+    if [ "$DOCKERIZED_MAVEN" == "TRUE" ] ; then
+          echo "gebruik dockerized maven voor unit- en integratietests";
+          # run unit tests voor alle modules
+          docker run -it --rm --volume "$PWD"/pom.xml://usr/src/app/pom.xml --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false;
+          # run integratie tests voor veschillende modules, per module
+          # run integratie tests voor bgt-gml-loader module
+          docker run -it --rm --volume "$PWD"/pom.xml://usr/src/app/pom.xml --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader';
+          # run integratie tests voor brmo-loader module
+          docker run -it --rm --volume "$PWD"/pom.xml://usr/src/app/pom.xml --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader';
+          # run integratie tests voor brmo-service module
+          docker run -it --rm --volume "$PWD"/pom.xml://usr/src/app/pom.xml --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service';
+          # run integratie tests voor brmo-soap module
+          docker run -it --rm --volume "$PWD"/pom.xml://usr/src/app/pom.xml --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-soap';
+          # run integratie tests voor brmo-stufbg204 module
+          docker run -it --rm --volume "$PWD"/pom.xml://usr/src/app/pom.xml --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-stufbg204';
+          # run integratie tests voor brmo-commandline module
+          docker run -it --rm --volume "$PWD"/pom.xml://usr/src/app/pom.xml --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-commandline';
+    else
+          # run unit tests voor alle modules
+          travis_wait 20 mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false;
+          # run integratie tests voor veschillende modules, per module
+          # run integratie tests voor bgt-gml-loader module
+          mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader';
+          # run integratie tests voor brmo-loader module
+          travis_wait 30 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader';
+          # run integratie tests voor brmo-service module
+          mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service';
+          # run integratie tests voor brmo-soap module
+          mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-soap';
+          # run integratie tests voor brmo-stufbg204 module
+          mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-stufbg204';
+          # run integratie tests voor brmo-commandline module
+          mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-commandline';
+    fi
 
 after_failure:
   - echo "Hmm... dat is vervelend!"
