@@ -71,7 +71,7 @@ install:
   - if [ "$DOCKERIZED_MAVEN" == "TRUE" ] ; then
           echo "gebruik dockerized maven voor bouwen";
           docker pull maven:3.5.2-ibmjava-8;
-          docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql;
+          docker run -it --rm --volume "$PWD"/pom.xml://usr/src/app/pom.xml --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql;
     else
           travis_wait 20 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql;
     fi
@@ -104,20 +104,20 @@ script:
     if [ "$DOCKERIZED_MAVEN" == "TRUE" ] ; then
           echo "gebruik dockerized maven voor unit- en integratietests";
           # run unit tests voor alle modules
-          docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false;
+          docker run -it --rm --volume "$PWD"/pom.xml://usr/src/app/pom.xml --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false;
           # run integratie tests voor veschillende modules, per module
           # run integratie tests voor bgt-gml-loader module
-          docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader';
+          docker run -it --rm --volume "$PWD"/pom.xml://usr/src/app/pom.xml --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader';
           # run integratie tests voor brmo-loader module
-          docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader';
+          docker run -it --rm --volume "$PWD"/pom.xml://usr/src/app/pom.xml --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader';
           # run integratie tests voor brmo-service module
-          docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service';
+          docker run -it --rm --volume "$PWD"/pom.xml://usr/src/app/pom.xml --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service';
           # run integratie tests voor brmo-soap module
-          docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-soap';
+          docker run -it --rm --volume "$PWD"/pom.xml://usr/src/app/pom.xml --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-soap';
           # run integratie tests voor brmo-stufbg204 module
-          docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-stufbg204';
+          docker run -it --rm --volume "$PWD"/pom.xml://usr/src/app/pom.xml --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-stufbg204';
           # run integratie tests voor brmo-commandline module
-          docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-commandline';
+          docker run -it --rm --volume "$PWD"/pom.xml://usr/src/app/pom.xml --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-commandline';
     else
           # run unit tests voor alle modules
           travis_wait 20 mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false;
