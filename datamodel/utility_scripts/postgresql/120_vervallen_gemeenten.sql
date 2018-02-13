@@ -18,6 +18,12 @@ INSERT INTO gemeente_archief SELECT * FROM gemeente WHERE code IN (
 -- Gaasterlân-Sleat (0653), Lemsterland (0082), Skasterlân (0051), Boarnsterhim1 (0055)
    653, 82, 51, 55
 );
+UPDATE wnplts SET fk_7gem_code=null WHERE fk_7gem_code IN (
+-- Boskoop (0499) en Rijnwoude (1672)
+   499, 1672,
+-- Gaasterlân-Sleat (0653), Lemsterland (0082), Skasterlân (0051), Boarnsterhim1 (0055)
+   653, 82, 51, 55
+);
 DELETE FROM gemeente WHERE code IN (
 -- Boskoop (0499) en Rijnwoude (1672)
    499, 1672,
@@ -86,6 +92,10 @@ INSERT INTO gemeente_archief SELECT * FROM gemeente WHERE code IN (
 -- De Friese Meren (1921) is hernoemt naar De Fryske Marren (1940)
   1921
 );
+UPDATE wnplts SET fk_7gem_code=null WHERE fk_7gem_code IN (
+-- De Friese Meren (1921) is hernoemt naar De Fryske Marren (1940)
+  1921
+);
 DELETE FROM gemeente WHERE code IN (
 -- De Friese Meren (1921) is hernoemt naar De Fryske Marren (1940)
   1921
@@ -111,6 +121,14 @@ UPDATE gemeente SET datum_einde_geldh = '2016-01-01', dat_beg_geldh = '2009-01-0
    478
 );
 INSERT INTO gemeente_archief SELECT * FROM gemeente WHERE code IN (
+-- Groesbeek (0241) is hernoemt naar Berg en Dal (1945)
+   241,
+-- Bussum (0381), Muiden (0424) & Naarden (0425) komen te vervallen
+   381,424,425,
+-- Zeevang (0478) komt te vervallen
+   478
+);
+UPDATE wnplts SET fk_7gem_code=null WHERE fk_7gem_code IN (
 -- Groesbeek (0241) is hernoemt naar Berg en Dal (1945)
    241,
 -- Bussum (0381), Muiden (0424) & Naarden (0425) komen te vervallen
@@ -144,6 +162,10 @@ INSERT INTO gemeente_archief SELECT * FROM gemeente WHERE code IN (
 -- Schijndel (0844), Sint-Oedenrode (0846) en Veghel (0860) komen te vervallen
    844,846,860
 );
+UPDATE wnplts SET fk_7gem_code=null WHERE fk_7gem_code IN (
+-- Schijndel (0844), Sint-Oedenrode (0846) en Veghel (0860) komen te vervallen
+   844,846,860
+);
 DELETE FROM gemeente WHERE code IN (
 -- Schijndel (0844), Sint-Oedenrode (0846) en Veghel (0860) komen te vervallen
    844,846,860
@@ -173,6 +195,20 @@ UPDATE gemeente SET datum_einde_geldh = '2018-01-01', dat_beg_geldh = '2009-01-0
    196
 );
 INSERT INTO gemeente_archief SELECT * FROM gemeente WHERE code IN (
+-- Bellingwedde (0007) en Vlagtwedde (0048) komen te vervallen
+   07,48,
+-- Hoogezand-Sappenmeer (0018), Slochteren (0040) en Menterwolde (1987) komen te vervallen
+   18,40,1987,
+-- het Bildt (0063), Franekeradeel (0070) en Menameradiel (1908) komen te vervallen
+   63,70,1908,
+-- Littenseradiel (0140) wordt heringedeeld in Leeuwarden, Súdwest-Fryslân en Waadhoeke.
+   140,
+-- Leeuwarderadeel (0081) gaat op in Leeuwarden
+   81,
+-- Rijnwaarden (0196) gaat op in Zevenaar
+   196
+);
+UPDATE wnplts SET fk_7gem_code=null WHERE fk_7gem_code IN (
 -- Bellingwedde (0007) en Vlagtwedde (0048) komen te vervallen
    07,48,
 -- Hoogezand-Sappenmeer (0018), Slochteren (0040) en Menterwolde (1987) komen te vervallen
