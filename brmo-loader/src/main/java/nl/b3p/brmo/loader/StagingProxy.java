@@ -29,6 +29,7 @@ import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
 import nl.b3p.brmo.loader.util.TableData;
 import nl.b3p.brmo.loader.xml.BGTLightFileReader;
+import nl.b3p.brmo.loader.xml.BRPXMLReader;
 import nl.b3p.brmo.loader.xml.BagXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.BrmoXMLReader;
@@ -583,7 +584,7 @@ public class StagingProxy {
      * @param listener progress listener
      * @throws Exception if any
      */
-    public void loadBr(InputStream stream, String type, String fileName, ProgressUpdateListener listener) throws Exception {
+    public void loadBr(InputStream stream, String type, String fileName, Date d, ProgressUpdateListener listener) throws Exception {
 
         CountingInputStream cis = new CountingInputStream(stream);
 
@@ -598,6 +599,8 @@ public class StagingProxy {
             brmoXMLReader = new BGTLightFileReader(fileName);
         } else if (TopNLType.isTopNLType(type)) {
             brmoXMLReader = new TopNLFileReader(fileName, type);
+        } else if(type.equals(BrmoFramework.BR_BRP)){
+            brmoXMLReader = new BRPXMLReader(cis, d);
         } else {
             throw new UnsupportedOperationException("Ongeldige basisregistratie: " + type);
         }

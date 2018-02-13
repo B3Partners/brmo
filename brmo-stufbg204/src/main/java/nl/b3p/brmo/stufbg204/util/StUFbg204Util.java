@@ -5,6 +5,8 @@ package nl.b3p.brmo.stufbg204.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import nl.egem.stuf.stuf0204.FoutBericht;
 import nl.egem.stuf.stuf0204.Stuurgegevens;
 import nl.egem.stuf.stuf0204.Systeem;
@@ -16,14 +18,32 @@ import nl.egem.stuf.stuf0204.Systeem;
  */
 public final class StUFbg204Util {
     
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddkkkmmssSSS");
+    public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddkkkmmssSSS");
+    private static JAXBContext jaxbContext;
 
-    public static FoutBericht maakFout() {
+    private StUFbg204Util() {
+    }
+    
+    public static FoutBericht maakFout(String errorcode) {
+        return maakFout(errorcode, null);
+    }
+    
+    public static FoutBericht maakFout(String errorcode, Exception e) {
         final FoutBericht fout = new FoutBericht();
+        Stuurgegevens.Fout f = new Stuurgegevens.Fout();
+        f.setCrossRefNummer(errorcode);
         Stuurgegevens s = new Stuurgegevens();
         s.setBerichtsoort("Fo01");
+        s.setFout(f);
+        
         fout.setStuurgegevens(s);
-        fout.setBody(new FoutBericht.Body());
+        FoutBericht.Body  b = new FoutBericht.Body();
+        b.setCode(errorcode);
+        if(e != null){
+            b.setOmschrijving(e.getLocalizedMessage());
+        }
+        fout.setBody(b);
+        
 
         return fout;
     }
@@ -39,7 +59,11 @@ public final class StUFbg204Util {
         
         return sg;
     }
-
-    private StUFbg204Util() {
+        
+    public static JAXBContext getStufJaxbContext() throws JAXBException{
+        if(jaxbContext == null){
+            jaxbContext = JAXBContext.newInstance("nl.egem.stuf.sector.bg._0204:nl.egem.stuf.stuf0204");
+        }
+        return jaxbContext;
     }
 }

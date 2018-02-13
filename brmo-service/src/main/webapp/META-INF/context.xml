@@ -77,11 +77,11 @@
 
     2. Plaats postgresql, oracle of sqlserver driver in tomcat lib
     -->
-    <ResourceLink global="jdbc/brmo/staging" name="jdbc/brmo/staging" type="javax.sql.DataSource"/>
-    <ResourceLink global="jdbc/brmo/rsgb" name="jdbc/brmo/rsgb" type="javax.sql.DataSource"/>
-    <ResourceLink global="jdbc/brmo/rsgbbgt" name="jdbc/brmo/rsgbbgt" type="javax.sql.DataSource"/>
-    <ResourceLink global="jdbc/brmo/rsgbtopnl" name="jdbc/brmo/rsgbtopnl" type="javax.sql.DataSource"/>
-    <!-- For Tomcat: define JavaMail resource in server.xml. See:
+  <ResourceLink global="jdbc/brmo/staging" name="jdbc/brmo/staging" type="javax.sql.DataSource"/>
+  <ResourceLink global="jdbc/brmo/rsgb" name="jdbc/brmo/rsgb" type="javax.sql.DataSource"/>
+  <ResourceLink global="jdbc/brmo/rsgbbgt" name="jdbc/brmo/rsgbbgt" type="javax.sql.DataSource"/>
+  <ResourceLink global="jdbc/brmo/rsgbtopnl" name="jdbc/brmo/rsgbtopnl" type="javax.sql.DataSource"/>
+  <!-- For Tomcat: define JavaMail resource in server.xml. See:
     http://tomcat.apache.org/tomcat-8.0-doc/jndi-resources-howto.html#JavaMail_Sessions
     Don't forget to put mail.jar in the Tomcat lib directory.
     To configure your mail server, use attributes like "mail.smtp.host" for
@@ -101,7 +101,7 @@
         ...
     </Server>
     -->
-    <ResourceLink global="mail/session" name="mail/session" type="javax.mail.Session"/>
+  <ResourceLink global="mail/session" name="mail/session" type="javax.mail.Session"/>
     <Realm allRolesMode="authOnly" className="org.apache.catalina.realm.DataSourceRealm" dataSourceName="jdbc/brmo/staging" digest="SHA-1" roleNameCol="groep_" userCredCol="wachtwoord" userNameCol="gebruikersnaam" userRoleTable="gebruiker_groepen" userTable="gebruiker_">
         <CredentialHandler algorithm="SHA-1" className="org.apache.catalina.realm.MessageDigestCredentialHandler"/>
     </Realm>

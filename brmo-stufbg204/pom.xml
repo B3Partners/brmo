@@ -24,6 +24,14 @@
             <artifactId>brmo-soap-util</artifactId>
         </dependency>
         <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>brmo-loader</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>brmo-init-util</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-rt</artifactId>
         </dependency>
@@ -43,6 +51,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>commons-dbutils</groupId>
+            <artifactId>commons-dbutils</artifactId>
+        </dependency>
+        <dependency>
             <groupId>${oracle.jdbc.groupId}</groupId>
             <artifactId>${oracle.jdbc.artifactId}</artifactId>
             <scope>provided</scope>
@@ -51,6 +63,15 @@
             <groupId>nl.b3p</groupId>
             <artifactId>brmo-test-util</artifactId>
             <scope>test</scope>
+        </dependency>
+       <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-catalina</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>jdbc-util</artifactId>
         </dependency>
     </dependencies>
     <build>

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -44,10 +45,12 @@ public class BrmoFramework {
     public static final String BR_NHR = "nhr";
     public static final String BR_BGTLIGHT = "bgtlight";
     public static final String BR_TOPNL = "topnl";
+    public static final String BR_BRP = "brp";
 
     public static final String XSL_BRK = "/xsl/brk-snapshot-to-rsgb-xml.xsl";
     public static final String XSL_BAG = "/xsl/bag-mutatie-to-rsgb-xml.xsl";
     public static final String XSL_NHR = "/xsl/nhr-to-rsgb-xml-2.5.xsl";
+    public static final String XSL_BRP = "/xsl/brp-to-rsgb-xml.xsl";
 
     public static final String LAADPROCES_TABEL = "laadproces";
     public static final String BERICHT_TABLE = "bericht";
@@ -351,7 +354,7 @@ public class BrmoFramework {
                             log.warn("Overslaan zip entry geen XML: " + entry.getName());
                         } else {
                             log.info("Lezen XML bestand uit zip: " + entry.getName());
-                            stagingProxy.loadBr(new CloseShieldInputStream(zip), type, fileName + "/" + entry.getName(), null);
+                            stagingProxy.loadBr(new CloseShieldInputStream(zip), type, fileName + "/" + entry.getName(), null, null);
                         }
                         entry = zip.getNextEntry();
                     }
@@ -369,7 +372,7 @@ public class BrmoFramework {
                 FileInputStream fis = null;
                 try {
                     fis = new FileInputStream(fileName);
-                    stagingProxy.loadBr(fis, type, fileName, listener);
+                    stagingProxy.loadBr(fis, type, fileName, null, listener);
                 } finally {
                     IOUtils.closeQuietly(fis);
                 }
@@ -385,7 +388,15 @@ public class BrmoFramework {
 
     public void loadFromStream(String type, InputStream stream, String fileName) throws BrmoException {
         try {
-            stagingProxy.loadBr(stream, type, fileName, null);
+            stagingProxy.loadBr(stream, type, fileName, null, null);
+        } catch(Exception e) {
+            throw new BrmoException("Fout bij loaden basisregistratie gegevens", e);
+        }
+    }
+
+    public void loadFromStream(String type, InputStream stream, String fileName, Date d) throws BrmoException {
+        try {
+            stagingProxy.loadBr(stream, type, fileName, d, null);
         } catch(Exception e) {
             throw new BrmoException("Fout bij loaden basisregistratie gegevens", e);
         }
@@ -406,7 +417,7 @@ public class BrmoFramework {
     public void loadFromStream(String type, InputStream stream, String fileName, ProgressUpdateListener listener)
             throws BrmoException, BrmoDuplicaatLaadprocesException, BrmoLeegBestandException {
         try {
-            stagingProxy.loadBr(stream, type, fileName, listener);
+            stagingProxy.loadBr(stream, type, fileName, null, listener);
         } catch (Exception e) {
             if (e instanceof BrmoDuplicaatLaadprocesException) {
                 throw (BrmoDuplicaatLaadprocesException)e;

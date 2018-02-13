@@ -155,6 +155,11 @@
                 <version>2.6</version>
             </dependency>
             <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.11</version>
+            </dependency>
+            <dependency>
                 <groupId>commons-cli</groupId>
                 <artifactId>commons-cli</artifactId>
                 <version>1.4</version>
@@ -172,7 +177,7 @@
 
             <!-- spatial -->
             <dependency>
-                <!-- geotools 18.1 gebruikt JTS 1.14.0 -->
+                <!-- geotools 18.2 gebruikt JTS 1.14.0 -->
                 <groupId>com.vividsolutions</groupId>
                 <artifactId>jts-core</artifactId>
                 <version>1.14.0</version>
@@ -617,6 +622,8 @@
                             <include>**/*IntegrationTest.java</include>
                         </includes>
                         <systemPropertyVariables />
+                        <trimStackTrace>false</trimStackTrace>
+                        <useFile>false</useFile>
                         <skipTests>!${test.onlyITs}</skipTests>
                     </configuration>
                     <executions>
@@ -961,6 +968,7 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.0.0</version>
                 <reportSets>

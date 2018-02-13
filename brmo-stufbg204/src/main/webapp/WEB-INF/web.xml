@@ -6,7 +6,7 @@
          metadata-complete="true">
     <description>brmo stuf bg204 service</description>
     <display-name>BRMO StUF BG 204</display-name>
-    <!-- tijdelijk uitgezet zodat de webapp zonder staging database werkt 
+    <!-- tijdelijk uitgezet zodat de webapp zonder staging database werkt
     <security-constraint>
         <display-name>WSSecurityConstraint</display-name>
         <web-resource-collection>
@@ -29,7 +29,16 @@
     </listener>
     <servlet>
         <servlet-name>DiagnosticsServlet</servlet-name>
-        <servlet-class>nl.b3p.brmo.stufbg204.util.DiagnosticsServlet</servlet-class>
+        <servlet-class>nl.b3p.brmo.service.util.DiagnosticsServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>ConfigUtil</servlet-name>
+        <servlet-class>nl.b3p.brmo.service.util.ConfigUtil</servlet-class>
+        <init-param>
+            <param-name>temp_folder</param-name>
+            <param-value>/tmp</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet>
