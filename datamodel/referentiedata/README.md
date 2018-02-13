@@ -1,1 +1,1 @@
-uitleg over referentie data
+zie uitleg over update koppeling in datamodel readme
