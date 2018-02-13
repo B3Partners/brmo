@@ -9,12 +9,9 @@ env:
 
 addons:
    postgresql: "9.5"
-   # fix voor OpenJDK bufferoverflow, zie:
-   #  - https://docs.travis-ci.com/user/hostname
-   #  - https://github.com/travis-ci/travis-ci/issues/5227
-   #  - https://github.com/travis-ci/travis-ci/issues/5669
-   # hostname: travis-brmo
-   # hosts: travis-brmo
+   hostname: travis-brmo
+   hosts: 
+     - travis-brmo
 
 jdk:
   - oraclejdk8
@@ -25,17 +22,13 @@ os:
 
 services:
   - haveged
+  - docker
 
 matrix:
   fast_finish: true
   include:
-    - os: linux
-      sudo: required
+    - env: DOCKERIZED_MAVEN=TRUE
       jdk: openjdk8
-      env: DOCKERIZED_MAVEN=TRUE
-      services: 
-        - docker
-        - haveged
 
 cache:
   directories:
@@ -44,12 +37,6 @@ cache:
 # before_cache:
 
 before_install:
-  # installeer een up-2-date Maven versie
-  # NB          sinds 2017-12-12 is maven 3.5.2 de default op trusty
-  # - wget https://www-eu.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.zip
-  # - unzip -qq apache-maven-3.5.2-bin.zip
-  # - export M2_HOME=$PWD/apache-maven-3.5.2
-  # - export PATH=$M2_HOME/bin:$PATH
   - mvn -v
   # installeer/update postgis 2.2 op postgresql 9.5
   # zie ook: https://docs.travis-ci.com/user/database-setup/
@@ -82,7 +69,7 @@ before_install:
 install:
   # install all dependencies + artifacts and create any DB scripts without any testing
   - if [ "$DOCKERIZED_MAVEN" == "TRUE" ] ; then
-          echo "using dockerized maven";
+          echo "gebruik dockerized maven voor bouwen";
           docker pull maven:3.5.2-ibmjava-8;
           docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql;
     else
@@ -113,8 +100,9 @@ before_script:
   - sh ".jenkins/data-prepare-topnl.sh"
 
 script:
-  - echo "start testing"
-  - if [ "$DOCKERIZED_MAVEN" == "TRUE" ]; then
+  - |
+    if [ "$DOCKERIZED_MAVEN" == "TRUE" ] ; then
+          echo "gebruik dockerized maven voor unit- en integratietests";
           # run unit tests voor alle modules
           docker run -it --rm --volume "$PWD"://usr/src/app --volume "$HOME"/.m2:/root/.m2 maven:3.5.2-ibmjava-8 mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false;
           # run integratie tests voor veschillende modules, per module
