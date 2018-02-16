@@ -56,6 +56,8 @@ public class GbavXMLReaderTest {
             ));
             total++;
             assertEquals("Soort komt niet overeen", BrmoFramework.BR_GBAV, b.getSoort());
+            assertEquals("Volgordenummer komt niet overeen",0, b.getVolgordeNummer().intValue());
+
             assertEquals("Datum komt niet overeen", new Date(2018 - 1900, 1, 1), b.getDatum());
         }
 

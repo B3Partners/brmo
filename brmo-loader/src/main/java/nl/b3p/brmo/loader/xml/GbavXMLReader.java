@@ -19,6 +19,8 @@ package nl.b3p.brmo.loader.xml;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLOutputFactory;
@@ -48,6 +50,7 @@ public class GbavXMLReader extends BrmoXMLReader {
     private final Transformer transformer;
     private final XMLOutputFactory xmlof;
     private GbavBericht nextBericht = null;
+    private int volgordeNummer = 0;
 
     public GbavXMLReader(InputStream in) throws XMLStreamException, TransformerConfigurationException {
         streamReader = factory.createXMLStreamReader(in);
@@ -92,14 +95,18 @@ public class GbavXMLReader extends BrmoXMLReader {
                     transformer.transform(new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));
                     nextBericht = new GbavBericht(sw.toString());
                     nextBericht.setDatum(nextBericht.parseDatum());
-                    nextBericht.setVolgordeNummer(0);
+                    nextBericht.setVolgordeNummer(volgordeNummer);
 
                     String bsn = nextBericht.getBsn();
                     String bsnHash=this.getHash(bsn);
                     nextBericht.setObjectRef(PREFIX + bsnHash);
 
-                    // TODO overige bsn hashes
-
+                    Map<String,String> bsns = new HashMap<>();
+                    nextBericht.getBsnList().forEach((_bsn) -> {
+                        bsns.put(_bsn,this.getHash(_bsn));
+                    });
+                    log.debug("aantal BSN in bericht:" +bsns.size());
+                    nextBericht.setBsnMap(bsns);
                     return true;
                 } else {
                     streamReader.next();
@@ -123,6 +130,7 @@ public class GbavXMLReader extends BrmoXMLReader {
     public GbavBericht next() throws Exception {
         GbavBericht b = nextBericht;
         nextBericht = null;
+        volgordeNummer++;
         return b;
     }
 

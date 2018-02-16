@@ -19,9 +19,7 @@ package nl.b3p.brmo.loader.entity;
 import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
@@ -43,8 +41,11 @@ public class GbavBericht extends Bericht {
     private static final Log LOG = LogFactory.getLog(GbavXMLReader.class);
 
     private boolean xpathEvaluated = false;
+    private boolean hasAddedBSNHashes=false;
 
     private String bsn = null;
+
+    private List<String> bsnList = new ArrayList<>();
 
     public GbavBericht(String brXml) {
         super(brXml);
@@ -58,7 +59,7 @@ public class GbavBericht extends Bericht {
 
         xpathEvaluated = true;
 
-        if (datum != null && bsn!=null) {
+        if (datum != null && bsn!=null && !bsnList.isEmpty()) {
             return;
         }
         try {
@@ -80,8 +81,31 @@ public class GbavBericht extends Bericht {
             // persoon BSN
             expr = xpath.compile("persoon/categorieen/categorie[nummer='01']/rubrieken/rubriek[nummer='0120']/waarde/text()");
             this.bsn = expr.evaluate(doc);
-            // TODO ook andere bsn nodes opzoeken
-
+            this.bsnList.add(bsn);
+             // ouder 1
+            expr = xpath.compile("persoon/categorieen/categorie[nummer='02']/rubrieken/rubriek[nummer='0120']/waarde/text()");
+            String _bsn = expr.evaluate(doc);
+            if( _bsn!=null) {
+                this.bsnList.add(_bsn);
+            }
+            // ouder 2
+            expr = xpath.compile("persoon/categorieen/categorie[nummer='03']/rubrieken/rubriek[nummer='0120']/waarde/text()");
+             _bsn = expr.evaluate(doc);
+            if( _bsn!=null) {
+                this.bsnList.add(_bsn);
+            }
+            // partner
+            expr = xpath.compile("persoon/categorieen/categorie[nummer='05']/rubrieken/rubriek[nummer='0120']/waarde/text()");
+             _bsn = expr.evaluate(doc);
+            if( _bsn!=null) {
+                this.bsnList.add(_bsn);
+            }
+            // kind
+            expr = xpath.compile("persoon/categorieen/categorie[nummer='09']/rubrieken/rubriek[nummer='0120']/waarde/text()");
+            _bsn = expr.evaluate(doc);
+            if( _bsn!=null) {
+                this.bsnList.add(_bsn);
+            }
         } catch (Exception e) {
             LOG.error("Fout tijdens parsen van gbav xml", e);
         }
@@ -100,6 +124,28 @@ public class GbavBericht extends Bericht {
     public String getBsn(){
         this.evaluateXPath();
         return this.bsn;
+    }
+
+    public List<String> getBsnList(){
+        this.evaluateXPath();
+        return this.bsnList;
+    }
+
+    public void setBsnMap(Map<String,String> bsnHashes) {
+        if(!hasAddedBSNHashes){
+            StringBuilder sb = new StringBuilder("<bsnhashes>");
+            for (Map.Entry<String, String> entry : bsnHashes.entrySet()) {
+                if (!entry.getKey().isEmpty() && !entry.getValue().isEmpty()) {
+                    sb.append("<bsn.").append(entry.getKey()).append('>')
+                            .append(entry.getValue())
+                            .append("</bsn.").append(entry.getKey()).append('>');
+                }
+            }
+            sb.append("</bsnhashes>");
+            this.hasAddedBSNHashes = true;
+            LOG.debug("toevoegen bsn hashes: "+sb);
+            this.setBrXml( this.getBrXml()+sb.toString());
+        }
     }
 
     public void setDatumAsString(String d) {
