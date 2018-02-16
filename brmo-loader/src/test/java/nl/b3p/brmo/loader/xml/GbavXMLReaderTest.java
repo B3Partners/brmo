@@ -60,8 +60,6 @@ public class GbavXMLReaderTest {
         }
 
         assertEquals(1, total);
-
-        // TODO
-        assertArrayEquals(new String[]{"TODO_objectRef",}, objectRefs.toArray(new String[]{}));
+        assertArrayEquals(new String[]{GbavXMLReader.PREFIX+"b3e513383d0454de798b29c6900643130e3b2d6b",}, objectRefs.toArray(new String[]{}));
     }
 }

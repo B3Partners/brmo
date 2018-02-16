@@ -19,6 +19,7 @@ package nl.b3p.brmo.loader.xml;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.Date;
+import java.util.Map;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -41,6 +42,7 @@ public class GbavXMLReader extends BrmoXMLReader {
 
     private static final Log log = LogFactory.getLog(GbavXMLReader.class);
     private static final String PERSOON = "persoon";
+    static final String PREFIX = "NL.GBA.Persoon:";
     private final XMLInputFactory factory = XMLInputFactory.newInstance();
     private final XMLStreamReader streamReader;
     private final Transformer transformer;
@@ -91,8 +93,13 @@ public class GbavXMLReader extends BrmoXMLReader {
                     nextBericht = new GbavBericht(sw.toString());
                     nextBericht.setDatum(nextBericht.parseDatum());
                     nextBericht.setVolgordeNummer(0);
-                    // TODO
-                    nextBericht.setObjectRef("TODO_objectRef");
+
+                    String bsn = nextBericht.getBsn();
+                    String bsnHash=this.getHash(bsn);
+                    nextBericht.setObjectRef(PREFIX + bsnHash);
+
+                    // TODO overige bsn hashes
+
                     return true;
                 } else {
                     streamReader.next();

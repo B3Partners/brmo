@@ -20,6 +20,8 @@ import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
@@ -42,6 +44,8 @@ public class GbavBericht extends Bericht {
 
     private boolean xpathEvaluated = false;
 
+    private String bsn = null;
+
     public GbavBericht(String brXml) {
         super(brXml);
         super.setSoort(BR_GBAV);
@@ -54,7 +58,7 @@ public class GbavBericht extends Bericht {
 
         xpathEvaluated = true;
 
-        if (datum != null) {
+        if (datum != null && bsn!=null) {
             return;
         }
         try {
@@ -65,7 +69,7 @@ public class GbavBericht extends Bericht {
             XPathFactory xPathfactory = XPathFactory.newInstance();
             XPath xpath = xPathfactory.newXPath();
 
-            // probeel bestandsdataum te achterhalen
+            // probeer bestandsdatum te achterhalen
             XPathExpression expr = xpath.compile("persoon/categorieen/categorie[nummer='01']/rubrieken/rubriek[nummer='8220']/waarde/text()");
             this.setDatumAsString(expr.evaluate(doc));
             // kan ook op categorie 4 voorkomen
@@ -73,8 +77,13 @@ public class GbavBericht extends Bericht {
                 expr = xpath.compile("persoon/categorieen/categorie[nummer='04']/rubrieken/rubriek[nummer='8220']/waarde/text()");
                 this.setDatumAsString(expr.evaluate(doc));
             }
+            // persoon BSN
+            expr = xpath.compile("persoon/categorieen/categorie[nummer='01']/rubrieken/rubriek[nummer='0120']/waarde/text()");
+            this.bsn = expr.evaluate(doc);
+            // TODO ook andere bsn nodes opzoeken
+
         } catch (Exception e) {
-            LOG.error("Error while getting gbav datum", e);
+            LOG.error("Fout tijdens parsen van gbav xml", e);
         }
     }
 
@@ -86,6 +95,11 @@ public class GbavBericht extends Bericht {
     public Date parseDatum() {
         this.evaluateXPath();
         return this.datum;
+    }
+
+    public String getBsn(){
+        this.evaluateXPath();
+        return this.bsn;
     }
 
     public void setDatumAsString(String d) {
