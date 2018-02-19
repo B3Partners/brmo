@@ -986,12 +986,6 @@ select
 from kad_perceel p
 join kad_onrrnd_zk z on (z.kad_identif = p.sc_kad_identif);
 
-create table prs_eigendom (
-    fk_prs_sc_identif varchar(32),
-    primary key (fk_prs_sc_identif),
-    foreign key (fk_prs_sc_identif) references prs(sc_identif)
-);
-
 create or replace view v_kad_perceel_in_eigendom as
 select
     (row_number() OVER ())::integer AS ObjectID,
@@ -1164,6 +1158,65 @@ where bd1.omschrijving like 'betrokkenBij%'
 and zr2.FK_8PES_SC_IDENTIF is not null
 order by kpe.SC_KAD_IDENTIF, kpe.straat, kpe.huisnummer, kpe.toevoeging, kpe.huisletter,  KA_APPARTEMENTSINDEX::int;
 
+-- aankoopdatum uit brondocumenten
+CREATE OR REPLACE VIEW
+    v_aankoopdatum AS
+SELECT
+    b.ref_id AS kadaster_identificatie,
+    b.datum  AS aankoopdatum
+FROM
+    (
+        SELECT
+            ref_id,
+            MAX(datum) datum
+        FROM
+            brondocument
+        WHERE
+            omschrijving = 'Akte van Koop en Verkoop'
+        GROUP BY
+            ref_id
+    ) b ;
+
+
+
+-- selecteer parent en child app_re's die een ondersplitsing zijn of zijn geworden
+
+CREATE OR REPLACE VIEW v_bd_app_re_app_re AS
+ SELECT b1.ref_id AS app_re_identif,
+    b2.ref_id AS parent_app_re_identif
+   FROM brondocument b1
+     JOIN brondocument b2 ON b2.identificatie = b1.identificatie
+  WHERE (b2.omschrijving = 'betrokkenBij Ondersplitsing' OR  b2.omschrijving = 'ontstaanUit HoofdSplitsing') AND b1.omschrijving = 'ontstaanUit Ondersplitsing'
+  GROUP BY b1.ref_id, b2.ref_id;
+
+-- recursieve query om alle actuele appartementsrechten te vinden bij percelen
+CREATE OR REPLACE VIEW v_bd_app_re_all_kad_perceel AS
+
+with recursive related_app_re (app_re_identif, perceel_identif) as (
+SELECT b1.ref_id AS app_re_identif,
+    b2.ref_id AS perceel_identif
+   FROM brondocument b1
+     JOIN brondocument b2 ON b2.identificatie = b1.identificatie
+  WHERE b2.omschrijving = 'betrokkenBij HoofdSplitsing' AND (b1.omschrijving = 'ontstaanUit HoofdSplitsing' OR b1.omschrijving = 'ontstaanUit Ondersplitsing')  GROUP BY b1.ref_id, b2.ref_id
+
+
+union
+
+
+ SELECT vaa.app_re_identif,
+    vap.perceel_identif
+   FROM v_bd_app_re_app_re vaa
+     JOIN related_app_re vap ON vaa.parent_app_re_identif = vap.app_re_identif
+  GROUP BY vaa.app_re_identif, vap.perceel_identif
+)
+
+select
+app_re.sc_kad_identif::varchar(50) as app_re_identif, rar.perceel_identif
+from related_app_re rar
+left join app_re
+on app_re.sc_kad_identif::text = rar.app_re_identif;
+
+
 -- percelen plus appartementen op de percelen
 CREATE OR REPLACE VIEW v_bd_app_re_and_kad_perceel AS
 select
@@ -1196,24 +1249,65 @@ select
         JOIN app_re ar ON v.app_re_identif::NUMERIC = ar.sc_kad_identif
   ) qry;
 
--- aankoopdatum uit brondocumenten
-CREATE OR REPLACE VIEW
-    v_aankoopdatum AS
-SELECT
-    b.ref_id AS kadaster_identificatie,
-    b.datum  AS aankoopdatum
-FROM
-    (
-        SELECT
-            ref_id,
-            MAX(datum) datum
-        FROM
-            brondocument
-        WHERE
-            omschrijving = 'Akte van Koop en Verkoop'
-        GROUP BY
-            ref_id
-    ) b ;
+-- Haalt alle percelen ids op met 1 of meer app_re (dient als basis voor de view voor de kaart)
+
+CREATE OR REPLACE VIEW v_bd_kad_perceel_with_app_re AS
+ SELECT DISTINCT b2.ref_id AS perceel_identif
+   FROM brondocument b1
+     JOIN brondocument b2 ON b2.identificatie = b1.identificatie
+  WHERE b2.omschrijving = 'betrokkenBij HoofdSplitsing' AND (b1.omschrijving = 'ontstaanUit HoofdSplitsing' OR b1.omschrijving = 'ontstaanUit Ondersplitsing');
+
+-- view om kaart te maken met percelen die 1 of meerdere appartementen hebben
+
+CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app AS
+ SELECT v.perceel_identif,
+    kp.sc_kad_identif,
+    kp.aand_soort_grootte,
+    kp.grootte_perceel,
+    kp.omschr_deelperceel,
+    kp.fk_7kdp_sc_kad_identif,
+    kp.ka_deelperceelnummer,
+    kp.ka_kad_gemeentecode,
+    kp.ka_perceelnummer,
+    kp.ka_sectie,
+    kp.begrenzing_perceel,
+    kp.plaatscoordinaten_perceel
+   FROM v_bd_kad_perceel_with_app_re v
+     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif::varchar;
+
+-- view om vlakken kaart te maken met percelen die 1 of meerdere appartementen hebben
+CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app_vlak AS
+ SELECT
+    (row_number() OVER ())::integer AS ObjectID,
+    v.perceel_identif,
+    kp.sc_kad_identif,
+    kp.aand_soort_grootte,
+    kp.grootte_perceel,
+    kp.omschr_deelperceel,
+    kp.fk_7kdp_sc_kad_identif,
+    kp.ka_deelperceelnummer,
+    kp.ka_kad_gemeentecode,
+    kp.ka_perceelnummer,
+    kp.ka_sectie,
+    kp.begrenzing_perceel
+   FROM v_bd_kad_perceel_with_app_re v
+     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif::varchar;
+
+
+-- view om appartementsrechten bij percelen op te zoeken
+CREATE OR REPLACE VIEW v_bd_app_re_bij_perceel AS
+ SELECT
+    (row_number() OVER ())::integer AS ObjectID,
+    ar.sc_kad_identif,
+    ar.fk_2nnp_sc_identif,
+    ar.ka_appartementsindex,
+    ar.ka_kad_gemeentecode,
+    ar.ka_perceelnummer,
+    ar.ka_sectie,
+    kp.begrenzing_perceel
+   FROM v_bd_app_re_all_kad_perceel v
+     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif::varchar
+     JOIN app_re ar ON v.app_re_identif = ar.sc_kad_identif::varchar;
 
 -- Eigenarenkaart - percelen en appartementen met hun eigenaren
 CREATE OR REPLACE VIEW
@@ -1335,105 +1429,6 @@ ON
 WHERE
     zr.kadaster_identif like 'NL.KAD.Tenaamstelling%';
 
-
-
--- selecteer parent en child app_re's die een ondersplitsing zijn of zijn geworden
-
-CREATE OR REPLACE VIEW v_bd_app_re_app_re AS
- SELECT b1.ref_id AS app_re_identif,
-    b2.ref_id AS parent_app_re_identif
-   FROM brondocument b1
-     JOIN brondocument b2 ON b2.identificatie = b1.identificatie
-  WHERE (b2.omschrijving = 'betrokkenBij Ondersplitsing' OR  b2.omschrijving = 'ontstaanUit HoofdSplitsing') AND b1.omschrijving = 'ontstaanUit Ondersplitsing'
-  GROUP BY b1.ref_id, b2.ref_id;
-
--- recursieve query om alle actuele appartementsrechten te vinden bij percelen
-CREATE OR REPLACE VIEW v_bd_app_re_all_kad_perceel AS
-
-with recursive related_app_re (app_re_identif, perceel_identif) as (
-SELECT b1.ref_id AS app_re_identif,
-    b2.ref_id AS perceel_identif
-   FROM brondocument b1
-     JOIN brondocument b2 ON b2.identificatie = b1.identificatie
-  WHERE b2.omschrijving = 'betrokkenBij HoofdSplitsing' AND (b1.omschrijving = 'ontstaanUit HoofdSplitsing' OR b1.omschrijving = 'ontstaanUit Ondersplitsing')  GROUP BY b1.ref_id, b2.ref_id
-
-
-union
-
-
- SELECT vaa.app_re_identif,
-    vap.perceel_identif
-   FROM v_bd_app_re_app_re vaa
-     JOIN related_app_re vap ON vaa.parent_app_re_identif = vap.app_re_identif
-  GROUP BY vaa.app_re_identif, vap.perceel_identif
-)
-
-select
-app_re.sc_kad_identif::varchar(50) as app_re_identif, rar.perceel_identif
-from related_app_re rar
-left join app_re
-on app_re.sc_kad_identif::text = rar.app_re_identif;
-
-
--- Haalt alle percelen ids op met 1 of meer app_re (dient als basis voor de view voor de kaart)
-
-CREATE OR REPLACE VIEW v_bd_kad_perceel_with_app_re AS
- SELECT DISTINCT b2.ref_id AS perceel_identif
-   FROM brondocument b1
-     JOIN brondocument b2 ON b2.identificatie = b1.identificatie
-  WHERE b2.omschrijving = 'betrokkenBij HoofdSplitsing' AND (b1.omschrijving = 'ontstaanUit HoofdSplitsing' OR b1.omschrijving = 'ontstaanUit Ondersplitsing');
-
--- view om kaart te maken met percelen die 1 of meerdere appartementen hebben
-
-CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app AS
- SELECT v.perceel_identif,
-    kp.sc_kad_identif,
-    kp.aand_soort_grootte,
-    kp.grootte_perceel,
-    kp.omschr_deelperceel,
-    kp.fk_7kdp_sc_kad_identif,
-    kp.ka_deelperceelnummer,
-    kp.ka_kad_gemeentecode,
-    kp.ka_perceelnummer,
-    kp.ka_sectie,
-    kp.begrenzing_perceel,
-    kp.plaatscoordinaten_perceel
-   FROM v_bd_kad_perceel_with_app_re v
-     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif::varchar;
-
--- view om vlakken kaart te maken met percelen die 1 of meerdere appartementen hebben
-CREATE OR REPLACE VIEW v_bd_kad_perceel_met_app_vlak AS
- SELECT
-    (row_number() OVER ())::integer AS ObjectID,
-    v.perceel_identif,
-    kp.sc_kad_identif,
-    kp.aand_soort_grootte,
-    kp.grootte_perceel,
-    kp.omschr_deelperceel,
-    kp.fk_7kdp_sc_kad_identif,
-    kp.ka_deelperceelnummer,
-    kp.ka_kad_gemeentecode,
-    kp.ka_perceelnummer,
-    kp.ka_sectie,
-    kp.begrenzing_perceel
-   FROM v_bd_kad_perceel_with_app_re v
-     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif::varchar;
-
-
--- view om appartementsrechten bij percelen op te zoeken
-CREATE OR REPLACE VIEW v_bd_app_re_bij_perceel AS
- SELECT
-    (row_number() OVER ())::integer AS ObjectID,
-    ar.sc_kad_identif,
-    ar.fk_2nnp_sc_identif,
-    ar.ka_appartementsindex,
-    ar.ka_kad_gemeentecode,
-    ar.ka_perceelnummer,
-    ar.ka_sectie,
-    kp.begrenzing_perceel
-   FROM v_bd_app_re_all_kad_perceel v
-     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif::varchar
-     JOIN app_re ar ON v.app_re_identif = ar.sc_kad_identif::varchar;
 
 
 
