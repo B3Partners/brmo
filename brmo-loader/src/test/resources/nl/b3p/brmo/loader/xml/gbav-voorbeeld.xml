@@ -73,7 +73,7 @@ gbav test dummy
                                     <waarde>E</waarde>
                                     <omschrijving>Eigen naam</omschrijving>
                                 </rubriek>
-                                <!-- TODO niet zeker of dit klopt... -->
+                                <!-- TODO verzonnen/niet zeker of dit klopt... -->
                                 <rubriek>
                                     <nummer>8220</nummer>
                                     <naam>Datum document</naam>
@@ -104,12 +104,18 @@ gbav test dummy
                                     <waarde>Sohrabi</waarde>
                                     <omschrijving>Sohrabi</omschrijving>
                                 </rubriek>
+                                <rubriek>
+                                    <!-- TODO verzonnen/niet zeker of dit klopt... -->
+                                    <nummer>0120</nummer>
+                                    <naam>BSN</naam>
+                                    <waarde>223459916</waarde>
+                                    <omschrijving>223459916</omschrijving>
+                                </rubriek>
                                 <!--... volgende rubrieken en categorieën zijn weggelaten ...-->
                             </rubrieken>
                         </categorie>
                     </categorieen>
                 </persoon>
-            
         </resultaten></ns2:gbavAntwoord>
     </S:Body>
 </S:Envelope>

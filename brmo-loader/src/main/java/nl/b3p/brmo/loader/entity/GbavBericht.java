@@ -133,18 +133,30 @@ public class GbavBericht extends Bericht {
 
     public void setBsnMap(Map<String,String> bsnHashes) {
         if(!hasAddedBSNHashes){
-            StringBuilder sb = new StringBuilder("<bsnhashes>");
+            StringBuilder sb = new StringBuilder("<bsnhashes>\n");
             for (Map.Entry<String, String> entry : bsnHashes.entrySet()) {
                 if (!entry.getKey().isEmpty() && !entry.getValue().isEmpty()) {
                     sb.append("<bsn.").append(entry.getKey()).append('>')
                             .append(entry.getValue())
-                            .append("</bsn.").append(entry.getKey()).append('>');
+                            .append("</bsn.").append(entry.getKey()).append(">\n");
                 }
             }
-            sb.append("</bsnhashes>");
+            sb.append("</bsnhashes>\n");
+
             this.hasAddedBSNHashes = true;
-            LOG.debug("toevoegen bsn hashes: "+sb);
-            this.setBrXml( this.getBrXml()+sb.toString());
+            LOG.debug("toevoegen bsn hashes: " + sb);
+            sb.insert(0, "<root>\n");
+
+            int endOfProlog = this.getBrXml().indexOf("?>");
+            if (endOfProlog > 0) {
+                endOfProlog = endOfProlog + 2;
+            } else {
+                endOfProlog = 0;
+            }
+            StringBuilder br = new StringBuilder(this.getBrXml());
+            br.insert(endOfProlog, sb).append("</root>");
+
+            this.setBrXml(br.toString());
         }
     }
 

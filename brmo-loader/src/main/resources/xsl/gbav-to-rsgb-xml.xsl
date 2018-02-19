@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" 
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                >
+                xmlns:fn="http://www.w3.org/2005/xpath-functions">
 
     <xsl:output method="xml" indent="yes" omit-xml-declaration="no"/>
 
@@ -26,26 +26,90 @@
                 <xsl:value-of select="$soort"/>
             </xsl:comment>
             <data>
-                <xsl:apply-templates select="*"/>
+                <xsl:apply-templates select="root/persoon"/>
             </data>
         </root>
     </xsl:template>
 
-    <xsl:template name="ouder1" >
-        <!--<ouder1></ouder1>-->
+    <xsl:template name="getHash">
+        <xsl:param name="bsn"/>
+        <xsl:variable name="bsnwithprefix"><xsl:value-of select="'bsn.'"/><xsl:value-of select="$bsn"/></xsl:variable>
+        <xsl:variable name="hashedbsn"><xsl:value-of select="/root/bsnhashes/*[name() =$bsnwithprefix]"/></xsl:variable>
+        <xsl:value-of select="$hashedbsn"/>
     </xsl:template>
 
-    <xsl:template name="ouder2" >
-        <!--<ouder2></ouder2>-->
+    <xsl:template name="comfortPerson">
+        <xsl:param name="snapshot-date"/>
+        <xsl:param name="bsn-nummer"/>
+        
+        <xsl:variable name="class">NATUURLIJK PERSOON</xsl:variable>
+
+        <xsl:variable name="searchcol">
+            <xsl:call-template name="getHash"><xsl:with-param name="bsn" select="$bsn-nummer"/></xsl:call-template>
+        </xsl:variable>
+
+        <xsl:variable name="datum">
+            <xsl:value-of select="substring($snapshot-date,0,5)"/><xsl:value-of select="'-'"/>
+            <xsl:value-of select="substring($snapshot-date,5,2)"/><xsl:value-of select="'-'"/>
+            <xsl:value-of select="substring($snapshot-date,7)"/>
+        </xsl:variable>
+
+<!--        <comfort search-table="subject" search-column="identif" search-value="{$searchcol}" snapshot-date="{$datum}">
+            <xsl:for-each select="ns2:PRS">
+                <xsl:call-template name="persoon" >
+                    <xsl:with-param name="key" select="$searchcol"/>
+                    <xsl:with-param name="class" select="$class"/>
+                </xsl:call-template>
+            </xsl:for-each>
+        </comfort>-->
     </xsl:template>
+
+
+    <xsl:template name="ouder" >
+<!--        <xsl:call-template name="comfortPerson"><xsl:with-param name="snapshot-date" select="ns2:ingangsdatum"/></xsl:call-template>
+        <ouder_kind_rel>
+            <fk_sc_lh_inp_sc_identif><xsl:value-of select="$objectRef"/></fk_sc_lh_inp_sc_identif>
+            <fk_sc_rh_inp_sc_identif><xsl:call-template name="getHash"><xsl:with-param name="bsn" select="ns2:PRS/ns2:bsn-nummer"/></xsl:call-template></fk_sc_rh_inp_sc_identif>
+            <datum_einde_fam_recht_betr><xsl:value-of select="ns2:ingangsdatum"/></datum_einde_fam_recht_betr>
+            <datum_ingang_fam_recht_betr><xsl:value-of select="ns2:einddatum"/></datum_ingang_fam_recht_betr>
+            <ouder_aand><xsl:value-of select="'OUDER'"/></ouder_aand>
+        </ouder_kind_rel>-->
+    </xsl:template>
+
 
     <xsl:template name="kind" >
-        <!--<kind></kind>-->
+<!--        <xsl:call-template name="comfortPerson"><xsl:with-param name="snapshot-date" select="ns2:ingangsdatum"/></xsl:call-template>
+        <ouder_kind_rel>
+            <fk_sc_lh_inp_sc_identif><xsl:value-of select="$objectRef"/></fk_sc_lh_inp_sc_identif>
+            <fk_sc_rh_inp_sc_identif><xsl:call-template name="getHash"><xsl:with-param name="bsn" select="ns2:PRS/ns2:bsn-nummer"/></xsl:call-template></fk_sc_rh_inp_sc_identif>
+            <datum_einde_fam_recht_betr><xsl:value-of select="ns2:ingangsdatum"/></datum_einde_fam_recht_betr>
+            <datum_ingang_fam_recht_betr><xsl:value-of select="ns2:einddatum"/></datum_ingang_fam_recht_betr>
+            <ouder_aand><xsl:value-of select="'KIND'"/></ouder_aand>
+        </ouder_kind_rel>-->
     </xsl:template>
 
+
     <xsl:template name="partner" >
-        <partner></partner>
+<!--        <xsl:call-template name="comfortPerson"><xsl:with-param name="snapshot-date" select="ns2:datumSluiting"/></xsl:call-template>
+        <huw_ger_partn>
+            <fk_sc_lh_inp_sc_identif><xsl:value-of select="$objectRef"/></fk_sc_lh_inp_sc_identif>
+            <fk_sc_rh_inp_sc_identif><xsl:call-template name="getHash"><xsl:with-param name="bsn" select="ns2:PRS/ns2:bsn-nummer"/></xsl:call-template></fk_sc_rh_inp_sc_identif>
+            <hs_datum_aangaan><xsl:value-of select="ns2:datumSluiting"/></hs_datum_aangaan>
+            fk_hs_lnd_code_iso><xsl:value-of select="ns2:landSluiting"/></fk_hs_lnd_code_iso
+            <hs_plaats><xsl:value-of select="ns2:plaatsSluiting"/></hs_plaats>
+            <ho_datum_ontb_huw_ger_partn><xsl:value-of select="ns2:datumOntbinding"/></ho_datum_ontb_huw_ger_partn>
+            fk_ho_lnd_code_iso><xsl:value-of select="ns2:landOntbinding"/></fk_ho_lnd_code_iso
+            <ho_plaats_ontb_huw_ger_partn><xsl:value-of select="ns2:plaatsOntbinding"/></ho_plaats_ontb_huw_ger_partn>
+            <ho_reden_ontb_huw_ger_partn><xsl:value-of select="ns2:redenOntbinding"/></ho_reden_ontb_huw_ger_partn>
+            <soort_verbintenis><xsl:value-of select="ns2:soortVerbintenis"/></soort_verbintenis>
+        </huw_ger_partn>-->
     </xsl:template>
+
+   <xsl:template name="pers">
+        <xsl:param name="key"/>
+        <xsl:param name="class"/>
+        
+   </xsl:template>
    
     <xsl:template name="persoon" match="persoon">
         <xsl:for-each select="./categorieen/categorie">
@@ -60,10 +124,10 @@
                     <xsl:call-template name="ingeschrevenpersoon" />
                 </xsl:when>
                 <xsl:when test="./nummer = '02'">
-                    <xsl:call-template name="ouder1" />
+                    <xsl:call-template name="ouder" />
                 </xsl:when>
                 <xsl:when test="./nummer = '03'">
-                    <xsl:call-template name="ouder2" />
+                    <xsl:call-template name="ouder" />
                 </xsl:when>
                 <!--/persoon/categorieen/categorie/nummer == 04-->
                 <xsl:when test="./nummer = '05'">
