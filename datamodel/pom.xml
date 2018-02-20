@@ -267,6 +267,28 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>pre-release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-clean-plugin</artifactId>
+                        <configuration>
+                            <filesets>
+                                <fileset>
+                                    <directory>generated_scripts</directory>
+                                    <includes>
+                                        <include>*.sql</include>
+                                        <include>*.xml</include>
+                                    </includes>
+                                    <followSymlinks>false</followSymlinks>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 
     </profiles>
 </project>

@@ -6279,6 +6279,9 @@
       <script>115_nhr.sql</script>
       <script>116_brk_extra_indices.sql</script>
       <script>117_versienummer.sql</script>
+      <script>118_drop_constraints_brp.sql</script>
+      <script>119_reisdocumentsoort.sql</script>
+      <script>120_increase_identifsize.sql</script>
    </extra-scripts>
 </schema>
 
