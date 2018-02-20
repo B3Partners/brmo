@@ -18,10 +18,10 @@ digraph G {
 	//nl.b3p.web.jsp.CronFormatterTag extends javax.servlet.jsp.tagext.SimpleTagSupport
 	c5:p -> c3:p [dir=back,arrowtail=empty];
 	// javax.servlet.jsp.tagext.SimpleTagSupport
-	c5 [label=<<table title="javax.servlet.jsp.tagext.SimpleTagSupport" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c5 [label=<<table title="javax.servlet.jsp.tagext.SimpleTagSupport" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="https://download.oracle.com/javaee/7/api/javax/servlet/jsp/tagext/SimpleTagSupport.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SimpleTagSupport </td></tr>
 		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="https://download.oracle.com/javaee/7/api/javax/servlet/jsp/tagext/SimpleTagSupport.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
