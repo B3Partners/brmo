@@ -18,11 +18,11 @@ digraph G {
 	//nl.b3p.brmo.soap.util.LogMessageHandler implements javax.xml.ws.handler.soap.SOAPHandler<T extends javax.xml.ws.handler.soap.SOAPMessageContext>
 	c5:p -> c3:p [dir=back,arrowtail=empty,style=dashed];
 	// javax.xml.ws.handler.soap.SOAPHandler<T extends javax.xml.ws.handler.soap.SOAPMessageContext>
-	c5 [label=<<table title="javax.xml.ws.handler.soap.SOAPHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c5 [label=<<table title="javax.xml.ws.handler.soap.SOAPHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="https://download.oracle.com/javaee/7/api/javax/xml/ws/handler/soap/SOAPHandler.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> SOAPHandler&lt;T extends SOAPMessageContext&gt; </td></tr>
 		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="https://download.oracle.com/javaee/7/api/javax/xml/ws/handler/soap/SOAPHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
