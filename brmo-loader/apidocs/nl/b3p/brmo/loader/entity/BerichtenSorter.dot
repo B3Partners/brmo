@@ -10,15 +10,15 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.entity.BerichtenSorter
-	c818 [label=<<table title="nl.b3p.brmo.loader.entity.BerichtenSorter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BerichtenSorter.html">
+	c880 [label=<<table title="nl.b3p.brmo.loader.entity.BerichtenSorter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BerichtenSorter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BerichtenSorter </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BerichtenSorter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.entity.BerichtenSorter implements java.util.Comparator<T>
-	c830:p -> c818:p [dir=back,arrowtail=empty,style=dashed];
+	c892:p -> c880:p [dir=back,arrowtail=empty,style=dashed];
 	// java.util.Comparator<T>
-	c830 [label=<<table title="java.util.Comparator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c892 [label=<<table title="java.util.Comparator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Comparator&lt;T&gt; </td></tr>

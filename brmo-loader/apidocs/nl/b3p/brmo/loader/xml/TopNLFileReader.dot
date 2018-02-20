@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c1876 [label=<<table title="nl.b3p.brmo.loader.xml.BrmoXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoXMLReader.html">
+	c1963 [label=<<table title="nl.b3p.brmo.loader.xml.BrmoXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoXMLReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> BrmoXMLReader </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./BrmoXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.TopNLFileReader
-	c1877 [label=<<table title="nl.b3p.brmo.loader.xml.TopNLFileReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TopNLFileReader.html">
+	c1965 [label=<<table title="nl.b3p.brmo.loader.xml.TopNLFileReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TopNLFileReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TopNLFileReader </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TopNLFileReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.xml.TopNLFileReader extends nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c1876:p -> c1877:p [dir=back,arrowtail=empty];
+	c1963:p -> c1965:p [dir=back,arrowtail=empty];
 }
 
