@@ -64,8 +64,8 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
     @Parameterized.Parameters(name = "{index}: type: {0}, bestand: {1}")
     public static Collection params() {
         return Arrays.asList(new Object[][]{
-            // {"type","filename", aantalBerichten, aantalLaadProcessen},
-            {"gbav", "/nl/b3p/brmo/loader/xml/gbav-voorbeeld.xml", 1, 1},});
+            // {"type","filename", aantalBerichten, aantalLaadProcessen, aantalSubject, aNummer, bsnNummer, achterNaam, aandNaamgebruik, geslacht},
+            {"gbav", "/nl/b3p/brmo/loader/xml/gbav-voorbeeld.xml", 1, 1, 2, "5054783237", "123459916", "Kumari", "E", "V"},});
     }
 
     private static final Log LOG = LogFactory.getLog(GBAVXMLToStagingIntegrationTest.class);
@@ -86,6 +86,30 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
      * test parameter.
      */
     private final long aantalProcessen;
+    /**
+     * test parameter.
+     */
+    private final long aantalSubject;
+    /**
+     * test parameter.
+     */
+    private final String aNummer;
+    /**
+     * test parameter.
+     */
+    private final String bsnNummer;
+    /**
+     * test parameter.
+     */
+    private final String achterNaam;
+    /**
+     * test parameter.
+     */
+    private final String aandNaamgebruik;
+    /**
+     * test parameter.
+     */
+    private final String geslacht;
 
     private final Lock sequential = new ReentrantLock();
     private BrmoFramework brmo;
@@ -94,11 +118,18 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
     private IDatabaseConnection staging;
     private IDatabaseConnection rsgb;
 
-    public GBAVXMLToStagingIntegrationTest(String bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen) {
+    public GBAVXMLToStagingIntegrationTest(String bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen, long aantalSubject,
+            String aNummer, String bsnNummer, String achterNaam, String aandNaamgebruik, String geslacht) {
         this.bestandType = bestandType;
         this.bestandNaam = bestandNaam;
         this.aantalBerichten = aantalBerichten;
         this.aantalProcessen = aantalProcessen;
+        this.aantalSubject = aantalSubject;
+        this.aNummer = aNummer;
+        this.bsnNummer = bsnNummer;
+        this.achterNaam = achterNaam;
+        this.aandNaamgebruik = aandNaamgebruik;
+        this.geslacht = geslacht;
     }
 
     @Before
@@ -184,20 +215,21 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
         }
 
         ITable subject = rsgb.createDataSet().getTable("subject");
-        assertEquals("Het aantal klopt niet", aantalBerichten, subject.getRowCount());
+        assertEquals("Het aantal 'subject' klopt niet", aantalSubject, subject.getRowCount());
 
         ITable prs = rsgb.createDataSet().getTable("prs");
-        assertEquals("Het aantal klopt niet", aantalBerichten, prs.getRowCount());
+        assertEquals("Het aantal 'prs' klopt niet", aantalSubject, prs.getRowCount());
 
         ITable nat_prs = rsgb.createDataSet().getTable("nat_prs");
-        assertEquals("Het aantal klopt niet", aantalBerichten, nat_prs.getRowCount());
-        assertEquals("Aanduiding naamgebruik eerste record komt niet overeen", "E", nat_prs.getValue(0, "aand_naamgebruik"));
-        assertEquals("Geslachtsaanduiding eerste record komt niet overeen", "V", nat_prs.getValue(0, "geslachtsaand"));
-        assertEquals("Achternaam eerste record komt niet overeen", "Kumari", nat_prs.getValue(0, "nm_geslachtsnaam"));
+        assertEquals("Het aantal 'nat_prs' klopt niet", aantalSubject, nat_prs.getRowCount());
+        int rowNum = (int) (aantalSubject - 1);
+        assertEquals("Aanduiding naamgebruik komt niet overeen", aandNaamgebruik, nat_prs.getValue(rowNum, "aand_naamgebruik"));
+        assertEquals("Geslachtsaanduiding komt niet overeen", geslacht, nat_prs.getValue(rowNum, "geslachtsaand"));
+        assertEquals("Achternaam komt niet overeen", achterNaam, nat_prs.getValue(rowNum, "nm_geslachtsnaam"));
 
         ITable ingeschr_nat_prs = rsgb.createDataSet().getTable("ingeschr_nat_prs");
-        assertEquals("Het aantal klopt niet", aantalBerichten, ingeschr_nat_prs.getRowCount());
-        assertEquals("BSN eerste record komt niet overeen", new BigDecimal(123459916), ingeschr_nat_prs.getValue(0, "bsn"));
-        assertEquals("A-nummer eerste record komt niet overeen", new BigDecimal("5054783237"), ingeschr_nat_prs.getValue(0, "a_nummer"));
+        assertEquals("Het aantal 'ingeschr_nat_prs' klopt niet", aantalSubject, ingeschr_nat_prs.getRowCount());
+        assertEquals("BSN komt niet overeen", new BigDecimal(bsnNummer), ingeschr_nat_prs.getValue(rowNum, "bsn"));
+        assertEquals("A-nummer komt niet overeen", new BigDecimal(aNummer), ingeschr_nat_prs.getValue(rowNum, "a_nummer"));
     }
 }

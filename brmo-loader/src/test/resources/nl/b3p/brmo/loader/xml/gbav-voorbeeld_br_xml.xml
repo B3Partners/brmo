@@ -4,8 +4,8 @@ gbav test br_xml dummy
 -->
 <root>
     <bsnhashes>
-        <bsn.123459916>b3e513383d0454de798b29c6900643130e3b2d6b</bsn.123459916>
-        <bsn.223459916>3aa37ac6a18a7857e4df6df490b583c5b662048d</bsn.223459916>
+        <NL.GBA.Persoon.123459916>b3e513383d0454de798b29c6900643130e3b2d6b</NL.GBA.Persoon.123459916>
+        <NL.GBA.Persoon.223459916>3aa37ac6a18a7857e4df6df490b583c5b662048d</NL.GBA.Persoon.223459916>
     </bsnhashes>
     <persoon>
         <categorieen>
@@ -99,15 +99,27 @@ gbav test br_xml dummy
                         <omschrijving>Sohrabi</omschrijving>
                     </rubriek>
                     <rubriek>
-
                         <nummer>0120</nummer>
                         <naam>BSN</naam>
                         <waarde>223459916</waarde>
                         <omschrijving>223459916</omschrijving>
                     </rubriek>
-
                 </rubrieken>
             </categorie>
+            <!--
+            <categorie>
+                <nummer>08</nummer>
+                <naam>Inschrijving</naam>
+                <rubrieken>
+                    <rubriek>
+                        <nummer>0910</nummer>
+                        <naam>Gemeente</naam>
+                        <waarde>0344</waarde>
+                        <omschrijving>Utrecht</omschrijving>
+                    </rubriek>
+                </rubrieken>
+            </categorie>
+            -->
         </categorieen>
     </persoon>
 </root>

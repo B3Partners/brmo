@@ -17,9 +17,8 @@
 package nl.b3p.brmo.loader.xml;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.GbavBericht;
 import org.apache.commons.logging.Log;
@@ -58,10 +57,7 @@ public class GbavXMLReaderTest {
             total++;
             assertEquals("Soort komt niet overeen", BrmoFramework.BR_GBAV, b.getSoort());
             assertEquals("Volgordenummer komt niet overeen", 0, b.getVolgordeNummer().intValue());
-
-            Calendar c = Calendar.getInstance(Locale.ROOT);
-            c.set(2018, (2 - 1), 1);
-            assertEquals("Datum komt niet overeen", c.getTime(), b.getDatum());
+            assertEquals("Datum komt niet overeen", new Date(2018 - 1900, 1, 1), b.getDatum());
         }
 
         assertEquals(1, total);

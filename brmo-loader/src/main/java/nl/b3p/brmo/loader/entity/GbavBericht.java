@@ -41,7 +41,7 @@ public class GbavBericht extends Bericht {
     private static final Log LOG = LogFactory.getLog(GbavXMLReader.class);
 
     private boolean xpathEvaluated = false;
-    private boolean hasAddedBSNHashes=false;
+    private boolean hasAddedBSNHashes = false;
 
     private String bsn = null;
 
@@ -59,7 +59,7 @@ public class GbavBericht extends Bericht {
 
         xpathEvaluated = true;
 
-        if (datum != null && bsn!=null && !bsnList.isEmpty()) {
+        if (datum != null && bsn != null && !bsnList.isEmpty()) {
             return;
         }
         try {
@@ -78,32 +78,33 @@ public class GbavBericht extends Bericht {
                 expr = xpath.compile("persoon/categorieen/categorie[nummer='04']/rubrieken/rubriek[nummer='8220']/waarde/text()");
                 this.setDatumAsString(expr.evaluate(doc));
             }
-            // persoon BSN
+
+            // van de verschillende personen BSN uitlezen en hashen
             expr = xpath.compile("persoon/categorieen/categorie[nummer='01']/rubrieken/rubriek[nummer='0120']/waarde/text()");
             this.bsn = expr.evaluate(doc);
             this.bsnList.add(bsn);
-             // ouder 1
+            // ouder 1
             expr = xpath.compile("persoon/categorieen/categorie[nummer='02']/rubrieken/rubriek[nummer='0120']/waarde/text()");
             String _bsn = expr.evaluate(doc);
-            if( _bsn!=null) {
+            if (_bsn != null && _bsn != "") {
                 this.bsnList.add(_bsn);
             }
             // ouder 2
             expr = xpath.compile("persoon/categorieen/categorie[nummer='03']/rubrieken/rubriek[nummer='0120']/waarde/text()");
-             _bsn = expr.evaluate(doc);
-            if( _bsn!=null) {
+            _bsn = expr.evaluate(doc);
+            if (_bsn != null && _bsn != "") {
                 this.bsnList.add(_bsn);
             }
             // partner
             expr = xpath.compile("persoon/categorieen/categorie[nummer='05']/rubrieken/rubriek[nummer='0120']/waarde/text()");
-             _bsn = expr.evaluate(doc);
-            if( _bsn!=null) {
+            _bsn = expr.evaluate(doc);
+            if (_bsn != null && _bsn != "") {
                 this.bsnList.add(_bsn);
             }
             // kind
             expr = xpath.compile("persoon/categorieen/categorie[nummer='09']/rubrieken/rubriek[nummer='0120']/waarde/text()");
             _bsn = expr.evaluate(doc);
-            if( _bsn!=null) {
+            if (_bsn != null && _bsn != "") {
                 this.bsnList.add(_bsn);
             }
         } catch (Exception e) {
@@ -121,30 +122,30 @@ public class GbavBericht extends Bericht {
         return this.datum;
     }
 
-    public String getBsn(){
+    public String getBsn() {
         this.evaluateXPath();
         return this.bsn;
     }
 
-    public List<String> getBsnList(){
+    public List<String> getBsnList() {
         this.evaluateXPath();
         return this.bsnList;
     }
 
-    public void setBsnMap(Map<String,String> bsnHashes) {
-        if(!hasAddedBSNHashes){
+    public void setBsnMap(Map<String, String> bsnHashes) {
+        if (!hasAddedBSNHashes) {
             StringBuilder sb = new StringBuilder("<bsnhashes>\n");
             for (Map.Entry<String, String> entry : bsnHashes.entrySet()) {
                 if (!entry.getKey().isEmpty() && !entry.getValue().isEmpty()) {
-                    sb.append("<bsn.").append(entry.getKey()).append('>')
+                    sb.append("<").append(GbavXMLReader.PREFIX).append(entry.getKey()).append('>')
                             .append(entry.getValue())
-                            .append("</bsn.").append(entry.getKey()).append(">\n");
+                            .append("</").append(GbavXMLReader.PREFIX).append(entry.getKey()).append(">\n");
                 }
             }
             sb.append("</bsnhashes>\n");
 
             this.hasAddedBSNHashes = true;
-            LOG.debug("toevoegen bsn hashes: " + sb);
+            LOG.debug("toevoegen bsn hashes aan br_xml: " + sb);
             sb.insert(0, "<root>\n");
 
             int endOfProlog = this.getBrXml().indexOf("?>");

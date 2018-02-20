@@ -20,7 +20,6 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLOutputFactory;
@@ -44,7 +43,7 @@ public class GbavXMLReader extends BrmoXMLReader {
 
     private static final Log log = LogFactory.getLog(GbavXMLReader.class);
     private static final String PERSOON = "persoon";
-    static final String PREFIX = "NL.GBA.Persoon:";
+    public static final String PREFIX = "NL.GBA.Persoon.";
     private final XMLInputFactory factory = XMLInputFactory.newInstance();
     private final XMLStreamReader streamReader;
     private final Transformer transformer;
@@ -95,17 +94,21 @@ public class GbavXMLReader extends BrmoXMLReader {
                     transformer.transform(new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));
                     nextBericht = new GbavBericht(sw.toString());
                     nextBericht.setDatum(nextBericht.parseDatum());
+                    if (nextBericht.getDatum() == null) {
+                        nextBericht.setDatum(new Date());
+                    }
                     nextBericht.setVolgordeNummer(volgordeNummer);
 
                     String bsn = nextBericht.getBsn();
-                    String bsnHash=this.getHash(bsn);
+                    String bsnHash = this.getHash(bsn);
                     nextBericht.setObjectRef(PREFIX + bsnHash);
 
-                    Map<String,String> bsns = new HashMap<>();
+                    Map<String, String> bsns = new HashMap<>();
                     nextBericht.getBsnList().forEach((_bsn) -> {
-                        bsns.put(_bsn,this.getHash(_bsn));
+                        log.debug("toevoegen bsn en hash: " + _bsn + ":" + this.getHash(_bsn));
+                        bsns.put(_bsn, this.getHash(_bsn));
                     });
-                    log.debug("aantal BSN in bericht:" +bsns.size());
+                    log.debug("aantal BSN in bericht:" + bsns.size());
                     nextBericht.setBsnMap(bsns);
                     return true;
                 } else {
