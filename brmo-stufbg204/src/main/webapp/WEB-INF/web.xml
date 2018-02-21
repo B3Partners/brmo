@@ -6,7 +6,6 @@
          metadata-complete="true">
     <description>brmo stuf bg204 service</description>
     <display-name>BRMO StUF BG 204</display-name>
-    <!-- tijdelijk uitgezet zodat de webapp zonder staging database werkt
     <security-constraint>
         <display-name>WSSecurityConstraint</display-name>
         <web-resource-collection>
@@ -23,7 +22,6 @@
     <security-role>
         <role-name>Admin</role-name>
     </security-role>
-    -->
     <listener>
         <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
     </listener>
