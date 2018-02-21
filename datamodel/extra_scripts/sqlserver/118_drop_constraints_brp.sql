@@ -18,3 +18,5 @@ alter table ingeschr_nat_prs drop constraint fk_inp_va_as_4;
 alter table ingeschr_nat_prs drop constraint fk_inp_va_as_5;
 alter table ingeschr_nat_prs drop constraint fk_inp_va_as_6;
 alter table ingeschr_nat_prs drop constraint fk_inp_va_as_7;
+
+GO

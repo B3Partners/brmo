@@ -10,3 +10,5 @@ insert into rsdocsoort (rsdoccode, rsdocomschr) values
 ('7','vreemdelingenpaspoort'),
 ('8','paspoort met aantekening vergunning tot verblijf'),
 ('9','(electronisch) W-document');
+
+GO
