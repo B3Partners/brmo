@@ -370,3 +370,27 @@ WHERE
 CREATE UNIQUE INDEX VM_KAD_EIGENARENKAART_OID_IDX ON VM_KAD_EIGENARENKAART (OBJECTID ASC);
 INSERT INTO USER_SDO_GEOM_METADATA VALUES('VM_KAD_EIGENARENKAART', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
 CREATE INDEX VM_KAD_EIGENARENKAART_PERC_IDX ON VM_KAD_EIGENARENKAART (BEGRENZING_PERCEEL) INDEXTYPE IS MDSYS.SPATIAL_INDEX PARAMETERS ( 'LAYER_GTYPE=MULTIPOLYGON');
+
+
+-- appertementsrecht met bag adres
+CREATE OR REPLACE VIEW v_app_re_adres AS
+SELECT DISTINCT
+        kp.sc_kad_identif,
+        kpvbo.FK_NN_LH_TGO_IDENTIF AS kad_bag_koppeling_benobj,
+        gor.naam_openb_rmte AS straat,
+        aoa.huinummer AS huisnummer,
+        aoa.huisletter,
+        aoa.huinummertoevoeging AS toevoeging,
+        aoa.postcode,
+        wp.naam AS woonplaats
+FROM app_re kp
+JOIN benoemd_obj_kad_onrrnd_zk kpvbo ON (kpvbo.FK_NN_RH_KOZ_KAD_IDENTIF = kp.SC_KAD_IDENTIF)
+LEFT JOIN verblijfsobj vbo ON (vbo.SC_IDENTIF = kpvbo.FK_NN_LH_TGO_IDENTIF)
+LEFT JOIN nummeraand na ON (na.SC_IDENTIF = vbo.FK_11NRA_SC_IDENTIF)
+LEFT JOIN addresseerb_obj_aand aoa ON (aoa.IDENTIF = na.SC_IDENTIF)
+LEFT JOIN gem_openb_rmte gor ON (gor.IDENTIFCODE = aoa.FK_7OPR_IDENTIFCODE)
+LEFT JOIN openb_rmte_wnplts oprw ON (oprw.FK_NN_LH_OPR_IDENTIFCODE = gor.IDENTIFCODE)
+LEFT JOIN wnplts wp ON (wp.IDENTIF = oprw.FK_NN_RH_WPL_IDENTIF);
+
+COMMENT ON VIEW v_app_re_adres
+  IS 'appertementsrecht met bag adres';

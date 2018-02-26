@@ -216,6 +216,32 @@ ALTER TABLE vestg_benoemd_obj ADD CONSTRAINT fk_ves_tgo_nn_lh FOREIGN KEY (fk_nn
 
 GO
 
+
+GO
+
+-- issue #411
+-- appertementsrecht met bag adres
+CREATE VIEW v_app_re_adres as
+select distinct
+        kp.sc_kad_identif,
+        kpvbo.FK_NN_LH_TGO_IDENTIF as kad_bag_koppeling_benobj,
+        gor.naam_openb_rmte as straat,
+        aoa.huinummer as huisnummer,
+        aoa.huisletter,
+        aoa.huinummertoevoeging as toevoeging,
+        aoa.postcode,
+        wp.naam as woonplaats
+from app_re kp
+left join benoemd_obj_kad_onrrnd_zk kpvbo on (kpvbo.FK_NN_RH_KOZ_KAD_IDENTIF = kp.SC_KAD_IDENTIF)
+left join verblijfsobj vbo on (vbo.SC_IDENTIF = kpvbo.FK_NN_LH_TGO_IDENTIF)
+left join nummeraand na on (na.SC_IDENTIF = vbo.FK_11NRA_SC_IDENTIF)
+left join addresseerb_obj_aand aoa on (aoa.IDENTIF = na.SC_IDENTIF)
+left join gem_openb_rmte gor on (gor.IDENTIFCODE = aoa.FK_7OPR_IDENTIFCODE)
+left join openb_rmte_wnplts oprw on (oprw.FK_NN_LH_OPR_IDENTIFCODE = gor.IDENTIFCODE)
+left join wnplts wp on (wp.IDENTIF = oprw.FK_NN_RH_WPL_IDENTIF);
+
+GO
+
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.5.2_naar_1.5.3','vorige versie was ' + waarde FROM brmo_metadata WHERE naam='brmoversie';
 -- versienummer update
