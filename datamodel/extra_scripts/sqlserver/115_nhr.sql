@@ -7,7 +7,7 @@ create table vestg_activiteit(
     indicatie_hoofdactiviteit decimal(1,0),
     primary key(fk_vestg_nummer, fk_sbi_activiteit_code),
     constraint fkfk_vestg_nummer foreign key (fk_vestg_nummer) references vestg(sc_identif),
-    constraint fkfk_sbi_activiteit_code foreign key (fk_vestg_nummer) references sbi_activiteit(sbi_code)
+    constraint fkfk_sbi_activiteit_code foreign key (fk_sbi_activiteit_code) references sbi_activiteit(sbi_code)
 );
 
 ALTER TABLE vestg_naam
