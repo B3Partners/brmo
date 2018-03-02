@@ -1,75 +1,170 @@
-alter table ander_btnlnds_niet_nat_prs drop constraint ander_btnlnds_niet_nat_prs_pk;
-alter table ander_btnlnds_niet_nat_prs drop constraint fk_ann_sc;
-alter table ander_nat_prs drop constraint ander_nat_prs_pk;
-alter table ander_nat_prs drop constraint fk_anp_sc;
-alter table ingeschr_niet_nat_prs drop constraint ingeschr_niet_nat_prs_pk;
-alter table ingeschr_nat_prs drop constraint ingeschr_nat_prs_pk;
-alter table ingezetene drop constraint ingezetene_pk;
-alter table kad_onrrnd_zk drop constraint fk_koz_as_10;
-alter table kad_onrrnd_zk_aantek drop constraint fk_kza_as_5;
-alter table maatschapp_activiteit drop constraint fk_mac_as_4;
-alter table nat_prs drop constraint nat_prs_pk;
-alter table niet_ingezetene drop constraint niet_ingezetene_pk;
-alter table niet_nat_prs drop constraint niet_nat_prs_pk;
-alter table app_re drop constraint fk_apr_as_2;
-alter table prs drop constraint prs_pk;
-alter table subject drop constraint subject_pk;
-alter table vestg drop constraint vestg_pk;
-alter table vestg drop constraint fk_ves_as_18;
+ALTER TABLE ander_btnlnds_niet_nat_prs DROP CONSTRAINT fk_ann_sc;
+ALTER TABLE ander_nat_prs DROP CONSTRAINT fk_anp_sc;
+ALTER TABLE ouder_kind_rel DROP CONSTRAINT fk_ouder_kind_rel_sc_rh;
+ALTER TABLE ouder_kind_rel DROP CONSTRAINT fk_ouder_kind_rel_sc_lh;
+ALTER TABLE huw_ger_partn DROP CONSTRAINT fk_huw_ger_partn_sc_rh;
+ALTER TABLE huw_ger_partn DROP CONSTRAINT fk_huw_ger_partn_sc_lh;
+ALTER TABLE kad_onrrnd_zk DROP CONSTRAINT fk_koz_as_10;
+ALTER TABLE kad_onrrnd_zk_aantek DROP CONSTRAINT fk_kza_as_5;
+ALTER TABLE maatschapp_activiteit DROP CONSTRAINT fk_mac_as_4;
+ALTER TABLE app_re DROP CONSTRAINT fk_apr_as_2;
+ALTER TABLE vestg DROP CONSTRAINT fk_ves_as_19;
+ALTER TABLE vestg DROP CONSTRAINT fk_ves_as_18;
+ALTER TABLE vestg DROP CONSTRAINT fk_ves_as_17;
+ALTER TABLE ingeschr_niet_nat_prs DROP CONSTRAINT fk_inn_sc;
+ALTER TABLE huishoudenrel DROP CONSTRAINT fk_huishoudenrel_sc_lh;
+ALTER TABLE niet_ingezetene DROP CONSTRAINT fk_nin_sc;
+ALTER TABLE ingezetene DROP CONSTRAINT fk_ing_sc;
+ALTER TABLE ingeschr_nat_prs DROP CONSTRAINT fk_inp_sc;
+ALTER TABLE nat_prs DROP CONSTRAINT fk_nps_sc;
+ALTER TABLE functionaris DROP CONSTRAINT fk_functionaris_sc_lh;
+ALTER TABLE functionaris DROP CONSTRAINT fk_functionaris_sc_rh;
+ALTER TABLE zak_recht_aantek DROP CONSTRAINT fk_zra_as_6;
+ALTER TABLE zak_recht DROP CONSTRAINT fk_zkr_as_8;
+ALTER TABLE woz_belang DROP CONSTRAINT fk_woz_belang_sc_lh;
+ALTER TABLE prs DROP CONSTRAINT fk_pes_sc;
+ALTER TABLE vestg_naam DROP CONSTRAINT fk_ves1;
+ALTER TABLE rsdoc_ingeschr_nat_prs DROP CONSTRAINT fk_rsd_inp_nn_rh;
 
+-- prs_eigendom heeft een niet-benoemde FK
+while(exists(select 1 from INFORMATION_SCHEMA.TABLE_CONSTRAINTS where TABLE_NAME='prs_eigendom' and CONSTRAINT_TYPE='FOREIGN KEY'))
+begin
+	declare @sql nvarchar(2000)
+	SELECT TOP 1 @sql=('ALTER TABLE ' + TABLE_SCHEMA + '.[' + TABLE_NAME + '] DROP CONSTRAINT [' + CONSTRAINT_NAME + ']')
+	FROM information_schema.table_constraints
+	WHERE CONSTRAINT_TYPE = 'FOREIGN KEY'
+  print (@sql)
+	exec (@sql)
+end
+
+-- vestg_activiteit heeft niet-benoemde FK's
+while(exists(select 1 from INFORMATION_SCHEMA.TABLE_CONSTRAINTS where TABLE_NAME='vestg_activiteit' and CONSTRAINT_TYPE='FOREIGN KEY'))
+begin
+	declare @sqla nvarchar(2000)
+	SELECT TOP 1 @sqla=('ALTER TABLE ' + TABLE_SCHEMA + '.[' + TABLE_NAME + '] DROP CONSTRAINT [' + CONSTRAINT_NAME + ']')
+	FROM information_schema.table_constraints
+	WHERE CONSTRAINT_TYPE = 'FOREIGN KEY'
+  print (@sqla)
+	exec (@sqla)
+end
 
 GO
 
-alter table ander_btnlnds_niet_nat_prs alter column sc_identif varchar(255) not null;
-alter table ander_nat_prs alter column sc_identif varchar(255) not null;
-alter table ingeschr_niet_nat_prs alter column sc_identif varchar(255) not null;
-alter table ingeschr_nat_prs alter column sc_identif varchar(255) not null;
-alter table ingezetene alter column sc_identif varchar(255) not null;
-alter table kad_onrrnd_zk alter column fk_10pes_sc_identif varchar(255);
-alter table kad_onrrnd_zk_aantek alter column fk_5pes_sc_identif varchar(255);
-alter table maatschapp_activiteit alter column fk_4pes_sc_identif varchar(255);
-alter table nat_prs alter column sc_identif varchar(255) not null;
-alter table niet_ingezetene alter column sc_identif varchar(255) not null;
-alter table niet_nat_prs alter column sc_identif varchar(255) not null;
-alter table app_re alter column fk_2nnp_sc_identif varchar(255);
-alter table prs alter column sc_identif varchar(255) not null;
-alter table subject alter column identif varchar(255) not null;
-alter table vestg alter column sc_identif varchar(255) not null;
-alter table vestg alter column fk_18ves_sc_identif varchar(255);
+ALTER TABLE ander_nat_prs DROP CONSTRAINT ander_nat_prs_pk;
+ALTER TABLE ander_btnlnds_niet_nat_prs DROP CONSTRAINT ander_btnlnds_niet_nat_prs_pk;
+ALTER TABLE nat_prs DROP CONSTRAINT nat_prs_pk;
+ALTER TABLE ingeschr_nat_prs DROP CONSTRAINT ingeschr_nat_prs_pk;
+ALTER TABLE ingeschr_niet_nat_prs DROP CONSTRAINT ingeschr_niet_nat_prs_pk;
+ALTER TABLE ingezetene DROP CONSTRAINT ingezetene_pk;
+ALTER TABLE niet_ingezetene DROP CONSTRAINT niet_ingezetene_pk;
+ALTER TABLE niet_nat_prs DROP CONSTRAINT niet_nat_prs_pk;
+ALTER TABLE prs DROP CONSTRAINT prs_pk;
+ALTER TABLE subject DROP CONSTRAINT subject_pk;
+ALTER TABLE vestg DROP CONSTRAINT vestg_pk;
 
--- todo
-alter table zak_recht alter column fk_8pes_sc_identif varchar(255);
-alter table zak_recht_aantek alter column fk_6pes_sc_identif varchar(255);
-alter table vestg_naam alter column fk_ves_sc_identif varchar(255);
-alter table huishoudenrel alter column fk_sc_lh_inp_sc_identif varchar(255);
-alter table huw_ger_partn alter column fk_sc_lh_inp_sc_identif varchar(255);
-alter table huw_ger_partn alter column fk_sc_rh_inp_sc_identif varchar(255);
-alter table ouder_kind_rel alter column fk_sc_lh_inp_sc_identif varchar(255);
-alter table ouder_kind_rel alter column fk_sc_rh_inp_sc_identif varchar(255);
-alter table rsdoc_ingeschr_nat_prs alter column fk_nn_rh_inp_sc_identif varchar(255);
-alter table vestg_benoemd_obj alter column fk_nn_lh_ves_sc_identif varchar(255);
+-- vestg_naam heeft een niet-benoemde PK
+declare @PrimaryKeyName sysname = (select CONSTRAINT_NAME from INFORMATION_SCHEMA.TABLE_CONSTRAINTS where CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_SCHEMA='dbo' and TABLE_NAME = 'vestg_naam')
+IF @PrimaryKeyName is not null
+begin
+    declare @SQL_PK NVARCHAR(MAX) = 'ALTER TABLE dbo.vestg_naam DROP CONSTRAINT ' + @PrimaryKeyName
+    print (@SQL_PK)
+    EXEC sp_executesql @SQL_PK;
+end
+
+ALTER TABLE huishoudenrel DROP CONSTRAINT huishoudenrel_pk;
+ALTER TABLE huw_ger_partn DROP CONSTRAINT huw_ger_partn_pk;
+ALTER TABLE ouder_kind_rel DROP CONSTRAINT ouder_kind_rel_pk;
+ALTER TABLE rsdoc_ingeschr_nat_prs DROP CONSTRAINT rsdoc_ingeschr_nat_prs_pk;
+ALTER TABLE vestg_benoemd_obj DROP CONSTRAINT vestg_benoemd_obj_pk;
+ALTER TABLE functionaris DROP CONSTRAINT functionaris_pk;
 
 GO
 
-alter table ander_btnlnds_niet_nat_prs add constraint ander_btnlnds_niet_nat_prs_pk primary key clustered(sc_identif);
-alter table ander_btnlnds_niet_nat_prs add constraint fk_ann_sc foreign key (sc_identif) references niet_nat_prs (sc_identif) on delete no action;
-alter table ander_nat_prs add constraint ander_nat_prs_pk primary key clustered(sc_identif);
-alter table ander_nat_prs add constraint fk_anp_sc foreign key (sc_identif) references nat_prs (sc_identif) on delete no action;
-alter table ingeschr_niet_nat_prs add constraint ingeschr_niet_nat_prs_pk primary key clustered(sc_identif);
-alter table ingeschr_nat_prs add constraint ingeschr_nat_prs_pk primary key clustered(sc_identif);
-alter table ingezetene add constraint ingezetene_pk primary key clustered(sc_identif);
-alter table kad_onrrnd_zk add constraint fk_koz_as_10 foreign key (fk_10pes_sc_identif) references prs (sc_identif) on delete no action;
-alter table kad_onrrnd_zk_aantek add constraint fk_kza_as_5 foreign key (fk_5pes_sc_identif) references prs (sc_identif) on delete no action;
-alter table maatschapp_activiteit add constraint fk_mac_as_4 foreign key (fk_4pes_sc_identif) references prs (sc_identif) on delete no action;
-alter table nat_prs add constraint nat_prs_pk primary key clustered(sc_identif);
-alter table niet_ingezetene add constraint niet_ingezetene_pk primary key clustered(sc_identif);
-alter table niet_nat_prs add constraint niet_nat_prs_pk primary key clustered(sc_identif);
-alter table app_re add constraint fk_apr_as_2 foreign key (fk_2nnp_sc_identif) references niet_nat_prs (sc_identif) on delete no action;
-alter table prs add constraint prs_pk primary key clustered(sc_identif);
-alter table subject add constraint subject_pk primary key clustered(identif);
-alter table vestg add constraint vestg_pk primary key clustered(sc_identif);
-alter table vestg add constraint fk_ves_as_18 foreign key (fk_18ves_sc_identif) references vestg (sc_identif) on delete no action;
+ALTER TABLE ander_btnlnds_niet_nat_prs ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE ander_nat_prs ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE ingeschr_niet_nat_prs ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE ingeschr_nat_prs ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE ingezetene ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE kad_onrrnd_zk ALTER COLUMN fk_10pes_sc_identif VARCHAR(255);
+ALTER TABLE kad_onrrnd_zk_aantek ALTER COLUMN fk_5pes_sc_identif VARCHAR(255);
+ALTER TABLE maatschapp_activiteit ALTER COLUMN fk_4pes_sc_identif VARCHAR(255);
+ALTER TABLE nat_prs ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE niet_ingezetene ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE niet_nat_prs ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE app_re ALTER COLUMN fk_2nnp_sc_identif VARCHAR(255);
+ALTER TABLE prs ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE subject ALTER COLUMN identif VARCHAR(255) NOT NULL;
+ALTER TABLE vestg ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE vestg ALTER COLUMN fk_18ves_sc_identif VARCHAR(255);
+ALTER TABLE zak_recht ALTER COLUMN fk_8pes_sc_identif VARCHAR(255);
+ALTER TABLE zak_recht_aantek ALTER COLUMN fk_6pes_sc_identif VARCHAR(255);
+ALTER TABLE vestg_naam ALTER COLUMN fk_ves_sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE huishoudenrel ALTER COLUMN fk_sc_lh_inp_sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE huw_ger_partn ALTER COLUMN fk_sc_lh_inp_sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE huw_ger_partn ALTER COLUMN fk_sc_rh_inp_sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE ouder_kind_rel ALTER COLUMN fk_sc_lh_inp_sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE ouder_kind_rel ALTER COLUMN fk_sc_rh_inp_sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE rsdoc_ingeschr_nat_prs ALTER COLUMN fk_nn_rh_inp_sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE vestg_benoemd_obj ALTER COLUMN fk_nn_lh_ves_sc_identif VARCHAR(255) NOT NULL;
+-- ook in andere migratie scripts ed..
+ALTER TABLE functionaris ALTER COLUMN fk_sc_lh_pes_sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE functionaris ALTER COLUMN fk_sc_rh_pes_sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE woz_belang ALTER COLUMN fk_sc_lh_sub_identif VARCHAR(255) NOT NULL;
+ALTER TABLE vestg_activiteit ALTER COLUMN fk_vestg_nummer VARCHAR(255) NOT NULL;
+ALTER TABLE prs_eigendom ALTER COLUMN fk_prs_sc_identif VARCHAR(255) NOT NULL;
 
+GO
 
+ALTER TABLE niet_nat_prs ADD CONSTRAINT niet_nat_prs_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE ander_btnlnds_niet_nat_prs ADD CONSTRAINT ander_btnlnds_niet_nat_prs_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE ander_nat_prs ADD CONSTRAINT ander_nat_prs_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE ingeschr_niet_nat_prs ADD CONSTRAINT ingeschr_niet_nat_prs_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE ingeschr_nat_prs ADD CONSTRAINT ingeschr_nat_prs_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE ingezetene ADD CONSTRAINT ingezetene_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE nat_prs ADD CONSTRAINT nat_prs_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE niet_ingezetene ADD CONSTRAINT niet_ingezetene_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE prs ADD CONSTRAINT prs_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE subject ADD CONSTRAINT subject_pk PRIMARY KEY clustered(identif);
+ALTER TABLE vestg ADD CONSTRAINT vestg_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE vestg_naam ADD CONSTRAINT pk_vestg_naam PRIMARY KEY (naam, fk_ves_sc_identif);
+ALTER TABLE huishoudenrel ADD CONSTRAINT huishoudenrel_pk PRIMARY KEY clustered(fk_sc_lh_inp_sc_identif,fk_sc_rh_hhd_nummer);
+ALTER TABLE huw_ger_partn ADD CONSTRAINT huw_ger_partn_pk PRIMARY KEY clustered(fk_sc_lh_inp_sc_identif,fk_sc_rh_inp_sc_identif);
+ALTER TABLE ouder_kind_rel ADD CONSTRAINT ouder_kind_rel_pk PRIMARY KEY clustered(fk_sc_lh_inp_sc_identif,fk_sc_rh_inp_sc_identif);
+ALTER TABLE rsdoc_ingeschr_nat_prs ADD CONSTRAINT rsdoc_ingeschr_nat_prs_pk PRIMARY KEY clustered(fk_nn_lh_rsd_nummer,fk_nn_rh_inp_sc_identif);
+ALTER TABLE vestg_benoemd_obj ADD CONSTRAINT vestg_benoemd_obj_pk PRIMARY KEY clustered(fk_nn_lh_ves_sc_identif,fk_nn_rh_tgo_identif);
+ALTER TABLE functionaris ADD CONSTRAINT functionaris_pk PRIMARY KEY clustered(fk_sc_lh_pes_sc_identif,fk_sc_rh_pes_sc_identif);
+
+GO
+
+ALTER TABLE ander_btnlnds_niet_nat_prs ADD CONSTRAINT fk_ann_sc FOREIGN KEY (sc_identif) REFERENCES niet_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE ander_nat_prs ADD CONSTRAINT fk_anp_sc FOREIGN KEY (sc_identif) REFERENCES nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE ingeschr_niet_nat_prs ADD CONSTRAINT fk_inn_sc FOREIGN KEY (sc_identif) REFERENCES niet_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE ingeschr_nat_prs ADD CONSTRAINT fk_inp_sc FOREIGN KEY (sc_identif) REFERENCES nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE niet_ingezetene ADD CONSTRAINT fk_nin_sc FOREIGN KEY (sc_identif) REFERENCES ingeschr_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE prs ADD CONSTRAINT fk_pes_sc FOREIGN KEY (sc_identif) REFERENCES subject (identif) ON DELETE no action;
+ALTER TABLE ouder_kind_rel ADD CONSTRAINT fk_ouder_kind_rel_sc_lh FOREIGN KEY (fk_sc_lh_inp_sc_identif) REFERENCES ingeschr_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE ouder_kind_rel ADD CONSTRAINT fk_ouder_kind_rel_sc_rh FOREIGN KEY (fk_sc_rh_inp_sc_identif) REFERENCES ingeschr_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE huw_ger_partn ADD CONSTRAINT fk_huw_ger_partn_sc_lh FOREIGN KEY (fk_sc_lh_inp_sc_identif) REFERENCES ingeschr_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE huw_ger_partn ADD CONSTRAINT fk_huw_ger_partn_sc_rh FOREIGN KEY (fk_sc_rh_inp_sc_identif) REFERENCES ingeschr_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE kad_onrrnd_zk ADD CONSTRAINT fk_koz_as_10 FOREIGN KEY (fk_10pes_sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
+ALTER TABLE kad_onrrnd_zk_aantek ADD CONSTRAINT fk_kza_as_5 FOREIGN KEY (fk_5pes_sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
+ALTER TABLE maatschapp_activiteit ADD CONSTRAINT fk_mac_as_4 FOREIGN KEY (fk_4pes_sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
+ALTER TABLE app_re ADD CONSTRAINT fk_apr_as_2 FOREIGN KEY (fk_2nnp_sc_identif) REFERENCES niet_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE functionaris ADD CONSTRAINT fk_functionaris_sc_lh FOREIGN KEY (fk_sc_lh_pes_sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
+ALTER TABLE functionaris ADD CONSTRAINT fk_functionaris_sc_rh FOREIGN KEY (fk_sc_rh_pes_sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
+ALTER TABLE zak_recht_aantek ADD CONSTRAINT fk_zra_as_6 FOREIGN KEY (fk_6pes_sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
+ALTER TABLE zak_recht ADD CONSTRAINT fk_zkr_as_8 FOREIGN KEY (fk_8pes_sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
+ALTER TABLE woz_belang ADD CONSTRAINT fk_woz_belang_sc_lh FOREIGN KEY (fk_sc_lh_sub_identif) REFERENCES subject (identif) ON DELETE no action;
+ALTER TABLE vestg ADD CONSTRAINT fk_ves_as_17 FOREIGN KEY (fk_17mac_kvk_nummer) REFERENCES maatschapp_activiteit (kvk_nummer) ON DELETE no action;
+ALTER TABLE vestg ADD CONSTRAINT fk_ves_as_18 FOREIGN KEY (fk_18ves_sc_identif) REFERENCES vestg (sc_identif) ON DELETE no action;
+ALTER TABLE vestg ADD CONSTRAINT fk_ves_as_19 FOREIGN KEY (fk_19mac_kvk_nummer) REFERENCES maatschapp_activiteit (kvk_nummer) ON DELETE no action;
+ALTER TABLE vestg_naam ADD CONSTRAINT fk_ves1 FOREIGN KEY (fk_ves_sc_identif) REFERENCES vestg (sc_identif) ON DELETE no action;
+ALTER TABLE vestg_activiteit ADD CONSTRAINT fkfk_vestg_nummer FOREIGN KEY (fk_vestg_nummer) REFERENCES vestg(sc_identif);
+ALTER TABLE vestg_activiteit ADD CONSTRAINT fkfk_sbi_activiteit_code FOREIGN KEY (fk_sbi_activiteit_code) REFERENCES sbi_activiteit(sbi_code);
+ALTER TABLE huishoudenrel ADD CONSTRAINT fk_huishoudenrel_sc_lh FOREIGN KEY (fk_sc_lh_inp_sc_identif) REFERENCES ingeschr_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE ingezetene ADD CONSTRAINT fk_ing_sc FOREIGN KEY (sc_identif) REFERENCES ingeschr_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE rsdoc_ingeschr_nat_prs ADD CONSTRAINT fk_rsd_inp_nn_rh FOREIGN KEY (fk_nn_rh_inp_sc_identif) REFERENCES ingeschr_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE nat_prs ADD CONSTRAINT fk_nps_sc FOREIGN KEY (sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
+ALTER TABLE prs_eigendom ADD CONSTRAINT fkfk_prs_sc_identif FOREIGN KEY (fk_prs_sc_identif) REFERENCES prs(sc_identif);
 
 GO
