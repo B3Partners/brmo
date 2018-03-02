@@ -2,6 +2,47 @@
 -- upgrade SQLserver RSGB datamodel van 1.5.2 naar 1.5.3
 --
 
+-- 118
+-- worden al in 114 verwijderd
+-- alter table subject drop constraint fk_sub_as_13;
+-- alter table subject drop constraint fk_sub_as_14;
+-- alter table subject drop constraint fk_sub_as_15;
+-- alter table subject drop constraint fk_sub_pa_as_4;
+alter table subject drop constraint fk_sub_vb_4;
+
+-- worden al in 114 verwijderd
+-- alter table ingeschr_nat_prs drop constraint fk_inp_as_27;
+-- alter table ingeschr_nat_prs drop constraint fk_inp_as_28;
+-- alter table ingeschr_nat_prs drop constraint fk_inp_as_29;
+-- alter table ingeschr_nat_prs drop constraint fk_inp_as_30;
+-- alter table ingeschr_nat_prs drop constraint fk_inp_as_31;
+alter table ingeschr_nat_prs drop constraint fk_inp_gb_2;
+alter table ingeschr_nat_prs drop constraint fk_inp_ol_1;
+alter table ingeschr_nat_prs drop constraint fk_inp_rl_17;
+alter table ingeschr_nat_prs drop constraint fk_inp_rl_18;
+-- alter table ingeschr_nat_prs drop constraint fk_inp_va_as_3;
+-- alter table ingeschr_nat_prs drop constraint fk_inp_va_as_4;
+-- alter table ingeschr_nat_prs drop constraint fk_inp_va_as_5;
+-- alter table ingeschr_nat_prs drop constraint fk_inp_va_as_6;
+-- alter table ingeschr_nat_prs drop constraint fk_inp_va_as_7;
+
+GO
+
+-- 119
+insert into rsdocsoort (rsdoccode, rsdocomschr) values
+('1','paspoort'),
+('2','Europese identiteitskaart'),
+('3','toeristenkaart'),
+('4','gemeentelijke identiteitskaart'),
+('5','verblijfsdocument van de Vreemdelingendienst'),
+('6','vluchtelingenpaspoort'),
+('7','vreemdelingenpaspoort'),
+('8','paspoort met aantekening vergunning tot verblijf'),
+('9','(electronisch) W-document');
+
+GO
+
+-- 120
 ALTER TABLE ander_btnlnds_niet_nat_prs DROP CONSTRAINT fk_ann_sc;
 ALTER TABLE ander_nat_prs DROP CONSTRAINT fk_anp_sc;
 ALTER TABLE ouder_kind_rel DROP CONSTRAINT fk_ouder_kind_rel_sc_rh;
@@ -15,6 +56,7 @@ ALTER TABLE app_re DROP CONSTRAINT fk_apr_as_2;
 ALTER TABLE vestg DROP CONSTRAINT fk_ves_as_19;
 ALTER TABLE vestg DROP CONSTRAINT fk_ves_as_18;
 ALTER TABLE vestg DROP CONSTRAINT fk_ves_as_17;
+ALTER TABLE vestg_benoemd_obj DROP CONSTRAINT fk_ves_tgo_nn_lh;
 ALTER TABLE ingeschr_niet_nat_prs DROP CONSTRAINT fk_inn_sc;
 ALTER TABLE huishoudenrel DROP CONSTRAINT fk_huishoudenrel_sc_lh;
 ALTER TABLE niet_ingezetene DROP CONSTRAINT fk_nin_sc;
@@ -27,30 +69,29 @@ ALTER TABLE zak_recht_aantek DROP CONSTRAINT fk_zra_as_6;
 ALTER TABLE zak_recht DROP CONSTRAINT fk_zkr_as_8;
 ALTER TABLE woz_belang DROP CONSTRAINT fk_woz_belang_sc_lh;
 ALTER TABLE prs DROP CONSTRAINT fk_pes_sc;
+ALTER TABLE niet_nat_prs DROP CONSTRAINT fk_nnp_sc;
 ALTER TABLE vestg_naam DROP CONSTRAINT fk_ves1;
 ALTER TABLE rsdoc_ingeschr_nat_prs DROP CONSTRAINT fk_rsd_inp_nn_rh;
 
 -- prs_eigendom heeft een niet-benoemde FK
-while(exists(select 1 from INFORMATION_SCHEMA.TABLE_CONSTRAINTS where TABLE_NAME='prs_eigendom' and CONSTRAINT_TYPE='FOREIGN KEY'))
-begin
-	declare @sql nvarchar(2000)
-	SELECT TOP 1 @sql=('ALTER TABLE ' + TABLE_SCHEMA + '.[' + TABLE_NAME + '] DROP CONSTRAINT [' + CONSTRAINT_NAME + ']')
-	FROM information_schema.table_constraints
-	WHERE CONSTRAINT_TYPE = 'FOREIGN KEY'
-  print (@sql)
-	exec (@sql)
-end
+WHILE(EXISTS(SELECT 1 FROM information_schema.table_constraints WHERE table_name='prs_eigendom' AND constraint_type='FOREIGN KEY'))
+BEGIN
+    DECLARE @sqlp NVARCHAR(MAX)
+    SELECT TOP 1 @sqlp=('ALTER TABLE prs_eigendom DROP CONSTRAINT ' + CONSTRAINT_NAME )
+    FROM information_schema.table_constraints WHERE table_name='prs_eigendom' AND constraint_type = 'FOREIGN KEY'
+    -- PRINT N'Opruimen prs_eigendom FKs ' + @sqlp
+    EXEC sp_executesql @sqlp
+END
 
 -- vestg_activiteit heeft niet-benoemde FK's
-while(exists(select 1 from INFORMATION_SCHEMA.TABLE_CONSTRAINTS where TABLE_NAME='vestg_activiteit' and CONSTRAINT_TYPE='FOREIGN KEY'))
-begin
-	declare @sqla nvarchar(2000)
-	SELECT TOP 1 @sqla=('ALTER TABLE ' + TABLE_SCHEMA + '.[' + TABLE_NAME + '] DROP CONSTRAINT [' + CONSTRAINT_NAME + ']')
-	FROM information_schema.table_constraints
-	WHERE CONSTRAINT_TYPE = 'FOREIGN KEY'
-  print (@sqla)
-	exec (@sqla)
-end
+WHILE(EXISTS(SELECT 1 FROM information_schema.table_constraints WHERE table_name='vestg_activiteit' AND constraint_type='FOREIGN KEY'))
+BEGIN
+    DECLARE @sqla NVARCHAR(MAX)
+    SELECT TOP 1 @sqla=('ALTER TABLE vestg_activiteit DROP CONSTRAINT ' + constraint_name)
+    FROM information_schema.table_constraints WHERE table_name='vestg_activiteit' AND constraint_type = 'FOREIGN KEY'
+    -- PRINT N'Opruimen vestg_activiteit FKs ' + @sqla
+    EXEC sp_executesql @sqla
+END
 
 GO
 
@@ -67,13 +108,13 @@ ALTER TABLE subject DROP CONSTRAINT subject_pk;
 ALTER TABLE vestg DROP CONSTRAINT vestg_pk;
 
 -- vestg_naam heeft een niet-benoemde PK
-declare @PrimaryKeyName sysname = (select CONSTRAINT_NAME from INFORMATION_SCHEMA.TABLE_CONSTRAINTS where CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_SCHEMA='dbo' and TABLE_NAME = 'vestg_naam')
-IF @PrimaryKeyName is not null
-begin
-    declare @SQL_PK NVARCHAR(MAX) = 'ALTER TABLE dbo.vestg_naam DROP CONSTRAINT ' + @PrimaryKeyName
-    print (@SQL_PK)
+DECLARE @PrimaryKeyName sysname = (SELECT constraint_name FROM information_schema.table_constraints WHERE constraint_type = 'PRIMARY KEY' AND table_schema='dbo' AND table_name = 'vestg_naam')
+IF @PrimaryKeyName IS NOT NULL
+BEGIN
+    DECLARE @SQL_PK NVARCHAR(MAX) = 'ALTER TABLE dbo.vestg_naam DROP CONSTRAINT ' + @PrimaryKeyName
+    -- PRINT N'Opruimen vestg_naam PK ' + @SQL_PK
     EXEC sp_executesql @SQL_PK;
-end
+END
 
 ALTER TABLE huishoudenrel DROP CONSTRAINT huishoudenrel_pk;
 ALTER TABLE huw_ger_partn DROP CONSTRAINT huw_ger_partn_pk;
@@ -169,11 +210,15 @@ ALTER TABLE huishoudenrel ADD CONSTRAINT fk_huishoudenrel_sc_lh FOREIGN KEY (fk_
 ALTER TABLE ingezetene ADD CONSTRAINT fk_ing_sc FOREIGN KEY (sc_identif) REFERENCES ingeschr_nat_prs (sc_identif) ON DELETE no action;
 ALTER TABLE rsdoc_ingeschr_nat_prs ADD CONSTRAINT fk_rsd_inp_nn_rh FOREIGN KEY (fk_nn_rh_inp_sc_identif) REFERENCES ingeschr_nat_prs (sc_identif) ON DELETE no action;
 ALTER TABLE nat_prs ADD CONSTRAINT fk_nps_sc FOREIGN KEY (sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
+ALTER TABLE niet_nat_prs ADD CONSTRAINT fk_nnp_sc FOREIGN KEY (sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
 ALTER TABLE prs_eigendom ADD CONSTRAINT fkfk_prs_sc_identif FOREIGN KEY (fk_prs_sc_identif) REFERENCES prs(sc_identif);
+ALTER TABLE vestg_benoemd_obj ADD CONSTRAINT fk_ves_tgo_nn_lh FOREIGN KEY (fk_nn_lh_ves_sc_identif) REFERENCES vestg (sc_identif) ON DELETE no action;
 
-GO 
+GO
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
-INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.5.2_naar_1.5.3','vorige versie was '||waarde FROM brmo_metadata WHERE naam='brmoversie';
+INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.5.2_naar_1.5.3','vorige versie was '+ waarde FROM brmo_metadata WHERE naam='brmoversie';
 -- versienummer update
 UPDATE brmo_metadata SET waarde='1.5.3' WHERE naam='brmoversie';
+
+GO
