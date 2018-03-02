@@ -6,9 +6,13 @@ env:
   global:
     - secure: "mmLyX+VjQpLA7LQ79iIrBPjw/vnJC4Loda7BOyIy+H2seQJAwqDczG09aToTOkM/mmENAb08xv6JJ2PbsZqSZ3tTMXNxTOh4dGtR9DnTjtDzD4O6IHEDVOSbFndIsSEsQw4LXJWbbJwRJwF5Q+UPl+VLV+HyXbYOAmPAD96hXTA="
     - secure: "NynQI56H74dDi6sK4wxPawnLoLsrzADKmD8Jl7w3yQnYTfVU7zP07KeJKoIWhFaYB3GCKyG2qdeM1I5DOeim183c0h51WcQTVvHX3o1D3DyrdfuhqKTBXmAUXJObp/jUoABD2KKejSKZj+mkzqutITMUUbHDiMu5PD6WXEuCYT8="
+    - PG_VERSION="9.6"
+
+services:
+    - postgresql
 
 addons:
-   postgresql: "9.5"
+   # postgresql: "9.5"
    # fix voor OpenJDK bufferoverflow, zie:
    #  - https://docs.travis-ci.com/user/hostname
    #  - https://github.com/travis-ci/travis-ci/issues/5227
@@ -22,6 +26,10 @@ jdk:
 
 matrix:
   fast_finish: true
+  include:
+  - jdk: oraclejdk8
+    # EOL September 2018
+    env: PG_VERSION="9.3"
 
 cache:
   directories:
@@ -37,13 +45,12 @@ before_install:
   # - export M2_HOME=$PWD/apache-maven-3.5.2
   # - export PATH=$M2_HOME/bin:$PATH
   - mvn -v
-  # installeer/update postgis 2.2 op postgresql 9.5
   # zie ook: https://docs.travis-ci.com/user/database-setup/
   - sudo service postgresql stop
   - sudo -E apt-get -qq update &>> ~/apt-get-update.log
-  - sudo apt-get -qq install postgis-2.2 gdal-bin graphviz
+  - sudo apt-get -qq install postgis-2.3 gdal-bin graphviz
   - sudo service postgresql stop
-  - sudo service postgresql start 9.5
+  - sudo service postgresql start $PG_VERSION
   - export PAGER=cat
   - psql --version
   - psql -U postgres -d postgres -c 'SELECT Version();'
@@ -114,10 +121,8 @@ after_failure:
 
 after_success:
   # test of de javadoc compliant is met java-8 strict checks
-  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
+  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$PG_VERSION" == "9.6" ]; then
          travis_wait 30 mvn javadoc:javadoc;
-    fi
-  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
          travis_wait 30 mvn javadoc:test-javadoc;
     fi
 
