@@ -6,17 +6,22 @@ skip_tags: true
 init:
   - git config --global core.autocrlf input
   - git config --global core.safecrlf true
-
-services:
-  - mssql2016
+  - cmd: net start %SQL%
 
 environment:
-  INSTANCENAME: SQL2016
+  
 
   matrix:
-    - JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+    - SQL: MSSQL$SQL2014
+      INSTANCENAME: SQL2014
+      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+    - SQL: MSSQL$SQL2016
+      INSTANCENAME: SQL2016
+      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+    - SQL: MSSQL$SQL2017
+      INSTANCENAME: SQL2017
+      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
 
-# todo set up voor meerdere db versies, zie: https://www.appveyor.com/docs/services-databases/
 matrix:
   fast_finish: false
 
@@ -34,30 +39,30 @@ build: off
 before_test:
 # services worden na install gestart en we hebben gegenereerde sql nodig
   - cmd: echo "aanmaken en opzetten STAGING DB"
-  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE staging" -d "master"
+  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -Q "CREATE DATABASE staging" -d "master"
   - dir -w .\brmo-persistence\db\
-  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\create-brmo-persistence-sqlserver.sql
-  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\01_create_indexes.sql
-  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\02_insert_default_user.sql
+  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\create-brmo-persistence-sqlserver.sql
+  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\01_create_indexes.sql
+  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\02_insert_default_user.sql
   - ps: ([xml]$pom=Get-Content .\pom.xml)
   - ps: (Get-Content .\brmo-persistence\db\05_create_brmo_metadata_sqlserver.sql) -replace '\${project.version}', $pom.project.version | Set-Content .\brmo-persistence\db\05_create_brmo_metadata_sqlserver.sql
-  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\05_create_brmo_metadata_sqlserver.sql
+  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\05_create_brmo_metadata_sqlserver.sql
 #
   - cmd: echo "aanmaken en opzetten RSGB DB"
   - cmd: SET SQLCMDINI=.\.appveyor\init.sql
-  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE rsgb" -d "master"
+  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -Q "CREATE DATABASE rsgb" -d "master"
   - dir -w .\datamodel\generated_scripts\
-  - sqlcmd -r0 -x -b -S (local)\SQL2016 -U sa -P Password12! -d "rsgb" -I -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
+  - sqlcmd -r0 -x -b -S (local)\%INSTANCENAME% -U sa -P Password12! -d "rsgb" -I -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
 #
   - cmd: echo "aanmaken en opzetten RSGBBGT DB"
-  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE bgttest" -d "master"
+  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -Q "CREATE DATABASE bgttest" -d "master"
   - dir -w .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\
-  - sqlcmd -r0 -b -S (local)\SQL2016 -I -U sa -P Password12! -d "bgttest" -i .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\create_rsgb_bgt.sql
+  - sqlcmd -r0 -b -S (local)\%INSTANCENAME% -I -U sa -P Password12! -d "bgttest" -i .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\create_rsgb_bgt.sql
 #
   - cmd: echo "aanmaken en opzetten TOPNL DB"
-  - sqlcmd -S (local)\SQL2016 -U sa -P Password12! -Q "CREATE DATABASE topnl" -d "master"
+  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -Q "CREATE DATABASE topnl" -d "master"
   - dir -w .\topparser\src\main\resources\nl\b3p\topnl\database
-  - sqlcmd -r0 -b -S (local)\SQL2016 -I -U sa -P Password12! -d "topnl" -i .\topparser\src\main\resources\nl\b3p\topnl\database\sqlserver.sql
+  - sqlcmd -r0 -b -S (local)\%INSTANCENAME% -I -U sa -P Password12! -d "topnl" -i .\topparser\src\main\resources\nl\b3p\topnl\database\sqlserver.sql
 #
   - cmd: echo "computer name:" %COMPUTERNAME%
   - cmd: echo "instance name:" %INSTANCENAME%
@@ -69,17 +74,17 @@ test_script:
   - mvn -e test -B -Pmssql -pl "!brmo-dist"
   # integratie tests
   # run integratie tests voor bgt-gml-loader module
-  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-gml-loader"
+  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-gml-loader" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-loader module
-  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-loader"
+  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-loader" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-service module
-  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-service"
+  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-service" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-soap module
-  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-soap"
+  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-soap" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-stufbg204 module
-  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-stufbg204"
+  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-stufbg204" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-commandline module
-  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-commandline"
+  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-commandline" -Dmssql.instancename=%INSTANCENAME%
 
 cache:
   - C:\Users\appveyor\.m2\repository -> pom.xml
