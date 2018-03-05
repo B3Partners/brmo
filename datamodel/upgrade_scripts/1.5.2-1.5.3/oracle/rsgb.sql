@@ -2,6 +2,28 @@
 -- upgrade Oracle RSGB datamodel van 1.5.2 naar 1.5.3
 --
 
+-- 118
+alter table subject drop constraint fk_sub_vb_4;
+alter table ingeschr_nat_prs drop constraint fk_inp_gb_2;
+alter table ingeschr_nat_prs drop constraint fk_inp_ol_1;
+alter table ingeschr_nat_prs drop constraint fk_inp_rl_17;
+alter table ingeschr_nat_prs drop constraint fk_inp_rl_18;
+
+
+-- 119
+INSERT ALL
+  INTO rsdocsoort (rsdoccode, rsdocomschr) VALUES ('1','paspoort')
+  INTO rsdocsoort (rsdoccode, rsdocomschr) VALUES ('2','Europese identiteitskaart')
+  INTO rsdocsoort (rsdoccode, rsdocomschr) VALUES ('3','toeristenkaart')
+  INTO rsdocsoort (rsdoccode, rsdocomschr) VALUES ('4','gemeentelijke identiteitskaart')
+  INTO rsdocsoort (rsdoccode, rsdocomschr) VALUES ('5','verblijfsdocument van de Vreemdelingendienst')
+  INTO rsdocsoort (rsdoccode, rsdocomschr) VALUES ('6','vluchtelingenpaspoort')
+  INTO rsdocsoort (rsdoccode, rsdocomschr) VALUES ('7','vreemdelingenpaspoort')
+  INTO rsdocsoort (rsdoccode, rsdocomschr) VALUES ('8','paspoort met aantekening vergunning tot verblijf')
+  INTO rsdocsoort (rsdoccode, rsdocomschr) VALUES ('9','(electronisch) W-document')
+SELECT 1 FROM DUAL;
+
+-- 120
 ALTER TABLE ANDER_BTNLNDS_NIET_NAT_PRS MODIFY SC_IDENTIF VARCHAR2(255);
 ALTER TABLE ANDER_NAT_PRS MODIFY SC_IDENTIF VARCHAR2(255);
 ALTER TABLE APP_RE MODIFY FK_2NNP_SC_IDENTIF VARCHAR2(255);
@@ -28,6 +50,12 @@ ALTER TABLE OUDER_KIND_REL MODIFY FK_SC_LH_INP_SC_IDENTIF VARCHAR2(255);
 ALTER TABLE OUDER_KIND_REL MODIFY FK_SC_RH_INP_SC_IDENTIF VARCHAR2(255);
 ALTER TABLE RSDOC_INGESCHR_NAT_PRS MODIFY FK_NN_RH_INP_SC_IDENTIF VARCHAR2(255);
 ALTER TABLE VESTG_BENOEMD_OBJ MODIFY FK_NN_LH_VES_SC_IDENTIF VARCHAR2(255);
+
+ALTER TABLE FUNCTIONARIS MODIFY (FK_SC_LH_PES_SC_IDENTIF VARCHAR2(255 CHAR) );
+ALTER TABLE FUNCTIONARIS MODIFY (FK_SC_RH_PES_SC_IDENTIF VARCHAR2(255 CHAR) );
+ALTER TABLE WOZ_BELANG MODIFY (FK_SC_LH_SUB_IDENTIF VARCHAR2(255) );
+ALTER TABLE VESTG_ACTIVITEIT  MODIFY (FK_VESTG_NUMMER VARCHAR2(255) );
+ALTER TABLE PRS_EIGENDOM  MODIFY (FK_PRS_SC_IDENTIF VARCHAR2(255) );
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.5.2_naar_1.5.3','vorige versie was '||waarde FROM brmo_metadata WHERE naam='brmoversie';
