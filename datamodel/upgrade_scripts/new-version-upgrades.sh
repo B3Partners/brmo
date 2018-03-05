@@ -18,7 +18,7 @@ echo "Huidige snapshot:" $CURSNAPSHOT", vorige release: "$PREVRELEASE", komende 
 
 mkdir -p "$PREVRELEASE-$NEXTRELEASE"/{oracle,postgresql,sqlserver}
 
-for DB in Oracle PostgreSQL SQLserver 
+for DB in Oracle PostgreSQL SQLserver
 do
   DIR=$PREVRELEASE-$NEXTRELEASE/${DB,,}
   echo Migratie bestanden aanmaken voor $DB in $DIR
@@ -30,12 +30,17 @@ do
     else
       echo -- $'\n'-- upgrade $DB ${b^^} datamodel van $PREVRELEASE naar $NEXTRELEASE $n $'\n'-- > $DIR/$b.sql
       echo $'\n\n'-- onderstaande dienen als laatste stappen van een upgrade uitgevoerd >> $DIR/$b.sql
-      echo "INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_"$PREVRELEASE"_naar_"$NEXTRELEASE"','vorige versie was '||waarde FROM brmo_metadata WHERE naam='brmoversie';" >> $DIR/$b.sql
+      if [ "${DB}" == "SQLserver" ]
+      then
+        echo "INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_"$PREVRELEASE"_naar_"$NEXTRELEASE"','vorige versie was ' + waarde FROM brmo_metadata WHERE naam='brmoversie';" >> $DIR/$b.sql
+      else
+        echo "INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_"$PREVRELEASE"_naar_"$NEXTRELEASE"','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';" >> $DIR/$b.sql
+      fi
       echo -- versienummer update >> $DIR/$b.sql
       echo "UPDATE brmo_metadata SET waarde='$NEXTRELEASE' WHERE naam='brmoversie';" >> $DIR/$b.sql
     fi
   done
 done
 
-git add "$PREVRELEASE-$NEXTRELEASE"/ 
+git add "$PREVRELEASE-$NEXTRELEASE"/
 git commit -m "Migratie bestanden aanmaken voor upgrade $PREVRELEASE-$NEXTRELEASE"

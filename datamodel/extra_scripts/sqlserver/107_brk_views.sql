@@ -19,13 +19,13 @@ GO
 create table prs_eigendom (
     fk_prs_sc_identif varchar(32),
     primary key (fk_prs_sc_identif),
-    foreign key (fk_prs_sc_identif) references prs(sc_identif)
+    constraint fkfk_prs_sc_identif foreign key (fk_prs_sc_identif) references prs(sc_identif)
 );
 
 GO
 
 CREATE view v_kad_perceel_in_eigendom as
-select 
+select
     CAST(ROW_NUMBER() over(ORDER BY p.sc_kad_identif) AS INT) AS ObjectID,
     p.begrenzing_perceel,
     p.sc_kad_identif,
@@ -117,8 +117,8 @@ CREATE VIEW v_kad_perceel_zak_recht as
 
 GO
 
-CREATE view v_kad_perceel_zr_adressen as 
-select 
+CREATE view v_kad_perceel_zr_adressen as
+select
   CAST(ROW_NUMBER() over(ORDER BY kp.sc_kad_identif) AS INT) AS ObjectID,
   kp.SC_KAD_IDENTIF,
   kp.BEGRENZING_PERCEEL,
