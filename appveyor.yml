@@ -9,8 +9,9 @@ init:
   - cmd: net start %SQL%
 
 environment:
-  
-
+  # Microsoft SQL Server 2014 Service Pack 2 heeft een EOL van 9-7-2019
+  # Microsoft SQL Server 2016 Service Pack 1 heeft een EOL van 13-7-2021
+  # Microsoft SQL Server 2017 is de jongst-beschikbare release op AppVeyor
   matrix:
     - SQL: MSSQL$SQL2014
       INSTANCENAME: SQL2014
