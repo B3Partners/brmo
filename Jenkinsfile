@@ -32,7 +32,7 @@ timestamps {
             }
 
             lock('brmo-oracle') {
-
+              timeout(90) {
                 stage('Prepare Oracle Databases') {
                     echo "cleanup schema's"
                     sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
@@ -95,6 +95,7 @@ timestamps {
                     sh "sqlplus -l -S top100nl/top100nl@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
                     sh "sqlplus -l -S top250nl/top250nl@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
                 }
+              }
             }
 
             stage('Publish Results') {
