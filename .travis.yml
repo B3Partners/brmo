@@ -28,7 +28,7 @@ jdk:
 matrix:
   fast_finish: true
   allow_failures:
-    - oraclejdk9
+    - jdk: oraclejdk9
   include:
   - jdk: oraclejdk8
     # EOL September 2018
