@@ -57,6 +57,51 @@ ALTER TABLE WOZ_BELANG MODIFY (FK_SC_LH_SUB_IDENTIF VARCHAR2(255) );
 ALTER TABLE VESTG_ACTIVITEIT  MODIFY (FK_VESTG_NUMMER VARCHAR2(255) );
 ALTER TABLE PRS_EIGENDOM  MODIFY (FK_PRS_SC_IDENTIF VARCHAR2(255) );
 
+-- issue #411
+-- appartementsrecht aan bag adres
+CREATE OR REPLACE VIEW v_app_re_adres AS
+  SELECT DISTINCT
+    kp.sc_kad_identif,
+    kpvbo.FK_NN_LH_TGO_IDENTIF AS kad_bag_koppeling_benobj,
+    gor.naam_openb_rmte AS straat,
+    aoa.huinummer AS huisnummer,
+    aoa.huisletter,
+    aoa.huinummertoevoeging AS toevoeging,
+    aoa.postcode,
+    wp.naam AS woonplaats
+  FROM app_re kp
+    JOIN benoemd_obj_kad_onrrnd_zk kpvbo ON (kpvbo.FK_NN_RH_KOZ_KAD_IDENTIF = kp.SC_KAD_IDENTIF)
+    LEFT JOIN verblijfsobj vbo ON (vbo.SC_IDENTIF = kpvbo.FK_NN_LH_TGO_IDENTIF)
+    LEFT JOIN nummeraand na ON (na.SC_IDENTIF = vbo.FK_11NRA_SC_IDENTIF)
+    LEFT JOIN addresseerb_obj_aand aoa ON (aoa.IDENTIF = na.SC_IDENTIF)
+    LEFT JOIN gem_openb_rmte gor ON (gor.IDENTIFCODE = aoa.FK_7OPR_IDENTIFCODE)
+    LEFT JOIN openb_rmte_wnplts oprw ON (oprw.FK_NN_LH_OPR_IDENTIFCODE = gor.IDENTIFCODE)
+    LEFT JOIN wnplts wp ON (wp.IDENTIF = oprw.FK_NN_RH_WPL_IDENTIF);
+
+COMMENT ON VIEW v_app_re_adres IS 'appartementsrecht met bag adres';
+
+-- alle kad_onrrnd_zk gekoppeld aan bag adres
+CREATE OR REPLACE VIEW v_kad_onrrd_zk_adres AS
+  SELECT DISTINCT
+    kp.kad_identif,
+    kpvbo.fk_nn_lh_tgo_identif AS kad_bag_koppeling_benobj,
+    gor.naam_openb_rmte AS straat,
+    aoa.huinummer AS huisnummer,
+    aoa.huisletter,
+    aoa.huinummertoevoeging AS toevoeging,
+    aoa.postcode,
+    wp.naam AS woonplaats
+  FROM kad_onrrnd_zk kp
+    JOIN benoemd_obj_kad_onrrnd_zk kpvbo ON (kpvbo.FK_NN_RH_KOZ_KAD_IDENTIF = kp.KAD_IDENTIF)
+    LEFT JOIN verblijfsobj vbo ON (vbo.SC_IDENTIF = kpvbo.FK_NN_LH_TGO_IDENTIF)
+    LEFT JOIN nummeraand na ON (na.SC_IDENTIF = vbo.FK_11NRA_SC_IDENTIF)
+    LEFT JOIN addresseerb_obj_aand aoa ON (aoa.IDENTIF = na.SC_IDENTIF)
+    LEFT JOIN gem_openb_rmte gor ON (gor.IDENTIFCODE = aoa.FK_7OPR_IDENTIFCODE)
+    LEFT JOIN openb_rmte_wnplts oprw ON (oprw.FK_NN_LH_OPR_IDENTIFCODE = gor.IDENTIFCODE)
+    LEFT JOIN wnplts wp ON (wp.IDENTIF = oprw.FK_NN_RH_WPL_IDENTIF);
+
+COMMENT ON VIEW v_kad_onrrd_zk_adres IS 'onroerende zaak met bag adres';
+
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.5.2_naar_1.5.3','vorige versie was '||waarde FROM brmo_metadata WHERE naam='brmoversie';
 -- versienummer update

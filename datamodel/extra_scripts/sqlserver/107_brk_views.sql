@@ -391,3 +391,47 @@ WHERE
     zr.kadaster_identif like 'NL.KAD.Tenaamstelling%';
 
 GO
+
+-- appartementsrecht aan bag adres
+CREATE VIEW v_app_re_adres AS
+  SELECT DISTINCT
+    kp.sc_kad_identif,
+    kpvbo.fk_nn_lh_tgo_identif AS kad_bag_koppeling_benobj,
+    gor.naam_openb_rmte AS straat,
+    aoa.huinummer AS huisnummer,
+    aoa.huisletter,
+    aoa.huinummertoevoeging AS toevoeging,
+    aoa.postcode,
+    wp.naam AS woonplaats
+  FROM app_re kp
+    LEFT JOIN benoemd_obj_kad_onrrnd_zk kpvbo on (kpvbo.FK_NN_RH_KOZ_KAD_IDENTIF = kp.SC_KAD_IDENTIF)
+    LEFT JOIN verblijfsobj vbo on (vbo.SC_IDENTIF = kpvbo.FK_NN_LH_TGO_IDENTIF)
+    LEFT JOIN nummeraand na on (na.SC_IDENTIF = vbo.FK_11NRA_SC_IDENTIF)
+    LEFT JOIN addresseerb_obj_aand aoa on (aoa.IDENTIF = na.SC_IDENTIF)
+    LEFT JOIN gem_openb_rmte gor on (gor.IDENTIFCODE = aoa.FK_7OPR_IDENTIFCODE)
+    LEFT JOIN openb_rmte_wnplts oprw on (oprw.FK_NN_LH_OPR_IDENTIFCODE = gor.IDENTIFCODE)
+    LEFT JOIN wnplts wp on (wp.IDENTIF = oprw.FK_NN_RH_WPL_IDENTIF);
+
+GO
+
+-- kad_onrrnd_zk gekoppeld aan bag adres
+CREATE VIEW v_kad_onrrd_zk_adres AS
+  SELECT DISTINCT
+    kp.kad_identif,
+    kpvbo.fk_nn_lh_tgo_identif AS kad_bag_koppeling_benobj,
+    gor.naam_openb_rmte AS straat,
+    aoa.huinummer AS huisnummer,
+    aoa.huisletter,
+    aoa.huinummertoevoeging AS toevoeging,
+    aoa.postcode,
+    wp.naam AS woonplaats
+  FROM kad_onrrnd_zk kp
+    LEFT JOIN benoemd_obj_kad_onrrnd_zk kpvbo on (kpvbo.FK_NN_RH_KOZ_KAD_IDENTIF = kp.KAD_IDENTIF)
+    LEFT JOIN verblijfsobj vbo on (vbo.SC_IDENTIF = kpvbo.FK_NN_LH_TGO_IDENTIF)
+    LEFT JOIN nummeraand na on (na.SC_IDENTIF = vbo.FK_11NRA_SC_IDENTIF)
+    LEFT JOIN addresseerb_obj_aand aoa on (aoa.IDENTIF = na.SC_IDENTIF)
+    LEFT JOIN gem_openb_rmte gor on (gor.IDENTIFCODE = aoa.FK_7OPR_IDENTIFCODE)
+    LEFT JOIN openb_rmte_wnplts oprw on (oprw.FK_NN_LH_OPR_IDENTIFCODE = gor.IDENTIFCODE)
+    LEFT JOIN wnplts wp on (wp.IDENTIF = oprw.FK_NN_RH_WPL_IDENTIF);
+
+GO
