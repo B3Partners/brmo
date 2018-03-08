@@ -54,7 +54,9 @@ import org.junit.runners.Parameterized;
 /**
  * Draaien met:
  * {@code mvn -Dit.test=GBAVXMLToStagingIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
- * voor bijvoorbeeld PostgresQL.
+ * voor bijvoorbeeld PostgresQL of
+ * {@code mvn -Dit.test=GBAVXMLToStagingIntegrationTest -Dtest.onlyITs=true verify -Pmssql > target/mssql.log}
+ * voor bijvoorbeeld MS SQL.
  *
  * @author Mark Prins
  */

@@ -101,7 +101,9 @@ public final class CleanUtil {
     }
 
     /**
-     * Leeg de subject en onderliggende tabellen die betrokken zijn bij BRP.
+     * Leeg de subject en onderliggende tabellen die betrokken zijn bij BRP. NB.
+     * deze cleanup is niet bijzonder slim, alle (natuurlijke) personen worden
+     * verwijderd, dus ook uit brk.
      *
      * @param rsgb database welke geleegd moet worden
      * @param deleteBrondocument {@code true} als brondocumenten ook verwijderd
@@ -132,6 +134,8 @@ public final class CleanUtil {
             new DefaultTable("ander_nat_prs"),
             new DefaultTable("niet_nat_prs"),
             new DefaultTable("ingeschr_niet_nat_prs"),
+            new DefaultTable("ouder_kind_rel"),
+            new DefaultTable("huw_ger_partn"),
             new DefaultTable("herkomst_metadata")}
         ));
 
