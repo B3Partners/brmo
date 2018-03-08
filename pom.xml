@@ -891,6 +891,11 @@
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>0.8.0</version>
                 </plugin>
+                <plugin>
+                    <groupId>com.wakaleo.schemaspy</groupId>
+                    <artifactId>maven-schemaspy-plugin</artifactId>
+                    <version>5.0.4-SNAPSHOT</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <testResources>
