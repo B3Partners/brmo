@@ -11,14 +11,15 @@
         <cve>CVE-2016-6325</cve>
         <cve>CVE-2017-6056</cve>
     </suppress>
+    <!--
     <suppress>
         <notes><![CDATA[
       Negeer melding mbt postgresql-42.1.4.jar, false positive, CVE heeft betrekking op perl scripts.
       ]]></notes>
         <filePath regex="true">.*\bpostgresql-42.1.4\.jar</filePath>
-        <!-- <gav regex="true">^org\.postgresql:postgresql:.*$</gav> -->
         <cve>CVE-2017-8806</cve>
     </suppress>
+    -->
     <suppress>
         <notes><![CDATA[
       Negeer melding mbt gt-coverage jar, false positive mbt jpeg thumbnail disclosure.
@@ -26,5 +27,12 @@
         <gav regex="true">^org\.geotools:gt-coverage:.*$</gav>
         <!-- <cpe>cpe:/a:image_processing_software:image_processing_software</cpe> -->
         <cve>CVE-2005-0406</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+      Negeer melding mbt log4j-1.2.17.jar, false positive, CVE heeft betrekking op versie 2 en hoger.
+      ]]></notes>
+        <filePath regex="true">.*\blog4j-1.2.17\.jar</filePath>
+        <cve>CVE-2017-5645</cve>
     </suppress>
 </suppressions>
