@@ -893,7 +893,7 @@
                 </plugin>
                 <plugin>
                     <groupId>com.wakaleo.schemaspy</groupId>
-                    <artifactId>maven-schemaspy-plugin</artifactId>
+                    <artifactId>schemaspy-maven-plugin</artifactId>
                     <version>5.0.4-SNAPSHOT</version>
                 </plugin>
             </plugins>

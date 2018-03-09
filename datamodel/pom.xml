@@ -211,7 +211,7 @@
         <plugins>
             <plugin>
                 <groupId>com.wakaleo.schemaspy</groupId>
-                <artifactId>maven-schemaspy-plugin</artifactId>
+                <artifactId>schemaspy-maven-plugin</artifactId>
                 <configuration>
                     <databaseType>pgsql</databaseType>
                     <host>localhost</host>
