@@ -147,7 +147,7 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>jdbc-util</artifactId>
-                <version>1.10</version>
+                <version>1.11</version>
             </dependency>
 
             <dependency>
@@ -629,6 +629,7 @@
                         <trimStackTrace>false</trimStackTrace>
                         <useFile>false</useFile>
                         <skipTests>!${test.onlyITs}</skipTests>
+                        <skipITs>!${test.onlyITs}</skipITs>
                     </configuration>
                     <executions>
                         <execution>
