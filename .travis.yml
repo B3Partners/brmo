@@ -23,9 +23,12 @@ addons:
 jdk:
   - oraclejdk8
   - openjdk8
+  - oraclejdk9
 
 matrix:
   fast_finish: true
+  allow_failures:
+    - jdk: oraclejdk9
   include:
   - jdk: oraclejdk8
     # EOL September 2018
@@ -101,7 +104,7 @@ before_script:
 
 script:
   # run unit tests voor alle modules
-  - travis_wait 20 mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false
+  - travis_wait 20 mvn --settings .travis/settings.xml -T4.2C -e test -B -Ppostgresql,standard-with-extra-repos -pl '!brmo-dist' -Dtest.onlyITs=false 
   # run integratie tests voor veschillende modules, per module
   # run integratie tests voor bgt-gml-loader module
   - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
