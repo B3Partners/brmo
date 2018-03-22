@@ -1,0 +1,1034 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Mutatie:Mutatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:Mutatie="http://www.kadaster.nl/schemas/brk-levering/product-mutatie/v20120901" xmlns:Snapshot="http://www.kadaster.nl/schemas/brk-levering/snapshot/v20120901" xmlns:GbaPersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-gba-persoon/v20120901" xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20120201" xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201" xmlns:Persoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon/v20120201" xmlns:NEN3610="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-NEN3610-2011/v20120201" xmlns:BagAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-bag-adres/v20120201" xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20120701" xmlns:InOnderzoek="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-inonderzoek/v20120201" xmlns:KadastraalObjectRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject-ref/v20120201" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml" xmlns:NhrRechtspersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-nhr-rechtspersoon/v20120201" xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20120201" xmlns:GbaPersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-gba-persoon-ref/v20120201" xmlns:PersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20120201" xmlns:NhrRechtspersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-nhr-rechtspersoon-ref/v20120201" xmlns:RechtRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20120201" xmlns:StukRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20120201" xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20120201" xsi:schemaLocation="http://www.kadaster.nl/schemas/brk-levering/product-mutatie/v20120901 http://www.kadaster.nl/schemas/brk-levering/product-mutatie/v20120901/BRKLeveringMutatie_v1_1_4.xsd http://www.opengis.net/gml http://www.kadaster.nl/schemas/gml/3.1.1/base/gml.xsd http://www.w3.org/1999/xlink http://www.kadaster.nl/schemas/xlink/1.0.0/xlinks.xsd">
+  <Mutatie:aardStukdeel>
+    <Typen:code>107</Typen:code>
+    <Typen:waarde>Metingstaat KAD 75 m.b.t. vernummering (matrix)</Typen:waarde>
+  </Mutatie:aardStukdeel>
+  <Mutatie:BRKDatum>2017-02-22</Mutatie:BRKDatum>
+  <Mutatie:volgnummerKadastraalObjectDatum>1</Mutatie:volgnummerKadastraalObjectDatum>
+  <Mutatie:ingeschrevenStuk>
+    <Mutatie:AanduidingKadasterstuk>
+      <Mutatie:stuk>
+        <StukRef:KadasterstukRef xlink:href="NL.KAD.KadasterStuk.AKR1.100000003453486" />
+      </Mutatie:stuk>
+      <Mutatie:AKRPortefeuilleNr>75 ASN0002017068</Mutatie:AKRPortefeuilleNr>
+    </Mutatie:AanduidingKadasterstuk>
+  </Mutatie:ingeschrevenStuk>
+  <Mutatie:kadastraalObject>
+    <Mutatie:AanduidingKadastraalObject>
+      <Mutatie:indicatieDeelperceel>false</Mutatie:indicatieDeelperceel>
+      <Mutatie:kadastraleAanduiding>
+        <KadastraalObject:AKRKadastraleGemeenteCode>
+          <Typen:code>106</Typen:code>
+          <Typen:waarde>ASN00</Typen:waarde>
+        </KadastraalObject:AKRKadastraleGemeenteCode>
+        <KadastraalObject:naamKadastraleGemeente>
+          <Typen:code>59</Typen:code>
+          <Typen:waarde>Assen</Typen:waarde>
+        </KadastraalObject:naamKadastraleGemeente>
+        <KadastraalObject:sectie>V</KadastraalObject:sectie>
+        <KadastraalObject:perceelnummer>2937</KadastraalObject:perceelnummer>
+      </Mutatie:kadastraleAanduiding>
+      <Mutatie:kadastraalObject>
+        <KadastraalObjectRef:PerceelRef xlink:href="NL.KAD.OnroerendeZaak.53880293770000" />
+      </Mutatie:kadastraalObject>
+    </Mutatie:AanduidingKadastraalObject>
+  </Mutatie:kadastraalObject>
+  <Mutatie:wordt>
+    <Snapshot:KadastraalObjectSnapshot>
+      <Snapshot:referentie>3100FBC54310-1D59FE448D9</Snapshot:referentie>
+      <Snapshot:toestandsdatum>2017-02-22</Snapshot:toestandsdatum>
+      <KadastraalObject:Perceel id="ID.5394043169">
+        <KadastraalObject:identificatie>
+          <NEN3610:namespace>NL.KAD.OnroerendeZaak</NEN3610:namespace>
+          <NEN3610:lokaalId>53880293770000</NEN3610:lokaalId>
+        </KadastraalObject:identificatie>
+        <KadastraalObject:heeftLocatie>
+          <KadastraalObject:LocatieKadastraalObject>
+            <KadastraalObject:cultuurBebouwd>
+              <Typen:code>11</Typen:code>
+              <Typen:waarde>Wonen</Typen:waarde>
+            </KadastraalObject:cultuurBebouwd>
+          </KadastraalObject:LocatieKadastraalObject>
+          <KadastraalObject:LocatieKadastraalObject>
+            <KadastraalObject:adres>
+              <BagAdres:Verblijfsobject>
+                <BagAdres:BAGIdentificatie>0106010000036551</BagAdres:BAGIdentificatie>
+                <BagAdres:hoofdadres>
+                  <BagAdres:NummerAanduiding>
+                    <BagAdres:huisnummer>5</BagAdres:huisnummer>
+                    <BagAdres:huisletter>E</BagAdres:huisletter>
+                    <BagAdres:postcode>9401LB</BagAdres:postcode>
+                    <BagAdres:gerelateerdeOpenbareRuimte>
+                      <BagAdres:OpenbareRuimte>
+                        <BagAdres:openbareRuimteNaam>Stationsplein</BagAdres:openbareRuimteNaam>
+                        <BagAdres:gerelateerdeWoonplaats>
+                          <BagAdres:Woonplaats>
+                            <BagAdres:woonplaatsNaam>Assen</BagAdres:woonplaatsNaam>
+                          </BagAdres:Woonplaats>
+                        </BagAdres:gerelateerdeWoonplaats>
+                      </BagAdres:OpenbareRuimte>
+                    </BagAdres:gerelateerdeOpenbareRuimte>
+                  </BagAdres:NummerAanduiding>
+                </BagAdres:hoofdadres>
+              </BagAdres:Verblijfsobject>
+            </KadastraalObject:adres>
+          </KadastraalObject:LocatieKadastraalObject>
+          <KadastraalObject:LocatieKadastraalObject>
+            <KadastraalObject:adres>
+              <BagAdres:Verblijfsobject>
+                <BagAdres:BAGIdentificatie>0106010000036552</BagAdres:BAGIdentificatie>
+                <BagAdres:hoofdadres>
+                  <BagAdres:NummerAanduiding>
+                    <BagAdres:huisnummer>5</BagAdres:huisnummer>
+                    <BagAdres:huisletter>D</BagAdres:huisletter>
+                    <BagAdres:postcode>9401LB</BagAdres:postcode>
+                    <BagAdres:gerelateerdeOpenbareRuimte>
+                      <BagAdres:OpenbareRuimte>
+                        <BagAdres:openbareRuimteNaam>Stationsplein</BagAdres:openbareRuimteNaam>
+                        <BagAdres:gerelateerdeWoonplaats>
+                          <BagAdres:Woonplaats>
+                            <BagAdres:woonplaatsNaam>Assen</BagAdres:woonplaatsNaam>
+                          </BagAdres:Woonplaats>
+                        </BagAdres:gerelateerdeWoonplaats>
+                      </BagAdres:OpenbareRuimte>
+                    </BagAdres:gerelateerdeOpenbareRuimte>
+                  </BagAdres:NummerAanduiding>
+                </BagAdres:hoofdadres>
+              </BagAdres:Verblijfsobject>
+            </KadastraalObject:adres>
+          </KadastraalObject:LocatieKadastraalObject>
+          <KadastraalObject:LocatieKadastraalObject>
+            <KadastraalObject:adres>
+              <BagAdres:Verblijfsobject>
+                <BagAdres:BAGIdentificatie>0106010000036553</BagAdres:BAGIdentificatie>
+                <BagAdres:hoofdadres>
+                  <BagAdres:NummerAanduiding>
+                    <BagAdres:huisnummer>5</BagAdres:huisnummer>
+                    <BagAdres:huisletter>C</BagAdres:huisletter>
+                    <BagAdres:postcode>9401LB</BagAdres:postcode>
+                    <BagAdres:gerelateerdeOpenbareRuimte>
+                      <BagAdres:OpenbareRuimte>
+                        <BagAdres:openbareRuimteNaam>Stationsplein</BagAdres:openbareRuimteNaam>
+                        <BagAdres:gerelateerdeWoonplaats>
+                          <BagAdres:Woonplaats>
+                            <BagAdres:woonplaatsNaam>Assen</BagAdres:woonplaatsNaam>
+                          </BagAdres:Woonplaats>
+                        </BagAdres:gerelateerdeWoonplaats>
+                      </BagAdres:OpenbareRuimte>
+                    </BagAdres:gerelateerdeOpenbareRuimte>
+                  </BagAdres:NummerAanduiding>
+                </BagAdres:hoofdadres>
+              </BagAdres:Verblijfsobject>
+            </KadastraalObject:adres>
+          </KadastraalObject:LocatieKadastraalObject>
+          <KadastraalObject:LocatieKadastraalObject>
+            <KadastraalObject:adres>
+              <BagAdres:Verblijfsobject>
+                <BagAdres:BAGIdentificatie>0106010000036554</BagAdres:BAGIdentificatie>
+                <BagAdres:hoofdadres>
+                  <BagAdres:NummerAanduiding>
+                    <BagAdres:huisnummer>5</BagAdres:huisnummer>
+                    <BagAdres:huisletter>B</BagAdres:huisletter>
+                    <BagAdres:postcode>9401LB</BagAdres:postcode>
+                    <BagAdres:gerelateerdeOpenbareRuimte>
+                      <BagAdres:OpenbareRuimte>
+                        <BagAdres:openbareRuimteNaam>Stationsplein</BagAdres:openbareRuimteNaam>
+                        <BagAdres:gerelateerdeWoonplaats>
+                          <BagAdres:Woonplaats>
+                            <BagAdres:woonplaatsNaam>Assen</BagAdres:woonplaatsNaam>
+                          </BagAdres:Woonplaats>
+                        </BagAdres:gerelateerdeWoonplaats>
+                      </BagAdres:OpenbareRuimte>
+                    </BagAdres:gerelateerdeOpenbareRuimte>
+                  </BagAdres:NummerAanduiding>
+                </BagAdres:hoofdadres>
+              </BagAdres:Verblijfsobject>
+            </KadastraalObject:adres>
+          </KadastraalObject:LocatieKadastraalObject>
+          <KadastraalObject:LocatieKadastraalObject>
+            <KadastraalObject:adres>
+              <BagAdres:Verblijfsobject>
+                <BagAdres:BAGIdentificatie>0106010000036555</BagAdres:BAGIdentificatie>
+                <BagAdres:hoofdadres>
+                  <BagAdres:NummerAanduiding>
+                    <BagAdres:huisnummer>5</BagAdres:huisnummer>
+                    <BagAdres:huisletter>A</BagAdres:huisletter>
+                    <BagAdres:postcode>9401LB</BagAdres:postcode>
+                    <BagAdres:gerelateerdeOpenbareRuimte>
+                      <BagAdres:OpenbareRuimte>
+                        <BagAdres:openbareRuimteNaam>Stationsplein</BagAdres:openbareRuimteNaam>
+                        <BagAdres:gerelateerdeWoonplaats>
+                          <BagAdres:Woonplaats>
+                            <BagAdres:woonplaatsNaam>Assen</BagAdres:woonplaatsNaam>
+                          </BagAdres:Woonplaats>
+                        </BagAdres:gerelateerdeWoonplaats>
+                      </BagAdres:OpenbareRuimte>
+                    </BagAdres:gerelateerdeOpenbareRuimte>
+                  </BagAdres:NummerAanduiding>
+                </BagAdres:hoofdadres>
+              </BagAdres:Verblijfsobject>
+            </KadastraalObject:adres>
+          </KadastraalObject:LocatieKadastraalObject>
+          <KadastraalObject:LocatieKadastraalObject>
+            <KadastraalObject:adres>
+              <BagAdres:Verblijfsobject>
+                <BagAdres:BAGIdentificatie>0106010000036556</BagAdres:BAGIdentificatie>
+                <BagAdres:hoofdadres>
+                  <BagAdres:NummerAanduiding>
+                    <BagAdres:huisnummer>5</BagAdres:huisnummer>
+                    <BagAdres:postcode>9401LB</BagAdres:postcode>
+                    <BagAdres:gerelateerdeOpenbareRuimte>
+                      <BagAdres:OpenbareRuimte>
+                        <BagAdres:openbareRuimteNaam>Stationsplein</BagAdres:openbareRuimteNaam>
+                        <BagAdres:gerelateerdeWoonplaats>
+                          <BagAdres:Woonplaats>
+                            <BagAdres:woonplaatsNaam>Assen</BagAdres:woonplaatsNaam>
+                          </BagAdres:Woonplaats>
+                        </BagAdres:gerelateerdeWoonplaats>
+                      </BagAdres:OpenbareRuimte>
+                    </BagAdres:gerelateerdeOpenbareRuimte>
+                  </BagAdres:NummerAanduiding>
+                </BagAdres:hoofdadres>
+              </BagAdres:Verblijfsobject>
+            </KadastraalObject:adres>
+          </KadastraalObject:LocatieKadastraalObject>
+          <KadastraalObject:LocatieKadastraalObject>
+            <KadastraalObject:adres>
+              <BagAdres:Verblijfsobject>
+                <BagAdres:BAGIdentificatie>0106010000036828</BagAdres:BAGIdentificatie>
+                <BagAdres:hoofdadres>
+                  <BagAdres:NummerAanduiding>
+                    <BagAdres:huisnummer>9</BagAdres:huisnummer>
+                    <BagAdres:postcode>9401LA</BagAdres:postcode>
+                    <BagAdres:gerelateerdeOpenbareRuimte>
+                      <BagAdres:OpenbareRuimte>
+                        <BagAdres:openbareRuimteNaam>Overcingellaan</BagAdres:openbareRuimteNaam>
+                        <BagAdres:gerelateerdeWoonplaats>
+                          <BagAdres:Woonplaats>
+                            <BagAdres:woonplaatsNaam>Assen</BagAdres:woonplaatsNaam>
+                          </BagAdres:Woonplaats>
+                        </BagAdres:gerelateerdeWoonplaats>
+                      </BagAdres:OpenbareRuimte>
+                    </BagAdres:gerelateerdeOpenbareRuimte>
+                  </BagAdres:NummerAanduiding>
+                </BagAdres:hoofdadres>
+              </BagAdres:Verblijfsobject>
+            </KadastraalObject:adres>
+          </KadastraalObject:LocatieKadastraalObject>
+          <KadastraalObject:LocatieKadastraalObject>
+            <KadastraalObject:adres>
+              <BagAdres:Verblijfsobject>
+                <BagAdres:BAGIdentificatie>0106010000036975</BagAdres:BAGIdentificatie>
+                <BagAdres:hoofdadres>
+                  <BagAdres:NummerAanduiding>
+                    <BagAdres:huisnummer>1</BagAdres:huisnummer>
+                    <BagAdres:postcode>9401LB</BagAdres:postcode>
+                    <BagAdres:gerelateerdeOpenbareRuimte>
+                      <BagAdres:OpenbareRuimte>
+                        <BagAdres:openbareRuimteNaam>Stationsplein</BagAdres:openbareRuimteNaam>
+                        <BagAdres:gerelateerdeWoonplaats>
+                          <BagAdres:Woonplaats>
+                            <BagAdres:woonplaatsNaam>Assen</BagAdres:woonplaatsNaam>
+                          </BagAdres:Woonplaats>
+                        </BagAdres:gerelateerdeWoonplaats>
+                      </BagAdres:OpenbareRuimte>
+                    </BagAdres:gerelateerdeOpenbareRuimte>
+                  </BagAdres:NummerAanduiding>
+                </BagAdres:hoofdadres>
+              </BagAdres:Verblijfsobject>
+            </KadastraalObject:adres>
+          </KadastraalObject:LocatieKadastraalObject>
+        </KadastraalObject:heeftLocatie>
+        <KadastraalObject:kadastraleAanduiding>
+          <KadastraalObject:AKRKadastraleGemeenteCode>
+            <Typen:code>106</Typen:code>
+            <Typen:waarde>ASN00</Typen:waarde>
+          </KadastraalObject:AKRKadastraleGemeenteCode>
+          <KadastraalObject:naamKadastraleGemeente>
+            <Typen:code>59</Typen:code>
+            <Typen:waarde>Assen</Typen:waarde>
+          </KadastraalObject:naamKadastraleGemeente>
+          <KadastraalObject:sectie>V</KadastraalObject:sectie>
+          <KadastraalObject:perceelnummer>2937</KadastraalObject:perceelnummer>
+        </KadastraalObject:kadastraleAanduiding>
+        <KadastraalObject:aardCultuurOnbebouwd>
+          <Typen:code>57</Typen:code>
+          <Typen:waarde>Erf - Tuin</Typen:waarde>
+        </KadastraalObject:aardCultuurOnbebouwd>
+        <KadastraalObject:ontstaanUitOZ>
+          <KadastraalObject:OnroerendeZaakFiliatie>
+            <KadastraalObject:aard>
+              <Typen:code>14</Typen:code>
+              <Typen:waarde>Vernummering</Typen:waarde>
+            </KadastraalObject:aard>
+            <KadastraalObject:overgangsgrootte>14722</KadastraalObject:overgangsgrootte>
+            <KadastraalObject:onroerendeZaak>
+              <KadastraalObjectRef:PerceelRef xlink:href="NL.KAD.OnroerendeZaak.53880290770000" />
+            </KadastraalObject:onroerendeZaak>
+          </KadastraalObject:OnroerendeZaakFiliatie>
+        </KadastraalObject:ontstaanUitOZ>
+        <KadastraalObject:begrenzingPerceel>
+          <gml:Surface srsName="urn:ogc:def:crs:EPSG::28992">
+            <gml:patches>
+              <gml:PolygonPatch>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2" count="259">234395.078 556529.416 234411.232 556526.157 234411.094 556525.469 234414.259 556524.825 234412.561 556516.051 234409.989 556502.739 234390.008 556504.314 234384.415 556504.756 234370.284 556510.218 234359.001 556514.602 234358.401 556514.852 234357.83 556515.163 234357.295 556515.533 234356.801 556515.957 234356.355 556516.429 234355.961 556516.947 234354.101 556499.646 234353.647 556494.381 234353.982 556494.319 234377.759 556489.933 234390.795 556487.529 234385.311 556460.441 234384.828 556459.555 234380.71 556452.004 234383.288 556451.286 234390.162 556450.043 234390.362 556446.957 234393.589 556446.365 234396.622 556445.867 234399.67 556445.468 234402.73 556445.168 234405.797 556444.969 234408.87 556444.869 234411.944 556444.87 234415.016 556444.971 234418.083 556445.173 234421.34 556462.02 234424.793 556493.67 234428.362 556492.833 234428.985 556506.863 234448.269 556601.457 234469.891 556709.682 234471.992 556709.242 234475.914 556728.78 234472.487 556726.767 234475.115 556739.008 234473.021 556737.582 234470.004 556735.529 234470.15 556735.271 234470.637 556734.067 234470.894 556732.717 234470.825 556731.282 234470.343 556729.788 234469.822 556728.851 234468.86 556727.788 234468.103 556727.23 234467.228 556726.801 234466.396 556726.566 234465.419 556726.453 234464.157 556726.509 234462.406 556727.015 234460.976 556727.92 234460.391 556728.507 234460.023 556728.973 234459.576 556729.54 234455.375 556726.717 234453.839 556725.685 234452.806 556720.437 234447.541 556721.506 234444.098 556719.243 234444.953 556723.494 234440.899 556724.31 234437.823 556722.248 234432.084 556723.403 234446.595 556733.059 234446.695 556732.909 234447.13 556733.198 234447.179 556733.438 234445.592 556733.759 234446.14 556734.103 234446.494 556734.325 234446.588 556734.388 234446.646 556734.442 234446.701 556734.512 234446.762 556734.618 234446.815 556734.75 234446.867 556734.933 234446.892 556735.043 234447.021 556735.595 234447.073 556735.92 234447.076 556736.162 234447.072 556736.38 234447.015 556736.696 234446.956 556736.86 234446.805 556737.109 234446.407 556737.707 234447.999 556737.397 234448.424 556739.453 234448.066 556740.198 234447.818 556740.917 234447.658 556741.591 234447.549 556742.569 234447.561 556743.287 234447.614 556743.789 234447.783 556744.614 234447.972 556745.2 234448.206 556745.726 234448.325 556745.947 234448.667 556746.476 234449.023 556746.922 234449.45 556747.373 234450.051 556747.881 234450.307 556748.058 234450.713 556748.301 234451.293 556748.578 234451.544 556748.677 234452.124 556748.847 234452.995 556748.958 234453.875 556748.937 234454.912 556748.716 234455.872 556748.398 234456.546 556748.078 234457.158 556747.673 234457.652 556747.23 234458.149 556746.68 234458.742 556745.869 234459.124 556745.222 234459.758 556743.875 234460.362 556742.315 234460.9 556740.602 234461.14 556739.596 234461.299 556738.715 234461.375 556738.131 234463.757 556738.252 234463.705 556738.752 234471.537 556744.12 234474.211 556743.49 234475.988 556743.072 234476.892 556747.283 234478.166 556753.629 234475.963 556752.186 234465.294 556745.198 234455.325 556760.411 234466.972 556768.003 234467.117 556768.824 234467.373 556769.398 234467.774 556770.135 234468.185 556770.582 234468.443 556770.773 234474.984 556775.054 234480.291 556778.582 234481.435 556779.342 234483.621 556780.796 234484.661 556785.977 234482.485 556784.551 234474.711 556779.458 234472.874 556782.187 234481.277 556822.439 234480.585 556822.722 234480.069 556823.071 234479.697 556823.42 234479.367 556823.831 234478.971 556824.557 234478.821 556825.053 234478.752 556825.499 234478.753 556825.89 234478.811 556826.264 234478.908 556826.605 234479.161 556827.169 234479.461 556827.649 234479.852 556828.083 234480.355 556828.433 234480.577 556829.481 234479.751 556831.045 234480.854 556830.793 234481.055 556831.741 234481.468 556832.015 234481.731 556833.421 234482.297 556832.556 234482.702 556832.822 234483.001 556834.297 234483.623 556833.426 234483.891 556833.603 234484.236 556834.905 234484.455 556834.643 234484.815 556834.21 234488.346 556836.529 234490.835 556838.164 234492.761 556835.071 234494.091 556832.935 234497.091 556847.876 234495.686 556848.074 234497.51 556857.134 234491.872 556858.491 234492.015 556859.185 234491.078 556859.341 234490.136 556859.465 234489.191 556859.557 234488.243 556859.616 234487.293 556859.641 234486.343 556859.634 234485.394 556859.594 234484.446 556859.522 234483.502 556859.416 234482.562 556859.278 234481.627 556859.107 234480.699 556858.905 234479.779 556858.67 234478.867 556858.403 234477.965 556858.105 234477.073 556857.777 234476.65 556857.605 234476.233 556857.42 234475.812 556857.176 234478.176 556856.643 234477.429 556853.175 234476.82 556850.545 234474.38 556851.014 234472.923 556851.21 234470.672 556846.513 234468.356 556841.069 234466.403 556836.743 234464.34 556832.145 234461.6 556826.376 234457.903 556819.348 234453.378 556810.98 234449.066 556803.226 234448.902 556802.93 234446.399 556798.4 234432.869 556731.828 234429.267 556724.648 234425.439 556717.585 234421.391 556710.646 234417.126 556703.839 234413.174 556697.037 234409.44 556690.113 234405.927 556683.074 234402.639 556675.927 234399.579 556668.68 234396.751 556661.339 234394.157 556653.912 234391.8 556646.407 234389.682 556638.83 234396.035 556637.553 234419.463 556632.79 234433.917 556629.843 234436.415 556629.334 234432.827 556611.505 234430.224 556598.572 234427.929 556587.171 234425.593 556587.65 234424.839 556583.997 234406.858 556587.747 234402.095 556564.183 234407.027 556563.124 234405.584 556556.218 234400.681 556557.26 234396.389 556535.992 234395.078 556529.416</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:PolygonPatch>
+            </gml:patches>
+          </gml:Surface>
+        </KadastraalObject:begrenzingPerceel>
+        <KadastraalObject:indicatieDeelperceel>false</KadastraalObject:indicatieDeelperceel>
+        <KadastraalObject:kadastraleGrootte>
+          <KadastraalObject:waarde>14722</KadastraalObject:waarde>
+        </KadastraalObject:kadastraleGrootte>
+        <KadastraalObject:soortGrootte>
+          <Typen:code>2</Typen:code>
+          <Typen:waarde>Voorlopig</Typen:waarde>
+        </KadastraalObject:soortGrootte>
+        <KadastraalObject:plaatscoordinaten>
+          <gml:Point srsName="urn:ogc:def:crs:EPSG::28992">
+            <gml:pos>234431.865 556639.717</gml:pos>
+          </gml:Point>
+        </KadastraalObject:plaatscoordinaten>
+      </KadastraalObject:Perceel>
+      <Recht:ZakelijkRecht id="ID.5394043180">
+        <Recht:identificatie>
+          <NEN3610:namespace>NL.KAD.ZakelijkRecht</NEN3610:namespace>
+          <NEN3610:lokaalId>AKR1.100000012871327</NEN3610:lokaalId>
+        </Recht:identificatie>
+        <Recht:aard>
+          <Typen:code>2</Typen:code>
+          <Typen:waarde>Eigendom (recht van)</Typen:waarde>
+        </Recht:aard>
+        <Recht:rustOp>
+          <KadastraalObjectRef:PerceelRef xlink:href="#ID.5394043169" />
+        </Recht:rustOp>
+      </Recht:ZakelijkRecht>
+      <Recht:Tenaamstelling id="ID.5394043189">
+        <Recht:identificatie>
+          <NEN3610:namespace>NL.KAD.Tenaamstelling</NEN3610:namespace>
+          <NEN3610:lokaalId>AKR1.100000012871327</NEN3610:lokaalId>
+        </Recht:identificatie>
+        <Recht:isGebaseerdOp>
+          <StukRef:StukdeelRef xlink:href="#ID.5394043184" />
+        </Recht:isGebaseerdOp>
+        <Recht:vanPersoon>
+          <NhrRechtspersoonRef:RechtspersoonRef xlink:href="#ID.5394043181" />
+        </Recht:vanPersoon>
+        <Recht:aandeel>
+          <Recht:teller>1</Recht:teller>
+          <Recht:noemer>1</Recht:noemer>
+        </Recht:aandeel>
+        <Recht:van>
+          <RechtRef:ZakelijkRechtRef xlink:href="#ID.5394043180" />
+        </Recht:van>
+      </Recht:Tenaamstelling>
+      <Recht:Aantekening id="ID.5394043234">
+        <Recht:identificatie>
+          <NEN3610:namespace>NL.KAD.Aantekening</NEN3610:namespace>
+          <NEN3610:lokaalId>AKR1.100000010404811</NEN3610:lokaalId>
+        </Recht:identificatie>
+        <Recht:aard>
+          <Typen:code>67</Typen:code>
+          <Typen:waarde>Kwalitatieve verplichting</Typen:waarde>
+        </Recht:aard>
+        <Recht:betreftAantekeningKadastraalObject>
+          <Recht:AantekeningKadastraalObject>
+            <Recht:heeftBetrekkingOp>
+              <KadastraalObjectRef:PerceelRef xlink:href="#ID.5394043169" />
+            </Recht:heeftBetrekkingOp>
+          </Recht:AantekeningKadastraalObject>
+        </Recht:betreftAantekeningKadastraalObject>
+        <Recht:isGebaseerdOp>
+          <StukRef:StukdeelRef xlink:href="#ID.5394043233" />
+        </Recht:isGebaseerdOp>
+      </Recht:Aantekening>
+      <Recht:Aantekening id="ID.5394043231">
+        <Recht:identificatie>
+          <NEN3610:namespace>NL.KAD.Aantekening</NEN3610:namespace>
+          <NEN3610:lokaalId>AKR1.100000010404813</NEN3610:lokaalId>
+        </Recht:identificatie>
+        <Recht:aard>
+          <Typen:code>67</Typen:code>
+          <Typen:waarde>Kwalitatieve verplichting</Typen:waarde>
+        </Recht:aard>
+        <Recht:betreftAantekeningKadastraalObject>
+          <Recht:AantekeningKadastraalObject>
+            <Recht:heeftBetrekkingOp>
+              <KadastraalObjectRef:PerceelRef xlink:href="#ID.5394043169" />
+            </Recht:heeftBetrekkingOp>
+          </Recht:AantekeningKadastraalObject>
+        </Recht:betreftAantekeningKadastraalObject>
+        <Recht:isGebaseerdOp>
+          <StukRef:StukdeelRef xlink:href="#ID.5394043230" />
+        </Recht:isGebaseerdOp>
+      </Recht:Aantekening>
+      <Recht:Aantekening id="ID.5394043242">
+        <Recht:identificatie>
+          <NEN3610:namespace>NL.KAD.Aantekening</NEN3610:namespace>
+          <NEN3610:lokaalId>AKR1.100000010404818</NEN3610:lokaalId>
+        </Recht:identificatie>
+        <Recht:aard>
+          <Typen:code>166</Typen:code>
+          <Typen:waarde>Kennisgeving, vordering, bevel of beschikking, Wet Bodembescherming (in onderzoek)</Typen:waarde>
+        </Recht:aard>
+        <Recht:betreftAantekeningKadastraalObject>
+          <Recht:AantekeningKadastraalObject>
+            <Recht:heeftBetrekkingOp>
+              <KadastraalObjectRef:PerceelRef xlink:href="#ID.5394043169" />
+            </Recht:heeftBetrekkingOp>
+          </Recht:AantekeningKadastraalObject>
+        </Recht:betreftAantekeningKadastraalObject>
+        <Recht:isGebaseerdOp>
+          <StukRef:StukdeelRef xlink:href="#ID.5394043241" />
+        </Recht:isGebaseerdOp>
+        <Recht:betrokkenPersoon>
+          <NhrRechtspersoonRef:RechtspersoonRef xlink:href="#ID.5394043235" />
+        </Recht:betrokkenPersoon>
+      </Recht:Aantekening>
+      <Recht:Aantekening id="ID.5394043228">
+        <Recht:identificatie>
+          <NEN3610:namespace>NL.KAD.Aantekening</NEN3610:namespace>
+          <NEN3610:lokaalId>AKR1.100000010404828</NEN3610:lokaalId>
+        </Recht:identificatie>
+        <Recht:aard>
+          <Typen:code>293</Typen:code>
+          <Typen:waarde>Meettarief verschuldigd</Typen:waarde>
+        </Recht:aard>
+        <Recht:betreftAantekeningKadastraalObject>
+          <Recht:AantekeningKadastraalObject>
+            <Recht:heeftBetrekkingOp>
+              <KadastraalObjectRef:PerceelRef xlink:href="#ID.5394043169" />
+            </Recht:heeftBetrekkingOp>
+          </Recht:AantekeningKadastraalObject>
+        </Recht:betreftAantekeningKadastraalObject>
+        <Recht:isGebaseerdOp>
+          <StukRef:StukdeelRef xlink:href="#ID.5394043211" />
+        </Recht:isGebaseerdOp>
+      </Recht:Aantekening>
+      <Recht:Aantekening id="ID.5394043206">
+        <Recht:identificatie>
+          <NEN3610:namespace>NL.KAD.Aantekening</NEN3610:namespace>
+          <NEN3610:lokaalId>AKR1.100000010404838</NEN3610:lokaalId>
+        </Recht:identificatie>
+        <Recht:aard>
+          <Typen:code>271</Typen:code>
+          <Typen:waarde>Voorlopige kadastrale grens en oppervlakte</Typen:waarde>
+        </Recht:aard>
+        <Recht:betreftAantekeningKadastraalObject>
+          <Recht:AantekeningKadastraalObject>
+            <Recht:heeftBetrekkingOp>
+              <KadastraalObjectRef:PerceelRef xlink:href="#ID.5394043169" />
+            </Recht:heeftBetrekkingOp>
+          </Recht:AantekeningKadastraalObject>
+        </Recht:betreftAantekeningKadastraalObject>
+        <Recht:isGebaseerdOp>
+          <StukRef:StukdeelRef xlink:href="#ID.5394043191" />
+        </Recht:isGebaseerdOp>
+      </Recht:Aantekening>
+      <NhrRechtspersoon:Rechtspersoon id="ID.5394043181">
+        <Persoon:identificatie>
+          <NEN3610:namespace>NL.KAD.Persoon</NEN3610:namespace>
+          <NEN3610:lokaalId>172098777</NEN3610:lokaalId>
+        </Persoon:identificatie>
+        <Persoon:woonlocatie>
+          <Adres:KADBinnenlandsAdres>
+            <Adres:openbareRuimteNaam>Stationshal</Adres:openbareRuimteNaam>
+            <Adres:huisNummer>17</Adres:huisNummer>
+            <Adres:postcode>3511CE</Adres:postcode>
+            <Adres:woonplaatsNaam>UTRECHT</Adres:woonplaatsNaam>
+          </Adres:KADBinnenlandsAdres>
+        </Persoon:woonlocatie>
+        <NhrRechtspersoon:RSIN>1541705</NhrRechtspersoon:RSIN>
+        <NhrRechtspersoon:KVKnummer>30047635</NhrRechtspersoon:KVKnummer>
+        <NhrRechtspersoon:rechtsvorm>
+          <Typen:code>2</Typen:code>
+          <Typen:waarde>Besloten vennootschap</Typen:waarde>
+        </NhrRechtspersoon:rechtsvorm>
+        <NhrRechtspersoon:statutaireNaam>NS Vastgoed B.V.</NhrRechtspersoon:statutaireNaam>
+        <NhrRechtspersoon:statutaireZetel>UTRECHT</NhrRechtspersoon:statutaireZetel>
+      </NhrRechtspersoon:Rechtspersoon>
+      <NhrRechtspersoon:Rechtspersoon id="ID.5394043235">
+        <Persoon:identificatie>
+          <NEN3610:namespace>NL.KAD.Persoon</NEN3610:namespace>
+          <NEN3610:lokaalId>58150230</NEN3610:lokaalId>
+        </Persoon:identificatie>
+        <Persoon:postlocatie>
+          <Adres:PostbusAdres>
+            <Adres:postbusnummer>122</Adres:postbusnummer>
+            <Adres:postcode>9400AC</Adres:postcode>
+            <Adres:woonplaatsNaam>ASSEN</Adres:woonplaatsNaam>
+          </Adres:PostbusAdres>
+        </Persoon:postlocatie>
+        <Persoon:woonlocatie>
+          <Adres:KADBinnenlandsAdres>
+            <Adres:openbareRuimteNaam>Westerbrink</Adres:openbareRuimteNaam>
+            <Adres:huisNummer>1</Adres:huisNummer>
+            <Adres:postcode>9405BJ</Adres:postcode>
+            <Adres:woonplaatsNaam>ASSEN</Adres:woonplaatsNaam>
+          </Adres:KADBinnenlandsAdres>
+        </Persoon:woonlocatie>
+        <NhrRechtspersoon:RSIN>1587924</NhrRechtspersoon:RSIN>
+        <NhrRechtspersoon:KVKnummer>1179514</NhrRechtspersoon:KVKnummer>
+        <NhrRechtspersoon:rechtsvorm>
+          <Typen:code>10</Typen:code>
+          <Typen:waarde>Publiekrechtelijke rechtspersoon</Typen:waarde>
+        </NhrRechtspersoon:rechtsvorm>
+        <NhrRechtspersoon:statutaireNaam>Provincie Drenthe</NhrRechtspersoon:statutaireNaam>
+        <NhrRechtspersoon:statutaireZetel>ASSEN</NhrRechtspersoon:statutaireZetel>
+      </NhrRechtspersoon:Rechtspersoon>
+      <Stuk:TerInschrijvingAangebodenStuk id="ID.5394043229">
+        <Stuk:identificatie>
+          <NEN3610:namespace>NL.KAD.TIAStuk</NEN3610:namespace>
+          <NEN3610:lokaalId>17990529004583</NEN3610:lokaalId>
+        </Stuk:identificatie>
+        <Stuk:omvat>
+          <Stuk:Stukdeel id="ID.5394043230">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.10796316</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel nilReason="waardeOnbekend">
+              <Typen:code>NIL</Typen:code>
+              <Typen:waarde>NIL</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+        </Stuk:omvat>
+        <Stuk:tijdstipAanbieding>2001-12-24T00:00:00</Stuk:tijdstipAanbieding>
+        <Stuk:deelEnNummer>
+          <Stuk:deel>7685</Stuk:deel>
+          <Stuk:nummer>18</Stuk:nummer>
+          <Stuk:reeks>
+            <Typen:code>ASN</Typen:code>
+            <Typen:waarde>Assen</Typen:waarde>
+          </Stuk:reeks>
+          <Stuk:registercode>
+            <Typen:code>2</Typen:code>
+            <Typen:waarde>Hyp4</Typen:waarde>
+          </Stuk:registercode>
+          <Stuk:soortRegister>
+            <Typen:code>2</Typen:code>
+            <Typen:waarde>Onroerende Zaken</Typen:waarde>
+          </Stuk:soortRegister>
+        </Stuk:deelEnNummer>
+      </Stuk:TerInschrijvingAangebodenStuk>
+      <Stuk:TerInschrijvingAangebodenStuk id="ID.5394043232">
+        <Stuk:identificatie>
+          <NEN3610:namespace>NL.KAD.TIAStuk</NEN3610:namespace>
+          <NEN3610:lokaalId>18011029011645</NEN3610:lokaalId>
+        </Stuk:identificatie>
+        <Stuk:omvat>
+          <Stuk:Stukdeel id="ID.5394043233">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.10648241</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel nilReason="waardeOnbekend">
+              <Typen:code>NIL</Typen:code>
+              <Typen:waarde>NIL</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+        </Stuk:omvat>
+        <Stuk:tijdstipAanbieding>1998-05-19T00:00:00</Stuk:tijdstipAanbieding>
+        <Stuk:deelEnNummer>
+          <Stuk:deel>6641</Stuk:deel>
+          <Stuk:nummer>47</Stuk:nummer>
+          <Stuk:reeks>
+            <Typen:code>ASN</Typen:code>
+            <Typen:waarde>Assen</Typen:waarde>
+          </Stuk:reeks>
+          <Stuk:registercode>
+            <Typen:code>2</Typen:code>
+            <Typen:waarde>Hyp4</Typen:waarde>
+          </Stuk:registercode>
+          <Stuk:soortRegister>
+            <Typen:code>2</Typen:code>
+            <Typen:waarde>Onroerende Zaken</Typen:waarde>
+          </Stuk:soortRegister>
+        </Stuk:deelEnNummer>
+      </Stuk:TerInschrijvingAangebodenStuk>
+      <Stuk:TerInschrijvingAangebodenStuk id="ID.5394043238">
+        <Stuk:identificatie>
+          <NEN3610:namespace>NL.KAD.TIAStuk</NEN3610:namespace>
+          <NEN3610:lokaalId>20160512000937</NEN3610:lokaalId>
+        </Stuk:identificatie>
+        <Stuk:omvat>
+          <Stuk:Stukdeel id="ID.5394043239">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000010119986</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>208</Typen:code>
+              <Typen:waarde>Aanbrengen/doorhalen aantekening bij perceel t.b.v. WKPB</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043240">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000010119987</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>208</Typen:code>
+              <Typen:waarde>Aanbrengen/doorhalen aantekening bij perceel t.b.v. WKPB</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043241">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000011530205</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>107</Typen:code>
+              <Typen:waarde>Metingstaat KAD 75 m.b.t. vernummering (matrix)</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+        </Stuk:omvat>
+        <Stuk:tijdstipAanbieding>2016-05-12T10:26:00</Stuk:tijdstipAanbieding>
+        <Stuk:deelEnNummer>
+          <Stuk:deel>68219</Stuk:deel>
+          <Stuk:nummer>39</Stuk:nummer>
+          <Stuk:registercode>
+            <Typen:code>2</Typen:code>
+            <Typen:waarde>Hyp4</Typen:waarde>
+          </Stuk:registercode>
+          <Stuk:soortRegister>
+            <Typen:code>2</Typen:code>
+            <Typen:waarde>Onroerende Zaken</Typen:waarde>
+          </Stuk:soortRegister>
+        </Stuk:deelEnNummer>
+      </Stuk:TerInschrijvingAangebodenStuk>
+      <Stuk:Kadasterstuk id="ID.5394043190">
+        <Stuk:identificatie>
+          <NEN3610:namespace>NL.KAD.Kadasterstuk</NEN3610:namespace>
+          <NEN3610:lokaalId>AKR1.100000002488110</NEN3610:lokaalId>
+        </Stuk:identificatie>
+        <Stuk:omvat>
+          <Stuk:Stukdeel id="ID.5394043191">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000008800663</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>107</Typen:code>
+              <Typen:waarde>Metingstaat KAD 75 m.b.t. vernummering (matrix)</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043192">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000008800765</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>402</Typen:code>
+              <Typen:waarde>Niet toepassing</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043193">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000008800766</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>402</Typen:code>
+              <Typen:waarde>Niet toepassing</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043194">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000008800767</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>402</Typen:code>
+              <Typen:waarde>Niet toepassing</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043195">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000008800768</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>402</Typen:code>
+              <Typen:waarde>Niet toepassing</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043196">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000008800769</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>402</Typen:code>
+              <Typen:waarde>Niet toepassing</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043197">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000008800770</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>402</Typen:code>
+              <Typen:waarde>Niet toepassing</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043198">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000008800771</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>402</Typen:code>
+              <Typen:waarde>Niet toepassing</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043199">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000008800772</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>402</Typen:code>
+              <Typen:waarde>Niet toepassing</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043200">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000008800773</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>402</Typen:code>
+              <Typen:waarde>Niet toepassing</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043201">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000008800774</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>402</Typen:code>
+              <Typen:waarde>Niet toepassing</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043202">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009913368</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>402</Typen:code>
+              <Typen:waarde>Niet toepassing</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043203">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009913370</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>402</Typen:code>
+              <Typen:waarde>Niet toepassing</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043204">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000011530258</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>402</Typen:code>
+              <Typen:waarde>Niet toepassing</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043205">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000011530260</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>402</Typen:code>
+              <Typen:waarde>Niet toepassing</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+        </Stuk:omvat>
+        <Stuk:AKRPortefeuilleNr>75 ASN0002015089</Stuk:AKRPortefeuilleNr>
+      </Stuk:Kadasterstuk>
+      <Stuk:Kadasterstuk id="ID.5394043207">
+        <Stuk:identificatie>
+          <NEN3610:namespace>NL.KAD.Kadasterstuk</NEN3610:namespace>
+          <NEN3610:lokaalId>AKR1.100000002700436</NEN3610:lokaalId>
+        </Stuk:identificatie>
+        <Stuk:omvat>
+          <Stuk:Stukdeel id="ID.5394043209">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434091</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043210">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434092</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043211">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434093</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043212">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434094</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043213">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434095</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043214">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434096</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043215">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434097</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043216">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434098</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043217">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434099</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043208">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434100</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043218">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434101</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043219">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434102</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043220">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434103</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043221">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434104</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043222">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434105</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043223">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434106</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043224">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434107</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043225">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434108</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043226">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434109</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043227">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000009434110</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>097</Typen:code>
+              <Typen:waarde>Stuk aanbrengen beperkende bepaling op perceel overig</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+        </Stuk:omvat>
+        <Stuk:AKRPortefeuilleNr>ATG75413     ASN</Stuk:AKRPortefeuilleNr>
+      </Stuk:Kadasterstuk>
+      <Stuk:Kadasterstuk id="ID.5394043183">
+        <Stuk:identificatie>
+          <NEN3610:namespace>NL.KAD.Kadasterstuk</NEN3610:namespace>
+          <NEN3610:lokaalId>AKR1.100000003453486</NEN3610:lokaalId>
+        </Stuk:identificatie>
+        <Stuk:omvat>
+          <Stuk:Stukdeel id="ID.5394043184">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000011530157</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>107</Typen:code>
+              <Typen:waarde>Metingstaat KAD 75 m.b.t. vernummering (matrix)</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043185">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000011530253</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>402</Typen:code>
+              <Typen:waarde>Niet toepassing</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043186">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000011530254</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>402</Typen:code>
+              <Typen:waarde>Niet toepassing</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043187">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000011530255</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>402</Typen:code>
+              <Typen:waarde>Niet toepassing</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+          <Stuk:Stukdeel id="ID.5394043188">
+            <Stuk:identificatie>
+              <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+              <NEN3610:lokaalId>AKR1.100000011530256</NEN3610:lokaalId>
+            </Stuk:identificatie>
+            <Stuk:aardStukdeel>
+              <Typen:code>402</Typen:code>
+              <Typen:waarde>Niet toepassing</Typen:waarde>
+            </Stuk:aardStukdeel>
+          </Stuk:Stukdeel>
+        </Stuk:omvat>
+        <Stuk:AKRPortefeuilleNr>75 ASN0002017068</Stuk:AKRPortefeuilleNr>
+      </Stuk:Kadasterstuk>
+    </Snapshot:KadastraalObjectSnapshot>
+  </Mutatie:wordt>
+</Mutatie:Mutatie>
