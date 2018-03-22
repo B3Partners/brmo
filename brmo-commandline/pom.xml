@@ -9,7 +9,7 @@
     <artifactId>brmo-commandline</artifactId>
     <packaging>jar</packaging>
     <name>BRMO commandline</name>
-    <description>BRMO commandline tool.</description>
+    <description>BRMO commandline tool</description>
     <properties>
         <!-- de oracle driver van zip file uitsluiten-->
         <exclude.groupIds.fromPackaging>${oracle.jdbc.groupId}</exclude.groupIds.fromPackaging>
@@ -330,6 +330,5 @@
                 </plugins>
             </build>
         </profile>
-
     </profiles>
 </project>

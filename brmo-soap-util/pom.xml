@@ -11,6 +11,7 @@
         <version>1.5.3-SNAPSHOT</version>
     </parent>
     <name>BRMO soap utilities</name>
+    <description>Gedeelde code voor verschillende soap modules</description>
     <dependencies>
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
