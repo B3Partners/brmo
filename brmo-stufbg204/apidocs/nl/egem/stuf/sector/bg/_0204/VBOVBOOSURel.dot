@@ -10,34 +10,34 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.VBOVraag.VBOVBOOSU
-	c230276 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVraag.VBOVBOOSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVraag.VBOVBOOSU.html">
+	c230274 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVraag.VBOVBOOSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVraag.VBOVBOOSU.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOVBOOSU </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOVraag.VBOVBOOSU.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOVBOOSU
-	c230334 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOVBOOSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOAntwoord.VBOVBOOSU.html">
+	c230332 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOVBOOSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOAntwoord.VBOVBOOSU.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOVBOOSU </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOAntwoord.VBOVBOOSU.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOVBOOSURel
-	c230421 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVBOOSURel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOVBOOSURel.html">
+	c230419 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVBOOSURel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOVBOOSURel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOVBOOSURel </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOVBOOSURel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOVBOOSU
-	c230676 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOVBOOSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKennisgeving.VBOVBOOSU.html">
+	c230674 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOVBOOSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKennisgeving.VBOVBOOSU.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOVBOOSU </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOKennisgeving.VBOVBOOSU.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.VBOVraag.VBOVBOOSU extends nl.egem.stuf.sector.bg._0204.VBOVBOOSURel
-	c230421:p -> c230276:p [dir=back,arrowtail=empty];
+	c230419:p -> c230274:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOVBOOSU extends nl.egem.stuf.sector.bg._0204.VBOVBOOSURel
-	c230421:p -> c230334:p [dir=back,arrowtail=empty];
+	c230419:p -> c230332:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOVBOOSU extends nl.egem.stuf.sector.bg._0204.VBOVBOOSURel
-	c230421:p -> c230676:p [dir=back,arrowtail=empty];
+	c230419:p -> c230674:p [dir=back,arrowtail=empty];
 }
 

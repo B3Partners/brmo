@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.PRSNATRel
-	c146257 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSNATRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSNATRel.html">
+	c146255 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSNATRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSNATRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSNATRel </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSNATRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSNAT
-	c146460 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSNAT" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSAntwoord.PRSNAT.html">
+	c146458 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSNAT" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSAntwoord.PRSNAT.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSNAT </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSAntwoord.PRSNAT.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSNAT extends nl.egem.stuf.sector.bg._0204.PRSNATRel
-	c146257:p -> c146460:p [dir=back,arrowtail=empty];
+	c146255:p -> c146458:p [dir=back,arrowtail=empty];
 }
 

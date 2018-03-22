@@ -21,5 +21,15 @@ digraph G {
 <tr><td align="center" balign="center"> StUFBGsynchroonIntegrationTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./StUFBGsynchroonIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.stufbg204.TestStub
+	c2 [label=<<table title="nl.b3p.brmo.stufbg204.TestStub" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestStub.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestStub </font></td></tr>
+		</table></td></tr>
+		</table>>, URL="./TestStub.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	//nl.b3p.brmo.stufbg204.Stufbg204ServiceIntegrationTest extends nl.b3p.brmo.stufbg204.TestStub
+	c2:p -> c0:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.stufbg204.StUFBGsynchroonIntegrationTest extends nl.b3p.brmo.stufbg204.TestStub
+	c2:p -> c1:p [dir=back,arrowtail=empty];
 }
 

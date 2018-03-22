@@ -15,14 +15,20 @@ digraph G {
 <tr><td align="center" balign="center"> AntwoordBodyFactory </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AntwoordBodyFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.stufbg204.CriteriaParser
+	c1 [label=<<table title="nl.b3p.brmo.stufbg204.CriteriaParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CriteriaParser.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> CriteriaParser </td></tr>
+		</table></td></tr>
+		</table>>, URL="./CriteriaParser.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.stufbg204.StUFBGsynchroon
-	c1 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGsynchroon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StUFBGsynchroon.html">
+	c2 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGsynchroon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StUFBGsynchroon.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StUFBGsynchroon </td></tr>
 		</table></td></tr>
 		</table>>, URL="./StUFBGsynchroon.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.stufbg204.StUFBGasynchroon
-	c2 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGasynchroon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StUFBGasynchroon.html">
+	c3 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGasynchroon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StUFBGasynchroon.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StUFBGasynchroon </td></tr>
 		</table></td></tr>

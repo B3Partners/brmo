@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.VBOFund
-	c204977 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOFund.html">
+	c204975 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOFund </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOAntwoord
-	c205030 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOAntwoord.html">
+	c205028 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOAntwoord.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOAntwoord </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOAntwoord.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.VBOAntwoord extends nl.egem.stuf.sector.bg._0204.VBOFund
-	c204977:p -> c205030:p [dir=back,arrowtail=empty];
+	c204975:p -> c205028:p [dir=back,arrowtail=empty];
 }
 

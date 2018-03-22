@@ -10,34 +10,34 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSPRSOUD
-	c173787 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSPRSOUD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSAntwoord.PRSPRSOUD.html">
+	c173785 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSPRSOUD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSAntwoord.PRSPRSOUD.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSOUD </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSAntwoord.PRSPRSOUD.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSPRSOUDRel
-	c173813 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSOUDRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSPRSOUDRel.html">
+	c173811 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSOUDRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSPRSOUDRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSOUDRel </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSPRSOUDRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSOUD
-	c173826 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSOUD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSVraag.PRSPRSOUD.html">
+	c173824 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSOUD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSVraag.PRSPRSOUD.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSOUD </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSVraag.PRSPRSOUD.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSPRSOUD
-	c173852 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSPRSOUD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKennisgeving.PRSPRSOUD.html">
+	c173850 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSPRSOUD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKennisgeving.PRSPRSOUD.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSOUD </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSKennisgeving.PRSPRSOUD.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSPRSOUD extends nl.egem.stuf.sector.bg._0204.PRSPRSOUDRel
-	c173813:p -> c173787:p [dir=back,arrowtail=empty];
+	c173811:p -> c173785:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSOUD extends nl.egem.stuf.sector.bg._0204.PRSPRSOUDRel
-	c173813:p -> c173826:p [dir=back,arrowtail=empty];
+	c173811:p -> c173824:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSPRSOUD extends nl.egem.stuf.sector.bg._0204.PRSPRSOUDRel
-	c173813:p -> c173852:p [dir=back,arrowtail=empty];
+	c173811:p -> c173850:p [dir=back,arrowtail=empty];
 }
 

@@ -24,273 +24,525 @@
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">package</strong> nl.b3p.brmo.stufbg204;
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> java.math.BigInteger;
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.ACDTabel;
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.ADLTabel;
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.ADRAntwoord;
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.ADRFund;
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.AcademischeTitelPositieTovNaam;
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.AdellijkeTitelSoort;
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.BsnNummerE;
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.GEMTabel;
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.GeslachtsnaamE;
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.LNDTabel;
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.NATTabel;
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.ObjectFactory;
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.PRSAntwoord;
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.SIBTabel;
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht.Body;
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.VBTTabel;
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.VoornamenE;
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.VraagBericht;
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.stuf0204.ExtraElement;
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.stuf0204.ExtraElementen;
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.stuf0204.NoValue;
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.stuf0204.Verwerkingssoort;
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment"> * @author Meine Toonen</em>
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../nl/b3p/brmo/stufbg204/AntwoordBodyFactory.html">AntwoordBodyFactory</a> {
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> ObjectFactory objFac = <strong class="jxr_keyword">new</strong> ObjectFactory();
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../nl/b3p/brmo/stufbg204/AntwoordBodyFactory.html">AntwoordBodyFactory</a>() {
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>      }
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Body getBody(VraagBericht bericht) {
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>          Body b = <strong class="jxr_keyword">new</strong> Body();
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>          String entiteitsType = bericht.getStuurgegevens().getEntiteittype();
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>          
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>          <strong class="jxr_keyword">switch</strong> (entiteitsType) {
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>              <strong class="jxr_keyword">case</strong> <span class="jxr_string">"ACD"</span>: {
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>                  ACDTabel t = createAcademischeTitel(<span class="jxr_string">"Professor"</span>, <strong class="jxr_keyword">true</strong>, <span class="jxr_string">"pietje"</span>);
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>                  b.getACD().add(t);
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>                  <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>              }
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>              <strong class="jxr_keyword">case</strong> <span class="jxr_string">"ADL"</span>: {
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>                  ADLTabel t = createAdelijkeTitel(<span class="jxr_string">"Koning"</span>);
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>                  b.getADL().add(t);
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>                  <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>              }
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>              <strong class="jxr_keyword">case</strong> <span class="jxr_string">"ADR"</span>: {
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>                  ADRAntwoord a = createAdres(<span class="jxr_string">"Zonnebaan"</span>, <strong class="jxr_keyword">new</strong> BigInteger(<span class="jxr_string">"12"</span>), <span class="jxr_string">"c"</span>, <span class="jxr_string">"3542EC"</span>, <strong class="jxr_keyword">new</strong> BigInteger(<span class="jxr_string">"42"</span>));
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>                  b.getADR().add(a);
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>                  <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>              }
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>              <strong class="jxr_keyword">case</strong> <span class="jxr_string">"GEM"</span>: {
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>                  GEMTabel g = createGemeente(<span class="jxr_string">"Utrecht"</span>, <strong class="jxr_keyword">new</strong> BigInteger(<span class="jxr_string">"42"</span>));
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>                  b.getGEM().add(g);
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>                  <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>              }
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>              <strong class="jxr_keyword">case</strong> <span class="jxr_string">"LND"</span>: {
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>                  LNDTabel l = createLand(<span class="jxr_string">"Nederland"</span>, <strong class="jxr_keyword">new</strong> BigInteger(<span class="jxr_string">"42"</span>));
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>                  b.getLND().add(l);
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>                  <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>              }
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>              <strong class="jxr_keyword">case</strong> <span class="jxr_string">"NAT"</span>: {
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>                  NATTabel l = createNationaliteit(<span class="jxr_string">"Nederlandse"</span>, <strong class="jxr_keyword">new</strong> BigInteger(<span class="jxr_string">"42"</span>));
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>                  b.getNAT().add(l);
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>                  <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>              }
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>              <strong class="jxr_keyword">case</strong> <span class="jxr_string">"PRS"</span>: {
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>                  PRSAntwoord p = createPersoon(<strong class="jxr_keyword">new</strong> BigInteger(<span class="jxr_string">"123456789"</span>),<span class="jxr_string">"pietje"</span>, <span class="jxr_string">"puk"</span>);
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>                  b.getPRS().add(p);
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>                  <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>              }
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>              <strong class="jxr_keyword">case</strong> <span class="jxr_string">"SIB"</span>: {
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>                  SIBTabel s = createSoortIdentiteitsbewijs(<span class="jxr_string">"Paspoort"</span>, BigInteger.ONE);
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>                  b.getSIB().add(s);
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>                  <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>              }
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>             <strong class="jxr_keyword">case</strong> <span class="jxr_string">"VBT"</span>: {
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>                 VBTTabel v = createVerblijfstitel(<span class="jxr_string">"Inwonende"</span>, BigInteger.ONE);
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>                 b.getVBT().add(v);
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>                 <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>             }
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>             <strong class="jxr_keyword">default</strong>:
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(<span class="jxr_string">"Entiteitstype niet ondersteund: "</span> + entiteitsType);
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>         }
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>         <strong class="jxr_keyword">return</strong> b;
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>     }
-<a class="jxr_linenumber" name="L110" href="#L110">110</a> 
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>     
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>     <em class="jxr_comment">// &lt;editor-fold defaultstate="collapsed" desc="Answermessage creators"&gt;</em>
-<a class="jxr_linenumber" name="L113" href="#L113">113</a>         
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> VBTTabel createVerblijfstitel(String omschrijving, BigInteger code){
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>         VBTTabel l = <strong class="jxr_keyword">new</strong> VBTTabel();
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>       
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>         VBTTabel.Omschrijving o = <strong class="jxr_keyword">new</strong> VBTTabel.Omschrijving();
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>         o.setValue(omschrijving);
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>         
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>         VBTTabel.Code c = <strong class="jxr_keyword">new</strong> VBTTabel.Code();
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>         c.setValue(code);
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>         
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>         l.setOmschrijving(objFac.createVBTTabelOmschrijving(o));
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>         l.setCode(objFac.createVBTTabelCode(c));
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>         
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>         <strong class="jxr_keyword">return</strong> l;
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>     }
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>     
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> SIBTabel createSoortIdentiteitsbewijs(String omschrijving, BigInteger soort){
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>         SIBTabel l = <strong class="jxr_keyword">new</strong> SIBTabel();
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>       
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>         SIBTabel.Soort s = <strong class="jxr_keyword">new</strong> SIBTabel.Soort();
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>         s.setValue(soort);
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>         
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>         SIBTabel.Omschrijving o = <strong class="jxr_keyword">new</strong> SIBTabel.Omschrijving();
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>         o.setValue(omschrijving);
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>         
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>         l.setOmschrijving(objFac.createSIBTabelOmschrijving(o));
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>         l.setSoort(objFac.createSIBTabelSoort(s));
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>         l.setSoortEntiteit(<span class="jxr_string">"SIB"</span>);
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>         <strong class="jxr_keyword">return</strong> l;
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>     }
-<a class="jxr_linenumber" name="L143" href="#L143">143</a>     
-<a class="jxr_linenumber" name="L144" href="#L144">144</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> PRSAntwoord createPersoon(BigInteger bs, String voornamen, String geslachtsnaam){
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>         PRSAntwoord p = <strong class="jxr_keyword">new</strong> PRSAntwoord();
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>         
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>         BsnNummerE bsn = <strong class="jxr_keyword">new</strong> BsnNummerE();
-<a class="jxr_linenumber" name="L148" href="#L148">148</a>         bsn.setValue(bs);
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>         
-<a class="jxr_linenumber" name="L150" href="#L150">150</a>         VoornamenE v = <strong class="jxr_keyword">new</strong> VoornamenE();
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>         v.setValue(voornamen);
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>         
-<a class="jxr_linenumber" name="L153" href="#L153">153</a>         GeslachtsnaamE g = <strong class="jxr_keyword">new</strong> GeslachtsnaamE();
-<a class="jxr_linenumber" name="L154" href="#L154">154</a>         g.setValue(geslachtsnaam);
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>         
-<a class="jxr_linenumber" name="L156" href="#L156">156</a>         p.setBsnNummer(objFac.createPRSFundBsnNummer(bsn));
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>         p.setVoornamen(objFac.createPRSFundVoornamen(v));
-<a class="jxr_linenumber" name="L158" href="#L158">158</a>         p.setGeslachtsnaam(objFac.createPRSFundGeslachtsnaam(g));
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>         <strong class="jxr_keyword">return</strong> p;
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>     }
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>     
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> NATTabel createNationaliteit(String nationaliteit, BigInteger code){
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>         NATTabel l = <strong class="jxr_keyword">new</strong> NATTabel();
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>       
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>         NATTabel.Omschrijving o = <strong class="jxr_keyword">new</strong> NATTabel.Omschrijving();
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>         o.setValue(nationaliteit);
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>         
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>         NATTabel.Code c = <strong class="jxr_keyword">new</strong> NATTabel.Code();
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>         c.setValue(code);
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>         
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>         l.setOmschrijving(objFac.createNATTabelOmschrijving(o));
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>         l.setCode(objFac.createNATTabelCode(c));        
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>         l.setSoortEntiteit(<span class="jxr_string">"NAT"</span>);
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>         <strong class="jxr_keyword">return</strong> l;
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>     }
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>     
-<a class="jxr_linenumber" name="L177" href="#L177">177</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> LNDTabel createLand(String naam, BigInteger code){
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>         LNDTabel l = <strong class="jxr_keyword">new</strong> LNDTabel();
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>         
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>         LNDTabel.Landnaam n = <strong class="jxr_keyword">new</strong> LNDTabel.Landnaam();
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>         n.setValue(naam);
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>         
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>         LNDTabel.Landcode c = <strong class="jxr_keyword">new</strong> LNDTabel.Landcode();
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>         c.setValue(code);
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>         
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>         l.setLandnaam(objFac.createLNDTabelLandnaam(n));
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>         l.setLandcode(objFac.createLNDTabelLandcode(c));
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>         l.setSoortEntiteit(<span class="jxr_string">"LND"</span>);
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>         <strong class="jxr_keyword">return</strong> l;
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>     }
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>     
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> GEMTabel createGemeente(String naam, BigInteger code) {
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>         GEMTabel g = <strong class="jxr_keyword">new</strong> GEMTabel();
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>         GEMTabel.Gemeentenaam n = <strong class="jxr_keyword">new</strong> GEMTabel.Gemeentenaam();
-<a class="jxr_linenumber" name="L195" href="#L195">195</a>         n.setValue(naam);
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>         
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>         GEMTabel.Gemeentecode c = <strong class="jxr_keyword">new</strong> GEMTabel.Gemeentecode();
-<a class="jxr_linenumber" name="L198" href="#L198">198</a>         c.setValue(code);
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>         
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>         g.setGemeentenaam(objFac.createGEMTabelGemeentenaam(n));
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>         g.setGemeentecode(objFac.createGEMTabelGemeentecode(c));
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>         
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>         g.setSoortEntiteit(<span class="jxr_string">"GEM"</span>);
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>         <strong class="jxr_keyword">return</strong> g;
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>     }
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>     
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> ACDTabel createAcademischeTitel(String titel, <strong class="jxr_keyword">boolean</strong> posVoorNaam, String code) {
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>         ACDTabel t = <strong class="jxr_keyword">new</strong> ACDTabel();
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>         ACDTabel.Code c = <strong class="jxr_keyword">new</strong> ACDTabel.Code();
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>         c.setExact(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L211" href="#L211">211</a>         c.setKerngegeven(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>         c.setNoValue(NoValue.GEEN_WAARDE);
-<a class="jxr_linenumber" name="L213" href="#L213">213</a>         c.setValue(code);
-<a class="jxr_linenumber" name="L214" href="#L214">214</a> 
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>         ACDTabel.Omschrijving o = <strong class="jxr_keyword">new</strong> ACDTabel.Omschrijving();
-<a class="jxr_linenumber" name="L216" href="#L216">216</a>         o.setValue(titel);
-<a class="jxr_linenumber" name="L217" href="#L217">217</a>         o.setExact(Boolean.FALSE);
-<a class="jxr_linenumber" name="L218" href="#L218">218</a> 
-<a class="jxr_linenumber" name="L219" href="#L219">219</a>         ACDTabel.PositieTovNaam p = <strong class="jxr_keyword">new</strong> ACDTabel.PositieTovNaam();
-<a class="jxr_linenumber" name="L220" href="#L220">220</a>         p.setValue(posVoorNaam ? AcademischeTitelPositieTovNaam.V : AcademischeTitelPositieTovNaam.N);
-<a class="jxr_linenumber" name="L221" href="#L221">221</a> 
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>         ExtraElementen e = <strong class="jxr_keyword">new</strong> ExtraElementen();
-<a class="jxr_linenumber" name="L223" href="#L223">223</a>         ExtraElement ex = <strong class="jxr_keyword">new</strong> ExtraElement();
-<a class="jxr_linenumber" name="L224" href="#L224">224</a>         ex.setNaam(<span class="jxr_string">"ex1"</span>);
-<a class="jxr_linenumber" name="L225" href="#L225">225</a>         ex.setValue(<span class="jxr_string">"val1"</span>);
-<a class="jxr_linenumber" name="L226" href="#L226">226</a>         e.getExtraElement().add(ex);
-<a class="jxr_linenumber" name="L227" href="#L227">227</a> 
-<a class="jxr_linenumber" name="L228" href="#L228">228</a>         t.setNoValue(NoValue.NIET_ONDERSTEUND);
-<a class="jxr_linenumber" name="L229" href="#L229">229</a>         t.setSoortEntiteit(<span class="jxr_string">"ACD"</span>);
-<a class="jxr_linenumber" name="L230" href="#L230">230</a>         t.setCode(objFac.createACDTabelCode(c));
-<a class="jxr_linenumber" name="L231" href="#L231">231</a>         t.setOmschrijving(objFac.createACDTabelOmschrijving(o));
-<a class="jxr_linenumber" name="L232" href="#L232">232</a>         t.setVerwerkingssoort(Verwerkingssoort.V);
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>         t.setPositieTovNaam(objFac.createACDTabelPositieTovNaam(p));
-<a class="jxr_linenumber" name="L234" href="#L234">234</a>         t.setExtraElementen(e);
-<a class="jxr_linenumber" name="L235" href="#L235">235</a> 
-<a class="jxr_linenumber" name="L236" href="#L236">236</a>         <strong class="jxr_keyword">return</strong> t;
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>     }
-<a class="jxr_linenumber" name="L238" href="#L238">238</a> 
-<a class="jxr_linenumber" name="L239" href="#L239">239</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> ADLTabel createAdelijkeTitel(String titel) {
-<a class="jxr_linenumber" name="L240" href="#L240">240</a>         ADLTabel t = <strong class="jxr_keyword">new</strong> ADLTabel();
-<a class="jxr_linenumber" name="L241" href="#L241">241</a>         ADLTabel.Soort s = <strong class="jxr_keyword">new</strong> ADLTabel.Soort();
-<a class="jxr_linenumber" name="L242" href="#L242">242</a>         s.setValue(AdellijkeTitelSoort.A);
-<a class="jxr_linenumber" name="L243" href="#L243">243</a> 
-<a class="jxr_linenumber" name="L244" href="#L244">244</a>         ADLTabel.Omschrijving o = <strong class="jxr_keyword">new</strong> ADLTabel.Omschrijving();
-<a class="jxr_linenumber" name="L245" href="#L245">245</a>         o.setValue(titel);
-<a class="jxr_linenumber" name="L246" href="#L246">246</a>         o.setExact(Boolean.FALSE);
-<a class="jxr_linenumber" name="L247" href="#L247">247</a> 
-<a class="jxr_linenumber" name="L248" href="#L248">248</a>         t.setNoValue(NoValue.GEEN_WAARDE);
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>         t.setOmschrijving(objFac.createADLTabelOmschrijving(o));
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>         t.setSoort(objFac.createADLTabelSoort(s));
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>         t.setVerwerkingssoort(Verwerkingssoort.R);
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>         t.setSoortEntiteit(<span class="jxr_string">"ADL"</span>);
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>         <strong class="jxr_keyword">return</strong> t;
-<a class="jxr_linenumber" name="L254" href="#L254">254</a>     }
-<a class="jxr_linenumber" name="L255" href="#L255">255</a> 
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> ADRAntwoord createAdres(String straat, BigInteger huisnummer, String huisletter, String postcode, BigInteger gemeentecode) {
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>         ADRAntwoord a = <strong class="jxr_keyword">new</strong> ADRAntwoord();
-<a class="jxr_linenumber" name="L258" href="#L258">258</a> 
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>         ADRFund.Straatnaam s = <strong class="jxr_keyword">new</strong> ADRFund.Straatnaam();
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>         s.setValue(straat);
-<a class="jxr_linenumber" name="L261" href="#L261">261</a> 
-<a class="jxr_linenumber" name="L262" href="#L262">262</a>         ADRFund.Huisnummer h = <strong class="jxr_keyword">new</strong> ADRFund.Huisnummer();
-<a class="jxr_linenumber" name="L263" href="#L263">263</a>         h.setValue(huisnummer);
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.InvocationTargetException;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Method;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> java.math.BigDecimal;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> java.math.BigInteger;
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.ACDTabel;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.ADLTabel;
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.ADRAntwoord;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.ADRFund;
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.ADRRelFund;
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.ANummerE;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.AcademischeTitelPositieTovNaam;
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.AdellijkeTitelPredikaatE;
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.AdellijkeTitelSoort;
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.BsnNummerE;
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.CodeGeboortelandE;
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.GEMTabel;
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.GeboortedatumE;
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.GeboorteplaatsE;
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.Geslachtsaanduiding;
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.GeslachtsaanduidingE;
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.GeslachtsnaamE;
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.LNDTabel;
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.NATTabel;
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.ObjectFactory;
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.PRSAntwoord;
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.PRSFund.AanduidingNaamgebruik;
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.PRSFund.AcademischeTitel;
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.PRSFund.BurgerlijkeStaat;
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.PRSFund.CodeGemeenteVanInschrijving;
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.PRSFund.CodeLandOverlijden;
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerkrijgingVerblijfstitel;
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerliesVerblijfstitel;
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.PRSFund.OmschrijvingRedenOpschortingBijhouding;
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.PRSFund.PlaatsOverlijden;
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.PRSVraag;
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.SIBTabel;
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.VBTTabel;
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.VoorlettersE;
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.VoornamenE;
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.sector.bg._0204.VoorvoegselGeslachtsnaamE;
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.stuf0204.DatumMetIndicator;
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.stuf0204.ExtraElement;
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.stuf0204.ExtraElementen;
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.stuf0204.NoValue;
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <strong class="jxr_keyword">import</strong> nl.egem.stuf.stuf0204.Verwerkingssoort;
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.Log;
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.LogFactory;
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment"> * @author Meine Toonen</em>
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../nl/b3p/brmo/stufbg204/AntwoordBodyFactory.html">AntwoordBodyFactory</a> {
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>  
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(AntwoordBodyFactory.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>      
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> ObjectFactory objFac = <strong class="jxr_keyword">new</strong> ObjectFactory();
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>  
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../nl/b3p/brmo/stufbg204/AntwoordBodyFactory.html">AntwoordBodyFactory</a>() {
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>      }
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>      <em class="jxr_comment">// &lt;editor-fold defaultstate="collapsed" desc="Answermessage creators"&gt;</em>
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> VBTTabel createVerblijfstitel(String omschrijving, BigInteger code) {
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>          VBTTabel l = <strong class="jxr_keyword">new</strong> VBTTabel();
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>  
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>          VBTTabel.Omschrijving o = <strong class="jxr_keyword">new</strong> VBTTabel.Omschrijving();
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>          o.setValue(omschrijving);
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>  
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>          VBTTabel.Code c = <strong class="jxr_keyword">new</strong> VBTTabel.Code();
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>          c.setValue(code);
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>  
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>          l.setOmschrijving(objFac.createVBTTabelOmschrijving(o));
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>          l.setCode(objFac.createVBTTabelCode(c));
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>  
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>          <strong class="jxr_keyword">return</strong> l;
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>      }
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>  
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> SIBTabel createSoortIdentiteitsbewijs(String omschrijving, BigInteger soort) {
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>         SIBTabel l = <strong class="jxr_keyword">new</strong> SIBTabel();
+<a class="jxr_linenumber" name="L101" href="#L101">101</a> 
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>         SIBTabel.Soort s = <strong class="jxr_keyword">new</strong> SIBTabel.Soort();
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>         s.setValue(soort);
+<a class="jxr_linenumber" name="L104" href="#L104">104</a> 
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>         SIBTabel.Omschrijving o = <strong class="jxr_keyword">new</strong> SIBTabel.Omschrijving();
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>         o.setValue(omschrijving);
+<a class="jxr_linenumber" name="L107" href="#L107">107</a> 
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>         l.setOmschrijving(objFac.createSIBTabelOmschrijving(o));
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>         l.setSoort(objFac.createSIBTabelSoort(s));
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>         l.setSoortEntiteit(<span class="jxr_string">"SIB"</span>);
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>         <strong class="jxr_keyword">return</strong> l;
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>     }
+<a class="jxr_linenumber" name="L113" href="#L113">113</a> 
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> PRSAntwoord createPersoon(Map&lt;String, Object&gt; values, PRSVraag prs) {
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>         BigDecimal bsnBD = (BigDecimal) values.get(<span class="jxr_string">"bsn"</span>);
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>         BigInteger bsnInt = bsnBD.toBigInteger();
+<a class="jxr_linenumber" name="L117" href="#L117">117</a> 
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>         PRSAntwoord p = <strong class="jxr_keyword">new</strong> PRSAntwoord();
+<a class="jxr_linenumber" name="L119" href="#L119">119</a> 
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>         BsnNummerE bsn = <strong class="jxr_keyword">new</strong> BsnNummerE();
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>         bsn.setValue(bsnInt);
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>         calculateNoValue(bsn);
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>         
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>         p.setBsnNummer(objFac.createPRSFundBsnNummer(bsn));
+<a class="jxr_linenumber" name="L125" href="#L125">125</a> 
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>         <strong class="jxr_keyword">if</strong> (prs.getVoornamen() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>             VoornamenE v = <strong class="jxr_keyword">new</strong> VoornamenE();
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>             v.setGegevengroep(<span class="jxr_string">"PRS1"</span>);
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>             v.setValue(nullIfEmpty(values.get(<span class="jxr_string">"nm_voornamen"</span>)));
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>             p.setVoornamen(objFac.createPRSFundVoornamen(v));
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>             calculateNoValue(v);
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>         }
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>         <strong class="jxr_keyword">if</strong> (prs.getGeslachtsnaam() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>             GeslachtsnaamE g = <strong class="jxr_keyword">new</strong> GeslachtsnaamE();
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>             g.setGegevengroep(<span class="jxr_string">"PRS1"</span>);
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>             g.setValue(nullIfEmpty(values.get(<span class="jxr_string">"nm_geslachtsnaam"</span>)));
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>             p.setGeslachtsnaam(objFac.createPRSFundGeslachtsnaam(g));
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>             calculateNoValue(g);
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>         }
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>         <strong class="jxr_keyword">if</strong> (prs.getGeboortedatum() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>             GeboortedatumE gd = <strong class="jxr_keyword">new</strong> GeboortedatumE();
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>             gd.setValue(nullIfEmptyBD(values.get(<span class="jxr_string">"gb_geboortedatum"</span>)));
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>             p.setGeboortedatum(objFac.createPRSFundGeboortedatum(gd));
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>             calculateNoValue(gd);
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>         }
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>         <strong class="jxr_keyword">if</strong> (prs.getVoorletters() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>             VoorlettersE vl = <strong class="jxr_keyword">new</strong> VoorlettersE();
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>             vl.setGegevengroep(<span class="jxr_string">"PRS1"</span>);
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>             vl.setValue(nullIfEmpty(values.get(<span class="jxr_string">"na_voorletters_aanschrijving"</span>)));
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>             p.setVoorletters(objFac.createPRSFundVoorletters(vl));
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>             calculateNoValue(vl);
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>         }
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>         <strong class="jxr_keyword">if</strong> (prs.getVoorvoegselGeslachtsnaam() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>             VoorvoegselGeslachtsnaamE vvgn = <strong class="jxr_keyword">new</strong> VoorvoegselGeslachtsnaamE();
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>             vvgn.setGegevengroep(<span class="jxr_string">"PRS1"</span>);
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>             vvgn.setValue(nullIfEmpty(values.get(<span class="jxr_string">"nm_voorvoegsel_geslachtsnaam"</span>)));
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>             p.setVoorvoegselGeslachtsnaam(objFac.createPRSFundVoorvoegselGeslachtsnaam(vvgn));
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>             calculateNoValue(vvgn);
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>         }
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>         <strong class="jxr_keyword">if</strong> (prs.getAdellijkeTitelPredikaat() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>             AdellijkeTitelPredikaatE a = <strong class="jxr_keyword">new</strong> AdellijkeTitelPredikaatE();
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>             a.setValue(nullIfEmpty(values.get(<span class="jxr_string">"nm_adellijke_titel_predikaat"</span>)));
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>             p.setAdellijkeTitelPredikaat(objFac.createPRSFundAdellijkeTitelPredikaat(a));
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>             calculateNoValue(a);
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>         }
+<a class="jxr_linenumber" name="L166" href="#L166">166</a> 
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>         <strong class="jxr_keyword">if</strong> (prs.getAcademischeTitel() != <strong class="jxr_keyword">null</strong> &amp;&amp; prs.getAcademischeTitel().size() &gt; 0) {
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>             AcademischeTitel at = <strong class="jxr_keyword">new</strong> AcademischeTitel();
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>             at.setValue(nullIfEmpty(values.get(<span class="jxr_string">"fk_2acd_code"</span>)));
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>             p.getAcademischeTitel().add(at);
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>             calculateNoValue(at);
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>         }
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>         <strong class="jxr_keyword">if</strong> (prs.getANummer() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>             ANummerE aN = <strong class="jxr_keyword">new</strong> ANummerE();
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>             aN.setValue(nullIfEmptyBI(values.get(<span class="jxr_string">"a_nummer"</span>)));
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>             p.setANummer(objFac.createPRSFundANummer(aN));
+<a class="jxr_linenumber" name="L177" href="#L177">177</a>             calculateNoValue(aN);
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>         }
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>         <strong class="jxr_keyword">if</strong> (prs.getBurgerlijkeStaat() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>             BurgerlijkeStaat bu = <strong class="jxr_keyword">new</strong> BurgerlijkeStaat();
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>             bu.setValue(nullIfEmptyBI(values.get(<span class="jxr_string">"burgerlijke_staat"</span>)));
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>             calculateNoValue(bu);
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>             p.setBurgerlijkeStaat(objFac.createPRSFundBurgerlijkeStaat(bu));
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>         }
+<a class="jxr_linenumber" name="L185" href="#L185">185</a> 
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>         <strong class="jxr_keyword">if</strong> (prs.getDatumInschrijvingGemeente() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>             DatumMetIndicator da = <strong class="jxr_keyword">new</strong> DatumMetIndicator();
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>             da.setValue(nullIfEmptyBD(values.get(<span class="jxr_string">"datum_inschrijving_in_gemeente"</span>)));
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>             calculateNoValue(da);
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>             p.setDatumInschrijvingGemeente(objFac.createPRSFundDatumInschrijvingGemeente(da));
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>         }
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>         <strong class="jxr_keyword">if</strong> (prs.getDatumVerkrijgingVerblijfstitel() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>             DatumVerkrijgingVerblijfstitel dav = <strong class="jxr_keyword">new</strong> DatumVerkrijgingVerblijfstitel();
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>             dav.setValue(nullIfEmptyBD(values.get(<span class="jxr_string">"datum_verkr_nation"</span>)));
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>             calculateNoValue(dav);
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>             p.setDatumVerkrijgingVerblijfstitel(objFac.createPRSFundDatumVerkrijgingVerblijfstitel(dav));
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>         }
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>         <strong class="jxr_keyword">if</strong> (prs.getDatumVerliesVerblijfstitel() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>             DatumVerliesVerblijfstitel dvt = <strong class="jxr_keyword">new</strong> DatumVerliesVerblijfstitel();
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>             dvt.setValue(nullIfEmptyBD(values.get(<span class="jxr_string">"datum_verlies_nation"</span>)));
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>             calculateNoValue(dvt);
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>             p.setDatumVerliesVerblijfstitel(objFac.createPRSFundDatumVerliesVerblijfstitel(dvt));
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>         }
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>         <strong class="jxr_keyword">if</strong> (prs.getDatumVertrekUitNederland() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>             DatumMetIndicator da = <strong class="jxr_keyword">new</strong> DatumMetIndicator();
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>             da.setValue(nullIfEmptyBD(values.get(<span class="jxr_string">"datum_vertrek_uit_nederland"</span>)));
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>             calculateNoValue(da);
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>             p.setDatumVertrekUitNederland(objFac.createPRSFundDatumVertrekUitNederland(da));
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>         }
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>         <strong class="jxr_keyword">if</strong> (prs.getDatumVestigingInNederland() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>             DatumMetIndicator da = <strong class="jxr_keyword">new</strong> DatumMetIndicator();
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>             da.setValue(nullIfEmptyBD(values.get(<span class="jxr_string">"datum_vestg_in_nederland"</span>)));
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>             calculateNoValue(da);
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>             p.setDatumVestigingInNederland(objFac.createPRSFundDatumVestigingInNederland(da));
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>         }
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>         <strong class="jxr_keyword">if</strong> (prs.getCodeGemeenteVanInschrijving() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L217" href="#L217">217</a>             CodeGemeenteVanInschrijving co = <strong class="jxr_keyword">new</strong> CodeGemeenteVanInschrijving();
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>             co.setValue(nullIfEmptyBI(values.get(<span class="jxr_string">"gemeente_van_inschrijving"</span>)));
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>             calculateNoValue(co);
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>             p.setCodeGemeenteVanInschrijving(objFac.createPRSFundCodeGemeenteVanInschrijving(co));
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>         }
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>         <strong class="jxr_keyword">if</strong> (prs.getGeboorteplaats() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>             GeboorteplaatsE gp = <strong class="jxr_keyword">new</strong> GeboorteplaatsE();
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>             gp.setValue(nullIfEmpty(values.get(<span class="jxr_string">"gb_geboorteplaats"</span>)));
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>             calculateNoValue(gp);
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>             p.setGeboorteplaats(objFac.createPRSFundGeboorteplaats(gp));
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>         }
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>         <strong class="jxr_keyword">if</strong> (prs.getCodeGeboorteland() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>             CodeGeboortelandE cg = <strong class="jxr_keyword">new</strong> CodeGeboortelandE();
+<a class="jxr_linenumber" name="L230" href="#L230">230</a>             cg.setValue(nullIfEmptyBI(values.get(<span class="jxr_string">"fk_gb_lnd_code_iso"</span>)));
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>             calculateNoValue(cg);
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>             p.setCodeGeboorteland(objFac.createPRSFundCodeGeboorteland(cg));
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>         }
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>         <strong class="jxr_keyword">if</strong> (prs.getDatumOverlijden() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L235" href="#L235">235</a>             DatumMetIndicator da = <strong class="jxr_keyword">new</strong> DatumMetIndicator();
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>             da.setValue(nullIfEmptyBD(values.get(<span class="jxr_string">"ol_overlijdensdatum"</span>)));
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>             calculateNoValue(da);
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>             p.setDatumOverlijden(objFac.createPRSFundDatumOverlijden(da));
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>         }
+<a class="jxr_linenumber" name="L240" href="#L240">240</a>         <strong class="jxr_keyword">if</strong> (prs.getPlaatsOverlijden() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>             PlaatsOverlijden pl = <strong class="jxr_keyword">new</strong> PlaatsOverlijden();
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>             pl.setValue(nullIfEmpty(values.get(<span class="jxr_string">"fk_gb_lnd_code_iso"</span>)));
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>             calculateNoValue(pl);
+<a class="jxr_linenumber" name="L244" href="#L244">244</a>             p.setPlaatsOverlijden(objFac.createPRSFundPlaatsOverlijden(pl));
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>         }
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>         <strong class="jxr_keyword">if</strong> (prs.getCodeLandOverlijden() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>             CodeLandOverlijden clo = <strong class="jxr_keyword">new</strong> CodeLandOverlijden();
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>             clo.setValue(nullIfEmptyBI(values.get(<span class="jxr_string">"fk_ol_lnd_code_iso"</span>)));
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>             calculateNoValue(clo);
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>             p.setCodeLandOverlijden(objFac.createPRSFundCodeLandOverlijden(clo));
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>         }
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>         <strong class="jxr_keyword">if</strong> (prs.getDatumOpschortingBijhouding() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>             DatumMetIndicator da = <strong class="jxr_keyword">new</strong> DatumMetIndicator();
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>             da.setValue(nullIfEmptyBD(values.get(<span class="jxr_string">"datum_opschorting_bijhouding"</span>)));
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>             calculateNoValue(da);
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>             p.setDatumOpschortingBijhouding(objFac.createPRSFundDatumOpschortingBijhouding(da));
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>         }
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>         <strong class="jxr_keyword">if</strong> (prs.getOmschrijvingRedenOpschortingBijhouding() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>             OmschrijvingRedenOpschortingBijhouding om = <strong class="jxr_keyword">new</strong> OmschrijvingRedenOpschortingBijhouding();
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>             om.setValue(nullIfEmpty(values.get(<span class="jxr_string">"reden_opschorting_bijhouding"</span>)));
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>             calculateNoValue(om);
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>             p.setOmschrijvingRedenOpschortingBijhouding(objFac.createPRSFundOmschrijvingRedenOpschortingBijhouding(om));
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>         }
 <a class="jxr_linenumber" name="L264" href="#L264">264</a> 
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>         ADRFund.Gemeentecode g = <strong class="jxr_keyword">new</strong> ADRFund.Gemeentecode();
-<a class="jxr_linenumber" name="L266" href="#L266">266</a>         g.setValue(gemeentecode);
-<a class="jxr_linenumber" name="L267" href="#L267">267</a> 
-<a class="jxr_linenumber" name="L268" href="#L268">268</a>         ADRFund.Huisletter hl = <strong class="jxr_keyword">new</strong> ADRFund.Huisletter();
-<a class="jxr_linenumber" name="L269" href="#L269">269</a>         hl.setValue(huisletter);
-<a class="jxr_linenumber" name="L270" href="#L270">270</a> 
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>         ADRFund.Postcode p = <strong class="jxr_keyword">new</strong> ADRFund.Postcode();
-<a class="jxr_linenumber" name="L272" href="#L272">272</a>         p.setValue(postcode);
-<a class="jxr_linenumber" name="L273" href="#L273">273</a> 
-<a class="jxr_linenumber" name="L274" href="#L274">274</a>         a.setStraatnaam(objFac.createADRFundStraatnaam(s));
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>         a.setHuisnummer(objFac.createADRFundHuisnummer(h));
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>         a.setHuisletter(objFac.createADRFundHuisletter(hl));
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>         a.setGemeentecode(objFac.createADRFundGemeentecode(g));
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>         a.setPostcode(objFac.createADRFundPostcode(p));
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>         <strong class="jxr_keyword">return</strong> a;
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>     }
-<a class="jxr_linenumber" name="L281" href="#L281">281</a> 
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>     <em class="jxr_comment">// &lt;/editor-fold&gt;</em>
-<a class="jxr_linenumber" name="L283" href="#L283">283</a> }
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>         <strong class="jxr_keyword">if</strong> (prs.getAanduidingNaamgebruik() != <strong class="jxr_keyword">null</strong> &amp;&amp; values.get(<span class="jxr_string">"aand_naamgebruik"</span>) != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L266" href="#L266">266</a>             AanduidingNaamgebruik an = <strong class="jxr_keyword">new</strong> AanduidingNaamgebruik();
+<a class="jxr_linenumber" name="L267" href="#L267">267</a>             an.setValue(nl.egem.stuf.sector.bg._0204.AanduidingNaamgebruik.fromValue(nullIfEmpty(values.get(<span class="jxr_string">"aand_naamgebruik"</span>))));
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>             calculateNoValue(an);
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>             p.setAanduidingNaamgebruik(objFac.createPRSFundAanduidingNaamgebruik(an));
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>         }
+<a class="jxr_linenumber" name="L271" href="#L271">271</a> 
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>         <strong class="jxr_keyword">if</strong> (prs.getGeslachtsaanduiding() != <strong class="jxr_keyword">null</strong> &amp;&amp; values.get(<span class="jxr_string">"geslachtsaand"</span>) != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>             GeslachtsaanduidingE ga = <strong class="jxr_keyword">new</strong> GeslachtsaanduidingE();
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>             Geslachtsaanduiding ge = Geslachtsaanduiding.fromValue(nullIfEmpty(values.get(<span class="jxr_string">"geslachtsaand"</span>)));
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>             ga.setValue(ge);
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>             calculateNoValue(ga);
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>             p.setGeslachtsaanduiding(objFac.createPRSFundGeslachtsaanduiding(ga));
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>         }
+<a class="jxr_linenumber" name="L279" href="#L279">279</a> 
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>         <strong class="jxr_keyword">if</strong> (prs.getPRSADRCOR() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>             List&lt;ADRRelFund&gt; adrcor = p.getPRSADRCOR();
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>             ADRRelFund a = createAdres(<span class="jxr_string">"teststraat"</span>, <strong class="jxr_keyword">new</strong> BigInteger(<span class="jxr_string">"16"</span>), <span class="jxr_string">"d"</span>, <span class="jxr_string">"1212"</span>, <strong class="jxr_keyword">new</strong> BigInteger(<span class="jxr_string">"0556"</span>), prs.getPRSADRCOR().getValue().getADR());
+<a class="jxr_linenumber" name="L283" href="#L283">283</a>             a.setSoortEntiteit(<span class="jxr_string">"R"</span>);
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>             a.setVerwerkingssoort(Verwerkingssoort.I);
+<a class="jxr_linenumber" name="L285" href="#L285">285</a>             adrcor.add(a);
+<a class="jxr_linenumber" name="L286" href="#L286">286</a>         }
+<a class="jxr_linenumber" name="L287" href="#L287">287</a> 
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>         <strong class="jxr_keyword">if</strong> (prs.getPRSADRVBL() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>             List&lt;ADRRelFund&gt; adrcor = p.getPRSADRVBL();
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>             ADRRelFund a = createAdres(<span class="jxr_string">"teststraat"</span>, <strong class="jxr_keyword">new</strong> BigInteger(<span class="jxr_string">"16"</span>), <span class="jxr_string">"d"</span>, <span class="jxr_string">"1212"</span>, <strong class="jxr_keyword">new</strong> BigInteger(<span class="jxr_string">"0556"</span>), prs.getPRSADRVBL().getValue().getADR());
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>             adrcor.add(a);
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>         }
+<a class="jxr_linenumber" name="L293" href="#L293">293</a> 
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>         <strong class="jxr_keyword">if</strong> (prs.getPRSNAT() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>             NATTabel n = createNationaliteit(<span class="jxr_string">"NL"</span>, <strong class="jxr_keyword">new</strong> BigInteger(<span class="jxr_string">"42"</span>));
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>             PRSAntwoord.PRSNAT nat = <strong class="jxr_keyword">new</strong> PRSAntwoord.PRSNAT();
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>             nat.setNAT(n);
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>             nat.setVerwerkingssoort(Verwerkingssoort.I);
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>             nat.setSoortEntiteit(<span class="jxr_string">"R"</span>);
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>             p.getPRSNAT().add(nat);
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>         }
+<a class="jxr_linenumber" name="L302" href="#L302">302</a> 
+<a class="jxr_linenumber" name="L303" href="#L303">303</a>         <strong class="jxr_keyword">return</strong> p;
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>     }
+<a class="jxr_linenumber" name="L305" href="#L305">305</a>     
+<a class="jxr_linenumber" name="L306" href="#L306">306</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> calculateNoValue(Object element){
+<a class="jxr_linenumber" name="L307" href="#L307">307</a>         Class c = element.getClass();
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>         Object val = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L309" href="#L309">309</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L310" href="#L310">310</a>             Method method = element.getClass().getDeclaredMethod(<span class="jxr_string">"getValue"</span>);
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>             val = method.invoke(element);
+<a class="jxr_linenumber" name="L312" href="#L312">312</a>         } <strong class="jxr_keyword">catch</strong> (SecurityException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+<a class="jxr_linenumber" name="L313" href="#L313">313</a>             LOG.error(<span class="jxr_string">"Cannot get value for element "</span> + c.toString(), e);
+<a class="jxr_linenumber" name="L314" href="#L314">314</a>         }
+<a class="jxr_linenumber" name="L315" href="#L315">315</a>         <strong class="jxr_keyword">if</strong> (val == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L316" href="#L316">316</a>             <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L317" href="#L317">317</a>                 Method method = element.getClass().getDeclaredMethod(<span class="jxr_string">"setNoValue"</span>, NoValue.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L318" href="#L318">318</a>                 val = method.invoke(element, NoValue.GEEN_WAARDE);
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>             } <strong class="jxr_keyword">catch</strong> (SecurityException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>                 LOG.error(<span class="jxr_string">"Cannot set NoValue for element "</span> + c.toString(), e);
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>             }
+<a class="jxr_linenumber" name="L322" href="#L322">322</a>         }
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>     }
+<a class="jxr_linenumber" name="L324" href="#L324">324</a> 
+<a class="jxr_linenumber" name="L325" href="#L325">325</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> NATTabel createNationaliteit(String nationaliteit, BigInteger code) {
+<a class="jxr_linenumber" name="L326" href="#L326">326</a>         NATTabel l = <strong class="jxr_keyword">new</strong> NATTabel();
+<a class="jxr_linenumber" name="L327" href="#L327">327</a>         l.setVerwerkingssoort(Verwerkingssoort.I);
+<a class="jxr_linenumber" name="L328" href="#L328">328</a>         l.setSoortEntiteit(<span class="jxr_string">"T"</span>);
+<a class="jxr_linenumber" name="L329" href="#L329">329</a>         l.setVerwerkingssoort(Verwerkingssoort.I);
+<a class="jxr_linenumber" name="L330" href="#L330">330</a>         NATTabel.Omschrijving o = <strong class="jxr_keyword">new</strong> NATTabel.Omschrijving();
+<a class="jxr_linenumber" name="L331" href="#L331">331</a>         o.setValue(nationaliteit);
+<a class="jxr_linenumber" name="L332" href="#L332">332</a> 
+<a class="jxr_linenumber" name="L333" href="#L333">333</a>         NATTabel.Code c = <strong class="jxr_keyword">new</strong> NATTabel.Code();
+<a class="jxr_linenumber" name="L334" href="#L334">334</a>         c.setValue(code);
+<a class="jxr_linenumber" name="L335" href="#L335">335</a> 
+<a class="jxr_linenumber" name="L336" href="#L336">336</a>         l.setOmschrijving(objFac.createNATTabelOmschrijving(o));
+<a class="jxr_linenumber" name="L337" href="#L337">337</a>         l.setCode(objFac.createNATTabelCode(c));
+<a class="jxr_linenumber" name="L338" href="#L338">338</a>         l.setSoortEntiteit(<span class="jxr_string">"NAT"</span>);
+<a class="jxr_linenumber" name="L339" href="#L339">339</a>         <strong class="jxr_keyword">return</strong> l;
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>     }
+<a class="jxr_linenumber" name="L341" href="#L341">341</a> 
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> LNDTabel createLand(String naam, BigInteger code) {
+<a class="jxr_linenumber" name="L343" href="#L343">343</a>         LNDTabel l = <strong class="jxr_keyword">new</strong> LNDTabel();
+<a class="jxr_linenumber" name="L344" href="#L344">344</a> 
+<a class="jxr_linenumber" name="L345" href="#L345">345</a>         LNDTabel.Landnaam n = <strong class="jxr_keyword">new</strong> LNDTabel.Landnaam();
+<a class="jxr_linenumber" name="L346" href="#L346">346</a>         n.setValue(naam);
+<a class="jxr_linenumber" name="L347" href="#L347">347</a> 
+<a class="jxr_linenumber" name="L348" href="#L348">348</a>         LNDTabel.Landcode c = <strong class="jxr_keyword">new</strong> LNDTabel.Landcode();
+<a class="jxr_linenumber" name="L349" href="#L349">349</a>         c.setValue(code);
+<a class="jxr_linenumber" name="L350" href="#L350">350</a> 
+<a class="jxr_linenumber" name="L351" href="#L351">351</a>         l.setLandnaam(objFac.createLNDTabelLandnaam(n));
+<a class="jxr_linenumber" name="L352" href="#L352">352</a>         l.setLandcode(objFac.createLNDTabelLandcode(c));
+<a class="jxr_linenumber" name="L353" href="#L353">353</a>         l.setSoortEntiteit(<span class="jxr_string">"LND"</span>);
+<a class="jxr_linenumber" name="L354" href="#L354">354</a>         <strong class="jxr_keyword">return</strong> l;
+<a class="jxr_linenumber" name="L355" href="#L355">355</a>     }
+<a class="jxr_linenumber" name="L356" href="#L356">356</a> 
+<a class="jxr_linenumber" name="L357" href="#L357">357</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> GEMTabel createGemeente(String naam, BigInteger code) {
+<a class="jxr_linenumber" name="L358" href="#L358">358</a>         GEMTabel g = <strong class="jxr_keyword">new</strong> GEMTabel();
+<a class="jxr_linenumber" name="L359" href="#L359">359</a>         GEMTabel.Gemeentenaam n = <strong class="jxr_keyword">new</strong> GEMTabel.Gemeentenaam();
+<a class="jxr_linenumber" name="L360" href="#L360">360</a>         n.setValue(naam);
+<a class="jxr_linenumber" name="L361" href="#L361">361</a> 
+<a class="jxr_linenumber" name="L362" href="#L362">362</a>         GEMTabel.Gemeentecode c = <strong class="jxr_keyword">new</strong> GEMTabel.Gemeentecode();
+<a class="jxr_linenumber" name="L363" href="#L363">363</a>         c.setValue(code);
+<a class="jxr_linenumber" name="L364" href="#L364">364</a> 
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>         g.setGemeentenaam(objFac.createGEMTabelGemeentenaam(n));
+<a class="jxr_linenumber" name="L366" href="#L366">366</a>         g.setGemeentecode(objFac.createGEMTabelGemeentecode(c));
+<a class="jxr_linenumber" name="L367" href="#L367">367</a> 
+<a class="jxr_linenumber" name="L368" href="#L368">368</a>         g.setSoortEntiteit(<span class="jxr_string">"GEM"</span>);
+<a class="jxr_linenumber" name="L369" href="#L369">369</a>         <strong class="jxr_keyword">return</strong> g;
+<a class="jxr_linenumber" name="L370" href="#L370">370</a>     }
+<a class="jxr_linenumber" name="L371" href="#L371">371</a> 
+<a class="jxr_linenumber" name="L372" href="#L372">372</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> ACDTabel createAcademischeTitel(String titel, <strong class="jxr_keyword">boolean</strong> posVoorNaam, String code) {
+<a class="jxr_linenumber" name="L373" href="#L373">373</a>         ACDTabel t = <strong class="jxr_keyword">new</strong> ACDTabel();
+<a class="jxr_linenumber" name="L374" href="#L374">374</a>         ACDTabel.Code c = <strong class="jxr_keyword">new</strong> ACDTabel.Code();
+<a class="jxr_linenumber" name="L375" href="#L375">375</a>         c.setExact(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L376" href="#L376">376</a>         c.setKerngegeven(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L377" href="#L377">377</a>         c.setNoValue(NoValue.GEEN_WAARDE);
+<a class="jxr_linenumber" name="L378" href="#L378">378</a>         c.setValue(code);
+<a class="jxr_linenumber" name="L379" href="#L379">379</a> 
+<a class="jxr_linenumber" name="L380" href="#L380">380</a>         ACDTabel.Omschrijving o = <strong class="jxr_keyword">new</strong> ACDTabel.Omschrijving();
+<a class="jxr_linenumber" name="L381" href="#L381">381</a>         o.setValue(titel);
+<a class="jxr_linenumber" name="L382" href="#L382">382</a>         o.setExact(Boolean.FALSE);
+<a class="jxr_linenumber" name="L383" href="#L383">383</a> 
+<a class="jxr_linenumber" name="L384" href="#L384">384</a>         ACDTabel.PositieTovNaam p = <strong class="jxr_keyword">new</strong> ACDTabel.PositieTovNaam();
+<a class="jxr_linenumber" name="L385" href="#L385">385</a>         p.setValue(posVoorNaam ? AcademischeTitelPositieTovNaam.V : AcademischeTitelPositieTovNaam.N);
+<a class="jxr_linenumber" name="L386" href="#L386">386</a> 
+<a class="jxr_linenumber" name="L387" href="#L387">387</a>         ExtraElementen e = <strong class="jxr_keyword">new</strong> ExtraElementen();
+<a class="jxr_linenumber" name="L388" href="#L388">388</a>         ExtraElement ex = <strong class="jxr_keyword">new</strong> ExtraElement();
+<a class="jxr_linenumber" name="L389" href="#L389">389</a>         ex.setNaam(<span class="jxr_string">"ex1"</span>);
+<a class="jxr_linenumber" name="L390" href="#L390">390</a>         ex.setValue(<span class="jxr_string">"val1"</span>);
+<a class="jxr_linenumber" name="L391" href="#L391">391</a>         e.getExtraElement().add(ex);
+<a class="jxr_linenumber" name="L392" href="#L392">392</a> 
+<a class="jxr_linenumber" name="L393" href="#L393">393</a>         t.setNoValue(NoValue.NIET_ONDERSTEUND);
+<a class="jxr_linenumber" name="L394" href="#L394">394</a>         t.setSoortEntiteit(<span class="jxr_string">"ACD"</span>);
+<a class="jxr_linenumber" name="L395" href="#L395">395</a>         t.setCode(objFac.createACDTabelCode(c));
+<a class="jxr_linenumber" name="L396" href="#L396">396</a>         t.setOmschrijving(objFac.createACDTabelOmschrijving(o));
+<a class="jxr_linenumber" name="L397" href="#L397">397</a>         t.setVerwerkingssoort(Verwerkingssoort.V);
+<a class="jxr_linenumber" name="L398" href="#L398">398</a>         t.setPositieTovNaam(objFac.createACDTabelPositieTovNaam(p));
+<a class="jxr_linenumber" name="L399" href="#L399">399</a>         t.setExtraElementen(e);
+<a class="jxr_linenumber" name="L400" href="#L400">400</a> 
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>         <strong class="jxr_keyword">return</strong> t;
+<a class="jxr_linenumber" name="L402" href="#L402">402</a>     }
+<a class="jxr_linenumber" name="L403" href="#L403">403</a> 
+<a class="jxr_linenumber" name="L404" href="#L404">404</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> ADLTabel createAdelijkeTitel(String titel) {
+<a class="jxr_linenumber" name="L405" href="#L405">405</a>         ADLTabel t = <strong class="jxr_keyword">new</strong> ADLTabel();
+<a class="jxr_linenumber" name="L406" href="#L406">406</a>         ADLTabel.Soort s = <strong class="jxr_keyword">new</strong> ADLTabel.Soort();
+<a class="jxr_linenumber" name="L407" href="#L407">407</a>         s.setValue(AdellijkeTitelSoort.A);
+<a class="jxr_linenumber" name="L408" href="#L408">408</a> 
+<a class="jxr_linenumber" name="L409" href="#L409">409</a>         ADLTabel.Omschrijving o = <strong class="jxr_keyword">new</strong> ADLTabel.Omschrijving();
+<a class="jxr_linenumber" name="L410" href="#L410">410</a>         o.setValue(titel);
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>         o.setExact(Boolean.FALSE);
+<a class="jxr_linenumber" name="L412" href="#L412">412</a> 
+<a class="jxr_linenumber" name="L413" href="#L413">413</a>         t.setNoValue(NoValue.GEEN_WAARDE);
+<a class="jxr_linenumber" name="L414" href="#L414">414</a>         t.setOmschrijving(objFac.createADLTabelOmschrijving(o));
+<a class="jxr_linenumber" name="L415" href="#L415">415</a>         t.setSoort(objFac.createADLTabelSoort(s));
+<a class="jxr_linenumber" name="L416" href="#L416">416</a>         t.setVerwerkingssoort(Verwerkingssoort.R);
+<a class="jxr_linenumber" name="L417" href="#L417">417</a>         t.setSoortEntiteit(<span class="jxr_string">"ADL"</span>);
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>         <strong class="jxr_keyword">return</strong> t;
+<a class="jxr_linenumber" name="L419" href="#L419">419</a>     }
+<a class="jxr_linenumber" name="L420" href="#L420">420</a> 
+<a class="jxr_linenumber" name="L421" href="#L421">421</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> ADRRelFund createAdres(String straat, BigInteger huisnummer, String huisletter, String postcode, BigInteger gemeentecode, ADRFund vraag) {
+<a class="jxr_linenumber" name="L422" href="#L422">422</a>         ADRRelFund aa = <strong class="jxr_keyword">new</strong> ADRRelFund();
+<a class="jxr_linenumber" name="L423" href="#L423">423</a> 
+<a class="jxr_linenumber" name="L424" href="#L424">424</a>         ADRAntwoord a = <strong class="jxr_keyword">new</strong> ADRAntwoord();
+<a class="jxr_linenumber" name="L425" href="#L425">425</a>         a.setSoortEntiteit(<span class="jxr_string">"F"</span>);
+<a class="jxr_linenumber" name="L426" href="#L426">426</a>         a.setVerwerkingssoort(Verwerkingssoort.I);
+<a class="jxr_linenumber" name="L427" href="#L427">427</a> 
+<a class="jxr_linenumber" name="L428" href="#L428">428</a>         ADRFund.Straatnaam s = <strong class="jxr_keyword">new</strong> ADRFund.Straatnaam();
+<a class="jxr_linenumber" name="L429" href="#L429">429</a>         s.setValue(straat);
+<a class="jxr_linenumber" name="L430" href="#L430">430</a>         s.setGegevengroep(<span class="jxr_string">"ADR1"</span>);
+<a class="jxr_linenumber" name="L431" href="#L431">431</a>         calculateNoValue(s);
+<a class="jxr_linenumber" name="L432" href="#L432">432</a> 
+<a class="jxr_linenumber" name="L433" href="#L433">433</a>         ADRFund.Huisnummer h = <strong class="jxr_keyword">new</strong> ADRFund.Huisnummer();
+<a class="jxr_linenumber" name="L434" href="#L434">434</a>         h.setValue(huisnummer);
+<a class="jxr_linenumber" name="L435" href="#L435">435</a>         h.setGegevengroep(<span class="jxr_string">"ADR1"</span>);
+<a class="jxr_linenumber" name="L436" href="#L436">436</a>         calculateNoValue(h);
+<a class="jxr_linenumber" name="L437" href="#L437">437</a>         
+<a class="jxr_linenumber" name="L438" href="#L438">438</a>         ADRFund.Gemeentecode g = <strong class="jxr_keyword">new</strong> ADRFund.Gemeentecode();
+<a class="jxr_linenumber" name="L439" href="#L439">439</a>         g.setValue(gemeentecode);
+<a class="jxr_linenumber" name="L440" href="#L440">440</a>         calculateNoValue(g);
+<a class="jxr_linenumber" name="L441" href="#L441">441</a>         
+<a class="jxr_linenumber" name="L442" href="#L442">442</a>         ADRFund.Huisletter hl = <strong class="jxr_keyword">new</strong> ADRFund.Huisletter();
+<a class="jxr_linenumber" name="L443" href="#L443">443</a>         hl.setValue(huisletter);
+<a class="jxr_linenumber" name="L444" href="#L444">444</a>         hl.setGegevengroep(<span class="jxr_string">"ADR1"</span>);
+<a class="jxr_linenumber" name="L445" href="#L445">445</a>         calculateNoValue(hl);
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>         
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>         ADRFund.Postcode p = <strong class="jxr_keyword">new</strong> ADRFund.Postcode();
+<a class="jxr_linenumber" name="L448" href="#L448">448</a>         p.setValue(postcode);
+<a class="jxr_linenumber" name="L449" href="#L449">449</a>         p.setGegevengroep(<span class="jxr_string">"ADR1"</span>);
+<a class="jxr_linenumber" name="L450" href="#L450">450</a>         calculateNoValue(p);
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>         
+<a class="jxr_linenumber" name="L452" href="#L452">452</a>         ADRFund.Woonplaatsnaam w = <strong class="jxr_keyword">new</strong> ADRFund.Woonplaatsnaam();
+<a class="jxr_linenumber" name="L453" href="#L453">453</a>         w.setValue(<span class="jxr_string">"Maassluis"</span>);
+<a class="jxr_linenumber" name="L454" href="#L454">454</a>         calculateNoValue(w);
+<a class="jxr_linenumber" name="L455" href="#L455">455</a> 
+<a class="jxr_linenumber" name="L456" href="#L456">456</a>         <strong class="jxr_keyword">if</strong> (vraag.getStraatnaam() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L457" href="#L457">457</a>             a.setStraatnaam(objFac.createADRFundStraatnaam(s));
+<a class="jxr_linenumber" name="L458" href="#L458">458</a>         }
+<a class="jxr_linenumber" name="L459" href="#L459">459</a>         <strong class="jxr_keyword">if</strong> (vraag.getHuisnummer() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L460" href="#L460">460</a>             a.setHuisnummer(objFac.createADRFundHuisnummer(h));
+<a class="jxr_linenumber" name="L461" href="#L461">461</a>         }
+<a class="jxr_linenumber" name="L462" href="#L462">462</a>         <strong class="jxr_keyword">if</strong> (vraag.getHuisletter() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L463" href="#L463">463</a>             a.setHuisletter(objFac.createADRFundHuisletter(hl));
+<a class="jxr_linenumber" name="L464" href="#L464">464</a>         }
+<a class="jxr_linenumber" name="L465" href="#L465">465</a>         <strong class="jxr_keyword">if</strong> (vraag.getGemeentecode() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L466" href="#L466">466</a>             a.setGemeentecode(objFac.createADRFundGemeentecode(g));
+<a class="jxr_linenumber" name="L467" href="#L467">467</a>         }
+<a class="jxr_linenumber" name="L468" href="#L468">468</a>         <strong class="jxr_keyword">if</strong> (vraag.getPostcode() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L469" href="#L469">469</a>             a.setPostcode(objFac.createADRFundPostcode(p));
+<a class="jxr_linenumber" name="L470" href="#L470">470</a>         }
+<a class="jxr_linenumber" name="L471" href="#L471">471</a>         <strong class="jxr_keyword">if</strong> (vraag.getWoonplaatsnaam() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L472" href="#L472">472</a>             a.setWoonplaatsnaam(objFac.createADRFundWoonplaatsnaam(w));
+<a class="jxr_linenumber" name="L473" href="#L473">473</a>         }
+<a class="jxr_linenumber" name="L474" href="#L474">474</a>         <strong class="jxr_keyword">if</strong> (vraag.getAdresBuitenland1() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L475" href="#L475">475</a>             ADRFund.AdresBuitenland1 ab = <strong class="jxr_keyword">new</strong> ADRFund.AdresBuitenland1();
+<a class="jxr_linenumber" name="L476" href="#L476">476</a>             ab.setGegevengroep(<span class="jxr_string">"ADR4"</span>);
+<a class="jxr_linenumber" name="L477" href="#L477">477</a>             a.setAdresBuitenland1(objFac.createADRFundAdresBuitenland1(ab));
+<a class="jxr_linenumber" name="L478" href="#L478">478</a>             calculateNoValue(ab);
+<a class="jxr_linenumber" name="L479" href="#L479">479</a>         }
+<a class="jxr_linenumber" name="L480" href="#L480">480</a>         <strong class="jxr_keyword">if</strong> (vraag.getAdresBuitenland2() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L481" href="#L481">481</a>             ADRFund.AdresBuitenland2 ab = <strong class="jxr_keyword">new</strong> ADRFund.AdresBuitenland2();
+<a class="jxr_linenumber" name="L482" href="#L482">482</a>             ab.setGegevengroep(<span class="jxr_string">"ADR4"</span>);
+<a class="jxr_linenumber" name="L483" href="#L483">483</a>             a.setAdresBuitenland2(objFac.createADRFundAdresBuitenland2(ab));
+<a class="jxr_linenumber" name="L484" href="#L484">484</a>             calculateNoValue(ab);
+<a class="jxr_linenumber" name="L485" href="#L485">485</a>         }
+<a class="jxr_linenumber" name="L486" href="#L486">486</a>         <strong class="jxr_keyword">if</strong> (vraag.getAdresBuitenland3() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L487" href="#L487">487</a>             ADRFund.AdresBuitenland3 ab = <strong class="jxr_keyword">new</strong> ADRFund.AdresBuitenland3();
+<a class="jxr_linenumber" name="L488" href="#L488">488</a>             ab.setGegevengroep(<span class="jxr_string">"ADR4"</span>);
+<a class="jxr_linenumber" name="L489" href="#L489">489</a>             a.setAdresBuitenland3(objFac.createADRFundAdresBuitenland3(ab));
+<a class="jxr_linenumber" name="L490" href="#L490">490</a>             calculateNoValue(ab);
+<a class="jxr_linenumber" name="L491" href="#L491">491</a>         }
+<a class="jxr_linenumber" name="L492" href="#L492">492</a>         <strong class="jxr_keyword">if</strong> (vraag.getLandcode() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L493" href="#L493">493</a>             ADRFund.Landcode lc = <strong class="jxr_keyword">new</strong> ADRFund.Landcode();
+<a class="jxr_linenumber" name="L494" href="#L494">494</a>             calculateNoValue(lc);
+<a class="jxr_linenumber" name="L495" href="#L495">495</a>             a.setLandcode(objFac.createADRFundLandcode(lc));
+<a class="jxr_linenumber" name="L496" href="#L496">496</a>         }
+<a class="jxr_linenumber" name="L497" href="#L497">497</a>         <strong class="jxr_keyword">if</strong> (vraag.getPostbusnummer() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L498" href="#L498">498</a>             ADRFund.Postbusnummer pn = <strong class="jxr_keyword">new</strong> ADRFund.Postbusnummer();
+<a class="jxr_linenumber" name="L499" href="#L499">499</a>             calculateNoValue(pn);
+<a class="jxr_linenumber" name="L500" href="#L500">500</a>             a.setPostbusnummer(objFac.createADRFundPostbusnummer(pn));
+<a class="jxr_linenumber" name="L501" href="#L501">501</a>         }
+<a class="jxr_linenumber" name="L502" href="#L502">502</a>         <strong class="jxr_keyword">if</strong> (vraag.getAntwoordnummer() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L503" href="#L503">503</a>             ADRFund.Antwoordnummer an = <strong class="jxr_keyword">new</strong> ADRFund.Antwoordnummer();
+<a class="jxr_linenumber" name="L504" href="#L504">504</a>             calculateNoValue(an);
+<a class="jxr_linenumber" name="L505" href="#L505">505</a>             a.setAntwoordnummer(objFac.createADRFundAntwoordnummer(an));
+<a class="jxr_linenumber" name="L506" href="#L506">506</a>         }
+<a class="jxr_linenumber" name="L507" href="#L507">507</a>         <strong class="jxr_keyword">if</strong> (vraag.getHuisnummertoevoeging() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L508" href="#L508">508</a>             ADRFund.Huisnummertoevoeging ht = <strong class="jxr_keyword">new</strong> ADRFund.Huisnummertoevoeging();
+<a class="jxr_linenumber" name="L509" href="#L509">509</a>             calculateNoValue(ht);
+<a class="jxr_linenumber" name="L510" href="#L510">510</a>             a.setHuisnummertoevoeging(objFac.createADRFundHuisnummertoevoeging(ht));
+<a class="jxr_linenumber" name="L511" href="#L511">511</a>         }
+<a class="jxr_linenumber" name="L512" href="#L512">512</a>         <strong class="jxr_keyword">if</strong> (vraag.getAanduidingBijHuisnummer() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L513" href="#L513">513</a>             ADRFund.AanduidingBijHuisnummer ah = <strong class="jxr_keyword">new</strong> ADRFund.AanduidingBijHuisnummer();
+<a class="jxr_linenumber" name="L514" href="#L514">514</a>             calculateNoValue(ah);
+<a class="jxr_linenumber" name="L515" href="#L515">515</a>             a.setAanduidingBijHuisnummer(objFac.createADRFundAanduidingBijHuisnummer(ah));
+<a class="jxr_linenumber" name="L516" href="#L516">516</a>         }
+<a class="jxr_linenumber" name="L517" href="#L517">517</a> 
+<a class="jxr_linenumber" name="L518" href="#L518">518</a>         aa.setADR(a);
+<a class="jxr_linenumber" name="L519" href="#L519">519</a>         <strong class="jxr_keyword">return</strong> aa;
+<a class="jxr_linenumber" name="L520" href="#L520">520</a>     }
+<a class="jxr_linenumber" name="L521" href="#L521">521</a> 
+<a class="jxr_linenumber" name="L522" href="#L522">522</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> String nullIfEmpty(Object e) {
+<a class="jxr_linenumber" name="L523" href="#L523">523</a>         <strong class="jxr_keyword">return</strong> e == <strong class="jxr_keyword">null</strong> ? <strong class="jxr_keyword">null</strong> : e.toString();
+<a class="jxr_linenumber" name="L524" href="#L524">524</a>     }
+<a class="jxr_linenumber" name="L525" href="#L525">525</a> 
+<a class="jxr_linenumber" name="L526" href="#L526">526</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> BigDecimal nullIfEmptyBD(Object e) {
+<a class="jxr_linenumber" name="L527" href="#L527">527</a>         <strong class="jxr_keyword">return</strong> e == <strong class="jxr_keyword">null</strong> ? <strong class="jxr_keyword">null</strong> : <strong class="jxr_keyword">new</strong> BigDecimal(e.toString());
+<a class="jxr_linenumber" name="L528" href="#L528">528</a>     }
+<a class="jxr_linenumber" name="L529" href="#L529">529</a> 
+<a class="jxr_linenumber" name="L530" href="#L530">530</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> BigInteger nullIfEmptyBI(Object e) {
+<a class="jxr_linenumber" name="L531" href="#L531">531</a>         <strong class="jxr_keyword">return</strong> e == <strong class="jxr_keyword">null</strong> ? <strong class="jxr_keyword">null</strong> : <strong class="jxr_keyword">new</strong> BigInteger(e.toString());
+<a class="jxr_linenumber" name="L532" href="#L532">532</a>     }
+<a class="jxr_linenumber" name="L533" href="#L533">533</a> 
+<a class="jxr_linenumber" name="L534" href="#L534">534</a>     <em class="jxr_comment">// &lt;/editor-fold&gt;</em>
+<a class="jxr_linenumber" name="L535" href="#L535">535</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2017 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2018 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

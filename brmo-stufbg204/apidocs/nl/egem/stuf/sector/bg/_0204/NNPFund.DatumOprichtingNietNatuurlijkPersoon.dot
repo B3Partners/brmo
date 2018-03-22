@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.NNPFund.DatumOprichtingNietNatuurlijkPersoon
-	c114723 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPFund.DatumOprichtingNietNatuurlijkPersoon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPFund.DatumOprichtingNietNatuurlijkPersoon.html">
+	c114721 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPFund.DatumOprichtingNietNatuurlijkPersoon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPFund.DatumOprichtingNietNatuurlijkPersoon.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatumOprichtingNietNatuurlijkPersoon </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NNPFund.DatumOprichtingNietNatuurlijkPersoon.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.DatumMetIndicator
-	c114863 [label=<<table title="nl.egem.stuf.stuf0204.DatumMetIndicator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/DatumMetIndicator.html">
+	c114861 [label=<<table title="nl.egem.stuf.stuf0204.DatumMetIndicator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/DatumMetIndicator.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatumMetIndicator </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/DatumMetIndicator.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.NNPFund.DatumOprichtingNietNatuurlijkPersoon extends nl.egem.stuf.stuf0204.DatumMetIndicator
-	c114863:p -> c114723:p [dir=back,arrowtail=empty];
+	c114861:p -> c114721:p [dir=back,arrowtail=empty];
 }
 

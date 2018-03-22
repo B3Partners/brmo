@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.HHDFund
-	c64400 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HHDFund.html">
+	c64398 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HHDFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HHDFund </td></tr>
 		</table></td></tr>
 		</table>>, URL="./HHDFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.HHDKennisgeving
-	c64473 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HHDKennisgeving.html">
+	c64471 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HHDKennisgeving.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HHDKennisgeving </td></tr>
 		</table></td></tr>
 		</table>>, URL="./HHDKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.HHDKennisgeving extends nl.egem.stuf.sector.bg._0204.HHDFund
-	c64400:p -> c64473:p [dir=back,arrowtail=empty];
+	c64398:p -> c64471:p [dir=back,arrowtail=empty];
 }
 

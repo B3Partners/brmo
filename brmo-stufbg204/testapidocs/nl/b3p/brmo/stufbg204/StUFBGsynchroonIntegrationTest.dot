@@ -10,10 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.stufbg204.StUFBGsynchroonIntegrationTest
-	c5 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGsynchroonIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StUFBGsynchroonIntegrationTest.html">
+	c7 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGsynchroonIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StUFBGsynchroonIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StUFBGsynchroonIntegrationTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./StUFBGsynchroonIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.stufbg204.TestStub
+	c8 [label=<<table title="nl.b3p.brmo.stufbg204.TestStub" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestStub.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestStub </font></td></tr>
+		</table></td></tr>
+		</table>>, URL="./TestStub.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	//nl.b3p.brmo.stufbg204.StUFBGsynchroonIntegrationTest extends nl.b3p.brmo.stufbg204.TestStub
+	c8:p -> c7:p [dir=back,arrowtail=empty];
 }
 

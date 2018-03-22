@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD
-	c251735 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZKerngegevens.WOZADRHFD.html">
+	c251733 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZKerngegevens.WOZADRHFD.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZADRHFD </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WOZKerngegevens.WOZADRHFD.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
-	c251817 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRRelKerngegevens.html">
+	c251815 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRRelKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ADRRelKerngegevens </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ADRRelKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD extends nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
-	c251817:p -> c251735:p [dir=back,arrowtail=empty];
+	c251815:p -> c251733:p [dir=back,arrowtail=empty];
 }
 

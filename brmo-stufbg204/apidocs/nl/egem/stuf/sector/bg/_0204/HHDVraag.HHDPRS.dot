@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.HHDVraag.HHDPRS
-	c67990 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDVraag.HHDPRS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HHDVraag.HHDPRS.html">
+	c67988 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDVraag.HHDPRS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HHDVraag.HHDPRS.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HHDPRS </td></tr>
 		</table></td></tr>
 		</table>>, URL="./HHDVraag.HHDPRS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.HHDPRSRel
-	c68005 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDPRSRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HHDPRSRel.html">
+	c68003 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDPRSRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HHDPRSRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HHDPRSRel </td></tr>
 		</table></td></tr>
 		</table>>, URL="./HHDPRSRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.HHDVraag.HHDPRS extends nl.egem.stuf.sector.bg._0204.HHDPRSRel
-	c68005:p -> c67990:p [dir=back,arrowtail=empty];
+	c68003:p -> c67988:p [dir=back,arrowtail=empty];
 }
 

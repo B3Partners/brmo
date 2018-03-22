@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.Relatie
-	c227022 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
+	c227020 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Relatie </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Relatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOSUBGBR
-	c227133 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOSUBGBR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOKennisgeving.VBOSUBGBR.html">
+	c227131 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOSUBGBR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOKennisgeving.VBOSUBGBR.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOSUBGBR </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOKennisgeving.VBOSUBGBR.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOSUBGBR extends nl.egem.stuf.sector.bg._0204.Relatie
-	c227022:p -> c227133:p [dir=back,arrowtail=empty];
+	c227020:p -> c227131:p [dir=back,arrowtail=empty];
 }
 

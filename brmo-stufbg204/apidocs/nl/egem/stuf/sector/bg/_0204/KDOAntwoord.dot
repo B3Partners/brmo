@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.KDOAntwoord
-	c72640 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOAntwoord.html">
+	c72638 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOAntwoord.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOAntwoord </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOAntwoord.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOFund
-	c72700 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOFund.html">
+	c72698 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOFund </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.KDOAntwoord extends nl.egem.stuf.sector.bg._0204.KDOFund
-	c72700:p -> c72640:p [dir=back,arrowtail=empty];
+	c72698:p -> c72638:p [dir=back,arrowtail=empty];
 }
 

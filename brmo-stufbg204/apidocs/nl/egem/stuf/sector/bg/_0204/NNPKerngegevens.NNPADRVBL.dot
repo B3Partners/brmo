@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.NNPKerngegevens.NNPADRVBL
-	c126631 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKerngegevens.NNPADRVBL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPKerngegevens.NNPADRVBL.html">
+	c126629 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKerngegevens.NNPADRVBL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPKerngegevens.NNPADRVBL.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPADRVBL </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NNPKerngegevens.NNPADRVBL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
-	c126831 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRRelKerngegevens.html">
+	c126829 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRRelKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ADRRelKerngegevens </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ADRRelKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.NNPKerngegevens.NNPADRVBL extends nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
-	c126831:p -> c126631:p [dir=back,arrowtail=empty];
+	c126829:p -> c126629:p [dir=back,arrowtail=empty];
 }
 

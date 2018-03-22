@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.StUFBGSynchroon
-	c196307 [label=<<table title="nl.egem.stuf.sector.bg._0204.StUFBGSynchroon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StUFBGSynchroon.html">
+	c196305 [label=<<table title="nl.egem.stuf.sector.bg._0204.StUFBGSynchroon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StUFBGSynchroon.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StUFBGSynchroon </td></tr>
 		</table></td></tr>
 		</table>>, URL="./StUFBGSynchroon.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.StUFBGSynchroon extends javax.xml.ws.Service
-	c196333:p -> c196307:p [dir=back,arrowtail=empty];
+	c196331:p -> c196305:p [dir=back,arrowtail=empty];
 	// javax.xml.ws.Service
-	c196333 [label=<<table title="javax.xml.ws.Service" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c196331 [label=<<table title="javax.xml.ws.Service" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="https://download.oracle.com/javaee/7/api/javax/xml/ws/Service.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Service </td></tr>
 		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="https://download.oracle.com/javaee/7/api/javax/xml/ws/Service.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

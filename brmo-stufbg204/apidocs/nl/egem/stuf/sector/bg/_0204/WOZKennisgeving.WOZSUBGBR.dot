@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZSUBGBR
-	c250062 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZSUBGBR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZKennisgeving.WOZSUBGBR.html">
+	c250060 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZSUBGBR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZKennisgeving.WOZSUBGBR.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZSUBGBR </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WOZKennisgeving.WOZSUBGBR.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.Relatie
-	c250298 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
+	c250296 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Relatie </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Relatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZSUBGBR extends nl.egem.stuf.sector.bg._0204.Relatie
-	c250298:p -> c250062:p [dir=back,arrowtail=empty];
+	c250296:p -> c250060:p [dir=back,arrowtail=empty];
 }
 

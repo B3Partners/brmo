@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerkrijgingVerblijfstitel
-	c153725 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerkrijgingVerblijfstitel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSFund.DatumVerkrijgingVerblijfstitel.html">
+	c153723 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerkrijgingVerblijfstitel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSFund.DatumVerkrijgingVerblijfstitel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatumVerkrijgingVerblijfstitel </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSFund.DatumVerkrijgingVerblijfstitel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.DatumMetIndicator
-	c153825 [label=<<table title="nl.egem.stuf.stuf0204.DatumMetIndicator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/DatumMetIndicator.html">
+	c153823 [label=<<table title="nl.egem.stuf.stuf0204.DatumMetIndicator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/DatumMetIndicator.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatumMetIndicator </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/DatumMetIndicator.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerkrijgingVerblijfstitel extends nl.egem.stuf.stuf0204.DatumMetIndicator
-	c153825:p -> c153725:p [dir=back,arrowtail=empty];
+	c153823:p -> c153723:p [dir=back,arrowtail=empty];
 }
 

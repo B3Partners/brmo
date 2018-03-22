@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSKND
-	c176355 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSKND" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSVraag.PRSPRSKND.html">
+	c176353 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSKND" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSVraag.PRSPRSKND.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSKND </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSVraag.PRSPRSKND.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSPRSKNDRel
-	c176548 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSKNDRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSPRSKNDRel.html">
+	c176546 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSKNDRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSPRSKNDRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSKNDRel </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSPRSKNDRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSKND extends nl.egem.stuf.sector.bg._0204.PRSPRSKNDRel
-	c176548:p -> c176355:p [dir=back,arrowtail=empty];
+	c176546:p -> c176353:p [dir=back,arrowtail=empty];
 }
 

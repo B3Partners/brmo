@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.NNPVraag
-	c128776 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPVraag.html">
+	c128774 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPVraag.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPVraag </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NNPVraag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPFund
-	c128884 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPFund.html">
+	c128882 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPFund </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NNPFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.NNPVraag extends nl.egem.stuf.sector.bg._0204.NNPFund
-	c128884:p -> c128776:p [dir=back,arrowtail=empty];
+	c128882:p -> c128774:p [dir=back,arrowtail=empty];
 }
 

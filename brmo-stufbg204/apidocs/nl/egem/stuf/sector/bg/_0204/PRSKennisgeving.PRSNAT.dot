@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.PRSNATRel
-	c161943 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSNATRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSNATRel.html">
+	c161941 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSNATRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSNATRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSNATRel </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSNATRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSNAT
-	c162211 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSNAT" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSKennisgeving.PRSNAT.html">
+	c162209 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSNAT" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSKennisgeving.PRSNAT.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSNAT </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSKennisgeving.PRSNAT.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSNAT extends nl.egem.stuf.sector.bg._0204.PRSNATRel
-	c161943:p -> c162211:p [dir=back,arrowtail=empty];
+	c161941:p -> c162209:p [dir=back,arrowtail=empty];
 }
 

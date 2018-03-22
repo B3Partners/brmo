@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.HHDFund
-	c66930 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HHDFund.html">
+	c66928 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HHDFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HHDFund </td></tr>
 		</table></td></tr>
 		</table>>, URL="./HHDFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.HHDVraag
-	c66976 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HHDVraag.html">
+	c66974 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HHDVraag.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HHDVraag </td></tr>
 		</table></td></tr>
 		</table>>, URL="./HHDVraag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.HHDVraag extends nl.egem.stuf.sector.bg._0204.HHDFund
-	c66930:p -> c66976:p [dir=back,arrowtail=empty];
+	c66928:p -> c66974:p [dir=back,arrowtail=empty];
 }
 

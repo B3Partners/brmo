@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.OBWAntwoord
-	c130649 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OBWAntwoord.html">
+	c130647 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OBWAntwoord.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OBWAntwoord </td></tr>
 		</table></td></tr>
 		</table>>, URL="./OBWAntwoord.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.OBWFund
-	c130737 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWFund.html">
+	c130735 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OBWFund </td></tr>
 		</table></td></tr>
 		</table>>, URL="./OBWFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.OBWAntwoord extends nl.egem.stuf.sector.bg._0204.OBWFund
-	c130737:p -> c130649:p [dir=back,arrowtail=empty];
+	c130735:p -> c130647:p [dir=back,arrowtail=empty];
 }
 

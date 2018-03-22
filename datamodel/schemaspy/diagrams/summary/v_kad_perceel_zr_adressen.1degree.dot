@@ -1,0 +1,56 @@
+// dot 2.38.0 on Linux 4.13.0-37-generic
+// SchemaSpy rev Unknown
+digraph "v_kad_perceel_zr_adressen" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "v_kad_perceel_zr_adressen" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">v_kad_perceel_zr_adressen</TD></TR>
+      <TR><TD PORT="objectid" COLSPAN="3" ALIGN="LEFT">objectid</TD></TR>
+      <TR><TD PORT="sc_kad_identif" COLSPAN="3" ALIGN="LEFT">sc_kad_identif</TD></TR>
+      <TR><TD PORT="begrenzing_perceel" COLSPAN="3" ALIGN="LEFT">begrenzing_perceel</TD></TR>
+      <TR><TD PORT="aanduiding" COLSPAN="3" ALIGN="LEFT">aanduiding</TD></TR>
+      <TR><TD PORT="grootte_perceel" COLSPAN="3" ALIGN="LEFT">grootte_perceel</TD></TR>
+      <TR><TD PORT="straat" COLSPAN="3" ALIGN="LEFT">straat</TD></TR>
+      <TR><TD PORT="huisnummer" COLSPAN="3" ALIGN="LEFT">huisnummer</TD></TR>
+      <TR><TD PORT="huisletter" COLSPAN="3" ALIGN="LEFT">huisletter</TD></TR>
+      <TR><TD PORT="toevoeging" COLSPAN="3" ALIGN="LEFT">toevoeging</TD></TR>
+      <TR><TD PORT="postcode" COLSPAN="3" ALIGN="LEFT">postcode</TD></TR>
+      <TR><TD PORT="woonplaats" COLSPAN="3" ALIGN="LEFT">woonplaats</TD></TR>
+      <TR><TD PORT="aandeel_teller" COLSPAN="3" ALIGN="LEFT">aandeel_teller</TD></TR>
+      <TR><TD PORT="aandeel_noemer" COLSPAN="3" ALIGN="LEFT">aandeel_noemer</TD></TR>
+      <TR><TD PORT="aard_recht_aand" COLSPAN="3" ALIGN="LEFT">aard_recht_aand</TD></TR>
+      <TR><TD PORT="soort_eigenaar" COLSPAN="3" ALIGN="LEFT">soort_eigenaar</TD></TR>
+      <TR><TD PORT="geslachtsnaam" COLSPAN="3" ALIGN="LEFT">geslachtsnaam</TD></TR>
+      <TR><TD PORT="voorvoegsel" COLSPAN="3" ALIGN="LEFT">voorvoegsel</TD></TR>
+      <TR><TD PORT="voornamen" COLSPAN="3" ALIGN="LEFT">voornamen</TD></TR>
+      <TR><TD PORT="geslacht" COLSPAN="3" ALIGN="LEFT">geslacht</TD></TR>
+      <TR><TD PORT="woonadres" COLSPAN="3" ALIGN="LEFT">woonadres</TD></TR>
+      <TR><TD PORT="geboortedatum" COLSPAN="3" ALIGN="LEFT">geboortedatum</TD></TR>
+      <TR><TD PORT="geboorteplaats" COLSPAN="3" ALIGN="LEFT">geboorteplaats</TD></TR>
+      <TR><TD PORT="overlijdensdatum" COLSPAN="3" ALIGN="LEFT">overlijdensdatum</TD></TR>
+      <TR><TD PORT="naam_niet_natuurlijk_persoon" COLSPAN="3" ALIGN="LEFT">naam_niet_natuurlijk_persoon</TD></TR>
+      <TR><TD PORT="rechtsvorm" COLSPAN="3" ALIGN="LEFT">rechtsvorm</TD></TR>
+      <TR><TD PORT="statutaire_zetel" COLSPAN="3" ALIGN="LEFT">statutaire_zetel</TD></TR>
+      <TR><TD PORT="kvk_nummer" COLSPAN="3" ALIGN="LEFT">kvk_nummer</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">view</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/v_kad_perceel_zr_adressen.html"
+    tooltip="v_kad_perceel_zr_adressen"
+  ];
+}
