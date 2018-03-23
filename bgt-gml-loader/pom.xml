@@ -11,6 +11,7 @@
         <version>1.5.3-SNAPSHOT</version>
     </parent>
     <name>BRMO BGT GML loader</name>
+    <description>BGT GML light module voor de BRMO loader</description>
     <build>
         <testResources>
             <!-- copy main (xsd's) + test resources -> target/test-classes -->

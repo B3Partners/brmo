@@ -23,10 +23,12 @@
     <links>
       <item name="Wiki" href="https://github.com/B3Partners/brmo/wiki" />
       <item name="Issues dashboard" href="${this.issueManagement.url}" />
-      <item name="Developer Notes" href="/development.html" />
     </links>
     <menu name="Informatie">
       <item name="Home" href="/index.html" />
+    </menu>
+    <menu name="RSGB">
+      <item name="RSGB datamodel" href="/schemaspy/index.html" />
     </menu>
     <menu ref="parent" />
     <menu ref="modules" />
