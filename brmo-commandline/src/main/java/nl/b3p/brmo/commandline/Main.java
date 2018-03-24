@@ -23,6 +23,8 @@ import java.util.zip.ZipOutputStream;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.sql.DataSource;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.RsgbProxy;
@@ -47,6 +49,7 @@ import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import org.apache.commons.io.FileUtils;
 import org.geotools.factory.GeoTools;
 import org.geotools.util.logging.Logging;
+import org.stripesstuff.stripersist.Stripersist;
 
 /**
  * run:
@@ -175,14 +178,18 @@ public class Main {
 
         try {
             dbProps.load(new FileInputStream(cl.getOptionValue("dbprops")));
+            String persistenceUnit = "";
             switch (dbProps.getProperty("dbtype")) {
                 case "oracle":
+                    persistenceUnit = "brmo.persistence.oracle";
                     Class.forName("oracle.jdbc.OracleDriver");
                     break;
                 case "postgis":
+                    persistenceUnit = "brmo.persistence.postgresql";
                     Class.forName("org.postgresql.Driver");
                     break;
                 case "jtds-sqlserver":
+                    persistenceUnit = "brmo.persistence.microsoftsqlserver";
                     Class.forName("net.sourceforge.jtds.jdbc.Driver");
                     break;
                 default:
@@ -197,7 +204,7 @@ public class Main {
             dsStaging.setConnectionProperties(dbProps.getProperty("staging.options", ""));
 
             // alleen rsgb verbinding maken als nodig
-            if (cl.hasOption("torsgb") || cl.hasOption("versieinfo")) {
+            if (cl.hasOption("torsgb") || cl.hasOption("versieinfo") || cl.hasOption("proces")) {
                 LOG.info("Verbinding maken met RSGB database... ");
                 dsRsgb = new BasicDataSource();
                 dsRsgb.setUrl(dbProps.getProperty("rsgb.url"));
@@ -207,7 +214,7 @@ public class Main {
             }
 
             // alleen rsgbbgt verbinding maken als nodig
-            if (cl.hasOption("versieinfo") || cl.hasOption("torsgbbgt")) {
+            if (cl.hasOption("versieinfo") || cl.hasOption("torsgbbgt") || cl.hasOption("proces")) {
                 LOG.info("Verbinding maken met RSGB BGT database... ");
                 dsRsgbbgt = new BasicDataSource();
                 dsRsgbbgt.setUrl(dbProps.getProperty("rsgbbgt.url"));
@@ -248,6 +255,8 @@ public class Main {
             // alle schema's / databases
             else if (cl.hasOption("versieinfo")) {
                 exitcode = versieInfo(dsStaging, dsRsgb, dsRsgbbgt, cl.getOptionValue("versieinfo", "text"));
+            } else if (cl.hasOption("proces")) {
+                exitcode = executeProces(dsStaging, dsRsgb, dsRsgbbgt, cl.getOptionValue("proces"), persistenceUnit);
             }
         } catch (BrmoException | InterruptedException ex) {
             LOG.error("Fout tijdens uitvoeren met argumenten: " + Arrays.toString(args), ex);
@@ -617,6 +626,21 @@ public class Main {
                 LOG.error(String.format("Bestand %s is NIET naar archief %s verplaatst, oorzaak: (%s).", fileName, archiefDirectory, e.getLocalizedMessage()));
             }
         }
+
+        LOG.debug("Opzoeken automatisch proces: " + id);
+        EntityManager entityManager = Persistence.createEntityManagerFactory(persistenceUnit).createEntityManager();
+        AutomatischProces proces = entityManager.find(AutomatischProces.class, Long.parseLong(id));
+
+        Stripersist.requestInit();
+
+        LOG.debug("Gevonden automatisch proces: " + proces);
+        ProcesExecutable exeProces = AbstractExecutableProces.getProces(proces);
+        LOG.debug("Uitvoeren automatisch proces: " + exeProces);
+        exeProces.execute();
+
+        Stripersist.requestComplete();
+
+        return exitcode;
     }
 
     static enum sysexits {
