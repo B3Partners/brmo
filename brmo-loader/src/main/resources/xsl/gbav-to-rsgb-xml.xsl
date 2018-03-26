@@ -94,45 +94,46 @@
 
     <!-- maak de ouder-kind relatie en comfortdata ouder/persoon aan -->
     <xsl:template name="ouder">
-        <xsl:variable name="snapshot-date">
-            <xsl:call-template name="snapshot-date" />
-        </xsl:variable>
-        <xsl:call-template name="comfortPerson">
-            <xsl:with-param name="snapshot-date" select="$snapshot-date" />
-            <xsl:with-param name="bsn-nummer" select="./rubrieken/rubriek[nummer='0120']/waarde" />
-            <xsl:with-param name="clazz" select='"NATUURLIJK PERSOON"' />
-        </xsl:call-template>
-        <!-- cat. 02 en 03 (ouder1 en ouder2) -->
-        <ouder_kind_rel>
-            <fk_sc_lh_inp_sc_identif>
-                <xsl:value-of select="$objectRef" />
-            </fk_sc_lh_inp_sc_identif>
-            <fk_sc_rh_inp_sc_identif>
-                <xsl:call-template name="getHash">
-                    <xsl:with-param name="bsn" select="./rubrieken/rubriek[nummer='0120']/waarde" />
-                </xsl:call-template>
-            </fk_sc_rh_inp_sc_identif>
-            <datum_einde_fam_recht_betr>
-                <!--TODO <xsl:value-of select="einddatum"/>-->
-            </datum_einde_fam_recht_betr>
-            <datum_ingang_fam_recht_betr>
-                <xsl:value-of select="./rubrieken/rubriek[nummer='6210']/waarde" />
-            </datum_ingang_fam_recht_betr>
-            <ouder_aand>
-                <xsl:value-of select="'OUDER'" />
-            </ouder_aand>
-        </ouder_kind_rel>
-        <!-- TODO
-             <brondocument ignore-duplicates="yes">
-             <tabel>OUDER_KIND_REL</tabel>
-             <tabel_identificatie><xsl:value-of select="$objectRef"/></tabel_identificatie>
-             <identificatie></identificatie>
-             <gemeente></gemeente>
-             <omschrijving></omschrijving>
-             <datum></datum>
-             <ref_id></ref_id>
-             </brondocument>
-        -->
+        <!-- als bsn niet gevuld is kunnen we geen unieke sleutel maken voor deze (comfort) persoon, dus dan overslaan -->
+        <xsl:if test="./rubrieken/rubriek[nummer='0120']/waarde != ''">
+            <xsl:variable name="snapshot-date">
+                <xsl:call-template name="snapshot-date" />
+            </xsl:variable>
+            <xsl:call-template name="comfortPerson">
+                <xsl:with-param name="snapshot-date" select="$snapshot-date" />
+                <xsl:with-param name="bsn-nummer" select="./rubrieken/rubriek[nummer='0120']/waarde" />
+                <xsl:with-param name="clazz" select='"NATUURLIJK PERSOON"' />
+            </xsl:call-template>
+            <!-- categorie 02 en 03 (ouder1 en ouder2) -->
+            <ouder_kind_rel>
+                <fk_sc_lh_inp_sc_identif>
+                    <xsl:value-of select="$objectRef" />
+                </fk_sc_lh_inp_sc_identif>
+                <fk_sc_rh_inp_sc_identif>
+                    <xsl:call-template name="getHash">
+                        <xsl:with-param name="bsn" select="./rubrieken/rubriek[nummer='0120']/waarde" />
+                    </xsl:call-template>
+                </fk_sc_rh_inp_sc_identif>
+                <!--<datum_einde_fam_recht_betr><xsl:value-of select="./rubrieken/rubriek[nummer='TODO']/waarde"/></datum_einde_fam_recht_betr>-->
+                <datum_ingang_fam_recht_betr>
+                    <xsl:value-of select="./rubrieken/rubriek[nummer='6210']/waarde" />
+                </datum_ingang_fam_recht_betr>
+                <ouder_aand>
+                    <xsl:value-of select="'OUDER'" />
+                </ouder_aand>
+            </ouder_kind_rel>
+            <!-- TODO
+                 <brondocument ignore-duplicates="yes">
+                 <tabel>OUDER_KIND_REL</tabel>
+                 <tabel_identificatie><xsl:value-of select="$objectRef"/></tabel_identificatie>
+                 <identificatie></identificatie>
+                 <gemeente></gemeente>
+                 <omschrijving></omschrijving>
+                 <datum></datum>
+                 <ref_id></ref_id>
+                 </brondocument>
+            -->
+        </xsl:if>
     </xsl:template>
 
     <!-- maak de ouder-kind relatie en comfortdata kind/persoon aan -->
@@ -155,9 +156,7 @@
                     <xsl:with-param name="bsn" select="./rubrieken/rubriek[nummer='0120']/waarde" />
                 </xsl:call-template>
             </fk_sc_rh_inp_sc_identif>
-            <datum_einde_fam_recht_betr>
-                <!--TODO -->
-            </datum_einde_fam_recht_betr>
+            <!--<datum_einde_fam_recht_betr><xsl:value-of select="./rubrieken/rubriek[nummer='TODO']/waarde"/></datum_einde_fam_recht_betr>-->
             <datum_ingang_fam_recht_betr>
                 <!--TODO / CHECK -->
                 <xsl:value-of select="./rubrieken/rubriek[nummer='6210']/waarde" />
@@ -408,7 +407,6 @@
                 <datum_opschorting_bijhouding>
                     <xsl:value-of select="../categorie[nummer='07']/rubrieken/rubriek[nummer='6710']/waarde" />
                 </datum_opschorting_bijhouding>
-
 
                 <!-- in categorie 08??
                     08.11 ?? fk_va_3_vbo_sc_identif character varying(16), - [FK] AN16, FK naar verblijfsobj.sc_identif (is FK naar superclass BENOEMD OBJECT): "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.verblijfsobject"
