@@ -4,7 +4,6 @@
     <!-- @see nl.b3p.brmo.loader.xml.GbavXMLReader#PREFIX -->
     <xsl:variable name="PREFIX" select="'NL.GBA.Persoon.'" />
     <xsl:param name="objectRef" select="concat($PREFIX,'onbekend')" />
-    <!--<xsl:param name="datum" select="java:format(java:java.text.SimpleDateFormat.new('yyyy-MM-dd'), java:java.util.Date.new())" />-->
     <xsl:param name="datum" />
     <xsl:param name="volgordeNummer" select="'0'" />
     <xsl:param name="soort" select="'gbav'" />
@@ -28,6 +27,7 @@
             </data>
         </root>
     </xsl:template>
+
     <xsl:template name="persoon" match="persoon">
         <xsl:for-each select="./categorieen/categorie">
             <xsl:comment>
@@ -112,7 +112,9 @@
                     <xsl:with-param name="bsn" select="./rubrieken/rubriek[nummer='0120']/waarde" />
                 </xsl:call-template>
             </fk_sc_rh_inp_sc_identif>
-            <datum_einde_fam_recht_betr><!--TODO <xsl:value-of select="einddatum"/>--></datum_einde_fam_recht_betr>
+            <datum_einde_fam_recht_betr>
+                <!--TODO <xsl:value-of select="einddatum"/>-->
+            </datum_einde_fam_recht_betr>
             <datum_ingang_fam_recht_betr>
                 <xsl:value-of select="./rubrieken/rubriek[nummer='6210']/waarde" />
             </datum_ingang_fam_recht_betr>
@@ -153,7 +155,9 @@
                     <xsl:with-param name="bsn" select="./rubrieken/rubriek[nummer='0120']/waarde" />
                 </xsl:call-template>
             </fk_sc_rh_inp_sc_identif>
-            <datum_einde_fam_recht_betr><!--TODO --></datum_einde_fam_recht_betr>
+            <datum_einde_fam_recht_betr>
+                <!--TODO -->
+            </datum_einde_fam_recht_betr>
             <datum_ingang_fam_recht_betr>
                 <!--TODO / CHECK -->
                 <xsl:value-of select="./rubrieken/rubriek[nummer='6210']/waarde" />
@@ -234,7 +238,7 @@
         -->
     </xsl:template>
 
-    <!-- maak de tabbellen voor een persoon (subject, prs, nat_prs, ingeschr_nat_prs -->
+    <!-- maak de tabellen voor een persoon (subject, prs, nat_prs, ingeschr_nat_prs -->
     <xsl:template name="maakPersoon">
         <!-- sc identif NL.GBA.Persoon.[BSN HexHash] -->
         <xsl:param name="key" />
@@ -339,19 +343,14 @@
             <a_nummer>
                 <xsl:value-of select="$rubrieken/rubriek[nummer='0110']/waarde" />
             </a_nummer>
-
             <bsn>
                 <xsl:value-of select="$rubrieken/rubriek[nummer='0120']/waarde" />
             </bsn>
             <!--
                 burgerlijke_staat numeric(1,0), - N1 - Burgerlijke staat
-
-
-
-
             -->
             <gb_geboortedatum>
-                <xsl:value-of select="$rubrieken/rubriek[nummer='0306']/waarde" />
+                <xsl:value-of select="$rubrieken/rubriek[nummer='0310']/waarde" />
             </gb_geboortedatum>
             <gb_geboorteplaats>
                 <!-- waarde is de plaats code met voorloop-0, dus neem omschrijving en clip naar varchar40 -->
@@ -365,10 +364,12 @@
             <xsl:if test="$key = $objectRef">
                 <!-- in categorie 04 -->
                 <nt_aand_bijzonder_nlschap>
-                    <xsl:value-of select="number(../categorie[nummer='04']/rubrieken/rubriek[nummer='6510']/waarde)" />
+                    <xsl:value-of select="../categorie[nummer='04']/rubrieken/rubriek[nummer='6510']/waarde" />
                 </nt_aand_bijzonder_nlschap>
                 <fk_nt_nat_code>
-                    <xsl:value-of select="number(../categorie[nummer='04']/rubrieken/rubriek[nummer='0510']/waarde)" />
+                    <xsl:if test="../categorie[nummer='04']/rubrieken/rubriek[nummer='0510']/waarde != ''">
+                        <xsl:value-of select="number(../categorie[nummer='04']/rubrieken/rubriek[nummer='0510']/waarde)" />
+                    </xsl:if>
                 </fk_nt_nat_code>
                 <!-- fk_3nat_code numeric(4,0), - "Referentielijst INGESCHREVEN NATUURLIJK PERSOON.Buitenlandse nationaliteit"
                 <fk_3nat_code><xsl:value-of select="number(../categorie[nummer='04']/rubrieken/rubriek[nummer='TODO']/waarde)" /></fk_3nat_code> -->
@@ -429,11 +430,13 @@
                 </va_adresherkomst>
                 <fk_va_5_nra_sc_identif>
                     <!--  [FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.nummeraanduiding" -->
+                    <!-- BAG id -->
                     <xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='1190']/waarde" />
                 </fk_va_5_nra_sc_identif>
                 <fk_va_6_wpl_identif>
                     <!--  [FK] AN4, FK naar wnplts.identif: "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.woonplaats" -->
-                    <xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='1180']/waarde" />
+                    <!-- BAG id <xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='1180']/waarde" />-->
+                    <xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='1170']/waarde" />
                 </fk_va_6_wpl_identif>
                 <gemeente_van_inschrijving>
                     <xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='0910']/waarde" />
@@ -474,6 +477,7 @@
     </xsl:template>
 
     <xsl:template name="rsdoc">
+        <xsl:if test="./rubrieken/rubriek[nummer='3520']/waarde != ''">
         <rsdoc>
             <fk_7rds_rsdoccode>
                 <xsl:value-of select="./rubrieken/rubriek[nummer='3510']/waarde" />
@@ -509,6 +513,18 @@
                 <xsl:value-of select="$objectRef" />
             </fk_nn_rh_inp_sc_identif>
         </rsdoc_ingeschr_nat_prs>
+        </xsl:if>
+        <!--
+        <brondocument>
+            <tabel></tabel>
+            <tabel_identificatie></tabel_identificatie>
+            <identificatie></identificatie>
+            <gemeente></gemeente>
+            <omschrijving></omschrijving>
+            <datum></datum>
+            <ref_id></ref_id>
+        </brondocument>
+        -->
     </xsl:template>
 
     <!-- zoek hash op in mapping tabel -->

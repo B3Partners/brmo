@@ -67,7 +67,9 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
     public static Collection params() {
         return Arrays.asList(new Object[][]{
             // {"type","filename", aantalBerichten, aantalLaadProcessen, aantalSubject, aNummer, bsnNummer, achterNaam, aandNaamgebruik, geslacht},
-            {"gbav", "/nl/b3p/brmo/loader/xml/gbav-voorbeeld.xml", 1, 1, 2, "5054783237", "123459916", "Kumari", "E", "V"},});
+            {"gbav", "/nl/b3p/brmo/loader/xml/gbav-voorbeeld.xml", 1, 1, 2, "5054783237", "123459916", "Kumari", "E", "V"},
+            {"gbav", "/nl/b3p/brmo/loader/xml/fictieve-persoonslijst-brp.xml", 1, 1, 3, "1234567890", "987654321", "Jansen", "E", "M"}
+        });
     }
 
     private static final Log LOG = LogFactory.getLog(GBAVXMLToStagingIntegrationTest.class);
