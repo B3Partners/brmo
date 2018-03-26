@@ -65,6 +65,9 @@
                 <!-- Verblijfstitel /persoon/categorieen/categorie/nummer == 10-->
                 <!-- Gezag /persoon/categorieen/categorie/nummer == 11-->
                 <!-- Reisdocument /persoon/categorieen/categorie/nummer == 12-->
+                <xsl:when test="./nummer = '12'">
+                    <xsl:call-template name="rsdoc" />
+                </xsl:when>
                 <!-- Kiesrecht /persoon/categorieen/categorie/nummer == 13-->
             </xsl:choose>
         </xsl:for-each>
@@ -345,7 +348,7 @@
 
 
 
-                fk_1rsd_nummer character varying(9), - [FK] AN9, FK naar rsdoc.nummer
+
             -->
             <gb_geboortedatum>
                 <xsl:value-of select="$rubrieken/rubriek[nummer='0306']/waarde" />
@@ -455,6 +458,9 @@
                 -->
 
                 <!-- in categorie 12-->
+                <fk_1rsd_nummer>
+                    <xsl:value-of select="../categorie[nummer='12']/rubrieken/rubriek[nummer='3520']/waarde" />
+                </fk_1rsd_nummer>
                 <btnlnds_rsdoc>
                     <xsl:value-of select="../categorie[nummer='12']/rubrieken/rubriek[nummer='3710']/waarde" />
                 </btnlnds_rsdoc>
@@ -465,6 +471,44 @@
             </xsl:if>
 
         </ingeschr_nat_prs>
+    </xsl:template>
+
+    <xsl:template name="rsdoc">
+        <rsdoc>
+            <fk_7rds_rsdoccode>
+                <xsl:value-of select="./rubrieken/rubriek[nummer='3510']/waarde" />
+            </fk_7rds_rsdoccode>
+            <nummer>
+                <xsl:value-of select="./rubrieken/rubriek[nummer='3520']/waarde" />
+            </nummer>
+            <datum_uitgifte>
+                <xsl:value-of select="./rubrieken/rubriek[nummer='3530']/waarde" />
+            </datum_uitgifte>
+            <autoriteit_uitgifte>
+                <xsl:value-of select="./rubrieken/rubriek[nummer='3540']/waarde" />
+            </autoriteit_uitgifte>
+            <eindd_geldh_document>
+                <xsl:value-of select="./rubrieken/rubriek[nummer='3550']/waarde" />
+            </eindd_geldh_document>
+            <datum_inhouding_of_vermissing>
+                <xsl:value-of select="./rubrieken/rubriek[nummer='3560']/waarde" />
+            </datum_inhouding_of_vermissing>
+            <aand_inhouding_of_vermissing>
+                <xsl:value-of select="./rubrieken/rubriek[nummer='3570']/waarde" />
+            </aand_inhouding_of_vermissing>
+            <lengte_houder>
+                <xsl:value-of select="./rubrieken/rubriek[nummer='3580']/waarde" />
+            </lengte_houder>
+        </rsdoc>
+
+        <rsdoc_ingeschr_nat_prs>
+            <fk_nn_lh_rsd_nummer>
+                <xsl:value-of select="./rubrieken/rubriek[nummer='3520']/waarde" />
+            </fk_nn_lh_rsd_nummer>
+            <fk_nn_rh_inp_sc_identif>
+                <xsl:value-of select="$objectRef" />
+            </fk_nn_rh_inp_sc_identif>
+        </rsdoc_ingeschr_nat_prs>
     </xsl:template>
 
     <!-- zoek hash op in mapping tabel -->
