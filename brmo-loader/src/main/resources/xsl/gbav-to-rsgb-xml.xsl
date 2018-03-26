@@ -9,6 +9,8 @@
     <xsl:param name="volgordeNummer" select="'0'" />
     <xsl:param name="soort" select="'gbav'" />
     <xsl:param name="rsgb-version" select="2.2" />
+    <!-- NB net als voor een aantal andere berihten kunnen landcodes op dit moment niet verwerkt worden omdat rsgb iso codes
+    hanteert en niet NL-overheid-landcodes -->
     <xsl:template match="/">
         <root>
             <xsl:comment>
@@ -41,26 +43,29 @@
                         <xsl:with-param name="clazz" select='"INGESCHREVEN NATUURLIJK PERSOON"' />
                     </xsl:call-template>
                 </xsl:when>
+                <!-- Ouder1 /persoon/categorieen/categorie/nummer == 02-->
                 <xsl:when test="./nummer = '02'">
                     <xsl:call-template name="ouder" />
                 </xsl:when>
+                <!-- Ouder2 /persoon/categorieen/categorie/nummer == 03-->
                 <xsl:when test="./nummer = '03'">
                     <xsl:call-template name="ouder" />
                 </xsl:when>
-                <!--/persoon/categorieen/categorie/nummer == 04-->
+                <!-- Nationaliteit ed. /persoon/categorieen/categorie/nummer == 04-->
+                <!-- Huwelijk /persoon/categorieen/categorie/nummer == 05-->
                 <xsl:when test="./nummer = '05'">
                     <xsl:call-template name="partner" />
                 </xsl:when>
-                <!--/persoon/categorieen/categorie/nummer == 06-->
-                <!--/persoon/categorieen/categorie/nummer == 07-->
-                <!--/persoon/categorieen/categorie/nummer == 08-->
+                <!-- Overlijden ed. /persoon/categorieen/categorie/nummer == 06-->
+                <!-- Inschrijving  /persoon/categorieen/categorie/nummer == 07-->
+                <!-- Verblijfplaats gegevens ed. /persoon/categorieen/categorie/nummer == 08-->
                 <xsl:when test="./nummer = '09'">
                     <xsl:call-template name="kind" />
                 </xsl:when>
-                <!--/persoon/categorieen/categorie/nummer == 10-->
-                <!--/persoon/categorieen/categorie/nummer == 11-->
-                <!--/persoon/categorieen/categorie/nummer == 12-->
-                <!--/persoon/categorieen/categorie/nummer == 13-->
+                <!-- Verblijfstitel /persoon/categorieen/categorie/nummer == 10-->
+                <!-- Gezag /persoon/categorieen/categorie/nummer == 11-->
+                <!-- Reisdocument /persoon/categorieen/categorie/nummer == 12-->
+                <!-- Kiesrecht /persoon/categorieen/categorie/nummer == 13-->
             </xsl:choose>
         </xsl:for-each>
     </xsl:template>
@@ -331,16 +336,52 @@
             <a_nummer>
                 <xsl:value-of select="$rubrieken/rubriek[nummer='0110']/waarde" />
             </a_nummer>
-            <xsl:if test="$key = $objectRef">
-                <!-- alleen voor authentieke persoon, niet voor comfort data persoon -->
 
-                <!-- in categorie 12-->
-                <btnlnds_rsdoc>
-                    <xsl:value-of select="../categorie[nummer='12']/rubrieken/rubriek[nummer='3710']/waarde" />
-                </btnlnds_rsdoc>
-                <signalering_rsdoc>
-                    <xsl:value-of select="../categorie[nummer='12']/rubrieken/rubriek[nummer='3610']/waarde" />
-                </signalering_rsdoc>
+            <bsn>
+                <xsl:value-of select="$rubrieken/rubriek[nummer='0120']/waarde" />
+            </bsn>
+            <!--
+                burgerlijke_staat numeric(1,0), - N1 - Burgerlijke staat
+
+
+
+                fk_1rsd_nummer character varying(9), - [FK] AN9, FK naar rsdoc.nummer
+            -->
+            <gb_geboortedatum>
+                <xsl:value-of select="$rubrieken/rubriek[nummer='0306']/waarde" />
+            </gb_geboortedatum>
+            <gb_geboorteplaats>
+                <!-- waarde is de plaats code met voorloop-0, dus neem omschrijving en clip naar varchar40 -->
+                <xsl:value-of select="substring($rubrieken/rubriek[nummer='0320']/omschrijving,1,40)" />
+            </gb_geboorteplaats>
+            <!-- TODO dit werkt niet omdat GBA niet de iso code levert, maar naam of 4-cijfer code
+            <fk_gb_lnd_code_iso><xsl:value-of select="$rubrieken/rubriek[nummer='0330']/waarde" /></fk_gb_lnd_code_iso>
+            -->
+
+            <!-- onderstaande alleen voor authentieke persoon, niet voor comfort data persoon -->
+            <xsl:if test="$key = $objectRef">
+                <!-- in categorie 04 -->
+                <nt_aand_bijzonder_nlschap>
+                    <xsl:value-of select="number(../categorie[nummer='04']/rubrieken/rubriek[nummer='6510']/waarde)" />
+                </nt_aand_bijzonder_nlschap>
+                <fk_nt_nat_code>
+                    <xsl:value-of select="number(../categorie[nummer='04']/rubrieken/rubriek[nummer='0510']/waarde)" />
+                </fk_nt_nat_code>
+                <!-- fk_3nat_code numeric(4,0), - "Referentielijst INGESCHREVEN NATUURLIJK PERSOON.Buitenlandse nationaliteit"
+                <fk_3nat_code><xsl:value-of select="number(../categorie[nummer='04']/rubrieken/rubriek[nummer='TODO']/waarde)" /></fk_3nat_code> -->
+                <nt_reden_verkr_nlse_nation>
+                    <xsl:value-of select="../categorie[nummer='04']/rubrieken/rubriek[nummer='6310']/waarde" />
+                </nt_reden_verkr_nlse_nation>
+                <nt_reden_verlies_nlse_nation>
+                    <xsl:value-of select="../categorie[nummer='04']/rubrieken/rubriek[nummer='6410']/waarde" />
+                </nt_reden_verlies_nlse_nation>
+                <datum_verkr_nation>
+                    <xsl:value-of select="../categorie[nummer='04']/rubrieken/rubriek[nummer='8510']/waarde" />
+                </datum_verkr_nation>
+                <datum_verlies_nation>
+                    <xsl:value-of select="../categorie[nummer='04']/rubrieken/rubriek[nummer='8510']/waarde" />
+                </datum_verlies_nation>
+
 
                 <!-- in categorie 06 -->
                 <!-- TODO dit werkt niet omdat GBA niet de iso code levert, maar naam of 4-cijfer code
@@ -360,22 +401,23 @@
                 <reden_opschorting_bijhouding>
                     <xsl:value-of select="../categorie[nummer='07']/rubrieken/rubriek[nummer='6720']/waarde" />
                 </reden_opschorting_bijhouding>
+                <datum_opschorting_bijhouding>
+                    <xsl:value-of select="../categorie[nummer='07']/rubrieken/rubriek[nummer='6710']/waarde" />
+                </datum_opschorting_bijhouding>
 
-                <!-- in categorie 08
-                     08.14.10 fk_17lnd_code_iso character varying(2), - [FK] A2, FK naar land.code_iso: "Referentielijst INGESCHREVEN NATUURLIJK PERSOON.Land vanwaar ingeschreven"
-                     08.13.10 fk_18lnd_code_iso character varying(2), - [FK] A2, FK naar land.code_iso: "Referentielijst INGESCHREVEN NATUURLIJK PERSOON.Land waarnaar vertrokken"
-                     08.12.10 va_loc_beschrijving character varying(255), - Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.Locatie beschrijving - Locatie beschrijving
-                     08.10.10 va_adresherkomst character varying(1), - Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.Adresherkomst - Adresherkomst
-                     08.11 ?? fk_va_3_vbo_sc_identif character varying(16), - [FK] AN16, FK naar verblijfsobj.sc_identif (is FK naar superclass BENOEMD OBJECT): "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.verblijfsobject"
-                     08.11 ?? fk_va_4_spl_sc_identif character varying(16), - [FK] AN16, FK naar standplaats.sc_identif (is FK naar superclass BENOEMD OBJECT): "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.standplaats"
-                     08.11.90 fk_va_5_nra_sc_identif character varying(16), - [FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.nummeraanduiding"
-                     08.12 ?? fk_va_6_wpl_identif character varying(4), - [FK] AN4, FK naar wnplts.identif: "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.woonplaats"
-                     08.11 ?? fk_va_7_lpl_sc_identif character varying(16), - [FK] AN16, FK naar ligplaats.sc_identif (is FK naar superclass BENOEMD OBJECT): "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.ligplaats"
+
+                <!-- in categorie 08??
+                    08.11 ?? fk_va_3_vbo_sc_identif character varying(16), - [FK] AN16, FK naar verblijfsobj.sc_identif (is FK naar superclass BENOEMD OBJECT): "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.verblijfsobject"
+                    08.11 ?? fk_va_4_spl_sc_identif character varying(16), - [FK] AN16, FK naar standplaats.sc_identif (is FK naar superclass BENOEMD OBJECT): "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.standplaats"
+                    08.11 ?? fk_va_7_lpl_sc_identif character varying(16), - [FK] AN16, FK naar ligplaats.sc_identif (is FK naar superclass BENOEMD OBJECT): "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.ligplaats"
+
+                    08.11.?? fk_27lpl_sc_identif character varying(16), - [FK] AN16, FK naar ligplaats.sc_identif (is FK naar superclass BENOEMD OBJECT): "verblijft op"
+                    08.11.90 fk_28nra_sc_identif character varying(16), - [FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): "is ingeschreven op"
+                    08.12.?? fk_29wpl_identif character varying(4), - [FK] AN4, FK naar wnplts.identif: "verblijft op locatie in"
+                    08.11.?? fk_30spl_sc_identif character varying(16), - [FK] AN16, FK naar standplaats.sc_identif (is FK naar superclass BENOEMD OBJECT): "verblijft op"
+                    08.11.?? fk_31vbo_sc_identif character varying(16), - [FK] AN16, FK naar verblijfsobj.sc_identif (is FK naar superclass BENOEMD OBJECT): "verblijft in"
                 -->
-                <!-- TODO dit werkt niet omdat GBA niet de iso code levert, maar naam of 4-cijfer code
-                <fk_17lnd_code_iso><xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='1410']/waarde" /></fk_17lnd_code_iso>
-                <fk_18lnd_code_iso><xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='1310']/waarde" /></fk_18lnd_code_iso>
-                -->
+
                 <va_loc_beschrijving>
                     <xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='1210']/waarde" />
                 </va_loc_beschrijving>
@@ -383,48 +425,45 @@
                     <xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='1010']/waarde" />
                 </va_adresherkomst>
                 <fk_va_5_nra_sc_identif>
+                    <!--  [FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.nummeraanduiding" -->
                     <xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='1190']/waarde" />
                 </fk_va_5_nra_sc_identif>
+                <fk_va_6_wpl_identif>
+                    <!--  [FK] AN4, FK naar wnplts.identif: "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.woonplaats" -->
+                    <xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='1180']/waarde" />
+                </fk_va_6_wpl_identif>
                 <gemeente_van_inschrijving>
                     <xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='0910']/waarde" />
                 </gemeente_van_inschrijving>
+                <dat_beg_geldh_verblijfpl>
+                    <xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='0920']/waarde" />
+                </dat_beg_geldh_verblijfpl>
+                <datum_inschrijving_in_gemeente>
+                    <xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='1030']/waarde" />
+                </datum_inschrijving_in_gemeente>
+                <datum_vertrek_uit_nederland>
+                    <xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='1320']/waarde" />
+                </datum_vertrek_uit_nederland>
+                <datum_vestg_in_nederland>
+                    <xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='1420']/waarde" />
+                </datum_vestg_in_nederland>
+                <!-- TODO dit werkt niet omdat GBA niet de iso code levert, maar naam of 4-cijfer code
+                  [FK] A2, FK naar land.code_iso: "Referentielijst INGESCHREVEN NATUURLIJK PERSOON.Land vanwaar ingeschreven
+                  <fk_17lnd_code_iso><xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='1410']/waarde" /></fk_17lnd_code_iso>
+                  [FK] A2, FK naar land.code_iso: "Referentielijst INGESCHREVEN NATUURLIJK PERSOON.Land waarnaar vertrokken
+                  <fk_18lnd_code_iso><xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='1310']/waarde" /></fk_18lnd_code_iso>
+                -->
+
+                <!-- in categorie 12-->
+                <btnlnds_rsdoc>
+                    <xsl:value-of select="../categorie[nummer='12']/rubrieken/rubriek[nummer='3710']/waarde" />
+                </btnlnds_rsdoc>
+                <signalering_rsdoc>
+                    <xsl:value-of select="../categorie[nummer='12']/rubrieken/rubriek[nummer='3610']/waarde" />
+                </signalering_rsdoc>
+
             </xsl:if>
-            <bsn>
-                <xsl:value-of select="$rubrieken/rubriek[nummer='0120']/waarde" />
-            </bsn>
-            <!--
-                burgerlijke_staat numeric(1,0), - N1 - Burgerlijke staat
-                dat_beg_geldh_verblijfpl character varying(19), - OnvolledigeDatum - Datum begin geldigheid verblijfplaats
-                datum_inschrijving_in_gemeente character varying(19), - OnvolledigeDatum - Datum inschrijving in gemeente
-                67.10 datum_opschorting_bijhouding character varying(19), - OnvolledigeDatum - Datum opschorting bijhouding
-                datum_verkr_nation character varying(19), - OnvolledigeDatum - Datum verkrijging nationaliteit
-                datum_verlies_nation character varying(19), - OnvolledigeDatum - Datum verlies nationaliteit
-                datum_vertrek_uit_nederland character varying(19), - OnvolledigeDatum - Datum vertrek uit Nederland
-                datum_vestg_in_nederland character varying(19), - OnvolledigeDatum - Datum vestiging in Nederland
-                fk_27lpl_sc_identif character varying(16), - [FK] AN16, FK naar ligplaats.sc_identif (is FK naar superclass BENOEMD OBJECT): "verblijft op"
-                fk_28nra_sc_identif character varying(16), - [FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): "is ingeschreven op"
-                fk_29wpl_identif character varying(4), - [FK] AN4, FK naar wnplts.identif: "verblijft op locatie in"
-                fk_30spl_sc_identif character varying(16), - [FK] AN16, FK naar standplaats.sc_identif (is FK naar superclass BENOEMD OBJECT): "verblijft op"
-                fk_31vbo_sc_identif character varying(16), - [FK] AN16, FK naar verblijfsobj.sc_identif (is FK naar superclass BENOEMD OBJECT): "verblijft in"
-                fk_1rsd_nummer character varying(9), - [FK] AN9, FK naar rsdoc.nummer
-            -->
-            <gb_geboortedatum>
-                <xsl:value-of select="$rubrieken/rubriek[nummer='0306']/waarde" />
-            </gb_geboortedatum>
-            <!-- TODO dit werkt niet omdat GBA niet de iso code levert, maar naam of 4-cijfer code
-            <fk_gb_lnd_code_iso><xsl:value-of select="$rubrieken/rubriek[nummer='0330']/waarde" /></fk_gb_lnd_code_iso>
-            -->
-            <gb_geboorteplaats>
-                <!-- waarde is de plaats code met voorloop-0, dus neem omschrijving en clip naar varchar40 -->
-                <xsl:value-of select="substring($rubrieken/rubriek[nummer='0320']/omschrijving,1,40)" />
-            </gb_geboorteplaats>
-            <!--
-                nt_aand_bijzonder_nlschap character varying(1), - Groepsattribuut Nederlandse nationaliteit INGESCHREVEN NATUURLIJK PERSOON.Aanduiding bijzonder Nederlanderschap - Aanduiding bijzonder Nederlanderschap
-                fk_nt_nat_code numeric(4,0), - [FK] N4, FK naar nation.code: "Groepsattribuut referentielijst Nationaliteit"
-                nt_reden_verkr_nlse_nation numeric(3,0), - Groepsattribuut Nederlandse nationaliteit INGESCHREVEN NATUURLIJK PERSOON.Reden verkrijging Nederlandse nationaliteit - Reden verkrijging Nederlandse nationaliteit
-                nt_reden_verlies_nlse_nation numeric(3,0), - Groepsattribuut Nederlandse nationaliteit INGESCHREVEN NATUURLIJK PERSOON.Reden verlies Nederlandse nationaliteit - Reden verlies Nederlandse nationaliteit
-                fk_3nat_code numeric(4,0), - [FK] N4, FK naar nation.code: "Referentielijst INGESCHREVEN NATUURLIJK PERSOON.Buitenlandse nationaliteit"
-            -->
+
         </ingeschr_nat_prs>
     </xsl:template>
 

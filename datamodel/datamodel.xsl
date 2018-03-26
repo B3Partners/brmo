@@ -49,6 +49,7 @@
 				<script>118_drop_constraints_brp.sql</script>
 				<script>119_reisdocumentsoort.sql</script>
 				<script>120_increase_identifsize.sql</script>
+				<script>121_insert_nation.sql</script>
 			</extra-scripts>
 		</schema>
 	</xsl:template>
