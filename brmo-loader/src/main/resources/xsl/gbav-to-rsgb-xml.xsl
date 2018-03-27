@@ -8,8 +8,8 @@
     <xsl:param name="volgordeNummer" select="'0'" />
     <xsl:param name="soort" select="'gbav'" />
     <xsl:param name="rsgb-version" select="2.2" />
-    <!-- NB net als voor een aantal andere berihten kunnen landcodes op dit moment niet verwerkt worden omdat rsgb iso codes
-    hanteert en niet NL-overheid-landcodes -->
+    <!-- NB net als voor een aantal andere berihten kunnen landcodes op dit moment niet
+        verwerkt worden omdat rsgb iso codes hanteert en niet NL-overheid-landcodes -->
     <xsl:template match="/">
         <root>
             <xsl:comment>
@@ -38,43 +38,48 @@
             </xsl:comment>
             <xsl:choose>
                 <xsl:when test="./nummer = '01'">
+                    <!-- Persoon /persoon/categorieen/categorie/nummer == 02-->
                     <xsl:call-template name="maakPersoon">
                         <xsl:with-param name="key" select="$objectRef" />
                         <xsl:with-param name="clazz" select='"INGESCHREVEN NATUURLIJK PERSOON"' />
                     </xsl:call-template>
                 </xsl:when>
-                <!-- Ouder1 /persoon/categorieen/categorie/nummer == 02-->
                 <xsl:when test="./nummer = '02'">
+                    <!-- Ouder1 /persoon/categorieen/categorie/nummer == 02-->
                     <xsl:call-template name="ouder" />
                 </xsl:when>
-                <!-- Ouder2 /persoon/categorieen/categorie/nummer == 03-->
                 <xsl:when test="./nummer = '03'">
+                    <!-- Ouder2 /persoon/categorieen/categorie/nummer == 03-->
                     <xsl:call-template name="ouder" />
                 </xsl:when>
-                <!-- Nationaliteit ed. /persoon/categorieen/categorie/nummer == 04-->
-                <!-- Huwelijk /persoon/categorieen/categorie/nummer == 05-->
                 <xsl:when test="./nummer = '05'">
+                    <!-- Huwelijk /persoon/categorieen/categorie/nummer == 05-->
                     <xsl:call-template name="partner" />
                 </xsl:when>
-                <!-- Overlijden ed. /persoon/categorieen/categorie/nummer == 06-->
-                <!-- Inschrijving  /persoon/categorieen/categorie/nummer == 07-->
-                <!-- Verblijfplaats gegevens ed. /persoon/categorieen/categorie/nummer == 08-->
                 <xsl:when test="./nummer = '09'">
+                    <!-- Verblijfplaats /persoon/categorieen/categorie/nummer == 09-->
                     <xsl:call-template name="kind" />
                 </xsl:when>
-                <!-- Verblijfstitel /persoon/categorieen/categorie/nummer == 10-->
-                <!-- Gezag /persoon/categorieen/categorie/nummer == 11-->
-                <!-- Reisdocument /persoon/categorieen/categorie/nummer == 12-->
                 <xsl:when test="./nummer = '12'">
-                    <xsl:call-template name="rsdoc" />
+                    <!-- Reisdocument /persoon/categorieen/categorie/nummer == 12-->
+                    <xsl:call-template name="reisdocument" />
                 </xsl:when>
-                <!-- Kiesrecht /persoon/categorieen/categorie/nummer == 13-->
+                <!--
+                worden onderweg bij persoon opgepikt:
+                Nationaliteit /persoon/categorieen/categorie/nummer == 04
+                Overlijden /persoon/categorieen/categorie/nummer == 06
+                Inschrijving /persoon/categorieen/categorie/nummer == 07
+                Verblijfplaats /persoon/categorieen/categorie/nummer == 08
+                Verblijfstitel /persoon/categorieen/categorie/nummer == 10
+                Gezag /persoon/categorieen/categorie/nummer == 11
+                Kiesrecht /persoon/categorieen/categorie/nummer == 13
+                -->
             </xsl:choose>
         </xsl:for-each>
     </xsl:template>
 
     <!-- maak een persoon als comfort data -->
-    <xsl:template name="comfortPerson">
+    <xsl:template name="comfortPersoon">
         <!-- een persoon categorie (ouder, partner, kind, ...) node -->
         <xsl:param name="snapshot-date" />
         <xsl:param name="bsn-nummer" />
@@ -94,17 +99,18 @@
 
     <!-- maak de ouder-kind relatie en comfortdata ouder/persoon aan -->
     <xsl:template name="ouder">
+        <!-- categorie 02 en 03 (ouder1 en ouder2) -->
         <!-- als bsn niet gevuld is kunnen we geen unieke sleutel maken voor deze (comfort) persoon, dus dan overslaan -->
         <xsl:if test="./rubrieken/rubriek[nummer='0120']/waarde != ''">
             <xsl:variable name="snapshot-date">
                 <xsl:call-template name="snapshot-date" />
             </xsl:variable>
-            <xsl:call-template name="comfortPerson">
+            <xsl:call-template name="comfortPersoon">
                 <xsl:with-param name="snapshot-date" select="$snapshot-date" />
                 <xsl:with-param name="bsn-nummer" select="./rubrieken/rubriek[nummer='0120']/waarde" />
                 <xsl:with-param name="clazz" select='"NATUURLIJK PERSOON"' />
             </xsl:call-template>
-            <!-- categorie 02 en 03 (ouder1 en ouder2) -->
+
             <ouder_kind_rel>
                 <fk_sc_lh_inp_sc_identif>
                     <xsl:value-of select="$objectRef" />
@@ -122,31 +128,31 @@
                     <xsl:value-of select="'OUDER'" />
                 </ouder_aand>
             </ouder_kind_rel>
-            <!-- TODO
-                 <brondocument ignore-duplicates="yes">
-                 <tabel>OUDER_KIND_REL</tabel>
-                 <tabel_identificatie><xsl:value-of select="$objectRef"/></tabel_identificatie>
-                 <identificatie></identificatie>
-                 <gemeente></gemeente>
-                 <omschrijving></omschrijving>
-                 <datum></datum>
-                 <ref_id></ref_id>
-                 </brondocument>
-            -->
+
+            <!-- brondocument voor akte -->
+            <xsl:call-template name="getAkteBrondocument">
+                <xsl:with-param name="tabel" select="'OUDER_KIND_REL'" />
+                <xsl:with-param name="refid" >
+                    <xsl:call-template name="getHash">
+                        <xsl:with-param name="bsn" select="./rubrieken/rubriek[nummer='0120']/waarde" />
+                    </xsl:call-template>
+                </xsl:with-param>
+            </xsl:call-template>
         </xsl:if>
     </xsl:template>
 
     <!-- maak de ouder-kind relatie en comfortdata kind/persoon aan -->
     <xsl:template name="kind">
+        <!-- categorie 09 -->
         <xsl:variable name="snapshot-date">
             <xsl:call-template name="snapshot-date" />
         </xsl:variable>
-        <xsl:call-template name="comfortPerson">
+        <xsl:call-template name="comfortPersoon">
             <xsl:with-param name="snapshot-date" select="$snapshot-date" />
             <xsl:with-param name="bsn-nummer" select="./rubrieken/rubriek[nummer='0120']/waarde" />
             <xsl:with-param name="clazz" select='"INGESCHREVEN NATUURLIJK PERSOON"' />
         </xsl:call-template>
-        <!-- cat. 09 -->
+
         <ouder_kind_rel>
             <fk_sc_lh_inp_sc_identif>
                 <xsl:value-of select="$objectRef" />
@@ -158,37 +164,37 @@
             </fk_sc_rh_inp_sc_identif>
             <!--<datum_einde_fam_recht_betr><xsl:value-of select="./rubrieken/rubriek[nummer='TODO']/waarde"/></datum_einde_fam_recht_betr>-->
             <datum_ingang_fam_recht_betr>
-                <!--TODO / CHECK -->
-                <xsl:value-of select="./rubrieken/rubriek[nummer='6210']/waarde" />
+                <!--geboortedatum kind-->
+                <xsl:value-of select="./rubrieken/rubriek[nummer='0310']/waarde" />
             </datum_ingang_fam_recht_betr>
             <ouder_aand>
                 <xsl:value-of select="'KIND'" />
             </ouder_aand>
         </ouder_kind_rel>
-        <!-- TODO
-             <brondocument ignore-duplicates="yes">
-             <tabel>OUDER_KIND_REL</tabel>
-             <tabel_identificatie><xsl:value-of select="$objectRef"/></tabel_identificatie>
-             <identificatie></identificatie>
-             <gemeente></gemeente>
-             <omschrijving></omschrijving>
-             <datum></datum>
-             <ref_id></ref_id>
-             </brondocument>
-        -->
+
+        <!-- brondocument voor akte -->
+        <xsl:call-template name="getAkteBrondocument">
+            <xsl:with-param name="tabel" select="'OUDER_KIND_REL'" />
+            <xsl:with-param name="refid" >
+                <xsl:call-template name="getHash">
+                    <xsl:with-param name="bsn" select="./rubrieken/rubriek[nummer='0120']/waarde" />
+                </xsl:call-template>
+            </xsl:with-param>
+        </xsl:call-template>
     </xsl:template>
 
     <!-- maak de partner relatie en comfortdata partner/persoon aan -->
     <xsl:template name="partner">
+        <!-- categorie 05 -->
         <xsl:variable name="snapshot-date">
             <xsl:call-template name="snapshot-date" />
         </xsl:variable>
-        <xsl:call-template name="comfortPerson">
+        <xsl:call-template name="comfortPersoon">
             <xsl:with-param name="snapshot-date" select="$snapshot-date" />
             <xsl:with-param name="bsn-nummer" select="./rubrieken/rubriek[nummer='0120']/waarde" />
             <xsl:with-param name="clazz" select='"NATUURLIJK PERSOON"' />
         </xsl:call-template>
-        <!-- cat. 05 -->
+
         <huw_ger_partn>
             <fk_sc_lh_inp_sc_identif>
                 <xsl:value-of select="$objectRef" />
@@ -199,21 +205,14 @@
                 </xsl:call-template>
             </fk_sc_rh_inp_sc_identif>
             <hs_datum_aangaan>
-                <!--TODO / CHECK zit in categorie 06.06.10 ??? en niet in cat 05 -->
                 <xsl:value-of select="../categorie[nummer='06']/rubrieken/rubriek[nummer='0610']/waarde" />
             </hs_datum_aangaan>
-        <!-- TODO dit werkt niet omdat GBA niet de iso code levert, maar naam of 4-cijfer code
-        <fk_hs_lnd_code_iso><xsl:value-of select="./rubrieken/rubriek[nummer='0630']/waarde" /></fk_hs_lnd_code_iso>
-        -->
-        <hs_plaats>
-            <xsl:value-of select="./rubrieken/rubriek[nummer='0620']/waarde" />
-        </hs_plaats>
-        <ho_datum_ontb_huw_ger_partn>
-            <xsl:value-of select="./rubrieken/rubriek[nummer='0710']/waarde" />
-        </ho_datum_ontb_huw_ger_partn>
-        <!-- TODO dit werkt niet omdat GBA niet de iso code levert, maar naam of 4-cijfer code
-            <fk_ho_lnd_code_iso><xsl:value-of select="./rubrieken/rubriek[nummer='0730']/waarde" /></fk_ho_lnd_code_iso>
-            -->
+            <hs_plaats>
+                <xsl:value-of select="./rubrieken/rubriek[nummer='0620']/waarde" />
+            </hs_plaats>
+            <ho_datum_ontb_huw_ger_partn>
+                <xsl:value-of select="./rubrieken/rubriek[nummer='0710']/waarde" />
+            </ho_datum_ontb_huw_ger_partn>
             <ho_plaats_ontb_huw_ger_partn>
                 <xsl:value-of select="./rubrieken/rubriek[nummer='0720']/waarde" />
             </ho_plaats_ontb_huw_ger_partn>
@@ -223,18 +222,89 @@
             <soort_verbintenis>
                 <xsl:value-of select="./rubrieken/rubriek[nummer='1510']/waarde" />
             </soort_verbintenis>
+            <!-- TODO dit werkt niet omdat GBA niet de iso code levert, maar naam of 4-cijfer code
+            <fk_ho_lnd_code_iso><xsl:value-of select="./rubrieken/rubriek[nummer='0730']/waarde" /></fk_ho_lnd_code_iso>
+            <fk_hs_lnd_code_iso><xsl:value-of select="./rubrieken/rubriek[nummer='0630']/waarde" /></fk_hs_lnd_code_iso>
+            -->
         </huw_ger_partn>
-        <!-- TODO
-             <brondocument ignore-duplicates="yes">
-             <tabel>HUW_GER_PARTN</tabel>
-             <tabel_identificatie><xsl:value-of select="$objectRef"/></tabel_identificatie>
-             <identificatie></identificatie>
-             <gemeente></gemeente>
-             <omschrijving></omschrijving>
-             <datum></datum>
-             <ref_id></ref_id>
-             </brondocument>
-        -->
+
+        <!-- brondocument voor de akte -->
+        <xsl:call-template name="getAkteBrondocument">
+            <xsl:with-param name="tabel" select="'HUW_GER_PARTN'" />
+            <xsl:with-param name="refid" >
+                <xsl:call-template name="getHash">
+                    <xsl:with-param name="bsn" select="./rubrieken/rubriek[nummer='0120']/waarde" />
+                </xsl:call-template>
+            </xsl:with-param>
+        </xsl:call-template>
+
+    </xsl:template>
+
+
+    <xsl:template name="reisdocument">
+        <!-- Categorie 12 -->
+        <xsl:if test="./rubrieken/rubriek[nummer='3520']/waarde != ''">
+            <rsdoc>
+                <fk_7rds_rsdoccode>
+                    <xsl:value-of select="./rubrieken/rubriek[nummer='3510']/waarde" />
+                </fk_7rds_rsdoccode>
+                <nummer>
+                    <xsl:value-of select="./rubrieken/rubriek[nummer='3520']/waarde" />
+                </nummer>
+                <datum_uitgifte>
+                    <xsl:value-of select="./rubrieken/rubriek[nummer='3530']/waarde" />
+                </datum_uitgifte>
+                <autoriteit_uitgifte>
+                    <xsl:value-of select="./rubrieken/rubriek[nummer='3540']/waarde" />
+                </autoriteit_uitgifte>
+                <eindd_geldh_document>
+                    <xsl:value-of select="./rubrieken/rubriek[nummer='3550']/waarde" />
+                </eindd_geldh_document>
+                <datum_inhouding_of_vermissing>
+                    <xsl:value-of select="./rubrieken/rubriek[nummer='3560']/waarde" />
+                </datum_inhouding_of_vermissing>
+                <aand_inhouding_of_vermissing>
+                    <xsl:value-of select="./rubrieken/rubriek[nummer='3570']/waarde" />
+                </aand_inhouding_of_vermissing>
+                <lengte_houder>
+                    <xsl:value-of select="./rubrieken/rubriek[nummer='3580']/waarde" />
+                </lengte_houder>
+            </rsdoc>
+
+            <rsdoc_ingeschr_nat_prs>
+                <fk_nn_lh_rsd_nummer>
+                    <xsl:value-of select="./rubrieken/rubriek[nummer='3520']/waarde" />
+                </fk_nn_lh_rsd_nummer>
+                <fk_nn_rh_inp_sc_identif>
+                    <xsl:value-of select="$objectRef" />
+                </fk_nn_rh_inp_sc_identif>
+            </rsdoc_ingeschr_nat_prs>
+
+            <!--paspoortdossier -->
+            <brondocument ignore-duplicates="yes">
+                <tabel>RSDOC</tabel>
+                <tabel_identificatie>
+                    <xsl:value-of select="./rubrieken/rubriek[nummer='3520']/waarde" />
+                </tabel_identificatie>
+                <identificatie>
+                    <!-- pas nummer / identificatie -->
+                    <xsl:value-of select="./rubrieken/rubriek[nummer='3520']/waarde" />
+                </identificatie>
+                <gemeente>
+                    <!-- dossier gemeente -->
+                    <xsl:value-of select="./rubrieken/rubriek[nummer='8210']/waarde" />
+                </gemeente>
+                <datum>
+                    <xsl:value-of select="./rubrieken/rubriek[nummer='8220']/waarde" />
+                </datum>
+                <omschrijving>
+                    <xsl:value-of select="./rubrieken/rubriek[nummer='8230']/waarde" />
+                </omschrijving>
+                <ref_id>
+                    <xsl:value-of select="$objectRef"/>
+                </ref_id>
+            </brondocument>
+        </xsl:if>
     </xsl:template>
 
     <!-- maak de tabellen voor een persoon (subject, prs, nat_prs, ingeschr_nat_prs -->
@@ -244,6 +314,7 @@
         <!-- klasse persoon bijv. 'INGESCHREVEN NATUURLIJK PERSOON' -->
         <xsl:param name="clazz" />
         <xsl:variable name="rubrieken" select="./rubrieken" />
+
         <subject>
             <identif>
                 <xsl:value-of select="$key" />
@@ -472,57 +543,64 @@
             </xsl:if>
 
         </ingeschr_nat_prs>
+
+        <xsl:if test="$key = $objectRef">
+            <!-- brondocument voor de (geboorte)akte authentiek pers-->
+            <xsl:call-template name="getAkteBrondocument">
+                <xsl:with-param name="omschrijving" select="'akte burgelijke stand'" />
+                <xsl:with-param name="tabel" select="'INGESCHR_NAT_PRS'" />
+                <xsl:with-param name="refid" >
+                    <xsl:call-template name="getHash">
+                        <xsl:with-param name="bsn" select="./rubrieken/rubriek[nummer='0120']/waarde" />
+                    </xsl:call-template>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:if>
+
     </xsl:template>
 
-    <xsl:template name="rsdoc">
-        <xsl:if test="./rubrieken/rubriek[nummer='3520']/waarde != ''">
-        <rsdoc>
-            <fk_7rds_rsdoccode>
-                <xsl:value-of select="./rubrieken/rubriek[nummer='3510']/waarde" />
-            </fk_7rds_rsdoccode>
-            <nummer>
-                <xsl:value-of select="./rubrieken/rubriek[nummer='3520']/waarde" />
-            </nummer>
-            <datum_uitgifte>
-                <xsl:value-of select="./rubrieken/rubriek[nummer='3530']/waarde" />
-            </datum_uitgifte>
-            <autoriteit_uitgifte>
-                <xsl:value-of select="./rubrieken/rubriek[nummer='3540']/waarde" />
-            </autoriteit_uitgifte>
-            <eindd_geldh_document>
-                <xsl:value-of select="./rubrieken/rubriek[nummer='3550']/waarde" />
-            </eindd_geldh_document>
-            <datum_inhouding_of_vermissing>
-                <xsl:value-of select="./rubrieken/rubriek[nummer='3560']/waarde" />
-            </datum_inhouding_of_vermissing>
-            <aand_inhouding_of_vermissing>
-                <xsl:value-of select="./rubrieken/rubriek[nummer='3570']/waarde" />
-            </aand_inhouding_of_vermissing>
-            <lengte_houder>
-                <xsl:value-of select="./rubrieken/rubriek[nummer='3580']/waarde" />
-            </lengte_houder>
-        </rsdoc>
 
-        <rsdoc_ingeschr_nat_prs>
-            <fk_nn_lh_rsd_nummer>
-                <xsl:value-of select="./rubrieken/rubriek[nummer='3520']/waarde" />
-            </fk_nn_lh_rsd_nummer>
-            <fk_nn_rh_inp_sc_identif>
-                <xsl:value-of select="$objectRef" />
-            </fk_nn_rh_inp_sc_identif>
-        </rsdoc_ingeschr_nat_prs>
+    <!-- maakt akte brondocument voor verschillende categorieen -->
+    <xsl:template name="getAkteBrondocument">
+        <xsl:param name="tabel"/>
+        <xsl:param name="omschrijving" select="''"/>
+        <xsl:param name="refid" />
+
+        <xsl:if test="./rubrieken/rubriek[nummer='8120']/waarde != ''">
+            <!-- alleen als brondocument identificatie (akte nummer) bestaat anders niet -->
+            <brondocument ignore-duplicates="yes">
+                <tabel>
+                    <xsl:value-of select="$tabel"/>
+                </tabel>
+                <tabel_identificatie>
+                    <xsl:value-of select="$objectRef"/>
+                </tabel_identificatie>
+                <identificatie>
+                    <!-- akte nummer / identificatie -->
+                    <xsl:value-of select="./rubrieken/rubriek[nummer='8120']/waarde" />
+                </identificatie>
+                <gemeente>
+                    <!-- register gemeente -->
+                    <xsl:value-of select="./rubrieken/rubriek[nummer='8110']/waarde" />
+                </gemeente>
+                <datum>
+                    <xsl:value-of select="./rubrieken/rubriek[nummer='8220']/waarde" />
+                </datum>
+                <omschrijving>
+                    <xsl:choose>
+                        <xsl:when test="$omschrijving !=''">
+                            <xsl:value-of select="$omschrijving"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="./rubrieken/rubriek[nummer='8230']/waarde" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </omschrijving>
+                <ref_id>
+                    <xsl:value-of select="$refid"/>
+                </ref_id>
+            </brondocument>
         </xsl:if>
-        <!--
-        <brondocument>
-            <tabel></tabel>
-            <tabel_identificatie></tabel_identificatie>
-            <identificatie></identificatie>
-            <gemeente></gemeente>
-            <omschrijving></omschrijving>
-            <datum></datum>
-            <ref_id></ref_id>
-        </brondocument>
-        -->
     </xsl:template>
 
     <!-- zoek hash op in mapping tabel -->
