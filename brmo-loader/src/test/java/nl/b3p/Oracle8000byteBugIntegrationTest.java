@@ -74,7 +74,6 @@ public class Oracle8000byteBugIntegrationTest extends AbstractDatabaseIntegratio
             {"brk", "/8000byteBericht/8001bytesBRxml.xml", 8001, 1, 1, "2017-08-02 00:00:00.0"},
             {"brk", "/8000byteBericht/7999bytesBRxml.xml", 7999, 1, 1, "2017-08-02 00:00:00.0"},
             {"brk", "/8000byteBericht/PD_MUTBX01_23-8-2017.xml", 8093, 1, 1, "2017-08-02 00:00:00.0"},
-            //{"brk", "/8000byteBericht/8000bytesDBxml.xml",8001, 1, 1, "2017-08-02 00:00:00.0"}
             {"brk", "/8000byteBericht/MUTBX01.xml", 8093, 1, 1, "2017-07-03 00:00:00.0"}
         });
     }

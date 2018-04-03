@@ -63,7 +63,6 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
         return Arrays.asList(new Object[][]{
             // {"bestandsNaam", aantalProcessen, aantalBerichten, standId, verwijderId, mutatieIds },
             {"/mantis6166/staging-69660669770000.xml", 4, 4, 722959, 946717, new long[]{47134330, 47134331}},
-            // dit bestand zit niet in de repository vanwege de inhoud van de data
             {"/mantis6166/staging-66860489870000.xml", 4, 4, 488741, 948118, new long[]{47125275, 47125276}}
         });
     }

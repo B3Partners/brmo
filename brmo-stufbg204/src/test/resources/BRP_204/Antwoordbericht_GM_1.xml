@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-16"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2018-04-03+02:00, zie commentaar in bericht.-->
 <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
   <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <StUFBG0204:synchroonAntwoordBericht xmlns:StUFBG0204="http://www.egem.nl/StUF/sector/bg/0204" xmlns:StUF0204="http://www.egem.nl/StUF/StUF0204">
@@ -9,14 +10,14 @@
         <StUF0204:versieStUF>0204</StUF0204:versieStUF>
         <StUF0204:versieSectormodel>0204</StUF0204:versieSectormodel>
         <StUF0204:zender>
-          <StUF0204:organisatie></StUF0204:organisatie>
+          <StUF0204:organisatie />
           <StUF0204:applicatie>ESB</StUF0204:applicatie>
-          <StUF0204:administratie></StUF0204:administratie>
+          <StUF0204:administratie />
         </StUF0204:zender>
         <StUF0204:ontvanger>
-          <StUF0204:organisatie></StUF0204:organisatie>
+          <StUF0204:organisatie />
           <StUF0204:applicatie>UVSUITE</StUF0204:applicatie>
-          <StUF0204:administratie></StUF0204:administratie>
+          <StUF0204:administratie />
         </StUF0204:ontvanger>
         <StUF0204:referentienummer>Q4X2GJYG5RKE</StUF0204:referentienummer>
         <StUF0204:tijdstipBericht>2017051711512454</StUF0204:tijdstipBericht>
@@ -26,166 +27,201 @@
       </StUF0204:stuurgegevens>
       <StUFBG0204:body>
         <StUFBG0204:PRS soortEntiteit="F" StUF0204:sleutelVerzendend="XXX" StUF0204:sleutelGegevensbeheer="249804" StUF0204:verwerkingssoort="I">
-          <StUFBG0204:a-nummer>XXX</StUFBG0204:a-nummer>
-          <StUFBG0204:bsn-nummer>XXX</StUFBG0204:bsn-nummer>
-          <StUFBG0204:voornamen kerngegeven="true" gegevengroep="PRS1">XXX</StUFBG0204:voornamen>
-          <StUFBG0204:voorletters gegevengroep="PRS1">XXX</StUFBG0204:voorletters>
-          <StUFBG0204:voorvoegselGeslachtsnaam gegevengroep="PRS1" StUF0204:noValue="geenWaarde" xsi:nil="true"></StUFBG0204:voorvoegselGeslachtsnaam>
-          <StUFBG0204:geslachtsnaam gegevengroep="PRS1">XXX</StUFBG0204:geslachtsnaam>
-          <StUFBG0204:geboortedatum>XXX</StUFBG0204:geboortedatum>
-          <StUFBG0204:geboorteplaats gegevengroep="PRS3">XXX</StUFBG0204:geboorteplaats>
+          <StUFBG0204:a-nummer>938</StUFBG0204:a-nummer>
+          <!--Anonimisatie 'StUFBG0204:a-nummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+          <StUFBG0204:bsn-nummer>938</StUFBG0204:bsn-nummer>
+          <!--Anonimisatie 'StUFBG0204:bsn-nummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+          <StUFBG0204:voornamen kerngegeven="true" gegevengroep="PRS1">9b3</StUFBG0204:voornamen>
+          <!--Anonimisatie 'StUFBG0204:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+          <StUFBG0204:voorletters gegevengroep="PRS1">9b3</StUFBG0204:voorletters>
+          <!--Anonimisatie 'StUFBG0204:voorletters': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+          <StUFBG0204:voorvoegselGeslachtsnaam gegevengroep="PRS1" StUF0204:noValue="geenWaarde" xsi:nil="true" />
+          <!--Anonimisatie 'StUFBG0204:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+          <StUFBG0204:geslachtsnaam gegevengroep="PRS1">9b3</StUFBG0204:geslachtsnaam>
+          <!--Anonimisatie 'StUFBG0204:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+          <StUFBG0204:geboortedatum>2023-10-18</StUFBG0204:geboortedatum>
+          <!--Anonimisatie 'StUFBG0204:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+          <StUFBG0204:geboorteplaats gegevengroep="PRS3">9b3</StUFBG0204:geboorteplaats>
+          <!--Anonimisatie 'StUFBG0204:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
           <StUFBG0204:geslachtsaanduiding>V</StUFBG0204:geslachtsaanduiding>
-          <StUFBG0204:datumOverlijden StUF0204:noValue="geenWaarde" xsi:nil="true"></StUFBG0204:datumOverlijden>
-          <StUFBG0204:adellijkeTitelPredikaat StUF0204:noValue="geenWaarde" xsi:nil="true"></StUFBG0204:adellijkeTitelPredikaat>
+          <StUFBG0204:datumOverlijden StUF0204:noValue="geenWaarde" xsi:nil="true">1960-05-09</StUFBG0204:datumOverlijden>
+          <!--Anonimisatie 'StUFBG0204:datumOverlijden': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+          <StUFBG0204:adellijkeTitelPredikaat StUF0204:noValue="geenWaarde" xsi:nil="true" />
           <StUFBG0204:aanduidingNaamgebruik>V</StUFBG0204:aanduidingNaamgebruik>
           <StUFBG0204:PRSADRINS soortEntiteit="R" StUF0204:verwerkingssoort="I">
             <StUFBG0204:ADR soortEntiteit="F" StUF0204:verwerkingssoort="I">
-              <StUFBG0204:adresBuitenland1 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true"></StUFBG0204:adresBuitenland1>
-              <StUFBG0204:adresBuitenland2 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true"></StUFBG0204:adresBuitenland2>
-              <StUFBG0204:adresBuitenland3 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true"></StUFBG0204:adresBuitenland3>
+              <StUFBG0204:adresBuitenland1 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true" />
+              <StUFBG0204:adresBuitenland2 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true" />
+              <StUFBG0204:adresBuitenland3 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true" />
               <StUFBG0204:postcode gegevengroep="ADR1">XXX</StUFBG0204:postcode>
               <StUFBG0204:woonplaatsnaam>Maassluis</StUFBG0204:woonplaatsnaam>
               <StUFBG0204:straatnaam gegevengroep="ADR1">XXX</StUFBG0204:straatnaam>
               <StUFBG0204:huisnummer gegevengroep="ADR1">XXX</StUFBG0204:huisnummer>
-              <StUFBG0204:huisletter StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true"></StUFBG0204:huisletter>
-              <StUFBG0204:huisnummertoevoeging StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true"></StUFBG0204:huisnummertoevoeging>
+              <StUFBG0204:huisletter StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true" />
+              <StUFBG0204:huisnummertoevoeging StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true" />
             </StUFBG0204:ADR>
           </StUFBG0204:PRSADRINS>
           <StUFBG0204:PRSADRVBL soortEntiteit="R" StUF0204:verwerkingssoort="I">
             <StUFBG0204:ADR soortEntiteit="F" StUF0204:verwerkingssoort="I">
-              <StUFBG0204:adresBuitenland1 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true"></StUFBG0204:adresBuitenland1>
-              <StUFBG0204:adresBuitenland2 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true"></StUFBG0204:adresBuitenland2>
-              <StUFBG0204:adresBuitenland3 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true"></StUFBG0204:adresBuitenland3>
+              <StUFBG0204:adresBuitenland1 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true" />
+              <StUFBG0204:adresBuitenland2 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true" />
+              <StUFBG0204:adresBuitenland3 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true" />
               <StUFBG0204:postcode gegevengroep="ADR1">XXX</StUFBG0204:postcode>
               <StUFBG0204:woonplaatsnaam>Maassluis</StUFBG0204:woonplaatsnaam>
               <StUFBG0204:straatnaam gegevengroep="ADR1">XXX</StUFBG0204:straatnaam>
               <StUFBG0204:huisnummer gegevengroep="ADR1">XXX</StUFBG0204:huisnummer>
-              <StUFBG0204:huisletter StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true"></StUFBG0204:huisletter>
-              <StUFBG0204:huisnummertoevoeging StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true"></StUFBG0204:huisnummertoevoeging>
+              <StUFBG0204:huisletter StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true" />
+              <StUFBG0204:huisnummertoevoeging StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true" />
             </StUFBG0204:ADR>
           </StUFBG0204:PRSADRVBL>
           <StUFBG0204:PRSPRSHUW soortEntiteit="R" StUF0204:sleutelGegevensbeheer="55184" StUF0204:verwerkingssoort="I">
             <StUFBG0204:datumOntbinding>XXX</StUFBG0204:datumOntbinding>
             <StUFBG0204:tijdvakGeldigheid>
               <StUF0204:begindatumTijdvakGeldigheid>XXX</StUF0204:begindatumTijdvakGeldigheid>
-              <StUF0204:einddatumTijdvakGeldigheid StUF0204:noValue="geenWaarde" xsi:nil="true"></StUF0204:einddatumTijdvakGeldigheid>
+              <StUF0204:einddatumTijdvakGeldigheid StUF0204:noValue="geenWaarde" xsi:nil="true" />
             </StUFBG0204:tijdvakGeldigheid>
             <StUFBG0204:PRS soortEntiteit="F" StUF0204:sleutelVerzendend="XXX" StUF0204:sleutelGegevensbeheer="301412" StUF0204:verwerkingssoort="I">
-              <StUFBG0204:voorvoegselGeslachtsnaam gegevengroep="PRS1">van</StUFBG0204:voorvoegselGeslachtsnaam>
-              <StUFBG0204:geslachtsnaam gegevengroep="PRS1">XXX</StUFBG0204:geslachtsnaam>
+              <StUFBG0204:voorvoegselGeslachtsnaam gegevengroep="PRS1">970</StUFBG0204:voorvoegselGeslachtsnaam>
+              <!--Anonimisatie 'StUFBG0204:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+              <StUFBG0204:geslachtsnaam gegevengroep="PRS1">9b3</StUFBG0204:geslachtsnaam>
+              <!--Anonimisatie 'StUFBG0204:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
             </StUFBG0204:PRS>
           </StUFBG0204:PRSPRSHUW>
           <StUFBG0204:PRSPRSHUW soortEntiteit="R" StUF0204:sleutelGegevensbeheer="55185" StUF0204:verwerkingssoort="I">
             <StUFBG0204:datumOntbinding>XXX</StUFBG0204:datumOntbinding>
             <StUFBG0204:tijdvakGeldigheid>
               <StUF0204:begindatumTijdvakGeldigheid>XXX</StUF0204:begindatumTijdvakGeldigheid>
-              <StUF0204:einddatumTijdvakGeldigheid StUF0204:noValue="geenWaarde" xsi:nil="true"></StUF0204:einddatumTijdvakGeldigheid>
+              <StUF0204:einddatumTijdvakGeldigheid StUF0204:noValue="geenWaarde" xsi:nil="true" />
             </StUFBG0204:tijdvakGeldigheid>
             <StUFBG0204:PRS soortEntiteit="F" StUF0204:sleutelVerzendend="XXX" StUF0204:sleutelGegevensbeheer="249805" StUF0204:verwerkingssoort="I">
-              <StUFBG0204:voorvoegselGeslachtsnaam gegevengroep="PRS1" StUF0204:noValue="geenWaarde" xsi:nil="true"></StUFBG0204:voorvoegselGeslachtsnaam>
-              <StUFBG0204:geslachtsnaam gegevengroep="PRS1">XXX</StUFBG0204:geslachtsnaam>
+              <StUFBG0204:voorvoegselGeslachtsnaam gegevengroep="PRS1" StUF0204:noValue="geenWaarde" xsi:nil="true" />
+              <!--Anonimisatie 'StUFBG0204:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+              <StUFBG0204:geslachtsnaam gegevengroep="PRS1">9b3</StUFBG0204:geslachtsnaam>
+              <!--Anonimisatie 'StUFBG0204:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
             </StUFBG0204:PRS>
           </StUFBG0204:PRSPRSHUW>
           <StUFBG0204:PRSPRSHUW soortEntiteit="R" StUF0204:sleutelGegevensbeheer="68492" StUF0204:verwerkingssoort="I">
-            <StUFBG0204:datumOntbinding StUF0204:noValue="geenWaarde" xsi:nil="true"></StUFBG0204:datumOntbinding>
+            <StUFBG0204:datumOntbinding StUF0204:noValue="geenWaarde" xsi:nil="true" />
             <StUFBG0204:tijdvakGeldigheid>
               <StUF0204:begindatumTijdvakGeldigheid>XXX</StUF0204:begindatumTijdvakGeldigheid>
-              <StUF0204:einddatumTijdvakGeldigheid StUF0204:noValue="geenWaarde" xsi:nil="true"></StUF0204:einddatumTijdvakGeldigheid>
+              <StUF0204:einddatumTijdvakGeldigheid StUF0204:noValue="geenWaarde" xsi:nil="true" />
             </StUFBG0204:tijdvakGeldigheid>
             <StUFBG0204:PRS soortEntiteit="F" StUF0204:sleutelVerzendend="XXX" StUF0204:sleutelGegevensbeheer="302726" StUF0204:verwerkingssoort="I">
-              <StUFBG0204:voorvoegselGeslachtsnaam gegevengroep="PRS1">van</StUFBG0204:voorvoegselGeslachtsnaam>
-              <StUFBG0204:geslachtsnaam gegevengroep="PRS1">XXX</StUFBG0204:geslachtsnaam>
+              <StUFBG0204:voorvoegselGeslachtsnaam gegevengroep="PRS1">970</StUFBG0204:voorvoegselGeslachtsnaam>
+              <!--Anonimisatie 'StUFBG0204:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+              <StUFBG0204:geslachtsnaam gegevengroep="PRS1">9b3</StUFBG0204:geslachtsnaam>
+              <!--Anonimisatie 'StUFBG0204:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
             </StUFBG0204:PRS>
           </StUFBG0204:PRSPRSHUW>
         </StUFBG0204:PRS>
         <StUFBG0204:PRS soortEntiteit="F" StUF0204:sleutelVerzendend="XXX" StUF0204:sleutelGegevensbeheer="249806" StUF0204:verwerkingssoort="I">
-          <StUFBG0204:a-nummer>XXX</StUFBG0204:a-nummer>
-          <StUFBG0204:bsn-nummer>XXX</StUFBG0204:bsn-nummer>
-          <StUFBG0204:voornamen kerngegeven="true" gegevengroep="PRS1">XXX</StUFBG0204:voornamen>
-          <StUFBG0204:voorletters gegevengroep="PRS1">XXX</StUFBG0204:voorletters>
-          <StUFBG0204:voorvoegselGeslachtsnaam gegevengroep="PRS1" StUF0204:noValue="geenWaarde" xsi:nil="true"></StUFBG0204:voorvoegselGeslachtsnaam>
-          <StUFBG0204:geslachtsnaam gegevengroep="PRS1">XXX</StUFBG0204:geslachtsnaam>
-          <StUFBG0204:geboortedatum>XXX</StUFBG0204:geboortedatum>
-          <StUFBG0204:geboorteplaats gegevengroep="PRS3">XXX</StUFBG0204:geboorteplaats>
+          <StUFBG0204:a-nummer>938</StUFBG0204:a-nummer>
+          <!--Anonimisatie 'StUFBG0204:a-nummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+          <StUFBG0204:bsn-nummer>938</StUFBG0204:bsn-nummer>
+          <!--Anonimisatie 'StUFBG0204:bsn-nummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+          <StUFBG0204:voornamen kerngegeven="true" gegevengroep="PRS1">9b3</StUFBG0204:voornamen>
+          <!--Anonimisatie 'StUFBG0204:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+          <StUFBG0204:voorletters gegevengroep="PRS1">9b3</StUFBG0204:voorletters>
+          <!--Anonimisatie 'StUFBG0204:voorletters': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+          <StUFBG0204:voorvoegselGeslachtsnaam gegevengroep="PRS1" StUF0204:noValue="geenWaarde" xsi:nil="true" />
+          <!--Anonimisatie 'StUFBG0204:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+          <StUFBG0204:geslachtsnaam gegevengroep="PRS1">9b3</StUFBG0204:geslachtsnaam>
+          <!--Anonimisatie 'StUFBG0204:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+          <StUFBG0204:geboortedatum>2023-10-18</StUFBG0204:geboortedatum>
+          <!--Anonimisatie 'StUFBG0204:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+          <StUFBG0204:geboorteplaats gegevengroep="PRS3">9b3</StUFBG0204:geboorteplaats>
+          <!--Anonimisatie 'StUFBG0204:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
           <StUFBG0204:geslachtsaanduiding>V</StUFBG0204:geslachtsaanduiding>
-          <StUFBG0204:datumOverlijden StUF0204:noValue="geenWaarde" xsi:nil="true"></StUFBG0204:datumOverlijden>
-          <StUFBG0204:adellijkeTitelPredikaat StUF0204:noValue="geenWaarde" xsi:nil="true"></StUFBG0204:adellijkeTitelPredikaat>
+          <StUFBG0204:datumOverlijden StUF0204:noValue="geenWaarde" xsi:nil="true">1960-05-09</StUFBG0204:datumOverlijden>
+          <!--Anonimisatie 'StUFBG0204:datumOverlijden': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+          <StUFBG0204:adellijkeTitelPredikaat StUF0204:noValue="geenWaarde" xsi:nil="true" />
           <StUFBG0204:aanduidingNaamgebruik>E</StUFBG0204:aanduidingNaamgebruik>
           <StUFBG0204:PRSADRINS soortEntiteit="R" StUF0204:verwerkingssoort="I">
             <StUFBG0204:ADR soortEntiteit="F" StUF0204:verwerkingssoort="I">
-              <StUFBG0204:adresBuitenland1 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true"></StUFBG0204:adresBuitenland1>
-              <StUFBG0204:adresBuitenland2 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true"></StUFBG0204:adresBuitenland2>
-              <StUFBG0204:adresBuitenland3 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true"></StUFBG0204:adresBuitenland3>
+              <StUFBG0204:adresBuitenland1 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true" />
+              <StUFBG0204:adresBuitenland2 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true" />
+              <StUFBG0204:adresBuitenland3 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true" />
               <StUFBG0204:postcode gegevengroep="ADR1">XXX</StUFBG0204:postcode>
               <StUFBG0204:woonplaatsnaam>Maassluis</StUFBG0204:woonplaatsnaam>
               <StUFBG0204:straatnaam gegevengroep="ADR1">XXX</StUFBG0204:straatnaam>
               <StUFBG0204:huisnummer gegevengroep="ADR1">XXX</StUFBG0204:huisnummer>
-              <StUFBG0204:huisletter StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true"></StUFBG0204:huisletter>
-              <StUFBG0204:huisnummertoevoeging StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true"></StUFBG0204:huisnummertoevoeging>
+              <StUFBG0204:huisletter StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true" />
+              <StUFBG0204:huisnummertoevoeging StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true" />
             </StUFBG0204:ADR>
           </StUFBG0204:PRSADRINS>
           <StUFBG0204:PRSADRVBL soortEntiteit="R" StUF0204:verwerkingssoort="I">
             <StUFBG0204:ADR soortEntiteit="F" StUF0204:verwerkingssoort="I">
-              <StUFBG0204:adresBuitenland1 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true"></StUFBG0204:adresBuitenland1>
-              <StUFBG0204:adresBuitenland2 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true"></StUFBG0204:adresBuitenland2>
-              <StUFBG0204:adresBuitenland3 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true"></StUFBG0204:adresBuitenland3>
+              <StUFBG0204:adresBuitenland1 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true" />
+              <StUFBG0204:adresBuitenland2 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true" />
+              <StUFBG0204:adresBuitenland3 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true" />
               <StUFBG0204:postcode gegevengroep="ADR1">XXX</StUFBG0204:postcode>
               <StUFBG0204:woonplaatsnaam>Maassluis</StUFBG0204:woonplaatsnaam>
               <StUFBG0204:straatnaam gegevengroep="ADR1">XXX</StUFBG0204:straatnaam>
               <StUFBG0204:huisnummer gegevengroep="ADR1">XXX</StUFBG0204:huisnummer>
-              <StUFBG0204:huisletter StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true"></StUFBG0204:huisletter>
-              <StUFBG0204:huisnummertoevoeging StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true"></StUFBG0204:huisnummertoevoeging>
+              <StUFBG0204:huisletter StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true" />
+              <StUFBG0204:huisnummertoevoeging StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true" />
             </StUFBG0204:ADR>
           </StUFBG0204:PRSADRVBL>
         </StUFBG0204:PRS>
         <StUFBG0204:PRS soortEntiteit="F" StUF0204:sleutelVerzendend="XXX" StUF0204:sleutelGegevensbeheer="290694" StUF0204:verwerkingssoort="I">
-          <StUFBG0204:a-nummer>XXX</StUFBG0204:a-nummer>
-          <StUFBG0204:bsn-nummer>XXX</StUFBG0204:bsn-nummer>
-          <StUFBG0204:voornamen kerngegeven="true" gegevengroep="PRS1">XXX</StUFBG0204:voornamen>
-          <StUFBG0204:voorletters gegevengroep="PRS1">XXX</StUFBG0204:voorletters>
-          <StUFBG0204:voorvoegselGeslachtsnaam gegevengroep="PRS1" StUF0204:noValue="geenWaarde" xsi:nil="true"></StUFBG0204:voorvoegselGeslachtsnaam>
-          <StUFBG0204:geslachtsnaam gegevengroep="PRS1">XXX</StUFBG0204:geslachtsnaam>
-          <StUFBG0204:geboortedatum>XXX</StUFBG0204:geboortedatum>
-          <StUFBG0204:geboorteplaats gegevengroep="PRS3">XXX</StUFBG0204:geboorteplaats>
+          <StUFBG0204:a-nummer>938</StUFBG0204:a-nummer>
+          <!--Anonimisatie 'StUFBG0204:a-nummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+          <StUFBG0204:bsn-nummer>938</StUFBG0204:bsn-nummer>
+          <!--Anonimisatie 'StUFBG0204:bsn-nummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+          <StUFBG0204:voornamen kerngegeven="true" gegevengroep="PRS1">9b3</StUFBG0204:voornamen>
+          <!--Anonimisatie 'StUFBG0204:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+          <StUFBG0204:voorletters gegevengroep="PRS1">9b3</StUFBG0204:voorletters>
+          <!--Anonimisatie 'StUFBG0204:voorletters': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+          <StUFBG0204:voorvoegselGeslachtsnaam gegevengroep="PRS1" StUF0204:noValue="geenWaarde" xsi:nil="true" />
+          <!--Anonimisatie 'StUFBG0204:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+          <StUFBG0204:geslachtsnaam gegevengroep="PRS1">9b3</StUFBG0204:geslachtsnaam>
+          <!--Anonimisatie 'StUFBG0204:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+          <StUFBG0204:geboortedatum>2023-10-18</StUFBG0204:geboortedatum>
+          <!--Anonimisatie 'StUFBG0204:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+          <StUFBG0204:geboorteplaats gegevengroep="PRS3">9b3</StUFBG0204:geboorteplaats>
+          <!--Anonimisatie 'StUFBG0204:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
           <StUFBG0204:geslachtsaanduiding>M</StUFBG0204:geslachtsaanduiding>
-          <StUFBG0204:datumOverlijden StUF0204:noValue="geenWaarde" xsi:nil="true"></StUFBG0204:datumOverlijden>
-          <StUFBG0204:adellijkeTitelPredikaat StUF0204:noValue="geenWaarde" xsi:nil="true"></StUFBG0204:adellijkeTitelPredikaat>
+          <StUFBG0204:datumOverlijden StUF0204:noValue="geenWaarde" xsi:nil="true">1960-05-09</StUFBG0204:datumOverlijden>
+          <!--Anonimisatie 'StUFBG0204:datumOverlijden': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+          <StUFBG0204:adellijkeTitelPredikaat StUF0204:noValue="geenWaarde" xsi:nil="true" />
           <StUFBG0204:aanduidingNaamgebruik>E</StUFBG0204:aanduidingNaamgebruik>
           <StUFBG0204:PRSADRINS soortEntiteit="R" StUF0204:verwerkingssoort="I">
             <StUFBG0204:ADR soortEntiteit="F" StUF0204:verwerkingssoort="I">
-              <StUFBG0204:adresBuitenland1 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true"></StUFBG0204:adresBuitenland1>
-              <StUFBG0204:adresBuitenland2 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true"></StUFBG0204:adresBuitenland2>
-              <StUFBG0204:adresBuitenland3 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true"></StUFBG0204:adresBuitenland3>
+              <StUFBG0204:adresBuitenland1 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true" />
+              <StUFBG0204:adresBuitenland2 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true" />
+              <StUFBG0204:adresBuitenland3 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true" />
               <StUFBG0204:postcode gegevengroep="ADR1">XXX</StUFBG0204:postcode>
               <StUFBG0204:woonplaatsnaam>Maassluis</StUFBG0204:woonplaatsnaam>
               <StUFBG0204:straatnaam gegevengroep="ADR1">XXX</StUFBG0204:straatnaam>
               <StUFBG0204:huisnummer gegevengroep="ADR1">XXX</StUFBG0204:huisnummer>
-              <StUFBG0204:huisletter StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true"></StUFBG0204:huisletter>
-              <StUFBG0204:huisnummertoevoeging StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true"></StUFBG0204:huisnummertoevoeging>
+              <StUFBG0204:huisletter StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true" />
+              <StUFBG0204:huisnummertoevoeging StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true" />
             </StUFBG0204:ADR>
           </StUFBG0204:PRSADRINS>
           <StUFBG0204:PRSADRVBL soortEntiteit="R" StUF0204:verwerkingssoort="I">
             <StUFBG0204:ADR soortEntiteit="F" StUF0204:verwerkingssoort="I">
-              <StUFBG0204:adresBuitenland1 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true"></StUFBG0204:adresBuitenland1>
-              <StUFBG0204:adresBuitenland2 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true"></StUFBG0204:adresBuitenland2>
-              <StUFBG0204:adresBuitenland3 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true"></StUFBG0204:adresBuitenland3>
+              <StUFBG0204:adresBuitenland1 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true" />
+              <StUFBG0204:adresBuitenland2 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true" />
+              <StUFBG0204:adresBuitenland3 StUF0204:noValue="geenWaarde" gegevengroep="ADR4" xsi:nil="true" />
               <StUFBG0204:postcode gegevengroep="ADR1">XXX</StUFBG0204:postcode>
               <StUFBG0204:woonplaatsnaam>Maassluis</StUFBG0204:woonplaatsnaam>
               <StUFBG0204:straatnaam gegevengroep="ADR1">XXX</StUFBG0204:straatnaam>
               <StUFBG0204:huisnummer gegevengroep="ADR1">XXX</StUFBG0204:huisnummer>
-              <StUFBG0204:huisletter StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true"></StUFBG0204:huisletter>
-              <StUFBG0204:huisnummertoevoeging StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true"></StUFBG0204:huisnummertoevoeging>
+              <StUFBG0204:huisletter StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true" />
+              <StUFBG0204:huisnummertoevoeging StUF0204:noValue="geenWaarde" gegevengroep="ADR1" xsi:nil="true" />
             </StUFBG0204:ADR>
           </StUFBG0204:PRSADRVBL>
           <StUFBG0204:PRSPRSHUW soortEntiteit="R" StUF0204:sleutelGegevensbeheer="63323" StUF0204:verwerkingssoort="I">
-            <StUFBG0204:datumOntbinding StUF0204:noValue="geenWaarde" xsi:nil="true"></StUFBG0204:datumOntbinding>
+            <StUFBG0204:datumOntbinding StUF0204:noValue="geenWaarde" xsi:nil="true" />
             <StUFBG0204:tijdvakGeldigheid>
               <StUF0204:begindatumTijdvakGeldigheid>XXX</StUF0204:begindatumTijdvakGeldigheid>
-              <StUF0204:einddatumTijdvakGeldigheid StUF0204:noValue="geenWaarde" xsi:nil="true"></StUF0204:einddatumTijdvakGeldigheid>
+              <StUF0204:einddatumTijdvakGeldigheid StUF0204:noValue="geenWaarde" xsi:nil="true" />
             </StUFBG0204:tijdvakGeldigheid>
             <StUFBG0204:PRS soortEntiteit="F" StUF0204:sleutelVerzendend="XXX" StUF0204:sleutelGegevensbeheer="290693" StUF0204:verwerkingssoort="I">
-              <StUFBG0204:voorvoegselGeslachtsnaam gegevengroep="PRS1">Van</StUFBG0204:voorvoegselGeslachtsnaam>
-              <StUFBG0204:geslachtsnaam gegevengroep="PRS1">XXX</StUFBG0204:geslachtsnaam>
+              <StUFBG0204:voorvoegselGeslachtsnaam gegevengroep="PRS1">1d3</StUFBG0204:voorvoegselGeslachtsnaam>
+              <!--Anonimisatie 'StUFBG0204:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+              <StUFBG0204:geslachtsnaam gegevengroep="PRS1">9b3</StUFBG0204:geslachtsnaam>
+              <!--Anonimisatie 'StUFBG0204:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
             </StUFBG0204:PRS>
           </StUFBG0204:PRSPRSHUW>
         </StUFBG0204:PRS>
