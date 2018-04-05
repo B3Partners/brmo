@@ -55,6 +55,7 @@ before_test:
   - dir -w .\datamodel\generated_scripts\
   - sqlcmd -r0 -x -b -S (local)\%INSTANCENAME% -U sa -P Password12! -d "rsgb" -I -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
   - sqlcmd -r0 -x -b -S (local)\%INSTANCENAME% -U sa -P Password12! -d "rsgb" -I -i .\datamodel\utility_scripts\sqlserver\111a_update_gemeente_geom.sql
+  - sqlcmd -r0 -x -b -S (local)\%INSTANCENAME% -U sa -P Password12! -d "rsgb" -I -i .\datamodel\utility_scripts\sqlserver\113a_update_wijk_geom.sql
 #
   - cmd: echo "aanmaken en opzetten RSGBBGT DB"
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -Q "CREATE DATABASE bgttest" -d "master"
