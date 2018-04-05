@@ -8,9 +8,9 @@
 SELECT
 
 -- postgis blok
--- 'UPDATE wijk SET geom = ST_GeomFromEWKT(''' || ST_AsEWKT(wkb_geometry) || ''') WHERE code = ' || to_number(wk_code, '99999999') || ';
--- ' || 'INSERT INTO wijk (code,geom) SELECT '|| to_number(wk_code, '99999999') ||',ST_GeomFromEWKT(''' || ST_AsEWKT(wkb_geometry) || ''') WHERE NOT EXISTS (SELECT 1 FROM wijk WHERE code='||to_number(wk_code, '99999999')||');'
---  as "--postgis wijk 2018 geometrie update"
+ 'UPDATE wijk SET geom = ST_GeomFromEWKT(''' || ST_AsEWKT(wkb_geometry) || ''') WHERE code = ' || to_number(wk_code, '99999999') || ';
+ ' || 'INSERT INTO wijk (code,geom) SELECT '|| to_number(wk_code, '99999999') ||',ST_GeomFromEWKT(''' || ST_AsEWKT(wkb_geometry) || ''') WHERE NOT EXISTS (SELECT 1 FROM wijk WHERE code='||to_number(wk_code, '99999999')||');'
+  as "--postgis wijk 2018 geometrie update"
 
 -- mssql blok
 -- 'MERGE wijk AS target USING (VALUES (geometry::STGeomFromText(''' || ST_AsText(wkb_geometry) || ''',28992))) AS source (geom) ON target.code = ' || to_number(wk_code, '99999999') || '
@@ -27,45 +27,45 @@ SELECT
 -- Na het laden van de data kan het zinvol zijn om de ruimtelijke index te verversen; bijvoorbeeld ALTER INDEX WIJK_GEOM1_IDX REBUILD;
 
 -- oracle heeft een max lengte van 32767 voor een string dus de wkt moet opgeknipt worden in stukken en dan als blob verwerkt...
-'
-  wktA := ''' || substr(ST_AsText(wkb_geometry), 0,32766)      || ''';
-  wktB := ''' || substr(ST_AsText(wkb_geometry), 32766,32766)  || '@' || ''';
-  wktC := ''' || substr(ST_AsText(wkb_geometry), 65532,32766)  || '@' || ''';
-  wktD := ''' || substr(ST_AsText(wkb_geometry), 98298,32766)  || '@' || ''';
-  wktE := ''' || substr(ST_AsText(wkb_geometry), 131064,32766) || '@' || ''';
-  wktF := ''' || substr(ST_AsText(wkb_geometry), 163830,32766) || '@' || ''';
-  wktG := ''' || substr(ST_AsText(wkb_geometry), 196596,32766) || '@' || ''';
-  wktH := ''' || substr(ST_AsText(wkb_geometry), 229362,32766) || '@' || ''';
-  wktJ := ''' || substr(ST_AsText(wkb_geometry), 262128,32766) || '@' || ''';
-  wktK := ''' || substr(ST_AsText(wkb_geometry), 294894,32766) || '@' || ''';
-  wktL := ''' || substr(ST_AsText(wkb_geometry), 327660,32766) || '@' || ''';
-  wktM := ''' || substr(ST_AsText(wkb_geometry), 360426,32766) || '@' || ''';
-  wktN := ''' || substr(ST_AsText(wkb_geometry), 393192,32766) || '@' || ''';
-  wktP := ''' || substr(ST_AsText(wkb_geometry), 425958,32766) || '@' || ''';
-  wktQ := ''' || substr(ST_AsText(wkb_geometry), 458724,32766) || '@' || ''';
-  wktR := ''' || substr(ST_AsText(wkb_geometry), 491490)       || '@' || ''';
-
-  DBMS_LOB.APPEND(wktA,wktB);
-  DBMS_LOB.APPEND(wktA,wktC);
-  DBMS_LOB.APPEND(wktA,wktD);
-  DBMS_LOB.APPEND(wktA,wktE);
-  DBMS_LOB.APPEND(wktA,wktF);
-  DBMS_LOB.APPEND(wktA,wktG);
-  DBMS_LOB.APPEND(wktA,wktH);
-  DBMS_LOB.APPEND(wktA,wktJ);
-  DBMS_LOB.APPEND(wktA,wktK);
-  DBMS_LOB.APPEND(wktA,wktL);
-  DBMS_LOB.APPEND(wktA,wktM);
-  DBMS_LOB.APPEND(wktA,wktN);
-  DBMS_LOB.APPEND(wktA,wktP);
-  DBMS_LOB.APPEND(wktA,wktQ);
-  DBMS_LOB.APPEND(wktA,wktR);
-  wktA := REPLACE(wktA,''@'','''');
-
-  MERGE INTO wijk USING dual ON (CODE=' || to_number(wk_code, '99999999') || ')
-    WHEN MATCHED THEN UPDATE SET GEOM=SDO_GEOMETRY(wktA,28992)
-    WHEN NOT MATCHED THEN INSERT (CODE,GEOM) VALUES (' || to_number(wk_code, '99999999') || ', SDO_GEOMETRY(wktA,28992));'
-as "--oracle wijk 2017 geometrie update"
+--'
+--  wktA := ''' || substr(ST_AsText(wkb_geometry), 0,32766)      || ''';
+--  wktB := ''' || substr(ST_AsText(wkb_geometry), 32766,32766)  || '@' || ''';
+--  wktC := ''' || substr(ST_AsText(wkb_geometry), 65532,32766)  || '@' || ''';
+--  wktD := ''' || substr(ST_AsText(wkb_geometry), 98298,32766)  || '@' || ''';
+--  wktE := ''' || substr(ST_AsText(wkb_geometry), 131064,32766) || '@' || ''';
+--  wktF := ''' || substr(ST_AsText(wkb_geometry), 163830,32766) || '@' || ''';
+--  wktG := ''' || substr(ST_AsText(wkb_geometry), 196596,32766) || '@' || ''';
+--  wktH := ''' || substr(ST_AsText(wkb_geometry), 229362,32766) || '@' || ''';
+--  wktJ := ''' || substr(ST_AsText(wkb_geometry), 262128,32766) || '@' || ''';
+--  wktK := ''' || substr(ST_AsText(wkb_geometry), 294894,32766) || '@' || ''';
+--  wktL := ''' || substr(ST_AsText(wkb_geometry), 327660,32766) || '@' || ''';
+--  wktM := ''' || substr(ST_AsText(wkb_geometry), 360426,32766) || '@' || ''';
+--  wktN := ''' || substr(ST_AsText(wkb_geometry), 393192,32766) || '@' || ''';
+--  wktP := ''' || substr(ST_AsText(wkb_geometry), 425958,32766) || '@' || ''';
+--  wktQ := ''' || substr(ST_AsText(wkb_geometry), 458724,32766) || '@' || ''';
+--  wktR := ''' || substr(ST_AsText(wkb_geometry), 491490)       || '@' || ''';
+--
+--  DBMS_LOB.APPEND(wktA,wktB);
+--  DBMS_LOB.APPEND(wktA,wktC);
+--  DBMS_LOB.APPEND(wktA,wktD);
+--  DBMS_LOB.APPEND(wktA,wktE);
+--  DBMS_LOB.APPEND(wktA,wktF);
+--  DBMS_LOB.APPEND(wktA,wktG);
+--  DBMS_LOB.APPEND(wktA,wktH);
+--  DBMS_LOB.APPEND(wktA,wktJ);
+--  DBMS_LOB.APPEND(wktA,wktK);
+--  DBMS_LOB.APPEND(wktA,wktL);
+--  DBMS_LOB.APPEND(wktA,wktM);
+--  DBMS_LOB.APPEND(wktA,wktN);
+--  DBMS_LOB.APPEND(wktA,wktP);
+--  DBMS_LOB.APPEND(wktA,wktQ);
+--  DBMS_LOB.APPEND(wktA,wktR);
+--  wktA := REPLACE(wktA,''@'','''');
+--
+--  MERGE INTO wijk USING dual ON (CODE=' || to_number(wk_code, '99999999') || ')
+--    WHEN MATCHED THEN UPDATE SET GEOM=SDO_GEOMETRY(wktA,28992)
+--    WHEN NOT MATCHED THEN INSERT (CODE,GEOM) VALUES (' || to_number(wk_code, '99999999') || ', SDO_GEOMETRY(wktA,28992));'
+--as "--oracle wijk 2018 geometrie update"
 
 FROM wijk2017
 WHERE water = 'NEE'
