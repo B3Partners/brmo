@@ -92,7 +92,7 @@ before_script:
   # set up rsgb tabellen
   - ls -l ./datamodel/generated_scripts/
   - travis_wait psql -U postgres -w -q -d rsgb -f ./datamodel/generated_scripts/datamodel_postgresql.sql
-  #- travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/111a_update_gemeente_geom.sql
+  it add .tr  - travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/111a_update_gemeente_geom.sql
   #- travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/113a_update_wijk_geom.sql
   # set up rsgbbgt tabellen
   - psql -U postgres -w -q -d rsgbbgt -f ./bgt-gml-loader/target/generated-resources/ddl/postgresql/create_rsgb_bgt.sql

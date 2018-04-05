@@ -7,15 +7,15 @@
 SELECT
 
 -- postgis blok
--- 'UPDATE gemeente SET geom = ST_GeomFromEWKT(''' || ST_AsEWKT(wkb_geometry) || ''') WHERE code = ' || trim(leading '0' FROM code) || ';
--- ' || 'INSERT INTO gemeente (code,naam,geom) SELECT '|| trim(leading '0' FROM code) ||','''|| gemeentenaam ||''',ST_GeomFromEWKT(''' || ST_AsEWKT(wkb_geometry) || ''') WHERE NOT EXISTS (SELECT 1 FROM gemeente WHERE code='||trim(leading '0' FROM code)||');'
---  as "--postgis gemeente 2018 geometrie update"
+ 'UPDATE gemeente SET geom = ST_GeomFromEWKT(''' || ST_AsEWKT(wkb_geometry) || ''') WHERE code = ' || trim(leading '0' FROM code) || ';
+ ' || 'INSERT INTO gemeente (code,naam,geom) SELECT '|| trim(leading '0' FROM code) ||','''|| gemeentenaam ||''',ST_GeomFromEWKT(''' || ST_AsEWKT(wkb_geometry) || ''') WHERE NOT EXISTS (SELECT 1 FROM gemeente WHERE code='||trim(leading '0' FROM code)||');'
+  as "--postgis gemeente 2018 geometrie update"
 
 -- mssql blok
- 'MERGE gemeente AS target USING (VALUES (geometry::STGeomFromText(''' || ST_AsText(wkb_geometry) || ''',28992))) AS source (geom) ON target.code = ' || trim(leading '0' FROM code) || '
-   WHEN MATCHED THEN UPDATE SET geom = source.geom
-   WHEN NOT MATCHED THEN INSERT (code,naam,geom) VALUES (' || trim(leading '0' FROM code) ||','''|| gemeentenaam ||''', source.geom);'
-as "--mssql gemeente 2018 geometrie update"
+-- 'MERGE gemeente AS target USING (VALUES (geometry::STGeomFromText(''' || ST_AsText(wkb_geometry) || ''',28992))) AS source (geom) ON target.code = ' || trim(leading '0' FROM code) || '
+--   WHEN MATCHED THEN UPDATE SET geom = source.geom
+--   WHEN NOT MATCHED THEN INSERT (code,naam,geom) VALUES (' || trim(leading '0' FROM code) ||','''|| gemeentenaam ||''', source.geom);'
+--as "--mssql gemeente 2018 geometrie update"
 
 -- oracle blok
 -- NB. Oracle heeft handwerk nodig! oracle heeft een max lengte van 32767 voor een string dus de wkt moet opgeknipt worden in stukken...
