@@ -1,15 +1,32 @@
 --
--- upgrade PostgreSQL RSGB datamodel van 1.5.2 naar 1.5.3
+-- upgrade SQLserver RSGB datamodel van 1.5.2 naar 1.6.0
 --
 
 -- 118
-
+-- worden al in 114 verwijderd
+-- alter table subject drop constraint fk_sub_as_13;
+-- alter table subject drop constraint fk_sub_as_14;
+-- alter table subject drop constraint fk_sub_as_15;
+-- alter table subject drop constraint fk_sub_pa_as_4;
 alter table subject drop constraint fk_sub_vb_4;
 
+-- worden al in 114 verwijderd
+-- alter table ingeschr_nat_prs drop constraint fk_inp_as_27;
+-- alter table ingeschr_nat_prs drop constraint fk_inp_as_28;
+-- alter table ingeschr_nat_prs drop constraint fk_inp_as_29;
+-- alter table ingeschr_nat_prs drop constraint fk_inp_as_30;
+-- alter table ingeschr_nat_prs drop constraint fk_inp_as_31;
 alter table ingeschr_nat_prs drop constraint fk_inp_gb_2;
 alter table ingeschr_nat_prs drop constraint fk_inp_ol_1;
 alter table ingeschr_nat_prs drop constraint fk_inp_rl_17;
 alter table ingeschr_nat_prs drop constraint fk_inp_rl_18;
+-- alter table ingeschr_nat_prs drop constraint fk_inp_va_as_3;
+-- alter table ingeschr_nat_prs drop constraint fk_inp_va_as_4;
+-- alter table ingeschr_nat_prs drop constraint fk_inp_va_as_5;
+-- alter table ingeschr_nat_prs drop constraint fk_inp_va_as_6;
+-- alter table ingeschr_nat_prs drop constraint fk_inp_va_as_7;
+
+GO
 
 -- 119
 insert into rsdocsoort (rsdoccode, rsdocomschr) values
@@ -23,334 +40,189 @@ insert into rsdocsoort (rsdoccode, rsdocomschr) values
 ('8','paspoort met aantekening vergunning tot verblijf'),
 ('9','(electronisch) W-document');
 
+GO
+
 -- 120
--- 107#245
-drop view v_kad_eigenarenkaart;
--- 107#138
-drop view kad_perceel_app_rechten;
--- 107#106
-drop view v_kad_perceel_zr_adressen;
--- 107#73
-drop view v_kad_perceel_zak_recht;
--- 107#21
-drop view v_kad_perceel_in_eigendom;
--- 105#83
-drop view v_bd_app_re_bij_perceel;
+ALTER TABLE ander_btnlnds_niet_nat_prs DROP CONSTRAINT fk_ann_sc;
+ALTER TABLE ander_nat_prs DROP CONSTRAINT fk_anp_sc;
+ALTER TABLE ouder_kind_rel DROP CONSTRAINT fk_ouder_kind_rel_sc_rh;
+ALTER TABLE ouder_kind_rel DROP CONSTRAINT fk_ouder_kind_rel_sc_lh;
+ALTER TABLE huw_ger_partn DROP CONSTRAINT fk_huw_ger_partn_sc_rh;
+ALTER TABLE huw_ger_partn DROP CONSTRAINT fk_huw_ger_partn_sc_lh;
+ALTER TABLE kad_onrrnd_zk DROP CONSTRAINT fk_koz_as_10;
+ALTER TABLE kad_onrrnd_zk_aantek DROP CONSTRAINT fk_kza_as_5;
+ALTER TABLE maatschapp_activiteit DROP CONSTRAINT fk_mac_as_4;
+ALTER TABLE app_re DROP CONSTRAINT fk_apr_as_2;
+ALTER TABLE vestg DROP CONSTRAINT fk_ves_as_19;
+ALTER TABLE vestg DROP CONSTRAINT fk_ves_as_18;
+ALTER TABLE vestg DROP CONSTRAINT fk_ves_as_17;
+ALTER TABLE vestg_benoemd_obj DROP CONSTRAINT fk_ves_tgo_nn_lh;
+ALTER TABLE ingeschr_niet_nat_prs DROP CONSTRAINT fk_inn_sc;
+ALTER TABLE huishoudenrel DROP CONSTRAINT fk_huishoudenrel_sc_lh;
+ALTER TABLE niet_ingezetene DROP CONSTRAINT fk_nin_sc;
+ALTER TABLE ingezetene DROP CONSTRAINT fk_ing_sc;
+ALTER TABLE ingeschr_nat_prs DROP CONSTRAINT fk_inp_sc;
+ALTER TABLE nat_prs DROP CONSTRAINT fk_nps_sc;
+ALTER TABLE functionaris DROP CONSTRAINT fk_functionaris_sc_lh;
+ALTER TABLE functionaris DROP CONSTRAINT fk_functionaris_sc_rh;
+ALTER TABLE zak_recht_aantek DROP CONSTRAINT fk_zra_as_6;
+ALTER TABLE zak_recht DROP CONSTRAINT fk_zkr_as_8;
+ALTER TABLE woz_belang DROP CONSTRAINT fk_woz_belang_sc_lh;
+ALTER TABLE prs DROP CONSTRAINT fk_pes_sc;
+ALTER TABLE niet_nat_prs DROP CONSTRAINT fk_nnp_sc;
+ALTER TABLE vestg_naam DROP CONSTRAINT fk_ves1;
+ALTER TABLE rsdoc_ingeschr_nat_prs DROP CONSTRAINT fk_rsd_inp_nn_rh;
 
-alter table ander_btnlnds_niet_nat_prs alter column sc_identif type character varying (255);
-alter table ander_nat_prs alter column sc_identif type character varying (255);
-alter table app_re alter column fk_2nnp_sc_identif type character varying (255);
-alter table ingeschr_niet_nat_prs alter column sc_identif type character varying (255);
-alter table ingeschr_nat_prs alter column sc_identif type character varying (255);
-alter table ingezetene alter column sc_identif type character varying (255);
-alter table kad_onrrnd_zk alter column fk_10pes_sc_identif type character varying (255);
-alter table kad_onrrnd_zk_aantek alter column fk_5pes_sc_identif type character varying (255);
-alter table maatschapp_activiteit alter column fk_4pes_sc_identif type character varying (255);
-alter table nat_prs alter column sc_identif type character varying (255);
-alter table niet_ingezetene alter column sc_identif type character varying (255);
-alter table niet_nat_prs alter column sc_identif type character varying (255);
-alter table prs alter column  sc_identif type character varying (255);
-alter table subject alter column identif type character varying (255);
-alter table vestg alter column  sc_identif type character varying (255);
-alter table vestg alter column fk_18ves_sc_identif type character varying (255);
-alter table zak_recht alter column fk_8pes_sc_identif type character varying (255);
-alter table zak_recht_aantek alter column fk_6pes_sc_identif type character varying (255);
-alter table vestg_naam alter column fk_ves_sc_identif type character varying (255);
-alter table huishoudenrel alter column fk_sc_lh_inp_sc_identif type character varying (255);
-alter table huw_ger_partn alter column fk_sc_lh_inp_sc_identif type character varying (255);
-alter table huw_ger_partn alter column fk_sc_rh_inp_sc_identif type character varying (255);
-alter table ouder_kind_rel alter column fk_sc_lh_inp_sc_identif type character varying (255);
-alter table ouder_kind_rel alter column fk_sc_rh_inp_sc_identif type character varying (255);
-alter table rsdoc_ingeschr_nat_prs alter column fk_nn_rh_inp_sc_identif type character varying (255);
-alter table vestg_benoemd_obj alter column fk_nn_lh_ves_sc_identif type character varying (255);
-alter table functionaris alter column fk_sc_lh_pes_sc_identif type character varying (255);
-alter table functionaris alter column fk_sc_rh_pes_sc_identif type character varying (255);
-alter table woz_belang alter column fk_sc_lh_sub_identif type character varying (255);
-alter table vestg_activiteit alter column fk_vestg_nummer type character varying (255);
-alter table prs_eigendom alter column fk_prs_sc_identif type character varying (255);
+-- prs_eigendom heeft een niet-benoemde FK
+WHILE(EXISTS(SELECT 1 FROM information_schema.table_constraints WHERE table_name='prs_eigendom' AND constraint_type='FOREIGN KEY'))
+BEGIN
+    DECLARE @sqlp NVARCHAR(MAX)
+    SELECT TOP 1 @sqlp=('ALTER TABLE prs_eigendom DROP CONSTRAINT ' + CONSTRAINT_NAME )
+    FROM information_schema.table_constraints WHERE table_name='prs_eigendom' AND constraint_type = 'FOREIGN KEY'
+    -- PRINT N'Opruimen prs_eigendom FKs ' + @sqlp
+    EXEC sp_executesql @sqlp
+END
 
--- herstellen van de views
--- view om appartementsrechten bij percelen op te zoeken
-CREATE OR REPLACE VIEW v_bd_app_re_bij_perceel AS
- SELECT
-    (row_number() OVER ())::integer AS ObjectID,
-    ar.sc_kad_identif,
-    ar.fk_2nnp_sc_identif,
-    ar.ka_appartementsindex,
-    ar.ka_kad_gemeentecode,
-    ar.ka_perceelnummer,
-    ar.ka_sectie,
-    kp.begrenzing_perceel
-   FROM v_bd_app_re_all_kad_perceel v
-     JOIN kad_perceel kp ON v.perceel_identif = kp.sc_kad_identif::varchar
-     JOIN app_re ar ON v.app_re_identif = ar.sc_kad_identif::varchar;
+-- vestg_activiteit heeft niet-benoemde FK's
+WHILE(EXISTS(SELECT 1 FROM information_schema.table_constraints WHERE table_name='vestg_activiteit' AND constraint_type='FOREIGN KEY'))
+BEGIN
+    DECLARE @sqla NVARCHAR(MAX)
+    SELECT TOP 1 @sqla=('ALTER TABLE vestg_activiteit DROP CONSTRAINT ' + constraint_name)
+    FROM information_schema.table_constraints WHERE table_name='vestg_activiteit' AND constraint_type = 'FOREIGN KEY'
+    -- PRINT N'Opruimen vestg_activiteit FKs ' + @sqla
+    EXEC sp_executesql @sqla
+END
 
+GO
 
-create or replace view v_kad_perceel_in_eigendom as
-select
-   (row_number() OVER ())::integer AS ObjectID,
-   p.begrenzing_perceel,
-   p.sc_kad_identif,
-   p.aanduiding,
-   p.grootte_perceel,
-   p.ks_koopjaar,
-   p.ks_bedrag,
-   p.cu_aard_cultuur_onbebouwd,
-   nnprs.naam
-from v_map_kad_perceel p
-join zak_recht zr on (zr.fk_7koz_kad_identif = p.sc_kad_identif)
-join prs_eigendom prs_e on (prs_e.fk_prs_sc_identif = zr.fk_8pes_sc_identif)
-left join niet_nat_prs nnprs on (nnprs.sc_identif = prs_e.fk_prs_sc_identif);
+ALTER TABLE ander_nat_prs DROP CONSTRAINT ander_nat_prs_pk;
+ALTER TABLE ander_btnlnds_niet_nat_prs DROP CONSTRAINT ander_btnlnds_niet_nat_prs_pk;
+ALTER TABLE nat_prs DROP CONSTRAINT nat_prs_pk;
+ALTER TABLE ingeschr_nat_prs DROP CONSTRAINT ingeschr_nat_prs_pk;
+ALTER TABLE ingeschr_niet_nat_prs DROP CONSTRAINT ingeschr_niet_nat_prs_pk;
+ALTER TABLE ingezetene DROP CONSTRAINT ingezetene_pk;
+ALTER TABLE niet_ingezetene DROP CONSTRAINT niet_ingezetene_pk;
+ALTER TABLE niet_nat_prs DROP CONSTRAINT niet_nat_prs_pk;
+ALTER TABLE prs DROP CONSTRAINT prs_pk;
+ALTER TABLE subject DROP CONSTRAINT subject_pk;
+ALTER TABLE vestg DROP CONSTRAINT vestg_pk;
 
-create or replace view v_kad_perceel_zak_recht as
- select
-   p.sc_kad_identif as Kadaster_identificatie,
-   zr.AR_TELLER  as Aandeel_teller,
-   zr.AR_NOEMER as Aandeel_noemer,
-   zr.FK_3AVR_AAND as Aard_recht_aand,
---    ark.omschr as Aard_recht_omschrijving_verkort, XXX referentielijst niet gevuld
---    ar.omschr_aard_verkregenr_recht as Aard_recht_omschrijving, XXX referentielijst niet gevuld
-   case when np.sc_identif is not null then 'Natuurlijk persoon' else 'Niet natuurlijk persoon' end as soort_eigenaar,
-   np.NM_GESLACHTSNAAM as Geslachtsnaam,
-   np.NM_VOORVOEGSEL_GESLACHTSNAAM as Voorvoegsel,
-   np.NM_VOORNAMEN as Voornamen,
-   np.GESLACHTSAAND as Geslacht,
-   inp.VA_LOC_BESCHRIJVING as Woonadres,
-   inp.GB_GEBOORTEDATUM as Geboortedatum,
---    inp.GB_GEBOORTELAND as Code_geboorteland, XXX in XSL conversie naar 2-letterige ISO code
-   inp.GB_GEBOORTEPLAATS as Geboorteplaats,
-   inp.OL_OVERLIJDENSDATUM as Overlijdensdatum,
-   nnp.NAAM as Naam_niet_natuurlijk_persoon,
-   innp.RECHTSVORM as Rechtsvorm,
-   innp.STATUTAIRE_ZETEL as Statutaire_zetel,
-   innp_subject.kvk_nummer
- from kad_perceel p
- join zak_recht zr on (zr.FK_7KOZ_KAD_IDENTIF = p.sc_kad_identif)
- left join aard_recht_verkort ark on (zr.FK_3AVR_AAND = ark.AAND)
- left join aard_verkregen_recht ar on (zr.FK_3AVR_AAND = ar.AAND)
- left join nat_prs np on (np.SC_IDENTIF = zr.FK_8PES_SC_IDENTIF)
- left join ingeschr_nat_prs inp on (inp.SC_IDENTIF = np.SC_IDENTIF)
- left join niet_nat_prs nnp on (nnp.sc_identif = zr.FK_8PES_SC_IDENTIF)
- left join ingeschr_niet_nat_prs innp on (innp.SC_IDENTIF = nnp.sc_identif)
- left join subject innp_subject on (innp_subject.identif = innp.sc_identif)
- where np.NM_GESLACHTSNAAM is not null or nnp.NAAM is not null;
+-- vestg_naam heeft een niet-benoemde PK
+DECLARE @PrimaryKeyName sysname = (SELECT constraint_name FROM information_schema.table_constraints WHERE constraint_type = 'PRIMARY KEY' AND table_schema='dbo' AND table_name = 'vestg_naam')
+IF @PrimaryKeyName IS NOT NULL
+BEGIN
+    DECLARE @SQL_PK NVARCHAR(MAX) = 'ALTER TABLE dbo.vestg_naam DROP CONSTRAINT ' + @PrimaryKeyName
+    -- PRINT N'Opruimen vestg_naam PK ' + @SQL_PK
+    EXEC sp_executesql @SQL_PK;
+END
 
+ALTER TABLE huishoudenrel DROP CONSTRAINT huishoudenrel_pk;
+ALTER TABLE huw_ger_partn DROP CONSTRAINT huw_ger_partn_pk;
+ALTER TABLE ouder_kind_rel DROP CONSTRAINT ouder_kind_rel_pk;
+ALTER TABLE rsdoc_ingeschr_nat_prs DROP CONSTRAINT rsdoc_ingeschr_nat_prs_pk;
+ALTER TABLE vestg_benoemd_obj DROP CONSTRAINT vestg_benoemd_obj_pk;
+ALTER TABLE functionaris DROP CONSTRAINT functionaris_pk;
 
- create or replace view v_kad_perceel_zr_adressen as
- select
-   (row_number() OVER ())::integer AS ObjectID,
-   kp.SC_KAD_IDENTIF,
-   kp.BEGRENZING_PERCEEL,
-   kp.AANDUIDING,
-   kp.GROOTTE_PERCEEL,
-   kp.STRAAT,
-   kp.HUISNUMMER,
-   kp.HUISLETTER,
-   kp.TOEVOEGING,
-   kp.POSTCODE,
-   kp.WOONPLAATS,
-   zr.AANDEEL_TELLER,
-   zr.AANDEEL_NOEMER,
-   zr.AARD_RECHT_AAND,
-   zr.SOORT_EIGENAAR,
-   zr.GESLACHTSNAAM,
-   zr.VOORVOEGSEL,
-   zr.VOORNAMEN,
-   zr.GESLACHT,
-   zr.WOONADRES,
-   zr.GEBOORTEDATUM,
-   zr.GEBOORTEPLAATS,
-   zr.OVERLIJDENSDATUM,
-   zr.NAAM_NIET_NATUURLIJK_PERSOON,
-   zr.RECHTSVORM,
-   zr.STATUTAIRE_ZETEL,
-   zr.KVK_NUMMER
- from v_kad_perceel_eenvoudig kp
- join v_kad_perceel_zak_recht zr on (zr.KADASTER_IDENTIFICATIE = kp.sc_kad_identif);
+GO
 
+ALTER TABLE ander_btnlnds_niet_nat_prs ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE ander_nat_prs ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE ingeschr_niet_nat_prs ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE ingeschr_nat_prs ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE ingezetene ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE kad_onrrnd_zk ALTER COLUMN fk_10pes_sc_identif VARCHAR(255);
+ALTER TABLE kad_onrrnd_zk_aantek ALTER COLUMN fk_5pes_sc_identif VARCHAR(255);
+ALTER TABLE maatschapp_activiteit ALTER COLUMN fk_4pes_sc_identif VARCHAR(255);
+ALTER TABLE nat_prs ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE niet_ingezetene ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE niet_nat_prs ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE app_re ALTER COLUMN fk_2nnp_sc_identif VARCHAR(255);
+ALTER TABLE prs ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE subject ALTER COLUMN identif VARCHAR(255) NOT NULL;
+ALTER TABLE vestg ALTER COLUMN sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE vestg ALTER COLUMN fk_18ves_sc_identif VARCHAR(255);
+ALTER TABLE zak_recht ALTER COLUMN fk_8pes_sc_identif VARCHAR(255);
+ALTER TABLE zak_recht_aantek ALTER COLUMN fk_6pes_sc_identif VARCHAR(255);
+ALTER TABLE vestg_naam ALTER COLUMN fk_ves_sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE huishoudenrel ALTER COLUMN fk_sc_lh_inp_sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE huw_ger_partn ALTER COLUMN fk_sc_lh_inp_sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE huw_ger_partn ALTER COLUMN fk_sc_rh_inp_sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE ouder_kind_rel ALTER COLUMN fk_sc_lh_inp_sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE ouder_kind_rel ALTER COLUMN fk_sc_rh_inp_sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE rsdoc_ingeschr_nat_prs ALTER COLUMN fk_nn_rh_inp_sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE vestg_benoemd_obj ALTER COLUMN fk_nn_lh_ves_sc_identif VARCHAR(255) NOT NULL;
+-- ook in andere migratie scripts ed..
+ALTER TABLE functionaris ALTER COLUMN fk_sc_lh_pes_sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE functionaris ALTER COLUMN fk_sc_rh_pes_sc_identif VARCHAR(255) NOT NULL;
+ALTER TABLE woz_belang ALTER COLUMN fk_sc_lh_sub_identif VARCHAR(255) NOT NULL;
+ALTER TABLE vestg_activiteit ALTER COLUMN fk_vestg_nummer VARCHAR(255) NOT NULL;
+ALTER TABLE prs_eigendom ALTER COLUMN fk_prs_sc_identif VARCHAR(255) NOT NULL;
 
+GO
 
+ALTER TABLE niet_nat_prs ADD CONSTRAINT niet_nat_prs_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE ander_btnlnds_niet_nat_prs ADD CONSTRAINT ander_btnlnds_niet_nat_prs_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE ander_nat_prs ADD CONSTRAINT ander_nat_prs_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE ingeschr_niet_nat_prs ADD CONSTRAINT ingeschr_niet_nat_prs_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE ingeschr_nat_prs ADD CONSTRAINT ingeschr_nat_prs_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE ingezetene ADD CONSTRAINT ingezetene_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE nat_prs ADD CONSTRAINT nat_prs_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE niet_ingezetene ADD CONSTRAINT niet_ingezetene_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE prs ADD CONSTRAINT prs_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE subject ADD CONSTRAINT subject_pk PRIMARY KEY clustered(identif);
+ALTER TABLE vestg ADD CONSTRAINT vestg_pk PRIMARY KEY clustered(sc_identif);
+ALTER TABLE vestg_naam ADD CONSTRAINT pk_vestg_naam PRIMARY KEY (naam, fk_ves_sc_identif);
+ALTER TABLE huishoudenrel ADD CONSTRAINT huishoudenrel_pk PRIMARY KEY clustered(fk_sc_lh_inp_sc_identif,fk_sc_rh_hhd_nummer);
+ALTER TABLE huw_ger_partn ADD CONSTRAINT huw_ger_partn_pk PRIMARY KEY clustered(fk_sc_lh_inp_sc_identif,fk_sc_rh_inp_sc_identif);
+ALTER TABLE ouder_kind_rel ADD CONSTRAINT ouder_kind_rel_pk PRIMARY KEY clustered(fk_sc_lh_inp_sc_identif,fk_sc_rh_inp_sc_identif);
+ALTER TABLE rsdoc_ingeschr_nat_prs ADD CONSTRAINT rsdoc_ingeschr_nat_prs_pk PRIMARY KEY clustered(fk_nn_lh_rsd_nummer,fk_nn_rh_inp_sc_identif);
+ALTER TABLE vestg_benoemd_obj ADD CONSTRAINT vestg_benoemd_obj_pk PRIMARY KEY clustered(fk_nn_lh_ves_sc_identif,fk_nn_rh_tgo_identif);
+ALTER TABLE functionaris ADD CONSTRAINT functionaris_pk PRIMARY KEY clustered(fk_sc_lh_pes_sc_identif,fk_sc_rh_pes_sc_identif);
 
-create or replace view kad_perceel_app_rechten as
-select
- kpe.SC_KAD_IDENTIF as perceel_identificatie,
--- kpe.KA_SECTIE || ' ' || kpe.KA_PERCEELNUMMER as perceelnr,
- kpe.aanduiding,
- kpe.straat, kpe.huisnummer, kpe.toevoeging, kpe.huisletter,
- kpe.straat || ' ' || kpe.huisnummer || ' ' || kpe.huisletter || ' ' || kpe.toevoeging || ' ' || kpe.postcode as adres,
--- zr.kadaster_identif as links_zak_recht,
- zr.FK_3AVR_AAND as complex_zak_recht_aard_aand,
--- zr.FK2_PERSOON as links_zak_recht_persoon,
+GO
 
---    case when np1.PK_PERSOON is not null then 'Natuurlijk persoon' else 'Niet natuurlijk persoon' end as l_soort_eigenaar,
-    case when np1.sc_identif is not null then np1.NM_GESLACHTSNAAM || ', ' || np1.NM_VOORNAMEN || ' ' || np1.NM_VOORVOEGSEL_GESLACHTSNAAM else nnp1.NAAM end as perceel_zak_recht_naam,
---    nnp1.NAAM as l_nnp,
+ALTER TABLE ander_btnlnds_niet_nat_prs ADD CONSTRAINT fk_ann_sc FOREIGN KEY (sc_identif) REFERENCES niet_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE ander_nat_prs ADD CONSTRAINT fk_anp_sc FOREIGN KEY (sc_identif) REFERENCES nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE ingeschr_niet_nat_prs ADD CONSTRAINT fk_inn_sc FOREIGN KEY (sc_identif) REFERENCES niet_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE ingeschr_nat_prs ADD CONSTRAINT fk_inp_sc FOREIGN KEY (sc_identif) REFERENCES nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE niet_ingezetene ADD CONSTRAINT fk_nin_sc FOREIGN KEY (sc_identif) REFERENCES ingeschr_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE prs ADD CONSTRAINT fk_pes_sc FOREIGN KEY (sc_identif) REFERENCES subject (identif) ON DELETE no action;
+ALTER TABLE ouder_kind_rel ADD CONSTRAINT fk_ouder_kind_rel_sc_lh FOREIGN KEY (fk_sc_lh_inp_sc_identif) REFERENCES ingeschr_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE ouder_kind_rel ADD CONSTRAINT fk_ouder_kind_rel_sc_rh FOREIGN KEY (fk_sc_rh_inp_sc_identif) REFERENCES ingeschr_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE huw_ger_partn ADD CONSTRAINT fk_huw_ger_partn_sc_lh FOREIGN KEY (fk_sc_lh_inp_sc_identif) REFERENCES ingeschr_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE huw_ger_partn ADD CONSTRAINT fk_huw_ger_partn_sc_rh FOREIGN KEY (fk_sc_rh_inp_sc_identif) REFERENCES ingeschr_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE kad_onrrnd_zk ADD CONSTRAINT fk_koz_as_10 FOREIGN KEY (fk_10pes_sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
+ALTER TABLE kad_onrrnd_zk_aantek ADD CONSTRAINT fk_kza_as_5 FOREIGN KEY (fk_5pes_sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
+ALTER TABLE maatschapp_activiteit ADD CONSTRAINT fk_mac_as_4 FOREIGN KEY (fk_4pes_sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
+ALTER TABLE app_re ADD CONSTRAINT fk_apr_as_2 FOREIGN KEY (fk_2nnp_sc_identif) REFERENCES niet_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE functionaris ADD CONSTRAINT fk_functionaris_sc_lh FOREIGN KEY (fk_sc_lh_pes_sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
+ALTER TABLE functionaris ADD CONSTRAINT fk_functionaris_sc_rh FOREIGN KEY (fk_sc_rh_pes_sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
+ALTER TABLE zak_recht_aantek ADD CONSTRAINT fk_zra_as_6 FOREIGN KEY (fk_6pes_sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
+ALTER TABLE zak_recht ADD CONSTRAINT fk_zkr_as_8 FOREIGN KEY (fk_8pes_sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
+ALTER TABLE woz_belang ADD CONSTRAINT fk_woz_belang_sc_lh FOREIGN KEY (fk_sc_lh_sub_identif) REFERENCES subject (identif) ON DELETE no action;
+ALTER TABLE vestg ADD CONSTRAINT fk_ves_as_17 FOREIGN KEY (fk_17mac_kvk_nummer) REFERENCES maatschapp_activiteit (kvk_nummer) ON DELETE no action;
+ALTER TABLE vestg ADD CONSTRAINT fk_ves_as_18 FOREIGN KEY (fk_18ves_sc_identif) REFERENCES vestg (sc_identif) ON DELETE no action;
+ALTER TABLE vestg ADD CONSTRAINT fk_ves_as_19 FOREIGN KEY (fk_19mac_kvk_nummer) REFERENCES maatschapp_activiteit (kvk_nummer) ON DELETE no action;
+ALTER TABLE vestg_naam ADD CONSTRAINT fk_ves1 FOREIGN KEY (fk_ves_sc_identif) REFERENCES vestg (sc_identif) ON DELETE no action;
+ALTER TABLE vestg_activiteit ADD CONSTRAINT fkfk_vestg_nummer FOREIGN KEY (fk_vestg_nummer) REFERENCES vestg(sc_identif);
+ALTER TABLE vestg_activiteit ADD CONSTRAINT fkfk_sbi_activiteit_code FOREIGN KEY (fk_sbi_activiteit_code) REFERENCES sbi_activiteit(sbi_code);
+ALTER TABLE huishoudenrel ADD CONSTRAINT fk_huishoudenrel_sc_lh FOREIGN KEY (fk_sc_lh_inp_sc_identif) REFERENCES ingeschr_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE ingezetene ADD CONSTRAINT fk_ing_sc FOREIGN KEY (sc_identif) REFERENCES ingeschr_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE rsdoc_ingeschr_nat_prs ADD CONSTRAINT fk_rsd_inp_nn_rh FOREIGN KEY (fk_nn_rh_inp_sc_identif) REFERENCES ingeschr_nat_prs (sc_identif) ON DELETE no action;
+ALTER TABLE nat_prs ADD CONSTRAINT fk_nps_sc FOREIGN KEY (sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
+ALTER TABLE niet_nat_prs ADD CONSTRAINT fk_nnp_sc FOREIGN KEY (sc_identif) REFERENCES prs (sc_identif) ON DELETE no action;
+ALTER TABLE prs_eigendom ADD CONSTRAINT fkfk_prs_sc_identif FOREIGN KEY (fk_prs_sc_identif) REFERENCES prs(sc_identif);
+ALTER TABLE vestg_benoemd_obj ADD CONSTRAINT fk_ves_tgo_nn_lh FOREIGN KEY (fk_nn_lh_ves_sc_identif) REFERENCES vestg (sc_identif) ON DELETE no action;
 
--- bd1.identificatie as brondocument,
--- zr2.kadaster_identif as rechts_zak_recht,
- zr2.FK_3AVR_AAND as app_re_zak_recht_aard_aand,
--- zr2.FK2_PERSOON as rechts_zak_recht_persoon,
-
---    case when np2.PK_PERSOON is not null then 'Natuurlijk persoon' else 'Niet natuurlijk persoon' end as r_soort_eigenaar,
-    case when np2.sc_identif is not null then np2.NM_GESLACHTSNAAM || ', ' || np2.NM_VOORNAMEN || ' ' || np2.NM_VOORVOEGSEL_GESLACHTSNAAM else nnp2.NAAM end as app_re_zak_recht_naam,
---    nnp2.NAAM as r_nnp,
-
-ar.SC_KAD_IDENTIF as app_re_identificatie,
- ar.KA_APPARTEMENTSINDEX::int as appartementsindex --,
--- ar.FK1_NIET_NAT_PERSOON as app_re_vve,
--- ar_vve_nnp.naam as app_re_vve_naam,
--- ar_vve_innp.rechtsvorm as app_re_vve_rechtsvorm,
--- ar_vve_innp.rsin as app_re_vve_rsin
-from v_kad_perceel_eenvoudig kpe
-join zak_recht zr on (zr.FK_7KOZ_KAD_IDENTIF = kpe.SC_KAD_IDENTIF)
-
-  left join nat_prs np1 on (np1.SC_IDENTIF = zr.FK_8PES_SC_IDENTIF)
-  left join ingeschr_nat_prs inp1 on (inp1.SC_IDENTIF = np1.SC_IDENTIF)
-  left join niet_nat_prs nnp1 on (nnp1.sc_identif = zr.FK_8PES_SC_IDENTIF)
-  left join ingeschr_niet_nat_prs innp1 on (innp1.sc_identif = nnp1.sc_identif)
-
-join brondocument bd1 on (bd1.tabel = 'ZAK_RECHT' and bd1.tabel_identificatie = zr.kadaster_identif)
-join brondocument bd2 on (bd2.tabel = 'ZAK_RECHT' and bd2.tabel_identificatie <> zr.kadaster_identif and bd2.identificatie = bd1.identificatie)
-join zak_recht zr2 on (zr2.kadaster_identif = bd2.tabel_identificatie)
+GO
 
 
-  left join nat_prs np2 on (np2.SC_IDENTIF = zr2.FK_8PES_SC_IDENTIF)
-  left join ingeschr_nat_prs inp2 on (inp2.SC_IDENTIF = np2.SC_IDENTIF)
-  left join niet_nat_prs nnp2 on (nnp2.sc_identif = zr2.FK_8PES_SC_IDENTIF)
-  left join ingeschr_niet_nat_prs innp2 on (innp2.sc_identif = nnp2.sc_identif)
-
-join app_re ar on (ar.SC_KAD_IDENTIF = zr2.FK_7KOZ_KAD_IDENTIF)
-join niet_nat_prs ar_vve_nnp on (ar_vve_nnp.sc_identif = ar.FK_2NNP_SC_IDENTIF)
-join INGESCHR_NIET_NAT_PRS ar_vve_innp on (ar_vve_innp.sc_identif = ar_vve_nnp.sc_identif)
-where bd1.omschrijving like 'betrokkenBij%'
-and zr2.FK_8PES_SC_IDENTIF is not null
-order by kpe.SC_KAD_IDENTIF, kpe.straat, kpe.huisnummer, kpe.toevoeging, kpe.huisletter,  KA_APPARTEMENTSINDEX::int;
-
-
--- Eigenarenkaart - percelen en appartementen met hun eigenaren
-CREATE OR REPLACE VIEW
-    V_KAD_EIGENARENKAART
-    (
-        OBJECTID,
-        KADASTER_IDENTIFICATIE,
-        TYPE,
-        ZAKELIJK_RECHT_IDENTIFICATIE,
-        AANDEEL_TELLER,
-        AANDEEL_NOEMER,
-        AARD_RECHT_AAND,
-        ZAKELIJK_RECHT_OMSCHRIJVING,
-        AANKOOPDATUM,
-        SOORT_EIGENAAR,
-        GESLACHTSNAAM,
-        VOORVOEGSEL,
-        VOORNAMEN,
-        GESLACHT,
-        PERCEEL_ZAK_RECHT_NAAM,
-        PERSOON_IDENTIFICATIE,
-        WOONADRES,
-        GEBOORTEDATUM,
-        GEBOORTEPLAATS,
-        OVERLIJDENSDATUM,
-        NAAM_NIET_NATUURLIJK_PERSOON,
-        RECHTSVORM,
-        STATUTAIRE_ZETEL,
-        KVK_NUMMER,
-        KA_APPARTEMENTSINDEX,
-        KA_DEELPERCEELNUMMER,
-        KA_PERCEELNUMMER,
-        KA_KAD_GEMEENTECODE,
-        KA_SECTIE,
-        BEGRENZING_PERCEEL
-    ) AS
-SELECT
-    (row_number() OVER ())::integer AS objectid,
-    p.kadaster_identificatie    AS kadaster_identificatie,
-    p.type,
-    zr.kadaster_identif AS zakelijk_recht_identificatie,
-    zr.ar_teller        AS aandeel_teller,
-    zr.ar_noemer        AS aandeel_noemer,
-    zr.fk_3avr_aand     AS aard_recht_aand,
-    ark.omschr          AS zakelijk_recht_omschrijving,
-    b.aankoopdatum,
-    CASE
-        WHEN np.sc_identif IS NOT NULL
-        THEN 'Natuurlijk persoon'
-        WHEN nnp.sc_identif IS NOT NULL
-        THEN 'Niet natuurlijk persoon'
-        ELSE 'Onbekend'
-    END                             AS soort_eigenaar,
-    np.nm_geslachtsnaam             AS geslachtsnaam,
-    np.nm_voorvoegsel_geslachtsnaam AS voorvoegsel,
-    np.nm_voornamen                 AS voornamen,
-    np.geslachtsaand                AS geslacht,
-    CASE
-        WHEN np.sc_identif IS NOT NULL
-        THEN np.NM_GESLACHTSNAAM || ', ' || np.NM_VOORNAMEN || ' ' ||
-            np.NM_VOORVOEGSEL_GESLACHTSNAAM
-        WHEN nnp.sc_identif IS NOT NULL
-        THEN nnp.NAAM
-        ELSE 'Onbekend'
-    END                     AS perceel_zak_recht_naam,
-    inp.sc_identif          AS persoon_identificatie,
-    inp.va_loc_beschrijving AS woonadres,
-    inp.gb_geboortedatum    AS geboortedatum,
-    inp.gb_geboorteplaats   AS geboorteplaats,
-    inp.ol_overlijdensdatum AS overlijdensdatum,
-    nnp.naam                AS naam_niet_natuurlijk_persoon,
-    innp.rechtsvorm,
-    innp.statutaire_zetel,
-    innp_subject.kvk_nummer,
-    p.ka_appartementsindex,
-    p.ka_deelperceelnummer,
-    p.ka_perceelnummer,
-    p.ka_kad_gemeentecode,
-    p.ka_sectie,
-    p.begrenzing_perceel
-FROM
-    v_bd_app_re_and_kad_perceel p
-JOIN
-    zak_recht zr
-ON
-    zr.fk_7koz_kad_identif = p.kadaster_identificatie
-LEFT JOIN
-    aard_recht_verkort ark
-ON
-    zr.fk_3avr_aand = ark.aand
-LEFT JOIN
-    aard_verkregen_recht ar
-ON
-    zr.fk_3avr_aand = ar.aand
-LEFT JOIN
-    nat_prs np
-ON
-    np.sc_identif = zr.fk_8pes_sc_identif
-LEFT JOIN
-    ingeschr_nat_prs inp
-ON
-    inp.sc_identif = np.sc_identif
-LEFT JOIN
-    niet_nat_prs nnp
-ON
-    nnp.sc_identif = zr.fk_8pes_sc_identif
-LEFT JOIN
-    ingeschr_niet_nat_prs innp
-ON
-    innp.sc_identif = nnp.sc_identif
-LEFT JOIN
-    subject innp_subject
-ON
-    innp_subject.identif = innp.sc_identif
-LEFT JOIN
-    v_aankoopdatum b
-ON
-    b.kadaster_identificatie::numeric(15,0) = p.kadaster_identificatie
-WHERE
-    zr.kadaster_identif like 'NL.KAD.Tenaamstelling%';
+GO
 
 -- issue #411
 -- appartementsrecht aan bag adres
-CREATE OR REPLACE VIEW v_app_re_adres AS
- SELECT DISTINCT
+CREATE VIEW v_app_re_adres AS
+  SELECT DISTINCT
     kp.sc_kad_identif,
     kpvbo.fk_nn_lh_tgo_identif AS kad_bag_koppeling_benobj,
     gor.naam_openb_rmte AS straat,
@@ -359,19 +231,19 @@ CREATE OR REPLACE VIEW v_app_re_adres AS
     aoa.huinummertoevoeging AS toevoeging,
     aoa.postcode,
     wp.naam AS woonplaats
- FROM app_re kp
-    LEFT JOIN benoemd_obj_kad_onrrnd_zk kpvbo ON kpvbo.fk_nn_rh_koz_kad_identif = kp.sc_kad_identif
-    LEFT JOIN verblijfsobj vbo ON vbo.sc_identif = kpvbo.fk_nn_lh_tgo_identif
-    LEFT JOIN nummeraand na ON na.sc_identif = vbo.fk_11nra_sc_identif
-    LEFT JOIN addresseerb_obj_aand aoa ON aoa.identif = na.sc_identif
-    LEFT JOIN gem_openb_rmte gor ON gor.identifcode = aoa.fk_7opr_identifcode
-    LEFT JOIN openb_rmte_wnplts oprw ON oprw.fk_nn_lh_opr_identifcode = gor.identifcode
-    LEFT JOIN wnplts wp ON wp.identif = oprw.fk_nn_rh_wpl_identif;
+  FROM app_re kp
+    LEFT JOIN benoemd_obj_kad_onrrnd_zk kpvbo on (kpvbo.FK_NN_RH_KOZ_KAD_IDENTIF = kp.SC_KAD_IDENTIF)
+    LEFT JOIN verblijfsobj vbo on (vbo.SC_IDENTIF = kpvbo.FK_NN_LH_TGO_IDENTIF)
+    LEFT JOIN nummeraand na on (na.SC_IDENTIF = vbo.FK_11NRA_SC_IDENTIF)
+    LEFT JOIN addresseerb_obj_aand aoa on (aoa.IDENTIF = na.SC_IDENTIF)
+    LEFT JOIN gem_openb_rmte gor on (gor.IDENTIFCODE = aoa.FK_7OPR_IDENTIFCODE)
+    LEFT JOIN openb_rmte_wnplts oprw on (oprw.FK_NN_LH_OPR_IDENTIFCODE = gor.IDENTIFCODE)
+    LEFT JOIN wnplts wp on (wp.IDENTIF = oprw.FK_NN_RH_WPL_IDENTIF);
 
-COMMENT ON VIEW v_app_re_adres IS 'appartementsrecht met bag adres';
+GO
 
--- alle kad_onrrnd_zk gekoppeld aan bag adres
-CREATE OR REPLACE VIEW v_kad_onrrd_zk_adres AS
+-- kad_onrrnd_zk gekoppeld aan bag adres
+CREATE VIEW v_kad_onrrd_zk_adres AS
   SELECT DISTINCT
     kp.kad_identif,
     kpvbo.fk_nn_lh_tgo_identif AS kad_bag_koppeling_benobj,
@@ -382,15 +254,15 @@ CREATE OR REPLACE VIEW v_kad_onrrd_zk_adres AS
     aoa.postcode,
     wp.naam AS woonplaats
   FROM kad_onrrnd_zk kp
-    LEFT JOIN benoemd_obj_kad_onrrnd_zk kpvbo ON kpvbo.fk_nn_rh_koz_kad_identif = kp.kad_identif
-    LEFT JOIN verblijfsobj vbo ON vbo.sc_identif = kpvbo.fk_nn_lh_tgo_identif
-    LEFT JOIN nummeraand na ON na.sc_identif = vbo.fk_11nra_sc_identif
-    LEFT JOIN addresseerb_obj_aand aoa ON aoa.identif = na.sc_identif
-    LEFT JOIN gem_openb_rmte gor ON gor.identifcode = aoa.fk_7opr_identifcode
-    LEFT JOIN openb_rmte_wnplts oprw ON oprw.fk_nn_lh_opr_identifcode = gor.identifcode
-    LEFT JOIN wnplts wp ON wp.identif = oprw.fk_nn_rh_wpl_identif;
+    LEFT JOIN benoemd_obj_kad_onrrnd_zk kpvbo on (kpvbo.FK_NN_RH_KOZ_KAD_IDENTIF = kp.KAD_IDENTIF)
+    LEFT JOIN verblijfsobj vbo on (vbo.SC_IDENTIF = kpvbo.FK_NN_LH_TGO_IDENTIF)
+    LEFT JOIN nummeraand na on (na.SC_IDENTIF = vbo.FK_11NRA_SC_IDENTIF)
+    LEFT JOIN addresseerb_obj_aand aoa on (aoa.IDENTIF = na.SC_IDENTIF)
+    LEFT JOIN gem_openb_rmte gor on (gor.IDENTIFCODE = aoa.FK_7OPR_IDENTIFCODE)
+    LEFT JOIN openb_rmte_wnplts oprw on (oprw.FK_NN_LH_OPR_IDENTIFCODE = gor.IDENTIFCODE)
+    LEFT JOIN wnplts wp on (wp.IDENTIF = oprw.FK_NN_RH_WPL_IDENTIF);
 
-COMMENT ON VIEW v_kad_onrrd_zk_adres IS 'onroerende zaak met bag adres';
+GO
 
 -- 121
 INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (0,'Onbekend',null,null);
@@ -609,7 +481,11 @@ INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (455,'Mo
 INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (499,'Staatloos',null,null);
 INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (500,'Vastgesteld niet-Nederlander','20070401','20070401');
 
+GO
+
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
-INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.5.2_naar_1.5.3','vorige versie was '||waarde FROM brmo_metadata WHERE naam='brmoversie';
+INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.5.2_naar_1.6.0','vorige versie was ' + waarde FROM brmo_metadata WHERE naam='brmoversie';
 -- versienummer update
-UPDATE brmo_metadata SET waarde='1.5.3' WHERE naam='brmoversie';
+UPDATE brmo_metadata SET waarde='1.6.0' WHERE naam='brmoversie';
+
+GO
