@@ -46,11 +46,13 @@ public class BrmoFramework {
     public static final String BR_BGTLIGHT = "bgtlight";
     public static final String BR_TOPNL = "topnl";
     public static final String BR_BRP = "brp";
+    public static final String BR_GBAV = "gbav";
 
     public static final String XSL_BRK = "/xsl/brk-snapshot-to-rsgb-xml.xsl";
     public static final String XSL_BAG = "/xsl/bag-mutatie-to-rsgb-xml.xsl";
     public static final String XSL_NHR = "/xsl/nhr-to-rsgb-xml-2.5.xsl";
     public static final String XSL_BRP = "/xsl/brp-to-rsgb-xml.xsl";
+    public static final String XSL_GBAV = "/xsl/gbav-to-rsgb-xml.xsl";
 
     public static final String LAADPROCES_TABEL = "laadproces";
     public static final String BERICHT_TABLE = "bericht";

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import nl.b3p.brmo.loader.entity.Bericht;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -37,6 +38,10 @@ public abstract class BrmoXMLReader {
         } catch (ParseException pe) {
             log.error("Fout bij parsen BRK datum \"" + brkDatumString + "\" met formaat " + simpleDateFormat, pe);
         }
+    }
+    public String getHash(String bsn) {
+        String hash = DigestUtils.sha1Hex(bsn);
+        return  hash;
     }
 
     public void setDatumAsString(String brkDatumString) {

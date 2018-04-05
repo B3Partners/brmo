@@ -37,7 +37,6 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -116,6 +115,12 @@ public class BRPXMLReader extends BrmoXMLReader {
         return hash;
     }
 
+    /**
+     * maakt een map met bsn,bsnhash.
+     * @param n document node met bsn-nummer
+     * @return hashmap met bsn,bsnhash
+     * @throws XPathExpressionException if any
+     */
     public Map<String, String> extractBSN(Node n) throws XPathExpressionException {
         Map<String, String> hashes = new HashMap<>();
 
@@ -145,10 +150,5 @@ public class BRPXMLReader extends BrmoXMLReader {
         }
         root += "</bsnhashes>";
         return root;
-    }
-    
-    public String getHash(String bsn) {
-        String hash = DigestUtils.shaHex(bsn);
-        return  hash;
     }
 }
