@@ -299,8 +299,9 @@ SELECT
     np.geslachtsaand                AS geslacht,
     CASE
         WHEN np.sc_identif IS NOT NULL
-        THEN np.NM_GESLACHTSNAAM || ', ' || np.NM_VOORNAMEN || ' ' ||
-            np.NM_VOORVOEGSEL_GESLACHTSNAAM
+        THEN COALESCE(np.NM_VOORNAMEN, '') || ' ' ||
+            COALESCE(np.NM_VOORVOEGSEL_GESLACHTSNAAM, '') || ' ' ||
+            COALESCE(np.NM_GESLACHTSNAAM, '')
         WHEN nnp.sc_identif IS NOT NULL
         THEN nnp.NAAM
         ELSE 'Onbekend'
