@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>datamodel</artifactId>
-    <version>1.5.3-SNAPSHOT</version>
+    <version>1.6.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
-        <version>1.5.3-SNAPSHOT</version>
+        <version>1.6.0-SNAPSHOT</version>
     </parent>
     <name>BRMO rsgb datamodel</name>
     <properties>
@@ -170,15 +170,73 @@
                     </transformationSets>
                 </configuration>
             </plugin>
+            <!-- alternatief voor gebruik van de schemaspy maven plugin in reporting
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <phase>site</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <addResourcesToClasspath>true</addResourcesToClasspath>
+                    <includePluginDependencies>true</includePluginDependencies>
+                    <includeProjectDependencies>false</includeProjectDependencies>
+                    <mainClass>net.sourceforge.schemaspy.Main</mainClass>
+                    <commandlineArgs>-t=pgsql -host=localhost -db=itest_rsgb -s=public -u=rsgb -p=rsgb -o=${project.build.directory}/site/schemaspy -desc="RSGB SchemaSpy" -hq -dp=${settings.localRepository}/org/postgresql/postgresql/${postgresql.jdbc.version}/postgresql-${postgresql.jdbc.version}.jar</commandlineArgs>
+                    <systemProperties />
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>${postgresql.jdbc.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.sourceforge.schemaspy</groupId>
+                        <artifactId>schemaspy</artifactId>
+                        <version>5.0.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            -->
         </plugins>
     </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>com.wakaleo.schemaspy</groupId>
+                <artifactId>schemaspy-maven-plugin</artifactId>
+                <configuration>
+                    <databaseType>pgsql</databaseType>
+                    <host>localhost</host>
+                    <port>5433</port>
+                    <user>rsgb</user>
+                    <password>rsgb</password>
+                    <database>itest_rsgb</database>
+                    <schema>public</schema>
+                    <pathToDrivers>${settings.localRepository}/org/postgresql/postgresql/${postgresql.jdbc.version}/postgresql-${postgresql.jdbc.version}.jar</pathToDrivers>
+                    <allowHtmlInComments>true</allowHtmlInComments>
+                    <schemaDescription>RSGB SchemaSpy</schemaDescription>
+                    <noLogo>true</noLogo>
+                    <noAds>true</noAds>
+                    <highQuality>true</highQuality>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
     <profiles>
         <profile>
             <id>GEM-WPL-RELATIE</id>
             <activation>
                 <file>
                     <!-- dit profiel wordt geactiveerd als dit bestand, dat de input is, bestaat -->
-                    <exists>${basedir}/referentiedata/${filename.GEM-WPL-zipfile}</exists>
+                    <exists>${bas$edir}/referentiedata/${filename.GEM-WPL-zipfile}</exists>
                 </file>
             </activation>
             <build>
@@ -289,6 +347,5 @@
                 </plugins>
             </build>
         </profile>
-
     </profiles>
 </project>

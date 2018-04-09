@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     GBA / BRP persoonslijst: https://www.rvig.nl/binaries/rvig/documenten/richtlijnen/2015/11/04/persoonslijst-brp/fictieve-persoonslijst-brp.pdf
+     aangenomen dat deze data anoniem dan wel fictief is
+-->
+<gbavAntwoord>
+    <identificatie>
+        <indicatie>990022</indicatie>
+        <interneAfnemer />
+        <gebruiker>beheerder</gebruiker>
+        <profielNaam>autorisatie</profielNaam>
+        <internKenmerk>ABC/123</internKenmerk>
+    </identificatie>
+    <resultaten>
+        <persoon>
+            <categorieen>
+                <categorie>
+                    <nummer>01</nummer>
+                    <naam>Persoon</naam>
+                    <rubrieken>
+                        <rubriek>
+                            <nummer>0110</nummer>
+                            <naam>A-nummer</naam>
+                            <waarde>1234567890</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>0120</nummer>
+                            <naam>Burgerservicenummer</naam>
+                            <waarde>987654321</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>0210</nummer>
+                            <naam>Voornamen</naam>
+                            <waarde>Jan</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>0240</nummer>
+                            <naam>Geslachtsnaam</naam>
+                            <waarde>Jansen</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>0310</nummer>
+                            <naam>Geboortedatum</naam>
+                            <waarde>19771121</waarde>
+                            <omschrijving>21-11-1977</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>0320</nummer>
+                            <naam>Geboorteplaats</naam>
+                            <waarde />
+                            <omschrijving>Onbekend</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>0330</nummer>
+                            <naam>Geboorteland</naam>
+                            <waarde>0000</waarde>
+                            <omschrijving>Onbekend</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>0410</nummer>
+                            <naam>Geslacht</naam>
+                            <waarde>M</waarde>
+                            <omschrijving>Man</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>6110</nummer>
+                            <naam>Aanduiding naamgebruik</naam>
+                            <waarde>E</waarde>
+                            <omschrijving>Eigen</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8210</nummer>
+                            <naam>Gemeente document</naam>
+                            <waarde>2488</waarde>
+                            <omschrijving>Meerstad</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8220</nummer>
+                            <naam>Datum document</naam>
+                            <waarde>20140409</waarde>
+                            <omschrijving>09-04-2014</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8230</nummer>
+                            <naam>Beschrijving document</naam>
+                            <waarde>Paspoort Polen</waarde>
+                            <omschrijving>Paspoort Polen</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8510</nummer>
+                            <naam>Ingangsdatum geldigheid</naam>
+                            <waarde>00000000</waarde>
+                            <omschrijving>00-00-0000</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8610</nummer>
+                            <naam>Datum van opneming</naam>
+                            <waarde>20140409</waarde>
+                            <omschrijving>09-04-2014</omschrijving>
+                        </rubriek>
+                    </rubrieken>
+                </categorie>
+                <categorie>
+                    <nummer>02</nummer>
+                    <naam>Ouder1</naam>
+                    <rubrieken>
+                        <rubriek>
+                            <nummer>0240</nummer>
+                            <naam>Geslachtsnaam</naam>
+                            <waarde>.</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>6210</nummer>
+                            <naam>Datum ingang familierechterlijke betrekking</naam>
+                            <waarde>00000000</waarde>
+                            <omschrijving>00-00-0000</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8210</nummer>
+                            <naam>Gemeente document</naam>
+                            <waarde>2488</waarde>
+                            <omschrijving>Meerstad</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8220</nummer>
+                            <naam>datum document</naam>
+                            <waarde>20140409</waarde>
+                            <omschrijving>09-04-2014</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8230</nummer>
+                            <naam>Beschrijving document</naam>
+                            <waarde>.</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8510</nummer>
+                            <naam>Ingangsdatum geldigheid</naam>
+                            <waarde>00000000</waarde>
+                            <omschrijving>00-00-0000</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8610</nummer>
+                            <naam>datum van opname</naam>
+                            <waarde>20140409</waarde>
+                            <omschrijving>09-04-2014</omschrijving>
+                        </rubriek>
+                    </rubrieken>
+                </categorie>
+                <categorie>
+                    <nummer>03</nummer>
+                    <naam>Ouder2</naam>
+                    <rubrieken>
+                        <rubriek>
+                            <nummer>0240</nummer>
+                            <naam>Geslachtsnaam</naam>
+                            <waarde>.</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>6210</nummer>
+                            <naam>Datum ingang familierechterlijke betrekking</naam>
+                            <waarde>00000000</waarde>
+                            <omschrijving>00-00-0000</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8210</nummer>
+                            <naam>Gemeente document</naam>
+                            <waarde>2488</waarde>
+                            <omschrijving>Meerstad</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8220</nummer>
+                            <naam>datum document</naam>
+                            <waarde>20140409</waarde>
+                            <omschrijving>09-04-2014</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8230</nummer>
+                            <naam>Beschrijving document</naam>
+                            <waarde>.</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8510</nummer>
+                            <naam>Ingangsdatum geldigheid</naam>
+                            <waarde>00000000</waarde>
+                            <omschrijving>00-00-0000</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8610</nummer>
+                            <naam>datum van opname</naam>
+                            <waarde>20140409</waarde>
+                            <omschrijving>09-04-2014</omschrijving>
+                        </rubriek>
+                    </rubrieken>
+                </categorie>
+                <categorie>
+                    <nummer>04</nummer>
+                    <naam>Nationaliteit</naam>
+                    <rubrieken>
+                        <rubriek>
+                            <nummer>0510</nummer>
+                            <naam>Nationaliteit</naam>
+                            <waarde>0072</waarde>
+                            <omschrijving>Poolse</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8210</nummer>
+                            <naam>Gemeente document</naam>
+                            <waarde>2488</waarde>
+                            <omschrijving>Meerstad</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8220</nummer>
+                            <naam>Datum document</naam>
+                            <waarde>20140409</waarde>
+                            <omschrijving>09-04-2014</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8230</nummer>
+                            <naam>Beschrijving document</naam>
+                            <waarde>Paspoort Polen</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8510</nummer>
+                            <naam>Ingangsdatum geldigheid</naam>
+                            <waarde>00000000</waarde>
+                            <omschrijving>00-00-0000</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8610</nummer>
+                            <naam>Datum van opneming</naam>
+                            <waarde>20140409</waarde>
+                            <omschrijving>09-04-2014</omschrijving>
+                        </rubriek>
+                    </rubrieken>
+                </categorie>
+                <categorie>
+                    <nummer>07</nummer>
+                    <naam>Inschrijving</naam>
+                    <rubrieken>
+                        <rubriek>
+                            <nummer>6810</nummer>
+                            <naam>Datum eerste inschrijving GBA/RNI</naam>
+                            <waarde>28-02-2014</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>7010</nummer>
+                            <naam>Indicatie geheim</naam>
+                            <waarde>0</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8010</nummer>
+                            <naam>Versienummer</naam>
+                            <waarde>0001</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8020</nummer>
+                            <naam>Datumtijdstempel</naam>
+                            <waarde>20140409163312000</waarde>
+                            <omschrijving />
+                        </rubriek>
+                    </rubrieken>
+                </categorie>
+                <categorie>
+                    <nummer>08</nummer>
+                    <naam>Verblijfplaats</naam>
+                    <rubrieken>
+                        <rubriek>
+                            <nummer>0910</nummer>
+                            <naam>Gemeente van inschrijving</naam>
+                            <waarde>2488</waarde>
+                            <omschrijving>Meerstad</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>0920</nummer>
+                            <naam>Datum inschrijving</naam>
+                            <waarde>05-04-2014</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>1010</nummer>
+                            <naam>Functie adres</naam>
+                            <waarde>W</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>1020</nummer>
+                            <naam>Gemeentedeel</naam>
+                            <waarde>2488</waarde>
+                            <omschrijving>Meerstad</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>1030</nummer>
+                            <naam>Datum aanvang adreshouding</naam>
+                            <waarde>20140405</waarde>
+                            <omschrijving>05-04-2014</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>1110</nummer>
+                            <naam>Straatnaam</naam>
+                            <waarde>Markt</waarde>
+                            <omschrijving>Markt</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>1115</nummer>
+                            <naam>Naam openbare ruimte</naam>
+                            <waarde>Markt</waarde>
+                            <omschrijving>Markt</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>1120</nummer>
+                            <naam>Huisnummer</naam>
+                            <waarde>1</waarde>
+                            <omschrijving>1</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>1160</nummer>
+                            <naam>Postcode</naam>
+                            <waarde>1234AA</waarde>
+                            <omschrijving>1234AA</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>1170</nummer>
+                            <naam>Woonplaatsnaam</naam>
+                            <waarde>2488</waarde>
+                            <omschrijving>Meerstad</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>1180</nummer>
+                            <naam>Identificatiecode verblijfsplaats</naam>
+                            <waarde>1234010000475855</waarde>
+                            <omschrijving>1234010000475855</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>1190</nummer>
+                            <naam>Identificatiecode nummeraanduiding</naam>
+                            <waarde>1234200000474855</waarde>
+                            <omschrijving>1234200000474855</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>1410</nummer>
+                            <naam>Land vanwaar ingeschreven</naam>
+                            <waarde />
+                            <omschrijving>Polen</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>1420</nummer>
+                            <naam>datum vestiging in Nederland</naam>
+                            <waarde>20140405</waarde>
+                            <omschrijving>05-04-2014</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>7210</nummer>
+                            <naam>Omschrijving aangifte adreshouding</naam>
+                            <waarde>I</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8510</nummer>
+                            <naam>Ingangsdatum geldigheid</naam>
+                            <waarde>20140405</waarde>
+                            <omschrijving>05-04-2014</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8610</nummer>
+                            <naam>datum van opneming</naam>
+                            <waarde>20140409</waarde>
+                            <omschrijving>09-04-2014</omschrijving>
+                        </rubriek>
+                    </rubrieken>
+                </categorie>
+                <categorie>
+                    <nummer>58</nummer>
+                    <naam>Verblijfplaats (historisch)</naam>
+                    <rubrieken>
+                        <rubriek>
+                            <nummer>0910</nummer>
+                            <naam>Gemeente van inschrijving</naam>
+                            <waarde>1999</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>0920</nummer>
+                            <naam>Datum van inschrijving</naam>
+                            <waarde>20140228</waarde>
+                            <omschrijving>28-02-2014</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>1310</nummer>
+                            <naam>Land adres buitenland</naam>
+                            <waarde>7028</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>1320</nummer>
+                            <naam>Datum aanvang adreshouding</naam>
+                            <waarde>20140228</waarde>
+                            <omschrijving>28-02-2014</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>1330</nummer>
+                            <naam>Regel 1 adres buitenland</naam>
+                            <waarde>Kirchstrasse 5</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>1340</nummer>
+                            <naam>Regel 2 adres buitenland</naam>
+                            <waarde>78966 Alpen</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>7210</nummer>
+                            <naam>Omschrijving aangifte adreshouding</naam>
+                            <waarde>A</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8510</nummer>
+                            <naam>Ingangsdatum geldigheid</naam>
+                            <waarde>20140228</waarde>
+                            <omschrijving>28-02-2014</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8610</nummer>
+                            <naam>Datum van opneming</naam>
+                            <waarde>20140409</waarde>
+                            <omschrijving>09-04-2014</omschrijving>
+                        </rubriek>
+                    </rubrieken>
+                </categorie>
+                <categorie>
+                    <nummer>12</nummer>
+                    <naam>Reisdocument</naam>
+                    <rubrieken>
+                        <rubriek>
+                            <nummer>3710</nummer>
+                            <naam>Aanduiding bezit buitenlands reisdocument</naam>
+                            <waarde>1</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8210</nummer>
+                            <naam>Gemeente document</naam>
+                            <waarde>0000</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8220</nummer>
+                            <naam>Datum document</naam>
+                            <waarde>00000000</waarde>
+                            <omschrijving>00-00-0000</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8230</nummer>
+                            <naam>Beschrijving document</naam>
+                            <waarde>7028</waarde>
+                            <omschrijving />
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8510</nummer>
+                            <naam>Ingangsdatum geldigheid</naam>
+                            <waarde>20140405</waarde>
+                            <omschrijving>05-04-2014</omschrijving>
+                        </rubriek>
+                        <rubriek>
+                            <nummer>8610</nummer>
+                            <naam>Datum van opneming</naam>
+                            <waarde>20140409</waarde>
+                            <omschrijving>09-04-2014</omschrijving>
+                        </rubriek>
+                    </rubrieken>
+                </categorie>
+            </categorieen>
+        </persoon>
+    </resultaten>
+</gbavAntwoord>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+gbav test dummy: uit de documentatie van T&T, aangenomen dat deze data anoniem dan wel fictief is
+-->
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+    <S:Body>
+        <ns2:gbavAntwoord xmlns:ns2="http://www.competent.nl/gbav/v1">
+            <identificatie>
+                <indicatie>990022</indicatie>
+                <interneAfnemer/>
+                <gebruiker>beheerder</gebruiker>
+                <profielNaam>autorisatie</profielNaam>
+                <internKenmerk>ABC/123</internKenmerk>
+            </identificatie>
+            <resultaten> 
+                <persoon>
+                    <categorieen>
+                        <categorie>
+                            <nummer>01</nummer>
+                            <naam>Persoon</naam>
+                            <rubrieken>
+                                <rubriek>
+                                    <nummer>0110</nummer>
+                                    <naam>A-nummer</naam>
+                                    <waarde>5054783237</waarde>
+                                    <omschrijving>5054783237</omschrijving>
+                                </rubriek>
+                                <rubriek>
+                                    <nummer>0120</nummer>
+                                    <naam>BSN</naam>
+                                    <waarde>123459916</waarde>
+                                    <omschrijving>123459916</omschrijving>
+                                </rubriek>
+                                <rubriek>
+                                    <nummer>0210</nummer>
+                                    <naam>Voornamen</naam>
+                                    <waarde>Ayda</waarde>
+                                    <omschrijving>Ayda</omschrijving>
+                                </rubriek>
+                                <rubriek>
+                                    <nummer>0240</nummer>
+                                    <naam>Geslachtsnaam</naam>
+                                    <waarde>Kumari</waarde>
+                                    <omschrijving>Kumari</omschrijving>
+                                </rubriek>
+                                <rubriek>
+                                    <nummer>0310</nummer>
+                                    <naam>Geboortedatum</naam>
+                                    <waarde>19930412</waarde>
+                                    <omschrijving>12-04-1993</omschrijving>
+                                </rubriek>
+                                <rubriek>
+                                    <nummer>0320</nummer>
+                                    <naam>Geboorteplaats</naam>
+                                    <waarde>0906</waarde>
+                                    <omschrijving>Geleen</omschrijving>
+                                </rubriek>
+                                <rubriek>
+                                    <nummer>0330</nummer>
+                                    <naam>Geboorteland</naam>
+                                    <waarde>6030</waarde>
+                                    <omschrijving>Nederland</omschrijving>
+                                </rubriek>
+                                <rubriek>
+                                    <nummer>0410</nummer>
+                                    <naam>Geslachtsaanduiding</naam>
+                                    <waarde>V</waarde>
+                                    <omschrijving>Vrouw</omschrijving>
+                                </rubriek>
+                                <rubriek>
+                                    <nummer>6110</nummer>
+                                    <naam>Aanduiding naamgebruik</naam>
+                                    <waarde>E</waarde>
+                                    <omschrijving>Eigen naam</omschrijving>
+                                </rubriek>
+                                <!-- TODO verzonnen/niet zeker of dit klopt... nodig voor de testcase -->
+                                <rubriek>
+                                    <nummer>8220</nummer>
+                                    <naam>Datum document</naam>
+                                    <waarde>20180201</waarde>
+                                    <omschrijving>01-02-2018</omschrijving>
+                                </rubriek>                                
+                            </rubrieken>
+                        </categorie>
+                        <categorie>
+                            <nummer>02</nummer>
+                            <naam>Ouder1</naam>
+                            <rubrieken>
+                                <rubriek>
+                                    <nummer>0110</nummer>
+                                    <naam>A-nummer</naam>
+                                    <waarde>6929678748</waarde>
+                                    <omschrijving>6929678748</omschrijving>
+                                </rubriek>
+                                <rubriek>
+                                    <nummer>0210</nummer>
+                                    <naam>Voornamen</naam>
+                                    <waarde>Zahra</waarde>
+                                    <omschrijving>Zahra</omschrijving>
+                                </rubriek>
+                                <rubriek>
+                                    <nummer>0240</nummer>
+                                    <naam>Geslachtsnaam</naam>
+                                    <waarde>Sohrabi</waarde>
+                                    <omschrijving>Sohrabi</omschrijving>
+                                </rubriek>
+                                <!-- TODO verzonnen/niet zeker of dit klopt... -->
+                                <rubriek>
+                                    <nummer>0120</nummer>
+                                    <naam>BSN</naam>
+                                    <waarde>223459916</waarde>
+                                    <omschrijving>223459916</omschrijving>
+                                </rubriek>
+                                
+                                <!--... volgende rubrieken en categorieën zijn weggelaten ...-->
+                            </rubrieken>
+                        </categorie>
+                        <!--
+                        <categorie>
+                            <nummer>08</nummer>
+                            <naam>Inschrijving</naam>
+                            <rubrieken>
+                                <rubriek>
+                                    <nummer>0910</nummer>
+                                    <naam>Gemeente</naam>
+                                    <waarde>0344</waarde>
+                                    <omschrijving>Utrecht</omschrijving>
+                                </rubriek>
+                            </rubrieken>
+                        </categorie>
+                        -->
+                    </categorieen>
+                </persoon>
+            </resultaten>
+        </ns2:gbavAntwoord>
+    </S:Body>
+</S:Envelope>

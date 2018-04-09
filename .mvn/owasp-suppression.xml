@@ -22,6 +22,13 @@
     -->
     <suppress>
         <notes><![CDATA[
+      Negeer melding mbt postgresql-42.2.2.jar, false positive, CVE heeft betrekking op init scripts.
+      ]]></notes>
+        <filePath regex="true">.*\bpostgresql-42.2.2\.jar</filePath>
+        <cve>CVE-2017-14798</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
       Negeer melding mbt gt-coverage jar, false positive mbt jpeg thumbnail disclosure.
       ]]></notes>
         <gav regex="true">^org\.geotools:gt-coverage:.*$</gav>

@@ -92,8 +92,9 @@ before_script:
   # set up rsgb tabellen
   - ls -l ./datamodel/generated_scripts/
   - travis_wait psql -U postgres -w -q -d rsgb -f ./datamodel/generated_scripts/datamodel_postgresql.sql
-  #- travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/111a_update_gemeente_geom.sql
-  #- travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/113a_update_wijk_geom.sql
+  # geom van gemeente en wijk hebben we niet echt nodig, mogen evt. uit
+  - travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/111a_update_gemeente_geom.sql
+  - travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/113a_update_wijk_geom.sql
   # set up rsgbbgt tabellen
   - psql -U postgres -w -q -d rsgbbgt -f ./bgt-gml-loader/target/generated-resources/ddl/postgresql/create_rsgb_bgt.sql
   # set up topnl tabellen
@@ -132,5 +133,6 @@ after_success:
 after_script:
   # deploy maven site van master branch als test succes
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_TEST_RESULT" == 0 ]; then
-         travis_wait 30 mvn -B -e site-deploy --settings .travis/settings.xml;
+         travis_wait 50 mvn -B -e -T1 site site:stage --settings .travis/settings.xml;
+         mvn scm-publish:publish-scm --settings .travis/settings.xml;
     fi

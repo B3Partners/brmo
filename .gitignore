@@ -9,7 +9,6 @@
 /bgt-gml-loader/src/test/resources/nederland/*.zip
 /bgt-gml-loader/src/test/resources/nederlandmultizip/**/*.zip
 /brmo-loader/src/test/resources/mantis6098/staging.xml
-/brmo-loader/src/test/resources/8000byteBericht/*.xml
 /brmo-loader/src/test/resources/topnl/*.gml
 /brmo-loader/src/test/resources/topnl/*.zip
 /brmo-service/src/test/resources/GH-287/gh-292-staging-flat-4242.xml
@@ -40,3 +39,4 @@ hs_err_pid*
 nb-configuration.xml
 .idea/
 *.iml
+temp/

@@ -33,6 +33,7 @@ import nl.b3p.brmo.loader.xml.BRPXMLReader;
 import nl.b3p.brmo.loader.xml.BagXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.BrmoXMLReader;
+import nl.b3p.brmo.loader.xml.GbavXMLReader;
 import nl.b3p.brmo.loader.xml.NhrXMLReader;
 import nl.b3p.brmo.loader.xml.TopNLFileReader;
 import nl.b3p.loader.jdbc.GeometryJdbcConverter;
@@ -601,6 +602,8 @@ public class StagingProxy {
             brmoXMLReader = new TopNLFileReader(fileName, type);
         } else if(type.equals(BrmoFramework.BR_BRP)){
             brmoXMLReader = new BRPXMLReader(cis, d);
+        } else if (type.equals(BrmoFramework.BR_GBAV)) {
+            brmoXMLReader = new GbavXMLReader(cis);
         } else {
             throw new UnsupportedOperationException("Ongeldige basisregistratie: " + type);
         }

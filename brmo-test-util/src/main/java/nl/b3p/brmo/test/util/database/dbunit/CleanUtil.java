@@ -84,8 +84,61 @@ public final class CleanUtil {
             new DefaultTable("app_re_archief"),
             new DefaultTable("zak_recht"),
             new DefaultTable("zak_recht_aantek"),
+            new DefaultTable("benoemd_obj_kad_onrrnd_zk"),
             new DefaultTable("herkomst_metadata")}
         ));
+    }
+
+    /**
+     * Leeg de subject en onderliggende tabellen die betrokken zijn bij BRP.
+     *
+     * @param rsgb database welke geleegd moet worden
+     * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
+     * @throws java.sql.SQLException als er iets misgaat in de database
+     */
+    public static void cleanRSGB_BRP(final IDatabaseConnection rsgb) throws DatabaseUnitException, SQLException {
+        CleanUtil.cleanRSGB_BRP(rsgb, true);
+    }
+
+    /**
+     * Leeg de subject en onderliggende tabellen die betrokken zijn bij BRP. NB.
+     * deze cleanup is niet bijzonder slim, alle (natuurlijke) personen worden
+     * verwijderd, dus ook uit brk.
+     *
+     * @param rsgb database welke geleegd moet worden
+     * @param deleteBrondocument {@code true} als brondocumenten ook verwijderd
+     * moeten worden
+     * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
+     * @throws java.sql.SQLException als er iets misgaat in de database
+     */
+    public static void cleanRSGB_BRP(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
+            throws DatabaseUnitException, SQLException {
+        if (deleteBrondocument) {
+            DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
+                new DefaultTable("brondocument")}
+            ));
+        }
+        /* cleanup rsgb, doet:
+
+         DELETE FROM herkomst_metadata;
+         ...
+         DELETE FROM subject;
+        dus omgekeerde volgorde tov. onderstaande array
+         */
+        DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
+            new DefaultTable("subject"),
+            new DefaultTable("prs"),
+            new DefaultTable("nat_prs"),
+            new DefaultTable("ingeschr_nat_prs"),
+            new DefaultTable("niet_ingezetene"),
+            new DefaultTable("ander_nat_prs"),
+            new DefaultTable("niet_nat_prs"),
+            new DefaultTable("ingeschr_niet_nat_prs"),
+            new DefaultTable("ouder_kind_rel"),
+            new DefaultTable("huw_ger_partn"),
+            new DefaultTable("herkomst_metadata")}
+        ));
+
     }
 
     /**

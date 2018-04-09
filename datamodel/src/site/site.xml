@@ -1,0 +1,38 @@
+<project xsi:schemaLocation="http://maven.apache.org/DECORATION/1.7.0 http://maven.apache.org/xsd/decoration-1.7.0.xsd" 
+         xmlns="http://maven.apache.org/DECORATION/1.7.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         name="${this.name} ${this.version}">
+  <publishDate position="left" format="dd-MMMM-yyyy" />
+  <version position="left" />
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-fluido-skin</artifactId>
+    <version>1.7</version>
+  </skin>
+  <bannerLeft>
+    <name>${this.organization.name}</name>
+    <src>images/logo.png</src>
+    <href>${this.organization.url}</href>
+  </bannerLeft>
+  <bannerRight>
+    <name>${this.name}</name>
+    <href>${this.url}</href>
+  </bannerRight>
+  <body>
+    <head />
+    <links>
+      <item name="Wiki" href="https://github.com/B3Partners/brmo/wiki" />
+      <item name="Issues dashboard" href="${this.issueManagement.url}" />
+    </links>
+    <menu name="Informatie">
+      <item name="Home" href="/index.html" />
+    </menu>
+    <menu name="RSGB">
+      <item name="RSGB datamodel" href="/schemaspy/index.html" />
+    </menu>
+    <menu ref="parent" />
+    <menu ref="modules" />
+    <menu ref="reports" />
+  </body>
+  <poweredBy />
+</project>

@@ -4,12 +4,12 @@
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
-        <version>1.5.3-SNAPSHOT</version>
+        <version>1.6.0-SNAPSHOT</version>
     </parent>
     <artifactId>brmo-commandline</artifactId>
     <packaging>jar</packaging>
     <name>BRMO commandline</name>
-    <description>BRMO commandline tool.</description>
+    <description>BRMO commandline tool</description>
     <properties>
         <!-- de oracle driver van zip file uitsluiten-->
         <exclude.groupIds.fromPackaging>${oracle.jdbc.groupId}</exclude.groupIds.fromPackaging>
@@ -330,6 +330,5 @@
                 </plugins>
             </build>
         </profile>
-
     </profiles>
 </project>

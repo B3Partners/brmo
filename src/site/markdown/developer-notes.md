@@ -11,15 +11,24 @@ Tevens wordt er om een naam voor een tag gevraagd. In principe kan alle informat
 commandline worden meegegeven, bijvoorbeeld:
 
 ```
-mvn release:prepare -l rel-prepare.log -DautoVersionSubmodules=true -DdevelopmentVersion=1.4.1-SNAPSHOT -DreleaseVersion=1.4.0 -Dtag=v1.4.0 -T1
+mvn release:prepare -l rel-prepare.log -DautoVersionSubmodules=true -DdevelopmentVersion=1.6.1-SNAPSHOT -DreleaseVersion=1.6.0 -Dtag=v1.6.0 -T1
 mvn release:perform -l rel-perform.log
 ```
 
 Met het commando `mvn release:perform` wordt daarna, op basis van de tag uit de
 stap hierboven, de release gebouwd en gedeployed naar de repository uit de (parent)
-pom file. De release bestaat uit jar en war files met daarin oa. ook de javadoc en
-mogelijke site.
-Voor het hele project kan dit even duren, oa. omdat de javadoc ook gebouwd wordt.
+pom file. De release bestaat uit jar en war files met daarin oa. ook de javadoc.
+Voor het hele project kan dit even duren, oa. omdat de javadoc gebouwd wordt.
+
+### Maven site bouwen en online brengen
+
+De Maven site voor de BRMO leeft in de `gh-pages` branch van de repository, met onderstaande commando's kan de site worden bijgwerkt en online gebracht.
+
+- `cd target/checkout` (als je dit direct na een release doet)
+- `mvn -T1 site site:stage`
+- `mvn scm-publish:publish-scm`
+
+### nieuwe ontwikkel cyclus
 
 Na het maken van de release kun je het script `new-version-upgrades.sh` in de `datamodel/upgrade_scripts` directory gebruiken om upgrade scripts voor de volgende release te maken.
 
@@ -31,6 +40,8 @@ git push
 
 
 ### git configuratie
+
+Op sommige systeme en bij sommige versie van git moet er eea worden ingesteld voorafgaand aan het starten van de release procedure.
 
 ```
 git config --add status.displayCommentPrefix true
