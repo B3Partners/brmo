@@ -258,6 +258,12 @@
             </dependency>
             <!-- database en persistence -->
             <dependency>
+                <!-- override v 3.1 die met hibernate meekomt -->
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.2.2</version>
+            </dependency>
+            <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
                 <version>${hibernate.version}</version>
