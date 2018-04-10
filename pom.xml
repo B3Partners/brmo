@@ -93,11 +93,16 @@
         <test.onlyITs>false</test.onlyITs>
         <maven.surefire.version>2.21.0</maven.surefire.version>
         <jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
+        <versions-maven-plugin.version>2.5</versions-maven-plugin.version>
+        <maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
+        <maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
+        <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
+        <taglist-maven-plugin.version>2.4</taglist-maven-plugin.version>
     </properties>
     <dependencyManagement>
         <!--
         voor een update controle gebruik je het volgende maven commando:
-        mvn -U org.codehaus.mojo:versions-maven-plugin:2.5:display-dependency-updates > dependency-updates.log
+        mvn -U org.codehaus.mojo:versions-maven-plugin:display-dependency-updates > dependency-updates.log
         -->
         <dependencies>
             <!-- logging libs -->
@@ -524,7 +529,7 @@
             <plugins>
                 <!--
                 voor een update controle gebruik je het volgende maven commando:
-                mvn -U org.codehaus.mojo:versions-maven-plugin:2.5:display-plugin-updates -T1 > plugin-updates.log
+                mvn -U org.codehaus.mojo:versions-maven-plugin:display-plugin-updates -T1 > plugin-updates.log
                 -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -544,32 +549,26 @@
                     </dependencies>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>3.1.0</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-patch-plugin</artifactId>
                     <version>1.2</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>2.5.3</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
                     <version>2.5.2</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.7</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.7.0</version>
                     <configuration>
@@ -578,17 +577,14 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
                     <version>1.8</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>3.0.2</version>
                     <configuration>
@@ -596,12 +592,10 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven.surefire.version}</version>
                     <configuration>
@@ -615,7 +609,6 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>${maven.surefire.version}</version>
                     <configuration>
@@ -648,19 +641,16 @@
                     </dependencies>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-report-plugin</artifactId>
                     <version>${maven.surefire.version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>3.2.0</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>${maven-javadoc-plugin.version}</version>
                     <configuration>
                         <stylesheet>java</stylesheet>
                         <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
@@ -725,17 +715,14 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>2.8.2</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
                     <version>3.0.1</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>3.0.0</version>
                 </plugin>
@@ -755,7 +742,6 @@
                     <version>1.0.0</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
                     <artifactId>tomcat7-maven-plugin</artifactId>
                     <version>2.2</version>
                     <dependencies>
@@ -852,27 +838,24 @@
                     </dependencies>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
-                    <version>2.9</version>
+                    <version>${maven-project-info-reports-plugin.version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jxr-plugin</artifactId>
-                    <version>2.5</version>
+                    <version>${maven-jxr-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.5</version>
+                    <version>${versions-maven-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>taglist-maven-plugin</artifactId>
-                    <version>2.4</version>
+                    <version>${taglist-maven-plugin.version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>3.0.0-M1</version>
                 </plugin>
@@ -910,7 +893,6 @@
         </testResources>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <executions>
                     <execution>
@@ -962,6 +944,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
+                <version>${versions-maven-plugin.version}</version>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -973,6 +956,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>${maven-project-info-reports-plugin.version}</version>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -994,15 +978,15 @@
             </plugin>
             <plugin>
                 <artifactId>maven-jxr-plugin</artifactId>
+                <version>${maven-jxr-plugin.version}</version>
                 <configuration>
                     <linkJavadoc>true</linkJavadoc>
                     <javadocDir>${basedir}/target/site/apidocs</javadocDir>
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>${maven-javadoc-plugin.version}</version>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -1015,9 +999,11 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>taglist-maven-plugin</artifactId>
+                <version>${taglist-maven-plugin.version}</version>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
                 <configuration>
                     <linkXRef>true</linkXRef>
                     <goal>report-only</goal>
@@ -1025,6 +1011,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
                 <configuration>
                     <linkXRef>true</linkXRef>
                     <goal>failsafe-report-only</goal>
