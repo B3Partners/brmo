@@ -12,7 +12,7 @@ LEVELS: debug, info, warn, error, fatal en off, all -->
     </appender>
     <appender name="file" class="org.apache.log4j.RollingFileAppender">
         <param name="Threshold" value="all" />
-        <param name="File" value="${java.io.tmpdir}${file.separator}test.log" />
+        <param name="File" value="${java.io.tmpdir}/LogfileUtilTest.log" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="TAGLIB TEST: %5p %d{HH:mm:ss} (%C#%M:%L) - %m%n" />
         </layout>

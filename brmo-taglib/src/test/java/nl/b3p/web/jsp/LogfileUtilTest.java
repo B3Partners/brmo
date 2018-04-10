@@ -50,6 +50,6 @@ public class LogfileUtilTest {
         if (s.endsWith(File.separator)) {
             s = s.substring(0, s.length() - 1);
         }
-        return s + File.separator + "test.log";
+        return s + File.separator + "LogfileUtilTest.log";
     }
 }

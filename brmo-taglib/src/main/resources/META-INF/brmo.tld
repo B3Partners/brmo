@@ -51,4 +51,18 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+    <tag>
+        <description>Download een bestand</description>
+        <display-name>Download logfile tag</display-name>
+        <name>logdownload</name>
+        <tag-class>nl.b3p.web.jsp.DownloadTag</tag-class>
+        <tei-class>nl.b3p.web.jsp.StringVariable</tei-class>
+        <body-content>JSP</body-content>
+        <attribute>
+            <description>bestandsnaam, default is de brmo logfile welke met 'file' is geconfigureerd in de log4j.properties</description>
+            <name>file</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
 </taglib>
