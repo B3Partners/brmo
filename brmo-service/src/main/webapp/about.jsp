@@ -6,22 +6,14 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>About</title>
+        <title>About BRMO</title>
         <link href="${contextPath}/styles/main.css" rel="stylesheet">
         <link href="${contextPath}/extjs/resources/css/crisp/ext-theme-crisp-all.css" rel="stylesheet">
     </head>
     <body class="x-body">
         <div class="header">
             <h1>B3Partners BRMO</h1>
-            <ul>
-                <li><a href="/brmo-service/index.jsp">&#155; Home</a></li>
-                <li><a href="/brmo-service/BasisregistratieFileUpload.action">&#155; Bestand inladen</a></li>
-                <li><a href="/brmo-service/LaadProces.action">&#155; Laadprocessen</a></li>
-                <li><a href="/brmo-service/Berichten.action">&#155; Berichten</a></li>
-                <li><a href="/brmo-service/OphaalConfig.action">&#155; Automatische processen</a></li>
-                <li><a href="/brmo-service/about.jsp">&#155; Versie Informatie</a></li>
-                <li><a href="/brmo-service/logout.jsp">&#155; Uitloggen</a></li>
-            </ul>
+            <jsp:include page="/WEB-INF/jsp/common/menu.jsp"/>
         </div>
         <div class="content">
             <h1>BRMO versie informatie</h1>
@@ -50,7 +42,7 @@
                     <td>${builddetails.build.user.name}</td>
                 </tr>
                 <tr>
-                    <td colspan="2"><strong>Git details</strong></center></td>
+                    <td colspan="2"><h3>Git details</h3></td>
                 </tr>
                 <tr>
                     <td><b>Git branch:</b></td>

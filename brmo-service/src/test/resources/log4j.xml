@@ -7,6 +7,13 @@
             <param name="ConversionPattern" value="BRMO-SERVICE-TEST: %5p %d{HH:mm:ss} (%C{1.}#%M:%L) - %m%n" />
         </layout>
     </appender>
+    <appender name="file" class="org.apache.log4j.RollingFileAppender">
+        <param name="Threshold" value="all" />
+        <param name="File" value="${java.io.tmpdir}/test.log" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="BRMO-SERVICE-TEST: %5p %d{HH:mm:ss} (%C#%M:%L) - %m%n" />
+        </layout>
+    </appender>
     <logger name="org.dbunit.database">
         <level value="info" />
     </logger>
@@ -34,5 +41,6 @@
     <root>
         <level value="info" />
         <appender-ref ref="consoleAppender" />
+        <appender-ref ref="file" />
     </root>
 </log4j:configuration>

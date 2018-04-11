@@ -8,21 +8,61 @@
     <short-name>brmo</short-name>
     <uri>http://brmo.b3p.nl/jsp/brmo</uri>
     <tag>
+        <description>Geeft een beschrijving van de cron expressie. Geeft een lege string als parsing van de expressie mislukt.</description>
+        <display-name>Cron Formatter</display-name>
         <name>formatCron</name>
         <tag-class>nl.b3p.web.jsp.CronFormatterTag</tag-class>
         <body-content>empty</body-content>
-        <description>Geeft een beschrijving van de cron expressie. Geeft een lege string als parsing van de expressie mislukt.</description>
-        <display-name>Cron Formatter</display-name>
         <attribute>
+            <description>De te beschrijven expressie</description>
             <name>cronExpression</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
-            <description>De te beschrijven expressie</description>
         </attribute>
         <attribute>
+            <description>language code, bijv. 'nl'</description>
             <name>locale</name>
             <required>false</required>
-            <description>language code, bijv. 'nl'</description>
+        </attribute>
+    </tag>
+    <tag>
+        <description>Toon laatste 'count' regels van een bestand</description>
+        <display-name>Tail logfile tag</display-name>
+        <name>logtail</name>
+        <tag-class>nl.b3p.web.jsp.TailTag</tag-class>
+        <tei-class>nl.b3p.web.jsp.StringVariable</tei-class>
+        <body-content>JSP</body-content>
+        <attribute>
+            <description>bestandsnaam, default is de brmo logfile welke met 'file' is geconfigureerd in de log4j.properties</description>
+            <name>file</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <description>aantal regels, default is 50</description>
+            <name>count</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <description>naam van de context variable voor een logregel, default is 'line'</description>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <description>Download een bestand</description>
+        <display-name>Download logfile tag</display-name>
+        <name>logdownload</name>
+        <tag-class>nl.b3p.web.jsp.DownloadTag</tag-class>
+        <tei-class>nl.b3p.web.jsp.StringVariable</tei-class>
+        <body-content>JSP</body-content>
+        <attribute>
+            <description>bestandsnaam, default is de brmo logfile welke met 'file' is geconfigureerd in de log4j.properties</description>
+            <name>file</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
 </taglib>

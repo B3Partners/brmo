@@ -28,6 +28,32 @@
               url="${rsgb.url}"
     />
 
+    <Resource name="jdbc/brmo/rsgbbgt"
+              auth="Container"
+              type="javax.sql.DataSource"
+              maxActive="40"
+              validationQuery="select 1"
+              timeBetweenEvictionRunsMillis="30000"
+              minEvictableIdleTimeMillis="5000"
+              username="${rsgbbgt.username}"
+              password="${rsgbbgt.password}"
+              driverClassName="${jdbc.driverClassName}"
+              url="${rsgbbgt.url}"
+    />
+
+        <Resource name="jdbc/brmo/topnl"
+              auth="Container"
+              type="javax.sql.DataSource"
+              maxActive="40"
+              validationQuery="select 1"
+              timeBetweenEvictionRunsMillis="30000"
+              minEvictableIdleTimeMillis="5000"
+              username="${topnl.username}"
+              password="${topnl.password}"
+              driverClassName="${jdbc.driverClassName}"
+              url="${topnl.url}"
+    />
+
     <Resource name="mail/session"
               auth="Container"
               type="javax.mail.Session"
