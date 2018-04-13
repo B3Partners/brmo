@@ -48,6 +48,10 @@
         <system>Github</system>
         <url>https://github.com/B3Partners/brmo/issues</url>
     </issueManagement>
+    <ciManagement>
+        <system>Travis-CI</system>
+        <url>https://travis-ci.org/B3Partners/brmo</url>
+    </ciManagement>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceVersion>${java.version}</project.build.sourceVersion>
