@@ -105,7 +105,7 @@ timestamps {
             stage('OWASP Dependency Check') {
                 echo "Uitvoeren OWASP dependency check"
                 // dependencyCheckAnalyzer datadir: '', hintsFile: '', includeCsvReports: false, includeHtmlReports: true, includeJsonReports: false, isAutoupdateDisabled: false, outdir: '', scanpath: '**/brmo-*.jar,**/brmo-*.war,**/brmo-*.zip', skipOnScmChange: false, skipOnUpstreamChange: false, suppressionFile: '.mvn/owasp-suppression.xml', zipExtensions: ''
-                sh "mvn org.owasp:dependency-check-maven:aggregate -Dformat=XML -DsuppressionFile=./.mvn/owasp-suppression.xml"
+                sh "mvn org.owasp:dependency-check-maven:aggregate -Dformat=ALL -DsuppressionFile=./.mvn/owasp-suppression.xml"
 
                 dependencyCheckPublisher canComputeNew: false, defaultEncoding: '', healthy: '85', pattern: '**/dependency-check-report.xml', shouldDetectModules: true, unHealthy: ''
             }
