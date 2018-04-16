@@ -200,7 +200,7 @@
 
             <!-- spatial -->
             <dependency>
-                <!-- geotools 18.2 gebruikt JTS 1.14.0 -->
+                <!-- geotools 19.0 gebruikt JTS 1.14.0 -->
                 <groupId>com.vividsolutions</groupId>
                 <artifactId>jts-core</artifactId>
                 <version>1.14.0</version>
@@ -363,12 +363,14 @@
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
+                <!-- versie 3.0.x voor tomcat 7, zie http://tomcat.apache.org/whichversion.html -->
                 <version>3.0.1</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>javax.servlet.jsp</groupId>
                 <artifactId>jsp-api</artifactId>
+                <!-- versie 2.2 voor tomcat 7, zie http://tomcat.apache.org/whichversion.html -->
                 <version>2.2</version>
                 <scope>provided</scope>
             </dependency>
@@ -420,7 +422,7 @@
             <dependency>
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
-                <version>1.11.2</version>
+                <version>1.11.3</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.xml.ws</groupId>
@@ -559,7 +561,7 @@
                         <dependency>
                             <groupId>net.sf.saxon</groupId>
                             <artifactId>Saxon-HE</artifactId>
-                            <version>9.8.0-10</version>
+                            <version>9.8.0-11</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -739,7 +741,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <!-- plugin>
                     <groupId>org.codehaus.mojo</groupId>
