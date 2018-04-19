@@ -14,7 +14,7 @@
         <notes><![CDATA[
       Negeer melding mbt postgresql-42.1.4.jar, false positive, CVE heeft betrekking op perl scripts.
       ]]></notes>
-        <filePath regex="true">.*\postgresql-42.1.4\.jar</filePath>
+        <filePath regex="true">.*\\postgresql-42.1.4\.jar</filePath>
         <cve>CVE-2017-8806</cve>
     </suppress>
     <suppress>
@@ -25,5 +25,5 @@
         <cve>CVE-2005-0406</cve>
     </suppress>
 
-   
+
 </suppressions>
