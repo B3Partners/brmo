@@ -160,7 +160,8 @@ public class UpdatesActionBean implements ActionBean, ProgressUpdateListener {
             new UpdateProcess("Toevoegen BSN aan ingeschreven natuurlijk persoon", BrmoFramework.BR_BRK, "/xsl/update-bsn.xsl"),
             new UpdateProcess("Toevoegen RSIN aan ingeschreven niet-natuurlijk persoon", BrmoFramework.BR_BRK, "/xsl/update-rsin.xsl"),
             new UpdateProcess("Bijwerken van omschrijving, datum en ref_id in brondocument", BrmoFramework.BR_BRK, "/xsl/update-brondocument.xsl"),
-            new UpdateProcess("Bijwerken van onvolledig adres", BrmoFramework.BR_BRK, "/xsl/update-incompleetadres.xsl")
+            new UpdateProcess("Bijwerken van onvolledig adres", BrmoFramework.BR_BRK, "/xsl/update-incompleetadres.xsl"),
+            new UpdateProcess("Bijwerken van rechthebbende VVE op zakelijk recht", BrmoFramework.BR_BRK, "/xsl/update-zak_recht-vve.xsl")
         });
     }
 
