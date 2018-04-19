@@ -83,14 +83,16 @@
                              èn een betrokkenBij record is. Alleen de "betrokkenBij" VVE wordt in deze kolom ingevuld. Wel wordt er een brondocument
                              voor het ontstaanUit element gemaakt  -->
 						<xsl:for-each select="*[local-name() = 'betrokkenBij']//recht:verenigingVanEigenaren">
-							<xsl:variable name="vve_id" select="PersoonRef:KADNietNatuurlijkPersoonRef/@xlink:href" xmlns:PersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20120201"/>
-							<xsl:if test="$vve_id">
+							<xsl:for-each select="PersoonRef:KADNietNatuurlijkPersoonRef | NhrRechtspersoonRef:RechtspersoonRef"
+										  xmlns:NhrRechtspersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-nhr-rechtspersoon-ref/v20120201"
+										  xmlns:PersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20120201">
+								<xsl:variable name="id" select="substring(@xlink:href,2)"/>
 								<fk_8pes_sc_identif>
 									<xsl:call-template name="nen_identificatie">
-										<xsl:with-param name="id" select="//pers:KADNietNatuurlijkPersoon[@id = substring($vve_id,2)]/pers:identificatie"/>
+										<xsl:with-param name="id" select="//*[@id = $id]/pers:identificatie"/>
 									</xsl:call-template>
 								</fk_8pes_sc_identif>
-							</xsl:if>
+							</xsl:for-each>
 						</xsl:for-each>
 					</zak_recht>
 					<xsl:for-each select="recht:ontstaanUit//recht:isGebaseerdOp | recht:betrokkenBij//recht:isGebaseerdOp">
