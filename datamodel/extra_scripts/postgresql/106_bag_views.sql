@@ -1,32 +1,106 @@
 /*
 Views for visualizing the BAG data.
-25-06-2015
+versie 2
+23-04-2018
 */
 -- DROP VIEWS
--- DROP VIEW v_adres_totaal_vlak;
--- DROP VIEW v_adres_totaal;
--- DROP VIEW v_adres_standplaats;
--- DROP VIEW v_adres_ligplaats;
--- DROP VIEW v_adres;
--- DROP VIEW v_ligplaats;
--- DROP VIEW v_standplaats;
--- DROP VIEW v_ligplaats_alles;
--- DROP VIEW v_standplaats_alles;
--- DROP VIEW v_pand_gebruik_niet_ingemeten;
--- DROP VIEW v_pand_in_gebruik;
--- DROP VIEW v_verblijfsobject;
--- DROP VIEW v_verblijfsobject_gevormd;
--- DROP VIEW v_verblijfsobject_alles;
+--drop view v2_volledig_adres cascade;
+--drop view v2_vbo_locatie_adres cascade;
+--drop view v2_standplaats_locatie_adres cascade;
+--drop view v2_ligplaats_locatie_adres cascade;
+--drop view v2_pand cascade;
+--drop view v2_benoemd_obj_locatie_adres cascade;
 
--------------------------------------------------
--- v_verblijfsobject_alles
--------------------------------------------------
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'v2_pand', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'v2_benoemd_obj_locatie_adres', 'objectid', 'assigned');
+
+--drop view v2_volledig_adres;
 CREATE OR REPLACE VIEW
-    v_verblijfsobject_alles
+    v2_volledig_adres
     (
-        objectid,
-        fid,
-        pand_id,
+        identif,
+        begin_geldigheid,
+        gemeente,
+        woonplaats,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode
+    ) AS
+SELECT
+    na.sc_identif                                              AS identif,
+    to_date(addrobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text) AS begin_geldigheid,
+    gem.naam                                                   AS gemeente,
+    CASE
+        WHEN (addrobj.fk_6wpl_identif IS NOT NULL)
+        THEN
+            (
+                SELECT
+                    wnplts.naam
+                FROM
+                    wnplts
+                WHERE
+                    ((wnplts.identif)::text = (addrobj.fk_6wpl_identif)::text))
+        ELSE wp.naam
+    END                  AS woonplaats,
+    geor.naam_openb_rmte AS straatnaam,
+    addrobj.huinummer    AS huisnummer,
+    addrobj.huisletter,
+    addrobj.huinummertoevoeging AS huisnummer_toev,
+    addrobj.postcode
+FROM
+    (((((nummeraand na
+LEFT JOIN
+    addresseerb_obj_aand addrobj
+ON
+    (((
+                addrobj.identif)::text = (na.sc_identif)::text)))
+JOIN
+    gem_openb_rmte geor
+ON
+    (((
+                geor.identifcode)::text = (addrobj.fk_7opr_identifcode)::text)))
+LEFT JOIN
+    openb_rmte_wnplts orwp
+ON
+    (((
+                geor.identifcode)::text = (orwp.fk_nn_lh_opr_identifcode)::text)))
+LEFT JOIN
+    wnplts wp
+ON
+    (((
+                orwp.fk_nn_rh_wpl_identif)::text = (wp.identif)::text)))
+LEFT JOIN
+    gemeente gem
+ON
+    ((
+            wp.fk_7gem_code = gem.code)));
+            
+COMMENT ON VIEW v2_volledig_adres
+IS
+    'commentaar view v2_volledig_adres:
+volledig adres zonder locatie
+
+beschikbare kolommen:
+* identif: natuurlijke id van adres      
+* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* gemeente: -,
+* woonplaats: -,
+* straatnaam: -,
+* huisnummer: -,
+* huisletter: -,
+* huisnummer_toev: -,
+* postcode: -
+';
+            
+--drop view v2_vbo_locatie_adres cascade;
+CREATE OR REPLACE VIEW
+    v2_vbo_locatie_adres
+    (
+        identif,
+        begin_geldigheid,
+        pand_identif,
         gemeente,
         woonplaats,
         straatnaam,
@@ -35,515 +109,76 @@ CREATE OR REPLACE VIEW
         huisnummer_toev,
         postcode,
         status,
-        oppervlakte,
         the_geom
     ) AS
 SELECT
-    (row_number() OVER ())::integer AS objectid,
-    vbo.sc_identif              AS fid,
-    fkpand.fk_nn_rh_pnd_identif AS pand_id,
-    gem.naam                    AS gemeente,
-    CASE
-        WHEN addrobj.fk_6wpl_identif IS NOT NULL
-        -- opzoeken want in andere woonplaats
-        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
-        ELSE wp.naam           
-    END                         AS woonplaats,
-    geor.naam_openb_rmte        AS straatnaam,
-    addrobj.huinummer           AS huisnummer,
-    addrobj.huisletter,
-    addrobj.huinummertoevoeging AS huisnummer_toev,
-    addrobj.postcode,
+    vbo.sc_identif                                          AS identif,
+    to_date(gobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text) AS begin_geldigheid,
+    fkpand.fk_nn_rh_pnd_identif                             AS pand_identif,
+    bva.gemeente,
+    bva.woonplaats,
+    bva.straatnaam,
+    bva.huisnummer,
+    bva.huisletter,
+    bva.huisnummer_toev,
+    bva.postcode,
     vbo.status,
-    gobj.oppervlakte_obj AS oppervlakte,
-    gobj.puntgeom        AS the_geom
+    gobj.puntgeom AS the_geom
 FROM
-    ((((((((verblijfsobj vbo
+    (((((verblijfsobj vbo
 JOIN
+    gebouwd_obj gobj
+ON
+    (((
+                gobj.sc_identif)::text = (vbo.sc_identif)::text)))
+LEFT JOIN
     verblijfsobj_pand fkpand
 ON
-    ((fkpand.fk_nn_lh_vbo_sc_identif = vbo.sc_identif)))
-JOIN
-    gebouwd_obj gobj
-ON
-    ((gobj.sc_identif = vbo.sc_identif)))
-JOIN
-    nummeraand na
-ON
-    ((na.sc_identif = vbo.fk_11nra_sc_identif)))
-JOIN
-    addresseerb_obj_aand addrobj
-ON
-    ((addrobj.identif = na.sc_identif)))
-JOIN
-    gem_openb_rmte geor
-ON
-    ((geor.identifcode = addrobj.fk_7opr_identifcode)))
+    (((
+                fkpand.fk_nn_lh_vbo_sc_identif)::text = (vbo.sc_identif)::text)))
 LEFT JOIN
-    openb_rmte_wnplts orwp
+    pand
 ON
-    ((geor.identifcode = orwp.fk_nn_lh_opr_identifcode)))
-LEFT JOIN
-    wnplts wp
-ON
-    ((orwp.fk_nn_rh_wpl_identif = wp.identif)))
-LEFT JOIN
-    gemeente gem
-ON
-    ((
-            wp.fk_7gem_code = gem.code)))
-WHERE
-    ((((
-                    addrobj.dat_eind_geldh IS NULL)
-            AND (
-                    geor.datum_einde_geldh IS NULL))
-        AND (
-                gem.datum_einde_geldh IS NULL))
-    AND (
-            gobj.datum_einde_geldh IS NULL));
--------------------------------------------------
--- v_verblijfsobject_gevormd
--------------------------------------------------
-CREATE OR REPLACE VIEW
-    v_verblijfsobject_gevormd
-    (
-        objectid,
-        fid,
-        pand_id,
-        gemeente,
-        woonplaats,
-        straatnaam,
-        huisnummer,
-        huisletter,
-        huisnummer_toev,
-        postcode,
-        --gebruiksdoel,
-        status,
-        oppervlakte,
-        the_geom
-    ) AS
-SELECT
-    objectid,
-    fid,
-    pand_id,
-    gemeente,
-    woonplaats,
-    straatnaam,
-    huisnummer,
-    huisletter,
-    huisnummer_toev,
-    postcode,
-    --gebruiksdoel,
-    status,
-    oppervlakte,
-    the_geom
-FROM
-    v_verblijfsobject_alles
-WHERE
-    status = 'Verblijfsobject gevormd';
--------------------------------------------------
--- v_verblijfsobject
--------------------------------------------------
-CREATE OR REPLACE VIEW
-    v_verblijfsobject
-    (
-        objectid,
-        fid,
-        pand_id,
-        gemeente,
-        woonplaats,
-        straatnaam,
-        huisnummer,
-        huisletter,
-        huisnummer_toev,
-        postcode,
-        --gebruiksdoel,
-        status,
-        oppervlakte,
-        the_geom
-    ) AS
-SELECT
-    objectid,
-    fid,
-    pand_id,
-    gemeente,
-    woonplaats,
-    straatnaam,
-    huisnummer,
-    huisletter,
-    huisnummer_toev,
-    postcode,
-    --gebruiksdoel,
-    status,
-    oppervlakte,
-    the_geom
-FROM
-    v_verblijfsobject_alles
-WHERE
-    status = 'Verblijfsobject in gebruik (niet ingemeten)'
-OR  status = 'Verblijfsobject in gebruik';
--------------------------------------------------
--- v_pand_in_gebruik
--------------------------------------------------
-CREATE VIEW
-    v_pand_in_gebruik
-    (
-        objectid,
-        fid,
-        eind_datum_geldig,
-        begin_datum_geldig,
-        status,
-        bouwjaar,
-        the_geom
-    ) AS
-SELECT
-    (row_number() OVER ())::integer AS ObjectID,
-    p.identif           AS fid,
-    p.datum_einde_geldh AS eind_datum_geldig,
-    p.dat_beg_geldh     AS begin_datum_geldig,
-    p.status,
-    p.oorspronkelijk_bouwjaar AS bouwjaar,
-    p.geom_bovenaanzicht      AS the_geom
-FROM
-    pand p
-WHERE
-    status IN ('Sloopvergunning verleend',
-               'Pand in gebruik (niet ingemeten)',
-               'Pand in gebruik',
-               'Bouw gestart')
-AND datum_einde_geldh IS NULL;
--------------------------------------------------
--- v_pand_gebruik_niet_ingemeten
--------------------------------------------------
-CREATE OR REPLACE VIEW
-    v_pand_gebruik_niet_ingemeten
-    (
-        objectid,
-        fid,
-        begin_datum_geldig,
-        status,
-        bouwjaar,
-        the_geom
-    ) AS
-SELECT
-    (row_number() OVER ())::integer AS ObjectID,
-    p.identif       AS fid,
-    p.dat_beg_geldh AS begin_datum_geldig,
-    p.status,
-    p.oorspronkelijk_bouwjaar AS bouwjaar,
-    p.geom_bovenaanzicht      AS the_geom
-FROM
-    pand p
-WHERE
-    status = 'Pand in gebruik (niet ingemeten)'
-AND datum_einde_geldh IS NULL;
--------------------------------------------------
--- v_standplaats
--------------------------------------------------
-CREATE OR REPLACE VIEW
-    v_standplaats
-    (
-        objectid,
-        sc_identif,
-        status,
-        fk_4nra_sc_identif,
-        datum_begin_geldh,
-        geometrie
-    ) AS
-SELECT
-    (row_number() OVER ())::integer AS ObjectID,
-    sp.sc_identif,
-    sp.status,
-    sp.fk_4nra_sc_identif,
-    bt.dat_beg_geldh,
-    bt.geom AS geometrie
-FROM
-    standplaats sp
-LEFT JOIN
-    benoemd_terrein bt
-ON
-    (
-        sp.sc_identif = bt.sc_identif);
--------------------------------------------------
--- v_ligplaats
--------------------------------------------------
-CREATE OR REPLACE VIEW
-    v_ligplaats
-    (
-        objectid,
-        sc_identif,
-        status,
-        fk_4nra_sc_identif,
-        dat_beg_geldh,
-        geometrie
-    ) AS
-SELECT
-    (row_number() OVER ())::integer AS ObjectID,
-    lp.sc_identif,
-    lp.status,
-    lp.fk_4nra_sc_identif,
-    bt.dat_beg_geldh,
-    bt.geom AS geometrie
-FROM
-    ligplaats lp
-LEFT JOIN
-    benoemd_terrein bt
-ON
-    (
-        lp.sc_identif = bt.sc_identif) ;		
--------------------------------------------------
--- v_ligplaats_alles
--------------------------------------------------
-/*
-ligplaats met hoofdadres
-*/		
-CREATE OR REPLACE VIEW
-    v_ligplaats_alles
-    (
-        objectid,
-        fid,
-        gemeente,
-        woonplaats,
-        straatnaam,
-        huisnummer,
-        huisletter,
-        huisnummer_toev,
-        postcode,
-        status,
-        the_geom
-    ) AS
-SELECT
-    (row_number() OVER ())::integer AS ObjectID,
-    lp.sc_identif        AS fid,
-    gem.naam             AS gemeente,
-    CASE
-        WHEN addrobj.fk_6wpl_identif IS NOT NULL
-        -- opzoeken want in andere woonplaats
-        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
-        ELSE wp.naam           
-    END                  AS woonplaats,
-    geor.naam_openb_rmte AS straatnaam,
-    addrobj.huinummer    AS huisnummer,
-    addrobj.huisletter,
-    addrobj.huinummertoevoeging AS huisnummer_toev,
-    addrobj.postcode,
-    lp.status,
-    bt.geom AS the_geom
-FROM
-    (((((((ligplaats lp
-JOIN
-    benoemd_terrein bt
-ON
-    ((lp.sc_identif = bt.sc_identif)))
-JOIN
-    nummeraand na
-ON
-    ((na.sc_identif = lp.fk_4nra_sc_identif)))
-JOIN
-    addresseerb_obj_aand addrobj
-ON
-    ((addrobj.identif = na.sc_identif)))
-JOIN
-    gem_openb_rmte geor
-ON
-    ((geor.identifcode = addrobj.fk_7opr_identifcode)))
-LEFT JOIN
-    openb_rmte_wnplts orwp
-ON
-    ((geor.identifcode = orwp.fk_nn_lh_opr_identifcode)))
-LEFT JOIN
-    wnplts wp
-ON
-    ((orwp.fk_nn_rh_wpl_identif = wp.identif)))
-LEFT JOIN
-    gemeente gem
-ON
-    ((
-            wp.fk_7gem_code = gem.code)))
-WHERE
-    ((((
-                    addrobj.dat_eind_geldh IS NULL)
-            AND (
-                    geor.datum_einde_geldh IS NULL))
-        AND (
-                gem.datum_einde_geldh IS NULL))
-    AND (
-            bt.datum_einde_geldh IS NULL));	
--------------------------------------------------
--- v_standplaats_alles
--------------------------------------------------
-/*
-standplaats met hoofdadres
-*/		
-CREATE OR REPLACE VIEW
-    v_standplaats_alles
-    (
-        objectid,
-        fid,
-        gemeente,
-        woonplaats,
-        straatnaam,
-        huisnummer,
-        huisletter,
-        huisnummer_toev,
-        postcode,
-        status,
-        the_geom
-    ) AS
-SELECT
-    (row_number() OVER ())::integer AS ObjectID,
-    sp.sc_identif        AS fid,
-    gem.naam             AS gemeente,
-    CASE
-        WHEN addrobj.fk_6wpl_identif IS NOT NULL
-        -- opzoeken want in andere woonplaats
-        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
-        ELSE wp.naam           
-    END                  AS woonplaats,
-    geor.naam_openb_rmte AS straatnaam,
-    addrobj.huinummer    AS huisnummer,
-    addrobj.huisletter,
-    addrobj.huinummertoevoeging AS huisnummer_toev,
-    addrobj.postcode,
-    sp.status,
-    bt.geom AS the_geom
-FROM
-    (((((((standplaats sp
-JOIN
-    benoemd_terrein bt
-ON
-    ((sp.sc_identif = bt.sc_identif)))
-JOIN
-    nummeraand na
-ON
-    ((na.sc_identif = sp.fk_4nra_sc_identif)))
-JOIN
-    addresseerb_obj_aand addrobj
-ON
-    ((addrobj.identif = na.sc_identif)))
-JOIN
-    gem_openb_rmte geor
-ON
-    ((geor.identifcode = addrobj.fk_7opr_identifcode)))
-LEFT JOIN
-    openb_rmte_wnplts orwp
-ON
-    ((geor.identifcode = orwp.fk_nn_lh_opr_identifcode)))
-LEFT JOIN
-    wnplts wp
-ON
-    ((orwp.fk_nn_rh_wpl_identif = wp.identif)))
-LEFT JOIN
-    gemeente gem
-ON
-    ((
-            wp.fk_7gem_code = gem.code)))
-WHERE
-    ((((
-                    addrobj.dat_eind_geldh IS NULL)
-            AND (
-                    geor.datum_einde_geldh IS NULL))
-        AND (
-                gem.datum_einde_geldh IS NULL))
-    AND (
-            bt.datum_einde_geldh IS NULL));			
--------------------------------------------------
--- v_adres
--------------------------------------------------
-/*
-volledige adressenlijst
-standplaats en ligplaats via benoemd_terrein, 
-waarbij centroide van polygon wordt genomen
-plus verblijfsobject via punt object van gebouwd_obj
-*/
-CREATE OR REPLACE VIEW
-    v_adres
-    (
-        objectid,
-        fid,
-        gemeente,
-        woonplaats,
-        straatnaam,
-        huisnummer,
-        huisletter,
-        huisnummer_toev,
-        postcode,
-        status,
-        oppervlakte,
-        the_geom
-    ) AS
-SELECT
-    (row_number() OVER ())::integer AS ObjectID,
-    vbo.sc_identif       AS fid,
-    gem.naam             AS gemeente,
-    CASE
-        WHEN addrobj.fk_6wpl_identif IS NOT NULL
-        -- opzoeken want in andere woonplaats
-        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
-        ELSE wp.naam           
-    END                  AS woonplaats,
-    geor.naam_openb_rmte AS straatnaam,
-    addrobj.huinummer    AS huisnummer,
-    addrobj.huisletter,
-    addrobj.huinummertoevoeging AS huisnummer_toev,
-    addrobj.postcode,
-    vbo.status,
-    gobj.oppervlakte_obj || ' m2' AS oppervlakte,
-    gobj.puntgeom                 AS the_geom
-FROM
-    verblijfsobj vbo
-JOIN
-    gebouwd_obj gobj
-ON
-    (
-        gobj.sc_identif = vbo.sc_identif )
+    (((
+                fkpand.fk_nn_rh_pnd_identif)::text = (pand.identif)::text)))
 LEFT JOIN
     verblijfsobj_nummeraand vna
 ON
-    (
-        vna.fk_nn_lh_vbo_sc_identif = vbo.sc_identif )
+    (((
+                vna.fk_nn_lh_vbo_sc_identif)::text = (vbo.sc_identif)::text)))
 LEFT JOIN
-    nummeraand na
+    v2_volledig_adres bva
 ON
+    (((
+                vna.fk_nn_rh_nra_sc_identif)::text = (bva.identif)::text)));
+COMMENT ON VIEW v2_vbo_locatie_adres
+IS
+    'commentaar view v2_vbo_locatie_adres:
+vbo met adres, puntlocatie en referentie naar pand
+
+beschikbare kolommen:
+* identif: natuurlijke id van vbo      
+* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* pand_identif: natuurlijk id van pand dat aan dit vbo gekoppeld is,
+* gemeente: -,
+* woonplaats: -,
+* straatnaam: -,
+* huisnummer: -,
+* huisletter: -,
+* huisnummer_toev: -,
+* postcode: -,
+* status: -,
+* the_geom: puntlocatie
+
+';
+                
+                
+--drop view v2_standplaats_locatie_adres cascade;
+CREATE OR REPLACE VIEW
+    v2_standplaats_locatie_adres
     (
-        na.sc_identif = vbo.fk_11nra_sc_identif)
-LEFT JOIN
-    addresseerb_obj_aand addrobj
-ON
-    (
-        addrobj.identif = na.sc_identif )
-JOIN
-    gem_openb_rmte geor
-ON
-    (
-        geor.identifcode = addrobj.fk_7opr_identifcode )
-LEFT JOIN
-    openb_rmte_wnplts orwp
-ON
-    (
-        geor.identifcode = orwp.fk_nn_lh_opr_identifcode)
-LEFT JOIN
-    wnplts wp
-ON
-    (
-        orwp.fk_nn_rh_wpl_identif = wp.identif)
-LEFT JOIN
-    gemeente gem
-ON
-    (
-        wp.fk_7gem_code = gem.code )
-WHERE
-    na.status = 'Naamgeving uitgegeven'
-AND (
-        vbo.status = 'Verblijfsobject in gebruik (niet ingemeten)'
-    OR  vbo.status = 'Verblijfsobject in gebruik');
--------------------------------------------------
--- v_adres_ligplaats
--------------------------------------------------
-CREATE VIEW
-    v_adres_ligplaats
-    (
-        fid,
+        identif,
+        begin_geldigheid,
         gemeente,
         woonplaats,
         straatnaam,
@@ -552,221 +187,61 @@ CREATE VIEW
         huisnummer_toev,
         postcode,
         status,
-        the_geom,
-        centroide
+        the_geom
     ) AS
 SELECT
-    lpa.sc_identif       AS fid,
-    gem.naam             AS gemeente,
-    CASE
-        WHEN addrobj.fk_6wpl_identif IS NOT NULL
-        -- opzoeken want in andere woonplaats
-        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
-        ELSE wp.naam           
-    END                  AS woonplaats,
-    geor.naam_openb_rmte AS straatnaam,
-    addrobj.huinummer    AS huisnummer,
-    addrobj.huisletter,
-    addrobj.huinummertoevoeging AS huisnummer_toev,
-    addrobj.postcode,
-    lpa.status,
-    benter.geom AS the_geom,
-    st_centroid(benter.geom)
-FROM
-    ligplaats lpa
-JOIN
-    benoemd_terrein benter
-ON
-    (
-        benter.sc_identif = lpa.sc_identif )
-LEFT JOIN
-    ligplaats_nummeraand lna
-ON
-    (
-        lna.fk_nn_lh_lpl_sc_identif = lpa.sc_identif )
-LEFT JOIN
-    nummeraand na
-ON
-    (
-        na.sc_identif = lpa.fk_4nra_sc_identif )
-LEFT JOIN
-    addresseerb_obj_aand addrobj
-ON
-    (
-        addrobj.identif = na.sc_identif )
-JOIN
-    gem_openb_rmte geor
-ON
-    (
-        geor.identifcode = addrobj.fk_7opr_identifcode )
-LEFT JOIN
-    openb_rmte_wnplts orwp
-ON
-    (
-        geor.identifcode = orwp.fk_nn_lh_opr_identifcode)
-LEFT JOIN
-    wnplts wp
-ON
-    (
-        orwp.fk_nn_rh_wpl_identif = wp.identif)
-LEFT JOIN
-    gemeente gem
-ON
-    (
-        wp.fk_7gem_code = gem.code )
-WHERE
-    na.status = 'Naamgeving uitgegeven'
-AND lpa.status = 'Plaats aangewezen';
--------------------------------------------------
--- v_adres_standplaats
--------------------------------------------------
-CREATE VIEW
-    v_adres_standplaats
-    (
-        fid,
-        gemeente,
-        woonplaats,
-        straatnaam,
-        huisnummer,
-        huisletter,
-        huisnummer_toev,
-        postcode,
-        status,
-        the_geom,
-        centroide
-    ) AS
-SELECT
-    spl.sc_identif       AS fid,
-    gem.naam             AS gemeente,
-    CASE
-        WHEN addrobj.fk_6wpl_identif IS NOT NULL
-        -- opzoeken want in andere woonplaats
-        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
-        ELSE wp.naam           
-    END                  AS woonplaats,
-    geor.naam_openb_rmte AS straatnaam,
-    addrobj.huinummer    AS huisnummer,
-    addrobj.huisletter,
-    addrobj.huinummertoevoeging AS huisnummer_toev,
-    addrobj.postcode,
+    spl.sc_identif                                            AS identif,
+    to_date(benter.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text) AS begin_geldigheid,
+    bva.gemeente,
+    bva.woonplaats,
+    bva.straatnaam,
+    bva.huisnummer,
+    bva.huisletter,
+    bva.huisnummer_toev,
+    bva.postcode,
     spl.status,
-    benter.geom AS the_geom,
-    st_centroid(benter.geom)
+    st_centroid(benter.geom) AS the_geom
 FROM
-    standplaats spl
+    (((standplaats spl
 JOIN
     benoemd_terrein benter
 ON
-    (
-        benter.sc_identif = spl.sc_identif )
+    (((
+                benter.sc_identif)::text = (spl.sc_identif)::text)))
 LEFT JOIN
     standplaats_nummeraand sna
 ON
-    (
-        sna.fk_nn_lh_spl_sc_identif = spl.sc_identif )
+    (((
+                sna.fk_nn_lh_spl_sc_identif)::text = (spl.sc_identif)::text)))
 LEFT JOIN
-    nummeraand na
+    v2_volledig_adres bva
 ON
-    (
-        na.sc_identif = spl.fk_4nra_sc_identif )
-LEFT JOIN
-    addresseerb_obj_aand addrobj
-ON
-    (
-        addrobj.identif = na.sc_identif )
-JOIN
-    gem_openb_rmte geor
-ON
-    (
-        geor.identifcode = addrobj.fk_7opr_identifcode )
-LEFT JOIN
-    openb_rmte_wnplts orwp
-ON
-    (
-        geor.identifcode = orwp.fk_nn_lh_opr_identifcode)
-LEFT JOIN
-    wnplts wp
-ON
-    (
-        orwp.fk_nn_rh_wpl_identif = wp.identif)
-LEFT JOIN
-    gemeente gem
-ON
-    (
-        wp.fk_7gem_code = gem.code )
-WHERE
-    na.status = 'Naamgeving uitgegeven'
-AND spl.status = 'Plaats aangewezen';
--------------------------------------------------
--- v_adres_totaal
--------------------------------------------------
-CREATE VIEW
-    v_adres_totaal
-    (
-        objectid,
-        fid,
-        straatnaam,
-        huisnummer,
-        huisletter,
-        huisnummer_toev,
-        postcode,
-        gemeente,
-        woonplaats,
-        the_geom
-    ) AS
-SELECT 
-    (row_number() OVER ())::integer AS ObjectID,
-    qry.*
-    FROM (
-        SELECT
-            fid,
-            straatnaam,
-            huisnummer,
-            huisletter,
-            huisnummer_toev,
-            postcode,
-            gemeente,
-            woonplaats,
-            the_geom
-        FROM
-            v_adres
-        UNION ALL
-        SELECT
-            fid ,
-            straatnaam,
-            huisnummer,
-            huisletter,
-            huisnummer_toev,
-            postcode,
-            gemeente,
-            woonplaats,
-            centroide AS the_geom
-        FROM
-            v_adres_ligplaats
-        UNION ALL
-        SELECT
-            fid ,
-            straatnaam,
-            huisnummer,
-            huisletter,
-            huisnummer_toev,
-            postcode,
-            gemeente,
-            woonplaats,
-            centroide AS the_geom
-        FROM
-            v_adres_standplaats
-    ) qry;
+    (((
+                sna.fk_nn_rh_nra_sc_identif)::text = (bva.identif)::text)));
+COMMENT ON VIEW v2_standplaats_locatie_adres
+IS
+    'commentaar view v2_standplaats_locatie_adres:
+standplaats met adres en puntlocatie
 
--------------------------------------------------
--- v_adres_pandvlak: adressen met (bovenaanzicht) pandvlak
--------------------------------------------------
+beschikbare kolommen:
+* identif: natuurlijke id van standplaats      
+* gemeente: -,
+* woonplaats: -,
+* straatnaam: -,
+* huisnummer: -,
+* huisletter: -,
+* huisnummer_toev: -,
+* postcode: -,
+* status: -,
+* the_geom: puntlocatie
+';
+                
+--drop view v2_ligplaats_locatie_adres cascade;
 CREATE OR REPLACE VIEW
-    v_adres_pandvlak
+    v2_ligplaats_locatie_adres
     (
-        objectid,
-        fid,
-        pand_id,
+        identif,
+        begin_geldigheid,
         gemeente,
         woonplaats,
         straatnaam,
@@ -778,129 +253,187 @@ CREATE OR REPLACE VIEW
         the_geom
     ) AS
 SELECT
-    (row_number() OVER ())::integer AS ObjectID,
-    vbo.sc_identif       AS fid,
-    fkpand.fk_nn_rh_pnd_identif AS pand_id,
-    gem.naam             AS gemeente,
-    CASE
-        WHEN addrobj.fk_6wpl_identif IS NOT NULL
-        -- opzoeken want in andere woonplaats
-        THEN  (select naam from wnplts where identif = fk_6wpl_identif)
-        ELSE wp.naam           
-    END                  AS woonplaats,
-    geor.naam_openb_rmte AS straatnaam,
-    addrobj.huinummer    AS huisnummer,
-    addrobj.huisletter,
-    addrobj.huinummertoevoeging AS huisnummer_toev,
-    addrobj.postcode,
-    vbo.status,
-    pand.geom_bovenaanzicht AS the_geom
-FROM (
-    verblijfsobj vbo
+    lpa.sc_identif                                            AS identif,
+    to_date(benter.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text) AS begin_geldigheid,
+    bva.gemeente,
+    bva.woonplaats,
+    bva.straatnaam,
+    bva.huisnummer,
+    bva.huisletter,
+    bva.huisnummer_toev,
+    bva.postcode,
+    lpa.status,
+    st_centroid(benter.geom) AS the_geom
+FROM
+    (((ligplaats lpa
 JOIN
-    verblijfsobj_pand fkpand
+    benoemd_terrein benter
 ON
-    (fkpand.fk_nn_lh_vbo_sc_identif = vbo.sc_identif)
-JOIN 
-    pand 
-ON 
-    (fkpand.fk_nn_rh_pnd_identif = pand.identif) 
-)    
+    (((
+                benter.sc_identif)::text = (lpa.sc_identif)::text)))
 LEFT JOIN
-    verblijfsobj_nummeraand vna
+    ligplaats_nummeraand lna
 ON
-    (vna.fk_nn_lh_vbo_sc_identif = vbo.sc_identif)
+    (((
+                lna.fk_nn_lh_lpl_sc_identif)::text = (lpa.sc_identif)::text)))
+LEFT JOIN
+    v2_volledig_adres bva
+ON
+    (((
+                lna.fk_nn_rh_nra_sc_identif)::text = (bva.identif)::text)));
+COMMENT ON VIEW v2_ligplaats_locatie_adres
+IS
+    'commentaar view v2_ligplaats_locatie_adres:
+ligplaats met adres en puntlocatie
 
-LEFT JOIN
-    nummeraand na
-ON
-    (na.sc_identif = vbo.fk_11nra_sc_identif)
-
-LEFT JOIN
-    addresseerb_obj_aand addrobj
-ON
-    (addrobj.identif = na.sc_identif)
-JOIN
-    gem_openb_rmte geor
-ON
-    ( geor.identifcode = addrobj.fk_7opr_identifcode )
-    
-LEFT JOIN
-    openb_rmte_wnplts orwp
-ON
-    ( geor.identifcode = orwp.fk_nn_lh_opr_identifcode)
-
-LEFT JOIN
-    wnplts wp
-ON
-    ( orwp.fk_nn_rh_wpl_identif = wp.identif)
-
-LEFT JOIN
-    gemeente gem
-ON
-    ( wp.fk_7gem_code = gem.code )
-WHERE
-    na.status = 'Naamgeving uitgegeven'
-AND ( vbo.status = 'Verblijfsobject in gebruik (niet ingemeten)'
-    OR  vbo.status = 'Verblijfsobject in gebruik');
-    
--------------------------------------------------
--- v_adres_totaal_vlak: adressen met bovenaanzicht vlak van pand 
---   of openbare ruimte in geval stand of ligplaats
--------------------------------------------------
-CREATE OR REPLACE VIEW v_adres_totaal_vlak
+beschikbare kolommen:
+* identif: natuurlijke id van ligplaats      
+* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* gemeente: -,
+* woonplaats: -,
+* straatnaam: -,
+* huisnummer: -,
+* huisletter: -,
+* huisnummer_toev: -,
+* postcode: -,
+* status: -,
+* the_geom: puntlocatie
+';
+                
+--drop view v2_pand cascade;
+CREATE OR REPLACE VIEW
+    v2_pand
     (
         objectid,
-        fid,
+        identif,
+        begin_geldigheid,
+        bouwjaar,
+        status,
+        the_geom
+    ) AS
+SELECT
+    (row_number() OVER ())::INTEGER AS objectid,
+    pand.identif,
+    to_date(pand.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text) AS begin_geldigheid,
+    pand.oorspronkelijk_bouwjaar                            AS bouwjaar,
+    pand.status,
+    pand.geom_bovenaanzicht AS the_geom
+FROM
+    pand;
+COMMENT ON VIEW v2_pand
+IS
+    'commentaar view v2_pand:
+pand met datum veld voor begin geldigheid en objectid voor arcgis
+beschikbare kolommen:
+* objectid: uniek id bruikbaar voor arcgis,
+* identif: natuurlijke id van pand      
+* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* bouwjaar: -,
+* status: -,
+* the_geom: pandvlak
+';
+    
+--drop view v2_benoemd_obj_locatie_adres cascade;
+CREATE OR REPLACE VIEW
+    v2_benoemd_obj_locatie_adres
+    (
+        objectid,
+        identif,
+        begin_geldigheid,
+        pand_identif,
+        soort,
+        gemeente,
+        woonplaats,
         straatnaam,
         huisnummer,
         huisletter,
         huisnummer_toev,
         postcode,
-        gemeente,
-        woonplaats,
+        status,
         the_geom
     ) AS
-SELECT 
-    (row_number() OVER ())::integer AS ObjectID,
-    qry.*
-    FROM (
+SELECT
+    (row_number() OVER ())::INTEGER AS objectid,
+    qry.identif,
+    qry.begin_geldigheid,
+    qry.pand_identif,
+    qry.soort,
+    qry.gemeente,
+    qry.woonplaats,
+    qry.straatnaam,
+    qry.huisnummer,
+    qry.huisletter,
+    qry.huisnummer_toev,
+    qry.postcode,
+    qry.status,
+    qry.the_geom
+FROM
+    (
         SELECT
-            fid,
-            straatnaam,
-            huisnummer,
-            huisletter,
-            huisnummer_toev,
-            postcode,
-            gemeente,
-            woonplaats,
-            the_geom
+            v2_vbo_locatie_adres.identif,
+            v2_vbo_locatie_adres.begin_geldigheid,
+            v2_vbo_locatie_adres.pand_identif,
+            'VBO'::CHARACTER VARYING(50) AS soort,
+            v2_vbo_locatie_adres.gemeente,
+            v2_vbo_locatie_adres.woonplaats,
+            v2_vbo_locatie_adres.straatnaam,
+            v2_vbo_locatie_adres.huisnummer,
+            v2_vbo_locatie_adres.huisletter,
+            v2_vbo_locatie_adres.huisnummer_toev,
+            v2_vbo_locatie_adres.postcode,
+            v2_vbo_locatie_adres.status,
+            v2_vbo_locatie_adres.the_geom
         FROM
-            v_adres_pandvlak
+            v2_vbo_locatie_adres
         UNION ALL
         SELECT
-            fid ,
-            straatnaam,
-            huisnummer,
-            huisletter,
-            huisnummer_toev,
-            postcode,
-            gemeente,
-            woonplaats,
-            the_geom
+            v2_ligplaats_locatie_adres.identif,
+            v2_ligplaats_locatie_adres.begin_geldigheid,
+            NULL::CHARACTER VARYING(16)        AS pand_identif,
+            'LIGPLAATS'::CHARACTER VARYING(50) AS soort,
+            v2_ligplaats_locatie_adres.gemeente,
+            v2_ligplaats_locatie_adres.woonplaats,
+            v2_ligplaats_locatie_adres.straatnaam,
+            v2_ligplaats_locatie_adres.huisnummer,
+            v2_ligplaats_locatie_adres.huisletter,
+            v2_ligplaats_locatie_adres.huisnummer_toev,
+            v2_ligplaats_locatie_adres.postcode,
+            v2_ligplaats_locatie_adres.status,
+            v2_ligplaats_locatie_adres.the_geom
         FROM
-            v_adres_ligplaats
+            v2_ligplaats_locatie_adres
         UNION ALL
         SELECT
-            fid ,
-            straatnaam,
-            huisnummer,
-            huisletter,
-            huisnummer_toev,
-            postcode,
-            gemeente,
-            woonplaats,
-            the_geom
+            v2_standplaats_locatie_adres.identif,
+            v2_standplaats_locatie_adres.begin_geldigheid,
+            NULL::CHARACTER VARYING(16)          AS pand_identif,
+            'STANDPLAATS'::CHARACTER VARYING(50) AS soort,
+            v2_standplaats_locatie_adres.gemeente,
+            v2_standplaats_locatie_adres.woonplaats,
+            v2_standplaats_locatie_adres.straatnaam,
+            v2_standplaats_locatie_adres.huisnummer,
+            v2_standplaats_locatie_adres.huisletter,
+            v2_standplaats_locatie_adres.huisnummer_toev,
+            v2_standplaats_locatie_adres.postcode,
+            v2_standplaats_locatie_adres.status,
+            v2_standplaats_locatie_adres.the_geom
         FROM
-            v_adres_standplaats
-    ) qry;
+            v2_standplaats_locatie_adres) qry;
+COMMENT ON VIEW v2_benoemd_obj_locatie_adres
+IS
+    'commentaar view v2_benoemd_obj_locatie_adres:
+alle benoemde objecten (vbo, standplaats en ligplaats) met adres, puntlocatie, objectid voor arcgis en bij vbo referentie naar pand
+beschikbare kolommen:
+* identif: natuurlijke id van benoemd object      
+* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* pand_identif: natuurlijk id van pand dat aan dit object gekoppeld is (alleen vbo),
+* gemeente: -,
+* woonplaats: -,
+* straatnaam: -,
+* huisnummer: -,
+* huisletter: -,
+* huisnummer_toev: -,
+* postcode: -,
+* status: -,
+* the_geom: puntlocatie
+';

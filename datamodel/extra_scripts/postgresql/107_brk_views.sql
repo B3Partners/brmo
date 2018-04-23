@@ -1,407 +1,922 @@
+/*
+Views for visualizing the BRK data.
+versie 2
+23-04-2018
+*/
 
-create view v_map_kad_perceel as
-select
-   (row_number() OVER ())::integer AS ObjectID,
-    p.sc_kad_identif,
-    p.begrenzing_perceel,
-    p.ka_sectie || ' ' || p.ka_perceelnummer AS aanduiding,
-    p.grootte_perceel,
-    z.ks_koopjaar,
-    z.ks_bedrag,
-    z.cu_aard_cultuur_onbebouwd
-from kad_perceel p
-join kad_onrrnd_zk z on (z.kad_identif = p.sc_kad_identif);
+--drop view v2_volledig_subject cascade;
+--drop view v2_avg_volledig_subject cascade;
+--drop view v2_util_app_re_kad_perceel cascade;
+--drop view v2_kad_onrrnd_zk_locatie_adres cascade;
+--drop view v2_volledig_subject;
+--drop view v2_util_zk_recht cascade;
+--drop view v2_zr_rechth cascade;
+--drop view v2_avg_zr_rechth cascade;
+--drop view v2_koz_rechth cascade;
+--drop view v2_avg_koz_rechth cascade;
 
-create table prs_eigendom (
-    fk_prs_sc_identif varchar(32),
-    primary key (fk_prs_sc_identif),
-    foreign key (fk_prs_sc_identif) references prs(sc_identif)
-);
-
-create or replace view v_kad_perceel_in_eigendom as
-select
-    (row_number() OVER ())::integer AS ObjectID,
-    p.begrenzing_perceel,
-    p.sc_kad_identif,
-    p.aanduiding,
-    p.grootte_perceel,
-    p.ks_koopjaar,
-    p.ks_bedrag,
-    p.cu_aard_cultuur_onbebouwd,
-    nnprs.naam
-from v_map_kad_perceel p
-join zak_recht zr on (zr.fk_7koz_kad_identif = p.sc_kad_identif)
-join prs_eigendom prs_e on (prs_e.fk_prs_sc_identif = zr.fk_8pes_sc_identif)
-left join niet_nat_prs nnprs on (nnprs.sc_identif = prs_e.fk_prs_sc_identif);
-
-create or replace view v_kad_perceel_adres as
-select distinct
-        kp.sc_kad_identif,
-        kpvbo.FK_NN_LH_TGO_IDENTIF as kad_bag_koppeling_benobj,
-        gor.naam_openb_rmte as straat,
-        aoa.huinummer as huisnummer,
-        aoa.huisletter,
-        aoa.huinummertoevoeging as toevoeging,
-        aoa.postcode,
-        wp.naam as woonplaats
-from kad_perceel kp
-left join benoemd_obj_kad_onrrnd_zk kpvbo on (kpvbo.FK_NN_RH_KOZ_KAD_IDENTIF = kp.SC_KAD_IDENTIF)
-left join verblijfsobj vbo on (vbo.SC_IDENTIF = kpvbo.FK_NN_LH_TGO_IDENTIF)
-left join nummeraand na on (na.SC_IDENTIF = vbo.FK_11NRA_SC_IDENTIF)
-left join addresseerb_obj_aand aoa on (aoa.IDENTIF = na.SC_IDENTIF)
-left join gem_openb_rmte gor on (gor.IDENTIFCODE = aoa.FK_7OPR_IDENTIFCODE)
-left join openb_rmte_wnplts oprw on (oprw.fk_nn_lh_opr_identifcode = gor.IDENTIFCODE)
-left join wnplts wp on (wp.IDENTIF = oprw.fk_nn_rh_wpl_identif);
-
-create or replace view v_kad_perceel_eenvoudig as
-select
-        (row_number() OVER ())::integer AS ObjectID,
-        p.sc_kad_identif,
-        p.begrenzing_perceel,
-        p.ka_sectie || ' ' || p.ka_perceelnummer AS aanduiding,
-        p.grootte_perceel,
-        p_adr.kad_bag_koppeling_benobj,
-        p_adr.straat,
-        p_adr.huisnummer,
-        p_adr.huisletter,
-        p_adr.toevoeging,
-        p_adr.postcode,
-        p_adr.woonplaats
-from kad_perceel p
-join v_kad_perceel_adres p_adr on (p_adr.sc_kad_identif = p.sc_kad_identif);
-
-create or replace view v_kad_perceel_zak_recht as
-  select
-    p.sc_kad_identif as Kadaster_identificatie,
-    zr.AR_TELLER  as Aandeel_teller,
-    zr.AR_NOEMER as Aandeel_noemer,
-    zr.FK_3AVR_AAND as Aard_recht_aand,
---    ark.omschr as Aard_recht_omschrijving_verkort, XXX referentielijst niet gevuld
---    ar.omschr_aard_verkregenr_recht as Aard_recht_omschrijving, XXX referentielijst niet gevuld
-    case when np.sc_identif is not null then 'Natuurlijk persoon' else 'Niet natuurlijk persoon' end as soort_eigenaar,
-    np.NM_GESLACHTSNAAM as Geslachtsnaam,
-    np.NM_VOORVOEGSEL_GESLACHTSNAAM as Voorvoegsel,
-    np.NM_VOORNAMEN as Voornamen,
-    np.GESLACHTSAAND as Geslacht,
-    inp.VA_LOC_BESCHRIJVING as Woonadres,
-    inp.GB_GEBOORTEDATUM as Geboortedatum,
---    inp.GB_GEBOORTELAND as Code_geboorteland, XXX in XSL conversie naar 2-letterige ISO code
-    inp.GB_GEBOORTEPLAATS as Geboorteplaats,
-    inp.OL_OVERLIJDENSDATUM as Overlijdensdatum,
-    nnp.NAAM as Naam_niet_natuurlijk_persoon,
-    innp.RECHTSVORM as Rechtsvorm,
-    innp.STATUTAIRE_ZETEL as Statutaire_zetel,
-    innp_subject.kvk_nummer
-  from kad_perceel p
-  join zak_recht zr on (zr.FK_7KOZ_KAD_IDENTIF = p.sc_kad_identif)
-  left join aard_recht_verkort ark on (zr.FK_3AVR_AAND = ark.AAND)
-  left join aard_verkregen_recht ar on (zr.FK_3AVR_AAND = ar.AAND)
-  left join nat_prs np on (np.SC_IDENTIF = zr.FK_8PES_SC_IDENTIF)
-  left join ingeschr_nat_prs inp on (inp.SC_IDENTIF = np.SC_IDENTIF)
-  left join niet_nat_prs nnp on (nnp.sc_identif = zr.FK_8PES_SC_IDENTIF)
-  left join ingeschr_niet_nat_prs innp on (innp.SC_IDENTIF = nnp.sc_identif)
-  left join subject innp_subject on (innp_subject.identif = innp.sc_identif)
-  where np.NM_GESLACHTSNAAM is not null or nnp.NAAM is not null;
-
-create or replace view v_kad_perceel_zr_adressen as
-select
-  (row_number() OVER ())::integer AS ObjectID,
-  kp.SC_KAD_IDENTIF,
-  kp.BEGRENZING_PERCEEL,
-  kp.AANDUIDING,
-  kp.GROOTTE_PERCEEL,
-  kp.STRAAT,
-  kp.HUISNUMMER,
-  kp.HUISLETTER,
-  kp.TOEVOEGING,
-  kp.POSTCODE,
-  kp.WOONPLAATS,
-  zr.AANDEEL_TELLER,
-  zr.AANDEEL_NOEMER,
-  zr.AARD_RECHT_AAND,
-  zr.SOORT_EIGENAAR,
-  zr.GESLACHTSNAAM,
-  zr.VOORVOEGSEL,
-  zr.VOORNAMEN,
-  zr.GESLACHT,
-  zr.WOONADRES,
-  zr.GEBOORTEDATUM,
-  zr.GEBOORTEPLAATS,
-  zr.OVERLIJDENSDATUM,
-  zr.NAAM_NIET_NATUURLIJK_PERSOON,
-  zr.RECHTSVORM,
-  zr.STATUTAIRE_ZETEL,
-  zr.KVK_NUMMER
-from v_kad_perceel_eenvoudig kp
-join v_kad_perceel_zak_recht zr on (zr.KADASTER_IDENTIFICATIE = kp.sc_kad_identif);
-
-create or replace view kad_perceel_app_rechten as
-select
- kpe.SC_KAD_IDENTIF as perceel_identificatie,
--- kpe.KA_SECTIE || ' ' || kpe.KA_PERCEELNUMMER as perceelnr,
- kpe.aanduiding,
- kpe.straat, kpe.huisnummer, kpe.toevoeging, kpe.huisletter,
- kpe.straat || ' ' || kpe.huisnummer || ' ' || kpe.huisletter || ' ' || kpe.toevoeging || ' ' || kpe.postcode as adres,
--- zr.kadaster_identif as links_zak_recht,
- zr.FK_3AVR_AAND as complex_zak_recht_aard_aand,
--- zr.FK2_PERSOON as links_zak_recht_persoon,
-
---    case when np1.PK_PERSOON is not null then 'Natuurlijk persoon' else 'Niet natuurlijk persoon' end as l_soort_eigenaar,
-    case when np1.sc_identif is not null then np1.NM_GESLACHTSNAAM || ', ' || np1.NM_VOORNAMEN || ' ' || np1.NM_VOORVOEGSEL_GESLACHTSNAAM else nnp1.NAAM end as perceel_zak_recht_naam,
---    nnp1.NAAM as l_nnp,
-
--- bd1.identificatie as brondocument,
--- zr2.kadaster_identif as rechts_zak_recht,
- zr2.FK_3AVR_AAND as app_re_zak_recht_aard_aand,
--- zr2.FK2_PERSOON as rechts_zak_recht_persoon,
-
---    case when np2.PK_PERSOON is not null then 'Natuurlijk persoon' else 'Niet natuurlijk persoon' end as r_soort_eigenaar,
-    case when np2.sc_identif is not null then np2.NM_GESLACHTSNAAM || ', ' || np2.NM_VOORNAMEN || ' ' || np2.NM_VOORVOEGSEL_GESLACHTSNAAM else nnp2.NAAM end as app_re_zak_recht_naam,
---    nnp2.NAAM as r_nnp,
-
-ar.SC_KAD_IDENTIF as app_re_identificatie,
- ar.KA_APPARTEMENTSINDEX::int as appartementsindex --,
--- ar.FK1_NIET_NAT_PERSOON as app_re_vve,
--- ar_vve_nnp.naam as app_re_vve_naam,
--- ar_vve_innp.rechtsvorm as app_re_vve_rechtsvorm,
--- ar_vve_innp.rsin as app_re_vve_rsin
-from v_kad_perceel_eenvoudig kpe
-join zak_recht zr on (zr.FK_7KOZ_KAD_IDENTIF = kpe.SC_KAD_IDENTIF)
-
-  left join nat_prs np1 on (np1.SC_IDENTIF = zr.FK_8PES_SC_IDENTIF)
-  left join ingeschr_nat_prs inp1 on (inp1.SC_IDENTIF = np1.SC_IDENTIF)
-  left join niet_nat_prs nnp1 on (nnp1.sc_identif = zr.FK_8PES_SC_IDENTIF)
-  left join ingeschr_niet_nat_prs innp1 on (innp1.sc_identif = nnp1.sc_identif)
-
-join brondocument bd1 on (bd1.tabel = 'ZAK_RECHT' and bd1.tabel_identificatie = zr.kadaster_identif)
-join brondocument bd2 on (bd2.tabel = 'ZAK_RECHT' and bd2.tabel_identificatie <> zr.kadaster_identif and bd2.identificatie = bd1.identificatie)
-join zak_recht zr2 on (zr2.kadaster_identif = bd2.tabel_identificatie)
-
-
-  left join nat_prs np2 on (np2.SC_IDENTIF = zr2.FK_8PES_SC_IDENTIF)
-  left join ingeschr_nat_prs inp2 on (inp2.SC_IDENTIF = np2.SC_IDENTIF)
-  left join niet_nat_prs nnp2 on (nnp2.sc_identif = zr2.FK_8PES_SC_IDENTIF)
-  left join ingeschr_niet_nat_prs innp2 on (innp2.sc_identif = nnp2.sc_identif)
-
-join app_re ar on (ar.SC_KAD_IDENTIF = zr2.FK_7KOZ_KAD_IDENTIF)
-join niet_nat_prs ar_vve_nnp on (ar_vve_nnp.sc_identif = ar.FK_2NNP_SC_IDENTIF)
-join INGESCHR_NIET_NAT_PRS ar_vve_innp on (ar_vve_innp.sc_identif = ar_vve_nnp.sc_identif)
-where bd1.omschrijving like 'betrokkenBij%'
-and zr2.FK_8PES_SC_IDENTIF is not null
-order by kpe.SC_KAD_IDENTIF, kpe.straat, kpe.huisnummer, kpe.toevoeging, kpe.huisletter,  KA_APPARTEMENTSINDEX::int;
-
--- percelen plus appartementen op de percelen
-CREATE OR REPLACE VIEW v_bd_app_re_and_kad_perceel AS
-select
-    (row_number() OVER ())::integer AS ObjectID,
-    qry.*
-  from(
-    select
-        p.sc_kad_identif    AS kadaster_identificatie,
-        'perceel' as type,
-        p.ka_deelperceelnummer,
-        '' as ka_appartementsindex,
-        p.ka_perceelnummer,
-        p.ka_kad_gemeentecode,
-        p.ka_sectie,
-        p.begrenzing_perceel
-    FROM
-        kad_perceel p
-    union all
-    SELECT
-        ar.sc_kad_identif,
-        'appartement' as type,
-        '' as ka_deelperceelnummer,
-        ar.ka_appartementsindex,
-        ar.ka_perceelnummer,
-        ar.ka_kad_gemeentecode,
-        ar.ka_sectie,
-        kp.begrenzing_perceel
-    FROM v_bd_app_re_all_kad_perceel v
-        JOIN kad_perceel kp ON v.perceel_identif::NUMERIC = kp.sc_kad_identif
-        JOIN app_re ar ON v.app_re_identif::NUMERIC = ar.sc_kad_identif
-  ) qry;
-
--- aankoopdatum uit brondocumenten
+--drop view v2_avg_volledig_subject cascade;
 CREATE OR REPLACE VIEW
-    v_aankoopdatum AS
+    v2_avg_volledig_subject
+    (
+        identif,
+        soort,
+        geslachtsnaam,
+        voorvoegsel,
+        voornamen,
+        aand_naamgebruik,
+        geslachtsaand,
+        naam,
+        woonadres,
+        geboortedatum,
+        geboorteplaats,
+        overlijdensdatum,
+        bsn,
+        organisatie_naam,
+        rechtsvorm,
+        statutaire_zetel,
+        rsin,
+        kvk_nummer
+    ) AS
 SELECT
-    b.ref_id AS kadaster_identificatie,
-    b.datum  AS aankoopdatum
+    s.identif,
+    s.soort,
+    NULL::text         AS geslachtsnaam,
+    NULL::text         AS voorvoegsel,
+    NULL::text         AS voornamen,
+    NULL::text         AS aand_naamgebruik,
+    NULL::text         AS geslachtsaand,
+    s.organisatie_naam AS naam,
+    NULL::text         AS woonadres,
+    NULL::text         AS geboortedatum,
+    NULL::text         AS geboorteplaats,
+    NULL::text         AS overlijdensdatum,
+    NULL::text         AS bsn,
+    s.organisatie_naam,
+    s.rechtsvorm,
+    s.statutaire_zetel,
+    s.rsin,
+    s.kvk_nummer
+FROM
+    v2_volledig_subject s;
+COMMENT ON VIEW v2_avg_volledig_subject
+IS
+    'commentaar view v2_avg_volledig_subject:
+volledig subject (natuurlijk en niet natuurlijk) geschoond voor avg
+beschikbare kolommen:
+* identif: natuurlijke id van subject      
+* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  
+* geslachtsnaam: NULL (avg)       
+* voorvoegsel: NULL (avg)      
+* voornamen: NULL (avg)       
+* aand_naamgebruik: NULL (avg)         
+* geslachtsaand:NULL (avg)     
+* naam: gelijk aan organisatie_naam
+* woonadres: NULL (avg)        
+* geboortedatum: NULL (avg)        
+* geboorteplaats: NULL (avg)        
+* overlijdensdatum: NULL (avg)        
+* bsn: NULL (avg)         
+* organisatie_naam: naam niet natuurlijk subject      
+* rechtsvorm: -  
+* statutaire_zetel: -      
+* rsin: -        
+* kvk_nummer: -
+';
+    
+--drop view v2_util_app_re_kad_perceel cascade;
+CREATE OR REPLACE VIEW
+    v2_util_app_re_kad_perceel
+    (
+        app_re_identif,
+        perceel_identif
+    ) AS
+WITH
+    RECURSIVE related_app_re
+    (
+        app_re_identif,
+        perceel_identif
+    ) AS
+    (
+        SELECT
+            b1.ref_id AS app_re_identif,
+            b2.ref_id AS perceel_identif
+        FROM
+            (brondocument b1
+        JOIN
+            brondocument b2
+        ON
+            (((
+                        b2.identificatie)::text = (b1.identificatie)::text)))
+        WHERE
+            (((((
+                                b1.omschrijving)::text = 'betrokkenBij Ondersplitsing'::text)
+                    OR  ((
+                                b2.omschrijving)::text = 'betrokkenBij HoofdSplitsing'::text))
+                AND ((
+                            b1.omschrijving)::text = 'ontstaanUit Ondersplitsing'::text))
+            OR  (((
+                            b2.omschrijving)::text = 'betrokkenBij HoofdSplitsing'::text)
+                AND ((
+                            b1.omschrijving)::text = 'ontstaanUit HoofdSplitsing'::text)))
+        GROUP BY
+            b1.ref_id,
+            b2.ref_id
+        UNION
+        SELECT
+            vaa.app_re_identif,
+            vap.perceel_identif
+        FROM
+            (
+            (
+                SELECT
+                    b10.ref_id AS app_re_identif,
+                    b20.ref_id AS parent_app_re_identif
+                FROM
+                    (brondocument b10
+                JOIN
+                    brondocument b20
+                ON
+                    (((
+                                b20.identificatie)::text = (b10.identificatie)::text)))
+                WHERE
+                    (((((
+                                        b10.omschrijving)::text = 'betrokkenBij Ondersplitsing'::
+                                    text)
+                            OR  ((
+                                        b20.omschrijving)::text = 'betrokkenBij HoofdSplitsing'::
+                                    text))
+                        AND ((
+                                    b10.omschrijving)::text = 'ontstaanUit Ondersplitsing'::text))
+                    OR  (((
+                                    b20.omschrijving)::text = 'betrokkenBij HoofdSplitsing'::text)
+                        AND ((
+                                    b10.omschrijving)::text = 'ontstaanUit HoofdSplitsing'::text)))
+                GROUP BY
+                    b10.ref_id,
+                    b20.ref_id) vaa
+        JOIN
+            related_app_re vap
+        ON
+            (((
+                        vaa.parent_app_re_identif)::text = (vap.app_re_identif)::text)))
+        GROUP BY
+            vaa.app_re_identif,
+            vap.perceel_identif
+    )
+SELECT
+    (app_re.sc_kad_identif)::CHARACTER VARYING(50) AS app_re_identif,
+    rar.perceel_identif
+FROM
+    (related_app_re rar
+LEFT JOIN
+    app_re
+ON
+    (((
+                app_re.sc_kad_identif)::text = (rar.app_re_identif)::text)));
+COMMENT ON VIEW v2_util_app_re_kad_perceel
+IS
+    'commentaar view v2_util_app_re_kad_perceel:
+utility view, niet bedoeld voor direct gebruik, met lijst van appartementsrechten met bijbehorend grondperceel
+
+beschikbare kolommen:
+* app_re_identif: natuurlijk is van appartementsrecht,
+* perceel_identif: natuurlijk id van grondperceel
+
+';           
+
+--drop view v2_kad_onrrnd_zk_locatie_adres cascade;
+CREATE OR REPLACE VIEW
+    v2_kad_onrrnd_zk_locatie_adres
+    (
+        objectid,
+        identif,
+        begin_geldigheid,
+        benoemdobj_identif,
+        type,
+        sectie,
+        perceelnummer,
+        appartementsindex,
+        gemeentecode,
+        aand_soort_grootte,
+        grootte_perceel,
+        deelperceelnummer,
+        omschr_deelperceel,
+        verkoop_datum,
+        aard_cultuur_onbebouwd,
+        bedrag,
+        koopjaar,
+        meer_onroerendgoed,
+        valutasoort,
+        loc_omschr,
+        gemeente,
+        woonplaats,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        begrenzing_perceel
+    ) AS
+SELECT
+    (row_number() OVER ())::INTEGER AS objectid,
+    qry.identif,
+    to_date(koz.dat_beg_geldh, 'YYYY-MM-DD'::text) AS begin_geldigheid,
+    bok.fk_nn_lh_tgo_identif as benoemdobj_identif,
+    qry.type,
+    qry.ka_sectie,
+    qry.ka_perceelnummer,
+    qry.ka_appartementsindex,
+    qry.ka_kad_gemeentecode,
+    qry.aand_soort_grootte,
+    qry.grootte_perceel,
+    qry.ka_deelperceelnummer,
+    qry.omschr_deelperceel,
+    b.datum,
+    koz.cu_aard_cultuur_onbebouwd,
+    koz.ks_bedrag,
+    koz.ks_koopjaar,
+    koz.ks_meer_onroerendgoed,
+    koz.ks_valutasoort,
+    koz.lo_loc__omschr,
+    bola.gemeente,
+    bola.woonplaats,
+    bola.straatnaam,
+    bola.huisnummer,
+    bola.huisletter,
+    bola.huisnummer_toev,
+    bola.postcode,
+    qry.begrenzing_perceel
 FROM
     (
         SELECT
-            ref_id,
-            MAX(datum) datum
+            p.sc_kad_identif AS identif,
+            'perceel'::text  AS type,
+            p.ka_sectie,
+            p.ka_perceelnummer,
+            NULL::CHARACTER VARYING(4) AS ka_appartementsindex,
+            p.ka_kad_gemeentecode,
+            p.aand_soort_grootte,
+            p.grootte_perceel,
+            p.ka_deelperceelnummer,
+            p.omschr_deelperceel,
+            p.begrenzing_perceel
+        FROM
+            kad_perceel p
+        UNION ALL
+        SELECT
+            ar.sc_kad_identif   AS identif,
+            'appartement'::text AS type,
+            ar.ka_sectie,
+            ar.ka_perceelnummer,
+            ar.ka_appartementsindex,
+            ar.ka_kad_gemeentecode,
+            NULL::CHARACTER VARYING(1)    AS aand_soort_grootte,
+            NULL::NUMERIC(8,0)            AS grootte_perceel,
+            NULL::CHARACTER VARYING(4)    AS ka_deelperceelnummer,
+            NULL::CHARACTER VARYING(1120) AS omschr_deelperceel,
+            kp.begrenzing_perceel
+        FROM
+            ((v2_util_app_re_kad_perceel v
+        JOIN
+            kad_perceel kp
+        ON
+            (((
+                        v.perceel_identif)::NUMERIC = kp.sc_kad_identif)))
+        JOIN
+            app_re ar
+        ON
+            (((
+                        v.app_re_identif)::NUMERIC = ar.sc_kad_identif)))) qry
+JOIN
+    kad_onrrnd_zk koz
+ON
+    (
+        koz.kad_identif = qry.identif)
+LEFT JOIN
+    benoemd_obj_kad_onrrnd_zk bok
+ON
+    (
+        bok.fk_nn_rh_koz_kad_identif = qry.identif)
+LEFT JOIN
+    v2_benoemd_obj_locatie_adres bola
+ON
+    bok.fk_nn_lh_tgo_identif = bola.identif
+LEFT JOIN
+    (
+        SELECT
+            brondocument.ref_id,
+            MAX(brondocument.datum) AS datum
         FROM
             brondocument
         WHERE
-            omschrijving = 'Akte van Koop en Verkoop'
+            ((
+                    brondocument.omschrijving)::text = 'Akte van Koop en Verkoop'::text)
         GROUP BY
-            ref_id
-    ) b ;
-
--- Eigenarenkaart - percelen en appartementen met hun eigenaren
-CREATE OR REPLACE VIEW
-    V_KAD_EIGENARENKAART
+            brondocument.ref_id) b
+ON
     (
-        OBJECTID,
-        KADASTER_IDENTIFICATIE,
-        TYPE,
-        ZAKELIJK_RECHT_IDENTIFICATIE,
-        AANDEEL_TELLER,
-        AANDEEL_NOEMER,
-        AARD_RECHT_AAND,
-        ZAKELIJK_RECHT_OMSCHRIJVING,
-        AANKOOPDATUM,
-        SOORT_EIGENAAR,
-        GESLACHTSNAAM,
-        VOORVOEGSEL,
-        VOORNAMEN,
-        GESLACHT,
-        PERCEEL_ZAK_RECHT_NAAM,
-        PERSOON_IDENTIFICATIE,
-        WOONADRES,
-        GEBOORTEDATUM,
-        GEBOORTEPLAATS,
-        OVERLIJDENSDATUM,
-        NAAM_NIET_NATUURLIJK_PERSOON,
-        RECHTSVORM,
-        STATUTAIRE_ZETEL,
-        KVK_NUMMER,
-        KA_APPARTEMENTSINDEX,
-        KA_DEELPERCEELNUMMER,
-        KA_PERCEELNUMMER,
-        KA_KAD_GEMEENTECODE,
-        KA_SECTIE,
-        BEGRENZING_PERCEEL
+        koz.kad_identif::text = b.ref_id);    
+COMMENT ON VIEW v2_kad_onrrnd_zk_locatie_adres
+IS
+    'commentaar view v2_kad_onrrnd_zk_locatie_adres:
+alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor arcgis en BAG adres
+
+beschikbare kolommen:
+* objectid: uniek id bruikbaar voor arcgis,
+* identif: natuurlijke id van perceel of appartementsrecht      
+* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* benoemdobj_identif: koppeling met BAG object,
+* type: perceel of appartement,
+* sectie: -,
+* perceelnummer: -,
+* appartementsindex: -,
+* gemeentecode: -,
+* aand_soort_grootte: -,
+* grootte_perceel: -,
+* deelperceelnummer: -,
+* omschr_deelperceel: -,
+* verkoop_datum: laatste datum gevonden akten van verkoop,
+* aard_cultuur_onbebouwd: -,
+* bedrag: -,
+* koopjaar: -,
+* meer_onroerendgoed: -,
+* valutasoort: -,
+* loc_omschr: adres buiten BAG om meegegeven,
+* gemeente: -,
+* woonplaats: -,
+* straatnaam: -,
+* huisnummer: -,
+* huisletter: -,
+* huisnummer_toev: -,
+* postcode: -,
+* begrenzing_perceel: perceelvlak
+';
+
+        
+--drop view v2_util_zk_recht cascade;
+CREATE OR REPLACE VIEW
+    v2_util_zk_recht
+    (
+        identif,
+        aandeel,
+        ar_teller,
+        ar_noemer,
+        subject_identif,
+        koz_identif,
+        indic_betrokken_in_splitsing,
+        omschr_aard_verkregenr_recht,
+        fk_3avr_aand
     ) AS
 SELECT
-    (row_number() OVER ())::integer AS objectid,
-    p.kadaster_identificatie    AS kadaster_identificatie,
-    p.type,
-    zr.kadaster_identif AS zakelijk_recht_identificatie,
-    zr.ar_teller        AS aandeel_teller,
-    zr.ar_noemer        AS aandeel_noemer,
-    zr.fk_3avr_aand     AS aard_recht_aand,
-    ark.omschr          AS zakelijk_recht_omschrijving,
-    b.aankoopdatum,
-    CASE
-        WHEN np.sc_identif IS NOT NULL
-        THEN 'Natuurlijk persoon'
-        WHEN nnp.sc_identif IS NOT NULL
-        THEN 'Niet natuurlijk persoon'
-        ELSE 'Onbekend'
-    END                             AS soort_eigenaar,
-    np.nm_geslachtsnaam             AS geslachtsnaam,
-    np.nm_voorvoegsel_geslachtsnaam AS voorvoegsel,
-    np.nm_voornamen                 AS voornamen,
-    np.geslachtsaand                AS geslacht,
-    CASE
-        WHEN np.sc_identif IS NOT NULL
-        THEN COALESCE(np.NM_VOORNAMEN, '') || ' ' ||
-            COALESCE(np.NM_VOORVOEGSEL_GESLACHTSNAAM, '') || ' ' ||
-            COALESCE(np.NM_GESLACHTSNAAM, '')
-        WHEN nnp.sc_identif IS NOT NULL
-        THEN nnp.NAAM
-        ELSE 'Onbekend'
-    END                     AS perceel_zak_recht_naam,
-    inp.sc_identif          AS persoon_identificatie,
-    inp.va_loc_beschrijving AS woonadres,
-    inp.gb_geboortedatum    AS geboortedatum,
-    inp.gb_geboorteplaats   AS geboorteplaats,
-    inp.ol_overlijdensdatum AS overlijdensdatum,
-    nnp.naam                AS naam_niet_natuurlijk_persoon,
-    innp.rechtsvorm,
-    innp.statutaire_zetel,
-    innp_subject.kvk_nummer,
-    p.ka_appartementsindex,
-    p.ka_deelperceelnummer,
-    p.ka_perceelnummer,
-    p.ka_kad_gemeentecode,
-    p.ka_sectie,
-    p.begrenzing_perceel
+    zr.kadaster_identif AS identif,
+    ((COALESCE((zr.ar_teller)::text, ('0'::CHARACTER VARYING)::text) || ('/'::CHARACTER VARYING)::
+    text) || COALESCE((zr.ar_noemer)::text, ('0'::CHARACTER VARYING)::text)) AS aandeel,
+    zr.ar_teller,
+    zr.ar_noemer,
+    zr.fk_8pes_sc_identif  AS subject_identif,
+    zr.fk_7koz_kad_identif AS koz_identif,
+    zr.indic_betrokken_in_splitsing,
+    avr.omschr_aard_verkregenr_recht,
+    zr.fk_3avr_aand
 FROM
-    v_bd_app_re_and_kad_perceel p
+    (zak_recht zr
 JOIN
-    zak_recht zr
+    aard_verkregen_recht avr
 ON
-    zr.fk_7koz_kad_identif = p.kadaster_identificatie
-LEFT JOIN
-    aard_recht_verkort ark
-ON
-    zr.fk_3avr_aand = ark.aand
-LEFT JOIN
-    aard_verkregen_recht ar
-ON
-    zr.fk_3avr_aand = ar.aand
-LEFT JOIN
-    nat_prs np
-ON
-    np.sc_identif = zr.fk_8pes_sc_identif
-LEFT JOIN
-    ingeschr_nat_prs inp
-ON
-    inp.sc_identif = np.sc_identif
-LEFT JOIN
-    niet_nat_prs nnp
-ON
-    nnp.sc_identif = zr.fk_8pes_sc_identif
-LEFT JOIN
-    ingeschr_niet_nat_prs innp
-ON
-    innp.sc_identif = nnp.sc_identif
-LEFT JOIN
-    subject innp_subject
-ON
-    innp_subject.identif = innp.sc_identif
-LEFT JOIN
-    v_aankoopdatum b
-ON
-    b.kadaster_identificatie::numeric(15,0) = p.kadaster_identificatie
-WHERE
-    zr.kadaster_identif like 'NL.KAD.Tenaamstelling%';
+    (((
+                zr.fk_3avr_aand)::text = (avr.aand)::text)));
+COMMENT ON VIEW v2_util_zk_recht
+IS
+    'commentaar view v2_util_zk_recht:
+zakelijk recht met opgezocht aard recht en berekend aandeel
 
--- appartementsrecht aan bag adres
-CREATE OR REPLACE VIEW v_app_re_adres AS
- SELECT DISTINCT
-    kp.sc_kad_identif,
-    kpvbo.fk_nn_lh_tgo_identif AS kad_bag_koppeling_benobj,
-    gor.naam_openb_rmte AS straat,
-    aoa.huinummer AS huisnummer,
-    aoa.huisletter,
-    aoa.huinummertoevoeging AS toevoeging,
-    aoa.postcode,
-    wp.naam AS woonplaats
- FROM app_re kp
-    LEFT JOIN benoemd_obj_kad_onrrnd_zk kpvbo ON kpvbo.fk_nn_rh_koz_kad_identif = kp.sc_kad_identif
-    LEFT JOIN verblijfsobj vbo ON vbo.sc_identif = kpvbo.fk_nn_lh_tgo_identif
-    LEFT JOIN nummeraand na ON na.sc_identif = vbo.fk_11nra_sc_identif
-    LEFT JOIN addresseerb_obj_aand aoa ON aoa.identif = na.sc_identif
-    LEFT JOIN gem_openb_rmte gor ON gor.identifcode = aoa.fk_7opr_identifcode
-    LEFT JOIN openb_rmte_wnplts oprw ON oprw.fk_nn_lh_opr_identifcode = gor.identifcode
-    LEFT JOIN wnplts wp ON wp.identif = oprw.fk_nn_rh_wpl_identif;
+beschikbare kolommen:
+* identif: natuurlijke id van zakelijk recht     
+* aandeel: samenvoeging van teller en noemer (1/2),
+* ar_teller: teller van aandeel,
+* ar_noemer: noemer van aandeel,
+* subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
+* koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
+* indic_betrokken_in_splitsing: -,
+* omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,
+* fk_3avr_aand: code aard recht
+';
+                
+--drop view v2_zr_rechth cascade;
+CREATE OR REPLACE VIEW
+    v2_zr_rechth
+    (
+        identif,
+        subject_identif,
+        koz_identif,
+        aandeel,
+        omschr_aard_verkregenr_recht,
+        indic_betrokken_in_splitsing,
+        soort,
+        geslachtsnaam,
+        voorvoegsel,
+        voornamen,
+        aand_naamgebruik,
+        geslachtsaand,
+        naam,
+        woonadres,
+        geboortedatum,
+        geboorteplaats,
+        overlijdensdatum,
+        bsn,
+        organisatie_naam,
+        rechtsvorm,
+        statutaire_zetel,
+        rsin,
+        kvk_nummer
+    ) AS
+SELECT
+    uzr.identif,
+    uzr.subject_identif,
+    uzr.koz_identif,
+    uzr.aandeel,
+    uzr.omschr_aard_verkregenr_recht,
+    uzr.indic_betrokken_in_splitsing,
+    vs.soort,
+    vs.geslachtsnaam,
+    vs.voorvoegsel,
+    vs.voornamen,
+    vs.aand_naamgebruik,
+    vs.geslachtsaand,
+    vs.naam,
+    vs.woonadres,
+    vs.geboortedatum,
+    vs.geboorteplaats,
+    vs.overlijdensdatum,
+    vs.bsn,
+    vs.organisatie_naam,
+    vs.rechtsvorm,
+    vs.statutaire_zetel,
+    vs.rsin,
+    vs.kvk_nummer
+FROM
+    (v2_util_zk_recht uzr
+JOIN
+    v2_volledig_subject vs
+ON
+    (((
+                uzr.subject_identif)::text = (vs.identif)::text)));
+COMMENT ON VIEW v2_zr_rechth
+IS
+    'commentaar view v2_zr_rechth:
+alle zakelijke rechten met rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)
 
-COMMENT ON VIEW v_app_re_adres IS 'appartementsrecht met bag adres';
+beschikbare kolommen:
+* identif: natuurlijke id van zakelijk recht 
+* subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
+* koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
+* aandeel: samenvoeging van teller en noemer (1/2),
+* omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,
+* indic_betrokken_in_splitsing: -,
+* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  
+* geslachtsnaam: -       
+* voorvoegsel: -     
+* voornamen: -     
+* aand_naamgebruik:
+        - E (= Eigen geslachtsnaam)
+        - N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)
+        - P (= Geslachtsnaam echtgenoot/geregistreerd partner)
+        - V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)        
+* geslachtsaand: M/V   
+* naam: samengestelde naam bruikbaar voor natuurlijke en niet-natuurlijke subjecten
+* woonadres: meegeleverd adres buiten BAG koppeling om      
+* geboortedatum: -       
+* geboorteplaats: -       
+* overlijdensdatum: -       
+* bsn: -       
+* organisatie_naam: naam niet natuurlijk subject      
+* rechtsvorm: -  
+* statutaire_zetel: -      
+* rsin: -        
+* kvk_nummer: -
+';
+                
+--drop view v2_avg_zr_rechth cascade;
+CREATE OR REPLACE VIEW
+    v2_avg_zr_rechth
+    (
+        identif,
+        subject_identif,
+        koz_identif,
+        aandeel,
+        omschr_aard_verkregenr_recht,
+        indic_betrokken_in_splitsing,
+        soort,
+        geslachtsnaam,
+        voorvoegsel,
+        voornamen,
+        aand_naamgebruik,
+        geslachtsaand,
+        naam,
+        woonadres,
+        geboortedatum,
+        geboorteplaats,
+        overlijdensdatum,
+        bsn,
+        organisatie_naam,
+        rechtsvorm,
+        statutaire_zetel,
+        rsin,
+        kvk_nummer
+    ) AS
+SELECT
+    uzr.identif,
+    uzr.subject_identif,
+    uzr.koz_identif,
+    uzr.aandeel,
+    uzr.omschr_aard_verkregenr_recht,
+    uzr.indic_betrokken_in_splitsing,
+    vs.soort,
+    vs.geslachtsnaam,
+    vs.voorvoegsel,
+    vs.voornamen,
+    vs.aand_naamgebruik,
+    vs.geslachtsaand,
+    vs.naam,
+    vs.woonadres,
+    vs.geboortedatum,
+    vs.geboorteplaats,
+    vs.overlijdensdatum,
+    vs.bsn,
+    vs.organisatie_naam,
+    vs.rechtsvorm,
+    vs.statutaire_zetel,
+    vs.rsin,
+    vs.kvk_nummer
+FROM
+    (v2_util_zk_recht uzr
+JOIN
+    v2_avg_volledig_subject vs
+ON
+    (((
+                uzr.subject_identif)::text = (vs.identif)::text)));
+COMMENT ON VIEW v2_avg_zr_rechth
+IS
+    'commentaar view v2_avg_zr_rechth:
+alle zakelijke rechten met voor avg geschoonde rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)
 
--- alle kad_onrrnd_zk gekoppeld aan bag adres
-CREATE OR REPLACE VIEW v_kad_onrrd_zk_adres AS
-  SELECT DISTINCT
-    kp.kad_identif,
-    kpvbo.fk_nn_lh_tgo_identif AS kad_bag_koppeling_benobj,
-    gor.naam_openb_rmte AS straat,
-    aoa.huinummer AS huisnummer,
-    aoa.huisletter,
-    aoa.huinummertoevoeging AS toevoeging,
-    aoa.postcode,
-    wp.naam AS woonplaats
-  FROM kad_onrrnd_zk kp
-    LEFT JOIN benoemd_obj_kad_onrrnd_zk kpvbo ON kpvbo.fk_nn_rh_koz_kad_identif = kp.kad_identif
-    LEFT JOIN verblijfsobj vbo ON vbo.sc_identif = kpvbo.fk_nn_lh_tgo_identif
-    LEFT JOIN nummeraand na ON na.sc_identif = vbo.fk_11nra_sc_identif
-    LEFT JOIN addresseerb_obj_aand aoa ON aoa.identif = na.sc_identif
-    LEFT JOIN gem_openb_rmte gor ON gor.identifcode = aoa.fk_7opr_identifcode
-    LEFT JOIN openb_rmte_wnplts oprw ON oprw.fk_nn_lh_opr_identifcode = gor.identifcode
-    LEFT JOIN wnplts wp ON wp.identif = oprw.fk_nn_rh_wpl_identif;
+beschikbare kolommen:
+* identif: natuurlijke id van zakelijk recht     
+* subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
+* koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
+* aandeel: samenvoeging van teller en noemer (1/2),
+* omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,
+* indic_betrokken_in_splitsing: -,
+* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  
+* geslachtsnaam: NULL (avg)       
+* voorvoegsel: NULL (avg)      
+* voornamen: NULL (avg)       
+* aand_naamgebruik: NULL (avg)         
+* geslachtsaand:NULL (avg)     
+* naam: gelijk aan organisatie_naam
+* woonadres: NULL (avg)        
+* geboortedatum: NULL (avg)        
+* geboorteplaats: NULL (avg)        
+* overlijdensdatum: NULL (avg)        
+* bsn: NULL (avg)         
+* organisatie_naam: naam niet natuurlijk subject      
+* rechtsvorm: -  
+* statutaire_zetel: -      
+* rsin: -        
+* kvk_nummer: -
 
-COMMENT ON VIEW v_kad_onrrd_zk_adres IS 'onroerende zaak met bag adres';
+';
+                
+--drop view v2_koz_rechth cascade;
+CREATE OR REPLACE VIEW
+    v2_koz_rechth
+    (
+        objectid,
+        identif,
+        begin_geldigheid,
+        type,
+        sectie,
+        perceelnummer,
+        appartementsindex,
+        gemeentecode,
+        aand_soort_grootte,
+        grootte_perceel,
+        deelperceelnummer,
+        omschr_deelperceel,
+        verkoop_datum,
+        aard_cultuur_onbebouwd,
+        bedrag,
+        koopjaar,
+        meer_onroerendgoed,
+        valutasoort,
+        loc_omschr,
+        subject_identif,
+        aandeel,
+        omschr_aard_verkregenr_recht,
+        indic_betrokken_in_splitsing,
+        soort,
+        geslachtsnaam,
+        voorvoegsel,
+        voornamen,
+        aand_naamgebruik,
+        geslachtsaand,
+        naam,
+        woonadres,
+        geboortedatum,
+        geboorteplaats,
+        overlijdensdatum,
+        bsn,
+        organisatie_naam,
+        rechtsvorm,
+        statutaire_zetel,
+        rsin,
+        kvk_nummer,
+        gemeente,
+        woonplaats,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        begrenzing_perceel
+    ) AS
+SELECT
+    koz.objectid,
+    koz.identif,
+    koz.begin_geldigheid,
+    koz.type,
+    koz.sectie,
+    koz.perceelnummer,
+    koz.appartementsindex,
+    koz.gemeentecode,
+    koz.aand_soort_grootte,
+    koz.grootte_perceel,
+    koz.deelperceelnummer,
+    koz.omschr_deelperceel,
+    koz.verkoop_datum,
+    koz.aard_cultuur_onbebouwd,
+    koz.bedrag,
+    koz.koopjaar,
+    koz.meer_onroerendgoed,
+    koz.valutasoort,
+    koz.loc_omschr,
+    zrr.subject_identif,
+    zrr.aandeel,
+    zrr.omschr_aard_verkregenr_recht,
+    zrr.indic_betrokken_in_splitsing,
+    zrr.soort,
+    zrr.geslachtsnaam,
+    zrr.voorvoegsel,
+    zrr.voornamen,
+    zrr.aand_naamgebruik,
+    zrr.geslachtsaand,
+    zrr.naam,
+    zrr.woonadres,
+    zrr.geboortedatum,
+    zrr.geboorteplaats,
+    zrr.overlijdensdatum,
+    zrr.bsn,
+    zrr.organisatie_naam,
+    zrr.rechtsvorm,
+    zrr.statutaire_zetel,
+    zrr.rsin,
+    zrr.kvk_nummer,
+    koz.gemeente,
+    koz.woonplaats,
+    koz.straatnaam,
+    koz.huisnummer,
+    koz.huisletter,
+    koz.huisnummer_toev,
+    koz.postcode,
+    koz.begrenzing_perceel
+FROM
+    (v2_zr_rechth zrr
+right JOIN
+    v2_kad_onrrnd_zk_locatie_adres koz
+ON
+    ((
+            zrr.koz_identif = koz.identif)));
+COMMENT ON VIEW v2_koz_rechth
+IS
+    'commentaar view v2_koz_rechth:
+kadastrale percelen een appartementsrechten met rechten en rechthebbenden en objectid voor arcgis
+beschikbare kolommen:
+* objectid: uniek id bruikbaar voor arcgis,
+* identif: natuurlijke id van perceel of appartementsrecht      
+* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* type: perceel of appartement,
+* sectie: -,
+* perceelnummer: -,
+* appartementsindex: -,
+* gemeentecode: -,
+* aand_soort_grootte: -,
+* grootte_perceel: -,
+* deelperceelnummer: -,
+* omschr_deelperceel: -,
+* verkoop_datum: laatste datum gevonden akten van verkoop,
+* aard_cultuur_onbebouwd: -,
+* bedrag: -,
+* koopjaar: -,
+* meer_onroerendgoed: -,
+* valutasoort: -,
+* loc_omschr: adres buiten BAG om meegegeven,
+* subject_identif: natuurlijk id van rechthebbende,
+* aandeel: samenvoeging van teller en noemer (1/2),
+* omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,
+* indic_betrokken_in_splitsing: -,
+* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  
+* geslachtsnaam: -       
+* voorvoegsel: -     
+* voornamen: -     
+* aand_naamgebruik:
+        - E (= Eigen geslachtsnaam)
+        - N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)
+        - P (= Geslachtsnaam echtgenoot/geregistreerd partner)
+        - V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)        
+* geslachtsaand: M/V   
+* naam: samengestelde naam bruikbaar voor natuurlijke en niet-natuurlijke subjecten
+* woonadres: meegeleverd adres buiten BAG koppeling om      
+* geboortedatum: -       
+* geboorteplaats: -       
+* overlijdensdatum: -       
+* bsn: -       
+* organisatie_naam: naam niet natuurlijk subject      
+* rechtsvorm: -  
+* statutaire_zetel: -      
+* rsin: -        
+* kvk_nummer: -
+* gemeente: -,
+* woonplaats: -,
+* straatnaam: -,
+* huisnummer: -,
+* huisletter: -,
+* huisnummer_toev: -,
+* postcode: -,
+* begrenzing_perceel: perceelvlak
+';
+            
+--drop view v2_avg_koz_rechth cascade;
+CREATE OR REPLACE VIEW
+    v2_avg_koz_rechth
+    (
+        objectid,
+        identif,
+        begin_geldigheid,
+        type,
+        sectie,
+        perceelnummer,
+        appartementsindex,
+        gemeentecode,
+        aand_soort_grootte,
+        grootte_perceel,
+        deelperceelnummer,
+        omschr_deelperceel,
+        verkoop_datum,
+        aard_cultuur_onbebouwd,
+        bedrag,
+        koopjaar,
+        meer_onroerendgoed,
+        valutasoort,
+        loc_omschr,
+        subject_identif,
+        aandeel,
+        omschr_aard_verkregenr_recht,
+        indic_betrokken_in_splitsing,
+        soort,
+        geslachtsnaam,
+        voorvoegsel,
+        voornamen,
+        aand_naamgebruik,
+        geslachtsaand,
+        naam,
+        woonadres,
+        geboortedatum,
+        geboorteplaats,
+        overlijdensdatum,
+        bsn,
+        organisatie_naam,
+        rechtsvorm,
+        statutaire_zetel,
+        rsin,
+        kvk_nummer,
+        gemeente,
+        woonplaats,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        begrenzing_perceel
+    ) AS
+SELECT
+    koz.objectid,
+    koz.identif,
+    koz.begin_geldigheid,
+    koz.type,
+    koz.sectie,
+    koz.perceelnummer,
+    koz.appartementsindex,
+    koz.gemeentecode,
+    koz.aand_soort_grootte,
+    koz.grootte_perceel,
+    koz.deelperceelnummer,
+    koz.omschr_deelperceel,
+    koz.verkoop_datum,
+    koz.aard_cultuur_onbebouwd,
+    koz.bedrag,
+    koz.koopjaar,
+    koz.meer_onroerendgoed,
+    koz.valutasoort,
+    koz.loc_omschr,
+    zrr.subject_identif,
+    zrr.aandeel,
+    zrr.omschr_aard_verkregenr_recht,
+    zrr.indic_betrokken_in_splitsing,
+    zrr.soort,
+    zrr.geslachtsnaam,
+    zrr.voorvoegsel,
+    zrr.voornamen,
+    zrr.aand_naamgebruik,
+    zrr.geslachtsaand,
+    zrr.naam,
+    zrr.woonadres,
+    zrr.geboortedatum,
+    zrr.geboorteplaats,
+    zrr.overlijdensdatum,
+    zrr.bsn,
+    zrr.organisatie_naam,
+    zrr.rechtsvorm,
+    zrr.statutaire_zetel,
+    zrr.rsin,
+    zrr.kvk_nummer,
+    koz.gemeente,
+    koz.woonplaats,
+    koz.straatnaam,
+    koz.huisnummer,
+    koz.huisletter,
+    koz.huisnummer_toev,
+    koz.postcode,
+    koz.begrenzing_perceel
+FROM
+    (v2_avg_zr_rechth zrr
+right JOIN
+    v2_kad_onrrnd_zk_locatie_adres koz
+ON
+    ((
+            zrr.koz_identif = koz.identif)));
+COMMENT ON VIEW v2_avg_koz_rechth
+IS
+    'commentaar view v2_avg_koz_rechth:
+kadastrale percelen een appartementsrechten met rechten en rechthebbenden geschoond voor avg en objectid voor arcgis
+beschikbare kolommen:
+* objectid: uniek id bruikbaar voor arcgis,
+* identif: natuurlijke id van perceel of appartementsrecht      
+* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* type: perceel of appartement,
+* sectie: -,
+* perceelnummer: -,
+* appartementsindex: -,
+* gemeentecode: -,
+* aand_soort_grootte: -,
+* grootte_perceel: -,
+* deelperceelnummer: -,
+* omschr_deelperceel: -,
+* verkoop_datum: laatste datum gevonden akten van verkoop,
+* aard_cultuur_onbebouwd: -,
+* bedrag: -,
+* koopjaar: -,
+* meer_onroerendgoed: -,
+* valutasoort: -,
+* loc_omschr: adres buiten BAG om meegegeven,
+* subject_identif: natuurlijk id van rechthebbende,
+* aandeel: samenvoeging van teller en noemer (1/2),
+* omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,
+* indic_betrokken_in_splitsing: -,
+* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  
+* geslachtsnaam: NULL (avg)       
+* voorvoegsel: NULL (avg)      
+* voornamen: NULL (avg)       
+* aand_naamgebruik: NULL (avg)         
+* geslachtsaand:NULL (avg)     
+* naam: gelijk aan organisatie_naam
+* woonadres: NULL (avg)        
+* geboortedatum: NULL (avg)        
+* geboorteplaats: NULL (avg)        
+* overlijdensdatum: NULL (avg)        
+* bsn: NULL (avg)         
+* organisatie_naam: naam niet natuurlijk subject      
+* rechtsvorm: -  
+* statutaire_zetel: -      
+* rsin: -        
+* kvk_nummer: -
+* gemeente: -,
+* woonplaats: -,
+* straatnaam: -,
+* huisnummer: -,
+* huisletter: -,
+* huisnummer_toev: -,
+* postcode: -,
+* begrenzing_perceel: perceelvlak
+';
+ 
