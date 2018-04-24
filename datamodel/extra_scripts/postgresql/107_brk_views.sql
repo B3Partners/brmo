@@ -3,7 +3,6 @@ Views for visualizing the BRK data.
 versie 2
 23-04-2018
 */
-
 --drop view v2_volledig_subject cascade;
 --drop view v2_avg_volledig_subject cascade;
 --drop view v2_util_app_re_kad_perceel cascade;
@@ -15,10 +14,62 @@ versie 2
 --drop view v2_koz_rechth cascade;
 --drop view v2_avg_koz_rechth cascade;
 
---drop view v2_avg_volledig_subject cascade;
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'v2_kad_onrrnd_zk_locatie_adres', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'v2_koz_rechth', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'v2_avg_koz_rechth', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'v2_avg_zr_rechth', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'v2_zr_rechth', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'v2_volledig_subject', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'v2_avg_volledig_subject', 'objectid', 'assigned');
+
+--drop materialized view m2_kad_onrrnd_zk_locatie_adres cascade;
+--drop materialized view m2_koz_rechth cascade;
+--drop materialized view m2_avg_koz_rechth cascade;
+--drop materialized view m2_volledig_subject cascade;
+--drop materialized view m2_avg_volledig_subject cascade;
+--drop materialized view m2_zr_rechth cascade;
+--drop materialized view m2_avg_zr_rechth cascade;
+
+--DROP INDEX m2_avg_koz_rechth_objectid cascade;
+--DROP INDEX m2_avg_koz_rechth_identif cascade;
+--DROP INDEX m2_avg_koz_rechth_begrenzing_perceel_idx cascade;
+--DROP INDEX m2_koz_rechth_objectid cascade;
+--DROP INDEX m2_koz_rechth_identif cascade;
+--DROP INDEX m2_koz_rechth_begrenzing_perceel_idx cascade;
+--DROP INDEX m2_avg_zr_rechth_objectid cascade;
+--DROP INDEX m2_avg_zr_rechth_identif cascade;
+--DROP INDEX m2_zr_rechth_objectid cascade;
+--DROP INDEX m2_zr_rechth_identif cascade;
+--DROP INDEX m2_kad_onrrnd_zk_locatie_adres_objectid cascade;
+--DROP INDEX m2_kad_onrrnd_zk_locatie_adres_identif cascade;
+--DROP INDEX m2_kad_onrrnd_zk_locatie_adres_begrenzing_perceel_idx cascade;
+--DROP INDEX m2_avg_volledig_subject_objectid cascade;
+--DROP INDEX m2_avg_volledig_subject_identif cascade;
+--DROP INDEX m2_volledig_subject_objectid cascade;
+--DROP INDEX m2_volledig_subject_identif cascade;
+
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'm2_kad_onrrnd_zk_locatie_adres', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'm2_koz_rechth', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'm2_avg_koz_rechth', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'm2_avg_zr_rechth', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'm2_zr_rechth', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'm2_volledig_subject', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'm2_avg_volledig_subject', 'objectid', 'assigned');
+
+--REFRESH MATERIALIZED VIEW m2_kad_onrrnd_zk_locatie_adres;
+--REFRESH MATERIALIZED VIEW m2_koz_rechth;
+--REFRESH MATERIALIZED VIEW m2_avg_koz_rechth;
+--REFRESH MATERIALIZED VIEW m2_avg_volledig_subject;
+--REFRESH MATERIALIZED VIEW m2_volledig_subject;
+--REFRESH MATERIALIZED VIEW m2_zr_rechth;
+--REFRESH MATERIALIZED VIEW m2_avg_zr_rechth;
+
+set session authorization flamingo;
+
 CREATE OR REPLACE VIEW
-    v2_avg_volledig_subject
+    v2_volledig_subject
     (
+        objectid,
         identif,
         soort,
         geslachtsnaam,
@@ -39,6 +90,142 @@ CREATE OR REPLACE VIEW
         kvk_nummer
     ) AS
 SELECT
+    (row_number() OVER ())::INTEGER AS objectid,
+    s.identif,
+    s.clazz                         AS soort,
+    np.nm_geslachtsnaam             AS geslachtsnaam,
+    np.nm_voorvoegsel_geslachtsnaam AS voorvoegsel,
+    np.nm_voornamen                 AS voornamen,
+    np.aand_naamgebruik,
+    CASE
+        WHEN ((np.geslachtsaand)::text = '1'::text)
+        THEN 'M'::CHARACTER VARYING(1)
+        WHEN ((np.geslachtsaand)::text = '2'::text)
+        THEN 'V'::CHARACTER VARYING(1)
+        ELSE np.geslachtsaand
+    END AS geslachtsaand,
+    CASE
+        WHEN (nnp.naam IS NOT NULL)
+        THEN (nnp.naam)::CHARACTER VARYING(1000)
+        ELSE ((((((COALESCE(np.nm_voornamen, ''::CHARACTER VARYING))::text || ' '::text) ||
+            (COALESCE(np.nm_voorvoegsel_geslachtsnaam, ''::CHARACTER VARYING))::text) || ' '::text)
+            || (COALESCE(np.nm_geslachtsnaam, ''::CHARACTER VARYING))::text))::CHARACTER VARYING
+            (1000)
+    END                     AS naam,
+    inp.va_loc_beschrijving AS woonadres,
+    CASE
+        WHEN ((s.clazz)::text = 'INGESCHREVEN NATUURLIJK PERSOON'::text)
+        THEN to_date(TO_CHAR(inp.gb_geboortedatum, '99999999'::text), 'YYYYMMDD'::text)
+        WHEN ((s.clazz)::text = 'ANDER NATUURLIJK PERSOON'::text)
+        THEN to_date(TO_CHAR(anp.geboortedatum, '99999999'::text), 'YYYYMMDD'::text)
+        ELSE NULL::DATE
+    END                   AS geboortedatum,
+    inp.gb_geboorteplaats AS geboorteplaats,
+    CASE
+        WHEN ((s.clazz)::text = 'INGESCHREVEN NATUURLIJK PERSOON'::text)
+        THEN to_date(TO_CHAR(inp.ol_overlijdensdatum, '99999999'::text), 'YYYYMMDD'::text)
+        WHEN ((s.clazz)::text = 'ANDER NATUURLIJK PERSOON'::text)
+        THEN to_date(TO_CHAR(anp.overlijdensdatum, '99999999'::text), 'YYYYMMDD'::text)
+        ELSE NULL::DATE
+    END AS overlijdensdatum,
+    inp.bsn,
+    nnp.naam AS organisatie_naam,
+    innp.rechtsvorm,
+    innp.statutaire_zetel,
+    innp.rsin,
+    s.kvk_nummer
+FROM
+    (((((subject s
+LEFT JOIN
+    nat_prs np
+ON
+    (((
+                s.identif)::text = (np.sc_identif)::text)))
+LEFT JOIN
+    ingeschr_nat_prs inp
+ON
+    (((
+                inp.sc_identif)::text = (np.sc_identif)::text)))
+LEFT JOIN
+    ander_nat_prs anp
+ON
+    (((
+                anp.sc_identif)::text = (np.sc_identif)::text)))
+LEFT JOIN
+    niet_nat_prs nnp
+ON
+    (((
+                nnp.sc_identif)::text = (s.identif)::text)))
+LEFT JOIN
+    ingeschr_niet_nat_prs innp
+ON
+    (((
+                innp.sc_identif)::text = (nnp.sc_identif)::text)));
+COMMENT ON VIEW v2_volledig_subject
+IS
+    'commentaar view v2_volledig_subject:
+samenvoeging alle soorten subjecten: natuurlijk en niet-natuurlijk.
+
+beschikbare kolommen:
+* objectid: uniek id bruikbaar voor arcgis,
+* identif: natuurlijke id van subject      
+* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  
+* geslachtsnaam: -       
+* voorvoegsel: -     
+* voornamen: -     
+* aand_naamgebruik:        
+- E (= Eigen geslachtsnaam)        
+- N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)        
+- P (= Geslachtsnaam echtgenoot/geregistreerd partner)        
+- V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)        
+* geslachtsaand: M/V   
+* naam: samengestelde naam bruikbaar voor natuurlijke en niet-natuurlijke subjecten
+* woonadres: meegeleverd adres buiten BAG koppeling om      
+* geboortedatum: -       
+* geboorteplaats: -       
+* overlijdensdatum: -       
+* bsn: -       
+* organisatie_naam: naam niet natuurlijk subject      
+* rechtsvorm: -  
+* statutaire_zetel: -      
+* rsin: -        
+* kvk_nummer: -
+'
+    ;
+CREATE MATERIALIZED VIEW m2_volledig_subject AS
+SELECT
+    *
+FROM
+    v2_volledig_subject WITH NO DATA;
+CREATE UNIQUE INDEX m2_volledig_subject_objectid ON m2_volledig_subject USING btree (objectid);
+CREATE INDEX m2_volledig_subject_identif ON m2_volledig_subject USING btree (identif);
+
+--drop view v2_avg_volledig_subject cascade;
+CREATE OR REPLACE VIEW
+    v2_avg_volledig_subject
+    (
+        objectid,
+        identif,
+        soort,
+        geslachtsnaam,
+        voorvoegsel,
+        voornamen,
+        aand_naamgebruik,
+        geslachtsaand,
+        naam,
+        woonadres,
+        geboortedatum,
+        geboorteplaats,
+        overlijdensdatum,
+        bsn,
+        organisatie_naam,
+        rechtsvorm,
+        statutaire_zetel,
+        rsin,
+        kvk_nummer
+    ) AS
+SELECT
+    s.objectid,
     s.identif,
     s.soort,
     NULL::text         AS geslachtsnaam,
@@ -64,6 +251,7 @@ IS
     'commentaar view v2_avg_volledig_subject:
 volledig subject (natuurlijk en niet natuurlijk) geschoond voor avg
 beschikbare kolommen:
+* objectid: uniek id bruikbaar voor geoserver/arcgis,
 * identif: natuurlijke id van subject      
 * soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  
 * geslachtsnaam: NULL (avg)       
@@ -82,8 +270,16 @@ beschikbare kolommen:
 * statutaire_zetel: -      
 * rsin: -        
 * kvk_nummer: -
-';
-    
+'
+    ;
+CREATE MATERIALIZED VIEW m2_avg_volledig_subject AS
+SELECT
+    *
+FROM
+    v2_avg_volledig_subject WITH NO DATA;
+CREATE UNIQUE INDEX m2_avg_volledig_subject_objectid ON m2_avg_volledig_subject USING btree (objectid);
+CREATE INDEX m2_avg_volledig_subject_identif ON m2_avg_volledig_subject USING btree (identif);
+
 --drop view v2_util_app_re_kad_perceel cascade;
 CREATE OR REPLACE VIEW
     v2_util_app_re_kad_perceel
@@ -183,8 +379,9 @@ beschikbare kolommen:
 * app_re_identif: natuurlijk is van appartementsrecht,
 * perceel_identif: natuurlijk id van grondperceel
 
-';           
-
+'
+    ;
+    
 --drop view v2_kad_onrrnd_zk_locatie_adres cascade;
 CREATE OR REPLACE VIEW
     v2_kad_onrrnd_zk_locatie_adres
@@ -194,6 +391,8 @@ CREATE OR REPLACE VIEW
         begin_geldigheid,
         benoemdobj_identif,
         type,
+        aanduiding,
+        aanduiding2,
         sectie,
         perceelnummer,
         appartementsindex,
@@ -222,8 +421,10 @@ SELECT
     (row_number() OVER ())::INTEGER AS objectid,
     qry.identif,
     to_date(koz.dat_beg_geldh, 'YYYY-MM-DD'::text) AS begin_geldigheid,
-    bok.fk_nn_lh_tgo_identif as benoemdobj_identif,
+    bok.fk_nn_lh_tgo_identif                       AS benoemdobj_identif,
     qry.type,
+    COALESCE(qry.ka_sectie, '') || ' ' || COALESCE(qry.ka_perceelnummer, '') AS aanduiding,
+    COALESCE(qry.ka_kad_gemeentecode, '') || ' ' || COALESCE(qry.ka_sectie, '') || ' ' || COALESCE(qry.ka_perceelnummer, '') || ' ' || COALESCE(qry.ka_appartementsindex, '') AS aanduiding2,
     qry.ka_sectie,
     qry.ka_perceelnummer,
     qry.ka_appartementsindex,
@@ -316,19 +517,21 @@ LEFT JOIN
             brondocument.ref_id) b
 ON
     (
-        koz.kad_identif::text = b.ref_id);    
+        koz.kad_identif::text = b.ref_id);
 COMMENT ON VIEW v2_kad_onrrnd_zk_locatie_adres
 IS
     'commentaar view v2_kad_onrrnd_zk_locatie_adres:
-alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor arcgis en BAG adres
+alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor geoserver/arcgis en BAG adres
 
 beschikbare kolommen:
-* objectid: uniek id bruikbaar voor arcgis,
+* objectid: uniek id bruikbaar voor geoserver/arcgis,
 * identif: natuurlijke id van perceel of appartementsrecht      
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * benoemdobj_identif: koppeling met BAG object,
 * type: perceel of appartement,
 * sectie: -,
+* aanduiding: sectie perceelnummer,
+* aanduiding2: kadgem sectie perceelnummer appartementsindex,
 * perceelnummer: -,
 * appartementsindex: -,
 * gemeentecode: -,
@@ -351,9 +554,17 @@ beschikbare kolommen:
 * huisnummer_toev: -,
 * postcode: -,
 * begrenzing_perceel: perceelvlak
-';
-
-        
+'
+    ;
+CREATE MATERIALIZED VIEW m2_kad_onrrnd_zk_locatie_adres AS
+SELECT
+    *
+FROM
+    v2_kad_onrrnd_zk_locatie_adres WITH NO DATA;
+CREATE UNIQUE INDEX m2_kad_onrrnd_zk_locatie_adres_objectid ON m2_kad_onrrnd_zk_locatie_adres USING btree (objectid);
+CREATE INDEX m2_kad_onrrnd_zk_locatie_adres_identif ON m2_kad_onrrnd_zk_locatie_adres USING btree (identif);
+CREATE INDEX m2_kad_onrrnd_zk_locatie_adres_begrenzing_perceel_idx ON m2_kad_onrrnd_zk_locatie_adres USING gist (begrenzing_perceel);
+    
 --drop view v2_util_zk_recht cascade;
 CREATE OR REPLACE VIEW
     v2_util_zk_recht
@@ -401,12 +612,14 @@ beschikbare kolommen:
 * indic_betrokken_in_splitsing: -,
 * omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,
 * fk_3avr_aand: code aard recht
-';
-                
+'
+    ;
+    
 --drop view v2_zr_rechth cascade;
 CREATE OR REPLACE VIEW
     v2_zr_rechth
     (
+        objectid,
         identif,
         subject_identif,
         koz_identif,
@@ -432,6 +645,7 @@ CREATE OR REPLACE VIEW
         kvk_nummer
     ) AS
 SELECT
+    (row_number() OVER ())::INTEGER AS objectid,
     uzr.identif,
     uzr.subject_identif,
     uzr.koz_identif,
@@ -468,6 +682,7 @@ IS
 alle zakelijke rechten met rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)
 
 beschikbare kolommen:
+* objectid: uniek id bruikbaar voor geoserver/arcgis,
 * identif: natuurlijke id van zakelijk recht 
 * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
 * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
@@ -478,11 +693,11 @@ beschikbare kolommen:
 * geslachtsnaam: -       
 * voorvoegsel: -     
 * voornamen: -     
-* aand_naamgebruik:
-        - E (= Eigen geslachtsnaam)
-        - N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)
-        - P (= Geslachtsnaam echtgenoot/geregistreerd partner)
-        - V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)        
+* aand_naamgebruik:        
+- E (= Eigen geslachtsnaam)        
+- N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)        
+- P (= Geslachtsnaam echtgenoot/geregistreerd partner)        
+- V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)        
 * geslachtsaand: M/V   
 * naam: samengestelde naam bruikbaar voor natuurlijke en niet-natuurlijke subjecten
 * woonadres: meegeleverd adres buiten BAG koppeling om      
@@ -495,12 +710,21 @@ beschikbare kolommen:
 * statutaire_zetel: -      
 * rsin: -        
 * kvk_nummer: -
-';
-                
+'
+    ;
+CREATE MATERIALIZED VIEW m2_zr_rechth AS
+SELECT
+    *
+FROM
+    v2_zr_rechth WITH NO DATA;
+CREATE UNIQUE INDEX m2_zr_rechth_objectid ON m2_zr_rechth USING btree (objectid);
+CREATE INDEX m2_zr_rechth_identif ON m2_zr_rechth USING btree (identif);
+
 --drop view v2_avg_zr_rechth cascade;
 CREATE OR REPLACE VIEW
     v2_avg_zr_rechth
     (
+        objectid,
         identif,
         subject_identif,
         koz_identif,
@@ -526,6 +750,7 @@ CREATE OR REPLACE VIEW
         kvk_nummer
     ) AS
 SELECT
+    (row_number() OVER ())::INTEGER AS objectid,
     uzr.identif,
     uzr.subject_identif,
     uzr.koz_identif,
@@ -562,6 +787,7 @@ IS
 alle zakelijke rechten met voor avg geschoonde rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)
 
 beschikbare kolommen:
+* objectid: uniek id bruikbaar voor geoserver/arcgis,
 * identif: natuurlijke id van zakelijk recht     
 * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
 * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
@@ -586,8 +812,16 @@ beschikbare kolommen:
 * rsin: -        
 * kvk_nummer: -
 
-';
-                
+'
+    ;
+CREATE MATERIALIZED VIEW m2_avg_zr_rechth AS
+SELECT
+    *
+FROM
+    v2_avg_zr_rechth WITH NO DATA;
+CREATE UNIQUE INDEX m2_avg_zr_rechth_objectid ON m2_avg_zr_rechth USING btree (objectid);
+CREATE INDEX m2_avg_zr_rechth_identif ON m2_avg_zr_rechth USING btree (identif);
+
 --drop view v2_koz_rechth cascade;
 CREATE OR REPLACE VIEW
     v2_koz_rechth
@@ -596,6 +830,8 @@ CREATE OR REPLACE VIEW
         identif,
         begin_geldigheid,
         type,
+        aanduiding,
+        aanduiding2,
         sectie,
         perceelnummer,
         appartementsindex,
@@ -642,10 +878,12 @@ CREATE OR REPLACE VIEW
         begrenzing_perceel
     ) AS
 SELECT
-    koz.objectid,
+    (row_number() OVER ())::INTEGER AS objectid,
     koz.identif,
     koz.begin_geldigheid,
     koz.type,
+    COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') AS aanduiding,
+    COALESCE(koz.gemeentecode, '') || ' ' || COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') || ' ' || COALESCE(koz.appartementsindex, '') AS aanduiding2,
     koz.sectie,
     koz.perceelnummer,
     koz.appartementsindex,
@@ -692,7 +930,7 @@ SELECT
     koz.begrenzing_perceel
 FROM
     (v2_zr_rechth zrr
-right JOIN
+RIGHT JOIN
     v2_kad_onrrnd_zk_locatie_adres koz
 ON
     ((
@@ -700,12 +938,14 @@ ON
 COMMENT ON VIEW v2_koz_rechth
 IS
     'commentaar view v2_koz_rechth:
-kadastrale percelen een appartementsrechten met rechten en rechthebbenden en objectid voor arcgis
+kadastrale percelen een appartementsrechten met rechten en rechthebbenden en objectid voor geoserver/arcgis
 beschikbare kolommen:
-* objectid: uniek id bruikbaar voor arcgis,
+* objectid: uniek id bruikbaar voor geoserver/arcgis,
 * identif: natuurlijke id van perceel of appartementsrecht      
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * type: perceel of appartement,
+* aanduiding: sectie perceelnummer,
+* aanduiding2: kadgem sectie perceelnummer appartementsindex,
 * sectie: -,
 * perceelnummer: -,
 * appartementsindex: -,
@@ -729,11 +969,11 @@ beschikbare kolommen:
 * geslachtsnaam: -       
 * voorvoegsel: -     
 * voornamen: -     
-* aand_naamgebruik:
-        - E (= Eigen geslachtsnaam)
-        - N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)
-        - P (= Geslachtsnaam echtgenoot/geregistreerd partner)
-        - V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)        
+* aand_naamgebruik:        
+- E (= Eigen geslachtsnaam)        
+- N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)        
+- P (= Geslachtsnaam echtgenoot/geregistreerd partner)        
+- V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)        
 * geslachtsaand: M/V   
 * naam: samengestelde naam bruikbaar voor natuurlijke en niet-natuurlijke subjecten
 * woonadres: meegeleverd adres buiten BAG koppeling om      
@@ -754,8 +994,17 @@ beschikbare kolommen:
 * huisnummer_toev: -,
 * postcode: -,
 * begrenzing_perceel: perceelvlak
-';
-            
+'
+    ;
+CREATE MATERIALIZED VIEW m2_koz_rechth AS
+SELECT
+    *
+FROM
+    v2_koz_rechth WITH NO DATA;
+CREATE UNIQUE INDEX m2_koz_rechth_objectid ON m2_koz_rechth USING btree (objectid);
+CREATE INDEX m2_koz_rechth_identif ON m2_koz_rechth USING btree (identif);
+CREATE INDEX m2_koz_rechth_begrenzing_perceel_idx ON m2_koz_rechth USING gist (begrenzing_perceel);
+
 --drop view v2_avg_koz_rechth cascade;
 CREATE OR REPLACE VIEW
     v2_avg_koz_rechth
@@ -764,6 +1013,8 @@ CREATE OR REPLACE VIEW
         identif,
         begin_geldigheid,
         type,
+        aanduiding,
+        aanduiding2,
         sectie,
         perceelnummer,
         appartementsindex,
@@ -810,10 +1061,12 @@ CREATE OR REPLACE VIEW
         begrenzing_perceel
     ) AS
 SELECT
-    koz.objectid,
+    (row_number() OVER ())::INTEGER AS objectid,
     koz.identif,
     koz.begin_geldigheid,
     koz.type,
+    COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') AS aanduiding,
+    COALESCE(koz.gemeentecode, '') || ' ' || COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') || ' ' || COALESCE(koz.appartementsindex, '') AS aanduiding2,
     koz.sectie,
     koz.perceelnummer,
     koz.appartementsindex,
@@ -860,7 +1113,7 @@ SELECT
     koz.begrenzing_perceel
 FROM
     (v2_avg_zr_rechth zrr
-right JOIN
+RIGHT JOIN
     v2_kad_onrrnd_zk_locatie_adres koz
 ON
     ((
@@ -868,12 +1121,14 @@ ON
 COMMENT ON VIEW v2_avg_koz_rechth
 IS
     'commentaar view v2_avg_koz_rechth:
-kadastrale percelen een appartementsrechten met rechten en rechthebbenden geschoond voor avg en objectid voor arcgis
+kadastrale percelen een appartementsrechten met rechten en rechthebbenden geschoond voor avg en objectid voor geoserver/arcgis
 beschikbare kolommen:
-* objectid: uniek id bruikbaar voor arcgis,
+* objectid: uniek id bruikbaar voor geoserver/arcgis,
 * identif: natuurlijke id van perceel of appartementsrecht      
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * type: perceel of appartement,
+* aanduiding: sectie perceelnummer,
+* aanduiding2: kadgem sectie perceelnummer appartementsindex,
 * sectie: -,
 * perceelnummer: -,
 * appartementsindex: -,
@@ -918,5 +1173,14 @@ beschikbare kolommen:
 * huisnummer_toev: -,
 * postcode: -,
 * begrenzing_perceel: perceelvlak
-';
+'
+    ;
+CREATE MATERIALIZED VIEW m2_avg_koz_rechth AS
+SELECT
+    *
+FROM
+    v2_avg_koz_rechth WITH NO DATA;
+CREATE UNIQUE INDEX m2_avg_koz_rechth_objectid ON m2_avg_koz_rechth USING btree (objectid);
+CREATE INDEX m2_avg_koz_rechth_identif ON m2_avg_koz_rechth USING btree (identif);
+CREATE INDEX m2_avg_koz_rechth_begrenzing_perceel_idx ON m2_avg_koz_rechth USING gist (begrenzing_perceel);
  

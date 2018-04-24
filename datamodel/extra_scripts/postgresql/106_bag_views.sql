@@ -13,11 +13,36 @@ versie 2
 
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'v2_pand', 'objectid', 'assigned');
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'v2_benoemd_obj_locatie_adres', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'v2_volledig_adres', 'objectid', 'assigned');
+
+--drop materialized view m2_pand cascade;
+--drop materialized view m2_benoemd_obj_locatie_adres cascade;
+--drop materialized view v2_volledig_adres cascade;
+
+--DROP INDEX m2_volledig_adres_objectid cascade;
+--DROP INDEX m2_volledig_adres_identif cascade;
+--DROP INDEX m2_pand_objectid cascade;
+--DROP INDEX m2_pand_identif cascade;
+--DROP INDEX m2_pand_the_geom_idx cascade;
+--DROP INDEX m2_benoemd_obj_locatie_adres_objectid cascade;
+--DROP INDEX m2_benoemd_obj_locatie_adres_identif cascade;
+--DROP INDEX m2_benoemd_obj_locatie_adres_the_geom_idx cascade;
+
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'm2_pand', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'm2_benoemd_obj_locatie_adres', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'm2_volledig_adres', 'objectid', 'assigned');
+
+--REFRESH MATERIALIZED VIEW m2_pand;
+--REFRESH MATERIALIZED VIEW m2_benoemd_obj_locatie_adres;
+--REFRESH MATERIALIZED VIEW m2_volledig_adres;
+
+set session authorization flamingo;
 
 --drop view v2_volledig_adres;
 CREATE OR REPLACE VIEW
     v2_volledig_adres
     (
+        objectid,
         identif,
         begin_geldigheid,
         gemeente,
@@ -29,6 +54,7 @@ CREATE OR REPLACE VIEW
         postcode
     ) AS
 SELECT
+    (row_number() OVER ())::INTEGER                            AS objectid,
     na.sc_identif                                              AS identif,
     to_date(addrobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text) AS begin_geldigheid,
     gem.naam                                                   AS gemeente,
@@ -93,6 +119,13 @@ beschikbare kolommen:
 * huisnummer_toev: -,
 * postcode: -
 ';
+CREATE MATERIALIZED VIEW m2_volledig_adres AS
+SELECT
+    *
+FROM
+    v2_volledig_adres WITH NO DATA;
+CREATE UNIQUE INDEX m2_volledig_adres_objectid ON m2_volledig_adres USING btree (objectid);
+CREATE INDEX m2_volledig_adres_identif ON m2_volledig_adres USING btree (identif);
             
 --drop view v2_vbo_locatie_adres cascade;
 CREATE OR REPLACE VIEW
@@ -332,6 +365,15 @@ beschikbare kolommen:
 * status: -,
 * the_geom: pandvlak
 ';
+CREATE MATERIALIZED VIEW m2_pand AS
+SELECT
+    *
+FROM
+    v2_pand WITH NO DATA;
+CREATE UNIQUE INDEX m2_pand_objectid ON m2_pand USING btree (objectid);
+CREATE INDEX m2_pand_identif ON m2_pand USING btree (identif);
+CREATE INDEX m2_pand_the_geom_idx ON m2_pand USING gist (the_geom);
+
     
 --drop view v2_benoemd_obj_locatie_adres cascade;
 CREATE OR REPLACE VIEW
@@ -437,3 +479,12 @@ beschikbare kolommen:
 * status: -,
 * the_geom: puntlocatie
 ';
+CREATE MATERIALIZED VIEW m2_benoemd_obj_locatie_adres AS
+SELECT
+    *
+FROM
+    v2_benoemd_obj_locatie_adres WITH NO DATA;
+CREATE UNIQUE INDEX m2_benoemd_obj_locatie_adres_objectid ON m2_benoemd_obj_locatie_adres USING btree (objectid);
+CREATE INDEX m2_benoemd_obj_locatie_adres_identif ON m2_benoemd_obj_locatie_adres USING btree (identif);
+CREATE INDEX m2_benoemd_obj_locatie_adres_the_geom_idx ON m2_benoemd_obj_locatie_adres USING gist (the_geom);
+
