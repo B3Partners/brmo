@@ -167,7 +167,7 @@ IS
 samenvoeging alle soorten subjecten: natuurlijk en niet-natuurlijk.
 
 beschikbare kolommen:
-* objectid: uniek id bruikbaar voor arcgis,
+* objectid: uniek id bruikbaar voor geoserver/arcgis,
 * identif: natuurlijke id van subject      
 * soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  
 * geslachtsnaam: -       
@@ -529,9 +529,9 @@ beschikbare kolommen:
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * benoemdobj_identif: koppeling met BAG object,
 * type: perceel of appartement,
-* sectie: -,
 * aanduiding: sectie perceelnummer,
 * aanduiding2: kadgem sectie perceelnummer appartementsindex,
+* sectie: -,
 * perceelnummer: -,
 * appartementsindex: -,
 * gemeentecode: -,

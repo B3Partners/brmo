@@ -109,6 +109,7 @@ IS
 volledig adres zonder locatie
 
 beschikbare kolommen:
+* objectid: uniek id bruikbaar voor geoserver/arcgis,
 * identif: natuurlijke id van adres      
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * gemeente: -,
@@ -356,9 +357,9 @@ FROM
 COMMENT ON VIEW v2_pand
 IS
     'commentaar view v2_pand:
-pand met datum veld voor begin geldigheid en objectid voor arcgis
+pand met datum veld voor begin geldigheid en objectid voor geoserver/arcgis
 beschikbare kolommen:
-* objectid: uniek id bruikbaar voor arcgis,
+* objectid: uniek id bruikbaar voor geoserver/arcgis,
 * identif: natuurlijke id van pand      
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * bouwjaar: -,
@@ -464,7 +465,7 @@ FROM
 COMMENT ON VIEW v2_benoemd_obj_locatie_adres
 IS
     'commentaar view v2_benoemd_obj_locatie_adres:
-alle benoemde objecten (vbo, standplaats en ligplaats) met adres, puntlocatie, objectid voor arcgis en bij vbo referentie naar pand
+alle benoemde objecten (vbo, standplaats en ligplaats) met adres, puntlocatie, objectid voor geoserver/arcgis en bij vbo referentie naar pand
 beschikbare kolommen:
 * identif: natuurlijke id van benoemd object      
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
