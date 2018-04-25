@@ -530,12 +530,12 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                         StringReader oReader = new StringReader(oud.getDbXml());
                         List<TableData> oudList = oldDbXmlReader.readDataXML(new StreamSource(oReader));
 
-                        parseNewData(oudList, newList, dateFormat.format(oud.getDatum()), loadLog);
-                        parseOldData(oudList, newList, dateFormat.format(ber.getDatum()), dateFormat.format(oud.getDatum()), loadLog);
+                        parseNewData(oudList, newList, loadLog);
+                        parseOldData(oudList, newList, ber.getDatum(), loadLog);
                     }
                 }
             } else {
-                parseNewData(null, newList, null, loadLog);
+                parseNewData(null, newList, loadLog);
             }
 
             Split commit = SimonManager.getStopwatch(simonNamePrefix + "commit").start();
@@ -665,7 +665,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     }
 
     private StringBuilder parseNewData(List<TableData> oldList,
-            List<TableData> newList, String oldDate,
+            List<TableData> newList,
             StringBuilder loadLog) throws SQLException, ParseException, BrmoException {
         Split split = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata").start();
 
@@ -842,7 +842,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return loadLog;
     }
 
-    private StringBuilder parseOldData(List<TableData> oldList, List<TableData> newList, String newDate, String oldDate, StringBuilder loadLog) throws SQLException, ParseException {
+    private StringBuilder parseOldData(List<TableData> oldList, List<TableData> newList, Date newDate, StringBuilder loadLog) throws SQLException, ParseException {
 
         List<TableRow> rowsToDelete = new ArrayList();
         // als heel object verwijderd moet worden omdat newList een verwijderbericht is
@@ -875,8 +875,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 Split split = SimonManager.getStopwatch(simonNamePrefix + "parseolddata.delete").start();
                 createDeleteSql(rowToDelete, loadLog);
                 split.stop();
-
-                updateValueInTableRow(rowToDelete, rowToDelete.getColumnDatumEindeGeldigheid(), newDate);
+                
+                String beginDate = getValueFromTableRow(rowToDelete, rowToDelete.getColumnDatumBeginGeldigheid());
+                String endDate = formatDateLikeOtherDate(newDate, beginDate);         
+                updateValueInTableRow(rowToDelete, rowToDelete.getColumnDatumEindeGeldigheid(), endDate);
 
                 split = SimonManager.getStopwatch(simonNamePrefix + "parseolddata.archive").start();
                 rowToDelete.setIgnoreDuplicates(true);
@@ -886,6 +888,20 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
 
         return loadLog;
+    }
+    
+    private String formatDateLikeOtherDate(Date newDate, String otherDate) {
+        SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd"); //2010-06-29
+        SimpleDateFormat f2 = new SimpleDateFormat("yyyyMMddHHmmssSSS0"); //201006291200000000
+
+        try {
+            f2.parse(otherDate);
+            return f2.format(newDate);
+        } catch (java.text.ParseException ex) {
+            //ignore
+        }
+        //add other formats
+        return f1.format(newDate);
     }
 
     private String getValueFromTableRow(TableRow row, String column) {
