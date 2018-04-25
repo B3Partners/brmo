@@ -13,6 +13,7 @@ versie 2
 --drop view v2_avg_zr_rechth cascade;
 --drop view v2_koz_rechth cascade;
 --drop view v2_avg_koz_rechth cascade;
+--drop view v2_kad_onrrnd_zk_archief cascade;
 
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'v2_kad_onrrnd_zk_locatie_adres', 'objectid', 'assigned');
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'v2_koz_rechth', 'objectid', 'assigned');
@@ -21,6 +22,7 @@ versie 2
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'v2_zr_rechth', 'objectid', 'assigned');
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'v2_volledig_subject', 'objectid', 'assigned');
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'v2_avg_volledig_subject', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'v2_kad_onrrnd_zk_archief', 'objectid', 'assigned');
 
 --drop materialized view m2_kad_onrrnd_zk_locatie_adres cascade;
 --drop materialized view m2_koz_rechth cascade;
@@ -1183,4 +1185,154 @@ FROM
 CREATE UNIQUE INDEX m2_avg_koz_rechth_objectid ON m2_avg_koz_rechth USING btree (objectid);
 CREATE INDEX m2_avg_koz_rechth_identif ON m2_avg_koz_rechth USING btree (identif);
 CREATE INDEX m2_avg_koz_rechth_begrenzing_perceel_idx ON m2_avg_koz_rechth USING gist (begrenzing_perceel);
- 
+
+--drop view v2_kad_onrrnd_zk_archief; 
+CREATE OR REPLACE VIEW
+    v2_kad_onrrnd_zk_archief
+    (
+        objectid,
+        identif,
+        begin_geldigheid,
+        eind_geldigheid,
+        type,
+        aanduiding,
+        aanduiding2,
+        sectie,
+        perceelnummer,
+        appartementsindex,
+        gemeentecode,
+        aand_soort_grootte,
+        grootte_perceel,
+        deelperceelnummer,
+        omschr_deelperceel,
+        aard_cultuur_onbebouwd,
+        bedrag,
+        koopjaar,
+        meer_onroerendgoed,
+        valutasoort,
+        loc_omschr,
+        overgegaan_in,
+        begrenzing_perceel
+    ) AS
+SELECT
+    (row_number() OVER ())::INTEGER AS objectid,
+    qry.identif,
+    to_date((koza.dat_beg_geldh)::text, 'YYYY-MM-DD'::text) AS begin_geldigheid,
+    --hack vanwege foutieve formatering in archieftabel voor kadastrale onroerende zaak
+    CASE
+        WHEN position('-' IN koza.datum_einde_geldh) = 5
+        THEN to_date((koza.datum_einde_geldh)::text, 'YYYY-MM-DD'::text)
+        ELSE to_date((koza.datum_einde_geldh)::text, 'DD-MM-YYYY'::text)
+    END AS eind_geldigheid,
+    qry.type,
+    (((COALESCE(qry.ka_sectie, ''::CHARACTER VARYING))::text || ' '::text) || (COALESCE
+    (qry.ka_perceelnummer, ''::CHARACTER VARYING))::text) AS aanduiding,
+    (((((((COALESCE(qry.ka_kad_gemeentecode, ''::CHARACTER VARYING))::text || ' '::text) ||
+    (COALESCE(qry.ka_sectie, ''::CHARACTER VARYING))::text) || ' '::text) || (COALESCE
+    (qry.ka_perceelnummer, ''::CHARACTER VARYING))::text) || ' '::text) || (COALESCE
+    (qry.ka_appartementsindex, ''::CHARACTER VARYING))::text) AS aanduiding2,
+    qry.ka_sectie                                             AS sectie,
+    qry.ka_perceelnummer                                      AS perceelnummer,
+    qry.ka_appartementsindex                                  AS appartementsindex,
+    qry.ka_kad_gemeentecode                                   AS gemeentecode,
+    qry.aand_soort_grootte,
+    qry.grootte_perceel,
+    qry.ka_deelperceelnummer AS deelperceelnummer,
+    qry.omschr_deelperceel,
+    koza.cu_aard_cultuur_onbebouwd AS aard_cultuur_onbebouwd,
+    koza.ks_bedrag                 AS bedrag,
+    koza.ks_koopjaar               AS koopjaar,
+    koza.ks_meer_onroerendgoed     AS meer_onroerendgoed,
+    koza.ks_valutasoort            AS valutasoort,
+    koza.lo_loc__omschr            AS loc_omschr,
+    kozhr.fk_sc_rh_koz_kad_identif AS overgegaan_in,
+    qry.begrenzing_perceel
+FROM
+    (
+        SELECT
+            pa.sc_kad_identif   AS identif,
+            pa.sc_dat_beg_geldh AS dat_beg_geldh,
+            'perceel'::text     AS type,
+            pa.ka_sectie,
+            pa.ka_perceelnummer,
+            NULL::CHARACTER VARYING(4) AS ka_appartementsindex,
+            pa.ka_kad_gemeentecode,
+            pa.aand_soort_grootte,
+            pa.grootte_perceel,
+            pa.ka_deelperceelnummer,
+            pa.omschr_deelperceel,
+            pa.begrenzing_perceel
+        FROM
+            kad_perceel_archief pa
+        UNION ALL
+        SELECT
+            ara.sc_kad_identif   AS identif,
+            ara.sc_dat_beg_geldh AS dat_beg_geldh,
+            'appartement'::text  AS type,
+            ara.ka_sectie,
+            ara.ka_perceelnummer,
+            ara.ka_appartementsindex,
+            ara.ka_kad_gemeentecode,
+            NULL::CHARACTER VARYING(1)    AS aand_soort_grootte,
+            NULL::NUMERIC(8,0)            AS grootte_perceel,
+            NULL::CHARACTER VARYING(4)    AS ka_deelperceelnummer,
+            NULL::CHARACTER VARYING(1120) AS omschr_deelperceel,
+            NULL                          AS begrenzing_perceel
+        FROM
+            app_re_archief ara ) qry
+JOIN
+    kad_onrrnd_zk_archief koza
+ON
+    koza.kad_identif = qry.identif
+AND qry.dat_beg_geldh = koza.dat_beg_geldh
+JOIN
+    (
+        SELECT
+            ikoza.kad_identif,
+            MAX(ikoza.dat_beg_geldh) bdate
+        FROM
+            kad_onrrnd_zk_archief ikoza
+        GROUP BY
+            ikoza.kad_identif ) nqry
+ON
+    nqry.kad_identif = koza.kad_identif
+AND nqry.bdate = koza.dat_beg_geldh
+LEFT JOIN
+    kad_onrrnd_zk_his_rel kozhr
+ON
+    (
+        kozhr.fk_sc_lh_koz_kad_identif = koza.kad_identif)
+ORDER BY
+    bdate DESC ;
+COMMENT ON VIEW v2_kad_onrrnd_zk_archief
+IS
+    'commentaar view v2_kad_onrrnd_zk_locatie_adres:
+Nieuwste gearchiveerde versie van ieder kadastrale onroerende zaak (perceel en appartementsrecht) met objectid voor geoserver/arcgis en historische relatie
+
+beschikbare kolommen:
+* objectid: uniek id bruikbaar voor geoserver/arcgis,
+* identif: natuurlijke id van perceel of appartementsrecht      
+* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* eind_geldigheid: datum wanneer dit object ongeldig geworden is,
+* benoemdobj_identif: koppeling met BAG object,
+* type: perceel of appartement,
+* sectie: -,
+* aanduiding: sectie perceelnummer,
+* aanduiding2: kadgem sectie perceelnummer appartementsindex,
+* perceelnummer: -,
+* appartementsindex: -,
+* gemeentecode: -,
+* aand_soort_grootte: -,
+* grootte_perceel: -,
+* deelperceelnummer: -,
+* omschr_deelperceel: -,
+* aard_cultuur_onbebouwd: -,
+* bedrag: -,
+* koopjaar: -,
+* meer_onroerendgoed: -,
+* valutasoort: -,
+* loc_omschr: adres buiten BAG om meegegeven,
+* overgegaan_in: natuurlijk id van kadastrale onroerende zaak waar dit object in is overgegaan,
+* begrenzing_perceel: perceelvlak
+'
+    ;
