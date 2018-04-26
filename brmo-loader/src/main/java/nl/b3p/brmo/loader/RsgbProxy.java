@@ -889,10 +889,30 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         return loadLog;
     }
-    
+
+    /**
+     * Probeer de datum te formatteren aan de hand van de formatting van de {@otherDate} formatting.
+     * De fallback optie voor formatting is {@code yyyy-MM-dd}, ondersteunde opties zijn:
+     * <ul>
+     * <li>{@code yyyy-MM-dd} (BRK)
+     * <li>{@code yyyyMMddHHmmssSSS0} (BAG)
+     * </ul>
+     *
+     * @param newDate te formatten datum
+     * @param otherDate de formatted datum
+     * 
+     * @return formatted datum, indien mogelijk in de vorm van {@otherDate}
+     */
     private String formatDateLikeOtherDate(Date newDate, String otherDate) {
-        SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd"); //2010-06-29
-        SimpleDateFormat f2 = new SimpleDateFormat("yyyyMMddHHmmssSSS0"); //201006291200000000
+        // 2010-06-29 (BRK)
+        SimpleDateFormat dfltFmt = new SimpleDateFormat("yyyy-MM-dd"); 
+        // 201006291200000000 (BAG)
+        SimpleDateFormat f2 = new SimpleDateFormat("yyyyMMddHHmmssSSS0"); 
+
+        if(otherDate == null || otherDate.isEmpty()){
+            // fallback op f1, er zijn gevallen waar otherDate null is, bijv. zak_recht
+            return dfltFmt.format(newDate);
+        }
 
         try {
             f2.parse(otherDate);
@@ -901,7 +921,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             //ignore
         }
         //add other formats
-        return f1.format(newDate);
+        return dfltFmt.format(newDate);
     }
 
     private String getValueFromTableRow(TableRow row, String column) {
