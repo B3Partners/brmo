@@ -47,8 +47,8 @@
 					</xsl:copy>
 				</brmo:br_xml>
 			</brmo:bericht>
-		</xsl:for-each>		
-		
+		</xsl:for-each>
+
 		<brmo:bericht>
 			<brmo:object_ref><xsl:apply-templates select="." mode="object_ref"/></brmo:object_ref>
 			<xsl:copy-of select="$datum"/>
@@ -59,6 +59,7 @@
 				</xsl:copy>
 			</brmo:br_xml>
 		</brmo:bericht>
+
 		<!-- Completere vestiging in wordtGeleidVanuit dan wordtUitgeoefendIn -->
 		<xsl:variable name="leidendeVestiging" select="cat:wordtGeleidVanuit/cat:vestigingsnummer"/>
 		<xsl:for-each select="cat:wordtGeleidVanuit/*">

@@ -31,7 +31,8 @@
 				<xsl:value-of select="$soort"/>
 			</xsl:comment>
 			<xsl:comment>
-				<hoofdvestiging><xsl:value-of select="$hoofdvestiging"/></hoofdvestiging>
+				<!-- <hoofdvestiging><xsl:value-of select="$hoofdvestiging"/></hoofdvestiging> -->
+				<xsl:text>hoofdvestiging: </xsl:text><xsl:value-of select="$hoofdvestiging" />
 			</xsl:comment>
             <data>
 				<xsl:apply-templates select="*"/>
@@ -65,7 +66,7 @@
 			<xsl:for-each select="cat:manifesteertZichAls/cat:onderneming/cat:kvkNummer">
 				<fk_3ond_kvk_nummer><xsl:value-of select="."/></fk_3ond_kvk_nummer>
 			</xsl:for-each>
-			
+			<!--[FK] AN32, FK naar prs.sc_identif (is FK naar superclass SUBJECT): "heeft als eigenaar"-->
 			<fk_4pes_sc_identif>
 				<xsl:apply-templates select="cat:heeftAlsEigenaar" mode="object_ref"/>
 			</fk_4pes_sc_identif>
@@ -388,8 +389,7 @@
 	
 	<xsl:template match="cat:buitenlandseVennootschap">
 		<xsl:variable name="key"><xsl:apply-templates select="." mode="object_ref"/></xsl:variable>		
-		<xsl:variable name="class">ANDER BUITENLANDS NIET-NATUURLIJK
-PERSOON</xsl:variable>
+		<xsl:variable name="class">ANDER BUITENLANDS NIET-NATUURLIJK PERSOON</xsl:variable>
 		<subject>
 			<identif><xsl:value-of select="$key"/></identif>
 			<clazz><xsl:value-of select="$class"/></clazz>
@@ -420,6 +420,6 @@ PERSOON</xsl:variable>
 	</xsl:template>
 		
 	<xsl:template match="*">
-		<xsl:comment>Catch-all template voor onbekend element <xsl:value-of select="local-name()"/></xsl:comment>
+		<xsl:comment><xsl:text>Catch-all template voor onbekend element: </xsl:text><xsl:value-of select="local-name()"/></xsl:comment>
 	</xsl:template>
 </xsl:stylesheet>
