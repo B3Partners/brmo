@@ -42,11 +42,21 @@ timestamps {
                     sh "sqlplus -l -S top50nl/top50nl@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
                     sh "sqlplus -l -S top100nl/top100nl@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
                     sh "sqlplus -l -S top250nl/top250nl@192.168.1.41:1521/DB01 < ./.jenkins/clear-schema.sql"
-                    
-                    echo "init schema's"
+                }
+                stage('Prepare Oracle staging') {
+                    echo "init staging schema"
                     sh ".jenkins/db-prepare-staging.sh"
+                }
+                stage('Prepare Oracle rsgb') {
+                    echo "init rsgb schema"
                     sh ".jenkins/db-prepare-rsgb.sh"
+                }
+                stage('Prepare Oracle rsgbbgt') {
+                    echo "init rsgbbgt schema"
                     sh ".jenkins/db-prepare-rsgbbgt.sh"
+                }
+                stage('Prepare Oracle topnl') {
+                    echo "init topnl schema"
                     sh ".jenkins/db-prepare-topnl.sh"
                 }
 
