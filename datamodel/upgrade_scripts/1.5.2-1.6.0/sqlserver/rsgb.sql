@@ -483,6 +483,22 @@ INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (500,'Va
 
 GO
 
+-- data update voor issue #435
+-- brk 
+-- 105 is 'dd-MM-yyyy' zie: https://docs.microsoft.com/en-us/sql/t-sql/functions/cast-and-convert-transact-sql?view=sql-server-2017
+UPDATE kad_onrrnd_zk_archief SET datum_einde_geldh = FORMAT(CONVERT(DATETIME,datum_einde_geldh,105),'yyyy-MM-dd') WHERE datum_einde_geldh LIKE '[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]';
+UPDATE kad_onrrnd_zk_aantek_archief SET eindd_aantek_kad_obj = FORMAT(CONVERT(DATETIME,eindd_aantek_kad_obj,105),'yyyy-MM-dd') WHERE eindd_aantek_kad_obj LIKE '[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]';
+
+GO
+--bag
+UPDATE addresseerb_obj_aand_archief SET dat_eind_geldh = FORMAT(CONVERT(DATETIME,dat_eind_geldh,105),'yyyy-MM-dd') WHERE dat_eind_geldh LIKE '[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]';
+UPDATE benoemd_terrein_archief SET datum_einde_geldh = FORMAT(CONVERT(DATETIME,datum_einde_geldh,105),'yyyy-MM-dd') WHERE datum_einde_geldh LIKE '[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]';
+UPDATE gebouwd_obj_archief SET datum_einde_geldh = FORMAT(CONVERT(DATETIME,datum_einde_geldh,105),'yyyy-MM-dd') WHERE datum_einde_geldh LIKE '[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]';
+UPDATE gem_openb_rmte_archief SET datum_einde_geldh = FORMAT(CONVERT(DATETIME,datum_einde_geldh,105),'yyyy-MM-dd') WHERE datum_einde_geldh LIKE '[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]';
+UPDATE pand_archief SET datum_einde_geldh = FORMAT(CONVERT(DATETIME,datum_einde_geldh,105),'yyyy-MM-dd') WHERE datum_einde_geldh LIKE '[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]';
+UPDATE wnplts_archief SET datum_einde_geldh = FORMAT(CONVERT(DATETIME,datum_einde_geldh,105),'yyyy-MM-dd') WHERE datum_einde_geldh LIKE '[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]';
+
+GO
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.5.2_naar_1.6.0','vorige versie was ' + waarde FROM brmo_metadata WHERE naam='brmoversie';
 -- versienummer update

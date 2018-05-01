@@ -319,6 +319,19 @@ INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (455,'Mo
 INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (499,'Staatloos',null,null);
 INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (500,'Vastgesteld niet-Nederlander','20070401','20070401');
 
+-- data update voor issue #435
+-- brk
+UPDATE kad_onrrnd_zk_archief SET datum_einde_geldh = TO_CHAR(TO_DATE(datum_einde_geldh, 'DD-MM-YYYY'),'YYYY-MM-DD') WHERE REGEXP_LIKE(datum_einde_geldh, '\d{2}-\d{2}-\d{4}');
+UPDATE kad_onrrnd_zk_aantek_archief SET eindd_aantek_kad_obj = TO_CHAR(TO_DATE(eindd_aantek_kad_obj, 'DD-MM-YYYY'),'YYYY-MM-DD') WHERE REGEXP_LIKE(eindd_aantek_kad_obj, '\d{2}-\d{2}-\d{4}');
+-- bag
+UPDATE addresseerb_obj_aand_archief SET dat_eind_geldh = TO_CHAR(TO_DATE(dat_eind_geldh, 'DD-MM-YYYY'),'YYYY-MM-DD') WHERE REGEXP_LIKE(dat_eind_geldh, '\d{2}-\d{2}-\d{4}');
+UPDATE benoemd_terrein_archief SET datum_einde_geldh = TO_CHAR(TO_DATE(datum_einde_geldh, 'DD-MM-YYYY'),'YYYY-MM-DD') WHERE REGEXP_LIKE(datum_einde_geldh, '\d{2}-\d{2}-\d{4}');
+UPDATE gebouwd_obj_archief SET datum_einde_geldh = TO_CHAR(TO_DATE(datum_einde_geldh, 'DD-MM-YYYY'),'YYYY-MM-DD') WHERE REGEXP_LIKE(datum_einde_geldh, '\d{2}-\d{2}-\d{4}');
+UPDATE gem_openb_rmte_archief SET datum_einde_geldh = TO_CHAR(TO_DATE(datum_einde_geldh, 'DD-MM-YYYY'),'YYYY-MM-DD') WHERE REGEXP_LIKE(datum_einde_geldh, '\d{2}-\d{2}-\d{4}');
+UPDATE pand_archief SET datum_einde_geldh = TO_CHAR(TO_DATE(datum_einde_geldh, 'DD-MM-YYYY'),'YYYY-MM-DD') WHERE REGEXP_LIKE(datum_einde_geldh, '\d{2}-\d{2}-\d{4}');
+UPDATE wnplts_archief SET datum_einde_geldh = TO_CHAR(TO_DATE(datum_einde_geldh, 'DD-MM-YYYY'),'YYYY-MM-DD') WHERE REGEXP_LIKE(datum_einde_geldh, '\d{2}-\d{2}-\d{4}');
+
+
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.5.2_naar_1.6.0','vorige versie was '||waarde FROM brmo_metadata WHERE naam='brmoversie';
 -- versienummer update
