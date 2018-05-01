@@ -10,15 +10,15 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.web.jsp.StringVariable
-	c49 [label=<<table title="nl.b3p.web.jsp.StringVariable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StringVariable.html">
+	c36 [label=<<table title="nl.b3p.web.jsp.StringVariable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StringVariable.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StringVariable </td></tr>
 		</table></td></tr>
 		</table>>, URL="./StringVariable.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.web.jsp.StringVariable extends javax.servlet.jsp.tagext.TagExtraInfo
-	c51:p -> c49:p [dir=back,arrowtail=empty];
+	c38:p -> c36:p [dir=back,arrowtail=empty];
 	// javax.servlet.jsp.tagext.TagExtraInfo
-	c51 [label=<<table title="javax.servlet.jsp.tagext.TagExtraInfo" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="https://download.oracle.com/javaee/7/api/javax/servlet/jsp/tagext/TagExtraInfo.html">
+	c38 [label=<<table title="javax.servlet.jsp.tagext.TagExtraInfo" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="https://download.oracle.com/javaee/7/api/javax/servlet/jsp/tagext/TagExtraInfo.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TagExtraInfo </font></td></tr>
 		</table></td></tr>

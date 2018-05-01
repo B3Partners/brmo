@@ -9,38 +9,32 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.web.jsp.ListLogfiles
-	c0 [label=<<table title="nl.b3p.web.jsp.ListLogfiles" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ListLogfiles.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ListLogfiles </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ListLogfiles.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.jsp.DownloadTag
-	c1 [label=<<table title="nl.b3p.web.jsp.DownloadTag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DownloadTag.html">
+	c0 [label=<<table title="nl.b3p.web.jsp.DownloadTag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DownloadTag.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DownloadTag </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DownloadTag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.jsp.CronFormatterTag
-	c2 [label=<<table title="nl.b3p.web.jsp.CronFormatterTag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CronFormatterTag.html">
+	c1 [label=<<table title="nl.b3p.web.jsp.CronFormatterTag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CronFormatterTag.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CronFormatterTag </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CronFormatterTag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.jsp.LogfileUtil
-	c3 [label=<<table title="nl.b3p.web.jsp.LogfileUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LogfileUtil.html">
+	c2 [label=<<table title="nl.b3p.web.jsp.LogfileUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LogfileUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LogfileUtil </td></tr>
 		</table></td></tr>
 		</table>>, URL="./LogfileUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.jsp.StringVariable
-	c4 [label=<<table title="nl.b3p.web.jsp.StringVariable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StringVariable.html">
+	c3 [label=<<table title="nl.b3p.web.jsp.StringVariable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StringVariable.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StringVariable </td></tr>
 		</table></td></tr>
 		</table>>, URL="./StringVariable.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.jsp.TailTag
-	c5 [label=<<table title="nl.b3p.web.jsp.TailTag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TailTag.html">
+	c4 [label=<<table title="nl.b3p.web.jsp.TailTag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TailTag.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TailTag </td></tr>
 		</table></td></tr>
