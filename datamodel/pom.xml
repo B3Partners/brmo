@@ -207,7 +207,7 @@
             -->
         </plugins>
     </build>
-    <reporting>
+    <!-- reporting>
         <plugins>
             <plugin>
                 <groupId>com.wakaleo.schemaspy</groupId>
@@ -229,7 +229,7 @@
                 </configuration>
             </plugin>
         </plugins>
-    </reporting>
+    </reporting -->
     <profiles>
         <profile>
             <id>GEM-WPL-RELATIE</id>

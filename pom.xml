@@ -583,7 +583,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.7</version>
+                    <version>3.7.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -603,7 +603,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>3.1.0</version>
                     <configuration>
                         <nonFilteredFileExtensions>zip,gml,md,json,geojson,txt,sql</nonFilteredFileExtensions>
                     </configuration>
@@ -891,11 +891,13 @@
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${jacoco-maven-plugin.version}</version>
                 </plugin>
+                <!--
                 <plugin>
                     <groupId>com.wakaleo.schemaspy</groupId>
                     <artifactId>schemaspy-maven-plugin</artifactId>
                     <version>5.0.4-SNAPSHOT</version>
                 </plugin>
+                -->
                 <plugin>
                     <artifactId>maven-scm-publish-plugin</artifactId>
                     <version>3.0.0</version>
