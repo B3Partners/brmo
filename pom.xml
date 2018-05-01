@@ -82,6 +82,7 @@
         <javasimon.version>4.1.4</javasimon.version>
         <javax.mail.version>1.6.1</javax.mail.version>
         <quartz.version>2.3.0</quartz.version>
+        <!-- skip 7.0.86 vanwege https://bz.apache.org/bugzilla/show_bug.cgi?id=62316 -->
         <tomcat.version>7.0.85</tomcat.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -267,7 +268,7 @@
             </dependency>
             <!-- database en persistence -->
             <dependency>
-                <!-- override v 3.1 die met hibernate meekomt -->
+                <!-- override v 3.1 die met hibernate meekomt, eigenlijk zouden we naar 4.1 moeten, maar die is ws. niet compatibel -->
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
                 <version>3.2.2</version>
