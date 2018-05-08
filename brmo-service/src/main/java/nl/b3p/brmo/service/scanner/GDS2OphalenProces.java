@@ -45,8 +45,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
-import javax.persistence.NoResultException;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -521,6 +520,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     }
 
     private Bericht laadAfgifte(AfgifteGBType a, String url) throws Exception {
+        EntityManager em = Stripersist.getEntityManager();
         String msg = "Downloaden " + url;
         l.updateStatus(msg);
         l.addLog(msg);
@@ -564,7 +564,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         lp.setStatus(LaadProces.STATUS.STAGING_OK);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         lp.setOpmerking("GDS2 download van " + url + " op " + sdf.format(new Date()));
-        lp.setAutomatischProces(Stripersist.getEntityManager().find(AutomatischProces.class, config.getId()));
+        lp.setAutomatischProces(em.find(AutomatischProces.class, config.getId()));
 
         Bericht b = new Bericht();
         b.setLaadprocesid(lp);
@@ -622,13 +622,30 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             e.printStackTrace(new PrintWriter(sw));
             b.setOpmerking("Fout bij parsen BRK bericht: " + sw.toString());
         }
-
-        Stripersist.getEntityManager().persist(lp);
-        Stripersist.getEntityManager().persist(b);
-        Stripersist.getEntityManager().merge(this.config);
-        Stripersist.getEntityManager().flush();
-        Stripersist.getEntityManager().getTransaction().commit();
-        Stripersist.getEntityManager().clear();
+        try {
+            em.persist(lp);
+            em.persist(b);
+            em.merge(this.config);
+            em.flush();
+            em.getTransaction().commit();
+            em.clear();
+        }catch(PersistenceException pe){
+            if(!em.getTransaction().isActive()){
+                em.getTransaction().begin();
+            }
+            em.getTransaction().rollback();
+            em.getTransaction().begin();
+            log.debug("Cannot save bericht/laadproces:", pe);
+            log.debug("Bericht: " + b.getObject_ref() + ":" + b.getBr_orgineel_xml());
+            lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);
+            lp.setOpmerking(lp.getOpmerking() + ": Fout, duplicaat bericht.");
+            em.merge(this.config);
+            em.persist(lp);
+            em.flush();
+            em.getTransaction().commit();
+            em.clear();
+            b = null;
+        }
         return b;
     }
 
