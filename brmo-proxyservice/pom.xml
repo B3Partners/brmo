@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo-proxyservice</artifactId>
-    <version>1.5.2.2</version>
+    <version>1.5.2.3-SNAPSHOT</version>
     <packaging>war</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
-        <version>1.5.2.2</version>
+        <version>1.5.2.3-SNAPSHOT</version>
     </parent>
     <name>BRMO proxyservice</name>
     <description>Berichten proxyservice de BRMO.</description>
