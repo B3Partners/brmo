@@ -636,6 +636,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             em.getTransaction().rollback();
             em.getTransaction().begin();
             log.debug("Cannot save bericht/laadproces:", pe);
+            log.debug("Bericht: " + b.getObject_ref() + ":" + b.getBr_orgineel_xml());
             lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);
             lp.setOpmerking(lp.getOpmerking() + ": Fout, duplicaat bericht.");
             em.merge(this.config);
