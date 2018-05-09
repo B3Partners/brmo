@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo</artifactId>
-    <version>1.5.2.3-SNAPSHOT</version>
+    <version>1.5.2.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
         <module>brmo-test-util</module>
@@ -406,7 +406,7 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-test-util</artifactId>
-                <version>1.5.2.3-SNAPSHOT</version>
+                <version>1.5.2.2-SNAPSHOT</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
