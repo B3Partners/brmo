@@ -60,7 +60,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <netbeans.hint.license>gpl30</netbeans.hint.license>
         <hibernate.version>3.6.10.Final</hibernate.version>
-        <geotools.version>19.0</geotools.version>
+        <geotools.version>19.1</geotools.version>
         <postgresql.jdbc.version>42.2.2</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2.2.1</postgresql.postgis-jdbc.version>
         <!--
@@ -82,8 +82,7 @@
         <javasimon.version>4.1.4</javasimon.version>
         <javax.mail.version>1.6.1</javax.mail.version>
         <quartz.version>2.3.0</quartz.version>
-        <!-- skip 7.0.86 vanwege https://bz.apache.org/bugzilla/show_bug.cgi?id=62316 -->
-        <tomcat.version>7.0.85</tomcat.version>
+        <tomcat.version>7.0.88</tomcat.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- om unit tests met postgres te draaien gebruik je
@@ -94,7 +93,7 @@
         -->
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
         <test.h2.version>1.4.197</test.h2.version>
-        <test.hsqldb.version>2.4.0</test.hsqldb.version>
+        <test.hsqldb.version>2.4.1</test.hsqldb.version>
         <test.onlyITs>false</test.onlyITs>
         <maven.surefire.version>2.21.0</maven.surefire.version>
         <jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
@@ -562,7 +561,7 @@
                         <dependency>
                             <groupId>net.sf.saxon</groupId>
                             <artifactId>Saxon-HE</artifactId>
-                            <version>9.8.0-11</version>
+                            <version>9.8.0-12</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -611,7 +610,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.1.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
@@ -664,7 +663,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-war-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.2.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-javadoc-plugin</artifactId>
@@ -885,7 +884,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>3.1.2</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.jacoco</groupId>
