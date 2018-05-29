@@ -629,16 +629,16 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             em.flush();
             em.getTransaction().commit();
             em.clear();
-        }catch(PersistenceException pe){
-            if(!em.getTransaction().isActive()){
+        } catch (PersistenceException pe) {
+            if (!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
             }
             em.getTransaction().rollback();
             em.getTransaction().begin();
             log.warn("Opslaan van bericht uit laadproces " + lp.getBestand_naam() + " is mislukt.", pe);
-            log.warn("Duplicaat bericht: " + b.getObject_ref() + ":" + b.getBr_orgineel_xml());
+            log.warn("Duplicaat bericht: " + b.getObject_ref() + ":" + b.getBr_orgineel_xml() + "(" + b.getBr_xml() + ")");
             lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);
-            lp.setOpmerking(lp.getOpmerking() + ": Fout, duplicaat bericht.");
+            lp.setOpmerking(lp.getOpmerking() + ": Fout, duplicaat bericht. Inhoud: \n" + b.getBr_xml());
             em.merge(this.config);
             em.persist(lp);
             em.flush();
