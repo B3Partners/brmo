@@ -38,4 +38,7 @@
 			<xsl:text>rsin.</xsl:text><xsl:value-of select="cat:rsin"/>
 		</xsl:if>
 	</xsl:template>
+
+	<!-- lege template voor gevallen zonder kvkNummer, vestigingsnummer, bsn of rsin bij heeftAlsEigenaar -->
+	<xsl:template match="*" mode="object_ref" />
 </xsl:stylesheet>
