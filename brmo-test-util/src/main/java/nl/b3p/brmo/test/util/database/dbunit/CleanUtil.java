@@ -234,8 +234,8 @@ public final class CleanUtil {
 
         DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
             new DefaultTable("sbi_activiteit"),
-            new DefaultTable("maatschapp_activiteit"),
             new DefaultTable("ondrnmng"),
+            new DefaultTable("maatschapp_activiteit"),
             new DefaultTable("vestg"),
             new DefaultTable("vestg_activiteit"),
             new DefaultTable("vestg_naam"),}

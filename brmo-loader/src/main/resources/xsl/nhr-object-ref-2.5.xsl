@@ -20,7 +20,25 @@
 		</xsl:choose>
 	</xsl:template>
 	
-	<xsl:template match="*[cat:kvkNummer]" mode="object_ref">nhr.<xsl:call-template name="get-name-abbr"/>.kvk.<xsl:value-of select="cat:kvkNummer"/></xsl:template>
-	<xsl:template match="*[cat:vestigingsnummer]" mode="object_ref">nhr.<xsl:call-template name="get-name-abbr"/>.<xsl:value-of select="cat:vestigingsnummer"/></xsl:template>
-	<xsl:template match="*[cat:bsn or cat:rsin]" mode="object_ref">nhr.<xsl:call-template name="get-name-abbr"/>.<xsl:if test="cat:bsn">bsn.<xsl:value-of select="cat:bsn"/></xsl:if><xsl:if test="cat:rsin">rsin.<xsl:value-of select="cat:rsin"/></xsl:if></xsl:template>
+	<xsl:template match="*[cat:kvkNummer]" mode="object_ref">
+		<xsl:text>nhr.</xsl:text><xsl:call-template name="get-name-abbr"/><xsl:text>.kvk.</xsl:text>
+		<xsl:value-of select="cat:kvkNummer"/>
+	</xsl:template>
+
+	<xsl:template match="*[cat:vestigingsnummer]" mode="object_ref">
+		<xsl:text>nhr.</xsl:text><xsl:call-template name="get-name-abbr"/><xsl:text>.</xsl:text>
+		<xsl:value-of select="cat:vestigingsnummer"/></xsl:template>
+
+	<xsl:template match="*[cat:bsn or cat:rsin]" mode="object_ref">
+		<xsl:text>nhr.</xsl:text><xsl:call-template name="get-name-abbr"/><xsl:text>.</xsl:text>
+		<xsl:if test="cat:bsn">
+			<xsl:text>bsn.</xsl:text><xsl:value-of select="cat:bsn"/>
+		</xsl:if>
+		<xsl:if test="cat:rsin">
+			<xsl:text>rsin.</xsl:text><xsl:value-of select="cat:rsin"/>
+		</xsl:if>
+	</xsl:template>
+
+	<!-- lege template voor gevallen zonder kvkNummer, vestigingsnummer, bsn of rsin bij heeftAlsEigenaar -->
+	<xsl:template match="*" mode="object_ref" />
 </xsl:stylesheet>
