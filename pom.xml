@@ -82,6 +82,7 @@
         <javasimon.version>4.1.4</javasimon.version>
         <javax.mail.version>1.6.1</javax.mail.version>
         <quartz.version>2.3.0</quartz.version>
+        <!-- bij ophogen van tomcat versie evt. ook de .mvn/owasp-suppression.xml file bijwerken -->
         <tomcat.version>7.0.90</tomcat.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
