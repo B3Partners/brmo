@@ -364,7 +364,7 @@
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <!-- versie 3.0.x voor tomcat 7, zie http://tomcat.apache.org/whichversion.html -->
-                <version>3.0.1</version>
+                <version>3.1.0</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
