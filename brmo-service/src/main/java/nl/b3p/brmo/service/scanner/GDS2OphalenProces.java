@@ -635,10 +635,11 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             }
             em.getTransaction().rollback();
             em.getTransaction().begin();
-            log.debug("Cannot save bericht/laadproces:", pe);
-            log.debug("Bericht: " + b.getObject_ref() + ":" + b.getBr_orgineel_xml());
+            lp.setId(null);
+            log.warn("Opslaan van bericht uit laadproces " + lp.getBestand_naam() + " is mislukt.", pe);
+            log.warn("Duplicaat bericht: " + b.getObject_ref() + ":" + b.getBr_orgineel_xml() + "(" + b.getBr_xml() + ")");
             lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);
-            lp.setOpmerking(lp.getOpmerking() + ": Fout, duplicaat bericht.");
+            lp.setOpmerking(lp.getOpmerking() + ": Fout, duplicaat bericht. Inhoud: \n" + b.getBr_xml());
             em.merge(this.config);
             em.persist(lp);
             em.flush();
@@ -846,7 +847,12 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         handlerChain.add(new LogMessageHandler());
         bp.getBinding().setHandlerChain(handlerChain);
 
-        String endpoint = (String) ctxt.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
+
+        final String MOCK_ENDPOINT = "http://localhost:8088/AfgifteService";
+        ctxt.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, MOCK_ENDPOINT);
+        log.info("Endpoint protocol gewijzigd naar mock: " + MOCK_ENDPOINT);
+
+      /*  String endpoint = (String) ctxt.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
         l.addLog("Kadaster endpoint: " + endpoint);
         l.updateStatus("Laden keys...");
 
@@ -863,7 +869,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         l.updateStatus("Opzetten SSL context...");
         context = createSslContext(kmf);
         ctxt.put(JAXWSProperties.SSL_SOCKET_FACTORY, context.getSocketFactory());
-
+*/
         return gds2;
     }
 
