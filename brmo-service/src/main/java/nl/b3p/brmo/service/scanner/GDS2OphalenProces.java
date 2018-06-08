@@ -847,12 +847,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         handlerChain.add(new LogMessageHandler());
         bp.getBinding().setHandlerChain(handlerChain);
 
-
-        final String MOCK_ENDPOINT = "http://localhost:8088/AfgifteService";
-        ctxt.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, MOCK_ENDPOINT);
-        log.info("Endpoint protocol gewijzigd naar mock: " + MOCK_ENDPOINT);
-
-      /*  String endpoint = (String) ctxt.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
+        String endpoint = (String) ctxt.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
         l.addLog("Kadaster endpoint: " + endpoint);
         l.updateStatus("Laden keys...");
 
@@ -869,7 +864,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         l.updateStatus("Opzetten SSL context...");
         context = createSslContext(kmf);
         ctxt.put(JAXWSProperties.SSL_SOCKET_FACTORY, context.getSocketFactory());
-*/
+
         return gds2;
     }
 
