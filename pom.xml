@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo</artifactId>
-    <version>1.5.2.3-SNAPSHOT</version>
+    <version>1.5.2.3</version>
     <packaging>pom</packaging>
     <modules>
         <module>brmo-test-util</module>
@@ -42,6 +42,7 @@
         <developerConnection>scm:git:git@github.com:B3Partners/brmo.git</developerConnection>
         <connection>scm:git:git@github.com:B3Partners/brmo.git</connection>
         <url>https://github.com/B3Partners/brmo/</url>
+    <tag>HEAD</tag>
   </scm>
     <issueManagement>
         <system>Github</system>
@@ -109,32 +110,32 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-taglib</artifactId>
-                <version>${project.version}</version>
+                <version>1.5.2.2</version>
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-init-util</artifactId>
-                <version>${project.version}</version>
+                <version>1.5.2.2</version>
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-soap-util</artifactId>
-                <version>${project.version}</version>
+                <version>1.5.2.2</version>
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-persistence</artifactId>
-                <version>${project.version}</version>
+                <version>1.5.2.2</version>
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-loader</artifactId>
-                <version>${project.version}</version>
+                <version>1.5.2.2</version>
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>topnlparser</artifactId>
-                <version>${project.version}</version>
+                <version>1.5.2.2</version>
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
@@ -405,7 +406,7 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-test-util</artifactId>
-                <version>${project.version}</version>
+                <version>1.5.2.2</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
