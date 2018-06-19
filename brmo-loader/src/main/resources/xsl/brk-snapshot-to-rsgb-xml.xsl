@@ -498,9 +498,9 @@
 		</xsl:variable>
 		<comfort search-table="subject" search-column="identif" search-value="{$comfort-search-value}" snapshot-date="{$toestandsdatum}">
 
-		<!-- TODO: class -->
         <xsl:call-template name="persoon">
             <xsl:with-param name="persoon" select="."/>
+			<xsl:with-param name="clazz" select="'NIET INGEZETENE'"/>
         </xsl:call-template>
         <nat_prs>
             <xsl:call-template name="geregistreerd_persoon-nat_persoon">
