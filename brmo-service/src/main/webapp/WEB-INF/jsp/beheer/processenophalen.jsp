@@ -154,30 +154,37 @@
                         </stripes:url>
                     </c:when>
 
-                            <c:when test="${actionBean.type eq 'LaadprocesTransformatieProces'}">
-                                <jsp:include page="editlaadprocestransformatieproces.jsp" />
-                                <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.LaadprocesTransformatieUitvoerActionBean">
-                                    <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
-                                </stripes:url>
-                            </c:when>
+                    <c:when test="${actionBean.type eq 'LaadprocesTransformatieProces'}">
+                        <jsp:include page="editlaadprocestransformatieproces.jsp" />
+                        <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.LaadprocesTransformatieUitvoerActionBean">
+                            <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
+                        </stripes:url>
+                    </c:when>
 
-                            <c:when test="${actionBean.type eq 'MaterializedViewRefresh'}">
-                                <jsp:include page="editmviewrefreshproces.jsp" />
-                                <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.MViewRefreshActionBean">
-                                    <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
-                                </stripes:url>
-                            </c:when>
+                    <c:when test="${actionBean.type eq 'MaterializedViewRefresh'}">
+                        <jsp:include page="editmviewrefreshproces.jsp" />
+                        <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.MViewRefreshActionBean">
+                            <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
+                        </stripes:url>
+                    </c:when>
 
-                            <c:when test="${actionBean.type eq 'BerichtstatusRapportProces'}">
-                                <jsp:include page="berichtstatusrapportedit.jsp" />
-                                <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean">
-                                    <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
-                                </stripes:url>
-                            </c:when>
+                    <c:when test="${actionBean.type eq 'BerichtstatusRapportProces'}">
+                        <jsp:include page="berichtstatusrapportedit.jsp" />
+                        <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean">
+                            <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
+                        </stripes:url>
+                    </c:when>
 
-                            <c:otherwise>
-                                <p>Onbekende input</p>
-                            </c:otherwise>
+                    <c:when test="${actionBean.type eq 'PDOKDownloadServiceProces'}">
+                        <jsp:include page="editpdokdownloadservice.jsp" />
+                        <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.PDOKDownloadServiceUitvoerActionBean">
+                            <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
+                        </stripes:url>
+                    </c:when>
+
+                    <c:otherwise>
+                        <p>Onbekende input</p>
+                    </c:otherwise>
                 </c:choose>
 
                 <stripes:submit name="execute" onclick="if(confirm('Let op! Het proces moet eerst zijn opgeslagen. \nCancel; eerst opslaan, OK; Toch verder gaan?')) window.open('${url}');">Uitvoeren</stripes:submit>

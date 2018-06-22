@@ -36,6 +36,7 @@ import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces;
 import nl.b3p.brmo.persistence.staging.MailRapportageProces;
 import nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
+import nl.b3p.brmo.persistence.staging.PDOKDownloadServiceProces;
 import nl.b3p.brmo.persistence.staging.TopNLScannerProces;
 import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
 import nl.b3p.brmo.service.jobs.GeplandeTakenInit;
@@ -189,6 +190,8 @@ public class OphaalConfigActionBean implements ActionBean {
                 return new BerichtstatusRapportProces();
             case TopNLScannerProces:
                 return new TopNLScannerProces();
+            case PDOKDownloadServiceProces:
+                return new PDOKDownloadServiceProces();
             default:
                 throw new IllegalArgumentException(type.name() + " is geen ondersteund proces type...");
         }

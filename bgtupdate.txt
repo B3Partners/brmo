@@ -1,0 +1,239 @@
+# BGT technisch verhaal
+
+Het huidige BRMO BGT schema is gebaseerd op RSGB 3.0. Het is geen eigen directe mapping van BGT naar SQL. Hierom zijn imgeo-s:tijdstipRegistratie en imgeo-s:eindRegistratie niet in de tabellen opgenomen. Deze kolommen betreffen de registratie van een bepaalde versie van een object. Deze zijn dus anders dan imgeo-s:objectBeginTijd en imgeo-s:objectEindTijd, welke de levensscyclus aanduiden.
+
+Dit is echter een probleem wanneer mutaties moeten worden verwerkt. Om goede redenen is het daarom beter om van het theoretische RSGB model af te wijken. 
+
+Let op! Objecthistorie was een tijd problematisch bij PDOK: https://forum.pdok.nl/t/update-rond-bgt-issue-niet-doorleveren-veld-eindregistratie/1234/38
+Pas sinds eind juni is dit (bijna) verholpen. Het beste is om met een verse stand te beginnen.
+
+Er is wel een eigen kolom 'bijwerkdatum' toegevoegd. Hierin wordt de datum van transformatie gezet.
+
+Qua updates worden nu objecten met hetzelfde ID sequentieel bijgewerkt. Hierin wordt niet gekeken naar imgeo-s:tijdstipRegistratie. Dit gaat in principe goed wanneer updates 'toevallig' in oplopende volgorde worden verwerkt, maar deze volgorde is niet gegarandeerd. Wel is er een vreemde check op objectBeginTijd maar dat is toevallig een bug die goed gaat vanwege datum zonder tijdzone.
+
+Objecten met een imsgeo-s:objectEindTijd worden bij het inladen overgeslagen. De kolom 'datum_einde_gelh' is dus loos, deze wordt nooit gevuld. Er is wel een methode BGTGMLLightLoader.deleteOldData(), die probeert oude data te verwijderen op basis van een eerdere bijwerkdatum (transformatiedatum) en het overlappen met een nieuw object. Deze methode is geen goed idee, beter is om gewoon naar objectEindTijd te kijken bij inladen updates en standen altijd op lege db in te laden. Werkte alleen met PostGIS, andere db te traag.
+
+## Voorstel
+
+- Verwijderde objecten niet opnemen
+- Oude versies niet opnemen maar updaten
+Hierdoor zijn geen views nodig om oude versies of verwijderde objecten te filteren. 
+
+Wel opnemen tijdstipRegistratie om nieuwere versies te kunnen toepassen of overslaan indien het een oude update is. eindRegistratie is hier niet voor nodig.
+
+Bij inladen updates records met objectEindTijd verwijderen, en nieuwe objecten uit update XML met tijdstipRegistratie nieuwer updaten en anders negeren.
+
+# BGT mapping
+
+In https://github.com/B3Partners/brmo/blob/master/bgt-gml-loader/src/main/xml/datamodel.xml staat een mapping van BGTlight naar RSGB 3.0. Op basis hiervan wordt met XSL Java-code gegenereerd die subclasses zijn van https://github.com/B3Partners/brmo/blob/master/bgt-gml-loader/src/main/java/nl/b3p/brmo/loader/gml/light/GMLLightFeatureTransformerImpl.java. Die subclasses vullen alleen attrMapping. Dit principe werkt, een andere implementatie zou zijn om datamodel.xml te parsen met JAXB. Ook wordt met XSL het DDL SQL gegenereerd. GeoTools zou het schema wel kunnen aanmaken, dit staat nu echter uit (BGTGMLLightLoader.createTables = false). Een script om bij installatie alle tabellen aan te maken is wel zo handig.
+
+In principe werkt het transformateren als volgt: een feature wordt ingeladen, en er wordt een nieuwe feature gemaakt door het mappen van attributen op basis van de informatie in datamodel.xml. GeoTools schrijft deze feature weg (maar maakt niet de tabel). Indien inserten mislukt vanwege een dubbel ID, wordt de feature geupdate.
+
+Bekijk onderstaand voorbeeld:
+
+	<gml:featureMember>
+		<imgeo-s:FunctioneelGebied gml:id="b3f353e89-58e1-11e8-a5a2-73a1868acdce">
+			<imgeo-s:objectBeginTijd>2018-02-12</imgeo-s:objectBeginTijd>
+			<imgeo-s:identificatie.namespace>NL.IMGeo</imgeo-s:identificatie.namespace>
+			<imgeo-s:identificatie.lokaalID>G0310.65022f4030ce1788e05332a1e90ae543</imgeo-s:identificatie.lokaalID>
+			<imgeo-s:tijdstipRegistratie>2018-02-12T11:17:52.000</imgeo-s:tijdstipRegistratie>
+			<imgeo-s:eindRegistratie>2018-05-15T09:18:30.000</imgeo-s:eindRegistratie>
+			<imgeo-s:LV-publicatiedatum>2018-02-12T11:31:24.000</imgeo-s:LV-publicatiedatum>
+			<imgeo-s:bronhouder>G0310</imgeo-s:bronhouder>
+			<imgeo-s:inOnderzoek>false</imgeo-s:inOnderzoek>
+			<imgeo-s:relatieveHoogteligging>0</imgeo-s:relatieveHoogteligging>
+			<imgeo-s:bgt-status>bestaand</imgeo-s:bgt-status>
+			<imgeo-s:bgt-type>niet-bgt</imgeo-s:bgt-type>
+			<imgeo-s:plus-type>begraafplaats</imgeo-s:plus-type>
+			<imgeo-s:naam>Brandenburg</imgeo-s:naam>
+			<imgeo-s:geometrie2d>
+				<gml:Polygon xmlns:gml="http://www.opengis.net/gml">
+					<gml:exterior>
+						<gml:LinearRing>
+							<gml:posList>140944.954 457389.765 140944.203 457401.390 140944.058 457404.751 140943.983 457405.794 140944.112 457406.208 140944.945 457410.788 140940.413 457412.307 140912.764 457421.556 140896.692 457426.665 140896.696 457423.695 140900.994 457395.897 140904.223 457381.819 140910.749 457381.796 140910.764 457385.394 140930.922 457385.314 140930.940 457389.820 140944.954 457389.765</gml:posList>
+						</gml:LinearRing>
+					</gml:exterior>
+				</gml:Polygon>
+			</imgeo-s:geometrie2d>
+		</imgeo-s:FunctioneelGebied>
+	</gml:featureMember>
+	<gml:featureMember>
+		<imgeo-s:FunctioneelGebied gml:id="b3f353e8a-58e1-11e8-a5a2-73a1868acdce">
+			<imgeo-s:objectBeginTijd>2018-02-12</imgeo-s:objectBeginTijd>
+			<imgeo-s:identificatie.namespace>NL.IMGeo</imgeo-s:identificatie.namespace>
+			<imgeo-s:identificatie.lokaalID>G0310.65022f4030ce1788e05332a1e90ae543</imgeo-s:identificatie.lokaalID>
+			<imgeo-s:tijdstipRegistratie>2018-05-15T09:18:30.000</imgeo-s:tijdstipRegistratie>
+			<imgeo-s:LV-publicatiedatum>2018-05-15T09:26:24.000</imgeo-s:LV-publicatiedatum>
+			<imgeo-s:bronhouder>G0310</imgeo-s:bronhouder>
+			<imgeo-s:inOnderzoek>false</imgeo-s:inOnderzoek>
+			<imgeo-s:relatieveHoogteligging>0</imgeo-s:relatieveHoogteligging>
+			<imgeo-s:bgt-status>bestaand</imgeo-s:bgt-status>
+			<imgeo-s:bgt-type>niet-bgt</imgeo-s:bgt-type>
+			<imgeo-s:plus-type>begraafplaats</imgeo-s:plus-type>
+			<imgeo-s:naam>Brandenburg</imgeo-s:naam>
+			<imgeo-s:geometrie2d>
+				<gml:Polygon xmlns:gml="http://www.opengis.net/gml">
+					<gml:exterior>
+						<gml:LinearRing>
+							<gml:posList>140944.954 457389.765 140944.203 457401.390 140944.058 457404.751 140943.983 457405.794 140944.112 457406.208 140944.945 457410.788 140940.413 457412.307 140912.764 457421.556 140896.692 457426.665 140896.649 457424.338 140896.666 457424.026 140896.696 457423.695 140900.994 457395.897 140904.223 457381.819 140910.749 457381.796 140910.764 457385.394 140930.922 457385.314 140930.940 457389.820 140944.954 457389.765</gml:posList>
+						</gml:LinearRing>
+					</gml:exterior>
+				</gml:Polygon>
+			</imgeo-s:geometrie2d>
+		</imgeo-s:FunctioneelGebied>
+	</gml:featureMember>
+	
+/*
+*  Copyright (C) 2018 B3Partners B.V.
+*
+* Gegenereerde code, niet aanpassen.
+*
+* Gegenereerd op: 2018-07-30T11:59:51.059+02:00
+*/
+package nl.b3p.brmo.loader.gml.light;
+        
+/** BGT Light GML transformer voor RSGB 3.0 objecttype FunctioneelGebied. */
+public class FunctioneelGebied extends GMLLightFeatureTransformerImpl {
+
+    public FunctioneelGebied() {
+        attrMapping.put("bgt-type", "bgt_type");
+        attrMapping.put("plus-type", "plus_type");
+        attrMapping.put("naam", "naam");
+        attrMapping.put("geometrie2d", DEFAULT_GEOM_NAME);
+
+    }
+}	
+
+Superclass attrMappings:
+
+ /* onderstaande niet in RSBG 3.0 */
+        // attrMapping.put("inOnderzoek", "inonderzoek");
+        attrMapping.put("inOnderzoek", null);
+        // attrMapping.put("tijdstipRegistratie", "tijdstip_registratie");
+        attrMapping.put("tijdstipRegistratie", null);
+        // attrMapping.put("eindRegistratie", "eind_registratie");
+        attrMapping.put("eindRegistratie", null);
+        // attrMapping.put("LV-publicatiedatum", "lv_publicatiedatum");
+        attrMapping.put("LV-publicatiedatum", null);
+        // attrMapping.put("bronhouder", "bronhouder");
+        attrMapping.put("bronhouder", null);
+        /* bovenstaande niet in RSBG 3.0 */
+
+        // (gedeelde) model attributen
+        attrMapping.put("objectBeginTijd", BEGINTIJD_NAME);
+        attrMapping.put("objectEindTijd", EINDTIJD_NAME);
+        attrMapping.put("bgt-status", "bgt_status");
+        attrMapping.put("plus-status", "plus_status");
+        attrMapping.put("relatieveHoogteligging", "relve_hoogteligging");
+
+Tabel:
+
+CREATE TABLE public.functioneelgebied
+(
+  identif character varying(255) NOT NULL,
+  dat_beg_geldh date,
+  datum_einde_geldh date,
+  relve_hoogteligging integer,
+  bgt_status character varying(255),
+  plus_status character varying(255),
+  bgt_type character varying(255),
+  plus_type character varying(255),
+  naam character varying(255),
+  geom2d geometry(Polygon,28992),
+  bijwerkdatum date,
+  CONSTRAINT functioneelgebied_pkey PRIMARY KEY (identif)
+)
+
+rsgbbgt=# select * from functioneelgebied where identif='NL.IMGeo:G0310.65022f4030ce1788e05332a1e90ae543;
+identif             | NL.IMGeo:G0310.65022f4030ce1788e05332a1e90ae543
+dat_beg_geldh       | 2018-02-12
+datum_einde_geldh   | 
+relve_hoogteligging | 0
+bgt_status          | bestaand
+plus_status         | 
+bgt_type            | niet-bgt
+plus_type           | begraafplaats
+naam                | Brandenburg
+geom2d              | 010300002040710000010000001300000083C0CAA187340141F6285C0FB7EA1B41C976BE9F81340141F6285C8FE5EA1B4139B4C87680340141DD240601F3EA1B41A01A2FDD7F34014104560E2DF7EA1B41894160E580340141B6F3FDD4F8EA1B41F6285C8F87340141D578E9260BEB1B41AAF1D24D633401413F355E3A11EB1B413108AC1C863301416210583936EB1B41C74B3789053301418FC2F5A84AEB1B4179E926310533014108AC1C5A41EB1B41D9CEF7530533014177BE9F1A40EB1B41B0726891053301417B14AEC73EEB1B41A245B6F327330141022B8796CFEA1B415839B4C8413301419EEFA74697EA1B4146B6F3FD75330141BE9F1A2F97EA1B413108AC1C763301416ABC7493A5EA1B4137894160173401414C378941A5EA1B4152B81E85173401417B14AE47B7EA1B4183C0CAA187340141F6285C0FB7EA1B41
+bijwerkdatum        | 2018-07-30
+	
+Logregels:
+
+2018-07-30 16:05:56 INFO  nl.b3p.brmo.loader.gml.BGTGMLLightLoader#processZipFile - Lezen GML bestand: bgt_functioneelgebied.gml uit zip file: /home/matthijsln/Downloads/extract (2).zip
+2018-07-30 16:05:56 INFO  nl.b3p.brmo.loader.gml.BGTGMLLightLoader#storeFeatureCollection - Duplicaat gevonden tijdens insert van feature: NL.IMGeo:G0310.65022f4030ce1788e05332a1e90ae543
+2018-07-30 16:05:56 INFO  nl.b3p.brmo.loader.gml.BGTGMLLightLoader#storeFeatureCollection - Aantal ingevoegde features voor bgt_functioneelgebied.gml: 2
+
+De eerste featureMember heeft een eindRegistratie, omdat er een nieuwe versie (met iets andere polygooncoordinaten) in hetzelfde bestand zit. 
+
+
+---
+
+De PDOK Download Service API werkt als volgt:
+
+Op https://test.downloads.pdok.nl/api/v2/deltas worden deltaId's gepubliceerd. Je kan van een bepaalde deltaId de volledige dataset na het verwerken van die deltaId's downloaden, of alleen de mutaties van die deltaId. De deltaId's gaan 31 dagen terug (er staat alleen geen datum bij de Id's).
+
+Er is ook een API /api/v2/deltas/{dataset}/{format}/download-full om de volledige dataset te downloaden. De aanname is dus dat je dan dezelfde data krijgt als wanneer je de volledige dataset van de laatste deltaId downloadt, en dat Id moet gebruiken om toekomstige mutaties op te halen.
+
+Je kan namelijk deltaId's ophalen sinds een bepaalde deltaId. Zodra er nog geen nieuwe mutaties zijn is dat dan een lege lijst. Elke delta moet je wel los downloaden.
+
+Onbekend is of je een deltaId ouder dan 31 dagen kan opgeven.
+
+---
+
+Werking gebruik PDOK Download Service API:
+
+- Knop voor het inladen van een stand via de API. Default zou dit de laatste volledige download kunnen zijn dus de laatste delta id. Maar voor het testen van het toepassen van updates is het wel nuttig om een ouder deltaId te kunnen invullen. Belangrijk is is dat de volledige download wordt opgeslagen met bgt-full-[deltaId].zip. Deze bestandsnaam wordt gebruikt voor het ophalen van nieuwe deltaIds.
+
+- Proces dat delta id's ophaalt. Deze kijkt naar het jongste BGT laadproces met naam bgt-full-[deltaId].zip of bgt-delta-[deltaId].zip. Deze bevraagt de API naar nieuwe deltaId's sinds deze gevonden Id.
+
+- Uit ervaring blijkt de download service niet heel stabiel. Heel Nederland downloaden zal niet direct snel binnen komen. Ook worden met de huidige service met een enkel blad op diep zoomniveau wel problemen gerapporteerd. Hierdoor is het een goed idee om voor laadproces een status VOOR STAGING_OK te introduceren, zoals DOWNLOAD_AVAILABLE. Na een tijdje DOWNLOADING kan deze dan na sucessvolle download naar STAGING_OK en getransformeerd worden naar RGSB_BGT_OK. Een gedownload ZIP bestand moet ook gecontroleerd worden omdat soms wel eens halve/corrupte bestanden geleverd worden. Dit kan door een ZIPInputStream te lezen maar er niks mee te doen, dan wordt de CRC gecheckt (? nalopen).
+
+Bij downloaden is het volgende belangrijk:
+- HTTP client lange timeouts;
+- Bij ContextDestroyed event download cancellen en weer naar DOWNLOAD_AVAILABLE;
+- Bij opstarten DOWNLOADING laadprocessen weer naar DOWNLOAD_AVAILABLE zetten (dan is download niet 'gracefully' gecancelled).
+- Ipv de huidige URLConnection downloads mogelijk HttpClient gebruiken voor monitoring / cancelling
+
+- Eventueel kan een delta per type opgehaald worden om zo te download te splitsen.
+
+Nuttig zou hier ook een statuspagina zijn. Of een voortgangsindicatie in laadproces scherm net zoals bij transformeren.
+
+Een automatisch proces kan ervoor zorgen dat bestanden gedownload worden.
+
+---
+
+Transformeren delta's
+
+De API levert geen GMLLight maar bgtv3. Er wordt een datamodel.xml gemaakt om deze te mappen naar de features voor in de BRMO databaase. Deze mapping wordt met JAXB ingeladen. De data wordt met StAX streaming geladen. GeoTools wordt gebruikt om los de geometrie te parsen. Er worden nieuwe GeoTools features gemaakt om in de RSGB database weg te schrijven, te updaten of te verwijderen. Bij een bestandsnaam bgt-full- worden geen beeindigde features verwijderd maar gewoon overgeslagen. Zo hoeft in de interface niet de keuze 'snel stand laden' gemaakt te worden.
+
+Het gebruik van GeoTools zorgt voor database-abstractie, maar levert wel roundtrips op voor elke feature. Met directe SQL kan efficienter gebatched worden of snel meerdere records verwijderd worden. Inschatting is dat deze optimalisaties nu niet nodig zijn, vanwege de simpele mapping van een enkele feature naar een enkele tabel er dus maar een paar roundtrips naar de database per object nodig zijn.
+
+Een bgtv3Mutaties XML is gesplitst in meerdere mutatieGroep elementen en zijn toevoegingen, updates en verwijdering gesplitst:
+https://github.com/PDOK/schemas-mutatielevering/blob/master/mutatielevering-generiek-1.0.xsd
+
+
+---
+
+Berichten tabel
+
+Er werden geen BGT objecten in de berichten tabel opgeslagen. Dat blijft zo, mutaties worden alleen verwerkt op basis van tijdstripRegistratie. 
+
+
+----
+
+Vragen/opmerkingen over API
+
+Aan deltaId's hangen geen datum/tijd/sequence nummer anders dan de array index.
+
+Wanneer deltas worden opgevraagd voor een deltaId van een die ouder is dan 31 dagen, wat is dan de response? 
+
+Response alle huidige deltaIds is niet voldoende, want dan weet je niet over er een 'update-gat' zit.
+
+Response van deltaId niet gevonden is beter, want dan weet je dat je een volledige stand moet downloaden.
+
+Workaround: gebruik niet de /api/v2/deltas/bgtv3/{format}/since/{deltaId} api, maar bekijk altijd de volledige lijst om zelf de {deltaId} op te zoeken en 'gaten' te detecteren.
+
+Verder: gebruik niet de /api/v2/deltas/bgtv3/{format}/download-full API, omdat er niet expliciet aangegeven wat hier het deltaId van is. Beter /api/v2/deltas/{dataset}/{format}/download-full/{deltaId} dan aannemen dat je anders de laatste deltaId krijgt.
+
+Raar is dat de /api/v2/deltas niet per dataset is. Wanneer een andere dataset dan bgtv3 wordt toegevoegd, bevatten deltaIds dan soms lege mutaties als die er niet zijn voor een bepaalde dataset? Of geven die dan een 404? 
+

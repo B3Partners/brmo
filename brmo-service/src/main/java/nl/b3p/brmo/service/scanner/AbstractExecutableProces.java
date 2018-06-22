@@ -12,22 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import nl.b3p.brmo.loader.util.BrmoException;
-import nl.b3p.brmo.persistence.staging.AutomatischProces;
-import nl.b3p.brmo.persistence.staging.BAGScannerProces;
-import nl.b3p.brmo.persistence.staging.BGTLightOphaalProces;
-import nl.b3p.brmo.persistence.staging.BGTLightScannerProces;
-import nl.b3p.brmo.persistence.staging.BRKScannerProces;
-import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
-import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
-import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
-import nl.b3p.brmo.persistence.staging.LaadProces;
-import nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces;
-import nl.b3p.brmo.persistence.staging.MailRapportageProces;
-import nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
-import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
-import nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces;
-import nl.b3p.brmo.persistence.staging.TopNLScannerProces;
-import static nl.b3p.brmo.service.scanner.ProcesExecutable.ProcessingImple.TopNLScannerProces;
+import nl.b3p.brmo.persistence.staging.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
@@ -84,6 +69,12 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
                 return new BerichtstatusRapport((BerichtstatusRapportProces) config);
             case TopNLScannerProces:
                 return new TopNLDirectoryScanner((TopNLScannerProces) config);
+            case PDOKDownloadServiceProces:
+                return new PDOKDownloadServiceScanner((PDOKDownloadServiceProces) config);
+            case BGTMutatieServiceStandProces :
+                return new BGTMutatieServiceStandOphalen((BGTMutatieServiceStandProces) config);
+            case BGTMutatieServiceDeltaProces:
+                return new BGTMutatieServiceDeltaOphalen((BGTMutatieServiceDeltaProces) config);
             default:
                 throw new IllegalArgumentException(imple.name() + " is is geen ondersteund proces...");
         }
