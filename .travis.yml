@@ -29,10 +29,10 @@ cache:
 
 before_install:
   # installeer een up-2-date Maven versie
-  - wget https://www-eu.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.zip
-  - unzip -qq apache-maven-3.5.2-bin.zip
-  - export M2_HOME=$PWD/apache-maven-3.5.2
-  - export PATH=$M2_HOME/bin:$PATH
+  #- wget https://www-eu.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.zip
+  #- unzip -qq apache-maven-3.5.2-bin.zip
+  #- export M2_HOME=$PWD/apache-maven-3.5.2
+  #- export PATH=$M2_HOME/bin:$PATH
   - mvn -v
   # installeer/update postgis 2.2 op postgresql 9.5
   - sudo service postgresql stop
