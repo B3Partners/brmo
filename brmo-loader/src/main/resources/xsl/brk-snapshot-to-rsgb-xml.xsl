@@ -500,16 +500,15 @@
 
         <xsl:call-template name="persoon">
             <xsl:with-param name="persoon" select="."/>
-			<xsl:with-param name="clazz" select="'NIET INGEZETENE'"/>
+			<xsl:with-param name="clazz" select="'INGESCHREVEN NATUURLIJK PERSOON'"/>
         </xsl:call-template>
         <nat_prs>
-            <clazz>NIET INGEZETENE</clazz>
+            <clazz>INGESCHREVEN NATUURLIJK PERSOON</clazz>
             <xsl:call-template name="geregistreerd_persoon-nat_persoon">
                 <xsl:with-param name="persoon" select="."/>
             </xsl:call-template>
         </nat_prs>
         <ingeschr_nat_prs>
-            <clazz>NIET INGEZETENE</clazz>
             <xsl:call-template name="geregistreerd_persoon-ingeschr_nat_persoon">
                 <xsl:with-param name="persoon" select="."/>
             </xsl:call-template>

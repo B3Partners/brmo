@@ -148,20 +148,18 @@ public class Mantis11180IntegrationTest extends AbstractDatabaseIntegrationTest 
         for (String table : tables) {
             ITable tbl = rsgb.createDataSet().getTable(table);
             assertEquals("Aantal rijen klopt niet in tabel " + table, 3, tbl.getRowCount());
-            assertNotNull("'clazz' is null voor rij 1, tabel " + table, tbl.getValue(0, "clazz"));
-            assertEquals("'clazz' klopt niet in tabel " + table, "NIET INGEZETENE", tbl.getValue(0, "clazz"));
-            assertNotNull("'clazz' is null voor rij 2, tabel " + table, tbl.getValue(1, "clazz"));
-            assertEquals("'clazz' klopt niet in tabel " + table, "INGESCHREVEN NATUURLIJK PERSOON", tbl.getValue(1, "clazz"));
-            assertNotNull("'clazz' is null voor rij 3, tabel " + table, tbl.getValue(2, "clazz"));
-            assertEquals("'clazz' klopt niet in tabel " + table, "INGESCHREVEN NATUURLIJK PERSOON", tbl.getValue(2, "clazz"));
+            for (int row=0;row < 3; row++) {
+                assertNotNull("'clazz' is null voor rij "+ row + 1 +", tabel " + table, tbl.getValue(0, "clazz"));
+                assertEquals("'clazz' klopt niet in tabel " + table, "INGESCHREVEN NATUURLIJK PERSOON", tbl.getValue(0, "clazz"));
+            }
         }
         // ingeschr_nat_prs
         ITable ingeschr_nat_prs = rsgb.createDataSet().getTable("ingeschr_nat_prs");
         assertEquals("Aantal ingeschr_nat_prs klopt niet.", 3, ingeschr_nat_prs.getRowCount());
-        assertNotNull("'clazz' is null voor rij 1, tabel ingeschr_nat_prs", ingeschr_nat_prs.getValue(0, "clazz"));
-        assertEquals("'clazz' klopt niet voor rij 1 in tabel ingeschr_nat_prs", "NIET INGEZETENE", ingeschr_nat_prs.getValue(0, "clazz"));
-        assertNull("'clazz' is niet null voor rij 2, tabel ingeschr_nat_prs", ingeschr_nat_prs.getValue(1, "clazz"));
-        assertNull("'clazz' is niet null voor rij 3, tabel ingeschr_nat_prs", ingeschr_nat_prs.getValue(2, "clazz"));
+        for (int row=0;row < 3; row++) {
+            assertNull("'clazz' is niet null voor rij "+ row + 1 +", tabel ingeschr_nat_prs", ingeschr_nat_prs.getValue(row, "clazz"));
+
+        }
         // niet_ingezetene
         ITable niet_ingezetene = rsgb.createDataSet().getTable("niet_ingezetene");
         assertEquals("Aantal niet_ingezetene klopt niet", 1, niet_ingezetene.getRowCount());
