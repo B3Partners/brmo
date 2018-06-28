@@ -53,6 +53,8 @@ import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.BrkBericht;
+import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.LOG_NEWLINE;
@@ -506,7 +508,22 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                         l.updateStatus(msg);
                         l.addLog(msg);
                         log.debug(msg);
-                        brmo.loadFromStream("bag", new CloseShieldInputStream(innerzip), getLaadprocesBestandsnaam(a) + "/" + entry.getName() + "/" + innerentry.getName());
+                        try {
+                            brmo.loadFromStream(BrmoFramework.BR_BAG,
+                                    new CloseShieldInputStream(innerzip),
+                                    getLaadprocesBestandsnaam(a) + "/" + entry.getName() + "/" + innerentry.getName()
+                            );
+                        } catch (BrmoDuplicaatLaadprocesException d) {
+                            msg = "Duplicaat laadproces. " + d.getLocalizedMessage();
+                            l.updateStatus(msg);
+                            l.addLog(msg);
+                            log.warn(msg);
+                        } catch (BrmoLeegBestandException e) {
+                            msg = "Leeg bestand voor laadproces. " + e.getLocalizedMessage();
+                            l.updateStatus(msg);
+                            l.addLog(msg);
+                            log.info(msg);
+                        }
                         innerentry = innerzip.getNextEntry();
                     }
                 } else {
