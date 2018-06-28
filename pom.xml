@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo</artifactId>
-    <version>1.5.2.4</version>
+    <version>1.5.2.5-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
         <module>brmo-test-util</module>
@@ -110,32 +110,37 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-taglib</artifactId>
-                <version>1.5.2.4</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-init-util</artifactId>
-                <version>1.5.2.4</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-soap-util</artifactId>
-                <version>1.5.2.4</version>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>nl.b3p</groupId>
+                <artifactId>bgt-gml-loader</artifactId>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-persistence</artifactId>
-                <version>1.5.2.4</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-loader</artifactId>
-                <version>1.5.2.4</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>topnlparser</artifactId>
-                <version>1.5.2.4</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
