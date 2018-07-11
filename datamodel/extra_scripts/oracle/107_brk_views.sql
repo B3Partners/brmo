@@ -128,17 +128,21 @@ SELECT
     END                     AS naam,
     inp.va_loc_beschrijving AS woonadres,
     CASE
-        WHEN ((s.clazz) = 'INGESCHREVEN NATUURLIJK PERSOON')
+        WHEN (((s.clazz) = 'INGESCHREVEN NATUURLIJK PERSOON')
+            AND LENGTH(inp.gb_geboortedatum)=8)
         THEN to_date(TO_CHAR(inp.gb_geboortedatum, '99999999'), 'YYYYMMDD')
-        WHEN ((s.clazz) = 'ANDER NATUURLIJK PERSOON')
+        WHEN (((s.clazz) = 'ANDER NATUURLIJK PERSOON')
+            AND LENGTH(anp.geboortedatum)=8)
         THEN to_date(TO_CHAR(anp.geboortedatum, '99999999'), 'YYYYMMDD')
         ELSE CAST(NULL AS DATE)
     END                   AS geboortedatum,
     inp.gb_geboorteplaats AS geboorteplaats,
     CASE
-        WHEN ((s.clazz) = 'INGESCHREVEN NATUURLIJK PERSOON')
+        WHEN (((s.clazz) = 'INGESCHREVEN NATUURLIJK PERSOON')
+            AND LENGTH(inp.ol_overlijdensdatum)=8)
         THEN to_date(TO_CHAR(inp.ol_overlijdensdatum, '99999999'), 'YYYYMMDD')
-        WHEN ((s.clazz) = 'ANDER NATUURLIJK PERSOON')
+        WHEN (((s.clazz) = 'ANDER NATUURLIJK PERSOON')
+            AND LENGTH(anp.overlijdensdatum)=8)
         THEN to_date(TO_CHAR(anp.overlijdensdatum, '99999999'), 'YYYYMMDD')
         ELSE CAST(NULL AS DATE)
     END AS overlijdensdatum,
@@ -434,7 +438,11 @@ CREATE OR REPLACE VIEW
 SELECT
     CAST(ROWNUM AS INTEGER)	 AS objectid,
     qry.identif as koz_identif,
-    to_date(koz.dat_beg_geldh, 'YYYY-MM-DD') AS begin_geldigheid,
+    CASE
+        WHEN (LENGTH(koz.dat_beg_geldh)=10)
+        THEN to_date(koz.dat_beg_geldh, 'YYYY-MM-DD')
+        ELSE CAST(NULL AS DATE)
+    END                      AS begin_geldigheid,
     bok.fk_nn_lh_tgo_identif                       AS benoemdobj_identif,
     qry.type,
     COALESCE(qry.ka_sectie, '') || ' ' || COALESCE(qry.ka_perceelnummer, '') AS aanduiding,
@@ -610,7 +618,8 @@ CREATE OR REPLACE VIEW
     ) AS
 SELECT
     zr.kadaster_identif AS zr_identif,
-    ((COALESCE(cast(zr.ar_teller as character varying(5)), ('0')) || ('/')) || COALESCE(cast(zr.ar_noemer as character varying(5)), ('0'))) AS aandeel,
+    (CAST( ( COALESCE(CAST(zr.ar_teller AS CHARACTER VARYING(7)), ('0')) || ('/') || COALESCE(CAST
+    (zr.ar_noemer AS CHARACTER VARYING(7)), ('0')) ) AS CHARACTER VARYING(20))) AS aandeel,
     zr.ar_teller,
     zr.ar_noemer,
     zr.fk_8pes_sc_identif  AS subject_identif,
@@ -1276,12 +1285,20 @@ CREATE OR REPLACE VIEW
 SELECT
     CAST(ROWNUM AS INTEGER) AS objectid,
     qry.identif as koz_identif,
-    to_date((koza.dat_beg_geldh), 'YYYY-MM-DD') AS begin_geldigheid,
+    CASE
+        WHEN (LENGTH(koza.dat_beg_geldh)=10)
+        THEN to_date(koza.dat_beg_geldh, 'YYYY-MM-DD')
+        ELSE CAST(NULL AS DATE)
+    END AS begin_geldigheid,
     --hack vanwege foutieve formatering in archieftabel voor kadastrale onroerende zaak
     CASE
-        WHEN INSTR(koza.datum_einde_geldh, '-', 1) = 5
+        WHEN ((INSTR(koza.datum_einde_geldh, '-', 1) = 5)
+            AND (LENGTH(koza.datum_einde_geldh)=10))
         THEN to_date((koza.datum_einde_geldh), 'YYYY-MM-DD')
-        ELSE to_date((koza.datum_einde_geldh), 'DD-MM-YYYY')
+        WHEN ((INSTR(koza.datum_einde_geldh, '-', 1) = 3)
+            AND (LENGTH(koza.datum_einde_geldh)=10))
+        THEN to_date((koza.datum_einde_geldh), 'DD-MM-YYYY')
+        ELSE CAST(NULL AS DATE)
     END AS eind_geldigheid,
     qry.type,
     (((COALESCE(qry.ka_sectie, '')) || ' ') || (COALESCE
