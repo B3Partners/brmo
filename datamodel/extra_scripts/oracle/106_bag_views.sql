@@ -56,6 +56,11 @@ SELECT
     CAST(ROWNUM AS INTEGER)                            AS objectid,
     na.sc_identif                                              AS na_identif,
     to_date(addrobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS') AS begin_geldigheid,
+    CASE
+        WHEN position('-' IN addrobj.dat_beg_geldh) = 5
+        THEN to_date(addrobj.dat_beg_geldh, 'YYYY-MM-DD')
+        ELSE to_date(addrobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
+    END AS begin_geldigheid,
     gem.naam                                                   AS gemeente,
     CASE
         WHEN (addrobj.fk_6wpl_identif IS NOT NULL)
@@ -160,7 +165,11 @@ CREATE OR REPLACE VIEW
     ) AS
 SELECT
     vbo.sc_identif                                          AS vbo_identif,
-    to_date(gobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS') AS begin_geldigheid,
+    CASE
+        WHEN position('-' IN gobj.dat_beg_geldh) = 5
+        THEN to_date(gobj.dat_beg_geldh, 'YYYY-MM-DD')
+        ELSE to_date(gobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
+    END AS begin_geldigheid,
     fkpand.fk_nn_rh_pnd_identif                             AS pand_identif,
     bva.na_identif 																					as na_identif,
     bva.gemeente,
@@ -220,7 +229,11 @@ CREATE OR REPLACE VIEW
     ) AS
 SELECT
     spl.sc_identif                                            AS spl_identif,
-    to_date(benter.dat_beg_geldh, 'YYYYMMDDHH24MISSUS') AS begin_geldigheid,
+    CASE
+        WHEN position('-' IN benter.dat_beg_geldh) = 5
+        THEN to_date(benter.dat_beg_geldh, 'YYYY-MM-DD')
+        ELSE to_date(benter.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
+    END AS begin_geldigheid,
     bva.na_identif 					      as na_identif,
     bva.gemeente,
     bva.woonplaats,
@@ -268,7 +281,11 @@ CREATE OR REPLACE VIEW
     ) AS
 SELECT
     lpa.sc_identif                                            AS lpl_identif,
-    to_date(benter.dat_beg_geldh, 'YYYYMMDDHH24MISSUS') AS begin_geldigheid,
+    CASE
+        WHEN position('-' IN benter.dat_beg_geldh) = 5
+        THEN to_date(benter.dat_beg_geldh, 'YYYY-MM-DD')
+        ELSE to_date(benter.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
+    END AS begin_geldigheid,
     bva.na_identif 				              as na_identif,
     bva.gemeente,
     bva.woonplaats,
@@ -312,7 +329,11 @@ CREATE OR REPLACE VIEW
 SELECT
     CAST(ROWNUM AS INTEGER) AS objectid,
     pand.identif as pand_identif,
-    to_date(pand.dat_beg_geldh, 'YYYYMMDDHH24MISSUS') AS begin_geldigheid,
+    CASE
+        WHEN position('-' IN pand.dat_beg_geldh) = 5
+        THEN to_date(pand.dat_beg_geldh, 'YYYY-MM-DD')
+        ELSE to_date(pand.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
+    END AS begin_geldigheid,
     pand.oorspronkelijk_bouwjaar                            AS bouwjaar,
     pand.status,
     pand.geom_bovenaanzicht AS the_geom
