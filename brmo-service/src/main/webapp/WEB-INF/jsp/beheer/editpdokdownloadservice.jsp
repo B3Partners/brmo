@@ -21,10 +21,10 @@
         </stripes:select>
     </td>
 
-    <tr class="download" valign="top"><td>BGT excludedtypes:</td><td><stripes:text name="config['param_bgtExludedTypes']" size="80"/><br>Default: [plaatsbepalingspunt]</td></tr>
+    <tr class="download" valign="top"><td>BGT excludedtypes:</td><td><stripes:text name="config['param_excludedtypes']" size="80"/><br>Default: [plaatsbepalingspunt]</td></tr>
     <tr class="download" valign="top">
         <td>
-            BGT geographischFilter:</td><td><stripes:text name="config['param_bgtGeographischFilter']" size="80"/><br>
+            BGT geographischFilter:</td><td><stripes:text name="config['param_geographischFilter']" size="80"/><br>
             1. Selecteer gebied bij <a href="https://downloads.pdok.nl/embed.html" target="_blank">PDOK</a><br>
             2. Kopieer de link "Download kaartbladselectie" naar het klembord<br>
             3. Plak de waarde op <a href="https://www.urldecoder.org/" target="_blank">URL decoder</a><br>

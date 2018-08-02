@@ -40,7 +40,13 @@ public class PDOKDownloadServiceProces extends AutomatischProces {
 
     public String getPDOKServiceURL() {
         String s = ClobElement.nullSafeGet(this.getConfig().get(PDOK_SERVICE_URL));
-        return s == null ? PDOK_SERVICE_URL_DEFAULT : s;
+        if(s == null) {
+            s = PDOK_SERVICE_URL_DEFAULT;
+        }
+        if(!s.endsWith("/")) {
+            s = s + "/";
+        }
+        return s;
     }
 
     public void setPDOKServiceUR(String url) {

@@ -18,6 +18,7 @@ package nl.b3p.brmo.service.scanner;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,7 +26,9 @@ import java.net.URLConnection;
 import java.security.GeneralSecurityException;
 import java.security.cert.X509Certificate;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -36,8 +39,11 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
 import nl.b3p.brmo.persistence.staging.LaadProces;
 import nl.b3p.brmo.persistence.staging.PDOKDownloadServiceProces;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.http.client.utils.URIBuilder;
 import org.hibernate.engine.jdbc.StreamUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -284,7 +290,55 @@ public class PDOKDownloadServiceScanner extends AbstractExecutableProces {
         info("Laadproces aangemaakt: " + lp.getBestand_naam());
     }
 
-    private void download() {
+    private void download() throws Exception {
+        info("Controleer laadprocessen die gedownload kunnen worden...");
+        List<LaadProces> lps = Stripersist.getEntityManager().createQuery("from LaadProces where bestand_naam like '%/" + getFileNamePrefix() + "%.zip' and status = :s order by bestand_datum")
+                .setParameter("s", LaadProces.STATUS.DOWNLOAD_AVAILABLE)
+                .getResultList();
+
+        if(lps.isEmpty()) {
+            info("Geen downloads gevonden");
+            return;
+        }
+
+        info("Aantal downloads: " + lps.size());
+
+        for(LaadProces lp: lps) {
+            String deltaId = getDeltaIdFromLaadProces(lp);
+            boolean full = lp.getBestand_naam().contains(getFileNamePrefix() + "full_");
+            info("Start download " + (full ? "volledige stand" : "mutaties") + " naar bestand " + lp.getBestand_naam());
+
+            File f = new File(lp.getBestand_naam());
+
+            String url = config.getPDOKServiceURL();
+            url += "api/v2/deltas/" + config.getDataset() + "/" + config.getFormat() + (full ? "/download-full/" : "/download-delta/") + deltaId;
+
+            String excludedTypes = "[plaatsbepalingspunt]";
+            Map<String,String> params = new HashMap(config.getParameters());
+            if(!params.containsKey("excludedtypes")) {
+                params.put("excludedtypes", "[plaatsbepalingspunt]");
+            }
+            URIBuilder ub = new URIBuilder(url);
+            for(Map.Entry<String,String> p: params.entrySet()) {
+                ub.addParameter(p.getKey(), p.getValue());
+            }
+            info("URL: " + ub.toString());
+            URLConnection c = getURLConnection(ub.toString(), config.isSSLValidationEnabled());
+            c.connect();
+            long startTime = System.currentTimeMillis();
+            try {
+                IOUtils.copy(c.getInputStream(), new FileOutputStream(f));
+            } finally {
+                info("Download tijd: " + DurationFormatUtils.formatPeriod(startTime, System.currentTimeMillis(), "HHH:mm:ss.SSS"));
+            }
+            info("Bestand succesvol gedownload, update laadproces naar STAGING_OK");
+            lp.setStatus(LaadProces.STATUS.STAGING_OK);
+            Stripersist.getEntityManager().flush();
+            Stripersist.getEntityManager().getTransaction().commit();
+            // XXX check of bij volgend bestand fout goede downloads wel op STAGING_OK worden gezet
+        }
+
+
     }
 
     private JSONObject getDeltaIds(PDOKDownloadServiceProces config) throws Exception {
