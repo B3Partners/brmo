@@ -17,6 +17,7 @@
 package nl.b3p.brmo.service.scanner;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -24,6 +25,7 @@ import java.net.URLConnection;
 import java.security.GeneralSecurityException;
 import java.security.cert.X509Certificate;
 import java.util.Date;
+import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -32,10 +34,12 @@ import javax.persistence.Transient;
 import nl.b3p.brmo.loader.util.BrmoException;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
+import nl.b3p.brmo.persistence.staging.LaadProces;
 import nl.b3p.brmo.persistence.staging.PDOKDownloadServiceProces;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.engine.jdbc.StreamUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.stripesstuff.stripersist.Stripersist;
 
@@ -85,7 +89,8 @@ public class PDOKDownloadServiceScanner extends AbstractExecutableProces {
         // Create custom logger path with dataset name, to be able to split
         // to separate log files per dataset
 
-        log = LogFactory.getLog("nl.b3p.brmo.service.scanner.pdok. " + config.getDataset());
+        log = LogFactory.getLog("nl.b3p.brmo.service.scanner.pdok." + config.getDataset());
+        log.info("init " + config.toString());
     }
 
     @Override
@@ -102,7 +107,6 @@ public class PDOKDownloadServiceScanner extends AbstractExecutableProces {
 
             @Override
             public void exception(Throwable t) {
-                log.error(t);
             }
 
             @Override
@@ -111,9 +115,13 @@ public class PDOKDownloadServiceScanner extends AbstractExecutableProces {
 
             @Override
             public void addLog(String l) {
-                log.info(l);
             }
         });
+    }
+
+    private void info(String l) {
+        this.listener.addLog(l);
+        log.info(l);
     }
 
     @Override
@@ -125,18 +133,158 @@ public class PDOKDownloadServiceScanner extends AbstractExecutableProces {
         Stripersist.getEntityManager().flush();
 
         try {
-            // Get all deltaIds always - do not send since deltaId as this is useless
-            // This API call is fast and always gives a small response
-            JSONObject deltaIds = getDeltaIds(config);
-            log.debug("DeltaIds: " + deltaIds.toString());
-            // Look at current laadprocessen
+            if(PDOKDownloadServiceProces.MODE_CHECK_DOWNLOADS.equals(config.getMode())) {
+                info("Controleer op nieuwe beschikbare " + config.getDataset() + " downloads bij de PDOK Download Service... ");
+                checkDownloads();
+            } else {
+                info("Controleer of " + config.getDataset() + " datasets gedownload moeten worden van de PDOK Download Service... ");
+                download();
+            }
 
-            // Determine new LaadProcessen to create
         } catch(Exception e) {
             config.setSamenvatting("Er is een fout opgetreden (" + e.getClass() + ": " + e.getMessage() + "), details staan in de logs.");
             config.setStatus(ERROR);
             listener.exception(e);
         }
+    }
+
+    private String getFileNamePrefix() {
+        return config.getDataset() + "_" + config.getFormat() + "_";
+    }
+
+    private void checkDownloads() throws Exception {
+        info("Start ophalen met deltaIds van " + config.getPDOKServiceURL());
+
+        // Get all deltaIds always - do not send since deltaId as this is useless
+        // This API call is fast and always gives a small response
+        JSONObject response = getDeltaIds(config);
+
+        if(!response.has("deltaIds") || response.getJSONArray("deltaIds").length() == 0) {
+            throw new Exception("Geen deltaIds gevonden!");
+        }
+        JSONArray deltaIds = response.getJSONArray("deltaIds");
+        info("Aantal deltaIds: " + deltaIds.length() + ", laatste: " + deltaIds.getString(deltaIds.length()-1));
+
+        // Look at current laadprocessen
+        info("Controleer bestaande laadprocessen...");
+        List<LaadProces> lps = Stripersist.getEntityManager().createQuery("from LaadProces where bestand_naam like '%/" + getFileNamePrefix() + "%.zip' order by bestand_datum").getResultList();
+
+        LaadProces latestFull = null;
+        LaadProces latestDelta = null;
+        for(LaadProces lp: lps) {
+            log.debug(String.format("Gevonden laadproces van %tF %tT: %s", lp.getBestand_datum(), lp.getBestand_datum(), lp.getBestand_naam()));
+            if(lp.getBestand_naam().contains(getFileNamePrefix() + "full_")) {
+                latestFull = lp;
+                latestDelta = null;
+            }
+            if(lp.getBestand_naam().contains(getFileNamePrefix() + "delta_")) {
+                if(latestFull == null) {
+                    info("LaadProces " + lp.getBestand_naam() + " is delta zonder voorgaande volledige stand, negeren!");
+                } else {
+                    latestDelta = lp;
+                }
+            }
+        }
+        if(latestFull == null) {
+            info("Nog geen laadproces gevonden met volledige stand");
+
+            String startDeltaId = config.getStartDeltaId();
+            int startDeltaIdIndex = -1;
+            if(startDeltaId != null) {
+                info("Zoek naar deltaId " + startDeltaId + " om mee te beginnen...");
+                for(int i = 0; i < deltaIds.length(); i++) {
+                    String d = deltaIds.getString(i);
+                    if(startDeltaId.equals(d)) {
+                        startDeltaIdIndex = i;
+                        break;
+                    }
+                }
+                if(startDeltaIdIndex != -1) {
+                    info("Gevraagde start deltaId gevonden op positie " + (startDeltaIdIndex+1) + ", aantal delta's beschikbaar: " + (deltaIds.length() - startDeltaIdIndex - 1));
+
+                    maakLaadProces(true, startDeltaId);
+
+                    for(int i = startDeltaIdIndex + 1; i < deltaIds.length(); i++) {
+                        maakLaadProces(false, deltaIds.getString(i));
+                    }
+                } else {
+                    info("Gevraagde start deltaId niet gevonden!");
+                }
+            } else {
+                if(config.isGetFirstDelta()) {
+                    info("Maak laadproces voor eerst beschikbare stand");
+                    if("bgtv3".equals(config.getDataset())) {
+                        info("WAARSCHUWING: Voor bgtv3 is eerste stand downloaden onzinnig, in laatste stand is volledige historie aanwezig!");
+                    }
+                    maakLaadProces(true, deltaIds.getString(0));
+                    for(int i = 1; i < deltaIds.length(); i++) {
+                        maakLaadProces(false, deltaIds.getString(i));
+                    }
+                } else {
+                    info("Maak laadproces voor laatst beschikbare stand");
+                    maakLaadProces(true, deltaIds.getString(deltaIds.length()-1));
+                }
+            }
+        } else {
+            info(String.format("Laatste laadproces van volledige stand: %s van %tF %tT", latestFull.getBestand_naam(), latestFull.getBestand_datum(), latestFull.getBestand_datum()));
+
+            String searchFor;
+            if(latestDelta == null) {
+                searchFor = getDeltaIdFromLaadProces(latestFull);
+                info("Geen delta laadproces gevonden sinds laatste stand " + searchFor + ", zoek naar delta downloads na deze stand");
+
+            } else {
+                searchFor = getDeltaIdFromLaadProces(latestDelta);
+                info("Zoek naar nieuwe delta downloads sinds laatste deltaId " + searchFor);
+            }
+
+            int index = -1;
+            for(int i = 0; i < deltaIds.length(); i++) {
+                if(searchFor.equals(deltaIds.getString(i))) {
+                    index = i;
+                    break;
+                }
+            }
+
+            info("Controleer op nieuwe downloads:");
+
+            if(index == -1) {
+                info("ID van laatste stand of delta niet gevonden! Mogelijk langer dan 31 dagen geleden, vanwege een update-gat dient laatste volledige stand te worden ingeladen!");
+                maakLaadProces(true, deltaIds.getString(deltaIds.length()-1));
+            } else {
+                info("ID van laatste stand of delta gevonden! Aantal delta downloads beschikbaar: " + (deltaIds.length() - index - 1));
+                for(int i = index + 1; i < deltaIds.length(); i++) {
+                    maakLaadProces(false, deltaIds.getString(i));
+                }
+            }
+        }
+        Stripersist.getEntityManager().getTransaction().commit();
+    }
+
+    private String getDeltaIdFromLaadProces(LaadProces lp) {
+        String s = lp.getBestand_naam();
+        int i = s.indexOf(getFileNamePrefix());
+        s = s.substring(i + getFileNamePrefix().length());
+        // remove full_ or delta_
+        i = s.indexOf("_");
+        s = s.substring(i + 1);
+        // remove .zip
+        return s.substring(0, s.length() - 4);
+    }
+
+    private void maakLaadProces(boolean full, String deltaId) {
+        LaadProces lp = new LaadProces();
+        lp.setBestand_datum(new Date());
+        lp.setBestand_naam(config.getDownloadDirectory() + File.separator + getFileNamePrefix() + (full ? "full_" : "delta_") + deltaId + ".zip");
+        lp.setOpmerking("Download beschikbaar");
+        lp.setSoort(config.getDataset());
+        lp.setStatus(LaadProces.STATUS.DOWNLOAD_AVAILABLE);
+        lp.setStatus_datum(new Date());
+        Stripersist.getEntityManager().persist(lp);
+        info("Laadproces aangemaakt: " + lp.getBestand_naam());
+    }
+
+    private void download() {
     }
 
     private JSONObject getDeltaIds(PDOKDownloadServiceProces config) throws Exception {

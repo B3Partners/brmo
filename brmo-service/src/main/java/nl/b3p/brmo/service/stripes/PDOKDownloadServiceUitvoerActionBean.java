@@ -49,7 +49,7 @@ public class PDOKDownloadServiceUitvoerActionBean implements ActionBean, Progres
 
     private static final String JSP = "/WEB-INF/jsp/beheer/pdokdownloadserviceuitvoeren.jsp";
 
-    private static final Log LOG = LogFactory.getLog(GDS2OphalenUitvoerActionBean.class);
+    private static final Log LOG = LogFactory.getLog(PDOKDownloadServiceUitvoerActionBean.class);
 
     private ActionBeanContext context;
 
@@ -126,7 +126,6 @@ public class PDOKDownloadServiceUitvoerActionBean implements ActionBean, Progres
         }
         this.log.append(line).append("\n");
         this.logLineCounter++;
-        //GDS2OphalenProces.getLog().info(line);
     }
 
     @DefaultHandler

@@ -42,7 +42,7 @@ public class LaadProces {
      */
     public static enum STATUS {
         // als je er bij maakt ook in de andere LaadProces klasse toevoegen
-        STAGING_OK, STAGING_NOK, ARCHIVE, STAGING_DUPLICAAT, RSGB_BGT_OK, RSGB_BGT_NOK, RSGB_BGT_WAITING, RSGB_TOPNL_WAITING, RSGB_TOPNL_OK, RSGB_TOPNL_NOK
+        DOWNLOAD_AVAILABLE, STAGING_OK, STAGING_NOK, ARCHIVE, STAGING_DUPLICAAT, RSGB_BGT_OK, RSGB_BGT_NOK, RSGB_BGT_WAITING, RSGB_TOPNL_WAITING, RSGB_TOPNL_OK, RSGB_TOPNL_NOK
     };
 
     public LaadProces() {

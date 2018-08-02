@@ -52,7 +52,11 @@ public class PDOKDownloadServiceProces extends AutomatischProces {
     }
 
     public String getDownloadDirectory() {
-        return ClobElement.nullSafeGet(this.getConfig().get(DOWNLOAD_DIR));
+        String s = ClobElement.nullSafeGet(this.getConfig().get(DOWNLOAD_DIR));
+        if(s == null) {
+            s = System.getProperty("java.io.tmpdir");
+        }
+        return s;
     }
 
     public void setDownloadDirectory(String downloadDirectory) {
@@ -64,7 +68,8 @@ public class PDOKDownloadServiceProces extends AutomatischProces {
     }
 
     public String getDataset() {
-        return ClobElement.nullSafeGet(this.getConfig().get(DATASET));
+        String s = ClobElement.nullSafeGet(this.getConfig().get(DATASET));
+        return s == null ? "bgtv3" : s;
     }
 
     public void setDataset(String dataset) {
@@ -76,7 +81,8 @@ public class PDOKDownloadServiceProces extends AutomatischProces {
     }
 
     public String getFormat() {
-        return ClobElement.nullSafeGet(this.getConfig().get(FORMAT));
+        String s = ClobElement.nullSafeGet(this.getConfig().get(FORMAT));
+        return s == null ? "citygml" : s;
     }
 
     public void setFormat(String format) {
@@ -150,5 +156,10 @@ public class PDOKDownloadServiceProces extends AutomatischProces {
 
     public void setSSLValidationEnabled(boolean b) {
         this.getConfig().put(SSL_VALIDATION, new ClobElement(b ? "true" : "false"));
+    }
+
+    @Override
+    public String toString() {
+        return this.getConfig().toString();
     }
 }
