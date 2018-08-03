@@ -5,8 +5,10 @@ package nl.b3p.brmo.service.proxy;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.zip.GZIPInputStream;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +19,11 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Endpoint servlet welke geposte bestanden opslaat in een directory conform de
- * configuratie. Voorbeeld:
+ * configuratie. Deze servlet ondersteund gzip compressie. Voorbeeld:<br/>
  * {@code curl -X POST -H "Content-Type: application/xml" http://localhost:8037/brmo-proxyservice/post/brk  -d  @'pom.xml'}
- * of met certificaat authenticatie en wget:
+ * <br/>of met gzip compressie:<br/>
+ * {@code curl -v -s --trace-ascii http_trace.log --data-binary @src/test/resources/web.xml.gz -H "Content-Type: text/xml" -H "Content-Encoding: gzip" -X POST http://localhost:8037/brmo-proxyservice/post/brk}
+ * <br/>of met certificaat authenticatie en wget:<br/>
  * {@code wget --post-file="test.xml" --append-output=logs/wget.log --ca-cert=./ca.pem --certificate=./client.pem --private-key=./key.pem https://somehost.nl/brmo-proxyservice/post/brk -O - >> output.log}
  *
  * @author mprins
@@ -29,8 +33,8 @@ public class BerichtEndpointFileServlet extends HttpServlet {
     private static final Log log = LogFactory.getLog(BerichtEndpointFileServlet.class);
 
     private static final String SAVE_DIR = "save_dir";
-    private File saveDir;
     private static final String MAX_UPLOAD_SIZE = "max_upload_size";
+    private File saveDir;
     private int maxUploadSize;
 
     @Override
@@ -52,6 +56,7 @@ public class BerichtEndpointFileServlet extends HttpServlet {
         try {
             this.maxUploadSize = Integer.parseInt(this.getInitParameter(MAX_UPLOAD_SIZE)) * 1024;
         } catch (NumberFormatException nfe) {
+            log.warn(nfe);
             this.maxUploadSize = 25 * 1024 * 1024;
             log.warn("De maximale upload size is ingesteld op 25 MB (default).");
         }
@@ -71,9 +76,12 @@ public class BerichtEndpointFileServlet extends HttpServlet {
         if (request.getContentLength() > this.maxUploadSize) {
             throw new ServletException("De 'max_upload_size' van " + this.maxUploadSize + " is overschreden.");
         }
-
+        InputStream in = request.getInputStream();
+        if ("gzip".equals(request.getHeader("Content-Encoding"))) {
+            in = new GZIPInputStream(in);
+        }
         File _tmpfile = File.createTempFile(this.getFileName(), ".xml", FileUtils.getTempDirectory());
-        FileUtils.copyInputStreamToFile(request.getInputStream(), _tmpfile);
+        FileUtils.copyInputStreamToFile(in, _tmpfile);
         FileUtils.moveToDirectory(_tmpfile, this.saveDir, true);
         log.info(String.format("Aangeboden bestand '%s' opgeslagen in directory: %s.",
                 _tmpfile.getName(), this.saveDir));

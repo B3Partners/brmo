@@ -4,9 +4,11 @@
 package nl.b3p.brmo.service.proxy;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.zip.GZIPInputStream;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -66,7 +68,11 @@ public class BerichtEndpointProxyServlet extends HttpServlet {
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Length", "" + request.getContentLength());
         conn.setRequestProperty("Content-Type", "application/octet-stream");
-        int copied = IOUtils.copy(request.getInputStream(), conn.getOutputStream());
+        InputStream in = request.getInputStream();
+        if ("gzip".equals(request.getHeader("Content-Encoding"))) {
+            in = new GZIPInputStream(in);
+        }
+        int copied = IOUtils.copy(in, conn.getOutputStream());
         conn.disconnect();
 
         log.info(String.format("BRMO response status: %d: %s (%d bytes).",
