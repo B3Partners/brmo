@@ -71,10 +71,6 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
                 return new TopNLDirectoryScanner((TopNLScannerProces) config);
             case PDOKDownloadServiceProces:
                 return new PDOKDownloadServiceScanner((PDOKDownloadServiceProces) config);
-            case BGTMutatieServiceStandProces :
-                return new BGTMutatieServiceStandOphalen((BGTMutatieServiceStandProces) config);
-            case BGTMutatieServiceDeltaProces:
-                return new BGTMutatieServiceDeltaOphalen((BGTMutatieServiceDeltaProces) config);
             default:
                 throw new IllegalArgumentException(imple.name() + " is is geen ondersteund proces...");
         }
