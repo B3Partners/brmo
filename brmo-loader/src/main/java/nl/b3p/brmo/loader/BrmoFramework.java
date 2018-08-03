@@ -16,6 +16,7 @@ import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.updates.UpdateProcess;
 import nl.b3p.brmo.loader.util.BGTLightRsgbTransformer;
+import nl.b3p.brmo.loader.util.BGTv3RsgbTransformer;
 import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
@@ -45,6 +46,7 @@ public class BrmoFramework {
     public static final String BR_BRK = "brk";
     public static final String BR_NHR = "nhr";
     public static final String BR_BGTLIGHT = "bgtlight";
+    public static final String BR_BGTV3 = "bgtv3";
     public static final String BR_TOPNL = "topnl";
     public static final String BR_BRP = "brp";
     public static final String BR_GBAV = "gbav";
@@ -248,7 +250,9 @@ public class BrmoFramework {
             } catch (JAXBException | SQLException ex) {
                 throw new BrmoException("Probleem met topparser initialiseren: ", ex);
             }
-        }else{
+        }else if(soort.equalsIgnoreCase(BR_BGTV3)) {
+            worker = new BGTv3RsgbTransformer(dataSourceRsgbBgt, stagingProxy, ids, listener);
+        } else {
             worker = new RsgbProxy(dataSourceRsgb, stagingProxy, mode, ids, listener);
             ((RsgbProxy) worker).setEnablePipeline(enablePipeline);
             if (pipelineCapacity != null) {
