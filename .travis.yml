@@ -23,12 +23,12 @@ addons:
 jdk:
   - oraclejdk8
   - openjdk8
-  - oraclejdk9
+#  - oraclejdk9
 
 matrix:
   fast_finish: true
   allow_failures:
-    - jdk: oraclejdk9
+    # - jdk: oraclejdk9
   include:
   - jdk: oraclejdk8
     # EOL September 2018
