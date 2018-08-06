@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import nl.b3p.brmo.loader.entity.NhrBericht;
 import static org.junit.Assert.*;
+
+import org.junit.Ignore;
 import org.junit.Test;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,10 +18,11 @@ public class NhrXMLReaderTest {
     private static final Log LOG = LogFactory.getLog(NhrXMLReaderTest.class);
 
     @Test
+    @Ignore("dit is HR dataservice v2.5 data; dat wordt niet langer ondersteund")
     public void testMaatschappelijkeActiviteit() throws Exception {
         NhrXMLReader r;
 
-        r = new NhrXMLReader(NhrXMLReader.class.getResourceAsStream("nhr-2.5_0.xml"));
+        r = new NhrXMLReader(NhrXMLReader.class.getResourceAsStream("nhr-2.5.xml"));
         assertTrue(r.hasNext());
 
         int total = 0;

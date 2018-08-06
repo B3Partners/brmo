@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Geanonimiseerd door B3Partners BV op 2018-05-03+02:00, zie commentaar in bericht.-->
-<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/01" xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/01">
+<!--Geanonimiseerd door B3Partners BV op 2018-08-09+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
     <SOAP-ENV:Header xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsa="http://www.w3.org/2005/08/addressing" />
-    <soap:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="id-1-6fd328e49c712223c76481295468c96b">
-        <ophalenInschrijvingResponse peilmoment="20180430084526456">
+    <soap:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="id-1-45e4314c6d7c59e612c7ff25b1815874">
+        <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02" peilmoment="20180807105527460">
             <meldingen>
                 <informatie>
                     <code>IPD0000</code>
@@ -12,56 +12,219 @@
                 </informatie>
             </meldingen>
             <product>
-                <cat:maatschappelijkeActiviteit>
+                <cat:maatschappelijkeActiviteit xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02">
                     <cat:registratie registratieTijdstip="20110210150804843">
                         <cat:datumAanvang>20110210</cat:datumAanvang>
                     </cat:registratie>
                     <cat:kvkNummer>52019667</cat:kvkNummer>
-                    <cat:nonMailing>Nee</cat:nonMailing>
-                    <cat:incidenteelUitlenenArbeidskrachten>Nee</cat:incidenteelUitlenenArbeidskrachten>
+                    <cat:nonMailing>
+                        <cat:code>N</cat:code>
+                        <cat:omschrijving>Nee</cat:omschrijving>
+                        <cat:referentieType>geenRT</cat:referentieType>
+                    </cat:nonMailing>
+                    <cat:pensioenvennootschap>
+                        <cat:code>N</cat:code>
+                        <cat:omschrijving>Nee</cat:omschrijving>
+                        <cat:referentieType>geenRT</cat:referentieType>
+                    </cat:pensioenvennootschap>
+                    <cat:incidenteelUitlenenArbeidskrachten>
+                        <cat:code>N</cat:code>
+                        <cat:omschrijving>Nee</cat:omschrijving>
+                        <cat:referentieType>geenRT</cat:referentieType>
+                    </cat:incidenteelUitlenenArbeidskrachten>
+                    <cat:bezoekLocatie>
+                        <cat:registratie registratieTijdstip="20110606122118911">
+                            <cat:datumAanvang>20110601</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                            <cat:code>N</cat:code>
+                            <cat:omschrijving>Nee</cat:omschrijving>
+                            <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                            <cat:binnenlandsAdres>
+                                <cat:straatnaam>Hoofdstraat</cat:straatnaam>
+                                <cat:huisnummer>46</cat:huisnummer>
+                                <cat:postcode>
+                                    <cat:cijfercombinatie>7873</cat:cijfercombinatie>
+                                    <cat:lettercombinatie>TB</cat:lettercombinatie>
+                                </cat:postcode>
+                                <cat:plaats>Odoorn</cat:plaats>
+                                <cat:bagId>
+                                    <cat:identificatieNummeraanduiding>1681200000009052</cat:identificatieNummeraanduiding>
+                                    <cat:identificatieAdresseerbaarObject>1681010000009052</cat:identificatieAdresseerbaarObject>
+                                </cat:bagId>
+                            </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Hoofdstraat 46 7873TB Odoorn</cat:volledigAdres>
+                    </cat:bezoekLocatie>
+                    <cat:postLocatie>
+                        <cat:registratie registratieTijdstip="20110606122118911">
+                            <cat:datumAanvang>20110601</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                            <cat:code>N</cat:code>
+                            <cat:omschrijving>Nee</cat:omschrijving>
+                            <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                            <cat:binnenlandsAdres>
+                                <cat:straatnaam>Hoofdstraat</cat:straatnaam>
+                                <cat:huisnummer>46</cat:huisnummer>
+                                <cat:postcode>
+                                    <cat:cijfercombinatie>7873</cat:cijfercombinatie>
+                                    <cat:lettercombinatie>TB</cat:lettercombinatie>
+                                </cat:postcode>
+                                <cat:plaats>Odoorn</cat:plaats>
+                                <cat:bagId>
+                                    <cat:identificatieNummeraanduiding>1681200000009052</cat:identificatieNummeraanduiding>
+                                    <cat:identificatieAdresseerbaarObject>1681010000009052</cat:identificatieAdresseerbaarObject>
+                                </cat:bagId>
+                            </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Hoofdstraat 46 7873TB Odoorn</cat:volledigAdres>
+                    </cat:postLocatie>
                     <cat:naam>Orthopedisch Therapie Centrum Verhoef</cat:naam>
-
                     <cat:manifesteertZichAls>
+                        <cat:relatieRegistratie registratieTijdstip="20110210150804843">
+                            <cat:datumAanvang>20110210</cat:datumAanvang>
+                        </cat:relatieRegistratie>
                         <cat:onderneming>
                             <cat:registratie registratieTijdstip="20110210150804843">
                                 <cat:datumAanvang>20110210</cat:datumAanvang>
                             </cat:registratie>
                             <cat:kvkNummer>52019667</cat:kvkNummer>
-                            <cat:hoofdSbiActiviteit>
-                                <cat:sbiCode>86912</cat:sbiCode>
-                                <cat:omschrijving>Praktijken van fysiotherapeuten</cat:omschrijving>
-                            </cat:hoofdSbiActiviteit>
-                            <cat:fulltimeWerkzamePersonen>1</cat:fulltimeWerkzamePersonen>
-                            <cat:parttimeWerkzamePersonen>0</cat:parttimeWerkzamePersonen>
+                            <cat:sbiActiviteit>
+                                <cat:registratie registratieTijdstip="20110210150804843">
+                                    <cat:datumAanvang>20110210</cat:datumAanvang>
+                                </cat:registratie>
+                                <cat:sbiCode>
+                                    <cat:code>86912</cat:code>
+                                    <cat:omschrijving>Praktijken van fysiotherapeuten</cat:omschrijving>
+                                    <cat:referentieType>ActiviteitCode</cat:referentieType>
+                                </cat:sbiCode>
+                                <cat:isHoofdactiviteit>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                </cat:isHoofdactiviteit>
+                                <cat:volgorde>0</cat:volgorde>
+                            </cat:sbiActiviteit>
+                            <cat:voltijdWerkzamePersonen>1</cat:voltijdWerkzamePersonen>
+                            <cat:deeltijdWerkzamePersonen>0</cat:deeltijdWerkzamePersonen>
                             <cat:totaalWerkzamePersonen>1</cat:totaalWerkzamePersonen>
                             <cat:handeltOnder>
                                 <cat:handelsnaam>
+                                    <cat:registratie registratieTijdstip="20110210150804843">
+                                        <cat:datumAanvang>20110210</cat:datumAanvang>
+                                    </cat:registratie>
                                     <cat:naam>Orthopedisch Therapie Centrum Verhoef</cat:naam>
+                                    <cat:volgorde>0</cat:volgorde>
                                 </cat:handelsnaam>
                             </cat:handeltOnder>
                             <cat:wordtUitgeoefendIn>
+                                <cat:relatieRegistratie registratieTijdstip="20110210150804843">
+                                    <cat:datumAanvang>20110210</cat:datumAanvang>
+                                </cat:relatieRegistratie>
                                 <cat:commercieleVestiging>
+                                    <cat:registratie registratieTijdstip="20110210150804843">
+                                        <cat:datumAanvang>20110210</cat:datumAanvang>
+                                    </cat:registratie>
                                     <cat:vestigingsnummer>000021991235</cat:vestigingsnummer>
                                     <cat:bezoekLocatie>
-                                        <cat:afgeschermd>Nee</cat:afgeschermd>
-                                        <cat:binnenlandsAdres>
-                                            <cat:straatnaam>Hoofdstraat</cat:straatnaam>
-                                            <cat:huisnummer>46</cat:huisnummer>
-                                            <cat:postcode>
-                                                <cat:cijfercombinatie>7873</cat:cijfercombinatie>
-                                                <cat:lettercombinatie>TB</cat:lettercombinatie>
-                                            </cat:postcode>
-                                            <cat:plaats>Odoorn</cat:plaats>
-                                            <cat:bagId>
-                                                <cat:identificatieNummeraanduiding>1681200000009052</cat:identificatieNummeraanduiding>
-                                                <cat:identificatieAdresseerbaarObject>1681010000009052</cat:identificatieAdresseerbaarObject>
-                                            </cat:bagId>
-                                        </cat:binnenlandsAdres>
+                                        <cat:registratie registratieTijdstip="20110606122118911">
+                                            <cat:datumAanvang>20110601</cat:datumAanvang>
+                                        </cat:registratie>
+                                        <cat:afgeschermd>
+                                            <cat:code>N</cat:code>
+                                            <cat:omschrijving>Nee</cat:omschrijving>
+                                            <cat:referentieType>geenRT</cat:referentieType>
+                                        </cat:afgeschermd>
+                                        <cat:adres>
+                                            <cat:binnenlandsAdres>
+                                                <cat:straatnaam>Hoofdstraat</cat:straatnaam>
+                                                <cat:huisnummer>46</cat:huisnummer>
+                                                <cat:postcode>
+                                                    <cat:cijfercombinatie>7873</cat:cijfercombinatie>
+                                                    <cat:lettercombinatie>TB</cat:lettercombinatie>
+                                                </cat:postcode>
+                                                <cat:plaats>Odoorn</cat:plaats>
+                                                <cat:bagId>
+                                                    <cat:identificatieNummeraanduiding>1681200000009052</cat:identificatieNummeraanduiding>
+                                                    <cat:identificatieAdresseerbaarObject>1681010000009052</cat:identificatieAdresseerbaarObject>
+                                                </cat:bagId>
+                                            </cat:binnenlandsAdres>
+                                        </cat:adres>
                                         <cat:volledigAdres>Hoofdstraat 46 7873TB Odoorn</cat:volledigAdres>
                                     </cat:bezoekLocatie>
+                                    <cat:postLocatie>
+                                        <cat:registratie registratieTijdstip="20110606122118911">
+                                            <cat:datumAanvang>20110601</cat:datumAanvang>
+                                        </cat:registratie>
+                                        <cat:afgeschermd>
+                                            <cat:code>N</cat:code>
+                                            <cat:omschrijving>Nee</cat:omschrijving>
+                                            <cat:referentieType>geenRT</cat:referentieType>
+                                        </cat:afgeschermd>
+                                        <cat:adres>
+                                            <cat:binnenlandsAdres>
+                                                <cat:straatnaam>Hoofdstraat</cat:straatnaam>
+                                                <cat:huisnummer>46</cat:huisnummer>
+                                                <cat:postcode>
+                                                    <cat:cijfercombinatie>7873</cat:cijfercombinatie>
+                                                    <cat:lettercombinatie>TB</cat:lettercombinatie>
+                                                </cat:postcode>
+                                                <cat:plaats>Odoorn</cat:plaats>
+                                                <cat:bagId>
+                                                    <cat:identificatieNummeraanduiding>1681200000009052</cat:identificatieNummeraanduiding>
+                                                    <cat:identificatieAdresseerbaarObject>1681010000009052</cat:identificatieAdresseerbaarObject>
+                                                </cat:bagId>
+                                            </cat:binnenlandsAdres>
+                                        </cat:adres>
+                                        <cat:volledigAdres>Hoofdstraat 46 7873TB Odoorn</cat:volledigAdres>
+                                    </cat:postLocatie>
+                                    <cat:eersteHandelsnaam>Orthopedisch Therapie Centrum Verhoef</cat:eersteHandelsnaam>
+                                    <cat:voltijdWerkzamePersonen>1</cat:voltijdWerkzamePersonen>
+                                    <cat:deeltijdWerkzamePersonen>0</cat:deeltijdWerkzamePersonen>
+                                    <cat:totaalWerkzamePersonen>1</cat:totaalWerkzamePersonen>
+                                    <cat:activiteiten>
+                                        <cat:omschrijving>De exploitatie van centra op het gebied van de gezondheid, ontspanning, sport, revalidatie en therapie en voedingsmiddelen en de import en verkoop van producten aangaande het voorstaande. Fysiotherapie en manueel praktijk.</cat:omschrijving>
+                                        <cat:sbiActiviteit>
+                                            <cat:registratie registratieTijdstip="20110210150804843">
+                                                <cat:datumAanvang>20110210</cat:datumAanvang>
+                                            </cat:registratie>
+                                            <cat:sbiCode>
+                                                <cat:code>86912</cat:code>
+                                                <cat:omschrijving>Praktijken van fysiotherapeuten</cat:omschrijving>
+                                                <cat:referentieType>ActiviteitCode</cat:referentieType>
+                                            </cat:sbiCode>
+                                            <cat:isHoofdactiviteit>
+                                                <cat:code>J</cat:code>
+                                                <cat:omschrijving>Ja</cat:omschrijving>
+                                                <cat:referentieType>geenRT</cat:referentieType>
+                                            </cat:isHoofdactiviteit>
+                                        </cat:sbiActiviteit>
+                                        <cat:exporteert>
+                                            <cat:code>N</cat:code>
+                                            <cat:omschrijving>Nee</cat:omschrijving>
+                                            <cat:referentieType>geenRT</cat:referentieType>
+                                        </cat:exporteert>
+                                        <cat:importeert>
+                                            <cat:code>N</cat:code>
+                                            <cat:omschrijving>Nee</cat:omschrijving>
+                                            <cat:referentieType>geenRT</cat:referentieType>
+                                        </cat:importeert>
+                                    </cat:activiteiten>
                                     <cat:handeltOnder>
+                                        <cat:relatieRegistratie registratieTijdstip="20110210150804843">
+                                            <cat:datumAanvang>20110210</cat:datumAanvang>
+                                        </cat:relatieRegistratie>
                                         <cat:handelsnaam>
+                                            <cat:registratie registratieTijdstip="20110210150804843">
+                                                <cat:datumAanvang>20110210</cat:datumAanvang>
+                                            </cat:registratie>
                                             <cat:naam>Orthopedisch Therapie Centrum Verhoef</cat:naam>
+                                            <cat:volgorde>0</cat:volgorde>
                                         </cat:handelsnaam>
                                     </cat:handeltOnder>
                                 </cat:commercieleVestiging>
@@ -75,82 +238,160 @@
                             </cat:registratie>
                             <cat:vestigingsnummer>000021991235</cat:vestigingsnummer>
                             <cat:bezoekLocatie>
-                                <cat:afgeschermd>Nee</cat:afgeschermd>
-                                <cat:binnenlandsAdres>
-                                    <cat:straatnaam>Hoofdstraat</cat:straatnaam>
-                                    <cat:huisnummer>46</cat:huisnummer>
-                                    <cat:postcode>
-                                        <cat:cijfercombinatie>7873</cat:cijfercombinatie>
-                                        <cat:lettercombinatie>TB</cat:lettercombinatie>
-                                    </cat:postcode>
-                                    <cat:plaats>Odoorn</cat:plaats>
-                                    <cat:bagId>
-                                        <cat:identificatieNummeraanduiding>1681200000009052</cat:identificatieNummeraanduiding>
-                                        <cat:identificatieAdresseerbaarObject>1681010000009052</cat:identificatieAdresseerbaarObject>
-                                    </cat:bagId>
-                                </cat:binnenlandsAdres>
+                                <cat:registratie registratieTijdstip="20110606122118911">
+                                    <cat:datumAanvang>20110601</cat:datumAanvang>
+                                </cat:registratie>
+                                <cat:afgeschermd>
+                                    <cat:code>N</cat:code>
+                                    <cat:omschrijving>Nee</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                </cat:afgeschermd>
+                                <cat:adres>
+                                    <cat:binnenlandsAdres>
+                                        <cat:straatnaam>Hoofdstraat</cat:straatnaam>
+                                        <cat:huisnummer>46</cat:huisnummer>
+                                        <cat:postcode>
+                                            <cat:cijfercombinatie>7873</cat:cijfercombinatie>
+                                            <cat:lettercombinatie>TB</cat:lettercombinatie>
+                                        </cat:postcode>
+                                        <cat:plaats>Odoorn</cat:plaats>
+                                        <cat:bagId>
+                                            <cat:identificatieNummeraanduiding>1681200000009052</cat:identificatieNummeraanduiding>
+                                            <cat:identificatieAdresseerbaarObject>1681010000009052</cat:identificatieAdresseerbaarObject>
+                                        </cat:bagId>
+                                    </cat:binnenlandsAdres>
+                                </cat:adres>
                                 <cat:volledigAdres>Hoofdstraat 46 7873TB Odoorn</cat:volledigAdres>
                             </cat:bezoekLocatie>
                             <cat:postLocatie>
-                                <cat:afgeschermd>Nee</cat:afgeschermd>
-                                <cat:binnenlandsAdres>
-                                    <cat:straatnaam>Hoofdstraat</cat:straatnaam>
-                                    <cat:huisnummer>46</cat:huisnummer>
-                                    <cat:postcode>
-                                        <cat:cijfercombinatie>7873</cat:cijfercombinatie>
-                                        <cat:lettercombinatie>TB</cat:lettercombinatie>
-                                    </cat:postcode>
-                                    <cat:plaats>Odoorn</cat:plaats>
-                                    <cat:bagId>
-                                        <cat:identificatieNummeraanduiding>1681200000009052</cat:identificatieNummeraanduiding>
-                                        <cat:identificatieAdresseerbaarObject>1681010000009052</cat:identificatieAdresseerbaarObject>
-                                    </cat:bagId>
-                                </cat:binnenlandsAdres>
+                                <cat:registratie registratieTijdstip="20110606122118911">
+                                    <cat:datumAanvang>20110601</cat:datumAanvang>
+                                </cat:registratie>
+                                <cat:afgeschermd>
+                                    <cat:code>N</cat:code>
+                                    <cat:omschrijving>Nee</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                </cat:afgeschermd>
+                                <cat:adres>
+                                    <cat:binnenlandsAdres>
+                                        <cat:straatnaam>Hoofdstraat</cat:straatnaam>
+                                        <cat:huisnummer>46</cat:huisnummer>
+                                        <cat:postcode>
+                                            <cat:cijfercombinatie>7873</cat:cijfercombinatie>
+                                            <cat:lettercombinatie>TB</cat:lettercombinatie>
+                                        </cat:postcode>
+                                        <cat:plaats>Odoorn</cat:plaats>
+                                        <cat:bagId>
+                                            <cat:identificatieNummeraanduiding>1681200000009052</cat:identificatieNummeraanduiding>
+                                            <cat:identificatieAdresseerbaarObject>1681010000009052</cat:identificatieAdresseerbaarObject>
+                                        </cat:bagId>
+                                    </cat:binnenlandsAdres>
+                                </cat:adres>
                                 <cat:volledigAdres>Hoofdstraat 46 7873TB Odoorn</cat:volledigAdres>
                             </cat:postLocatie>
+                            <cat:eersteHandelsnaam>Orthopedisch Therapie Centrum Verhoef</cat:eersteHandelsnaam>
+                            <cat:voltijdWerkzamePersonen>1</cat:voltijdWerkzamePersonen>
+                            <cat:deeltijdWerkzamePersonen>0</cat:deeltijdWerkzamePersonen>
                             <cat:totaalWerkzamePersonen>1</cat:totaalWerkzamePersonen>
                             <cat:activiteiten>
                                 <cat:omschrijving>De exploitatie van centra op het gebied van de gezondheid, ontspanning, sport, revalidatie en therapie en voedingsmiddelen en de import en verkoop van producten aangaande het voorstaande. Fysiotherapie en manueel praktijk.</cat:omschrijving>
-                                <cat:hoofdSbiActiviteit>
-                                    <cat:sbiCode>86912</cat:sbiCode>
-                                    <cat:omschrijving>Praktijken van fysiotherapeuten</cat:omschrijving>
-                                </cat:hoofdSbiActiviteit>
-                                <cat:export>Nee</cat:export>
-                                <cat:import>Nee</cat:import>
+                                <cat:sbiActiviteit>
+                                    <cat:registratie registratieTijdstip="20110210150804843">
+                                        <cat:datumAanvang>20110210</cat:datumAanvang>
+                                    </cat:registratie>
+                                    <cat:sbiCode>
+                                        <cat:code>86912</cat:code>
+                                        <cat:omschrijving>Praktijken van fysiotherapeuten</cat:omschrijving>
+                                        <cat:referentieType>ActiviteitCode</cat:referentieType>
+                                    </cat:sbiCode>
+                                    <cat:isHoofdactiviteit>
+                                        <cat:code>J</cat:code>
+                                        <cat:omschrijving>Ja</cat:omschrijving>
+                                        <cat:referentieType>geenRT</cat:referentieType>
+                                    </cat:isHoofdactiviteit>
+                                </cat:sbiActiviteit>
+                                <cat:exporteert>
+                                    <cat:code>N</cat:code>
+                                    <cat:omschrijving>Nee</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                </cat:exporteert>
+                                <cat:importeert>
+                                    <cat:code>N</cat:code>
+                                    <cat:omschrijving>Nee</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                </cat:importeert>
                             </cat:activiteiten>
                             <cat:handeltOnder>
+                                <cat:relatieRegistratie registratieTijdstip="20110210150804843">
+                                    <cat:datumAanvang>20110210</cat:datumAanvang>
+                                </cat:relatieRegistratie>
                                 <cat:handelsnaam>
+                                    <cat:registratie registratieTijdstip="20110210150804843">
+                                        <cat:datumAanvang>20110210</cat:datumAanvang>
+                                    </cat:registratie>
                                     <cat:naam>Orthopedisch Therapie Centrum Verhoef</cat:naam>
+                                    <cat:volgorde>0</cat:volgorde>
                                 </cat:handelsnaam>
                             </cat:handeltOnder>
                         </cat:commercieleVestiging>
                     </cat:wordtGeleidVanuit>
                     <cat:heeftAlsEigenaar>
+                        <cat:relatieRegistratie registratieTijdstip="20110210150804843">
+                            <cat:datumAanvang>20110210</cat:datumAanvang>
+                        </cat:relatieRegistratie>
                         <cat:natuurlijkPersoon>
                             <cat:registratie registratieTijdstip="20110210150804843">
-                                <cat:datumAanvang xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2013/01">1952-10-01</cat:datumAanvang>
+                                <cat:datumAanvang>19521001</cat:datumAanvang>
                                 <!--Anonimisatie 'cat:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
                             </cat:registratie>
                             <cat:persoonRechtsvorm>Eenmanszaak</cat:persoonRechtsvorm>
-                            <cat:volledigeNaam xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2013/01">f3c55f 30e0 018380 cec44c6</cat:volledigeNaam>
+                            <cat:volledigeNaam>f3c55f 30e0 018380 cec44c6</cat:volledigeNaam>
                             <!--Anonimisatie 'cat:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
                             <cat:uitgebreideRechtsvorm>Eenmanszaak</cat:uitgebreideRechtsvorm>
-                            <cat:geslachtsnaam xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2013/01">02532fc</cat:geslachtsnaam>
+                            <cat:geslachtsnaam>02532fc</cat:geslachtsnaam>
                             <!--Anonimisatie 'cat:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
-                            <cat:voornamen xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2013/01">e54daa 5b8f 37cc19</cat:voornamen>
+                            <cat:voornamen>e54daa 5b8f 37cc19</cat:voornamen>
                             <!--Anonimisatie 'cat:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
-                            <cat:geslachtsaanduiding>Man</cat:geslachtsaanduiding>
-                            <cat:geboorteplaats xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2013/01">b5662</cat:geboorteplaats>
+                            <cat:geslachtsaanduiding>
+                                <cat:code>m</cat:code>
+                                <cat:omschrijving>Mannelijk</cat:omschrijving>
+                                <cat:referentieType>Geslacht</cat:referentieType>
+                            </cat:geslachtsaanduiding>
+                            <cat:geboorteplaats>b5662</cat:geboorteplaats>
                             <!--Anonimisatie 'cat:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
-                            <cat:geboorteland>Nederlandse Antillen</cat:geboorteland>
-                            <cat:aanduidingNaamgebruik>EigenGeslachtsnaam</cat:aanduidingNaamgebruik>
+                            <cat:geboorteland>
+                                <cat:code>7011</cat:code>
+                                <cat:omschrijving>Nederlandse Antillen</cat:omschrijving>
+                                <cat:referentieType>Land</cat:referentieType>
+                            </cat:geboorteland>
+                            <cat:aanduidingNaamgebruik>
+                                <cat:code>e</cat:code>
+                                <cat:omschrijving>Eigennaam</cat:omschrijving>
+                                <cat:referentieType>Naamgebruik</cat:referentieType>
+                            </cat:aanduidingNaamgebruik>
+                            <cat:geboortedatum>19521001</cat:geboortedatum>
+                            <!--Anonimisatie 'cat:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                            <cat:datumGeemigreerd>19970912</cat:datumGeemigreerd>
                             <cat:woonLocatie>
-                                <cat:afgeschermd>Nee</cat:afgeschermd>
-                                <cat:buitenlandsAdres>
-                                    <cat:straatHuisnummer>Kaya Opal 4</cat:straatHuisnummer>
-                                    <cat:postcodeWoonplaats>Kralendijk</cat:postcodeWoonplaats>
-                                    <cat:land>Caribisch Nederland</cat:land>
-                                </cat:buitenlandsAdres>
+                                <cat:registratie registratieTijdstip="20111229125410182">
+                                    <cat:datumAanvang>00000000</cat:datumAanvang>
+                                </cat:registratie>
+                                <cat:afgeschermd>
+                                    <cat:code>N</cat:code>
+                                    <cat:omschrijving>Nee</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                </cat:afgeschermd>
+                                <cat:adres>
+                                    <cat:buitenlandsAdres>
+                                        <cat:straatHuisnummer>Kaya Opal 4</cat:straatHuisnummer>
+                                        <cat:postcodeWoonplaats>Kralendijk</cat:postcodeWoonplaats>
+                                        <cat:land>
+                                            <cat:code>5106</cat:code>
+                                            <cat:omschrijving>Caribisch Nederland</cat:omschrijving>
+                                            <cat:referentieType>Land</cat:referentieType>
+                                        </cat:land>
+                                    </cat:buitenlandsAdres>
+                                </cat:adres>
                                 <cat:volledigAdres>Kaya Opal 4 Kralendijk Caribisch Nederland</cat:volledigAdres>
                             </cat:woonLocatie>
                         </cat:natuurlijkPersoon>

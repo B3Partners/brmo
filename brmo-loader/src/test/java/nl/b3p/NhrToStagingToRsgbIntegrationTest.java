@@ -59,18 +59,24 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
     @Parameterized.Parameters(name = "{index}: bestand: {0}")
     public static Collection params() {
         return Arrays.asList(new Object[][]{
-            // {"type","filename", aantalBerichten, aantalProcessen, aantalPrs, aantalNiet_nat_prs, aantalNat_prs, vestgID, aantalVestg_activiteit},
-            {"/mantis10752/52019667.xml", 2, 1, 1,/*subj*/ 2, 1, 0, "nhr.comVestg.000021991235", 1, 52019667},
-            /*Test automatisering*/
-            {"/nl/b3p/brmo/loader/xml/nhr-2.5_0.xml", 3, 1, 2, 3, 2, 0, "nhr.comVestg.000016444663", 3, 12345678},
+            // {"filename", aantalBerichten, aantalProcessen, aantalPrs, aantalSubj, aantalNiet_nat_prs, aantalNat_prs, vestgID, aantalVestg_activiteit,aantal Subj, kvkNummer v MaatschAct},
+            {"/mantis10752/52019667.xml", 2, 1, 1,/*subj*/ 2, 1, 0, "nhr.comVestg.000021991235", 1, 52019667, new String[]{"86912"}, 0},
             /*Verhoef ortho*/
-            {"/nhr-v2.5/52019667.anon.xml", 2, 1, 1,/*subj*/ 2, 1, 0, "nhr.comVestg.000021991235", 1, 52019667},
+            {"/nhr-v3/52019667.anon.xml", 2, 1, 1,/*subj*/ 2, 1, 0, "nhr.comVestg.000021991235", 1, 52019667, new String[]{"86912"}, 0},
             /*dactari*/
-            {"/nhr-v2.5/16029104.anon.xml", 3, 1, 2, /*subj*/ 3, 2, 0, "nhr.comVestg.000002706229", 1, 16029104},
+            {"/nhr-v3/16029104.anon.xml", 3, 1, 2 + 6, /*subj*/ 3 + 6, 2, 0 + 6, "nhr.comVestg.000002706229", 1, 16029104, new String[]{"7500"}, 6},
             /*b3p*/
-            {"/nhr-v2.5/34122633,32076598.anon.xml", 3, 1, 2, /*subj*/ 3, 2, 0, "nhr.comVestg.000019315708", 1, 34122633},
-            /*ukc*/
-            {"/nhr-v2.5/40480283.anon.xml", 2, 1, 2, /*subj*/ 2, 2, 0, null, 0, 40480283},});
+            {"/nhr-v3/34122633,32076598.anon.xml", 3, 1, 2 + 1, /*subj*/ 3 + 1, 2 + 1, 0, "nhr.comVestg.000019315708", 1, 34122633, new String[]{"6202"}, 1},
+            /*vereniging ukc*/
+            {"/nhr-v3/40480283.anon.xml", 2, 1, 2 + 4, /*subj*/ 2 + 4, 2, 0 + 4, null, 0, 40480283, new String[]{"93152"}, 4},
+            /*stichting utr landsch*/
+            {"/nhr-v3/41177576.anon.xml", 2, 1, 2 + 12, /*subj*/ 2 + 12, 2, 0 + 12, null, 0, 41177576, new String[]{"91042", "0161", "0150"}, 12},
+            /*stichting geo*/
+            {"/nhr-v3/32122905.anon.xml", 2, 1, 2 + 4, /*subj*/ 2 + 4, 2, 0 + 4, null, 0, 32122905, new String[]{"7112"}, 4},
+            /* min EZ. (nietCommercieleVestiging) */
+            {"/nhr-v3/52813150.anon.xml", 3, 1, 2, /*subj*/ 3, 2, 0, "nhr.nietComVestg.000022724362", 1, 52813150, new String[]{"8411"}, 0},
+            /*sbb*/
+            {"/nhr-v3/30263544.anon.xml", 3, 1, 2, /*subj*/ 3, 2, 0, "nhr.comVestg.000012461547", 1, 30263544, new String[]{"91042"}, 0},});
     }
 
     private static final String BESTANDTYPE = "nhr";
@@ -112,11 +118,18 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
      * test parameter.
      */
     private final long aantalVestg_activiteit;
-
     /**
      * test parameter.
      */
     private final long kvkNummer;
+    /**
+     * test parameter.
+     */
+    private final String[] sbiCodes;
+    /**
+     * test parameter.
+     */
+    private final int aantalFunctionarissen;
 
     private BrmoFramework brmo;
 
@@ -128,7 +141,7 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
 
     public NhrToStagingToRsgbIntegrationTest(String bestandNaam, long aantalBerichten, long aantalProcessen,
             long aantalPrs, long aantalSubj, long aantalNiet_nat_prs, long aantalNat_prs, String vestgID,
-            long aantalVestg_activiteit, long kvkNummer) {
+            long aantalVestg_activiteit, long kvkNummer, String[] sbiCodes, int aantalFunctionarissen) {
         this.bestandNaam = bestandNaam;
         this.aantalBerichten = aantalBerichten;
         this.aantalProcessen = aantalProcessen;
@@ -139,6 +152,8 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         this.vestgID = vestgID;
         this.aantalVestg_activiteit = aantalVestg_activiteit;
         this.kvkNummer = kvkNummer;
+        this.sbiCodes = sbiCodes;
+        this.aantalFunctionarissen = aantalFunctionarissen;
     }
 
     @Before
@@ -241,18 +256,15 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         assertEquals("Het aantal 'nat_prs' records klopt niet", aantalNat_prs, nat_prs.getRowCount());
         assertEquals("het aantal 'subject' records klopt niet", aantalSubj, subject.getRowCount());
 
-        // faalt voor vereniging 40480283
-        if (kvkNummer != 40480283) {
-            boolean foundKvk = false;
-            for (int i = 0; i < subject.getRowCount(); i++) {
-                if (subject.getValue(i, "identif").toString().contains("nhr.maatschAct.kvk")) {
-                    assertEquals("KVK nummer klopt niet", kvkNummer + "", subject.getValue(i, "kvk_nummer") + "");
-                    foundKvk = true;
-                }
+        boolean foundKvk = false;
+        for (int i = 0; i < subject.getRowCount(); i++) {
+            if (subject.getValue(i, "identif").toString().contains("nhr.maatschAct.kvk")) {
+                assertEquals("KVK nummer klopt niet", kvkNummer + "", subject.getValue(i, "kvk_nummer") + "");
+                foundKvk = true;
             }
-            if (!foundKvk) {
-                fail("KVK nummer klopt niet, verwacht te vinden: " + kvkNummer);
-            }
+        }
+        if (!foundKvk) {
+            fail("KVK nummer maatschappelijke activiteit klopt niet, verwacht te vinden: " + kvkNummer);
         }
 
         if (vestgID != null) {
@@ -261,5 +273,41 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         }
         ITable vestg_activiteit = rsgb.createDataSet().getTable("vestg_activiteit");
         assertEquals("Het aantal 'vestg_activiteit' records klopt niet", aantalVestg_activiteit, vestg_activiteit.getRowCount());
+
+        ITable sbi_activiteit = rsgb.createDataSet().getTable("sbi_activiteit");
+        ITable herkomst_metadata = rsgb.createDataSet().getTable("herkomst_metadata");
+        for (String sbiCode : sbiCodes) {
+            boolean foundSbiCode = false;
+            boolean foundSbiCodeMeta = false;
+            for (int i = 0; i < sbi_activiteit.getRowCount(); i++) {
+                if (sbiCode.equals(sbi_activiteit.getValue(i, "sbi_code").toString())) {
+                    LOG.debug("SBI code " + sbiCode + " gevonden in sbi_activiteit");
+                    foundSbiCode = true;
+                    break;
+                }
+            }
+            if (!foundSbiCode) {
+                fail("SBI code niet gevonden in sbi_activiteit, verwacht te vinden: " + sbiCode);
+            }
+            for (int i = 0; i < herkomst_metadata.getRowCount(); i++) {
+                if (sbiCode.equals(herkomst_metadata.getValue(i, "waarde").toString())) {
+                    LOG.debug("SBI code " + sbiCode + " gevonden in herkomst_metadata");
+                    foundSbiCodeMeta = true;
+                    break;
+                }
+            }
+            if (!foundSbiCodeMeta) {
+                fail("SBI code niet gevonden in herkomst_metadata, verwacht te vinden: " + sbiCode);
+            }
+        }
+
+        ITable functionaris = rsgb.createDataSet().getTable("functionaris");
+        assertEquals("Het aantal 'functionaris' records klopt niet", aantalFunctionarissen, functionaris.getRowCount());
+        if (kvkNummer == 41177576) {
+            // er is een Gevolmachtigde Directeur met beperkte volmacht in rij 4
+            assertEquals("Gevolmachtigde", functionaris.getValue(3, "functie"));
+            assertEquals("Directeur", functionaris.getValue(3, "functionaristypering"));
+            assertEquals("B", functionaris.getValue(3, "volledig_beperkt_volmacht"));
+        }
     }
 }
