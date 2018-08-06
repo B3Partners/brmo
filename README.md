@@ -8,6 +8,7 @@ Ga naar [releases](https://github.com/B3Partners/brmo/releases) voor de laatste 
 
 [![Travis-CI Build Status](https://travis-ci.org/B3Partners/brmo.svg?branch=master)](https://travis-ci.org/B3Partners/brmo)
 [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/kjwij2vo9bvnd458/branch/master?svg=true)](https://ci.appveyor.com/project/mprins/brmo/branch/master)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=B3Partners/brmo)](https://dependabot.com)
 [![GitHub issues](https://img.shields.io/github/issues/B3Partners/brmo.svg)](https://github.com/B3Partners/brmo/issues)
 [![GitHub forks](https://img.shields.io/github/forks/B3Partners/brmo.svg)](https://github.com/B3Partners/brmo/network)
 [![GitHub stars](https://img.shields.io/github/stars/B3Partners/brmo.svg)](https://github.com/B3Partners/brmo/stargazers)
@@ -15,5 +16,5 @@ Ga naar [releases](https://github.com/B3Partners/brmo/releases) voor de laatste 
 [![GitHub release](https://img.shields.io/github/release/B3Partners/brmo.svg?maxAge=2592000)]()
 [![Github Releases](https://img.shields.io/github/downloads/B3Partners/brmo/latest/total.svg?maxAge=2592000)]()
 [![Github All Releases](https://img.shields.io/github/downloads/B3Partners/brmo/total.svg?maxAge=2592000)]()
-[![Percentage of issues still open](http://isitmaintained.com/badge/open/B3Partners/brmo.svg)](http://isitmaintained.com/project/B3Partners/brmo "Percentage of issues still open")
-[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/B3Partners/brmo.svg)](http://isitmaintained.com/project/B3Partners/brmo "Average time to resolve an issue")
+[![Percentage of issues still open](https://isitmaintained.com/badge/open/B3Partners/brmo.svg)](https://isitmaintained.com/project/B3Partners/brmo "Percentage of issues still open")
+[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/B3Partners/brmo.svg)](https://isitmaintained.com/project/B3Partners/brmo "Average time to resolve an issue")
