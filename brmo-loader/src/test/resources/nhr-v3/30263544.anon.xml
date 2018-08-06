@@ -1,0 +1,2359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2018-08-13+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <SOAP-ENV:Header xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                    xmlns:wsa="http://www.w3.org/2005/08/addressing"/>
+   <soap:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+              wsu:Id="id-1-818116983ee0b2889e4ca18685868809">
+      <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                                   peilmoment="20180813144056496">
+         <meldingen>
+            <informatie>
+               <code>IPD0000</code>
+               <omschrijving>Het product is succesvol geproduceerd.</omschrijving>
+               <referentie>30263544</referentie>
+            </informatie>
+         </meldingen>
+         <product>
+            <cat:maatschappelijkeActiviteit xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02">
+               <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <cat:datumAanvang>19980101</cat:datumAanvang>
+               </cat:registratie>
+               <cat:kvkNummer>30263544</cat:kvkNummer>
+               <cat:nonMailing>
+                  <cat:code>N</cat:code>
+                  <cat:omschrijving>Nee</cat:omschrijving>
+                  <cat:referentieType>geenRT</cat:referentieType>
+               </cat:nonMailing>
+               <cat:pensioenvennootschap>
+                  <cat:code>N</cat:code>
+                  <cat:omschrijving>Nee</cat:omschrijving>
+                  <cat:referentieType>geenRT</cat:referentieType>
+               </cat:pensioenvennootschap>
+               <cat:sbiActiviteit>
+                  <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <cat:datumAanvang>19980101</cat:datumAanvang>
+                  </cat:registratie>
+                  <cat:sbiCode>
+                     <cat:code>91042</cat:code>
+                     <cat:omschrijving>Natuurbehoud</cat:omschrijving>
+                     <cat:referentieType>ActiviteitCode</cat:referentieType>
+                  </cat:sbiCode>
+                  <cat:isHoofdactiviteit>
+                     <cat:code>J</cat:code>
+                     <cat:omschrijving>Ja</cat:omschrijving>
+                     <cat:referentieType>geenRT</cat:referentieType>
+                  </cat:isHoofdactiviteit>
+                  <cat:volgorde>1</cat:volgorde>
+               </cat:sbiActiviteit>
+               <cat:incidenteelUitlenenArbeidskrachten>
+                  <cat:code>N</cat:code>
+                  <cat:omschrijving>Nee</cat:omschrijving>
+                  <cat:referentieType>geenRT</cat:referentieType>
+               </cat:incidenteelUitlenenArbeidskrachten>
+               <cat:bezoekLocatie>
+                  <cat:registratie registratieTijdstip="20160125121704353">
+                     <cat:datumAanvang>20160101</cat:datumAanvang>
+                  </cat:registratie>
+                  <cat:afgeschermd>
+                     <cat:code>N</cat:code>
+                     <cat:omschrijving>Nee</cat:omschrijving>
+                     <cat:referentieType>geenRT</cat:referentieType>
+                  </cat:afgeschermd>
+                  <cat:adres>
+                     <cat:binnenlandsAdres>
+                        <cat:straatnaam>Smallepad</cat:straatnaam>
+                        <cat:huisnummer>5</cat:huisnummer>
+                        <cat:postcode>
+                           <cat:cijfercombinatie>3811</cat:cijfercombinatie>
+                           <cat:lettercombinatie>MG</cat:lettercombinatie>
+                        </cat:postcode>
+                        <cat:plaats>Amersfoort</cat:plaats>
+                        <cat:bagId>
+                           <cat:identificatieNummeraanduiding>0307200000541769</cat:identificatieNummeraanduiding>
+                           <cat:identificatieAdresseerbaarObject>0307010000541768</cat:identificatieAdresseerbaarObject>
+                        </cat:bagId>
+                     </cat:binnenlandsAdres>
+                  </cat:adres>
+                  <cat:volledigAdres>Smallepad 5 3811MG Amersfoort</cat:volledigAdres>
+               </cat:bezoekLocatie>
+               <cat:postLocatie>
+                  <cat:registratie registratieTijdstip="20160125121704353">
+                     <cat:datumAanvang>20160101</cat:datumAanvang>
+                  </cat:registratie>
+                  <cat:afgeschermd>
+                     <cat:code>N</cat:code>
+                     <cat:omschrijving>Nee</cat:omschrijving>
+                     <cat:referentieType>geenRT</cat:referentieType>
+                  </cat:afgeschermd>
+                  <cat:adres>
+                     <cat:binnenlandsAdres>
+                        <cat:postbusnummer>2</cat:postbusnummer>
+                        <cat:postcode>
+                           <cat:cijfercombinatie>3800</cat:cijfercombinatie>
+                           <cat:lettercombinatie>AA</cat:lettercombinatie>
+                        </cat:postcode>
+                        <cat:plaats>Amersfoort</cat:plaats>
+                     </cat:binnenlandsAdres>
+                  </cat:adres>
+                  <cat:volledigAdres>Postbus 2 3800AA Amersfoort</cat:volledigAdres>
+               </cat:postLocatie>
+               <cat:communicatiegegevens>
+                  <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <cat:datumAanvang>19980101</cat:datumAanvang>
+                  </cat:registratie>
+                  <cat:communicatienummer>
+                     <cat:toegangscode>+31</cat:toegangscode>
+                     <cat:nummer>0306926111</cat:nummer>
+                     <cat:soort>
+                        <cat:code>T</cat:code>
+                        <cat:omschrijving>Telefoon</cat:omschrijving>
+                     </cat:soort>
+                  </cat:communicatienummer>
+                  <cat:communicatienummer>
+                     <cat:toegangscode>+31</cat:toegangscode>
+                     <cat:nummer>0306922978</cat:nummer>
+                     <cat:soort>
+                        <cat:code>F</cat:code>
+                        <cat:omschrijving>Fax</cat:omschrijving>
+                     </cat:soort>
+                  </cat:communicatienummer>
+                  <cat:emailAdres>info@staatsbosbeheer.nl</cat:emailAdres>
+                  <cat:domeinNaam>www.staatsbosbeheer.nl</cat:domeinNaam>
+               </cat:communicatiegegevens>
+               <cat:naam>Staatsbosbeheer</cat:naam>
+               <cat:manifesteertZichAls>
+                  <cat:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <cat:datumAanvang>19980101</cat:datumAanvang>
+                  </cat:relatieRegistratie>
+                  <cat:onderneming>
+                     <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <cat:datumAanvang>19980101</cat:datumAanvang>
+                     </cat:registratie>
+                     <cat:kvkNummer>30263544</cat:kvkNummer>
+                     <cat:sbiActiviteit>
+                        <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <cat:datumAanvang>19980101</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:sbiCode>
+                           <cat:code>91042</cat:code>
+                           <cat:omschrijving>Natuurbehoud</cat:omschrijving>
+                           <cat:referentieType>ActiviteitCode</cat:referentieType>
+                        </cat:sbiCode>
+                        <cat:isHoofdactiviteit>
+                           <cat:code>J</cat:code>
+                           <cat:omschrijving>Ja</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:isHoofdactiviteit>
+                        <cat:volgorde>0</cat:volgorde>
+                     </cat:sbiActiviteit>
+                     <cat:voltijdWerkzamePersonen>1082</cat:voltijdWerkzamePersonen>
+                     <cat:deeltijdWerkzamePersonen>14</cat:deeltijdWerkzamePersonen>
+                     <cat:totaalWerkzamePersonen>1096</cat:totaalWerkzamePersonen>
+                     <cat:handeltOnder>
+                        <cat:handelsnaam>
+                           <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <cat:datumAanvang>19980101</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:naam>Staatsbosbeheer</cat:naam>
+                           <cat:volgorde>0</cat:volgorde>
+                        </cat:handelsnaam>
+                     </cat:handeltOnder>
+                     <cat:handeltOnder>
+                        <cat:handelsnaam>
+                           <cat:registratie registratieTijdstip="20140414085141869">
+                              <cat:datumAanvang>20140401</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:naam>Staatsbosbeheer Buitencentrum Sallandse Heuvelrug</cat:naam>
+                           <cat:volgorde>1</cat:volgorde>
+                        </cat:handelsnaam>
+                     </cat:handeltOnder>
+                     <cat:handeltOnder>
+                        <cat:handelsnaam>
+                           <cat:registratie registratieTijdstip="20140414085141869">
+                              <cat:datumAanvang>20140401</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:naam>Staatsbosbeheer Buitencentrum De Pelen</cat:naam>
+                           <cat:volgorde>2</cat:volgorde>
+                        </cat:handelsnaam>
+                     </cat:handeltOnder>
+                     <cat:handeltOnder>
+                        <cat:handelsnaam>
+                           <cat:registratie registratieTijdstip="20140414085141869">
+                              <cat:datumAanvang>20140401</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:naam>Staatsbosbeheer Buitencentrum Schoorlse-Duinen</cat:naam>
+                           <cat:volgorde>3</cat:volgorde>
+                        </cat:handelsnaam>
+                     </cat:handeltOnder>
+                     <cat:handeltOnder>
+                        <cat:handelsnaam>
+                           <cat:registratie registratieTijdstip="20140414085141869">
+                              <cat:datumAanvang>20140401</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:naam>Staatsbosbeheer Buitencentrum Oostervaardersplassen</cat:naam>
+                           <cat:volgorde>4</cat:volgorde>
+                        </cat:handelsnaam>
+                     </cat:handeltOnder>
+                     <cat:handeltOnder>
+                        <cat:handelsnaam>
+                           <cat:registratie registratieTijdstip="20140414085141869">
+                              <cat:datumAanvang>20140401</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:naam>Staatsbosbeheer Buitencentrum Boomkroonpad</cat:naam>
+                           <cat:volgorde>5</cat:volgorde>
+                        </cat:handelsnaam>
+                     </cat:handeltOnder>
+                     <cat:handeltOnder>
+                        <cat:handelsnaam>
+                           <cat:registratie registratieTijdstip="20140414085141869">
+                              <cat:datumAanvang>20140401</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:naam>Staatsbosbeheer Kasteel Groeneveld</cat:naam>
+                           <cat:volgorde>6</cat:volgorde>
+                        </cat:handelsnaam>
+                     </cat:handeltOnder>
+                     <cat:handeltOnder>
+                        <cat:handelsnaam>
+                           <cat:registratie registratieTijdstip="20140414085141869">
+                              <cat:datumAanvang>20140401</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:naam>Staatsbosbeheer Buitencentrum Drents-Friesewold</cat:naam>
+                           <cat:volgorde>7</cat:volgorde>
+                        </cat:handelsnaam>
+                     </cat:handeltOnder>
+                     <cat:handeltOnder>
+                        <cat:handelsnaam>
+                           <cat:registratie registratieTijdstip="20140414085141869">
+                              <cat:datumAanvang>20140401</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:naam>Staatsbosbeheer Buitencentrum De Kemphaan</cat:naam>
+                           <cat:volgorde>8</cat:volgorde>
+                        </cat:handelsnaam>
+                     </cat:handeltOnder>
+                     <cat:wordtUitgeoefendIn>
+                        <cat:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <cat:datumAanvang>19980101</cat:datumAanvang>
+                        </cat:relatieRegistratie>
+                        <cat:commercieleVestiging>
+                           <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <cat:datumAanvang>19980101</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:vestigingsnummer>000012461547</cat:vestigingsnummer>
+                           <cat:bezoekLocatie>
+                              <cat:registratie registratieTijdstip="20160125121704353">
+                                 <cat:datumAanvang>20160101</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Smallepad</cat:straatnaam>
+                                    <cat:huisnummer>5</cat:huisnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>3811</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>MG</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Amersfoort</cat:plaats>
+                                    <cat:bagId>
+                                       <cat:identificatieNummeraanduiding>0307200000541769</cat:identificatieNummeraanduiding>
+                                       <cat:identificatieAdresseerbaarObject>0307010000541768</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Smallepad 5 3811MG Amersfoort</cat:volledigAdres>
+                           </cat:bezoekLocatie>
+                           <cat:postLocatie>
+                              <cat:registratie registratieTijdstip="20160125121704353">
+                                 <cat:datumAanvang>20160101</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:postbusnummer>2</cat:postbusnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>3800</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>AA</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Amersfoort</cat:plaats>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Postbus 2 3800AA Amersfoort</cat:volledigAdres>
+                           </cat:postLocatie>
+                           <cat:communicatiegegevens>
+                              <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <cat:datumAanvang>19980101</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:communicatienummer>
+                                 <cat:toegangscode>+31</cat:toegangscode>
+                                 <cat:nummer>0306926111</cat:nummer>
+                                 <cat:soort>
+                                    <cat:code>T</cat:code>
+                                    <cat:omschrijving>Telefoon</cat:omschrijving>
+                                 </cat:soort>
+                              </cat:communicatienummer>
+                              <cat:communicatienummer>
+                                 <cat:toegangscode>+31</cat:toegangscode>
+                                 <cat:nummer>0306922978</cat:nummer>
+                                 <cat:soort>
+                                    <cat:code>F</cat:code>
+                                    <cat:omschrijving>Fax</cat:omschrijving>
+                                 </cat:soort>
+                              </cat:communicatienummer>
+                              <cat:emailAdres>info@staatsbosbeheer.nl</cat:emailAdres>
+                              <cat:domeinNaam>www.staatsbosbeheer.nl</cat:domeinNaam>
+                           </cat:communicatiegegevens>
+                           <cat:eersteHandelsnaam>Staatsbosbeheer</cat:eersteHandelsnaam>
+                           <cat:voltijdWerkzamePersonen>144</cat:voltijdWerkzamePersonen>
+                           <cat:deeltijdWerkzamePersonen>1</cat:deeltijdWerkzamePersonen>
+                           <cat:totaalWerkzamePersonen>145</cat:totaalWerkzamePersonen>
+                           <cat:activiteiten>
+                              <cat:omschrijving>-Beheer en vervreemding van de bij Staatsbosbeheer krachtens eigendom of enig ander zakelijk recht, dan wel enig persoonlijk recht berustende objecten, en het verkrijgen van objecten, teneinde deze t.b.v. o.a. natuurwaarden duurzaam in stand te houden, onderscheidenlijk te ontwikkelen, in overeenstemming met door Onze Minister geformuleerd beleid; -Het verkrijgen en vervreemden van goederen; -Het uitvoeren van hieruit voortvloeiende en samenhangende activiteiten; In verband met artikel 3 Wet Verzelfstandiging Staatsbosbeheer, Stb 1997, 514</cat:omschrijving>
+                              <cat:sbiActiviteit>
+                                 <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <cat:datumAanvang>19980101</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:sbiCode>
+                                    <cat:code>91042</cat:code>
+                                    <cat:omschrijving>Natuurbehoud</cat:omschrijving>
+                                    <cat:referentieType>ActiviteitCode</cat:referentieType>
+                                 </cat:sbiCode>
+                                 <cat:isHoofdactiviteit>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:isHoofdactiviteit>
+                              </cat:sbiActiviteit>
+                              <cat:exporteert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:exporteert>
+                              <cat:importeert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:importeert>
+                           </cat:activiteiten>
+                           <cat:handeltOnder>
+                              <cat:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <cat:datumAanvang>19980101</cat:datumAanvang>
+                              </cat:relatieRegistratie>
+                              <cat:handelsnaam>
+                                 <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <cat:datumAanvang>19980101</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:naam>Staatsbosbeheer</cat:naam>
+                                 <cat:volgorde>0</cat:volgorde>
+                              </cat:handelsnaam>
+                           </cat:handeltOnder>
+                        </cat:commercieleVestiging>
+                     </cat:wordtUitgeoefendIn>
+                     <cat:wordtUitgeoefendIn>
+                        <cat:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <cat:datumAanvang>20050404</cat:datumAanvang>
+                        </cat:relatieRegistratie>
+                        <cat:commercieleVestiging>
+                           <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <cat:datumAanvang>20050404</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:vestigingsnummer>000012461555</cat:vestigingsnummer>
+                           <cat:bezoekLocatie>
+                              <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <cat:datumAanvang>20050404</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Binnensingel</cat:straatnaam>
+                                    <cat:huisnummer>3</cat:huisnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>7411</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>PL</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Deventer</cat:plaats>
+                                    <cat:bagId>
+                                       <cat:identificatieNummeraanduiding>0150200000010195</cat:identificatieNummeraanduiding>
+                                       <cat:identificatieAdresseerbaarObject>0150010000032990</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Binnensingel 3 7411PL Deventer</cat:volledigAdres>
+                           </cat:bezoekLocatie>
+                           <cat:postLocatie>
+                              <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <cat:datumAanvang>20050404</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:postbusnummer>6</cat:postbusnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>7400</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>AA</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Deventer</cat:plaats>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Postbus 6 7400AA Deventer</cat:volledigAdres>
+                           </cat:postLocatie>
+                           <cat:communicatiegegevens>
+                              <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <cat:datumAanvang>20050404</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:communicatienummer>
+                                 <cat:toegangscode>+31</cat:toegangscode>
+                                 <cat:nummer>0570747100</cat:nummer>
+                                 <cat:soort>
+                                    <cat:code>T</cat:code>
+                                    <cat:omschrijving>Telefoon</cat:omschrijving>
+                                 </cat:soort>
+                              </cat:communicatienummer>
+                              <cat:communicatienummer>
+                                 <cat:toegangscode>+31</cat:toegangscode>
+                                 <cat:nummer>0570747111</cat:nummer>
+                                 <cat:soort>
+                                    <cat:code>F</cat:code>
+                                    <cat:omschrijving>Fax</cat:omschrijving>
+                                 </cat:soort>
+                              </cat:communicatienummer>
+                              <cat:emailAdres>info@staatsbosbeheer.nl</cat:emailAdres>
+                           </cat:communicatiegegevens>
+                           <cat:eersteHandelsnaam>Staatsbosbeheer</cat:eersteHandelsnaam>
+                           <cat:voltijdWerkzamePersonen>299</cat:voltijdWerkzamePersonen>
+                           <cat:deeltijdWerkzamePersonen>3</cat:deeltijdWerkzamePersonen>
+                           <cat:totaalWerkzamePersonen>302</cat:totaalWerkzamePersonen>
+                           <cat:activiteiten>
+                              <cat:omschrijving>-Beheer en vervreemding van de bij Staatsbosbeheer krachtens eigendom of enig ander zakelijk recht, dan wel enig persoonlijk recht berustende objecten, en het verkrijgen van objecten, teneinde deze t.b.v. o.a. natuurwaarden duurzaam in stand te houden, onderscheidenlijk te ontwikkelen, in overeenstemming met door Onze Minister geformuleerd beleid; -Het verkrijgen en vervreemden van goederen; -Het uitvoeren van hieruit voortvloeiende en samenhangende activiteiten; In verband met artikel 3 Wet Verzelfstandiging Staatsbosbeheer, Stb 1997, 514</cat:omschrijving>
+                              <cat:sbiActiviteit>
+                                 <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <cat:datumAanvang>20050404</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:sbiCode>
+                                    <cat:code>91042</cat:code>
+                                    <cat:omschrijving>Natuurbehoud</cat:omschrijving>
+                                    <cat:referentieType>ActiviteitCode</cat:referentieType>
+                                 </cat:sbiCode>
+                                 <cat:isHoofdactiviteit>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:isHoofdactiviteit>
+                              </cat:sbiActiviteit>
+                              <cat:exporteert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:exporteert>
+                              <cat:importeert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:importeert>
+                           </cat:activiteiten>
+                           <cat:handeltOnder>
+                              <cat:relatieRegistratie registratieTijdstip="20140414085955266">
+                                 <cat:datumAanvang>20140407</cat:datumAanvang>
+                              </cat:relatieRegistratie>
+                              <cat:handelsnaam>
+                                 <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <cat:datumAanvang>19980101</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:naam>Staatsbosbeheer</cat:naam>
+                                 <cat:volgorde>0</cat:volgorde>
+                              </cat:handelsnaam>
+                           </cat:handeltOnder>
+                        </cat:commercieleVestiging>
+                     </cat:wordtUitgeoefendIn>
+                     <cat:wordtUitgeoefendIn>
+                        <cat:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <cat:datumAanvang>20050523</cat:datumAanvang>
+                        </cat:relatieRegistratie>
+                        <cat:commercieleVestiging>
+                           <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <cat:datumAanvang>20050523</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:vestigingsnummer>000012461598</cat:vestigingsnummer>
+                           <cat:bezoekLocatie>
+                              <cat:registratie registratieTijdstip="20121123100833158">
+                                 <cat:datumAanvang>20121122</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Leonard Springerlaan</cat:straatnaam>
+                                    <cat:huisnummer>23</cat:huisnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>9727</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>KB</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Groningen</cat:plaats>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Leonard Springerlaan 23 9727KB Groningen</cat:volledigAdres>
+                           </cat:bezoekLocatie>
+                           <cat:postLocatie>
+                              <cat:registratie registratieTijdstip="20121123100833158">
+                                 <cat:datumAanvang>20121122</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:postbusnummer>333</cat:postbusnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>9700</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>AH</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Groningen</cat:plaats>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Postbus 333 9700AH Groningen</cat:volledigAdres>
+                           </cat:postLocatie>
+                           <cat:communicatiegegevens>
+                              <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <cat:datumAanvang>20050523</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:communicatienummer>
+                                 <cat:toegangscode>+31</cat:toegangscode>
+                                 <cat:nummer>0507074444</cat:nummer>
+                                 <cat:soort>
+                                    <cat:code>T</cat:code>
+                                    <cat:omschrijving>Telefoon</cat:omschrijving>
+                                 </cat:soort>
+                              </cat:communicatienummer>
+                              <cat:communicatienummer>
+                                 <cat:toegangscode>+31</cat:toegangscode>
+                                 <cat:nummer>0507074400</cat:nummer>
+                                 <cat:soort>
+                                    <cat:code>F</cat:code>
+                                    <cat:omschrijving>Fax</cat:omschrijving>
+                                 </cat:soort>
+                              </cat:communicatienummer>
+                              <cat:emailAdres>info@staatsbosbeheer.nl</cat:emailAdres>
+                           </cat:communicatiegegevens>
+                           <cat:eersteHandelsnaam>Staatsbosbeheer</cat:eersteHandelsnaam>
+                           <cat:voltijdWerkzamePersonen>297</cat:voltijdWerkzamePersonen>
+                           <cat:deeltijdWerkzamePersonen>0</cat:deeltijdWerkzamePersonen>
+                           <cat:totaalWerkzamePersonen>297</cat:totaalWerkzamePersonen>
+                           <cat:activiteiten>
+                              <cat:omschrijving>-Beheer en vervreemding van de bij Staatsbosbeheer krachtens eigendom of enig ander zakelijk recht, dan wel enig persoonlijk recht berustende objecten, en het verkrijgen van objecten, teneinde deze t.b.v. o.a. natuurwaarden, duurzaam in stand te houden, onderscheidenlijk te ontwikkelen, in overeenstemming met door Onze Minister geformuleerd beleid; -Het verkrijgen en vervreemden van goederen; -Het uitvoeren van hieruit voortvleiende en samenhangende activiteiten; In verband met artikel 3 Wet Verzelfstandiging Staatsbosbeheer, Stb 1997, 514</cat:omschrijving>
+                              <cat:sbiActiviteit>
+                                 <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <cat:datumAanvang>20050523</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:sbiCode>
+                                    <cat:code>91042</cat:code>
+                                    <cat:omschrijving>Natuurbehoud</cat:omschrijving>
+                                    <cat:referentieType>ActiviteitCode</cat:referentieType>
+                                 </cat:sbiCode>
+                                 <cat:isHoofdactiviteit>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:isHoofdactiviteit>
+                              </cat:sbiActiviteit>
+                              <cat:exporteert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:exporteert>
+                              <cat:importeert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:importeert>
+                           </cat:activiteiten>
+                           <cat:handeltOnder>
+                              <cat:relatieRegistratie registratieTijdstip="20140414085955266">
+                                 <cat:datumAanvang>20140407</cat:datumAanvang>
+                              </cat:relatieRegistratie>
+                              <cat:handelsnaam>
+                                 <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <cat:datumAanvang>19980101</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:naam>Staatsbosbeheer</cat:naam>
+                                 <cat:volgorde>0</cat:volgorde>
+                              </cat:handelsnaam>
+                           </cat:handeltOnder>
+                        </cat:commercieleVestiging>
+                     </cat:wordtUitgeoefendIn>
+                     <cat:wordtUitgeoefendIn>
+                        <cat:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <cat:datumAanvang>20050307</cat:datumAanvang>
+                        </cat:relatieRegistratie>
+                        <cat:commercieleVestiging>
+                           <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <cat:datumAanvang>20050307</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:vestigingsnummer>000012461628</cat:vestigingsnummer>
+                           <cat:bezoekLocatie>
+                              <cat:registratie registratieTijdstip="20121210082834739">
+                                 <cat:datumAanvang>20121210</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Hart van Brabantlaan</cat:straatnaam>
+                                    <cat:huisnummer>16</cat:huisnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>5038</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>JL</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Tilburg</cat:plaats>
+                                    <cat:bagId>
+                                       <cat:identificatieNummeraanduiding>0855200000038074</cat:identificatieNummeraanduiding>
+                                       <cat:identificatieAdresseerbaarObject>0855010000102355</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Hart van Brabantlaan 16 5038JL Tilburg</cat:volledigAdres>
+                           </cat:bezoekLocatie>
+                           <cat:postLocatie>
+                              <cat:registratie registratieTijdstip="20121210082834739">
+                                 <cat:datumAanvang>20121210</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:postbusnummer>330</cat:postbusnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>5000</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>AH</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Tilburg</cat:plaats>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Postbus 330 5000AH Tilburg</cat:volledigAdres>
+                           </cat:postLocatie>
+                           <cat:communicatiegegevens>
+                              <cat:registratie registratieTijdstip="20121210082834739">
+                                 <cat:datumAanvang>20121210</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:communicatienummer>
+                                 <cat:toegangscode>+31</cat:toegangscode>
+                                 <cat:nummer>0137074800</cat:nummer>
+                                 <cat:soort>
+                                    <cat:code>T</cat:code>
+                                    <cat:omschrijving>Telefoon</cat:omschrijving>
+                                 </cat:soort>
+                              </cat:communicatienummer>
+                              <cat:emailAdres>info@staatsbosheer.nl</cat:emailAdres>
+                           </cat:communicatiegegevens>
+                           <cat:eersteHandelsnaam>Staatsbosbeheer</cat:eersteHandelsnaam>
+                           <cat:voltijdWerkzamePersonen>166</cat:voltijdWerkzamePersonen>
+                           <cat:deeltijdWerkzamePersonen>2</cat:deeltijdWerkzamePersonen>
+                           <cat:totaalWerkzamePersonen>168</cat:totaalWerkzamePersonen>
+                           <cat:activiteiten>
+                              <cat:omschrijving>-Beheer en vervreemding van de bij Staatsbosbeheer krachtens eigendom of enig ander zakelijk recht, dan wel enig persoonlijk recht berustende objecten, en het verkrijgen van objecten, teneinde deze t.b.v. o.a. natuurwaarden duurzaam in stand te houden, onderscheidenlijk te ontwikkelen, in overeenstemming met door Onze Minister geformuleerd beleid; -Het verkrijgen en vervreemden van goederen; -Het uitvoeren van hieruit voortvloeiende en samenhangende activiteiten; In verband met artikel 3 Wet Verzelfstandiging Staatsbosbeheer, Stb 1997, 514</cat:omschrijving>
+                              <cat:sbiActiviteit>
+                                 <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <cat:datumAanvang>20050307</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:sbiCode>
+                                    <cat:code>91042</cat:code>
+                                    <cat:omschrijving>Natuurbehoud</cat:omschrijving>
+                                    <cat:referentieType>ActiviteitCode</cat:referentieType>
+                                 </cat:sbiCode>
+                                 <cat:isHoofdactiviteit>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:isHoofdactiviteit>
+                              </cat:sbiActiviteit>
+                              <cat:exporteert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:exporteert>
+                              <cat:importeert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:importeert>
+                           </cat:activiteiten>
+                           <cat:handeltOnder>
+                              <cat:relatieRegistratie registratieTijdstip="20140414085955266">
+                                 <cat:datumAanvang>20140407</cat:datumAanvang>
+                              </cat:relatieRegistratie>
+                              <cat:handelsnaam>
+                                 <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <cat:datumAanvang>19980101</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:naam>Staatsbosbeheer</cat:naam>
+                                 <cat:volgorde>0</cat:volgorde>
+                              </cat:handelsnaam>
+                           </cat:handeltOnder>
+                        </cat:commercieleVestiging>
+                     </cat:wordtUitgeoefendIn>
+                     <cat:wordtUitgeoefendIn>
+                        <cat:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <cat:datumAanvang>20050325</cat:datumAanvang>
+                        </cat:relatieRegistratie>
+                        <cat:commercieleVestiging>
+                           <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <cat:datumAanvang>20050325</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:vestigingsnummer>000012461644</cat:vestigingsnummer>
+                           <cat:bezoekLocatie>
+                              <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <cat:datumAanvang>20050325</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Naritaweg</cat:straatnaam>
+                                    <cat:huisnummer>221</cat:huisnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>1043</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>CB</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Amsterdam</cat:plaats>
+                                    <cat:bagId>
+                                       <cat:identificatieNummeraanduiding>0363200000489844</cat:identificatieNummeraanduiding>
+                                       <cat:identificatieAdresseerbaarObject>0363010001026219</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Naritaweg 221 1043CB Amsterdam</cat:volledigAdres>
+                           </cat:bezoekLocatie>
+                           <cat:postLocatie>
+                              <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <cat:datumAanvang>20050325</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:postbusnummer>58174</cat:postbusnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>1040</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>HD</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Amsterdam</cat:plaats>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Postbus 58174 1040HD Amsterdam</cat:volledigAdres>
+                           </cat:postLocatie>
+                           <cat:communicatiegegevens>
+                              <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <cat:datumAanvang>20050325</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:communicatienummer>
+                                 <cat:toegangscode>+31</cat:toegangscode>
+                                 <cat:nummer>0207073700</cat:nummer>
+                                 <cat:soort>
+                                    <cat:code>T</cat:code>
+                                    <cat:omschrijving>Telefoon</cat:omschrijving>
+                                 </cat:soort>
+                              </cat:communicatienummer>
+                              <cat:communicatienummer>
+                                 <cat:toegangscode>+31</cat:toegangscode>
+                                 <cat:nummer>0207073701</cat:nummer>
+                                 <cat:soort>
+                                    <cat:code>F</cat:code>
+                                    <cat:omschrijving>Fax</cat:omschrijving>
+                                 </cat:soort>
+                              </cat:communicatienummer>
+                              <cat:emailAdres>info@staatsbosbeheer.nl</cat:emailAdres>
+                           </cat:communicatiegegevens>
+                           <cat:eersteHandelsnaam>Staatsbosbeheer</cat:eersteHandelsnaam>
+                           <cat:voltijdWerkzamePersonen>151</cat:voltijdWerkzamePersonen>
+                           <cat:deeltijdWerkzamePersonen>4</cat:deeltijdWerkzamePersonen>
+                           <cat:totaalWerkzamePersonen>155</cat:totaalWerkzamePersonen>
+                           <cat:activiteiten>
+                              <cat:omschrijving>-Beheer en vervreemding van de bij Staatsbosbeheer krachtens eigendom of enig ander zakelijk recht, dan wel enig persoonlijk recht berustende objecten, en het verkrijgen van objecten, teneinde deze t.b.v. o.a. natuurwaarden duurzaam in stand te houden, onderscheidenlijk te ontwikkelen, in overeenstemming met door Onze Minister geformuleerd beleid; -Het verkrijgen en vervreemden van goederen; -Het uitvoeren van hieruit voortvloeiende en samenhangende activiteiten; In verband met artikel 3 Wet Verzelfstandiging Staatsbosbeheer, Stb 1997, 514</cat:omschrijving>
+                              <cat:sbiActiviteit>
+                                 <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <cat:datumAanvang>20050325</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:sbiCode>
+                                    <cat:code>91042</cat:code>
+                                    <cat:omschrijving>Natuurbehoud</cat:omschrijving>
+                                    <cat:referentieType>ActiviteitCode</cat:referentieType>
+                                 </cat:sbiCode>
+                                 <cat:isHoofdactiviteit>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:isHoofdactiviteit>
+                              </cat:sbiActiviteit>
+                              <cat:exporteert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:exporteert>
+                              <cat:importeert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:importeert>
+                           </cat:activiteiten>
+                           <cat:handeltOnder>
+                              <cat:relatieRegistratie registratieTijdstip="20140414085955266">
+                                 <cat:datumAanvang>20140407</cat:datumAanvang>
+                              </cat:relatieRegistratie>
+                              <cat:handelsnaam>
+                                 <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <cat:datumAanvang>19980101</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:naam>Staatsbosbeheer</cat:naam>
+                                 <cat:volgorde>0</cat:volgorde>
+                              </cat:handelsnaam>
+                           </cat:handeltOnder>
+                        </cat:commercieleVestiging>
+                     </cat:wordtUitgeoefendIn>
+                     <cat:wordtUitgeoefendIn>
+                        <cat:relatieRegistratie registratieTijdstip="20140414085141869">
+                           <cat:datumAanvang>20140401</cat:datumAanvang>
+                        </cat:relatieRegistratie>
+                        <cat:commercieleVestiging>
+                           <cat:registratie registratieTijdstip="20140414085141869">
+                              <cat:datumAanvang>20140401</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:vestigingsnummer>000029658756</cat:vestigingsnummer>
+                           <cat:bezoekLocatie>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Grotestraat</cat:straatnaam>
+                                    <cat:huisnummer>281</cat:huisnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>7441</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>GS</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Nijverdal</cat:plaats>
+                                    <cat:bagId>
+                                       <cat:identificatieNummeraanduiding>0163200000552378</cat:identificatieNummeraanduiding>
+                                       <cat:identificatieAdresseerbaarObject>0163010000552379</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Grotestraat 281 7441GS Nijverdal</cat:volledigAdres>
+                           </cat:bezoekLocatie>
+                           <cat:postLocatie>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:postbusnummer>1300</cat:postbusnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>3970</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>BH</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Driebergen-Rijsenburg</cat:plaats>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Postbus 1300 3970BH Driebergen-Rijsenburg</cat:volledigAdres>
+                           </cat:postLocatie>
+                           <cat:communicatiegegevens>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:communicatienummer>
+                                 <cat:toegangscode>+31</cat:toegangscode>
+                                 <cat:nummer>0548612711</cat:nummer>
+                                 <cat:soort>
+                                    <cat:code>T</cat:code>
+                                    <cat:omschrijving>Telefoon</cat:omschrijving>
+                                 </cat:soort>
+                              </cat:communicatienummer>
+                           </cat:communicatiegegevens>
+                           <cat:eersteHandelsnaam>Staatsbosbeheer Buitencentrum Sallandse Heuvelrug</cat:eersteHandelsnaam>
+                           <cat:voltijdWerkzamePersonen>3</cat:voltijdWerkzamePersonen>
+                           <cat:deeltijdWerkzamePersonen>0</cat:deeltijdWerkzamePersonen>
+                           <cat:totaalWerkzamePersonen>3</cat:totaalWerkzamePersonen>
+                           <cat:activiteiten>
+                              <cat:omschrijving>Voorlichting, excurcies en winkel in diverse producten.</cat:omschrijving>
+                              <cat:sbiActiviteit>
+                                 <cat:registratie registratieTijdstip="20140414085141869">
+                                    <cat:datumAanvang>20140401</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:sbiCode>
+                                    <cat:code>91042</cat:code>
+                                    <cat:omschrijving>Natuurbehoud</cat:omschrijving>
+                                    <cat:referentieType>ActiviteitCode</cat:referentieType>
+                                 </cat:sbiCode>
+                                 <cat:isHoofdactiviteit>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:isHoofdactiviteit>
+                              </cat:sbiActiviteit>
+                              <cat:exporteert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:exporteert>
+                              <cat:importeert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:importeert>
+                           </cat:activiteiten>
+                           <cat:handeltOnder>
+                              <cat:relatieRegistratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:relatieRegistratie>
+                              <cat:handelsnaam>
+                                 <cat:registratie registratieTijdstip="20140414085141869">
+                                    <cat:datumAanvang>20140401</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:naam>Staatsbosbeheer Buitencentrum Sallandse Heuvelrug</cat:naam>
+                                 <cat:volgorde>0</cat:volgorde>
+                              </cat:handelsnaam>
+                           </cat:handeltOnder>
+                        </cat:commercieleVestiging>
+                     </cat:wordtUitgeoefendIn>
+                     <cat:wordtUitgeoefendIn>
+                        <cat:relatieRegistratie registratieTijdstip="20140414085141869">
+                           <cat:datumAanvang>20140401</cat:datumAanvang>
+                        </cat:relatieRegistratie>
+                        <cat:commercieleVestiging>
+                           <cat:registratie registratieTijdstip="20140414085141869">
+                              <cat:datumAanvang>20140401</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:vestigingsnummer>000029658764</cat:vestigingsnummer>
+                           <cat:bezoekLocatie>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Moostdijk</cat:straatnaam>
+                                    <cat:huisnummer>15</cat:huisnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>6035</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>RB</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Ospel</cat:plaats>
+                                    <cat:bagId>
+                                       <cat:identificatieNummeraanduiding>0946200000226268</cat:identificatieNummeraanduiding>
+                                       <cat:identificatieAdresseerbaarObject>0946010000226269</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Moostdijk 15 6035RB Ospel</cat:volledigAdres>
+                           </cat:bezoekLocatie>
+                           <cat:postLocatie>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:postbusnummer>1300</cat:postbusnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>3970</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>BH</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Driebergen-Rijsenburg</cat:plaats>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Postbus 1300 3970BH Driebergen-Rijsenburg</cat:volledigAdres>
+                           </cat:postLocatie>
+                           <cat:communicatiegegevens>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:communicatienummer>
+                                 <cat:toegangscode>+31</cat:toegangscode>
+                                 <cat:nummer>0495641497</cat:nummer>
+                                 <cat:soort>
+                                    <cat:code>T</cat:code>
+                                    <cat:omschrijving>Telefoon</cat:omschrijving>
+                                 </cat:soort>
+                              </cat:communicatienummer>
+                           </cat:communicatiegegevens>
+                           <cat:eersteHandelsnaam>Staatsbosbeheer Buitencentrum De Pelen</cat:eersteHandelsnaam>
+                           <cat:voltijdWerkzamePersonen>2</cat:voltijdWerkzamePersonen>
+                           <cat:deeltijdWerkzamePersonen>1</cat:deeltijdWerkzamePersonen>
+                           <cat:totaalWerkzamePersonen>3</cat:totaalWerkzamePersonen>
+                           <cat:activiteiten>
+                              <cat:omschrijving>Voorlichting, excursie en winkel in diverse producten.</cat:omschrijving>
+                              <cat:sbiActiviteit>
+                                 <cat:registratie registratieTijdstip="20140414085141869">
+                                    <cat:datumAanvang>20140401</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:sbiCode>
+                                    <cat:code>91042</cat:code>
+                                    <cat:omschrijving>Natuurbehoud</cat:omschrijving>
+                                    <cat:referentieType>ActiviteitCode</cat:referentieType>
+                                 </cat:sbiCode>
+                                 <cat:isHoofdactiviteit>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:isHoofdactiviteit>
+                              </cat:sbiActiviteit>
+                              <cat:exporteert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:exporteert>
+                              <cat:importeert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:importeert>
+                           </cat:activiteiten>
+                           <cat:handeltOnder>
+                              <cat:relatieRegistratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:relatieRegistratie>
+                              <cat:handelsnaam>
+                                 <cat:registratie registratieTijdstip="20140414085141869">
+                                    <cat:datumAanvang>20140401</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:naam>Staatsbosbeheer Buitencentrum De Pelen</cat:naam>
+                                 <cat:volgorde>0</cat:volgorde>
+                              </cat:handelsnaam>
+                           </cat:handeltOnder>
+                        </cat:commercieleVestiging>
+                     </cat:wordtUitgeoefendIn>
+                     <cat:wordtUitgeoefendIn>
+                        <cat:relatieRegistratie registratieTijdstip="20140414085141869">
+                           <cat:datumAanvang>20140401</cat:datumAanvang>
+                        </cat:relatieRegistratie>
+                        <cat:commercieleVestiging>
+                           <cat:registratie registratieTijdstip="20140414085141869">
+                              <cat:datumAanvang>20140401</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:vestigingsnummer>000029658772</cat:vestigingsnummer>
+                           <cat:bezoekLocatie>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Oorsprongweg</cat:straatnaam>
+                                    <cat:huisnummer>1</cat:huisnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>1871</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>HA</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Schoorl</cat:plaats>
+                                    <cat:bagId>
+                                       <cat:identificatieNummeraanduiding>0373200000019361</cat:identificatieNummeraanduiding>
+                                       <cat:identificatieAdresseerbaarObject>0373010000019361</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Oorsprongweg 1 1871HA Schoorl</cat:volledigAdres>
+                           </cat:bezoekLocatie>
+                           <cat:postLocatie>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Oorsprongweg</cat:straatnaam>
+                                    <cat:huisnummer>1</cat:huisnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>1871</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>HA</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Schoorl</cat:plaats>
+                                    <cat:bagId>
+                                       <cat:identificatieNummeraanduiding>0373200000019361</cat:identificatieNummeraanduiding>
+                                       <cat:identificatieAdresseerbaarObject>0373010000019361</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Oorsprongweg 1 1871HA Schoorl</cat:volledigAdres>
+                           </cat:postLocatie>
+                           <cat:communicatiegegevens>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:communicatienummer>
+                                 <cat:toegangscode>+31</cat:toegangscode>
+                                 <cat:nummer>0725093352</cat:nummer>
+                                 <cat:soort>
+                                    <cat:code>T</cat:code>
+                                    <cat:omschrijving>Telefoon</cat:omschrijving>
+                                 </cat:soort>
+                              </cat:communicatienummer>
+                           </cat:communicatiegegevens>
+                           <cat:eersteHandelsnaam>Staatsbosbeheer Buitencentrum Schoorlse-Duinen</cat:eersteHandelsnaam>
+                           <cat:voltijdWerkzamePersonen>3</cat:voltijdWerkzamePersonen>
+                           <cat:deeltijdWerkzamePersonen>0</cat:deeltijdWerkzamePersonen>
+                           <cat:totaalWerkzamePersonen>3</cat:totaalWerkzamePersonen>
+                           <cat:activiteiten>
+                              <cat:omschrijving>Voorlichting, excursie en winkel met diverse producten.</cat:omschrijving>
+                              <cat:sbiActiviteit>
+                                 <cat:registratie registratieTijdstip="20140414085141869">
+                                    <cat:datumAanvang>20140401</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:sbiCode>
+                                    <cat:code>91042</cat:code>
+                                    <cat:omschrijving>Natuurbehoud</cat:omschrijving>
+                                    <cat:referentieType>ActiviteitCode</cat:referentieType>
+                                 </cat:sbiCode>
+                                 <cat:isHoofdactiviteit>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:isHoofdactiviteit>
+                              </cat:sbiActiviteit>
+                              <cat:exporteert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:exporteert>
+                              <cat:importeert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:importeert>
+                           </cat:activiteiten>
+                           <cat:handeltOnder>
+                              <cat:relatieRegistratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:relatieRegistratie>
+                              <cat:handelsnaam>
+                                 <cat:registratie registratieTijdstip="20140414085141869">
+                                    <cat:datumAanvang>20140401</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:naam>Staatsbosbeheer Buitencentrum Schoorlse-Duinen</cat:naam>
+                                 <cat:volgorde>0</cat:volgorde>
+                              </cat:handelsnaam>
+                           </cat:handeltOnder>
+                        </cat:commercieleVestiging>
+                     </cat:wordtUitgeoefendIn>
+                     <cat:wordtUitgeoefendIn>
+                        <cat:relatieRegistratie registratieTijdstip="20140414085141869">
+                           <cat:datumAanvang>20140401</cat:datumAanvang>
+                        </cat:relatieRegistratie>
+                        <cat:commercieleVestiging>
+                           <cat:registratie registratieTijdstip="20140414085141869">
+                              <cat:datumAanvang>20140401</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:vestigingsnummer>000029658799</cat:vestigingsnummer>
+                           <cat:bezoekLocatie>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Hoogeweg</cat:straatnaam>
+                                    <cat:huisnummer>27</cat:huisnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>8376</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>EM</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Ossenzijl</cat:plaats>
+                                    <cat:bagId>
+                                       <cat:identificatieNummeraanduiding>1708200000006497</cat:identificatieNummeraanduiding>
+                                       <cat:identificatieAdresseerbaarObject>1708010000002951</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Hoogeweg 27 8376EM Ossenzijl</cat:volledigAdres>
+                           </cat:bezoekLocatie>
+                           <cat:postLocatie>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:postbusnummer>1300</cat:postbusnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>3970</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>BH</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Driebergen-Rijsenburg</cat:plaats>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Postbus 1300 3970BH Driebergen-Rijsenburg</cat:volledigAdres>
+                           </cat:postLocatie>
+                           <cat:communicatiegegevens>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:communicatienummer>
+                                 <cat:toegangscode>+31</cat:toegangscode>
+                                 <cat:nummer>0561477272</cat:nummer>
+                                 <cat:soort>
+                                    <cat:code>T</cat:code>
+                                    <cat:omschrijving>Telefoon</cat:omschrijving>
+                                 </cat:soort>
+                              </cat:communicatienummer>
+                           </cat:communicatiegegevens>
+                           <cat:eersteHandelsnaam>Staatsbosbeheer</cat:eersteHandelsnaam>
+                           <cat:voltijdWerkzamePersonen>2</cat:voltijdWerkzamePersonen>
+                           <cat:deeltijdWerkzamePersonen>1</cat:deeltijdWerkzamePersonen>
+                           <cat:totaalWerkzamePersonen>3</cat:totaalWerkzamePersonen>
+                           <cat:activiteiten>
+                              <cat:omschrijving>Voorlichting, excursies, winkel in diverse producten.</cat:omschrijving>
+                              <cat:sbiActiviteit>
+                                 <cat:registratie registratieTijdstip="20140414085141869">
+                                    <cat:datumAanvang>20140401</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:sbiCode>
+                                    <cat:code>91042</cat:code>
+                                    <cat:omschrijving>Natuurbehoud</cat:omschrijving>
+                                    <cat:referentieType>ActiviteitCode</cat:referentieType>
+                                 </cat:sbiCode>
+                                 <cat:isHoofdactiviteit>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:isHoofdactiviteit>
+                              </cat:sbiActiviteit>
+                              <cat:exporteert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:exporteert>
+                              <cat:importeert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:importeert>
+                           </cat:activiteiten>
+                           <cat:handeltOnder>
+                              <cat:relatieRegistratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:relatieRegistratie>
+                              <cat:handelsnaam>
+                                 <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <cat:datumAanvang>19980101</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:naam>Staatsbosbeheer</cat:naam>
+                                 <cat:volgorde>0</cat:volgorde>
+                              </cat:handelsnaam>
+                           </cat:handeltOnder>
+                        </cat:commercieleVestiging>
+                     </cat:wordtUitgeoefendIn>
+                     <cat:wordtUitgeoefendIn>
+                        <cat:relatieRegistratie registratieTijdstip="20140414085141869">
+                           <cat:datumAanvang>20140401</cat:datumAanvang>
+                        </cat:relatieRegistratie>
+                        <cat:commercieleVestiging>
+                           <cat:registratie registratieTijdstip="20140414085141869">
+                              <cat:datumAanvang>20140401</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:vestigingsnummer>000029658802</cat:vestigingsnummer>
+                           <cat:bezoekLocatie>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Kitsweg</cat:straatnaam>
+                                    <cat:huisnummer>1</cat:huisnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>8218</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>AA</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Lelystad</cat:plaats>
+                                    <cat:bagId>
+                                       <cat:identificatieNummeraanduiding>0995200000796258</cat:identificatieNummeraanduiding>
+                                       <cat:identificatieAdresseerbaarObject>0995010000796259</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Kitsweg 1 8218AA Lelystad</cat:volledigAdres>
+                           </cat:bezoekLocatie>
+                           <cat:postLocatie>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:postbusnummer>1300</cat:postbusnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>3970</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>BH</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Driebergen-Rijsenburg</cat:plaats>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Postbus 1300 3970BH Driebergen-Rijsenburg</cat:volledigAdres>
+                           </cat:postLocatie>
+                           <cat:communicatiegegevens>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:communicatienummer>
+                                 <cat:toegangscode>+31</cat:toegangscode>
+                                 <cat:nummer>0320254585</cat:nummer>
+                                 <cat:soort>
+                                    <cat:code>T</cat:code>
+                                    <cat:omschrijving>Telefoon</cat:omschrijving>
+                                 </cat:soort>
+                              </cat:communicatienummer>
+                           </cat:communicatiegegevens>
+                           <cat:eersteHandelsnaam>Staatsbosbeheer Buitencentrum Oostervaardersplassen</cat:eersteHandelsnaam>
+                           <cat:voltijdWerkzamePersonen>3</cat:voltijdWerkzamePersonen>
+                           <cat:deeltijdWerkzamePersonen>0</cat:deeltijdWerkzamePersonen>
+                           <cat:totaalWerkzamePersonen>3</cat:totaalWerkzamePersonen>
+                           <cat:activiteiten>
+                              <cat:omschrijving>Voorlichting over het gebied, organiseren van excursies, winkel met diverse producten.</cat:omschrijving>
+                              <cat:sbiActiviteit>
+                                 <cat:registratie registratieTijdstip="20140414085141869">
+                                    <cat:datumAanvang>20140401</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:sbiCode>
+                                    <cat:code>91042</cat:code>
+                                    <cat:omschrijving>Natuurbehoud</cat:omschrijving>
+                                    <cat:referentieType>ActiviteitCode</cat:referentieType>
+                                 </cat:sbiCode>
+                                 <cat:isHoofdactiviteit>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:isHoofdactiviteit>
+                              </cat:sbiActiviteit>
+                              <cat:exporteert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:exporteert>
+                              <cat:importeert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:importeert>
+                           </cat:activiteiten>
+                           <cat:handeltOnder>
+                              <cat:relatieRegistratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:relatieRegistratie>
+                              <cat:handelsnaam>
+                                 <cat:registratie registratieTijdstip="20140414085141869">
+                                    <cat:datumAanvang>20140401</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:naam>Staatsbosbeheer Buitencentrum Oostervaardersplassen</cat:naam>
+                                 <cat:volgorde>0</cat:volgorde>
+                              </cat:handelsnaam>
+                           </cat:handeltOnder>
+                        </cat:commercieleVestiging>
+                     </cat:wordtUitgeoefendIn>
+                     <cat:wordtUitgeoefendIn>
+                        <cat:relatieRegistratie registratieTijdstip="20140414085141869">
+                           <cat:datumAanvang>20140401</cat:datumAanvang>
+                        </cat:relatieRegistratie>
+                        <cat:commercieleVestiging>
+                           <cat:registratie registratieTijdstip="20140414085141869">
+                              <cat:datumAanvang>20140401</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:vestigingsnummer>000029658810</cat:vestigingsnummer>
+                           <cat:bezoekLocatie>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Steenhopenweg</cat:straatnaam>
+                                    <cat:huisnummer>4</cat:huisnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>9533</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>PN</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Drouwen</cat:plaats>
+                                    <cat:bagId>
+                                       <cat:identificatieNummeraanduiding>1681200000013004</cat:identificatieNummeraanduiding>
+                                       <cat:identificatieAdresseerbaarObject>1681010000012995</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Steenhopenweg 4 9533PN Drouwen</cat:volledigAdres>
+                           </cat:bezoekLocatie>
+                           <cat:postLocatie>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:postbusnummer>1300</cat:postbusnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>3970</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>BH</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Driebergen-Rijsenburg</cat:plaats>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Postbus 1300 3970BH Driebergen-Rijsenburg</cat:volledigAdres>
+                           </cat:postLocatie>
+                           <cat:communicatiegegevens>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:communicatienummer>
+                                 <cat:toegangscode>+31</cat:toegangscode>
+                                 <cat:nummer>0592377305</cat:nummer>
+                                 <cat:soort>
+                                    <cat:code>T</cat:code>
+                                    <cat:omschrijving>Telefoon</cat:omschrijving>
+                                 </cat:soort>
+                              </cat:communicatienummer>
+                           </cat:communicatiegegevens>
+                           <cat:eersteHandelsnaam>Staatsbosbeheer Buitencentrum Boomkroonpad</cat:eersteHandelsnaam>
+                           <cat:voltijdWerkzamePersonen>2</cat:voltijdWerkzamePersonen>
+                           <cat:deeltijdWerkzamePersonen>1</cat:deeltijdWerkzamePersonen>
+                           <cat:totaalWerkzamePersonen>3</cat:totaalWerkzamePersonen>
+                           <cat:activiteiten>
+                              <cat:omschrijving>Voorlichting, excursies en winkel met diverse producten.</cat:omschrijving>
+                              <cat:sbiActiviteit>
+                                 <cat:registratie registratieTijdstip="20140414085141869">
+                                    <cat:datumAanvang>20140401</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:sbiCode>
+                                    <cat:code>91042</cat:code>
+                                    <cat:omschrijving>Natuurbehoud</cat:omschrijving>
+                                    <cat:referentieType>ActiviteitCode</cat:referentieType>
+                                 </cat:sbiCode>
+                                 <cat:isHoofdactiviteit>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:isHoofdactiviteit>
+                              </cat:sbiActiviteit>
+                              <cat:exporteert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:exporteert>
+                              <cat:importeert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:importeert>
+                           </cat:activiteiten>
+                           <cat:handeltOnder>
+                              <cat:relatieRegistratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:relatieRegistratie>
+                              <cat:handelsnaam>
+                                 <cat:registratie registratieTijdstip="20140414085141869">
+                                    <cat:datumAanvang>20140401</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:naam>Staatsbosbeheer Buitencentrum Boomkroonpad</cat:naam>
+                                 <cat:volgorde>0</cat:volgorde>
+                              </cat:handelsnaam>
+                           </cat:handeltOnder>
+                        </cat:commercieleVestiging>
+                     </cat:wordtUitgeoefendIn>
+                     <cat:wordtUitgeoefendIn>
+                        <cat:relatieRegistratie registratieTijdstip="20140414085141869">
+                           <cat:datumAanvang>20140401</cat:datumAanvang>
+                        </cat:relatieRegistratie>
+                        <cat:commercieleVestiging>
+                           <cat:registratie registratieTijdstip="20140414085141869">
+                              <cat:datumAanvang>20140401</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:vestigingsnummer>000029658829</cat:vestigingsnummer>
+                           <cat:bezoekLocatie>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Groeneveld</cat:straatnaam>
+                                    <cat:huisnummer>2</cat:huisnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>3744</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>ML</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Baarn</cat:plaats>
+                                    <cat:bagId>
+                                       <cat:identificatieNummeraanduiding>0308200000010198</cat:identificatieNummeraanduiding>
+                                       <cat:identificatieAdresseerbaarObject>0308010000003640</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Groeneveld 2 3744ML Baarn</cat:volledigAdres>
+                           </cat:bezoekLocatie>
+                           <cat:postLocatie>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:postbusnummer>1300</cat:postbusnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>3970</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>BH</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Driebergen-Rijsenburg</cat:plaats>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Postbus 1300 3970BH Driebergen-Rijsenburg</cat:volledigAdres>
+                           </cat:postLocatie>
+                           <cat:communicatiegegevens>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:communicatienummer>
+                                 <cat:toegangscode>+31</cat:toegangscode>
+                                 <cat:nummer>0355420446</cat:nummer>
+                                 <cat:soort>
+                                    <cat:code>T</cat:code>
+                                    <cat:omschrijving>Telefoon</cat:omschrijving>
+                                 </cat:soort>
+                              </cat:communicatienummer>
+                           </cat:communicatiegegevens>
+                           <cat:eersteHandelsnaam>Staatsbosbeheer Kasteel Groeneveld</cat:eersteHandelsnaam>
+                           <cat:voltijdWerkzamePersonen>6</cat:voltijdWerkzamePersonen>
+                           <cat:deeltijdWerkzamePersonen>0</cat:deeltijdWerkzamePersonen>
+                           <cat:totaalWerkzamePersonen>6</cat:totaalWerkzamePersonen>
+                           <cat:activiteiten>
+                              <cat:omschrijving>Voorlichting, excursie en winkel met diverse producten.</cat:omschrijving>
+                              <cat:sbiActiviteit>
+                                 <cat:registratie registratieTijdstip="20140414085141869">
+                                    <cat:datumAanvang>20140401</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:sbiCode>
+                                    <cat:code>91042</cat:code>
+                                    <cat:omschrijving>Natuurbehoud</cat:omschrijving>
+                                    <cat:referentieType>ActiviteitCode</cat:referentieType>
+                                 </cat:sbiCode>
+                                 <cat:isHoofdactiviteit>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:isHoofdactiviteit>
+                              </cat:sbiActiviteit>
+                              <cat:exporteert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:exporteert>
+                              <cat:importeert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:importeert>
+                           </cat:activiteiten>
+                           <cat:handeltOnder>
+                              <cat:relatieRegistratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:relatieRegistratie>
+                              <cat:handelsnaam>
+                                 <cat:registratie registratieTijdstip="20140414085141869">
+                                    <cat:datumAanvang>20140401</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:naam>Staatsbosbeheer Kasteel Groeneveld</cat:naam>
+                                 <cat:volgorde>0</cat:volgorde>
+                              </cat:handelsnaam>
+                           </cat:handeltOnder>
+                        </cat:commercieleVestiging>
+                     </cat:wordtUitgeoefendIn>
+                     <cat:wordtUitgeoefendIn>
+                        <cat:relatieRegistratie registratieTijdstip="20140414085141869">
+                           <cat:datumAanvang>20140401</cat:datumAanvang>
+                        </cat:relatieRegistratie>
+                        <cat:commercieleVestiging>
+                           <cat:registratie registratieTijdstip="20140414085141869">
+                              <cat:datumAanvang>20140401</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:vestigingsnummer>000029658837</cat:vestigingsnummer>
+                           <cat:bezoekLocatie>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Terwisscha</cat:straatnaam>
+                                    <cat:huisnummer>6</cat:huisnummer>
+                                    <cat:huisletter>A</cat:huisletter>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>8426</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>SJ</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Appelscha</cat:plaats>
+                                    <cat:bagId>
+                                       <cat:identificatieNummeraanduiding>0085200000057008</cat:identificatieNummeraanduiding>
+                                       <cat:identificatieAdresseerbaarObject>0085010000047812</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Terwisscha 6 A 8426SJ Appelscha</cat:volledigAdres>
+                           </cat:bezoekLocatie>
+                           <cat:postLocatie>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:postbusnummer>1300</cat:postbusnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>3970</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>BH</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Driebergen-Rijsenburg</cat:plaats>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Postbus 1300 3970BH Driebergen-Rijsenburg</cat:volledigAdres>
+                           </cat:postLocatie>
+                           <cat:communicatiegegevens>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:communicatienummer>
+                                 <cat:toegangscode>+31</cat:toegangscode>
+                                 <cat:nummer>0516464020</cat:nummer>
+                                 <cat:soort>
+                                    <cat:code>T</cat:code>
+                                    <cat:omschrijving>Telefoon</cat:omschrijving>
+                                 </cat:soort>
+                              </cat:communicatienummer>
+                           </cat:communicatiegegevens>
+                           <cat:eersteHandelsnaam>Staatsbosbeheer Buitencentrum Drents-Friesewold</cat:eersteHandelsnaam>
+                           <cat:voltijdWerkzamePersonen>2</cat:voltijdWerkzamePersonen>
+                           <cat:deeltijdWerkzamePersonen>1</cat:deeltijdWerkzamePersonen>
+                           <cat:totaalWerkzamePersonen>3</cat:totaalWerkzamePersonen>
+                           <cat:activiteiten>
+                              <cat:omschrijving>Voorlichting, excursies en winkel met diverse producten.</cat:omschrijving>
+                              <cat:sbiActiviteit>
+                                 <cat:registratie registratieTijdstip="20140414085141869">
+                                    <cat:datumAanvang>20140401</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:sbiCode>
+                                    <cat:code>91042</cat:code>
+                                    <cat:omschrijving>Natuurbehoud</cat:omschrijving>
+                                    <cat:referentieType>ActiviteitCode</cat:referentieType>
+                                 </cat:sbiCode>
+                                 <cat:isHoofdactiviteit>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:isHoofdactiviteit>
+                              </cat:sbiActiviteit>
+                              <cat:exporteert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:exporteert>
+                              <cat:importeert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:importeert>
+                           </cat:activiteiten>
+                           <cat:handeltOnder>
+                              <cat:relatieRegistratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:relatieRegistratie>
+                              <cat:handelsnaam>
+                                 <cat:registratie registratieTijdstip="20140414085141869">
+                                    <cat:datumAanvang>20140401</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:naam>Staatsbosbeheer Buitencentrum Drents-Friesewold</cat:naam>
+                                 <cat:volgorde>0</cat:volgorde>
+                              </cat:handelsnaam>
+                           </cat:handeltOnder>
+                        </cat:commercieleVestiging>
+                     </cat:wordtUitgeoefendIn>
+                     <cat:wordtUitgeoefendIn>
+                        <cat:relatieRegistratie registratieTijdstip="20140414085141869">
+                           <cat:datumAanvang>20140401</cat:datumAanvang>
+                        </cat:relatieRegistratie>
+                        <cat:commercieleVestiging>
+                           <cat:registratie registratieTijdstip="20140414085141869">
+                              <cat:datumAanvang>20140401</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:vestigingsnummer>000029658845</cat:vestigingsnummer>
+                           <cat:bezoekLocatie>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Kemphaanpad</cat:straatnaam>
+                                    <cat:huisnummer>4</cat:huisnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>1358</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>AC</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Almere</cat:plaats>
+                                    <cat:bagId>
+                                       <cat:identificatieNummeraanduiding>0034200000063839</cat:identificatieNummeraanduiding>
+                                       <cat:identificatieAdresseerbaarObject>0034010000001681</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Kemphaanpad 4 1358AC Almere</cat:volledigAdres>
+                           </cat:bezoekLocatie>
+                           <cat:postLocatie>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:afgeschermd>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:afgeschermd>
+                              <cat:adres>
+                                 <cat:binnenlandsAdres>
+                                    <cat:postbusnummer>1300</cat:postbusnummer>
+                                    <cat:postcode>
+                                       <cat:cijfercombinatie>3970</cat:cijfercombinatie>
+                                       <cat:lettercombinatie>BH</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Driebergen-Rijsenburg</cat:plaats>
+                                 </cat:binnenlandsAdres>
+                              </cat:adres>
+                              <cat:volledigAdres>Postbus 1300 3970BH Driebergen-Rijsenburg</cat:volledigAdres>
+                           </cat:postLocatie>
+                           <cat:communicatiegegevens>
+                              <cat:registratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:communicatienummer>
+                                 <cat:toegangscode>+31</cat:toegangscode>
+                                 <cat:nummer>0365484416</cat:nummer>
+                                 <cat:soort>
+                                    <cat:code>T</cat:code>
+                                    <cat:omschrijving>Telefoon</cat:omschrijving>
+                                 </cat:soort>
+                              </cat:communicatienummer>
+                           </cat:communicatiegegevens>
+                           <cat:eersteHandelsnaam>Staatsbosbeheer Buitencentrum De Kemphaan</cat:eersteHandelsnaam>
+                           <cat:voltijdWerkzamePersonen>2</cat:voltijdWerkzamePersonen>
+                           <cat:deeltijdWerkzamePersonen>0</cat:deeltijdWerkzamePersonen>
+                           <cat:totaalWerkzamePersonen>2</cat:totaalWerkzamePersonen>
+                           <cat:activiteiten>
+                              <cat:omschrijving>Voorlichting, excursies en winkel met diverse producten.</cat:omschrijving>
+                              <cat:sbiActiviteit>
+                                 <cat:registratie registratieTijdstip="20140414085141869">
+                                    <cat:datumAanvang>20140401</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:sbiCode>
+                                    <cat:code>91042</cat:code>
+                                    <cat:omschrijving>Natuurbehoud</cat:omschrijving>
+                                    <cat:referentieType>ActiviteitCode</cat:referentieType>
+                                 </cat:sbiCode>
+                                 <cat:isHoofdactiviteit>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:isHoofdactiviteit>
+                              </cat:sbiActiviteit>
+                              <cat:exporteert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:exporteert>
+                              <cat:importeert>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:importeert>
+                           </cat:activiteiten>
+                           <cat:handeltOnder>
+                              <cat:relatieRegistratie registratieTijdstip="20140414085141869">
+                                 <cat:datumAanvang>20140401</cat:datumAanvang>
+                              </cat:relatieRegistratie>
+                              <cat:handelsnaam>
+                                 <cat:registratie registratieTijdstip="20140414085141869">
+                                    <cat:datumAanvang>20140401</cat:datumAanvang>
+                                 </cat:registratie>
+                                 <cat:naam>Staatsbosbeheer Buitencentrum De Kemphaan</cat:naam>
+                                 <cat:volgorde>0</cat:volgorde>
+                              </cat:handelsnaam>
+                           </cat:handeltOnder>
+                        </cat:commercieleVestiging>
+                     </cat:wordtUitgeoefendIn>
+                  </cat:onderneming>
+               </cat:manifesteertZichAls>
+               <cat:wordtGeleidVanuit>
+                  <cat:commercieleVestiging>
+                     <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <cat:datumAanvang>19980101</cat:datumAanvang>
+                     </cat:registratie>
+                     <cat:vestigingsnummer>000012461547</cat:vestigingsnummer>
+                     <cat:bezoekLocatie>
+                        <cat:registratie registratieTijdstip="20160125121704353">
+                           <cat:datumAanvang>20160101</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:straatnaam>Smallepad</cat:straatnaam>
+                              <cat:huisnummer>5</cat:huisnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>3811</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>MG</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>Amersfoort</cat:plaats>
+                              <cat:bagId>
+                                 <cat:identificatieNummeraanduiding>0307200000541769</cat:identificatieNummeraanduiding>
+                                 <cat:identificatieAdresseerbaarObject>0307010000541768</cat:identificatieAdresseerbaarObject>
+                              </cat:bagId>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Smallepad 5 3811MG Amersfoort</cat:volledigAdres>
+                     </cat:bezoekLocatie>
+                     <cat:postLocatie>
+                        <cat:registratie registratieTijdstip="20160125121704353">
+                           <cat:datumAanvang>20160101</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:postbusnummer>2</cat:postbusnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>3800</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>AA</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>Amersfoort</cat:plaats>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Postbus 2 3800AA Amersfoort</cat:volledigAdres>
+                     </cat:postLocatie>
+                     <cat:communicatiegegevens>
+                        <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <cat:datumAanvang>19980101</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:communicatienummer>
+                           <cat:toegangscode>+31</cat:toegangscode>
+                           <cat:nummer>0306926111</cat:nummer>
+                           <cat:soort>
+                              <cat:code>T</cat:code>
+                              <cat:omschrijving>Telefoon</cat:omschrijving>
+                           </cat:soort>
+                        </cat:communicatienummer>
+                        <cat:communicatienummer>
+                           <cat:toegangscode>+31</cat:toegangscode>
+                           <cat:nummer>0306922978</cat:nummer>
+                           <cat:soort>
+                              <cat:code>F</cat:code>
+                              <cat:omschrijving>Fax</cat:omschrijving>
+                           </cat:soort>
+                        </cat:communicatienummer>
+                        <cat:emailAdres>info@staatsbosbeheer.nl</cat:emailAdres>
+                        <cat:domeinNaam>www.staatsbosbeheer.nl</cat:domeinNaam>
+                     </cat:communicatiegegevens>
+                     <cat:eersteHandelsnaam>Staatsbosbeheer</cat:eersteHandelsnaam>
+                     <cat:voltijdWerkzamePersonen>144</cat:voltijdWerkzamePersonen>
+                     <cat:deeltijdWerkzamePersonen>1</cat:deeltijdWerkzamePersonen>
+                     <cat:totaalWerkzamePersonen>145</cat:totaalWerkzamePersonen>
+                     <cat:activiteiten>
+                        <cat:omschrijving>-Beheer en vervreemding van de bij Staatsbosbeheer krachtens eigendom of enig ander zakelijk recht, dan wel enig persoonlijk recht berustende objecten, en het verkrijgen van objecten, teneinde deze t.b.v. o.a. natuurwaarden duurzaam in stand te houden, onderscheidenlijk te ontwikkelen, in overeenstemming met door Onze Minister geformuleerd beleid; -Het verkrijgen en vervreemden van goederen; -Het uitvoeren van hieruit voortvloeiende en samenhangende activiteiten; In verband met artikel 3 Wet Verzelfstandiging Staatsbosbeheer, Stb 1997, 514</cat:omschrijving>
+                        <cat:sbiActiviteit>
+                           <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <cat:datumAanvang>19980101</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:sbiCode>
+                              <cat:code>91042</cat:code>
+                              <cat:omschrijving>Natuurbehoud</cat:omschrijving>
+                              <cat:referentieType>ActiviteitCode</cat:referentieType>
+                           </cat:sbiCode>
+                           <cat:isHoofdactiviteit>
+                              <cat:code>J</cat:code>
+                              <cat:omschrijving>Ja</cat:omschrijving>
+                              <cat:referentieType>geenRT</cat:referentieType>
+                           </cat:isHoofdactiviteit>
+                        </cat:sbiActiviteit>
+                        <cat:exporteert>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:exporteert>
+                        <cat:importeert>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:importeert>
+                     </cat:activiteiten>
+                     <cat:handeltOnder>
+                        <cat:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <cat:datumAanvang>19980101</cat:datumAanvang>
+                        </cat:relatieRegistratie>
+                        <cat:handelsnaam>
+                           <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <cat:datumAanvang>19980101</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:naam>Staatsbosbeheer</cat:naam>
+                           <cat:volgorde>0</cat:volgorde>
+                        </cat:handelsnaam>
+                     </cat:handeltOnder>
+                  </cat:commercieleVestiging>
+               </cat:wordtGeleidVanuit>
+               <cat:heeftAlsEigenaar>
+                  <cat:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <cat:datumAanvang>19980101</cat:datumAanvang>
+                  </cat:relatieRegistratie>
+                  <cat:rechtspersoon>
+                     <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <cat:datumAanvang>00000000</cat:datumAanvang>
+                     </cat:registratie>
+                     <cat:persoonRechtsvorm>Publiekrechtelijke Rechtspersoon</cat:persoonRechtsvorm>
+                     <cat:volledigeNaam>Staatsbosbeheer</cat:volledigeNaam>
+                     <cat:uitgebreideRechtsvorm>Publiekrechtelijke Rechtspersoon: Rechtspersoon met Wettelijk Taak (RWT)</cat:uitgebreideRechtsvorm>
+                     <cat:heeft>
+                        <cat:gemachtigde>
+                           <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <cat:datumAanvang>00000000</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:door>
+                              <cat:naamPersoon>
+                                 <cat:bezoekLocatiePersoon>
+                                    <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                       <cat:datumAanvang>00000000</cat:datumAanvang>
+                                    </cat:registratie>
+                                    <cat:afgeschermd>
+                                       <cat:code>N</cat:code>
+                                       <cat:omschrijving>Nee</cat:omschrijving>
+                                       <cat:referentieType>geenRT</cat:referentieType>
+                                    </cat:afgeschermd>
+                                    <cat:adres>
+                                       <cat:binnenlandsAdres>
+                                          <cat:straatnaam>Onbekend</cat:straatnaam>
+                                          <cat:huisnummer>99999</cat:huisnummer>
+                                          <cat:postcode>
+                                             <cat:cijfercombinatie>0000</cat:cijfercombinatie>
+                                             <cat:lettercombinatie>AA</cat:lettercombinatie>
+                                          </cat:postcode>
+                                          <cat:plaats>Onbekend</cat:plaats>
+                                       </cat:binnenlandsAdres>
+                                    </cat:adres>
+                                    <cat:volledigAdres>Onbekend 99999 0000AA Onbekend</cat:volledigAdres>
+                                 </cat:bezoekLocatiePersoon>
+                                 <cat:naam>6a1b 3eca8a31c 5efeeb846c 36b 30f94a</cat:naam>
+                                 <!--Anonimisatie 'cat:naam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></cat:naamPersoon>
+                           </cat:door>
+                           <cat:functie>
+                              <cat:code>24</cat:code>
+                              <cat:omschrijving>Privaatrechtelijk gevolmachtigde</cat:omschrijving>
+                              <cat:referentieType>FunctionarisRol</cat:referentieType>
+                           </cat:functie>
+                           <cat:volmacht>
+                              <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <cat:datumAanvang>00000000</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:typeVolmacht>
+                                 <cat:code>b</cat:code>
+                                 <cat:omschrijving>Beperkte volmacht</cat:omschrijving>
+                                 <cat:referentieType>VolmachtType</cat:referentieType>
+                              </cat:typeVolmacht>
+                              <cat:isStatutair>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:isStatutair>
+                              <cat:beperkteVolmacht>
+                                 <cat:magOpgaveHandelsregisterDoen>
+                                    <cat:code>N</cat:code>
+                                    <cat:omschrijving>Nee</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:magOpgaveHandelsregisterDoen>
+                                 <cat:heeftOverigeVolmacht>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:heeftOverigeVolmacht>
+                              </cat:beperkteVolmacht>
+                           </cat:volmacht>
+                        </cat:gemachtigde>
+                     </cat:heeft>
+                     <cat:heeft>
+                        <cat:publiekrechtelijkeFunctionaris>
+                           <cat:registratie registratieTijdstip="20130501080703193">
+                              <cat:datumAanvang>20130501</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:door>
+                              <cat:naamPersoon>
+                                 <cat:naam>6d cdfb0a4</cat:naam>
+                                 <!--Anonimisatie 'cat:naam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></cat:naamPersoon>
+                           </cat:door>
+                           <cat:functie>
+                              <cat:code>25</cat:code>
+                              <cat:omschrijving>Publiekrechtelijk bestuurder</cat:omschrijving>
+                              <cat:referentieType>FunctionarisRol</cat:referentieType>
+                           </cat:functie>
+                           <cat:bevoegdheid>
+                              <cat:registratie registratieTijdstip="20130501080703193">
+                                 <cat:datumAanvang>20130501</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:soort>
+                                 <cat:code>azb</cat:code>
+                                 <cat:omschrijving>Alleen/zelfstandig bevoegd</cat:omschrijving>
+                                 <cat:referentieType>SoortBevoegdheidPubliekrechtelijkFunctionaris</cat:referentieType>
+                              </cat:soort>
+                           </cat:bevoegdheid>
+                        </cat:publiekrechtelijkeFunctionaris>
+                     </cat:heeft>
+                     <cat:heeft>
+                        <cat:publiekrechtelijkeFunctionaris>
+                           <cat:registratie registratieTijdstip="20140523102837110">
+                              <cat:datumAanvang>20140101</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:door>
+                              <cat:naamPersoon>
+                                 <cat:naam>9210ce9b3ca bc7092</cat:naam>
+                                 <!--Anonimisatie 'cat:naam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></cat:naamPersoon>
+                           </cat:door>
+                           <cat:functie>
+                              <cat:code>27</cat:code>
+                              <cat:omschrijving>Publiekrechtelijk lid toezichthoudend orgaan</cat:omschrijving>
+                              <cat:referentieType>FunctionarisRol</cat:referentieType>
+                           </cat:functie>
+                           <cat:bevoegdheid>
+                              <cat:registratie registratieTijdstip="20140523102837110">
+                                 <cat:datumAanvang>20140101</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:soort>
+                                 <cat:code>nbtv</cat:code>
+                                 <cat:omschrijving>Niet bevoegd tot vertegenwoordigen</cat:omschrijving>
+                                 <cat:referentieType>SoortBevoegdheidPubliekrechtelijkFunctionaris</cat:referentieType>
+                              </cat:soort>
+                           </cat:bevoegdheid>
+                        </cat:publiekrechtelijkeFunctionaris>
+                     </cat:heeft>
+                     <cat:heeft>
+                        <cat:publiekrechtelijkeFunctionaris>
+                           <cat:registratie registratieTijdstip="20140523102837110">
+                              <cat:datumAanvang>20140101</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:door>
+                              <cat:naamPersoon>
+                                 <cat:naam>211e0bb4 c9</cat:naam>
+                                 <!--Anonimisatie 'cat:naam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></cat:naamPersoon>
+                           </cat:door>
+                           <cat:functie>
+                              <cat:code>27</cat:code>
+                              <cat:omschrijving>Publiekrechtelijk lid toezichthoudend orgaan</cat:omschrijving>
+                              <cat:referentieType>FunctionarisRol</cat:referentieType>
+                           </cat:functie>
+                           <cat:bevoegdheid>
+                              <cat:registratie registratieTijdstip="20140523102837110">
+                                 <cat:datumAanvang>20140101</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:soort>
+                                 <cat:code>nbtv</cat:code>
+                                 <cat:omschrijving>Niet bevoegd tot vertegenwoordigen</cat:omschrijving>
+                                 <cat:referentieType>SoortBevoegdheidPubliekrechtelijkFunctionaris</cat:referentieType>
+                              </cat:soort>
+                           </cat:bevoegdheid>
+                        </cat:publiekrechtelijkeFunctionaris>
+                     </cat:heeft>
+                     <cat:heeft>
+                        <cat:publiekrechtelijkeFunctionaris>
+                           <cat:registratie registratieTijdstip="20140523102837110">
+                              <cat:datumAanvang>20140101</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:door>
+                              <cat:naamPersoon>
+                                 <cat:naam>36e1713 640a</cat:naam>
+                                 <!--Anonimisatie 'cat:naam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></cat:naamPersoon>
+                           </cat:door>
+                           <cat:functie>
+                              <cat:code>27</cat:code>
+                              <cat:omschrijving>Publiekrechtelijk lid toezichthoudend orgaan</cat:omschrijving>
+                              <cat:referentieType>FunctionarisRol</cat:referentieType>
+                           </cat:functie>
+                           <cat:bevoegdheid>
+                              <cat:registratie registratieTijdstip="20140523102837110">
+                                 <cat:datumAanvang>20140101</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:soort>
+                                 <cat:code>nbtv</cat:code>
+                                 <cat:omschrijving>Niet bevoegd tot vertegenwoordigen</cat:omschrijving>
+                                 <cat:referentieType>SoortBevoegdheidPubliekrechtelijkFunctionaris</cat:referentieType>
+                              </cat:soort>
+                           </cat:bevoegdheid>
+                        </cat:publiekrechtelijkeFunctionaris>
+                     </cat:heeft>
+                     <cat:heeft>
+                        <cat:publiekrechtelijkeFunctionaris>
+                           <cat:registratie registratieTijdstip="20150226135944927">
+                              <cat:datumAanvang>20150101</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:door>
+                              <cat:naamPersoon>
+                                 <cat:naam>7a36b873b caf7</cat:naam>
+                                 <!--Anonimisatie 'cat:naam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></cat:naamPersoon>
+                           </cat:door>
+                           <cat:functie>
+                              <cat:code>27</cat:code>
+                              <cat:omschrijving>Publiekrechtelijk lid toezichthoudend orgaan</cat:omschrijving>
+                              <cat:referentieType>FunctionarisRol</cat:referentieType>
+                           </cat:functie>
+                           <cat:bevoegdheid>
+                              <cat:registratie registratieTijdstip="20150226135944927">
+                                 <cat:datumAanvang>20150101</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:soort>
+                                 <cat:code>nbtv</cat:code>
+                                 <cat:omschrijving>Niet bevoegd tot vertegenwoordigen</cat:omschrijving>
+                                 <cat:referentieType>SoortBevoegdheidPubliekrechtelijkFunctionaris</cat:referentieType>
+                              </cat:soort>
+                           </cat:bevoegdheid>
+                        </cat:publiekrechtelijkeFunctionaris>
+                     </cat:heeft>
+                     <cat:heeft>
+                        <cat:publiekrechtelijkeFunctionaris>
+                           <cat:registratie registratieTijdstip="20180102114540606">
+                              <cat:datumAanvang>20180101</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:door>
+                              <cat:naamPersoon>
+                                 <cat:naam>744647e5d a3ad</cat:naam>
+                                 <!--Anonimisatie 'cat:naam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></cat:naamPersoon>
+                           </cat:door>
+                           <cat:functie>
+                              <cat:code>27</cat:code>
+                              <cat:omschrijving>Publiekrechtelijk lid toezichthoudend orgaan</cat:omschrijving>
+                              <cat:referentieType>FunctionarisRol</cat:referentieType>
+                           </cat:functie>
+                           <cat:bevoegdheid>
+                              <cat:registratie registratieTijdstip="20180102114540606">
+                                 <cat:datumAanvang>20180101</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:soort>
+                                 <cat:code>nbtv</cat:code>
+                                 <cat:omschrijving>Niet bevoegd tot vertegenwoordigen</cat:omschrijving>
+                                 <cat:referentieType>SoortBevoegdheidPubliekrechtelijkFunctionaris</cat:referentieType>
+                              </cat:soort>
+                           </cat:bevoegdheid>
+                        </cat:publiekrechtelijkeFunctionaris>
+                     </cat:heeft>
+                     <cat:rsin>806511588</cat:rsin>
+                     <cat:naamgeving>
+                        <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <cat:datumAanvang>19980101</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:naam>Staatsbosbeheer</cat:naam>
+                     </cat:naamgeving>
+                     <cat:rechtsvorm>
+                        <cat:code>PR</cat:code>
+                        <cat:omschrijving>Publiekrechtelijke Rechtspersoon</cat:omschrijving>
+                        <cat:referentieType>Rechtsvorm</cat:referentieType>
+                     </cat:rechtsvorm>
+                     <cat:publiekrechtelijkeRechtsvorm>
+                        <cat:code>09</cat:code>
+                        <cat:omschrijving>Rechtspersoon met Wettelijk Taak (RWT)</cat:omschrijving>
+                        <cat:referentieType>NadereSpecificatiePubliekrechtelijkeRechtsvorm</cat:referentieType>
+                     </cat:publiekrechtelijkeRechtsvorm>
+                     <cat:datumEersteInschrijvingHandelsregister>00000000</cat:datumEersteInschrijvingHandelsregister>
+                     <cat:bezoekLocatie>
+                        <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <cat:datumAanvang>00000000</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:straatnaam>Princenhof Park</cat:straatnaam>
+                              <cat:huisnummer>1</cat:huisnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>3972</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>NG</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>Driebergen-Rijsenburg</cat:plaats>
+                              <cat:bagId>
+                                 <cat:identificatieNummeraanduiding>1581200000214738</cat:identificatieNummeraanduiding>
+                                 <cat:identificatieAdresseerbaarObject>1581010000044232</cat:identificatieAdresseerbaarObject>
+                              </cat:bagId>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Princenhof Park 1 3972NG Driebergen-Rijsenburg</cat:volledigAdres>
+                     </cat:bezoekLocatie>
+                     <cat:postLocatie>
+                        <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <cat:datumAanvang>00000000</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:postbusnummer>1300</cat:postbusnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>3970</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>BH</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>Driebergen-Rijsenburg</cat:plaats>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Postbus 1300 3970BH Driebergen-Rijsenburg</cat:volledigAdres>
+                     </cat:postLocatie>
+                     <cat:activiteiten>
+                        <cat:omschrijving>-Beheer en vervreemding van de bij Staatsbosbeheer krachtens eigendom of enig ander zakelijk recht, dan wel enig persoonlijk recht berustende objecten, en het verkrijgen van objecten, teneinde deze t.b.v. o.a. natuurwaarden duurzaam in stand te houden, onderscheidenlijk te ontwikkelen, in overeenstemming met door Onze Minister geformuleerd beleid; -Het verkrijgen en vervreemden van goederen; -Het uitvoeren van hieruit voortvloeiende en samenhangende activiteiten; In verband met artikel 3 Wet Verzelfstandiging Staatsbosbeheer, Stb 1997, 514</cat:omschrijving>
+                        <cat:sbiActiviteit>
+                           <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <cat:datumAanvang>19980101</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:sbiCode>
+                              <cat:code>91042</cat:code>
+                              <cat:omschrijving>Natuurbehoud</cat:omschrijving>
+                              <cat:referentieType>ActiviteitCode</cat:referentieType>
+                           </cat:sbiCode>
+                           <cat:isHoofdactiviteit>
+                              <cat:code>J</cat:code>
+                              <cat:omschrijving>Ja</cat:omschrijving>
+                              <cat:referentieType>geenRT</cat:referentieType>
+                           </cat:isHoofdactiviteit>
+                        </cat:sbiActiviteit>
+                     </cat:activiteiten>
+                     <cat:communicatiegegevens>
+                        <cat:registratie registratieTijdstip="20130807133641978">
+                           <cat:datumAanvang>20130807</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:communicatienummer>
+                           <cat:toegangscode>+31</cat:toegangscode>
+                           <cat:nummer>0306926111</cat:nummer>
+                           <cat:soort>
+                              <cat:code>T</cat:code>
+                              <cat:omschrijving>Telefoon</cat:omschrijving>
+                           </cat:soort>
+                        </cat:communicatienummer>
+                        <cat:communicatienummer>
+                           <cat:toegangscode>+31</cat:toegangscode>
+                           <cat:nummer>0306922978</cat:nummer>
+                           <cat:soort>
+                              <cat:code>F</cat:code>
+                              <cat:omschrijving>Fax</cat:omschrijving>
+                           </cat:soort>
+                        </cat:communicatienummer>
+                        <cat:emailAdres>info@staatsbosbeheer.nl</cat:emailAdres>
+                        <cat:domeinNaam>www.staatsbosbeheer.nl</cat:domeinNaam>
+                     </cat:communicatiegegevens>
+                  </cat:rechtspersoon>
+               </cat:heeftAlsEigenaar>
+            </cat:maatschappelijkeActiviteit>
+         </product>
+      </ophalenInschrijvingResponse>
+   </soap:Body>
+</soap:Envelope>
