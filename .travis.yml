@@ -42,11 +42,10 @@ cache:
 
 before_install:
   # installeer een up-2-date Maven versie
-  # NB          sinds 2017-12-12 is maven 3.5.2 de default op trusty
-  # - wget https://www-eu.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.zip
-  # - unzip -qq apache-maven-3.5.2-bin.zip
-  # - export M2_HOME=$PWD/apache-maven-3.5.2
-  # - export PATH=$M2_HOME/bin:$PATH
+  - wget https://www-eu.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.zip
+  - unzip -qq apache-maven-3.5.4-bin.zip
+  - export M2_HOME=$PWD/apache-maven-3.5.4
+  - export PATH=$M2_HOME/bin:$PATH
   - mvn -v
   # zie ook: https://docs.travis-ci.com/user/database-setup/
   - sudo service postgresql stop
@@ -92,9 +91,9 @@ before_script:
   # set up rsgb tabellen
   - ls -l ./datamodel/generated_scripts/
   - travis_wait psql -U postgres -w -q -d rsgb -f ./datamodel/generated_scripts/datamodel_postgresql.sql
-  # geom van gemeente en wijk hebben we niet echt nodig, mogen evt. uit
-  - travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/111a_update_gemeente_geom.sql
-  - travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/113a_update_wijk_geom.sql
+  # geom van gemeente en wijk hebben we niet echt nodig, mogen evt. uit want duurt lang en veel log output
+  #- travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/111a_update_gemeente_geom.sql
+  #- travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/113a_update_wijk_geom.sql
   # set up rsgbbgt tabellen
   - psql -U postgres -w -q -d rsgbbgt -f ./bgt-gml-loader/target/generated-resources/ddl/postgresql/create_rsgb_bgt.sql
   # set up topnl tabellen
