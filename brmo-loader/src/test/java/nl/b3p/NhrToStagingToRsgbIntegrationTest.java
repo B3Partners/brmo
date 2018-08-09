@@ -36,6 +36,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeNotNull;
 import static org.junit.Assume.assumeTrue;
 
@@ -55,13 +56,21 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
 
     private static final Log LOG = LogFactory.getLog(NhrToStagingToRsgbIntegrationTest.class);
 
-    @Parameterized.Parameters(name = "{index}: type: {0}, bestand: {1}")
+    @Parameterized.Parameters(name = "{index}: bestand: {0}")
     public static Collection params() {
         return Arrays.asList(new Object[][]{
             // {"type","filename", aantalBerichten, aantalProcessen, aantalPrs, aantalNiet_nat_prs, aantalNat_prs, vestgID, aantalVestg_activiteit},
-            {"/mantis10752/52019667.xml", 2, 1, 1, 1, 0, "nhr.comVestg.000021991235", 1},
-            {"/nl/b3p/brmo/loader/xml/nhr-2.5_0.xml", 3, 1, 2, 2, 0, "nhr.comVestg.000016444663", 3}
-        });
+            {"/mantis10752/52019667.xml", 2, 1, 1,/*subj*/ 2, 1, 0, "nhr.comVestg.000021991235", 1, 52019667},
+            /*Test automatisering*/
+            {"/nl/b3p/brmo/loader/xml/nhr-2.5_0.xml", 3, 1, 2, 3, 2, 0, "nhr.comVestg.000016444663", 3, 12345678},
+            /*Verhoef ortho*/
+            {"/nhr-v2.5/52019667.anon.xml", 2, 1, 1,/*subj*/ 2, 1, 0, "nhr.comVestg.000021991235", 1, 52019667},
+            /*dactari*/
+            {"/nhr-v2.5/16029104.anon.xml", 3, 1, 2, /*subj*/ 3, 2, 0, "nhr.comVestg.000002706229", 1, 16029104},
+            /*b3p*/
+            {"/nhr-v2.5/34122633,32076598.anon.xml", 3, 1, 2, /*subj*/ 3, 2, 0, "nhr.comVestg.000019315708", 1, 34122633},
+            /*ukc*/
+            {"/nhr-v2.5/40480283.anon.xml", 2, 1, 2, /*subj*/ 2, 2, 0, null, 0, 40480283},});
     }
 
     private static final String BESTANDTYPE = "nhr";
@@ -86,6 +95,10 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
     /**
      * test parameter.
      */
+    private final long aantalSubj;
+    /**
+     * test parameter.
+     */
     private final long aantalNiet_nat_prs;
     /**
      * test parameter.
@@ -100,6 +113,11 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
      */
     private final long aantalVestg_activiteit;
 
+    /**
+     * test parameter.
+     */
+    private final long kvkNummer;
+
     private BrmoFramework brmo;
 
     // dbunit
@@ -109,15 +127,18 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
     private final Lock sequential = new ReentrantLock(true);
 
     public NhrToStagingToRsgbIntegrationTest(String bestandNaam, long aantalBerichten, long aantalProcessen,
-                                             long aantalPrs, long aantalNiet_nat_prs, long aantalNat_prs, String vestgID, long aantalVestg_activiteit) {
+            long aantalPrs, long aantalSubj, long aantalNiet_nat_prs, long aantalNat_prs, String vestgID,
+            long aantalVestg_activiteit, long kvkNummer) {
         this.bestandNaam = bestandNaam;
         this.aantalBerichten = aantalBerichten;
         this.aantalProcessen = aantalProcessen;
         this.aantalPrs = aantalPrs;
+        this.aantalSubj = aantalSubj;
         this.aantalNiet_nat_prs = aantalNiet_nat_prs;
         this.aantalNat_prs = aantalNat_prs;
         this.vestgID = vestgID;
         this.aantalVestg_activiteit = aantalVestg_activiteit;
+        this.kvkNummer = kvkNummer;
     }
 
     @Before
@@ -128,12 +149,14 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         dsStaging.setUsername(params.getProperty("staging.user"));
         dsStaging.setPassword(params.getProperty("staging.passwd"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
+        dsStaging.setConnectionProperties(params.getProperty("staging.options", ""));
 
         BasicDataSource dsRsgb = new BasicDataSource();
         dsRsgb.setUrl(params.getProperty("rsgb.jdbc.url"));
         dsRsgb.setUsername(params.getProperty("rsgb.user"));
         dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
+        dsRsgb.setConnectionProperties(params.getProperty("rsgb.options", ""));
 
         staging = new DatabaseDataSourceConnection(dsStaging);
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
@@ -211,13 +234,32 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         ITable prs = rsgb.createDataSet().getTable("prs");
         ITable niet_nat_prs = rsgb.createDataSet().getTable("niet_nat_prs");
         ITable nat_prs = rsgb.createDataSet().getTable("nat_prs");
-        ITable vestg = rsgb.createDataSet().getTable("vestg");
-        ITable vestg_activiteit = rsgb.createDataSet().getTable("vestg_activiteit");
+        ITable subject = rsgb.createDataSet().getTable("subject");
 
         assertEquals("Het aantal 'prs' records klopt niet", aantalPrs, prs.getRowCount());
         assertEquals("Het aantal 'niet_nat_prs' records klopt niet", aantalNiet_nat_prs, niet_nat_prs.getRowCount());
         assertEquals("Het aantal 'nat_prs' records klopt niet", aantalNat_prs, nat_prs.getRowCount());
-        assertEquals("De 'sc_identif' van vestiging klopt niet", vestgID, vestg.getValue(0, "sc_identif"));
+        assertEquals("het aantal 'subject' records klopt niet", aantalSubj, subject.getRowCount());
+
+        // faalt voor vereniging 40480283
+        if (kvkNummer != 40480283) {
+            boolean foundKvk = false;
+            for (int i = 0; i < subject.getRowCount(); i++) {
+                if (subject.getValue(i, "identif").toString().contains("nhr.maatschAct.kvk")) {
+                    assertEquals("KVK nummer klopt niet", kvkNummer + "", subject.getValue(i, "kvk_nummer") + "");
+                    foundKvk = true;
+                }
+            }
+            if (!foundKvk) {
+                fail("KVK nummer klopt niet, verwacht te vinden: " + kvkNummer);
+            }
+        }
+
+        if (vestgID != null) {
+            ITable vestg = rsgb.createDataSet().getTable("vestg");
+            assertEquals("De 'sc_identif' van vestiging klopt niet", vestgID, vestg.getValue(0, "sc_identif"));
+        }
+        ITable vestg_activiteit = rsgb.createDataSet().getTable("vestg_activiteit");
         assertEquals("Het aantal 'vestg_activiteit' records klopt niet", aantalVestg_activiteit, vestg_activiteit.getRowCount());
     }
 }
