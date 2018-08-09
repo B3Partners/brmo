@@ -16,32 +16,35 @@
  */
 package nl.b3p.brmo.loader.gml;
 
+import java.io.File;
 import nl.b3p.brmo.loader.gml.bgt.BGTv3Object;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.PrecisionModel;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import javax.xml.stream.XMLInputFactory;
+import static javax.xml.stream.XMLStreamConstants.END_DOCUMENT;
 import static javax.xml.stream.XMLStreamConstants.END_ELEMENT;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerFactory;
+import nl.b3p.brmo.bgt.util.XMLStreamGMLParser;
 import nl.b3p.brmo.loader.gml.bgt.BGTv3Object.Type;
-import org.geotools.gml3.GMLConfiguration;
-import org.geotools.xml.Parser;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.input.CloseShieldInputStream;
+import org.apache.commons.lang.ArrayUtils;
 
 /**
  *
  * @author matthijsln
  */
 public class BGTv3XMLReader {
-    private final TransformerFactory tf = TransformerFactory.newInstance();
-    private final XMLInputFactory xif = XMLInputFactory.newInstance();
-    private final GeometryFactory gf;
-    private final Parser gmlParser;
     private final XMLStreamReader streamReader;
+    private final XMLStreamGMLParser xmlGmlParser;
 
     private boolean mutaties = false;
 
@@ -49,14 +52,8 @@ public class BGTv3XMLReader {
             throws XMLStreamException,
             TransformerConfigurationException {
 
-        GMLConfiguration gml = new org.geotools.gml3.GMLConfiguration();
-        gf = new GeometryFactory(new PrecisionModel(), 28992);
-        gml.getContext().registerComponentInstance(gf);
-        gmlParser = new Parser(gml);
-
+        xmlGmlParser = new XMLStreamGMLParser();
         streamReader = XMLInputFactory.newInstance().createXMLStreamReader(in);
-        TransformerFactory tf = TransformerFactory.newInstance();
-        Transformer transformer = tf.newTransformer();
 
         lookAtRoot();
     }
@@ -98,29 +95,35 @@ public class BGTv3XMLReader {
         return mutaties;
     }
 
+    boolean checkedNext = false;
     BGTv3Object theNext = null;
 
 
-    public boolean hasNext() throws XMLStreamException {
-        theNext = next();
+    public boolean hasNext() throws Exception {
+        if(!checkedNext) {
+            theNext = next();
+            checkedNext = true;
+        }
         return theNext != null;
     }
 
-    public BGTv3Object next() throws XMLStreamException {
+    public BGTv3Object next() throws Exception {
 
         if(theNext != null) {
             BGTv3Object r = theNext;
             theNext = null;
+            checkedNext = false;
             return r;
-        }
-
-        if(!streamReader.isStartElement()) {
-            return null;
         }
 
         BGTv3Object o = new BGTv3Object();
         if(mutaties) {
-            streamReader.nextTag();
+            while(streamReader.hasNext() && streamReader.getEventType() != END_DOCUMENT && (!streamReader.isStartElement() || ArrayUtils.indexOf(new String[] {"toevoeging", "wijziging", "verwijdering"}, streamReader.getLocalName()) == -1)) {
+                streamReader.next();
+            }
+            if(!streamReader.hasNext() || streamReader.getEventType() == END_DOCUMENT) {
+                return null;
+            }
 
             o.setObjectType(streamReader.getAttributeValue(null, "objectType"));
             o.setObjectId(streamReader.getAttributeValue(null, "objectId"));
@@ -133,7 +136,7 @@ public class BGTv3XMLReader {
                     streamReader.nextTag();
                 }
 
-                o.readFromXMLStream(streamReader);
+                o.readFromXMLStream(streamReader, xmlGmlParser);
             } else if(streamReader.getLocalName().equals("wijziging")) {
                 o.setType(Type.WIJZIGING);
 
@@ -146,7 +149,7 @@ public class BGTv3XMLReader {
                 while(!streamReader.getLocalName().equals("cityObjectMember")) {
                     streamReader.nextTag();
                 }
-                o.readFromXMLStream(streamReader);
+                o.readFromXMLStream(streamReader, xmlGmlParser);
 
 
             } else if(streamReader.getLocalName().equals("verwijdering")) {
@@ -154,33 +157,90 @@ public class BGTv3XMLReader {
 
                 // Alleen was, objectType en Id voldoende, geen elementen lezen
 
+                // Sla was over
+                while(!(streamReader.getEventType() == END_ELEMENT && "was".equals(streamReader.getLocalName()))) {
+                    streamReader.next();
+                }
             }
-
-            while(!(streamReader.getEventType() == END_ELEMENT && "mutatieGroep".equals(streamReader.getLocalName()))) {
-                streamReader.next();
-            }
-            streamReader.nextTag();
 
         } else {
+            throw new UnsupportedOperationException("Alleen parsen mutaties ondersteund");
+/*
             o.setType(Type.TOEVOEGING);
 
+            while(streamReader.hasNext() && !streamReader.isStartElement() || "cityObjectMember".equals(streamReader.getLocalName())) {
+                streamReader.next();
+            }
+
+            if(!streamReader.hasNext()) {
+                return null;
+            }
+
             o.readFromXMLStream(streamReader);
+*/
         }
 
         return o;
     }
 
-    public static void main(String[] args) throws Exception {
-        BGTv3XMLReader r = new BGTv3XMLReader(new FileInputStream("/home/matthijsln/bgtv3_all.xml"));
-        System.out.println("Mutaties: " + r.isMutaties());
-        int i = 0;
-        while(r.hasNext()) {
-            BGTv3Object o = r.next();
-            if(o.getObjectId().equals("G0344.40e978d267eb477789fa3a9e39574e88")) {
-                System.out.println(o);
+    public static void f(String f, InputStream in) {
+        try {
+            //System.out.println(f);
+            BGTv3XMLReader r = new BGTv3XMLReader(in/*new FileInputStream("/home/matthijsln/bgtv3_all_delta.xml)"*/);
+            //System.out.println("Mutaties: " + r.isMutaties());
+            int i = 0;
+            int toevoeging = 0, wijziging = 0, verwijdering = 0, metEindTijd = 0, metEindRegistratie = 0;
+            while(r.hasNext()) {
+                BGTv3Object o = r.next();
+                //if(o.getObjectId().equals("G0344.40e978d267eb477789fa3a9e39574e88")) {
+                switch(o.getType()) {
+                    case TOEVOEGING: toevoeging++; break;
+                    case VERWIJDERING: verwijdering++; break;
+                    case WIJZIGING: wijziging++; break;
+                }
+                //System.out.println(o);
+                //}
+                if(o.getAttributes().containsKey("terminationDate")) {
+                    metEindTijd++;
+                }
+                if(o.getAttributes().containsKey("eindRegistratie")) {
+                    metEindRegistratie++;
+                }
+                i++;
             }
-            i++;
+            System.out.printf("%62s, aantal: %6d, toev %6d, wijz %6d, verw %6d, met terminationDate: %6d, met eindRegistratie: %6d\n",f, i,toevoeging,wijziging,verwijdering,metEindTijd, metEindRegistratie);
+        } catch(Exception e) {
+            e.printStackTrace();
         }
-        System.out.println("Count: " + i);
+    }
+
+    public static void zip(File f) throws Exception {
+        try (ZipInputStream zip = new ZipInputStream(new FileInputStream(f))) {
+            ZipEntry entry = zip.getNextEntry();
+            if(entry == null) {
+                return;
+            }
+            do {
+                String ext = FilenameUtils.getExtension(entry.getName());
+                if(ext.equals("gml") || ext.equals("xml")) {
+                    f(f.getName(), new CloseShieldInputStream(zip));
+                }
+                entry = zip.getNextEntry();
+            } while(entry != null);
+        }
+
+    }
+
+    public static void main(String[] args) throws Exception {
+
+        File[] files = new File("/home/matthijsln/.netbeans/8.2/apache-tomcat-8.0.27.0_base/temp").listFiles();
+
+        for(File file : files) {
+            if(file.isFile() && file.getName().endsWith(".zip")) {
+                //if(file.getName().equals("bgtv3_citygml_delta_5ded1a9e-5aed-42df-8d7a-4e204fcd8e91.zip")) {
+                    zip(file);
+                //}
+            }
+        }
     }
 }

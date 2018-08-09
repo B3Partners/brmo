@@ -21,7 +21,28 @@ Hierdoor zijn geen views nodig om oude versies of verwijderde objecten te filter
 
 Wel opnemen tijdstipRegistratie om nieuwere versies te kunnen toepassen of overslaan indien het een oude update is. eindRegistratie is hier niet voor nodig.
 
-Bij inladen updates records met objectEindTijd verwijderen, en nieuwe objecten uit update XML met tijdstipRegistratie nieuwer updaten en anders negeren.
+--
+
+Bij inladen updates records met objectEindTijd niet negeren, er kan namelijk sequentieel later in het bestand een oudere update zonder objectEindTijd in het bestand zitten. Deze zou dan weer geinsert worden. 
+
+- Of inserten en na laadproces alle objecten met ingevuld objectEindTijd verwijderen.
+- Of map in memory bijhouden van ID+tijdstipRegistratie+beeindigd
+  Check bij record of ID in map zit.
+
+  Niet in map:
+  - Record inserten in tabel en zet gegevens in map met beeindigd=false
+  - Een beeindigd record niet inserten in tabel, zet gegevens in map met beeindigd=true
+
+  Wel in map:
+  - Een record met ouder tijdstipRegistratie dan in map negeren
+  - Een beeindigd record die al in zit deleten, zet beeindigd=true
+  - Een record met nieuwer tijdstripRegistratie updaten
+
+Bij mutaties is wel gegarandeerd dat updates sequentieel verwerkt kunnen worden, dus zou dit overgeslagen kunnen worden.
+
+Out of order updates
+
+Check dat delta laadprocessen niet in verkeerde volgorde worden uitgevoerd dat er geen eerderere (met lager ID/datumstatus) laadprocessen zijn met DOWNLOAD_AVAILABLE, STAGING_OK of RSGB_NOK (alleen oudere processen met RSGB_OK dus).
 
 # BGT mapping
 
@@ -218,6 +239,9 @@ Berichten tabel
 
 Er werden geen BGT objecten in de berichten tabel opgeslagen. Dat blijft zo, mutaties worden alleen verwerkt op basis van tijdstripRegistratie. 
 
+Verwijderen downloads
+
+Bij verwijderen laadproces ook geassocioeerd bestand verwijderen?
 
 ----
 
@@ -236,4 +260,6 @@ Workaround: gebruik niet de /api/v2/deltas/bgtv3/{format}/since/{deltaId} api, m
 Verder: gebruik niet de /api/v2/deltas/bgtv3/{format}/download-full API, omdat er niet expliciet aangegeven wat hier het deltaId van is. Beter /api/v2/deltas/{dataset}/{format}/download-full/{deltaId} dan aannemen dat je anders de laatste deltaId krijgt.
 
 Raar is dat de /api/v2/deltas niet per dataset is. Wanneer een andere dataset dan bgtv3 wordt toegevoegd, bevatten deltaIds dan soms lege mutaties als die er niet zijn voor een bepaalde dataset? Of geven die dan een 404? 
+
+full-download formaat is mutatie-formaat, allemaal toevoegingen, maar hoeveelheid 'lucht' in formaat tov oude downloadservice in gml of gmllight formaat valt mee (?).
 

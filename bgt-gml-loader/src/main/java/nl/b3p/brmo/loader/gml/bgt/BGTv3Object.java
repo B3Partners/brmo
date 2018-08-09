@@ -1,12 +1,12 @@
 package nl.b3p.brmo.loader.gml.bgt;
 
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import com.vividsolutions.jts.geom.Geometry;
 import java.util.HashMap;
 import java.util.Map;
-import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
+import nl.b3p.brmo.bgt.util.XMLStreamGMLParser;
 
 /*
  * Copyright (C) 2018 B3Partners B.V.
@@ -110,7 +110,7 @@ public class BGTv3Object {
         return c + " " + objectType + ":" + objectId + ", " + attributes + ", " + geometries;
     }
 
-    public void readFromXMLStream(XMLStreamReader streamReader) throws XMLStreamException {
+    public void readFromXMLStream(XMLStreamReader streamReader, XMLStreamGMLParser xmlGmlParser) throws Exception {
         if(!streamReader.isStartElement() && !streamReader.getLocalName().equals("cityObjectMember")) {
             throw new IllegalArgumentException("Cannot read cityObjectMember: not at start element");
         }
@@ -129,17 +129,39 @@ public class BGTv3Object {
                 streamReader.next();
             }
             if(streamReader.isCharacters()) {
-                attributes.put(name, streamReader.getText());
-                streamReader.nextTag();
+
+                StringBuilder content = new StringBuilder(streamReader.getText());
+
+                streamReader.next();
+                int eventType = streamReader.getEventType();
+                while(eventType != XMLStreamConstants.END_ELEMENT) {
+                    if(eventType == XMLStreamConstants.CHARACTERS
+                            || eventType == XMLStreamConstants.CDATA
+                            || eventType == XMLStreamConstants.SPACE
+                            || eventType == XMLStreamConstants.ENTITY_REFERENCE) {
+                        content.append(streamReader.getText());
+                    } else if(eventType == XMLStreamConstants.PROCESSING_INSTRUCTION
+                            || eventType == XMLStreamConstants.COMMENT) {
+                        // skipping
+                    }
+                    eventType = streamReader.next();
+                }
+                attributes.put(name, content.toString());
             } else if(streamReader.isEndElement()) {
                 attributes.put(name, null);
             } else if(streamReader.isStartElement()) {
                 if(streamReader.getNamespaceURI().equals("http://www.opengis.net/gml")) {
-                    // TODO parse gml
-                    geometries.put(name, streamReader.getLocalName());
-                    while(!(streamReader.isEndElement() && streamReader.getLocalName().equals(name))) {
+                    // XXX toString() of XML for GML parsing is slow...
+                    Geometry geom = xmlGmlParser.parse(streamReader);
+
+                    geometries.put(name, geom);
+
+                    /* To skip GML parsing...
+                    String n = streamReader.getLocalName();
+                    do {
                         streamReader.next();
-                    }
+                    } while(!(streamReader.isEndElement() && streamReader.getLocalName().equals(n)));
+                    streamReader.nextTag();*/
                 }
             }
         }
