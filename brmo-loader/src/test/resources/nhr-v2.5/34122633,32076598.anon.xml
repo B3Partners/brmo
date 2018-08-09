@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2018-08-09+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <SOAP-ENV:Header xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsa="http://www.w3.org/2005/08/addressing" />
+    <soap:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="id-1-d8473c037441a442d1b41bd4d0f5a704">
+        <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/01" peilmoment="20180809094346599">
+            <meldingen>
+                <informatie>
+                    <code>IPD0000</code>
+                    <omschrijving>Het product is succesvol geproduceerd.</omschrijving>
+                    <referentie>34122633,32076598</referentie>
+                </informatie>
+            </meldingen>
+            <product>
+                <cat:maatschappelijkeActiviteit xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/01">
+                    <cat:registratie registratieTijdstip="00000000000000000">
+                        <cat:datumAanvang>20000218</cat:datumAanvang>
+                    </cat:registratie>
+                    <cat:kvkNummer>34122633</cat:kvkNummer>
+                    <cat:nonMailing>Nee</cat:nonMailing>
+                    <cat:incidenteelUitlenenArbeidskrachten>Nee</cat:incidenteelUitlenenArbeidskrachten>
+                    <cat:naam>B3Partners B.V.</cat:naam>
+                    <cat:manifesteertZichAls>
+                        <cat:onderneming>
+                            <cat:registratie registratieTijdstip="00000000000000000">
+                                <cat:datumAanvang>19991022</cat:datumAanvang>
+                            </cat:registratie>
+                            <cat:kvkNummer>34122633</cat:kvkNummer>
+                            <cat:hoofdSbiActiviteit>
+                                <cat:sbiCode>6202</cat:sbiCode>
+                                <cat:omschrijving>Advisering op het gebied van informatietechnologie</cat:omschrijving>
+                            </cat:hoofdSbiActiviteit>
+                            <cat:fulltimeWerkzamePersonen>9</cat:fulltimeWerkzamePersonen>
+                            <cat:parttimeWerkzamePersonen>0</cat:parttimeWerkzamePersonen>
+                            <cat:totaalWerkzamePersonen>9</cat:totaalWerkzamePersonen>
+                            <cat:handeltOnder>
+                                <cat:handelsnaam>
+                                    <cat:naam>B3Partners B.V.</cat:naam>
+                                </cat:handelsnaam>
+                            </cat:handeltOnder>
+                            <cat:handeltOnder>
+                                <cat:handelsnaam>
+                                    <cat:naam>Digitree</cat:naam>
+                                </cat:handelsnaam>
+                            </cat:handeltOnder>
+                            <cat:wordtUitgeoefendIn>
+                                <cat:commercieleVestiging>
+                                    <cat:vestigingsnummer>000019315708</cat:vestigingsnummer>
+                                    <cat:bezoekLocatie>
+                                        <cat:afgeschermd>Nee</cat:afgeschermd>
+                                        <cat:binnenlandsAdres>
+                                            <cat:straatnaam>Zonnebaan</cat:straatnaam>
+                                            <cat:huisnummer>12</cat:huisnummer>
+                                            <cat:huisletter>C</cat:huisletter>
+                                            <cat:postcode>
+                                                <cat:cijfercombinatie>3542</cat:cijfercombinatie>
+                                                <cat:lettercombinatie>EC</cat:lettercombinatie>
+                                            </cat:postcode>
+                                            <cat:plaats>Utrecht</cat:plaats>
+                                        </cat:binnenlandsAdres>
+                                        <cat:volledigAdres>Zonnebaan 12 C 3542EC Utrecht</cat:volledigAdres>
+                                    </cat:bezoekLocatie>
+                                    <cat:handeltOnder>
+                                        <cat:handelsnaam>
+                                            <cat:naam>B3Partners B.V.</cat:naam>
+                                        </cat:handelsnaam>
+                                    </cat:handeltOnder>
+                                    <cat:handeltOnder>
+                                        <cat:handelsnaam>
+                                            <cat:naam>Digitree</cat:naam>
+                                        </cat:handelsnaam>
+                                    </cat:handeltOnder>
+                                </cat:commercieleVestiging>
+                            </cat:wordtUitgeoefendIn>
+                        </cat:onderneming>
+                    </cat:manifesteertZichAls>
+                    <cat:wordtGeleidVanuit>
+                        <cat:commercieleVestiging>
+                            <cat:registratie registratieTijdstip="00000000000000000">
+                                <cat:datumAanvang>19991022</cat:datumAanvang>
+                            </cat:registratie>
+                            <cat:vestigingsnummer>000019315708</cat:vestigingsnummer>
+                            <cat:bezoekLocatie>
+                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Zonnebaan</cat:straatnaam>
+                                    <cat:huisnummer>12</cat:huisnummer>
+                                    <cat:huisletter>C</cat:huisletter>
+                                    <cat:postcode>
+                                        <cat:cijfercombinatie>3542</cat:cijfercombinatie>
+                                        <cat:lettercombinatie>EC</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Utrecht</cat:plaats>
+                                </cat:binnenlandsAdres>
+                                <cat:volledigAdres>Zonnebaan 12 C 3542EC Utrecht</cat:volledigAdres>
+                            </cat:bezoekLocatie>
+                            <cat:postLocatie>
+                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Zonnebaan</cat:straatnaam>
+                                    <cat:huisnummer>12</cat:huisnummer>
+                                    <cat:huisletter>C</cat:huisletter>
+                                    <cat:postcode>
+                                        <cat:cijfercombinatie>3542</cat:cijfercombinatie>
+                                        <cat:lettercombinatie>EC</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Utrecht</cat:plaats>
+                                </cat:binnenlandsAdres>
+                                <cat:volledigAdres>Zonnebaan 12 C 3542EC Utrecht</cat:volledigAdres>
+                            </cat:postLocatie>
+                            <cat:communicatiegegevens>
+                                <cat:communicatienummer>
+                                    <cat:toegangscode>+31</cat:toegangscode>
+                                    <cat:nummer>0302142081</cat:nummer>
+                                    <cat:soort>Telefoon</cat:soort>
+                                </cat:communicatienummer>
+                                <cat:communicatienummer>
+                                    <cat:toegangscode>+31</cat:toegangscode>
+                                    <cat:nummer>0202411297</cat:nummer>
+                                    <cat:soort>Fax</cat:soort>
+                                </cat:communicatienummer>
+                                <cat:emailAdres>info@b3partners.nl</cat:emailAdres>
+                                <cat:domeinNaam>www.b3partners.nl</cat:domeinNaam>
+                            </cat:communicatiegegevens>
+                            <cat:totaalWerkzamePersonen>9</cat:totaalWerkzamePersonen>
+                            <cat:activiteiten>
+                                <cat:omschrijving>Het verzorgen van een infrastructuur en het verlenen van diensten op het gebied van IT zoals internet.</cat:omschrijving>
+                                <cat:hoofdSbiActiviteit>
+                                    <cat:sbiCode>6202</cat:sbiCode>
+                                    <cat:omschrijving>Advisering op het gebied van informatietechnologie</cat:omschrijving>
+                                </cat:hoofdSbiActiviteit>
+                                <cat:export>Nee</cat:export>
+                                <cat:import>Nee</cat:import>
+                            </cat:activiteiten>
+                            <cat:handeltOnder>
+                                <cat:handelsnaam>
+                                    <cat:naam>B3Partners B.V.</cat:naam>
+                                </cat:handelsnaam>
+                            </cat:handeltOnder>
+                            <cat:handeltOnder>
+                                <cat:handelsnaam>
+                                    <cat:naam>Digitree</cat:naam>
+                                </cat:handelsnaam>
+                            </cat:handeltOnder>
+                        </cat:commercieleVestiging>
+                    </cat:wordtGeleidVanuit>
+                    <cat:heeftAlsEigenaar>
+                        <cat:rechtspersoon>
+                            <cat:registratie registratieTijdstip="00000000000000000">
+                                <cat:datumAanvang>20000218</cat:datumAanvang>
+                            </cat:registratie>
+                            <cat:persoonRechtsvorm>BeslotenVennootschap</cat:persoonRechtsvorm>
+                            <cat:volledigeNaam>B3Partners B.V.</cat:volledigeNaam>
+                            <cat:uitgebreideRechtsvorm>BeslotenVennootschap</cat:uitgebreideRechtsvorm>
+                            <cat:heeft>
+                                <cat:bestuursfunctie>
+                                    <cat:registratie registratieTijdstip="00000000000000000">
+                                        <cat:datumAanvang>20000218</cat:datumAanvang>
+                                    </cat:registratie>
+                                    <cat:functieTitel>
+                                        <cat:functieTitel>Directeur</cat:functieTitel>
+                                        <cat:indicatieStatutair>Ja</cat:indicatieStatutair>
+                                    </cat:functieTitel>
+                                    <cat:langstzittende>Nee</cat:langstzittende>
+                                    <cat:door>
+                                        <cat:rechtspersoon>
+                                            <cat:volledigeNaam>Van Lith Beheer B.V.</cat:volledigeNaam>
+                                            <cat:bezoekLocatiePersoonDoor>
+                                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                                <cat:binnenlandsAdres>
+                                                    <cat:straatnaam>John F. Kennedylaan</cat:straatnaam>
+                                                    <cat:huisnummer>146</cat:huisnummer>
+                                                    <cat:postcode>
+                                                        <cat:cijfercombinatie>3931</cat:cijfercombinatie>
+                                                        <cat:lettercombinatie>XM</cat:lettercombinatie>
+                                                    </cat:postcode>
+                                                    <cat:plaats>Woudenberg</cat:plaats>
+                                                    <cat:bagId>
+                                                        <cat:identificatieNummeraanduiding>0351200000002488</cat:identificatieNummeraanduiding>
+                                                        <cat:identificatieAdresseerbaarObject>0351010000002488</cat:identificatieAdresseerbaarObject>
+                                                    </cat:bagId>
+                                                </cat:binnenlandsAdres>
+                                                <cat:volledigAdres>John F. Kennedylaan 146 3931XM Woudenberg</cat:volledigAdres>
+                                            </cat:bezoekLocatiePersoonDoor>
+                                            <cat:isEigenaarVan>
+                                                <cat:maatschappelijkeActiviteit>
+                                                    <cat:kvkNummer>32076598</cat:kvkNummer>
+                                                </cat:maatschappelijkeActiviteit>
+                                            </cat:isEigenaarVan>
+                                            <cat:rsin>808308762</cat:rsin>
+                                        </cat:rechtspersoon>
+                                    </cat:door>
+                                    <cat:functie>Bestuurder</cat:functie>
+                                    <cat:bevoegdheid>
+                                        <cat:soort>AlleenZelfstandigBevoegd</cat:soort>
+                                        <cat:bevoegdMetAnderePersonen>Nee</cat:bevoegdMetAnderePersonen>
+                                    </cat:bevoegdheid>
+                                </cat:bestuursfunctie>
+                            </cat:heeft>
+                            <cat:rsin>808938459</cat:rsin>
+                            <cat:naam>B3Partners B.V.</cat:naam>
+                            <cat:statutaireZetel>Amsterdam</cat:statutaireZetel>
+                            <cat:datumAkteOprichting>20000218</cat:datumAkteOprichting>
+                            <cat:datumOprichting>00000000</cat:datumOprichting>
+                            <cat:datumEersteInschrijving>20000309</cat:datumEersteInschrijving>
+                            <cat:datumAkteStatutenWijziging>20001208</cat:datumAkteStatutenWijziging>
+                            <cat:datumLaatsteStatutenWijziging>20001208</cat:datumLaatsteStatutenWijziging>
+                            <cat:stelselInrichting>Dualistisch</cat:stelselInrichting>
+                            <cat:geplaatstKapitaal>
+                                <cat:bedrag>
+                                    <cat:waarde>158378</cat:waarde>
+                                    <cat:valuta>Euro</cat:valuta>
+                                </cat:bedrag>
+                            </cat:geplaatstKapitaal>
+                            <cat:gestortKapitaal>
+                                <cat:bedrag>
+                                    <cat:waarde>158378</cat:waarde>
+                                    <cat:valuta>Euro</cat:valuta>
+                                </cat:bedrag>
+                            </cat:gestortKapitaal>
+                            <cat:bezoekLocatie>
+                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Zonnebaan</cat:straatnaam>
+                                    <cat:huisnummer>12</cat:huisnummer>
+                                    <cat:huisletter>C</cat:huisletter>
+                                    <cat:postcode>
+                                        <cat:cijfercombinatie>3542</cat:cijfercombinatie>
+                                        <cat:lettercombinatie>EC</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Utrecht</cat:plaats>
+                                </cat:binnenlandsAdres>
+                                <cat:volledigAdres>Zonnebaan 12 C 3542EC Utrecht</cat:volledigAdres>
+                            </cat:bezoekLocatie>
+                        </cat:rechtspersoon>
+                    </cat:heeftAlsEigenaar>
+                </cat:maatschappelijkeActiviteit>
+            </product>
+        </ophalenInschrijvingResponse>
+    </soap:Body>
+</soap:Envelope>

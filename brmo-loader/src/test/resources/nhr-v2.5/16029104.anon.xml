@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2018-08-09+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <SOAP-ENV:Header xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsa="http://www.w3.org/2005/08/addressing" />
+    <soap:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="id-1-4d0b2c6a415ed2008380d94622cfb81f">
+        <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/01" peilmoment="20180809094317685">
+            <meldingen>
+                <informatie>
+                    <code>IPD0000</code>
+                    <omschrijving>Het product is succesvol geproduceerd.</omschrijving>
+                    <referentie>16029104</referentie>
+                </informatie>
+            </meldingen>
+            <product>
+                <cat:maatschappelijkeActiviteit xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/01">
+                    <cat:registratie registratieTijdstip="00000000000000000">
+                        <cat:datumAanvang>19690717</cat:datumAanvang>
+                    </cat:registratie>
+                    <cat:kvkNummer>16029104</cat:kvkNummer>
+                    <cat:nonMailing>Nee</cat:nonMailing>
+                    <cat:incidenteelUitlenenArbeidskrachten>Nee</cat:incidenteelUitlenenArbeidskrachten>
+                    <cat:naam>Dactari Dierenartsencoöperatie U.A.</cat:naam>
+                    <cat:manifesteertZichAls>
+                        <cat:onderneming>
+                            <cat:registratie registratieTijdstip="00000000000000000">
+                                <cat:datumAanvang>19690717</cat:datumAanvang>
+                            </cat:registratie>
+                            <cat:kvkNummer>16029104</cat:kvkNummer>
+                            <cat:hoofdSbiActiviteit>
+                                <cat:sbiCode>7500</cat:sbiCode>
+                                <cat:omschrijving>Veterinaire dienstverlening</cat:omschrijving>
+                            </cat:hoofdSbiActiviteit>
+                            <cat:fulltimeWerkzamePersonen>8</cat:fulltimeWerkzamePersonen>
+                            <cat:parttimeWerkzamePersonen>0</cat:parttimeWerkzamePersonen>
+                            <cat:totaalWerkzamePersonen>8</cat:totaalWerkzamePersonen>
+                            <cat:handeltOnder>
+                                <cat:handelsnaam>
+                                    <cat:naam>Dactari Dierenartsencoöperatie U.A.</cat:naam>
+                                </cat:handelsnaam>
+                            </cat:handeltOnder>
+                            <cat:handeltOnder>
+                                <cat:handelsnaam>
+                                    <cat:naam>Dactari</cat:naam>
+                                </cat:handelsnaam>
+                            </cat:handeltOnder>
+                            <cat:handeltOnder>
+                                <cat:handelsnaam>
+                                    <cat:naam>ICOVet</cat:naam>
+                                </cat:handelsnaam>
+                            </cat:handeltOnder>
+                            <cat:handeltOnder>
+                                <cat:handelsnaam>
+                                    <cat:naam>PE-Veterinair</cat:naam>
+                                </cat:handelsnaam>
+                            </cat:handeltOnder>
+                            <cat:handeltOnder>
+                                <cat:handelsnaam>
+                                    <cat:naam>Dactari Support</cat:naam>
+                                </cat:handelsnaam>
+                            </cat:handeltOnder>
+                            <cat:handeltOnder>
+                                <cat:handelsnaam>
+                                    <cat:naam>FVJD</cat:naam>
+                                </cat:handelsnaam>
+                            </cat:handeltOnder>
+                            <cat:wordtUitgeoefendIn>
+                                <cat:commercieleVestiging>
+                                    <cat:vestigingsnummer>000002706229</cat:vestigingsnummer>
+                                    <cat:bezoekLocatie>
+                                        <cat:afgeschermd>Nee</cat:afgeschermd>
+                                        <cat:binnenlandsAdres>
+                                            <cat:straatnaam>Beversestraat</cat:straatnaam>
+                                            <cat:huisnummer>23</cat:huisnummer>
+                                            <cat:postcode>
+                                                <cat:cijfercombinatie>5431</cat:cijfercombinatie>
+                                                <cat:lettercombinatie>SL</cat:lettercombinatie>
+                                            </cat:postcode>
+                                            <cat:plaats>Cuijk</cat:plaats>
+                                            <cat:bagId>
+                                                <cat:identificatieNummeraanduiding>1684200000000818</cat:identificatieNummeraanduiding>
+                                                <cat:identificatieAdresseerbaarObject>1684010000000818</cat:identificatieAdresseerbaarObject>
+                                            </cat:bagId>
+                                        </cat:binnenlandsAdres>
+                                        <cat:volledigAdres>Beversestraat 23 5431SL Cuijk</cat:volledigAdres>
+                                    </cat:bezoekLocatie>
+                                    <cat:handeltOnder>
+                                        <cat:handelsnaam>
+                                            <cat:naam>Dactari Dierenartsencoöperatie U.A.</cat:naam>
+                                        </cat:handelsnaam>
+                                    </cat:handeltOnder>
+                                    <cat:handeltOnder>
+                                        <cat:handelsnaam>
+                                            <cat:naam>Dactari</cat:naam>
+                                        </cat:handelsnaam>
+                                    </cat:handeltOnder>
+                                    <cat:handeltOnder>
+                                        <cat:handelsnaam>
+                                            <cat:naam>ICOVet</cat:naam>
+                                        </cat:handelsnaam>
+                                    </cat:handeltOnder>
+                                    <cat:handeltOnder>
+                                        <cat:handelsnaam>
+                                            <cat:naam>PE-Veterinair</cat:naam>
+                                        </cat:handelsnaam>
+                                    </cat:handeltOnder>
+                                    <cat:handeltOnder>
+                                        <cat:handelsnaam>
+                                            <cat:naam>Dactari Support</cat:naam>
+                                        </cat:handelsnaam>
+                                    </cat:handeltOnder>
+                                    <cat:handeltOnder>
+                                        <cat:handelsnaam>
+                                            <cat:naam>FVJD</cat:naam>
+                                        </cat:handelsnaam>
+                                    </cat:handeltOnder>
+                                </cat:commercieleVestiging>
+                            </cat:wordtUitgeoefendIn>
+                        </cat:onderneming>
+                    </cat:manifesteertZichAls>
+                    <cat:wordtGeleidVanuit>
+                        <cat:commercieleVestiging>
+                            <cat:registratie registratieTijdstip="00000000000000000">
+                                <cat:datumAanvang>19690717</cat:datumAanvang>
+                            </cat:registratie>
+                            <cat:vestigingsnummer>000002706229</cat:vestigingsnummer>
+                            <cat:bezoekLocatie>
+                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Beversestraat</cat:straatnaam>
+                                    <cat:huisnummer>23</cat:huisnummer>
+                                    <cat:postcode>
+                                        <cat:cijfercombinatie>5431</cat:cijfercombinatie>
+                                        <cat:lettercombinatie>SL</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Cuijk</cat:plaats>
+                                    <cat:bagId>
+                                        <cat:identificatieNummeraanduiding>1684200000000818</cat:identificatieNummeraanduiding>
+                                        <cat:identificatieAdresseerbaarObject>1684010000000818</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                </cat:binnenlandsAdres>
+                                <cat:volledigAdres>Beversestraat 23 5431SL Cuijk</cat:volledigAdres>
+                            </cat:bezoekLocatie>
+                            <cat:postLocatie>
+                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Beversestraat</cat:straatnaam>
+                                    <cat:huisnummer>23</cat:huisnummer>
+                                    <cat:postcode>
+                                        <cat:cijfercombinatie>5431</cat:cijfercombinatie>
+                                        <cat:lettercombinatie>SL</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Cuijk</cat:plaats>
+                                    <cat:bagId>
+                                        <cat:identificatieNummeraanduiding>1684200000000818</cat:identificatieNummeraanduiding>
+                                        <cat:identificatieAdresseerbaarObject>1684010000000818</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                </cat:binnenlandsAdres>
+                                <cat:volledigAdres>Beversestraat 23 5431SL Cuijk</cat:volledigAdres>
+                            </cat:postLocatie>
+                            <cat:communicatiegegevens>
+                                <cat:communicatienummer>
+                                    <cat:toegangscode>+31</cat:toegangscode>
+                                    <cat:nummer>0880321880</cat:nummer>
+                                    <cat:soort>Telefoon</cat:soort>
+                                </cat:communicatienummer>
+                                <cat:emailAdres>info@dactari.nl</cat:emailAdres>
+                                <cat:domeinNaam>www.dactari.nl</cat:domeinNaam>
+                            </cat:communicatiegegevens>
+                            <cat:totaalWerkzamePersonen>8</cat:totaalWerkzamePersonen>
+                            <cat:activiteiten>
+                                <cat:omschrijving>Belangenbehartiging van praktiserende dierenartsen. Ondersteuning in praktijk en organisatie van praktiserende dierenartsen.</cat:omschrijving>
+                                <cat:hoofdSbiActiviteit>
+                                    <cat:sbiCode>7500</cat:sbiCode>
+                                    <cat:omschrijving>Veterinaire dienstverlening</cat:omschrijving>
+                                </cat:hoofdSbiActiviteit>
+                                <cat:export>Nee</cat:export>
+                                <cat:import>Ja</cat:import>
+                            </cat:activiteiten>
+                            <cat:handeltOnder>
+                                <cat:handelsnaam>
+                                    <cat:naam>Dactari Dierenartsencoöperatie U.A.</cat:naam>
+                                </cat:handelsnaam>
+                            </cat:handeltOnder>
+                            <cat:handeltOnder>
+                                <cat:handelsnaam>
+                                    <cat:naam>Dactari</cat:naam>
+                                </cat:handelsnaam>
+                            </cat:handeltOnder>
+                            <cat:handeltOnder>
+                                <cat:handelsnaam>
+                                    <cat:naam>ICOVet</cat:naam>
+                                </cat:handelsnaam>
+                            </cat:handeltOnder>
+                            <cat:handeltOnder>
+                                <cat:handelsnaam>
+                                    <cat:naam>PE-Veterinair</cat:naam>
+                                </cat:handelsnaam>
+                            </cat:handeltOnder>
+                            <cat:handeltOnder>
+                                <cat:handelsnaam>
+                                    <cat:naam>Dactari Support</cat:naam>
+                                </cat:handelsnaam>
+                            </cat:handeltOnder>
+                            <cat:handeltOnder>
+                                <cat:handelsnaam>
+                                    <cat:naam>FVJD</cat:naam>
+                                </cat:handelsnaam>
+                            </cat:handeltOnder>
+                        </cat:commercieleVestiging>
+                    </cat:wordtGeleidVanuit>
+                    <cat:heeftAlsEigenaar>
+                        <cat:rechtspersoon>
+                            <cat:registratie registratieTijdstip="00000000000000000">
+                                <cat:datumAanvang>19690717</cat:datumAanvang>
+                            </cat:registratie>
+                            <cat:persoonRechtsvorm>Cooperatie</cat:persoonRechtsvorm>
+                            <cat:volledigeNaam>Dactari Dierenartsencoöperatie U.A.</cat:volledigeNaam>
+                            <cat:uitgebreideRechtsvorm>Cooperatie</cat:uitgebreideRechtsvorm>
+                            <cat:heeft>
+                                <cat:bestuursfunctie>
+                                    <cat:registratie registratieTijdstip="20140626123911041">
+                                        <cat:datumAanvang>20140611</cat:datumAanvang>
+                                    </cat:registratie>
+                                    <cat:langstzittende>Ja</cat:langstzittende>
+                                    <cat:door>
+                                        <cat:natuurlijkPersoon>
+                                            <cat:registratie registratieTijdstip="20111011142002916">
+                                                <cat:datumAanvang>19921128</cat:datumAanvang>
+                                                <!--Anonimisatie 'cat:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                                            </cat:registratie>
+                                            <cat:volledigeNaam>2b2dc02 410be4aed9 66a014</cat:volledigeNaam>
+                                            <!--Anonimisatie 'cat:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:bezoekLocatiePersoonDoor>
+                                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                                <cat:binnenlandsAdres>
+                                                    <cat:straatnaam>Westermaten</cat:straatnaam>
+                                                    <cat:huisnummer>8</cat:huisnummer>
+                                                    <cat:postcode>
+                                                        <cat:cijfercombinatie>7854</cat:cijfercombinatie>
+                                                        <cat:lettercombinatie>TS</cat:lettercombinatie>
+                                                    </cat:postcode>
+                                                    <cat:plaats>Aalden</cat:plaats>
+                                                    <cat:bagId>
+                                                        <cat:identificatieNummeraanduiding>0109200000016220</cat:identificatieNummeraanduiding>
+                                                        <cat:identificatieAdresseerbaarObject>0109010000004318</cat:identificatieAdresseerbaarObject>
+                                                    </cat:bagId>
+                                                </cat:binnenlandsAdres>
+                                                <cat:volledigAdres>Westermaten 8 7854TS Aalden</cat:volledigAdres>
+                                            </cat:bezoekLocatiePersoonDoor>
+                                            <cat:bsn>207145695</cat:bsn>
+                                            <!--Anonimisatie 'cat:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                                            <cat:geslachtsnaam>473ff0</cat:geslachtsnaam>
+                                            <!--Anonimisatie 'cat:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:voornamen>aae605b 3e87dc996d</cat:voornamen>
+                                            <!--Anonimisatie 'cat:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geslachtsaanduiding>Man</cat:geslachtsaanduiding>
+                                            <cat:geboorteplaats>7da46</cat:geboorteplaats>
+                                            <!--Anonimisatie 'cat:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geboorteland>Nederland</cat:geboorteland>
+                                            <cat:aanduidingNaamgebruik>EigenGeslachtsnaam</cat:aanduidingNaamgebruik>
+                                            <cat:geslachtsnaamPartner>5d2eda</cat:geslachtsnaamPartner>
+                                            <!--Anonimisatie 'cat:geslachtsnaamPartner': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                        </cat:natuurlijkPersoon>
+                                    </cat:door>
+                                    <cat:functie>Bestuurder</cat:functie>
+                                    <cat:bevoegdheid>
+                                        <cat:soort>GezamenlijkBevoegd</cat:soort>
+                                        <cat:bevoegdMetAnderePersonen>Nee</cat:bevoegdMetAnderePersonen>
+                                    </cat:bevoegdheid>
+                                </cat:bestuursfunctie>
+                            </cat:heeft>
+                            <cat:heeft>
+                                <cat:bestuursfunctie>
+                                    <cat:registratie registratieTijdstip="20150902090059252">
+                                        <cat:datumAanvang>20150610</cat:datumAanvang>
+                                    </cat:registratie>
+                                    <cat:functieTitel>
+                                        <cat:functieTitel>Secretaris</cat:functieTitel>
+                                        <cat:indicatieStatutair>Ja</cat:indicatieStatutair>
+                                    </cat:functieTitel>
+                                    <cat:langstzittende>Nee</cat:langstzittende>
+                                    <cat:door>
+                                        <cat:natuurlijkPersoon>
+                                            <cat:registratie registratieTijdstip="00000000000000000">
+                                                <cat:datumAanvang>20211103</cat:datumAanvang>
+                                                <!--Anonimisatie 'cat:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                                            </cat:registratie>
+                                            <cat:volledigeNaam>3df336 2dfade9b5 0 8e3 cd872e4d1</cat:volledigeNaam>
+                                            <!--Anonimisatie 'cat:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:bezoekLocatiePersoonDoor>
+                                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                                <cat:binnenlandsAdres>
+                                                    <cat:straatnaam>Brink</cat:straatnaam>
+                                                    <cat:huisnummer>12</cat:huisnummer>
+                                                    <cat:postcode>
+                                                        <cat:cijfercombinatie>7991</cat:cijfercombinatie>
+                                                        <cat:lettercombinatie>CG</cat:lettercombinatie>
+                                                    </cat:postcode>
+                                                    <cat:plaats>Dwingeloo</cat:plaats>
+                                                    <cat:bagId>
+                                                        <cat:identificatieNummeraanduiding>1701200000235068</cat:identificatieNummeraanduiding>
+                                                        <cat:identificatieAdresseerbaarObject>1701010000235069</cat:identificatieAdresseerbaarObject>
+                                                    </cat:bagId>
+                                                </cat:binnenlandsAdres>
+                                                <cat:volledigAdres>Brink 12 7991CG Dwingeloo</cat:volledigAdres>
+                                            </cat:bezoekLocatiePersoonDoor>
+                                            <cat:bsn>941242837</cat:bsn>
+                                            <!--Anonimisatie 'cat:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                                            <cat:geslachtsnaam>d565336a0</cat:geslachtsnaam>
+                                            <!--Anonimisatie 'cat:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:voorvoegselGeslachtsnaam>den</cat:voorvoegselGeslachtsnaam>
+                                            <cat:voornamen>44d090</cat:voornamen>
+                                            <!--Anonimisatie 'cat:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geslachtsaanduiding>Vrouw</cat:geslachtsaanduiding>
+                                            <cat:geboorteplaats>5dbe31c5</cat:geboorteplaats>
+                                            <!--Anonimisatie 'cat:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geboorteland>Nederland</cat:geboorteland>
+                                            <cat:aanduidingNaamgebruik>GeslachtsnaamPartnerVoorEigenGeslachtsnaam</cat:aanduidingNaamgebruik>
+                                            <cat:geslachtsnaamPartner>ca4cf987c</cat:geslachtsnaamPartner>
+                                            <!--Anonimisatie 'cat:geslachtsnaamPartner': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                        </cat:natuurlijkPersoon>
+                                    </cat:door>
+                                    <cat:functie>Bestuurder</cat:functie>
+                                    <cat:bevoegdheid>
+                                        <cat:soort>GezamenlijkBevoegd</cat:soort>
+                                        <cat:bevoegdMetAnderePersonen>Nee</cat:bevoegdMetAnderePersonen>
+                                    </cat:bevoegdheid>
+                                </cat:bestuursfunctie>
+                            </cat:heeft>
+                            <cat:heeft>
+                                <cat:bestuursfunctie>
+                                    <cat:registratie registratieTijdstip="20150909114001331">
+                                        <cat:datumAanvang>20150610</cat:datumAanvang>
+                                    </cat:registratie>
+                                    <cat:langstzittende>Nee</cat:langstzittende>
+                                    <cat:door>
+                                        <cat:natuurlijkPersoon>
+                                            <cat:registratie registratieTijdstip="00000000000000000">
+                                                <cat:datumAanvang>19480728</cat:datumAanvang>
+                                                <!--Anonimisatie 'cat:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                                            </cat:registratie>
+                                            <cat:volledigeNaam>e008aa295 35a64 467d60bff 547d045</cat:volledigeNaam>
+                                            <!--Anonimisatie 'cat:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:bezoekLocatiePersoonDoor>
+                                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                                <cat:binnenlandsAdres>
+                                                    <cat:straatnaam>Oude Deldensestraat</cat:straatnaam>
+                                                    <cat:huisnummer>31</cat:huisnummer>
+                                                    <cat:postcode>
+                                                        <cat:cijfercombinatie>7622</cat:cijfercombinatie>
+                                                        <cat:lettercombinatie>LM</cat:lettercombinatie>
+                                                    </cat:postcode>
+                                                    <cat:plaats>Borne</cat:plaats>
+                                                    <cat:bagId>
+                                                        <cat:identificatieNummeraanduiding>0147200000056273</cat:identificatieNummeraanduiding>
+                                                        <cat:identificatieAdresseerbaarObject>0147010000031902</cat:identificatieAdresseerbaarObject>
+                                                    </cat:bagId>
+                                                </cat:binnenlandsAdres>
+                                                <cat:volledigAdres>Oude Deldensestraat 31 7622LM Borne</cat:volledigAdres>
+                                            </cat:bezoekLocatiePersoonDoor>
+                                            <cat:bsn>764331872</cat:bsn>
+                                            <!--Anonimisatie 'cat:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                                            <cat:geslachtsnaam>8bd5788</cat:geslachtsnaam>
+                                            <!--Anonimisatie 'cat:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:voornamen>19b01ab7d be774 508012a57</cat:voornamen>
+                                            <!--Anonimisatie 'cat:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geslachtsaanduiding>Man</cat:geslachtsaanduiding>
+                                            <cat:geboorteplaats>0682f5</cat:geboorteplaats>
+                                            <!--Anonimisatie 'cat:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geboorteland>Nederland</cat:geboorteland>
+                                            <cat:aanduidingNaamgebruik>EigenGeslachtsnaam</cat:aanduidingNaamgebruik>
+                                            <cat:geslachtsnaamPartner>756d6e5</cat:geslachtsnaamPartner>
+                                            <!--Anonimisatie 'cat:geslachtsnaamPartner': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                        </cat:natuurlijkPersoon>
+                                    </cat:door>
+                                    <cat:functie>Bestuurder</cat:functie>
+                                    <cat:bevoegdheid>
+                                        <cat:soort>GezamenlijkBevoegd</cat:soort>
+                                        <cat:bevoegdMetAnderePersonen>Nee</cat:bevoegdMetAnderePersonen>
+                                    </cat:bevoegdheid>
+                                </cat:bestuursfunctie>
+                            </cat:heeft>
+                            <cat:heeft>
+                                <cat:gemachtigde>
+                                    <cat:registratie registratieTijdstip="20160324113634741">
+                                        <cat:datumAanvang>20160115</cat:datumAanvang>
+                                    </cat:registratie>
+                                    <cat:functieTitel>
+                                        <cat:functieTitel>Directeur Coöperatiezaken</cat:functieTitel>
+                                        <cat:indicatieStatutair>Nee</cat:indicatieStatutair>
+                                    </cat:functieTitel>
+                                    <cat:langstzittende>Nee</cat:langstzittende>
+                                    <cat:door>
+                                        <cat:natuurlijkPersoon>
+                                            <cat:registratie registratieTijdstip="00000000000000000">
+                                                <cat:datumAanvang>20241121</cat:datumAanvang>
+                                                <!--Anonimisatie 'cat:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                                            </cat:registratie>
+                                            <cat:volledigeNaam>c5d8e6 2f8568e 533 662</cat:volledigeNaam>
+                                            <!--Anonimisatie 'cat:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:bezoekLocatiePersoonDoor>
+                                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                                <cat:binnenlandsAdres>
+                                                    <cat:straatnaam>von Bönninghausenstraat</cat:straatnaam>
+                                                    <cat:huisnummer>1</cat:huisnummer>
+                                                    <cat:huisletter>a</cat:huisletter>
+                                                    <cat:postcode>
+                                                        <cat:cijfercombinatie>7622</cat:cijfercombinatie>
+                                                        <cat:lettercombinatie>TS</cat:lettercombinatie>
+                                                    </cat:postcode>
+                                                    <cat:plaats>Borne</cat:plaats>
+                                                </cat:binnenlandsAdres>
+                                                <cat:volledigAdres>von Bönninghausenstraat 1 a 7622TS Borne</cat:volledigAdres>
+                                            </cat:bezoekLocatiePersoonDoor>
+                                            <cat:bsn>953863600</cat:bsn>
+                                            <!--Anonimisatie 'cat:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                                            <cat:geslachtsnaam>cd8</cat:geslachtsnaam>
+                                            <!--Anonimisatie 'cat:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:voorvoegselGeslachtsnaam>van</cat:voorvoegselGeslachtsnaam>
+                                            <cat:voornamen>c7568b 596aa1f</cat:voornamen>
+                                            <!--Anonimisatie 'cat:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geslachtsaanduiding>Man</cat:geslachtsaanduiding>
+                                            <cat:geboorteplaats>fb9b2efb</cat:geboorteplaats>
+                                            <!--Anonimisatie 'cat:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geboorteland>Nederland</cat:geboorteland>
+                                            <cat:aanduidingNaamgebruik>EigenGeslachtsnaam</cat:aanduidingNaamgebruik>
+                                            <cat:geslachtsnaamPartner>4706</cat:geslachtsnaamPartner>
+                                            <!--Anonimisatie 'cat:geslachtsnaamPartner': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                        </cat:natuurlijkPersoon>
+                                    </cat:door>
+                                    <cat:functie>Gevolmachtigde</cat:functie>
+                                    <cat:volmacht>
+                                        <cat:statutair>Nee</cat:statutair>
+                                        <cat:beperkteVolmacht>
+                                            <cat:beperkingInGeld>
+                                                <cat:waarde>25000</cat:waarde>
+                                                <cat:valuta>Euro</cat:valuta>
+                                            </cat:beperkingInGeld>
+                                            <cat:doenVanOpgaveAanHetHandelsregister>Nee</cat:doenVanOpgaveAanHetHandelsregister>
+                                            <cat:indicatieOverigeVolmacht>Nee</cat:indicatieOverigeVolmacht>
+                                        </cat:beperkteVolmacht>
+                                    </cat:volmacht>
+                                </cat:gemachtigde>
+                            </cat:heeft>
+                            <cat:heeft>
+                                <cat:bestuursfunctie>
+                                    <cat:registratie registratieTijdstip="20160617162112856">
+                                        <cat:datumAanvang>20160608</cat:datumAanvang>
+                                    </cat:registratie>
+                                    <cat:langstzittende>Nee</cat:langstzittende>
+                                    <cat:door>
+                                        <cat:natuurlijkPersoon>
+                                            <cat:registratie registratieTijdstip="00000000000000000">
+                                                <cat:datumAanvang>19640115</cat:datumAanvang>
+                                                <!--Anonimisatie 'cat:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                                            </cat:registratie>
+                                            <cat:volledigeNaam>954de d6fae2c 83323 2d 1f5db5eb08</cat:volledigeNaam>
+                                            <!--Anonimisatie 'cat:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:bezoekLocatiePersoonDoor>
+                                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                                <cat:binnenlandsAdres>
+                                                    <cat:straatnaam>Dorpsstraat</cat:straatnaam>
+                                                    <cat:huisnummer>133</cat:huisnummer>
+                                                    <cat:postcode>
+                                                        <cat:cijfercombinatie>4511</cat:cijfercombinatie>
+                                                        <cat:lettercombinatie>EE</cat:lettercombinatie>
+                                                    </cat:postcode>
+                                                    <cat:plaats>Breskens</cat:plaats>
+                                                    <cat:bagId>
+                                                        <cat:identificatieNummeraanduiding>1714200000750311</cat:identificatieNummeraanduiding>
+                                                        <cat:identificatieAdresseerbaarObject>1714010000750312</cat:identificatieAdresseerbaarObject>
+                                                    </cat:bagId>
+                                                </cat:binnenlandsAdres>
+                                                <cat:volledigAdres>Dorpsstraat 133 4511EE Breskens</cat:volledigAdres>
+                                            </cat:bezoekLocatiePersoonDoor>
+                                            <cat:bsn>160173722</cat:bsn>
+                                            <!--Anonimisatie 'cat:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                                            <cat:geslachtsnaam>2c87cf9d9c</cat:geslachtsnaam>
+                                            <!--Anonimisatie 'cat:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:voorvoegselGeslachtsnaam>de</cat:voorvoegselGeslachtsnaam>
+                                            <cat:voornamen>fdbeb e2055fa d1b76</cat:voornamen>
+                                            <!--Anonimisatie 'cat:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geslachtsaanduiding>Man</cat:geslachtsaanduiding>
+                                            <cat:geboorteplaats>ca445b96</cat:geboorteplaats>
+                                            <!--Anonimisatie 'cat:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geboorteland>Nederland</cat:geboorteland>
+                                            <cat:aanduidingNaamgebruik>EigenGeslachtsnaam</cat:aanduidingNaamgebruik>
+                                            <cat:geslachtsnaamPartner>39eea28b</cat:geslachtsnaamPartner>
+                                            <!--Anonimisatie 'cat:geslachtsnaamPartner': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                        </cat:natuurlijkPersoon>
+                                    </cat:door>
+                                    <cat:functie>Bestuurder</cat:functie>
+                                    <cat:bevoegdheid>
+                                        <cat:soort>GezamenlijkBevoegd</cat:soort>
+                                        <cat:bevoegdMetAnderePersonen>Nee</cat:bevoegdMetAnderePersonen>
+                                    </cat:bevoegdheid>
+                                </cat:bestuursfunctie>
+                            </cat:heeft>
+                            <cat:heeft>
+                                <cat:bestuursfunctie>
+                                    <cat:registratie registratieTijdstip="20180705152502359">
+                                        <cat:datumAanvang>20180620</cat:datumAanvang>
+                                    </cat:registratie>
+                                    <cat:functieTitel>
+                                        <cat:functieTitel>Voorzitter</cat:functieTitel>
+                                        <cat:indicatieStatutair>Ja</cat:indicatieStatutair>
+                                    </cat:functieTitel>
+                                    <cat:langstzittende>Nee</cat:langstzittende>
+                                    <cat:door>
+                                        <cat:natuurlijkPersoon>
+                                            <cat:registratie registratieTijdstip="00000000000000000">
+                                                <cat:datumAanvang>19720105</cat:datumAanvang>
+                                                <!--Anonimisatie 'cat:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                                            </cat:registratie>
+                                            <cat:volledigeNaam>743f59 a82f</cat:volledigeNaam>
+                                            <!--Anonimisatie 'cat:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:bezoekLocatiePersoonDoor>
+                                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                                <cat:binnenlandsAdres>
+                                                    <cat:straatnaam>Eekterweg</cat:straatnaam>
+                                                    <cat:huisnummer>49</cat:huisnummer>
+                                                    <cat:postcode>
+                                                        <cat:cijfercombinatie>8097</cat:cijfercombinatie>
+                                                        <cat:lettercombinatie>PC</cat:lettercombinatie>
+                                                    </cat:postcode>
+                                                    <cat:plaats>Oosterwolde Gld</cat:plaats>
+                                                    <cat:bagId>
+                                                        <cat:identificatieNummeraanduiding>0269200000001694</cat:identificatieNummeraanduiding>
+                                                        <cat:identificatieAdresseerbaarObject>0269010000001694</cat:identificatieAdresseerbaarObject>
+                                                    </cat:bagId>
+                                                </cat:binnenlandsAdres>
+                                                <cat:volledigAdres>Eekterweg 49 8097PC Oosterwolde Gld</cat:volledigAdres>
+                                            </cat:bezoekLocatiePersoonDoor>
+                                            <cat:bsn>748517407</cat:bsn>
+                                            <!--Anonimisatie 'cat:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                                            <cat:geslachtsnaam>0244</cat:geslachtsnaam>
+                                            <!--Anonimisatie 'cat:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:voornamen>4e9b17</cat:voornamen>
+                                            <!--Anonimisatie 'cat:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geslachtsaanduiding>Man</cat:geslachtsaanduiding>
+                                            <cat:geboorteplaats>42ac265</cat:geboorteplaats>
+                                            <!--Anonimisatie 'cat:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geboorteland>Nederland</cat:geboorteland>
+                                            <cat:aanduidingNaamgebruik>EigenGeslachtsnaam</cat:aanduidingNaamgebruik>
+                                            <cat:geslachtsnaamPartner>dc110d21d6</cat:geslachtsnaamPartner>
+                                            <!--Anonimisatie 'cat:geslachtsnaamPartner': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                        </cat:natuurlijkPersoon>
+                                    </cat:door>
+                                    <cat:functie>Bestuurder</cat:functie>
+                                    <cat:bevoegdheid>
+                                        <cat:soort>GezamenlijkBevoegd</cat:soort>
+                                        <cat:bevoegdMetAnderePersonen>Nee</cat:bevoegdMetAnderePersonen>
+                                    </cat:bevoegdheid>
+                                </cat:bestuursfunctie>
+                            </cat:heeft>
+                            <cat:rsin>001681965</cat:rsin>
+                            <cat:naam>Dactari Dierenartsencoöperatie U.A.</cat:naam>
+                            <cat:statutaireZetel>Cuijk</cat:statutaireZetel>
+                            <cat:datumAkteOprichting>19690717</cat:datumAkteOprichting>
+                            <cat:datumOprichting>00000000</cat:datumOprichting>
+                            <cat:datumEersteInschrijving>00000000</cat:datumEersteInschrijving>
+                            <cat:datumAkteStatutenWijziging>20140925</cat:datumAkteStatutenWijziging>
+                            <cat:datumLaatsteStatutenWijziging>20140925</cat:datumLaatsteStatutenWijziging>
+                            <cat:bezoekLocatie>
+                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Beversestraat</cat:straatnaam>
+                                    <cat:huisnummer>23</cat:huisnummer>
+                                    <cat:postcode>
+                                        <cat:cijfercombinatie>5431</cat:cijfercombinatie>
+                                        <cat:lettercombinatie>SL</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Cuijk</cat:plaats>
+                                    <cat:bagId>
+                                        <cat:identificatieNummeraanduiding>1684200000000818</cat:identificatieNummeraanduiding>
+                                        <cat:identificatieAdresseerbaarObject>1684010000000818</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                </cat:binnenlandsAdres>
+                                <cat:volledigAdres>Beversestraat 23 5431SL Cuijk</cat:volledigAdres>
+                            </cat:bezoekLocatie>
+                        </cat:rechtspersoon>
+                    </cat:heeftAlsEigenaar>
+                </cat:maatschappelijkeActiviteit>
+            </product>
+        </ophalenInschrijvingResponse>
+    </soap:Body>
+</soap:Envelope>
