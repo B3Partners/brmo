@@ -67,7 +67,7 @@ timestamps {
 
                 stage('brmo-loader Integration Test') {
                     echo "run integratie tests voor brmo-loader module"
-                    sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-loader'"
+                    sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-loader' -Dit.test=!TopNLIntegrationTest"
                 }
 
                 stage('brmo-service Integration Test') {
