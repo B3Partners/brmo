@@ -18,10 +18,10 @@ digraph G {
 	//nl.b3p.brmo.loader.util.StagingBeanProcessor extends org.apache.commons.dbutils.BeanProcessor
 	c1907:p -> c1889:p [dir=back,arrowtail=empty];
 	// org.apache.commons.dbutils.BeanProcessor
-	c1907 [label=<<table title="org.apache.commons.dbutils.BeanProcessor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c1907 [label=<<table title="org.apache.commons.dbutils.BeanProcessor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/org/apache/commons/dbutils/BeanProcessor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BeanProcessor </td></tr>
 		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/org/apache/commons/dbutils/BeanProcessor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

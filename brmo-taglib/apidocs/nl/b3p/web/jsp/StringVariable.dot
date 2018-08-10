@@ -18,10 +18,10 @@ digraph G {
 	//nl.b3p.web.jsp.StringVariable extends javax.servlet.jsp.tagext.TagExtraInfo
 	c38:p -> c36:p [dir=back,arrowtail=empty];
 	// javax.servlet.jsp.tagext.TagExtraInfo
-	c38 [label=<<table title="javax.servlet.jsp.tagext.TagExtraInfo" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="https://download.oracle.com/javaee/7/api/javax/servlet/jsp/tagext/TagExtraInfo.html">
+	c38 [label=<<table title="javax.servlet.jsp.tagext.TagExtraInfo" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="https://docs.oracle.com/javaee/7/api/javax/servlet/jsp/tagext/TagExtraInfo.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TagExtraInfo </font></td></tr>
 		</table></td></tr>
-		</table>>, URL="https://download.oracle.com/javaee/7/api/javax/servlet/jsp/tagext/TagExtraInfo.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="https://docs.oracle.com/javaee/7/api/javax/servlet/jsp/tagext/TagExtraInfo.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

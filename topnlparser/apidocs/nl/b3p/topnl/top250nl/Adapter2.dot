@@ -18,10 +18,10 @@ digraph G {
 	//nl.b3p.topnl.top250nl.Adapter2 extends javax.xml.bind.annotation.adapters.XmlAdapter<java.lang.String, java.util.Calendar>
 	c6183:p -> c5905:p [dir=back,arrowtail=empty];
 	// javax.xml.bind.annotation.adapters.XmlAdapter<ValueType, BoundType>
-	c6183 [label=<<table title="javax.xml.bind.annotation.adapters.XmlAdapter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="https://download.oracle.com/javaee/7/api/javax/xml/bind/annotation/adapters/XmlAdapter.html">
+	c6183 [label=<<table title="javax.xml.bind.annotation.adapters.XmlAdapter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/javax/xml/bind/annotation/adapters/XmlAdapter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> XmlAdapter&lt;ValueType, BoundType&gt; </font></td></tr>
 		</table></td></tr>
-		</table>>, URL="https://download.oracle.com/javaee/7/api/javax/xml/bind/annotation/adapters/XmlAdapter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/javax/xml/bind/annotation/adapters/XmlAdapter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

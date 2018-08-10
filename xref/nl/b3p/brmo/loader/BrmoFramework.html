@@ -331,207 +331,250 @@
 <a class="jxr_linenumber" name="L323" href="#L323">323</a>     }
 <a class="jxr_linenumber" name="L324" href="#L324">324</a> 
 <a class="jxr_linenumber" name="L325" href="#L325">325</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L326" href="#L326">326</a> <em class="jxr_javadoccomment">     * NB na gebruik zelf de database verbinding sluiten / opruimen met {@link #closeBrmoFramework()}</em>
-<a class="jxr_linenumber" name="L327" href="#L327">327</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L328" href="#L328">328</a> <em class="jxr_javadoccomment">     * @param type basis registratie type</em>
-<a class="jxr_linenumber" name="L329" href="#L329">329</a> <em class="jxr_javadoccomment">     * @param fileName bestand</em>
-<a class="jxr_linenumber" name="L330" href="#L330">330</a> <em class="jxr_javadoccomment">     * @param listener voortgangsmonitor</em>
-<a class="jxr_linenumber" name="L331" href="#L331">331</a> <em class="jxr_javadoccomment">     * @throws BrmoException als er een fout optreed tijdens verwerking</em>
-<a class="jxr_linenumber" name="L332" href="#L332">332</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L333" href="#L333">333</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> loadFromFile(String type, String fileName, <strong class="jxr_keyword">final</strong> <a href="../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html">ProgressUpdateListener</a> listener) <strong class="jxr_keyword">throws</strong> BrmoException {
-<a class="jxr_linenumber" name="L334" href="#L334">334</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L335" href="#L335">335</a>             <strong class="jxr_keyword">if</strong> (fileName.toLowerCase().endsWith(<span class="jxr_string">".zip"</span>) &amp;&amp; !type.equalsIgnoreCase(BR_BGTLIGHT)) {
-<a class="jxr_linenumber" name="L336" href="#L336">336</a>                 log.info(<span class="jxr_string">"Openen ZIP bestand "</span> + fileName);
-<a class="jxr_linenumber" name="L337" href="#L337">337</a>                 ZipInputStream zip = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L338" href="#L338">338</a>                 <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L339" href="#L339">339</a>                     File f = <strong class="jxr_keyword">new</strong> File(fileName);
-<a class="jxr_linenumber" name="L340" href="#L340">340</a>                     <strong class="jxr_keyword">if</strong>(listener != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L341" href="#L341">341</a>                         listener.total(f.length());
-<a class="jxr_linenumber" name="L342" href="#L342">342</a>                     }
-<a class="jxr_linenumber" name="L343" href="#L343">343</a>                     CountingInputStream zipCis = <strong class="jxr_keyword">new</strong> CountingInputStream(<strong class="jxr_keyword">new</strong> FileInputStream(f)) {
-<a class="jxr_linenumber" name="L344" href="#L344">344</a>                         @Override
-<a class="jxr_linenumber" name="L345" href="#L345">345</a>                         <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> afterRead(<strong class="jxr_keyword">int</strong> n) {
-<a class="jxr_linenumber" name="L346" href="#L346">346</a>                             <strong class="jxr_keyword">super</strong>.afterRead(n);
-<a class="jxr_linenumber" name="L347" href="#L347">347</a>                             <strong class="jxr_keyword">if</strong>(listener != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L348" href="#L348">348</a>                                 listener.progress(getByteCount());
-<a class="jxr_linenumber" name="L349" href="#L349">349</a>                             }
-<a class="jxr_linenumber" name="L350" href="#L350">350</a>                         }
-<a class="jxr_linenumber" name="L351" href="#L351">351</a>                     };
-<a class="jxr_linenumber" name="L352" href="#L352">352</a>                     zip = <strong class="jxr_keyword">new</strong> ZipInputStream(zipCis);
-<a class="jxr_linenumber" name="L353" href="#L353">353</a>                     ZipEntry entry = zip.getNextEntry();
-<a class="jxr_linenumber" name="L354" href="#L354">354</a>                     <strong class="jxr_keyword">while</strong> (entry != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L355" href="#L355">355</a>                         <strong class="jxr_keyword">if</strong> (!entry.getName().toLowerCase().endsWith(<span class="jxr_string">".xml"</span>)) {
-<a class="jxr_linenumber" name="L356" href="#L356">356</a>                             log.warn(<span class="jxr_string">"Overslaan zip entry geen XML: "</span> + entry.getName());
-<a class="jxr_linenumber" name="L357" href="#L357">357</a>                         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L358" href="#L358">358</a>                             log.info(<span class="jxr_string">"Lezen XML bestand uit zip: "</span> + entry.getName());
-<a class="jxr_linenumber" name="L359" href="#L359">359</a>                             stagingProxy.loadBr(<strong class="jxr_keyword">new</strong> CloseShieldInputStream(zip), type, fileName + <span class="jxr_string">"/"</span> + entry.getName(), <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L360" href="#L360">360</a>                         }
-<a class="jxr_linenumber" name="L361" href="#L361">361</a>                         entry = zip.getNextEntry();
-<a class="jxr_linenumber" name="L362" href="#L362">362</a>                     }
-<a class="jxr_linenumber" name="L363" href="#L363">363</a>                 } <strong class="jxr_keyword">finally</strong> {
-<a class="jxr_linenumber" name="L364" href="#L364">364</a>                     <strong class="jxr_keyword">if</strong>(zip != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L365" href="#L365">365</a>                         zip.close();
-<a class="jxr_linenumber" name="L366" href="#L366">366</a>                     }
-<a class="jxr_linenumber" name="L367" href="#L367">367</a>                 }
-<a class="jxr_linenumber" name="L368" href="#L368">368</a>                 log.info(<span class="jxr_string">"Klaar met ZIP bestand "</span> + fileName);
-<a class="jxr_linenumber" name="L369" href="#L369">369</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L370" href="#L370">370</a>                 File f = <strong class="jxr_keyword">new</strong> File(fileName);
-<a class="jxr_linenumber" name="L371" href="#L371">371</a>                 <strong class="jxr_keyword">if</strong>(listener != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L372" href="#L372">372</a>                     listener.total(f.length());
-<a class="jxr_linenumber" name="L373" href="#L373">373</a>                 }
-<a class="jxr_linenumber" name="L374" href="#L374">374</a>                 FileInputStream fis = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L375" href="#L375">375</a>                 <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L376" href="#L376">376</a>                     fis = <strong class="jxr_keyword">new</strong> FileInputStream(fileName);
-<a class="jxr_linenumber" name="L377" href="#L377">377</a>                     stagingProxy.loadBr(fis, type, fileName, <strong class="jxr_keyword">null</strong>, listener);
-<a class="jxr_linenumber" name="L378" href="#L378">378</a>                 } <strong class="jxr_keyword">finally</strong> {
-<a class="jxr_linenumber" name="L379" href="#L379">379</a>                     IOUtils.closeQuietly(fis);
-<a class="jxr_linenumber" name="L380" href="#L380">380</a>                 }
-<a class="jxr_linenumber" name="L381" href="#L381">381</a>             }
-<a class="jxr_linenumber" name="L382" href="#L382">382</a>         } <strong class="jxr_keyword">catch</strong>(Exception e) {
-<a class="jxr_linenumber" name="L383" href="#L383">383</a>             <strong class="jxr_keyword">if</strong> (e instanceof BrmoException) {
-<a class="jxr_linenumber" name="L384" href="#L384">384</a>                 <strong class="jxr_keyword">throw</strong> (BrmoException)e;
-<a class="jxr_linenumber" name="L385" href="#L385">385</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L386" href="#L386">386</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(<span class="jxr_string">"Fout bij loaden basisregistratie gegevens"</span>, e);
-<a class="jxr_linenumber" name="L387" href="#L387">387</a>             }
-<a class="jxr_linenumber" name="L388" href="#L388">388</a>         }
-<a class="jxr_linenumber" name="L389" href="#L389">389</a>     }
-<a class="jxr_linenumber" name="L390" href="#L390">390</a> 
-<a class="jxr_linenumber" name="L391" href="#L391">391</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> loadFromStream(String type, InputStream stream, String fileName) <strong class="jxr_keyword">throws</strong> BrmoException {
-<a class="jxr_linenumber" name="L392" href="#L392">392</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L393" href="#L393">393</a>             stagingProxy.loadBr(stream, type, fileName, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L394" href="#L394">394</a>         } <strong class="jxr_keyword">catch</strong>(Exception e) {
-<a class="jxr_linenumber" name="L395" href="#L395">395</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(<span class="jxr_string">"Fout bij loaden basisregistratie gegevens"</span>, e);
-<a class="jxr_linenumber" name="L396" href="#L396">396</a>         }
-<a class="jxr_linenumber" name="L397" href="#L397">397</a>     }
-<a class="jxr_linenumber" name="L398" href="#L398">398</a> 
-<a class="jxr_linenumber" name="L399" href="#L399">399</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> loadFromStream(String type, InputStream stream, String fileName, Date d) <strong class="jxr_keyword">throws</strong> BrmoException {
-<a class="jxr_linenumber" name="L400" href="#L400">400</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L401" href="#L401">401</a>             stagingProxy.loadBr(stream, type, fileName, d, <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L402" href="#L402">402</a>         } <strong class="jxr_keyword">catch</strong>(Exception e) {
-<a class="jxr_linenumber" name="L403" href="#L403">403</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(<span class="jxr_string">"Fout bij loaden basisregistratie gegevens"</span>, e);
-<a class="jxr_linenumber" name="L404" href="#L404">404</a>         }
-<a class="jxr_linenumber" name="L405" href="#L405">405</a>     }
-<a class="jxr_linenumber" name="L406" href="#L406">406</a> 
-<a class="jxr_linenumber" name="L407" href="#L407">407</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L408" href="#L408">408</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L409" href="#L409">409</a> <em class="jxr_javadoccomment">     * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}</em>
-<a class="jxr_linenumber" name="L410" href="#L410">410</a> <em class="jxr_javadoccomment">     * @param stream datastream</em>
-<a class="jxr_linenumber" name="L411" href="#L411">411</a> <em class="jxr_javadoccomment">     * @param fileName te gebruiken bestandsnaam om laadproces te identificeren</em>
-<a class="jxr_linenumber" name="L412" href="#L412">412</a> <em class="jxr_javadoccomment">     * @param listener mag {@code null} zijn</em>
-<a class="jxr_linenumber" name="L413" href="#L413">413</a> <em class="jxr_javadoccomment">     * @throws BrmoException als er een algemene fout optreed</em>
-<a class="jxr_linenumber" name="L414" href="#L414">414</a> <em class="jxr_javadoccomment">     * @throws BrmoDuplicaatLaadprocesException als het "bestand"</em>
-<a class="jxr_linenumber" name="L415" href="#L415">415</a> <em class="jxr_javadoccomment">     * {@code fileName} al geladen is</em>
-<a class="jxr_linenumber" name="L416" href="#L416">416</a> <em class="jxr_javadoccomment">     * @throws BrmoLeegBestandException als het "bestand" {@code fileName} leeg</em>
-<a class="jxr_linenumber" name="L417" href="#L417">417</a> <em class="jxr_javadoccomment">     * is</em>
-<a class="jxr_linenumber" name="L418" href="#L418">418</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L419" href="#L419">419</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> loadFromStream(String type, InputStream stream, String fileName, <a href="../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html">ProgressUpdateListener</a> listener)
-<a class="jxr_linenumber" name="L420" href="#L420">420</a>             <strong class="jxr_keyword">throws</strong> BrmoException, BrmoDuplicaatLaadprocesException, <a href="../../../../nl/b3p/brmo/loader/util/BrmoLeegBestandException.html">BrmoLeegBestandException</a> {
-<a class="jxr_linenumber" name="L421" href="#L421">421</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L422" href="#L422">422</a>             stagingProxy.loadBr(stream, type, fileName, <strong class="jxr_keyword">null</strong>, listener);
-<a class="jxr_linenumber" name="L423" href="#L423">423</a>         } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L424" href="#L424">424</a>             <strong class="jxr_keyword">if</strong> (e instanceof BrmoDuplicaatLaadprocesException) {
-<a class="jxr_linenumber" name="L425" href="#L425">425</a>                 <strong class="jxr_keyword">throw</strong> (BrmoDuplicaatLaadprocesException)e;
-<a class="jxr_linenumber" name="L426" href="#L426">426</a>             }
-<a class="jxr_linenumber" name="L427" href="#L427">427</a>             <strong class="jxr_keyword">if</strong> (e instanceof BrmoLeegBestandException) {
-<a class="jxr_linenumber" name="L428" href="#L428">428</a>                 <strong class="jxr_keyword">throw</strong> (BrmoLeegBestandException)e;
-<a class="jxr_linenumber" name="L429" href="#L429">429</a>             }
-<a class="jxr_linenumber" name="L430" href="#L430">430</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(<span class="jxr_string">"Fout bij laden "</span> + type + <span class="jxr_string">" berichten uit bestand "</span> + fileName, e);
-<a class="jxr_linenumber" name="L431" href="#L431">431</a>         }
-<a class="jxr_linenumber" name="L432" href="#L432">432</a>     }
-<a class="jxr_linenumber" name="L433" href="#L433">433</a> 
-<a class="jxr_linenumber" name="L434" href="#L434">434</a> 
-<a class="jxr_linenumber" name="L435" href="#L435">435</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> emptyStagingDb() <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L326" href="#L326">326</a> <em class="jxr_javadoccomment">     * laden van BR data uit een bestand. &lt;br&gt;</em>
+<a class="jxr_linenumber" name="L327" href="#L327">327</a> <em class="jxr_javadoccomment">     * NB na gebruik zelf de database verbinding sluiten / opruimen met</em>
+<a class="jxr_linenumber" name="L328" href="#L328">328</a> <em class="jxr_javadoccomment">     * {@link #closeBrmoFramework()}.</em>
+<a class="jxr_linenumber" name="L329" href="#L329">329</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L330" href="#L330">330</a> <em class="jxr_javadoccomment">     * @param type basis registratie type</em>
+<a class="jxr_linenumber" name="L331" href="#L331">331</a> <em class="jxr_javadoccomment">     * @param fileName bestand</em>
+<a class="jxr_linenumber" name="L332" href="#L332">332</a> <em class="jxr_javadoccomment">     * @param listener voortgangsmonitor</em>
+<a class="jxr_linenumber" name="L333" href="#L333">333</a> <em class="jxr_javadoccomment">     * @throws BrmoException als er een fout optreed tijdens verwerking</em>
+<a class="jxr_linenumber" name="L334" href="#L334">334</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L335" href="#L335">335</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> loadFromFile(String type, String fileName, <strong class="jxr_keyword">final</strong> <a href="../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html">ProgressUpdateListener</a> listener) <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L336" href="#L336">336</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L337" href="#L337">337</a>             <strong class="jxr_keyword">if</strong> (fileName.toLowerCase().endsWith(<span class="jxr_string">".zip"</span>) &amp;&amp; !type.equalsIgnoreCase(BR_BGTLIGHT)) {
+<a class="jxr_linenumber" name="L338" href="#L338">338</a>                 log.info(<span class="jxr_string">"Openen ZIP bestand "</span> + fileName);
+<a class="jxr_linenumber" name="L339" href="#L339">339</a>                 ZipInputStream zip = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>                 <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L341" href="#L341">341</a>                     File f = <strong class="jxr_keyword">new</strong> File(fileName);
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>                     <strong class="jxr_keyword">if</strong>(listener != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L343" href="#L343">343</a>                         listener.total(f.length());
+<a class="jxr_linenumber" name="L344" href="#L344">344</a>                     }
+<a class="jxr_linenumber" name="L345" href="#L345">345</a>                     CountingInputStream zipCis = <strong class="jxr_keyword">new</strong> CountingInputStream(<strong class="jxr_keyword">new</strong> FileInputStream(f)) {
+<a class="jxr_linenumber" name="L346" href="#L346">346</a>                         @Override
+<a class="jxr_linenumber" name="L347" href="#L347">347</a>                         <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> afterRead(<strong class="jxr_keyword">int</strong> n) {
+<a class="jxr_linenumber" name="L348" href="#L348">348</a>                             <strong class="jxr_keyword">super</strong>.afterRead(n);
+<a class="jxr_linenumber" name="L349" href="#L349">349</a>                             <strong class="jxr_keyword">if</strong>(listener != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L350" href="#L350">350</a>                                 listener.progress(getByteCount());
+<a class="jxr_linenumber" name="L351" href="#L351">351</a>                             }
+<a class="jxr_linenumber" name="L352" href="#L352">352</a>                         }
+<a class="jxr_linenumber" name="L353" href="#L353">353</a>                     };
+<a class="jxr_linenumber" name="L354" href="#L354">354</a>                     zip = <strong class="jxr_keyword">new</strong> ZipInputStream(zipCis);
+<a class="jxr_linenumber" name="L355" href="#L355">355</a>                     ZipEntry entry = zip.getNextEntry();
+<a class="jxr_linenumber" name="L356" href="#L356">356</a>                     <strong class="jxr_keyword">while</strong> (entry != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L357" href="#L357">357</a>                         <strong class="jxr_keyword">if</strong> (!entry.getName().toLowerCase().endsWith(<span class="jxr_string">".xml"</span>)) {
+<a class="jxr_linenumber" name="L358" href="#L358">358</a>                             log.warn(<span class="jxr_string">"Overslaan zip entry geen XML: "</span> + entry.getName());
+<a class="jxr_linenumber" name="L359" href="#L359">359</a>                         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L360" href="#L360">360</a>                             log.info(<span class="jxr_string">"Lezen XML bestand uit zip: "</span> + entry.getName());
+<a class="jxr_linenumber" name="L361" href="#L361">361</a>                             stagingProxy.loadBr(<strong class="jxr_keyword">new</strong> CloseShieldInputStream(zip), type, fileName + <span class="jxr_string">"/"</span> + entry.getName(), <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L362" href="#L362">362</a>                         }
+<a class="jxr_linenumber" name="L363" href="#L363">363</a>                         entry = zip.getNextEntry();
+<a class="jxr_linenumber" name="L364" href="#L364">364</a>                     }
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>                 } <strong class="jxr_keyword">finally</strong> {
+<a class="jxr_linenumber" name="L366" href="#L366">366</a>                     <strong class="jxr_keyword">if</strong>(zip != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L367" href="#L367">367</a>                         zip.close();
+<a class="jxr_linenumber" name="L368" href="#L368">368</a>                     }
+<a class="jxr_linenumber" name="L369" href="#L369">369</a>                 }
+<a class="jxr_linenumber" name="L370" href="#L370">370</a>                 log.info(<span class="jxr_string">"Klaar met ZIP bestand "</span> + fileName);
+<a class="jxr_linenumber" name="L371" href="#L371">371</a>             } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L372" href="#L372">372</a>                 File f = <strong class="jxr_keyword">new</strong> File(fileName);
+<a class="jxr_linenumber" name="L373" href="#L373">373</a>                 <strong class="jxr_keyword">if</strong>(listener != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L374" href="#L374">374</a>                     listener.total(f.length());
+<a class="jxr_linenumber" name="L375" href="#L375">375</a>                 }
+<a class="jxr_linenumber" name="L376" href="#L376">376</a>                 FileInputStream fis = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L377" href="#L377">377</a>                 <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L378" href="#L378">378</a>                     fis = <strong class="jxr_keyword">new</strong> FileInputStream(fileName);
+<a class="jxr_linenumber" name="L379" href="#L379">379</a>                     stagingProxy.loadBr(fis, type, fileName, <strong class="jxr_keyword">null</strong>, listener);
+<a class="jxr_linenumber" name="L380" href="#L380">380</a>                 } <strong class="jxr_keyword">finally</strong> {
+<a class="jxr_linenumber" name="L381" href="#L381">381</a>                     IOUtils.closeQuietly(fis);
+<a class="jxr_linenumber" name="L382" href="#L382">382</a>                 }
+<a class="jxr_linenumber" name="L383" href="#L383">383</a>             }
+<a class="jxr_linenumber" name="L384" href="#L384">384</a>         } <strong class="jxr_keyword">catch</strong>(Exception e) {
+<a class="jxr_linenumber" name="L385" href="#L385">385</a>             <strong class="jxr_keyword">if</strong> (e instanceof BrmoException) {
+<a class="jxr_linenumber" name="L386" href="#L386">386</a>                 <strong class="jxr_keyword">throw</strong> (BrmoException)e;
+<a class="jxr_linenumber" name="L387" href="#L387">387</a>             } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L388" href="#L388">388</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(<span class="jxr_string">"Fout bij loaden basisregistratie gegevens"</span>, e);
+<a class="jxr_linenumber" name="L389" href="#L389">389</a>             }
+<a class="jxr_linenumber" name="L390" href="#L390">390</a>         }
+<a class="jxr_linenumber" name="L391" href="#L391">391</a>     }
+<a class="jxr_linenumber" name="L392" href="#L392">392</a> 
+<a class="jxr_linenumber" name="L393" href="#L393">393</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L394" href="#L394">394</a> <em class="jxr_javadoccomment">     * laden van BR data uit een stream.</em>
+<a class="jxr_linenumber" name="L395" href="#L395">395</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L396" href="#L396">396</a> <em class="jxr_javadoccomment">     * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}</em>
+<a class="jxr_linenumber" name="L397" href="#L397">397</a> <em class="jxr_javadoccomment">     * @param stream datastream</em>
+<a class="jxr_linenumber" name="L398" href="#L398">398</a> <em class="jxr_javadoccomment">     * @param fileName te gebruiken bestandsnaam om laadproces te identificeren</em>
+<a class="jxr_linenumber" name="L399" href="#L399">399</a> <em class="jxr_javadoccomment">     * @throws BrmoException als er een algemene fout optreed</em>
+<a class="jxr_linenumber" name="L400" href="#L400">400</a> <em class="jxr_javadoccomment">     * @throws BrmoDuplicaatLaadprocesException als het "bestand"</em>
+<a class="jxr_linenumber" name="L401" href="#L401">401</a> <em class="jxr_javadoccomment">     * {@code fileName} al geladen is</em>
+<a class="jxr_linenumber" name="L402" href="#L402">402</a> <em class="jxr_javadoccomment">     * @throws BrmoLeegBestandException als het "bestand" {@code fileName} leeg</em>
+<a class="jxr_linenumber" name="L403" href="#L403">403</a> <em class="jxr_javadoccomment">     * is</em>
+<a class="jxr_linenumber" name="L404" href="#L404">404</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L405" href="#L405">405</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> loadFromStream(String type, InputStream stream, String fileName)
+<a class="jxr_linenumber" name="L406" href="#L406">406</a>             <strong class="jxr_keyword">throws</strong> BrmoException, BrmoDuplicaatLaadprocesException, <a href="../../../../nl/b3p/brmo/loader/util/BrmoLeegBestandException.html">BrmoLeegBestandException</a> {
+<a class="jxr_linenumber" name="L407" href="#L407">407</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L408" href="#L408">408</a>             stagingProxy.loadBr(stream, type, fileName, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L409" href="#L409">409</a>         } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L410" href="#L410">410</a>             <strong class="jxr_keyword">if</strong> (e instanceof BrmoDuplicaatLaadprocesException) {
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>                 <strong class="jxr_keyword">throw</strong> (BrmoDuplicaatLaadprocesException) e;
+<a class="jxr_linenumber" name="L412" href="#L412">412</a>             }
+<a class="jxr_linenumber" name="L413" href="#L413">413</a>             <strong class="jxr_keyword">if</strong> (e instanceof BrmoLeegBestandException) {
+<a class="jxr_linenumber" name="L414" href="#L414">414</a>                 <strong class="jxr_keyword">throw</strong> (BrmoLeegBestandException) e;
+<a class="jxr_linenumber" name="L415" href="#L415">415</a>             }
+<a class="jxr_linenumber" name="L416" href="#L416">416</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(<span class="jxr_string">"Fout bij laden "</span> + type + <span class="jxr_string">" berichten uit bestand "</span> + fileName, e);
+<a class="jxr_linenumber" name="L417" href="#L417">417</a>         }
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>     }
+<a class="jxr_linenumber" name="L419" href="#L419">419</a> 
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L421" href="#L421">421</a> <em class="jxr_javadoccomment">     * laden van BR data uit een stream.</em>
+<a class="jxr_linenumber" name="L422" href="#L422">422</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L423" href="#L423">423</a> <em class="jxr_javadoccomment">     * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}</em>
+<a class="jxr_linenumber" name="L424" href="#L424">424</a> <em class="jxr_javadoccomment">     * @param stream datastream</em>
+<a class="jxr_linenumber" name="L425" href="#L425">425</a> <em class="jxr_javadoccomment">     * @param fileName te gebruiken bestandsnaam om laadproces te identificeren</em>
+<a class="jxr_linenumber" name="L426" href="#L426">426</a> <em class="jxr_javadoccomment">     * @param d bestandsdatum</em>
+<a class="jxr_linenumber" name="L427" href="#L427">427</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L428" href="#L428">428</a> <em class="jxr_javadoccomment">     * @throws BrmoException als er een algemene fout optreed</em>
+<a class="jxr_linenumber" name="L429" href="#L429">429</a> <em class="jxr_javadoccomment">     * @throws BrmoDuplicaatLaadprocesException als het "bestand"</em>
+<a class="jxr_linenumber" name="L430" href="#L430">430</a> <em class="jxr_javadoccomment">     * {@code fileName} al geladen is</em>
+<a class="jxr_linenumber" name="L431" href="#L431">431</a> <em class="jxr_javadoccomment">     * @throws BrmoLeegBestandException als het "bestand" {@code fileName} leeg</em>
+<a class="jxr_linenumber" name="L432" href="#L432">432</a> <em class="jxr_javadoccomment">     * is</em>
+<a class="jxr_linenumber" name="L433" href="#L433">433</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L434" href="#L434">434</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> loadFromStream(String type, InputStream stream, String fileName, Date d)
+<a class="jxr_linenumber" name="L435" href="#L435">435</a>             <strong class="jxr_keyword">throws</strong> BrmoException, BrmoDuplicaatLaadprocesException, <a href="../../../../nl/b3p/brmo/loader/util/BrmoLeegBestandException.html">BrmoLeegBestandException</a> {
 <a class="jxr_linenumber" name="L436" href="#L436">436</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L437" href="#L437">437</a>             stagingProxy.emptyStagingDb();
-<a class="jxr_linenumber" name="L438" href="#L438">438</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
-<a class="jxr_linenumber" name="L439" href="#L439">439</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
-<a class="jxr_linenumber" name="L440" href="#L440">440</a>         }
-<a class="jxr_linenumber" name="L441" href="#L441">441</a>     }
-<a class="jxr_linenumber" name="L442" href="#L442">442</a> 
-<a class="jxr_linenumber" name="L443" href="#L443">443</a>     <strong class="jxr_keyword">public</strong> Long getLaadProcesIdByFileName(String name) <strong class="jxr_keyword">throws</strong> BrmoException {
-<a class="jxr_linenumber" name="L444" href="#L444">444</a>         Long id = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L445" href="#L445">445</a>         <a href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html">LaadProces</a> lp;
-<a class="jxr_linenumber" name="L446" href="#L446">446</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L447" href="#L447">447</a>             lp = stagingProxy.getLaadProcesByFileName(name);
-<a class="jxr_linenumber" name="L448" href="#L448">448</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
-<a class="jxr_linenumber" name="L449" href="#L449">449</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
-<a class="jxr_linenumber" name="L450" href="#L450">450</a>         }
-<a class="jxr_linenumber" name="L451" href="#L451">451</a> 
-<a class="jxr_linenumber" name="L452" href="#L452">452</a>         <strong class="jxr_keyword">if</strong> (lp != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L453" href="#L453">453</a>             id = lp.getId();
-<a class="jxr_linenumber" name="L454" href="#L454">454</a>         }
-<a class="jxr_linenumber" name="L455" href="#L455">455</a> 
-<a class="jxr_linenumber" name="L456" href="#L456">456</a>         <strong class="jxr_keyword">return</strong> id;
-<a class="jxr_linenumber" name="L457" href="#L457">457</a>     }
-<a class="jxr_linenumber" name="L458" href="#L458">458</a> 
-<a class="jxr_linenumber" name="L459" href="#L459">459</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> getBerichtById(<strong class="jxr_keyword">long</strong> id) <strong class="jxr_keyword">throws</strong> BrmoException {
-<a class="jxr_linenumber" name="L460" href="#L460">460</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L461" href="#L461">461</a>             <strong class="jxr_keyword">return</strong> stagingProxy.getBerichtById(id);
-<a class="jxr_linenumber" name="L462" href="#L462">462</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
-<a class="jxr_linenumber" name="L463" href="#L463">463</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
-<a class="jxr_linenumber" name="L464" href="#L464">464</a>         }
-<a class="jxr_linenumber" name="L465" href="#L465">465</a>     }
-<a class="jxr_linenumber" name="L466" href="#L466">466</a> 
-<a class="jxr_linenumber" name="L467" href="#L467">467</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html">LaadProces</a> getLaadProcesById(<strong class="jxr_keyword">long</strong> id) <strong class="jxr_keyword">throws</strong> BrmoException {
-<a class="jxr_linenumber" name="L468" href="#L468">468</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L469" href="#L469">469</a>             <strong class="jxr_keyword">return</strong> stagingProxy.getLaadProcesById(id);
-<a class="jxr_linenumber" name="L470" href="#L470">470</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
-<a class="jxr_linenumber" name="L471" href="#L471">471</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
-<a class="jxr_linenumber" name="L472" href="#L472">472</a>         }
-<a class="jxr_linenumber" name="L473" href="#L473">473</a>     }
-<a class="jxr_linenumber" name="L474" href="#L474">474</a> 
-<a class="jxr_linenumber" name="L475" href="#L475">475</a>     <strong class="jxr_keyword">public</strong> List&lt;Bericht&gt; getBerichten(<strong class="jxr_keyword">int</strong> page, <strong class="jxr_keyword">int</strong> start, <strong class="jxr_keyword">int</strong> limit, String sort,
-<a class="jxr_linenumber" name="L476" href="#L476">476</a>             String dir, String filterSoort, String filterStatus) <strong class="jxr_keyword">throws</strong> BrmoException  {
+<a class="jxr_linenumber" name="L437" href="#L437">437</a>             stagingProxy.loadBr(stream, type, fileName, d, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L438" href="#L438">438</a>         } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L439" href="#L439">439</a>             <strong class="jxr_keyword">if</strong> (e instanceof BrmoDuplicaatLaadprocesException) {
+<a class="jxr_linenumber" name="L440" href="#L440">440</a>                 <strong class="jxr_keyword">throw</strong> (BrmoDuplicaatLaadprocesException) e;
+<a class="jxr_linenumber" name="L441" href="#L441">441</a>             }
+<a class="jxr_linenumber" name="L442" href="#L442">442</a>             <strong class="jxr_keyword">if</strong> (e instanceof BrmoLeegBestandException) {
+<a class="jxr_linenumber" name="L443" href="#L443">443</a>                 <strong class="jxr_keyword">throw</strong> (BrmoLeegBestandException) e;
+<a class="jxr_linenumber" name="L444" href="#L444">444</a>             }
+<a class="jxr_linenumber" name="L445" href="#L445">445</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(<span class="jxr_string">"Fout bij laden "</span> + type + <span class="jxr_string">" berichten uit bestand "</span> + fileName, e);
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>         }
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>     }
+<a class="jxr_linenumber" name="L448" href="#L448">448</a> 
+<a class="jxr_linenumber" name="L449" href="#L449">449</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L450" href="#L450">450</a> <em class="jxr_javadoccomment">     * laden van BR data uit een stream.</em>
+<a class="jxr_linenumber" name="L451" href="#L451">451</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L452" href="#L452">452</a> <em class="jxr_javadoccomment">     * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}</em>
+<a class="jxr_linenumber" name="L453" href="#L453">453</a> <em class="jxr_javadoccomment">     * @param stream datastream</em>
+<a class="jxr_linenumber" name="L454" href="#L454">454</a> <em class="jxr_javadoccomment">     * @param fileName te gebruiken bestandsnaam om laadproces te identificeren</em>
+<a class="jxr_linenumber" name="L455" href="#L455">455</a> <em class="jxr_javadoccomment">     * @param listener mag {@code null} zijn</em>
+<a class="jxr_linenumber" name="L456" href="#L456">456</a> <em class="jxr_javadoccomment">     * @throws BrmoException als er een algemene fout optreed</em>
+<a class="jxr_linenumber" name="L457" href="#L457">457</a> <em class="jxr_javadoccomment">     * @throws BrmoDuplicaatLaadprocesException als het "bestand"</em>
+<a class="jxr_linenumber" name="L458" href="#L458">458</a> <em class="jxr_javadoccomment">     * {@code fileName} al geladen is</em>
+<a class="jxr_linenumber" name="L459" href="#L459">459</a> <em class="jxr_javadoccomment">     * @throws BrmoLeegBestandException als het "bestand" {@code fileName} leeg</em>
+<a class="jxr_linenumber" name="L460" href="#L460">460</a> <em class="jxr_javadoccomment">     * is</em>
+<a class="jxr_linenumber" name="L461" href="#L461">461</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L462" href="#L462">462</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> loadFromStream(String type, InputStream stream, String fileName, <a href="../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html">ProgressUpdateListener</a> listener)
+<a class="jxr_linenumber" name="L463" href="#L463">463</a>             <strong class="jxr_keyword">throws</strong> BrmoException, BrmoDuplicaatLaadprocesException, <a href="../../../../nl/b3p/brmo/loader/util/BrmoLeegBestandException.html">BrmoLeegBestandException</a> {
+<a class="jxr_linenumber" name="L464" href="#L464">464</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L465" href="#L465">465</a>             stagingProxy.loadBr(stream, type, fileName, <strong class="jxr_keyword">null</strong>, listener);
+<a class="jxr_linenumber" name="L466" href="#L466">466</a>         } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L467" href="#L467">467</a>             <strong class="jxr_keyword">if</strong> (e instanceof BrmoDuplicaatLaadprocesException) {
+<a class="jxr_linenumber" name="L468" href="#L468">468</a>                 <strong class="jxr_keyword">throw</strong> (BrmoDuplicaatLaadprocesException)e;
+<a class="jxr_linenumber" name="L469" href="#L469">469</a>             }
+<a class="jxr_linenumber" name="L470" href="#L470">470</a>             <strong class="jxr_keyword">if</strong> (e instanceof BrmoLeegBestandException) {
+<a class="jxr_linenumber" name="L471" href="#L471">471</a>                 <strong class="jxr_keyword">throw</strong> (BrmoLeegBestandException)e;
+<a class="jxr_linenumber" name="L472" href="#L472">472</a>             }
+<a class="jxr_linenumber" name="L473" href="#L473">473</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(<span class="jxr_string">"Fout bij laden "</span> + type + <span class="jxr_string">" berichten uit bestand "</span> + fileName, e);
+<a class="jxr_linenumber" name="L474" href="#L474">474</a>         }
+<a class="jxr_linenumber" name="L475" href="#L475">475</a>     }
+<a class="jxr_linenumber" name="L476" href="#L476">476</a> 
 <a class="jxr_linenumber" name="L477" href="#L477">477</a> 
-<a class="jxr_linenumber" name="L478" href="#L478">478</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L479" href="#L479">479</a>             <strong class="jxr_keyword">return</strong> stagingProxy.getBerichten(page, start, limit, sort, dir, filterSoort, filterStatus);
-<a class="jxr_linenumber" name="L480" href="#L480">480</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
-<a class="jxr_linenumber" name="L481" href="#L481">481</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
-<a class="jxr_linenumber" name="L482" href="#L482">482</a>         }
-<a class="jxr_linenumber" name="L483" href="#L483">483</a>     }
-<a class="jxr_linenumber" name="L484" href="#L484">484</a> 
-<a class="jxr_linenumber" name="L485" href="#L485">485</a>     <strong class="jxr_keyword">public</strong> List&lt;LaadProces&gt; getLaadprocessen(<strong class="jxr_keyword">int</strong> page, <strong class="jxr_keyword">int</strong> start, <strong class="jxr_keyword">int</strong> limit, String sort,
-<a class="jxr_linenumber" name="L486" href="#L486">486</a>             String dir, String filterSoort, String filterStatus) <strong class="jxr_keyword">throws</strong> BrmoException  {
-<a class="jxr_linenumber" name="L487" href="#L487">487</a> 
-<a class="jxr_linenumber" name="L488" href="#L488">488</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L489" href="#L489">489</a>             <strong class="jxr_keyword">return</strong> stagingProxy.getLaadprocessen(page, start, limit, sort, dir, filterSoort, filterStatus);
-<a class="jxr_linenumber" name="L490" href="#L490">490</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
-<a class="jxr_linenumber" name="L491" href="#L491">491</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
-<a class="jxr_linenumber" name="L492" href="#L492">492</a>         }
-<a class="jxr_linenumber" name="L493" href="#L493">493</a>     }
+<a class="jxr_linenumber" name="L478" href="#L478">478</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> emptyStagingDb() <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L479" href="#L479">479</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L480" href="#L480">480</a>             stagingProxy.emptyStagingDb();
+<a class="jxr_linenumber" name="L481" href="#L481">481</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
+<a class="jxr_linenumber" name="L482" href="#L482">482</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
+<a class="jxr_linenumber" name="L483" href="#L483">483</a>         }
+<a class="jxr_linenumber" name="L484" href="#L484">484</a>     }
+<a class="jxr_linenumber" name="L485" href="#L485">485</a> 
+<a class="jxr_linenumber" name="L486" href="#L486">486</a>     <strong class="jxr_keyword">public</strong> Long getLaadProcesIdByFileName(String name) <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L487" href="#L487">487</a>         Long id = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L488" href="#L488">488</a>         <a href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html">LaadProces</a> lp;
+<a class="jxr_linenumber" name="L489" href="#L489">489</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L490" href="#L490">490</a>             lp = stagingProxy.getLaadProcesByFileName(name);
+<a class="jxr_linenumber" name="L491" href="#L491">491</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
+<a class="jxr_linenumber" name="L492" href="#L492">492</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
+<a class="jxr_linenumber" name="L493" href="#L493">493</a>         }
 <a class="jxr_linenumber" name="L494" href="#L494">494</a> 
-<a class="jxr_linenumber" name="L495" href="#L495">495</a>     <strong class="jxr_keyword">public</strong> Long[] getLaadProcessenIds(String sort, String dir, String filterSoort, String filterStatus) <strong class="jxr_keyword">throws</strong> BrmoException {
-<a class="jxr_linenumber" name="L496" href="#L496">496</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L497" href="#L497">497</a>             <strong class="jxr_keyword">return</strong> stagingProxy.getLaadProcessenIds(sort, dir, filterSoort, filterStatus);
-<a class="jxr_linenumber" name="L498" href="#L498">498</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
-<a class="jxr_linenumber" name="L499" href="#L499">499</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
-<a class="jxr_linenumber" name="L500" href="#L500">500</a>         }
-<a class="jxr_linenumber" name="L501" href="#L501">501</a>     }
-<a class="jxr_linenumber" name="L502" href="#L502">502</a> 
-<a class="jxr_linenumber" name="L503" href="#L503">503</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> getCountBerichten(String sort, String dir, String filterSoort, String filterStatus) <strong class="jxr_keyword">throws</strong> BrmoException {
-<a class="jxr_linenumber" name="L504" href="#L504">504</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L505" href="#L505">505</a>             <strong class="jxr_keyword">return</strong> stagingProxy.getCountBerichten(sort, dir, filterSoort, filterStatus);
-<a class="jxr_linenumber" name="L506" href="#L506">506</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
-<a class="jxr_linenumber" name="L507" href="#L507">507</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
-<a class="jxr_linenumber" name="L508" href="#L508">508</a>         }
-<a class="jxr_linenumber" name="L509" href="#L509">509</a>     }
-<a class="jxr_linenumber" name="L510" href="#L510">510</a> 
-<a class="jxr_linenumber" name="L511" href="#L511">511</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> getCountLaadProcessen(String sort, String dir, String filterSoort, String filterStatus) <strong class="jxr_keyword">throws</strong> BrmoException {
-<a class="jxr_linenumber" name="L512" href="#L512">512</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L513" href="#L513">513</a>             <strong class="jxr_keyword">return</strong> stagingProxy.getCountLaadProces(sort, dir, filterSoort, filterStatus);
-<a class="jxr_linenumber" name="L514" href="#L514">514</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
-<a class="jxr_linenumber" name="L515" href="#L515">515</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
-<a class="jxr_linenumber" name="L516" href="#L516">516</a>         }
-<a class="jxr_linenumber" name="L517" href="#L517">517</a>     }
-<a class="jxr_linenumber" name="L518" href="#L518">518</a> 
-<a class="jxr_linenumber" name="L519" href="#L519">519</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> getCountJob() <strong class="jxr_keyword">throws</strong> BrmoException {
-<a class="jxr_linenumber" name="L520" href="#L520">520</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L521" href="#L521">521</a>             <strong class="jxr_keyword">return</strong> stagingProxy.getCountJob();
-<a class="jxr_linenumber" name="L522" href="#L522">522</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
-<a class="jxr_linenumber" name="L523" href="#L523">523</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
-<a class="jxr_linenumber" name="L524" href="#L524">524</a>         }
-<a class="jxr_linenumber" name="L525" href="#L525">525</a>     }
-<a class="jxr_linenumber" name="L526" href="#L526">526</a> }
+<a class="jxr_linenumber" name="L495" href="#L495">495</a>         <strong class="jxr_keyword">if</strong> (lp != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L496" href="#L496">496</a>             id = lp.getId();
+<a class="jxr_linenumber" name="L497" href="#L497">497</a>         }
+<a class="jxr_linenumber" name="L498" href="#L498">498</a> 
+<a class="jxr_linenumber" name="L499" href="#L499">499</a>         <strong class="jxr_keyword">return</strong> id;
+<a class="jxr_linenumber" name="L500" href="#L500">500</a>     }
+<a class="jxr_linenumber" name="L501" href="#L501">501</a> 
+<a class="jxr_linenumber" name="L502" href="#L502">502</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> getBerichtById(<strong class="jxr_keyword">long</strong> id) <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L503" href="#L503">503</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L504" href="#L504">504</a>             <strong class="jxr_keyword">return</strong> stagingProxy.getBerichtById(id);
+<a class="jxr_linenumber" name="L505" href="#L505">505</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
+<a class="jxr_linenumber" name="L506" href="#L506">506</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
+<a class="jxr_linenumber" name="L507" href="#L507">507</a>         }
+<a class="jxr_linenumber" name="L508" href="#L508">508</a>     }
+<a class="jxr_linenumber" name="L509" href="#L509">509</a> 
+<a class="jxr_linenumber" name="L510" href="#L510">510</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html">LaadProces</a> getLaadProcesById(<strong class="jxr_keyword">long</strong> id) <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L511" href="#L511">511</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L512" href="#L512">512</a>             <strong class="jxr_keyword">return</strong> stagingProxy.getLaadProcesById(id);
+<a class="jxr_linenumber" name="L513" href="#L513">513</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
+<a class="jxr_linenumber" name="L514" href="#L514">514</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
+<a class="jxr_linenumber" name="L515" href="#L515">515</a>         }
+<a class="jxr_linenumber" name="L516" href="#L516">516</a>     }
+<a class="jxr_linenumber" name="L517" href="#L517">517</a> 
+<a class="jxr_linenumber" name="L518" href="#L518">518</a>     <strong class="jxr_keyword">public</strong> List&lt;Bericht&gt; getBerichten(<strong class="jxr_keyword">int</strong> page, <strong class="jxr_keyword">int</strong> start, <strong class="jxr_keyword">int</strong> limit, String sort,
+<a class="jxr_linenumber" name="L519" href="#L519">519</a>             String dir, String filterSoort, String filterStatus) <strong class="jxr_keyword">throws</strong> BrmoException  {
+<a class="jxr_linenumber" name="L520" href="#L520">520</a> 
+<a class="jxr_linenumber" name="L521" href="#L521">521</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L522" href="#L522">522</a>             <strong class="jxr_keyword">return</strong> stagingProxy.getBerichten(page, start, limit, sort, dir, filterSoort, filterStatus);
+<a class="jxr_linenumber" name="L523" href="#L523">523</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
+<a class="jxr_linenumber" name="L524" href="#L524">524</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
+<a class="jxr_linenumber" name="L525" href="#L525">525</a>         }
+<a class="jxr_linenumber" name="L526" href="#L526">526</a>     }
+<a class="jxr_linenumber" name="L527" href="#L527">527</a> 
+<a class="jxr_linenumber" name="L528" href="#L528">528</a>     <strong class="jxr_keyword">public</strong> List&lt;LaadProces&gt; getLaadprocessen(<strong class="jxr_keyword">int</strong> page, <strong class="jxr_keyword">int</strong> start, <strong class="jxr_keyword">int</strong> limit, String sort,
+<a class="jxr_linenumber" name="L529" href="#L529">529</a>             String dir, String filterSoort, String filterStatus) <strong class="jxr_keyword">throws</strong> BrmoException  {
+<a class="jxr_linenumber" name="L530" href="#L530">530</a> 
+<a class="jxr_linenumber" name="L531" href="#L531">531</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L532" href="#L532">532</a>             <strong class="jxr_keyword">return</strong> stagingProxy.getLaadprocessen(page, start, limit, sort, dir, filterSoort, filterStatus);
+<a class="jxr_linenumber" name="L533" href="#L533">533</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
+<a class="jxr_linenumber" name="L534" href="#L534">534</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
+<a class="jxr_linenumber" name="L535" href="#L535">535</a>         }
+<a class="jxr_linenumber" name="L536" href="#L536">536</a>     }
+<a class="jxr_linenumber" name="L537" href="#L537">537</a> 
+<a class="jxr_linenumber" name="L538" href="#L538">538</a>     <strong class="jxr_keyword">public</strong> Long[] getLaadProcessenIds(String sort, String dir, String filterSoort, String filterStatus) <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L539" href="#L539">539</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L540" href="#L540">540</a>             <strong class="jxr_keyword">return</strong> stagingProxy.getLaadProcessenIds(sort, dir, filterSoort, filterStatus);
+<a class="jxr_linenumber" name="L541" href="#L541">541</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
+<a class="jxr_linenumber" name="L542" href="#L542">542</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
+<a class="jxr_linenumber" name="L543" href="#L543">543</a>         }
+<a class="jxr_linenumber" name="L544" href="#L544">544</a>     }
+<a class="jxr_linenumber" name="L545" href="#L545">545</a> 
+<a class="jxr_linenumber" name="L546" href="#L546">546</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> getCountBerichten(String sort, String dir, String filterSoort, String filterStatus) <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L547" href="#L547">547</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L548" href="#L548">548</a>             <strong class="jxr_keyword">return</strong> stagingProxy.getCountBerichten(sort, dir, filterSoort, filterStatus);
+<a class="jxr_linenumber" name="L549" href="#L549">549</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
+<a class="jxr_linenumber" name="L550" href="#L550">550</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
+<a class="jxr_linenumber" name="L551" href="#L551">551</a>         }
+<a class="jxr_linenumber" name="L552" href="#L552">552</a>     }
+<a class="jxr_linenumber" name="L553" href="#L553">553</a> 
+<a class="jxr_linenumber" name="L554" href="#L554">554</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> getCountLaadProcessen(String sort, String dir, String filterSoort, String filterStatus) <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L555" href="#L555">555</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L556" href="#L556">556</a>             <strong class="jxr_keyword">return</strong> stagingProxy.getCountLaadProces(sort, dir, filterSoort, filterStatus);
+<a class="jxr_linenumber" name="L557" href="#L557">557</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
+<a class="jxr_linenumber" name="L558" href="#L558">558</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
+<a class="jxr_linenumber" name="L559" href="#L559">559</a>         }
+<a class="jxr_linenumber" name="L560" href="#L560">560</a>     }
+<a class="jxr_linenumber" name="L561" href="#L561">561</a> 
+<a class="jxr_linenumber" name="L562" href="#L562">562</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">long</strong> getCountJob() <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L563" href="#L563">563</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L564" href="#L564">564</a>             <strong class="jxr_keyword">return</strong> stagingProxy.getCountJob();
+<a class="jxr_linenumber" name="L565" href="#L565">565</a>         } <strong class="jxr_keyword">catch</strong> (SQLException ex) {
+<a class="jxr_linenumber" name="L566" href="#L566">566</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
+<a class="jxr_linenumber" name="L567" href="#L567">567</a>         }
+<a class="jxr_linenumber" name="L568" href="#L568">568</a>     }
+<a class="jxr_linenumber" name="L569" href="#L569">569</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014&#x2013;2018 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
