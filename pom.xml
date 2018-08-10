@@ -497,9 +497,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <prerequisites>
-        <maven>3.2.5</maven>
-    </prerequisites>
     <distributionManagement>
         <site>
             <id>gh-pages</id>
@@ -672,12 +669,13 @@
                     <configuration>
                         <stylesheet>java</stylesheet>
                         <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
-                        <additionalparam>-all -hide java.* -hide javax.* -hide org.* -inferrel</additionalparam>
                         <docletArtifact>
                             <groupId>org.umlgraph</groupId>
                             <artifactId>umlgraph</artifactId>
                             <version>5.6.6</version>
                         </docletArtifact>
+                        <additionalOptions>-all -hide java.* -hide javax.* -hide org.* -inferrel</additionalOptions>
+                        <!--<additionalparam>-all -hide java.* -hide javax.* -hide org.* -inferrel</additionalparam>-->
                         <show>package</show>
                         <useStandardDocletOptions>true</useStandardDocletOptions>
                         <links>
@@ -998,7 +996,7 @@
                     </reportSet>
                 </reportSets>
                 <configuration>
-                    <dependencyLocationsEnabled>true</dependencyLocationsEnabled>
+                    <dependencyDetailsEnabled>true</dependencyDetailsEnabled>
                 </configuration>
             </plugin>
             <plugin>
