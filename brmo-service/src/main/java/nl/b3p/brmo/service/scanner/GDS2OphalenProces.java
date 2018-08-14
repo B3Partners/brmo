@@ -45,8 +45,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
-import javax.persistence.NoResultException;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -54,6 +53,8 @@ import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.BrkBericht;
+import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.LOG_NEWLINE;
@@ -507,7 +508,22 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                         l.updateStatus(msg);
                         l.addLog(msg);
                         log.debug(msg);
-                        brmo.loadFromStream("bag", new CloseShieldInputStream(innerzip), getLaadprocesBestandsnaam(a) + "/" + entry.getName() + "/" + innerentry.getName());
+                        try {
+                            brmo.loadFromStream(BrmoFramework.BR_BAG,
+                                    new CloseShieldInputStream(innerzip),
+                                    getLaadprocesBestandsnaam(a) + "/" + entry.getName() + "/" + innerentry.getName()
+                            );
+                        } catch (BrmoDuplicaatLaadprocesException d) {
+                            msg = "Duplicaat laadproces. " + d.getLocalizedMessage();
+                            l.updateStatus(msg);
+                            l.addLog(msg);
+                            log.warn(msg);
+                        } catch (BrmoLeegBestandException e) {
+                            msg = "Leeg bestand voor laadproces. " + e.getLocalizedMessage();
+                            l.updateStatus(msg);
+                            l.addLog(msg);
+                            log.info(msg);
+                        }
                         innerentry = innerzip.getNextEntry();
                     }
                 } else {
@@ -521,6 +537,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     }
 
     private Bericht laadAfgifte(AfgifteGBType a, String url) throws Exception {
+        EntityManager em = Stripersist.getEntityManager();
         String msg = "Downloaden " + url;
         l.updateStatus(msg);
         l.addLog(msg);
@@ -564,7 +581,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         lp.setStatus(LaadProces.STATUS.STAGING_OK);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         lp.setOpmerking("GDS2 download van " + url + " op " + sdf.format(new Date()));
-        lp.setAutomatischProces(Stripersist.getEntityManager().find(AutomatischProces.class, config.getId()));
+        lp.setAutomatischProces(em.find(AutomatischProces.class, config.getId()));
 
         Bericht b = new Bericht();
         b.setLaadprocesid(lp);
@@ -622,13 +639,31 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             e.printStackTrace(new PrintWriter(sw));
             b.setOpmerking("Fout bij parsen BRK bericht: " + sw.toString());
         }
-
-        Stripersist.getEntityManager().persist(lp);
-        Stripersist.getEntityManager().persist(b);
-        Stripersist.getEntityManager().merge(this.config);
-        Stripersist.getEntityManager().flush();
-        Stripersist.getEntityManager().getTransaction().commit();
-        Stripersist.getEntityManager().clear();
+        try {
+            em.persist(lp);
+            em.persist(b);
+            em.merge(this.config);
+            em.flush();
+            em.getTransaction().commit();
+            em.clear();
+        } catch (PersistenceException pe) {
+            if (!em.getTransaction().isActive()) {
+                em.getTransaction().begin();
+            }
+            em.getTransaction().rollback();
+            em.getTransaction().begin();
+            lp.setId(null);
+            log.warn("Opslaan van bericht uit laadproces " + lp.getBestand_naam() + " is mislukt.", pe);
+            log.warn("Duplicaat bericht: " + b.getObject_ref() + ":" + b.getBr_orgineel_xml() + "(" + b.getBr_xml() + ")");
+            lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);
+            lp.setOpmerking(lp.getOpmerking() + ": Fout, duplicaat bericht. Inhoud: \n" + b.getBr_xml());
+            em.merge(this.config);
+            em.persist(lp);
+            em.flush();
+            em.getTransaction().commit();
+            em.clear();
+            b = null;
+        }
         return b;
     }
 

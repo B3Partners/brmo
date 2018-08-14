@@ -323,7 +323,9 @@ public class BrmoFramework {
     }
 
     /**
-     * NB na gebruik zelf de database verbinding sluiten / opruimen met {@link #closeBrmoFramework()}
+     * laden van BR data uit een bestand. <br>
+     * NB na gebruik zelf de database verbinding sluiten / opruimen met
+     * {@link #closeBrmoFramework()}.
      *
      * @param type basis registratie type
      * @param fileName bestand
@@ -388,23 +390,64 @@ public class BrmoFramework {
         }
     }
 
-    public void loadFromStream(String type, InputStream stream, String fileName) throws BrmoException {
+    /**
+     * laden van BR data uit een stream.
+     *
+     * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}
+     * @param stream datastream
+     * @param fileName te gebruiken bestandsnaam om laadproces te identificeren
+     * @throws BrmoException als er een algemene fout optreed
+     * @throws BrmoDuplicaatLaadprocesException als het "bestand"
+     * {@code fileName} al geladen is
+     * @throws BrmoLeegBestandException als het "bestand" {@code fileName} leeg
+     * is
+     */
+    public void loadFromStream(String type, InputStream stream, String fileName)
+            throws BrmoException, BrmoDuplicaatLaadprocesException, BrmoLeegBestandException {
         try {
             stagingProxy.loadBr(stream, type, fileName, null, null);
-        } catch(Exception e) {
-            throw new BrmoException("Fout bij loaden basisregistratie gegevens", e);
-        }
-    }
-
-    public void loadFromStream(String type, InputStream stream, String fileName, Date d) throws BrmoException {
-        try {
-            stagingProxy.loadBr(stream, type, fileName, d, null);
-        } catch(Exception e) {
-            throw new BrmoException("Fout bij loaden basisregistratie gegevens", e);
+        } catch (Exception e) {
+            if (e instanceof BrmoDuplicaatLaadprocesException) {
+                throw (BrmoDuplicaatLaadprocesException) e;
+            }
+            if (e instanceof BrmoLeegBestandException) {
+                throw (BrmoLeegBestandException) e;
+            }
+            throw new BrmoException("Fout bij laden " + type + " berichten uit bestand " + fileName, e);
         }
     }
 
     /**
+     * laden van BR data uit een stream.
+     *
+     * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}
+     * @param stream datastream
+     * @param fileName te gebruiken bestandsnaam om laadproces te identificeren
+     * @param d bestandsdatum
+     *
+     * @throws BrmoException als er een algemene fout optreed
+     * @throws BrmoDuplicaatLaadprocesException als het "bestand"
+     * {@code fileName} al geladen is
+     * @throws BrmoLeegBestandException als het "bestand" {@code fileName} leeg
+     * is
+     */
+    public void loadFromStream(String type, InputStream stream, String fileName, Date d)
+            throws BrmoException, BrmoDuplicaatLaadprocesException, BrmoLeegBestandException {
+        try {
+            stagingProxy.loadBr(stream, type, fileName, d, null);
+        } catch (Exception e) {
+            if (e instanceof BrmoDuplicaatLaadprocesException) {
+                throw (BrmoDuplicaatLaadprocesException) e;
+            }
+            if (e instanceof BrmoLeegBestandException) {
+                throw (BrmoLeegBestandException) e;
+            }
+            throw new BrmoException("Fout bij laden " + type + " berichten uit bestand " + fileName, e);
+        }
+    }
+
+    /**
+     * laden van BR data uit een stream.
      *
      * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}
      * @param stream datastream

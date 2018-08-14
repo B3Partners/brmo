@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2018-08-09+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <SOAP-ENV:Header xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsa="http://www.w3.org/2005/08/addressing" />
+    <soap:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="id-1-34b760bb9511d02badc66521b1e5f8b1">
+        <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/01" peilmoment="20180809094357288">
+            <meldingen>
+                <informatie>
+                    <code>IPD0000</code>
+                    <omschrijving>Het product is succesvol geproduceerd.</omschrijving>
+                    <referentie>40480283</referentie>
+                </informatie>
+            </meldingen>
+            <product>
+                <cat:maatschappelijkeActiviteit xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/01">
+                    <cat:registratie registratieTijdstip="00000000000000000">
+                        <cat:datumAanvang>19850329</cat:datumAanvang>
+                    </cat:registratie>
+                    <cat:kvkNummer>40480283</cat:kvkNummer>
+                    <cat:nonMailing>Nee</cat:nonMailing>
+                    <cat:incidenteelUitlenenArbeidskrachten>Nee</cat:incidenteelUitlenenArbeidskrachten>
+                    <cat:naam>Utrechtse Kano Club</cat:naam>
+                    <cat:heeftAlsEigenaar>
+                        <cat:rechtspersoon>
+                            <cat:registratie registratieTijdstip="00000000000000000">
+                                <cat:datumAanvang>19850329</cat:datumAanvang>
+                            </cat:registratie>
+                            <cat:persoonRechtsvorm>Vereniging</cat:persoonRechtsvorm>
+                            <cat:volledigeNaam>Utrechtse Kano Club</cat:volledigeNaam>
+                            <cat:uitgebreideRechtsvorm>Vereniging (met volledige rechtsbevoegdheid)</cat:uitgebreideRechtsvorm>
+                            <cat:heeft>
+                                <cat:bestuursfunctie>
+                                    <cat:registratie registratieTijdstip="20131114140638820">
+                                        <cat:datumAanvang>20130327</cat:datumAanvang>
+                                    </cat:registratie>
+                                    <cat:functieTitel>
+                                        <cat:functieTitel>Secretaris</cat:functieTitel>
+                                        <cat:indicatieStatutair>Ja</cat:indicatieStatutair>
+                                    </cat:functieTitel>
+                                    <cat:langstzittende>Nee</cat:langstzittende>
+                                    <cat:door>
+                                        <cat:natuurlijkPersoon>
+                                            <cat:registratie registratieTijdstip="20131114140638820">
+                                                <cat:datumAanvang>19331024</cat:datumAanvang>
+                                                <!--Anonimisatie 'cat:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                                            </cat:registratie>
+                                            <cat:volledigeNaam>92ec ec5a10cb 68d6f73 bdb 8a37</cat:volledigeNaam>
+                                            <!--Anonimisatie 'cat:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:bezoekLocatiePersoonDoor>
+                                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                                <cat:binnenlandsAdres>
+                                                    <cat:straatnaam>Bessemerlaan</cat:straatnaam>
+                                                    <cat:huisnummer>33</cat:huisnummer>
+                                                    <cat:postcode>
+                                                        <cat:cijfercombinatie>3553</cat:cijfercombinatie>
+                                                        <cat:lettercombinatie>GA</cat:lettercombinatie>
+                                                    </cat:postcode>
+                                                    <cat:plaats>Utrecht</cat:plaats>
+                                                    <cat:bagId>
+                                                        <cat:identificatieNummeraanduiding>0344200000057597</cat:identificatieNummeraanduiding>
+                                                        <cat:identificatieAdresseerbaarObject>0344010000045748</cat:identificatieAdresseerbaarObject>
+                                                    </cat:bagId>
+                                                </cat:binnenlandsAdres>
+                                                <cat:volledigAdres>Bessemerlaan 33 3553GA Utrecht</cat:volledigAdres>
+                                            </cat:bezoekLocatiePersoonDoor>
+                                            <cat:bsn>543148709</cat:bsn>
+                                            <!--Anonimisatie 'cat:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                                            <cat:geslachtsnaam>979c</cat:geslachtsnaam>
+                                            <!--Anonimisatie 'cat:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:voorvoegselGeslachtsnaam>van</cat:voorvoegselGeslachtsnaam>
+                                            <cat:voornamen>0731 5e763146 5b8b423</cat:voornamen>
+                                            <!--Anonimisatie 'cat:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geslachtsaanduiding>Man</cat:geslachtsaanduiding>
+                                            <cat:geboorteplaats>5f24a7182ef</cat:geboorteplaats>
+                                            <!--Anonimisatie 'cat:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geboorteland>Nederland</cat:geboorteland>
+                                            <cat:aanduidingNaamgebruik>EigenGeslachtsnaam</cat:aanduidingNaamgebruik>
+                                        </cat:natuurlijkPersoon>
+                                    </cat:door>
+                                    <cat:functie>Bestuurder</cat:functie>
+                                    <cat:bevoegdheid>
+                                        <cat:soort>GezamenlijkBevoegd</cat:soort>
+                                        <cat:bevoegdMetAnderePersonen>Nee</cat:bevoegdMetAnderePersonen>
+                                    </cat:bevoegdheid>
+                                </cat:bestuursfunctie>
+                            </cat:heeft>
+                            <cat:heeft>
+                                <cat:bestuursfunctie>
+                                    <cat:registratie registratieTijdstip="20170313123425983">
+                                        <cat:datumAanvang>20080322</cat:datumAanvang>
+                                    </cat:registratie>
+                                    <cat:langstzittende>Ja</cat:langstzittende>
+                                    <cat:door>
+                                        <cat:natuurlijkPersoon>
+                                            <cat:registratie registratieTijdstip="20120126095028643">
+                                                <cat:datumAanvang>19530606</cat:datumAanvang>
+                                                <!--Anonimisatie 'cat:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                                            </cat:registratie>
+                                            <cat:volledigeNaam>81cbf0 be826e9d b6e48045 6 c5b e12 04183</cat:volledigeNaam>
+                                            <!--Anonimisatie 'cat:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:bezoekLocatiePersoonDoor>
+                                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                                <cat:binnenlandsAdres>
+                                                    <cat:straatnaam>Luitenant Maltbystraat</cat:straatnaam>
+                                                    <cat:huisnummer>47</cat:huisnummer>
+                                                    <cat:postcode>
+                                                        <cat:cijfercombinatie>3621</cat:cijfercombinatie>
+                                                        <cat:lettercombinatie>KN</cat:lettercombinatie>
+                                                    </cat:postcode>
+                                                    <cat:plaats>Breukelen</cat:plaats>
+                                                    <cat:bagId>
+                                                        <cat:identificatieNummeraanduiding>0311200000004827</cat:identificatieNummeraanduiding>
+                                                        <cat:identificatieAdresseerbaarObject>0311010000004827</cat:identificatieAdresseerbaarObject>
+                                                    </cat:bagId>
+                                                </cat:binnenlandsAdres>
+                                                <cat:volledigAdres>Luitenant Maltbystraat 47 3621KN Breukelen</cat:volledigAdres>
+                                            </cat:bezoekLocatiePersoonDoor>
+                                            <cat:bsn>198320551</cat:bsn>
+                                            <!--Anonimisatie 'cat:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                                            <cat:geslachtsnaam>edca9</cat:geslachtsnaam>
+                                            <!--Anonimisatie 'cat:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:voorvoegselGeslachtsnaam>van der</cat:voorvoegselGeslachtsnaam>
+                                            <cat:voornamen>1ba512 50852c38</cat:voornamen>
+                                            <!--Anonimisatie 'cat:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geslachtsaanduiding>Vrouw</cat:geslachtsaanduiding>
+                                            <cat:geboorteplaats>7da46</cat:geboorteplaats>
+                                            <!--Anonimisatie 'cat:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geboorteland>Nederland</cat:geboorteland>
+                                            <cat:aanduidingNaamgebruik>GeslachtsnaamPartnerVoorEigenGeslachtsnaam</cat:aanduidingNaamgebruik>
+                                            <cat:geslachtsnaamPartner>c4be7a72</cat:geslachtsnaamPartner>
+                                            <!--Anonimisatie 'cat:geslachtsnaamPartner': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                        </cat:natuurlijkPersoon>
+                                    </cat:door>
+                                    <cat:functie>Bestuurder</cat:functie>
+                                    <cat:bevoegdheid>
+                                        <cat:soort>GezamenlijkBevoegd</cat:soort>
+                                        <cat:bevoegdMetAnderePersonen>Nee</cat:bevoegdMetAnderePersonen>
+                                    </cat:bevoegdheid>
+                                </cat:bestuursfunctie>
+                            </cat:heeft>
+                            <cat:heeft>
+                                <cat:bestuursfunctie>
+                                    <cat:registratie registratieTijdstip="20170418121041316">
+                                        <cat:datumAanvang>20170401</cat:datumAanvang>
+                                    </cat:registratie>
+                                    <cat:functieTitel>
+                                        <cat:functieTitel>Voorzitter</cat:functieTitel>
+                                        <cat:indicatieStatutair>Ja</cat:indicatieStatutair>
+                                    </cat:functieTitel>
+                                    <cat:langstzittende>Nee</cat:langstzittende>
+                                    <cat:door>
+                                        <cat:natuurlijkPersoon>
+                                            <cat:registratie registratieTijdstip="00000000000000000">
+                                                <cat:datumAanvang>19930923</cat:datumAanvang>
+                                                <!--Anonimisatie 'cat:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                                            </cat:registratie>
+                                            <cat:volledigeNaam>8501593f5 676ed6f</cat:volledigeNaam>
+                                            <!--Anonimisatie 'cat:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:bezoekLocatiePersoonDoor>
+                                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                                <cat:binnenlandsAdres>
+                                                    <cat:straatnaam>Cornelis Roobolstraat</cat:straatnaam>
+                                                    <cat:huisnummer>138</cat:huisnummer>
+                                                    <cat:postcode>
+                                                        <cat:cijfercombinatie>3554</cat:cijfercombinatie>
+                                                        <cat:lettercombinatie>BX</cat:lettercombinatie>
+                                                    </cat:postcode>
+                                                    <cat:plaats>Utrecht</cat:plaats>
+                                                    <cat:bagId>
+                                                        <cat:identificatieNummeraanduiding>0344200000027216</cat:identificatieNummeraanduiding>
+                                                        <cat:identificatieAdresseerbaarObject>0344010000024393</cat:identificatieAdresseerbaarObject>
+                                                    </cat:bagId>
+                                                </cat:binnenlandsAdres>
+                                                <cat:volledigAdres>Cornelis Roobolstraat 138 3554BX Utrecht</cat:volledigAdres>
+                                            </cat:bezoekLocatiePersoonDoor>
+                                            <cat:bsn>552473232</cat:bsn>
+                                            <!--Anonimisatie 'cat:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                                            <cat:geslachtsnaam>802b403</cat:geslachtsnaam>
+                                            <!--Anonimisatie 'cat:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:voornamen>fb923750a</cat:voornamen>
+                                            <!--Anonimisatie 'cat:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geslachtsaanduiding>Vrouw</cat:geslachtsaanduiding>
+                                            <cat:geboorteplaats>e32f74</cat:geboorteplaats>
+                                            <!--Anonimisatie 'cat:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geboorteland>Nederland</cat:geboorteland>
+                                            <cat:aanduidingNaamgebruik>EigenGeslachtsnaam</cat:aanduidingNaamgebruik>
+                                        </cat:natuurlijkPersoon>
+                                    </cat:door>
+                                    <cat:functie>Bestuurder</cat:functie>
+                                    <cat:bevoegdheid>
+                                        <cat:soort>GezamenlijkBevoegd</cat:soort>
+                                        <cat:bevoegdMetAnderePersonen>Nee</cat:bevoegdMetAnderePersonen>
+                                    </cat:bevoegdheid>
+                                </cat:bestuursfunctie>
+                            </cat:heeft>
+                            <cat:heeft>
+                                <cat:bestuursfunctie>
+                                    <cat:registratie registratieTijdstip="20180315121522270">
+                                        <cat:datumAanvang>20180307</cat:datumAanvang>
+                                    </cat:registratie>
+                                    <cat:functieTitel>
+                                        <cat:functieTitel>Penningmeester</cat:functieTitel>
+                                        <cat:indicatieStatutair>Ja</cat:indicatieStatutair>
+                                    </cat:functieTitel>
+                                    <cat:langstzittende>Nee</cat:langstzittende>
+                                    <cat:door>
+                                        <cat:natuurlijkPersoon>
+                                            <cat:registratie registratieTijdstip="20180315121522270">
+                                                <cat:datumAanvang>19460703</cat:datumAanvang>
+                                                <!--Anonimisatie 'cat:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                                            </cat:registratie>
+                                            <cat:volledigeNaam>57873e8d9 11cbd7dc4 3789d28 5 eb1aa</cat:volledigeNaam>
+                                            <!--Anonimisatie 'cat:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:bezoekLocatiePersoonDoor>
+                                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                                <cat:binnenlandsAdres>
+                                                    <cat:straatnaam>Prof. van Bemmelenlaan</cat:straatnaam>
+                                                    <cat:huisnummer>48</cat:huisnummer>
+                                                    <cat:postcode>
+                                                        <cat:cijfercombinatie>3571</cat:cijfercombinatie>
+                                                        <cat:lettercombinatie>EN</cat:lettercombinatie>
+                                                    </cat:postcode>
+                                                    <cat:plaats>Utrecht</cat:plaats>
+                                                    <cat:bagId>
+                                                        <cat:identificatieNummeraanduiding>0344200000057359</cat:identificatieNummeraanduiding>
+                                                        <cat:identificatieAdresseerbaarObject>0344010000118100</cat:identificatieAdresseerbaarObject>
+                                                    </cat:bagId>
+                                                </cat:binnenlandsAdres>
+                                                <cat:volledigAdres>Prof. van Bemmelenlaan 48 3571EN Utrecht</cat:volledigAdres>
+                                            </cat:bezoekLocatiePersoonDoor>
+                                            <cat:bsn>712852196</cat:bsn>
+                                            <!--Anonimisatie 'cat:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                                            <cat:geslachtsnaam>8e6d4</cat:geslachtsnaam>
+                                            <!--Anonimisatie 'cat:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:voornamen>7623a481f 5609c3b1b</cat:voornamen>
+                                            <!--Anonimisatie 'cat:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geslachtsaanduiding>Vrouw</cat:geslachtsaanduiding>
+                                            <cat:geboorteplaats>47a7e16</cat:geboorteplaats>
+                                            <!--Anonimisatie 'cat:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                            <cat:geboorteland>Nederland</cat:geboorteland>
+                                            <cat:aanduidingNaamgebruik>GeslachtsnaamPartnerVoorEigenGeslachtsnaam</cat:aanduidingNaamgebruik>
+                                            <cat:geslachtsnaamPartner>164fac0</cat:geslachtsnaamPartner>
+                                            <!--Anonimisatie 'cat:geslachtsnaamPartner': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                                        </cat:natuurlijkPersoon>
+                                    </cat:door>
+                                    <cat:functie>Bestuurder</cat:functie>
+                                    <cat:bevoegdheid>
+                                        <cat:soort>GezamenlijkBevoegd</cat:soort>
+                                        <cat:bevoegdMetAnderePersonen>Nee</cat:bevoegdMetAnderePersonen>
+                                    </cat:bevoegdheid>
+                                </cat:bestuursfunctie>
+                            </cat:heeft>
+                            <cat:rsin>816589963</cat:rsin>
+                            <cat:naam>Utrechtse Kano Club</cat:naam>
+                            <cat:ookGenoemd>U.K.C.</cat:ookGenoemd>
+                            <cat:statutaireZetel>Utrecht</cat:statutaireZetel>
+                            <cat:datumAkteOprichting>00000000</cat:datumAkteOprichting>
+                            <cat:datumOprichting>00000000</cat:datumOprichting>
+                            <cat:datumEersteInschrijving>00000000</cat:datumEersteInschrijving>
+                            <cat:datumAkteStatutenWijziging>19850329</cat:datumAkteStatutenWijziging>
+                            <cat:datumLaatsteStatutenWijziging>19850329</cat:datumLaatsteStatutenWijziging>
+                            <cat:bezoekLocatie>
+                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Westbroekse Binnenweg</cat:straatnaam>
+                                    <cat:huisnummer>2</cat:huisnummer>
+                                    <cat:huisletter>c</cat:huisletter>
+                                    <cat:postcode>
+                                        <cat:cijfercombinatie>3612</cat:cijfercombinatie>
+                                        <cat:lettercombinatie>AH</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Tienhoven</cat:plaats>
+                                    <cat:bagId>
+                                        <cat:identificatieNummeraanduiding>1904200000030890</cat:identificatieNummeraanduiding>
+                                        <cat:identificatieAdresseerbaarObject>1904010000030489</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                </cat:binnenlandsAdres>
+                                <cat:volledigAdres>Westbroekse Binnenweg 2 c 3612AH Tienhoven</cat:volledigAdres>
+                            </cat:bezoekLocatie>
+                            <cat:postLocatie>
+                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Cornelis Roobolstraat</cat:straatnaam>
+                                    <cat:huisnummer>138</cat:huisnummer>
+                                    <cat:postcode>
+                                        <cat:cijfercombinatie>3554</cat:cijfercombinatie>
+                                        <cat:lettercombinatie>BX</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Utrecht</cat:plaats>
+                                    <cat:bagId>
+                                        <cat:identificatieNummeraanduiding>0344200000027216</cat:identificatieNummeraanduiding>
+                                        <cat:identificatieAdresseerbaarObject>0344010000024393</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                </cat:binnenlandsAdres>
+                                <cat:volledigAdres>Cornelis Roobolstraat 138 3554BX Utrecht</cat:volledigAdres>
+                            </cat:postLocatie>
+                            <cat:activiteiten>
+                                <cat:omschrijving>Kanoverenigingen</cat:omschrijving>
+                                <cat:hoofdSbiActiviteit>
+                                    <cat:sbiCode>93152</cat:sbiCode>
+                                    <cat:omschrijving>Roei-, kano-, zeil- en surfsport e.d.</cat:omschrijving>
+                                </cat:hoofdSbiActiviteit>
+                            </cat:activiteiten>
+                            <cat:communicatiegegevens>
+                                <cat:communicatienummer>
+                                    <cat:toegangscode>+31</cat:toegangscode>
+                                    <cat:nummer>0346550826</cat:nummer>
+                                    <cat:soort>Telefoon</cat:soort>
+                                </cat:communicatienummer>
+                                <cat:emailAdres>secretariaat@utrechtsekanoclub.nl</cat:emailAdres>
+                            </cat:communicatiegegevens>
+                        </cat:rechtspersoon>
+                    </cat:heeftAlsEigenaar>
+                </cat:maatschappelijkeActiviteit>
+            </product>
+        </ophalenInschrijvingResponse>
+    </soap:Body>
+</soap:Envelope>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2018-05-03+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/01" xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/01">
+    <SOAP-ENV:Header xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsa="http://www.w3.org/2005/08/addressing" />
+    <soap:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="id-1-6fd328e49c712223c76481295468c96b">
+        <ophalenInschrijvingResponse peilmoment="20180430084526456">
+            <meldingen>
+                <informatie>
+                    <code>IPD0000</code>
+                    <omschrijving>Het product is succesvol geproduceerd.</omschrijving>
+                    <referentie>52019667</referentie>
+                </informatie>
+            </meldingen>
+            <product>
+                <cat:maatschappelijkeActiviteit>
+                    <cat:registratie registratieTijdstip="20110210150804843">
+                        <cat:datumAanvang>20110210</cat:datumAanvang>
+                    </cat:registratie>
+                    <cat:kvkNummer>52019667</cat:kvkNummer>
+                    <cat:nonMailing>Nee</cat:nonMailing>
+                    <cat:incidenteelUitlenenArbeidskrachten>Nee</cat:incidenteelUitlenenArbeidskrachten>
+                    <cat:naam>Orthopedisch Therapie Centrum Verhoef</cat:naam>
+
+                    <cat:manifesteertZichAls>
+                        <cat:onderneming>
+                            <cat:registratie registratieTijdstip="20110210150804843">
+                                <cat:datumAanvang>20110210</cat:datumAanvang>
+                            </cat:registratie>
+                            <cat:kvkNummer>52019667</cat:kvkNummer>
+                            <cat:hoofdSbiActiviteit>
+                                <cat:sbiCode>86912</cat:sbiCode>
+                                <cat:omschrijving>Praktijken van fysiotherapeuten</cat:omschrijving>
+                            </cat:hoofdSbiActiviteit>
+                            <cat:fulltimeWerkzamePersonen>1</cat:fulltimeWerkzamePersonen>
+                            <cat:parttimeWerkzamePersonen>0</cat:parttimeWerkzamePersonen>
+                            <cat:totaalWerkzamePersonen>1</cat:totaalWerkzamePersonen>
+                            <cat:handeltOnder>
+                                <cat:handelsnaam>
+                                    <cat:naam>Orthopedisch Therapie Centrum Verhoef</cat:naam>
+                                </cat:handelsnaam>
+                            </cat:handeltOnder>
+                            <cat:wordtUitgeoefendIn>
+                                <cat:commercieleVestiging>
+                                    <cat:vestigingsnummer>000021991235</cat:vestigingsnummer>
+                                    <cat:bezoekLocatie>
+                                        <cat:afgeschermd>Nee</cat:afgeschermd>
+                                        <cat:binnenlandsAdres>
+                                            <cat:straatnaam>Hoofdstraat</cat:straatnaam>
+                                            <cat:huisnummer>46</cat:huisnummer>
+                                            <cat:postcode>
+                                                <cat:cijfercombinatie>7873</cat:cijfercombinatie>
+                                                <cat:lettercombinatie>TB</cat:lettercombinatie>
+                                            </cat:postcode>
+                                            <cat:plaats>Odoorn</cat:plaats>
+                                            <cat:bagId>
+                                                <cat:identificatieNummeraanduiding>1681200000009052</cat:identificatieNummeraanduiding>
+                                                <cat:identificatieAdresseerbaarObject>1681010000009052</cat:identificatieAdresseerbaarObject>
+                                            </cat:bagId>
+                                        </cat:binnenlandsAdres>
+                                        <cat:volledigAdres>Hoofdstraat 46 7873TB Odoorn</cat:volledigAdres>
+                                    </cat:bezoekLocatie>
+                                    <cat:handeltOnder>
+                                        <cat:handelsnaam>
+                                            <cat:naam>Orthopedisch Therapie Centrum Verhoef</cat:naam>
+                                        </cat:handelsnaam>
+                                    </cat:handeltOnder>
+                                </cat:commercieleVestiging>
+                            </cat:wordtUitgeoefendIn>
+                        </cat:onderneming>
+                    </cat:manifesteertZichAls>
+                    <cat:wordtGeleidVanuit>
+                        <cat:commercieleVestiging>
+                            <cat:registratie registratieTijdstip="20110210150804843">
+                                <cat:datumAanvang>20110210</cat:datumAanvang>
+                            </cat:registratie>
+                            <cat:vestigingsnummer>000021991235</cat:vestigingsnummer>
+                            <cat:bezoekLocatie>
+                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Hoofdstraat</cat:straatnaam>
+                                    <cat:huisnummer>46</cat:huisnummer>
+                                    <cat:postcode>
+                                        <cat:cijfercombinatie>7873</cat:cijfercombinatie>
+                                        <cat:lettercombinatie>TB</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Odoorn</cat:plaats>
+                                    <cat:bagId>
+                                        <cat:identificatieNummeraanduiding>1681200000009052</cat:identificatieNummeraanduiding>
+                                        <cat:identificatieAdresseerbaarObject>1681010000009052</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                </cat:binnenlandsAdres>
+                                <cat:volledigAdres>Hoofdstraat 46 7873TB Odoorn</cat:volledigAdres>
+                            </cat:bezoekLocatie>
+                            <cat:postLocatie>
+                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                <cat:binnenlandsAdres>
+                                    <cat:straatnaam>Hoofdstraat</cat:straatnaam>
+                                    <cat:huisnummer>46</cat:huisnummer>
+                                    <cat:postcode>
+                                        <cat:cijfercombinatie>7873</cat:cijfercombinatie>
+                                        <cat:lettercombinatie>TB</cat:lettercombinatie>
+                                    </cat:postcode>
+                                    <cat:plaats>Odoorn</cat:plaats>
+                                    <cat:bagId>
+                                        <cat:identificatieNummeraanduiding>1681200000009052</cat:identificatieNummeraanduiding>
+                                        <cat:identificatieAdresseerbaarObject>1681010000009052</cat:identificatieAdresseerbaarObject>
+                                    </cat:bagId>
+                                </cat:binnenlandsAdres>
+                                <cat:volledigAdres>Hoofdstraat 46 7873TB Odoorn</cat:volledigAdres>
+                            </cat:postLocatie>
+                            <cat:totaalWerkzamePersonen>1</cat:totaalWerkzamePersonen>
+                            <cat:activiteiten>
+                                <cat:omschrijving>De exploitatie van centra op het gebied van de gezondheid, ontspanning, sport, revalidatie en therapie en voedingsmiddelen en de import en verkoop van producten aangaande het voorstaande. Fysiotherapie en manueel praktijk.</cat:omschrijving>
+                                <cat:hoofdSbiActiviteit>
+                                    <cat:sbiCode>86912</cat:sbiCode>
+                                    <cat:omschrijving>Praktijken van fysiotherapeuten</cat:omschrijving>
+                                </cat:hoofdSbiActiviteit>
+                                <cat:export>Nee</cat:export>
+                                <cat:import>Nee</cat:import>
+                            </cat:activiteiten>
+                            <cat:handeltOnder>
+                                <cat:handelsnaam>
+                                    <cat:naam>Orthopedisch Therapie Centrum Verhoef</cat:naam>
+                                </cat:handelsnaam>
+                            </cat:handeltOnder>
+                        </cat:commercieleVestiging>
+                    </cat:wordtGeleidVanuit>
+                    <cat:heeftAlsEigenaar>
+                        <cat:natuurlijkPersoon>
+                            <cat:registratie registratieTijdstip="20110210150804843">
+                                <cat:datumAanvang xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2013/01">1952-10-01</cat:datumAanvang>
+                                <!--Anonimisatie 'cat:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                            </cat:registratie>
+                            <cat:persoonRechtsvorm>Eenmanszaak</cat:persoonRechtsvorm>
+                            <cat:volledigeNaam xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2013/01">f3c55f 30e0 018380 cec44c6</cat:volledigeNaam>
+                            <!--Anonimisatie 'cat:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                            <cat:uitgebreideRechtsvorm>Eenmanszaak</cat:uitgebreideRechtsvorm>
+                            <cat:geslachtsnaam xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2013/01">02532fc</cat:geslachtsnaam>
+                            <!--Anonimisatie 'cat:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                            <cat:voornamen xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2013/01">e54daa 5b8f 37cc19</cat:voornamen>
+                            <!--Anonimisatie 'cat:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                            <cat:geslachtsaanduiding>Man</cat:geslachtsaanduiding>
+                            <cat:geboorteplaats xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2013/01">b5662</cat:geboorteplaats>
+                            <!--Anonimisatie 'cat:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                            <cat:geboorteland>Nederlandse Antillen</cat:geboorteland>
+                            <cat:aanduidingNaamgebruik>EigenGeslachtsnaam</cat:aanduidingNaamgebruik>
+                            <cat:woonLocatie>
+                                <cat:afgeschermd>Nee</cat:afgeschermd>
+                                <cat:buitenlandsAdres>
+                                    <cat:straatHuisnummer>Kaya Opal 4</cat:straatHuisnummer>
+                                    <cat:postcodeWoonplaats>Kralendijk</cat:postcodeWoonplaats>
+                                    <cat:land>Caribisch Nederland</cat:land>
+                                </cat:buitenlandsAdres>
+                                <cat:volledigAdres>Kaya Opal 4 Kralendijk Caribisch Nederland</cat:volledigAdres>
+                            </cat:woonLocatie>
+                        </cat:natuurlijkPersoon>
+                    </cat:heeftAlsEigenaar>
+                </cat:maatschappelijkeActiviteit>
+            </product>
+        </ophalenInschrijvingResponse>
+    </soap:Body>
+</soap:Envelope>

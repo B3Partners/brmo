@@ -211,6 +211,39 @@ public final class CleanUtil {
     }
 
     /**
+     * ruimt personen en kvk tabellen op.
+     *
+     * @param rsgb database welke opgeruimd moet worden
+     * @throws DatabaseUnitException als er een DBunit fout optreedt
+     * @throws SQLException als er iets misgaat in de database
+     */
+    public static void cleanRSGB_NHR(final IDatabaseConnection rsgb) throws DatabaseUnitException, SQLException {
+        cleanRSGB_NHR(rsgb, true);
+    }
+
+    /**
+     * ruimt personen en kvk tabellen op.
+     *
+     * @param rsgb database welke opgeruimd moet worden
+     * @param deleteBrondocument {@code true} als brondocumenten ook verwijderd
+     * @throws DatabaseUnitException
+     * @throws SQLException
+     */
+    public static void cleanRSGB_NHR(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
+            throws DatabaseUnitException, SQLException {
+
+        DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
+            new DefaultTable("sbi_activiteit"),
+            new DefaultTable("ondrnmng"),
+            new DefaultTable("maatschapp_activiteit"),
+            new DefaultTable("vestg"),
+            new DefaultTable("vestg_activiteit"),
+            new DefaultTable("vestg_naam"),}
+        ));
+        cleanRSGB_BRP(rsgb, deleteBrondocument);
+    }
+
+    /**
      * leegt de bericht, laadproces en job tabellen in het stating schema. kan
      * worden gebruikt in een {@code @After} van een test case.
      *
