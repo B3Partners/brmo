@@ -378,7 +378,7 @@
             <dependency>
                 <groupId>org.glassfish.web</groupId>
                 <artifactId>javax.servlet.jsp.jstl</artifactId>
-                <version>1.2.4</version>
+                <version>1.2.5</version>
                 <exclusions>
                     <exclusion>
                         <!-- sleept servlet api 2.5 mee, maar we willen 3.x gebruiken -->
