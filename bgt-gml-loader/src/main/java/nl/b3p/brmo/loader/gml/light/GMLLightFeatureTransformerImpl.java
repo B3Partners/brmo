@@ -85,8 +85,7 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
  /* onderstaande niet in RSBG 3.0 */
         // attrMapping.put("inOnderzoek", "inonderzoek");
         attrMapping.put("inOnderzoek", null);
-        // attrMapping.put("tijdstipRegistratie", "tijdstip_registratie");
-        attrMapping.put("tijdstipRegistratie", null);
+        attrMapping.put("tijdstipRegistratie", "tijdstip_registratie");
         // attrMapping.put("eindRegistratie", "eind_registratie");
         attrMapping.put("eindRegistratie", null);
         // attrMapping.put("LV-publicatiedatum", "lv_publicatiedatum");
@@ -97,7 +96,7 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
 
         // (gedeelde) model attributen
         attrMapping.put("objectBeginTijd", BEGINTIJD_NAME);
-        attrMapping.put("objectEindTijd", EINDTIJD_NAME);
+        attrMapping.put("objectEindTijd", null);
         attrMapping.put("bgt-status", "bgt_status");
         attrMapping.put("plus-status", "plus_status");
         attrMapping.put("relatieveHoogteligging", "relve_hoogteligging");
@@ -184,14 +183,11 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
             }
         }
 
-        // extra database velden / brmo metadata
-        String datum = shouldUppercase ? BIJWERKDATUM_NAME.toUpperCase() : BIJWERKDATUM_NAME;
-        tb.add(datum, Date.class);
         return tb.crs(crs).buildFeatureType();
     }
 
     @Override
-    public SimpleFeature transform(SimpleFeature inFeature, SimpleFeatureType targetType, boolean shouldUppercaseFieldnames, boolean userDefinedPrimaryKey, Date bijwerkDatum) {
+    public SimpleFeature transform(SimpleFeature inFeature, SimpleFeatureType targetType, boolean shouldUppercaseFieldnames, boolean userDefinedPrimaryKey) {
         SimpleFeatureBuilder featureBuilder = new SimpleFeatureBuilder(targetType);
         String targetAttrName;
         for (String key : attrMapping.keySet()) {
@@ -223,9 +219,6 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
                 id = composed;
             }
         }
-        // brmo metadata
-        String datum = shouldUppercaseFieldnames ? BIJWERKDATUM_NAME.toUpperCase() : BIJWERKDATUM_NAME;
-        featureBuilder.set(datum, bijwerkDatum);
 
         featureBuilder.featureUserData(Hints.USE_PROVIDED_FID, userDefinedPrimaryKey);
         return featureBuilder.buildFeature(id);

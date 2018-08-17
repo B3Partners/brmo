@@ -26,7 +26,6 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import javax.xml.parsers.ParserConfigurationException;
 import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.BEGINTIJD_NAME;
-import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.BIJWERKDATUM_NAME;
 import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.DEFAULT_GEOM_NAME;
 import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.ID_NAME;
 import org.apache.commons.logging.Log;
@@ -93,17 +92,6 @@ public class BGTGMLLightLoader {
      */
     private Geometry omhullendeVanZipFile = null;
 
-    /**
-     * {@code true} als er een update wordt geladen, {@code false} voor een
-     * stand, default is: {@code true}
-     */
-    private boolean loadingUpdate = true;
-
-    /**
-     * metadata, datum van laden.
-     */
-    private Date bijwerkDatum = null;
-
     private final StringBuilder opmerkingen = new StringBuilder();
 
     private STATUS status = STATUS.OK;
@@ -168,9 +156,6 @@ public class BGTGMLLightLoader {
     public int processZipFile(File zipExtract) throws FileNotFoundException, IOException {
         this.omhullendeVanZipFile = null;
         this.resetStatus();
-        if (this.bijwerkDatum == null) {
-            this.bijwerkDatum = new Date();
-        }
 
         int result = 0, total = 0;
         String eName = "";
@@ -198,19 +183,6 @@ public class BGTGMLLightLoader {
                     entry = zip.getNextEntry();
                 }
 
-                if (this.loadingUpdate) {
-                    // nadat zipfile is geladen
-                    //                LOG.debug("omhullende van zipfile: " + omhullendeVanZipFile);
-                    //                LOG.debug("convex omhullende van zipfile(" + zipExtract + "): " + omhullendeVanZipFile.convexHull());
-                    //                LOG.debug("union omhullende van zipfile(" + zipExtract + "): " + omhullendeVanZipFile.union());
-
-                    // org.opensphere.geometry.algorithm.ConcaveHull, zie ook: pom.xml
-                    //ConcaveHull ch = new ConcaveHull(omhullendeVanZipFile, 1d);
-                    //LOG.debug("concave omhullende van zipfile(" + zipExtract + "): " + ch.getConcaveHull());
-                    // verwijderen van de onderliggend aan omhullendeVanZipFile, verouderde objecten in iedere tabel
-                    // self union lijkt vooranlog het beste masker te geven voor verwijderen
-                    deleteOldData(this.bijwerkDatum, omhullendeVanZipFile.union());
-                }
             } catch (SAXException | ParserConfigurationException ex) {
                 LOG.error("Er is een parse fout opgetreden tijdens verwerken van " + eName + " uit " + zipExtract.getCanonicalPath(), ex);
                 opmerkingen.append("Er is een parse fout opgetreden tijdens verwerken van ").append(eName)
@@ -224,41 +196,6 @@ public class BGTGMLLightLoader {
             this.status = STATUS.NOK;
         }
         return total;
-    }
-
-    private void deleteOldData(Date deleteBeforeDatum, Geometry deleteOverlaps) throws IOException {
-        JDBCDataStore dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(dbConnProps);
-        if (dataStore == null) {
-            throw new IllegalStateException("Datastore mag niet 'null' zijn voor verwijderen van van data.");
-        }
-
-        FilterFactory2 ff = CommonFactoryFinder.getFilterFactory2();
-        Filter filter = ff.and(
-                ff.before(ff.property(
-                        (this.isOracle ? BIJWERKDATUM_NAME.toUpperCase() : BIJWERKDATUM_NAME)
-                ), ff.literal(deleteBeforeDatum)),
-                ff.overlaps(ff.property(
-                        (this.isOracle ? DEFAULT_GEOM_NAME.toUpperCase() : DEFAULT_GEOM_NAME)
-                ), ff.literal(deleteOverlaps))
-        );
-        LOG.info("Opruimen van verouderde data uit tabellen met filters: " + filter);
-
-        FeatureStore store;
-        try (Transaction deletetransaction = new DefaultTransaction("delete-bgt")) {
-            for (BGTGMLLightTransformerFactory t : BGTGMLLightTransformerFactory.values()) {
-                if (t.getGmlFileName().isEmpty()) {
-                    continue;
-                }
-                String tableName = this.isOracle ? t.name().toUpperCase() : t.name();
-                opmerkingen.append("Opruimen van verouderde data uit tabel: ").append(tableName).append("\n");
-                LOG.info("Opruimen van verouderde data uit tabel: " + tableName);
-                store = (FeatureStore) dataStore.getFeatureSource(tableName, deletetransaction);
-                store.removeFeatures(filter);
-                deletetransaction.commit();
-            }
-        } finally {
-            dataStore.dispose();
-        }
     }
 
     /**
@@ -386,27 +323,9 @@ public class BGTGMLLightLoader {
                     continue;
                 }
 
-                transformed = featTransformer.transform(gmlSF, targetSchema, this.isOracle, dataStore.isExposePrimaryKeyColumns(), this.bijwerkDatum);
+                transformed = featTransformer.transform(gmlSF, targetSchema, this.isOracle, dataStore.isExposePrimaryKeyColumns());
                 if (transformed == null) {
                     continue;
-                }
-                if (this.loadingUpdate) {
-                    // bijwerken omhullende omhullendeVanZipFile met vlakken in geval van een update
-                    Geometry geom = (Geometry) transformed.getDefaultGeometry();
-                    if (geom != null && geom.getDimension() > Dimension.L) {
-                        if (omhullendeVanZipFile != null) {
-                            try {
-                                omhullendeVanZipFile = omhullendeVanZipFile.union(geom);
-                            } catch (IllegalArgumentException | TopologyException ex) {
-                                LOG.error("Union fout bij verwerking van " + transformed.getID() + " (GML ID: " + gmlSF.getID() + ", bestand: " + gmlFileName
-                                        + ")", ex);
-                                LOG.debug("geom voor union :" + geom);
-                                LOG.debug("omhullendeVanZipFile voor union: " + omhullendeVanZipFile);
-                            }
-                        } else {
-                            omhullendeVanZipFile = geom.union();
-                        }
-                    }
                 }
 
                 try {
@@ -571,19 +490,6 @@ public class BGTGMLLightLoader {
      */
     public void setIsMSSQL(boolean isMSSQL) {
         this.isMSSQL = isMSSQL;
-    }
-
-    /**
-     *
-     * @param loadingUpdate {@code true} als er een update wordt geladen,
-     * {@code false} voor een stand
-     */
-    public void setLoadingUpdate(boolean loadingUpdate) {
-        this.loadingUpdate = loadingUpdate;
-    }
-
-    public void setBijwerkDatum(Date bijwerkDatum) {
-        this.bijwerkDatum = bijwerkDatum;
     }
 
     /**
