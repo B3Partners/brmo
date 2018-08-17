@@ -343,5 +343,10 @@
             <artifactId>commons-dbutils</artifactId>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 </project>

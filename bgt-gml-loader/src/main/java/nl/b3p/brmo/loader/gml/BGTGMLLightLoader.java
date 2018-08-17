@@ -20,7 +20,9 @@ import java.sql.Types;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -37,6 +39,8 @@ import org.geotools.xml.Configuration;
 import org.geotools.xml.Parser;
 import org.xml.sax.SAXException;
 import org.apache.commons.io.input.CloseShieldInputStream;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.geotools.data.DataStoreFinder;
 import org.geotools.data.DataUtilities;
 import org.geotools.jdbc.JDBCDataStore;
@@ -236,7 +240,7 @@ public class BGTGMLLightLoader {
      * @throws IllegalStateException als er iets mis is in de configuratie
      */
     private int storeFeatureCollection(InputStream in, String gmlFileName) throws IOException, IllegalStateException, SAXException, ParserConfigurationException {
-        int writtenFeatures = 0;
+        int inserts = 0, updates = 0, deletes = 0, features = 0;
         JDBCDataStore dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(dbConnProps);
         if (dataStore == null) {
             throw new IllegalStateException("Datastore mag niet 'null' zijn voor opslaan van data.");
@@ -263,7 +267,7 @@ public class BGTGMLLightLoader {
             opmerkingen.append("Geen features gevonden in bestand: ").append(gmlFileName).append("\n");
             LOG.info("Geen features gevonden in bestand: " + gmlFileName);
             dataStore.dispose();
-            return writtenFeatures;
+            return 0;
         }
 
         SimpleFeatureType sft = gmlFeatCollection.getSchema();
@@ -271,7 +275,7 @@ public class BGTGMLLightLoader {
         if (featTransformer == null) {
             LOG.error("Opzoeken van FeatureTransformer voor " + sft.getTypeName() + " is mislukt; er geen transformer beschikbaar voor dit bestand.");
             dataStore.dispose();
-            return writtenFeatures;
+            return 0;
         }
 
         // check table exists
@@ -340,8 +344,15 @@ public class BGTGMLLightLoader {
             }
         }
 
+        // Map om per ID bij te houden wat meest recente tijdstipRegistratie en beeindigd status is
+        // Niet in map: niet in tabel
+        // TRUE: beeindigd en niet in tabel
+        // FALSE: niet beeindigd, en in tabel
+        Map<String,Pair<Date,Boolean>> records = new HashMap();
+
         Transaction transaction = new DefaultTransaction("add-bgt");
         Transaction updatetransaction = new DefaultTransaction("update-bgt");
+        FilterFactory2 ff = CommonFactoryFinder.getFilterFactory2(null);
         try (FeatureIterator<SimpleFeature> feats = gmlFeatCollection.features()) {
             FeatureStore store = (FeatureStore) dataStore.getFeatureSource(targetSchema.getTypeName(), transaction);
             FeatureStore store2 = (FeatureStore) dataStore.getFeatureSource(targetSchema.getTypeName(), updatetransaction);
@@ -350,72 +361,114 @@ public class BGTGMLLightLoader {
             SimpleFeature transformed;
             while (feats.hasNext()) {
                 gmlSF = feats.next();
-                // als object niet meer bestaat of nog niet bestaat overslaan!
-                if ((/* bestaat nog niet*/((Date) gmlSF.getAttribute("objectBeginTijd")).after(new Date()))
-                        | (/* bestaat niet meer */gmlSF.getAttribute("objectEindTijd") != null && ((Date) gmlSF.getAttribute("objectEindTijd")).before(new Date()))) {
-                    // mogelijk toch nog de geom eruit halen voor de delete...
-                    LOG.info("Vervallen of nog niet bestaand object gevonden met GML ID: " + gmlSF.getID());
-                    continue;
-                }
+                features++;
 
                 transformed = featTransformer.transform(gmlSF, targetSchema, this.isOracle, dataStore.isExposePrimaryKeyColumns());
                 if (transformed == null) {
+                    LOG.warn("Fout bij transformeren feature op index " + features + ", null geretourneerd");
                     continue;
                 }
 
-                try {
-                    store.addFeatures(DataUtilities.collection(transformed));
-                    writtenFeatures++;
-                    // commit per feature
-                    transaction.commit();
-                    LOG.debug("Feature toegevoegd in database met NEN3610ID: " + transformed.getID());
-                } catch (IOException ioe) {
-                    // als primary key violation bij insert dan afvangen
-                    if (isDuplicateKeyViolationMessage(ioe.getCause().getMessage())) {
-                        LOG.info("Duplicaat gevonden tijdens insert van feature: " + transformed.getID());
-                        // bij mssql transactie sluiten ander blijft de boel hangen, voor orcl + pg ook
-                        transaction.close();
-                        // object opzoeken,
-                        Filter filter = CommonFactoryFinder.getFilterFactory2(null).id(transformed.getIdentifier());
-                        FeatureIterator<SimpleFeature> bestaandeFeats = store2.getFeatures(filter).features();
-                        SimpleFeature bestaandeFeat = bestaandeFeats.next();
+                String id = transformed.getID();
+                Pair<Date,Boolean> record = records.get(id);
+                Date tijdstipRegistratie = (Date) gmlSF.getAttribute("tijdstipRegistratie");
+                if(tijdstipRegistratie == null) {
+                    LOG.error("Feature voor object " + id + " zonder tijdstipRegistratie gevonden, genegeerd");
+                    continue;
+                }
+                boolean beeindigd = gmlSF.getAttribute("objectEindTijd") != null;
+                if(LOG.isDebugEnabled()) {
+                    LOG.info(String.format("Object %s, beeindigd=%s, tijdstipRegistratie=%tc, eerder tijdstip %tc, eerder beeindigd %s", id, beeindigd ? "ja":"nee", tijdstipRegistratie, record != null ? record.getLeft() : null, record != null ? (record.getRight() ? "ja":"nee") : "-"));
+                }
+                if(record != null && tijdstipRegistratie.before(record.getLeft())) {
+                    LOG.warn(String.format("Feature voor object %s gevonden met tijdstipRegistratie %tc eerder dan vorig record van %tc, genegeerd", id, tijdstipRegistratie, record.getLeft()));
+                    continue;
+                }
 
-                        final String beginAttr = this.isOracle ? BEGINTIJD_NAME.toUpperCase() : BEGINTIJD_NAME;
-                        final String idAttr = this.isOracle ? ID_NAME.toUpperCase() : ID_NAME;
-                        // update als datum jonger dan bestaand
-                        if (((Date) transformed.getAttribute(beginAttr)).after((Date) bestaandeFeat.getAttribute(beginAttr))) {
+                if(beeindigd) {
+                    Date eindTijd = (Date) gmlSF.getAttribute("objectEindTijd");
+                    if(eindTijd.after(new Date())) {
+                        LOG.warn(String.format("Object %s vervallen in de toekomst op %tc, wordt alvast verwijderd!", id, eindTijd));
+                    }
+
+                    if(record != null) {
+                        if(!record.getRight()) {
+                            // Verwijder eerder geinsert record
+                            LOG.info(String.format("Object %s vervallen met tijdstipRegistratie %tc, verwijder eerder geinsert record met laatste tijdstipRegistratie %tc", id, tijdstipRegistratie, record.getLeft()));
+
+                            // bij mssql transactie sluiten ander blijft de boel hangen, voor orcl + pg ook
+                            transaction.close();
+                            Filter filter = ff.id(transformed.getIdentifier());
+                            store2.removeFeatures(filter);
+                            updatetransaction.commit();
+                            // maak een nieuw transactie voor toevoegen, de eerdere is aborted
+                            transaction = new DefaultTransaction("add-bgt");
+                            store.setTransaction(transaction);
+                            deletes++;
+                        }
+                    }
+                    records.put(id, new ImmutablePair<>(tijdstipRegistratie, true));
+                } else {
+
+                    if(record != null) {
+                        if(record.getRight()) {
+                            LOG.error(String.format("Object %s was eerder vervallen met tijdstipRegistratie %tc, nu weer niet met tijdstipRegistratie %tc, genegeerd", id, record.getLeft(), tijdstipRegistratie));
+                            // Alternatief weer inserten?
+                            continue;
+                        } else {
+                            // bij mssql transactie sluiten ander blijft de boel hangen, voor orcl + pg ook
+                            transaction.close();
+                            // object opzoeken,
+                            Filter filter = CommonFactoryFinder.getFilterFactory2(null).id(transformed.getIdentifier());
+                            FeatureIterator<SimpleFeature> bestaandeFeats = store2.getFeatures(filter).features();
+                            SimpleFeature bestaandeFeat = bestaandeFeats.next();
+
+                            final String idAttr = this.isOracle ? ID_NAME.toUpperCase() : ID_NAME;
                             for (AttributeDescriptor attr : transformed.getFeatureType().getAttributeDescriptors()) {
                                 Name attrName = attr.getName();
                                 if (!attrName.getLocalPart().equals(idAttr)) {
                                     store2.modifyFeatures(attrName, transformed.getAttribute(attrName), filter);
                                 }
                             }
-                            LOG.debug("Klaar met update van feature: " + transformed.getID());
                             updatetransaction.commit();
-                        } else {
-                            LOG.debug("Geen update van feature: " + transformed.getID());
+                            LOG.info(String.format("Object %s geupdate van tijdstip %tc naar nieuw tijdstipRegistratie %tc", id, record.getLeft(), tijdstipRegistratie));
+                            bestaandeFeats.close();
+                            // maak een nieuw transactie voor toevoegen, de eerdere is aborted
+                            transaction = new DefaultTransaction("add-bgt");
+                            store.setTransaction(transaction);
+                            updates++;
                         }
-                        bestaandeFeats.close();
-                        // maak een nieuw transactie voor toevoegen, de eerdere is aborted
-                        transaction = new DefaultTransaction("add-bgt");
-                        store.setTransaction(transaction);
                     } else {
-                        throw ioe;
+                        store.addFeatures(DataUtilities.collection(transformed));
+                        inserts++;
+                        // commit per feature
+                        transaction.commit();
+                        LOG.debug(String.format("Object toegevoegd in database met NEN3610ID: %s en tijdstipRegistratie %tc", id, tijdstipRegistratie));
                     }
+                    records.put(id, new ImmutablePair<>(tijdstipRegistratie, false));
                 }
             }
-            opmerkingen.append("Aantal ingevoegde features voor: ").append(gmlFileName).append(": ").append(writtenFeatures).append("\n");
-            LOG.info("Aantal ingevoegde features voor " + gmlFileName + ": " + writtenFeatures);
+            String s = String.format("Totaal verwerkte features voor %s: %d, inserts: %d, updates: %d, deletes: %d\n", gmlFileName, features, inserts, updates, deletes);
+            opmerkingen.append(s).append("\n");
+            LOG.info(s);
         } catch (IOException ioe) {
+            String s = String.format("Fout opgetreden, hiervoor verwerkte features voor %s: %d, inserts: %d, updates: %d, deletes: %d\n", gmlFileName, features, inserts, updates, deletes);
+            opmerkingen.append(s).append("\n");
+            LOG.info(s);
+
             LOG.error("I/O database probleem tijdens insert van features", ioe);
             this.status = STATUS.NOK;
             transaction.rollback();
         } finally {
-            transaction.close();
-            updatetransaction.close();
-            dataStore.dispose();
+            try {
+                transaction.close();
+                updatetransaction.close();
+                dataStore.dispose();
+            } catch(Exception e) {
+                LOG.error("Fout sluiten datastores", e);
+            }
         }
-        return writtenFeatures;
+        return inserts;
     }
 
     private boolean isDuplicateKeyViolationMessage(String message) {
