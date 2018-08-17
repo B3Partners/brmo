@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Arrays;
@@ -28,6 +29,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.BEGINTIJD_NAME;
 import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.DEFAULT_GEOM_NAME;
 import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.ID_NAME;
+import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.geotools.gml3.ApplicationSchemaConfiguration;
@@ -43,6 +45,7 @@ import org.geotools.data.FeatureStore;
 import org.geotools.data.Transaction;
 import org.geotools.data.simple.SimpleFeatureCollection;
 import org.geotools.factory.CommonFactoryFinder;
+import org.geotools.factory.Hints;
 import org.geotools.feature.FeatureIterator;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
@@ -303,6 +306,38 @@ public class BGTGMLLightLoader {
         } else {
             // als tabel bestaat aannemen dat deze de juiste primary key heeft
             dataStore.setExposePrimaryKeyColumns(true);
+
+            // huidige records verwijderen
+            LOG.info("Probeer tabel leeg te maken: " + targetSchema.getTypeName());
+
+            try {
+                StringBuffer sql = new StringBuffer("TRUNCATE TABLE ");
+                Method encodeTableName = dataStore.getClass().getDeclaredMethod("encodeTableName", String.class, StringBuffer.class, Hints.class);
+                encodeTableName.setAccessible(true);
+                encodeTableName.invoke(dataStore, targetSchema.getTypeName(), sql, null);
+
+                if(this.isOracle) {
+                    sql.append(" PURGE MATERIALIZED VIEW LOG REUSE STORAGE");
+                }
+                LOG.debug("SQL: " + sql.toString());
+                new QueryRunner(dataStore.getDataSource()).update(sql.toString());
+                LOG.info("Tabel leeggemaakt");
+            } catch(Exception e) {
+                LOG.debug("Exception bij TRUNCATE", e);
+                LOG.error("Fout bij TRUNCATE, probeer met DELETE FROM: " + e.getClass() + ": " + e.getMessage());
+
+                try {
+                    StringBuffer sql = new StringBuffer("DELETE FROM ");
+                    Method encodeTableName = dataStore.getClass().getDeclaredMethod("encodeTableName", String.class, StringBuffer.class, Hints.class);
+                    encodeTableName.setAccessible(true);
+                    encodeTableName.invoke(dataStore, targetSchema.getTypeName(), sql, null);
+                    LOG.debug("SQL: " + sql.toString());
+                    new QueryRunner(dataStore.getDataSource()).update(sql.toString());
+                LOG.info("Tabel leeggemaakt met DELETE FROM");
+                } catch(Exception e2) {
+                    LOG.error("Fout bij DELETE FROM, tabel kon niet leeggemaakt worden! ", e2);
+                }
+            }
         }
 
         Transaction transaction = new DefaultTransaction("add-bgt");

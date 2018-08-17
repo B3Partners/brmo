@@ -338,5 +338,10 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>commons-dbutils</groupId>
+            <artifactId>commons-dbutils</artifactId>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 </project>

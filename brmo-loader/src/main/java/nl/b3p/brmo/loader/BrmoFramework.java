@@ -241,7 +241,6 @@ public class BrmoFramework {
         if (soort.equalsIgnoreCase(BR_BGTLIGHT)) {
             // filter soort, als bgt dan als proces verwerken, niet als berichtenset
             worker = new BGTLightRsgbTransformer(dataSourceRsgbBgt, stagingProxy, ids, listener);
-            ((BGTLightRsgbTransformer) worker).setLoadingUpdate(this.orderBerichten);
         } else if(TopNLType.isTopNLType(soort)){
             try{
                 worker = new TopNLRsgbTransformer(dataSourceTopNL, stagingProxy, ids, listener);
