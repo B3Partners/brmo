@@ -58,7 +58,7 @@ CREATE TABLE </xsl:text>
         </xsl:text>
         <xsl:value-of select="md:colName('BEGINTIJD_NAME')" />
         <xsl:text> date,
-        datum_einde_geldh date,
+        tijdstip_registratie </xsl:text><xsl:value-of select="db:type('timestamp')"/><xsl:text>,
         relve_hoogteligging </xsl:text>
         <xsl:value-of select="db:type('integer')"/>
         <xsl:text>,
