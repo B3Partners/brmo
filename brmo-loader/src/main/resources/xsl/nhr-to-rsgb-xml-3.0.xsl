@@ -15,6 +15,7 @@
     <xsl:variable name="hoofdvestiging" select="/cat:maatschappelijkeActiviteit/cat:wordtGeleidVanuit//cat:vestigingsnummer"/>
     <xsl:variable name="peilmoment" select="/*/@peilmoment"/>
     <xsl:variable name="peilmoment-dateTime"><xsl:value-of select="substring($peilmoment,1,4)"/>-<xsl:value-of select="substring($peilmoment,5,2)"/>-<xsl:value-of select="substring($peilmoment,7,2)"/>T<xsl:value-of select="substring($peilmoment,9,2)"/>:<xsl:value-of select="substring($peilmoment,11,2)"/>:<xsl:value-of select="substring($peilmoment,13,2)"/></xsl:variable>
+    <xsl:variable name="peilmomentDate"><xsl:value-of select="substring($peilmoment,1,4)"/>-<xsl:value-of select="substring($peilmoment,5,2)"/>-<xsl:value-of select="substring($peilmoment,7,2)"/></xsl:variable>
 
     <xsl:template match="/">
         <root>
@@ -52,50 +53,52 @@
     <xsl:template name="natPersoon">
         <xsl:variable name="key"><xsl:apply-templates select="." mode="object_ref"/></xsl:variable>
         <xsl:variable name="class">NATUURLIJK PERSOON</xsl:variable>
+        <comfort search-table="subject" search-column="identif" search-value="{$key}" snapshot-date="{$peilmomentDate}">
 
-        <subject>
-            <identif><xsl:value-of select="$key"/></identif>
-            <clazz><xsl:value-of select="$class"/></clazz>
-            <typering><xsl:value-of select="substring($class,1,35)"/></typering>
-            <naam><xsl:value-of select="cat:volledigeNaam"/></naam>
+            <subject>
+                <identif><xsl:value-of select="$key"/></identif>
+                <clazz><xsl:value-of select="$class"/></clazz>
+                <typering><xsl:value-of select="substring($class,1,35)"/></typering>
+                <naam><xsl:value-of select="cat:volledigeNaam"/></naam>
 
-            <xsl:call-template name="subject"/>
-        </subject>
-        <prs>
-            <sc_identif><xsl:value-of select="$key"/></sc_identif>
-            <clazz><xsl:value-of select="$class"/></clazz>
-        </prs>
+                <xsl:call-template name="subject"/>
+            </subject>
+            <prs>
+                <sc_identif><xsl:value-of select="$key"/></sc_identif>
+                <clazz><xsl:value-of select="$class"/></clazz>
+            </prs>
 
-        <nat_prs>
-            <sc_identif><xsl:value-of select="$key"/></sc_identif>
-            <clazz><xsl:value-of select="$class"/></clazz>
-            <aand_naamgebruik>
-                <xsl:choose>
-                    <xsl:when test="cat:aanduidingNaamgebruik = 'EigenGeslachtsnaam'">E</xsl:when>
-                    <xsl:when test="cat:aanduidingNaamgebruik = 'GeslachtsnaamPartner'">P</xsl:when>
-                    <xsl:when test="cat:aanduidingNaamgebruik = 'GeslachtsnaamPartnerNaEigenGeslachtsnaam'">N</xsl:when>
-                    <xsl:when test="cat:aanduidingNaamgebruik = 'GeslachtsnaamPartnerVoorEigenGeslachtsnaam'">V</xsl:when>
-                </xsl:choose>
-            </aand_naamgebruik>
-            <geslachtsaand>
-                <xsl:choose>
-                    <xsl:when test="cat:geslachtsaanduiding = 'Man'">M</xsl:when>
-                    <xsl:when test="cat:geslachtsaanduiding = 'Vrouw'">V</xsl:when>
-                    <xsl:otherwise>O</xsl:otherwise>
-                </xsl:choose>
-            </geslachtsaand>
-            <nm_adellijke_titel_predikaat><xsl:value-of select="cat:adellijkeTitel"/></nm_adellijke_titel_predikaat>
-            <nm_geslachtsnaam><xsl:value-of select="cat:geslachtsnaam"/></nm_geslachtsnaam>
-            <nm_voornamen><xsl:value-of select="cat:voornamen"/></nm_voornamen>
-            <nm_voorvoegsel_geslachtsnaam><xsl:value-of select="cat:voorvoegselGeslachtsnaam"/></nm_voorvoegsel_geslachtsnaam>
-        </nat_prs>
+            <nat_prs>
+                <sc_identif><xsl:value-of select="$key"/></sc_identif>
+                <clazz><xsl:value-of select="$class"/></clazz>
+                <aand_naamgebruik>
+                    <xsl:choose>
+                        <xsl:when test="cat:aanduidingNaamgebruik = 'EigenGeslachtsnaam'">E</xsl:when>
+                        <xsl:when test="cat:aanduidingNaamgebruik = 'GeslachtsnaamPartner'">P</xsl:when>
+                        <xsl:when test="cat:aanduidingNaamgebruik = 'GeslachtsnaamPartnerNaEigenGeslachtsnaam'">N</xsl:when>
+                        <xsl:when test="cat:aanduidingNaamgebruik = 'GeslachtsnaamPartnerVoorEigenGeslachtsnaam'">V</xsl:when>
+                    </xsl:choose>
+                </aand_naamgebruik>
+                <geslachtsaand>
+                    <xsl:choose>
+                        <xsl:when test="cat:geslachtsaanduiding = 'Man'">M</xsl:when>
+                        <xsl:when test="cat:geslachtsaanduiding = 'Vrouw'">V</xsl:when>
+                        <xsl:otherwise>O</xsl:otherwise>
+                    </xsl:choose>
+                </geslachtsaand>
+                <nm_adellijke_titel_predikaat><xsl:value-of select="cat:adellijkeTitel"/></nm_adellijke_titel_predikaat>
+                <nm_geslachtsnaam><xsl:value-of select="cat:geslachtsnaam"/></nm_geslachtsnaam>
+                <nm_voornamen><xsl:value-of select="cat:voornamen"/></nm_voornamen>
+                <nm_voorvoegsel_geslachtsnaam><xsl:value-of select="cat:voorvoegselGeslachtsnaam"/></nm_voorvoegsel_geslachtsnaam>
+            </nat_prs>
 
-        <ingeschr_nat_prs>
-            <sc_identif><xsl:value-of select="$key"/></sc_identif>
-            <clazz><xsl:value-of select="$class"/></clazz>
-            <bsn><xsl:value-of select="cat:bsn"/></bsn>
-            <fk_28nra_sc_identif><xsl:value-of select="cat:woonLocatie/cat:adres/cat:bagId/cat:identificatieAdresseerbaarObject"/></fk_28nra_sc_identif>
-        </ingeschr_nat_prs>
+            <ingeschr_nat_prs>
+                <sc_identif><xsl:value-of select="$key"/></sc_identif>
+                <clazz><xsl:value-of select="$class"/></clazz>
+                <bsn><xsl:value-of select="cat:bsn"/></bsn>
+                <fk_28nra_sc_identif><xsl:value-of select="cat:woonLocatie/cat:adres/cat:bagId/cat:identificatieAdresseerbaarObject"/></fk_28nra_sc_identif>
+            </ingeschr_nat_prs>
+        </comfort>
     </xsl:template>
 
     <xsl:template name="heeft">
