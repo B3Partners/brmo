@@ -78,7 +78,7 @@ public class Mantis11620GmlLightLoaderIntegrationTest extends TestingBase {
         JDBCDataStore dataStore = null;
         try {
             dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(params);
-            FeatureStore store = (FeatureStore) dataStore.getFeatureSource("wegdeel");
+            FeatureStore store = (FeatureStore) dataStore.getFeatureSource(isOracle ? "wegdeel".toUpperCase() : "wegdeel");
             assertEquals("Aantal features is groter dan verwacht. ", expected, store.getFeatures().size());
             dataStore.dispose();
         } finally {
