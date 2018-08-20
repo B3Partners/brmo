@@ -11,21 +11,20 @@ init:
 environment:
   # Microsoft SQL Server 2014 Service Pack 2 heeft een EOL van 9-7-2019
   # Microsoft SQL Server 2016 Service Pack 1 heeft een EOL van 13-7-2021
-  # Microsoft SQL Server 2017 is de jongst-beschikbare release op AppVeyor
+  # Microsoft SQL Server 2017 is de jongst-beschikbare release op AppVeyor, maar testen we op Travis-CI (sneller)
   matrix:
     - SQL: MSSQL$SQL2014
       INSTANCENAME: SQL2014
       JAVA_HOME: C:\Program Files\Java\jdk1.8.0
-    # alleen de oudste en de jongste testen
-    #- SQL: MSSQL$SQL2016
-    #  INSTANCENAME: SQL2016
-    #  JAVA_HOME: C:\Program Files\Java\jdk1.8.0
-    - SQL: MSSQL$SQL2017
-      INSTANCENAME: SQL2017
+    - SQL: MSSQL$SQL2016
+      INSTANCENAME: SQL2016
       JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+  #  - SQL: MSSQL$SQL2017
+  #    INSTANCENAME: SQL2017
+  #    JAVA_HOME: C:\Program Files\Java\jdk1.8.0
 
 matrix:
-  fast_finish: false
+  fast_finish: true
 
 install:
   - cmd: echo %PATH%
@@ -55,7 +54,7 @@ before_test:
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -Q "CREATE DATABASE rsgb" -d "master"
   - dir -w .\datamodel\generated_scripts\
   - sqlcmd -r0 -x -b -S (local)\%INSTANCENAME% -U sa -P Password12! -d "rsgb" -I -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
-# duurt lang en gemeente/wijk geom hebben we niet echt nodig
+# duurt lang en gemeente/wijk geom hebben we niet echt nodig voor de tests
 #  - sqlcmd -r0 -x -b -S (local)\%INSTANCENAME% -U sa -P Password12! -d "rsgb" -I -i .\datamodel\utility_scripts\sqlserver\111a_update_gemeente_geom.sql
 # mislukt op AppVeyor: There is insufficient system memory in resource pool 'internal' to run this query.
 #  - sqlcmd -r0 -x -b -S (local)\%INSTANCENAME% -U sa -P Password12! -d "rsgb" -I -i .\datamodel\utility_scripts\sqlserver\113a_update_wijk_geom.sql
