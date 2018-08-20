@@ -76,7 +76,8 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
             /* min EZ. (nietCommercieleVestiging) */
             {"/nhr-v3/52813150.anon.xml", 3, 1, 2, /*subj*/ 3, 2, 0, "nhr.nietComVestg.000022724362", 1, 52813150, new String[]{"8411"}, 0},
             /*sbb*/
-            {"/nhr-v3/30263544.anon.xml", 3, 1, 2, /*subj*/ 3, 2, 0, "nhr.comVestg.000012461547", 1, 30263544, new String[]{"91042"}, 0},});
+            {"/nhr-v3/30263544.anon.xml", 3, 1, 2, /*subj*/ 3, 2, 0, "nhr.comVestg.000012461547", 1, 30263544, new String[]{"91042"}, 0}
+        });
     }
 
     private static final String BESTANDTYPE = "nhr";
@@ -304,10 +305,11 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         ITable functionaris = rsgb.createDataSet().getTable("functionaris");
         assertEquals("Het aantal 'functionaris' records klopt niet", aantalFunctionarissen, functionaris.getRowCount());
         if (kvkNummer == 41177576) {
-            // er is een Gevolmachtigde Directeur met beperkte volmacht in rij 4
-            assertEquals("Gevolmachtigde", functionaris.getValue(3, "functie"));
-            assertEquals("Directeur", functionaris.getValue(3, "functionaristypering"));
-            assertEquals("B", functionaris.getValue(3, "volledig_beperkt_volmacht"));
+            // er is een Gevolmachtigde Directeur met beperkte volmacht in rij 2
+            // dit is fout gevoelig omdat de volgorde van de rijen anders kan zijn terwijl je dan toch dezelfde data hebt geladen
+            assertEquals("Gevolmachtigde", functionaris.getValue(1, "functie"));
+            assertEquals("Directeur", functionaris.getValue(1, "functionaristypering"));
+            assertEquals("B", functionaris.getValue(1, "volledig_beperkt_volmacht"));
         }
     }
 }

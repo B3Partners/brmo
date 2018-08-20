@@ -52,7 +52,14 @@
 
     <xsl:template name="natPersoon">
         <xsl:variable name="key"><xsl:apply-templates select="." mode="object_ref"/></xsl:variable>
-        <xsl:variable name="class">NATUURLIJK PERSOON</xsl:variable>
+        <!-- als er een bsn is dan INGESCHREVEN NATUURLIJK PERSOON -->
+        <xsl:variable name="class">
+            <xsl:choose>
+                <xsl:when test="cat:bsn"><xsl:text>INGESCHREVEN NATUURLIJK PERSOON</xsl:text></xsl:when>
+                <xsl:otherwise><xsl:text>NATUURLIJK PERSOON</xsl:text></xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
         <comfort search-table="subject" search-column="identif" search-value="{$key}" snapshot-date="{$peilmomentDate}">
 
             <subject>

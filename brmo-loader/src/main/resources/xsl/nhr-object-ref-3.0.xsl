@@ -3,6 +3,19 @@
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02">
 
+    <!-- zoek hash op in mapping tabel -->
+    <xsl:template name="getHash">
+        <xsl:param name="bsn" />
+        <xsl:variable name="bsnwithprefix">
+            <xsl:text>cat:nhr.bsn.natPers.</xsl:text>
+            <xsl:value-of select="$bsn" />
+        </xsl:variable>
+        <xsl:variable name="hashedbsn">
+            <xsl:value-of select="//cat:bsnhashes/*[name()=$bsnwithprefix]" />
+        </xsl:variable>
+        <xsl:value-of select="$hashedbsn" />
+    </xsl:template>
+
     <xsl:template name="get-name-abbr">
         <xsl:variable name="n" select="local-name(.)"/>
         <xsl:choose>
@@ -35,7 +48,10 @@
     <xsl:template match="*[cat:bsn or cat:rsin]" mode="object_ref">
         <xsl:text>nhr.</xsl:text><xsl:call-template name="get-name-abbr"/><xsl:text>.</xsl:text>
         <xsl:if test="cat:bsn">
-            <xsl:text>bsn.</xsl:text><xsl:value-of select="cat:bsn"/>
+            <xsl:text>bsn.</xsl:text>
+            <xsl:call-template name="getHash">
+                <xsl:with-param name="bsn" select="cat:bsn" />
+            </xsl:call-template>
         </xsl:if>
         <xsl:if test="cat:rsin">
             <xsl:text>rsin.</xsl:text><xsl:value-of select="cat:rsin"/>
