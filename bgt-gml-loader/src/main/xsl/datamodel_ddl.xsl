@@ -73,8 +73,7 @@ CREATE TABLE </xsl:text>
         <xsl:for-each select="attribuut">
             <xsl:value-of select="db:addColumn(md:colName(@sqlname),@sqltype)"/>
         </xsl:for-each>
-        <xsl:text>
-        PRIMARY KEY (</xsl:text>
+        <xsl:text>PRIMARY KEY (</xsl:text>
         <xsl:value-of select="md:colName('ID_NAME')" />
         <xsl:text>)
 );
