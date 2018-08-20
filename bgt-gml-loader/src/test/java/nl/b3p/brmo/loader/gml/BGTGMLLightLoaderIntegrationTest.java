@@ -121,7 +121,7 @@ public class BGTGMLLightLoaderIntegrationTest extends TestingBase {
     @Test
     public void testProcessOutOFTimeGMLFile() throws Exception {
         File gml = new File(BGTGMLLightLoaderIntegrationTest.class.getResource("/gmllight/outoftime/bgt_onbegroeidterreindeel.gml").toURI());
-        assertEquals("Aantal geschreven features", 0, ldr.processGMLFile(gml));
+        assertEquals("Aantal geschreven features", 1, ldr.processGMLFile(gml));
     }
 
     /**
