@@ -15,7 +15,7 @@
         <class>nl.b3p.brmo.persistence.staging.AutomatischProces</class>
         <properties>
             <!-- voor lokaal werk... en dan de non-jta-data source uitzetten
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/brmo_persistence"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5434/brmo_persistence"/>
             <property name="javax.persistence.jdbc.password" value="brmo"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.user" value="brmo"/>
