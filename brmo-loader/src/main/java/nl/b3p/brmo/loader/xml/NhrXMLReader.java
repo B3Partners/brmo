@@ -1,10 +1,17 @@
 package nl.b3p.brmo.loader.xml;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
@@ -22,6 +29,10 @@ import nl.b3p.brmo.loader.entity.NhrBerichten;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -29,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class NhrXMLReader extends BrmoXMLReader {
 
-    private static final Log log = LogFactory.getLog(NhrXMLReader.class);
+    private static final Log LOG = LogFactory.getLog(NhrXMLReader.class);
 
     private static Templates splitTemplates;
 
@@ -37,6 +48,8 @@ public class NhrXMLReader extends BrmoXMLReader {
 
     Iterator<NhrBericht> iterator;
     int volgorde = 0;
+
+    public static final String PREFIX = "nhr.bsn.natPers.";
 
     public NhrXMLReader(InputStream in) throws Exception {
         initTemplates();
@@ -65,7 +78,7 @@ public class NhrXMLReader extends BrmoXMLReader {
 
     private synchronized void initTemplates() throws Exception {
         if(splitTemplates == null) {
-            log.info("Initializing NHR split XSL templates...");
+            LOG.info("Initializing NHR split XSL templates...");
             Source xsl = new StreamSource(this.getClass().getResourceAsStream("/xsl/nhr-split-3.0.xsl"));
             TransformerFactory tf = TransformerFactory.newInstance();
             tf.setURIResolver(new URIResolver() {
@@ -96,9 +109,55 @@ public class NhrXMLReader extends BrmoXMLReader {
 
         StringWriter sw = new StringWriter();
         t.transform(new DOMSource(b.getNode().getFirstChild()), new StreamResult(sw));
-        b.setBrXml(sw.toString());
+        // opzoeklijst van bsn en hash toevoegen
+        StringBuilder xml = new StringBuilder(sw.toString());
+        String bsns = getXML(extractBSN(xml.toString()));
+        // insert bsnhashes voor de laatste node
+        xml.insert(xml.lastIndexOf("</"), bsns);
 
+        b.setBrXml(xml.toString());
         b.setVolgordeNummer(volgorde++);
         return b;
+    }
+
+    /**
+     * maakt een map met bsn,bsnhash.
+     *
+     * @param brXml string
+     * @return hashmap met bsn,bsnhash
+     *
+     */
+    public Map<String, String> extractBSN(String brXml) {
+        Map<String, String> bsnHashes = new HashMap<>();
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(new InputSource(new StringReader(brXml)));
+            NodeList nodeList = doc.getElementsByTagName("cat:bsn");
+            int length = nodeList.getLength();
+            for (int i = 0; i < length; i++) {
+                LOG.debug(nodeList.item(i).getTextContent());
+                bsnHashes.put(nodeList.item(i).getTextContent(), getHash(nodeList.item(i).getTextContent()));
+            }
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            LOG.error("Fout tijdens toevoegen bsn hashes", e);
+        }
+        return bsnHashes;
+    }
+
+    public String getXML(Map<String, String> map) throws ParserConfigurationException {
+        StringBuilder root = new StringBuilder();
+        if (!map.isEmpty()) {
+            root.append("<cat:bsnhashes>");
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                if (!entry.getKey().isEmpty() && !entry.getValue().isEmpty()) {
+                    root.append("<cat:").append(PREFIX).append(entry.getKey()).append(">")
+                            .append(entry.getValue())
+                            .append("</cat:").append(PREFIX).append(entry.getKey()).append(">");
+                }
+            }
+            root.append("</cat:bsnhashes>");
+        }
+        return root.toString();
     }
 }
