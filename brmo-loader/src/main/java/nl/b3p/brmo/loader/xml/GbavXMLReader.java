@@ -43,7 +43,7 @@ public class GbavXMLReader extends BrmoXMLReader {
 
     private static final Log log = LogFactory.getLog(GbavXMLReader.class);
     private static final String PERSOON = "persoon";
-    public static final String PREFIX = "NL.GBA.Persoon.";
+    public static final String PREFIX = "NL.BRP.Persoon.";
     private final XMLInputFactory factory = XMLInputFactory.newInstance();
     private final XMLStreamReader streamReader;
     private final Transformer transformer;

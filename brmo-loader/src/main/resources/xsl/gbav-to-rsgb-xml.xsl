@@ -2,13 +2,13 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:java="http://xml.apache.org/xslt/java" exclude-result-prefixes="java">
     <xsl:output method="xml" indent="yes" omit-xml-declaration="no" />
     <!-- @see nl.b3p.brmo.loader.xml.GbavXMLReader#PREFIX -->
-    <xsl:variable name="PREFIX" select="'NL.GBA.Persoon.'" />
+    <xsl:variable name="PREFIX" select="'NL.BRP.Persoon.'" />
     <xsl:param name="objectRef" select="concat($PREFIX,'onbekend')" />
     <xsl:param name="datum" />
     <xsl:param name="volgordeNummer" select="'0'" />
     <xsl:param name="soort" select="'gbav'" />
     <xsl:param name="rsgb-version" select="2.2" />
-    <!-- NB net als voor een aantal andere berihten kunnen landcodes op dit moment niet
+    <!-- NB net als voor een aantal andere berichten kunnen landcodes op dit moment niet
         verwerkt worden omdat rsgb iso codes hanteert en niet NL-overheid-landcodes -->
     <xsl:template match="/">
         <root>
@@ -309,7 +309,7 @@
 
     <!-- maak de tabellen voor een persoon (subject, prs, nat_prs, ingeschr_nat_prs -->
     <xsl:template name="maakPersoon">
-        <!-- sc identif NL.GBA.Persoon.[BSN HexHash] -->
+        <!-- sc identif NL.BRP.Persoon.[BSN HexHash] -->
         <xsl:param name="key" />
         <!-- klasse persoon bijv. 'INGESCHREVEN NATUURLIJK PERSOON' -->
         <xsl:param name="clazz" />
