@@ -16,6 +16,8 @@ public class NhrBericht extends Bericht {
     @XmlAnyElement
     private Element node;
 
+    private boolean hasAddedBSNHashes = false;
+
     public NhrBericht() {
         super(null);
     }
