@@ -80,13 +80,8 @@ public class BGTLightRsgbTransformer implements Runnable {
         params.put("schema", geomjdbc.getSchema());
 
         gmlLoader.setDbConnProps(params);
-        gmlLoader.setBijwerkDatum(new Date());
         gmlLoader.setIsOracle(geomjdbc.getGeotoolsDBTypeName().toLowerCase().contains("oracle"));
         gmlLoader.setIsMSSQL(geomjdbc.getGeotoolsDBTypeName().toLowerCase().contains("sqlserver"));
-    }
-
-    public void setLoadingUpdate(boolean loadingUpdate) {
-        gmlLoader.setLoadingUpdate(loadingUpdate);
     }
 
     @Override

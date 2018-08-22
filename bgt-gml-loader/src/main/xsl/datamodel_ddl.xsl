@@ -58,7 +58,7 @@ CREATE TABLE </xsl:text>
         </xsl:text>
         <xsl:value-of select="md:colName('BEGINTIJD_NAME')" />
         <xsl:text> date,
-        datum_einde_geldh date,
+        tijdstip_registratie </xsl:text><xsl:value-of select="db:type('timestamp')"/><xsl:text>,
         relve_hoogteligging </xsl:text>
         <xsl:value-of select="db:type('integer')"/>
         <xsl:text>,
@@ -73,10 +73,7 @@ CREATE TABLE </xsl:text>
         <xsl:for-each select="attribuut">
             <xsl:value-of select="db:addColumn(md:colName(@sqlname),@sqltype)"/>
         </xsl:for-each>
-        <!-- brmo metadata velden -->
-        <xsl:value-of select="md:colName('BIJWERKDATUM_NAME')" />
-        <xsl:text> date,
-        PRIMARY KEY (</xsl:text>
+        <xsl:text>PRIMARY KEY (</xsl:text>
         <xsl:value-of select="md:colName('ID_NAME')" />
         <xsl:text>)
 );

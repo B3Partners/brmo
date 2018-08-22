@@ -215,7 +215,7 @@
                 <configuration>
                     <databaseType>pgsql</databaseType>
                     <host>localhost</host>
-                    <port>5433</port>
+                    <port>5434</port>
                     <user>rsgb</user>
                     <password>rsgb</password>
                     <database>itest_rsgb</database>

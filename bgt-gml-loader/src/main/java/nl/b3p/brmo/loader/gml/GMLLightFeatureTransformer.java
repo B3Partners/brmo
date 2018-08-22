@@ -44,18 +44,10 @@ public interface GMLLightFeatureTransformer {
     public static final String ID_NAME = "identif";
 
     /**
-     * Naam voor laatst bijgewerkt veld {@value }.
-     */
-    public static final String BIJWERKDATUM_NAME = "bijwerkdatum";
-    /**
      * Naam voor object begin tijd veld {@value }.
      */
     public static final String BEGINTIJD_NAME = "dat_beg_geldh";
 
-    /**
-     * Naam voor object eind tijd veld {@value }.
-     */
-    public static final String EINDTIJD_NAME = "datum_einde_geldh";
     /**
      * Maak nieuw (getransformeerd) featuretype.
      *
@@ -81,5 +73,5 @@ public interface GMLLightFeatureTransformer {
      *
      * @return de getransformeerde feature van het nieuwe type of null
      */
-    SimpleFeature transform(SimpleFeature inFeature, SimpleFeatureType targetType, boolean shouldUppercase, boolean userDefinedPrimaryKey, Date bijwerkDatum);
+    SimpleFeature transform(SimpleFeature inFeature, SimpleFeatureType targetType, boolean shouldUppercase, boolean userDefinedPrimaryKey);
 }

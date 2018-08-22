@@ -1,0 +1,1084 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2018-08-13+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <SOAP-ENV:Header xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                    xmlns:wsa="http://www.w3.org/2005/08/addressing"/>
+   <soap:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+              wsu:Id="id-1-3d6263bfa4dfbd08463acb78b13acc0d">
+      <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                                   peilmoment="20180813144253997">
+         <meldingen>
+            <informatie>
+               <code>IPD0000</code>
+               <omschrijving>Het product is succesvol geproduceerd.</omschrijving>
+               <referentie>52813150</referentie>
+            </informatie>
+         </meldingen>
+         <product>
+            <cat:maatschappelijkeActiviteit xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02">
+               <cat:registratie registratieTijdstip="20110527140918857">
+                  <cat:datumAanvang>00000000</cat:datumAanvang>
+               </cat:registratie>
+               <cat:kvkNummer>52813150</cat:kvkNummer>
+               <cat:nonMailing>
+                  <cat:code>J</cat:code>
+                  <cat:omschrijving>Ja</cat:omschrijving>
+                  <cat:referentieType>geenRT</cat:referentieType>
+               </cat:nonMailing>
+               <cat:pensioenvennootschap>
+                  <cat:code>N</cat:code>
+                  <cat:omschrijving>Nee</cat:omschrijving>
+                  <cat:referentieType>geenRT</cat:referentieType>
+               </cat:pensioenvennootschap>
+               <cat:sbiActiviteit>
+                  <cat:registratie registratieTijdstip="20110527140918857">
+                     <cat:datumAanvang>20101014</cat:datumAanvang>
+                  </cat:registratie>
+                  <cat:sbiCode>
+                     <cat:code>8411</cat:code>
+                     <cat:omschrijving>Algemeen overheidsbestuur</cat:omschrijving>
+                     <cat:referentieType>ActiviteitCode</cat:referentieType>
+                  </cat:sbiCode>
+                  <cat:isHoofdactiviteit>
+                     <cat:code>J</cat:code>
+                     <cat:omschrijving>Ja</cat:omschrijving>
+                     <cat:referentieType>geenRT</cat:referentieType>
+                  </cat:isHoofdactiviteit>
+                  <cat:volgorde>1</cat:volgorde>
+               </cat:sbiActiviteit>
+               <cat:incidenteelUitlenenArbeidskrachten>
+                  <cat:code>N</cat:code>
+                  <cat:omschrijving>Nee</cat:omschrijving>
+                  <cat:referentieType>geenRT</cat:referentieType>
+               </cat:incidenteelUitlenenArbeidskrachten>
+               <cat:bezoekLocatie>
+                  <cat:registratie registratieTijdstip="20121116145020838">
+                     <cat:datumAanvang>20121101</cat:datumAanvang>
+                  </cat:registratie>
+                  <cat:afgeschermd>
+                     <cat:code>N</cat:code>
+                     <cat:omschrijving>Nee</cat:omschrijving>
+                     <cat:referentieType>geenRT</cat:referentieType>
+                  </cat:afgeschermd>
+                  <cat:adres>
+                     <cat:binnenlandsAdres>
+                        <cat:straatnaam>Bezuidenhoutseweg</cat:straatnaam>
+                        <cat:huisnummer>73</cat:huisnummer>
+                        <cat:postcode>
+                           <cat:cijfercombinatie>2594</cat:cijfercombinatie>
+                           <cat:lettercombinatie>AC</cat:lettercombinatie>
+                        </cat:postcode>
+                        <cat:plaats>'s-Gravenhage</cat:plaats>
+                        <cat:bagId>
+                           <cat:identificatieNummeraanduiding>0518200000438772</cat:identificatieNummeraanduiding>
+                           <cat:identificatieAdresseerbaarObject>0518010000438780</cat:identificatieAdresseerbaarObject>
+                        </cat:bagId>
+                     </cat:binnenlandsAdres>
+                  </cat:adres>
+                  <cat:volledigAdres>Bezuidenhoutseweg 73 2594AC 's-Gravenhage</cat:volledigAdres>
+               </cat:bezoekLocatie>
+               <cat:postLocatie>
+                  <cat:registratie registratieTijdstip="20130123100211587">
+                     <cat:datumAanvang>20130101</cat:datumAanvang>
+                  </cat:registratie>
+                  <cat:afgeschermd>
+                     <cat:code>N</cat:code>
+                     <cat:omschrijving>Nee</cat:omschrijving>
+                     <cat:referentieType>geenRT</cat:referentieType>
+                  </cat:afgeschermd>
+                  <cat:adres>
+                     <cat:binnenlandsAdres>
+                        <cat:postbusnummer>20401</cat:postbusnummer>
+                        <cat:postcode>
+                           <cat:cijfercombinatie>2500</cat:cijfercombinatie>
+                           <cat:lettercombinatie>EK</cat:lettercombinatie>
+                        </cat:postcode>
+                        <cat:plaats>'s-Gravenhage</cat:plaats>
+                     </cat:binnenlandsAdres>
+                  </cat:adres>
+                  <cat:volledigAdres>Postbus 20401 2500EK 's-Gravenhage</cat:volledigAdres>
+               </cat:postLocatie>
+               <cat:communicatiegegevens>
+                  <cat:registratie registratieTijdstip="20160825131055694">
+                     <cat:datumAanvang>20160823</cat:datumAanvang>
+                  </cat:registratie>
+                  <cat:communicatienummer>
+                     <cat:toegangscode>+31</cat:toegangscode>
+                     <cat:nummer>0703798911</cat:nummer>
+                     <cat:soort>
+                        <cat:code>T</cat:code>
+                        <cat:omschrijving>Telefoon</cat:omschrijving>
+                     </cat:soort>
+                  </cat:communicatienummer>
+                  <cat:domeinNaam>www.rijksoverheid.nl</cat:domeinNaam>
+               </cat:communicatiegegevens>
+               <cat:naam>Ministerie van Economische Zaken</cat:naam>
+               <cat:wordtUitgeoefendIn>
+                  <cat:relatieRegistratie registratieTijdstip="20110527140918857">
+                     <cat:datumAanvang>20101014</cat:datumAanvang>
+                  </cat:relatieRegistratie>
+                  <cat:nietCommercieleVestiging>
+                     <cat:registratie registratieTijdstip="20110527140918857">
+                        <cat:datumAanvang>20101014</cat:datumAanvang>
+                     </cat:registratie>
+                     <cat:vestigingsnummer>000022724362</cat:vestigingsnummer>
+                     <cat:bezoekLocatie>
+                        <cat:registratie registratieTijdstip="20121116145020838">
+                           <cat:datumAanvang>20121101</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:straatnaam>Bezuidenhoutseweg</cat:straatnaam>
+                              <cat:huisnummer>73</cat:huisnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>2594</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>AC</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>'s-Gravenhage</cat:plaats>
+                              <cat:bagId>
+                                 <cat:identificatieNummeraanduiding>0518200000438772</cat:identificatieNummeraanduiding>
+                                 <cat:identificatieAdresseerbaarObject>0518010000438780</cat:identificatieAdresseerbaarObject>
+                              </cat:bagId>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Bezuidenhoutseweg 73 2594AC 's-Gravenhage</cat:volledigAdres>
+                     </cat:bezoekLocatie>
+                     <cat:postLocatie>
+                        <cat:registratie registratieTijdstip="20130123100211587">
+                           <cat:datumAanvang>20130101</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:postbusnummer>20401</cat:postbusnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>2500</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>EK</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>'s-Gravenhage</cat:plaats>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Postbus 20401 2500EK 's-Gravenhage</cat:volledigAdres>
+                     </cat:postLocatie>
+                     <cat:communicatiegegevens>
+                        <cat:registratie registratieTijdstip="20160825131055694">
+                           <cat:datumAanvang>20160823</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:communicatienummer>
+                           <cat:toegangscode>+31</cat:toegangscode>
+                           <cat:nummer>0703798911</cat:nummer>
+                           <cat:soort>
+                              <cat:code>T</cat:code>
+                              <cat:omschrijving>Telefoon</cat:omschrijving>
+                           </cat:soort>
+                        </cat:communicatienummer>
+                        <cat:domeinNaam>www.rijksoverheid.nl</cat:domeinNaam>
+                     </cat:communicatiegegevens>
+                     <cat:eersteHandelsnaam>Ministerie van Economische Zaken en Klimaat</cat:eersteHandelsnaam>
+                     <cat:naamgeving>
+                        <cat:registratie registratieTijdstip="20171227082231971">
+                           <cat:datumAanvang>20171026</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:naam>Ministerie van Economische Zaken en Klimaat</cat:naam>
+                     </cat:naamgeving>
+                     <cat:activiteiten>
+                        <cat:omschrijving>beleidsvorming economische zaken, landbouw en innovatie: financieel-economische zaken; bedrijfsvoering; wetgeving en juridische zaken.</cat:omschrijving>
+                        <cat:sbiActiviteit>
+                           <cat:registratie registratieTijdstip="20110527140918857">
+                              <cat:datumAanvang>20101014</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:sbiCode>
+                              <cat:code>8411</cat:code>
+                              <cat:omschrijving>Algemeen overheidsbestuur</cat:omschrijving>
+                              <cat:referentieType>ActiviteitCode</cat:referentieType>
+                           </cat:sbiCode>
+                           <cat:isHoofdactiviteit>
+                              <cat:code>J</cat:code>
+                              <cat:omschrijving>Ja</cat:omschrijving>
+                              <cat:referentieType>geenRT</cat:referentieType>
+                           </cat:isHoofdactiviteit>
+                        </cat:sbiActiviteit>
+                     </cat:activiteiten>
+                  </cat:nietCommercieleVestiging>
+               </cat:wordtUitgeoefendIn>
+               <cat:wordtUitgeoefendIn>
+                  <cat:relatieRegistratie registratieTijdstip="20110527140918857">
+                     <cat:datumAanvang>20101014</cat:datumAanvang>
+                  </cat:relatieRegistratie>
+                  <cat:nietCommercieleVestiging>
+                     <cat:registratie registratieTijdstip="20110527140918857">
+                        <cat:datumAanvang>20101014</cat:datumAanvang>
+                     </cat:registratie>
+                     <cat:vestigingsnummer>000022724508</cat:vestigingsnummer>
+                     <cat:bezoekLocatie>
+                        <cat:registratie registratieTijdstip="20110527140918857">
+                           <cat:datumAanvang>20101014</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:straatnaam>Henri Faasdreef</cat:straatnaam>
+                              <cat:huisnummer>312</cat:huisnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>2492</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>JP</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>'s-Gravenhage</cat:plaats>
+                              <cat:bagId>
+                                 <cat:identificatieNummeraanduiding>0518200000452339</cat:identificatieNummeraanduiding>
+                                 <cat:identificatieAdresseerbaarObject>0518010000452341</cat:identificatieAdresseerbaarObject>
+                              </cat:bagId>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Henri Faasdreef 312 2492JP 's-Gravenhage</cat:volledigAdres>
+                     </cat:bezoekLocatie>
+                     <cat:postLocatie>
+                        <cat:registratie registratieTijdstip="20110527140918857">
+                           <cat:datumAanvang>20101014</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:postbusnummer>24037</cat:postbusnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>2490</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>AA</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>'s-Gravenhage</cat:plaats>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Postbus 24037 2490AA 's-Gravenhage</cat:volledigAdres>
+                     </cat:postLocatie>
+                     <cat:communicatiegegevens>
+                        <cat:registratie registratieTijdstip="20110527140918857">
+                           <cat:datumAanvang>20101014</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:communicatienummer>
+                           <cat:toegangscode>+31</cat:toegangscode>
+                           <cat:nummer>0703798400</cat:nummer>
+                           <cat:soort>
+                              <cat:code>T</cat:code>
+                              <cat:omschrijving>Telefoon</cat:omschrijving>
+                           </cat:soort>
+                        </cat:communicatienummer>
+                        <cat:communicatienummer>
+                           <cat:toegangscode>+31</cat:toegangscode>
+                           <cat:nummer>0774656767</cat:nummer>
+                           <cat:soort>
+                              <cat:code>T</cat:code>
+                              <cat:omschrijving>Telefoon</cat:omschrijving>
+                           </cat:soort>
+                        </cat:communicatienummer>
+                        <cat:emailAdres>sodm@minez.nl</cat:emailAdres>
+                        <cat:domeinNaam>www.sodm.nl</cat:domeinNaam>
+                     </cat:communicatiegegevens>
+                     <cat:eersteHandelsnaam>Staatstoezicht op de Mijnen</cat:eersteHandelsnaam>
+                     <cat:naamgeving>
+                        <cat:registratie registratieTijdstip="20110527140918857">
+                           <cat:datumAanvang>20101014</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:naam>Staatstoezicht op de Mijnen</cat:naam>
+                     </cat:naamgeving>
+                     <cat:activiteiten>
+                        <cat:omschrijving>het houden van toezicht op de naleving van wettelijke regelingen die van toepassing zijn op het opsporen, winnen, opslaan en transporteren van delfstoffen, met name voor wat betreft de aspecten veiligheid, gezondheid, milieu, doelmatige winning en bodembewegingen</cat:omschrijving>
+                        <cat:sbiActiviteit>
+                           <cat:registratie registratieTijdstip="20110527140918857">
+                              <cat:datumAanvang>20101014</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:sbiCode>
+                              <cat:code>8411</cat:code>
+                              <cat:omschrijving>Algemeen overheidsbestuur</cat:omschrijving>
+                              <cat:referentieType>ActiviteitCode</cat:referentieType>
+                           </cat:sbiCode>
+                           <cat:isHoofdactiviteit>
+                              <cat:code>J</cat:code>
+                              <cat:omschrijving>Ja</cat:omschrijving>
+                              <cat:referentieType>geenRT</cat:referentieType>
+                           </cat:isHoofdactiviteit>
+                        </cat:sbiActiviteit>
+                     </cat:activiteiten>
+                  </cat:nietCommercieleVestiging>
+               </cat:wordtUitgeoefendIn>
+               <cat:wordtUitgeoefendIn>
+                  <cat:relatieRegistratie registratieTijdstip="20141125150047127">
+                     <cat:datumAanvang>20130401</cat:datumAanvang>
+                  </cat:relatieRegistratie>
+                  <cat:nietCommercieleVestiging>
+                     <cat:registratie registratieTijdstip="20141125150047127">
+                        <cat:datumAanvang>20130401</cat:datumAanvang>
+                     </cat:registratie>
+                     <cat:vestigingsnummer>000031011845</cat:vestigingsnummer>
+                     <cat:bezoekLocatie>
+                        <cat:registratie registratieTijdstip="20141125150047127">
+                           <cat:datumAanvang>20130401</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:straatnaam>Muzenstraat</cat:straatnaam>
+                              <cat:huisnummer>41</cat:huisnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>2511</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>WB</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>'s-Gravenhage</cat:plaats>
+                              <cat:bagId>
+                                 <cat:identificatieNummeraanduiding>0518200000716855</cat:identificatieNummeraanduiding>
+                                 <cat:identificatieAdresseerbaarObject>0518010000716856</cat:identificatieAdresseerbaarObject>
+                              </cat:bagId>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Muzenstraat 41 2511WB 's-Gravenhage</cat:volledigAdres>
+                     </cat:bezoekLocatie>
+                     <cat:postLocatie>
+                        <cat:registratie registratieTijdstip="20141125150047127">
+                           <cat:datumAanvang>20130401</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:postbusnummer>16326</cat:postbusnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>2500</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>BH</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>'S-GRAVENHAGE</cat:plaats>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Postbus 16326 2500BH 'S-GRAVENHAGE</cat:volledigAdres>
+                     </cat:postLocatie>
+                     <cat:communicatiegegevens>
+                        <cat:registratie registratieTijdstip="20141125150047127">
+                           <cat:datumAanvang>20130401</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:communicatienummer>
+                           <cat:toegangscode>+31</cat:toegangscode>
+                           <cat:nummer>0707222000</cat:nummer>
+                           <cat:soort>
+                              <cat:code>T</cat:code>
+                              <cat:omschrijving>Telefoon</cat:omschrijving>
+                           </cat:soort>
+                        </cat:communicatienummer>
+                        <cat:communicatienummer>
+                           <cat:toegangscode>+31</cat:toegangscode>
+                           <cat:nummer>0707222355</cat:nummer>
+                           <cat:soort>
+                              <cat:code>F</cat:code>
+                              <cat:omschrijving>Fax</cat:omschrijving>
+                           </cat:soort>
+                        </cat:communicatienummer>
+                        <cat:domeinNaam>www.acm.nl</cat:domeinNaam>
+                     </cat:communicatiegegevens>
+                     <cat:eersteHandelsnaam>Autoriteit Consument en Markt</cat:eersteHandelsnaam>
+                     <cat:naamgeving>
+                        <cat:registratie registratieTijdstip="20141125150047127">
+                           <cat:datumAanvang>20130401</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:naam>Autoriteit Consument en Markt</cat:naam>
+                     </cat:naamgeving>
+                     <cat:activiteiten>
+                        <cat:omschrijving>Uitvoeren van het beleid en secretariaat voor het bestuur van de Autoriteit Consument en Markt.</cat:omschrijving>
+                        <cat:sbiActiviteit>
+                           <cat:registratie registratieTijdstip="20141125150047127">
+                              <cat:datumAanvang>20130401</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:sbiCode>
+                              <cat:code>8411</cat:code>
+                              <cat:omschrijving>Algemeen overheidsbestuur</cat:omschrijving>
+                              <cat:referentieType>ActiviteitCode</cat:referentieType>
+                           </cat:sbiCode>
+                           <cat:isHoofdactiviteit>
+                              <cat:code>J</cat:code>
+                              <cat:omschrijving>Ja</cat:omschrijving>
+                              <cat:referentieType>geenRT</cat:referentieType>
+                           </cat:isHoofdactiviteit>
+                        </cat:sbiActiviteit>
+                     </cat:activiteiten>
+                  </cat:nietCommercieleVestiging>
+               </cat:wordtUitgeoefendIn>
+               <cat:wordtUitgeoefendIn>
+                  <cat:relatieRegistratie registratieTijdstip="20150206105341763">
+                     <cat:datumAanvang>20141218</cat:datumAanvang>
+                  </cat:relatieRegistratie>
+                  <cat:nietCommercieleVestiging>
+                     <cat:registratie registratieTijdstip="20150206105341763">
+                        <cat:datumAanvang>20141218</cat:datumAanvang>
+                     </cat:registratie>
+                     <cat:vestigingsnummer>000031585213</cat:vestigingsnummer>
+                     <cat:bezoekLocatie>
+                        <cat:registratie registratieTijdstip="20150206105341763">
+                           <cat:datumAanvang>20141218</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:toevoegingAdres>gang D-6</cat:toevoegingAdres>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:straatnaam>Bezuidenhoutseweg</cat:straatnaam>
+                              <cat:huisnummer>73</cat:huisnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>2594</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>AC</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>'s-Gravenhage</cat:plaats>
+                              <cat:bagId>
+                                 <cat:identificatieNummeraanduiding>0518200000438772</cat:identificatieNummeraanduiding>
+                                 <cat:identificatieAdresseerbaarObject>0518010000438780</cat:identificatieAdresseerbaarObject>
+                              </cat:bagId>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Bezuidenhoutseweg 73 gang D-6 2594AC 's-Gravenhage</cat:volledigAdres>
+                     </cat:bezoekLocatie>
+                     <cat:postLocatie>
+                        <cat:registratie registratieTijdstip="20150206105341763">
+                           <cat:datumAanvang>20141218</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:postbusnummer>20401</cat:postbusnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>2500</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>EK</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>'s-Gravenhage</cat:plaats>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Postbus 20401 2500EK 's-Gravenhage</cat:volledigAdres>
+                     </cat:postLocatie>
+                     <cat:communicatiegegevens>
+                        <cat:registratie registratieTijdstip="20160418085502758">
+                           <cat:datumAanvang>20160413</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:communicatienummer>
+                           <cat:toegangscode>+31</cat:toegangscode>
+                           <cat:nummer>09002800028</cat:nummer>
+                           <cat:soort>
+                              <cat:code>T</cat:code>
+                              <cat:omschrijving>Telefoon</cat:omschrijving>
+                           </cat:soort>
+                        </cat:communicatienummer>
+                        <cat:emailAdres>info@zbo-ccd.nl</cat:emailAdres>
+                        <cat:domeinNaam>zbo-ccd.nl</cat:domeinNaam>
+                     </cat:communicatiegegevens>
+                     <cat:eersteHandelsnaam>Centrale Commissie Dierproeven CCD</cat:eersteHandelsnaam>
+                     <cat:naamgeving>
+                        <cat:registratie registratieTijdstip="20150206105341763">
+                           <cat:datumAanvang>20141218</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:naam>Centrale Commissie Dierproeven CCD</cat:naam>
+                     </cat:naamgeving>
+                     <cat:activiteiten>
+                        <cat:omschrijving>Secretariaat voor de Centrale Commissie Dierproeven.</cat:omschrijving>
+                        <cat:sbiActiviteit>
+                           <cat:registratie registratieTijdstip="20150206105341763">
+                              <cat:datumAanvang>20141218</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:sbiCode>
+                              <cat:code>8411</cat:code>
+                              <cat:omschrijving>Algemeen overheidsbestuur</cat:omschrijving>
+                              <cat:referentieType>ActiviteitCode</cat:referentieType>
+                           </cat:sbiCode>
+                           <cat:isHoofdactiviteit>
+                              <cat:code>J</cat:code>
+                              <cat:omschrijving>Ja</cat:omschrijving>
+                              <cat:referentieType>geenRT</cat:referentieType>
+                           </cat:isHoofdactiviteit>
+                        </cat:sbiActiviteit>
+                     </cat:activiteiten>
+                  </cat:nietCommercieleVestiging>
+               </cat:wordtUitgeoefendIn>
+               <cat:wordtUitgeoefendIn>
+                  <cat:relatieRegistratie registratieTijdstip="20160923102828158">
+                     <cat:datumAanvang>20160923</cat:datumAanvang>
+                  </cat:relatieRegistratie>
+                  <cat:nietCommercieleVestiging>
+                     <cat:registratie registratieTijdstip="20160923102828158">
+                        <cat:datumAanvang>20160923</cat:datumAanvang>
+                     </cat:registratie>
+                     <cat:vestigingsnummer>000035478829</cat:vestigingsnummer>
+                     <cat:bezoekLocatie>
+                        <cat:registratie registratieTijdstip="20160923102828158">
+                           <cat:datumAanvang>20160923</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:straatnaam>Bezuidenhoutseweg</cat:straatnaam>
+                              <cat:huisnummer>30</cat:huisnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>2594</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>AV</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>'s-Gravenhage</cat:plaats>
+                              <cat:bagId>
+                                 <cat:identificatieNummeraanduiding>0518200000613255</cat:identificatieNummeraanduiding>
+                                 <cat:identificatieAdresseerbaarObject>0518010000613256</cat:identificatieAdresseerbaarObject>
+                              </cat:bagId>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Bezuidenhoutseweg 30 2594AV 's-Gravenhage</cat:volledigAdres>
+                     </cat:bezoekLocatie>
+                     <cat:postLocatie>
+                        <cat:registratie registratieTijdstip="20160923102828158">
+                           <cat:datumAanvang>20160923</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:straatnaam>Bezuidenhoutseweg</cat:straatnaam>
+                              <cat:huisnummer>30</cat:huisnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>2594</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>AV</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>'s-Gravenhage</cat:plaats>
+                              <cat:bagId>
+                                 <cat:identificatieNummeraanduiding>0518200000613255</cat:identificatieNummeraanduiding>
+                                 <cat:identificatieAdresseerbaarObject>0518010000613256</cat:identificatieAdresseerbaarObject>
+                              </cat:bagId>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Bezuidenhoutseweg 30 2594AV 's-Gravenhage</cat:volledigAdres>
+                     </cat:postLocatie>
+                     <cat:eersteHandelsnaam>Centraal Planbureau</cat:eersteHandelsnaam>
+                     <cat:naamgeving>
+                        <cat:registratie registratieTijdstip="20160923102828158">
+                           <cat:datumAanvang>20160923</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:naam>Centraal Planbureau</cat:naam>
+                     </cat:naamgeving>
+                     <cat:activiteiten>
+                        <cat:omschrijving>Algemeen overheidsbestuur.</cat:omschrijving>
+                        <cat:sbiActiviteit>
+                           <cat:registratie registratieTijdstip="20160923102828158">
+                              <cat:datumAanvang>20160923</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:sbiCode>
+                              <cat:code>8411</cat:code>
+                              <cat:omschrijving>Algemeen overheidsbestuur</cat:omschrijving>
+                              <cat:referentieType>ActiviteitCode</cat:referentieType>
+                           </cat:sbiCode>
+                           <cat:isHoofdactiviteit>
+                              <cat:code>J</cat:code>
+                              <cat:omschrijving>Ja</cat:omschrijving>
+                              <cat:referentieType>geenRT</cat:referentieType>
+                           </cat:isHoofdactiviteit>
+                        </cat:sbiActiviteit>
+                     </cat:activiteiten>
+                  </cat:nietCommercieleVestiging>
+               </cat:wordtUitgeoefendIn>
+               <cat:wordtUitgeoefendIn>
+                  <cat:relatieRegistratie registratieTijdstip="20160923102828158">
+                     <cat:datumAanvang>20160923</cat:datumAanvang>
+                  </cat:relatieRegistratie>
+                  <cat:nietCommercieleVestiging>
+                     <cat:registratie registratieTijdstip="20160923102828158">
+                        <cat:datumAanvang>20160923</cat:datumAanvang>
+                     </cat:registratie>
+                     <cat:vestigingsnummer>000035478837</cat:vestigingsnummer>
+                     <cat:bezoekLocatie>
+                        <cat:registratie registratieTijdstip="20160923102828158">
+                           <cat:datumAanvang>20160923</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:straatnaam>Paterswoldseweg</cat:straatnaam>
+                              <cat:huisnummer>1</cat:huisnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>9726</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>BA</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>Groningen</cat:plaats>
+                              <cat:bagId>
+                                 <cat:identificatieNummeraanduiding>0014200010875551</cat:identificatieNummeraanduiding>
+                                 <cat:identificatieAdresseerbaarObject>0014010011067978</cat:identificatieAdresseerbaarObject>
+                              </cat:bagId>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Paterswoldseweg 1 9726BA Groningen</cat:volledigAdres>
+                     </cat:bezoekLocatie>
+                     <cat:postLocatie>
+                        <cat:registratie registratieTijdstip="20160923102828158">
+                           <cat:datumAanvang>20160923</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:straatnaam>Paterswoldseweg</cat:straatnaam>
+                              <cat:huisnummer>1</cat:huisnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>9726</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>BA</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>Groningen</cat:plaats>
+                              <cat:bagId>
+                                 <cat:identificatieNummeraanduiding>0014200010875551</cat:identificatieNummeraanduiding>
+                                 <cat:identificatieAdresseerbaarObject>0014010011067978</cat:identificatieAdresseerbaarObject>
+                              </cat:bagId>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Paterswoldseweg 1 9726BA Groningen</cat:volledigAdres>
+                     </cat:postLocatie>
+                     <cat:eersteHandelsnaam>Nationaal Coördinator Groningen</cat:eersteHandelsnaam>
+                     <cat:naamgeving>
+                        <cat:registratie registratieTijdstip="20160923102828158">
+                           <cat:datumAanvang>20160923</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:naam>Nationaal Coördinator Groningen</cat:naam>
+                     </cat:naamgeving>
+                     <cat:activiteiten>
+                        <cat:omschrijving>Algemeen overheidsbestuur.</cat:omschrijving>
+                        <cat:sbiActiviteit>
+                           <cat:registratie registratieTijdstip="20160923102828158">
+                              <cat:datumAanvang>20160923</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:sbiCode>
+                              <cat:code>8411</cat:code>
+                              <cat:omschrijving>Algemeen overheidsbestuur</cat:omschrijving>
+                              <cat:referentieType>ActiviteitCode</cat:referentieType>
+                           </cat:sbiCode>
+                           <cat:isHoofdactiviteit>
+                              <cat:code>J</cat:code>
+                              <cat:omschrijving>Ja</cat:omschrijving>
+                              <cat:referentieType>geenRT</cat:referentieType>
+                           </cat:isHoofdactiviteit>
+                        </cat:sbiActiviteit>
+                     </cat:activiteiten>
+                  </cat:nietCommercieleVestiging>
+               </cat:wordtUitgeoefendIn>
+               <cat:wordtUitgeoefendIn>
+                  <cat:relatieRegistratie registratieTijdstip="20161024094644542">
+                     <cat:datumAanvang>20161020</cat:datumAanvang>
+                  </cat:relatieRegistratie>
+                  <cat:nietCommercieleVestiging>
+                     <cat:registratie registratieTijdstip="20161024094644542">
+                        <cat:datumAanvang>20161020</cat:datumAanvang>
+                     </cat:registratie>
+                     <cat:vestigingsnummer>000035685921</cat:vestigingsnummer>
+                     <cat:bezoekLocatie>
+                        <cat:registratie registratieTijdstip="20161024094644542">
+                           <cat:datumAanvang>20161020</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:straatnaam>Rijnstraat</cat:straatnaam>
+                              <cat:huisnummer>50</cat:huisnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>2515</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>XP</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>'s-Gravenhage</cat:plaats>
+                              <cat:bagId>
+                                 <cat:identificatieNummeraanduiding>0518200000518264</cat:identificatieNummeraanduiding>
+                                 <cat:identificatieAdresseerbaarObject>0518010000518265</cat:identificatieAdresseerbaarObject>
+                              </cat:bagId>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Rijnstraat 50 2515XP 's-Gravenhage</cat:volledigAdres>
+                     </cat:bezoekLocatie>
+                     <cat:postLocatie>
+                        <cat:registratie registratieTijdstip="20161024094644542">
+                           <cat:datumAanvang>20161020</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:straatnaam>Rijnstraat</cat:straatnaam>
+                              <cat:huisnummer>50</cat:huisnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>2515</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>XP</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>'s-Gravenhage</cat:plaats>
+                              <cat:bagId>
+                                 <cat:identificatieNummeraanduiding>0518200000518264</cat:identificatieNummeraanduiding>
+                                 <cat:identificatieAdresseerbaarObject>0518010000518265</cat:identificatieAdresseerbaarObject>
+                              </cat:bagId>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Rijnstraat 50 2515XP 's-Gravenhage</cat:volledigAdres>
+                     </cat:postLocatie>
+                     <cat:eersteHandelsnaam>Adviescollege Toetsing Regeldruk (ATR)</cat:eersteHandelsnaam>
+                     <cat:naamgeving>
+                        <cat:registratie registratieTijdstip="20180124110617907">
+                           <cat:datumAanvang>20170517</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:naam>Adviescollege Toetsing Regeldruk (ATR)</cat:naam>
+                        <cat:ookGenoemd>ATR voorheen Actal</cat:ookGenoemd>
+                     </cat:naamgeving>
+                     <cat:activiteiten>
+                        <cat:omschrijving>Algemeen onverheidsbestuur.</cat:omschrijving>
+                        <cat:sbiActiviteit>
+                           <cat:registratie registratieTijdstip="20161024094644542">
+                              <cat:datumAanvang>20161020</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:sbiCode>
+                              <cat:code>8411</cat:code>
+                              <cat:omschrijving>Algemeen overheidsbestuur</cat:omschrijving>
+                              <cat:referentieType>ActiviteitCode</cat:referentieType>
+                           </cat:sbiCode>
+                           <cat:isHoofdactiviteit>
+                              <cat:code>J</cat:code>
+                              <cat:omschrijving>Ja</cat:omschrijving>
+                              <cat:referentieType>geenRT</cat:referentieType>
+                           </cat:isHoofdactiviteit>
+                        </cat:sbiActiviteit>
+                     </cat:activiteiten>
+                  </cat:nietCommercieleVestiging>
+               </cat:wordtUitgeoefendIn>
+               <cat:wordtUitgeoefendIn>
+                  <cat:relatieRegistratie registratieTijdstip="20161024094644542">
+                     <cat:datumAanvang>20161020</cat:datumAanvang>
+                  </cat:relatieRegistratie>
+                  <cat:nietCommercieleVestiging>
+                     <cat:registratie registratieTijdstip="20161024094644542">
+                        <cat:datumAanvang>20161020</cat:datumAanvang>
+                     </cat:registratie>
+                     <cat:vestigingsnummer>000035685956</cat:vestigingsnummer>
+                     <cat:bezoekLocatie>
+                        <cat:registratie registratieTijdstip="20171002084600296">
+                           <cat:datumAanvang>20171001</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:straatnaam>Graadt van Roggenweg</cat:straatnaam>
+                              <cat:huisnummer>500</cat:huisnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>3531</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>AH</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>Utrecht</cat:plaats>
+                              <cat:bagId>
+                                 <cat:identificatieNummeraanduiding>0344200000149471</cat:identificatieNummeraanduiding>
+                                 <cat:identificatieAdresseerbaarObject>0344010000088337</cat:identificatieAdresseerbaarObject>
+                              </cat:bagId>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Graadt van Roggenweg 500 3531AH Utrecht</cat:volledigAdres>
+                     </cat:bezoekLocatie>
+                     <cat:postLocatie>
+                        <cat:registratie registratieTijdstip="20171002084600296">
+                           <cat:datumAanvang>20171001</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:straatnaam>Graadt van Roggenweg</cat:straatnaam>
+                              <cat:huisnummer>500</cat:huisnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>3531</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>AH</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>Utrecht</cat:plaats>
+                              <cat:bagId>
+                                 <cat:identificatieNummeraanduiding>0344200000149471</cat:identificatieNummeraanduiding>
+                                 <cat:identificatieAdresseerbaarObject>0344010000088337</cat:identificatieAdresseerbaarObject>
+                              </cat:bagId>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Graadt van Roggenweg 500 3531AH Utrecht</cat:volledigAdres>
+                     </cat:postLocatie>
+                     <cat:eersteHandelsnaam>Regiebureau Plattelandsontwikkelingsprogramma (POP)</cat:eersteHandelsnaam>
+                     <cat:naamgeving>
+                        <cat:registratie registratieTijdstip="20161024094644542">
+                           <cat:datumAanvang>20161020</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:naam>Regiebureau Plattelandsontwikkelingsprogramma (POP)</cat:naam>
+                     </cat:naamgeving>
+                     <cat:activiteiten>
+                        <cat:omschrijving>Algemeen overheidsbestuur.</cat:omschrijving>
+                        <cat:sbiActiviteit>
+                           <cat:registratie registratieTijdstip="20161024094644542">
+                              <cat:datumAanvang>20161020</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:sbiCode>
+                              <cat:code>8411</cat:code>
+                              <cat:omschrijving>Algemeen overheidsbestuur</cat:omschrijving>
+                              <cat:referentieType>ActiviteitCode</cat:referentieType>
+                           </cat:sbiCode>
+                           <cat:isHoofdactiviteit>
+                              <cat:code>J</cat:code>
+                              <cat:omschrijving>Ja</cat:omschrijving>
+                              <cat:referentieType>geenRT</cat:referentieType>
+                           </cat:isHoofdactiviteit>
+                        </cat:sbiActiviteit>
+                     </cat:activiteiten>
+                  </cat:nietCommercieleVestiging>
+               </cat:wordtUitgeoefendIn>
+               <cat:wordtGeleidVanuit>
+                  <cat:nietCommercieleVestiging>
+                     <cat:registratie registratieTijdstip="20110527140918857">
+                        <cat:datumAanvang>20101014</cat:datumAanvang>
+                     </cat:registratie>
+                     <cat:vestigingsnummer>000022724362</cat:vestigingsnummer>
+                     <cat:bezoekLocatie>
+                        <cat:registratie registratieTijdstip="20121116145020838">
+                           <cat:datumAanvang>20121101</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:straatnaam>Bezuidenhoutseweg</cat:straatnaam>
+                              <cat:huisnummer>73</cat:huisnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>2594</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>AC</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>'s-Gravenhage</cat:plaats>
+                              <cat:bagId>
+                                 <cat:identificatieNummeraanduiding>0518200000438772</cat:identificatieNummeraanduiding>
+                                 <cat:identificatieAdresseerbaarObject>0518010000438780</cat:identificatieAdresseerbaarObject>
+                              </cat:bagId>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Bezuidenhoutseweg 73 2594AC 's-Gravenhage</cat:volledigAdres>
+                     </cat:bezoekLocatie>
+                     <cat:postLocatie>
+                        <cat:registratie registratieTijdstip="20130123100211587">
+                           <cat:datumAanvang>20130101</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:postbusnummer>20401</cat:postbusnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>2500</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>EK</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>'s-Gravenhage</cat:plaats>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Postbus 20401 2500EK 's-Gravenhage</cat:volledigAdres>
+                     </cat:postLocatie>
+                     <cat:communicatiegegevens>
+                        <cat:registratie registratieTijdstip="20160825131055694">
+                           <cat:datumAanvang>20160823</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:communicatienummer>
+                           <cat:toegangscode>+31</cat:toegangscode>
+                           <cat:nummer>0703798911</cat:nummer>
+                           <cat:soort>
+                              <cat:code>T</cat:code>
+                              <cat:omschrijving>Telefoon</cat:omschrijving>
+                           </cat:soort>
+                        </cat:communicatienummer>
+                        <cat:domeinNaam>www.rijksoverheid.nl</cat:domeinNaam>
+                     </cat:communicatiegegevens>
+                     <cat:eersteHandelsnaam>Ministerie van Economische Zaken en Klimaat</cat:eersteHandelsnaam>
+                     <cat:naamgeving>
+                        <cat:registratie registratieTijdstip="20171227082231971">
+                           <cat:datumAanvang>20171026</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:naam>Ministerie van Economische Zaken en Klimaat</cat:naam>
+                     </cat:naamgeving>
+                     <cat:activiteiten>
+                        <cat:omschrijving>beleidsvorming economische zaken, landbouw en innovatie: financieel-economische zaken; bedrijfsvoering; wetgeving en juridische zaken.</cat:omschrijving>
+                        <cat:sbiActiviteit>
+                           <cat:registratie registratieTijdstip="20110527140918857">
+                              <cat:datumAanvang>20101014</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:sbiCode>
+                              <cat:code>8411</cat:code>
+                              <cat:omschrijving>Algemeen overheidsbestuur</cat:omschrijving>
+                              <cat:referentieType>ActiviteitCode</cat:referentieType>
+                           </cat:sbiCode>
+                           <cat:isHoofdactiviteit>
+                              <cat:code>J</cat:code>
+                              <cat:omschrijving>Ja</cat:omschrijving>
+                              <cat:referentieType>geenRT</cat:referentieType>
+                           </cat:isHoofdactiviteit>
+                        </cat:sbiActiviteit>
+                     </cat:activiteiten>
+                  </cat:nietCommercieleVestiging>
+               </cat:wordtGeleidVanuit>
+               <cat:heeftAlsEigenaar>
+                  <cat:relatieRegistratie registratieTijdstip="20110527140918857">
+                     <cat:datumAanvang>00000000</cat:datumAanvang>
+                  </cat:relatieRegistratie>
+                  <cat:rechtspersoon>
+                     <cat:registratie registratieTijdstip="20110527140918857">
+                        <cat:datumAanvang>00000000</cat:datumAanvang>
+                     </cat:registratie>
+                     <cat:persoonRechtsvorm>Publiekrechtelijke Rechtspersoon</cat:persoonRechtsvorm>
+                     <cat:volledigeNaam>Ministerie van Economische Zaken</cat:volledigeNaam>
+                     <cat:uitgebreideRechtsvorm>Publiekrechtelijke Rechtspersoon: De Staat (Ministerie)</cat:uitgebreideRechtsvorm>
+                     <cat:heeft>
+                        <cat:gemachtigde>
+                           <cat:registratie registratieTijdstip="20171227082231971">
+                              <cat:datumAanvang>20171026</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:functietitel>
+                              <cat:registratie registratieTijdstip="20171227082231971">
+                                 <cat:datumAanvang>20171026</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:titel>Besluit mandaat, volmacht en machtiging EZK 2017</cat:titel>
+                              <cat:isStatutaireTitel>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:isStatutaireTitel>
+                           </cat:functietitel>
+                           <cat:door>
+                              <cat:naamPersoon/>
+                           </cat:door>
+                           <cat:functie>
+                              <cat:code>24</cat:code>
+                              <cat:omschrijving>Privaatrechtelijk gevolmachtigde</cat:omschrijving>
+                              <cat:referentieType>FunctionarisRol</cat:referentieType>
+                           </cat:functie>
+                           <cat:volmacht>
+                              <cat:registratie registratieTijdstip="20171227082231971">
+                                 <cat:datumAanvang>20171026</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:typeVolmacht>
+                                 <cat:code>b</cat:code>
+                                 <cat:omschrijving>Beperkte volmacht</cat:omschrijving>
+                                 <cat:referentieType>VolmachtType</cat:referentieType>
+                              </cat:typeVolmacht>
+                              <cat:isStatutair>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:isStatutair>
+                              <cat:beperkteVolmacht>
+                                 <cat:magOpgaveHandelsregisterDoen>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:magOpgaveHandelsregisterDoen>
+                                 <cat:heeftOverigeVolmacht>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:heeftOverigeVolmacht>
+                              </cat:beperkteVolmacht>
+                           </cat:volmacht>
+                        </cat:gemachtigde>
+                     </cat:heeft>
+                     <cat:rsin>003166946</cat:rsin>
+                     <cat:naamgeving>
+                        <cat:registratie registratieTijdstip="20130102092550381">
+                           <cat:datumAanvang>20130101</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:naam>Ministerie van Economische Zaken</cat:naam>
+                     </cat:naamgeving>
+                     <cat:rechtsvorm>
+                        <cat:code>PR</cat:code>
+                        <cat:omschrijving>Publiekrechtelijke Rechtspersoon</cat:omschrijving>
+                        <cat:referentieType>Rechtsvorm</cat:referentieType>
+                     </cat:rechtsvorm>
+                     <cat:publiekrechtelijkeRechtsvorm>
+                        <cat:code>01</cat:code>
+                        <cat:omschrijving>De Staat (Ministerie)</cat:omschrijving>
+                        <cat:referentieType>NadereSpecificatiePubliekrechtelijkeRechtsvorm</cat:referentieType>
+                     </cat:publiekrechtelijkeRechtsvorm>
+                     <cat:datumEersteInschrijvingHandelsregister>20110527</cat:datumEersteInschrijvingHandelsregister>
+                     <cat:bezoekLocatie>
+                        <cat:registratie registratieTijdstip="20121116145020838">
+                           <cat:datumAanvang>20121101</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:straatnaam>Bezuidenhoutseweg</cat:straatnaam>
+                              <cat:huisnummer>73</cat:huisnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>2594</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>AC</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>'s-Gravenhage</cat:plaats>
+                              <cat:bagId>
+                                 <cat:identificatieNummeraanduiding>0518200000438772</cat:identificatieNummeraanduiding>
+                                 <cat:identificatieAdresseerbaarObject>0518010000438780</cat:identificatieAdresseerbaarObject>
+                              </cat:bagId>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Bezuidenhoutseweg 73 2594AC 's-Gravenhage</cat:volledigAdres>
+                     </cat:bezoekLocatie>
+                  </cat:rechtspersoon>
+               </cat:heeftAlsEigenaar>
+            </cat:maatschappelijkeActiviteit>
+         </product>
+      </ophalenInschrijvingResponse>
+   </soap:Body>
+</soap:Envelope>

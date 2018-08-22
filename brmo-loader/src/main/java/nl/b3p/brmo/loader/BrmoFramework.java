@@ -50,7 +50,7 @@ public class BrmoFramework {
 
     public static final String XSL_BRK = "/xsl/brk-snapshot-to-rsgb-xml.xsl";
     public static final String XSL_BAG = "/xsl/bag-mutatie-to-rsgb-xml.xsl";
-    public static final String XSL_NHR = "/xsl/nhr-to-rsgb-xml-2.5.xsl";
+    public static final String XSL_NHR = "/xsl/nhr-to-rsgb-xml-3.0.xsl";
     public static final String XSL_BRP = "/xsl/brp-to-rsgb-xml.xsl";
     public static final String XSL_GBAV = "/xsl/gbav-to-rsgb-xml.xsl";
 
@@ -241,7 +241,6 @@ public class BrmoFramework {
         if (soort.equalsIgnoreCase(BR_BGTLIGHT)) {
             // filter soort, als bgt dan als proces verwerken, niet als berichtenset
             worker = new BGTLightRsgbTransformer(dataSourceRsgbBgt, stagingProxy, ids, listener);
-            ((BGTLightRsgbTransformer) worker).setLoadingUpdate(this.orderBerichten);
         } else if(TopNLType.isTopNLType(soort)){
             try{
                 worker = new TopNLRsgbTransformer(dataSourceTopNL, stagingProxy, ids, listener);

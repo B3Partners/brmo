@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2018-08-13+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <SOAP-ENV:Header xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                    xmlns:wsa="http://www.w3.org/2005/08/addressing"/>
+   <soap:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+              wsu:Id="id-1-0e59d63c042de2d873a0f91530b0126b">
+      <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                                   peilmoment="20180810102728027">
+         <meldingen>
+            <informatie>
+               <code>IPD0000</code>
+               <omschrijving>Het product is succesvol geproduceerd.</omschrijving>
+               <referentie>32122905</referentie>
+            </informatie>
+         </meldingen>
+         <product>
+            <cat:maatschappelijkeActiviteit xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02">
+               <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <cat:datumAanvang>20070404</cat:datumAanvang>
+               </cat:registratie>
+               <cat:kvkNummer>32122905</cat:kvkNummer>
+               <cat:nonMailing>
+                  <cat:code>N</cat:code>
+                  <cat:omschrijving>Nee</cat:omschrijving>
+                  <cat:referentieType>geenRT</cat:referentieType>
+               </cat:nonMailing>
+               <cat:pensioenvennootschap>
+                  <cat:code>N</cat:code>
+                  <cat:omschrijving>Nee</cat:omschrijving>
+                  <cat:referentieType>geenRT</cat:referentieType>
+               </cat:pensioenvennootschap>
+               <cat:sbiActiviteit>
+                  <cat:registratie registratieTijdstip="20140412044819585">
+                     <cat:datumAanvang>20140412</cat:datumAanvang>
+                  </cat:registratie>
+                  <cat:sbiCode>
+                     <cat:code>7112</cat:code>
+                     <cat:omschrijving>Ingenieurs en overig technisch ontwerp en advies</cat:omschrijving>
+                     <cat:referentieType>ActiviteitCode</cat:referentieType>
+                  </cat:sbiCode>
+                  <cat:isHoofdactiviteit>
+                     <cat:code>J</cat:code>
+                     <cat:omschrijving>Ja</cat:omschrijving>
+                     <cat:referentieType>geenRT</cat:referentieType>
+                  </cat:isHoofdactiviteit>
+                  <cat:volgorde>1</cat:volgorde>
+               </cat:sbiActiviteit>
+               <cat:incidenteelUitlenenArbeidskrachten>
+                  <cat:code>N</cat:code>
+                  <cat:omschrijving>Nee</cat:omschrijving>
+                  <cat:referentieType>geenRT</cat:referentieType>
+               </cat:incidenteelUitlenenArbeidskrachten>
+               <cat:bezoekLocatie>
+                  <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <cat:datumAanvang>20070404</cat:datumAanvang>
+                  </cat:registratie>
+                  <cat:afgeschermd>
+                     <cat:code>N</cat:code>
+                     <cat:omschrijving>Nee</cat:omschrijving>
+                     <cat:referentieType>geenRT</cat:referentieType>
+                  </cat:afgeschermd>
+                  <cat:adres>
+                     <cat:binnenlandsAdres>
+                        <cat:straatnaam>Barchman Wuytierslaan</cat:straatnaam>
+                        <cat:huisnummer>10</cat:huisnummer>
+                        <cat:postcode>
+                           <cat:cijfercombinatie>3818</cat:cijfercombinatie>
+                           <cat:lettercombinatie>LH</cat:lettercombinatie>
+                        </cat:postcode>
+                        <cat:plaats>Amersfoort</cat:plaats>
+                        <cat:bagId>
+                           <cat:identificatieNummeraanduiding>0307200000456181</cat:identificatieNummeraanduiding>
+                           <cat:identificatieAdresseerbaarObject>0307010000456182</cat:identificatieAdresseerbaarObject>
+                        </cat:bagId>
+                     </cat:binnenlandsAdres>
+                  </cat:adres>
+                  <cat:volledigAdres>Barchman Wuytierslaan 10 3818LH Amersfoort</cat:volledigAdres>
+               </cat:bezoekLocatie>
+               <cat:postLocatie>
+                  <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <cat:datumAanvang>20070404</cat:datumAanvang>
+                  </cat:registratie>
+                  <cat:afgeschermd>
+                     <cat:code>N</cat:code>
+                     <cat:omschrijving>Nee</cat:omschrijving>
+                     <cat:referentieType>geenRT</cat:referentieType>
+                  </cat:afgeschermd>
+                  <cat:adres>
+                     <cat:binnenlandsAdres>
+                        <cat:postbusnummer>508</cat:postbusnummer>
+                        <cat:postcode>
+                           <cat:cijfercombinatie>3800</cat:cijfercombinatie>
+                           <cat:lettercombinatie>AM</cat:lettercombinatie>
+                        </cat:postcode>
+                        <cat:plaats>Amersfoort</cat:plaats>
+                     </cat:binnenlandsAdres>
+                  </cat:adres>
+                  <cat:volledigAdres>Postbus 508 3800AM Amersfoort</cat:volledigAdres>
+               </cat:postLocatie>
+               <cat:communicatiegegevens>
+                  <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <cat:datumAanvang>20070404</cat:datumAanvang>
+                  </cat:registratie>
+                  <cat:communicatienummer>
+                     <cat:toegangscode>+31</cat:toegangscode>
+                     <cat:nummer>0334604100</cat:nummer>
+                     <cat:soort>
+                        <cat:code>T</cat:code>
+                        <cat:omschrijving>Telefoon</cat:omschrijving>
+                     </cat:soort>
+                  </cat:communicatienummer>
+               </cat:communicatiegegevens>
+               <cat:naam>Stichting Geonovum</cat:naam>
+               <cat:heeftAlsEigenaar>
+                  <cat:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <cat:datumAanvang>20070404</cat:datumAanvang>
+                  </cat:relatieRegistratie>
+                  <cat:rechtspersoon>
+                     <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <cat:datumAanvang>20070404</cat:datumAanvang>
+                     </cat:registratie>
+                     <cat:persoonRechtsvorm>Stichting</cat:persoonRechtsvorm>
+                     <cat:volledigeNaam>Stichting Geonovum</cat:volledigeNaam>
+                     <cat:uitgebreideRechtsvorm>Stichting</cat:uitgebreideRechtsvorm>
+                     <cat:heeft>
+                        <cat:gemachtigde>
+                           <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <cat:datumAanvang>20070404</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:door>
+                              <cat:natuurlijkPersoon>
+                                 <cat:volledigeNaam>000d19 e57 c4a 2f 3f615</cat:volledigeNaam>
+                                 <!--Anonimisatie 'cat:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><cat:bezoekLocatiePersoon>
+                                    <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                       <cat:datumAanvang>00000000</cat:datumAanvang>
+                                    </cat:registratie>
+                                    <cat:afgeschermd>
+                                       <cat:code>N</cat:code>
+                                       <cat:omschrijving>Nee</cat:omschrijving>
+                                       <cat:referentieType>geenRT</cat:referentieType>
+                                    </cat:afgeschermd>
+                                    <cat:adres>
+                                       <cat:binnenlandsAdres>
+                                          <cat:straatnaam>Groeneweg</cat:straatnaam>
+                                          <cat:huisnummer>7</cat:huisnummer>
+                                          <cat:postcode>
+                                             <cat:cijfercombinatie>3911</cat:cijfercombinatie>
+                                             <cat:lettercombinatie>PD</cat:lettercombinatie>
+                                          </cat:postcode>
+                                          <cat:plaats>Rhenen</cat:plaats>
+                                          <cat:bagId>
+                                             <cat:identificatieNummeraanduiding>0340200000348569</cat:identificatieNummeraanduiding>
+                                             <cat:identificatieAdresseerbaarObject>0340010000348570</cat:identificatieAdresseerbaarObject>
+                                          </cat:bagId>
+                                       </cat:binnenlandsAdres>
+                                    </cat:adres>
+                                    <cat:volledigAdres>Groeneweg 7 3911PD Rhenen</cat:volledigAdres>
+                                 </cat:bezoekLocatiePersoon>
+                                 <cat:bsn>751414861</cat:bsn>
+                                 <!--Anonimisatie 'cat:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><cat:geslachtsnaam>15f60</cat:geslachtsnaam>
+                                 <!--Anonimisatie 'cat:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><cat:voorvoegselGeslachtsnaam>2a3 f8</cat:voorvoegselGeslachtsnaam>
+                                 <!--Anonimisatie 'cat:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><cat:voornamen>38ba99 bbb</cat:voornamen>
+                                 <!--Anonimisatie 'cat:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><cat:geboorteplaats>85978de4089bd</cat:geboorteplaats>
+                                 <!--Anonimisatie 'cat:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><cat:geboorteland>
+                                    <cat:code>6030</cat:code>
+                                    <cat:omschrijving>Nederland</cat:omschrijving>
+                                    <cat:referentieType>Land</cat:referentieType>
+                                 </cat:geboorteland>
+                                 <cat:geboortedatum>20180323</cat:geboortedatum>
+                                 <!--Anonimisatie 'cat:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></cat:natuurlijkPersoon>
+                           </cat:door>
+                           <cat:functie>
+                              <cat:code>01</cat:code>
+                              <cat:omschrijving>Gevolmachtigde</cat:omschrijving>
+                              <cat:referentieType>FunctionarisRol</cat:referentieType>
+                           </cat:functie>
+                           <cat:volmacht>
+                              <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <cat:datumAanvang>20070404</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:typeVolmacht>
+                                 <cat:code>b</cat:code>
+                                 <cat:omschrijving>Beperkte volmacht</cat:omschrijving>
+                                 <cat:referentieType>VolmachtType</cat:referentieType>
+                              </cat:typeVolmacht>
+                              <cat:isStatutair>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:isStatutair>
+                              <cat:beperkteVolmacht>
+                                 <cat:magOpgaveHandelsregisterDoen>
+                                    <cat:code>N</cat:code>
+                                    <cat:omschrijving>Nee</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:magOpgaveHandelsregisterDoen>
+                                 <cat:heeftOverigeVolmacht>
+                                    <cat:code>J</cat:code>
+                                    <cat:omschrijving>Ja</cat:omschrijving>
+                                    <cat:referentieType>geenRT</cat:referentieType>
+                                 </cat:heeftOverigeVolmacht>
+                                 <cat:omschrijvingOverigeVolmacht>Beperkte volmacht; voor inhoud volmacht
+raadpleeg dossier</cat:omschrijvingOverigeVolmacht>
+                              </cat:beperkteVolmacht>
+                           </cat:volmacht>
+                        </cat:gemachtigde>
+                     </cat:heeft>
+                     <cat:heeft>
+                        <cat:bestuursfunctie>
+                           <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <cat:datumAanvang>20070628</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:functietitel>
+                              <cat:registratie registratieTijdstip="20140611113802532">
+                                 <cat:datumAanvang>20140609</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:titel>Penningmeester</cat:titel>
+                              <cat:isStatutaireTitel>
+                                 <cat:code>J</cat:code>
+                                 <cat:omschrijving>Ja</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:isStatutaireTitel>
+                           </cat:functietitel>
+                           <cat:door>
+                              <cat:natuurlijkPersoon>
+                                 <cat:persoonRechtsvorm>Eenmanszaak</cat:persoonRechtsvorm>
+                                 <cat:volledigeNaam>ae86c6c 1b4e330 77975b48</cat:volledigeNaam>
+                                 <!--Anonimisatie 'cat:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><cat:bezoekLocatiePersoon>
+                                    <cat:registratie registratieTijdstip="20131028163654489">
+                                       <cat:datumAanvang>00000000</cat:datumAanvang>
+                                    </cat:registratie>
+                                    <cat:afgeschermd>
+                                       <cat:code>N</cat:code>
+                                       <cat:omschrijving>Nee</cat:omschrijving>
+                                       <cat:referentieType>geenRT</cat:referentieType>
+                                    </cat:afgeschermd>
+                                    <cat:adres>
+                                       <cat:binnenlandsAdres>
+                                          <cat:straatnaam>Ooster Boekelweg</cat:straatnaam>
+                                          <cat:huisnummer>21</cat:huisnummer>
+                                          <cat:postcode>
+                                             <cat:cijfercombinatie>1661</cat:cijfercombinatie>
+                                             <cat:lettercombinatie>BT</cat:lettercombinatie>
+                                          </cat:postcode>
+                                          <cat:plaats>De Weere</cat:plaats>
+                                          <cat:bagId>
+                                             <cat:identificatieNummeraanduiding>0432200000009506</cat:identificatieNummeraanduiding>
+                                             <cat:identificatieAdresseerbaarObject>0432010000003227</cat:identificatieAdresseerbaarObject>
+                                          </cat:bagId>
+                                       </cat:binnenlandsAdres>
+                                    </cat:adres>
+                                    <cat:volledigAdres>Ooster Boekelweg 21 1661BT De Weere</cat:volledigAdres>
+                                 </cat:bezoekLocatiePersoon>
+                                 <cat:bsn>162094112</cat:bsn>
+                                 <!--Anonimisatie 'cat:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><cat:geslachtsnaam>4acde393</cat:geslachtsnaam>
+                                 <!--Anonimisatie 'cat:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><cat:voornamen>c7fb55b 46a0ef2</cat:voornamen>
+                                 <!--Anonimisatie 'cat:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><cat:geboorteplaats>fd73f7d61</cat:geboorteplaats>
+                                 <!--Anonimisatie 'cat:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><cat:geboorteland>
+                                    <cat:code>6030</cat:code>
+                                    <cat:omschrijving>Nederland</cat:omschrijving>
+                                    <cat:referentieType>Land</cat:referentieType>
+                                 </cat:geboorteland>
+                                 <cat:geboortedatum>19330218</cat:geboortedatum>
+                                 <!--Anonimisatie 'cat:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></cat:natuurlijkPersoon>
+                           </cat:door>
+                           <cat:functie>
+                              <cat:code>02</cat:code>
+                              <cat:omschrijving>Bestuurder</cat:omschrijving>
+                              <cat:referentieType>FunctionarisRol</cat:referentieType>
+                           </cat:functie>
+                           <cat:bevoegdheid>
+                              <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <cat:datumAanvang>20070628</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:soort>
+                                 <cat:code>gb</cat:code>
+                                 <cat:omschrijving>Gezamenlijk bevoegd</cat:omschrijving>
+                                 <cat:referentieType>SoortBevoegdheidBestuurder</cat:referentieType>
+                              </cat:soort>
+                              <cat:isBevoegdMetAnderePersonen>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:isBevoegdMetAnderePersonen>
+                           </cat:bevoegdheid>
+                        </cat:bestuursfunctie>
+                     </cat:heeft>
+                     <cat:heeft>
+                        <cat:bestuursfunctie>
+                           <cat:registratie registratieTijdstip="20140611113802532">
+                              <cat:datumAanvang>20140609</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:functietitel>
+                              <cat:registratie registratieTijdstip="20140611113802532">
+                                 <cat:datumAanvang>20140609</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:titel>Secretaris</cat:titel>
+                              <cat:isStatutaireTitel>
+                                 <cat:code>J</cat:code>
+                                 <cat:omschrijving>Ja</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:isStatutaireTitel>
+                           </cat:functietitel>
+                           <cat:door>
+                              <cat:natuurlijkPersoon>
+                                 <cat:volledigeNaam>e9a501b7f 75de0 3db568c3ea 80790f715 5 741184</cat:volledigeNaam>
+                                 <!--Anonimisatie 'cat:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><cat:bezoekLocatiePersoon>
+                                    <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                       <cat:datumAanvang>00000000</cat:datumAanvang>
+                                    </cat:registratie>
+                                    <cat:afgeschermd>
+                                       <cat:code>N</cat:code>
+                                       <cat:omschrijving>Nee</cat:omschrijving>
+                                       <cat:referentieType>geenRT</cat:referentieType>
+                                    </cat:afgeschermd>
+                                    <cat:adres>
+                                       <cat:binnenlandsAdres>
+                                          <cat:straatnaam>Hoorn</cat:straatnaam>
+                                          <cat:huisnummer>105</cat:huisnummer>
+                                          <cat:postcode>
+                                             <cat:cijfercombinatie>2404</cat:cijfercombinatie>
+                                             <cat:lettercombinatie>HH</cat:lettercombinatie>
+                                          </cat:postcode>
+                                          <cat:plaats>Alphen aan den Rijn</cat:plaats>
+                                          <cat:bagId>
+                                             <cat:identificatieNummeraanduiding>0484200000010043</cat:identificatieNummeraanduiding>
+                                             <cat:identificatieAdresseerbaarObject>0484010000010043</cat:identificatieAdresseerbaarObject>
+                                          </cat:bagId>
+                                       </cat:binnenlandsAdres>
+                                    </cat:adres>
+                                    <cat:volledigAdres>Hoorn 105 2404HH Alphen aan den Rijn</cat:volledigAdres>
+                                 </cat:bezoekLocatiePersoon>
+                                 <cat:bsn>434152630</cat:bsn>
+                                 <!--Anonimisatie 'cat:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><cat:geslachtsnaam>79f840</cat:geslachtsnaam>
+                                 <!--Anonimisatie 'cat:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><cat:voornamen>d8967ef21 63734 5aa715ae4e</cat:voornamen>
+                                 <!--Anonimisatie 'cat:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><cat:geboorteplaats>d9107ff5904</cat:geboorteplaats>
+                                 <!--Anonimisatie 'cat:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><cat:geboorteland>
+                                    <cat:code>6030</cat:code>
+                                    <cat:omschrijving>Nederland</cat:omschrijving>
+                                    <cat:referentieType>Land</cat:referentieType>
+                                 </cat:geboorteland>
+                                 <cat:geboortedatum>19580305</cat:geboortedatum>
+                                 <!--Anonimisatie 'cat:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></cat:natuurlijkPersoon>
+                           </cat:door>
+                           <cat:functie>
+                              <cat:code>02</cat:code>
+                              <cat:omschrijving>Bestuurder</cat:omschrijving>
+                              <cat:referentieType>FunctionarisRol</cat:referentieType>
+                           </cat:functie>
+                           <cat:bevoegdheid>
+                              <cat:registratie registratieTijdstip="20140611113802532">
+                                 <cat:datumAanvang>20140609</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:soort>
+                                 <cat:code>gb</cat:code>
+                                 <cat:omschrijving>Gezamenlijk bevoegd</cat:omschrijving>
+                                 <cat:referentieType>SoortBevoegdheidBestuurder</cat:referentieType>
+                              </cat:soort>
+                              <cat:isBevoegdMetAnderePersonen>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:isBevoegdMetAnderePersonen>
+                           </cat:bevoegdheid>
+                        </cat:bestuursfunctie>
+                     </cat:heeft>
+                     <cat:heeft>
+                        <cat:bestuursfunctie>
+                           <cat:registratie registratieTijdstip="20160212090147618">
+                              <cat:datumAanvang>20160201</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:functietitel>
+                              <cat:registratie registratieTijdstip="20160212090147618">
+                                 <cat:datumAanvang>20160201</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:titel>Voorzitter</cat:titel>
+                              <cat:isStatutaireTitel>
+                                 <cat:code>J</cat:code>
+                                 <cat:omschrijving>Ja</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:isStatutaireTitel>
+                           </cat:functietitel>
+                           <cat:door>
+                              <cat:natuurlijkPersoon>
+                                 <cat:volledigeNaam>f5c10e c27e601 7a60cba6</cat:volledigeNaam>
+                                 <!--Anonimisatie 'cat:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><cat:bezoekLocatiePersoon>
+                                    <cat:registratie registratieTijdstip="20170208223053041">
+                                       <cat:datumAanvang>00000000</cat:datumAanvang>
+                                    </cat:registratie>
+                                    <cat:afgeschermd>
+                                       <cat:code>N</cat:code>
+                                       <cat:omschrijving>Nee</cat:omschrijving>
+                                       <cat:referentieType>geenRT</cat:referentieType>
+                                    </cat:afgeschermd>
+                                    <cat:adres>
+                                       <cat:binnenlandsAdres>
+                                          <cat:straatnaam>Regentesselaan</cat:straatnaam>
+                                          <cat:huisnummer>74</cat:huisnummer>
+                                          <cat:postcode>
+                                             <cat:cijfercombinatie>2562</cat:cijfercombinatie>
+                                             <cat:lettercombinatie>CV</cat:lettercombinatie>
+                                          </cat:postcode>
+                                          <cat:plaats>'s-Gravenhage</cat:plaats>
+                                          <cat:bagId>
+                                             <cat:identificatieNummeraanduiding>0518200001749752</cat:identificatieNummeraanduiding>
+                                             <cat:identificatieAdresseerbaarObject>0518010001749771</cat:identificatieAdresseerbaarObject>
+                                          </cat:bagId>
+                                       </cat:binnenlandsAdres>
+                                    </cat:adres>
+                                    <cat:volledigAdres>Regentesselaan 74 2562CV 's-Gravenhage</cat:volledigAdres>
+                                 </cat:bezoekLocatiePersoon>
+                                 <cat:bsn>327587738</cat:bsn>
+                                 <!--Anonimisatie 'cat:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><cat:geslachtsnaam>c11edbf0</cat:geslachtsnaam>
+                                 <!--Anonimisatie 'cat:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><cat:voornamen>e09db0 0db06fe</cat:voornamen>
+                                 <!--Anonimisatie 'cat:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><cat:geboorteplaats>237f0708ed</cat:geboorteplaats>
+                                 <!--Anonimisatie 'cat:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><cat:geboorteland>
+                                    <cat:code>6030</cat:code>
+                                    <cat:omschrijving>Nederland</cat:omschrijving>
+                                    <cat:referentieType>Land</cat:referentieType>
+                                 </cat:geboorteland>
+                                 <cat:geboortedatum>19620800</cat:geboortedatum>
+                                 <!--Anonimisatie 'cat:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></cat:natuurlijkPersoon>
+                           </cat:door>
+                           <cat:functie>
+                              <cat:code>02</cat:code>
+                              <cat:omschrijving>Bestuurder</cat:omschrijving>
+                              <cat:referentieType>FunctionarisRol</cat:referentieType>
+                           </cat:functie>
+                           <cat:bevoegdheid>
+                              <cat:registratie registratieTijdstip="20160212090147618">
+                                 <cat:datumAanvang>20160201</cat:datumAanvang>
+                              </cat:registratie>
+                              <cat:soort>
+                                 <cat:code>gb</cat:code>
+                                 <cat:omschrijving>Gezamenlijk bevoegd</cat:omschrijving>
+                                 <cat:referentieType>SoortBevoegdheidBestuurder</cat:referentieType>
+                              </cat:soort>
+                              <cat:isBevoegdMetAnderePersonen>
+                                 <cat:code>N</cat:code>
+                                 <cat:omschrijving>Nee</cat:omschrijving>
+                                 <cat:referentieType>geenRT</cat:referentieType>
+                              </cat:isBevoegdMetAnderePersonen>
+                           </cat:bevoegdheid>
+                        </cat:bestuursfunctie>
+                     </cat:heeft>
+                     <cat:rsin>817834175</cat:rsin>
+                     <cat:naamgeving>
+                        <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <cat:datumAanvang>20070404</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:naam>Stichting Geonovum</cat:naam>
+                     </cat:naamgeving>
+                     <cat:rechtsvorm>
+                        <cat:code>ST</cat:code>
+                        <cat:omschrijving>Stichting</cat:omschrijving>
+                        <cat:referentieType>Rechtsvorm</cat:referentieType>
+                     </cat:rechtsvorm>
+                     <cat:statutaireZetel>Amersfoort</cat:statutaireZetel>
+                     <cat:aanvangStatutaireZetel>20070404</cat:aanvangStatutaireZetel>
+                     <cat:datumAkteOprichting>20070404</cat:datumAkteOprichting>
+                     <cat:datumOprichting>00000000</cat:datumOprichting>
+                     <cat:datumEersteInschrijvingHandelsregister>20070406</cat:datumEersteInschrijvingHandelsregister>
+                     <cat:datumAkteStatutenwijziging>20150202</cat:datumAkteStatutenwijziging>
+                     <cat:datumLaatsteStatutenwijziging>20150202</cat:datumLaatsteStatutenwijziging>
+                     <cat:bezoekLocatie>
+                        <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <cat:datumAanvang>20070404</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:straatnaam>Barchman Wuytierslaan</cat:straatnaam>
+                              <cat:huisnummer>10</cat:huisnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>3818</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>LH</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>Amersfoort</cat:plaats>
+                              <cat:bagId>
+                                 <cat:identificatieNummeraanduiding>0307200000456181</cat:identificatieNummeraanduiding>
+                                 <cat:identificatieAdresseerbaarObject>0307010000456182</cat:identificatieAdresseerbaarObject>
+                              </cat:bagId>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Barchman Wuytierslaan 10 3818LH Amersfoort</cat:volledigAdres>
+                     </cat:bezoekLocatie>
+                     <cat:postLocatie>
+                        <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <cat:datumAanvang>20070404</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:afgeschermd>
+                           <cat:code>N</cat:code>
+                           <cat:omschrijving>Nee</cat:omschrijving>
+                           <cat:referentieType>geenRT</cat:referentieType>
+                        </cat:afgeschermd>
+                        <cat:adres>
+                           <cat:binnenlandsAdres>
+                              <cat:postbusnummer>508</cat:postbusnummer>
+                              <cat:postcode>
+                                 <cat:cijfercombinatie>3800</cat:cijfercombinatie>
+                                 <cat:lettercombinatie>AM</cat:lettercombinatie>
+                              </cat:postcode>
+                              <cat:plaats>Amersfoort</cat:plaats>
+                           </cat:binnenlandsAdres>
+                        </cat:adres>
+                        <cat:volledigAdres>Postbus 508 3800AM Amersfoort</cat:volledigAdres>
+                     </cat:postLocatie>
+                     <cat:activiteiten>
+                        <cat:omschrijving>De ontwikkeling, standaardisering en innovatie van de geo-informatie infrastructuur De uitbouw en verspreiding van kennis op het gebied van geo-informatie De bevordering van de toegankelijkheid van de geo-informatie infrastructuur voor bestuurdersorganen, instellingen en diensten binne Nederland en de organisaties van lidstaten, die nationaal of regionaal de geo- informatie infrastructuur van de betreffende lidstaat mede bepalen</cat:omschrijving>
+                        <cat:sbiActiviteit>
+                           <cat:registratie registratieTijdstip="20140412044819585">
+                              <cat:datumAanvang>20140412</cat:datumAanvang>
+                           </cat:registratie>
+                           <cat:sbiCode>
+                              <cat:code>7112</cat:code>
+                              <cat:omschrijving>Ingenieurs en overig technisch ontwerp en advies</cat:omschrijving>
+                              <cat:referentieType>ActiviteitCode</cat:referentieType>
+                           </cat:sbiCode>
+                           <cat:isHoofdactiviteit>
+                              <cat:code>J</cat:code>
+                              <cat:omschrijving>Ja</cat:omschrijving>
+                              <cat:referentieType>geenRT</cat:referentieType>
+                           </cat:isHoofdactiviteit>
+                        </cat:sbiActiviteit>
+                     </cat:activiteiten>
+                     <cat:communicatiegegevens>
+                        <cat:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <cat:datumAanvang>20070404</cat:datumAanvang>
+                        </cat:registratie>
+                        <cat:communicatienummer>
+                           <cat:toegangscode>+31</cat:toegangscode>
+                           <cat:nummer>0334604100</cat:nummer>
+                           <cat:soort>
+                              <cat:code>T</cat:code>
+                              <cat:omschrijving>Telefoon</cat:omschrijving>
+                           </cat:soort>
+                        </cat:communicatienummer>
+                     </cat:communicatiegegevens>
+                  </cat:rechtspersoon>
+               </cat:heeftAlsEigenaar>
+            </cat:maatschappelijkeActiviteit>
+         </product>
+      </ophalenInschrijvingResponse>
+   </soap:Body>
+</soap:Envelope>
