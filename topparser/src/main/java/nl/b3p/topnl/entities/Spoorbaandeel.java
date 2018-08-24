@@ -16,8 +16,8 @@
  */
 package nl.b3p.topnl.entities;
 
-import com.vividsolutions.jts.geom.LineString;
-import com.vividsolutions.jts.geom.Point;
+import org.locationtech.jts.geom.LineString;
+import org.locationtech.jts.geom.Point;
 
 /**
  *

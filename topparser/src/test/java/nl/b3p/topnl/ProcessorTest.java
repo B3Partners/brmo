@@ -16,7 +16,7 @@
  */
 package nl.b3p.topnl;
 
-import com.vividsolutions.jts.io.ParseException;
+import org.locationtech.jts.io.ParseException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;

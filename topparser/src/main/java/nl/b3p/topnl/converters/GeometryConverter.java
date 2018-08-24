@@ -16,10 +16,10 @@
  */
 package nl.b3p.topnl.converters;
 
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.PrecisionModel;
-import com.vividsolutions.jts.simplify.DouglasPeuckerSimplifier;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.PrecisionModel;
+import org.locationtech.jts.simplify.DouglasPeuckerSimplifier;
 import java.io.IOException;
 import java.io.InvalidClassException;
 import java.io.StringReader;

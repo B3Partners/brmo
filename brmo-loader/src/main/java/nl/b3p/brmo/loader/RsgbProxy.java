@@ -1,6 +1,6 @@
 package nl.b3p.brmo.loader;
 
-import com.vividsolutions.jts.io.ParseException;
+import org.locationtech.jts.io.ParseException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;

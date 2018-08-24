@@ -16,7 +16,7 @@
  */
 package nl.b3p.topnl.entities;
 
-import com.vividsolutions.jts.geom.LineString;
+import org.locationtech.jts.geom.LineString;
 import java.math.BigInteger;
 
 /**

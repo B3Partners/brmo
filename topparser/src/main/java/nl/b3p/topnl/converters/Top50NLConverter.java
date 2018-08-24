@@ -16,9 +16,9 @@
  */
 package nl.b3p.topnl.converters;
 
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.LineString;
-import com.vividsolutions.jts.geom.Polygon;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.LineString;
+import org.locationtech.jts.geom.Polygon;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

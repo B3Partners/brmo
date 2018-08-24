@@ -3,8 +3,8 @@
  */
 package nl.b3p.brmo.bgt.util;
 
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.io.WKTReader;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.io.WKTReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Set;
@@ -42,14 +42,14 @@ public class PDOKBGTLightUtil {
      * @param jsonUrl url naar de pdok bgt gml light index
      * @return lijst met grid ids
      *
-     * @see #calculateGridIds(com.vividsolutions.jts.geom.Geometry,
+     * @see #calculateGridIds(org.locationtech.jts.geom.Geometry,
      * org.geotools.data.simple.SimpleFeatureCollection)
      */
     public static Set<Integer> calculateGridIds(String wktGeom, String jsonUrl) {
         Geometry geometry = null;
         SimpleFeatureCollection fc = null;
         try {
-            com.vividsolutions.jts.geom.GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory();
+            org.locationtech.jts.geom.GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory();
             WKTReader reader = new WKTReader(geometryFactory);
             geometry = reader.read(wktGeom);
             geometry.setSRID(28992);
@@ -65,7 +65,7 @@ public class PDOKBGTLightUtil {
                 LOG.warn("Aanmaken van tileinfo featuretype is mislukt", se);
             }
             fc = (SimpleFeatureCollection) io.readFeatureCollection(json.toString());
-        } catch (com.vividsolutions.jts.io.ParseException ex) {
+        } catch (org.locationtech.jts.io.ParseException ex) {
             LOG.error("Parsen van de WKT selectie geometrie is mislukt", ex);
         } catch (IOException | org.json.simple.parser.ParseException io) {
             LOG.error("Ophalen of parsen van de geojson file met tiles is mislukt", io);

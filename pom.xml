@@ -60,7 +60,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <netbeans.hint.license>gpl30</netbeans.hint.license>
         <hibernate.version>3.6.10.Final</hibernate.version>
-        <geotools.version>19.2</geotools.version>
+        <geotools.version>20-RC</geotools.version>
+        <jts.version>1.16.0-RC1</jts.version>
         <postgresql.jdbc.version>42.2.5</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2.2.1</postgresql.postgis-jdbc.version>
         <!--
@@ -165,7 +166,7 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>jdbc-util</artifactId>
-                <version>1.12</version>
+                <version>1.13-SNAPSHOT</version>
             </dependency>
 
             <dependency>
@@ -201,10 +202,9 @@
 
             <!-- spatial -->
             <dependency>
-                <!-- geotools 19.0 gebruikt JTS 1.14.0 -->
-                <groupId>com.vividsolutions</groupId>
+                <groupId>org.locationtech.jts</groupId>
                 <artifactId>jts-core</artifactId>
-                <version>1.14.0</version>
+                <version>${jts.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.geotools</groupId>
