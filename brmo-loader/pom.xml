@@ -105,10 +105,6 @@
             <artifactId>gt-jdbc-sqlserver</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.geolatte</groupId>
-            <artifactId>geolatte-geom</artifactId>
-        </dependency>
-        <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>bgt-gml-loader</artifactId>
             <version>1.6.1-SNAPSHOT</version>
