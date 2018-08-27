@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 B3Partners B.V.
+ * Copyright (C) 2018 B3Partners B.V.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +26,6 @@ package nl.b3p.brmo.test.util.database;
  * @note marker interface
  * @see org.junit.experimental.categories.Category
  */
-public interface OracleDriverBasedFailures {
+public interface MSSqlServerDriverBasedFailures {
 
 }

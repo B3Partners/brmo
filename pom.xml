@@ -97,7 +97,7 @@
         <test.hsqldb.version>2.4.1</test.hsqldb.version>
         <test.onlyITs>false</test.onlyITs>
         <maven.surefire.version>2.22.0</maven.surefire.version>
-        <jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
         <versions-maven-plugin.version>2.5</versions-maven-plugin.version>
         <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
         <maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
@@ -165,7 +165,7 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>jdbc-util</artifactId>
-                <version>1.11</version>
+                <version>1.12</version>
             </dependency>
 
             <dependency>
