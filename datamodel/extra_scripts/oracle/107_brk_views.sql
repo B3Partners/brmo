@@ -1,7 +1,7 @@
 /*
 Views for visualizing the BRK data.
 versie 2
-26-6-2018
+28-8-2018
 */
 --drop view v_subject cascade;
 --drop view v_avg_subject cascade;
@@ -62,13 +62,14 @@ versie 2
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'm_subject', 'objectid', 'assigned');
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'm_avg_subject', 'objectid', 'assigned');
 
---REFRESH MATERIALIZED VIEW m_kad_onrrnd_zk_adres;
---REFRESH MATERIALIZED VIEW m_koz_rechth;
---REFRESH MATERIALIZED VIEW m_avg_koz_rechth;
---REFRESH MATERIALIZED VIEW m_avg_subject;
---REFRESH MATERIALIZED VIEW m_subject;
---REFRESH MATERIALIZED VIEW m_zr_rechth;
---REFRESH MATERIALIZED VIEW m_avg_zr_rechth;
+--DBMS_SNAPSHOT.REFRESH( 'm_subject','c'); 
+--DBMS_SNAPSHOT.REFRESH( 'm_avg_subject','c'); 
+--DBMS_SNAPSHOT.REFRESH( 'm_kad_onrrnd_zk_adres','c'); 
+--DBMS_SNAPSHOT.REFRESH( 'm_zr_rechth','c'); 
+--DBMS_SNAPSHOT.REFRESH( 'm_avg_zr_rechth','c'); 
+--DBMS_SNAPSHOT.REFRESH( 'm_koz_rechth','c'); 
+--DBMS_SNAPSHOT.REFRESH( 'm_avg_koz_rechth','c'); 
+
 
 alter session set query_rewrite_integrity=stale_tolerated;
 
@@ -114,37 +115,62 @@ SELECT
     CASE
         WHEN (nnp.naam IS NOT NULL)
         THEN CAST(nnp.naam AS CHARACTER VARYING(1000))
-        ELSE CAST
-        
-        (((
-        
-        ((COALESCE(np.nm_voornamen, CAST('' AS CHARACTER VARYING(1)) )) || ' ') 
-        ||
-        ((COALESCE(np.nm_voorvoegsel_geslachtsnaam, CAST('' AS CHARACTER VARYING(1))) )) || ' ')
-        || 
-        ((COALESCE(np.nm_geslachtsnaam, CAST('' AS CHARACTER VARYING(1))) ))
-            
+        ELSE CAST(
+        				((
+        				((COALESCE(np.nm_voornamen, CAST('' AS CHARACTER VARYING(1)) )) || ' ') 
+        				||
+        				((COALESCE(np.nm_voorvoegsel_geslachtsnaam, CAST('' AS CHARACTER VARYING(1))) )) || ' ')
+        				|| 
+        				((COALESCE(np.nm_geslachtsnaam, CAST('' AS CHARACTER VARYING(1))) ))
             ) AS CHARACTER VARYING(1000))
     END                     AS naam,
     inp.va_loc_beschrijving AS woonadres,
     CASE
         WHEN (((s.clazz) = 'INGESCHREVEN NATUURLIJK PERSOON')
             AND LENGTH(inp.gb_geboortedatum)=8)
-        THEN to_date(TO_CHAR(inp.gb_geboortedatum, '99999999'), 'YYYYMMDD')
+        THEN CAST(
+                SUBSTR(TO_CHAR(inp.gb_geboortedatum,'99999999'),2,4) || '-' || 
+                SUBSTR(TO_CHAR(inp.gb_geboortedatum,'99999999'),6,2) || '-' || 
+                SUBSTR(TO_CHAR(inp.gb_geboortedatum,'99999999'),8,2) 
+                AS VARCHAR(10))
         WHEN (((s.clazz) = 'ANDER NATUURLIJK PERSOON')
             AND LENGTH(anp.geboortedatum)=8)
-        THEN to_date(TO_CHAR(anp.geboortedatum, '99999999'), 'YYYYMMDD')
-        ELSE CAST(NULL AS DATE)
+        THEN CAST(
+                SUBSTR(TO_CHAR(anp.geboortedatum, '99999999'),2,4) || '-' || 
+                SUBSTR(TO_CHAR(anp.geboortedatum, '99999999'),6,2) || '-' || 
+                SUBSTR(TO_CHAR(anp.geboortedatum, '99999999'),8,2)  
+                AS VARCHAR(10))
+        WHEN (((s.clazz) = 'INGESCHREVEN NATUURLIJK PERSOON')
+            AND LENGTH(inp.gb_geboortedatum)=5)
+        THEN CAST('0001-01-01' AS VARCHAR(10))
+        WHEN (((s.clazz) = 'ANDER NATUURLIJK PERSOON')
+            AND LENGTH(anp.geboortedatum)=5)
+        THEN CAST('0001-01-01' AS VARCHAR(10))
+        ELSE CAST(NULL AS VARCHAR(10))
     END                   AS geboortedatum,
     inp.gb_geboorteplaats AS geboorteplaats,
-    CASE
+     CASE
         WHEN (((s.clazz) = 'INGESCHREVEN NATUURLIJK PERSOON')
             AND LENGTH(inp.ol_overlijdensdatum)=8)
-        THEN to_date(TO_CHAR(inp.ol_overlijdensdatum, '99999999'), 'YYYYMMDD')
+        THEN CAST(
+                SUBSTR(TO_CHAR(inp.ol_overlijdensdatum,'99999999'),2,4) || '-' || 
+                SUBSTR(TO_CHAR(inp.ol_overlijdensdatum,'99999999'),6,2) || '-' || 
+                SUBSTR(TO_CHAR(inp.ol_overlijdensdatum,'99999999'),8,2) 
+                AS VARCHAR(10))
         WHEN (((s.clazz) = 'ANDER NATUURLIJK PERSOON')
             AND LENGTH(anp.overlijdensdatum)=8)
-        THEN to_date(TO_CHAR(anp.overlijdensdatum, '99999999'), 'YYYYMMDD')
-        ELSE CAST(NULL AS DATE)
+        THEN CAST(
+                SUBSTR(TO_CHAR(anp.overlijdensdatum, '99999999'),2,4) || '-' || 
+                SUBSTR(TO_CHAR(anp.overlijdensdatum, '99999999'),6,2) || '-' || 
+                SUBSTR(TO_CHAR(anp.overlijdensdatum, '99999999'),8,2)  
+                AS VARCHAR(10))
+        WHEN (((s.clazz) = 'INGESCHREVEN NATUURLIJK PERSOON')
+            AND LENGTH(inp.ol_overlijdensdatum)=5)
+        THEN CAST('0001-01-01' AS VARCHAR(10))
+        WHEN (((s.clazz) = 'ANDER NATUURLIJK PERSOON')
+            AND LENGTH(anp.overlijdensdatum)=5)
+        THEN CAST('0001-01-01' AS VARCHAR(10))
+        ELSE CAST(NULL AS VARCHAR(10))
     END AS overlijdensdatum,
     inp.bsn,
     nnp.naam AS organisatie_naam,
@@ -553,12 +579,12 @@ SELECT
     *
 FROM
     v_kad_onrrnd_zk_adres;
-CREATE UNIQUE INDEX m_kad_onrrnd_zk_adres_objectid ON m_kad_onrrnd_zk_adres(objectid ASC);
-CREATE INDEX m_kad_onrrnd_zk_adres_identif ON m_kad_onrrnd_zk_adres(koz_identif ASC);
-CREATE INDEX m_kad_onrrnd_zk_adres_begrenzing_perceel_idx ON m_kad_onrrnd_zk_adres (begrenzing_perceel)  indextype is mdsys.spatial_index;
+CREATE UNIQUE INDEX M_KAD_ONRRND_ZK_ADRES_OBJECTID ON M_KAD_ONRRND_ZK_ADRES(OBJECTID ASC);
+CREATE INDEX M_KAD_ONRRND_ZK_ADRES_IDENTIF ON M_KAD_ONRRND_ZK_ADRES(KOZ_IDENTIF ASC);
+INSERT INTO USER_SDO_GEOM_METADATA VALUES ('M_KAD_ONRRND_ZK_ADRES', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+CREATE INDEX M_KAD_ONRRND_ZK_ADRES_BEGRENZING_PERCEEL_IDX ON M_KAD_ONRRND_ZK_ADRES (BEGRENZING_PERCEEL)  INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
-delete from user_sdo_geom_metadata where TABLE_NAME ='m_kad_onrrnd_zk_adres';
-insert into user_sdo_geom_metadata values ('m_kad_onrrnd_zk_adres', 'begrenzing_perceel', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+INSERT INTO USER_SDO_GEOM_METADATA VALUES ('M_KAD_ONRRND_ZK_ADRES', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
 
 
 COMMENT ON MATERIALIZED VIEW m_kad_onrrnd_zk_adres
@@ -706,8 +732,8 @@ SELECT
     *
 FROM
     v_zr_rechth;
-CREATE UNIQUE INDEX m_zr_rechth_objectid ON m_zr_rechth(objectid ASC);
-CREATE INDEX m_zr_rechth_identif ON m_zr_rechth(zr_identif ASC);
+CREATE UNIQUE INDEX M_ZR_RECHTH_OBJECTID ON M_ZR_RECHTH(OBJECTID ASC);
+CREATE INDEX M_ZR_RECHTH_IDENTIF ON M_ZR_RECHTH(ZR_IDENTIF ASC);
 
 COMMENT ON MATERIALIZED VIEW m_zr_rechth
 IS
@@ -983,12 +1009,11 @@ SELECT
     *
 FROM
     v_koz_rechth;
-CREATE UNIQUE INDEX m_koz_rechth_objectid ON m_koz_rechth(objectid ASC);
-CREATE INDEX m_koz_rechth_identif ON m_koz_rechth(koz_identif ASC);
-CREATE INDEX m_koz_rechth_begrenzing_perceel_idx ON m_koz_rechth(begrenzing_perceel)  indextype is mdsys.spatial_index;
+CREATE UNIQUE INDEX M_KOZ_RECHTH_OBJECTID ON M_KOZ_RECHTH(OBJECTID ASC);
+CREATE INDEX M_KOZ_RECHTH_IDENTIF ON M_KOZ_RECHTH(KOZ_IDENTIF ASC);
+INSERT INTO USER_SDO_GEOM_METADATA VALUES ('M_KOZ_RECHTH', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+CREATE INDEX M_KOZ_RECHTH_BEGRENZING_PERCEEL_IDX ON M_KOZ_RECHTH(BEGRENZING_PERCEEL)  INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
-delete from user_sdo_geom_metadata where TABLE_NAME ='m_koz_rechth';
-insert into user_sdo_geom_metadata values ('m_koz_rechth', 'begrenzing_perceel', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
 
 COMMENT ON MATERIALIZED VIEW m_koz_rechth
 IS
@@ -1186,12 +1211,11 @@ SELECT
     *
 FROM
     v_avg_koz_rechth;
-CREATE UNIQUE INDEX m_avg_koz_rechth_objectid ON m_avg_koz_rechth(objectid ASC);
-CREATE INDEX m_avg_koz_rechth_identif ON m_avg_koz_rechth(koz_identif ASC);
-CREATE INDEX m_avg_koz_rechth_begrenzing_perceel_idx ON m_avg_koz_rechth (begrenzing_perceel) indextype is mdsys.spatial_index;
+CREATE UNIQUE INDEX M_AVG_KOZ_RECHTH_OBJECTID ON M_AVG_KOZ_RECHTH(OBJECTID ASC);
+CREATE INDEX M_AVG_KOZ_RECHTH_IDENTIF ON M_AVG_KOZ_RECHTH(KOZ_IDENTIF ASC);
+INSERT INTO USER_SDO_GEOM_METADATA VALUES ('M_AVG_KOZ_RECHTH', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+CREATE INDEX M_AVG_KOZ_RECHTH_BEGRENZING_PERCEEL_IDX ON M_AVG_KOZ_RECHTH (BEGRENZING_PERCEEL) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
-delete from user_sdo_geom_metadata where TABLE_NAME ='m_avg_koz_rechth';
-insert into user_sdo_geom_metadata values ('m_avg_koz_rechth', 'begrenzing_perceel', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
 
 COMMENT ON MATERIALIZED VIEW m_avg_koz_rechth
 IS
@@ -1285,20 +1309,13 @@ CREATE OR REPLACE VIEW
 SELECT
     CAST(ROWNUM AS INTEGER) AS objectid,
     qry.identif as koz_identif,
-    CASE
-        WHEN (LENGTH(koza.dat_beg_geldh)=10)
-        THEN to_date(koza.dat_beg_geldh, 'YYYY-MM-DD')
-        ELSE CAST(NULL AS DATE)
-    END AS begin_geldigheid,
+    koza.dat_beg_geldh AS begin_geldigheid,
     --hack vanwege foutieve formatering in archieftabel voor kadastrale onroerende zaak
     CASE
-        WHEN ((INSTR(koza.datum_einde_geldh, '-', 1) = 5)
-            AND (LENGTH(koza.datum_einde_geldh)=10))
-        THEN to_date((koza.datum_einde_geldh), 'YYYY-MM-DD')
         WHEN ((INSTR(koza.datum_einde_geldh, '-', 1) = 3)
             AND (LENGTH(koza.datum_einde_geldh)=10))
-        THEN to_date((koza.datum_einde_geldh), 'DD-MM-YYYY')
-        ELSE CAST(NULL AS DATE)
+        THEN TO_CHAR(to_date((koza.datum_einde_geldh), 'DD-MM-YYYY'), 'YYYY-MM-DD')
+        ELSE koza.datum_einde_geldh
     END AS eind_geldigheid,
     qry.type,
     (((COALESCE(qry.ka_sectie, '')) || ' ') || (COALESCE

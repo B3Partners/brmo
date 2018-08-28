@@ -1,7 +1,7 @@
 /*
 Views for visualizing the BAG data.
 versie 2
-22-6-2018
+28-8-2018
 */
 -- DROP VIEWS
 --drop view v_adres cascade;
@@ -32,6 +32,10 @@ versie 2
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'm_benoemd_obj_adres', 'objectid', 'assigned');
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'm_adres', 'objectid', 'assigned');
 
+--DBMS_SNAPSHOT.REFRESH( 'm_adres','c'); 
+--DBMS_SNAPSHOT.REFRESH( 'm_pand','c'); 
+--DBMS_SNAPSHOT.REFRESH( 'm_benoemd_obj_adres','c'); 
+
 alter session set query_rewrite_integrity=stale_tolerated;
 
 --drop view v_adres;
@@ -55,12 +59,9 @@ CREATE OR REPLACE VIEW
 SELECT
     CAST(ROWNUM AS INTEGER)                            AS objectid,
     na.sc_identif                                              AS na_identif,
-    to_date(addrobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS') AS begin_geldigheid,
-    CASE
-        WHEN position('-' IN addrobj.dat_beg_geldh) = 5
-        THEN to_date(addrobj.dat_beg_geldh, 'YYYY-MM-DD')
-        ELSE to_date(addrobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
-    END AS begin_geldigheid,
+    CAST((SUBSTR(addrobj.dat_beg_geldh,1,4) || '-' ||
+          SUBSTR(addrobj.dat_beg_geldh,5,2) || '-' || 
+          SUBSTR(addrobj.dat_beg_geldh,7,2))  AS CHARACTER VARYING(10)) AS begin_geldigheid,
     gem.naam                                                   AS gemeente,
     CASE
         WHEN (addrobj.fk_6wpl_identif IS NOT NULL)
@@ -165,11 +166,11 @@ CREATE OR REPLACE VIEW
     ) AS
 SELECT
     vbo.sc_identif                                          AS vbo_identif,
-    CASE
-        WHEN position('-' IN gobj.dat_beg_geldh) = 5
-        THEN to_date(gobj.dat_beg_geldh, 'YYYY-MM-DD')
-        ELSE to_date(gobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
-    END AS begin_geldigheid,
+   
+    CAST(SUBSTR(gobj.dat_beg_geldh,1,4) || '-' ||
+          SUBSTR(gobj.dat_beg_geldh,5,2) || '-' || 
+          SUBSTR(gobj.dat_beg_geldh,7,2)  AS CHARACTER VARYING(10)) AS begin_geldigheid,
+          
     fkpand.fk_nn_rh_pnd_identif                             AS pand_identif,
     bva.na_identif 																					as na_identif,
     bva.gemeente,
@@ -229,11 +230,10 @@ CREATE OR REPLACE VIEW
     ) AS
 SELECT
     spl.sc_identif                                            AS spl_identif,
-    CASE
-        WHEN position('-' IN benter.dat_beg_geldh) = 5
-        THEN to_date(benter.dat_beg_geldh, 'YYYY-MM-DD')
-        ELSE to_date(benter.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
-    END AS begin_geldigheid,
+    CAST(SUBSTR(benter.dat_beg_geldh,1,4) || '-' ||
+          SUBSTR(benter.dat_beg_geldh,5,2) || '-' || 
+          SUBSTR(benter.dat_beg_geldh,7,2)  AS CHARACTER VARYING(10)) AS begin_geldigheid,
+          
     bva.na_identif 					      as na_identif,
     bva.gemeente,
     bva.woonplaats,
@@ -281,12 +281,10 @@ CREATE OR REPLACE VIEW
     ) AS
 SELECT
     lpa.sc_identif                                            AS lpl_identif,
-    CASE
-        WHEN position('-' IN benter.dat_beg_geldh) = 5
-        THEN to_date(benter.dat_beg_geldh, 'YYYY-MM-DD')
-        ELSE to_date(benter.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
-    END AS begin_geldigheid,
-    bva.na_identif 				              as na_identif,
+    CAST(SUBSTR(benter.dat_beg_geldh,1,4) || '-' ||
+          SUBSTR(benter.dat_beg_geldh,5,2) || '-' || 
+          SUBSTR(benter.dat_beg_geldh,7,2)  AS CHARACTER VARYING(10)) AS begin_geldigheid,
+     bva.na_identif 				              as na_identif,
     bva.gemeente,
     bva.woonplaats,
     bva.straatnaam,
@@ -329,11 +327,9 @@ CREATE OR REPLACE VIEW
 SELECT
     CAST(ROWNUM AS INTEGER) AS objectid,
     pand.identif as pand_identif,
-    CASE
-        WHEN position('-' IN pand.dat_beg_geldh) = 5
-        THEN to_date(pand.dat_beg_geldh, 'YYYY-MM-DD')
-        ELSE to_date(pand.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
-    END AS begin_geldigheid,
+    CAST(SUBSTR(pand.dat_beg_geldh,1,4) || '-' ||
+          SUBSTR(pand.dat_beg_geldh,5,2) || '-' || 
+          SUBSTR(pand.dat_beg_geldh,7,2) AS CHARACTER VARYING(10)) AS begin_geldigheid,
     pand.oorspronkelijk_bouwjaar                            AS bouwjaar,
     pand.status,
     pand.geom_bovenaanzicht AS the_geom
@@ -349,13 +345,10 @@ SELECT
     *
 FROM
     v_pand;
-create unique index m_pand_objectid on m_pand (objectid ASC);
-create index m_pand_identif on m_pand(pand_identif ASC);
-create index m_pand_the_geom_idx on m_pand(the_geom) indextype is mdsys.spatial_index;
-
-delete from user_sdo_geom_metadata where TABLE_NAME ='m_pand';
-insert into user_sdo_geom_metadata values ('m_pand', 'the_geom', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
-
+CREATE UNIQUE INDEX M_PAND_OBJECTID ON M_PAND (OBJECTID ASC);
+CREATE INDEX M_PAND_IDENTIF ON M_PAND(PAND_IDENTIF ASC);
+INSERT INTO USER_SDO_GEOM_METADATA VALUES ('M_PAND', 'THE_GEOM', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+CREATE INDEX M_PAND_THE_GEOM_IDX ON M_PAND(THE_GEOM) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
 COMMENT ON MATERIALIZED VIEW m_pand
 IS
@@ -471,12 +464,10 @@ SELECT
     *
 FROM
     v_benoemd_obj_adres;
-CREATE UNIQUE INDEX m_benoemd_obj_adres_objectid ON m_benoemd_obj_adres(objectid ASC);
-CREATE INDEX m_benoemd_obj_adres_identif ON m_benoemd_obj_adres (na_identif ASC);
-CREATE INDEX m_ben_obj_adr_geom_idx ON m_benoemd_obj_adres(the_geom) indextype is mdsys.spatial_index;
-
-delete from user_sdo_geom_metadata where TABLE_NAME ='m_benoemd_obj_adres';
-insert into user_sdo_geom_metadata values ('m_benoemd_obj_adres', 'the_geom', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+CREATE UNIQUE INDEX M_BEN_OBJ_ADRES_OBJECTID ON M_BENOEMD_OBJ_ADRES(OBJECTID ASC);
+CREATE INDEX M_BENOEMD_OBJ_ADRES_IDENTIF ON M_BENOEMD_OBJ_ADRES (NA_IDENTIF ASC);
+INSERT INTO USER_SDO_GEOM_METADATA VALUES ('M_BENOEMD_OBJ_ADRES', 'THE_GEOM', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+CREATE INDEX M_BEN_OBJ_ADR_GEOM_IDX ON M_BENOEMD_OBJ_ADRES(THE_GEOM) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
 COMMENT ON MATERIALIZED VIEW m_benoemd_obj_adres
 IS
