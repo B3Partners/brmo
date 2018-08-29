@@ -98,7 +98,7 @@
         <test.onlyITs>false</test.onlyITs>
         <maven.surefire.version>2.22.0</maven.surefire.version>
         <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
-        <versions-maven-plugin.version>2.5</versions-maven-plugin.version>
+        <versions-maven-plugin.version>2.6</versions-maven-plugin.version>
         <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
         <maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
         <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
