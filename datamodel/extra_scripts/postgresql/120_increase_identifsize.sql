@@ -28,4 +28,5 @@ alter table functionaris alter column fk_sc_lh_pes_sc_identif type character var
 alter table functionaris alter column fk_sc_rh_pes_sc_identif type character varying (255);
 alter table woz_belang alter column fk_sc_lh_sub_identif type character varying (255);
 alter table vestg_activiteit alter column fk_vestg_nummer type character varying (255);
-alter table prs_eigendom alter column fk_prs_sc_identif type character varying (255);
+-- prs_eigendom vervalt
+-- alter table prs_eigendom alter column fk_prs_sc_identif type character varying (255);
