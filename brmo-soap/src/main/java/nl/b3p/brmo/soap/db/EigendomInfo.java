@@ -546,7 +546,7 @@ public class EigendomInfo {
 
             StringBuilder resultNames = new StringBuilder();
             resultNames.append(" gpa.perceel_identif as perceel_identif ");
-            StringBuilder fromSQL = new StringBuilder(" v_bd_app_re_all_kad_perceel gpa ");
+            StringBuilder fromSQL = new StringBuilder(" vb_util_app_re_kad_perceel gpa ");
             StringBuilder whereSQL = new StringBuilder();
             whereSQL.append(" gpa.app_re_identif = ? ");
 
