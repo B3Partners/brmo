@@ -503,19 +503,19 @@ SELECT
     bola.huisnummer_toev,
     bola.postcode,
     CASE 
-        WHEN qry.begrenzing_perceel.get_gtype() is not null
-        THEN SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1).sdo_point.x
--- gebruik alleen indien een licentie voor oracle spatial
 --        WHEN qry.begrenzing_perceel.get_gtype() is not null
---        THEN SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326 ).sdo_point.x
+--        THEN SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1).sdo_point.x
+-- https://docs.oracle.com/cd/E11882_01/appdev.112/e11830/sdo_locator.htm#CFACCEEG stelt dat SDO_CS functies in Locator zitten
+        WHEN qry.begrenzing_perceel.get_gtype() is not null
+        THEN SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326 ).sdo_point.x
         ELSE NULL
     END AS lon,
     CASE 
-        WHEN qry.begrenzing_perceel.get_gtype() is not null
-        THEN SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1).sdo_point.y
--- gebruik alleen indien een licentie voor oracle spatial
 --        WHEN qry.begrenzing_perceel.get_gtype() is not null
---        THEN SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326 ).sdo_point.y
+--        THEN SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1).sdo_point.y
+-- https://docs.oracle.com/cd/E11882_01/appdev.112/e11830/sdo_locator.htm#CFACCEEG stelt dat SDO_CS functies in Locator zitten
+        WHEN qry.begrenzing_perceel.get_gtype() is not null
+        THEN SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326 ).sdo_point.y
     END AS lat,
     qry.begrenzing_perceel
 FROM
