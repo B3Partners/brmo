@@ -33,9 +33,6 @@
 				<script>102_metagegevens_brondocument.sql</script>
 				<script>103_woz_waarde.sql</script>
 				<script>104_brondocument_indices.sql</script>
-				<!-- let op, 120 eerst, of in ieder geval voordat de views aangemaakt worden -->
-				<script>120_increase_identifsize.sql</script>
-				<!-- let op, 120 eerst, of in ieder geval voordat de views aangemaakt worden -->
 				<script>105_appartements_rechten.sql</script>
 				<script>106_bag_views.sql</script>
 				<script>107_brk_views.sql</script>
@@ -51,7 +48,7 @@
 				<script>117_versienummer.sql</script>
 				<script>118_drop_constraints_brp.sql</script>
 				<script>119_reisdocumentsoort.sql</script>
-				<!-- 120 staat hierboven -->
+				<script>120_increase_identifsize.sql</script>
 				<script>121_insert_nation.sql</script>
 			</extra-scripts>
 		</schema>
