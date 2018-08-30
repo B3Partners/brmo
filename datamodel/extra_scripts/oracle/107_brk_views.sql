@@ -3,79 +3,80 @@ Views for visualizing the BRK data.
 versie 2
 28-8-2018
 */
---drop view v_subject cascade;
---drop view v_avg_subject cascade;
---drop view basis.v_util_app_re_splitsing cascade;
---drop view basis.v_util_app_re_parent_3 cascade;
---drop view basis.v_util_app_re_parent_2 cascade;
---drop view basis.v_util_app_re_parent cascade;
---drop view v_util_app_re_kad_perceel cascade;
---drop view v_kad_onrrnd_zk_adres cascade;
---drop view v_subject;
---drop view v_util_zk_recht cascade;
---drop view v_zr_rechth cascade;
---drop view v_avg_zr_rechth cascade;
---drop view v_koz_rechth cascade;
---drop view v_avg_koz_rechth cascade;
---drop view v_kad_onrrnd_zk_archief cascade;
+--drop view vb_subject cascade;
+--drop view vb_avg_subject cascade;
+--drop view vb_util_app_re_splitsing cascade;
+--drop view vb_util_app_re_parent_3 cascade;
+--drop view vb_util_app_re_parent_2 cascade;
+--drop view vb_util_app_re_parent cascade;
+--drop view vb_util_app_re_kad_perceel cascade;
+--drop view vb_kad_onrrnd_zk_adres cascade;
+--drop view vb_subject;
+--drop view vb_util_zk_recht cascade;
+--drop view vb_zr_rechth cascade;
+--drop view vb_avg_zr_rechth cascade;
+--drop view vb_koz_rechth cascade;
+--drop view vb_avg_koz_rechth cascade;
+--drop view vb_kad_onrrnd_zk_archief cascade;
 
---drop materialized view m_kad_onrrnd_zk_adres cascade;
---drop materialized view m_koz_rechth cascade;
---drop materialized view m_avg_koz_rechth cascade;
---drop materialized view m_subject cascade;
---drop materialized view m_avg_subject cascade;
---drop materialized view m_zr_rechth cascade;
---drop materialized view m_avg_zr_rechth cascade;
+--drop materialized view mb_kad_onrrnd_zk_adres cascade;
+--drop materialized view mb_koz_rechth cascade;
+--drop materialized view mb_avg_koz_rechth cascade;
+--drop materialized view mb_subject cascade;
+--drop materialized view mb_avg_subject cascade;
+--drop materialized view mb_zr_rechth cascade;
+--drop materialized view mb_avg_zr_rechth cascade;
 
---DROP INDEX m_avg_koz_rechth_objectid cascade;
---DROP INDEX m_avg_koz_rechth_identif cascade;
---DROP INDEX m_avg_koz_rechth_begrenzing_perceel_idx cascade;
---DROP INDEX m_koz_rechth_objectid cascade;
---DROP INDEX m_koz_rechth_identif cascade;
---DROP INDEX m_koz_rechth_begrenzing_perceel_idx cascade;
---DROP INDEX m_avg_zr_rechth_objectid cascade;
---DROP INDEX m_avg_zr_rechth_identif cascade;
---DROP INDEX m_zr_rechth_objectid cascade;
---DROP INDEX m_zr_rechth_identif cascade;
---DROP INDEX m_kad_onrrnd_zk_adres_objectid cascade;
---DROP INDEX m_kad_onrrnd_zk_adres_identif cascade;
---DROP INDEX m_kad_onrrnd_zk_adres_begrenzing_perceel_idx cascade;
---DROP INDEX m_avg_subject_objectid cascade;
---DROP INDEX m_avg_subject_identif cascade;
---DROP INDEX m_subject_objectid cascade;
---DROP INDEX m_subject_identif cascade;
+--DROP INDEX mb_avg_koz_rechth_objectid cascade;
+--DROP INDEX mb_avg_koz_rechth_identif cascade;
+--DROP INDEX mb_avg_koz_rechth_begrenzing_perceel_idx cascade;
+--DROP INDEX mb_koz_rechth_objectid cascade;
+--DROP INDEX mb_koz_rechth_identif cascade;
+--DROP INDEX mb_koz_rechth_begrenzing_perceel_idx cascade;
+--DROP INDEX mb_avg_zr_rechth_objectid cascade;
+--DROP INDEX mb_avg_zr_rechth_identif cascade;
+--DROP INDEX mb_zr_rechth_objectid cascade;
+--DROP INDEX mb_zr_rechth_identif cascade;
+--DROP INDEX mb_kad_onrrnd_zk_adres_objectid cascade;
+--DROP INDEX mb_kad_onrrnd_zk_adres_identif cascade;
+--DROP INDEX mb_kad_onrrnd_zk_adres_begrenzing_perceel_idx cascade;
+--DROP INDEX mb_avg_subject_objectid cascade;
+--DROP INDEX mb_avg_subject_identif cascade;
+--DROP INDEX mb_subject_objectid cascade;
+--DROP INDEX mb_subject_identif cascade;
 
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'v_kad_onrrnd_zk_adres', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'v_koz_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'v_avg_koz_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'v_avg_zr_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'v_zr_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'v_subject', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'v_avg_subject', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'v_kad_onrrnd_zk_archief', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_kad_onrrnd_zk_adres', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_koz_rechth', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_avg_koz_rechth', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_avg_zr_rechth', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_zr_rechth', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_subject', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_avg_subject', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_kad_onrrnd_zk_archief', 'objectid', 'assigned');
 
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'm_kad_onrrnd_zk_adres', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'm_koz_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'm_avg_koz_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'm_avg_zr_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'm_zr_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'm_subject', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('basis', 'm_avg_subject', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_kad_onrrnd_zk_adres', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_koz_rechth', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_avg_koz_rechth', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_avg_zr_rechth', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_zr_rechth', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_subject', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_avg_subject', 'objectid', 'assigned');
 
---DBMS_SNAPSHOT.REFRESH( 'm_subject','c'); 
---DBMS_SNAPSHOT.REFRESH( 'm_avg_subject','c'); 
---DBMS_SNAPSHOT.REFRESH( 'm_kad_onrrnd_zk_adres','c'); 
---DBMS_SNAPSHOT.REFRESH( 'm_zr_rechth','c'); 
---DBMS_SNAPSHOT.REFRESH( 'm_avg_zr_rechth','c'); 
---DBMS_SNAPSHOT.REFRESH( 'm_koz_rechth','c'); 
---DBMS_SNAPSHOT.REFRESH( 'm_avg_koz_rechth','c'); 
-
+--BEGIN
+--DBMS_SNAPSHOT.REFRESH( 'mb_subject','c'); 
+--DBMS_SNAPSHOT.REFRESH( 'mb_avg_subject','c'); 
+--DBMS_SNAPSHOT.REFRESH( 'mb_kad_onrrnd_zk_adres','c'); 
+--DBMS_SNAPSHOT.REFRESH( 'mb_zr_rechth','c'); 
+--DBMS_SNAPSHOT.REFRESH( 'mb_avg_zr_rechth','c'); 
+--DBMS_SNAPSHOT.REFRESH( 'mb_koz_rechth','c'); 
+--DBMS_SNAPSHOT.REFRESH( 'mb_avg_koz_rechth','c'); 
+--END
 
 alter session set query_rewrite_integrity=stale_tolerated;
 
---drop view v_subject cascade;
+--drop view vb_subject cascade;
 CREATE OR REPLACE VIEW
-    v_subject
+    vb_subject
     (
         objectid,
         subject_identif,
@@ -206,21 +207,21 @@ ON
     (((
                 innp.sc_identif) = (nnp.sc_identif))));
 
---drop materialized view m_subject cascade;
-CREATE MATERIALIZED VIEW m_subject 
+--drop materialized view mb_subject cascade;
+CREATE MATERIALIZED VIEW mb_subject 
 BUILD DEFERRED
 REFRESH ON DEMAND
 AS
 SELECT
     *
 FROM
-    v_subject;
-CREATE UNIQUE INDEX m_subject_objectid ON m_subject (objectid ASC);
-CREATE INDEX m_subject_identif ON m_subject (subject_identif ASC);
+    vb_subject;
+CREATE UNIQUE INDEX mb_subject_objectid ON mb_subject (objectid ASC);
+CREATE INDEX mb_subject_identif ON mb_subject (subject_identif ASC);
 
-COMMENT ON MATERIALIZED VIEW m_subject
+COMMENT ON MATERIALIZED VIEW mb_subject
 IS
-    'commentaar view v_subject:
+    'commentaar view vb_subject:
 samenvoeging alle soorten subjecten: natuurlijk en niet-natuurlijk.
 
 beschikbare kolommen:
@@ -249,9 +250,9 @@ beschikbare kolommen:
 * kvk_nummer: -
 '
     ;
---drop view v_avg_subject cascade;
+--drop view vb_avg_subject cascade;
 CREATE OR REPLACE VIEW
-    v_avg_subject
+    vb_avg_subject
     (
         objectid,
         subject_identif,
@@ -294,23 +295,23 @@ SELECT
     s.rsin,
     s.kvk_nummer
 FROM
-    v_subject s;
+    vb_subject s;
 
---drop materialized view m_avg_subject cascade;
-CREATE MATERIALIZED VIEW m_avg_subject 
+--drop materialized view mb_avg_subject cascade;
+CREATE MATERIALIZED VIEW mb_avg_subject 
 BUILD DEFERRED
 REFRESH ON DEMAND
 AS
 SELECT
     *
 FROM
-    v_avg_subject;
-CREATE UNIQUE INDEX m_avg_subject_objectid ON m_avg_subject (objectid ASC);
-CREATE INDEX m_avg_subject_identif ON m_avg_subject (subject_identif ASC);
+    vb_avg_subject;
+CREATE UNIQUE INDEX mb_avg_subject_objectid ON mb_avg_subject (objectid ASC);
+CREATE INDEX mb_avg_subject_identif ON mb_avg_subject (subject_identif ASC);
 
-COMMENT ON MATERIALIZED VIEW m_avg_subject
+COMMENT ON MATERIALIZED VIEW mb_avg_subject
 IS
-    'commentaar view v_avg_subject:
+    'commentaar view vb_avg_subject:
 volledig subject (natuurlijk en niet natuurlijk) geschoond voor avg
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
@@ -337,9 +338,9 @@ beschikbare kolommen:
     
 --Views om kad_perceel bij app_re's op te zoeken (inclusief ondersplitsingen)
 
---drop view v_util_app_re_splitsing cascade;
+--drop view vb_util_app_re_splitsing cascade;
 CREATE OR REPLACE VIEW
-    v_util_app_re_splitsing AS
+    vb_util_app_re_splitsing AS
 SELECT
     b1.ref_id AS child_identif,
     b2.ref_id AS parent_identif
@@ -360,22 +361,22 @@ GROUP BY
     b1.ref_id,
     b2.ref_id;
     
---drop view v_util_app_re_parent_3 cascade;
+--drop view vb_util_app_re_parent_3 cascade;
 CREATE OR REPLACE VIEW
-    v_util_app_re_parent_3 AS
+    vb_util_app_re_parent_3 AS
 SELECT
     cast(re.sc_kad_identif AS CHARACTER VARYING(50)) AS app_re_identif,
     sp.parent_identif
 FROM
     app_re re
 LEFT JOIN
-    v_util_app_re_splitsing sp
+    vb_util_app_re_splitsing sp
 ON
     cast(re.sc_kad_identif AS CHARACTER VARYING(50)) = sp.child_identif;
 
---drop view v_util_app_re_parent_2 cascade;
+--drop view vb_util_app_re_parent_2 cascade;
 CREATE OR REPLACE VIEW
-    v_util_app_re_parent_2 AS
+    vb_util_app_re_parent_2 AS
 SELECT
     u1.app_re_identif,
     CASE
@@ -384,15 +385,15 @@ SELECT
         ELSE sp.parent_identif
     END AS parent_identif
 FROM
-    v_util_app_re_parent_3 u1
+    vb_util_app_re_parent_3 u1
 LEFT JOIN
-    v_util_app_re_splitsing sp
+    vb_util_app_re_splitsing sp
 ON
     u1.parent_identif = sp.child_identif;
 
---drop view v_util_app_re_parent cascade;
+--drop view vb_util_app_re_parent cascade;
 CREATE OR REPLACE VIEW
-    v_util_app_re_parent AS
+    vb_util_app_re_parent AS
 SELECT
     u2.app_re_identif,
     CASE
@@ -401,20 +402,20 @@ SELECT
         ELSE sp.parent_identif
     END AS parent_identif
 FROM
-    v_util_app_re_parent_2 u2
+    vb_util_app_re_parent_2 u2
 LEFT JOIN
-    v_util_app_re_splitsing sp
+    vb_util_app_re_splitsing sp
 ON
     u2.parent_identif = sp.child_identif;
 
---drop view v_util_app_re_kad_perceel cascade;
+--drop view vb_util_app_re_kad_perceel cascade;
 CREATE OR REPLACE VIEW
-    v_util_app_re_kad_perceel AS
+    vb_util_app_re_kad_perceel AS
 SELECT
     u1.app_re_identif,
     kp.sc_kad_identif AS perceel_identif
 FROM
-    v_util_app_re_parent u1
+    vb_util_app_re_parent u1
 JOIN
     kad_perceel kp
 ON
@@ -423,9 +424,9 @@ GROUP BY
     u1.app_re_identif,
     kp.sc_kad_identif;
         
---drop view v_kad_onrrnd_zk_adres cascade;
+--drop view vb_kad_onrrnd_zk_adres cascade;
 CREATE OR REPLACE VIEW
-    v_kad_onrrnd_zk_adres
+    vb_kad_onrrnd_zk_adres
     (
         objectid,
         koz_identif,
@@ -462,8 +463,8 @@ CREATE OR REPLACE VIEW
         begrenzing_perceel
     ) AS
 SELECT
-    CAST(ROWNUM AS INTEGER)	 AS objectid,
-    qry.identif as koz_identif,
+    CAST(ROWNUM AS INTEGER) AS objectid,
+    qry.identif             AS koz_identif,
     CASE
         WHEN (LENGTH(koz.dat_beg_geldh)=10)
         THEN to_date(koz.dat_beg_geldh, 'YYYY-MM-DD')
@@ -472,14 +473,19 @@ SELECT
     bok.fk_nn_lh_tgo_identif                       AS benoemdobj_identif,
     qry.type,
     COALESCE(qry.ka_sectie, '') || ' ' || COALESCE(qry.ka_perceelnummer, '') AS aanduiding,
-    COALESCE(qry.ka_kad_gemeentecode, '') || ' ' || COALESCE(qry.ka_sectie, '') || ' ' || COALESCE(qry.ka_perceelnummer, '') || ' ' || COALESCE(qry.ka_appartementsindex, '') AS aanduiding2,
+    COALESCE(qry.ka_kad_gemeentecode, '') || ' ' || COALESCE(qry.ka_sectie, '') || ' ' || COALESCE
+    (qry.ka_perceelnummer, '') || ' ' || COALESCE(qry.ka_appartementsindex, '') AS aanduiding2,
     qry.ka_sectie,
     qry.ka_perceelnummer,
     qry.ka_appartementsindex,
     qry.ka_kad_gemeentecode,
     qry.aand_soort_grootte,
     qry.grootte_perceel,
-    SDO_GEOM.SDO_AREA(begrenzing_perceel, 0.1) as oppervlakte_geom,
+    CASE 
+        WHEN qry.begrenzing_perceel.get_gtype() is not null
+        THEN SDO_GEOM.SDO_AREA(qry.BEGRENZING_PERCEEL, 0.1)
+        ELSE NULL
+    END AS oppervlakte_geom,
     qry.ka_deelperceelnummer,
     qry.omschr_deelperceel,
     b.datum,
@@ -496,14 +502,27 @@ SELECT
     bola.huisletter,
     bola.huisnummer_toev,
     bola.postcode,
-    SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326 ).sdo_point.x as lon,
-    SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326 ).sdo_point.y as lat,
+    CASE 
+        WHEN qry.begrenzing_perceel.get_gtype() is not null
+        THEN SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1).sdo_point.x
+-- gebruik alleen indien een licentie voor oracle spatial
+--        WHEN qry.begrenzing_perceel.get_gtype() is not null
+--        THEN SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326 ).sdo_point.x
+        ELSE NULL
+    END AS lon,
+    CASE 
+        WHEN qry.begrenzing_perceel.get_gtype() is not null
+        THEN SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1).sdo_point.y
+-- gebruik alleen indien een licentie voor oracle spatial
+--        WHEN qry.begrenzing_perceel.get_gtype() is not null
+--        THEN SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326 ).sdo_point.y
+    END AS lat,
     qry.begrenzing_perceel
 FROM
     (
         SELECT
             p.sc_kad_identif AS identif,
-            'perceel'  AS type,
+            'perceel'        AS type,
             p.ka_sectie,
             p.ka_perceelnummer,
             CAST(NULL AS CHARACTER VARYING(4)) AS ka_appartementsindex,
@@ -512,13 +531,13 @@ FROM
             p.grootte_perceel,
             p.ka_deelperceelnummer,
             p.omschr_deelperceel,
-            p.begrenzing_perceel
+            p.BEGRENZING_PERCEEL as begrenzing_perceel
         FROM
             kad_perceel p
         UNION ALL
         SELECT
-            ar.sc_kad_identif   AS identif,
-            'appartement' AS type,
+            ar.sc_kad_identif AS identif,
+            'appartement'     AS type,
             ar.ka_sectie,
             ar.ka_perceelnummer,
             ar.ka_appartementsindex,
@@ -527,19 +546,19 @@ FROM
             CAST(NULL AS NUMERIC(8,0))            AS grootte_perceel,
             CAST(NULL AS CHARACTER VARYING(4))    AS ka_deelperceelnummer,
             CAST(NULL AS CHARACTER VARYING(1120)) AS omschr_deelperceel,
-            kp.begrenzing_perceel
+            kp.BEGRENZING_PERCEEL as begrenzing_perceel
         FROM
-            ((v_util_app_re_kad_perceel v
+            ((vb_util_app_re_kad_perceel v
         JOIN
             kad_perceel kp
         ON
             ((
-                        CAST(v.perceel_identif as NUMERIC) = kp.sc_kad_identif)))
+                    CAST(v.perceel_identif AS NUMERIC) = kp.sc_kad_identif)))
         JOIN
             app_re ar
         ON
             ((
-                        cast(v.app_re_identif as NUMERIC) = ar.sc_kad_identif)))) qry
+                    CAST(v.app_re_identif AS NUMERIC) = ar.sc_kad_identif)))) qry
 JOIN
     kad_onrrnd_zk koz
 ON
@@ -551,7 +570,7 @@ ON
     (
         bok.fk_nn_rh_koz_kad_identif = qry.identif)
 LEFT JOIN
-    v_benoemd_obj_adres bola
+    vb_benoemd_obj_adres bola
 ON
     bok.fk_nn_lh_tgo_identif = bola.benoemdobj_identif
 LEFT JOIN
@@ -570,26 +589,23 @@ ON
     (
         koz.kad_identif = b.ref_id);
 
---drop materialized view m_kad_onrrnd_zk_adres cascade;
-CREATE MATERIALIZED VIEW m_kad_onrrnd_zk_adres 
+--drop materialized view mb_kad_onrrnd_zk_adres cascade;
+CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_adres 
 BUILD DEFERRED
 REFRESH ON DEMAND
 AS
 SELECT
     *
 FROM
-    v_kad_onrrnd_zk_adres;
-CREATE UNIQUE INDEX M_KAD_ONRRND_ZK_ADRES_OBJECTID ON M_KAD_ONRRND_ZK_ADRES(OBJECTID ASC);
-CREATE INDEX M_KAD_ONRRND_ZK_ADRES_IDENTIF ON M_KAD_ONRRND_ZK_ADRES(KOZ_IDENTIF ASC);
-INSERT INTO USER_SDO_GEOM_METADATA VALUES ('M_KAD_ONRRND_ZK_ADRES', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
-CREATE INDEX M_KAD_ONRRND_ZK_ADRES_BEGRENZING_PERCEEL_IDX ON M_KAD_ONRRND_ZK_ADRES (BEGRENZING_PERCEEL)  INDEXTYPE IS MDSYS.SPATIAL_INDEX;
+    vb_kad_onrrnd_zk_adres;
+CREATE UNIQUE INDEX MB_KAD_ONRRND_ZK_ADRES_OBJECTID ON MB_KAD_ONRRND_ZK_ADRES(OBJECTID ASC);
+CREATE INDEX MB_KAD_ONRRND_ZK_ADRES_IDENTIF ON MB_KAD_ONRRND_ZK_ADRES(KOZ_IDENTIF ASC);
+INSERT INTO USER_SDO_GEOM_METADATA VALUES ('MB_KAD_ONRRND_ZK_ADRES', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+CREATE INDEX MB_KAD_ONRRND_ZK_ADRES_BEGRENZING_PERCEEL_IDX ON MB_KAD_ONRRND_ZK_ADRES (BEGRENZING_PERCEEL)  INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
-INSERT INTO USER_SDO_GEOM_METADATA VALUES ('M_KAD_ONRRND_ZK_ADRES', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
-
-
-COMMENT ON MATERIALIZED VIEW m_kad_onrrnd_zk_adres
+COMMENT ON MATERIALIZED VIEW mb_kad_onrrnd_zk_adres
 IS
-    'commentaar view m_kad_onrrnd_zk_adres:
+    'commentaar view mb_kad_onrrnd_zk_adres:
 alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor geoserver/arcgis en BAG adres
 
 beschikbare kolommen:
@@ -628,9 +644,9 @@ beschikbare kolommen:
 * begrenzing_perceel: perceelvlak
 '
     ;    
---drop view v_util_zk_recht cascade;
+--drop view vb_util_zk_recht cascade;
 CREATE OR REPLACE VIEW
-    v_util_zk_recht
+    vb_util_zk_recht
     (
         zr_identif,
         aandeel,
@@ -661,9 +677,9 @@ ON
     (((
                 zr.fk_3avr_aand) = (avr.aand))));
     
---drop view v_zr_rechth cascade;
+--drop view vb_zr_rechth cascade;
 CREATE OR REPLACE VIEW
-    v_zr_rechth
+    vb_zr_rechth
     (
         objectid,
         zr_identif,
@@ -716,28 +732,28 @@ SELECT
     vs.rsin,
     vs.kvk_nummer
 FROM
-    (v_util_zk_recht uzr
+    (vb_util_zk_recht uzr
 JOIN
-    v_subject vs
+    vb_subject vs
 ON
     (((
                 uzr.subject_identif) = (vs.subject_identif))));
 
---drop materialized view m_zr_rechth cascade;
-CREATE MATERIALIZED VIEW m_zr_rechth 
+--drop materialized view mb_zr_rechth cascade;
+CREATE MATERIALIZED VIEW mb_zr_rechth 
 BUILD DEFERRED
 REFRESH ON DEMAND
 AS
 SELECT
     *
 FROM
-    v_zr_rechth;
-CREATE UNIQUE INDEX M_ZR_RECHTH_OBJECTID ON M_ZR_RECHTH(OBJECTID ASC);
-CREATE INDEX M_ZR_RECHTH_IDENTIF ON M_ZR_RECHTH(ZR_IDENTIF ASC);
+    vb_zr_rechth;
+CREATE UNIQUE INDEX MB_ZR_RECHTH_OBJECTID ON MB_ZR_RECHTH(OBJECTID ASC);
+CREATE INDEX MB_ZR_RECHTH_IDENTIF ON MB_ZR_RECHTH(ZR_IDENTIF ASC);
 
-COMMENT ON MATERIALIZED VIEW m_zr_rechth
+COMMENT ON MATERIALIZED VIEW mb_zr_rechth
 IS
-    'commentaar view m_zr_rechth:
+    'commentaar view mb_zr_rechth:
 alle zakelijke rechten met rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)
 
 beschikbare kolommen:
@@ -771,9 +787,9 @@ beschikbare kolommen:
 * kvk_nummer: -
 '
     ;
---drop view v_avg_zr_rechth cascade;
+--drop view vb_avg_zr_rechth cascade;
 CREATE OR REPLACE VIEW
-    v_avg_zr_rechth
+    vb_avg_zr_rechth
     (
         objectid,
         zr_identif,
@@ -826,28 +842,28 @@ SELECT
     vs.rsin,
     vs.kvk_nummer
 FROM
-    (v_util_zk_recht uzr
+    (vb_util_zk_recht uzr
 JOIN
-    v_avg_subject vs
+    vb_avg_subject vs
 ON
     (((
                 uzr.subject_identif) = (vs.subject_identif))));
 
---drop materialized view m_avg_zr_rechth cascade;
-CREATE MATERIALIZED VIEW m_avg_zr_rechth 
+--drop materialized view mb_avg_zr_rechth cascade;
+CREATE MATERIALIZED VIEW mb_avg_zr_rechth 
 BUILD DEFERRED
 REFRESH ON DEMAND
 AS
 SELECT
     *
 FROM
-    v_avg_zr_rechth;
-CREATE UNIQUE INDEX m_avg_zr_rechth_objectid ON m_avg_zr_rechth(objectid ASC);
-CREATE INDEX m_avg_zr_rechth_identif ON m_avg_zr_rechth(zr_identif ASC);
+    vb_avg_zr_rechth;
+CREATE UNIQUE INDEX mb_avg_zr_rechth_objectid ON mb_avg_zr_rechth(objectid ASC);
+CREATE INDEX mb_avg_zr_rechth_identif ON mb_avg_zr_rechth(zr_identif ASC);
 
-COMMENT ON MATERIALIZED VIEW m_avg_zr_rechth
+COMMENT ON MATERIALIZED VIEW mb_avg_zr_rechth
 IS
-    'commentaar view m_avg_zr_rechth:
+    'commentaar view mb_avg_zr_rechth:
 alle zakelijke rechten met voor avg geschoonde rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)
 
 beschikbare kolommen:
@@ -878,9 +894,9 @@ beschikbare kolommen:
 
 '
     ;
---drop view v_koz_rechth cascade;
+--drop view vb_koz_rechth cascade;
 CREATE OR REPLACE VIEW
-    v_koz_rechth
+    vb_koz_rechth
     (
         objectid,
         koz_identif,
@@ -993,31 +1009,31 @@ SELECT
     koz.lat,
     koz.begrenzing_perceel
 FROM
-    (v_zr_rechth zrr
+    (vb_zr_rechth zrr
 RIGHT JOIN
-    v_kad_onrrnd_zk_adres koz
+    vb_kad_onrrnd_zk_adres koz
 ON
     ((
             zrr.koz_identif = koz.koz_identif)));
 
---drop materialized view m_koz_rechth cascade;
-CREATE MATERIALIZED VIEW m_koz_rechth 
+--drop materialized view mb_koz_rechth cascade;
+CREATE MATERIALIZED VIEW mb_koz_rechth 
 BUILD DEFERRED
 REFRESH ON DEMAND
 AS
 SELECT
     *
 FROM
-    v_koz_rechth;
-CREATE UNIQUE INDEX M_KOZ_RECHTH_OBJECTID ON M_KOZ_RECHTH(OBJECTID ASC);
-CREATE INDEX M_KOZ_RECHTH_IDENTIF ON M_KOZ_RECHTH(KOZ_IDENTIF ASC);
-INSERT INTO USER_SDO_GEOM_METADATA VALUES ('M_KOZ_RECHTH', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
-CREATE INDEX M_KOZ_RECHTH_BEGRENZING_PERCEEL_IDX ON M_KOZ_RECHTH(BEGRENZING_PERCEEL)  INDEXTYPE IS MDSYS.SPATIAL_INDEX;
+    vb_koz_rechth;
+CREATE UNIQUE INDEX MB_KOZ_RECHTH_OBJECTID ON MB_KOZ_RECHTH(OBJECTID ASC);
+CREATE INDEX MB_KOZ_RECHTH_IDENTIF ON MB_KOZ_RECHTH(KOZ_IDENTIF ASC);
+INSERT INTO USER_SDO_GEOM_METADATA VALUES ('MB_KOZ_RECHTH', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+CREATE INDEX MB_KOZ_RECHTH_BEGRENZING_PERCEEL_IDX ON MB_KOZ_RECHTH(BEGRENZING_PERCEEL)  INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
 
-COMMENT ON MATERIALIZED VIEW m_koz_rechth
+COMMENT ON MATERIALIZED VIEW mb_koz_rechth
 IS
-    'commentaar view m_koz_rechth:
+    'commentaar view mb_koz_rechth:
 kadastrale percelen een appartementsrechten met rechten en rechthebbenden en objectid voor geoserver/arcgis
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
@@ -1080,9 +1096,9 @@ beschikbare kolommen:
 * begrenzing_perceel: perceelvlak
 '
     ;
---drop view v_avg_koz_rechth cascade;
+--drop view vb_avg_koz_rechth cascade;
 CREATE OR REPLACE VIEW
-    v_avg_koz_rechth
+    vb_avg_koz_rechth
     (
         objectid,
         koz_identif,
@@ -1195,31 +1211,31 @@ SELECT
     koz.lat,
     koz.begrenzing_perceel
 FROM
-    (v_avg_zr_rechth zrr
+    (vb_avg_zr_rechth zrr
 RIGHT JOIN
-    v_kad_onrrnd_zk_adres koz
+    vb_kad_onrrnd_zk_adres koz
 ON
     ((
             zrr.koz_identif = koz.koz_identif)));
 
---drop materialized view m_avg_koz_rechth cascade;
-CREATE MATERIALIZED VIEW m_avg_koz_rechth 
+--drop materialized view mb_avg_koz_rechth cascade;
+CREATE MATERIALIZED VIEW mb_avg_koz_rechth 
 BUILD DEFERRED
 REFRESH ON DEMAND
 AS
 SELECT
     *
 FROM
-    v_avg_koz_rechth;
-CREATE UNIQUE INDEX M_AVG_KOZ_RECHTH_OBJECTID ON M_AVG_KOZ_RECHTH(OBJECTID ASC);
-CREATE INDEX M_AVG_KOZ_RECHTH_IDENTIF ON M_AVG_KOZ_RECHTH(KOZ_IDENTIF ASC);
-INSERT INTO USER_SDO_GEOM_METADATA VALUES ('M_AVG_KOZ_RECHTH', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
-CREATE INDEX M_AVG_KOZ_RECHTH_BEGRENZING_PERCEEL_IDX ON M_AVG_KOZ_RECHTH (BEGRENZING_PERCEEL) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
+    vb_avg_koz_rechth;
+CREATE UNIQUE INDEX MB_AVG_KOZ_RECHTH_OBJECTID ON MB_AVG_KOZ_RECHTH(OBJECTID ASC);
+CREATE INDEX MB_AVG_KOZ_RECHTH_IDENTIF ON MB_AVG_KOZ_RECHTH(KOZ_IDENTIF ASC);
+INSERT INTO USER_SDO_GEOM_METADATA VALUES ('MB_AVG_KOZ_RECHTH', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+CREATE INDEX MB_AVG_KOZ_RECHTH_BEGRENZING_PERCEEL_IDX ON MB_AVG_KOZ_RECHTH (BEGRENZING_PERCEEL) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
 
-COMMENT ON MATERIALIZED VIEW m_avg_koz_rechth
+COMMENT ON MATERIALIZED VIEW mb_avg_koz_rechth
 IS
-    'commentaar view m_avg_koz_rechth:
+    'commentaar view mb_avg_koz_rechth:
 kadastrale percelen een appartementsrechten met rechten en rechthebbenden geschoond voor avg en objectid voor geoserver/arcgis
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
@@ -1278,9 +1294,9 @@ beschikbare kolommen:
 * begrenzing_perceel: perceelvlak
 '
     ;
---drop view v_kad_onrrnd_zk_archief; 
+--drop view vb_kad_onrrnd_zk_archief; 
 CREATE OR REPLACE VIEW
-    v_kad_onrrnd_zk_archief
+    vb_kad_onrrnd_zk_archief
     (
         objectid,
         koz_identif,
@@ -1399,9 +1415,9 @@ ORDER BY
     bdate DESC ;
 
 /*    
-COMMENT ON VIEW v_kad_onrrnd_zk_archief
+COMMENT ON VIEW vb_kad_onrrnd_zk_archief
 IS
-    'commentaar view v_kad_onrrnd_zk_adres:
+    'commentaar view vb_kad_onrrnd_zk_adres:
 Nieuwste gearchiveerde versie van ieder kadastrale onroerende zaak (perceel en appartementsrecht) met objectid voor geoserver/arcgis en historische relatie
 
 beschikbare kolommen:
