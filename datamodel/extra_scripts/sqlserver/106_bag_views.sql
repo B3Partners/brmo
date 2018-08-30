@@ -8,7 +8,7 @@ versie 2
 -- DROP VIEW vb_pand;
 -- DROP VIEW vb_ligplaats_adres;
 -- DROP VIEW vb_standplaats_adres;
--- DROP VIEW v_vbo_adres;
+-- DROP VIEW vb_vbo_adres;
 -- DROP VIEW vb_adres;
 
 GO
@@ -33,7 +33,11 @@ CREATE VIEW
 SELECT
     CAST(row_number() OVER (ORDER BY na.sc_identif)AS INT) AS ObjectID,
     na.sc_identif                                          AS na_identif,
-    addrobj.dat_beg_geldh                                  AS begin_geldigheid,
+    CASE
+        WHEN CHARINDEX('-',addrobj.dat_beg_geldh) = 5
+        THEN CONVERT(DATE, addrobj.dat_beg_geldh, 121)
+        ELSE TRY_CONVERT(DATE, addrobj.dat_beg_geldh, 105)
+    END                                                    AS begin_geldigheid,
     gem.naam                                               AS gemeente,
     CASE
         WHEN (addrobj.fk_6wpl_identif IS NOT NULL)
@@ -126,7 +130,11 @@ CREATE VIEW
     ) AS
 SELECT
     vbo.sc_identif              AS vbo_identif,
-    gobj.dat_beg_geldh          AS begin_geldigheid,
+    CASE
+        WHEN CHARINDEX('-',gobj.dat_beg_geldh) = 5
+        THEN CONVERT(DATE, gobj.dat_beg_geldh, 121)
+        ELSE TRY_CONVERT(DATE, gobj.dat_beg_geldh, 105)
+    END                         AS begin_geldigheid,
     fkpand.fk_nn_rh_pnd_identif AS pand_identif,
     bva.na_identif              AS na_identif,
     bva.gemeente,
@@ -209,7 +217,11 @@ CREATE VIEW
     ) AS
 SELECT
     spl.sc_identif       AS spl_identif,
-    benter.dat_beg_geldh AS begin_geldigheid,
+    CASE
+        WHEN CHARINDEX('-',benter.dat_beg_geldh) = 5
+        THEN CONVERT(DATE, benter.dat_beg_geldh, 121)
+        ELSE TRY_CONVERT(DATE, benter.dat_beg_geldh, 105)
+    END                  AS begin_geldigheid,
     bva.na_identif       AS na_identif,
     bva.gemeente,
     bva.woonplaats,
@@ -279,7 +291,11 @@ CREATE VIEW
     ) AS
 SELECT
     lpa.sc_identif         AS lpl_identif,
-    benter.dat_beg_geldh   AS begin_geldigheid,
+    CASE
+        WHEN CHARINDEX('-',benter.dat_beg_geldh) = 5
+        THEN CONVERT(DATE, benter.dat_beg_geldh, 121)
+        ELSE TRY_CONVERT(DATE, benter.dat_beg_geldh, 105)
+    END                    AS begin_geldigheid,
     bva.na_identif         AS na_identif,
     bva.gemeente,
     bva.woonplaats,
@@ -345,7 +361,11 @@ CREATE VIEW
 SELECT
     CAST(row_number() OVER (ORDER BY pand.identif)AS INT) AS ObjectID,
     pand.identif                    AS pand_identif,
-    pand.dat_beg_geldh              AS begin_geldigheid,
+    CASE
+        WHEN CHARINDEX('-',pand.dat_beg_geldh) = 5
+        THEN CONVERT(DATE, pand.dat_beg_geldh, 121)
+        ELSE TRY_CONVERT(DATE, pand.dat_beg_geldh, 105)
+    END                             AS begin_geldigheid,
     pand.oorspronkelijk_bouwjaar    AS bouwjaar,
     pand.status,
     pand.geom_bovenaanzicht AS the_geom

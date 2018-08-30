@@ -14,7 +14,7 @@ versie 2
 -- DROP VIEW vb_util_app_re_kad_perceel;
 -- DROP VIEW vb_util_app_re_parent;
 -- DROP VIEW vb_util_app_re_parent_2;
--- DROP VIEW v_util_app_re_parent_3;
+-- DROP VIEW vb_util_app_re_parent_3;
 -- DROP VIEW vb_util_app_re_splitsing;
 -- DROP VIEW vb_avg_subject;
 -- DROP VIEW vb_subject;
@@ -67,17 +67,17 @@ SELECT
     inp.va_loc_beschrijving AS woonadres,
     CASE
         WHEN ((s.clazz) = 'INGESCHREVEN NATUURLIJK PERSOON')
-        THEN inp.gb_geboortedatum
+        THEN TRY_CONVERT(DATE, CONVERT(VARCHAR, inp.gb_geboortedatum), 112)
         WHEN ((s.clazz) = 'ANDER NATUURLIJK PERSOON')
-        THEN anp.geboortedatum
+        THEN TRY_CONVERT(DATE, CONVERT(VARCHAR, anp.geboortedatum), 112)
         ELSE NULL
     END                   AS geboortedatum,
     inp.gb_geboorteplaats AS geboorteplaats,
     CASE
         WHEN ((s.clazz) = 'INGESCHREVEN NATUURLIJK PERSOON')
-        THEN inp.ol_overlijdensdatum
+        THEN TRY_CONVERT(DATE, CONVERT(VARCHAR, inp.ol_overlijdensdatum), 112)
         WHEN ((s.clazz) = 'ANDER NATUURLIJK PERSOON')
-        THEN anp.overlijdensdatum
+        THEN TRY_CONVERT(DATE, CONVERT(VARCHAR, anp.overlijdensdatum), 112)
         ELSE NULL
     END AS overlijdensdatum,
     inp.bsn,
@@ -87,32 +87,27 @@ SELECT
     innp.rsin,
     s.kvk_nummer
 FROM
-    (((((subject s
+    subject s
 LEFT JOIN
     nat_prs np
 ON
-    (((
-                s.identif) = (np.sc_identif))))
+    s.identif = np.sc_identif
 LEFT JOIN
     ingeschr_nat_prs inp
 ON
-    (((
-                inp.sc_identif) = (np.sc_identif))))
+    inp.sc_identif = np.sc_identif
 LEFT JOIN
     ander_nat_prs anp
 ON
-    (((
-                anp.sc_identif) = (np.sc_identif))))
+    anp.sc_identif = np.sc_identif
 LEFT JOIN
     niet_nat_prs nnp
 ON
-    (((
-                nnp.sc_identif) = (s.identif))))
+    nnp.sc_identif = s.identif
 LEFT JOIN
     ingeschr_niet_nat_prs innp
 ON
-    (((
-                innp.sc_identif) = (nnp.sc_identif))));
+    innp.sc_identif = nnp.sc_identif;
 
 GO
 
@@ -404,7 +399,7 @@ CREATE VIEW
 SELECT
     CAST(row_number() OVER (ORDER BY qry.identif) AS INT) AS ObjectID,
     qry.identif                                           AS koz_identif,
-    koz.dat_beg_geldh                                     AS begin_geldigheid,
+    CONVERT(DATE, koz.dat_beg_geldh, 121)                 AS begin_geldigheid,
     bok.fk_nn_lh_tgo_identif                              AS benoemdobj_identif,
     qry.type,
     COALESCE(qry.ka_sectie, '') + ' ' + COALESCE(qry.ka_perceelnummer, '') AS aanduiding,
@@ -1217,7 +1212,7 @@ SELECT
     --hack vanwege foutieve formatering in archieftabel voor kadastrale onroerende zaak
     CASE
         WHEN CHARINDEX('-',koza.datum_einde_geldh) = 5
-        THEN CONVERT(DATE, koza.datum_einde_geldh)
+        THEN CONVERT(DATE, koza.datum_einde_geldh, 121)
         ELSE CONVERT(DATE, koza.datum_einde_geldh, 105)
     END AS eind_geldigheid,
     qry.type,
