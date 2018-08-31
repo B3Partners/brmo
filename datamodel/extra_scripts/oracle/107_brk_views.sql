@@ -99,8 +99,8 @@ CREATE OR REPLACE VIEW
         kvk_nummer
     ) AS
 SELECT
-    CAST(ROWNUM AS INTEGER)				  AS objectid,
-    s.identif as subject_identif,
+    CAST(ROWNUM AS INTEGER)         AS objectid,
+    s.identif                       AS subject_identif,
     s.clazz                         AS soort,
     np.nm_geslachtsnaam             AS geslachtsnaam,
     np.nm_voorvoegsel_geslachtsnaam AS voorvoegsel,
@@ -117,12 +117,12 @@ SELECT
         WHEN (nnp.naam IS NOT NULL)
         THEN CAST(nnp.naam AS CHARACTER VARYING(1000))
         ELSE CAST(
-        				((
-        				((COALESCE(np.nm_voornamen, CAST('' AS CHARACTER VARYING(1)) )) || ' ') 
-        				||
-        				((COALESCE(np.nm_voorvoegsel_geslachtsnaam, CAST('' AS CHARACTER VARYING(1))) )) || ' ')
-        				|| 
-        				((COALESCE(np.nm_geslachtsnaam, CAST('' AS CHARACTER VARYING(1))) ))
+                        ((
+                        ((COALESCE(np.nm_voornamen, CAST('' AS CHARACTER VARYING(1)) )) || ' ') 
+                        ||
+                        ((COALESCE(np.nm_voorvoegsel_geslachtsnaam, CAST('' AS CHARACTER VARYING(1))) )) || ' ')
+                        || 
+                        ((COALESCE(np.nm_geslachtsnaam, CAST('' AS CHARACTER VARYING(1))) ))
             ) AS CHARACTER VARYING(1000))
     END                     AS naam,
     inp.va_loc_beschrijving AS woonadres,
@@ -220,10 +220,8 @@ CREATE UNIQUE INDEX mb_subject_objectid ON mb_subject (objectid ASC);
 CREATE INDEX mb_subject_identif ON mb_subject (subject_identif ASC);
 
 COMMENT ON MATERIALIZED VIEW mb_subject
-IS
-    'commentaar view vb_subject:
+IS 'commentaar view vb_subject:
 samenvoeging alle soorten subjecten: natuurlijk en niet-natuurlijk.
-
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
 * subject_identif: natuurlijke id van subject      
@@ -247,9 +245,8 @@ beschikbare kolommen:
 * rechtsvorm: -  
 * statutaire_zetel: -      
 * rsin: -        
-* kvk_nummer: -
-'
-    ;
+* kvk_nummer: -';
+
 --drop view vb_avg_subject cascade;
 CREATE OR REPLACE VIEW
     vb_avg_subject
@@ -310,8 +307,7 @@ CREATE UNIQUE INDEX mb_avg_subject_objectid ON mb_avg_subject (objectid ASC);
 CREATE INDEX mb_avg_subject_identif ON mb_avg_subject (subject_identif ASC);
 
 COMMENT ON MATERIALIZED VIEW mb_avg_subject
-IS
-    'commentaar view vb_avg_subject:
+IS 'commentaar view vb_avg_subject:
 volledig subject (natuurlijk en niet natuurlijk) geschoond voor avg
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
@@ -332,9 +328,7 @@ beschikbare kolommen:
 * rechtsvorm: -  
 * statutaire_zetel: -      
 * rsin: -        
-* kvk_nummer: -
-'
-    ;
+* kvk_nummer: -';
     
 --Views om kad_perceel bij app_re's op te zoeken (inclusief ondersplitsingen)
 
@@ -374,7 +368,7 @@ LEFT JOIN
 ON
     cast(re.sc_kad_identif AS CHARACTER VARYING(50)) = sp.child_identif
 GROUP BY
-    re.sc_kad_identif::text,
+    re.sc_kad_identif,
     sp.parent_identif;
 
 --drop view vb_util_app_re_parent_2 cascade;
@@ -597,16 +591,14 @@ SELECT
     *
 FROM
     vb_kad_onrrnd_zk_adres;
-CREATE UNIQUE INDEX MB_KAD_ONRRND_ZK_ADRES_OBJECTID ON MB_KAD_ONRRND_ZK_ADRES(OBJECTID ASC);
+CREATE UNIQUE INDEX MB_KAD_ONRRND_ZK_ADRES_OBJIDX ON MB_KAD_ONRRND_ZK_ADRES(OBJECTID ASC);
 CREATE INDEX MB_KAD_ONRRND_ZK_ADRES_IDENTIF ON MB_KAD_ONRRND_ZK_ADRES(KOZ_IDENTIF ASC);
 INSERT INTO USER_SDO_GEOM_METADATA VALUES ('MB_KAD_ONRRND_ZK_ADRES', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
-CREATE INDEX MB_KAD_ONRRND_ZK_ADRES_BEGRENZING_PERCEEL_IDX ON MB_KAD_ONRRND_ZK_ADRES (BEGRENZING_PERCEEL)  INDEXTYPE IS MDSYS.SPATIAL_INDEX;
+CREATE INDEX MB_KAD_ONRRND_ZK_ADR_BGRGPIDX ON MB_KAD_ONRRND_ZK_ADRES (BEGRENZING_PERCEEL)  INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
 COMMENT ON MATERIALIZED VIEW mb_kad_onrrnd_zk_adres
-IS
-    'commentaar view mb_kad_onrrnd_zk_adres:
+IS 'commentaar view mb_kad_onrrnd_zk_adres:
 alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor geoserver/arcgis en BAG adres
-
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
 * koz_identif: natuurlijke id van perceel of appartementsrecht      
@@ -640,9 +632,8 @@ beschikbare kolommen:
 * postcode: -,
 * lon: coordinaat als WSG84,
 * lon: coordinaat als WSG84,
-* begrenzing_perceel: perceelvlak
-'
-    ;    
+* begrenzing_perceel: perceelvlak';    
+
 --drop view vb_util_zk_recht cascade;
 CREATE OR REPLACE VIEW
     vb_util_zk_recht
@@ -751,10 +742,8 @@ CREATE UNIQUE INDEX MB_ZR_RECHTH_OBJECTID ON MB_ZR_RECHTH(OBJECTID ASC);
 CREATE INDEX MB_ZR_RECHTH_IDENTIF ON MB_ZR_RECHTH(ZR_IDENTIF ASC);
 
 COMMENT ON MATERIALIZED VIEW mb_zr_rechth
-IS
-    'commentaar view mb_zr_rechth:
+IS 'commentaar view mb_zr_rechth:
 alle zakelijke rechten met rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)
-
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
 * zr_identif: natuurlijke id van zakelijk recht 
@@ -783,9 +772,8 @@ beschikbare kolommen:
 * rechtsvorm: -  
 * statutaire_zetel: -      
 * rsin: -        
-* kvk_nummer: -
-'
-    ;
+* kvk_nummer: -';
+
 --drop view vb_avg_zr_rechth cascade;
 CREATE OR REPLACE VIEW
     vb_avg_zr_rechth
@@ -861,10 +849,8 @@ CREATE UNIQUE INDEX mb_avg_zr_rechth_objectid ON mb_avg_zr_rechth(objectid ASC);
 CREATE INDEX mb_avg_zr_rechth_identif ON mb_avg_zr_rechth(zr_identif ASC);
 
 COMMENT ON MATERIALIZED VIEW mb_avg_zr_rechth
-IS
-    'commentaar view mb_avg_zr_rechth:
+IS 'commentaar view mb_avg_zr_rechth:
 alle zakelijke rechten met voor avg geschoonde rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)
-
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
 * zr_identif: natuurlijke id van zakelijk recht     
@@ -889,10 +875,8 @@ beschikbare kolommen:
 * rechtsvorm: -  
 * statutaire_zetel: -      
 * rsin: -        
-* kvk_nummer: -
+* kvk_nummer: -';
 
-'
-    ;
 --drop view vb_koz_rechth cascade;
 CREATE OR REPLACE VIEW
     vb_koz_rechth
@@ -1027,12 +1011,11 @@ FROM
 CREATE UNIQUE INDEX MB_KOZ_RECHTH_OBJECTID ON MB_KOZ_RECHTH(OBJECTID ASC);
 CREATE INDEX MB_KOZ_RECHTH_IDENTIF ON MB_KOZ_RECHTH(KOZ_IDENTIF ASC);
 INSERT INTO USER_SDO_GEOM_METADATA VALUES ('MB_KOZ_RECHTH', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
-CREATE INDEX MB_KOZ_RECHTH_BEGRENZING_PERCEEL_IDX ON MB_KOZ_RECHTH(BEGRENZING_PERCEEL)  INDEXTYPE IS MDSYS.SPATIAL_INDEX;
+CREATE INDEX MB_KOZ_RECHTH_BEGR_PRCL_IDX ON MB_KOZ_RECHTH(BEGRENZING_PERCEEL)  INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
 
 COMMENT ON MATERIALIZED VIEW mb_koz_rechth
-IS
-    'commentaar view mb_koz_rechth:
+IS 'commentaar view mb_koz_rechth:
 kadastrale percelen een appartementsrechten met rechten en rechthebbenden en objectid voor geoserver/arcgis
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
@@ -1092,9 +1075,8 @@ beschikbare kolommen:
 * postcode: -,
 * lon: coordinaat als WSG84,
 * lon: coordinaat als WSG84,
-* begrenzing_perceel: perceelvlak
-'
-    ;
+* begrenzing_perceel: perceelvlak';
+
 --drop view vb_avg_koz_rechth cascade;
 CREATE OR REPLACE VIEW
     vb_avg_koz_rechth
@@ -1229,12 +1211,11 @@ FROM
 CREATE UNIQUE INDEX MB_AVG_KOZ_RECHTH_OBJECTID ON MB_AVG_KOZ_RECHTH(OBJECTID ASC);
 CREATE INDEX MB_AVG_KOZ_RECHTH_IDENTIF ON MB_AVG_KOZ_RECHTH(KOZ_IDENTIF ASC);
 INSERT INTO USER_SDO_GEOM_METADATA VALUES ('MB_AVG_KOZ_RECHTH', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
-CREATE INDEX MB_AVG_KOZ_RECHTH_BEGRENZING_PERCEEL_IDX ON MB_AVG_KOZ_RECHTH (BEGRENZING_PERCEEL) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
+CREATE INDEX MB_AVG_KOZ_RECHTH_BEGR_P_IDX ON MB_AVG_KOZ_RECHTH (BEGRENZING_PERCEEL) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
 
 COMMENT ON MATERIALIZED VIEW mb_avg_koz_rechth
-IS
-    'commentaar view mb_avg_koz_rechth:
+IS 'commentaar view mb_avg_koz_rechth:
 kadastrale percelen een appartementsrechten met rechten en rechthebbenden geschoond voor avg en objectid voor geoserver/arcgis
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
@@ -1290,9 +1271,8 @@ beschikbare kolommen:
 * postcode: -,
 * lon: coordinaat als WSG84,
 * lat: coordinaat als WSG84,
-* begrenzing_perceel: perceelvlak
-'
-    ;
+* begrenzing_perceel: perceelvlak';
+
 --drop view vb_kad_onrrnd_zk_archief; 
 CREATE OR REPLACE VIEW
     vb_kad_onrrnd_zk_archief
@@ -1407,12 +1387,9 @@ ON
 ORDER BY
     bdate DESC ;
 
-/*    
-COMMENT ON VIEW vb_kad_onrrnd_zk_archief
-IS
-    'commentaar view vb_kad_onrrnd_zk_adres:
+COMMENT ON TABLE vb_kad_onrrnd_zk_archief
+IS   'commentaar view vb_kad_onrrnd_zk_adres:
 Nieuwste gearchiveerde versie van ieder kadastrale onroerende zaak (perceel en appartementsrecht) met objectid voor geoserver/arcgis en historische relatie
-
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
 * koz_identif: natuurlijke id van perceel of appartementsrecht      
@@ -1437,7 +1414,4 @@ beschikbare kolommen:
 * valutasoort: -,
 * loc_omschr: adres buiten BAG om meegegeven,
 * overgegaan_in: natuurlijk id van kadastrale onroerende zaak waar dit object in is overgegaan,
-* begrenzing_perceel: perceelvlak
-'
-    ;
-*/
+* begrenzing_perceel: perceelvlak';
