@@ -98,9 +98,9 @@ SELECT
     (row_number() OVER ())::INTEGER AS objectid,
     s.identif as subject_identif,
     s.clazz                         AS soort,
-    np.nmb_geslachtsnaam             AS geslachtsnaam,
-    np.nmb_voorvoegsel_geslachtsnaam AS voorvoegsel,
-    np.nmb_voornamen                 AS voornamen,
+    np.nm_geslachtsnaam             AS geslachtsnaam,
+    np.nm_voorvoegsel_geslachtsnaam AS voorvoegsel,
+    np.nm_voornamen                 AS voornamen,
     np.aand_naamgebruik,
     CASE
         WHEN ((np.geslachtsaand)::text = '1'::text)
@@ -112,27 +112,59 @@ SELECT
     CASE
         WHEN (nnp.naam IS NOT NULL)
         THEN (nnp.naam)::CHARACTER VARYING(1000)
-        ELSE ((((((COALESCE(np.nmb_voornamen, ''::CHARACTER VARYING))::text || ' '::text) ||
-            (COALESCE(np.nmb_voorvoegsel_geslachtsnaam, ''::CHARACTER VARYING))::text) || ' '::text)
-            || (COALESCE(np.nmb_geslachtsnaam, ''::CHARACTER VARYING))::text))::CHARACTER VARYING
+        ELSE ((((((COALESCE(np.nm_voornamen, ''::CHARACTER VARYING))::text || ' '::text) ||
+            (COALESCE(np.nm_voorvoegsel_geslachtsnaam, ''::CHARACTER VARYING))::text) || ' '::text)
+            || (COALESCE(np.nm_geslachtsnaam, ''::CHARACTER VARYING))::text))::CHARACTER VARYING
             (1000)
     END                     AS naam,
     inp.va_loc_beschrijving AS woonadres,
     CASE
         WHEN ((s.clazz)::text = 'INGESCHREVEN NATUURLIJK PERSOON'::text)
-        THEN to_date(TO_CHAR(inp.gb_geboortedatum, '99999999'::text), 'YYYYMMDD'::text)
+            AND LENGTH(inp.gb_geboortedatum::text)=8
+        THEN (
+                SUBSTRING(TO_CHAR(inp.gb_geboortedatum,'99999999'),2,4) || '-' || 
+                SUBSTRING(TO_CHAR(inp.gb_geboortedatum,'99999999'),6,2) || '-' || 
+                SUBSTRING(TO_CHAR(inp.gb_geboortedatum,'99999999'),8,2) 
+              )::VARCHAR(10)
         WHEN ((s.clazz)::text = 'ANDER NATUURLIJK PERSOON'::text)
-        THEN to_date(TO_CHAR(anp.geboortedatum, '99999999'::text), 'YYYYMMDD'::text)
-        ELSE NULL::DATE
+            AND LENGTH(anp.geboortedatum::text)=8
+        THEN (
+                SUBSTRING(TO_CHAR(anp.geboortedatum, '99999999'),2,4) || '-' || 
+                SUBSTRING(TO_CHAR(anp.geboortedatum, '99999999'),6,2) || '-' || 
+                SUBSTRING(TO_CHAR(anp.geboortedatum, '99999999'),8,2)  
+              )::VARCHAR(10)
+        WHEN ((s.clazz)::text = 'INGESCHREVEN NATUURLIJK PERSOON'::text)
+           AND LENGTH(inp.gb_geboortedatum::text)=5
+        THEN '0001-01-01'::VARCHAR(10)
+        WHEN ((s.clazz)::text = 'ANDER NATUURLIJK PERSOON'::text)
+            AND LENGTH(anp.geboortedatum::text)=5
+        THEN '0001-01-01'::VARCHAR(10)
+        ELSE NULL::VARCHAR(10)
     END                   AS geboortedatum,
     inp.gb_geboorteplaats AS geboorteplaats,
     CASE
         WHEN ((s.clazz)::text = 'INGESCHREVEN NATUURLIJK PERSOON'::text)
-        THEN to_date(TO_CHAR(inp.ol_overlijdensdatum, '99999999'::text), 'YYYYMMDD'::text)
+            AND LENGTH(inp.ol_overlijdensdatum::text)=8
+        THEN (
+                SUBSTRING(TO_CHAR(inp.ol_overlijdensdatum,'99999999'),2,4) || '-' || 
+                SUBSTRING(TO_CHAR(inp.ol_overlijdensdatum,'99999999'),6,2) || '-' || 
+                SUBSTRING(TO_CHAR(inp.ol_overlijdensdatum,'99999999'),8,2) 
+              )::VARCHAR(10)
         WHEN ((s.clazz)::text = 'ANDER NATUURLIJK PERSOON'::text)
-        THEN to_date(TO_CHAR(anp.overlijdensdatum, '99999999'::text), 'YYYYMMDD'::text)
-        ELSE NULL::DATE
-    END AS overlijdensdatum,
+            AND LENGTH(anp.overlijdensdatum::text)=8
+        THEN (
+                SUBSTRING(TO_CHAR(anp.overlijdensdatum, '99999999'),2,4) || '-' || 
+                SUBSTRING(TO_CHAR(anp.overlijdensdatum, '99999999'),6,2) || '-' || 
+                SUBSTRING(TO_CHAR(anp.overlijdensdatum, '99999999'),8,2)  
+              )::VARCHAR(10)
+        WHEN ((s.clazz)::text = 'INGESCHREVEN NATUURLIJK PERSOON'::text)
+           AND LENGTH(inp.ol_overlijdensdatum::text)=5
+        THEN '0001-01-01'::VARCHAR(10)
+        WHEN ((s.clazz)::text = 'ANDER NATUURLIJK PERSOON'::text)
+            AND LENGTH(anp.overlijdensdatum::text)=5
+        THEN '0001-01-01'::VARCHAR(10)
+        ELSE NULL::VARCHAR(10)
+    END                   AS overlijdensdatum,
     inp.bsn,
     nnp.naam AS organisatie_naam,
     innp.rechtsvorm,
@@ -457,7 +489,7 @@ CREATE OR REPLACE VIEW
 SELECT
     (row_number() OVER ())::INTEGER AS objectid,
     qry.identif as koz_identif,
-    to_date(koz.dat_beg_geldh, 'YYYY-MM-DD'::text) AS begin_geldigheid,
+    koz.dat_beg_geldh AS begin_geldigheid,
     bok.fk_nn_lh_tgo_identif                       AS benoemdobj_identif,
     qry.type,
     COALESCE(qry.ka_sectie, '') || ' ' || COALESCE(qry.ka_perceelnummer, '') AS aanduiding,
@@ -492,7 +524,7 @@ FROM
     (
         SELECT
             p.sc_kad_identif AS identif,
-            'perceel'::text  AS type,
+            'perceel'::CHARACTER VARYING(11)  AS type,
             p.ka_sectie,
             p.ka_perceelnummer,
             NULL::CHARACTER VARYING(4) AS ka_appartementsindex,
@@ -507,7 +539,7 @@ FROM
         UNION ALL
         SELECT
             ar.sc_kad_identif   AS identif,
-            'appartement'::text AS type,
+            'appartement'::CHARACTER VARYING(11) AS type,
             ar.ka_sectie,
             ar.ka_perceelnummer,
             ar.ka_appartementsindex,
@@ -626,7 +658,7 @@ CREATE OR REPLACE VIEW
 SELECT
     zr.kadaster_identif AS zr_identif,
     ((COALESCE((zr.ar_teller)::text, ('0'::CHARACTER VARYING)::text) || ('/'::CHARACTER VARYING)::
-    text) || COALESCE((zr.ar_noemer)::text, ('0'::CHARACTER VARYING)::text)) AS aandeel,
+    text) || COALESCE((zr.ar_noemer)::text, ('0'::CHARACTER VARYING)::text))::CHARACTER VARYING(20) AS aandeel,
     zr.ar_teller,
     zr.ar_noemer,
     zr.fk_8pes_sc_identif  AS subject_identif,
@@ -1287,20 +1319,15 @@ CREATE OR REPLACE VIEW
 SELECT
     (row_number() OVER ())::INTEGER AS objectid,
     qry.identif as koz_identif,
-    to_date((koza.dat_beg_geldh)::text, 'YYYY-MM-DD'::text) AS begin_geldigheid,
-    --hack vanwege foutieve formatering in archieftabel voor kadastrale onroerende zaak
-    CASE
-        WHEN position('-' IN koza.datumb_einde_geldh) = 5
-        THEN to_date((koza.datumb_einde_geldh)::text, 'YYYY-MM-DD'::text)
-        ELSE to_date((koza.datumb_einde_geldh)::text, 'DD-MM-YYYY'::text)
-    END AS eind_geldigheid,
+    koza.dat_beg_geldh AS begin_geldigheid,
+    koza.datum_einde_geldh AS eind_geldigheid,
     qry.type,
     (((COALESCE(qry.ka_sectie, ''::CHARACTER VARYING))::text || ' '::text) || (COALESCE
-    (qry.ka_perceelnummer, ''::CHARACTER VARYING))::text) AS aanduiding,
+    (qry.ka_perceelnummer, ''::CHARACTER VARYING))::CHARACTER VARYING(6)) AS aanduiding,
     (((((((COALESCE(qry.ka_kad_gemeentecode, ''::CHARACTER VARYING))::text || ' '::text) ||
     (COALESCE(qry.ka_sectie, ''::CHARACTER VARYING))::text) || ' '::text) || (COALESCE
     (qry.ka_perceelnummer, ''::CHARACTER VARYING))::text) || ' '::text) || (COALESCE
-    (qry.ka_appartementsindex, ''::CHARACTER VARYING))::text) AS aanduiding2,
+    (qry.ka_appartementsindex, ''::CHARACTER VARYING))::CHARACTER VARYING(20)) AS aanduiding2,
     qry.ka_sectie                                             AS sectie,
     qry.ka_perceelnummer                                      AS perceelnummer,
     qry.ka_appartementsindex                                  AS appartementsindex,
@@ -1322,7 +1349,7 @@ FROM
         SELECT
             pa.sc_kad_identif   AS identif,
             pa.sc_dat_beg_geldh AS dat_beg_geldh,
-            'perceel'::text     AS type,
+            'perceel'::CHARACTER VARYING(11)     AS type,
             pa.ka_sectie,
             pa.ka_perceelnummer,
             NULL::CHARACTER VARYING(4) AS ka_appartementsindex,
@@ -1338,7 +1365,7 @@ FROM
         SELECT
             ara.sc_kad_identif   AS identif,
             ara.sc_dat_beg_geldh AS dat_beg_geldh,
-            'appartement'::text  AS type,
+            'appartement'::CHARACTER VARYING(11)  AS type,
             ara.ka_sectie,
             ara.ka_perceelnummer,
             ara.ka_appartementsindex,
