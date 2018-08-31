@@ -75,7 +75,7 @@ SELECT
                     ((wnplts.identif)::text = (addrobj.fk_6wpl_identif)::text))
         ELSE wp.naam
     END                  AS woonplaats,
-    geor.naam_openb_rmte AS straatnaam,
+    geor.naamb_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
     addrobj.huinummertoevoeging AS huisnummer_toev,
@@ -91,7 +91,7 @@ ON
     (((
                 addrobj.identif)::text = (na.sc_identif)::text)))
 JOIN
-    gem_openb_rmte geor
+    gemb_openb_rmte geor
 ON
     (((
                 geor.identifcode)::text = (addrobj.fk_7opr_identifcode)::text)))
@@ -109,7 +109,7 @@ LEFT JOIN
     gemeente gem
 ON
     ((
-            wp.fk_7gem_code = gem.code)));
+            wp.fk_7gemb_code = gem.code)));
             
 COMMENT ON VIEW vb_adres
 IS
@@ -390,7 +390,7 @@ SELECT
     END AS begin_geldigheid,
     pand.oorspronkelijk_bouwjaar                            AS bouwjaar,
     pand.status,
-    pand.geom_bovenaanzicht AS the_geom
+    pand.geomb_bovenaanzicht AS the_geom
 FROM
     pand;
 COMMENT ON VIEW vb_pand

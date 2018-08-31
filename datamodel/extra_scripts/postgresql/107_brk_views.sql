@@ -98,9 +98,9 @@ SELECT
     (row_number() OVER ())::INTEGER AS objectid,
     s.identif as subject_identif,
     s.clazz                         AS soort,
-    np.nm_geslachtsnaam             AS geslachtsnaam,
-    np.nm_voorvoegsel_geslachtsnaam AS voorvoegsel,
-    np.nm_voornamen                 AS voornamen,
+    np.nmb_geslachtsnaam             AS geslachtsnaam,
+    np.nmb_voorvoegsel_geslachtsnaam AS voorvoegsel,
+    np.nmb_voornamen                 AS voornamen,
     np.aand_naamgebruik,
     CASE
         WHEN ((np.geslachtsaand)::text = '1'::text)
@@ -112,9 +112,9 @@ SELECT
     CASE
         WHEN (nnp.naam IS NOT NULL)
         THEN (nnp.naam)::CHARACTER VARYING(1000)
-        ELSE ((((((COALESCE(np.nm_voornamen, ''::CHARACTER VARYING))::text || ' '::text) ||
-            (COALESCE(np.nm_voorvoegsel_geslachtsnaam, ''::CHARACTER VARYING))::text) || ' '::text)
-            || (COALESCE(np.nm_geslachtsnaam, ''::CHARACTER VARYING))::text))::CHARACTER VARYING
+        ELSE ((((((COALESCE(np.nmb_voornamen, ''::CHARACTER VARYING))::text || ' '::text) ||
+            (COALESCE(np.nmb_voorvoegsel_geslachtsnaam, ''::CHARACTER VARYING))::text) || ' '::text)
+            || (COALESCE(np.nmb_geslachtsnaam, ''::CHARACTER VARYING))::text))::CHARACTER VARYING
             (1000)
     END                     AS naam,
     inp.va_loc_beschrijving AS woonadres,
@@ -1290,9 +1290,9 @@ SELECT
     to_date((koza.dat_beg_geldh)::text, 'YYYY-MM-DD'::text) AS begin_geldigheid,
     --hack vanwege foutieve formatering in archieftabel voor kadastrale onroerende zaak
     CASE
-        WHEN position('-' IN koza.datum_einde_geldh) = 5
-        THEN to_date((koza.datum_einde_geldh)::text, 'YYYY-MM-DD'::text)
-        ELSE to_date((koza.datum_einde_geldh)::text, 'DD-MM-YYYY'::text)
+        WHEN position('-' IN koza.datumb_einde_geldh) = 5
+        THEN to_date((koza.datumb_einde_geldh)::text, 'YYYY-MM-DD'::text)
+        ELSE to_date((koza.datumb_einde_geldh)::text, 'DD-MM-YYYY'::text)
     END AS eind_geldigheid,
     qry.type,
     (((COALESCE(qry.ka_sectie, ''::CHARACTER VARYING))::text || ' '::text) || (COALESCE
