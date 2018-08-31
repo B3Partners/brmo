@@ -1,7 +1,7 @@
 /*
 Views for visualizing the BAG data.
 versie 2
-8-6-2018
+28-8-2018
 */
 -- DROP VIEWS
 --drop view vb_adres cascade;
@@ -10,19 +10,24 @@ versie 2
 --drop view vb_ligplaats_adres cascade;
 --drop view vb_pand cascade;
 --drop view vb_benoemd_obj_adres cascade;
+--drop view vb_ben_obj_nevenadres cascade;
+
 
 --drop materialized view mb_pand cascade;
 --drop materialized view mb_benoemd_obj_adres cascade;
 --drop materialized view mb_adres cascade;
+--drop materialized view mb_ben_obj_nevenadres cascade;
 
---DROP INDEX mb_adres_objectid cascade;
---DROP INDEX mb_adres_identif cascade;
---DROP INDEX mb_pand_objectid cascade;
---DROP INDEX mb_pand_identif cascade;
---DROP INDEX mb_pand_the_geomb_idx cascade;
---DROP INDEX mb_benoemd_obj_adres_objectid cascade;
---DROP INDEX mb_benoemd_obj_adres_identif cascade;
---DROP INDEX mb_benoemd_obj_adres_the_geomb_idx cascade;
+
+--DROP INDEX m_adres_objectid cascade;
+--DROP INDEX m_adres_identif cascade;
+--DROP INDEX m_pand_objectid cascade;
+--DROP INDEX m_pand_identif cascade;
+--DROP INDEX m_pand_the_geom_idx cascade;
+--DROP INDEX m_benoemd_obj_adres_objectid cascade;
+--DROP INDEX m_benoemd_obj_adres_identif cascade;
+--DROP INDEX m_benoemd_obj_adres_the_geom_idx cascade;
+--DROP INDEX m_ben_obj_nevenadres_identif cascade;
 
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'vb_pand', 'objectid', 'assigned');
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'vb_benoemd_obj_adres', 'objectid', 'assigned');
@@ -35,6 +40,9 @@ versie 2
 --REFRESH MATERIALIZED VIEW mb_pand;
 --REFRESH MATERIALIZED VIEW mb_benoemd_obj_adres;
 --REFRESH MATERIALIZED VIEW mb_adres;
+--REFRESH MATERIALIZED VIEW mb_ben_obj_nevenadres;
+
+--set session authorization flamingo;
 
 --drop view vb_adres;
 CREATE OR REPLACE VIEW
@@ -52,16 +60,19 @@ CREATE OR REPLACE VIEW
         postcode,
         geor_identif,
         wpl_identif,
-        gemb_code
+        gem_code
     ) AS
 SELECT
     (row_number() OVER ())::INTEGER                            AS objectid,
     na.sc_identif                                              AS na_identif,
-    CASE
+    (CASE
         WHEN position('-' IN addrobj.dat_beg_geldh) = 5
-        THEN to_date(addrobj.dat_beg_geldh, 'YYYY-MM-DD'::text)
-        ELSE to_date(addrobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
-    END AS begin_geldigheid,
+        THEN addrobj.dat_beg_geldh
+        ELSE 
+            substring(addrobj.dat_beg_geldh,1,4) || '-' ||
+          	substring(addrobj.dat_beg_geldh,5,2) || '-' || 
+          	substring(addrobj.dat_beg_geldh,7,2)       
+    END)::CHARACTER VARYING(10) AS begin_geldigheid,
     gem.naam                                                   AS gemeente,
     CASE
         WHEN (addrobj.fk_6wpl_identif IS NOT NULL)
@@ -82,7 +93,7 @@ SELECT
     addrobj.postcode,
     geor.identifcode as geor_identif,
     wp.identif as wpl_identif,
-    gem.code as gemb_code
+    gem.code as gem_code
 FROM
     (((((nummeraand na
 LEFT JOIN
@@ -129,7 +140,7 @@ beschikbare kolommen:
 * postcode: -,
 * geor_identif: natuurlijk id van gemeentelijke openbare ruimte,
 * wpl_identif: natuurlijk id van woonplaats,
-* gemb_code: gemeentecode
+* gem_code: gemeentecode
 
 ';
 --drop materialized view mb_adres cascade;
@@ -138,8 +149,8 @@ SELECT
     *
 FROM
     vb_adres WITH NO DATA;
-CREATE UNIQUE INDEX mb_adres_objectid ON mb_adres USING btree (objectid);
-CREATE INDEX mb_adres_identif ON mb_adres USING btree (na_identif);
+CREATE UNIQUE INDEX m_adres_objectid ON mb_adres USING btree (objectid);
+CREATE INDEX m_adres_identif ON mb_adres USING btree (na_identif);
             
 --drop view vb_vbo_adres cascade;
 CREATE OR REPLACE VIEW
@@ -161,11 +172,14 @@ CREATE OR REPLACE VIEW
     ) AS
 SELECT
     vbo.sc_identif                                          AS vbo_identif,
-    CASE
+    (CASE
         WHEN position('-' IN gobj.dat_beg_geldh) = 5
-        THEN to_date(gobj.dat_beg_geldh, 'YYYY-MM-DD'::text)
-        ELSE to_date(gobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
-    END AS begin_geldigheid,
+        THEN gobj.dat_beg_geldh
+        ELSE 
+            substring(gobj.dat_beg_geldh,1,4) || '-' ||
+          	substring(gobj.dat_beg_geldh,5,2) || '-' || 
+          	substring(gobj.dat_beg_geldh,7,2)       
+    END)::CHARACTER VARYING(10) AS begin_geldigheid,
     fkpand.fk_nn_rh_pnd_identif                             AS pand_identif,
     bva.na_identif 																					as na_identif,
     bva.gemeente,
@@ -178,7 +192,7 @@ SELECT
     vbo.status,
     gobj.puntgeom AS the_geom
 FROM
-    (((((verblijfsobj vbo
+    (((verblijfsobj vbo
 JOIN
     gebouwd_obj gobj
 ON
@@ -190,20 +204,11 @@ ON
     (((
                 fkpand.fk_nn_lh_vbo_sc_identif)::text = (vbo.sc_identif)::text)))
 LEFT JOIN
-    pand
-ON
-    (((
-                fkpand.fk_nn_rh_pnd_identif)::text = (pand.identif)::text)))
-LEFT JOIN
-    verblijfsobj_nummeraand vna
-ON
-    (((
-                vna.fk_nn_lh_vbo_sc_identif)::text = (vbo.sc_identif)::text)))
-LEFT JOIN
     vb_adres bva
 ON
     (((
-                vna.fk_nn_rh_nra_sc_identif)::text = (bva.na_identif)::text)));
+                vbo.fk_11nra_sc_identif)::text = (bva.na_identif)::text)));
+                
 COMMENT ON VIEW vb_vbo_adres
 IS
     'commentaar view vb_vbo_adres:
@@ -246,11 +251,14 @@ CREATE OR REPLACE VIEW
     ) AS
 SELECT
     spl.sc_identif                                            AS spl_identif,
-    CASE
+    (CASE
         WHEN position('-' IN benter.dat_beg_geldh) = 5
-        THEN to_date(benter.dat_beg_geldh, 'YYYY-MM-DD'::text)
-        ELSE to_date(benter.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
-    END AS begin_geldigheid,
+        THEN benter.dat_beg_geldh
+        ELSE 
+            substring(benter.dat_beg_geldh,1,4) || '-' ||
+          	substring(benter.dat_beg_geldh,5,2) || '-' || 
+          	substring(benter.dat_beg_geldh,7,2)       
+    END)::CHARACTER VARYING(10) AS begin_geldigheid,
     bva.na_identif 					      as na_identif,
     bva.gemeente,
     bva.woonplaats,
@@ -262,22 +270,17 @@ SELECT
     spl.status,
     st_centroid(benter.geom) AS the_geom
 FROM
-    (((standplaats spl
+    ((standplaats spl
 JOIN
     benoemd_terrein benter
 ON
     (((
                 benter.sc_identif)::text = (spl.sc_identif)::text)))
 LEFT JOIN
-    standplaats_nummeraand sna
-ON
-    (((
-                sna.fk_nn_lh_spl_sc_identif)::text = (spl.sc_identif)::text)))
-LEFT JOIN
     vb_adres bva
 ON
     (((
-                sna.fk_nn_rh_nra_sc_identif)::text = (bva.na_identif)::text)));
+                spl.fk_4nra_sc_identif)::text = (bva.na_identif)::text)));
 COMMENT ON VIEW vb_standplaats_adres
 IS
     'commentaar view vb_standplaats_adres:
@@ -316,12 +319,15 @@ CREATE OR REPLACE VIEW
         the_geom
     ) AS
 SELECT
-    lpa.sc_identif                                            AS lpl_identif,
-    CASE
+    lpl.sc_identif                                            AS lpl_identif,
+    (CASE
         WHEN position('-' IN benter.dat_beg_geldh) = 5
-        THEN to_date(benter.dat_beg_geldh, 'YYYY-MM-DD'::text)
-        ELSE to_date(benter.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
-    END AS begin_geldigheid,
+        THEN benter.dat_beg_geldh
+        ELSE 
+            substring(benter.dat_beg_geldh,1,4) || '-' ||
+          	substring(benter.dat_beg_geldh,5,2) || '-' || 
+          	substring(benter.dat_beg_geldh,7,2)       
+    END)::CHARACTER VARYING(10) AS begin_geldigheid,
     bva.na_identif 				              as na_identif,
     bva.gemeente,
     bva.woonplaats,
@@ -330,25 +336,20 @@ SELECT
     bva.huisletter,
     bva.huisnummer_toev,
     bva.postcode,
-    lpa.status,
+    lpl.status,
     st_centroid(benter.geom) AS the_geom
 FROM
-    (((ligplaats lpa
+    ((ligplaats lpl
 JOIN
     benoemd_terrein benter
 ON
     (((
-                benter.sc_identif)::text = (lpa.sc_identif)::text)))
-LEFT JOIN
-    ligplaats_nummeraand lna
-ON
-    (((
-                lna.fk_nn_lh_lpl_sc_identif)::text = (lpa.sc_identif)::text)))
+                benter.sc_identif)::text = (lpl.sc_identif)::text)))
 LEFT JOIN
     vb_adres bva
 ON
     (((
-                lna.fk_nn_rh_nra_sc_identif)::text = (bva.na_identif)::text)));
+                lpl.fk_4nra_sc_identif)::text = (bva.na_identif)::text)));
 COMMENT ON VIEW vb_ligplaats_adres
 IS
     'commentaar view vb_ligplaats_adres:
@@ -383,11 +384,14 @@ CREATE OR REPLACE VIEW
 SELECT
     (row_number() OVER ())::INTEGER AS objectid,
     pand.identif as pand_identif,
-    CASE
+    (CASE
         WHEN position('-' IN pand.dat_beg_geldh) = 5
-        THEN to_date(pand.dat_beg_geldh, 'YYYY-MM-DD'::text)
-        ELSE to_date(pand.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
-    END AS begin_geldigheid,
+        THEN pand.dat_beg_geldh
+        ELSE 
+            substring(pand.dat_beg_geldh,1,4) || '-' ||
+          	substring(pand.dat_beg_geldh,5,2) || '-' || 
+          	substring(pand.dat_beg_geldh,7,2)       
+    END)::CHARACTER VARYING(10) AS begin_geldigheid,
     pand.oorspronkelijk_bouwjaar                            AS bouwjaar,
     pand.status,
     pand.geomb_bovenaanzicht AS the_geom
@@ -411,9 +415,9 @@ SELECT
     *
 FROM
     vb_pand WITH NO DATA;
-CREATE UNIQUE INDEX mb_pand_objectid ON mb_pand USING btree (objectid);
-CREATE INDEX mb_pand_identif ON mb_pand USING btree (pand_identif);
-CREATE INDEX mb_pand_the_geomb_idx ON mb_pand USING gist (the_geom);
+CREATE UNIQUE INDEX m_pand_objectid ON mb_pand USING btree (objectid);
+CREATE INDEX m_pand_identif ON mb_pand USING btree (pand_identif);
+CREATE INDEX m_pand_the_geom_idx ON mb_pand USING gist (the_geom);
 
     
 --drop view vb_benoemd_obj_adres cascade;
@@ -533,6 +537,161 @@ SELECT
     *
 FROM
     vb_benoemd_obj_adres WITH NO DATA;
-CREATE UNIQUE INDEX mb_benoemd_obj_adres_objectid ON mb_benoemd_obj_adres USING btree (objectid);
-CREATE INDEX mb_benoemd_obj_adres_identif ON mb_benoemd_obj_adres USING btree (na_identif);
-CREATE INDEX mb_benoemd_obj_adres_the_geomb_idx ON mb_benoemd_obj_adres USING gist (the_geom);
+CREATE UNIQUE INDEX m_benoemd_obj_adres_objectid ON mb_benoemd_obj_adres USING btree (objectid);
+CREATE INDEX m_benoemd_obj_adres_identif ON mb_benoemd_obj_adres USING btree (na_identif);
+CREATE INDEX m_benoemd_obj_adres_the_geom_idx ON mb_benoemd_obj_adres USING gist (the_geom);
+
+--drop view vb_ben_obj_nevenadres cascade;
+create or replace view
+    vb_ben_obj_nevenadres
+    (
+        benoemdobj_identif,
+        na_identif,
+        begin_geldigheid,
+        soort,
+        gemeente,
+        woonplaats,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode
+    ) as
+select
+    qry.benoemdobj_identif,
+    qry.na_identif,
+    qry.begin_geldigheid,
+    qry.soort,
+    qry.gemeente,
+    qry.woonplaats,
+    qry.straatnaam,
+    qry.huisnummer,
+    qry.huisletter,
+    qry.huisnummer_toev,
+    qry.postcode
+from
+    (
+						select
+						    vna.fk_nn_lh_vbo_sc_identif as benoemdobj_identif,
+						    vba.na_identif,
+						    (CASE
+						        WHEN position('-' IN vna.fk_nn_lh_vbo_sc_dat_beg_geldh) = 5
+						        THEN vna.fk_nn_lh_vbo_sc_dat_beg_geldh
+						        ELSE 
+						            substring(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,1,4) || '-' ||
+						          	substring(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,5,2) || '-' || 
+						          	substring(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,7,2)       
+						    END)::CHARACTER VARYING(10) AS begin_geldigheid,
+						    'VBO'::CHARACTER VARYING(50) AS soort,
+						    vba.gemeente,
+						    vba.woonplaats,
+						    vba.straatnaam,
+						    vba.huisnummer,
+						    vba.huisletter,
+						    vba.huisnummer_toev,
+						    vba.postcode
+						from
+						    vb_adres vba
+						join
+						    verblijfsobj_nummeraand vna
+						on
+						    (vna.fk_nn_rh_nra_sc_identif = vba.na_identif)
+						join
+						    verblijfsobj vbo
+						on
+						    (vna.fk_nn_lh_vbo_sc_identif = vbo.sc_identif)
+						where 
+                vbo.fk_11nra_sc_identif <> vna.fk_nn_rh_nra_sc_identif
+            union all
+						select
+						    lpa.fk_nn_lh_lpl_sc_identif as benoemdobj_identif,
+						    vba.na_identif,
+						    (CASE
+						        WHEN position('-' IN lpa.fk_nn_lh_lpl_sc_dat_beg_geldh) = 5
+						        THEN lpa.fk_nn_lh_lpl_sc_dat_beg_geldh
+						        ELSE 
+						            substring(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,1,4) || '-' ||
+						          	substring(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,5,2) || '-' || 
+						          	substring(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,7,2)       
+						    END)::CHARACTER VARYING(10) AS begin_geldigheid,
+						    'ligplaats'::CHARACTER VARYING(50) AS soort,
+						    vba.gemeente,
+						    vba.woonplaats,
+						    vba.straatnaam,
+						    vba.huisnummer,
+						    vba.huisletter,
+						    vba.huisnummer_toev,
+						    vba.postcode
+						from
+						    vb_adres vba
+						join
+						    ligplaats_nummeraand lpa
+						on
+						    (lpa.fk_nn_rh_nra_sc_identif = vba.na_identif)
+						join
+						    ligplaats lpl
+						on
+						    (lpa.fk_nn_lh_lpl_sc_identif = lpl.sc_identif)
+						where 
+                lpl.fk_4nra_sc_identif <> lpa.fk_nn_rh_nra_sc_identif
+        union all
+						select
+						    spa.fk_nn_lh_spl_sc_identif as benoemdobj_identif,
+						    vba.na_identif,
+						    (CASE
+						        WHEN position('-' IN spa.fk_nn_lh_spl_sc_dat_beg_geldh) = 5
+						        THEN spa.fk_nn_lh_spl_sc_dat_beg_geldh
+						        ELSE 
+						            substring(spa.fk_nn_lh_spl_sc_dat_beg_geldh,1,4) || '-' ||
+						          	substring(spa.fk_nn_lh_spl_sc_dat_beg_geldh,5,2) || '-' || 
+						          	substring(spa.fk_nn_lh_spl_sc_dat_beg_geldh,7,2)       
+						    END)::CHARACTER VARYING(10) AS begin_geldigheid,
+						    'standplaats'::CHARACTER VARYING(50) AS soort,
+						    vba.gemeente,
+						    vba.woonplaats,
+						    vba.straatnaam,
+						    vba.huisnummer,
+						    vba.huisletter,
+						    vba.huisnummer_toev,
+						    vba.postcode
+						from
+						    vb_adres vba
+						join
+						    standplaats_nummeraand spa
+						on
+						    (spa.fk_nn_rh_nra_sc_identif = vba.na_identif)
+						join
+						    standplaats spl
+						on
+						    (spa.fk_nn_lh_spl_sc_identif = spl.sc_identif)
+						where 
+                spl.fk_4nra_sc_identif <> spa.fk_nn_rh_nra_sc_identif
+    ) qry;
+
+
+comment on view vb_ben_obj_nevenadres
+is
+    'commentaar view mb_ben_obj_nevenadres:
+alle nevenadressen van een benoemde object (vbo, standplaats en ligplaats)
+beschikbare kolommen:
+* benoemdobj_identif: natuurlijke id van benoemd object      
+* na_identif: natuurlijke id van nummeraanduiding      
+* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* soort: vbo, ligplaats of standplaats
+* gemeente: nevenadres,
+* woonplaats: nevenadres,
+* straatnaam: nevenadres,
+* huisnummer: nevenadres,
+* huisletter: nevenadres,
+* huisnummer_toev: nevenadres,
+* postcode: nevenadres
+';
+
+--drop materialized view mb_ben_obj_nevenadres cascade;
+create materialized view mb_ben_obj_nevenadres as
+SELECT
+    *
+FROM
+    vb_ben_obj_nevenadres WITH NO DATA;
+CREATE INDEX m_ben_obj_nevenadres_identif ON mb_ben_obj_nevenadres USING btree (na_identif);
+
