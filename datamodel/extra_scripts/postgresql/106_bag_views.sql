@@ -86,7 +86,7 @@ SELECT
                     ((wnplts.identif)::text = (addrobj.fk_6wpl_identif)::text))
         ELSE wp.naam
     END                  AS woonplaats,
-    geor.naamb_openb_rmte AS straatnaam,
+    geor.naam_openb_rmte AS straatnaam,
     addrobj.huinummer    AS huisnummer,
     addrobj.huisletter,
     addrobj.huinummertoevoeging AS huisnummer_toev,
@@ -102,7 +102,7 @@ ON
     (((
                 addrobj.identif)::text = (na.sc_identif)::text)))
 JOIN
-    gemb_openb_rmte geor
+    gem_openb_rmte geor
 ON
     (((
                 geor.identifcode)::text = (addrobj.fk_7opr_identifcode)::text)))
@@ -120,7 +120,7 @@ LEFT JOIN
     gemeente gem
 ON
     ((
-            wp.fk_7gemb_code = gem.code)));
+            wp.fk_7gem_code = gem.code)));
             
 COMMENT ON VIEW vb_adres
 IS
@@ -268,7 +268,7 @@ SELECT
     bva.huisnummer_toev,
     bva.postcode,
     spl.status,
-    st_centroid(benter.geom) AS the_geom
+    st_centroid(benter.geom)::geometry(POINT,28992) AS the_geom
 FROM
     ((standplaats spl
 JOIN
@@ -337,7 +337,7 @@ SELECT
     bva.huisnummer_toev,
     bva.postcode,
     lpl.status,
-    st_centroid(benter.geom) AS the_geom
+    st_centroid(benter.geom)::geometry(POINT,28992) AS the_geom
 FROM
     ((ligplaats lpl
 JOIN
@@ -394,7 +394,7 @@ SELECT
     END)::CHARACTER VARYING(10) AS begin_geldigheid,
     pand.oorspronkelijk_bouwjaar                            AS bouwjaar,
     pand.status,
-    pand.geomb_bovenaanzicht AS the_geom
+    pand.geom_bovenaanzicht AS the_geom
 FROM
     pand;
 COMMENT ON VIEW vb_pand
@@ -455,7 +455,7 @@ SELECT
     qry.huisnummer_toev,
     qry.postcode,
     qry.status,
-    qry.the_geom
+    qry.the_geom::geometry(POINT,28992)
 FROM
     (
         SELECT

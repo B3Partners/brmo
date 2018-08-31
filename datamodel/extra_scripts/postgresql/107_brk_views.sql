@@ -1343,7 +1343,7 @@ SELECT
     koza.ks_valutasoort            AS valutasoort,
     koza.lo_loc__omschr            AS loc_omschr,
     kozhr.fk_sc_rh_koz_kad_identif AS overgegaan_in,
-    qry.begrenzing_perceel
+    qry.begrenzing_perceel::geometry(MULTIPOLYGON,28992)
 FROM
     (
         SELECT
