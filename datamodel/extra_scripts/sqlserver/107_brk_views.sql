@@ -565,7 +565,7 @@ CREATE VIEW
     ) AS
 SELECT
     zr.kadaster_identif AS zr_identif,
-    ( (COALESCE(CAST(zr.ar_teller AS VARCHAR(1)), ('0')) + ('/')) + COALESCE(CAST(zr.ar_noemer AS VARCHAR(1)), ('0')) ) AS aandeel,
+    ( (COALESCE(CAST(zr.ar_teller AS VARCHAR), ('0')) + ('/')) + COALESCE(CAST(zr.ar_noemer AS VARCHAR), ('0')) ) AS aandeel,
     zr.ar_teller,
     zr.ar_noemer,
     zr.fk_8pes_sc_identif  AS subject_identif,
