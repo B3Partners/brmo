@@ -4,6 +4,7 @@ versie 2
 30-8-2018
 */
 
+-- DROP VIEW vb_ben_obj_nevenadres;
 -- DROP VIEW vb_benoemd_obj_adres;
 -- DROP VIEW vb_pand;
 -- DROP VIEW vb_ligplaats_adres;
@@ -502,5 +503,152 @@ beschikbare kolommen:
 * the_geom: puntlocatie',
 @level0type = N'Schema', @level0name = N'dbo',
 @level1type = N'View', @level1name = N'vb_benoemd_obj_adres';
+
+GO
+
+CREATE VIEW
+    vb_ben_obj_nevenadres
+    (
+        benoemdobj_identif,
+        na_identif,
+        begin_geldigheid,
+        soort,
+        gemeente,
+        woonplaats,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode
+    ) AS
+SELECT
+    qry.benoemdobj_identif,
+    qry.na_identif,
+    qry.begin_geldigheid,
+    qry.soort,
+    qry.gemeente,
+    qry.woonplaats,
+    qry.straatnaam,
+    qry.huisnummer,
+    qry.huisletter,
+    qry.huisnummer_toev,
+    qry.postcode
+FROM
+    (
+        SELECT
+            vna.fk_nn_lh_vbo_sc_identif AS benoemdobj_identif,
+            vba.na_identif,
+            (
+                CASE
+                    WHEN CHARINDEX('-',vna.fk_nn_lh_vbo_sc_dat_beg_geldh) = 5
+                    THEN vna.fk_nn_lh_vbo_sc_dat_beg_geldh
+                    ELSE substring(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,1,4) + '-'
+                         + substring(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,5,2) + '-'
+                         + substring(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,7,2)
+                END) AS begin_geldigheid,
+            'VBO'    AS soort,
+            vba.gemeente,
+            vba.woonplaats,
+            vba.straatnaam,
+            vba.huisnummer,
+            vba.huisletter,
+            vba.huisnummer_toev,
+            vba.postcode
+        FROM
+            vb_adres vba
+        JOIN
+            verblijfsobj_nummeraand vna
+        ON
+            vna.fk_nn_rh_nra_sc_identif = vba.na_identif
+        JOIN
+            verblijfsobj vbo
+        ON
+            vna.fk_nn_lh_vbo_sc_identif = vbo.sc_identif
+        WHERE
+            vbo.fk_11nra_sc_identif <> vna.fk_nn_rh_nra_sc_identif
+        UNION ALL
+        SELECT
+            lpa.fk_nn_lh_lpl_sc_identif AS benoemdobj_identif,
+            vba.na_identif,
+            (
+                CASE
+                    WHEN CHARINDEX('-',lpa.fk_nn_lh_lpl_sc_dat_beg_geldh) = 5
+                    THEN lpa.fk_nn_lh_lpl_sc_dat_beg_geldh
+                    ELSE substring(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,1,4) + '-'
+                         + substring(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,5,2) + '-'
+                         + substring(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,7,2)
+                END)    AS begin_geldigheid,
+            'ligplaats' AS soort,
+            vba.gemeente,
+            vba.woonplaats,
+            vba.straatnaam,
+            vba.huisnummer,
+            vba.huisletter,
+            vba.huisnummer_toev,
+            vba.postcode
+        FROM
+            vb_adres vba
+        JOIN
+            ligplaats_nummeraand lpa
+        ON
+            lpa.fk_nn_rh_nra_sc_identif = vba.na_identif
+        JOIN
+            ligplaats lpl
+        ON
+            lpa.fk_nn_lh_lpl_sc_identif = lpl.sc_identif
+        WHERE
+            lpl.fk_4nra_sc_identif <> lpa.fk_nn_rh_nra_sc_identif
+        UNION ALL
+        SELECT
+            spa.fk_nn_lh_spl_sc_identif AS benoemdobj_identif,
+            vba.na_identif,
+            (
+                CASE
+                    WHEN CHARINDEX('-',spa.fk_nn_lh_spl_sc_dat_beg_geldh) = 5
+                    THEN spa.fk_nn_lh_spl_sc_dat_beg_geldh
+                    ELSE substring(spa.fk_nn_lh_spl_sc_dat_beg_geldh,1,4) + '-'
+                        + substring(spa.fk_nn_lh_spl_sc_dat_beg_geldh,5,2) + '-'
+                        + substring(spa.fk_nn_lh_spl_sc_dat_beg_geldh,7,2)
+                END)      AS begin_geldigheid,
+            'standplaats' AS soort,
+            vba.gemeente,
+            vba.woonplaats,
+            vba.straatnaam,
+            vba.huisnummer,
+            vba.huisletter,
+            vba.huisnummer_toev,
+            vba.postcode
+        FROM
+            vb_adres vba
+        JOIN
+            standplaats_nummeraand spa
+        ON
+            spa.fk_nn_rh_nra_sc_identif = vba.na_identif
+        JOIN
+            standplaats spl
+        ON
+            spa.fk_nn_lh_spl_sc_identif = spl.sc_identif
+        WHERE
+            spl.fk_4nra_sc_identif <> spa.fk_nn_rh_nra_sc_identif ) qry;
+
+GO
+
+EXEC sp_addextendedproperty
+@name = N'comment',
+@value = N'alle nevenadressen van een benoemde object (vbo, standplaats en ligplaats)
+beschikbare kolommen:
+* benoemdobj_identif: natuurlijke id van benoemd object
+* na_identif: natuurlijke id van nummeraanduiding
+* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* soort: vbo, ligplaats of standplaats
+* gemeente: nevenadres,
+* woonplaats: nevenadres,
+* straatnaam: nevenadres,
+* huisnummer: nevenadres,
+* huisletter: nevenadres,
+* huisnummer_toev: nevenadres,
+* postcode: nevenadres',
+@level0type = N'Schema', @level0name = N'dbo',
+@level1type = N'View', @level1name = N'vb_ben_obj_nevenadres';
 
 GO
