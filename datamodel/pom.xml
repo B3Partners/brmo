@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>datamodel</artifactId>
-    <version>1.6.0-SNAPSHOT</version>
+    <version>1.6.0</version>
     <packaging>pom</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
-        <version>1.6.0-SNAPSHOT</version>
+        <version>1.6.0</version>
     </parent>
     <name>BRMO rsgb datamodel</name>
     <properties>
@@ -252,10 +252,10 @@
                                         <echo message="unzip GEM-WPL koppeling xml bestanden" />
                                         <unzip dest="${project.build.directory}/GEM-WPL" failOnEmptyArchive="true">
                                             <fileset dir="${project.basedir}/referentiedata">
-                                                <include name="GEM-WPL-RELATIE-*.zip"/>
+                                                <include name="GEM-WPL-RELATIE-*.zip" />
                                             </fileset>
                                             <patternset>
-                                                <include name="GEM-WPL-RELATIE-*.xml"/>
+                                                <include name="GEM-WPL-RELATIE-*.xml" />
                                             </patternset>
                                         </unzip>
                                     </tasks>
@@ -270,13 +270,13 @@
                                 <configuration>
                                     <tasks>
                                         <copy todir="${project.basedir}/utility_scripts/oracle" verbose="true">
-                                            <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql"/>
+                                            <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql" />
                                         </copy>
                                         <copy todir="${project.basedir}/utility_scripts/postgresql" verbose="true">
-                                            <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql"/>
+                                            <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql" />
                                         </copy>
                                         <copy todir="${project.basedir}/utility_scripts/sqlserver" verbose="true">
-                                            <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql"/>
+                                            <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql" />
                                         </copy>
                                     </tasks>
                                 </configuration>
