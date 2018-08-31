@@ -36,8 +36,10 @@ SELECT
     na.sc_identif                                          AS na_identif,
     CASE
         WHEN CHARINDEX('-',addrobj.dat_beg_geldh) = 5
-        THEN CONVERT(DATE, addrobj.dat_beg_geldh, 121)
-        ELSE TRY_CONVERT(DATE, addrobj.dat_beg_geldh, 105)
+        THEN addrobj.dat_beg_geldh
+        ELSE substring(addrobj.dat_beg_geldh,1,4) + '-'
+            + substring(addrobj.dat_beg_geldh,5,2) + '-'
+            + substring(addrobj.dat_beg_geldh,7,2)
     END                                                    AS begin_geldigheid,
     gem.naam                                               AS gemeente,
     CASE
@@ -133,8 +135,10 @@ SELECT
     vbo.sc_identif              AS vbo_identif,
     CASE
         WHEN CHARINDEX('-',gobj.dat_beg_geldh) = 5
-        THEN CONVERT(DATE, gobj.dat_beg_geldh, 121)
-        ELSE TRY_CONVERT(DATE, gobj.dat_beg_geldh, 105)
+        THEN gobj.dat_beg_geldh
+        ELSE substring(gobj.dat_beg_geldh,1,4) + '-'
+            + substring(gobj.dat_beg_geldh,5,2) + '-'
+            + substring(gobj.dat_beg_geldh,7,2)
     END                         AS begin_geldigheid,
     fkpand.fk_nn_rh_pnd_identif AS pand_identif,
     bva.na_identif              AS na_identif,
@@ -220,8 +224,10 @@ SELECT
     spl.sc_identif       AS spl_identif,
     CASE
         WHEN CHARINDEX('-',benter.dat_beg_geldh) = 5
-        THEN CONVERT(DATE, benter.dat_beg_geldh, 121)
-        ELSE TRY_CONVERT(DATE, benter.dat_beg_geldh, 105)
+        THEN benter.dat_beg_geldh
+        ELSE substring(benter.dat_beg_geldh,1,4) + '-'
+            + substring(benter.dat_beg_geldh,5,2) + '-'
+            + substring(benter.dat_beg_geldh,7,2)
     END                  AS begin_geldigheid,
     bva.na_identif       AS na_identif,
     bva.gemeente,
@@ -294,8 +300,10 @@ SELECT
     lpa.sc_identif         AS lpl_identif,
     CASE
         WHEN CHARINDEX('-',benter.dat_beg_geldh) = 5
-        THEN CONVERT(DATE, benter.dat_beg_geldh, 121)
-        ELSE TRY_CONVERT(DATE, benter.dat_beg_geldh, 105)
+        THEN benter.dat_beg_geldh
+        ELSE substring(benter.dat_beg_geldh,1,4) + '-'
+            + substring(benter.dat_beg_geldh,5,2) + '-'
+            + substring(benter.dat_beg_geldh,7,2)
     END                    AS begin_geldigheid,
     bva.na_identif         AS na_identif,
     bva.gemeente,
@@ -364,8 +372,10 @@ SELECT
     pand.identif                    AS pand_identif,
     CASE
         WHEN CHARINDEX('-',pand.dat_beg_geldh) = 5
-        THEN CONVERT(DATE, pand.dat_beg_geldh, 121)
-        ELSE TRY_CONVERT(DATE, pand.dat_beg_geldh, 105)
+        THEN pand.dat_beg_geldh
+        ELSE substring(pand.dat_beg_geldh,1,4) + '-'
+            + substring(pand.dat_beg_geldh,5,2) + '-'
+            + substring(pand.dat_beg_geldh,7,2)
     END                             AS begin_geldigheid,
     pand.oorspronkelijk_bouwjaar    AS bouwjaar,
     pand.status,
