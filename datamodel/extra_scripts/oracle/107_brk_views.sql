@@ -372,7 +372,10 @@ FROM
 LEFT JOIN
     vb_util_app_re_splitsing sp
 ON
-    cast(re.sc_kad_identif AS CHARACTER VARYING(50)) = sp.child_identif;
+    cast(re.sc_kad_identif AS CHARACTER VARYING(50)) = sp.child_identif
+GROUP BY
+    re.sc_kad_identif::text,
+    sp.parent_identif;
 
 --drop view vb_util_app_re_parent_2 cascade;
 CREATE OR REPLACE VIEW
@@ -465,11 +468,7 @@ CREATE OR REPLACE VIEW
 SELECT
     CAST(ROWNUM AS INTEGER) AS objectid,
     qry.identif             AS koz_identif,
-    CASE
-        WHEN (LENGTH(koz.dat_beg_geldh)=10)
-        THEN to_date(koz.dat_beg_geldh, 'YYYY-MM-DD')
-        ELSE CAST(NULL AS DATE)
-    END                      AS begin_geldigheid,
+    koz.dat_beg_geldh AS begin_geldigheid,
     bok.fk_nn_lh_tgo_identif                       AS benoemdobj_identif,
     qry.type,
     COALESCE(qry.ka_sectie, '') || ' ' || COALESCE(qry.ka_perceelnummer, '') AS aanduiding,
@@ -1326,13 +1325,7 @@ SELECT
     CAST(ROWNUM AS INTEGER) AS objectid,
     qry.identif as koz_identif,
     koza.dat_beg_geldh AS begin_geldigheid,
-    --hack vanwege foutieve formatering in archieftabel voor kadastrale onroerende zaak
-    CASE
-        WHEN ((INSTR(koza.datum_einde_geldh, '-', 1) = 3)
-            AND (LENGTH(koza.datum_einde_geldh)=10))
-        THEN TO_CHAR(to_date((koza.datum_einde_geldh), 'DD-MM-YYYY'), 'YYYY-MM-DD')
-        ELSE koza.datum_einde_geldh
-    END AS eind_geldigheid,
+    koza.datum_einde_geldh AS eind_geldigheid,
     qry.type,
     (((COALESCE(qry.ka_sectie, '')) || ' ') || (COALESCE
     (qry.ka_perceelnummer, ''))) AS aanduiding,
