@@ -10,18 +10,86 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.stripes.LaadProcesActionBean
-	c1423 [label=<<table title="nl.b3p.brmo.service.stripes.LaadProcesActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./LaadProcesActionBean.html">
+	c1483 [label=<<table title="nl.b3p.brmo.service.stripes.LaadProcesActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./LaadProcesActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LaadProcesActionBean </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + LaadProcesActionBean() </td></tr>
+<tr><td align="left" balign="left"> + list() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + log() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + delete() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + getGridData() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + saveRecord() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getProcessen() : List&lt;LaadProces&gt; </td></tr>
+<tr><td align="left" balign="left"> + setProcessen(processen : List&lt;LaadProces&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getSelectedIds() : long[] </td></tr>
+<tr><td align="left" balign="left"> + setSelectedIds(selectedIds : long[]) </td></tr>
+<tr><td align="left" balign="left"> + getPage() : int </td></tr>
+<tr><td align="left" balign="left"> + setPage(page : int) </td></tr>
+<tr><td align="left" balign="left"> + getStart() : int </td></tr>
+<tr><td align="left" balign="left"> + setStart(start : int) </td></tr>
+<tr><td align="left" balign="left"> + getLimit() : int </td></tr>
+<tr><td align="left" balign="left"> + setLimit(limit : int) </td></tr>
+<tr><td align="left" balign="left"> + getSort() : String </td></tr>
+<tr><td align="left" balign="left"> + setSort(sort : String) </td></tr>
+<tr><td align="left" balign="left"> + getDir() : String </td></tr>
+<tr><td align="left" balign="left"> + setDir(dir : String) </td></tr>
+<tr><td align="left" balign="left"> + getFilter() : JSONArray </td></tr>
+<tr><td align="left" balign="left"> + setFilter(filter : JSONArray) </td></tr>
+<tr><td align="left" balign="left"> + getChangedItem() : JSONObject </td></tr>
+<tr><td align="left" balign="left"> + setChangedItem(changedItem : JSONObject) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./LaadProcesActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.stripes.LaadProcesActionBean implements net.sourceforge.stripes.action.ActionBean
-	c1457:p -> c1423:p [dir=back,arrowtail=empty,style=dashed];
+	c1517:p -> c1483:p [dir=back,arrowtail=empty,style=dashed];
+	// nl.b3p.brmo.service.stripes.LaadProcesActionBean NAVASSOC net.sourceforge.stripes.action.ActionBeanContext
+	c1483:p -> c1518:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// net.sourceforge.stripes.action.ActionBean
-	c1457 [label=<<table title="net.sourceforge.stripes.action.ActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c1517 [label=<<table title="net.sourceforge.stripes.action.ActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + setContext(arg0 : ActionBeanContext) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getContext() : ActionBeanContext </font></td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// net.sourceforge.stripes.action.ActionBeanContext
+	c1518 [label=<<table title="net.sourceforge.stripes.action.ActionBeanContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ActionBeanContext </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ActionBeanContext() </td></tr>
+<tr><td align="left" balign="left"> + getRequest() : HttpServletRequest </td></tr>
+<tr><td align="left" balign="left"> + setRequest(arg0 : HttpServletRequest) </td></tr>
+<tr><td align="left" balign="left"> + getResponse() : HttpServletResponse </td></tr>
+<tr><td align="left" balign="left"> + setResponse(arg0 : HttpServletResponse) </td></tr>
+<tr><td align="left" balign="left"> + getServletContext() : ServletContext </td></tr>
+<tr><td align="left" balign="left"> + setServletContext(arg0 : ServletContext) </td></tr>
+<tr><td align="left" balign="left"> + getEventName() : String </td></tr>
+<tr><td align="left" balign="left"> + setEventName(arg0 : String) </td></tr>
+<tr><td align="left" balign="left"> + getValidationErrors() : ValidationErrors </td></tr>
+<tr><td align="left" balign="left"> + setValidationErrors(arg0 : ValidationErrors) </td></tr>
+<tr><td align="left" balign="left"> + getMessages() : List&lt;Message&gt; </td></tr>
+<tr><td align="left" balign="left"> + getMessages(arg0 : String) : List&lt;Message&gt; </td></tr>
+<tr><td align="left" balign="left"> + getLocale() : Locale </td></tr>
+<tr><td align="left" balign="left"> + getSourcePageResolution() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + getSourcePage() : String </td></tr>
+<tr><td align="left" balign="left"> + toString() : String </td></tr>
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

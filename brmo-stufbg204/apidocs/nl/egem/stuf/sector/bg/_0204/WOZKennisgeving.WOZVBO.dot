@@ -10,18 +10,101 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZVBO
-	c250567 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZVBO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZKennisgeving.WOZVBO.html">
+	c250569 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZVBO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZKennisgeving.WOZVBO.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZVBO </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vbo : VBOKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZVBO() </td></tr>
+<tr><td align="left" balign="left"> + getVBO() : VBOKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setVBO(value : VBOKerngegevens) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./WOZKennisgeving.WOZVBO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.Relatie
-	c250802 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
+	c250804 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Relatie </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Relatie() </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./Relatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.VBOKerngegevens
+	c250893 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKerngegevens.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> VBOKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # bouwjaar : VBOKerngegevens.Bouwjaar </td></tr>
+<tr><td align="left" balign="left"> # verblijfsObjectNummer : VBOKerngegevens.VerblijfsObjectNummer </td></tr>
+<tr><td align="left" balign="left"> # verblijfsObjectType : VBOKerngegevens.VerblijfsObjectType </td></tr>
+<tr><td align="left" balign="left"> # vboadr : VBOKerngegevens.VBOADR </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOKerngegevens() </td></tr>
+<tr><td align="left" balign="left"> + getBouwjaar() : VBOKerngegevens.Bouwjaar </td></tr>
+<tr><td align="left" balign="left"> + setBouwjaar(value : VBOKerngegevens.Bouwjaar) </td></tr>
+<tr><td align="left" balign="left"> + getVerblijfsObjectNummer() : VBOKerngegevens.VerblijfsObjectNummer </td></tr>
+<tr><td align="left" balign="left"> + setVerblijfsObjectNummer(value : VBOKerngegevens.VerblijfsObjectNummer) </td></tr>
+<tr><td align="left" balign="left"> + getVerblijfsObjectType() : VBOKerngegevens.VerblijfsObjectType </td></tr>
+<tr><td align="left" balign="left"> + setVerblijfsObjectType(value : VBOKerngegevens.VerblijfsObjectType) </td></tr>
+<tr><td align="left" balign="left"> + getVBOADR() : VBOKerngegevens.VBOADR </td></tr>
+<tr><td align="left" balign="left"> + setVBOADR(value : VBOKerngegevens.VBOADR) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./VBOKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZVBO extends nl.egem.stuf.sector.bg._0204.Relatie
-	c250802:p -> c250567:p [dir=back,arrowtail=empty];
+	c250804:p -> c250569:p [dir=back,arrowtail=empty];
+	// nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZVBO NAVASSOC nl.egem.stuf.sector.bg._0204.VBOKerngegevens
+	c250569:p -> c250893:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

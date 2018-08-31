@@ -10,9 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.xml.BGTLightFileReaderTest
-	c274 [label=<<table title="nl.b3p.brmo.loader.xml.BGTLightFileReaderTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTLightFileReaderTest.html">
+	c288 [label=<<table title="nl.b3p.brmo.loader.xml.BGTLightFileReaderTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTLightFileReaderTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTLightFileReaderTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BGTLightFileReaderTest(bestandNaam : String, datum : String, gebied : String) </td></tr>
+<tr><td align="left" balign="left"> + params() : Collection&lt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + testNullBestandsNaam() </td></tr>
+<tr><td align="left" balign="left"> + testBGTLightXMLReader() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BGTLightFileReaderTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

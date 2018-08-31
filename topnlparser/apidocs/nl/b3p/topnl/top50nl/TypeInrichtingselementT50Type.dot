@@ -9,12 +9,108 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.topnl.top50nl.InrichtingselementType
+	c42948 [label=<<table title="nl.b3p.topnl.top50nl.InrichtingselementType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InrichtingselementType.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> InrichtingselementType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+<tr><td align="left" balign="left"> # hoogteNiveau : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # naamFries : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # naamNL : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # nummer : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # status : StatusT50Type </td></tr>
+<tr><td align="left" balign="left"> # typeInrichtingsElement : TypeInrichtingselementT50Type </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + InrichtingselementType() </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+<tr><td align="left" balign="left"> + getHoogteNiveau() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setHoogteNiveau(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getNaamFries() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNaamNL() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNummer() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : StatusT50Type </td></tr>
+<tr><td align="left" balign="left"> + setStatus(value : StatusT50Type) </td></tr>
+<tr><td align="left" balign="left"> + getTypeInrichtingsElement() : TypeInrichtingselementT50Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeInrichtingsElement(value : TypeInrichtingselementT50Type) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./InrichtingselementType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top50nl.TypeInrichtingselementT50Type
-	c42912 [label=<<table title="nl.b3p.topnl.top50nl.TypeInrichtingselementT50Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeInrichtingselementT50Type.html">
+	c42959 [label=<<table title="nl.b3p.topnl.top50nl.TypeInrichtingselementT50Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeInrichtingselementT50Type.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> TypeInrichtingselementT50Type </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> AANLEGSTEIGER </td></tr>
+<tr><td align="left" balign="left"> BAAK </td></tr>
+<tr><td align="left" balign="left"> BOMENRIJ </td></tr>
+<tr><td align="left" balign="left"> BOOM </td></tr>
+<tr><td align="left" balign="left"> BOORTOREN </td></tr>
+<tr><td align="left" balign="left"> BRUG </td></tr>
+<tr><td align="left" balign="left"> DAM_KOEDAM </td></tr>
+<tr><td align="left" balign="left"> DUKDALF </td></tr>
+<tr><td align="left" balign="left"> GEDENKTEKEN_MONUMENT </td></tr>
+<tr><td align="left" balign="left"> GELUIDSWERING </td></tr>
+<tr><td align="left" balign="left"> GOLFMEETPAAL </td></tr>
+<tr><td align="left" balign="left"> GPS_KERNNETPUNT </td></tr>
+<tr><td align="left" balign="left"> GRENSPUNT </td></tr>
+<tr><td align="left" balign="left"> HEG_HAAG </td></tr>
+<tr><td align="left" balign="left"> HEKWERK </td></tr>
+<tr><td align="left" balign="left"> HELIKOPTERLANDINGSPLATFORM </td></tr>
+<tr><td align="left" balign="left"> HOOGSPANNINGSLEIDING </td></tr>
+<tr><td align="left" balign="left"> HOOGSPANNINGSMAST </td></tr>
+<tr><td align="left" balign="left"> HUNEBED </td></tr>
+<tr><td align="left" balign="left"> KAAP </td></tr>
+<tr><td align="left" balign="left"> KABELBAAN </td></tr>
+<tr><td align="left" balign="left"> KABELBAANMAST </td></tr>
+<tr><td align="left" balign="left"> KILOMETERPAAL </td></tr>
+<tr><td align="left" balign="left"> KILOMETERPAAL_SPOORWEG </td></tr>
+<tr><td align="left" balign="left"> KILOMETERPAAL_WATER </td></tr>
+<tr><td align="left" balign="left"> KILOMETERRAAIBORD </td></tr>
+<tr><td align="left" balign="left"> KILOMETERRAAIPAAL </td></tr>
+<tr><td align="left" balign="left"> KRUIS </td></tr>
+<tr><td align="left" balign="left"> LAADPERRON </td></tr>
+<tr><td align="left" balign="left"> LICHT_LICHTOPSTAND </td></tr>
+<tr><td align="left" balign="left"> MARKANT_OBJECT </td></tr>
+<tr><td align="left" balign="left"> MUUR </td></tr>
+<tr><td align="left" balign="left"> OLIEPOMPINSTALLATIE </td></tr>
+<tr><td align="left" balign="left"> PAAL </td></tr>
+<tr><td align="left" balign="left"> PAALWERK </td></tr>
+<tr><td align="left" balign="left"> PEILSCHAAL </td></tr>
+<tr><td align="left" balign="left"> PIJLER </td></tr>
+<tr><td align="left" balign="left"> RADARPOST </td></tr>
+<tr><td align="left" balign="left"> RADIOTELESCOOP </td></tr>
+<tr><td align="left" balign="left"> RD_PUNT </td></tr>
+<tr><td align="left" balign="left"> RECREATIEPIER </td></tr>
+<tr><td align="left" balign="left"> SCHIETBAAN </td></tr>
+<tr><td align="left" balign="left"> SCHOORSTEEN </td></tr>
+<tr><td align="left" balign="left"> SEINMAST </td></tr>
+<tr><td align="left" balign="left"> SLUISDEUR </td></tr>
+<tr><td align="left" balign="left"> STATION </td></tr>
+<tr><td align="left" balign="left"> STORMVLOEDKERING </td></tr>
+<tr><td align="left" balign="left"> STRANDPAAL </td></tr>
+<tr><td align="left" balign="left"> STREKDAM_KRIB_GOLFBREKER </td></tr>
+<tr><td align="left" balign="left"> STUW </td></tr>
+<tr><td align="left" balign="left"> TOL </td></tr>
+<tr><td align="left" balign="left"> TOREN </td></tr>
+<tr><td align="left" balign="left"> VERKEERSGELEIDER </td></tr>
+<tr><td align="left" balign="left"> VLAMPIJP </td></tr>
+<tr><td align="left" balign="left"> WEGAFSLUITING </td></tr>
+<tr><td align="left" balign="left"> WEGWIJZER </td></tr>
+<tr><td align="left" balign="left"> WINDMOLENTJE </td></tr>
+<tr><td align="left" balign="left"> WINDTURBINE </td></tr>
+<tr><td align="left" balign="left"> ZENDMAST </td></tr>
+<tr><td align="left" balign="left"> OVERIG </td></tr>
+		</table></td></tr>
 		</table>>, URL="./TypeInrichtingselementT50Type.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.top50nl.InrichtingselementType NAVASSOC nl.b3p.topnl.top50nl.TypeInrichtingselementT50Type
+	c42948:p -> c42959:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

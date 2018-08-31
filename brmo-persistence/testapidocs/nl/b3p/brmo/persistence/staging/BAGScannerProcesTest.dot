@@ -14,14 +14,34 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BAGScannerProcesTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BAGScannerProcesTest() </td></tr>
+<tr><td align="left" balign="left"> + roundtrip() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./BAGScannerProcesTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.TestUtil
-	c32 [label=<<table title="nl.b3p.brmo.persistence.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../TestUtil.html">
+	c33 [label=<<table title="nl.b3p.brmo.persistence.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../TestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestUtil </font></td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NAAM_BESCHIJVING : String </td></tr>
+<tr><td align="left" balign="left"> + NAAM : String </td></tr>
+<tr><td align="left" balign="left"> + DIR : String </td></tr>
+<tr><td align="left" balign="left"> + EEN_ADRES : String </td></tr>
+<tr><td align="left" balign="left"> + ADRESLIJST : String[] </td></tr>
+<tr><td align="left" balign="left"> # entityManager : EntityManager </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TestUtil() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + close() </td></tr>
+		</table></td></tr>
 		</table>>, URL="../TestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.persistence.staging.BAGScannerProcesTest extends nl.b3p.brmo.persistence.TestUtil
-	c32:p -> c27:p [dir=back,arrowtail=empty];
+	c33:p -> c27:p [dir=back,arrowtail=empty];
 }
 

@@ -10,42 +10,98 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.zip.NestedZipIntegrationTest
-	c88 [label=<<table title="nl.b3p.brmo.zip.NestedZipIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../zip/NestedZipIntegrationTest.html">
+	c110 [label=<<table title="nl.b3p.brmo.zip.NestedZipIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../zip/NestedZipIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NestedZipIntegrationTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NestedZipIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + test() </td></tr>
+		</table></td></tr>
 		</table>>, URL="../../zip/NestedZipIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest
-	c89 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/AdvancedFunctionsActionBeanIntegrationTest.html">
+	c111 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/AdvancedFunctionsActionBeanIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AdvancedFunctionsActionBeanIntegrationTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AdvancedFunctionsActionBeanIntegrationTest(sBestandsNaam : String, aantalBerichten : long, aantalProcessen : long, rBestandsNaam : String) </td></tr>
+<tr><td align="left" balign="left"> + params() : Collection&lt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testReplayBRKVerwijderBerichten() </td></tr>
+		</table></td></tr>
 		</table>>, URL="../stripes/AdvancedFunctionsActionBeanIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanCleanupIntegrationTest
-	c90 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanCleanupIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/AdvancedFunctionsActionBeanCleanupIntegrationTest.html">
+	c112 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanCleanupIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/AdvancedFunctionsActionBeanCleanupIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AdvancedFunctionsActionBeanCleanupIntegrationTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AdvancedFunctionsActionBeanCleanupIntegrationTest(sBestandsNaam : String, aantalBerichtenRsgbOk : long, aantalBerichtenToArchive : long, aantalBerichtenArchive : long, aantalBerichtenRsgbNok : long) </td></tr>
+<tr><td align="left" balign="left"> + testdata() : Collection&lt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testCleanupBerichten() </td></tr>
+<tr><td align="left" balign="left"> + testDeleteBerichten() </td></tr>
+<tr><td align="left" balign="left"> + testCleanupAndDeleteBerichten() </td></tr>
+		</table></td></tr>
 		</table>>, URL="../stripes/AdvancedFunctionsActionBeanCleanupIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.testutil.TestUtil
-	c91 [label=<<table title="nl.b3p.brmo.service.testutil.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TestUtil.html">
+	c113 [label=<<table title="nl.b3p.brmo.service.testutil.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestUtil </font></td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # DBPROPS : Properties </td></tr>
+<tr><td align="left" balign="left"> # isOracle : boolean </td></tr>
+<tr><td align="left" balign="left"> # isMsSQL : boolean </td></tr>
+<tr><td align="left" balign="left"> # isPostgis : boolean </td></tr>
+<tr><td align="left" balign="left"> + name : TestName </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TestUtil() </td></tr>
+<tr><td align="left" balign="left"> + checkDatabaseIsProvided() </td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + setUp() </font></td></tr>
+<tr><td align="left" balign="left"> + loadDBprop() </td></tr>
+<tr><td align="left" balign="left"> + startTest() </td></tr>
+<tr><td align="left" balign="left"> + endTest() </td></tr>
+<tr><td align="left" balign="left"> # setupJNDI(dsRsgb : BasicDataSource, dsStaging : BasicDataSource) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./TestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.WebTestUtil
-	c93 [label=<<table title="nl.b3p.web.WebTestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../web/WebTestUtil.html">
+	c115 [label=<<table title="nl.b3p.web.WebTestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../web/WebTestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> WebTestUtil </font></td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BASE_TEST_URL : String </td></tr>
+<tr><td align="left" balign="left"> # client : CloseableHttpClient </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WebTestUtil() </td></tr>
+<tr><td align="left" balign="left"> + setUpClass() </td></tr>
+<tr><td align="left" balign="left"> + tearDownClass() </td></tr>
+		</table></td></tr>
 		</table>>, URL="../../../web/WebTestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.zip.NestedZipIntegrationTest extends nl.b3p.brmo.service.testutil.TestUtil
-	c91:p -> c88:p [dir=back,arrowtail=empty];
+	c113:p -> c110:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest extends nl.b3p.brmo.service.testutil.TestUtil
-	c91:p -> c89:p [dir=back,arrowtail=empty];
+	c113:p -> c111:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanCleanupIntegrationTest extends nl.b3p.brmo.service.testutil.TestUtil
-	c91:p -> c90:p [dir=back,arrowtail=empty];
+	c113:p -> c112:p [dir=back,arrowtail=empty];
 	//nl.b3p.web.WebTestUtil extends nl.b3p.brmo.service.testutil.TestUtil
-	c91:p -> c93:p [dir=back,arrowtail=empty];
+	c113:p -> c115:p [dir=back,arrowtail=empty];
 }
 

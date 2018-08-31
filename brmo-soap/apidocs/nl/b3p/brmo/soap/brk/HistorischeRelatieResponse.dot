@@ -10,9 +10,21 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.soap.brk.HistorischeRelatieResponse
-	c1032 [label=<<table title="nl.b3p.brmo.soap.brk.HistorischeRelatieResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HistorischeRelatieResponse.html">
+	c1036 [label=<<table title="nl.b3p.brmo.soap.brk.HistorischeRelatieResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HistorischeRelatieResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HistorischeRelatieResponse </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + HistorischeRelatieResponse() </td></tr>
+<tr><td align="left" balign="left"> + getIdentificatie() : String </td></tr>
+<tr><td align="left" balign="left"> + setIdentificatie(identificatie : String) </td></tr>
+<tr><td align="left" balign="left"> + getAard() : String </td></tr>
+<tr><td align="left" balign="left"> + setAard(aard : String) </td></tr>
+<tr><td align="left" balign="left"> + getOvergangsgrootte() : Float </td></tr>
+<tr><td align="left" balign="left"> + setOvergangsgrootte(overgangsgrootte : Float) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./HistorischeRelatieResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

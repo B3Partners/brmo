@@ -10,9 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.gml.BGTGMLLightParserTest
-	c74 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightParserTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTGMLLightParserTest.html">
+	c98 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightParserTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTGMLLightParserTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightParserTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BGTGMLLightParserTest(gmlFileName : String, typeNamespace : String, elementName : String, expectedNumOfElements : int, expectedNumOfAtrr : int) </td></tr>
+<tr><td align="left" balign="left"> + params() : Collection&lt;Object&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUpParser() </td></tr>
+<tr><td align="left" balign="left"> + testGMLFile() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightParserTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

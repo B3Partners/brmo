@@ -10,9 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.stufbg204.util.StUFbg204Util
-	c198868 [label=<<table title="nl.b3p.brmo.stufbg204.util.StUFbg204Util" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StUFbg204Util.html">
+	c198870 [label=<<table title="nl.b3p.brmo.stufbg204.util.StUFbg204Util" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StUFbg204Util.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StUFbg204Util </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + sdf : SimpleDateFormat </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + maakFout(errorcode : String) : FoutBericht </td></tr>
+<tr><td align="left" balign="left"> + maakFout(errorcode : String, e : Exception) : FoutBericht </td></tr>
+<tr><td align="left" balign="left"> + maakStuurgegevens(vraagStuurgegevens : Stuurgegevens) : Stuurgegevens </td></tr>
+<tr><td align="left" balign="left"> + getStufJaxbContext() : JAXBContext </td></tr>
 		</table></td></tr>
 		</table>>, URL="./StUFbg204Util.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

@@ -10,18 +10,92 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.PRSIDBRel
-	c145747 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSIDBRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSIDBRel.html">
+	c145753 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSIDBRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSIDBRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSIDBRel </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nummerIdentiteitsbewijs : JAXBElement&lt;PRSIDBRel.NummerIdentiteitsbewijs&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSIDBRel() </td></tr>
+<tr><td align="left" balign="left"> + getNummerIdentiteitsbewijs() : JAXBElement&lt;PRSIDBRel.NummerIdentiteitsbewijs&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNummerIdentiteitsbewijs(value : JAXBElement&lt;PRSIDBRel.NummerIdentiteitsbewijs&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./PRSIDBRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.SIBTabel
+	c145856 [label=<<table title="nl.egem.stuf.sector.bg._0204.SIBTabel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SIBTabel.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> SIBTabel </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # soort : JAXBElement&lt;SIBTabel.Soort&gt; </td></tr>
+<tr><td align="left" balign="left"> # omschrijving : JAXBElement&lt;SIBTabel.Omschrijving&gt; </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + SIBTabel() </td></tr>
+<tr><td align="left" balign="left"> + getSoort() : JAXBElement&lt;SIBTabel.Soort&gt; </td></tr>
+<tr><td align="left" balign="left"> + setSoort(value : JAXBElement&lt;SIBTabel.Soort&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getOmschrijving() : JAXBElement&lt;SIBTabel.Omschrijving&gt; </td></tr>
+<tr><td align="left" balign="left"> + setOmschrijving(value : JAXBElement&lt;SIBTabel.Omschrijving&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./SIBTabel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSIDB
-	c145951 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSIDB" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSAntwoord.PRSIDB.html">
+	c145957 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSIDB" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSAntwoord.PRSIDB.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSIDB </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # sib : SIBTabel </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSIDB() </td></tr>
+<tr><td align="left" balign="left"> + getSIB() : SIBTabel </td></tr>
+<tr><td align="left" balign="left"> + setSIB(value : SIBTabel) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./PRSAntwoord.PRSIDB.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSIDB extends nl.egem.stuf.sector.bg._0204.PRSIDBRel
-	c145747:p -> c145951:p [dir=back,arrowtail=empty];
+	c145753:p -> c145957:p [dir=back,arrowtail=empty];
+	// nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSIDB NAVASSOC nl.egem.stuf.sector.bg._0204.SIBTabel
+	c145957:p -> c145856:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

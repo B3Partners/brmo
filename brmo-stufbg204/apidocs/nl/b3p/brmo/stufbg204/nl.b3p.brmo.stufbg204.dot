@@ -14,11 +14,36 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AntwoordBodyFactory </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AntwoordBodyFactory() </td></tr>
+<tr><td align="left" balign="left"> + createVerblijfstitel(omschrijving : String, code : BigInteger) : VBTTabel </td></tr>
+<tr><td align="left" balign="left"> + createSoortIdentiteitsbewijs(omschrijving : String, soort : BigInteger) : SIBTabel </td></tr>
+<tr><td align="left" balign="left"> + createPersoon(values : Map&lt;String, Object&gt;, prs : PRSVraag) : PRSAntwoord </td></tr>
+<tr><td align="left" balign="left"> + createNationaliteit(nationaliteit : String, code : BigInteger) : NATTabel </td></tr>
+<tr><td align="left" balign="left"> + createLand(naam : String, code : BigInteger) : LNDTabel </td></tr>
+<tr><td align="left" balign="left"> + createGemeente(naam : String, code : BigInteger) : GEMTabel </td></tr>
+<tr><td align="left" balign="left"> + createAcademischeTitel(titel : String, posVoorNaam : boolean, code : String) : ACDTabel </td></tr>
+<tr><td align="left" balign="left"> + createAdelijkeTitel(titel : String) : ADLTabel </td></tr>
+<tr><td align="left" balign="left"> + createAdres(straat : String, huisnummer : BigInteger, huisletter : String, postcode : String, gemeentecode : BigInteger, vraag : ADRFund) : ADRRelFund </td></tr>
+<tr><td align="left" balign="left"> + nullIfEmpty(e : Object) : String </td></tr>
+<tr><td align="left" balign="left"> + nullIfEmptyBD(e : Object) : BigDecimal </td></tr>
+<tr><td align="left" balign="left"> + nullIfEmptyBI(e : Object) : BigInteger </td></tr>
+		</table></td></tr>
 		</table>>, URL="./AntwoordBodyFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.stufbg204.CriteriaParser
 	c1 [label=<<table title="nl.b3p.brmo.stufbg204.CriteriaParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CriteriaParser.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CriteriaParser </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + CriteriaParser() </td></tr>
+<tr><td align="left" balign="left"> + getCriteria(bericht : VraagBericht) : String </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CriteriaParser.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.stufbg204.StUFBGsynchroon
@@ -26,11 +51,30 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StUFBGsynchroon </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + StUFBGsynchroon() </td></tr>
+<tr><td align="left" balign="left"> + beantwoordSynchroneVraag(vraag : VraagBericht) : SynchroonAntwoordBericht </td></tr>
+		</table></td></tr>
 		</table>>, URL="./StUFBGsynchroon.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.stufbg204.StUFBGasynchroon
 	c3 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGasynchroon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StUFBGasynchroon.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StUFBGasynchroon </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + StUFBGasynchroon() </td></tr>
+<tr><td align="left" balign="left"> + ontvangAsynchroneVraag(vraag : VraagBericht) : BevestigingsBericht </td></tr>
+<tr><td align="left" balign="left"> + ontvangAsynchroonAntwoord(asynchroonAntwoord : AsynchroonAntwoordBericht) : BevestigingsBericht </td></tr>
+<tr><td align="left" balign="left"> + ontvangFout(fout : FoutBericht) : BevestigingsBericht </td></tr>
+<tr><td align="left" balign="left"> + ontvangKennisgeving(kennisgeving : KennisgevingsBericht) : BevestigingsBericht </td></tr>
+<tr><td align="left" balign="left"> + getPrefixesRecursive(element : Element, prefixes : List&lt;AbstractMap.SimpleEntry&lt;String, String&gt;&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPrefixes(element : Element, prefixes : List&lt;AbstractMap.SimpleEntry&lt;String, String&gt;&gt;) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./StUFBGasynchroon.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

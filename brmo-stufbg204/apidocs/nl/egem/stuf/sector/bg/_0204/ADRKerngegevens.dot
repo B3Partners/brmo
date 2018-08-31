@@ -9,11 +9,137 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.ADRKennisgeving.ADRADROSU
+	c21335 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRKennisgeving.ADRADROSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRKennisgeving.ADRADROSU.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ADRADROSU </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # adr : ADRKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ADRADROSU() </td></tr>
+<tr><td align="left" balign="left"> + getADR() : ADRKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setADR(value : ADRKerngegevens) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ADRKennisgeving.ADRADROSU.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.ADRKerngegevens
-	c21398 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ADRKerngegevens.html">
+	c21404 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ADRKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ADRKerngegevens </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # adresBuitenland1 : JAXBElement&lt;ADRKerngegevens.AdresBuitenland1&gt; </td></tr>
+<tr><td align="left" balign="left"> # adresBuitenland2 : JAXBElement&lt;ADRKerngegevens.AdresBuitenland2&gt; </td></tr>
+<tr><td align="left" balign="left"> # adresBuitenland3 : JAXBElement&lt;ADRKerngegevens.AdresBuitenland3&gt; </td></tr>
+<tr><td align="left" balign="left"> # landcode : JAXBElement&lt;ADRKerngegevens.Landcode&gt; </td></tr>
+<tr><td align="left" balign="left"> # postcode : JAXBElement&lt;ADRKerngegevens.Postcode&gt; </td></tr>
+<tr><td align="left" balign="left"> # woonplaatsnaam : JAXBElement&lt;ADRKerngegevens.Woonplaatsnaam&gt; </td></tr>
+<tr><td align="left" balign="left"> # postbusnummer : JAXBElement&lt;ADRKerngegevens.Postbusnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # antwoordnummer : JAXBElement&lt;ADRKerngegevens.Antwoordnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # straatnaam : JAXBElement&lt;ADRKerngegevens.Straatnaam&gt; </td></tr>
+<tr><td align="left" balign="left"> # huisnummer : JAXBElement&lt;ADRKerngegevens.Huisnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # huisletter : JAXBElement&lt;ADRKerngegevens.Huisletter&gt; </td></tr>
+<tr><td align="left" balign="left"> # huisnummertoevoeging : JAXBElement&lt;ADRKerngegevens.Huisnummertoevoeging&gt; </td></tr>
+<tr><td align="left" balign="left"> # aanduidingBijHuisnummer : JAXBElement&lt;ADRKerngegevens.AanduidingBijHuisnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # locatieomschrijving : JAXBElement&lt;ADRKerngegevens.Locatieomschrijving&gt; </td></tr>
+<tr><td align="left" balign="left"> # locatieadresnummer : JAXBElement&lt;ADRKerngegevens.Locatieadresnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # gemeentecode : JAXBElement&lt;ADRKerngegevens.Gemeentecode&gt; </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ADRKerngegevens() </td></tr>
+<tr><td align="left" balign="left"> + getAdresBuitenland1() : JAXBElement&lt;ADRKerngegevens.AdresBuitenland1&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAdresBuitenland1(value : JAXBElement&lt;ADRKerngegevens.AdresBuitenland1&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAdresBuitenland2() : JAXBElement&lt;ADRKerngegevens.AdresBuitenland2&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAdresBuitenland2(value : JAXBElement&lt;ADRKerngegevens.AdresBuitenland2&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAdresBuitenland3() : JAXBElement&lt;ADRKerngegevens.AdresBuitenland3&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAdresBuitenland3(value : JAXBElement&lt;ADRKerngegevens.AdresBuitenland3&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getLandcode() : JAXBElement&lt;ADRKerngegevens.Landcode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setLandcode(value : JAXBElement&lt;ADRKerngegevens.Landcode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPostcode() : JAXBElement&lt;ADRKerngegevens.Postcode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPostcode(value : JAXBElement&lt;ADRKerngegevens.Postcode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getWoonplaatsnaam() : JAXBElement&lt;ADRKerngegevens.Woonplaatsnaam&gt; </td></tr>
+<tr><td align="left" balign="left"> + setWoonplaatsnaam(value : JAXBElement&lt;ADRKerngegevens.Woonplaatsnaam&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPostbusnummer() : JAXBElement&lt;ADRKerngegevens.Postbusnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPostbusnummer(value : JAXBElement&lt;ADRKerngegevens.Postbusnummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAntwoordnummer() : JAXBElement&lt;ADRKerngegevens.Antwoordnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAntwoordnummer(value : JAXBElement&lt;ADRKerngegevens.Antwoordnummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getStraatnaam() : JAXBElement&lt;ADRKerngegevens.Straatnaam&gt; </td></tr>
+<tr><td align="left" balign="left"> + setStraatnaam(value : JAXBElement&lt;ADRKerngegevens.Straatnaam&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getHuisnummer() : JAXBElement&lt;ADRKerngegevens.Huisnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHuisnummer(value : JAXBElement&lt;ADRKerngegevens.Huisnummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getHuisletter() : JAXBElement&lt;ADRKerngegevens.Huisletter&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHuisletter(value : JAXBElement&lt;ADRKerngegevens.Huisletter&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getHuisnummertoevoeging() : JAXBElement&lt;ADRKerngegevens.Huisnummertoevoeging&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHuisnummertoevoeging(value : JAXBElement&lt;ADRKerngegevens.Huisnummertoevoeging&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAanduidingBijHuisnummer() : JAXBElement&lt;ADRKerngegevens.AanduidingBijHuisnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAanduidingBijHuisnummer(value : JAXBElement&lt;ADRKerngegevens.AanduidingBijHuisnummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getLocatieomschrijving() : JAXBElement&lt;ADRKerngegevens.Locatieomschrijving&gt; </td></tr>
+<tr><td align="left" balign="left"> + setLocatieomschrijving(value : JAXBElement&lt;ADRKerngegevens.Locatieomschrijving&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getLocatieadresnummer() : JAXBElement&lt;ADRKerngegevens.Locatieadresnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setLocatieadresnummer(value : JAXBElement&lt;ADRKerngegevens.Locatieadresnummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getGemeentecode() : JAXBElement&lt;ADRKerngegevens.Gemeentecode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setGemeentecode(value : JAXBElement&lt;ADRKerngegevens.Gemeentecode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./ADRKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.NoValue
+	c21744 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
+<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
+<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
+<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.Verwerkingssoort
+	c21747 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> Verwerkingssoort </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> T </td></tr>
+<tr><td align="left" balign="left"> W </td></tr>
+<tr><td align="left" balign="left"> V </td></tr>
+<tr><td align="left" balign="left"> E </td></tr>
+<tr><td align="left" balign="left"> I </td></tr>
+<tr><td align="left" balign="left"> R </td></tr>
+<tr><td align="left" balign="left"> S </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/Verwerkingssoort.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.ADRKennisgeving.ADRADROSU NAVASSOC nl.egem.stuf.sector.bg._0204.ADRKerngegevens
+	c21335:p -> c21404:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.ADRKerngegevens NAVASSOC nl.egem.stuf.stuf0204.Verwerkingssoort
+	c21404:p -> c21747:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.ADRKerngegevens NAVASSOC nl.egem.stuf.stuf0204.NoValue
+	c21404:p -> c21744:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

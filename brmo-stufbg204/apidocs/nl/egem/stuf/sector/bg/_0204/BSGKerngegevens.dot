@@ -9,11 +9,181 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWBSG
+	c46755 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWKennisgeving.OBWBSG.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> OBWBSG </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # bsg : BSGKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + OBWBSG() </td></tr>
+<tr><td align="left" balign="left"> + getBSG() : BSGKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setBSG(value : BSGKerngegevens) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./OBWKennisgeving.OBWBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOBSG
+	c46761 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.KDOBSG.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> KDOBSG </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # bsg : BSGKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOBSG() </td></tr>
+<tr><td align="left" balign="left"> + getBSG() : BSGKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setBSG(value : BSGKerngegevens) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./KDOKennisgeving.KDOBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOBSG
+	c46995 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKennisgeving.VBOBSG.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> VBOBSG </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # bsg : BSGKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOBSG() </td></tr>
+<tr><td align="left" balign="left"> + getBSG() : BSGKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setBSG(value : BSGKerngegevens) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./VBOKennisgeving.VBOBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.BSGKerngegevens
-	c46994 [label=<<table title="nl.egem.stuf.sector.bg._0204.BSGKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BSGKerngegevens.html">
+	c47000 [label=<<table title="nl.egem.stuf.sector.bg._0204.BSGKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BSGKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BSGKerngegevens </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # naamBestemmingsplan : BSGKerngegevens.NaamBestemmingsplan </td></tr>
+<tr><td align="left" balign="left"> # omschrijvingBestemmingsgebied : BSGKerngegevens.OmschrijvingBestemmingsgebied </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BSGKerngegevens() </td></tr>
+<tr><td align="left" balign="left"> + getNaamBestemmingsplan() : BSGKerngegevens.NaamBestemmingsplan </td></tr>
+<tr><td align="left" balign="left"> + setNaamBestemmingsplan(value : BSGKerngegevens.NaamBestemmingsplan) </td></tr>
+<tr><td align="left" balign="left"> + getOmschrijvingBestemmingsgebied() : BSGKerngegevens.OmschrijvingBestemmingsgebied </td></tr>
+<tr><td align="left" balign="left"> + setOmschrijvingBestemmingsgebied(value : BSGKerngegevens.OmschrijvingBestemmingsgebied) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./BSGKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.BSGKerngegevens.NaamBestemmingsplan
+	c47001 [label=<<table title="nl.egem.stuf.sector.bg._0204.BSGKerngegevens.NaamBestemmingsplan" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BSGKerngegevens.NaamBestemmingsplan.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> NaamBestemmingsplan </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # value : String </td></tr>
+<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+<tr><td align="left" balign="left"> # exact : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NaamBestemmingsplan() </td></tr>
+<tr><td align="left" balign="left"> + getValue() : String </td></tr>
+<tr><td align="left" balign="left"> + setValue(value : String) </td></tr>
+<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+<tr><td align="left" balign="left"> + isExact() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setExact(value : Boolean) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BSGKerngegevens.NaamBestemmingsplan.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.BSGKerngegevens.OmschrijvingBestemmingsgebied
+	c47002 [label=<<table title="nl.egem.stuf.sector.bg._0204.BSGKerngegevens.OmschrijvingBestemmingsgebied" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BSGKerngegevens.OmschrijvingBestemmingsgebied.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> OmschrijvingBestemmingsgebied </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # value : String </td></tr>
+<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+<tr><td align="left" balign="left"> # exact : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + OmschrijvingBestemmingsgebied() </td></tr>
+<tr><td align="left" balign="left"> + getValue() : String </td></tr>
+<tr><td align="left" balign="left"> + setValue(value : String) </td></tr>
+<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+<tr><td align="left" balign="left"> + isExact() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setExact(value : Boolean) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BSGKerngegevens.OmschrijvingBestemmingsgebied.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.NoValue
+	c47044 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
+<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
+<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
+<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.Verwerkingssoort
+	c47047 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> Verwerkingssoort </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> T </td></tr>
+<tr><td align="left" balign="left"> W </td></tr>
+<tr><td align="left" balign="left"> V </td></tr>
+<tr><td align="left" balign="left"> E </td></tr>
+<tr><td align="left" balign="left"> I </td></tr>
+<tr><td align="left" balign="left"> R </td></tr>
+<tr><td align="left" balign="left"> S </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/Verwerkingssoort.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWBSG NAVASSOC nl.egem.stuf.sector.bg._0204.BSGKerngegevens
+	c46755:p -> c47000:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOBSG NAVASSOC nl.egem.stuf.sector.bg._0204.BSGKerngegevens
+	c46761:p -> c47000:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOBSG NAVASSOC nl.egem.stuf.sector.bg._0204.BSGKerngegevens
+	c46995:p -> c47000:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.BSGKerngegevens NAVASSOC nl.egem.stuf.sector.bg._0204.BSGKerngegevens.NaamBestemmingsplan
+	c47000:p -> c47001:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.BSGKerngegevens NAVASSOC nl.egem.stuf.sector.bg._0204.BSGKerngegevens.OmschrijvingBestemmingsgebied
+	c47000:p -> c47002:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.BSGKerngegevens NAVASSOC nl.egem.stuf.stuf0204.Verwerkingssoort
+	c47000:p -> c47047:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.BSGKerngegevens NAVASSOC nl.egem.stuf.stuf0204.NoValue
+	c47000:p -> c47044:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.BSGKerngegevens.NaamBestemmingsplan NAVASSOC nl.egem.stuf.stuf0204.NoValue
+	c47001:p -> c47044:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.BSGKerngegevens.OmschrijvingBestemmingsgebied NAVASSOC nl.egem.stuf.stuf0204.NoValue
+	c47002:p -> c47044:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

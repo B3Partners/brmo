@@ -10,11 +10,80 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top100nl.TypeInfrastructuurWegT100Type
-	c41865 [label=<<table title="nl.b3p.topnl.top100nl.TypeInfrastructuurWegT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeInfrastructuurWegT100Type.html">
+	c41912 [label=<<table title="nl.b3p.topnl.top100nl.TypeInfrastructuurWegT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeInfrastructuurWegT100Type.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> TypeInfrastructuurWegT100Type </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> VERBINDING </td></tr>
+<tr><td align="left" balign="left"> OVERIG_VERKEERSGEBIED </td></tr>
+		</table></td></tr>
 		</table>>, URL="./TypeInfrastructuurWegT100Type.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.top100nl.WegdeelType
+	c41917 [label=<<table title="nl.b3p.topnl.top100nl.WegdeelType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WegdeelType.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> WegdeelType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeInfrastructuur : TypeInfrastructuurWegT100Type </td></tr>
+<tr><td align="left" balign="left"> # typeWeg : TypeWegT100Type </td></tr>
+<tr><td align="left" balign="left"> # hoofdverkeersgebruik : HoofdverkeersgebruikT100Type </td></tr>
+<tr><td align="left" balign="left"> # fysiekVoorkomen : List&lt;FysiekVoorkomenWegT100Type&gt; </td></tr>
+<tr><td align="left" balign="left"> # verhardingsbreedteklasse : String </td></tr>
+<tr><td align="left" balign="left"> # gescheidenRijbaan : JaNeeType </td></tr>
+<tr><td align="left" balign="left"> # typeVerharding : TypeVerhardingT100Type </td></tr>
+<tr><td align="left" balign="left"> # straatnaamNL : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # straatnaamFries : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # aWegnummer : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # eWegnummer : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # nWegnummer : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # sWegnummer : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # afritnummer : String </td></tr>
+<tr><td align="left" balign="left"> # afritnaam : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # knooppuntnaam : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # brugnaam : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # tunnelnaam : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # hoogteniveau : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WegdeelType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeInfrastructuur() : TypeInfrastructuurWegT100Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeInfrastructuur(value : TypeInfrastructuurWegT100Type) </td></tr>
+<tr><td align="left" balign="left"> + getTypeWeg() : TypeWegT100Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeWeg(value : TypeWegT100Type) </td></tr>
+<tr><td align="left" balign="left"> + getHoofdverkeersgebruik() : HoofdverkeersgebruikT100Type </td></tr>
+<tr><td align="left" balign="left"> + setHoofdverkeersgebruik(value : HoofdverkeersgebruikT100Type) </td></tr>
+<tr><td align="left" balign="left"> + getFysiekVoorkomen() : List&lt;FysiekVoorkomenWegT100Type&gt; </td></tr>
+<tr><td align="left" balign="left"> + getVerhardingsbreedteklasse() : String </td></tr>
+<tr><td align="left" balign="left"> + setVerhardingsbreedteklasse(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getGescheidenRijbaan() : JaNeeType </td></tr>
+<tr><td align="left" balign="left"> + setGescheidenRijbaan(value : JaNeeType) </td></tr>
+<tr><td align="left" balign="left"> + getTypeVerharding() : TypeVerhardingT100Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeVerharding(value : TypeVerhardingT100Type) </td></tr>
+<tr><td align="left" balign="left"> + getStraatnaamNL() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getStraatnaamFries() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getAWegnummer() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getEWegnummer() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNWegnummer() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getSWegnummer() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getAfritnummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setAfritnummer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getAfritnaam() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKnooppuntnaam() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getBrugnaam() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getTunnelnaam() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getHoogteniveau() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setHoogteniveau(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./WegdeelType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.top100nl.WegdeelType NAVASSOC nl.b3p.topnl.top100nl.TypeInfrastructuurWegT100Type
+	c41917:p -> c41912:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

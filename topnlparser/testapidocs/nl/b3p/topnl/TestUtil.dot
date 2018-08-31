@@ -10,66 +10,214 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.ProcessorTest
-	c70 [label=<<table title="nl.b3p.topnl.ProcessorTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ProcessorTest.html">
+	c104 [label=<<table title="nl.b3p.topnl.ProcessorTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ProcessorTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ProcessorTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ProcessorTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + testParse() </td></tr>
+<tr><td align="left" balign="left"> + testSave250() </td></tr>
+<tr><td align="left" balign="left"> + testImportIntoDb250() </td></tr>
+<tr><td align="left" balign="left"> + testSave250MultipleFeature() </td></tr>
+<tr><td align="left" balign="left"> + testSave100() </td></tr>
+<tr><td align="left" balign="left"> + testConvert() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./ProcessorTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.TestUtil
-	c71 [label=<<table title="nl.b3p.topnl.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TestUtil.html">
+	c105 [label=<<table title="nl.b3p.topnl.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TestUtil </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # datasource : DataSource </td></tr>
+<tr><td align="left" balign="left"> # useDB : boolean </td></tr>
+<tr><td align="left" balign="left"> # run : QueryRunner </td></tr>
+<tr><td align="left" balign="left"> + testName : TestName </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TestUtil() </td></tr>
+<tr><td align="left" balign="left"> + startTest() </td></tr>
+<tr><td align="left" balign="left"> + setUpClass() </td></tr>
+<tr><td align="left" balign="left"> + endTest() </td></tr>
+<tr><td align="left" balign="left"> + executeScript(f : Reader) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./TestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.DatabaseTest
-	c73 [label=<<table title="nl.b3p.topnl.DatabaseTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DatabaseTest.html">
+	c107 [label=<<table title="nl.b3p.topnl.DatabaseTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DatabaseTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatabaseTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + DatabaseTest(type : TopNLType) </td></tr>
+<tr><td align="left" balign="left"> + params() : Collection&lt;Object&gt; </td></tr>
+<tr><td align="left" balign="left"> + before() </td></tr>
+<tr><td align="left" balign="left"> + testSaveHoogte() </td></tr>
+<tr><td align="left" balign="left"> + testSavePlanTopografie() </td></tr>
+<tr><td align="left" balign="left"> + testSaveGebouw() </td></tr>
+<tr><td align="left" balign="left"> + testSaveGeografischGebied() </td></tr>
+<tr><td align="left" balign="left"> + testSaveInrichtingselement() </td></tr>
+<tr><td align="left" balign="left"> + testSavePlaats() </td></tr>
+<tr><td align="left" balign="left"> + testSaveRegistratiefGebied() </td></tr>
+<tr><td align="left" balign="left"> + testSaveRelief() </td></tr>
+<tr><td align="left" balign="left"> + testSaveReliefEmptyTaludGeoms() </td></tr>
+<tr><td align="left" balign="left"> + testSaveReliefEmptyHoofdGeom() </td></tr>
+<tr><td align="left" balign="left"> + testSaveSpoorbaandeel() </td></tr>
+<tr><td align="left" balign="left"> + testSaveTerrein() </td></tr>
+<tr><td align="left" balign="left"> + testWaterdeel() </td></tr>
+<tr><td align="left" balign="left"> + testSaveFunctioneelgebied() </td></tr>
+<tr><td align="left" balign="left"> + testSaveWegdeel() </td></tr>
+<tr><td align="left" balign="left"> + getStandardTestTopNLEntity(e : TopNLEntity, type : TopNLType) </td></tr>
+<tr><td align="left" balign="left"> + testStandardTopNLEntity(real : TopNLEntity, e : TopNLEntity) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./DatabaseTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.ErrorsTest
-	c75 [label=<<table title="nl.b3p.topnl.ErrorsTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ErrorsTest.html">
+	c109 [label=<<table title="nl.b3p.topnl.ErrorsTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ErrorsTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ErrorsTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ErrorsTest() </td></tr>
+<tr><td align="left" balign="left"> + before() </td></tr>
+<tr><td align="left" balign="left"> + polygonErrors1Test() </td></tr>
+<tr><td align="left" balign="left"> + polygonErrors2Test() </td></tr>
+<tr><td align="left" balign="left"> + spoorbaanDePunt() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./ErrorsTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.converters.Top50NLConverterTest
-	c76 [label=<<table title="nl.b3p.topnl.converters.Top50NLConverterTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./converters/Top50NLConverterTest.html">
+	c110 [label=<<table title="nl.b3p.topnl.converters.Top50NLConverterTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./converters/Top50NLConverterTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Top50NLConverterTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # sdf : SimpleDateFormat </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Top50NLConverterTest() </td></tr>
+<tr><td align="left" balign="left"> + testConvertNoFeatureCollection() </td></tr>
+<tr><td align="left" balign="left"> + testConvertHoogte() </td></tr>
+<tr><td align="left" balign="left"> + testConvertFunctioneelGebied() </td></tr>
+<tr><td align="left" balign="left"> + testConvertGeografischGebied() </td></tr>
+<tr><td align="left" balign="left"> + testConvertGebouw() </td></tr>
+<tr><td align="left" balign="left"> + testConvertInrichtingselement() </td></tr>
+<tr><td align="left" balign="left"> + testConvertPlaats() </td></tr>
+<tr><td align="left" balign="left"> + testConvertRegistratiefGebied() </td></tr>
+<tr><td align="left" balign="left"> + testConvertRelief() </td></tr>
+<tr><td align="left" balign="left"> + testConvertSpoorbaandeel() </td></tr>
+<tr><td align="left" balign="left"> + testConvertTerrein() </td></tr>
+<tr><td align="left" balign="left"> + testConvertWaterdeel() </td></tr>
+<tr><td align="left" balign="left"> + testConvertWegdeel() </td></tr>
+<tr><td align="left" balign="left"> + testTopNLEntity(expected : TopNLEntity, real : TopNLEntity) </td></tr>
+<tr><td align="left" balign="left"> + getStandardTestTopNLEntity() : TopNLEntity </td></tr>
+		</table></td></tr>
 		</table>>, URL="./converters/Top50NLConverterTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.converters.Top10NLConverterTest
-	c77 [label=<<table title="nl.b3p.topnl.converters.Top10NLConverterTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./converters/Top10NLConverterTest.html">
+	c111 [label=<<table title="nl.b3p.topnl.converters.Top10NLConverterTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./converters/Top10NLConverterTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Top10NLConverterTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # sdf : SimpleDateFormat </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Top10NLConverterTest() </td></tr>
+<tr><td align="left" balign="left"> + testConvertNoFeatureCollection() </td></tr>
+<tr><td align="left" balign="left"> + testConvertHoogte() </td></tr>
+<tr><td align="left" balign="left"> + testConvertFunctioneelGebied() </td></tr>
+<tr><td align="left" balign="left"> + testConvertGeografischGebied() </td></tr>
+<tr><td align="left" balign="left"> + testConvertGebouw() </td></tr>
+<tr><td align="left" balign="left"> + testConvertInrichtingselement() </td></tr>
+<tr><td align="left" balign="left"> + testConvertPlaats() </td></tr>
+<tr><td align="left" balign="left"> + testConvertPlantopografie() </td></tr>
+<tr><td align="left" balign="left"> + testConvertRegistratiefGebied() </td></tr>
+<tr><td align="left" balign="left"> + testConvertRelief() </td></tr>
+<tr><td align="left" balign="left"> + testConvertReliefTalud() </td></tr>
+<tr><td align="left" balign="left"> + testConvertSpoorbaandeel() </td></tr>
+<tr><td align="left" balign="left"> + testConvertTerrein() </td></tr>
+<tr><td align="left" balign="left"> + testConvertWaterdeel() </td></tr>
+<tr><td align="left" balign="left"> + testConvertWegdeel() </td></tr>
+<tr><td align="left" balign="left"> + testTopNLEntity(expected : TopNLEntity, real : TopNLEntity) </td></tr>
+<tr><td align="left" balign="left"> + getStandardTestTopNLEntity() : TopNLEntity </td></tr>
+		</table></td></tr>
 		</table>>, URL="./converters/Top10NLConverterTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.converters.Top250NLConverterTest
-	c78 [label=<<table title="nl.b3p.topnl.converters.Top250NLConverterTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./converters/Top250NLConverterTest.html">
+	c112 [label=<<table title="nl.b3p.topnl.converters.Top250NLConverterTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./converters/Top250NLConverterTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Top250NLConverterTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Top250NLConverterTest() </td></tr>
+<tr><td align="left" balign="left"> + testConvertFeatureCollection() </td></tr>
+<tr><td align="left" balign="left"> + testConvertNoFeatureCollection() </td></tr>
+<tr><td align="left" balign="left"> + testConvertHoogte() </td></tr>
+<tr><td align="left" balign="left"> + testConvertFunctioneelGebied() </td></tr>
+<tr><td align="left" balign="left"> + testConvertGeografischGebied() </td></tr>
+<tr><td align="left" balign="left"> + testConvertGebouw() </td></tr>
+<tr><td align="left" balign="left"> + testConvertInrichtingselement() </td></tr>
+<tr><td align="left" balign="left"> + testConvertPlaats() </td></tr>
+<tr><td align="left" balign="left"> + testConvertRegistratiefGebied() </td></tr>
+<tr><td align="left" balign="left"> + testConvertRelief() </td></tr>
+<tr><td align="left" balign="left"> + testConvertSpoorbaandeel() </td></tr>
+<tr><td align="left" balign="left"> + testConvertTerrein() </td></tr>
+<tr><td align="left" balign="left"> + testConvertWaterdeel() </td></tr>
+<tr><td align="left" balign="left"> + testConvertWegdeel() </td></tr>
+<tr><td align="left" balign="left"> + testTopNLEntity(expected : TopNLEntity, real : TopNLEntity) </td></tr>
+<tr><td align="left" balign="left"> + getStandardTestTopNLEntity() : TopNLEntity </td></tr>
+		</table></td></tr>
 		</table>>, URL="./converters/Top250NLConverterTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.converters.Top100NLConverterTest
-	c79 [label=<<table title="nl.b3p.topnl.converters.Top100NLConverterTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./converters/Top100NLConverterTest.html">
+	c113 [label=<<table title="nl.b3p.topnl.converters.Top100NLConverterTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./converters/Top100NLConverterTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Top100NLConverterTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # sdf : SimpleDateFormat </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Top100NLConverterTest() </td></tr>
+<tr><td align="left" balign="left"> + testConvertNoFeatureCollection() </td></tr>
+<tr><td align="left" balign="left"> + testConvertHoogte() </td></tr>
+<tr><td align="left" balign="left"> + testConvertFunctioneelGebied() </td></tr>
+<tr><td align="left" balign="left"> + testConvertGeografischGebied() </td></tr>
+<tr><td align="left" balign="left"> + testConvertGebouw() </td></tr>
+<tr><td align="left" balign="left"> + testConvertInrichtingselement() </td></tr>
+<tr><td align="left" balign="left"> + testConvertPlaats() </td></tr>
+<tr><td align="left" balign="left"> + testConvertRegistratiefGebied() </td></tr>
+<tr><td align="left" balign="left"> + testConvertRelief() </td></tr>
+<tr><td align="left" balign="left"> + testConvertSpoorbaandeel() </td></tr>
+<tr><td align="left" balign="left"> + testConvertTerrein() </td></tr>
+<tr><td align="left" balign="left"> + testConvertWaterdeel() </td></tr>
+<tr><td align="left" balign="left"> + testConvertWegdeel() </td></tr>
+<tr><td align="left" balign="left"> + testTopNLEntity(expected : TopNLEntity, real : TopNLEntity) </td></tr>
+<tr><td align="left" balign="left"> + getStandardTestTopNLEntity() : TopNLEntity </td></tr>
+		</table></td></tr>
 		</table>>, URL="./converters/Top100NLConverterTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.ProcessorTest extends nl.b3p.topnl.TestUtil
-	c71:p -> c70:p [dir=back,arrowtail=empty];
+	c105:p -> c104:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.DatabaseTest extends nl.b3p.topnl.TestUtil
-	c71:p -> c73:p [dir=back,arrowtail=empty];
+	c105:p -> c107:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.ErrorsTest extends nl.b3p.topnl.TestUtil
-	c71:p -> c75:p [dir=back,arrowtail=empty];
+	c105:p -> c109:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.converters.Top50NLConverterTest extends nl.b3p.topnl.TestUtil
-	c71:p -> c76:p [dir=back,arrowtail=empty];
+	c105:p -> c110:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.converters.Top10NLConverterTest extends nl.b3p.topnl.TestUtil
-	c71:p -> c77:p [dir=back,arrowtail=empty];
+	c105:p -> c111:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.converters.Top250NLConverterTest extends nl.b3p.topnl.TestUtil
-	c71:p -> c78:p [dir=back,arrowtail=empty];
+	c105:p -> c112:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.converters.Top100NLConverterTest extends nl.b3p.topnl.TestUtil
-	c71:p -> c79:p [dir=back,arrowtail=empty];
+	c105:p -> c113:p [dir=back,arrowtail=empty];
 }
 

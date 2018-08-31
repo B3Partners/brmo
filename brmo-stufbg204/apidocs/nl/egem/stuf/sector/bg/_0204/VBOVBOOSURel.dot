@@ -10,34 +10,185 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.VBOVraag.VBOVBOOSU
-	c230274 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVraag.VBOVBOOSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVraag.VBOVBOOSU.html">
+	c230276 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVraag.VBOVBOOSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVraag.VBOVBOOSU.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOVBOOSU </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vbo : VBOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOVBOOSU() </td></tr>
+<tr><td align="left" balign="left"> + getVBO() : VBOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setVBO(value : VBOKennisgeving) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOVraag.VBOVBOOSU.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOVBOOSU
-	c230332 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOVBOOSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOAntwoord.VBOVBOOSU.html">
+	c230334 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOVBOOSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOAntwoord.VBOVBOOSU.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOVBOOSU </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vbo : VBOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOVBOOSU() </td></tr>
+<tr><td align="left" balign="left"> + getVBO() : VBOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setVBO(value : VBOKennisgeving) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOAntwoord.VBOVBOOSU.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOVBOOSURel
-	c230419 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVBOOSURel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOVBOOSURel.html">
+	c230421 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVBOOSURel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOVBOOSURel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOVBOOSURel </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # filiatieCode : JAXBElement&lt;VBOVBOOSURel.FiliatieCode&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOVBOOSURel() </td></tr>
+<tr><td align="left" balign="left"> + getFiliatieCode() : JAXBElement&lt;VBOVBOOSURel.FiliatieCode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setFiliatieCode(value : JAXBElement&lt;VBOVBOOSURel.FiliatieCode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./VBOVBOOSURel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOVBOOSU
-	c230674 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOVBOOSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKennisgeving.VBOVBOOSU.html">
+	c230676 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOVBOOSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKennisgeving.VBOVBOOSU.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOVBOOSU </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vbo : VBOKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOVBOOSU() </td></tr>
+<tr><td align="left" balign="left"> + getVBO() : VBOKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setVBO(value : VBOKerngegevens) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./VBOKennisgeving.VBOVBOOSU.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.NoValue
+	c230722 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
+<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
+<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
+<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.Verwerkingssoort
+	c230725 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> Verwerkingssoort </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> T </td></tr>
+<tr><td align="left" balign="left"> W </td></tr>
+<tr><td align="left" balign="left"> V </td></tr>
+<tr><td align="left" balign="left"> E </td></tr>
+<tr><td align="left" balign="left"> I </td></tr>
+<tr><td align="left" balign="left"> R </td></tr>
+<tr><td align="left" balign="left"> S </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/Verwerkingssoort.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c230726 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakGeldigheid.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> TijdvakGeldigheid </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # begindatumTijdvakGeldigheid : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> # einddatumTijdvakGeldigheid : DatumMetIndicator </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TijdvakGeldigheid() </td></tr>
+<tr><td align="left" balign="left"> + getBegindatumTijdvakGeldigheid() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setBegindatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatumTijdvakGeldigheid() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setEinddatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/TijdvakGeldigheid.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.ExtraElementen
+	c230737 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ExtraElementen </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
+<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.TijdvakRelatie
+	c230740 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakRelatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakRelatie.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> TijdvakRelatie </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # begindatumRelatie : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> # einddatumRelatie : DatumMetIndicator </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TijdvakRelatie() </td></tr>
+<tr><td align="left" balign="left"> + getBegindatumRelatie() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setBegindatumRelatie(value : DatumMetIndicator) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatumRelatie() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setEinddatumRelatie(value : DatumMetIndicator) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/TijdvakRelatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.VBOVraag.VBOVBOOSU extends nl.egem.stuf.sector.bg._0204.VBOVBOOSURel
-	c230419:p -> c230274:p [dir=back,arrowtail=empty];
+	c230421:p -> c230276:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOVBOOSU extends nl.egem.stuf.sector.bg._0204.VBOVBOOSURel
-	c230419:p -> c230332:p [dir=back,arrowtail=empty];
+	c230421:p -> c230334:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOVBOOSU extends nl.egem.stuf.sector.bg._0204.VBOVBOOSURel
-	c230419:p -> c230674:p [dir=back,arrowtail=empty];
+	c230421:p -> c230676:p [dir=back,arrowtail=empty];
+	// nl.egem.stuf.sector.bg._0204.VBOVBOOSURel NAVASSOC nl.egem.stuf.stuf0204.TijdvakRelatie
+	c230421:p -> c230740:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.VBOVBOOSURel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c230421:p -> c230726:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.VBOVBOOSURel NAVASSOC nl.egem.stuf.stuf0204.ExtraElementen
+	c230421:p -> c230737:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.VBOVBOOSURel NAVASSOC nl.egem.stuf.stuf0204.Verwerkingssoort
+	c230421:p -> c230725:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.VBOVBOOSURel NAVASSOC nl.egem.stuf.stuf0204.NoValue
+	c230421:p -> c230722:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

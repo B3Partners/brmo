@@ -10,18 +10,77 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
-	c229045 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRRelKerngegevens.html">
+	c229047 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRRelKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ADRRelKerngegevens </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # adr : ADRFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ADRRelKerngegevens() </td></tr>
+<tr><td align="left" balign="left"> + getADR() : ADRFund </td></tr>
+<tr><td align="left" balign="left"> + setADR(value : ADRFund) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./ADRRelKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.VBOKerngegevens
+	c229135 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKerngegevens.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> VBOKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # bouwjaar : VBOKerngegevens.Bouwjaar </td></tr>
+<tr><td align="left" balign="left"> # verblijfsObjectNummer : VBOKerngegevens.VerblijfsObjectNummer </td></tr>
+<tr><td align="left" balign="left"> # verblijfsObjectType : VBOKerngegevens.VerblijfsObjectType </td></tr>
+<tr><td align="left" balign="left"> # vboadr : VBOKerngegevens.VBOADR </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOKerngegevens() </td></tr>
+<tr><td align="left" balign="left"> + getBouwjaar() : VBOKerngegevens.Bouwjaar </td></tr>
+<tr><td align="left" balign="left"> + setBouwjaar(value : VBOKerngegevens.Bouwjaar) </td></tr>
+<tr><td align="left" balign="left"> + getVerblijfsObjectNummer() : VBOKerngegevens.VerblijfsObjectNummer </td></tr>
+<tr><td align="left" balign="left"> + setVerblijfsObjectNummer(value : VBOKerngegevens.VerblijfsObjectNummer) </td></tr>
+<tr><td align="left" balign="left"> + getVerblijfsObjectType() : VBOKerngegevens.VerblijfsObjectType </td></tr>
+<tr><td align="left" balign="left"> + setVerblijfsObjectType(value : VBOKerngegevens.VerblijfsObjectType) </td></tr>
+<tr><td align="left" balign="left"> + getVBOADR() : VBOKerngegevens.VBOADR </td></tr>
+<tr><td align="left" balign="left"> + setVBOADR(value : VBOKerngegevens.VBOADR) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./VBOKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOKerngegevens.VBOADR
-	c229135 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKerngegevens.VBOADR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOKerngegevens.VBOADR.html">
+	c229137 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKerngegevens.VBOADR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOKerngegevens.VBOADR.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOADR </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOADR() </td></tr>
+<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./VBOKerngegevens.VBOADR.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.VBOKerngegevens.VBOADR extends nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
-	c229045:p -> c229135:p [dir=back,arrowtail=empty];
+	c229047:p -> c229137:p [dir=back,arrowtail=empty];
+	// nl.egem.stuf.sector.bg._0204.VBOKerngegevens NAVASSOC nl.egem.stuf.sector.bg._0204.VBOKerngegevens.VBOADR
+	c229135:p -> c229137:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -14,6 +14,15 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StUFbg204Util </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + sdf : SimpleDateFormat </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + maakFout(errorcode : String) : FoutBericht </td></tr>
+<tr><td align="left" balign="left"> + maakFout(errorcode : String, e : Exception) : FoutBericht </td></tr>
+<tr><td align="left" balign="left"> + maakStuurgegevens(vraagStuurgegevens : Stuurgegevens) : Stuurgegevens </td></tr>
+<tr><td align="left" balign="left"> + getStufJaxbContext() : JAXBContext </td></tr>
+		</table></td></tr>
 		</table>>, URL="./StUFbg204Util.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

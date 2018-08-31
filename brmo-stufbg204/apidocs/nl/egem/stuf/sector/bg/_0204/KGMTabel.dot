@@ -10,10 +10,96 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.KGMTabel
-	c99190 [label=<<table title="nl.egem.stuf.sector.bg._0204.KGMTabel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KGMTabel.html">
+	c99196 [label=<<table title="nl.egem.stuf.sector.bg._0204.KGMTabel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KGMTabel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KGMTabel </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kadastraleGemeenteCode : JAXBElement&lt;KGMTabel.KadastraleGemeenteCode&gt; </td></tr>
+<tr><td align="left" balign="left"> # kadastraleGemeenteNaam : JAXBElement&lt;KGMTabel.KadastraleGemeenteNaam&gt; </td></tr>
+<tr><td align="left" balign="left"> # gemeenteCode : JAXBElement&lt;KGMTabel.GemeenteCode&gt; </td></tr>
+<tr><td align="left" balign="left"> # ingangsdatum : JAXBElement&lt;DatumMetIndicatorKerngegeven&gt; </td></tr>
+<tr><td align="left" balign="left"> # einddatum : JAXBElement&lt;DatumMetIndicatorKerngegeven&gt; </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KGMTabel() </td></tr>
+<tr><td align="left" balign="left"> + getKadastraleGemeenteCode() : JAXBElement&lt;KGMTabel.KadastraleGemeenteCode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKadastraleGemeenteCode(value : JAXBElement&lt;KGMTabel.KadastraleGemeenteCode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKadastraleGemeenteNaam() : JAXBElement&lt;KGMTabel.KadastraleGemeenteNaam&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKadastraleGemeenteNaam(value : JAXBElement&lt;KGMTabel.KadastraleGemeenteNaam&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getGemeenteCode() : JAXBElement&lt;KGMTabel.GemeenteCode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setGemeenteCode(value : JAXBElement&lt;KGMTabel.GemeenteCode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIngangsdatum() : JAXBElement&lt;DatumMetIndicatorKerngegeven&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIngangsdatum(value : JAXBElement&lt;DatumMetIndicatorKerngegeven&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatum() : JAXBElement&lt;DatumMetIndicatorKerngegeven&gt; </td></tr>
+<tr><td align="left" balign="left"> + setEinddatum(value : JAXBElement&lt;DatumMetIndicatorKerngegeven&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./KGMTabel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.NoValue
+	c99668 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
+<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
+<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
+<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.Verwerkingssoort
+	c99671 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> Verwerkingssoort </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> T </td></tr>
+<tr><td align="left" balign="left"> W </td></tr>
+<tr><td align="left" balign="left"> V </td></tr>
+<tr><td align="left" balign="left"> E </td></tr>
+<tr><td align="left" balign="left"> I </td></tr>
+<tr><td align="left" balign="left"> R </td></tr>
+<tr><td align="left" balign="left"> S </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/Verwerkingssoort.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.ExtraElementen
+	c99683 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ExtraElementen </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
+<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.KGMTabel NAVASSOC nl.egem.stuf.stuf0204.ExtraElementen
+	c99196:p -> c99683:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.KGMTabel NAVASSOC nl.egem.stuf.stuf0204.Verwerkingssoort
+	c99196:p -> c99671:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.KGMTabel NAVASSOC nl.egem.stuf.stuf0204.NoValue
+	c99196:p -> c99668:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

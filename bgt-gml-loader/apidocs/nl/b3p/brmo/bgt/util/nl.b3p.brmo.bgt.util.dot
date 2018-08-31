@@ -14,6 +14,13 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PDOKBGTLightUtil </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TILEINFO_F_TYPE : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + calculateGridIds(wktGeom : String, jsonUrl : String) : Set&lt;Integer&gt; </td></tr>
+<tr><td align="left" balign="left"> + calculateGridIds(aoi : Geometry, grid : SimpleFeatureCollection) : Set&lt;Integer&gt; </td></tr>
+		</table></td></tr>
 		</table>>, URL="./PDOKBGTLightUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

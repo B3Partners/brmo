@@ -10,18 +10,27 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.web.jsp.TailTag
-	c43 [label=<<table title="nl.b3p.web.jsp.TailTag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TailTag.html">
+	c39 [label=<<table title="nl.b3p.web.jsp.TailTag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TailTag.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TailTag </td></tr>
 		</table></td></tr>
-		</table>>, URL="./TailTag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//nl.b3p.web.jsp.TailTag extends javax.servlet.jsp.tagext.BodyTagSupport
-	c44:p -> c43:p [dir=back,arrowtail=empty];
-	// javax.servlet.jsp.tagext.BodyTagSupport
-	c44 [label=<<table title="javax.servlet.jsp.tagext.BodyTagSupport" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="https://docs.oracle.com/javaee/7/api/javax/servlet/jsp/tagext/BodyTagSupport.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BodyTagSupport </td></tr>
+<tr><td align="left" balign="left"> + DEFAULT_ID : String </td></tr>
+<tr><td align="left" balign="left"> + DEFAULT_COUNT : int </td></tr>
 		</table></td></tr>
-		</table>>, URL="https://docs.oracle.com/javaee/7/api/javax/servlet/jsp/tagext/BodyTagSupport.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TailTag() </td></tr>
+<tr><td align="left" balign="left"> + doStartTag() : int </td></tr>
+<tr><td align="left" balign="left"> + doAfterBody() : int </td></tr>
+<tr><td align="left" balign="left"> + doEndTag() : int </td></tr>
+<tr><td align="left" balign="left"> + release() </td></tr>
+<tr><td align="left" balign="left"> + getCount() : int </td></tr>
+<tr><td align="left" balign="left"> + setCount(count : int) </td></tr>
+<tr><td align="left" balign="left"> + getFile() : String </td></tr>
+<tr><td align="left" balign="left"> + setFile(filename : String) </td></tr>
+<tr><td align="left" balign="left"> + getId() : String </td></tr>
+<tr><td align="left" balign="left"> + setId(id : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./TailTag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

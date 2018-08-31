@@ -9,11 +9,97 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.KDOKerngegevens
+	c89708 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKerngegevens.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> KDOKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kadastraleGemeentecode : KDOKerngegevens.KadastraleGemeentecode </td></tr>
+<tr><td align="left" balign="left"> # kadastraleSectie : KDOKerngegevens.KadastraleSectie </td></tr>
+<tr><td align="left" balign="left"> # kadastraalPerceelnummer : KDOKerngegevens.KadastraalPerceelnummer </td></tr>
+<tr><td align="left" balign="left"> # kadastraalObjectIndexLetter : KDOKerngegevens.KadastraalObjectIndexLetter </td></tr>
+<tr><td align="left" balign="left"> # kadastraalObjectIndexNummer : KDOKerngegevens.KadastraalObjectIndexNummer </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOKerngegevens() </td></tr>
+<tr><td align="left" balign="left"> + getKadastraleGemeentecode() : KDOKerngegevens.KadastraleGemeentecode </td></tr>
+<tr><td align="left" balign="left"> + setKadastraleGemeentecode(value : KDOKerngegevens.KadastraleGemeentecode) </td></tr>
+<tr><td align="left" balign="left"> + getKadastraleSectie() : KDOKerngegevens.KadastraleSectie </td></tr>
+<tr><td align="left" balign="left"> + setKadastraleSectie(value : KDOKerngegevens.KadastraleSectie) </td></tr>
+<tr><td align="left" balign="left"> + getKadastraalPerceelnummer() : KDOKerngegevens.KadastraalPerceelnummer </td></tr>
+<tr><td align="left" balign="left"> + setKadastraalPerceelnummer(value : KDOKerngegevens.KadastraalPerceelnummer) </td></tr>
+<tr><td align="left" balign="left"> + getKadastraalObjectIndexLetter() : KDOKerngegevens.KadastraalObjectIndexLetter </td></tr>
+<tr><td align="left" balign="left"> + setKadastraalObjectIndexLetter(value : KDOKerngegevens.KadastraalObjectIndexLetter) </td></tr>
+<tr><td align="left" balign="left"> + getKadastraalObjectIndexNummer() : KDOKerngegevens.KadastraalObjectIndexNummer </td></tr>
+<tr><td align="left" balign="left"> + setKadastraalObjectIndexNummer(value : KDOKerngegevens.KadastraalObjectIndexNummer) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./KDOKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOKerngegevens.KadastraalObjectIndexNummer
-	c89704 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKerngegevens.KadastraalObjectIndexNummer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOKerngegevens.KadastraalObjectIndexNummer.html">
+	c89710 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKerngegevens.KadastraalObjectIndexNummer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOKerngegevens.KadastraalObjectIndexNummer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KadastraalObjectIndexNummer </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # value : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
+<tr><td align="left" balign="left"> # gegevengroep : String </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+<tr><td align="left" balign="left"> # exact : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KadastraalObjectIndexNummer() </td></tr>
+<tr><td align="left" balign="left"> + getValue() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setValue(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
+<tr><td align="left" balign="left"> + getGegevengroep() : String </td></tr>
+<tr><td align="left" balign="left"> + setGegevengroep(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+<tr><td align="left" balign="left"> + isExact() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setExact(value : Boolean) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./KDOKerngegevens.KadastraalObjectIndexNummer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.NoValue
+	c90054 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
+<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
+<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
+<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.KDOKerngegevens NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKerngegevens.KadastraalObjectIndexNummer
+	c89708:p -> c89710:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.KDOKerngegevens NAVASSOC nl.egem.stuf.stuf0204.NoValue
+	c89708:p -> c90054:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.KDOKerngegevens.KadastraalObjectIndexNummer NAVASSOC nl.egem.stuf.stuf0204.NoValue
+	c89710:p -> c90054:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

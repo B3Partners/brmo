@@ -10,18 +10,35 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.web.WebTestUtil
-	c77 [label=<<table title="nl.b3p.web.WebTestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebTestUtil.html">
+	c98 [label=<<table title="nl.b3p.web.WebTestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebTestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> WebTestUtil </font></td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BASE_TEST_URL : String </td></tr>
+<tr><td align="left" balign="left"> # client : CloseableHttpClient </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WebTestUtil() </td></tr>
+<tr><td align="left" balign="left"> + setUpClass() </td></tr>
+<tr><td align="left" balign="left"> + tearDownClass() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./WebTestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.LogsPageIntegrationTest
-	c78 [label=<<table title="nl.b3p.web.LogsPageIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./LogsPageIntegrationTest.html">
+	c99 [label=<<table title="nl.b3p.web.LogsPageIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./LogsPageIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LogsPageIntegrationTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + LogsPageIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + testLoginLogsLogoutPage() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./LogsPageIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.web.LogsPageIntegrationTest extends nl.b3p.web.WebTestUtil
-	c77:p -> c78:p [dir=back,arrowtail=empty];
+	c98:p -> c99:p [dir=back,arrowtail=empty];
 }
 

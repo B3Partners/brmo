@@ -9,11 +9,41 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.topnl.top250nl.BRTVlakMultivlakOfPuntType
+	c8699 [label=<<table title="nl.b3p.topnl.top250nl.BRTVlakMultivlakOfPuntType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRTVlakMultivlakOfPuntType.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BRTVlakMultivlakOfPuntType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vlakGeometrie : SurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> # multivlakGeometrie : MultiSurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> # puntGeometrie : PointPropertyType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRTVlakMultivlakOfPuntType() </td></tr>
+<tr><td align="left" balign="left"> + getVlakGeometrie() : SurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> + setVlakGeometrie(value : SurfacePropertyType) </td></tr>
+<tr><td align="left" balign="left"> + getMultivlakGeometrie() : MultiSurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> + setMultivlakGeometrie(value : MultiSurfacePropertyType) </td></tr>
+<tr><td align="left" balign="left"> + getPuntGeometrie() : PointPropertyType </td></tr>
+<tr><td align="left" balign="left"> + setPuntGeometrie(value : PointPropertyType) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BRTVlakMultivlakOfPuntType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BRTVlakMultivlakOfPuntPropertyType
-	c8714 [label=<<table title="nl.b3p.topnl.top250nl.BRTVlakMultivlakOfPuntPropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BRTVlakMultivlakOfPuntPropertyType.html">
+	c8734 [label=<<table title="nl.b3p.topnl.top250nl.BRTVlakMultivlakOfPuntPropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BRTVlakMultivlakOfPuntPropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTVlakMultivlakOfPuntPropertyType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # brtVlakMultivlakOfPunt : BRTVlakMultivlakOfPuntType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRTVlakMultivlakOfPuntPropertyType() </td></tr>
+<tr><td align="left" balign="left"> + getBRTVlakMultivlakOfPunt() : BRTVlakMultivlakOfPuntType </td></tr>
+<tr><td align="left" balign="left"> + setBRTVlakMultivlakOfPunt(value : BRTVlakMultivlakOfPuntType) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./BRTVlakMultivlakOfPuntPropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.top250nl.BRTVlakMultivlakOfPuntPropertyType NAVASSOC nl.b3p.topnl.top250nl.BRTVlakMultivlakOfPuntType
+	c8734:p -> c8699:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

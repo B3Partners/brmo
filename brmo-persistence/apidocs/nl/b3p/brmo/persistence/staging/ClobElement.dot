@@ -10,19 +10,24 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.persistence.staging.ClobElement
-	c356 [label=<<table title="nl.b3p.brmo.persistence.staging.ClobElement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ClobElement.html">
+	c360 [label=<<table title="nl.b3p.brmo.persistence.staging.ClobElement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ClobElement.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ClobElement </td></tr>
 		</table></td></tr>
-		</table>>, URL="./ClobElement.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//nl.b3p.brmo.persistence.staging.ClobElement implements java.io.Serializable
-	c363:p -> c356:p [dir=back,arrowtail=empty,style=dashed];
-	// java.io.Serializable
-	c363 [label=<<table title="java.io.Serializable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> Serializable </td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ClobElement() </td></tr>
+<tr><td align="left" balign="left"> + ClobElement(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getValue() : String </td></tr>
+<tr><td align="left" balign="left"> + setValue(value : String) </td></tr>
+<tr><td align="left" balign="left"> + equals(obj : Object) : boolean </td></tr>
+<tr><td align="left" balign="left"> + hashCode() : int </td></tr>
+<tr><td align="left" balign="left"> + toString() : String </td></tr>
+<tr><td align="left" balign="left"> + isNotBlank(e : ClobElement) : boolean </td></tr>
+<tr><td align="left" balign="left"> + nullSafeGet(e : ClobElement) : String </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ClobElement.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

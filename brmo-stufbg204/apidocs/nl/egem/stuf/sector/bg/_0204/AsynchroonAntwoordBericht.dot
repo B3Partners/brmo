@@ -10,10 +10,197 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht
-	c37624 [label=<<table title="nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AsynchroonAntwoordBericht.html">
+	c37630 [label=<<table title="nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AsynchroonAntwoordBericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AsynchroonAntwoordBericht </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # stuurgegevens : Stuurgegevens </td></tr>
+<tr><td align="left" balign="left"> # body : AsynchroonAntwoordBericht.Body </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AsynchroonAntwoordBericht() </td></tr>
+<tr><td align="left" balign="left"> + getStuurgegevens() : Stuurgegevens </td></tr>
+<tr><td align="left" balign="left"> + setStuurgegevens(value : Stuurgegevens) </td></tr>
+<tr><td align="left" balign="left"> + getBody() : AsynchroonAntwoordBericht.Body </td></tr>
+<tr><td align="left" balign="left"> + setBody(value : AsynchroonAntwoordBericht.Body) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./AsynchroonAntwoordBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht.Body
+	c37631 [label=<<table title="nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht.Body" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AsynchroonAntwoordBericht.Body.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Body </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # acd : JAXBElement&lt;ACDTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # adl : JAXBElement&lt;ADLTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # adr : JAXBElement&lt;ADRAntwoord&gt; </td></tr>
+<tr><td align="left" balign="left"> # bgb : JAXBElement&lt;BGBTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # bhv : JAXBElement&lt;BHVTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # brt : JAXBElement&lt;BRTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # bsg : JAXBElement&lt;BSGFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # btk : JAXBElement&lt;BTKTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # r04 : JAXBElement&lt;R04Tabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # gem : JAXBElement&lt;GEMTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # hhd : JAXBElement&lt;HHDAntwoord&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdo : JAXBElement&lt;KDOAntwoord&gt; </td></tr>
+<tr><td align="left" balign="left"> # kgm : JAXBElement&lt;KGMTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # lft : JAXBElement&lt;LFTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # lnd : JAXBElement&lt;LNDTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # mna : JAXBElement&lt;MNATabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # nat : JAXBElement&lt;NATTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPAntwoord&gt; </td></tr>
+<tr><td align="left" balign="left"> # obw : JAXBElement&lt;OBWAntwoord&gt; </td></tr>
+<tr><td align="left" balign="left"> # oht : JAXBElement&lt;OHTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # prb : JAXBElement&lt;PRBFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # prs : JAXBElement&lt;PRSAntwoord&gt; </td></tr>
+<tr><td align="left" balign="left"> # rtb : JAXBElement&lt;RTBTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # sbi : JAXBElement&lt;SBITabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # sib : JAXBElement&lt;SIBTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # spb : JAXBElement&lt;SPBTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # srv : JAXBElement&lt;SRVTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # r02 : JAXBElement&lt;R02Tabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # szr : JAXBElement&lt;SZRTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # vbt : JAXBElement&lt;VBTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # vbo : JAXBElement&lt;VBOAntwoord&gt; </td></tr>
+<tr><td align="left" balign="left"> # vot : JAXBElement&lt;VOTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # wos : JAXBElement&lt;WOSTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # woz : JAXBElement&lt;WOZAntwoord&gt; </td></tr>
+<tr><td align="left" balign="left"> # r03 : JAXBElement&lt;R03Tabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # wyk : JAXBElement&lt;WYKTabel&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Body() </td></tr>
+<tr><td align="left" balign="left"> + getACD() : JAXBElement&lt;ACDTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setACD(value : JAXBElement&lt;ACDTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getADL() : JAXBElement&lt;ADLTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setADL(value : JAXBElement&lt;ADLTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getADR() : JAXBElement&lt;ADRAntwoord&gt; </td></tr>
+<tr><td align="left" balign="left"> + setADR(value : JAXBElement&lt;ADRAntwoord&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getBGB() : JAXBElement&lt;BGBTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBGB(value : JAXBElement&lt;BGBTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getBHV() : JAXBElement&lt;BHVTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBHV(value : JAXBElement&lt;BHVTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getBRT() : JAXBElement&lt;BRTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBRT(value : JAXBElement&lt;BRTTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getBSG() : JAXBElement&lt;BSGFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBSG(value : JAXBElement&lt;BSGFund&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getBTK() : JAXBElement&lt;BTKTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBTK(value : JAXBElement&lt;BTKTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getR04() : JAXBElement&lt;R04Tabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setR04(value : JAXBElement&lt;R04Tabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getGEM() : JAXBElement&lt;GEMTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setGEM(value : JAXBElement&lt;GEMTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getHHD() : JAXBElement&lt;HHDAntwoord&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHHD(value : JAXBElement&lt;HHDAntwoord&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : JAXBElement&lt;KDOAntwoord&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : JAXBElement&lt;KDOAntwoord&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKGM() : JAXBElement&lt;KGMTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKGM(value : JAXBElement&lt;KGMTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getLFT() : JAXBElement&lt;LFTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setLFT(value : JAXBElement&lt;LFTTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getLND() : JAXBElement&lt;LNDTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setLND(value : JAXBElement&lt;LNDTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getMNA() : JAXBElement&lt;MNATabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setMNA(value : JAXBElement&lt;MNATabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getNAT() : JAXBElement&lt;NATTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNAT(value : JAXBElement&lt;NATTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPAntwoord&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPAntwoord&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getOBW() : JAXBElement&lt;OBWAntwoord&gt; </td></tr>
+<tr><td align="left" balign="left"> + setOBW(value : JAXBElement&lt;OBWAntwoord&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getOHT() : JAXBElement&lt;OHTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setOHT(value : JAXBElement&lt;OHTTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPRB() : JAXBElement&lt;PRBFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRB(value : JAXBElement&lt;PRBFund&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : JAXBElement&lt;PRSAntwoord&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : JAXBElement&lt;PRSAntwoord&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getRTB() : JAXBElement&lt;RTBTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setRTB(value : JAXBElement&lt;RTBTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getSBI() : JAXBElement&lt;SBITabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setSBI(value : JAXBElement&lt;SBITabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getSIB() : JAXBElement&lt;SIBTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setSIB(value : JAXBElement&lt;SIBTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getSPB() : JAXBElement&lt;SPBTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setSPB(value : JAXBElement&lt;SPBTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getSRV() : JAXBElement&lt;SRVTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setSRV(value : JAXBElement&lt;SRVTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getR02() : JAXBElement&lt;R02Tabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setR02(value : JAXBElement&lt;R02Tabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getSZR() : JAXBElement&lt;SZRTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setSZR(value : JAXBElement&lt;SZRTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getVBT() : JAXBElement&lt;VBTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setVBT(value : JAXBElement&lt;VBTTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getVBO() : JAXBElement&lt;VBOAntwoord&gt; </td></tr>
+<tr><td align="left" balign="left"> + setVBO(value : JAXBElement&lt;VBOAntwoord&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getVOT() : JAXBElement&lt;VOTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setVOT(value : JAXBElement&lt;VOTTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getWOS() : JAXBElement&lt;WOSTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setWOS(value : JAXBElement&lt;WOSTabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getWOZ() : JAXBElement&lt;WOZAntwoord&gt; </td></tr>
+<tr><td align="left" balign="left"> + setWOZ(value : JAXBElement&lt;WOZAntwoord&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getR03() : JAXBElement&lt;R03Tabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setR03(value : JAXBElement&lt;R03Tabel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getWYK() : JAXBElement&lt;WYKTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setWYK(value : JAXBElement&lt;WYKTabel&gt;) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./AsynchroonAntwoordBericht.Body.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.Stuurgegevens
+	c37941 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Stuurgegevens.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Stuurgegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # berichtsoort : String </td></tr>
+<tr><td align="left" balign="left"> # entiteittype : String </td></tr>
+<tr><td align="left" balign="left"> # sectormodel : String </td></tr>
+<tr><td align="left" balign="left"> # versieStUF : String </td></tr>
+<tr><td align="left" balign="left"> # versieSectormodel : String </td></tr>
+<tr><td align="left" balign="left"> # zender : Systeem </td></tr>
+<tr><td align="left" balign="left"> # ontvanger : Systeem </td></tr>
+<tr><td align="left" balign="left"> # referentienummer : String </td></tr>
+<tr><td align="left" balign="left"> # tijdstipBericht : String </td></tr>
+<tr><td align="left" balign="left"> # kennisgeving : Stuurgegevens.Kennisgeving </td></tr>
+<tr><td align="left" balign="left"> # vraag : Stuurgegevens.Vraag </td></tr>
+<tr><td align="left" balign="left"> # antwoord : Stuurgegevens.Antwoord </td></tr>
+<tr><td align="left" balign="left"> # bevestiging : Stuurgegevens.Bevestiging </td></tr>
+<tr><td align="left" balign="left"> # fout : Stuurgegevens.Fout </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Stuurgegevens() </td></tr>
+<tr><td align="left" balign="left"> + getBerichtsoort() : String </td></tr>
+<tr><td align="left" balign="left"> + setBerichtsoort(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getEntiteittype() : String </td></tr>
+<tr><td align="left" balign="left"> + setEntiteittype(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSectormodel() : String </td></tr>
+<tr><td align="left" balign="left"> + setSectormodel(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVersieStUF() : String </td></tr>
+<tr><td align="left" balign="left"> + setVersieStUF(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVersieSectormodel() : String </td></tr>
+<tr><td align="left" balign="left"> + setVersieSectormodel(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getZender() : Systeem </td></tr>
+<tr><td align="left" balign="left"> + setZender(value : Systeem) </td></tr>
+<tr><td align="left" balign="left"> + getOntvanger() : Systeem </td></tr>
+<tr><td align="left" balign="left"> + setOntvanger(value : Systeem) </td></tr>
+<tr><td align="left" balign="left"> + getReferentienummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setReferentienummer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTijdstipBericht() : String </td></tr>
+<tr><td align="left" balign="left"> + setTijdstipBericht(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getKennisgeving() : Stuurgegevens.Kennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setKennisgeving(value : Stuurgegevens.Kennisgeving) </td></tr>
+<tr><td align="left" balign="left"> + getVraag() : Stuurgegevens.Vraag </td></tr>
+<tr><td align="left" balign="left"> + setVraag(value : Stuurgegevens.Vraag) </td></tr>
+<tr><td align="left" balign="left"> + getAntwoord() : Stuurgegevens.Antwoord </td></tr>
+<tr><td align="left" balign="left"> + setAntwoord(value : Stuurgegevens.Antwoord) </td></tr>
+<tr><td align="left" balign="left"> + getBevestiging() : Stuurgegevens.Bevestiging </td></tr>
+<tr><td align="left" balign="left"> + setBevestiging(value : Stuurgegevens.Bevestiging) </td></tr>
+<tr><td align="left" balign="left"> + getFout() : Stuurgegevens.Fout </td></tr>
+<tr><td align="left" balign="left"> + setFout(value : Stuurgegevens.Fout) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/Stuurgegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens
+	c37630:p -> c37941:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht NAVASSOC nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht.Body
+	c37630:p -> c37631:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

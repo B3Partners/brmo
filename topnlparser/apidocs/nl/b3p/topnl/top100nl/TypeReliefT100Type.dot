@@ -9,12 +9,55 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.topnl.top100nl.ReliefType
+	c44388 [label=<<table title="nl.b3p.topnl.top100nl.ReliefType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ReliefType.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ReliefType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeRelief : TypeReliefT100Type </td></tr>
+<tr><td align="left" balign="left"> # hoogteklasse : String </td></tr>
+<tr><td align="left" balign="left"> # functie : FunctieReliefT100Type </td></tr>
+<tr><td align="left" balign="left"> # naamFries : String </td></tr>
+<tr><td align="left" balign="left"> # naamNL : String </td></tr>
+<tr><td align="left" balign="left"> # hoogteniveau : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ReliefType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeRelief() : TypeReliefT100Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeRelief(value : TypeReliefT100Type) </td></tr>
+<tr><td align="left" balign="left"> + getHoogteklasse() : String </td></tr>
+<tr><td align="left" balign="left"> + setHoogteklasse(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getFunctie() : FunctieReliefT100Type </td></tr>
+<tr><td align="left" balign="left"> + setFunctie(value : FunctieReliefT100Type) </td></tr>
+<tr><td align="left" balign="left"> + getNaamFries() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaamFries(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getNaamNL() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaamNL(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getHoogteniveau() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setHoogteniveau(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ReliefType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top100nl.TypeReliefT100Type
-	c44354 [label=<<table title="nl.b3p.topnl.top100nl.TypeReliefT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeReliefT100Type.html">
+	c44401 [label=<<table title="nl.b3p.topnl.top100nl.TypeReliefT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeReliefT100Type.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> TypeReliefT100Type </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> DIJK </td></tr>
+<tr><td align="left" balign="left"> KADE_WAL </td></tr>
+<tr><td align="left" balign="left"> TALUD_HOOGTEVERSCHIL </td></tr>
+<tr><td align="left" balign="left"> STEILE_RAND_AARDRAND </td></tr>
+		</table></td></tr>
 		</table>>, URL="./TypeReliefT100Type.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.top100nl.ReliefType NAVASSOC nl.b3p.topnl.top100nl.TypeReliefT100Type
+	c44388:p -> c44401:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

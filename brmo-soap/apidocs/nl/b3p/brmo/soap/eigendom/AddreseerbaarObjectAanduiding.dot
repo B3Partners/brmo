@@ -10,9 +10,35 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.soap.eigendom.AddreseerbaarObjectAanduiding
-	c184 [label=<<table title="nl.b3p.brmo.soap.eigendom.AddreseerbaarObjectAanduiding" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AddreseerbaarObjectAanduiding.html">
+	c192 [label=<<table title="nl.b3p.brmo.soap.eigendom.AddreseerbaarObjectAanduiding" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AddreseerbaarObjectAanduiding.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AddreseerbaarObjectAanduiding </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # identificatienummer : String </td></tr>
+<tr><td align="left" balign="left"> # postcode : String </td></tr>
+<tr><td align="left" balign="left"> # huisnummer : String </td></tr>
+<tr><td align="left" balign="left"> # huisletter : String </td></tr>
+<tr><td align="left" balign="left"> # huisnummertoevoeging : String </td></tr>
+<tr><td align="left" balign="left"> # woonplaatsIdentificatie : String </td></tr>
+<tr><td align="left" balign="left"> # openbareRuimteNaam : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AddreseerbaarObjectAanduiding() </td></tr>
+<tr><td align="left" balign="left"> + getIdentificatienummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setIdentificatienummer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getPostcode() : String </td></tr>
+<tr><td align="left" balign="left"> + setPostcode(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getHuisnummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setHuisnummer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getHuisletter() : String </td></tr>
+<tr><td align="left" balign="left"> + setHuisletter(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getHuisnummertoevoeging() : String </td></tr>
+<tr><td align="left" balign="left"> + setHuisnummertoevoeging(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getWoonplaatsIdentificatie() : String </td></tr>
+<tr><td align="left" balign="left"> + setWoonplaatsIdentificatie(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getOpenbareRuimteNaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setOpenbareRuimteNaam(value : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AddreseerbaarObjectAanduiding.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

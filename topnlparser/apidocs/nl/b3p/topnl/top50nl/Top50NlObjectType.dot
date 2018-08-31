@@ -10,106 +10,426 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top50nl.ReliefType
-	c37321 [label=<<table title="nl.b3p.topnl.top50nl.ReliefType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ReliefType.html">
+	c37368 [label=<<table title="nl.b3p.topnl.top50nl.ReliefType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ReliefType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ReliefType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeRelief : TypeReliefT50Type </td></tr>
+<tr><td align="left" balign="left"> # hoogteklasse : String </td></tr>
+<tr><td align="left" balign="left"> # functie : FunctieReliefT50Type </td></tr>
+<tr><td align="left" balign="left"> # naamFries : String </td></tr>
+<tr><td align="left" balign="left"> # naamNL : String </td></tr>
+<tr><td align="left" balign="left"> # hoogteniveau : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ReliefType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeRelief() : TypeReliefT50Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeRelief(value : TypeReliefT50Type) </td></tr>
+<tr><td align="left" balign="left"> + getHoogteklasse() : String </td></tr>
+<tr><td align="left" balign="left"> + setHoogteklasse(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getFunctie() : FunctieReliefT50Type </td></tr>
+<tr><td align="left" balign="left"> + setFunctie(value : FunctieReliefT50Type) </td></tr>
+<tr><td align="left" balign="left"> + getNaamFries() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaamFries(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getNaamNL() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaamNL(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getHoogteniveau() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setHoogteniveau(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./ReliefType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top50nl.WegdeelType
-	c37322 [label=<<table title="nl.b3p.topnl.top50nl.WegdeelType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WegdeelType.html">
+	c37369 [label=<<table title="nl.b3p.topnl.top50nl.WegdeelType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WegdeelType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WegdeelType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeInfrastructuur : TypeInfrastructuurWegT50Type </td></tr>
+<tr><td align="left" balign="left"> # typeWeg : TypeWegT50Type </td></tr>
+<tr><td align="left" balign="left"> # hoofdverkeersgebruik : HoofdverkeersgebruikT50Type </td></tr>
+<tr><td align="left" balign="left"> # fysiekVoorkomen : List&lt;FysiekVoorkomenWegT50Type&gt; </td></tr>
+<tr><td align="left" balign="left"> # verhardingsbreedteklasse : String </td></tr>
+<tr><td align="left" balign="left"> # gescheidenRijbaan : JaNeeType </td></tr>
+<tr><td align="left" balign="left"> # typeVerharding : TypeVerhardingT50Type </td></tr>
+<tr><td align="left" balign="left"> # straatnaamNL : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # straatnaamFries : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # aWegnummer : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # eWegnummer : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # nWegnummer : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # sWegnummer : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # afritnummer : String </td></tr>
+<tr><td align="left" balign="left"> # afritnaam : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # knooppuntnaam : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # brugnaam : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # tunnelnaam : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # hoogteniveau : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WegdeelType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeInfrastructuur() : TypeInfrastructuurWegT50Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeInfrastructuur(value : TypeInfrastructuurWegT50Type) </td></tr>
+<tr><td align="left" balign="left"> + getTypeWeg() : TypeWegT50Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeWeg(value : TypeWegT50Type) </td></tr>
+<tr><td align="left" balign="left"> + getHoofdverkeersgebruik() : HoofdverkeersgebruikT50Type </td></tr>
+<tr><td align="left" balign="left"> + setHoofdverkeersgebruik(value : HoofdverkeersgebruikT50Type) </td></tr>
+<tr><td align="left" balign="left"> + getFysiekVoorkomen() : List&lt;FysiekVoorkomenWegT50Type&gt; </td></tr>
+<tr><td align="left" balign="left"> + getVerhardingsbreedteklasse() : String </td></tr>
+<tr><td align="left" balign="left"> + setVerhardingsbreedteklasse(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getGescheidenRijbaan() : JaNeeType </td></tr>
+<tr><td align="left" balign="left"> + setGescheidenRijbaan(value : JaNeeType) </td></tr>
+<tr><td align="left" balign="left"> + getTypeVerharding() : TypeVerhardingT50Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeVerharding(value : TypeVerhardingT50Type) </td></tr>
+<tr><td align="left" balign="left"> + getStraatnaamNL() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getStraatnaamFries() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getAWegnummer() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getEWegnummer() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNWegnummer() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getSWegnummer() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getAfritnummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setAfritnummer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getAfritnaam() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKnooppuntnaam() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getBrugnaam() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getTunnelnaam() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getHoogteniveau() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setHoogteniveau(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./WegdeelType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top50nl.WaterdeelType
-	c37324 [label=<<table title="nl.b3p.topnl.top50nl.WaterdeelType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WaterdeelType.html">
+	c37371 [label=<<table title="nl.b3p.topnl.top50nl.WaterdeelType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WaterdeelType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WaterdeelType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeWater : TypeWaterT50Type </td></tr>
+<tr><td align="left" balign="left"> # breedteklasse : String </td></tr>
+<tr><td align="left" balign="left"> # fysiekVoorkomen : List&lt;FysiekVoorkomenWaterT50Type&gt; </td></tr>
+<tr><td align="left" balign="left"> # hoogteniveau : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WaterdeelType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeWater() : TypeWaterT50Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeWater(value : TypeWaterT50Type) </td></tr>
+<tr><td align="left" balign="left"> + getBreedteklasse() : String </td></tr>
+<tr><td align="left" balign="left"> + setBreedteklasse(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getFysiekVoorkomen() : List&lt;FysiekVoorkomenWaterT50Type&gt; </td></tr>
+<tr><td align="left" balign="left"> + getHoogteniveau() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setHoogteniveau(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./WaterdeelType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top50nl.SpoorbaandeelType
-	c37329 [label=<<table title="nl.b3p.topnl.top50nl.SpoorbaandeelType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SpoorbaandeelType.html">
+	c37376 [label=<<table title="nl.b3p.topnl.top50nl.SpoorbaandeelType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SpoorbaandeelType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SpoorbaandeelType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # aantalSporen : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # fysiekVoorkomen : List&lt;FysiekVoorkomenSpoorT50Type&gt; </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+<tr><td align="left" balign="left"> # hoogteniveau : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # status : StatusT50Type </td></tr>
+<tr><td align="left" balign="left"> # typeSpoorbaan : TypeSpoorbaanT50Type </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + SpoorbaandeelType() </td></tr>
+<tr><td align="left" balign="left"> + getAantalSporen() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setAantalSporen(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getFysiekVoorkomen() : List&lt;FysiekVoorkomenSpoorT50Type&gt; </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+<tr><td align="left" balign="left"> + getHoogteniveau() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setHoogteniveau(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : StatusT50Type </td></tr>
+<tr><td align="left" balign="left"> + setStatus(value : StatusT50Type) </td></tr>
+<tr><td align="left" balign="left"> + getTypeSpoorbaan() : TypeSpoorbaanT50Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeSpoorbaan(value : TypeSpoorbaanT50Type) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./SpoorbaandeelType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.top50nl.TypeBronT50Type
+	c37378 [label=<<table title="nl.b3p.topnl.top50nl.TypeBronT50Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TypeBronT50Type.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> TypeBronT50Type </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> EXTERNE_DATA </td></tr>
+<tr><td align="left" balign="left"> TOP_10_NL </td></tr>
+		</table></td></tr>
+		</table>>, URL="./TypeBronT50Type.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top50nl.InrichtingselementType
-	c37339 [label=<<table title="nl.b3p.topnl.top50nl.InrichtingselementType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InrichtingselementType.html">
+	c37386 [label=<<table title="nl.b3p.topnl.top50nl.InrichtingselementType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InrichtingselementType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> InrichtingselementType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+<tr><td align="left" balign="left"> # hoogteNiveau : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # naamFries : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # naamNL : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # nummer : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # status : StatusT50Type </td></tr>
+<tr><td align="left" balign="left"> # typeInrichtingsElement : TypeInrichtingselementT50Type </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + InrichtingselementType() </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+<tr><td align="left" balign="left"> + getHoogteNiveau() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setHoogteNiveau(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getNaamFries() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNaamNL() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNummer() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : StatusT50Type </td></tr>
+<tr><td align="left" balign="left"> + setStatus(value : StatusT50Type) </td></tr>
+<tr><td align="left" balign="left"> + getTypeInrichtingsElement() : TypeInrichtingselementT50Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeInrichtingsElement(value : TypeInrichtingselementT50Type) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./InrichtingselementType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top50nl.Top50NlObjectType
-	c37342 [label=<<table title="nl.b3p.topnl.top50nl.Top50NlObjectType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Top50NlObjectType.html">
+	c37389 [label=<<table title="nl.b3p.topnl.top50nl.Top50NlObjectType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Top50NlObjectType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Top50NlObjectType </font></td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # identificatie : Top50NlObjectType.Identificatie </td></tr>
+<tr><td align="left" balign="left"> # objectBeginTijd : Calendar </td></tr>
+<tr><td align="left" balign="left"> # objectEindTijd : Calendar </td></tr>
+<tr><td align="left" balign="left"> # brontype : TypeBronT50Type </td></tr>
+<tr><td align="left" balign="left"> # bronbeschrijving : String </td></tr>
+<tr><td align="left" balign="left"> # bronactualiteit : Calendar </td></tr>
+<tr><td align="left" balign="left"> # tdnCode : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # visualisatieCode : BigInteger </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Top50NlObjectType() </td></tr>
+<tr><td align="left" balign="left"> + getIdentificatie() : Top50NlObjectType.Identificatie </td></tr>
+<tr><td align="left" balign="left"> + setIdentificatie(value : Top50NlObjectType.Identificatie) </td></tr>
+<tr><td align="left" balign="left"> + getObjectBeginTijd() : Calendar </td></tr>
+<tr><td align="left" balign="left"> + setObjectBeginTijd(value : Calendar) </td></tr>
+<tr><td align="left" balign="left"> + getObjectEindTijd() : Calendar </td></tr>
+<tr><td align="left" balign="left"> + setObjectEindTijd(value : Calendar) </td></tr>
+<tr><td align="left" balign="left"> + getBrontype() : TypeBronT50Type </td></tr>
+<tr><td align="left" balign="left"> + setBrontype(value : TypeBronT50Type) </td></tr>
+<tr><td align="left" balign="left"> + getBronbeschrijving() : String </td></tr>
+<tr><td align="left" balign="left"> + setBronbeschrijving(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getBronactualiteit() : Calendar </td></tr>
+<tr><td align="left" balign="left"> + setBronactualiteit(value : Calendar) </td></tr>
+<tr><td align="left" balign="left"> + getTdnCode() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setTdnCode(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getVisualisatieCode() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setVisualisatieCode(value : BigInteger) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./Top50NlObjectType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.top50nl.Top50NlObjectType.Identificatie
+	c37390 [label=<<table title="nl.b3p.topnl.top50nl.Top50NlObjectType.Identificatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Top50NlObjectType.Identificatie.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Identificatie </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nen3610ID : NEN3610IDType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Identificatie() </td></tr>
+<tr><td align="left" balign="left"> + getNEN3610ID() : NEN3610IDType </td></tr>
+<tr><td align="left" balign="left"> + setNEN3610ID(value : NEN3610IDType) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./Top50NlObjectType.Identificatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top50nl.AbstractFeatureType
-	c37348 [label=<<table title="nl.b3p.topnl.top50nl.AbstractFeatureType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractFeatureType.html">
+	c37395 [label=<<table title="nl.b3p.topnl.top50nl.AbstractFeatureType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractFeatureType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractFeatureType </font></td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # boundedBy : BoundingShapeType </td></tr>
+<tr><td align="left" balign="left"> # location : LocationPropertyType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AbstractFeatureType() </td></tr>
+<tr><td align="left" balign="left"> + getBoundedBy() : BoundingShapeType </td></tr>
+<tr><td align="left" balign="left"> + setBoundedBy(value : BoundingShapeType) </td></tr>
+<tr><td align="left" balign="left"> + getLocation() : LocationPropertyType </td></tr>
+<tr><td align="left" balign="left"> + setLocation(value : LocationPropertyType) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./AbstractFeatureType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top50nl.HoogteType
-	c37352 [label=<<table title="nl.b3p.topnl.top50nl.HoogteType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HoogteType.html">
+	c37399 [label=<<table title="nl.b3p.topnl.top50nl.HoogteType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HoogteType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HoogteType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+<tr><td align="left" balign="left"> # hoogte : double </td></tr>
+<tr><td align="left" balign="left"> # typeHoogte : TypeHoogteT50Type </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + HoogteType() </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+<tr><td align="left" balign="left"> + getHoogte() : double </td></tr>
+<tr><td align="left" balign="left"> + setHoogte(value : double) </td></tr>
+<tr><td align="left" balign="left"> + getTypeHoogte() : TypeHoogteT50Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeHoogte(value : TypeHoogteT50Type) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./HoogteType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top50nl.RegistratiefGebiedType
-	c37369 [label=<<table title="nl.b3p.topnl.top50nl.RegistratiefGebiedType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RegistratiefGebiedType.html">
+	c37416 [label=<<table title="nl.b3p.topnl.top50nl.RegistratiefGebiedType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RegistratiefGebiedType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RegistratiefGebiedType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+<tr><td align="left" balign="left"> # naamFries : String </td></tr>
+<tr><td align="left" balign="left"> # naamNL : String </td></tr>
+<tr><td align="left" balign="left"> # nummer : String </td></tr>
+<tr><td align="left" balign="left"> # typeRegistratiefGebied : TypeRegistratiefGebiedT50Type </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + RegistratiefGebiedType() </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+<tr><td align="left" balign="left"> + getNaamFries() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaamFries(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getNaamNL() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaamNL(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getNummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setNummer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTypeRegistratiefGebied() : TypeRegistratiefGebiedT50Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeRegistratiefGebied(value : TypeRegistratiefGebiedT50Type) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./RegistratiefGebiedType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top50nl.GebouwType
-	c37371 [label=<<table title="nl.b3p.topnl.top50nl.GebouwType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GebouwType.html">
+	c37418 [label=<<table title="nl.b3p.topnl.top50nl.GebouwType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GebouwType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GebouwType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # fysiekVoorkomen : FysiekVoorkomenGebouwT50Type </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+<tr><td align="left" balign="left"> # hoogte : Double </td></tr>
+<tr><td align="left" balign="left"> # hoogteklasse : HoogteklasseGebouwT50Type </td></tr>
+<tr><td align="left" balign="left"> # naamFries : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # naamNL : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # typeGebouw : List&lt;TypeGebouwT50Type&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GebouwType() </td></tr>
+<tr><td align="left" balign="left"> + getFysiekVoorkomen() : FysiekVoorkomenGebouwT50Type </td></tr>
+<tr><td align="left" balign="left"> + setFysiekVoorkomen(value : FysiekVoorkomenGebouwT50Type) </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+<tr><td align="left" balign="left"> + getHoogte() : Double </td></tr>
+<tr><td align="left" balign="left"> + setHoogte(value : Double) </td></tr>
+<tr><td align="left" balign="left"> + getHoogteklasse() : HoogteklasseGebouwT50Type </td></tr>
+<tr><td align="left" balign="left"> + setHoogteklasse(value : HoogteklasseGebouwT50Type) </td></tr>
+<tr><td align="left" balign="left"> + getNaamFries() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNaamNL() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getTypeGebouw() : List&lt;TypeGebouwT50Type&gt; </td></tr>
+		</table></td></tr>
 		</table>>, URL="./GebouwType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top50nl.GeografischGebiedType
-	c37372 [label=<<table title="nl.b3p.topnl.top50nl.GeografischGebiedType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GeografischGebiedType.html">
+	c37419 [label=<<table title="nl.b3p.topnl.top50nl.GeografischGebiedType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GeografischGebiedType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GeografischGebiedType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeGeografischGebied : TypeGeografischGebiedT50Type </td></tr>
+<tr><td align="left" balign="left"> # aantalInwoners : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # naamOfficieel : String </td></tr>
+<tr><td align="left" balign="left"> # naamNL : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # naamFries : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GeografischGebiedType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeGeografischGebied() : TypeGeografischGebiedT50Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeGeografischGebied(value : TypeGeografischGebiedT50Type) </td></tr>
+<tr><td align="left" balign="left"> + getAantalInwoners() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setAantalInwoners(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getNaamOfficieel() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaamOfficieel(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getNaamNL() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNaamFries() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./GeografischGebiedType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top50nl.FunctioneelGebiedType
-	c37375 [label=<<table title="nl.b3p.topnl.top50nl.FunctioneelGebiedType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FunctioneelGebiedType.html">
+	c37422 [label=<<table title="nl.b3p.topnl.top50nl.FunctioneelGebiedType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FunctioneelGebiedType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FunctioneelGebiedType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeFunctioneelGebied : TypeFunctioneelGebiedT50Type </td></tr>
+<tr><td align="left" balign="left"> # naamNL : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # naamFries : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + FunctioneelGebiedType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeFunctioneelGebied() : TypeFunctioneelGebiedT50Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeFunctioneelGebied(value : TypeFunctioneelGebiedT50Type) </td></tr>
+<tr><td align="left" balign="left"> + getNaamNL() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNaamFries() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./FunctioneelGebiedType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top50nl.TerreinType
-	c37377 [label=<<table title="nl.b3p.topnl.top50nl.TerreinType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TerreinType.html">
+	c37424 [label=<<table title="nl.b3p.topnl.top50nl.TerreinType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TerreinType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TerreinType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+<tr><td align="left" balign="left"> # typeLandgebruik : TypeLandgebruikT50Type </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TerreinType() </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+<tr><td align="left" balign="left"> + getTypeLandgebruik() : TypeLandgebruikT50Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeLandgebruik(value : TypeLandgebruikT50Type) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./TerreinType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.top50nl.ReliefType extends nl.b3p.topnl.top50nl.Top50NlObjectType
-	c37342:p -> c37321:p [dir=back,arrowtail=empty];
+	c37389:p -> c37368:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.top50nl.WegdeelType extends nl.b3p.topnl.top50nl.Top50NlObjectType
-	c37342:p -> c37322:p [dir=back,arrowtail=empty];
+	c37389:p -> c37369:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.top50nl.WaterdeelType extends nl.b3p.topnl.top50nl.Top50NlObjectType
-	c37342:p -> c37324:p [dir=back,arrowtail=empty];
+	c37389:p -> c37371:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.top50nl.SpoorbaandeelType extends nl.b3p.topnl.top50nl.Top50NlObjectType
-	c37342:p -> c37329:p [dir=back,arrowtail=empty];
+	c37389:p -> c37376:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.top50nl.InrichtingselementType extends nl.b3p.topnl.top50nl.Top50NlObjectType
-	c37342:p -> c37339:p [dir=back,arrowtail=empty];
+	c37389:p -> c37386:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.top50nl.Top50NlObjectType extends nl.b3p.topnl.top50nl.AbstractFeatureType
-	c37348:p -> c37342:p [dir=back,arrowtail=empty];
+	c37395:p -> c37389:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.top50nl.HoogteType extends nl.b3p.topnl.top50nl.Top50NlObjectType
-	c37342:p -> c37352:p [dir=back,arrowtail=empty];
+	c37389:p -> c37399:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.top50nl.RegistratiefGebiedType extends nl.b3p.topnl.top50nl.Top50NlObjectType
-	c37342:p -> c37369:p [dir=back,arrowtail=empty];
+	c37389:p -> c37416:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.top50nl.GebouwType extends nl.b3p.topnl.top50nl.Top50NlObjectType
-	c37342:p -> c37371:p [dir=back,arrowtail=empty];
+	c37389:p -> c37418:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.top50nl.GeografischGebiedType extends nl.b3p.topnl.top50nl.Top50NlObjectType
-	c37342:p -> c37372:p [dir=back,arrowtail=empty];
+	c37389:p -> c37419:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.top50nl.FunctioneelGebiedType extends nl.b3p.topnl.top50nl.Top50NlObjectType
-	c37342:p -> c37375:p [dir=back,arrowtail=empty];
+	c37389:p -> c37422:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.top50nl.TerreinType extends nl.b3p.topnl.top50nl.Top50NlObjectType
-	c37342:p -> c37377:p [dir=back,arrowtail=empty];
+	c37389:p -> c37424:p [dir=back,arrowtail=empty];
+	// nl.b3p.topnl.top50nl.Top50NlObjectType NAVASSOC nl.b3p.topnl.top50nl.Top50NlObjectType.Identificatie
+	c37389:p -> c37390:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top50nl.Top50NlObjectType NAVASSOC nl.b3p.topnl.top50nl.TypeBronT50Type
+	c37389:p -> c37378:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -14,6 +14,15 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TrustManagerDelegate </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TrustManagerDelegate(mainTrustManager : X509TrustManager, fallbackTrustManager : X509TrustManager) </td></tr>
+<tr><td align="left" balign="left"> + checkClientTrusted(x509Certificates : X509Certificate[], authType : String) </td></tr>
+<tr><td align="left" balign="left"> + checkServerTrusted(x509Certificates : X509Certificate[], authType : String) </td></tr>
+<tr><td align="left" balign="left"> + getAcceptedIssuers() : X509Certificate[] </td></tr>
+		</table></td></tr>
 		</table>>, URL="./TrustManagerDelegate.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

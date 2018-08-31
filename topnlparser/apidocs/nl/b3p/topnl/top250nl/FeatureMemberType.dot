@@ -10,18 +10,117 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top250nl.FeatureMemberType
-	c15767 [label=<<table title="nl.b3p.topnl.top250nl.FeatureMemberType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./FeatureMemberType.html">
+	c15792 [label=<<table title="nl.b3p.topnl.top250nl.FeatureMemberType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./FeatureMemberType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FeatureMemberType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # top250NlObject : JAXBElement&lt;?&gt; </td></tr>
+<tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
+<tr><td align="left" balign="left"> # type : TypeType </td></tr>
+<tr><td align="left" balign="left"> # href : String </td></tr>
+<tr><td align="left" balign="left"> # role : String </td></tr>
+<tr><td align="left" balign="left"> # arcrole : String </td></tr>
+<tr><td align="left" balign="left"> # title : String </td></tr>
+<tr><td align="left" balign="left"> # show : ShowType </td></tr>
+<tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + FeatureMemberType() </td></tr>
+<tr><td align="left" balign="left"> + getTop250NlObject() : JAXBElement&lt;?&gt; </td></tr>
+<tr><td align="left" balign="left"> + setTop250NlObject(value : JAXBElement&lt;?&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
+<tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : TypeType </td></tr>
+<tr><td align="left" balign="left"> + setType(value : TypeType) </td></tr>
+<tr><td align="left" balign="left"> + getHref() : String </td></tr>
+<tr><td align="left" balign="left"> + setHref(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getRole() : String </td></tr>
+<tr><td align="left" balign="left"> + setRole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getArcrole() : String </td></tr>
+<tr><td align="left" balign="left"> + setArcrole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTitle() : String </td></tr>
+<tr><td align="left" balign="left"> + setTitle(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getShow() : ShowType </td></tr>
+<tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
+<tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
+<tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./FeatureMemberType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.AbstractFeatureMemberType
-	c15769 [label=<<table title="nl.b3p.topnl.top250nl.AbstractFeatureMemberType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractFeatureMemberType.html">
+	c15794 [label=<<table title="nl.b3p.topnl.top250nl.AbstractFeatureMemberType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractFeatureMemberType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractFeatureMemberType </font></td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AbstractFeatureMemberType() </td></tr>
+<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./AbstractFeatureMemberType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.top250nl.ActuateType
+	c15795 [label=<<table title="nl.b3p.topnl.top250nl.ActuateType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ActuateType.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> ActuateType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> ON_LOAD </td></tr>
+<tr><td align="left" balign="left"> ON_REQUEST </td></tr>
+<tr><td align="left" balign="left"> OTHER </td></tr>
+<tr><td align="left" balign="left"> NONE </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ActuateType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.top250nl.ShowType
+	c15797 [label=<<table title="nl.b3p.topnl.top250nl.ShowType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ShowType.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> ShowType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> NEW </td></tr>
+<tr><td align="left" balign="left"> REPLACE </td></tr>
+<tr><td align="left" balign="left"> EMBED </td></tr>
+<tr><td align="left" balign="left"> OTHER </td></tr>
+<tr><td align="left" balign="left"> NONE </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ShowType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.top250nl.TypeType
+	c15846 [label=<<table title="nl.b3p.topnl.top250nl.TypeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TypeType.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> TypeType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> SIMPLE </td></tr>
+<tr><td align="left" balign="left"> EXTENDED </td></tr>
+<tr><td align="left" balign="left"> TITLE </td></tr>
+<tr><td align="left" balign="left"> RESOURCE </td></tr>
+<tr><td align="left" balign="left"> LOCATOR </td></tr>
+<tr><td align="left" balign="left"> ARC </td></tr>
+		</table></td></tr>
+		</table>>, URL="./TypeType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.top250nl.FeatureMemberType extends nl.b3p.topnl.top250nl.AbstractFeatureMemberType
-	c15769:p -> c15767:p [dir=back,arrowtail=empty];
+	c15794:p -> c15792:p [dir=back,arrowtail=empty];
+	// nl.b3p.topnl.top250nl.FeatureMemberType NAVASSOC nl.b3p.topnl.top250nl.TypeType
+	c15792:p -> c15846:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.FeatureMemberType NAVASSOC nl.b3p.topnl.top250nl.ShowType
+	c15792:p -> c15797:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.FeatureMemberType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
+	c15792:p -> c15795:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

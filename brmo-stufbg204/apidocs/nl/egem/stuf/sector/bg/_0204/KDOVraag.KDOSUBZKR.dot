@@ -10,18 +10,88 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.KDOVraag.KDOSUBZKR
-	c94573 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag.KDOSUBZKR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOVraag.KDOSUBZKR.html">
+	c94579 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag.KDOSUBZKR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOVraag.KDOSUBZKR.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOSUBZKR </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # prs : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOSUBZKR() </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : JAXBElement&lt;PRSKerngegevens&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKerngegevens&gt;) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./KDOVraag.KDOSUBZKR.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOZKRRel
-	c94589 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOZKRRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOZKRRel.html">
+	c94595 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOZKRRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOZKRRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOZKRRel </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # codeZakelijkRecht : JAXBElement&lt;KDOZKRRel.CodeZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> # ingangsDatumZakelijkRecht : JAXBElement&lt;KDOZKRRel.IngangsDatumZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> # einddatumZakelijkRecht : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # indicatieZakelijkRechtMetMeerZknVerkr : JAXBElement&lt;KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr&gt; </td></tr>
+<tr><td align="left" balign="left"> # koopjaarZakelijkRecht : JAXBElement&lt;KDOZKRRel.KoopjaarZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> # koopsomZakelijkRecht : JAXBElement&lt;KDOZKRRel.KoopsomZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> # koopsomZakelijkRechtEuro : JAXBElement&lt;KDOZKRRel.KoopsomZakelijkRechtEuro&gt; </td></tr>
+<tr><td align="left" balign="left"> # tellerAandeelZakelijkRecht : JAXBElement&lt;KDOZKRRel.TellerAandeelZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> # noemerAandeelZakelijkRecht : JAXBElement&lt;KDOZKRRel.NoemerAandeelZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOZKRRel() </td></tr>
+<tr><td align="left" balign="left"> + getCodeZakelijkRecht() : JAXBElement&lt;KDOZKRRel.CodeZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCodeZakelijkRecht(value : JAXBElement&lt;KDOZKRRel.CodeZakelijkRecht&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIngangsDatumZakelijkRecht() : JAXBElement&lt;KDOZKRRel.IngangsDatumZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIngangsDatumZakelijkRecht(value : JAXBElement&lt;KDOZKRRel.IngangsDatumZakelijkRecht&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatumZakelijkRecht() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setEinddatumZakelijkRecht(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIndicatieZakelijkRechtMetMeerZknVerkr() : JAXBElement&lt;KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIndicatieZakelijkRechtMetMeerZknVerkr(value : JAXBElement&lt;KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKoopjaarZakelijkRecht() : JAXBElement&lt;KDOZKRRel.KoopjaarZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKoopjaarZakelijkRecht(value : JAXBElement&lt;KDOZKRRel.KoopjaarZakelijkRecht&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKoopsomZakelijkRecht() : JAXBElement&lt;KDOZKRRel.KoopsomZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKoopsomZakelijkRecht(value : JAXBElement&lt;KDOZKRRel.KoopsomZakelijkRecht&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKoopsomZakelijkRechtEuro() : JAXBElement&lt;KDOZKRRel.KoopsomZakelijkRechtEuro&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKoopsomZakelijkRechtEuro(value : JAXBElement&lt;KDOZKRRel.KoopsomZakelijkRechtEuro&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTellerAandeelZakelijkRecht() : JAXBElement&lt;KDOZKRRel.TellerAandeelZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> + setTellerAandeelZakelijkRecht(value : JAXBElement&lt;KDOZKRRel.TellerAandeelZakelijkRecht&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getNoemerAandeelZakelijkRecht() : JAXBElement&lt;KDOZKRRel.NoemerAandeelZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNoemerAandeelZakelijkRecht(value : JAXBElement&lt;KDOZKRRel.NoemerAandeelZakelijkRecht&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./KDOZKRRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.KDOVraag.KDOSUBZKR extends nl.egem.stuf.sector.bg._0204.KDOZKRRel
-	c94589:p -> c94573:p [dir=back,arrowtail=empty];
+	c94595:p -> c94579:p [dir=back,arrowtail=empty];
 }
 

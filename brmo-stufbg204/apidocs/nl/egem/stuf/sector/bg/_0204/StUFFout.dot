@@ -10,18 +10,37 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.StUFFout
-	c198640 [label=<<table title="nl.egem.stuf.sector.bg._0204.StUFFout" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StUFFout.html">
+	c198644 [label=<<table title="nl.egem.stuf.sector.bg._0204.StUFFout" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StUFFout.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StUFFout </td></tr>
 		</table></td></tr>
-		</table>>, URL="./StUFFout.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//nl.egem.stuf.sector.bg._0204.StUFFout extends java.lang.Exception
-	c198863:p -> c198640:p [dir=back,arrowtail=empty];
-	// java.lang.Exception
-	c198863 [label=<<table title="java.lang.Exception" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Exception </td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + StUFFout(message : String, faultInfo : FoutBericht) </td></tr>
+<tr><td align="left" balign="left"> + StUFFout(message : String, faultInfo : FoutBericht, cause : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + getFaultInfo() : FoutBericht </td></tr>
+		</table></td></tr>
+		</table>>, URL="./StUFFout.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.FoutBericht
+	c198842 [label=<<table title="nl.egem.stuf.stuf0204.FoutBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/FoutBericht.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> FoutBericht </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # stuurgegevens : Stuurgegevens </td></tr>
+<tr><td align="left" balign="left"> # body : FoutBericht.Body </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + FoutBericht() </td></tr>
+<tr><td align="left" balign="left"> + getStuurgegevens() : Stuurgegevens </td></tr>
+<tr><td align="left" balign="left"> + setStuurgegevens(value : Stuurgegevens) </td></tr>
+<tr><td align="left" balign="left"> + getBody() : FoutBericht.Body </td></tr>
+<tr><td align="left" balign="left"> + setBody(value : FoutBericht.Body) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/FoutBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.StUFFout NAVASSOC nl.egem.stuf.stuf0204.FoutBericht
+	c198644:p -> c198842:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

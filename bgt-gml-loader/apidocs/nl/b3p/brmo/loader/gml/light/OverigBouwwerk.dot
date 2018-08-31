@@ -10,18 +10,33 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.gml.light.OverigBouwwerk
-	c1051 [label=<<table title="nl.b3p.brmo.loader.gml.light.OverigBouwwerk" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OverigBouwwerk.html">
+	c1068 [label=<<table title="nl.b3p.brmo.loader.gml.light.OverigBouwwerk" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OverigBouwwerk.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OverigBouwwerk </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + OverigBouwwerk() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./OverigBouwwerk.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c1052 [label=<<table title="nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GMLLightFeatureTransformerImpl.html">
+	c1069 [label=<<table title="nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GMLLightFeatureTransformerImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GMLLightFeatureTransformerImpl </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # attrMapping : HashMap&lt;String, String&gt; </td></tr>
+<tr><td align="left" balign="left"> # composedAttr : HashMap&lt;String, AttributeDescriptor&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GMLLightFeatureTransformerImpl() </td></tr>
+<tr><td align="left" balign="left"> + getTargetSchema(gmlSchema : SimpleFeatureType, targetTableName : String, shouldUppercase : boolean) : SimpleFeatureType </td></tr>
+<tr><td align="left" balign="left"> + transform(inFeature : SimpleFeature, targetType : SimpleFeatureType, shouldUppercaseFieldnames : boolean, userDefinedPrimaryKey : boolean) : SimpleFeature </td></tr>
+		</table></td></tr>
 		</table>>, URL="./GMLLightFeatureTransformerImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.gml.light.OverigBouwwerk extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c1052:p -> c1051:p [dir=back,arrowtail=empty];
+	c1069:p -> c1068:p [dir=back,arrowtail=empty];
 }
 

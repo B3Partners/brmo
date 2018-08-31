@@ -10,18 +10,47 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.soap.db.TestUtil
-	c9 [label=<<table title="nl.b3p.brmo.soap.db.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestUtil.html">
+	c15 [label=<<table title="nl.b3p.brmo.soap.db.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestUtil </font></td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # DBPROPS : Properties </td></tr>
+<tr><td align="left" balign="left"> # isOracle : boolean </td></tr>
+<tr><td align="left" balign="left"> # isMsSQL : boolean </td></tr>
+<tr><td align="left" balign="left"> # isPostgis : boolean </td></tr>
+<tr><td align="left" balign="left"> # dsRsgb : BasicDataSource </td></tr>
+<tr><td align="left" balign="left"> # dsStaging : BasicDataSource </td></tr>
+<tr><td align="left" balign="left"> + name : TestName </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TestUtil() </td></tr>
+<tr><td align="left" balign="left"> + checkDatabaseIsProvided() </td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + setUp() </font></td></tr>
+<tr><td align="left" balign="left"> + loadDBprop() </td></tr>
+<tr><td align="left" balign="left"> + startTest() </td></tr>
+<tr><td align="left" balign="left"> + endTest() </td></tr>
+<tr><td align="left" balign="left"> # setupJNDI(dsRsgb : BasicDataSource, dsStaging : BasicDataSource) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./TestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.db.EigendomInfoIntegrationTest
-	c10 [label=<<table title="nl.b3p.brmo.soap.db.EigendomInfoIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./EigendomInfoIntegrationTest.html">
+	c16 [label=<<table title="nl.b3p.brmo.soap.db.EigendomInfoIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./EigendomInfoIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> EigendomInfoIntegrationTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + EigendomInfoIntegrationTest(rBestandsNaam : String, objNamespace : String, objId : String, aantalBronDoc : int, sBestandsNaam : String, volgordeNummer : String) </td></tr>
+<tr><td align="left" balign="left"> + params() : Collection&lt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testEigendomMutatie() </td></tr>
+<tr><td align="left" balign="left"> + testMutatieList() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./EigendomInfoIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.soap.db.EigendomInfoIntegrationTest extends nl.b3p.brmo.soap.db.TestUtil
-	c9:p -> c10:p [dir=back,arrowtail=empty];
+	c15:p -> c16:p [dir=back,arrowtail=empty];
 }
 

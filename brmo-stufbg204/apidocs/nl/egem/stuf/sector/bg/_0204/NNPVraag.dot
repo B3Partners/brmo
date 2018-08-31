@@ -10,18 +10,134 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.NNPVraag
-	c128774 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPVraag.html">
+	c128780 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPVraag.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPVraag </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nnpadrcor : JAXBElement&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # nnpadrvbl : JAXBElement&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # nnpnnphfd : JAXBElement&lt;NNPVraag.NNPNNPHFD&gt; </td></tr>
+<tr><td align="left" balign="left"> # nnpnnpnvn : JAXBElement&lt;NNPVraag.NNPNNPNVN&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NNPVraag() </td></tr>
+<tr><td align="left" balign="left"> + getNNPADRCOR() : JAXBElement&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNPADRCOR(value : JAXBElement&lt;ADRRelFund&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getNNPADRVBL() : JAXBElement&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNPADRVBL(value : JAXBElement&lt;ADRRelFund&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getNNPNNPHFD() : JAXBElement&lt;NNPVraag.NNPNNPHFD&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNPNNPHFD(value : JAXBElement&lt;NNPVraag.NNPNNPHFD&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getNNPNNPNVN() : JAXBElement&lt;NNPVraag.NNPNNPNVN&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNPNNPNVN(value : JAXBElement&lt;NNPVraag.NNPNNPNVN&gt;) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./NNPVraag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPFund
-	c128882 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPFund.html">
+	c128888 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPFund </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # sofiNummer : JAXBElement&lt;NNPFund.SofiNummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # aanvullingSoFiNummer : JAXBElement&lt;NNPFund.AanvullingSoFiNummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # handelsnaam : JAXBElement&lt;NNPFund.Handelsnaam&gt; </td></tr>
+<tr><td align="left" balign="left"> # statutaireNaamVennootschapsnaam : JAXBElement&lt;NNPFund.StatutaireNaamVennootschapsnaam&gt; </td></tr>
+<tr><td align="left" balign="left"> # zaaknaam : JAXBElement&lt;NNPFund.Zaaknaam&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumOprichtingNietNatuurlijkPersoon : JAXBElement&lt;NNPFund.DatumOprichtingNietNatuurlijkPersoon&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumEindeNietNatuurlijkPersoon : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumOntbindingNietNatuurlijkPersoon : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # soortNietNatuurlijkPersoon : JAXBElement&lt;NNPFund.SoortNietNatuurlijkPersoon&gt; </td></tr>
+<tr><td align="left" balign="left"> # handelsRegisternummer : JAXBElement&lt;NNPFund.HandelsRegisternummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # hoofdActiviteit : JAXBElement&lt;NNPFund.HoofdActiviteit&gt; </td></tr>
+<tr><td align="left" balign="left"> # nevenActiviteit : JAXBElement&lt;NNPFund.NevenActiviteit&gt; </td></tr>
+<tr><td align="left" balign="left"> # indicatieFaillisement : JAXBElement&lt;NNPFund.IndicatieFaillisement&gt; </td></tr>
+<tr><td align="left" balign="left"> # indicatieHoofdVestiging : JAXBElement&lt;NNPFund.IndicatieHoofdVestiging&gt; </td></tr>
+<tr><td align="left" balign="left"> # indicatieSurseanceVanBetaling : JAXBElement&lt;NNPFund.IndicatieSurseanceVanBetaling&gt; </td></tr>
+<tr><td align="left" balign="left"> # rechtsvorm : JAXBElement&lt;NNPFund.Rechtsvorm&gt; </td></tr>
+<tr><td align="left" balign="left"> # subjectnrAKR : List&lt;NNPFund.SubjectnrAKR&gt; </td></tr>
+<tr><td align="left" balign="left"> # aantalWerkzameMannenFullTime : JAXBElement&lt;NNPFund.AantalWerkzameMannenFullTime&gt; </td></tr>
+<tr><td align="left" balign="left"> # aantalWerkzameMannenPartTime : JAXBElement&lt;NNPFund.AantalWerkzameMannenPartTime&gt; </td></tr>
+<tr><td align="left" balign="left"> # aantalWerkzameVrouwenFullTime : JAXBElement&lt;NNPFund.AantalWerkzameVrouwenFullTime&gt; </td></tr>
+<tr><td align="left" balign="left"> # aantalWerkzameVrouwenPartTime : JAXBElement&lt;NNPFund.AantalWerkzameVrouwenPartTime&gt; </td></tr>
+<tr><td align="left" balign="left"> # bankgiroRekeningnummer : List&lt;NNPFund.BankgiroRekeningnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # eMailAdres : List&lt;NNPFund.EMailAdres&gt; </td></tr>
+<tr><td align="left" balign="left"> # faxnummer : List&lt;NNPFund.Faxnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # telefoonnummer : List&lt;NNPFund.Telefoonnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NNPFund() </td></tr>
+<tr><td align="left" balign="left"> + getSofiNummer() : JAXBElement&lt;NNPFund.SofiNummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setSofiNummer(value : JAXBElement&lt;NNPFund.SofiNummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAanvullingSoFiNummer() : JAXBElement&lt;NNPFund.AanvullingSoFiNummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAanvullingSoFiNummer(value : JAXBElement&lt;NNPFund.AanvullingSoFiNummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getHandelsnaam() : JAXBElement&lt;NNPFund.Handelsnaam&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHandelsnaam(value : JAXBElement&lt;NNPFund.Handelsnaam&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getStatutaireNaamVennootschapsnaam() : JAXBElement&lt;NNPFund.StatutaireNaamVennootschapsnaam&gt; </td></tr>
+<tr><td align="left" balign="left"> + setStatutaireNaamVennootschapsnaam(value : JAXBElement&lt;NNPFund.StatutaireNaamVennootschapsnaam&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getZaaknaam() : JAXBElement&lt;NNPFund.Zaaknaam&gt; </td></tr>
+<tr><td align="left" balign="left"> + setZaaknaam(value : JAXBElement&lt;NNPFund.Zaaknaam&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumOprichtingNietNatuurlijkPersoon() : JAXBElement&lt;NNPFund.DatumOprichtingNietNatuurlijkPersoon&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumOprichtingNietNatuurlijkPersoon(value : JAXBElement&lt;NNPFund.DatumOprichtingNietNatuurlijkPersoon&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumEindeNietNatuurlijkPersoon() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumEindeNietNatuurlijkPersoon(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumOntbindingNietNatuurlijkPersoon() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumOntbindingNietNatuurlijkPersoon(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getSoortNietNatuurlijkPersoon() : JAXBElement&lt;NNPFund.SoortNietNatuurlijkPersoon&gt; </td></tr>
+<tr><td align="left" balign="left"> + setSoortNietNatuurlijkPersoon(value : JAXBElement&lt;NNPFund.SoortNietNatuurlijkPersoon&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getHandelsRegisternummer() : JAXBElement&lt;NNPFund.HandelsRegisternummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHandelsRegisternummer(value : JAXBElement&lt;NNPFund.HandelsRegisternummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getHoofdActiviteit() : JAXBElement&lt;NNPFund.HoofdActiviteit&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHoofdActiviteit(value : JAXBElement&lt;NNPFund.HoofdActiviteit&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getNevenActiviteit() : JAXBElement&lt;NNPFund.NevenActiviteit&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNevenActiviteit(value : JAXBElement&lt;NNPFund.NevenActiviteit&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIndicatieFaillisement() : JAXBElement&lt;NNPFund.IndicatieFaillisement&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIndicatieFaillisement(value : JAXBElement&lt;NNPFund.IndicatieFaillisement&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIndicatieHoofdVestiging() : JAXBElement&lt;NNPFund.IndicatieHoofdVestiging&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIndicatieHoofdVestiging(value : JAXBElement&lt;NNPFund.IndicatieHoofdVestiging&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIndicatieSurseanceVanBetaling() : JAXBElement&lt;NNPFund.IndicatieSurseanceVanBetaling&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIndicatieSurseanceVanBetaling(value : JAXBElement&lt;NNPFund.IndicatieSurseanceVanBetaling&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getRechtsvorm() : JAXBElement&lt;NNPFund.Rechtsvorm&gt; </td></tr>
+<tr><td align="left" balign="left"> + setRechtsvorm(value : JAXBElement&lt;NNPFund.Rechtsvorm&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getSubjectnrAKR() : List&lt;NNPFund.SubjectnrAKR&gt; </td></tr>
+<tr><td align="left" balign="left"> + getAantalWerkzameMannenFullTime() : JAXBElement&lt;NNPFund.AantalWerkzameMannenFullTime&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAantalWerkzameMannenFullTime(value : JAXBElement&lt;NNPFund.AantalWerkzameMannenFullTime&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAantalWerkzameMannenPartTime() : JAXBElement&lt;NNPFund.AantalWerkzameMannenPartTime&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAantalWerkzameMannenPartTime(value : JAXBElement&lt;NNPFund.AantalWerkzameMannenPartTime&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAantalWerkzameVrouwenFullTime() : JAXBElement&lt;NNPFund.AantalWerkzameVrouwenFullTime&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAantalWerkzameVrouwenFullTime(value : JAXBElement&lt;NNPFund.AantalWerkzameVrouwenFullTime&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAantalWerkzameVrouwenPartTime() : JAXBElement&lt;NNPFund.AantalWerkzameVrouwenPartTime&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAantalWerkzameVrouwenPartTime(value : JAXBElement&lt;NNPFund.AantalWerkzameVrouwenPartTime&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getBankgiroRekeningnummer() : List&lt;NNPFund.BankgiroRekeningnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + getEMailAdres() : List&lt;NNPFund.EMailAdres&gt; </td></tr>
+<tr><td align="left" balign="left"> + getFaxnummer() : List&lt;NNPFund.Faxnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + getTelefoonnummer() : List&lt;NNPFund.Telefoonnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./NNPFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.NNPVraag extends nl.egem.stuf.sector.bg._0204.NNPFund
-	c128882:p -> c128774:p [dir=back,arrowtail=empty];
+	c128888:p -> c128780:p [dir=back,arrowtail=empty];
 }
 

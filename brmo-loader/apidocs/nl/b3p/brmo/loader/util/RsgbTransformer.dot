@@ -10,9 +10,17 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.util.RsgbTransformer
-	c1842 [label=<<table title="nl.b3p.brmo.loader.util.RsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./RsgbTransformer.html">
+	c1886 [label=<<table title="nl.b3p.brmo.loader.util.RsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./RsgbTransformer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RsgbTransformer </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + RsgbTransformer(pathToXsl : String) </td></tr>
+<tr><td align="left" balign="left"> + transformToDbXml(bericht : Bericht) : String </td></tr>
+<tr><td align="left" balign="left"> + transformToDbXmlNode(bericht : Bericht) : Node </td></tr>
 		</table></td></tr>
 		</table>>, URL="./RsgbTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

@@ -14,11 +14,31 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BAGXMLToStagingIntegrationTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BAGXMLToStagingIntegrationTest(bestandType : String, bestandNaam : String, aantalBerichten : long, aantalProcessen : long) </td></tr>
+<tr><td align="left" balign="left"> + params() : Collection&lt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testBagStandToStaging() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./BAGXMLToStagingIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.BRKLocatiebeschrijvingIntegrationTest
 	c1 [label=<<table title="nl.b3p.BRKLocatiebeschrijvingIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRKLocatiebeschrijvingIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRKLocatiebeschrijvingIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRKLocatiebeschrijvingIntegrationTest(bestandNaam : String, aantalBerichten : long, lo_loc__omschr : String) </td></tr>
+<tr><td align="left" balign="left"> + params() : Collection&lt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testLocatieBeschrijving() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BRKLocatiebeschrijvingIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.BrkToStagingToRsgbIntegrationTest
@@ -26,11 +46,31 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrkToStagingToRsgbIntegrationTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BrkToStagingToRsgbIntegrationTest(bestandType : String, bestandNaam : String, aantalBerichten : long, aantalProcessen : long, datumEersteMutatie : String) </td></tr>
+<tr><td align="left" balign="left"> + params() : Collection&lt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testBrkXMLToStaging() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./BrkToStagingToRsgbIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.GBAVXMLToStagingIntegrationTest
 	c3 [label=<<table title="nl.b3p.GBAVXMLToStagingIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GBAVXMLToStagingIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GBAVXMLToStagingIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GBAVXMLToStagingIntegrationTest(bestandType : String, bestandNaam : String, aantalBerichten : long, aantalProcessen : long, aantalSubject : long, aNummer : String, bsnNummer : String, achterNaam : String, aandNaamgebruik : String, geslacht : String) </td></tr>
+<tr><td align="left" balign="left"> + params() : Collection&lt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testGbavBerichtToStagingToRsgb() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./GBAVXMLToStagingIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.BerichtenFilterSqlIntegrationTest
@@ -38,11 +78,35 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BerichtenFilterSqlIntegrationTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BerichtenFilterSqlIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + emptyStagingDb() </td></tr>
+<tr><td align="left" balign="left"> + testStatus() </td></tr>
+<tr><td align="left" balign="left"> + testSoort() </td></tr>
+<tr><td align="left" balign="left"> + testOrderByDesc() </td></tr>
+<tr><td align="left" balign="left"> + testOrderByAsc() </td></tr>
+<tr><td align="left" balign="left"> + testPaging() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./BerichtenFilterSqlIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.Mantis10547IntegrationTest
 	c5 [label=<<table title="nl.b3p.Mantis10547IntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis10547IntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Mantis10547IntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Mantis10547IntegrationTest(bestandsNaam : String, aantalProcessen : long, aantalBerichten : long) </td></tr>
+<tr><td align="left" balign="left"> + params() : Collection&lt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testAll() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Mantis10547IntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.Mantis11180IntegrationTest
@@ -50,11 +114,30 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Mantis11180IntegrationTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Mantis11180IntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testTransformBerichten() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./Mantis11180IntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.Oracle8000byteBugIntegrationTest
 	c7 [label=<<table title="nl.b3p.Oracle8000byteBugIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Oracle8000byteBugIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Oracle8000byteBugIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Oracle8000byteBugIntegrationTest(bestandType : String, bestandNaam : String, brxml_bytes : int, aantalBerichten : long, aantalProcessen : long, datumEersteMutatie : String) </td></tr>
+<tr><td align="left" balign="left"> + params() : Collection&lt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testBrkXMLToStaging() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Oracle8000byteBugIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.Mantis6235IntegrationTest
@@ -62,11 +145,33 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Mantis6235IntegrationTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Mantis6235IntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testTransformStandberichten() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./Mantis6235IntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.Mantis6098IntegrationTest
 	c9 [label=<<table title="nl.b3p.Mantis6098IntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis6098IntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Mantis6098IntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Mantis6098IntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testStand() </td></tr>
+<tr><td align="left" balign="left"> + testStandMutatie() </td></tr>
+<tr><td align="left" balign="left"> + testAll() </td></tr>
+<tr><td align="left" balign="left"> + testStandDelete() </td></tr>
+<tr><td align="left" balign="left"> + testStandDeleteMutatie() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Mantis6098IntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.VerminderenStukdelenIntegrationTest
@@ -74,11 +179,30 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VerminderenStukdelenIntegrationTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VerminderenStukdelenIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testMinderStukdelenInMutatie() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./VerminderenStukdelenIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.NhrToStagingToRsgbIntegrationTest
 	c11 [label=<<table title="nl.b3p.NhrToStagingToRsgbIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NhrToStagingToRsgbIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NhrToStagingToRsgbIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NhrToStagingToRsgbIntegrationTest(bestandNaam : String, aantalBerichten : long, aantalProcessen : long, aantalPrs : long, aantalSubj : long, aantalNiet_nat_prs : long, aantalNat_prs : long, vestgID : String, aantalVestg_activiteit : long, kvkNummer : long, sbiCodes : String[], aantalFunctionarissen : int) </td></tr>
+<tr><td align="left" balign="left"> + params() : Collection&lt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testNhrXMLToStagingToRsgb() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NhrToStagingToRsgbIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.Mantis10315IntegrationTest
@@ -86,11 +210,34 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Mantis10315IntegrationTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Mantis10315IntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testTransformBerichten() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./Mantis10315IntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.Mantis6166IntegrationTest
 	c13 [label=<<table title="nl.b3p.Mantis6166IntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis6166IntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Mantis6166IntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Mantis6166IntegrationTest(bestandsNaam : String, aantalProcessen : long, aantalBerichten : long, stand : long, verwijder : long, mutaties : long[]) </td></tr>
+<tr><td align="left" balign="left"> + params() : Collection&lt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testStand() </td></tr>
+<tr><td align="left" balign="left"> + testStandMutatie() </td></tr>
+<tr><td align="left" balign="left"> + testAll() </td></tr>
+<tr><td align="left" balign="left"> + testStandDelete() </td></tr>
+<tr><td align="left" balign="left"> + testStandDeleteMutatie() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Mantis6166IntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.Mantis6380IntegrationTest
@@ -98,17 +245,55 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Mantis6380IntegrationTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Mantis6380IntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testTransformStand() </td></tr>
+<tr><td align="left" balign="left"> + testTransformBerichten() </td></tr>
+<tr><td align="left" balign="left"> + testTransformStandDaarnaMutatieBerichten() </td></tr>
+<tr><td align="left" balign="left"> + testTransformDeleteStandDaarnaMutatieBerichten() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./Mantis6380IntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.AbstractDatabaseIntegrationTest
 	c15 [label=<<table title="nl.b3p.AbstractDatabaseIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractDatabaseIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractDatabaseIntegrationTest </font></td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # params : Properties </td></tr>
+<tr><td align="left" balign="left"> # isOracle : boolean </td></tr>
+<tr><td align="left" balign="left"> # isMsSQL : boolean </td></tr>
+<tr><td align="left" balign="left"> # isPostgis : boolean </td></tr>
+<tr><td align="left" balign="left"> + name : TestName </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AbstractDatabaseIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + checkDatabaseIsProvided() </td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + setUp() </font></td></tr>
+<tr><td align="left" balign="left"> + loadProps() </td></tr>
+<tr><td align="left" balign="left"> + startTest() </td></tr>
+<tr><td align="left" balign="left"> + endTest() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./AbstractDatabaseIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.TopNLIntegrationTest
 	c16 [label=<<table title="nl.b3p.TopNLIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TopNLIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TopNLIntegrationTest(bestandType : TopNLType, bestandNaam : String, aantalBerichten : long, aantalProcessen : long, lpGebied : String) </td></tr>
+<tr><td align="left" balign="left"> + params() : Collection&lt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + loadTopNLInStaging() </td></tr>
+<tr><td align="left" balign="left"> + processTopNL() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TopNLIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.BAGXMLToStagingIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest

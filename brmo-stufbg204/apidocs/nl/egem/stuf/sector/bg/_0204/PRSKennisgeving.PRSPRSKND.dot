@@ -9,19 +9,79 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.PRSGerelateerde
+	c163158 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSGerelateerde" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSGerelateerde.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PRSGerelateerde </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSGerelateerde() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./PRSGerelateerde.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSPRSKND
-	c163223 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSPRSKND" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSKennisgeving.PRSPRSKND.html">
+	c163229 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSPRSKND" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSKennisgeving.PRSPRSKND.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSKND </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # prs : PRSGerelateerde </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSPRSKND() </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : PRSGerelateerde </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : PRSGerelateerde) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./PRSKennisgeving.PRSPRSKND.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSPRSKNDRel
-	c163390 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSKNDRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSPRSKNDRel.html">
+	c163396 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSKNDRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSPRSKNDRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSKNDRel </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # ingangsdatum : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # einddatum : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSPRSKNDRel() </td></tr>
+<tr><td align="left" balign="left"> + getIngangsdatum() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIngangsdatum(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatum() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setEinddatum(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./PRSPRSKNDRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSPRSKND extends nl.egem.stuf.sector.bg._0204.PRSPRSKNDRel
-	c163390:p -> c163223:p [dir=back,arrowtail=empty];
+	c163396:p -> c163229:p [dir=back,arrowtail=empty];
+	// nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSPRSKND NAVASSOC nl.egem.stuf.sector.bg._0204.PRSGerelateerde
+	c163229:p -> c163158:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

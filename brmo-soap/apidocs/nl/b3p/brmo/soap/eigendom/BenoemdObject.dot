@@ -9,11 +9,45 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.soap.eigendom.Brondocumenten
+	c296 [label=<<table title="nl.b3p.brmo.soap.eigendom.Brondocumenten" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Brondocumenten.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Brondocumenten </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # document : List&lt;Document&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Brondocumenten() </td></tr>
+<tr><td align="left" balign="left"> + getDocument() : List&lt;Document&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./Brondocumenten.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.eigendom.BenoemdObject
-	c302 [label=<<table title="nl.b3p.brmo.soap.eigendom.BenoemdObject" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BenoemdObject.html">
+	c309 [label=<<table title="nl.b3p.brmo.soap.eigendom.BenoemdObject" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BenoemdObject.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BenoemdObject </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # identificatienummer : String </td></tr>
+<tr><td align="left" balign="left"> # gebouwdObjectOppervlakte : String </td></tr>
+<tr><td align="left" balign="left"> # gebouwdObjectGebruiksdoel : String </td></tr>
+<tr><td align="left" balign="left"> # addreseerbaarObjectAanduiding : List&lt;AddreseerbaarObjectAanduiding&gt; </td></tr>
+<tr><td align="left" balign="left"> # brondocumenten : Brondocumenten </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BenoemdObject() </td></tr>
+<tr><td align="left" balign="left"> + getIdentificatienummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setIdentificatienummer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getGebouwdObjectOppervlakte() : String </td></tr>
+<tr><td align="left" balign="left"> + setGebouwdObjectOppervlakte(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getGebouwdObjectGebruiksdoel() : String </td></tr>
+<tr><td align="left" balign="left"> + setGebouwdObjectGebruiksdoel(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getAddreseerbaarObjectAanduiding() : List&lt;AddreseerbaarObjectAanduiding&gt; </td></tr>
+<tr><td align="left" balign="left"> + getBrondocumenten() : Brondocumenten </td></tr>
+<tr><td align="left" balign="left"> + setBrondocumenten(value : Brondocumenten) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./BenoemdObject.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.eigendom.BenoemdObject NAVASSOC nl.b3p.brmo.soap.eigendom.Brondocumenten
+	c309:p -> c296:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -9,11 +9,138 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOPRB
+	c143409 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOPRB" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.KDOPRB.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> KDOPRB </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # prb : PRBKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOPRB() </td></tr>
+<tr><td align="left" balign="left"> + getPRB() : PRBKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setPRB(value : PRBKerngegevens) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./KDOKennisgeving.KDOPRB.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRBKerngegevens
-	c143520 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRBKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRBKerngegevens.html">
+	c143526 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRBKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRBKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRBKerngegevens </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # codePubliekRechtlijkeBeperking : PRBKerngegevens.CodePubliekRechtlijkeBeperking </td></tr>
+<tr><td align="left" balign="left"> # ingangsdatum : PRBKerngegevens.Ingangsdatum </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRBKerngegevens() </td></tr>
+<tr><td align="left" balign="left"> + getCodePubliekRechtlijkeBeperking() : PRBKerngegevens.CodePubliekRechtlijkeBeperking </td></tr>
+<tr><td align="left" balign="left"> + setCodePubliekRechtlijkeBeperking(value : PRBKerngegevens.CodePubliekRechtlijkeBeperking) </td></tr>
+<tr><td align="left" balign="left"> + getIngangsdatum() : PRBKerngegevens.Ingangsdatum </td></tr>
+<tr><td align="left" balign="left"> + setIngangsdatum(value : PRBKerngegevens.Ingangsdatum) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./PRBKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.PRBKerngegevens.CodePubliekRechtlijkeBeperking
+	c143527 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRBKerngegevens.CodePubliekRechtlijkeBeperking" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRBKerngegevens.CodePubliekRechtlijkeBeperking.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> CodePubliekRechtlijkeBeperking </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # value : String </td></tr>
+<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+<tr><td align="left" balign="left"> # exact : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + CodePubliekRechtlijkeBeperking() </td></tr>
+<tr><td align="left" balign="left"> + getValue() : String </td></tr>
+<tr><td align="left" balign="left"> + setValue(value : String) </td></tr>
+<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+<tr><td align="left" balign="left"> + isExact() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setExact(value : Boolean) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./PRBKerngegevens.CodePubliekRechtlijkeBeperking.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.PRBKerngegevens.Ingangsdatum
+	c143528 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRBKerngegevens.Ingangsdatum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRBKerngegevens.Ingangsdatum.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Ingangsdatum </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Ingangsdatum() </td></tr>
+<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./PRBKerngegevens.Ingangsdatum.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.NoValue
+	c143690 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
+<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
+<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
+<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.Verwerkingssoort
+	c143693 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> Verwerkingssoort </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> T </td></tr>
+<tr><td align="left" balign="left"> W </td></tr>
+<tr><td align="left" balign="left"> V </td></tr>
+<tr><td align="left" balign="left"> E </td></tr>
+<tr><td align="left" balign="left"> I </td></tr>
+<tr><td align="left" balign="left"> R </td></tr>
+<tr><td align="left" balign="left"> S </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/Verwerkingssoort.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOPRB NAVASSOC nl.egem.stuf.sector.bg._0204.PRBKerngegevens
+	c143409:p -> c143526:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.PRBKerngegevens NAVASSOC nl.egem.stuf.sector.bg._0204.PRBKerngegevens.CodePubliekRechtlijkeBeperking
+	c143526:p -> c143527:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.PRBKerngegevens NAVASSOC nl.egem.stuf.sector.bg._0204.PRBKerngegevens.Ingangsdatum
+	c143526:p -> c143528:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.PRBKerngegevens NAVASSOC nl.egem.stuf.stuf0204.Verwerkingssoort
+	c143526:p -> c143693:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.PRBKerngegevens NAVASSOC nl.egem.stuf.stuf0204.NoValue
+	c143526:p -> c143690:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.PRBKerngegevens.CodePubliekRechtlijkeBeperking NAVASSOC nl.egem.stuf.stuf0204.NoValue
+	c143527:p -> c143690:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

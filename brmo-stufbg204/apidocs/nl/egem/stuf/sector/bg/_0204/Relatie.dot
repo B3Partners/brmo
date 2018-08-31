@@ -10,410 +10,970 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.NNPAntwoord.NNPNNPHFD
-	c186220 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPAntwoord.NNPNNPHFD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPAntwoord.NNPNNPHFD.html">
+	c186226 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPAntwoord.NNPNNPHFD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPAntwoord.NNPNNPHFD.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPNNPHFD </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKennisgeving&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NNPNNPHFD() </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKennisgeving&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKennisgeving&gt;) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NNPAntwoord.NNPNNPHFD.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPAntwoord.NNPNNPNVN
-	c186221 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPAntwoord.NNPNNPNVN" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPAntwoord.NNPNNPNVN.html">
+	c186227 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPAntwoord.NNPNNPNVN" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPAntwoord.NNPNNPNVN.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPNNPNVN </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKennisgeving&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NNPNNPNVN() </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKennisgeving&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKennisgeving&gt;) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NNPAntwoord.NNPNNPNVN.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPKennisgeving.NNPNNPHFD
-	c186235 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKennisgeving.NNPNNPHFD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPKennisgeving.NNPNNPHFD.html">
+	c186241 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKennisgeving.NNPNNPHFD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPKennisgeving.NNPNNPHFD.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPNNPHFD </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NNPNNPHFD() </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKerngegevens&gt;) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NNPKennisgeving.NNPNNPHFD.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPKennisgeving.NNPNNPNVN
-	c186236 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKennisgeving.NNPNNPNVN" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPKennisgeving.NNPNNPNVN.html">
+	c186242 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKennisgeving.NNPNNPNVN" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPKennisgeving.NNPNNPNVN.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPNNPNVN </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NNPNNPNVN() </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKerngegevens&gt;) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NNPKennisgeving.NNPNNPNVN.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOVraag.VBOBSG
-	c186245 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVraag.VBOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVraag.VBOBSG.html">
+	c186251 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVraag.VBOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVraag.VBOBSG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOBSG </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # bsg : BSGFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOBSG() </td></tr>
+<tr><td align="left" balign="left"> + getBSG() : BSGFund </td></tr>
+<tr><td align="left" balign="left"> + setBSG(value : BSGFund) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOVraag.VBOBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOVraag.VBOKDO
-	c186246 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVraag.VBOKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVraag.VBOKDO.html">
+	c186252 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVraag.VBOKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVraag.VBOKDO.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOKDO </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOKDO() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOVraag.VBOKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOVraag.VBOSUBGBR
-	c186247 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVraag.VBOSUBGBR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVraag.VBOSUBGBR.html">
+	c186253 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVraag.VBOSUBGBR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVraag.VBOSUBGBR.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOSUBGBR </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKennisgeving&gt; </td></tr>
+<tr><td align="left" balign="left"> # prs : JAXBElement&lt;PRSKennisgeving&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOSUBGBR() </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKennisgeving&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKennisgeving&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : JAXBElement&lt;PRSKennisgeving&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : JAXBElement&lt;PRSKennisgeving&gt;) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOVraag.VBOSUBGBR.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZKDO
-	c186297 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKennisgeving.WOZKDO.html">
+	c186303 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKennisgeving.WOZKDO.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZKDO </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZKDO() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKerngegevens) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WOZKennisgeving.WOZKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZOBW
-	c186298 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZOBW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKennisgeving.WOZOBW.html">
+	c186304 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZOBW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKennisgeving.WOZOBW.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZOBW </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # obw : OBWKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZOBW() </td></tr>
+<tr><td align="left" balign="left"> + getOBW() : OBWKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setOBW(value : OBWKerngegevens) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WOZKennisgeving.WOZOBW.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZSUBEIG
-	c186299 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZSUBEIG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKennisgeving.WOZSUBEIG.html">
+	c186305 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZSUBEIG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKennisgeving.WOZSUBEIG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZSUBEIG </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # prs : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZSUBEIG() </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKerngegevens&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : JAXBElement&lt;PRSKerngegevens&gt;) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WOZKennisgeving.WOZSUBEIG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZSUBGBR
-	c186300 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZSUBGBR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKennisgeving.WOZSUBGBR.html">
+	c186306 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZSUBGBR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKennisgeving.WOZSUBGBR.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZSUBGBR </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # prs : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZSUBGBR() </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKerngegevens&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : JAXBElement&lt;PRSKerngegevens&gt;) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WOZKennisgeving.WOZSUBGBR.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZVBO
-	c186301 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZVBO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKennisgeving.WOZVBO.html">
+	c186307 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZVBO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKennisgeving.WOZVBO.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZVBO </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vbo : VBOKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZVBO() </td></tr>
+<tr><td align="left" balign="left"> + getVBO() : VBOKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setVBO(value : VBOKerngegevens) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WOZKennisgeving.WOZVBO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOBSG
-	c186303 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOAntwoord.VBOBSG.html">
+	c186309 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOAntwoord.VBOBSG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOBSG </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # bsg : BSGFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOBSG() </td></tr>
+<tr><td align="left" balign="left"> + getBSG() : BSGFund </td></tr>
+<tr><td align="left" balign="left"> + setBSG(value : BSGFund) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOAntwoord.VBOBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOKDO
-	c186304 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOAntwoord.VBOKDO.html">
+	c186310 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOAntwoord.VBOKDO.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOKDO </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOKDO() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOAntwoord.VBOKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOSUBGBR
-	c186305 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOSUBGBR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOAntwoord.VBOSUBGBR.html">
+	c186311 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOSUBGBR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOAntwoord.VBOSUBGBR.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOSUBGBR </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKennisgeving&gt; </td></tr>
+<tr><td align="left" balign="left"> # prs : JAXBElement&lt;PRSKennisgeving&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOSUBGBR() </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKennisgeving&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKennisgeving&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : JAXBElement&lt;PRSKennisgeving&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : JAXBElement&lt;PRSKennisgeving&gt;) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOAntwoord.VBOSUBGBR.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWBSG
-	c186308 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWAntwoord.OBWBSG.html">
+	c186314 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWAntwoord.OBWBSG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OBWBSG </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # bsg : BSGFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + OBWBSG() </td></tr>
+<tr><td align="left" balign="left"> + getBSG() : BSGFund </td></tr>
+<tr><td align="left" balign="left"> + setBSG(value : BSGFund) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./OBWAntwoord.OBWBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWKDO
-	c186309 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWAntwoord.OBWKDO.html">
+	c186315 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWAntwoord.OBWKDO.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OBWKDO </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + OBWKDO() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./OBWAntwoord.OBWKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.ADRRelFund
-	c186324 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRRelFund.html">
+	c186330 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRRelFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ADRRelFund </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # adr : ADRFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ADRRelFund() </td></tr>
+<tr><td align="left" balign="left"> + getADR() : ADRFund </td></tr>
+<tr><td align="left" balign="left"> + setADR(value : ADRFund) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./ADRRelFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.HHDAntwoord.HDDWOZ
-	c186379 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDAntwoord.HDDWOZ" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HHDAntwoord.HDDWOZ.html">
+	c186385 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDAntwoord.HDDWOZ" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HHDAntwoord.HDDWOZ.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HDDWOZ </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # woz : WOZKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + HDDWOZ() </td></tr>
+<tr><td align="left" balign="left"> + getWOZ() : WOZKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setWOZ(value : WOZKennisgeving) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./HHDAntwoord.HDDWOZ.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZKDO
-	c186383 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZAntwoord.WOZKDO.html">
+	c186389 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZAntwoord.WOZKDO.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZKDO </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZKDO() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WOZAntwoord.WOZKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZOBW
-	c186384 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZOBW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZAntwoord.WOZOBW.html">
+	c186390 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZOBW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZAntwoord.WOZOBW.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZOBW </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # obw : OBWKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZOBW() </td></tr>
+<tr><td align="left" balign="left"> + getOBW() : OBWKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setOBW(value : OBWKennisgeving) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WOZAntwoord.WOZOBW.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZSUBEIG
-	c186385 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZSUBEIG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZAntwoord.WOZSUBEIG.html">
+	c186391 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZSUBEIG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZAntwoord.WOZSUBEIG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZSUBEIG </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # prs : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZSUBEIG() </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKerngegevens&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : JAXBElement&lt;PRSKerngegevens&gt;) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WOZAntwoord.WOZSUBEIG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZSUBGBR
-	c186386 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZSUBGBR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZAntwoord.WOZSUBGBR.html">
+	c186392 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZSUBGBR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZAntwoord.WOZSUBGBR.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZSUBGBR </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # prs : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZSUBGBR() </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKerngegevens&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : JAXBElement&lt;PRSKerngegevens&gt;) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WOZAntwoord.WOZSUBGBR.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO
-	c186387 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZAntwoord.WOZVBO.html">
+	c186393 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZAntwoord.WOZVBO.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZVBO </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vbo : VBOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZVBO() </td></tr>
+<tr><td align="left" balign="left"> + getVBO() : VBOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setVBO(value : VBOKennisgeving) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WOZAntwoord.WOZVBO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.HHDVraag.HDDWOZ
-	c186391 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDVraag.HDDWOZ" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HHDVraag.HDDWOZ.html">
+	c186397 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDVraag.HDDWOZ" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HHDVraag.HDDWOZ.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HDDWOZ </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # woz : WOZKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + HDDWOZ() </td></tr>
+<tr><td align="left" balign="left"> + getWOZ() : WOZKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setWOZ(value : WOZKennisgeving) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./HHDVraag.HDDWOZ.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWBSG
-	c186405 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWKennisgeving.OBWBSG.html">
+	c186411 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWKennisgeving.OBWBSG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OBWBSG </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # bsg : BSGKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + OBWBSG() </td></tr>
+<tr><td align="left" balign="left"> + getBSG() : BSGKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setBSG(value : BSGKerngegevens) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./OBWKennisgeving.OBWBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWKDO
-	c186406 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWKennisgeving.OBWKDO.html">
+	c186412 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWKennisgeving.OBWKDO.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OBWKDO </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + OBWKDO() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKerngegevens) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./OBWKennisgeving.OBWKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOBSG
-	c186411 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.KDOBSG.html">
+	c186417 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.KDOBSG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOBSG </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # bsg : BSGKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOBSG() </td></tr>
+<tr><td align="left" balign="left"> + getBSG() : BSGKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setBSG(value : BSGKerngegevens) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOKennisgeving.KDOBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOPRB
-	c186413 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOPRB" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.KDOPRB.html">
+	c186419 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOPRB" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.KDOPRB.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOPRB </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # prb : PRBKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOPRB() </td></tr>
+<tr><td align="left" balign="left"> + getPRB() : PRBKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setPRB(value : PRBKerngegevens) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOKennisgeving.KDOPRB.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOSUBVZG
-	c186414 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOSUBVZG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.KDOSUBVZG.html">
+	c186420 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOSUBVZG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.KDOSUBVZG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOSUBVZG </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # prs : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOSUBVZG() </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : JAXBElement&lt;PRSKerngegevens&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKerngegevens&gt;) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOKennisgeving.KDOSUBVZG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.HHDKennisgeving.HDDWOZ
-	c186418 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDKennisgeving.HDDWOZ" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HHDKennisgeving.HDDWOZ.html">
+	c186424 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDKennisgeving.HDDWOZ" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HHDKennisgeving.HDDWOZ.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HDDWOZ </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # woz : WOZKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + HDDWOZ() </td></tr>
+<tr><td align="left" balign="left"> + getWOZ() : WOZKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setWOZ(value : WOZKerngegevens) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./HHDKennisgeving.HDDWOZ.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZVraag.WOZKDO
-	c186446 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag.WOZKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZVraag.WOZKDO.html">
+	c186452 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag.WOZKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZVraag.WOZKDO.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZKDO </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZKDO() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./WOZVraag.WOZKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZVraag.WOZOBW
-	c186447 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag.WOZOBW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZVraag.WOZOBW.html">
+	c186453 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag.WOZOBW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZVraag.WOZOBW.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZOBW </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # obw : OBWKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZOBW() </td></tr>
+<tr><td align="left" balign="left"> + getOBW() : OBWKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setOBW(value : OBWKennisgeving) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./WOZVraag.WOZOBW.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZVraag.WOZSUBEIG
-	c186448 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag.WOZSUBEIG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZVraag.WOZSUBEIG.html">
+	c186454 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag.WOZSUBEIG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZVraag.WOZSUBEIG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZSUBEIG </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # prs : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZSUBEIG() </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKerngegevens&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : JAXBElement&lt;PRSKerngegevens&gt;) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./WOZVraag.WOZSUBEIG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZVraag.WOZSUBGBR
-	c186449 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag.WOZSUBGBR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZVraag.WOZSUBGBR.html">
+	c186455 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag.WOZSUBGBR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZVraag.WOZSUBGBR.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZSUBGBR </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # prs : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZSUBGBR() </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKerngegevens&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : JAXBElement&lt;PRSKerngegevens&gt;) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./WOZVraag.WOZSUBGBR.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZVraag.WOZVBO
-	c186450 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag.WOZVBO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZVraag.WOZVBO.html">
+	c186456 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag.WOZVBO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZVraag.WOZVBO.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZVBO </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vbo : VBOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZVBO() </td></tr>
+<tr><td align="left" balign="left"> + getVBO() : VBOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setVBO(value : VBOKennisgeving) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./WOZVraag.WOZVBO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPVraag.NNPNNPHFD
-	c186459 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPVraag.NNPNNPHFD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPVraag.NNPNNPHFD.html">
+	c186465 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPVraag.NNPNNPHFD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPVraag.NNPNNPHFD.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPNNPHFD </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKennisgeving&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NNPNNPHFD() </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKennisgeving&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKennisgeving&gt;) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./NNPVraag.NNPNNPHFD.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPVraag.NNPNNPNVN
-	c186460 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPVraag.NNPNNPNVN" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPVraag.NNPNNPNVN.html">
+	c186466 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPVraag.NNPNNPNVN" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPVraag.NNPNNPNVN.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPNNPNVN </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKennisgeving&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NNPNNPNVN() </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKennisgeving&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKennisgeving&gt;) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./NNPVraag.NNPNNPNVN.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOBSG
-	c186489 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOAntwoord.KDOBSG.html">
+	c186495 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOAntwoord.KDOBSG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOBSG </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # bsg : BSGFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOBSG() </td></tr>
+<tr><td align="left" balign="left"> + getBSG() : BSGFund </td></tr>
+<tr><td align="left" balign="left"> + setBSG(value : BSGFund) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOAntwoord.KDOBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOPRB
-	c186491 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOPRB" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOAntwoord.KDOPRB.html">
+	c186497 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOPRB" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOAntwoord.KDOPRB.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOPRB </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # prb : PRBFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOPRB() </td></tr>
+<tr><td align="left" balign="left"> + getPRB() : PRBFund </td></tr>
+<tr><td align="left" balign="left"> + setPRB(value : PRBFund) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOAntwoord.KDOPRB.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOSUBVZG
-	c186492 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOSUBVZG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOAntwoord.KDOSUBVZG.html">
+	c186498 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOSUBVZG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOAntwoord.KDOSUBVZG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOSUBVZG </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # prs : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOSUBVZG() </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : JAXBElement&lt;PRSKerngegevens&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKerngegevens&gt;) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOAntwoord.KDOSUBVZG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.OBWVraag.OBWBSG
-	c186534 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWVraag.OBWBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWVraag.OBWBSG.html">
+	c186540 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWVraag.OBWBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWVraag.OBWBSG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OBWBSG </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # bsg : BSGFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + OBWBSG() </td></tr>
+<tr><td align="left" balign="left"> + getBSG() : BSGFund </td></tr>
+<tr><td align="left" balign="left"> + setBSG(value : BSGFund) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./OBWVraag.OBWBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.OBWVraag.OBWKDO
-	c186535 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWVraag.OBWKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWVraag.OBWKDO.html">
+	c186541 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWVraag.OBWKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWVraag.OBWKDO.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OBWKDO </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + OBWKDO() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./OBWVraag.OBWKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.Relatie
-	c186536 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Relatie.html">
+	c186542 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Relatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Relatie </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Relatie() </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./Relatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
-	c186537 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRRelKerngegevens.html">
+	c186543 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRRelKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ADRRelKerngegevens </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # adr : ADRFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ADRRelKerngegevens() </td></tr>
+<tr><td align="left" balign="left"> + getADR() : ADRFund </td></tr>
+<tr><td align="left" balign="left"> + setADR(value : ADRFund) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./ADRRelKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOBSG
-	c186645 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKennisgeving.VBOBSG.html">
+	c186651 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKennisgeving.VBOBSG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOBSG </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # bsg : BSGKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOBSG() </td></tr>
+<tr><td align="left" balign="left"> + getBSG() : BSGKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setBSG(value : BSGKerngegevens) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./VBOKennisgeving.VBOBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOKDO
-	c186646 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKennisgeving.VBOKDO.html">
+	c186652 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKennisgeving.VBOKDO.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOKDO </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOKDO() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKerngegevens) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./VBOKennisgeving.VBOKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOSUBGBR
-	c186647 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOSUBGBR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKennisgeving.VBOSUBGBR.html">
+	c186653 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOSUBGBR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKennisgeving.VBOSUBGBR.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOSUBGBR </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # prs : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOSUBGBR() </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKerngegevens&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : JAXBElement&lt;PRSKerngegevens&gt;) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./VBOKennisgeving.VBOSUBGBR.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOVraag.KDOBSG
-	c186661 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag.KDOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOVraag.KDOBSG.html">
+	c186667 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag.KDOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOVraag.KDOBSG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOBSG </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # bsg : BSGFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOBSG() </td></tr>
+<tr><td align="left" balign="left"> + getBSG() : BSGFund </td></tr>
+<tr><td align="left" balign="left"> + setBSG(value : BSGFund) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./KDOVraag.KDOBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOVraag.KDOPRB
-	c186663 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag.KDOPRB" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOVraag.KDOPRB.html">
+	c186669 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag.KDOPRB" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOVraag.KDOPRB.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOPRB </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # prb : PRBFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOPRB() </td></tr>
+<tr><td align="left" balign="left"> + getPRB() : PRBFund </td></tr>
+<tr><td align="left" balign="left"> + setPRB(value : PRBFund) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./KDOVraag.KDOPRB.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOVraag.KDOSUBVZG
-	c186664 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag.KDOSUBVZG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOVraag.KDOSUBVZG.html">
+	c186670 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag.KDOSUBVZG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOVraag.KDOSUBVZG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOSUBVZG </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # prs : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOSUBVZG() </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : JAXBElement&lt;PRSKerngegevens&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKerngegevens&gt;) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./KDOVraag.KDOSUBVZG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.NoValue
+	c186700 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
+<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
+<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
+<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.Verwerkingssoort
+	c186703 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> Verwerkingssoort </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> T </td></tr>
+<tr><td align="left" balign="left"> W </td></tr>
+<tr><td align="left" balign="left"> V </td></tr>
+<tr><td align="left" balign="left"> E </td></tr>
+<tr><td align="left" balign="left"> I </td></tr>
+<tr><td align="left" balign="left"> R </td></tr>
+<tr><td align="left" balign="left"> S </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/Verwerkingssoort.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c186704 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakGeldigheid.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> TijdvakGeldigheid </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # begindatumTijdvakGeldigheid : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> # einddatumTijdvakGeldigheid : DatumMetIndicator </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TijdvakGeldigheid() </td></tr>
+<tr><td align="left" balign="left"> + getBegindatumTijdvakGeldigheid() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setBegindatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatumTijdvakGeldigheid() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setEinddatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/TijdvakGeldigheid.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.ExtraElementen
+	c186715 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ExtraElementen </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
+<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.TijdvakRelatie
+	c186718 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakRelatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakRelatie.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> TijdvakRelatie </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # begindatumRelatie : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> # einddatumRelatie : DatumMetIndicator </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TijdvakRelatie() </td></tr>
+<tr><td align="left" balign="left"> + getBegindatumRelatie() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setBegindatumRelatie(value : DatumMetIndicator) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatumRelatie() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setEinddatumRelatie(value : DatumMetIndicator) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/TijdvakRelatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.NNPAntwoord.NNPNNPHFD extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186220:p [dir=back,arrowtail=empty];
+	c186542:p -> c186226:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.NNPAntwoord.NNPNNPNVN extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186221:p [dir=back,arrowtail=empty];
+	c186542:p -> c186227:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.NNPKennisgeving.NNPNNPHFD extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186235:p [dir=back,arrowtail=empty];
+	c186542:p -> c186241:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.NNPKennisgeving.NNPNNPNVN extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186236:p [dir=back,arrowtail=empty];
+	c186542:p -> c186242:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.VBOVraag.VBOBSG extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186245:p [dir=back,arrowtail=empty];
+	c186542:p -> c186251:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.VBOVraag.VBOKDO extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186246:p [dir=back,arrowtail=empty];
+	c186542:p -> c186252:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.VBOVraag.VBOSUBGBR extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186247:p [dir=back,arrowtail=empty];
+	c186542:p -> c186253:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZKDO extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186297:p [dir=back,arrowtail=empty];
+	c186542:p -> c186303:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZOBW extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186298:p [dir=back,arrowtail=empty];
+	c186542:p -> c186304:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZSUBEIG extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186299:p [dir=back,arrowtail=empty];
+	c186542:p -> c186305:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZSUBGBR extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186300:p [dir=back,arrowtail=empty];
+	c186542:p -> c186306:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZVBO extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186301:p [dir=back,arrowtail=empty];
+	c186542:p -> c186307:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOBSG extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186303:p [dir=back,arrowtail=empty];
+	c186542:p -> c186309:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOKDO extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186304:p [dir=back,arrowtail=empty];
+	c186542:p -> c186310:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOSUBGBR extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186305:p [dir=back,arrowtail=empty];
+	c186542:p -> c186311:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWBSG extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186308:p [dir=back,arrowtail=empty];
+	c186542:p -> c186314:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWKDO extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186309:p [dir=back,arrowtail=empty];
+	c186542:p -> c186315:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.ADRRelFund extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186324:p [dir=back,arrowtail=empty];
+	c186542:p -> c186330:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.HHDAntwoord.HDDWOZ extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186379:p [dir=back,arrowtail=empty];
+	c186542:p -> c186385:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZKDO extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186383:p [dir=back,arrowtail=empty];
+	c186542:p -> c186389:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZOBW extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186384:p [dir=back,arrowtail=empty];
+	c186542:p -> c186390:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZSUBEIG extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186385:p [dir=back,arrowtail=empty];
+	c186542:p -> c186391:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZSUBGBR extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186386:p [dir=back,arrowtail=empty];
+	c186542:p -> c186392:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186387:p [dir=back,arrowtail=empty];
+	c186542:p -> c186393:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.HHDVraag.HDDWOZ extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186391:p [dir=back,arrowtail=empty];
+	c186542:p -> c186397:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWBSG extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186405:p [dir=back,arrowtail=empty];
+	c186542:p -> c186411:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWKDO extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186406:p [dir=back,arrowtail=empty];
+	c186542:p -> c186412:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOBSG extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186411:p [dir=back,arrowtail=empty];
+	c186542:p -> c186417:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOPRB extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186413:p [dir=back,arrowtail=empty];
+	c186542:p -> c186419:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOSUBVZG extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186414:p [dir=back,arrowtail=empty];
+	c186542:p -> c186420:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.HHDKennisgeving.HDDWOZ extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186418:p [dir=back,arrowtail=empty];
+	c186542:p -> c186424:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.WOZVraag.WOZKDO extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186446:p [dir=back,arrowtail=empty];
+	c186542:p -> c186452:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.WOZVraag.WOZOBW extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186447:p [dir=back,arrowtail=empty];
+	c186542:p -> c186453:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.WOZVraag.WOZSUBEIG extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186448:p [dir=back,arrowtail=empty];
+	c186542:p -> c186454:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.WOZVraag.WOZSUBGBR extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186449:p [dir=back,arrowtail=empty];
+	c186542:p -> c186455:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.WOZVraag.WOZVBO extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186450:p [dir=back,arrowtail=empty];
+	c186542:p -> c186456:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.NNPVraag.NNPNNPHFD extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186459:p [dir=back,arrowtail=empty];
+	c186542:p -> c186465:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.NNPVraag.NNPNNPNVN extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186460:p [dir=back,arrowtail=empty];
+	c186542:p -> c186466:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOBSG extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186489:p [dir=back,arrowtail=empty];
+	c186542:p -> c186495:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOPRB extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186491:p [dir=back,arrowtail=empty];
+	c186542:p -> c186497:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOSUBVZG extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186492:p [dir=back,arrowtail=empty];
+	c186542:p -> c186498:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.OBWVraag.OBWBSG extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186534:p [dir=back,arrowtail=empty];
+	c186542:p -> c186540:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.OBWVraag.OBWKDO extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186535:p [dir=back,arrowtail=empty];
+	c186542:p -> c186541:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186537:p [dir=back,arrowtail=empty];
+	c186542:p -> c186543:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOBSG extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186645:p [dir=back,arrowtail=empty];
+	c186542:p -> c186651:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOKDO extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186646:p [dir=back,arrowtail=empty];
+	c186542:p -> c186652:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOSUBGBR extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186647:p [dir=back,arrowtail=empty];
+	c186542:p -> c186653:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.KDOVraag.KDOBSG extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186661:p [dir=back,arrowtail=empty];
+	c186542:p -> c186667:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.KDOVraag.KDOPRB extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186663:p [dir=back,arrowtail=empty];
+	c186542:p -> c186669:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.KDOVraag.KDOSUBVZG extends nl.egem.stuf.sector.bg._0204.Relatie
-	c186536:p -> c186664:p [dir=back,arrowtail=empty];
+	c186542:p -> c186670:p [dir=back,arrowtail=empty];
+	// nl.egem.stuf.sector.bg._0204.Relatie NAVASSOC nl.egem.stuf.stuf0204.TijdvakRelatie
+	c186542:p -> c186718:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.Relatie NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c186542:p -> c186704:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.Relatie NAVASSOC nl.egem.stuf.stuf0204.ExtraElementen
+	c186542:p -> c186715:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.Relatie NAVASSOC nl.egem.stuf.stuf0204.Verwerkingssoort
+	c186542:p -> c186703:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.Relatie NAVASSOC nl.egem.stuf.stuf0204.NoValue
+	c186542:p -> c186700:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

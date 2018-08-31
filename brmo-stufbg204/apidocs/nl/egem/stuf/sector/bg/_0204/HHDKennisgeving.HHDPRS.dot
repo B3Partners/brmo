@@ -10,18 +10,119 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.HHDPRSRel
-	c65473 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDPRSRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HHDPRSRel.html">
+	c65479 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDPRSRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HHDPRSRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HHDPRSRel </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # huishoudenRelatieCode : JAXBElement&lt;HHDPRSRel.HuishoudenRelatieCode&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + HHDPRSRel() </td></tr>
+<tr><td align="left" balign="left"> + getHuishoudenRelatieCode() : JAXBElement&lt;HHDPRSRel.HuishoudenRelatieCode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHuishoudenRelatieCode(value : JAXBElement&lt;HHDPRSRel.HuishoudenRelatieCode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./HHDPRSRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.HHDKennisgeving.HHDPRS
-	c65485 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDKennisgeving.HHDPRS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HHDKennisgeving.HHDPRS.html">
+	c65491 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDKennisgeving.HHDPRS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HHDKennisgeving.HHDPRS.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HHDPRS </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # prs : PRSKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + HHDPRS() </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : PRSKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : PRSKerngegevens) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./HHDKennisgeving.HHDPRS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.PRSKerngegevens
+	c65739 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKerngegevens.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PRSKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # aNummer : PRSKerngegevens.ANummer </td></tr>
+<tr><td align="left" balign="left"> # bsnNummer : PRSKerngegevens.BsnNummer </td></tr>
+<tr><td align="left" balign="left"> # voornamen : PRSKerngegevens.Voornamen </td></tr>
+<tr><td align="left" balign="left"> # voorletters : PRSKerngegevens.Voorletters </td></tr>
+<tr><td align="left" balign="left"> # voorvoegselGeslachtsnaam : PRSKerngegevens.VoorvoegselGeslachtsnaam </td></tr>
+<tr><td align="left" balign="left"> # geslachtsnaam : PRSKerngegevens.Geslachtsnaam </td></tr>
+<tr><td align="left" balign="left"> # geboortedatum : PRSKerngegevens.Geboortedatum </td></tr>
+<tr><td align="left" balign="left"> # geslachtsaanduiding : PRSKerngegevens.Geslachtsaanduiding </td></tr>
+<tr><td align="left" balign="left"> # prsadrvbl : JAXBElement&lt;PRSADRVBL&gt; </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSKerngegevens() </td></tr>
+<tr><td align="left" balign="left"> + getANummer() : PRSKerngegevens.ANummer </td></tr>
+<tr><td align="left" balign="left"> + setANummer(value : PRSKerngegevens.ANummer) </td></tr>
+<tr><td align="left" balign="left"> + getBsnNummer() : PRSKerngegevens.BsnNummer </td></tr>
+<tr><td align="left" balign="left"> + setBsnNummer(value : PRSKerngegevens.BsnNummer) </td></tr>
+<tr><td align="left" balign="left"> + getVoornamen() : PRSKerngegevens.Voornamen </td></tr>
+<tr><td align="left" balign="left"> + setVoornamen(value : PRSKerngegevens.Voornamen) </td></tr>
+<tr><td align="left" balign="left"> + getVoorletters() : PRSKerngegevens.Voorletters </td></tr>
+<tr><td align="left" balign="left"> + setVoorletters(value : PRSKerngegevens.Voorletters) </td></tr>
+<tr><td align="left" balign="left"> + getVoorvoegselGeslachtsnaam() : PRSKerngegevens.VoorvoegselGeslachtsnaam </td></tr>
+<tr><td align="left" balign="left"> + setVoorvoegselGeslachtsnaam(value : PRSKerngegevens.VoorvoegselGeslachtsnaam) </td></tr>
+<tr><td align="left" balign="left"> + getGeslachtsnaam() : PRSKerngegevens.Geslachtsnaam </td></tr>
+<tr><td align="left" balign="left"> + setGeslachtsnaam(value : PRSKerngegevens.Geslachtsnaam) </td></tr>
+<tr><td align="left" balign="left"> + getGeboortedatum() : PRSKerngegevens.Geboortedatum </td></tr>
+<tr><td align="left" balign="left"> + setGeboortedatum(value : PRSKerngegevens.Geboortedatum) </td></tr>
+<tr><td align="left" balign="left"> + getGeslachtsaanduiding() : PRSKerngegevens.Geslachtsaanduiding </td></tr>
+<tr><td align="left" balign="left"> + setGeslachtsaanduiding(value : PRSKerngegevens.Geslachtsaanduiding) </td></tr>
+<tr><td align="left" balign="left"> + getPRSADRVBL() : JAXBElement&lt;PRSADRVBL&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRSADRVBL(value : JAXBElement&lt;PRSADRVBL&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./PRSKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.HHDKennisgeving.HHDPRS extends nl.egem.stuf.sector.bg._0204.HHDPRSRel
-	c65473:p -> c65485:p [dir=back,arrowtail=empty];
+	c65479:p -> c65491:p [dir=back,arrowtail=empty];
+	// nl.egem.stuf.sector.bg._0204.HHDKennisgeving.HHDPRS NAVASSOC nl.egem.stuf.sector.bg._0204.PRSKerngegevens
+	c65491:p -> c65739:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

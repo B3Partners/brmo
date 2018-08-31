@@ -10,18 +10,104 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.VBOVBOOSURel
-	c227383 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVBOOSURel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVBOOSURel.html">
+	c227385 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVBOOSURel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVBOOSURel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOVBOOSURel </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # filiatieCode : JAXBElement&lt;VBOVBOOSURel.FiliatieCode&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOVBOOSURel() </td></tr>
+<tr><td align="left" balign="left"> + getFiliatieCode() : JAXBElement&lt;VBOVBOOSURel.FiliatieCode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setFiliatieCode(value : JAXBElement&lt;VBOVBOOSURel.FiliatieCode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./VBOVBOOSURel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.VBOKerngegevens
+	c227617 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKerngegevens.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> VBOKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # bouwjaar : VBOKerngegevens.Bouwjaar </td></tr>
+<tr><td align="left" balign="left"> # verblijfsObjectNummer : VBOKerngegevens.VerblijfsObjectNummer </td></tr>
+<tr><td align="left" balign="left"> # verblijfsObjectType : VBOKerngegevens.VerblijfsObjectType </td></tr>
+<tr><td align="left" balign="left"> # vboadr : VBOKerngegevens.VBOADR </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOKerngegevens() </td></tr>
+<tr><td align="left" balign="left"> + getBouwjaar() : VBOKerngegevens.Bouwjaar </td></tr>
+<tr><td align="left" balign="left"> + setBouwjaar(value : VBOKerngegevens.Bouwjaar) </td></tr>
+<tr><td align="left" balign="left"> + getVerblijfsObjectNummer() : VBOKerngegevens.VerblijfsObjectNummer </td></tr>
+<tr><td align="left" balign="left"> + setVerblijfsObjectNummer(value : VBOKerngegevens.VerblijfsObjectNummer) </td></tr>
+<tr><td align="left" balign="left"> + getVerblijfsObjectType() : VBOKerngegevens.VerblijfsObjectType </td></tr>
+<tr><td align="left" balign="left"> + setVerblijfsObjectType(value : VBOKerngegevens.VerblijfsObjectType) </td></tr>
+<tr><td align="left" balign="left"> + getVBOADR() : VBOKerngegevens.VBOADR </td></tr>
+<tr><td align="left" balign="left"> + setVBOADR(value : VBOKerngegevens.VBOADR) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./VBOKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOVBOOSU
-	c227638 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOVBOOSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOKennisgeving.VBOVBOOSU.html">
+	c227640 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOVBOOSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOKennisgeving.VBOVBOOSU.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOVBOOSU </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vbo : VBOKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOVBOOSU() </td></tr>
+<tr><td align="left" balign="left"> + getVBO() : VBOKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setVBO(value : VBOKerngegevens) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./VBOKennisgeving.VBOVBOOSU.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOVBOOSU extends nl.egem.stuf.sector.bg._0204.VBOVBOOSURel
-	c227383:p -> c227638:p [dir=back,arrowtail=empty];
+	c227385:p -> c227640:p [dir=back,arrowtail=empty];
+	// nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOVBOOSU NAVASSOC nl.egem.stuf.sector.bg._0204.VBOKerngegevens
+	c227640:p -> c227617:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

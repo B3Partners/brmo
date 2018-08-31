@@ -9,11 +9,89 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse
+	c1533 [label=<<table title="nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NietNatuurlijkPersoonResponse.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> NietNatuurlijkPersoonResponse </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NietNatuurlijkPersoonResponse() </td></tr>
+<tr><td align="left" balign="left"> + getIdentificatie() : String </td></tr>
+<tr><td align="left" balign="left"> + setIdentificatie(identificatie : String) </td></tr>
+<tr><td align="left" balign="left"> + getRechtsvorm() : String </td></tr>
+<tr><td align="left" balign="left"> + setRechtsvorm(rechtsvorm : String) </td></tr>
+<tr><td align="left" balign="left"> + getStatutaireZetel() : String </td></tr>
+<tr><td align="left" balign="left"> + setStatutaireZetel(statutaireZetel : String) </td></tr>
+<tr><td align="left" balign="left"> + getNaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaam(naam : String) </td></tr>
+<tr><td align="left" balign="left"> + getRecordById(id : String, searchContext : Map&lt;String, Object&gt;) : NietNatuurlijkPersoonResponse </td></tr>
+		</table></td></tr>
+		</table>>, URL="./NietNatuurlijkPersoonResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse
+	c1540 [label=<<table title="nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NatuurlijkPersoonResponse.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> NatuurlijkPersoonResponse </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NatuurlijkPersoonResponse() </td></tr>
+<tr><td align="left" balign="left"> + getIdentificatie() : String </td></tr>
+<tr><td align="left" balign="left"> + setIdentificatie(identificatie : String) </td></tr>
+<tr><td align="left" balign="left"> + getGeboortedatum() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setGeboortedatum(geboortedatum : Integer) </td></tr>
+<tr><td align="left" balign="left"> + getOverlijdensdatum() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setOverlijdensdatum(overlijdensdatum : Integer) </td></tr>
+<tr><td align="left" balign="left"> + getBsn() : String </td></tr>
+<tr><td align="left" balign="left"> + setBsn(bsn : String) </td></tr>
+<tr><td align="left" balign="left"> + getGeboorteplaats() : String </td></tr>
+<tr><td align="left" balign="left"> + setGeboorteplaats(geboorteplaats : String) </td></tr>
+<tr><td align="left" balign="left"> + getLocatieBeschrijving() : String </td></tr>
+<tr><td align="left" balign="left"> + setLocatieBeschrijving(locatieBeschrijving : String) </td></tr>
+<tr><td align="left" balign="left"> + getAanduidingNaamgebruik() : String </td></tr>
+<tr><td align="left" balign="left"> + setAanduidingNaamgebruik(aanduidingNaamgebruik : String) </td></tr>
+<tr><td align="left" balign="left"> + getGeslachtsaanduiding() : String </td></tr>
+<tr><td align="left" balign="left"> + setGeslachtsaanduiding(geslachtsaanduiding : String) </td></tr>
+<tr><td align="left" balign="left"> + getGeslachtsnaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setGeslachtsnaam(geslachtsnaam : String) </td></tr>
+<tr><td align="left" balign="left"> + getVoornamen() : String </td></tr>
+<tr><td align="left" balign="left"> + setVoornamen(voornamen : String) </td></tr>
+<tr><td align="left" balign="left"> + getVoorvoegsel() : String </td></tr>
+<tr><td align="left" balign="left"> + setVoorvoegsel(voorvoegsel : String) </td></tr>
+<tr><td align="left" balign="left"> + getRecordById(id : String, searchContext : Map&lt;String, Object&gt;) : NatuurlijkPersoonResponse </td></tr>
+		</table></td></tr>
+		</table>>, URL="./NatuurlijkPersoonResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.ZakelijkRechtResponse
-	c1540 [label=<<table title="nl.b3p.brmo.soap.brk.ZakelijkRechtResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ZakelijkRechtResponse.html">
+	c1544 [label=<<table title="nl.b3p.brmo.soap.brk.ZakelijkRechtResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ZakelijkRechtResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ZakelijkRechtResponse </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ZakelijkRechtResponse() </td></tr>
+<tr><td align="left" balign="left"> + getNoemer() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setNoemer(noemer : Integer) </td></tr>
+<tr><td align="left" balign="left"> + getTeller() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setTeller(teller : Integer) </td></tr>
+<tr><td align="left" balign="left"> + isIndicatieBetrokkenInSplitsing() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setIndicatieBetrokkenInSplitsing(indicatieBetrokkenInSplitsing : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getAardVerkregenRecht() : String </td></tr>
+<tr><td align="left" balign="left"> + setAardVerkregenRecht(aardVerkregenRecht : String) </td></tr>
+<tr><td align="left" balign="left"> + getNatuurlijkPersoon() : NatuurlijkPersoonResponse </td></tr>
+<tr><td align="left" balign="left"> + setNatuurlijkPersoon(natuurlijkPersoon : NatuurlijkPersoonResponse) </td></tr>
+<tr><td align="left" balign="left"> + getNietNatuurlijkPersoon() : NietNatuurlijkPersoonResponse </td></tr>
+<tr><td align="left" balign="left"> + setNietNatuurlijkPersoon(nietNatuurlijkPersoon : NietNatuurlijkPersoonResponse) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./ZakelijkRechtResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.brk.ZakelijkRechtResponse NAVASSOC nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse
+	c1544:p -> c1540:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.soap.brk.ZakelijkRechtResponse NAVASSOC nl.b3p.brmo.soap.brk.NietNatuurlijkPersoonResponse
+	c1544:p -> c1533:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

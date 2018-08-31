@@ -10,9 +10,29 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.soap.eigendom.ZakelijkRecht
-	c1522 [label=<<table title="nl.b3p.brmo.soap.eigendom.ZakelijkRecht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ZakelijkRecht.html">
+	c1526 [label=<<table title="nl.b3p.brmo.soap.eigendom.ZakelijkRecht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ZakelijkRecht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ZakelijkRecht </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # identificatienummer : String </td></tr>
+<tr><td align="left" balign="left"> # noemer : String </td></tr>
+<tr><td align="left" balign="left"> # teller : String </td></tr>
+<tr><td align="left" balign="left"> # bsn : String </td></tr>
+<tr><td align="left" balign="left"> # aardRecht : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ZakelijkRecht() </td></tr>
+<tr><td align="left" balign="left"> + getIdentificatienummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setIdentificatienummer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getNoemer() : String </td></tr>
+<tr><td align="left" balign="left"> + setNoemer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTeller() : String </td></tr>
+<tr><td align="left" balign="left"> + setTeller(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getBSN() : String </td></tr>
+<tr><td align="left" balign="left"> + setBSN(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getAardRecht() : String </td></tr>
+<tr><td align="left" balign="left"> + setAardRecht(value : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ZakelijkRecht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

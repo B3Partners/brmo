@@ -10,11 +10,56 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top100nl.TypeGeografischGebiedT100Type
-	c40641 [label=<<table title="nl.b3p.topnl.top100nl.TypeGeografischGebiedT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeGeografischGebiedT100Type.html">
+	c40688 [label=<<table title="nl.b3p.topnl.top100nl.TypeGeografischGebiedT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeGeografischGebiedT100Type.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> TypeGeografischGebiedT100Type </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> BOSGEBIED </td></tr>
+<tr><td align="left" balign="left"> BUURTSCHAP </td></tr>
+<tr><td align="left" balign="left"> EILAND </td></tr>
+<tr><td align="left" balign="left"> GEUL_VAARGEUL </td></tr>
+<tr><td align="left" balign="left"> HUIZENGROEP </td></tr>
+<tr><td align="left" balign="left"> KAAP_HOEK </td></tr>
+<tr><td align="left" balign="left"> PLAATS_BEWOOND_OORD </td></tr>
+<tr><td align="left" balign="left"> TERP </td></tr>
+<tr><td align="left" balign="left"> WOONWIJK </td></tr>
+<tr><td align="left" balign="left"> ZEEGAT_ZEEARM </td></tr>
+<tr><td align="left" balign="left"> OVERIG </td></tr>
+		</table></td></tr>
 		</table>>, URL="./TypeGeografischGebiedT100Type.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.top100nl.GeografischGebiedType
+	c40730 [label=<<table title="nl.b3p.topnl.top100nl.GeografischGebiedType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GeografischGebiedType.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> GeografischGebiedType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeGeografischGebied : TypeGeografischGebiedT100Type </td></tr>
+<tr><td align="left" balign="left"> # aantalInwoners : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # naamOfficieel : String </td></tr>
+<tr><td align="left" balign="left"> # naamNL : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # naamFries : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GeografischGebiedType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeGeografischGebied() : TypeGeografischGebiedT100Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeGeografischGebied(value : TypeGeografischGebiedT100Type) </td></tr>
+<tr><td align="left" balign="left"> + getAantalInwoners() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setAantalInwoners(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getNaamOfficieel() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaamOfficieel(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getNaamNL() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNaamFries() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./GeografischGebiedType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.top100nl.GeografischGebiedType NAVASSOC nl.b3p.topnl.top100nl.TypeGeografischGebiedT100Type
+	c40730:p -> c40688:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

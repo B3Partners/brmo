@@ -9,12 +9,60 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.loader.RsgbProxy
+	c1820 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> RsgbProxy </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + RsgbProxy(dataSourceRsgb : DataSource, stagingProxy : StagingProxy, status : Bericht.STATUS, listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + RsgbProxy(dataSourceRsgb : DataSource, stagingProxy : StagingProxy, mode : RsgbProxy.BerichtSelectMode, ids : long[], listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + RsgbProxy(dataSourceRsgb : DataSource, stagingProxy : StagingProxy, updateProcess : UpdateProcess, listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + setSimonNamePrefix(prefix : String) </td></tr>
+<tr><td align="left" balign="left"> + setEnablePipeline(enablePipeline : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setPipelineCapacity(pipelineCapacity : int) </td></tr>
+<tr><td align="left" balign="left"> + setRenewConnectionAfterCommit(renewConnectionAfterCommit : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setOrderBerichten(orderBerichten : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setErrorState(errorState : String) </td></tr>
+<tr><td align="left" balign="left"> + init() </td></tr>
+<tr><td align="left" balign="left"> + checkAndCloseStatement(stmt : PreparedStatement) </td></tr>
+<tr><td align="left" balign="left"> + checkAndAddStatement(m : Map&lt;String, PreparedStatement&gt;, tableName : String, stmt : PreparedStatement) </td></tr>
+<tr><td align="left" balign="left"> + close() </td></tr>
+<tr><td align="left" balign="left"> + renewConnection() </td></tr>
+<tr><td align="left" balign="left"> + run() </td></tr>
+<tr><td align="left" balign="left"> + updateProcessingResult(ber : Bericht) </td></tr>
+<tr><td align="left" balign="left"> + transformToTableData(ber : Bericht) : List&lt;TableData&gt; </td></tr>
+<tr><td align="left" balign="left"> + transformUpdateTableData(ber : Bericht) : List&lt;TableData&gt; </td></tr>
+<tr><td align="left" balign="left"> + updateBerichtException(ber : Bericht, e : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + updateBerichtProcessing(ber : Bericht) </td></tr>
+<tr><td align="left" balign="left"> + handle(ber : Bericht, pretransformedTableData : List&lt;TableData&gt;, updateResult : boolean) </td></tr>
+<tr><td align="left" balign="left"> + update(ber : Bericht, pretransformedTableData : List&lt;TableData&gt;) </td></tr>
+<tr><td align="left" balign="left"> + isAlreadyInMetadata(row : TableRow, loadLog : StringBuilder) : boolean </td></tr>
+<tr><td align="left" balign="left"> + getHerkomstMetadata() : String </td></tr>
+<tr><td align="left" balign="left"> + setHerkomstMetadata(herkomstMetadata : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./RsgbProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode
-	c1777 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./RsgbProxy.BerichtSelectMode.html">
+	c1821 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./RsgbProxy.BerichtSelectMode.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> BerichtSelectMode </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> BY_STATUS </td></tr>
+<tr><td align="left" balign="left"> BY_IDS </td></tr>
+<tr><td align="left" balign="left"> BY_LAADPROCES </td></tr>
+<tr><td align="left" balign="left"> FOR_UPDATE </td></tr>
+<tr><td align="left" balign="left"> RETRY_WAITING </td></tr>
+		</table></td></tr>
 		</table>>, URL="./RsgbProxy.BerichtSelectMode.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode
+	c1820:p -> c1821:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

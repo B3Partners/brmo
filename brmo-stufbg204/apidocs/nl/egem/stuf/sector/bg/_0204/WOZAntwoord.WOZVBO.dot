@@ -10,18 +10,83 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO
-	c244075 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZAntwoord.WOZVBO.html">
+	c244077 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZAntwoord.WOZVBO.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZVBO </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vbo : VBOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZVBO() </td></tr>
+<tr><td align="left" balign="left"> + getVBO() : VBOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setVBO(value : VBOKennisgeving) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./WOZAntwoord.WOZVBO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.Relatie
-	c244224 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
+	c244226 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Relatie </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Relatie() </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./Relatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.VBOKennisgeving
+	c244334 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKennisgeving.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> VBOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vboadr : JAXBElement&lt;ADRRelKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # vbobsg : List&lt;VBOKennisgeving.VBOBSG&gt; </td></tr>
+<tr><td align="left" balign="left"> # vbokdo : List&lt;VBOKennisgeving.VBOKDO&gt; </td></tr>
+<tr><td align="left" balign="left"> # vbosubgbr : JAXBElement&lt;VBOKennisgeving.VBOSUBGBR&gt; </td></tr>
+<tr><td align="left" balign="left"> # vbovboosu : List&lt;VBOKennisgeving.VBOVBOOSU&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOKennisgeving() </td></tr>
+<tr><td align="left" balign="left"> + getVBOADR() : JAXBElement&lt;ADRRelKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setVBOADR(value : JAXBElement&lt;ADRRelKerngegevens&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getVBOBSG() : List&lt;VBOKennisgeving.VBOBSG&gt; </td></tr>
+<tr><td align="left" balign="left"> + getVBOKDO() : List&lt;VBOKennisgeving.VBOKDO&gt; </td></tr>
+<tr><td align="left" balign="left"> + getVBOSUBGBR() : JAXBElement&lt;VBOKennisgeving.VBOSUBGBR&gt; </td></tr>
+<tr><td align="left" balign="left"> + setVBOSUBGBR(value : JAXBElement&lt;VBOKennisgeving.VBOSUBGBR&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getVBOVBOOSU() : List&lt;VBOKennisgeving.VBOVBOOSU&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./VBOKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO extends nl.egem.stuf.sector.bg._0204.Relatie
-	c244224:p -> c244075:p [dir=back,arrowtail=empty];
+	c244226:p -> c244077:p [dir=back,arrowtail=empty];
+	// nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO NAVASSOC nl.egem.stuf.sector.bg._0204.VBOKennisgeving
+	c244077:p -> c244334:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

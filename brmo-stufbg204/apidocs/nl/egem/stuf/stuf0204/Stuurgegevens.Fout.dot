@@ -9,11 +9,74 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.stuf0204.Stuurgegevens
+	c201379 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Stuurgegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # berichtsoort : String </td></tr>
+<tr><td align="left" balign="left"> # entiteittype : String </td></tr>
+<tr><td align="left" balign="left"> # sectormodel : String </td></tr>
+<tr><td align="left" balign="left"> # versieStUF : String </td></tr>
+<tr><td align="left" balign="left"> # versieSectormodel : String </td></tr>
+<tr><td align="left" balign="left"> # zender : Systeem </td></tr>
+<tr><td align="left" balign="left"> # ontvanger : Systeem </td></tr>
+<tr><td align="left" balign="left"> # referentienummer : String </td></tr>
+<tr><td align="left" balign="left"> # tijdstipBericht : String </td></tr>
+<tr><td align="left" balign="left"> # kennisgeving : Stuurgegevens.Kennisgeving </td></tr>
+<tr><td align="left" balign="left"> # vraag : Stuurgegevens.Vraag </td></tr>
+<tr><td align="left" balign="left"> # antwoord : Stuurgegevens.Antwoord </td></tr>
+<tr><td align="left" balign="left"> # bevestiging : Stuurgegevens.Bevestiging </td></tr>
+<tr><td align="left" balign="left"> # fout : Stuurgegevens.Fout </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Stuurgegevens() </td></tr>
+<tr><td align="left" balign="left"> + getBerichtsoort() : String </td></tr>
+<tr><td align="left" balign="left"> + setBerichtsoort(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getEntiteittype() : String </td></tr>
+<tr><td align="left" balign="left"> + setEntiteittype(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSectormodel() : String </td></tr>
+<tr><td align="left" balign="left"> + setSectormodel(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVersieStUF() : String </td></tr>
+<tr><td align="left" balign="left"> + setVersieStUF(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVersieSectormodel() : String </td></tr>
+<tr><td align="left" balign="left"> + setVersieSectormodel(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getZender() : Systeem </td></tr>
+<tr><td align="left" balign="left"> + setZender(value : Systeem) </td></tr>
+<tr><td align="left" balign="left"> + getOntvanger() : Systeem </td></tr>
+<tr><td align="left" balign="left"> + setOntvanger(value : Systeem) </td></tr>
+<tr><td align="left" balign="left"> + getReferentienummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setReferentienummer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTijdstipBericht() : String </td></tr>
+<tr><td align="left" balign="left"> + setTijdstipBericht(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getKennisgeving() : Stuurgegevens.Kennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setKennisgeving(value : Stuurgegevens.Kennisgeving) </td></tr>
+<tr><td align="left" balign="left"> + getVraag() : Stuurgegevens.Vraag </td></tr>
+<tr><td align="left" balign="left"> + setVraag(value : Stuurgegevens.Vraag) </td></tr>
+<tr><td align="left" balign="left"> + getAntwoord() : Stuurgegevens.Antwoord </td></tr>
+<tr><td align="left" balign="left"> + setAntwoord(value : Stuurgegevens.Antwoord) </td></tr>
+<tr><td align="left" balign="left"> + getBevestiging() : Stuurgegevens.Bevestiging </td></tr>
+<tr><td align="left" balign="left"> + setBevestiging(value : Stuurgegevens.Bevestiging) </td></tr>
+<tr><td align="left" balign="left"> + getFout() : Stuurgegevens.Fout </td></tr>
+<tr><td align="left" balign="left"> + setFout(value : Stuurgegevens.Fout) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./Stuurgegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Stuurgegevens.Fout
-	c201380 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens.Fout" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Stuurgegevens.Fout.html">
+	c201382 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens.Fout" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Stuurgegevens.Fout.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Fout </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # crossRefNummer : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Fout() </td></tr>
+<tr><td align="left" balign="left"> + getCrossRefNummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setCrossRefNummer(value : String) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./Stuurgegevens.Fout.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.Stuurgegevens NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens.Fout
+	c201379:p -> c201382:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

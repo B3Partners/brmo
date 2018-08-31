@@ -9,19 +9,72 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.WOZKerngegevens
+	c251734 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKerngegevens.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> WOZKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # wozObjectNummer : WOZKerngegevens.WozObjectNummer </td></tr>
+<tr><td align="left" balign="left"> # wozadrhfd : WOZKerngegevens.WOZADRHFD </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZKerngegevens() </td></tr>
+<tr><td align="left" balign="left"> + getWozObjectNummer() : WOZKerngegevens.WozObjectNummer </td></tr>
+<tr><td align="left" balign="left"> + setWozObjectNummer(value : WOZKerngegevens.WozObjectNummer) </td></tr>
+<tr><td align="left" balign="left"> + getWOZADRHFD() : WOZKerngegevens.WOZADRHFD </td></tr>
+<tr><td align="left" balign="left"> + setWOZADRHFD(value : WOZKerngegevens.WOZADRHFD) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./WOZKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD
-	c251733 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZKerngegevens.WOZADRHFD.html">
+	c251735 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZKerngegevens.WOZADRHFD.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZADRHFD </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZADRHFD() </td></tr>
+<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./WOZKerngegevens.WOZADRHFD.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
-	c251815 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRRelKerngegevens.html">
+	c251817 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRRelKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ADRRelKerngegevens </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # adr : ADRFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ADRRelKerngegevens() </td></tr>
+<tr><td align="left" balign="left"> + getADR() : ADRFund </td></tr>
+<tr><td align="left" balign="left"> + setADR(value : ADRFund) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./ADRRelKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD extends nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
-	c251815:p -> c251733:p [dir=back,arrowtail=empty];
+	c251817:p -> c251735:p [dir=back,arrowtail=empty];
+	// nl.egem.stuf.sector.bg._0204.WOZKerngegevens NAVASSOC nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD
+	c251734:p -> c251735:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

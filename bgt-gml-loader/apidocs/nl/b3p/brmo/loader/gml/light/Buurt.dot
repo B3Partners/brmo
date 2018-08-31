@@ -10,18 +10,33 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.gml.light.Buurt
-	c407 [label=<<table title="nl.b3p.brmo.loader.gml.light.Buurt" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Buurt.html">
+	c424 [label=<<table title="nl.b3p.brmo.loader.gml.light.Buurt" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Buurt.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Buurt </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Buurt() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./Buurt.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c428 [label=<<table title="nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GMLLightFeatureTransformerImpl.html">
+	c445 [label=<<table title="nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GMLLightFeatureTransformerImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GMLLightFeatureTransformerImpl </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # attrMapping : HashMap&lt;String, String&gt; </td></tr>
+<tr><td align="left" balign="left"> # composedAttr : HashMap&lt;String, AttributeDescriptor&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GMLLightFeatureTransformerImpl() </td></tr>
+<tr><td align="left" balign="left"> + getTargetSchema(gmlSchema : SimpleFeatureType, targetTableName : String, shouldUppercase : boolean) : SimpleFeatureType </td></tr>
+<tr><td align="left" balign="left"> + transform(inFeature : SimpleFeature, targetType : SimpleFeatureType, shouldUppercaseFieldnames : boolean, userDefinedPrimaryKey : boolean) : SimpleFeature </td></tr>
+		</table></td></tr>
 		</table>>, URL="./GMLLightFeatureTransformerImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.gml.light.Buurt extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c428:p -> c407:p [dir=back,arrowtail=empty];
+	c445:p -> c424:p [dir=back,arrowtail=empty];
 }
 

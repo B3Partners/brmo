@@ -10,11 +10,50 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top100nl.TypeWaterT100Type
-	c46486 [label=<<table title="nl.b3p.topnl.top100nl.TypeWaterT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeWaterT100Type.html">
+	c46533 [label=<<table title="nl.b3p.topnl.top100nl.TypeWaterT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeWaterT100Type.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> TypeWaterT100Type </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> WATERLOOP </td></tr>
+<tr><td align="left" balign="left"> MEER_PLAS_VEN_VIJVER </td></tr>
+<tr><td align="left" balign="left"> GREPPEL_DROGE_SLOOT </td></tr>
+<tr><td align="left" balign="left"> ZEE </td></tr>
+<tr><td align="left" balign="left"> DROOGVALLEND </td></tr>
+<tr><td align="left" balign="left"> BRON_WEL </td></tr>
+<tr><td align="left" balign="left"> OVERIG </td></tr>
+		</table></td></tr>
 		</table>>, URL="./TypeWaterT100Type.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.top100nl.WaterdeelType
+	c46554 [label=<<table title="nl.b3p.topnl.top100nl.WaterdeelType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WaterdeelType.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> WaterdeelType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeWater : TypeWaterT100Type </td></tr>
+<tr><td align="left" balign="left"> # breedteklasse : String </td></tr>
+<tr><td align="left" balign="left"> # fysiekVoorkomen : List&lt;FysiekVoorkomenWaterT100Type&gt; </td></tr>
+<tr><td align="left" balign="left"> # hoogteniveau : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WaterdeelType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeWater() : TypeWaterT100Type </td></tr>
+<tr><td align="left" balign="left"> + setTypeWater(value : TypeWaterT100Type) </td></tr>
+<tr><td align="left" balign="left"> + getBreedteklasse() : String </td></tr>
+<tr><td align="left" balign="left"> + setBreedteklasse(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getFysiekVoorkomen() : List&lt;FysiekVoorkomenWaterT100Type&gt; </td></tr>
+<tr><td align="left" balign="left"> + getHoogteniveau() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setHoogteniveau(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./WaterdeelType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.top100nl.WaterdeelType NAVASSOC nl.b3p.topnl.top100nl.TypeWaterT100Type
+	c46554:p -> c46533:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

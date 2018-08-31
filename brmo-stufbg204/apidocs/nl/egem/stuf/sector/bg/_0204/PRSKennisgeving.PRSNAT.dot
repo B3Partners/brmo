@@ -10,18 +10,101 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.PRSNATRel
-	c161941 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSNATRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSNATRel.html">
+	c161947 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSNATRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSNATRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSNATRel </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # datumVerkrijging : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumVerlies : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSNATRel() </td></tr>
+<tr><td align="left" balign="left"> + getDatumVerkrijging() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumVerkrijging(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumVerlies() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumVerlies(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./PRSNATRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.NATTabel
+	c162141 [label=<<table title="nl.egem.stuf.sector.bg._0204.NATTabel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NATTabel.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> NATTabel </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # code : JAXBElement&lt;NATTabel.Code&gt; </td></tr>
+<tr><td align="left" balign="left"> # omschrijving : JAXBElement&lt;NATTabel.Omschrijving&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumVerkrijging : JAXBElement&lt;DatumMetIndicatorKerngegeven&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumVerlies : JAXBElement&lt;DatumMetIndicatorKerngegeven&gt; </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NATTabel() </td></tr>
+<tr><td align="left" balign="left"> + getCode() : JAXBElement&lt;NATTabel.Code&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCode(value : JAXBElement&lt;NATTabel.Code&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getOmschrijving() : JAXBElement&lt;NATTabel.Omschrijving&gt; </td></tr>
+<tr><td align="left" balign="left"> + setOmschrijving(value : JAXBElement&lt;NATTabel.Omschrijving&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumVerkrijging() : JAXBElement&lt;DatumMetIndicatorKerngegeven&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumVerkrijging(value : JAXBElement&lt;DatumMetIndicatorKerngegeven&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumVerlies() : JAXBElement&lt;DatumMetIndicatorKerngegeven&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumVerlies(value : JAXBElement&lt;DatumMetIndicatorKerngegeven&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./NATTabel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSNAT
-	c162209 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSNAT" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSKennisgeving.PRSNAT.html">
+	c162215 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSNAT" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSKennisgeving.PRSNAT.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSNAT </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nat : NATTabel </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSNAT() </td></tr>
+<tr><td align="left" balign="left"> + getNAT() : NATTabel </td></tr>
+<tr><td align="left" balign="left"> + setNAT(value : NATTabel) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./PRSKennisgeving.PRSNAT.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSNAT extends nl.egem.stuf.sector.bg._0204.PRSNATRel
-	c161941:p -> c162209:p [dir=back,arrowtail=empty];
+	c161947:p -> c162215:p [dir=back,arrowtail=empty];
+	// nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSNAT NAVASSOC nl.egem.stuf.sector.bg._0204.NATTabel
+	c162215:p -> c162141:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

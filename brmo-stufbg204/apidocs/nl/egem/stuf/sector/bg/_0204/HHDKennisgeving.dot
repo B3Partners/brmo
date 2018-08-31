@@ -10,18 +10,66 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.HHDFund
-	c64398 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HHDFund.html">
+	c64404 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HHDFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HHDFund </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # huishoudennummer : JAXBElement&lt;HHDFund.Huishoudennummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # soortHuishouden : JAXBElement&lt;HHDFund.SoortHuishouden&gt; </td></tr>
+<tr><td align="left" balign="left"> # grootteHuishouden : JAXBElement&lt;HHDFund.GrootteHuishouden&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + HHDFund() </td></tr>
+<tr><td align="left" balign="left"> + getHuishoudennummer() : JAXBElement&lt;HHDFund.Huishoudennummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHuishoudennummer(value : JAXBElement&lt;HHDFund.Huishoudennummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getSoortHuishouden() : JAXBElement&lt;HHDFund.SoortHuishouden&gt; </td></tr>
+<tr><td align="left" balign="left"> + setSoortHuishouden(value : JAXBElement&lt;HHDFund.SoortHuishouden&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getGrootteHuishouden() : JAXBElement&lt;HHDFund.GrootteHuishouden&gt; </td></tr>
+<tr><td align="left" balign="left"> + setGrootteHuishouden(value : JAXBElement&lt;HHDFund.GrootteHuishouden&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./HHDFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.HHDKennisgeving
-	c64471 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HHDKennisgeving.html">
+	c64477 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HHDKennisgeving.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HHDKennisgeving </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # hhdprs : List&lt;HHDKennisgeving.HHDPRS&gt; </td></tr>
+<tr><td align="left" balign="left"> # hddwoz : JAXBElement&lt;HHDKennisgeving.HDDWOZ&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + HHDKennisgeving() </td></tr>
+<tr><td align="left" balign="left"> + getHHDPRS() : List&lt;HHDKennisgeving.HHDPRS&gt; </td></tr>
+<tr><td align="left" balign="left"> + getHDDWOZ() : JAXBElement&lt;HHDKennisgeving.HDDWOZ&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHDDWOZ(value : JAXBElement&lt;HHDKennisgeving.HDDWOZ&gt;) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./HHDKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.HHDKennisgeving extends nl.egem.stuf.sector.bg._0204.HHDFund
-	c64398:p -> c64471:p [dir=back,arrowtail=empty];
+	c64404:p -> c64477:p [dir=back,arrowtail=empty];
 }
 

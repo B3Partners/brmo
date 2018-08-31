@@ -10,34 +10,209 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel
-	c169082 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSPRSHUWRel.html">
+	c169088 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSPRSHUWRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSHUWRel </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # datumSluiting : JAXBElement&lt;PRSPRSHUWRel.DatumSluiting&gt; </td></tr>
+<tr><td align="left" balign="left"> # plaatsSluiting : JAXBElement&lt;PRSPRSHUWRel.PlaatsSluiting&gt; </td></tr>
+<tr><td align="left" balign="left"> # landSluiting : JAXBElement&lt;PRSPRSHUWRel.LandSluiting&gt; </td></tr>
+<tr><td align="left" balign="left"> # soortVerbintenis : JAXBElement&lt;PRSPRSHUWRel.SoortVerbintenis&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumOntbinding : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # plaatsOntbinding : JAXBElement&lt;PRSPRSHUWRel.PlaatsOntbinding&gt; </td></tr>
+<tr><td align="left" balign="left"> # landOntbinding : JAXBElement&lt;PRSPRSHUWRel.LandOntbinding&gt; </td></tr>
+<tr><td align="left" balign="left"> # redenOntbinding : JAXBElement&lt;PRSPRSHUWRel.RedenOntbinding&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumInschrijvingVonnisOntbinding : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSPRSHUWRel() </td></tr>
+<tr><td align="left" balign="left"> + getDatumSluiting() : JAXBElement&lt;PRSPRSHUWRel.DatumSluiting&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumSluiting(value : JAXBElement&lt;PRSPRSHUWRel.DatumSluiting&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPlaatsSluiting() : JAXBElement&lt;PRSPRSHUWRel.PlaatsSluiting&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPlaatsSluiting(value : JAXBElement&lt;PRSPRSHUWRel.PlaatsSluiting&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getLandSluiting() : JAXBElement&lt;PRSPRSHUWRel.LandSluiting&gt; </td></tr>
+<tr><td align="left" balign="left"> + setLandSluiting(value : JAXBElement&lt;PRSPRSHUWRel.LandSluiting&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getSoortVerbintenis() : JAXBElement&lt;PRSPRSHUWRel.SoortVerbintenis&gt; </td></tr>
+<tr><td align="left" balign="left"> + setSoortVerbintenis(value : JAXBElement&lt;PRSPRSHUWRel.SoortVerbintenis&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumOntbinding() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumOntbinding(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPlaatsOntbinding() : JAXBElement&lt;PRSPRSHUWRel.PlaatsOntbinding&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPlaatsOntbinding(value : JAXBElement&lt;PRSPRSHUWRel.PlaatsOntbinding&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getLandOntbinding() : JAXBElement&lt;PRSPRSHUWRel.LandOntbinding&gt; </td></tr>
+<tr><td align="left" balign="left"> + setLandOntbinding(value : JAXBElement&lt;PRSPRSHUWRel.LandOntbinding&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getRedenOntbinding() : JAXBElement&lt;PRSPRSHUWRel.RedenOntbinding&gt; </td></tr>
+<tr><td align="left" balign="left"> + setRedenOntbinding(value : JAXBElement&lt;PRSPRSHUWRel.RedenOntbinding&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumInschrijvingVonnisOntbinding() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumInschrijvingVonnisOntbinding(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./PRSPRSHUWRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSPRSHUW
-	c169229 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSPRSHUW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSAntwoord.PRSPRSHUW.html">
+	c169235 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSPRSHUW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSAntwoord.PRSPRSHUW.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSHUW </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # prs : PRSKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSPRSHUW() </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : PRSKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : PRSKennisgeving) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSAntwoord.PRSPRSHUW.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSHUW
-	c169268 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSHUW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSVraag.PRSPRSHUW.html">
+	c169274 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSHUW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSVraag.PRSPRSHUW.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSHUW </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # prs : PRSKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSPRSHUW() </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : PRSKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : PRSKennisgeving) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSVraag.PRSPRSHUW.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSPRSHUW
-	c169294 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSPRSHUW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKennisgeving.PRSPRSHUW.html">
+	c169300 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSPRSHUW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKennisgeving.PRSPRSHUW.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSHUW </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # prs : PRSGerelateerde </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSPRSHUW() </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : PRSGerelateerde </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : PRSGerelateerde) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./PRSKennisgeving.PRSPRSHUW.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.NoValue
+	c169496 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
+<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
+<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
+<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.Verwerkingssoort
+	c169499 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> Verwerkingssoort </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> T </td></tr>
+<tr><td align="left" balign="left"> W </td></tr>
+<tr><td align="left" balign="left"> V </td></tr>
+<tr><td align="left" balign="left"> E </td></tr>
+<tr><td align="left" balign="left"> I </td></tr>
+<tr><td align="left" balign="left"> R </td></tr>
+<tr><td align="left" balign="left"> S </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/Verwerkingssoort.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c169500 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakGeldigheid.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> TijdvakGeldigheid </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # begindatumTijdvakGeldigheid : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> # einddatumTijdvakGeldigheid : DatumMetIndicator </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TijdvakGeldigheid() </td></tr>
+<tr><td align="left" balign="left"> + getBegindatumTijdvakGeldigheid() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setBegindatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatumTijdvakGeldigheid() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setEinddatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/TijdvakGeldigheid.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.ExtraElementen
+	c169511 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ExtraElementen </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
+<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.TijdvakRelatie
+	c169514 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakRelatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakRelatie.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> TijdvakRelatie </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # begindatumRelatie : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> # einddatumRelatie : DatumMetIndicator </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TijdvakRelatie() </td></tr>
+<tr><td align="left" balign="left"> + getBegindatumRelatie() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setBegindatumRelatie(value : DatumMetIndicator) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatumRelatie() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setEinddatumRelatie(value : DatumMetIndicator) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/TijdvakRelatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSPRSHUW extends nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel
-	c169082:p -> c169229:p [dir=back,arrowtail=empty];
+	c169088:p -> c169235:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSHUW extends nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel
-	c169082:p -> c169268:p [dir=back,arrowtail=empty];
+	c169088:p -> c169274:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSPRSHUW extends nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel
-	c169082:p -> c169294:p [dir=back,arrowtail=empty];
+	c169088:p -> c169300:p [dir=back,arrowtail=empty];
+	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakRelatie
+	c169088:p -> c169514:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c169088:p -> c169500:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel NAVASSOC nl.egem.stuf.stuf0204.ExtraElementen
+	c169088:p -> c169511:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel NAVASSOC nl.egem.stuf.stuf0204.Verwerkingssoort
+	c169088:p -> c169499:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel NAVASSOC nl.egem.stuf.stuf0204.NoValue
+	c169088:p -> c169496:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -9,19 +9,237 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.VBOVraag.VBOVBOOSU
+	c225216 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVraag.VBOVBOOSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVraag.VBOVBOOSU.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> VBOVBOOSU </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vbo : VBOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOVBOOSU() </td></tr>
+<tr><td align="left" balign="left"> + getVBO() : VBOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setVBO(value : VBOKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./VBOVraag.VBOVBOOSU.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOFund
-	c225215 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOFund.html">
+	c225217 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOFund </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # bouwjaar : JAXBElement&lt;VBOFund.Bouwjaar&gt; </td></tr>
+<tr><td align="left" balign="left"> # verblijfsObjectNummer : JAXBElement&lt;VBOFund.VerblijfsObjectNummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # verblijfsObjectType : JAXBElement&lt;VBOFund.VerblijfsObjectType&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumAanvangBouw : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumBouwGereed : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # bouwjaarKlasse : JAXBElement&lt;VBOFund.BouwjaarKlasse&gt; </td></tr>
+<tr><td align="left" balign="left"> # renovatiejaar : JAXBElement&lt;VBOFund.Renovatiejaar&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumSloop : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # soortWoonObject : JAXBElement&lt;VBOFund.SoortWoonObject&gt; </td></tr>
+<tr><td align="left" balign="left"> # bouwkundigeBestemmingActueel : List&lt;VBOFund.BouwkundigeBestemmingActueel&gt; </td></tr>
+<tr><td align="left" balign="left"> # bouwkundigeBestemmingOorspronkelijk : List&lt;VBOFund.BouwkundigeBestemmingOorspronkelijk&gt; </td></tr>
+<tr><td align="left" balign="left"> # bouwTechnischeKwaliteitsaanduiding : JAXBElement&lt;VBOFund.BouwTechnischeKwaliteitsaanduiding&gt; </td></tr>
+<tr><td align="left" balign="left"> # onderhoudsToestand : JAXBElement&lt;VBOFund.OnderhoudsToestand&gt; </td></tr>
+<tr><td align="left" balign="left"> # centroidXCoordinaat : JAXBElement&lt;VBOFund.CentroidXCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> # centroidYCoordinaat : JAXBElement&lt;VBOFund.CentroidYCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> # centroidZCoordinaat : JAXBElement&lt;VBOFund.CentroidZCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> # hoogsteBouwlaag : JAXBElement&lt;VBOFund.HoogsteBouwlaag&gt; </td></tr>
+<tr><td align="left" balign="left"> # laagsteBouwlaag : JAXBElement&lt;VBOFund.LaagsteBouwlaag&gt; </td></tr>
+<tr><td align="left" balign="left"> # aantalWoonlagen : JAXBElement&lt;VBOFund.AantalWoonlagen&gt; </td></tr>
+<tr><td align="left" balign="left"> # gemiddeldeBreedte : JAXBElement&lt;VBOFund.GemiddeldeBreedte&gt; </td></tr>
+<tr><td align="left" balign="left"> # gemiddeldeHoogte : JAXBElement&lt;VBOFund.GemiddeldeHoogte&gt; </td></tr>
+<tr><td align="left" balign="left"> # gemiddeldeLengte : JAXBElement&lt;VBOFund.GemiddeldeLengte&gt; </td></tr>
+<tr><td align="left" balign="left"> # frontBreedte : JAXBElement&lt;VBOFund.FrontBreedte&gt; </td></tr>
+<tr><td align="left" balign="left"> # brutoInhoud : JAXBElement&lt;VBOFund.BrutoInhoud&gt; </td></tr>
+<tr><td align="left" balign="left"> # brutoVloerOppervlak : JAXBElement&lt;VBOFund.BrutoVloerOppervlak&gt; </td></tr>
+<tr><td align="left" balign="left"> # binnenwerkseKernOppervlakte : JAXBElement&lt;VBOFund.BinnenwerkseKernOppervlakte&gt; </td></tr>
+<tr><td align="left" balign="left"> # woonOppervlakte : JAXBElement&lt;VBOFund.WoonOppervlakte&gt; </td></tr>
+<tr><td align="left" balign="left"> # bebouwdeTerreinOppervlakte : JAXBElement&lt;VBOFund.BebouwdeTerreinOppervlakte&gt; </td></tr>
+<tr><td align="left" balign="left"> # onbebouwdeTerreinOppervlakte : JAXBElement&lt;VBOFund.OnbebouwdeTerreinOppervlakte&gt; </td></tr>
+<tr><td align="left" balign="left"> # aanUitBouw : JAXBElement&lt;VBOFund.AanUitBouw&gt; </td></tr>
+<tr><td align="left" balign="left"> # aantalParkeerplaatsen : JAXBElement&lt;VBOFund.AantalParkeerplaatsen&gt; </td></tr>
+<tr><td align="left" balign="left"> # aantalRuimten : JAXBElement&lt;VBOFund.AantalRuimten&gt; </td></tr>
+<tr><td align="left" balign="left"> # aantalWoonvertrekken : JAXBElement&lt;VBOFund.AantalWoonvertrekken&gt; </td></tr>
+<tr><td align="left" balign="left"> # bereikbaarheidHoofdWoonvertrek : JAXBElement&lt;VBOFund.BereikbaarheidHoofdWoonvertrek&gt; </td></tr>
+<tr><td align="left" balign="left"> # lifttype : List&lt;VBOFund.Lifttype&gt; </td></tr>
+<tr><td align="left" balign="left"> # codeRedenToevoegingBeeindiging : JAXBElement&lt;VBOFund.CodeRedenToevoegingBeeindiging&gt; </td></tr>
+<tr><td align="left" balign="left"> # monumentAanduiding : JAXBElement&lt;VBOFund.MonumentAanduiding&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOFund() </td></tr>
+<tr><td align="left" balign="left"> + getBouwjaar() : JAXBElement&lt;VBOFund.Bouwjaar&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBouwjaar(value : JAXBElement&lt;VBOFund.Bouwjaar&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getVerblijfsObjectNummer() : JAXBElement&lt;VBOFund.VerblijfsObjectNummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setVerblijfsObjectNummer(value : JAXBElement&lt;VBOFund.VerblijfsObjectNummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getVerblijfsObjectType() : JAXBElement&lt;VBOFund.VerblijfsObjectType&gt; </td></tr>
+<tr><td align="left" balign="left"> + setVerblijfsObjectType(value : JAXBElement&lt;VBOFund.VerblijfsObjectType&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumAanvangBouw() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumAanvangBouw(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumBouwGereed() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumBouwGereed(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getBouwjaarKlasse() : JAXBElement&lt;VBOFund.BouwjaarKlasse&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBouwjaarKlasse(value : JAXBElement&lt;VBOFund.BouwjaarKlasse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getRenovatiejaar() : JAXBElement&lt;VBOFund.Renovatiejaar&gt; </td></tr>
+<tr><td align="left" balign="left"> + setRenovatiejaar(value : JAXBElement&lt;VBOFund.Renovatiejaar&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumSloop() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumSloop(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getSoortWoonObject() : JAXBElement&lt;VBOFund.SoortWoonObject&gt; </td></tr>
+<tr><td align="left" balign="left"> + setSoortWoonObject(value : JAXBElement&lt;VBOFund.SoortWoonObject&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getBouwkundigeBestemmingActueel() : List&lt;VBOFund.BouwkundigeBestemmingActueel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getBouwkundigeBestemmingOorspronkelijk() : List&lt;VBOFund.BouwkundigeBestemmingOorspronkelijk&gt; </td></tr>
+<tr><td align="left" balign="left"> + getBouwTechnischeKwaliteitsaanduiding() : JAXBElement&lt;VBOFund.BouwTechnischeKwaliteitsaanduiding&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBouwTechnischeKwaliteitsaanduiding(value : JAXBElement&lt;VBOFund.BouwTechnischeKwaliteitsaanduiding&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getOnderhoudsToestand() : JAXBElement&lt;VBOFund.OnderhoudsToestand&gt; </td></tr>
+<tr><td align="left" balign="left"> + setOnderhoudsToestand(value : JAXBElement&lt;VBOFund.OnderhoudsToestand&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getCentroidXCoordinaat() : JAXBElement&lt;VBOFund.CentroidXCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCentroidXCoordinaat(value : JAXBElement&lt;VBOFund.CentroidXCoordinaat&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getCentroidYCoordinaat() : JAXBElement&lt;VBOFund.CentroidYCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCentroidYCoordinaat(value : JAXBElement&lt;VBOFund.CentroidYCoordinaat&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getCentroidZCoordinaat() : JAXBElement&lt;VBOFund.CentroidZCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCentroidZCoordinaat(value : JAXBElement&lt;VBOFund.CentroidZCoordinaat&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getHoogsteBouwlaag() : JAXBElement&lt;VBOFund.HoogsteBouwlaag&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHoogsteBouwlaag(value : JAXBElement&lt;VBOFund.HoogsteBouwlaag&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getLaagsteBouwlaag() : JAXBElement&lt;VBOFund.LaagsteBouwlaag&gt; </td></tr>
+<tr><td align="left" balign="left"> + setLaagsteBouwlaag(value : JAXBElement&lt;VBOFund.LaagsteBouwlaag&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAantalWoonlagen() : JAXBElement&lt;VBOFund.AantalWoonlagen&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAantalWoonlagen(value : JAXBElement&lt;VBOFund.AantalWoonlagen&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getGemiddeldeBreedte() : JAXBElement&lt;VBOFund.GemiddeldeBreedte&gt; </td></tr>
+<tr><td align="left" balign="left"> + setGemiddeldeBreedte(value : JAXBElement&lt;VBOFund.GemiddeldeBreedte&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getGemiddeldeHoogte() : JAXBElement&lt;VBOFund.GemiddeldeHoogte&gt; </td></tr>
+<tr><td align="left" balign="left"> + setGemiddeldeHoogte(value : JAXBElement&lt;VBOFund.GemiddeldeHoogte&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getGemiddeldeLengte() : JAXBElement&lt;VBOFund.GemiddeldeLengte&gt; </td></tr>
+<tr><td align="left" balign="left"> + setGemiddeldeLengte(value : JAXBElement&lt;VBOFund.GemiddeldeLengte&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getFrontBreedte() : JAXBElement&lt;VBOFund.FrontBreedte&gt; </td></tr>
+<tr><td align="left" balign="left"> + setFrontBreedte(value : JAXBElement&lt;VBOFund.FrontBreedte&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getBrutoInhoud() : JAXBElement&lt;VBOFund.BrutoInhoud&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBrutoInhoud(value : JAXBElement&lt;VBOFund.BrutoInhoud&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getBrutoVloerOppervlak() : JAXBElement&lt;VBOFund.BrutoVloerOppervlak&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBrutoVloerOppervlak(value : JAXBElement&lt;VBOFund.BrutoVloerOppervlak&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getBinnenwerkseKernOppervlakte() : JAXBElement&lt;VBOFund.BinnenwerkseKernOppervlakte&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBinnenwerkseKernOppervlakte(value : JAXBElement&lt;VBOFund.BinnenwerkseKernOppervlakte&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getWoonOppervlakte() : JAXBElement&lt;VBOFund.WoonOppervlakte&gt; </td></tr>
+<tr><td align="left" balign="left"> + setWoonOppervlakte(value : JAXBElement&lt;VBOFund.WoonOppervlakte&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getBebouwdeTerreinOppervlakte() : JAXBElement&lt;VBOFund.BebouwdeTerreinOppervlakte&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBebouwdeTerreinOppervlakte(value : JAXBElement&lt;VBOFund.BebouwdeTerreinOppervlakte&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getOnbebouwdeTerreinOppervlakte() : JAXBElement&lt;VBOFund.OnbebouwdeTerreinOppervlakte&gt; </td></tr>
+<tr><td align="left" balign="left"> + setOnbebouwdeTerreinOppervlakte(value : JAXBElement&lt;VBOFund.OnbebouwdeTerreinOppervlakte&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAanUitBouw() : JAXBElement&lt;VBOFund.AanUitBouw&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAanUitBouw(value : JAXBElement&lt;VBOFund.AanUitBouw&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAantalParkeerplaatsen() : JAXBElement&lt;VBOFund.AantalParkeerplaatsen&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAantalParkeerplaatsen(value : JAXBElement&lt;VBOFund.AantalParkeerplaatsen&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAantalRuimten() : JAXBElement&lt;VBOFund.AantalRuimten&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAantalRuimten(value : JAXBElement&lt;VBOFund.AantalRuimten&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAantalWoonvertrekken() : JAXBElement&lt;VBOFund.AantalWoonvertrekken&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAantalWoonvertrekken(value : JAXBElement&lt;VBOFund.AantalWoonvertrekken&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getBereikbaarheidHoofdWoonvertrek() : JAXBElement&lt;VBOFund.BereikbaarheidHoofdWoonvertrek&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBereikbaarheidHoofdWoonvertrek(value : JAXBElement&lt;VBOFund.BereikbaarheidHoofdWoonvertrek&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getLifttype() : List&lt;VBOFund.Lifttype&gt; </td></tr>
+<tr><td align="left" balign="left"> + getCodeRedenToevoegingBeeindiging() : JAXBElement&lt;VBOFund.CodeRedenToevoegingBeeindiging&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCodeRedenToevoegingBeeindiging(value : JAXBElement&lt;VBOFund.CodeRedenToevoegingBeeindiging&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getMonumentAanduiding() : JAXBElement&lt;VBOFund.MonumentAanduiding&gt; </td></tr>
+<tr><td align="left" balign="left"> + setMonumentAanduiding(value : JAXBElement&lt;VBOFund.MonumentAanduiding&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./VBOFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOVBOOSU
+	c225274 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOVBOOSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOAntwoord.VBOVBOOSU.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> VBOVBOOSU </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vbo : VBOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOVBOOSU() </td></tr>
+<tr><td align="left" balign="left"> + getVBO() : VBOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setVBO(value : VBOKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./VBOAntwoord.VBOVBOOSU.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO
+	c225355 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZAntwoord.WOZVBO.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> WOZVBO </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vbo : VBOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZVBO() </td></tr>
+<tr><td align="left" balign="left"> + getVBO() : VBOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setVBO(value : VBOKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./WOZAntwoord.WOZVBO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.WOZVraag.WOZVBO
+	c225418 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag.WOZVBO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZVraag.WOZVBO.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> WOZVBO </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vbo : VBOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZVBO() </td></tr>
+<tr><td align="left" balign="left"> + getVBO() : VBOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setVBO(value : VBOKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./WOZVraag.WOZVBO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOKennisgeving
-	c225610 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOKennisgeving.html">
+	c225612 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOKennisgeving.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOKennisgeving </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vboadr : JAXBElement&lt;ADRRelKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # vbobsg : List&lt;VBOKennisgeving.VBOBSG&gt; </td></tr>
+<tr><td align="left" balign="left"> # vbokdo : List&lt;VBOKennisgeving.VBOKDO&gt; </td></tr>
+<tr><td align="left" balign="left"> # vbosubgbr : JAXBElement&lt;VBOKennisgeving.VBOSUBGBR&gt; </td></tr>
+<tr><td align="left" balign="left"> # vbovboosu : List&lt;VBOKennisgeving.VBOVBOOSU&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOKennisgeving() </td></tr>
+<tr><td align="left" balign="left"> + getVBOADR() : JAXBElement&lt;ADRRelKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setVBOADR(value : JAXBElement&lt;ADRRelKerngegevens&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getVBOBSG() : List&lt;VBOKennisgeving.VBOBSG&gt; </td></tr>
+<tr><td align="left" balign="left"> + getVBOKDO() : List&lt;VBOKennisgeving.VBOKDO&gt; </td></tr>
+<tr><td align="left" balign="left"> + getVBOSUBGBR() : JAXBElement&lt;VBOKennisgeving.VBOSUBGBR&gt; </td></tr>
+<tr><td align="left" balign="left"> + setVBOSUBGBR(value : JAXBElement&lt;VBOKennisgeving.VBOSUBGBR&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getVBOVBOOSU() : List&lt;VBOKennisgeving.VBOVBOOSU&gt; </td></tr>
+		</table></td></tr>
 		</table>>, URL="./VBOKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.VBOKennisgeving extends nl.egem.stuf.sector.bg._0204.VBOFund
-	c225215:p -> c225610:p [dir=back,arrowtail=empty];
+	c225217:p -> c225612:p [dir=back,arrowtail=empty];
+	// nl.egem.stuf.sector.bg._0204.VBOVraag.VBOVBOOSU NAVASSOC nl.egem.stuf.sector.bg._0204.VBOKennisgeving
+	c225216:p -> c225612:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOVBOOSU NAVASSOC nl.egem.stuf.sector.bg._0204.VBOKennisgeving
+	c225274:p -> c225612:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO NAVASSOC nl.egem.stuf.sector.bg._0204.VBOKennisgeving
+	c225355:p -> c225612:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.WOZVraag.WOZVBO NAVASSOC nl.egem.stuf.sector.bg._0204.VBOKennisgeving
+	c225418:p -> c225612:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

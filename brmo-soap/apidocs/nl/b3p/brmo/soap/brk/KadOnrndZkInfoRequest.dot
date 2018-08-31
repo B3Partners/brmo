@@ -9,11 +9,59 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.soap.brk.BrkInfoRequest
+	c1114 [label=<<table title="nl.b3p.brmo.soap.brk.BrkInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkInfoRequest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BrkInfoRequest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BrkInfoRequest() </td></tr>
+<tr><td align="left" balign="left"> + getSubjectsToevoegen() : Boolean </td></tr>
+<tr><td align="left" balign="left"> + setSubjectsToevoegen(subjectsToevoegen : Boolean) </td></tr>
+<tr><td align="left" balign="left"> + getAdressenToevoegen() : Boolean </td></tr>
+<tr><td align="left" balign="left"> + setAdressenToevoegen(adressenToevoegen : Boolean) </td></tr>
+<tr><td align="left" balign="left"> + getMaxAantalResultaten() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setMaxAantalResultaten(maxAantalResultaten : Integer) </td></tr>
+<tr><td align="left" balign="left"> + getGevoeligeInfoOphalen() : Boolean </td></tr>
+<tr><td align="left" balign="left"> + setGevoeligeInfoOphalen(gevoeligeInfoOphalen : Boolean) </td></tr>
+<tr><td align="left" balign="left"> + getZoekgebied() : String </td></tr>
+<tr><td align="left" balign="left"> + setZoekgebied(zoekgebied : String) </td></tr>
+<tr><td align="left" balign="left"> + getBufferAfstand() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setBufferAfstand(bufferAfstand : Integer) </td></tr>
+<tr><td align="left" balign="left"> + getKadOnrndZk() : KadOnrndZkInfoRequest </td></tr>
+<tr><td align="left" balign="left"> + setKadOnrndZk(kadOnrndZk : KadOnrndZkInfoRequest) </td></tr>
+<tr><td align="left" balign="left"> + getSubjectNaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setSubjectNaam(subjectNaam : String) </td></tr>
+<tr><td align="left" balign="left"> + getPerceelAdres() : PerceelAdresInfoRequest </td></tr>
+<tr><td align="left" balign="left"> + setPerceelAdres(perceelAdres : PerceelAdresInfoRequest) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BrkInfoRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest
-	c1117 [label=<<table title="nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KadOnrndZkInfoRequest.html">
+	c1121 [label=<<table title="nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KadOnrndZkInfoRequest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KadOnrndZkInfoRequest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KadOnrndZkInfoRequest() </td></tr>
+<tr><td align="left" balign="left"> + getGemeentecode() : String </td></tr>
+<tr><td align="left" balign="left"> + setGemeentecode(gemeentecode : String) </td></tr>
+<tr><td align="left" balign="left"> + getSectie() : String </td></tr>
+<tr><td align="left" balign="left"> + setSectie(sectie : String) </td></tr>
+<tr><td align="left" balign="left"> + getPerceelnummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setPerceelnummer(perceelnummer : String) </td></tr>
+<tr><td align="left" balign="left"> + getAppReVolgnummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setAppReVolgnummer(appReVolgnummer : String) </td></tr>
+<tr><td align="left" balign="left"> + getIdentificatie() : String </td></tr>
+<tr><td align="left" balign="left"> + setIdentificatie(identificatie : String) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./KadOnrndZkInfoRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.brk.BrkInfoRequest NAVASSOC nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest
+	c1114:p -> c1121:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -10,18 +10,107 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.TestUtil
-	c24 [label=<<table title="nl.b3p.topnl.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestUtil.html">
+	c41 [label=<<table title="nl.b3p.topnl.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TestUtil </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # datasource : DataSource </td></tr>
+<tr><td align="left" balign="left"> # useDB : boolean </td></tr>
+<tr><td align="left" balign="left"> # run : QueryRunner </td></tr>
+<tr><td align="left" balign="left"> + testName : TestName </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TestUtil() </td></tr>
+<tr><td align="left" balign="left"> + startTest() </td></tr>
+<tr><td align="left" balign="left"> + setUpClass() </td></tr>
+<tr><td align="left" balign="left"> + endTest() </td></tr>
+<tr><td align="left" balign="left"> + executeScript(f : Reader) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./TestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.DatabaseTest
-	c27 [label=<<table title="nl.b3p.topnl.DatabaseTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DatabaseTest.html">
+	c45 [label=<<table title="nl.b3p.topnl.DatabaseTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DatabaseTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatabaseTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + DatabaseTest(type : TopNLType) </td></tr>
+<tr><td align="left" balign="left"> + params() : Collection&lt;Object&gt; </td></tr>
+<tr><td align="left" balign="left"> + before() </td></tr>
+<tr><td align="left" balign="left"> + testSaveHoogte() </td></tr>
+<tr><td align="left" balign="left"> + testSavePlanTopografie() </td></tr>
+<tr><td align="left" balign="left"> + testSaveGebouw() </td></tr>
+<tr><td align="left" balign="left"> + testSaveGeografischGebied() </td></tr>
+<tr><td align="left" balign="left"> + testSaveInrichtingselement() </td></tr>
+<tr><td align="left" balign="left"> + testSavePlaats() </td></tr>
+<tr><td align="left" balign="left"> + testSaveRegistratiefGebied() </td></tr>
+<tr><td align="left" balign="left"> + testSaveRelief() </td></tr>
+<tr><td align="left" balign="left"> + testSaveReliefEmptyTaludGeoms() </td></tr>
+<tr><td align="left" balign="left"> + testSaveReliefEmptyHoofdGeom() </td></tr>
+<tr><td align="left" balign="left"> + testSaveSpoorbaandeel() </td></tr>
+<tr><td align="left" balign="left"> + testSaveTerrein() </td></tr>
+<tr><td align="left" balign="left"> + testWaterdeel() </td></tr>
+<tr><td align="left" balign="left"> + testSaveFunctioneelgebied() </td></tr>
+<tr><td align="left" balign="left"> + testSaveWegdeel() </td></tr>
+<tr><td align="left" balign="left"> + getStandardTestTopNLEntity(e : TopNLEntity, type : TopNLType) </td></tr>
+<tr><td align="left" balign="left"> + testStandardTopNLEntity(real : TopNLEntity, e : TopNLEntity) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./DatabaseTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.DatabaseTest extends nl.b3p.topnl.TestUtil
-	c24:p -> c27:p [dir=back,arrowtail=empty];
+	c41:p -> c45:p [dir=back,arrowtail=empty];
+	// nl.b3p.topnl.DatabaseTest NAVASSOC nl.b3p.topnl.Database
+	c45:p -> c64:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.DatabaseTest NAVASSOC com.vividsolutions.jts.io.WKTReader
+	c45:p -> c68:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.DatabaseTest NAVASSOC nl.b3p.topnl.TopNLType
+	c45:p -> c69:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.TopNLType
+	c69 [label=<<table title="nl.b3p.topnl.TopNLType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> TopNLType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> TOP10NL </td></tr>
+<tr><td align="left" balign="left"> TOP50NL </td></tr>
+<tr><td align="left" balign="left"> TOP100NL </td></tr>
+<tr><td align="left" balign="left"> TOP250NL </td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// com.vividsolutions.jts.io.WKTReader
+	c68 [label=<<table title="com.vividsolutions.jts.io.WKTReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> WKTReader </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WKTReader() </td></tr>
+<tr><td align="left" balign="left"> + WKTReader(arg0 : GeometryFactory) </td></tr>
+<tr><td align="left" balign="left"> + read(arg0 : String) : Geometry </td></tr>
+<tr><td align="left" balign="left"> + read(arg0 : Reader) : Geometry </td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.Database
+	c64 [label=<<table title="nl.b3p.topnl.Database" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Database </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # log : Log </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Database(arg0 : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + save(arg0 : TopNLEntity) </td></tr>
+<tr><td align="left" balign="left"> + getGjc() : GeometryJdbcConverter </td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

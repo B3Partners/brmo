@@ -10,18 +10,69 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.OBWAntwoord
-	c130647 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OBWAntwoord.html">
+	c130653 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OBWAntwoord.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OBWAntwoord </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # obw : List&lt;OBWFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # obwadr : List&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # obwkdo : List&lt;OBWAntwoord.OBWKDO&gt; </td></tr>
+<tr><td align="left" balign="left"> # obwbsg : List&lt;OBWAntwoord.OBWBSG&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + OBWAntwoord() </td></tr>
+<tr><td align="left" balign="left"> + getOBW() : List&lt;OBWFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + getOBWADR() : List&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + getOBWKDO() : List&lt;OBWAntwoord.OBWKDO&gt; </td></tr>
+<tr><td align="left" balign="left"> + getOBWBSG() : List&lt;OBWAntwoord.OBWBSG&gt; </td></tr>
+		</table></td></tr>
 		</table>>, URL="./OBWAntwoord.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.OBWFund
-	c130735 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWFund.html">
+	c130741 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OBWFund </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # overigBouwwerkNummer : JAXBElement&lt;OBWFund.OverigBouwwerkNummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # typeOverigBouwwerk : JAXBElement&lt;OBWFund.TypeOverigBouwwerk&gt; </td></tr>
+<tr><td align="left" balign="left"> # omschrijvingOverigBouwwerk : JAXBElement&lt;OBWFund.OmschrijvingOverigBouwwerk&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + OBWFund() </td></tr>
+<tr><td align="left" balign="left"> + getOverigBouwwerkNummer() : JAXBElement&lt;OBWFund.OverigBouwwerkNummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setOverigBouwwerkNummer(value : JAXBElement&lt;OBWFund.OverigBouwwerkNummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTypeOverigBouwwerk() : JAXBElement&lt;OBWFund.TypeOverigBouwwerk&gt; </td></tr>
+<tr><td align="left" balign="left"> + setTypeOverigBouwwerk(value : JAXBElement&lt;OBWFund.TypeOverigBouwwerk&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getOmschrijvingOverigBouwwerk() : JAXBElement&lt;OBWFund.OmschrijvingOverigBouwwerk&gt; </td></tr>
+<tr><td align="left" balign="left"> + setOmschrijvingOverigBouwwerk(value : JAXBElement&lt;OBWFund.OmschrijvingOverigBouwwerk&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./OBWFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.OBWAntwoord extends nl.egem.stuf.sector.bg._0204.OBWFund
-	c130735:p -> c130647:p [dir=back,arrowtail=empty];
+	c130741:p -> c130653:p [dir=back,arrowtail=empty];
 }
 

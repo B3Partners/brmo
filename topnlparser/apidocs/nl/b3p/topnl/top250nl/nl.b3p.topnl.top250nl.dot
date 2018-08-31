@@ -15,11 +15,24 @@ digraph G {
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> BRTJaNeeWaardeType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> JA </td></tr>
+<tr><td align="left" balign="left"> NEE </td></tr>
+		</table></td></tr>
 		</table>>, URL="./BRTJaNeeWaardeType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.AbstractGeometricPrimitiveType
 	c1 [label=<<table title="nl.b3p.topnl.top250nl.AbstractGeometricPrimitiveType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractGeometricPrimitiveType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractGeometricPrimitiveType </font></td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AbstractGeometricPrimitiveType() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AbstractGeometricPrimitiveType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.SurfacePropertyType
@@ -27,11 +40,82 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SurfacePropertyType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # abstractSurface : AbstractSurfaceType </td></tr>
+<tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
+<tr><td align="left" balign="left"> # type : TypeType </td></tr>
+<tr><td align="left" balign="left"> # href : String </td></tr>
+<tr><td align="left" balign="left"> # role : String </td></tr>
+<tr><td align="left" balign="left"> # arcrole : String </td></tr>
+<tr><td align="left" balign="left"> # title : String </td></tr>
+<tr><td align="left" balign="left"> # show : ShowType </td></tr>
+<tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
+<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + SurfacePropertyType() </td></tr>
+<tr><td align="left" balign="left"> + getAbstractSurface() : AbstractSurfaceType </td></tr>
+<tr><td align="left" balign="left"> + setAbstractSurface(value : AbstractSurfaceType) </td></tr>
+<tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
+<tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : TypeType </td></tr>
+<tr><td align="left" balign="left"> + setType(value : TypeType) </td></tr>
+<tr><td align="left" balign="left"> + getHref() : String </td></tr>
+<tr><td align="left" balign="left"> + setHref(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getRole() : String </td></tr>
+<tr><td align="left" balign="left"> + setRole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getArcrole() : String </td></tr>
+<tr><td align="left" balign="left"> + setArcrole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTitle() : String </td></tr>
+<tr><td align="left" balign="left"> + setTitle(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getShow() : ShowType </td></tr>
+<tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
+<tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
+<tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
+<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./SurfacePropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.FeatureMemberType
 	c3 [label=<<table title="nl.b3p.topnl.top250nl.FeatureMemberType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FeatureMemberType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FeatureMemberType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # top250NlObject : JAXBElement&lt;?&gt; </td></tr>
+<tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
+<tr><td align="left" balign="left"> # type : TypeType </td></tr>
+<tr><td align="left" balign="left"> # href : String </td></tr>
+<tr><td align="left" balign="left"> # role : String </td></tr>
+<tr><td align="left" balign="left"> # arcrole : String </td></tr>
+<tr><td align="left" balign="left"> # title : String </td></tr>
+<tr><td align="left" balign="left"> # show : ShowType </td></tr>
+<tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + FeatureMemberType() </td></tr>
+<tr><td align="left" balign="left"> + getTop250NlObject() : JAXBElement&lt;?&gt; </td></tr>
+<tr><td align="left" balign="left"> + setTop250NlObject(value : JAXBElement&lt;?&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
+<tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : TypeType </td></tr>
+<tr><td align="left" balign="left"> + setType(value : TypeType) </td></tr>
+<tr><td align="left" balign="left"> + getHref() : String </td></tr>
+<tr><td align="left" balign="left"> + setHref(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getRole() : String </td></tr>
+<tr><td align="left" balign="left"> + setRole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getArcrole() : String </td></tr>
+<tr><td align="left" balign="left"> + setArcrole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTitle() : String </td></tr>
+<tr><td align="left" balign="left"> + setTitle(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getShow() : ShowType </td></tr>
+<tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
+<tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
+<tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./FeatureMemberType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.CodeWithAuthorityType
@@ -39,11 +123,30 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CodeWithAuthorityType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # value : String </td></tr>
+<tr><td align="left" balign="left"> # codeSpace : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + CodeWithAuthorityType() </td></tr>
+<tr><td align="left" balign="left"> + getValue() : String </td></tr>
+<tr><td align="left" balign="left"> + setValue(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getCodeSpace() : String </td></tr>
+<tr><td align="left" balign="left"> + setCodeSpace(value : String) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./CodeWithAuthorityType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.AbstractFeatureMemberType
 	c5 [label=<<table title="nl.b3p.topnl.top250nl.AbstractFeatureMemberType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractFeatureMemberType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractFeatureMemberType </font></td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AbstractFeatureMemberType() </td></tr>
+<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AbstractFeatureMemberType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.ActuateType
@@ -52,11 +155,31 @@ digraph G {
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> ActuateType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> ON_LOAD </td></tr>
+<tr><td align="left" balign="left"> ON_REQUEST </td></tr>
+<tr><td align="left" balign="left"> OTHER </td></tr>
+<tr><td align="left" balign="left"> NONE </td></tr>
+		</table></td></tr>
 		</table>>, URL="./ActuateType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BRTVlakOfLijnType
 	c7 [label=<<table title="nl.b3p.topnl.top250nl.BRTVlakOfLijnType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRTVlakOfLijnType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTVlakOfLijnType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vlakGeometrie : SurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> # lijnGeometrie : CurvePropertyType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRTVlakOfLijnType() </td></tr>
+<tr><td align="left" balign="left"> + getVlakGeometrie() : SurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> + setVlakGeometrie(value : SurfacePropertyType) </td></tr>
+<tr><td align="left" balign="left"> + getLijnGeometrie() : CurvePropertyType </td></tr>
+<tr><td align="left" balign="left"> + setLijnGeometrie(value : CurvePropertyType) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BRTVlakOfLijnType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.ShowType
@@ -65,11 +188,32 @@ digraph G {
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> ShowType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> NEW </td></tr>
+<tr><td align="left" balign="left"> REPLACE </td></tr>
+<tr><td align="left" balign="left"> EMBED </td></tr>
+<tr><td align="left" balign="left"> OTHER </td></tr>
+<tr><td align="left" balign="left"> NONE </td></tr>
+		</table></td></tr>
 		</table>>, URL="./ShowType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BRTVlakOfMultivlakType
 	c9 [label=<<table title="nl.b3p.topnl.top250nl.BRTVlakOfMultivlakType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRTVlakOfMultivlakType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTVlakOfMultivlakType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vlakGeometrie : SurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> # multivlakGeometrie : MultiSurfacePropertyType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRTVlakOfMultivlakType() </td></tr>
+<tr><td align="left" balign="left"> + getVlakGeometrie() : SurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> + setVlakGeometrie(value : SurfacePropertyType) </td></tr>
+<tr><td align="left" balign="left"> + getMultivlakGeometrie() : MultiSurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> + setMultivlakGeometrie(value : MultiSurfacePropertyType) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BRTVlakOfMultivlakType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.MultiSurfacePropertyType
@@ -77,17 +221,102 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MultiSurfacePropertyType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # multiSurface : MultiSurfaceType </td></tr>
+<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
+<tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
+<tr><td align="left" balign="left"> # type : TypeType </td></tr>
+<tr><td align="left" balign="left"> # href : String </td></tr>
+<tr><td align="left" balign="left"> # role : String </td></tr>
+<tr><td align="left" balign="left"> # arcrole : String </td></tr>
+<tr><td align="left" balign="left"> # title : String </td></tr>
+<tr><td align="left" balign="left"> # show : ShowType </td></tr>
+<tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + MultiSurfacePropertyType() </td></tr>
+<tr><td align="left" balign="left"> + getMultiSurface() : MultiSurfaceType </td></tr>
+<tr><td align="left" balign="left"> + setMultiSurface(value : MultiSurfaceType) </td></tr>
+<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
+<tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
+<tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : TypeType </td></tr>
+<tr><td align="left" balign="left"> + setType(value : TypeType) </td></tr>
+<tr><td align="left" balign="left"> + getHref() : String </td></tr>
+<tr><td align="left" balign="left"> + setHref(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getRole() : String </td></tr>
+<tr><td align="left" balign="left"> + setRole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getArcrole() : String </td></tr>
+<tr><td align="left" balign="left"> + setArcrole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTitle() : String </td></tr>
+<tr><td align="left" balign="left"> + setTitle(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getShow() : ShowType </td></tr>
+<tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
+<tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
+<tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./MultiSurfacePropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.PointType
 	c11 [label=<<table title="nl.b3p.topnl.top250nl.PointType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PointType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PointType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # pos : DirectPositionType </td></tr>
+<tr><td align="left" balign="left"> # coordinates : CoordinatesType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PointType() </td></tr>
+<tr><td align="left" balign="left"> + getPos() : DirectPositionType </td></tr>
+<tr><td align="left" balign="left"> + setPos(value : DirectPositionType) </td></tr>
+<tr><td align="left" balign="left"> + getCoordinates() : CoordinatesType </td></tr>
+<tr><td align="left" balign="left"> + setCoordinates(value : CoordinatesType) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./PointType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.MetaDataPropertyType
 	c12 [label=<<table title="nl.b3p.topnl.top250nl.MetaDataPropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MetaDataPropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MetaDataPropertyType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # abstractMetaData : AbstractMetaDataType </td></tr>
+<tr><td align="left" balign="left"> # about : String </td></tr>
+<tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
+<tr><td align="left" balign="left"> # type : TypeType </td></tr>
+<tr><td align="left" balign="left"> # href : String </td></tr>
+<tr><td align="left" balign="left"> # role : String </td></tr>
+<tr><td align="left" balign="left"> # arcrole : String </td></tr>
+<tr><td align="left" balign="left"> # title : String </td></tr>
+<tr><td align="left" balign="left"> # show : ShowType </td></tr>
+<tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + MetaDataPropertyType() </td></tr>
+<tr><td align="left" balign="left"> + getAbstractMetaData() : AbstractMetaDataType </td></tr>
+<tr><td align="left" balign="left"> + setAbstractMetaData(value : AbstractMetaDataType) </td></tr>
+<tr><td align="left" balign="left"> + getAbout() : String </td></tr>
+<tr><td align="left" balign="left"> + setAbout(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
+<tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : TypeType </td></tr>
+<tr><td align="left" balign="left"> + setType(value : TypeType) </td></tr>
+<tr><td align="left" balign="left"> + getHref() : String </td></tr>
+<tr><td align="left" balign="left"> + setHref(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getRole() : String </td></tr>
+<tr><td align="left" balign="left"> + setRole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getArcrole() : String </td></tr>
+<tr><td align="left" balign="left"> + setArcrole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTitle() : String </td></tr>
+<tr><td align="left" balign="left"> + setTitle(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getShow() : ShowType </td></tr>
+<tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
+<tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
+<tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MetaDataPropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.AggregationType
@@ -96,11 +325,43 @@ digraph G {
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> AggregationType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> SET </td></tr>
+<tr><td align="left" balign="left"> BAG </td></tr>
+<tr><td align="left" balign="left"> SEQUENCE </td></tr>
+<tr><td align="left" balign="left"> ARRAY </td></tr>
+<tr><td align="left" balign="left"> RECORD </td></tr>
+<tr><td align="left" balign="left"> TABLE </td></tr>
+		</table></td></tr>
 		</table>>, URL="./AggregationType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.AbstractGMLType
 	c14 [label=<<table title="nl.b3p.topnl.top250nl.AbstractGMLType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractGMLType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractGMLType </font></td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # metaDataProperty : List&lt;MetaDataPropertyType&gt; </td></tr>
+<tr><td align="left" balign="left"> # description : StringOrRefType </td></tr>
+<tr><td align="left" balign="left"> # descriptionReference : ReferenceType </td></tr>
+<tr><td align="left" balign="left"> # identifier : CodeWithAuthorityType </td></tr>
+<tr><td align="left" balign="left"> # name : List&lt;CodeType&gt; </td></tr>
+<tr><td align="left" balign="left"> # id : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AbstractGMLType() </td></tr>
+<tr><td align="left" balign="left"> + getMetaDataProperty() : List&lt;MetaDataPropertyType&gt; </td></tr>
+<tr><td align="left" balign="left"> + getDescription() : StringOrRefType </td></tr>
+<tr><td align="left" balign="left"> + setDescription(value : StringOrRefType) </td></tr>
+<tr><td align="left" balign="left"> + getDescriptionReference() : ReferenceType </td></tr>
+<tr><td align="left" balign="left"> + setDescriptionReference(value : ReferenceType) </td></tr>
+<tr><td align="left" balign="left"> + getIdentifier() : CodeWithAuthorityType </td></tr>
+<tr><td align="left" balign="left"> + setIdentifier(value : CodeWithAuthorityType) </td></tr>
+<tr><td align="left" balign="left"> + getName() : List&lt;CodeType&gt; </td></tr>
+<tr><td align="left" balign="left"> + getId() : String </td></tr>
+<tr><td align="left" balign="left"> + setId(value : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AbstractGMLType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.AbstractGeometricAggregateType
@@ -108,11 +369,33 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractGeometricAggregateType </font></td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # aggregationType : AggregationType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AbstractGeometricAggregateType() </td></tr>
+<tr><td align="left" balign="left"> + getAggregationType() : AggregationType </td></tr>
+<tr><td align="left" balign="left"> + setAggregationType(value : AggregationType) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./AbstractGeometricAggregateType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.ReliefType
 	c16 [label=<<table title="nl.b3p.topnl.top250nl.ReliefType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ReliefType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ReliefType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeRelief : CodeType </td></tr>
+<tr><td align="left" balign="left"> # hoogteklasse : CodeType </td></tr>
+<tr><td align="left" balign="left"> # lijnGeometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ReliefType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeRelief() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setTypeRelief(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getHoogteklasse() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setHoogteklasse(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getLijnGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setLijnGeometrie(value : Element) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ReliefType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.WegdeelType
@@ -120,11 +403,115 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WegdeelType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeInfrastructuur : CodeType </td></tr>
+<tr><td align="left" balign="left"> # typeWeg : CodeType </td></tr>
+<tr><td align="left" balign="left"> # hoofdverkeersgebruik : CodeType </td></tr>
+<tr><td align="left" balign="left"> # fysiekVoorkomen : List&lt;CodeType&gt; </td></tr>
+<tr><td align="left" balign="left"> # verhardingsbreedteklasse : CodeType </td></tr>
+<tr><td align="left" balign="left"> # gescheidenRijbaan : BRTJaNeeWaardeType </td></tr>
+<tr><td align="left" balign="left"> # verhardingstype : CodeType </td></tr>
+<tr><td align="left" balign="left"> # aantalRijstroken : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # status : CodeType </td></tr>
+<tr><td align="left" balign="left"> # naam : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # isBAGnaam : BRTJaNeeWaardeType </td></tr>
+<tr><td align="left" balign="left"> # aWegnummer : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # nWegnummer : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # eWegnummer : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # sWegnummer : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # afritnummer : String </td></tr>
+<tr><td align="left" balign="left"> # afritnaam : String </td></tr>
+<tr><td align="left" balign="left"> # knooppuntnaam : String </td></tr>
+<tr><td align="left" balign="left"> # brugnaam : String </td></tr>
+<tr><td align="left" balign="left"> # tunnelnaam : String </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WegdeelType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeInfrastructuur() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setTypeInfrastructuur(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getTypeWeg() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setTypeWeg(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getHoofdverkeersgebruik() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setHoofdverkeersgebruik(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getFysiekVoorkomen() : List&lt;CodeType&gt; </td></tr>
+<tr><td align="left" balign="left"> + getVerhardingsbreedteklasse() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setVerhardingsbreedteklasse(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getGescheidenRijbaan() : BRTJaNeeWaardeType </td></tr>
+<tr><td align="left" balign="left"> + setGescheidenRijbaan(value : BRTJaNeeWaardeType) </td></tr>
+<tr><td align="left" balign="left"> + getVerhardingstype() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setVerhardingstype(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getAantalRijstroken() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setAantalRijstroken(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setStatus(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getNaam() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getIsBAGnaam() : BRTJaNeeWaardeType </td></tr>
+<tr><td align="left" balign="left"> + setIsBAGnaam(value : BRTJaNeeWaardeType) </td></tr>
+<tr><td align="left" balign="left"> + getAWegnummer() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNWegnummer() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getEWegnummer() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getSWegnummer() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getAfritnummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setAfritnummer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getAfritnaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setAfritnaam(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getKnooppuntnaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setKnooppuntnaam(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getBrugnaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setBrugnaam(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTunnelnaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setTunnelnaam(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./WegdeelType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.WaterdeelType
 	c18 [label=<<table title="nl.b3p.topnl.top250nl.WaterdeelType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WaterdeelType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WaterdeelType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeWater : CodeType </td></tr>
+<tr><td align="left" balign="left"> # breedteklasse : CodeType </td></tr>
+<tr><td align="left" balign="left"> # fysiekVoorkomen : CodeType </td></tr>
+<tr><td align="left" balign="left"> # voorkomen : CodeType </td></tr>
+<tr><td align="left" balign="left"> # getijdeinvloed : BRTJaNeeWaardeType </td></tr>
+<tr><td align="left" balign="left"> # vaarwegklasse : CodeType </td></tr>
+<tr><td align="left" balign="left"> # naamOfficieel : String </td></tr>
+<tr><td align="left" balign="left"> # naamNL : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # naamFries : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # isBAGnaam : BRTJaNeeWaardeType </td></tr>
+<tr><td align="left" balign="left"> # sluisnaam : String </td></tr>
+<tr><td align="left" balign="left"> # brugnaam : String </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WaterdeelType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeWater() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setTypeWater(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getBreedteklasse() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setBreedteklasse(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getFysiekVoorkomen() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setFysiekVoorkomen(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getVoorkomen() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setVoorkomen(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getGetijdeinvloed() : BRTJaNeeWaardeType </td></tr>
+<tr><td align="left" balign="left"> + setGetijdeinvloed(value : BRTJaNeeWaardeType) </td></tr>
+<tr><td align="left" balign="left"> + getVaarwegklasse() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setVaarwegklasse(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getNaamOfficieel() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaamOfficieel(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getNaamNL() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNaamFries() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getIsBAGnaam() : BRTJaNeeWaardeType </td></tr>
+<tr><td align="left" balign="left"> + setIsBAGnaam(value : BRTJaNeeWaardeType) </td></tr>
+<tr><td align="left" balign="left"> + getSluisnaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setSluisnaam(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getBrugnaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setBrugnaam(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WaterdeelType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BRTLijnOfPuntPropertyType
@@ -132,11 +519,34 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTLijnOfPuntPropertyType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # brtLijnOfPunt : BRTLijnOfPuntType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRTLijnOfPuntPropertyType() </td></tr>
+<tr><td align="left" balign="left"> + getBRTLijnOfPunt() : BRTLijnOfPuntType </td></tr>
+<tr><td align="left" balign="left"> + setBRTLijnOfPunt(value : BRTLijnOfPuntType) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./BRTLijnOfPuntPropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.AbstractGeometryType
 	c20 [label=<<table title="nl.b3p.topnl.top250nl.AbstractGeometryType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractGeometryType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractGeometryType </font></td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # srsName : String </td></tr>
+<tr><td align="left" balign="left"> # srsDimension : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # axisLabels : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # uomLabels : List&lt;String&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AbstractGeometryType() </td></tr>
+<tr><td align="left" balign="left"> + getSrsName() : String </td></tr>
+<tr><td align="left" balign="left"> + setSrsName(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSrsDimension() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setSrsDimension(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getAxisLabels() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getUomLabels() : List&lt;String&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AbstractGeometryType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.AbstractCurveType
@@ -144,11 +554,58 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractCurveType </font></td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AbstractCurveType() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./AbstractCurveType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.SpoorbaandeelType
 	c22 [label=<<table title="nl.b3p.topnl.top250nl.SpoorbaandeelType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SpoorbaandeelType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SpoorbaandeelType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeInfrastructuur : CodeType </td></tr>
+<tr><td align="left" balign="left"> # typeSpoorbaan : CodeType </td></tr>
+<tr><td align="left" balign="left"> # fysiekVoorkomen : CodeType </td></tr>
+<tr><td align="left" balign="left"> # spoorbreedte : CodeType </td></tr>
+<tr><td align="left" balign="left"> # aantalSporen : CodeType </td></tr>
+<tr><td align="left" balign="left"> # vervoerfunctie : CodeType </td></tr>
+<tr><td align="left" balign="left"> # elektrificatie : BRTJaNeeWaardeType </td></tr>
+<tr><td align="left" balign="left"> # status : CodeType </td></tr>
+<tr><td align="left" balign="left"> # brugnaam : String </td></tr>
+<tr><td align="left" balign="left"> # tunnelnaam : String </td></tr>
+<tr><td align="left" balign="left"> # baanvaknaam : String </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + SpoorbaandeelType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeInfrastructuur() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setTypeInfrastructuur(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getTypeSpoorbaan() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setTypeSpoorbaan(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getFysiekVoorkomen() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setFysiekVoorkomen(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getSpoorbreedte() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setSpoorbreedte(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getAantalSporen() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setAantalSporen(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getVervoerfunctie() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setVervoerfunctie(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getElektrificatie() : BRTJaNeeWaardeType </td></tr>
+<tr><td align="left" balign="left"> + setElektrificatie(value : BRTJaNeeWaardeType) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setStatus(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getBrugnaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setBrugnaam(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTunnelnaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setTunnelnaam(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getBaanvaknaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setBaanvaknaam(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./SpoorbaandeelType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BRTVlakMultivlakOfPuntType
@@ -156,11 +613,39 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTVlakMultivlakOfPuntType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vlakGeometrie : SurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> # multivlakGeometrie : MultiSurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> # puntGeometrie : PointPropertyType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRTVlakMultivlakOfPuntType() </td></tr>
+<tr><td align="left" balign="left"> + getVlakGeometrie() : SurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> + setVlakGeometrie(value : SurfacePropertyType) </td></tr>
+<tr><td align="left" balign="left"> + getMultivlakGeometrie() : MultiSurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> + setMultivlakGeometrie(value : MultiSurfacePropertyType) </td></tr>
+<tr><td align="left" balign="left"> + getPuntGeometrie() : PointPropertyType </td></tr>
+<tr><td align="left" balign="left"> + setPuntGeometrie(value : PointPropertyType) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./BRTVlakMultivlakOfPuntType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.PlanTopografieType
 	c24 [label=<<table title="nl.b3p.topnl.top250nl.PlanTopografieType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PlanTopografieType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PlanTopografieType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeObject : CodeType </td></tr>
+<tr><td align="left" balign="left"> # naam : String </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PlanTopografieType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeObject() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setTypeObject(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getNaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaam(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PlanTopografieType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.LocationPropertyType
@@ -168,11 +653,61 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LocationPropertyType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # abstractGeometry : JAXBElement&lt;?&gt; </td></tr>
+<tr><td align="left" balign="left"> # locationKeyWord : CodeType </td></tr>
+<tr><td align="left" balign="left"> # locationString : StringOrRefType </td></tr>
+<tr><td align="left" balign="left"> # _null : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
+<tr><td align="left" balign="left"> # type : TypeType </td></tr>
+<tr><td align="left" balign="left"> # href : String </td></tr>
+<tr><td align="left" balign="left"> # role : String </td></tr>
+<tr><td align="left" balign="left"> # arcrole : String </td></tr>
+<tr><td align="left" balign="left"> # title : String </td></tr>
+<tr><td align="left" balign="left"> # show : ShowType </td></tr>
+<tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + LocationPropertyType() </td></tr>
+<tr><td align="left" balign="left"> + getAbstractGeometry() : JAXBElement&lt;?&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAbstractGeometry(value : JAXBElement&lt;?&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getLocationKeyWord() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setLocationKeyWord(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getLocationString() : StringOrRefType </td></tr>
+<tr><td align="left" balign="left"> + setLocationString(value : StringOrRefType) </td></tr>
+<tr><td align="left" balign="left"> + getNull() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
+<tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : TypeType </td></tr>
+<tr><td align="left" balign="left"> + setType(value : TypeType) </td></tr>
+<tr><td align="left" balign="left"> + getHref() : String </td></tr>
+<tr><td align="left" balign="left"> + setHref(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getRole() : String </td></tr>
+<tr><td align="left" balign="left"> + setRole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getArcrole() : String </td></tr>
+<tr><td align="left" balign="left"> + setArcrole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTitle() : String </td></tr>
+<tr><td align="left" balign="left"> + setTitle(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getShow() : ShowType </td></tr>
+<tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
+<tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
+<tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./LocationPropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BRTLijnOfPuntType
 	c26 [label=<<table title="nl.b3p.topnl.top250nl.BRTLijnOfPuntType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRTLijnOfPuntType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTLijnOfPuntType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # lijnGeometrie : PointPropertyType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRTLijnOfPuntType() </td></tr>
+<tr><td align="left" balign="left"> + getLijnGeometrie() : PointPropertyType </td></tr>
+<tr><td align="left" balign="left"> + setLijnGeometrie(value : PointPropertyType) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BRTLijnOfPuntType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BRTVlakOfMultivlakPropertyType
@@ -180,11 +715,26 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTVlakOfMultivlakPropertyType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # brtVlakOfMultivlak : BRTVlakOfMultivlakType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRTVlakOfMultivlakPropertyType() </td></tr>
+<tr><td align="left" balign="left"> + getBRTVlakOfMultivlak() : BRTVlakOfMultivlakType </td></tr>
+<tr><td align="left" balign="left"> + setBRTVlakOfMultivlak(value : BRTVlakOfMultivlakType) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./BRTVlakOfMultivlakPropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.FeatureCollectionT250NLType
 	c28 [label=<<table title="nl.b3p.topnl.top250nl.FeatureCollectionT250NLType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FeatureCollectionT250NLType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FeatureCollectionT250NLType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # featureMember : List&lt;Object&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + FeatureCollectionT250NLType() </td></tr>
+<tr><td align="left" balign="left"> + getFeatureMember() : List&lt;Object&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./FeatureCollectionT250NLType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BRTVlakLijnOfPuntPropertyType
@@ -192,11 +742,27 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTVlakLijnOfPuntPropertyType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # brtVlakLijnOfPunt : BRTVlakLijnOfPuntType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRTVlakLijnOfPuntPropertyType() </td></tr>
+<tr><td align="left" balign="left"> + getBRTVlakLijnOfPunt() : BRTVlakLijnOfPuntType </td></tr>
+<tr><td align="left" balign="left"> + setBRTVlakLijnOfPunt(value : BRTVlakLijnOfPuntType) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./BRTVlakLijnOfPuntPropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.Adapter1
 	c30 [label=<<table title="nl.b3p.topnl.top250nl.Adapter1" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Adapter1.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Adapter1 </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Adapter1() </td></tr>
+<tr><td align="left" balign="left"> + unmarshal(value : String) : Calendar </td></tr>
+<tr><td align="left" balign="left"> + marshal(value : Calendar) : String </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Adapter1.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.Adapter2
@@ -204,11 +770,45 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Adapter2 </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Adapter2() </td></tr>
+<tr><td align="left" balign="left"> + unmarshal(value : String) : Calendar </td></tr>
+<tr><td align="left" balign="left"> + marshal(value : Calendar) : String </td></tr>
+		</table></td></tr>
 		</table>>, URL="./Adapter2.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.EnvelopeType
 	c32 [label=<<table title="nl.b3p.topnl.top250nl.EnvelopeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EnvelopeType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> EnvelopeType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # lowerCorner : DirectPositionType </td></tr>
+<tr><td align="left" balign="left"> # upperCorner : DirectPositionType </td></tr>
+<tr><td align="left" balign="left"> # pos : List&lt;DirectPositionType&gt; </td></tr>
+<tr><td align="left" balign="left"> # coordinates : CoordinatesType </td></tr>
+<tr><td align="left" balign="left"> # srsName : String </td></tr>
+<tr><td align="left" balign="left"> # srsDimension : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # axisLabels : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # uomLabels : List&lt;String&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + EnvelopeType() </td></tr>
+<tr><td align="left" balign="left"> + getLowerCorner() : DirectPositionType </td></tr>
+<tr><td align="left" balign="left"> + setLowerCorner(value : DirectPositionType) </td></tr>
+<tr><td align="left" balign="left"> + getUpperCorner() : DirectPositionType </td></tr>
+<tr><td align="left" balign="left"> + setUpperCorner(value : DirectPositionType) </td></tr>
+<tr><td align="left" balign="left"> + getPos() : List&lt;DirectPositionType&gt; </td></tr>
+<tr><td align="left" balign="left"> + getCoordinates() : CoordinatesType </td></tr>
+<tr><td align="left" balign="left"> + setCoordinates(value : CoordinatesType) </td></tr>
+<tr><td align="left" balign="left"> + getSrsName() : String </td></tr>
+<tr><td align="left" balign="left"> + setSrsName(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSrsDimension() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setSrsDimension(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getAxisLabels() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getUomLabels() : List&lt;String&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./EnvelopeType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.InrichtingselementType
@@ -216,11 +816,64 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> InrichtingselementType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeInrichtingselement : CodeType </td></tr>
+<tr><td align="left" balign="left"> # soortnaam : String </td></tr>
+<tr><td align="left" balign="left"> # naam : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + InrichtingselementType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeInrichtingselement() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setTypeInrichtingselement(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getSoortnaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortnaam(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getNaam() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./InrichtingselementType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.CurvePropertyType
 	c34 [label=<<table title="nl.b3p.topnl.top250nl.CurvePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CurvePropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CurvePropertyType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # abstractCurve : AbstractCurveType </td></tr>
+<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
+<tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
+<tr><td align="left" balign="left"> # type : TypeType </td></tr>
+<tr><td align="left" balign="left"> # href : String </td></tr>
+<tr><td align="left" balign="left"> # role : String </td></tr>
+<tr><td align="left" balign="left"> # arcrole : String </td></tr>
+<tr><td align="left" balign="left"> # title : String </td></tr>
+<tr><td align="left" balign="left"> # show : ShowType </td></tr>
+<tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + CurvePropertyType() </td></tr>
+<tr><td align="left" balign="left"> + getAbstractCurve() : AbstractCurveType </td></tr>
+<tr><td align="left" balign="left"> + setAbstractCurve(value : AbstractCurveType) </td></tr>
+<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
+<tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
+<tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : TypeType </td></tr>
+<tr><td align="left" balign="left"> + setType(value : TypeType) </td></tr>
+<tr><td align="left" balign="left"> + getHref() : String </td></tr>
+<tr><td align="left" balign="left"> + setHref(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getRole() : String </td></tr>
+<tr><td align="left" balign="left"> + setRole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getArcrole() : String </td></tr>
+<tr><td align="left" balign="left"> + setArcrole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTitle() : String </td></tr>
+<tr><td align="left" balign="left"> + setTitle(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getShow() : ShowType </td></tr>
+<tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
+<tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
+<tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CurvePropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.Identificatie
@@ -228,11 +881,29 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Identificatie </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nen3610ID : NEN3610IDType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Identificatie() </td></tr>
+<tr><td align="left" balign="left"> + getNEN3610ID() : NEN3610IDType </td></tr>
+<tr><td align="left" balign="left"> + setNEN3610ID(value : NEN3610IDType) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./Identificatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.SurfaceArrayPropertyType
 	c36 [label=<<table title="nl.b3p.topnl.top250nl.SurfaceArrayPropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SurfaceArrayPropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SurfaceArrayPropertyType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # abstractSurface : List&lt;AbstractSurfaceType&gt; </td></tr>
+<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + SurfaceArrayPropertyType() </td></tr>
+<tr><td align="left" balign="left"> + getAbstractSurface() : List&lt;AbstractSurfaceType&gt; </td></tr>
+<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./SurfaceArrayPropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.Top250NlObjectType
@@ -240,11 +911,51 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Top250NlObjectType </font></td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # identificatie : Identificatie </td></tr>
+<tr><td align="left" balign="left"> # brontype : CodeType </td></tr>
+<tr><td align="left" balign="left"> # bronactualiteit : Calendar </td></tr>
+<tr><td align="left" balign="left"> # bronbeschrijving : String </td></tr>
+<tr><td align="left" balign="left"> # bronnauwkeurigheid : double </td></tr>
+<tr><td align="left" balign="left"> # objectBeginTijd : Calendar </td></tr>
+<tr><td align="left" balign="left"> # objectEindTijd : Calendar </td></tr>
+<tr><td align="left" balign="left"> # visualisatieCode : BigInteger </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Top250NlObjectType() </td></tr>
+<tr><td align="left" balign="left"> + getIdentificatie() : Identificatie </td></tr>
+<tr><td align="left" balign="left"> + setIdentificatie(value : Identificatie) </td></tr>
+<tr><td align="left" balign="left"> + getBrontype() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setBrontype(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getBronactualiteit() : Calendar </td></tr>
+<tr><td align="left" balign="left"> + setBronactualiteit(value : Calendar) </td></tr>
+<tr><td align="left" balign="left"> + getBronbeschrijving() : String </td></tr>
+<tr><td align="left" balign="left"> + setBronbeschrijving(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getBronnauwkeurigheid() : double </td></tr>
+<tr><td align="left" balign="left"> + setBronnauwkeurigheid(value : double) </td></tr>
+<tr><td align="left" balign="left"> + getObjectBeginTijd() : Calendar </td></tr>
+<tr><td align="left" balign="left"> + setObjectBeginTijd(value : Calendar) </td></tr>
+<tr><td align="left" balign="left"> + getObjectEindTijd() : Calendar </td></tr>
+<tr><td align="left" balign="left"> + setObjectEindTijd(value : Calendar) </td></tr>
+<tr><td align="left" balign="left"> + getVisualisatieCode() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setVisualisatieCode(value : BigInteger) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./Top250NlObjectType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.NEN3610IDType
 	c38 [label=<<table title="nl.b3p.topnl.top250nl.NEN3610IDType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NEN3610IDType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NEN3610IDType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # namespace : String </td></tr>
+<tr><td align="left" balign="left"> # lokaalID : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NEN3610IDType() </td></tr>
+<tr><td align="left" balign="left"> + getNamespace() : String </td></tr>
+<tr><td align="left" balign="left"> + setNamespace(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getLokaalID() : String </td></tr>
+<tr><td align="left" balign="left"> + setLokaalID(value : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NEN3610IDType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.AbstractFeatureType
@@ -252,11 +963,39 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractFeatureType </font></td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # boundedBy : BoundingShapeType </td></tr>
+<tr><td align="left" balign="left"> # location : LocationPropertyType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AbstractFeatureType() </td></tr>
+<tr><td align="left" balign="left"> + getBoundedBy() : BoundingShapeType </td></tr>
+<tr><td align="left" balign="left"> + setBoundedBy(value : BoundingShapeType) </td></tr>
+<tr><td align="left" balign="left"> + getLocation() : LocationPropertyType </td></tr>
+<tr><td align="left" balign="left"> + setLocation(value : LocationPropertyType) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./AbstractFeatureType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.HoogteType
 	c40 [label=<<table title="nl.b3p.topnl.top250nl.HoogteType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HoogteType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HoogteType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeHoogte : CodeType </td></tr>
+<tr><td align="left" balign="left"> # hoogte : double </td></tr>
+<tr><td align="left" balign="left"> # referentievlak : CodeType </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + HoogteType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeHoogte() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setTypeHoogte(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getHoogte() : double </td></tr>
+<tr><td align="left" balign="left"> + setHoogte(value : double) </td></tr>
+<tr><td align="left" balign="left"> + getReferentievlak() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setReferentievlak(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./HoogteType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.StringOrRefType
@@ -264,11 +1003,143 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StringOrRefType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # value : String </td></tr>
+<tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
+<tr><td align="left" balign="left"> # type : TypeType </td></tr>
+<tr><td align="left" balign="left"> # href : String </td></tr>
+<tr><td align="left" balign="left"> # role : String </td></tr>
+<tr><td align="left" balign="left"> # arcrole : String </td></tr>
+<tr><td align="left" balign="left"> # title : String </td></tr>
+<tr><td align="left" balign="left"> # show : ShowType </td></tr>
+<tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + StringOrRefType() </td></tr>
+<tr><td align="left" balign="left"> + getValue() : String </td></tr>
+<tr><td align="left" balign="left"> + setValue(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
+<tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : TypeType </td></tr>
+<tr><td align="left" balign="left"> + setType(value : TypeType) </td></tr>
+<tr><td align="left" balign="left"> + getHref() : String </td></tr>
+<tr><td align="left" balign="left"> + setHref(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getRole() : String </td></tr>
+<tr><td align="left" balign="left"> + setRole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getArcrole() : String </td></tr>
+<tr><td align="left" balign="left"> + setArcrole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTitle() : String </td></tr>
+<tr><td align="left" balign="left"> + setTitle(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getShow() : ShowType </td></tr>
+<tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
+<tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
+<tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./StringOrRefType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.ObjectFactory
 	c42 [label=<<table title="nl.b3p.topnl.top250nl.ObjectFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ObjectFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ObjectFactory </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ObjectFactory() </td></tr>
+<tr><td align="left" balign="left"> + createFunctioneelGebiedType() : FunctioneelGebiedType </td></tr>
+<tr><td align="left" balign="left"> + createGebouwType() : GebouwType </td></tr>
+<tr><td align="left" balign="left"> + createSpoorbaandeelType() : SpoorbaandeelType </td></tr>
+<tr><td align="left" balign="left"> + createWaterdeelType() : WaterdeelType </td></tr>
+<tr><td align="left" balign="left"> + createInrichtingselementType() : InrichtingselementType </td></tr>
+<tr><td align="left" balign="left"> + createPlanTopografieType() : PlanTopografieType </td></tr>
+<tr><td align="left" balign="left"> + createFeatureMemberType() : FeatureMemberType </td></tr>
+<tr><td align="left" balign="left"> + createWegdeelType() : WegdeelType </td></tr>
+<tr><td align="left" balign="left"> + createFeatureCollectionT250NLType() : FeatureCollectionT250NLType </td></tr>
+<tr><td align="left" balign="left"> + createPlaatsType() : PlaatsType </td></tr>
+<tr><td align="left" balign="left"> + createTerreinType() : TerreinType </td></tr>
+<tr><td align="left" balign="left"> + createGeografischGebiedType() : GeografischGebiedType </td></tr>
+<tr><td align="left" balign="left"> + createHoogteType() : HoogteType </td></tr>
+<tr><td align="left" balign="left"> + createRegistratiefGebiedType() : RegistratiefGebiedType </td></tr>
+<tr><td align="left" balign="left"> + createReliefType() : ReliefType </td></tr>
+<tr><td align="left" balign="left"> + createBRTVlakMultivlakOfPuntType() : BRTVlakMultivlakOfPuntType </td></tr>
+<tr><td align="left" balign="left"> + createBRTLijnOfPuntType() : BRTLijnOfPuntType </td></tr>
+<tr><td align="left" balign="left"> + createBRTVlakLijnOfPuntType() : BRTVlakLijnOfPuntType </td></tr>
+<tr><td align="left" balign="left"> + createBRTVlakOfMultivlakType() : BRTVlakOfMultivlakType </td></tr>
+<tr><td align="left" balign="left"> + createNEN3610IDType() : NEN3610IDType </td></tr>
+<tr><td align="left" balign="left"> + createBRTVlakOfLijnType() : BRTVlakOfLijnType </td></tr>
+<tr><td align="left" balign="left"> + createBRTVlakLijnOfPuntPropertyType() : BRTVlakLijnOfPuntPropertyType </td></tr>
+<tr><td align="left" balign="left"> + createBRTVlakMultivlakOfPuntPropertyType() : BRTVlakMultivlakOfPuntPropertyType </td></tr>
+<tr><td align="left" balign="left"> + createBRTLijnOfPuntPropertyType() : BRTLijnOfPuntPropertyType </td></tr>
+<tr><td align="left" balign="left"> + createBRTVlakOfLijnPropertyType() : BRTVlakOfLijnPropertyType </td></tr>
+<tr><td align="left" balign="left"> + createBRTVlakOfMultivlakPropertyType() : BRTVlakOfMultivlakPropertyType </td></tr>
+<tr><td align="left" balign="left"> + createSurfacePropertyType() : SurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> + createMetaDataPropertyType() : MetaDataPropertyType </td></tr>
+<tr><td align="left" balign="left"> + createMultiSurfaceType() : MultiSurfaceType </td></tr>
+<tr><td align="left" balign="left"> + createStringOrRefType() : StringOrRefType </td></tr>
+<tr><td align="left" balign="left"> + createReferenceType() : ReferenceType </td></tr>
+<tr><td align="left" balign="left"> + createSurfaceArrayPropertyType() : SurfaceArrayPropertyType </td></tr>
+<tr><td align="left" balign="left"> + createEnvelopeType() : EnvelopeType </td></tr>
+<tr><td align="left" balign="left"> + createDirectPositionType() : DirectPositionType </td></tr>
+<tr><td align="left" balign="left"> + createCodeWithAuthorityType() : CodeWithAuthorityType </td></tr>
+<tr><td align="left" balign="left"> + createCodeType() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + createBoundingShapeType() : BoundingShapeType </td></tr>
+<tr><td align="left" balign="left"> + createCoordinatesType() : CoordinatesType </td></tr>
+<tr><td align="left" balign="left"> + createPointType() : PointType </td></tr>
+<tr><td align="left" balign="left"> + createLocationPropertyType() : LocationPropertyType </td></tr>
+<tr><td align="left" balign="left"> + createCurvePropertyType() : CurvePropertyType </td></tr>
+<tr><td align="left" balign="left"> + createMultiSurfacePropertyType() : MultiSurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> + createPointPropertyType() : PointPropertyType </td></tr>
+<tr><td align="left" balign="left"> + createIdentificatie() : Identificatie </td></tr>
+<tr><td align="left" balign="left"> + createFunctioneelGebied(value : FunctioneelGebiedType) : JAXBElement&lt;FunctioneelGebiedType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createTop250NlObject(value : Top250NlObjectType) : JAXBElement&lt;Top250NlObjectType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createAbstractSurface(value : AbstractSurfaceType) : JAXBElement&lt;AbstractSurfaceType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createAbstractFeature(value : AbstractFeatureType) : JAXBElement&lt;AbstractFeatureType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createCoordinates(value : CoordinatesType) : JAXBElement&lt;CoordinatesType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createPoint(value : PointType) : JAXBElement&lt;PointType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createBRTVlakOfLijn(value : BRTVlakOfLijnType) : JAXBElement&lt;BRTVlakOfLijnType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createGebouw(value : GebouwType) : JAXBElement&lt;GebouwType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createBoundedBy(value : BoundingShapeType) : JAXBElement&lt;BoundingShapeType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createIdentifier(value : CodeWithAuthorityType) : JAXBElement&lt;CodeWithAuthorityType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createInrichtingselement(value : InrichtingselementType) : JAXBElement&lt;InrichtingselementType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createLocationString(value : StringOrRefType) : JAXBElement&lt;StringOrRefType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createLocationKeyWord(value : CodeType) : JAXBElement&lt;CodeType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createAbstractGeometricAggregate(value : AbstractGeometricAggregateType) : JAXBElement&lt;AbstractGeometricAggregateType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createWegdeel(value : WegdeelType) : JAXBElement&lt;WegdeelType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createBRTVlakMultivlakOfPunt(value : BRTVlakMultivlakOfPuntType) : JAXBElement&lt;BRTVlakMultivlakOfPuntType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createName(value : CodeType) : JAXBElement&lt;CodeType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createLocation(value : LocationPropertyType) : JAXBElement&lt;LocationPropertyType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createAbstractCurve(value : AbstractCurveType) : JAXBElement&lt;AbstractCurveType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createPlaats(value : PlaatsType) : JAXBElement&lt;PlaatsType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createAbstractObject(value : Object) : JAXBElement&lt;Object&gt; </td></tr>
+<tr><td align="left" balign="left"> + createGeografischGebied(value : GeografischGebiedType) : JAXBElement&lt;GeografischGebiedType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createHoogte(value : HoogteType) : JAXBElement&lt;HoogteType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createBRTVlakOfMultivlak(value : BRTVlakOfMultivlakType) : JAXBElement&lt;BRTVlakOfMultivlakType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createRelief(value : ReliefType) : JAXBElement&lt;ReliefType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createEnvelope(value : EnvelopeType) : JAXBElement&lt;EnvelopeType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createAbstractGML(value : AbstractGMLType) : JAXBElement&lt;AbstractGMLType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createDescription(value : StringOrRefType) : JAXBElement&lt;StringOrRefType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createDescriptionReference(value : ReferenceType) : JAXBElement&lt;ReferenceType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createBRTLijnOfPunt(value : BRTLijnOfPuntType) : JAXBElement&lt;BRTLijnOfPuntType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createSurfaceMembers(value : SurfaceArrayPropertyType) : JAXBElement&lt;SurfaceArrayPropertyType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createSpoorbaandeel(value : SpoorbaandeelType) : JAXBElement&lt;SpoorbaandeelType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createNEN3610ID(value : NEN3610IDType) : JAXBElement&lt;NEN3610IDType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createMultiSurface(value : MultiSurfaceType) : JAXBElement&lt;MultiSurfaceType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createWaterdeel(value : WaterdeelType) : JAXBElement&lt;WaterdeelType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createAbstractGeometricPrimitive(value : AbstractGeometricPrimitiveType) : JAXBElement&lt;AbstractGeometricPrimitiveType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createSurfaceMember(value : SurfacePropertyType) : JAXBElement&lt;SurfacePropertyType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createAbstractGeometry(value : AbstractGeometryType) : JAXBElement&lt;AbstractGeometryType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createNull(value : List&lt;String&gt;) : JAXBElement&lt;List&lt;String&gt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + createMetaDataProperty(value : MetaDataPropertyType) : JAXBElement&lt;MetaDataPropertyType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createPlanTopografie(value : PlanTopografieType) : JAXBElement&lt;PlanTopografieType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createAbstractMetaData(value : AbstractMetaDataType) : JAXBElement&lt;AbstractMetaDataType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createFeatureMember(value : FeatureMemberType) : JAXBElement&lt;FeatureMemberType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createFeatureCollectionT250NL(value : FeatureCollectionT250NLType) : JAXBElement&lt;FeatureCollectionT250NLType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createTerrein(value : TerreinType) : JAXBElement&lt;TerreinType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createPos(value : DirectPositionType) : JAXBElement&lt;DirectPositionType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createRegistratiefGebied(value : RegistratiefGebiedType) : JAXBElement&lt;RegistratiefGebiedType&gt; </td></tr>
+<tr><td align="left" balign="left"> + createBRTVlakLijnOfPunt(value : BRTVlakLijnOfPuntType) : JAXBElement&lt;BRTVlakLijnOfPuntType&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ObjectFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.ReferenceType
@@ -276,11 +1147,82 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ReferenceType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
+<tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
+<tr><td align="left" balign="left"> # type : TypeType </td></tr>
+<tr><td align="left" balign="left"> # href : String </td></tr>
+<tr><td align="left" balign="left"> # role : String </td></tr>
+<tr><td align="left" balign="left"> # arcrole : String </td></tr>
+<tr><td align="left" balign="left"> # title : String </td></tr>
+<tr><td align="left" balign="left"> # show : ShowType </td></tr>
+<tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ReferenceType() </td></tr>
+<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
+<tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
+<tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : TypeType </td></tr>
+<tr><td align="left" balign="left"> + setType(value : TypeType) </td></tr>
+<tr><td align="left" balign="left"> + getHref() : String </td></tr>
+<tr><td align="left" balign="left"> + setHref(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getRole() : String </td></tr>
+<tr><td align="left" balign="left"> + setRole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getArcrole() : String </td></tr>
+<tr><td align="left" balign="left"> + setArcrole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTitle() : String </td></tr>
+<tr><td align="left" balign="left"> + setTitle(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getShow() : ShowType </td></tr>
+<tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
+<tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
+<tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./ReferenceType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.PointPropertyType
 	c44 [label=<<table title="nl.b3p.topnl.top250nl.PointPropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PointPropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PointPropertyType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # point : PointType </td></tr>
+<tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
+<tr><td align="left" balign="left"> # type : TypeType </td></tr>
+<tr><td align="left" balign="left"> # href : String </td></tr>
+<tr><td align="left" balign="left"> # role : String </td></tr>
+<tr><td align="left" balign="left"> # arcrole : String </td></tr>
+<tr><td align="left" balign="left"> # title : String </td></tr>
+<tr><td align="left" balign="left"> # show : ShowType </td></tr>
+<tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
+<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PointPropertyType() </td></tr>
+<tr><td align="left" balign="left"> + getPoint() : PointType </td></tr>
+<tr><td align="left" balign="left"> + setPoint(value : PointType) </td></tr>
+<tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
+<tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : TypeType </td></tr>
+<tr><td align="left" balign="left"> + setType(value : TypeType) </td></tr>
+<tr><td align="left" balign="left"> + getHref() : String </td></tr>
+<tr><td align="left" balign="left"> + setHref(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getRole() : String </td></tr>
+<tr><td align="left" balign="left"> + setRole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getArcrole() : String </td></tr>
+<tr><td align="left" balign="left"> + setArcrole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTitle() : String </td></tr>
+<tr><td align="left" balign="left"> + setTitle(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getShow() : ShowType </td></tr>
+<tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
+<tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
+<tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
+<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PointPropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.MultiSurfaceType
@@ -288,11 +1230,32 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MultiSurfaceType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # surfaceMember : List&lt;SurfacePropertyType&gt; </td></tr>
+<tr><td align="left" balign="left"> # surfaceMembers : SurfaceArrayPropertyType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + MultiSurfaceType() </td></tr>
+<tr><td align="left" balign="left"> + getSurfaceMember() : List&lt;SurfacePropertyType&gt; </td></tr>
+<tr><td align="left" balign="left"> + getSurfaceMembers() : SurfaceArrayPropertyType </td></tr>
+<tr><td align="left" balign="left"> + setSurfaceMembers(value : SurfaceArrayPropertyType) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./MultiSurfaceType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.CodeType
 	c46 [label=<<table title="nl.b3p.topnl.top250nl.CodeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CodeType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CodeType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # value : String </td></tr>
+<tr><td align="left" balign="left"> # codeSpace : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + CodeType() </td></tr>
+<tr><td align="left" balign="left"> + getValue() : String </td></tr>
+<tr><td align="left" balign="left"> + setValue(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getCodeSpace() : String </td></tr>
+<tr><td align="left" balign="left"> + setCodeSpace(value : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CodeType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.DirectPositionType
@@ -300,11 +1263,34 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DirectPositionType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # value : List&lt;Double&gt; </td></tr>
+<tr><td align="left" balign="left"> # srsName : String </td></tr>
+<tr><td align="left" balign="left"> # srsDimension : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # axisLabels : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # uomLabels : List&lt;String&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + DirectPositionType() </td></tr>
+<tr><td align="left" balign="left"> + getValue() : List&lt;Double&gt; </td></tr>
+<tr><td align="left" balign="left"> + getSrsName() : String </td></tr>
+<tr><td align="left" balign="left"> + setSrsName(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSrsDimension() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setSrsDimension(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getAxisLabels() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getUomLabels() : List&lt;String&gt; </td></tr>
+		</table></td></tr>
 		</table>>, URL="./DirectPositionType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.AbstractSurfaceType
 	c48 [label=<<table title="nl.b3p.topnl.top250nl.AbstractSurfaceType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractSurfaceType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractSurfaceType </font></td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AbstractSurfaceType() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AbstractSurfaceType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BRTVlakOfLijnPropertyType
@@ -312,11 +1298,39 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTVlakOfLijnPropertyType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # brtVlakOfLijn : BRTVlakOfLijnType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRTVlakOfLijnPropertyType() </td></tr>
+<tr><td align="left" balign="left"> + getBRTVlakOfLijn() : BRTVlakOfLijnType </td></tr>
+<tr><td align="left" balign="left"> + setBRTVlakOfLijn(value : BRTVlakOfLijnType) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./BRTVlakOfLijnPropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.RegistratiefGebiedType
 	c50 [label=<<table title="nl.b3p.topnl.top250nl.RegistratiefGebiedType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RegistratiefGebiedType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RegistratiefGebiedType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeRegistratiefGebied : CodeType </td></tr>
+<tr><td align="left" balign="left"> # naamOfficieel : String </td></tr>
+<tr><td align="left" balign="left"> # naamNL : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # naamFries : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # nummer : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + RegistratiefGebiedType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeRegistratiefGebied() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setTypeRegistratiefGebied(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getNaamOfficieel() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaamOfficieel(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getNaamNL() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNaamFries() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNummer() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./RegistratiefGebiedType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.AbstractMetaDataType
@@ -324,11 +1338,48 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractMetaDataType </font></td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # content : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # id : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AbstractMetaDataType() </td></tr>
+<tr><td align="left" balign="left"> + getContent() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getId() : String </td></tr>
+<tr><td align="left" balign="left"> + setId(value : String) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./AbstractMetaDataType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.GebouwType
 	c52 [label=<<table title="nl.b3p.topnl.top250nl.GebouwType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GebouwType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GebouwType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeGebouw : List&lt;CodeType&gt; </td></tr>
+<tr><td align="left" balign="left"> # fysiekVoorkomen : CodeType </td></tr>
+<tr><td align="left" balign="left"> # hoogteklasse : CodeType </td></tr>
+<tr><td align="left" balign="left"> # hoogte : Double </td></tr>
+<tr><td align="left" balign="left"> # status : CodeType </td></tr>
+<tr><td align="left" balign="left"> # soortnaam : String </td></tr>
+<tr><td align="left" balign="left"> # naam : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GebouwType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeGebouw() : List&lt;CodeType&gt; </td></tr>
+<tr><td align="left" balign="left"> + getFysiekVoorkomen() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setFysiekVoorkomen(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getHoogteklasse() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setHoogteklasse(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getHoogte() : Double </td></tr>
+<tr><td align="left" balign="left"> + setHoogte(value : Double) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setStatus(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getSoortnaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortnaam(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getNaam() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./GebouwType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.GeografischGebiedType
@@ -336,11 +1387,38 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GeografischGebiedType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeGeografischGebied : CodeType </td></tr>
+<tr><td align="left" balign="left"> # naamNL : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # naamFries : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GeografischGebiedType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeGeografischGebied() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setTypeGeografischGebied(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getNaamNL() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNaamFries() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./GeografischGebiedType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BoundingShapeType
 	c54 [label=<<table title="nl.b3p.topnl.top250nl.BoundingShapeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BoundingShapeType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BoundingShapeType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # envelope : EnvelopeType </td></tr>
+<tr><td align="left" balign="left"> # _null : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BoundingShapeType() </td></tr>
+<tr><td align="left" balign="left"> + getEnvelope() : EnvelopeType </td></tr>
+<tr><td align="left" balign="left"> + setEnvelope(value : EnvelopeType) </td></tr>
+<tr><td align="left" balign="left"> + getNull() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BoundingShapeType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.FunctioneelGebiedType
@@ -348,11 +1426,43 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FunctioneelGebiedType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeFunctioneelGebied : CodeType </td></tr>
+<tr><td align="left" balign="left"> # soortnaam : String </td></tr>
+<tr><td align="left" balign="left"> # naamNL : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # naamFries : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + FunctioneelGebiedType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeFunctioneelGebied() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setTypeFunctioneelGebied(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getSoortnaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortnaam(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getNaamNL() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNaamFries() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./FunctioneelGebiedType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BRTVlakLijnOfPuntType
 	c56 [label=<<table title="nl.b3p.topnl.top250nl.BRTVlakLijnOfPuntType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRTVlakLijnOfPuntType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTVlakLijnOfPuntType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vlakGeometrie : SurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> # lijnGeometrie : CurvePropertyType </td></tr>
+<tr><td align="left" balign="left"> # puntGeometrie : PointPropertyType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRTVlakLijnOfPuntType() </td></tr>
+<tr><td align="left" balign="left"> + getVlakGeometrie() : SurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> + setVlakGeometrie(value : SurfacePropertyType) </td></tr>
+<tr><td align="left" balign="left"> + getLijnGeometrie() : CurvePropertyType </td></tr>
+<tr><td align="left" balign="left"> + setLijnGeometrie(value : CurvePropertyType) </td></tr>
+<tr><td align="left" balign="left"> + getPuntGeometrie() : PointPropertyType </td></tr>
+<tr><td align="left" balign="left"> + setPuntGeometrie(value : PointPropertyType) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BRTVlakLijnOfPuntType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.TypeType
@@ -361,11 +1471,30 @@ digraph G {
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> TypeType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> SIMPLE </td></tr>
+<tr><td align="left" balign="left"> EXTENDED </td></tr>
+<tr><td align="left" balign="left"> TITLE </td></tr>
+<tr><td align="left" balign="left"> RESOURCE </td></tr>
+<tr><td align="left" balign="left"> LOCATOR </td></tr>
+<tr><td align="left" balign="left"> ARC </td></tr>
+		</table></td></tr>
 		</table>>, URL="./TypeType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BRTVlakMultivlakOfPuntPropertyType
 	c58 [label=<<table title="nl.b3p.topnl.top250nl.BRTVlakMultivlakOfPuntPropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRTVlakMultivlakOfPuntPropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTVlakMultivlakOfPuntPropertyType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # brtVlakMultivlakOfPunt : BRTVlakMultivlakOfPuntType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRTVlakMultivlakOfPuntPropertyType() </td></tr>
+<tr><td align="left" balign="left"> + getBRTVlakMultivlakOfPunt() : BRTVlakMultivlakOfPuntType </td></tr>
+<tr><td align="left" balign="left"> + setBRTVlakMultivlakOfPunt(value : BRTVlakMultivlakOfPuntType) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BRTVlakMultivlakOfPuntPropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.CoordinatesType
@@ -373,17 +1502,73 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CoordinatesType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # value : String </td></tr>
+<tr><td align="left" balign="left"> # decimal : String </td></tr>
+<tr><td align="left" balign="left"> # cs : String </td></tr>
+<tr><td align="left" balign="left"> # ts : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + CoordinatesType() </td></tr>
+<tr><td align="left" balign="left"> + getValue() : String </td></tr>
+<tr><td align="left" balign="left"> + setValue(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getDecimal() : String </td></tr>
+<tr><td align="left" balign="left"> + setDecimal(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getCs() : String </td></tr>
+<tr><td align="left" balign="left"> + setCs(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTs() : String </td></tr>
+<tr><td align="left" balign="left"> + setTs(value : String) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./CoordinatesType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.PlaatsType
 	c60 [label=<<table title="nl.b3p.topnl.top250nl.PlaatsType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PlaatsType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PlaatsType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # typeGebied : CodeType </td></tr>
+<tr><td align="left" balign="left"> # aantalinwoners : BigInteger </td></tr>
+<tr><td align="left" balign="left"> # naamOfficieel : String </td></tr>
+<tr><td align="left" balign="left"> # naamNL : String </td></tr>
+<tr><td align="left" balign="left"> # naamFries : String </td></tr>
+<tr><td align="left" balign="left"> # geometrie : Element </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PlaatsType() </td></tr>
+<tr><td align="left" balign="left"> + getTypeGebied() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setTypeGebied(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getAantalinwoners() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setAantalinwoners(value : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getNaamOfficieel() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaamOfficieel(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getNaamNL() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaamNL(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getNaamFries() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaamFries(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getGeometrie() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrie(value : Element) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./PlaatsType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.TerreinType
 	c61 [label=<<table title="nl.b3p.topnl.top250nl.TerreinType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TerreinType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TerreinType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # geometrieVlak : Element </td></tr>
+<tr><td align="left" balign="left"> # naam : String </td></tr>
+<tr><td align="left" balign="left"> # typeLandgebruik : CodeType </td></tr>
+<tr><td align="left" balign="left"> # voorkomen : List&lt;CodeType&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TerreinType() </td></tr>
+<tr><td align="left" balign="left"> + getGeometrieVlak() : Element </td></tr>
+<tr><td align="left" balign="left"> + setGeometrieVlak(value : Element) </td></tr>
+<tr><td align="left" balign="left"> + getNaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setNaam(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTypeLandgebruik() : CodeType </td></tr>
+<tr><td align="left" balign="left"> + setTypeLandgebruik(value : CodeType) </td></tr>
+<tr><td align="left" balign="left"> + getVoorkomen() : List&lt;CodeType&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TerreinType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.top250nl.AbstractGeometricPrimitiveType extends nl.b3p.topnl.top250nl.AbstractGeometryType
@@ -434,5 +1619,211 @@ digraph G {
 	c37:p -> c60:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.top250nl.TerreinType extends nl.b3p.topnl.top250nl.Top250NlObjectType
 	c37:p -> c61:p [dir=back,arrowtail=empty];
+	// nl.b3p.topnl.top250nl.SurfacePropertyType NAVASSOC nl.b3p.topnl.top250nl.AbstractSurfaceType
+	c2:p -> c48:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.SurfacePropertyType NAVASSOC nl.b3p.topnl.top250nl.TypeType
+	c2:p -> c57:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.SurfacePropertyType NAVASSOC nl.b3p.topnl.top250nl.ShowType
+	c2:p -> c8:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.SurfacePropertyType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
+	c2:p -> c6:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.FeatureMemberType NAVASSOC nl.b3p.topnl.top250nl.TypeType
+	c3:p -> c57:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.FeatureMemberType NAVASSOC nl.b3p.topnl.top250nl.ShowType
+	c3:p -> c8:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.FeatureMemberType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
+	c3:p -> c6:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BRTVlakOfLijnType NAVASSOC nl.b3p.topnl.top250nl.SurfacePropertyType
+	c7:p -> c2:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BRTVlakOfLijnType NAVASSOC nl.b3p.topnl.top250nl.CurvePropertyType
+	c7:p -> c34:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BRTVlakOfMultivlakType NAVASSOC nl.b3p.topnl.top250nl.SurfacePropertyType
+	c9:p -> c2:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BRTVlakOfMultivlakType NAVASSOC nl.b3p.topnl.top250nl.MultiSurfacePropertyType
+	c9:p -> c10:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.MultiSurfacePropertyType NAVASSOC nl.b3p.topnl.top250nl.MultiSurfaceType
+	c10:p -> c45:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.MultiSurfacePropertyType NAVASSOC nl.b3p.topnl.top250nl.TypeType
+	c10:p -> c57:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.MultiSurfacePropertyType NAVASSOC nl.b3p.topnl.top250nl.ShowType
+	c10:p -> c8:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.MultiSurfacePropertyType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
+	c10:p -> c6:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.PointType NAVASSOC nl.b3p.topnl.top250nl.DirectPositionType
+	c11:p -> c47:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.PointType NAVASSOC nl.b3p.topnl.top250nl.CoordinatesType
+	c11:p -> c59:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.MetaDataPropertyType NAVASSOC nl.b3p.topnl.top250nl.AbstractMetaDataType
+	c12:p -> c51:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.MetaDataPropertyType NAVASSOC nl.b3p.topnl.top250nl.TypeType
+	c12:p -> c57:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.MetaDataPropertyType NAVASSOC nl.b3p.topnl.top250nl.ShowType
+	c12:p -> c8:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.MetaDataPropertyType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
+	c12:p -> c6:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.AbstractGMLType NAVASSOC nl.b3p.topnl.top250nl.StringOrRefType
+	c14:p -> c41:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.AbstractGMLType NAVASSOC nl.b3p.topnl.top250nl.ReferenceType
+	c14:p -> c43:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.AbstractGMLType NAVASSOC nl.b3p.topnl.top250nl.CodeWithAuthorityType
+	c14:p -> c4:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.AbstractGeometricAggregateType NAVASSOC nl.b3p.topnl.top250nl.AggregationType
+	c15:p -> c13:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.ReliefType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c16:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.ReliefType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c16:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.WegdeelType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c17:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.WegdeelType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c17:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.WegdeelType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c17:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.WegdeelType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c17:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.WegdeelType NAVASSOC nl.b3p.topnl.top250nl.BRTJaNeeWaardeType
+	c17:p -> c0:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.WegdeelType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c17:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.WegdeelType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c17:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.WegdeelType NAVASSOC nl.b3p.topnl.top250nl.BRTJaNeeWaardeType
+	c17:p -> c0:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.WaterdeelType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c18:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.WaterdeelType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c18:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.WaterdeelType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c18:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.WaterdeelType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c18:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.WaterdeelType NAVASSOC nl.b3p.topnl.top250nl.BRTJaNeeWaardeType
+	c18:p -> c0:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.WaterdeelType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c18:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.WaterdeelType NAVASSOC nl.b3p.topnl.top250nl.BRTJaNeeWaardeType
+	c18:p -> c0:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BRTLijnOfPuntPropertyType NAVASSOC nl.b3p.topnl.top250nl.BRTLijnOfPuntType
+	c19:p -> c26:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.SpoorbaandeelType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c22:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.SpoorbaandeelType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c22:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.SpoorbaandeelType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c22:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.SpoorbaandeelType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c22:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.SpoorbaandeelType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c22:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.SpoorbaandeelType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c22:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.SpoorbaandeelType NAVASSOC nl.b3p.topnl.top250nl.BRTJaNeeWaardeType
+	c22:p -> c0:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.SpoorbaandeelType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c22:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BRTVlakMultivlakOfPuntType NAVASSOC nl.b3p.topnl.top250nl.SurfacePropertyType
+	c23:p -> c2:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BRTVlakMultivlakOfPuntType NAVASSOC nl.b3p.topnl.top250nl.MultiSurfacePropertyType
+	c23:p -> c10:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BRTVlakMultivlakOfPuntType NAVASSOC nl.b3p.topnl.top250nl.PointPropertyType
+	c23:p -> c44:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.PlanTopografieType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c24:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.LocationPropertyType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c25:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.LocationPropertyType NAVASSOC nl.b3p.topnl.top250nl.StringOrRefType
+	c25:p -> c41:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.LocationPropertyType NAVASSOC nl.b3p.topnl.top250nl.TypeType
+	c25:p -> c57:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.LocationPropertyType NAVASSOC nl.b3p.topnl.top250nl.ShowType
+	c25:p -> c8:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.LocationPropertyType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
+	c25:p -> c6:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BRTLijnOfPuntType NAVASSOC nl.b3p.topnl.top250nl.PointPropertyType
+	c26:p -> c44:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BRTVlakOfMultivlakPropertyType NAVASSOC nl.b3p.topnl.top250nl.BRTVlakOfMultivlakType
+	c27:p -> c9:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BRTVlakLijnOfPuntPropertyType NAVASSOC nl.b3p.topnl.top250nl.BRTVlakLijnOfPuntType
+	c29:p -> c56:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.EnvelopeType NAVASSOC nl.b3p.topnl.top250nl.DirectPositionType
+	c32:p -> c47:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.EnvelopeType NAVASSOC nl.b3p.topnl.top250nl.DirectPositionType
+	c32:p -> c47:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.EnvelopeType NAVASSOC nl.b3p.topnl.top250nl.CoordinatesType
+	c32:p -> c59:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.InrichtingselementType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c33:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.CurvePropertyType NAVASSOC nl.b3p.topnl.top250nl.AbstractCurveType
+	c34:p -> c21:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.CurvePropertyType NAVASSOC nl.b3p.topnl.top250nl.TypeType
+	c34:p -> c57:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.CurvePropertyType NAVASSOC nl.b3p.topnl.top250nl.ShowType
+	c34:p -> c8:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.CurvePropertyType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
+	c34:p -> c6:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.Identificatie NAVASSOC nl.b3p.topnl.top250nl.NEN3610IDType
+	c35:p -> c38:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.Top250NlObjectType NAVASSOC nl.b3p.topnl.top250nl.Identificatie
+	c37:p -> c35:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.Top250NlObjectType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c37:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.AbstractFeatureType NAVASSOC nl.b3p.topnl.top250nl.BoundingShapeType
+	c39:p -> c54:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.AbstractFeatureType NAVASSOC nl.b3p.topnl.top250nl.LocationPropertyType
+	c39:p -> c25:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.HoogteType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c40:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.HoogteType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c40:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.StringOrRefType NAVASSOC nl.b3p.topnl.top250nl.TypeType
+	c41:p -> c57:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.StringOrRefType NAVASSOC nl.b3p.topnl.top250nl.ShowType
+	c41:p -> c8:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.StringOrRefType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
+	c41:p -> c6:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.ReferenceType NAVASSOC nl.b3p.topnl.top250nl.TypeType
+	c43:p -> c57:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.ReferenceType NAVASSOC nl.b3p.topnl.top250nl.ShowType
+	c43:p -> c8:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.ReferenceType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
+	c43:p -> c6:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.PointPropertyType NAVASSOC nl.b3p.topnl.top250nl.PointType
+	c44:p -> c11:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.PointPropertyType NAVASSOC nl.b3p.topnl.top250nl.TypeType
+	c44:p -> c57:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.PointPropertyType NAVASSOC nl.b3p.topnl.top250nl.ShowType
+	c44:p -> c8:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.PointPropertyType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
+	c44:p -> c6:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.MultiSurfaceType NAVASSOC nl.b3p.topnl.top250nl.SurfaceArrayPropertyType
+	c45:p -> c36:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BRTVlakOfLijnPropertyType NAVASSOC nl.b3p.topnl.top250nl.BRTVlakOfLijnType
+	c49:p -> c7:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.RegistratiefGebiedType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c50:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.GebouwType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c52:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.GebouwType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c52:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.GebouwType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c52:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.GeografischGebiedType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c53:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BoundingShapeType NAVASSOC nl.b3p.topnl.top250nl.EnvelopeType
+	c54:p -> c32:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.FunctioneelGebiedType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c55:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BRTVlakLijnOfPuntType NAVASSOC nl.b3p.topnl.top250nl.SurfacePropertyType
+	c56:p -> c2:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BRTVlakLijnOfPuntType NAVASSOC nl.b3p.topnl.top250nl.CurvePropertyType
+	c56:p -> c34:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BRTVlakLijnOfPuntType NAVASSOC nl.b3p.topnl.top250nl.PointPropertyType
+	c56:p -> c44:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BRTVlakMultivlakOfPuntPropertyType NAVASSOC nl.b3p.topnl.top250nl.BRTVlakMultivlakOfPuntType
+	c58:p -> c23:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.PlaatsType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c60:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.TerreinType NAVASSOC nl.b3p.topnl.top250nl.CodeType
+	c61:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

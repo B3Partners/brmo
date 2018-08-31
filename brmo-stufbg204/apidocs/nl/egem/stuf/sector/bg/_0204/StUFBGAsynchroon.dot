@@ -10,18 +10,23 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.StUFBGAsynchroon
-	c195070 [label=<<table title="nl.egem.stuf.sector.bg._0204.StUFBGAsynchroon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StUFBGAsynchroon.html">
+	c195076 [label=<<table title="nl.egem.stuf.sector.bg._0204.StUFBGAsynchroon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StUFBGAsynchroon.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StUFBGAsynchroon </td></tr>
 		</table></td></tr>
-		</table>>, URL="./StUFBGAsynchroon.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//nl.egem.stuf.sector.bg._0204.StUFBGAsynchroon extends javax.xml.ws.Service
-	c195318:p -> c195070:p [dir=back,arrowtail=empty];
-	// javax.xml.ws.Service
-	c195318 [label=<<table title="javax.xml.ws.Service" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="https://docs.oracle.com/javaee/7/api/javax/xml/ws/Service.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Service </td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
-		</table>>, URL="https://docs.oracle.com/javaee/7/api/javax/xml/ws/Service.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + StUFBGAsynchroon() </td></tr>
+<tr><td align="left" balign="left"> + StUFBGAsynchroon(features : WebServiceFeature[]) </td></tr>
+<tr><td align="left" balign="left"> + StUFBGAsynchroon(wsdlLocation : URL) </td></tr>
+<tr><td align="left" balign="left"> + StUFBGAsynchroon(wsdlLocation : URL, features : WebServiceFeature[]) </td></tr>
+<tr><td align="left" balign="left"> + StUFBGAsynchroon(wsdlLocation : URL, serviceName : QName) </td></tr>
+<tr><td align="left" balign="left"> + StUFBGAsynchroon(wsdlLocation : URL, serviceName : QName, features : WebServiceFeature[]) </td></tr>
+<tr><td align="left" balign="left"> + getStUFBGAsynchronePort() : StUFBGAsynchroonPortType </td></tr>
+<tr><td align="left" balign="left"> + getStUFBGAsynchronePort(features : WebServiceFeature[]) : StUFBGAsynchroonPortType </td></tr>
+		</table></td></tr>
+		</table>>, URL="./StUFBGAsynchroon.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

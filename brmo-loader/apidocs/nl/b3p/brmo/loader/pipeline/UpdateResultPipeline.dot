@@ -10,18 +10,37 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.pipeline.UpdateResultPipeline
-	c2309 [label=<<table title="nl.b3p.brmo.loader.pipeline.UpdateResultPipeline" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./UpdateResultPipeline.html">
+	c2345 [label=<<table title="nl.b3p.brmo.loader.pipeline.UpdateResultPipeline" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./UpdateResultPipeline.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> UpdateResultPipeline </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + UpdateResultPipeline(handler : BerichtenHandler, capacity : int, stopwatchPrefix : String) </td></tr>
+<tr><td align="left" balign="left"> ~ work(workUnit : BerichtWorkUnit) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./UpdateResultPipeline.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.pipeline.BerichtPipelineThread
-	c2311 [label=<<table title="nl.b3p.brmo.loader.pipeline.BerichtPipelineThread" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtPipelineThread.html">
+	c2347 [label=<<table title="nl.b3p.brmo.loader.pipeline.BerichtPipelineThread" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtPipelineThread.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> BerichtPipelineThread </font></td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> ~ log : Log </td></tr>
+<tr><td align="left" balign="left"> ~ handler : BerichtenHandler </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BerichtPipelineThread(handler : BerichtenHandler, capacity : int, stopwatchPrefix : String) </td></tr>
+<tr><td align="left" balign="left"> + stopWhenQueueEmpty() </td></tr>
+<tr><td align="left" balign="left"> + setAbortFlag() </td></tr>
+<tr><td align="left" balign="left"> + getQueue() : BlockingQueue&lt;BerichtWorkUnit&gt; </td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> ~ work(workUnit : BerichtWorkUnit) </font></td></tr>
+<tr><td align="left" balign="left"> + run() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./BerichtPipelineThread.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.pipeline.UpdateResultPipeline extends nl.b3p.brmo.loader.pipeline.BerichtPipelineThread
-	c2311:p -> c2309:p [dir=back,arrowtail=empty];
+	c2347:p -> c2345:p [dir=back,arrowtail=empty];
 }
 

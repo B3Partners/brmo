@@ -10,18 +10,129 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.AbstractDatabaseIntegrationTest
-	c939 [label=<<table title="nl.b3p.AbstractDatabaseIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractDatabaseIntegrationTest.html">
+	c977 [label=<<table title="nl.b3p.AbstractDatabaseIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractDatabaseIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractDatabaseIntegrationTest </font></td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # params : Properties </td></tr>
+<tr><td align="left" balign="left"> # isOracle : boolean </td></tr>
+<tr><td align="left" balign="left"> # isMsSQL : boolean </td></tr>
+<tr><td align="left" balign="left"> # isPostgis : boolean </td></tr>
+<tr><td align="left" balign="left"> + name : TestName </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AbstractDatabaseIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + checkDatabaseIsProvided() </td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + setUp() </font></td></tr>
+<tr><td align="left" balign="left"> + loadProps() </td></tr>
+<tr><td align="left" balign="left"> + startTest() </td></tr>
+<tr><td align="left" balign="left"> + endTest() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./AbstractDatabaseIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.TopNLIntegrationTest
-	c940 [label=<<table title="nl.b3p.TopNLIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TopNLIntegrationTest.html">
+	c978 [label=<<table title="nl.b3p.TopNLIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TopNLIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TopNLIntegrationTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TopNLIntegrationTest(bestandType : TopNLType, bestandNaam : String, aantalBerichten : long, aantalProcessen : long, lpGebied : String) </td></tr>
+<tr><td align="left" balign="left"> + params() : Collection&lt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + loadTopNLInStaging() </td></tr>
+<tr><td align="left" balign="left"> + processTopNL() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./TopNLIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.TopNLIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c939:p -> c940:p [dir=back,arrowtail=empty];
+	c977:p -> c978:p [dir=back,arrowtail=empty];
+	// nl.b3p.TopNLIntegrationTest NAVASSOC nl.b3p.topnl.TopNLType
+	c978:p -> c990:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.TopNLIntegrationTest NAVASSOC nl.b3p.brmo.loader.BrmoFramework
+	c978:p -> c991:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.TopNLType
+	c990 [label=<<table title="nl.b3p.topnl.TopNLType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> TopNLType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> TOP10NL </td></tr>
+<tr><td align="left" balign="left"> TOP50NL </td></tr>
+<tr><td align="left" balign="left"> TOP100NL </td></tr>
+<tr><td align="left" balign="left"> TOP250NL </td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.BrmoFramework
+	c991 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BrmoFramework </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BR_BAG : String </td></tr>
+<tr><td align="left" balign="left"> + BR_BRK : String </td></tr>
+<tr><td align="left" balign="left"> + BR_NHR : String </td></tr>
+<tr><td align="left" balign="left"> + BR_BGTLIGHT : String </td></tr>
+<tr><td align="left" balign="left"> + BR_TOPNL : String </td></tr>
+<tr><td align="left" balign="left"> + BR_BRP : String </td></tr>
+<tr><td align="left" balign="left"> + BR_GBAV : String </td></tr>
+<tr><td align="left" balign="left"> + XSL_BRK : String </td></tr>
+<tr><td align="left" balign="left"> + XSL_BAG : String </td></tr>
+<tr><td align="left" balign="left"> + XSL_NHR : String </td></tr>
+<tr><td align="left" balign="left"> + XSL_BRP : String </td></tr>
+<tr><td align="left" balign="left"> + XSL_GBAV : String </td></tr>
+<tr><td align="left" balign="left"> + LAADPROCES_TABEL : String </td></tr>
+<tr><td align="left" balign="left"> + BERICHT_TABLE : String </td></tr>
+<tr><td align="left" balign="left"> + JOB_TABLE : String </td></tr>
+<tr><td align="left" balign="left"> + BRMO_METADATA_TABEL : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BrmoFramework(arg0 : DataSource, arg1 : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + BrmoFramework(arg0 : DataSource, arg1 : DataSource, arg2 : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + BrmoFramework(arg0 : DataSource, arg1 : DataSource, arg2 : DataSource, arg3 : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + setDataSourceRsgbBgt(arg0 : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + setDataSourceTopNL(arg0 : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + getStagingVersion() : String </td></tr>
+<tr><td align="left" balign="left"> + getRsgbVersion() : String </td></tr>
+<tr><td align="left" balign="left"> + getRsgbBgtVersion() : String </td></tr>
+<tr><td align="left" balign="left"> + setEnablePipeline(arg0 : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setRenewConnectionAfterCommit(arg0 : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setTransformPipelineCapacity(arg0 : int) </td></tr>
+<tr><td align="left" balign="left"> + setBatchCapacity(arg0 : int) </td></tr>
+<tr><td align="left" balign="left"> + setLimitStandBerichtenToTransform(arg0 : Integer) </td></tr>
+<tr><td align="left" balign="left"> + setOrderBerichten(arg0 : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setErrorState(arg0 : String) </td></tr>
+<tr><td align="left" balign="left"> + closeBrmoFramework() </td></tr>
+<tr><td align="left" balign="left"> + toRsgb() : Thread </td></tr>
+<tr><td align="left" balign="left"> + toRsgb(arg0 : ProgressUpdateListener) : Thread </td></tr>
+<tr><td align="left" balign="left"> + toRsgb(arg0 : Bericht.STATUS, arg1 : ProgressUpdateListener) : Thread </td></tr>
+<tr><td align="left" balign="left"> + toRsgb(arg0 : RsgbProxy.BerichtSelectMode, arg1 : long[], arg2 : ProgressUpdateListener) : Thread </td></tr>
+<tr><td align="left" balign="left"> + toRsgb(arg0 : UpdateProcess, arg1 : ProgressUpdateListener) : Thread </td></tr>
+<tr><td align="left" balign="left"> + delete(arg0 : Long) </td></tr>
+<tr><td align="left" balign="left"> + listLaadProcessen() : List&lt;LaadProces&gt; </td></tr>
+<tr><td align="left" balign="left"> + listBerichten() : List&lt;Bericht&gt; </td></tr>
+<tr><td align="left" balign="left"> + loadFromFile(arg0 : String, arg1 : String) </td></tr>
+<tr><td align="left" balign="left"> + loadFromFile(arg0 : String, arg1 : String, arg2 : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + loadFromStream(arg0 : String, arg1 : InputStream, arg2 : String) </td></tr>
+<tr><td align="left" balign="left"> + loadFromStream(arg0 : String, arg1 : InputStream, arg2 : String, arg3 : Date) </td></tr>
+<tr><td align="left" balign="left"> + loadFromStream(arg0 : String, arg1 : InputStream, arg2 : String, arg3 : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + emptyStagingDb() </td></tr>
+<tr><td align="left" balign="left"> + getLaadProcesIdByFileName(arg0 : String) : Long </td></tr>
+<tr><td align="left" balign="left"> + getBerichtById(arg0 : long) : Bericht </td></tr>
+<tr><td align="left" balign="left"> + getLaadProcesById(arg0 : long) : LaadProces </td></tr>
+<tr><td align="left" balign="left"> + getBerichten(arg0 : int, arg1 : int, arg2 : int, arg3 : String, arg4 : String, arg5 : String, arg6 : String) : List&lt;Bericht&gt; </td></tr>
+<tr><td align="left" balign="left"> + getLaadprocessen(arg0 : int, arg1 : int, arg2 : int, arg3 : String, arg4 : String, arg5 : String, arg6 : String) : List&lt;LaadProces&gt; </td></tr>
+<tr><td align="left" balign="left"> + getLaadProcessenIds(arg0 : String, arg1 : String, arg2 : String, arg3 : String) : Long[] </td></tr>
+<tr><td align="left" balign="left"> + getCountBerichten(arg0 : String, arg1 : String, arg2 : String, arg3 : String) : long </td></tr>
+<tr><td align="left" balign="left"> + getCountLaadProcessen(arg0 : String, arg1 : String, arg2 : String, arg3 : String) : long </td></tr>
+<tr><td align="left" balign="left"> + getCountJob() : long </td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

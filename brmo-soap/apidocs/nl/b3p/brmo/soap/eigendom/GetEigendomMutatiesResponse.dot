@@ -9,11 +9,37 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.soap.eigendom.EigendomMutatieResponse
+	c912 [label=<<table title="nl.b3p.brmo.soap.eigendom.EigendomMutatieResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EigendomMutatieResponse.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> EigendomMutatieResponse </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # eigendomMutatie : List&lt;EigendomMutatie&gt; </td></tr>
+<tr><td align="left" balign="left"> # timestamp : XMLGregorianCalendar </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + EigendomMutatieResponse() </td></tr>
+<tr><td align="left" balign="left"> + getEigendomMutatie() : List&lt;EigendomMutatie&gt; </td></tr>
+<tr><td align="left" balign="left"> + getTimestamp() : XMLGregorianCalendar </td></tr>
+<tr><td align="left" balign="left"> + setTimestamp(value : XMLGregorianCalendar) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./EigendomMutatieResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.eigendom.GetEigendomMutatiesResponse
-	c911 [label=<<table title="nl.b3p.brmo.soap.eigendom.GetEigendomMutatiesResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./GetEigendomMutatiesResponse.html">
+	c915 [label=<<table title="nl.b3p.brmo.soap.eigendom.GetEigendomMutatiesResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./GetEigendomMutatiesResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GetEigendomMutatiesResponse </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # _return : EigendomMutatieResponse </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GetEigendomMutatiesResponse() </td></tr>
+<tr><td align="left" balign="left"> + getReturn() : EigendomMutatieResponse </td></tr>
+<tr><td align="left" balign="left"> + setReturn(value : EigendomMutatieResponse) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./GetEigendomMutatiesResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.eigendom.GetEigendomMutatiesResponse NAVASSOC nl.b3p.brmo.soap.eigendom.EigendomMutatieResponse
+	c915:p -> c912:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

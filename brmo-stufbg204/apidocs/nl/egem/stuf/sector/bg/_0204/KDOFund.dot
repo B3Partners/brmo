@@ -10,34 +10,251 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving
-	c75596 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.html">
+	c75602 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOKennisgeving </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdoadr : List&lt;ADRRelKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdobsg : List&lt;KDOKennisgeving.KDOBSG&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdokdofil : List&lt;KDOKennisgeving.KDOKDOFIL&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdoprb : List&lt;KDOKennisgeving.KDOPRB&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdosubvzg : JAXBElement&lt;KDOKennisgeving.KDOSUBVZG&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdosubzkr : List&lt;KDOKennisgeving.KDOSUBZKR&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOKennisgeving() </td></tr>
+<tr><td align="left" balign="left"> + getKDOADR() : List&lt;ADRRelKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKDOBSG() : List&lt;KDOKennisgeving.KDOBSG&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKDOKDOFIL() : List&lt;KDOKennisgeving.KDOKDOFIL&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKDOPRB() : List&lt;KDOKennisgeving.KDOPRB&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKDOSUBVZG() : JAXBElement&lt;KDOKennisgeving.KDOSUBVZG&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKDOSUBVZG(value : JAXBElement&lt;KDOKennisgeving.KDOSUBVZG&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKDOSUBZKR() : List&lt;KDOKennisgeving.KDOSUBZKR&gt; </td></tr>
+		</table></td></tr>
 		</table>>, URL="./KDOKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOAntwoord
-	c75674 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOAntwoord.html">
+	c75680 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOAntwoord.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOAntwoord </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : List&lt;KDOFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdoadr : List&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdobsg : List&lt;KDOAntwoord.KDOBSG&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdokdofil : List&lt;KDOAntwoord.KDOKDOFIL&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdoprb : List&lt;KDOAntwoord.KDOPRB&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdosubvzg : List&lt;KDOAntwoord.KDOSUBVZG&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdosubzkr : List&lt;KDOAntwoord.KDOSUBZKR&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOAntwoord() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : List&lt;KDOFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKDOADR() : List&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKDOBSG() : List&lt;KDOAntwoord.KDOBSG&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKDOKDOFIL() : List&lt;KDOAntwoord.KDOKDOFIL&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKDOPRB() : List&lt;KDOAntwoord.KDOPRB&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKDOSUBVZG() : List&lt;KDOAntwoord.KDOSUBVZG&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKDOSUBZKR() : List&lt;KDOAntwoord.KDOSUBZKR&gt; </td></tr>
+		</table></td></tr>
 		</table>>, URL="./KDOAntwoord.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOFund
-	c75734 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOFund.html">
+	c75740 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOFund </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kadastraleGemeentecode : JAXBElement&lt;KDOFund.KadastraleGemeentecode&gt; </td></tr>
+<tr><td align="left" balign="left"> # kadastraleSectie : JAXBElement&lt;KDOFund.KadastraleSectie&gt; </td></tr>
+<tr><td align="left" balign="left"> # kadastraalPerceelnummer : JAXBElement&lt;KDOFund.KadastraalPerceelnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # kadastraalObjectIndexLetter : JAXBElement&lt;KDOFund.KadastraalObjectIndexLetter&gt; </td></tr>
+<tr><td align="left" balign="left"> # kadastraalObjectIndexNummer : JAXBElement&lt;KDOFund.KadastraalObjectIndexNummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # omschrijvingDeelPerceel : JAXBElement&lt;KDOFund.OmschrijvingDeelPerceel&gt; </td></tr>
+<tr><td align="left" balign="left"> # oppervlakteKadastraalObject : JAXBElement&lt;KDOFund.OppervlakteKadastraalObject&gt; </td></tr>
+<tr><td align="left" balign="left"> # indicatieOppervlakteGeschat : JAXBElement&lt;KDOFund.IndicatieOppervlakteGeschat&gt; </td></tr>
+<tr><td align="left" balign="left"> # aanduidingErfdienstbaarheid : JAXBElement&lt;KDOFund.AanduidingErfdienstbaarheid&gt; </td></tr>
+<tr><td align="left" balign="left"> # aanduidingIndicatieMogelijk : JAXBElement&lt;KDOFund.AanduidingIndicatieMogelijk&gt; </td></tr>
+<tr><td align="left" balign="left"> # indicatieVervallen : JAXBElement&lt;KDOFund.IndicatieVervallen&gt; </td></tr>
+<tr><td align="left" balign="left"> # koopjaar : JAXBElement&lt;KDOFund.Koopjaar&gt; </td></tr>
+<tr><td align="left" balign="left"> # koopsom : JAXBElement&lt;KDOFund.Koopsom&gt; </td></tr>
+<tr><td align="left" balign="left"> # koopsomEuro : JAXBElement&lt;KDOFund.KoopsomEuro&gt; </td></tr>
+<tr><td align="left" balign="left"> # centroidXCoordinaat : JAXBElement&lt;KDOFund.CentroidXCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> # centroidYCoordinaat : JAXBElement&lt;KDOFund.CentroidYCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> # centroidZCoordinaat : JAXBElement&lt;KDOFund.CentroidZCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> # ingangsdatumKadastraalObject : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # einddatumKadastraalObject : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOFund() </td></tr>
+<tr><td align="left" balign="left"> + getKadastraleGemeentecode() : JAXBElement&lt;KDOFund.KadastraleGemeentecode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKadastraleGemeentecode(value : JAXBElement&lt;KDOFund.KadastraleGemeentecode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKadastraleSectie() : JAXBElement&lt;KDOFund.KadastraleSectie&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKadastraleSectie(value : JAXBElement&lt;KDOFund.KadastraleSectie&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKadastraalPerceelnummer() : JAXBElement&lt;KDOFund.KadastraalPerceelnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKadastraalPerceelnummer(value : JAXBElement&lt;KDOFund.KadastraalPerceelnummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKadastraalObjectIndexLetter() : JAXBElement&lt;KDOFund.KadastraalObjectIndexLetter&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKadastraalObjectIndexLetter(value : JAXBElement&lt;KDOFund.KadastraalObjectIndexLetter&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKadastraalObjectIndexNummer() : JAXBElement&lt;KDOFund.KadastraalObjectIndexNummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKadastraalObjectIndexNummer(value : JAXBElement&lt;KDOFund.KadastraalObjectIndexNummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getOmschrijvingDeelPerceel() : JAXBElement&lt;KDOFund.OmschrijvingDeelPerceel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setOmschrijvingDeelPerceel(value : JAXBElement&lt;KDOFund.OmschrijvingDeelPerceel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getOppervlakteKadastraalObject() : JAXBElement&lt;KDOFund.OppervlakteKadastraalObject&gt; </td></tr>
+<tr><td align="left" balign="left"> + setOppervlakteKadastraalObject(value : JAXBElement&lt;KDOFund.OppervlakteKadastraalObject&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIndicatieOppervlakteGeschat() : JAXBElement&lt;KDOFund.IndicatieOppervlakteGeschat&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIndicatieOppervlakteGeschat(value : JAXBElement&lt;KDOFund.IndicatieOppervlakteGeschat&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAanduidingErfdienstbaarheid() : JAXBElement&lt;KDOFund.AanduidingErfdienstbaarheid&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAanduidingErfdienstbaarheid(value : JAXBElement&lt;KDOFund.AanduidingErfdienstbaarheid&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAanduidingIndicatieMogelijk() : JAXBElement&lt;KDOFund.AanduidingIndicatieMogelijk&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAanduidingIndicatieMogelijk(value : JAXBElement&lt;KDOFund.AanduidingIndicatieMogelijk&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIndicatieVervallen() : JAXBElement&lt;KDOFund.IndicatieVervallen&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIndicatieVervallen(value : JAXBElement&lt;KDOFund.IndicatieVervallen&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKoopjaar() : JAXBElement&lt;KDOFund.Koopjaar&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKoopjaar(value : JAXBElement&lt;KDOFund.Koopjaar&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKoopsom() : JAXBElement&lt;KDOFund.Koopsom&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKoopsom(value : JAXBElement&lt;KDOFund.Koopsom&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKoopsomEuro() : JAXBElement&lt;KDOFund.KoopsomEuro&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKoopsomEuro(value : JAXBElement&lt;KDOFund.KoopsomEuro&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getCentroidXCoordinaat() : JAXBElement&lt;KDOFund.CentroidXCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCentroidXCoordinaat(value : JAXBElement&lt;KDOFund.CentroidXCoordinaat&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getCentroidYCoordinaat() : JAXBElement&lt;KDOFund.CentroidYCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCentroidYCoordinaat(value : JAXBElement&lt;KDOFund.CentroidYCoordinaat&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getCentroidZCoordinaat() : JAXBElement&lt;KDOFund.CentroidZCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCentroidZCoordinaat(value : JAXBElement&lt;KDOFund.CentroidZCoordinaat&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIngangsdatumKadastraalObject() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIngangsdatumKadastraalObject(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatumKadastraalObject() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setEinddatumKadastraalObject(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./KDOFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOVraag
-	c75846 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOVraag.html">
+	c75852 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOVraag.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOVraag </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdoadr : JAXBElement&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdobsg : JAXBElement&lt;KDOVraag.KDOBSG&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdokdofil : JAXBElement&lt;KDOVraag.KDOKDOFIL&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdoprb : JAXBElement&lt;KDOVraag.KDOPRB&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdosubvzg : List&lt;KDOVraag.KDOSUBVZG&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdosubzkr : List&lt;KDOVraag.KDOSUBZKR&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOVraag() </td></tr>
+<tr><td align="left" balign="left"> + getKDOADR() : JAXBElement&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKDOADR(value : JAXBElement&lt;ADRRelFund&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKDOBSG() : JAXBElement&lt;KDOVraag.KDOBSG&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKDOBSG(value : JAXBElement&lt;KDOVraag.KDOBSG&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKDOKDOFIL() : JAXBElement&lt;KDOVraag.KDOKDOFIL&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKDOKDOFIL(value : JAXBElement&lt;KDOVraag.KDOKDOFIL&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKDOPRB() : JAXBElement&lt;KDOVraag.KDOPRB&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKDOPRB(value : JAXBElement&lt;KDOVraag.KDOPRB&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKDOSUBVZG() : List&lt;KDOVraag.KDOSUBVZG&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKDOSUBZKR() : List&lt;KDOVraag.KDOSUBZKR&gt; </td></tr>
+		</table></td></tr>
 		</table>>, URL="./KDOVraag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.NoValue
+	c75886 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
+<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
+<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
+<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.Verwerkingssoort
+	c75889 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> Verwerkingssoort </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> T </td></tr>
+<tr><td align="left" balign="left"> W </td></tr>
+<tr><td align="left" balign="left"> V </td></tr>
+<tr><td align="left" balign="left"> E </td></tr>
+<tr><td align="left" balign="left"> I </td></tr>
+<tr><td align="left" balign="left"> R </td></tr>
+<tr><td align="left" balign="left"> S </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/Verwerkingssoort.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c75890 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakGeldigheid.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> TijdvakGeldigheid </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # begindatumTijdvakGeldigheid : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> # einddatumTijdvakGeldigheid : DatumMetIndicator </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TijdvakGeldigheid() </td></tr>
+<tr><td align="left" balign="left"> + getBegindatumTijdvakGeldigheid() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setBegindatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatumTijdvakGeldigheid() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setEinddatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/TijdvakGeldigheid.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.ExtraElementen
+	c75901 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ExtraElementen </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
+<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.KDOKennisgeving extends nl.egem.stuf.sector.bg._0204.KDOFund
-	c75734:p -> c75596:p [dir=back,arrowtail=empty];
+	c75740:p -> c75602:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.KDOAntwoord extends nl.egem.stuf.sector.bg._0204.KDOFund
-	c75734:p -> c75674:p [dir=back,arrowtail=empty];
+	c75740:p -> c75680:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.KDOVraag extends nl.egem.stuf.sector.bg._0204.KDOFund
-	c75734:p -> c75846:p [dir=back,arrowtail=empty];
+	c75740:p -> c75852:p [dir=back,arrowtail=empty];
+	// nl.egem.stuf.sector.bg._0204.KDOFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c75740:p -> c75890:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.KDOFund NAVASSOC nl.egem.stuf.stuf0204.ExtraElementen
+	c75740:p -> c75901:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.KDOFund NAVASSOC nl.egem.stuf.stuf0204.Verwerkingssoort
+	c75740:p -> c75889:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.KDOFund NAVASSOC nl.egem.stuf.stuf0204.NoValue
+	c75740:p -> c75886:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

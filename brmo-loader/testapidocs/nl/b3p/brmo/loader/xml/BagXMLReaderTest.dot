@@ -10,9 +10,20 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.xml.BagXMLReaderTest
-	c383 [label=<<table title="nl.b3p.brmo.loader.xml.BagXMLReaderTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BagXMLReaderTest.html">
+	c407 [label=<<table title="nl.b3p.brmo.loader.xml.BagXMLReaderTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BagXMLReaderTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BagXMLReaderTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BagXMLReaderTest() </td></tr>
+<tr><td align="left" balign="left"> + mutTestSmallXML() </td></tr>
+<tr><td align="left" balign="left"> + mutTestLargeXML() </td></tr>
+<tr><td align="left" balign="left"> + mutTestZipFile() </td></tr>
+<tr><td align="left" balign="left"> + testLvcEmptyXML() </td></tr>
+<tr><td align="left" balign="left"> + testLvcSmallXML() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BagXMLReaderTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

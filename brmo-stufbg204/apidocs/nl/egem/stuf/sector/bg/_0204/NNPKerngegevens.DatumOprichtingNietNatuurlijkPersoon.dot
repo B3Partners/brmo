@@ -9,19 +9,96 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.NNPKerngegevens
+	c125619 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPKerngegevens.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> NNPKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # sofiNummer : NNPKerngegevens.SofiNummer </td></tr>
+<tr><td align="left" balign="left"> # aanvullingSoFiNummer : NNPKerngegevens.AanvullingSoFiNummer </td></tr>
+<tr><td align="left" balign="left"> # handelsnaam : NNPKerngegevens.Handelsnaam </td></tr>
+<tr><td align="left" balign="left"> # statutaireNaamVennootschapsnaam : NNPKerngegevens.StatutaireNaamVennootschapsnaam </td></tr>
+<tr><td align="left" balign="left"> # zaaknaam : NNPKerngegevens.Zaaknaam </td></tr>
+<tr><td align="left" balign="left"> # datumOprichtingNietNatuurlijkPersoon : NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon </td></tr>
+<tr><td align="left" balign="left"> # nnpadrvbl : NNPKerngegevens.NNPADRVBL </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NNPKerngegevens() </td></tr>
+<tr><td align="left" balign="left"> + getSofiNummer() : NNPKerngegevens.SofiNummer </td></tr>
+<tr><td align="left" balign="left"> + setSofiNummer(value : NNPKerngegevens.SofiNummer) </td></tr>
+<tr><td align="left" balign="left"> + getAanvullingSoFiNummer() : NNPKerngegevens.AanvullingSoFiNummer </td></tr>
+<tr><td align="left" balign="left"> + setAanvullingSoFiNummer(value : NNPKerngegevens.AanvullingSoFiNummer) </td></tr>
+<tr><td align="left" balign="left"> + getHandelsnaam() : NNPKerngegevens.Handelsnaam </td></tr>
+<tr><td align="left" balign="left"> + setHandelsnaam(value : NNPKerngegevens.Handelsnaam) </td></tr>
+<tr><td align="left" balign="left"> + getStatutaireNaamVennootschapsnaam() : NNPKerngegevens.StatutaireNaamVennootschapsnaam </td></tr>
+<tr><td align="left" balign="left"> + setStatutaireNaamVennootschapsnaam(value : NNPKerngegevens.StatutaireNaamVennootschapsnaam) </td></tr>
+<tr><td align="left" balign="left"> + getZaaknaam() : NNPKerngegevens.Zaaknaam </td></tr>
+<tr><td align="left" balign="left"> + setZaaknaam(value : NNPKerngegevens.Zaaknaam) </td></tr>
+<tr><td align="left" balign="left"> + getDatumOprichtingNietNatuurlijkPersoon() : NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon </td></tr>
+<tr><td align="left" balign="left"> + setDatumOprichtingNietNatuurlijkPersoon(value : NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon) </td></tr>
+<tr><td align="left" balign="left"> + getNNPADRVBL() : NNPKerngegevens.NNPADRVBL </td></tr>
+<tr><td align="left" balign="left"> + setNNPADRVBL(value : NNPKerngegevens.NNPADRVBL) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./NNPKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon
-	c125615 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon.html">
+	c125621 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatumOprichtingNietNatuurlijkPersoon </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + DatumOprichtingNietNatuurlijkPersoon() </td></tr>
+<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.DatumMetIndicator
-	c125993 [label=<<table title="nl.egem.stuf.stuf0204.DatumMetIndicator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/DatumMetIndicator.html">
+	c125999 [label=<<table title="nl.egem.stuf.stuf0204.DatumMetIndicator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/DatumMetIndicator.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatumMetIndicator </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # value : BigDecimal </td></tr>
+<tr><td align="left" balign="left"> # indOnvolledigeDatum : IndOnvolledigeDatum </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+<tr><td align="left" balign="left"> # exact : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + DatumMetIndicator() </td></tr>
+<tr><td align="left" balign="left"> + getValue() : BigDecimal </td></tr>
+<tr><td align="left" balign="left"> + setValue(value : BigDecimal) </td></tr>
+<tr><td align="left" balign="left"> + getIndOnvolledigeDatum() : IndOnvolledigeDatum </td></tr>
+<tr><td align="left" balign="left"> + setIndOnvolledigeDatum(value : IndOnvolledigeDatum) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+<tr><td align="left" balign="left"> + isExact() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setExact(value : Boolean) </td></tr>
+		</table></td></tr>
 		</table>>, URL="../../../stuf0204/DatumMetIndicator.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon extends nl.egem.stuf.stuf0204.DatumMetIndicator
-	c125993:p -> c125615:p [dir=back,arrowtail=empty];
+	c125999:p -> c125621:p [dir=back,arrowtail=empty];
+	// nl.egem.stuf.sector.bg._0204.NNPKerngegevens NAVASSOC nl.egem.stuf.sector.bg._0204.NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon
+	c125619:p -> c125621:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

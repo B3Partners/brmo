@@ -14,11 +14,37 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ProcessorTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ProcessorTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + testParse() </td></tr>
+<tr><td align="left" balign="left"> + testSave250() </td></tr>
+<tr><td align="left" balign="left"> + testImportIntoDb250() </td></tr>
+<tr><td align="left" balign="left"> + testSave250MultipleFeature() </td></tr>
+<tr><td align="left" balign="left"> + testSave100() </td></tr>
+<tr><td align="left" balign="left"> + testConvert() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./ProcessorTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.TestUtil
 	c1 [label=<<table title="nl.b3p.topnl.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TestUtil </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # datasource : DataSource </td></tr>
+<tr><td align="left" balign="left"> # useDB : boolean </td></tr>
+<tr><td align="left" balign="left"> # run : QueryRunner </td></tr>
+<tr><td align="left" balign="left"> + testName : TestName </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TestUtil() </td></tr>
+<tr><td align="left" balign="left"> + startTest() </td></tr>
+<tr><td align="left" balign="left"> + setUpClass() </td></tr>
+<tr><td align="left" balign="left"> + endTest() </td></tr>
+<tr><td align="left" balign="left"> + executeScript(f : Reader) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.TopNLTypeFactoryTest
@@ -26,11 +52,47 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TopNLTypeFactoryTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + testName : TestName </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TopNLTypeFactoryTest() </td></tr>
+<tr><td align="left" balign="left"> + startTest() </td></tr>
+<tr><td align="left" balign="left"> + endTest() </td></tr>
+<tr><td align="left" balign="left"> + testGetTopNLType50() </td></tr>
+<tr><td align="left" balign="left"> + testGetTopNLType250() </td></tr>
+<tr><td align="left" balign="left"> + testGetTopNLType100() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./TopNLTypeFactoryTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.DatabaseTest
 	c3 [label=<<table title="nl.b3p.topnl.DatabaseTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DatabaseTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatabaseTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + DatabaseTest(type : TopNLType) </td></tr>
+<tr><td align="left" balign="left"> + params() : Collection&lt;Object&gt; </td></tr>
+<tr><td align="left" balign="left"> + before() </td></tr>
+<tr><td align="left" balign="left"> + testSaveHoogte() </td></tr>
+<tr><td align="left" balign="left"> + testSavePlanTopografie() </td></tr>
+<tr><td align="left" balign="left"> + testSaveGebouw() </td></tr>
+<tr><td align="left" balign="left"> + testSaveGeografischGebied() </td></tr>
+<tr><td align="left" balign="left"> + testSaveInrichtingselement() </td></tr>
+<tr><td align="left" balign="left"> + testSavePlaats() </td></tr>
+<tr><td align="left" balign="left"> + testSaveRegistratiefGebied() </td></tr>
+<tr><td align="left" balign="left"> + testSaveRelief() </td></tr>
+<tr><td align="left" balign="left"> + testSaveReliefEmptyTaludGeoms() </td></tr>
+<tr><td align="left" balign="left"> + testSaveReliefEmptyHoofdGeom() </td></tr>
+<tr><td align="left" balign="left"> + testSaveSpoorbaandeel() </td></tr>
+<tr><td align="left" balign="left"> + testSaveTerrein() </td></tr>
+<tr><td align="left" balign="left"> + testWaterdeel() </td></tr>
+<tr><td align="left" balign="left"> + testSaveFunctioneelgebied() </td></tr>
+<tr><td align="left" balign="left"> + testSaveWegdeel() </td></tr>
+<tr><td align="left" balign="left"> + getStandardTestTopNLEntity(e : TopNLEntity, type : TopNLType) </td></tr>
+<tr><td align="left" balign="left"> + testStandardTopNLEntity(real : TopNLEntity, e : TopNLEntity) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DatabaseTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.ScriptRunner
@@ -38,11 +100,29 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ScriptRunner </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ScriptRunner(connection : Connection, autoCommit : boolean, stopOnError : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setDelimiter(delimiter : String, fullLineDelimiter : boolean) </td></tr>
+<tr><td align="left" balign="left"> + runScript(reader : Reader) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./ScriptRunner.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.ErrorsTest
 	c5 [label=<<table title="nl.b3p.topnl.ErrorsTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ErrorsTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ErrorsTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ErrorsTest() </td></tr>
+<tr><td align="left" balign="left"> + before() </td></tr>
+<tr><td align="left" balign="left"> + polygonErrors1Test() </td></tr>
+<tr><td align="left" balign="left"> + polygonErrors2Test() </td></tr>
+<tr><td align="left" balign="left"> + spoorbaanDePunt() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ErrorsTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.ProcessorTest extends nl.b3p.topnl.TestUtil
@@ -51,5 +131,78 @@ digraph G {
 	c1:p -> c3:p [dir=back,arrowtail=empty];
 	//nl.b3p.topnl.ErrorsTest extends nl.b3p.topnl.TestUtil
 	c1:p -> c5:p [dir=back,arrowtail=empty];
+	// nl.b3p.topnl.ProcessorTest NAVASSOC nl.b3p.topnl.Processor
+	c0:p -> c10:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.TopNLTypeFactoryTest NAVASSOC nl.b3p.topnl.TopNLTypeFactory
+	c2:p -> c11:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.DatabaseTest NAVASSOC nl.b3p.topnl.Database
+	c3:p -> c12:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.DatabaseTest NAVASSOC nl.b3p.topnl.TopNLType
+	c3:p -> c13:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.ErrorsTest NAVASSOC nl.b3p.topnl.Processor
+	c5:p -> c10:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.TopNLType
+	c13 [label=<<table title="nl.b3p.topnl.TopNLType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> TopNLType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> TOP10NL </td></tr>
+<tr><td align="left" balign="left"> TOP50NL </td></tr>
+<tr><td align="left" balign="left"> TOP100NL </td></tr>
+<tr><td align="left" balign="left"> TOP250NL </td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.TopNLTypeFactory
+	c11 [label=<<table title="nl.b3p.topnl.TopNLTypeFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> TopNLTypeFactory </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TopNLTypeFactory() </td></tr>
+<tr><td align="left" balign="left"> + getTopNLType(arg0 : URL) : TopNLType </td></tr>
+<tr><td align="left" balign="left"> + getTopNLType(arg0 : String) : TopNLType </td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.Database
+	c12 [label=<<table title="nl.b3p.topnl.Database" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Database </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # log : Log </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Database(arg0 : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + save(arg0 : TopNLEntity) </td></tr>
+<tr><td align="left" balign="left"> + getGjc() : GeometryJdbcConverter </td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.Processor
+	c10 [label=<<table title="nl.b3p.topnl.Processor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Processor </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # log : Log </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Processor(arg0 : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + importIntoDb(arg0 : URL, arg1 : TopNLType) </td></tr>
+<tr><td align="left" balign="left"> + parse(arg0 : URL) : List&lt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + convert(arg0 : List&lt;&gt;, arg1 : TopNLType) : List&lt;TopNLEntity&gt; </td></tr>
+<tr><td align="left" balign="left"> + save(arg0 : TopNLEntity, arg1 : TopNLType) </td></tr>
+<tr><td align="left" balign="left"> + save(arg0 : List&lt;TopNLEntity&gt;, arg1 : TopNLType) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : Processor.STATUS </td></tr>
+<tr><td align="left" balign="left"> + resetStatus() </td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

@@ -9,12 +9,109 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.loader.RsgbProxy
+	c711 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../RsgbProxy.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> RsgbProxy </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + RsgbProxy(dataSourceRsgb : DataSource, stagingProxy : StagingProxy, status : Bericht.STATUS, listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + RsgbProxy(dataSourceRsgb : DataSource, stagingProxy : StagingProxy, mode : RsgbProxy.BerichtSelectMode, ids : long[], listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + RsgbProxy(dataSourceRsgb : DataSource, stagingProxy : StagingProxy, updateProcess : UpdateProcess, listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + setSimonNamePrefix(prefix : String) </td></tr>
+<tr><td align="left" balign="left"> + setEnablePipeline(enablePipeline : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setPipelineCapacity(pipelineCapacity : int) </td></tr>
+<tr><td align="left" balign="left"> + setRenewConnectionAfterCommit(renewConnectionAfterCommit : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setOrderBerichten(orderBerichten : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setErrorState(errorState : String) </td></tr>
+<tr><td align="left" balign="left"> + init() </td></tr>
+<tr><td align="left" balign="left"> + checkAndCloseStatement(stmt : PreparedStatement) </td></tr>
+<tr><td align="left" balign="left"> + checkAndAddStatement(m : Map&lt;String, PreparedStatement&gt;, tableName : String, stmt : PreparedStatement) </td></tr>
+<tr><td align="left" balign="left"> + close() </td></tr>
+<tr><td align="left" balign="left"> + renewConnection() </td></tr>
+<tr><td align="left" balign="left"> + run() </td></tr>
+<tr><td align="left" balign="left"> + updateProcessingResult(ber : Bericht) </td></tr>
+<tr><td align="left" balign="left"> + transformToTableData(ber : Bericht) : List&lt;TableData&gt; </td></tr>
+<tr><td align="left" balign="left"> + transformUpdateTableData(ber : Bericht) : List&lt;TableData&gt; </td></tr>
+<tr><td align="left" balign="left"> + updateBerichtException(ber : Bericht, e : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + updateBerichtProcessing(ber : Bericht) </td></tr>
+<tr><td align="left" balign="left"> + handle(ber : Bericht, pretransformedTableData : List&lt;TableData&gt;, updateResult : boolean) </td></tr>
+<tr><td align="left" balign="left"> + update(ber : Bericht, pretransformedTableData : List&lt;TableData&gt;) </td></tr>
+<tr><td align="left" balign="left"> + isAlreadyInMetadata(row : TableRow, loadLog : StringBuilder) : boolean </td></tr>
+<tr><td align="left" balign="left"> + getHerkomstMetadata() : String </td></tr>
+<tr><td align="left" balign="left"> + setHerkomstMetadata(herkomstMetadata : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../RsgbProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.entity.Bericht
+	c744 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Bericht </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # objectRef : String </td></tr>
+<tr><td align="left" balign="left"> # datum : Date </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Bericht(brXml : String) </td></tr>
+<tr><td align="left" balign="left"> + getId() : Long </td></tr>
+<tr><td align="left" balign="left"> + setId(id : Long) </td></tr>
+<tr><td align="left" balign="left"> + getLaadProcesId() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setLaadProcesId(laadProcesId : Integer) </td></tr>
+<tr><td align="left" balign="left"> + getObjectRef() : String </td></tr>
+<tr><td align="left" balign="left"> + setObjectRef(objectRef : String) </td></tr>
+<tr><td align="left" balign="left"> + getDatum() : Date </td></tr>
+<tr><td align="left" balign="left"> + setDatum(datum : Date) </td></tr>
+<tr><td align="left" balign="left"> + getVolgordeNummer() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setVolgordeNummer(volgordeNummer : Integer) </td></tr>
+<tr><td align="left" balign="left"> + getSoort() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoort(soort : String) </td></tr>
+<tr><td align="left" balign="left"> + getOpmerking() : String </td></tr>
+<tr><td align="left" balign="left"> + setOpmerking(opmerking : String) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : Bericht.STATUS </td></tr>
+<tr><td align="left" balign="left"> + setStatus(status : Bericht.STATUS) </td></tr>
+<tr><td align="left" balign="left"> + getJobId() : String </td></tr>
+<tr><td align="left" balign="left"> + setJobId(jobId : String) </td></tr>
+<tr><td align="left" balign="left"> + getStatusDatum() : Date </td></tr>
+<tr><td align="left" balign="left"> + setStatusDatum(statusDatum : Date) </td></tr>
+<tr><td align="left" balign="left"> + getBrXml() : String </td></tr>
+<tr><td align="left" balign="left"> + setBrXml(brXml : String) </td></tr>
+<tr><td align="left" balign="left"> + getBrOrgineelXml() : String </td></tr>
+<tr><td align="left" balign="left"> + setBrOrgineelXml(brOrgineelXml : String) </td></tr>
+<tr><td align="left" balign="left"> + getDbXml() : String </td></tr>
+<tr><td align="left" balign="left"> + setDbXml(dbXml : String) </td></tr>
+<tr><td align="left" balign="left"> + getXslVersion() : String </td></tr>
+<tr><td align="left" balign="left"> + setXslVersion(xslVersion : String) </td></tr>
+<tr><td align="left" balign="left"> + toString() : String </td></tr>
+		</table></td></tr>
+		</table>>, URL="./Bericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.Bericht.STATUS
-	c704 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Bericht.STATUS.html">
+	c745 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Bericht.STATUS.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> STATUS </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> STAGING_OK </td></tr>
+<tr><td align="left" balign="left"> STAGING_NOK </td></tr>
+<tr><td align="left" balign="left"> STAGING_FORWARDED </td></tr>
+<tr><td align="left" balign="left"> RSGB_WAITING </td></tr>
+<tr><td align="left" balign="left"> RSGB_PROCESSING </td></tr>
+<tr><td align="left" balign="left"> RSGB_OK </td></tr>
+<tr><td align="left" balign="left"> RSGB_OUTDATED </td></tr>
+<tr><td align="left" balign="left"> RSGB_NOK </td></tr>
+<tr><td align="left" balign="left"> ARCHIVE </td></tr>
+<tr><td align="left" balign="left"> RSGB_BAG_NOK </td></tr>
+		</table></td></tr>
 		</table>>, URL="./Bericht.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.entity.Bericht.STATUS
+	c711:p -> c745:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.entity.Bericht NAVASSOC nl.b3p.brmo.loader.entity.Bericht.STATUS
+	c744:p -> c745:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

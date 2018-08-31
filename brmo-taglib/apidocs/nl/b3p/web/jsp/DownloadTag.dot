@@ -14,14 +14,15 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DownloadTag </td></tr>
 		</table></td></tr>
-		</table>>, URL="./DownloadTag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//nl.b3p.web.jsp.DownloadTag extends javax.servlet.jsp.tagext.BodyTagSupport
-	c27:p -> c20:p [dir=back,arrowtail=empty];
-	// javax.servlet.jsp.tagext.BodyTagSupport
-	c27 [label=<<table title="javax.servlet.jsp.tagext.BodyTagSupport" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="https://docs.oracle.com/javaee/7/api/javax/servlet/jsp/tagext/BodyTagSupport.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BodyTagSupport </td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
-		</table>>, URL="https://docs.oracle.com/javaee/7/api/javax/servlet/jsp/tagext/BodyTagSupport.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + DownloadTag() </td></tr>
+<tr><td align="left" balign="left"> + doEndTag() : int </td></tr>
+<tr><td align="left" balign="left"> + getFile() : String </td></tr>
+<tr><td align="left" balign="left"> + setFile(filename : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./DownloadTag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

@@ -9,11 +9,107 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.VraagBericht
+	c239598 [label=<<table title="nl.egem.stuf.sector.bg._0204.VraagBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VraagBericht.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> VraagBericht </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # stuurgegevens : Stuurgegevens </td></tr>
+<tr><td align="left" balign="left"> # body : VraagBericht.Body </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VraagBericht() </td></tr>
+<tr><td align="left" balign="left"> + getStuurgegevens() : Stuurgegevens </td></tr>
+<tr><td align="left" balign="left"> + setStuurgegevens(value : Stuurgegevens) </td></tr>
+<tr><td align="left" balign="left"> + getBody() : VraagBericht.Body </td></tr>
+<tr><td align="left" balign="left"> + setBody(value : VraagBericht.Body) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./VraagBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VraagBericht.Body
-	c239597 [label=<<table title="nl.egem.stuf.sector.bg._0204.VraagBericht.Body" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VraagBericht.Body.html">
+	c239599 [label=<<table title="nl.egem.stuf.sector.bg._0204.VraagBericht.Body" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VraagBericht.Body.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Body </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # acd : List&lt;ACDTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # adl : List&lt;ADLTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # adr : List&lt;ADRVraag&gt; </td></tr>
+<tr><td align="left" balign="left"> # bgb : List&lt;BGBTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # bhv : List&lt;BHVTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # brt : List&lt;BRTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # bsg : List&lt;BSGFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # btk : List&lt;BTKTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # r04 : List&lt;R04Tabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # gem : List&lt;GEMTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # hhd : List&lt;HHDVraag&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdo : List&lt;KDOVraag&gt; </td></tr>
+<tr><td align="left" balign="left"> # kgm : List&lt;KGMTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # lft : List&lt;LFTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # lnd : List&lt;LNDTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # mna : List&lt;MNATabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # nat : List&lt;NATTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # nnp : List&lt;NNPVraag&gt; </td></tr>
+<tr><td align="left" balign="left"> # obw : List&lt;OBWVraag&gt; </td></tr>
+<tr><td align="left" balign="left"> # oht : List&lt;OHTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # prb : List&lt;PRBFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # prs : List&lt;PRSVraag&gt; </td></tr>
+<tr><td align="left" balign="left"> # rtb : List&lt;RTBTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # sbi : List&lt;SBITabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # sib : List&lt;SIBTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # spb : List&lt;SPBTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # srv : List&lt;SRVTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # r02 : List&lt;R02Tabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # szr : List&lt;SZRTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # vbt : List&lt;VBTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # vbo : List&lt;VBOVraag&gt; </td></tr>
+<tr><td align="left" balign="left"> # vot : List&lt;VOTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # wos : List&lt;WOSTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # woz : List&lt;WOZVraag&gt; </td></tr>
+<tr><td align="left" balign="left"> # r03 : List&lt;R03Tabel&gt; </td></tr>
+<tr><td align="left" balign="left"> # wyk : List&lt;WYKTabel&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Body() </td></tr>
+<tr><td align="left" balign="left"> + getACD() : List&lt;ACDTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getADL() : List&lt;ADLTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getADR() : List&lt;ADRVraag&gt; </td></tr>
+<tr><td align="left" balign="left"> + getBGB() : List&lt;BGBTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getBHV() : List&lt;BHVTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getBRT() : List&lt;BRTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getBSG() : List&lt;BSGFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + getBTK() : List&lt;BTKTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getR04() : List&lt;R04Tabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getGEM() : List&lt;GEMTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getHHD() : List&lt;HHDVraag&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : List&lt;KDOVraag&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKGM() : List&lt;KGMTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getLFT() : List&lt;LFTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getLND() : List&lt;LNDTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getMNA() : List&lt;MNATabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNAT() : List&lt;NATTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : List&lt;NNPVraag&gt; </td></tr>
+<tr><td align="left" balign="left"> + getOBW() : List&lt;OBWVraag&gt; </td></tr>
+<tr><td align="left" balign="left"> + getOHT() : List&lt;OHTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getPRB() : List&lt;PRBFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : List&lt;PRSVraag&gt; </td></tr>
+<tr><td align="left" balign="left"> + getRTB() : List&lt;RTBTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getSBI() : List&lt;SBITabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getSIB() : List&lt;SIBTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getSPB() : List&lt;SPBTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getSRV() : List&lt;SRVTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getR02() : List&lt;R02Tabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getSZR() : List&lt;SZRTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getVBT() : List&lt;VBTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getVBO() : List&lt;VBOVraag&gt; </td></tr>
+<tr><td align="left" balign="left"> + getVOT() : List&lt;VOTTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getWOS() : List&lt;WOSTabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getWOZ() : List&lt;WOZVraag&gt; </td></tr>
+<tr><td align="left" balign="left"> + getR03() : List&lt;R03Tabel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getWYK() : List&lt;WYKTabel&gt; </td></tr>
+		</table></td></tr>
 		</table>>, URL="./VraagBericht.Body.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.VraagBericht NAVASSOC nl.egem.stuf.sector.bg._0204.VraagBericht.Body
+	c239598:p -> c239599:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

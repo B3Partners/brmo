@@ -10,18 +10,91 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.WOZFund
-	c241529 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZFund.html">
+	c241531 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZFund </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # wozObjectNummer : JAXBElement&lt;WOZFund.WozObjectNummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # activiteitFeitelijk : List&lt;WOZFund.ActiviteitFeitelijk&gt; </td></tr>
+<tr><td align="left" balign="left"> # vastgesteldeWaarde : JAXBElement&lt;WOZFund.VastgesteldeWaarde&gt; </td></tr>
+<tr><td align="left" balign="left"> # vastgesteldeWaardeEuro : JAXBElement&lt;WOZFund.VastgesteldeWaardeEuro&gt; </td></tr>
+<tr><td align="left" balign="left"> # peildatumWaarde : JAXBElement&lt;WOZFund.PeildatumWaarde&gt; </td></tr>
+<tr><td align="left" balign="left"> # huurprijs : JAXBElement&lt;WOZFund.Huurprijs&gt; </td></tr>
+<tr><td align="left" balign="left"> # huurprijsEuro : JAXBElement&lt;BigInteger&gt; </td></tr>
+<tr><td align="left" balign="left"> # peildatumHuurprijs : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZFund() </td></tr>
+<tr><td align="left" balign="left"> + getWozObjectNummer() : JAXBElement&lt;WOZFund.WozObjectNummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setWozObjectNummer(value : JAXBElement&lt;WOZFund.WozObjectNummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getActiviteitFeitelijk() : List&lt;WOZFund.ActiviteitFeitelijk&gt; </td></tr>
+<tr><td align="left" balign="left"> + getVastgesteldeWaarde() : JAXBElement&lt;WOZFund.VastgesteldeWaarde&gt; </td></tr>
+<tr><td align="left" balign="left"> + setVastgesteldeWaarde(value : JAXBElement&lt;WOZFund.VastgesteldeWaarde&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getVastgesteldeWaardeEuro() : JAXBElement&lt;WOZFund.VastgesteldeWaardeEuro&gt; </td></tr>
+<tr><td align="left" balign="left"> + setVastgesteldeWaardeEuro(value : JAXBElement&lt;WOZFund.VastgesteldeWaardeEuro&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPeildatumWaarde() : JAXBElement&lt;WOZFund.PeildatumWaarde&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPeildatumWaarde(value : JAXBElement&lt;WOZFund.PeildatumWaarde&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getHuurprijs() : JAXBElement&lt;WOZFund.Huurprijs&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHuurprijs(value : JAXBElement&lt;WOZFund.Huurprijs&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getHuurprijsEuro() : JAXBElement&lt;BigInteger&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHuurprijsEuro(value : JAXBElement&lt;BigInteger&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPeildatumHuurprijs() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPeildatumHuurprijs(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./WOZFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZAntwoord
-	c241540 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZAntwoord.html">
+	c241542 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZAntwoord.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZAntwoord </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # woz : List&lt;WOZFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozadrhfd : List&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozadrnvn : List&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozkdo : List&lt;WOZAntwoord.WOZKDO&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozobw : List&lt;WOZAntwoord.WOZOBW&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozsubeig : List&lt;WOZAntwoord.WOZSUBEIG&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozsubgbr : List&lt;WOZAntwoord.WOZSUBGBR&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozvbo : List&lt;WOZAntwoord.WOZVBO&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZAntwoord() </td></tr>
+<tr><td align="left" balign="left"> + getWOZ() : List&lt;WOZFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + getWOZADRHFD() : List&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + getWOZADRNVN() : List&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + getWOZKDO() : List&lt;WOZAntwoord.WOZKDO&gt; </td></tr>
+<tr><td align="left" balign="left"> + getWOZOBW() : List&lt;WOZAntwoord.WOZOBW&gt; </td></tr>
+<tr><td align="left" balign="left"> + getWOZSUBEIG() : List&lt;WOZAntwoord.WOZSUBEIG&gt; </td></tr>
+<tr><td align="left" balign="left"> + getWOZSUBGBR() : List&lt;WOZAntwoord.WOZSUBGBR&gt; </td></tr>
+<tr><td align="left" balign="left"> + getWOZVBO() : List&lt;WOZAntwoord.WOZVBO&gt; </td></tr>
+		</table></td></tr>
 		</table>>, URL="./WOZAntwoord.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.WOZAntwoord extends nl.egem.stuf.sector.bg._0204.WOZFund
-	c241529:p -> c241540:p [dir=back,arrowtail=empty];
+	c241531:p -> c241542:p [dir=back,arrowtail=empty];
 }
 

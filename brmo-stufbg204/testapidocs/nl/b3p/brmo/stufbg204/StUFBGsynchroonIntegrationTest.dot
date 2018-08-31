@@ -10,18 +10,60 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.stufbg204.StUFBGsynchroonIntegrationTest
-	c7 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGsynchroonIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StUFBGsynchroonIntegrationTest.html">
+	c11 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGsynchroonIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StUFBGsynchroonIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StUFBGsynchroonIntegrationTest </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + StUFBGsynchroonIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + tearDown() </td></tr>
+<tr><td align="left" balign="left"> + helloStUFBGsynchroon() </td></tr>
+<tr><td align="left" balign="left"> + foutStUFBGsynchroon() </td></tr>
+<tr><td align="left" balign="left"> + testAntwoordBodyACD() </td></tr>
+		</table></td></tr>
 		</table>>, URL="./StUFBGsynchroonIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.stufbg204.TestStub
-	c8 [label=<<table title="nl.b3p.brmo.stufbg204.TestStub" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestStub.html">
+	c14 [label=<<table title="nl.b3p.brmo.stufbg204.TestStub" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestStub.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestStub </font></td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # DBPROPS : Properties </td></tr>
+<tr><td align="left" balign="left"> # isOracle : boolean </td></tr>
+<tr><td align="left" balign="left"> # isMsSQL : boolean </td></tr>
+<tr><td align="left" balign="left"> # isPostgis : boolean </td></tr>
+<tr><td align="left" balign="left"> + name : TestName </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TestStub() </td></tr>
+<tr><td align="left" balign="left"> + checkDatabaseIsProvided() </td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + setUp() </font></td></tr>
+<tr><td align="left" balign="left"> + loadDBprop() </td></tr>
+<tr><td align="left" balign="left"> + startTest() </td></tr>
+<tr><td align="left" balign="left"> + endTest() </td></tr>
+<tr><td align="left" balign="left"> # setupJNDI(dsRsgb : BasicDataSource, dsStaging : BasicDataSource) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./TestStub.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.stufbg204.StUFBGsynchroonIntegrationTest extends nl.b3p.brmo.stufbg204.TestStub
-	c8:p -> c7:p [dir=back,arrowtail=empty];
+	c14:p -> c11:p [dir=back,arrowtail=empty];
+	// nl.b3p.brmo.stufbg204.StUFBGsynchroonIntegrationTest NAVASSOC nl.b3p.brmo.stufbg204.StUFBGsynchroon
+	c11:p -> c15:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.stufbg204.StUFBGsynchroon
+	c15 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGsynchroon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> StUFBGsynchroon </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + StUFBGsynchroon() </td></tr>
+<tr><td align="left" balign="left"> + beantwoordSynchroneVraag(arg0 : VraagBericht) : SynchroonAntwoordBericht </td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

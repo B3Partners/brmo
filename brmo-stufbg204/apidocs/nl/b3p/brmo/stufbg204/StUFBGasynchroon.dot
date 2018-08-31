@@ -10,9 +10,21 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.stufbg204.StUFBGasynchroon
-	c196841 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGasynchroon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StUFBGasynchroon.html">
+	c196845 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGasynchroon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StUFBGasynchroon.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StUFBGasynchroon </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + StUFBGasynchroon() </td></tr>
+<tr><td align="left" balign="left"> + ontvangAsynchroneVraag(vraag : VraagBericht) : BevestigingsBericht </td></tr>
+<tr><td align="left" balign="left"> + ontvangAsynchroonAntwoord(asynchroonAntwoord : AsynchroonAntwoordBericht) : BevestigingsBericht </td></tr>
+<tr><td align="left" balign="left"> + ontvangFout(fout : FoutBericht) : BevestigingsBericht </td></tr>
+<tr><td align="left" balign="left"> + ontvangKennisgeving(kennisgeving : KennisgevingsBericht) : BevestigingsBericht </td></tr>
+<tr><td align="left" balign="left"> + getPrefixesRecursive(element : Element, prefixes : List&lt;AbstractMap.SimpleEntry&lt;String, String&gt;&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPrefixes(element : Element, prefixes : List&lt;AbstractMap.SimpleEntry&lt;String, String&gt;&gt;) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./StUFBGasynchroon.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

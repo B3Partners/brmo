@@ -10,10 +10,72 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.soap.brk.RechtenResponse
-	c1413 [label=<<table title="nl.b3p.brmo.soap.brk.RechtenResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./RechtenResponse.html">
+	c1417 [label=<<table title="nl.b3p.brmo.soap.brk.RechtenResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./RechtenResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RechtenResponse </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + RechtenResponse() </td></tr>
+<tr><td align="left" balign="left"> + getZakelijkRecht() : List&lt;ZakelijkRechtResponse&gt; </td></tr>
+<tr><td align="left" balign="left"> + setZakelijkRecht(zakelijkRecht : List&lt;ZakelijkRechtResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getRechtenByKoz(kozId : Long, searchContext : Map&lt;String, Object&gt;) : RechtenResponse </td></tr>
+		</table></td></tr>
 		</table>>, URL="./RechtenResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse
+	c1421 [label=<<table title="nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KadOnrndZkInfoResponse.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> KadOnrndZkInfoResponse </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KadOnrndZkInfoResponse() </td></tr>
+<tr><td align="left" balign="left"> + getGemeentecode() : String </td></tr>
+<tr><td align="left" balign="left"> + setGemeentecode(gemeentecode : String) </td></tr>
+<tr><td align="left" balign="left"> + getSectie() : String </td></tr>
+<tr><td align="left" balign="left"> + setSectie(sectie : String) </td></tr>
+<tr><td align="left" balign="left"> + getPerceelnummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setPerceelnummer(perceelnummer : String) </td></tr>
+<tr><td align="left" balign="left"> + getAppReVolgnummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setAppReVolgnummer(appReVolgnummer : String) </td></tr>
+<tr><td align="left" balign="left"> + getIdentificatie() : String </td></tr>
+<tr><td align="left" balign="left"> + setIdentificatie(identificatie : String) </td></tr>
+<tr><td align="left" balign="left"> + getAandSoortGrootte() : String </td></tr>
+<tr><td align="left" balign="left"> + setAandSoortGrootte(aandSoortGrootte : String) </td></tr>
+<tr><td align="left" balign="left"> + getBegrenzingPerceel() : String </td></tr>
+<tr><td align="left" balign="left"> + setBegrenzingPerceel(begrenzingPerceel : String) </td></tr>
+<tr><td align="left" balign="left"> + getGroottePerceel() : Float </td></tr>
+<tr><td align="left" balign="left"> + setGroottePerceel(groottePerceel : Float) </td></tr>
+<tr><td align="left" balign="left"> + getOmschr_deelperceel() : String </td></tr>
+<tr><td align="left" balign="left"> + setOmschr_deelperceel(omschr_deelperceel : String) </td></tr>
+<tr><td align="left" balign="left"> + getAardCultuurOnbebouwd() : String </td></tr>
+<tr><td align="left" balign="left"> + setAardCultuurOnbebouwd(aardCultuurOnbebouwd : String) </td></tr>
+<tr><td align="left" balign="left"> + getDatumBeginGeldigheid() : Date </td></tr>
+<tr><td align="left" balign="left"> + setDatumBeginGeldigheid(datumBeginGeldigheid : Date) </td></tr>
+<tr><td align="left" balign="left"> + getDatumEindeGeldigheid() : Date </td></tr>
+<tr><td align="left" balign="left"> + setDatumEindeGeldigheid(datumEindeGeldigheid : Date) </td></tr>
+<tr><td align="left" balign="left"> + getBedrag() : Float </td></tr>
+<tr><td align="left" balign="left"> + setBedrag(bedrag : Float) </td></tr>
+<tr><td align="left" balign="left"> + getKoopjaar() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setKoopjaar(koopjaar : Integer) </td></tr>
+<tr><td align="left" balign="left"> + isMeerOnroerendgoed() : Boolean </td></tr>
+<tr><td align="left" balign="left"> + setMeerOnroerendgoed(meerOnroerendgoed : Boolean) </td></tr>
+<tr><td align="left" balign="left"> + getType() : String </td></tr>
+<tr><td align="left" balign="left"> + setType(type : String) </td></tr>
+<tr><td align="left" balign="left"> + getAdressen() : AdressenResponse </td></tr>
+<tr><td align="left" balign="left"> + setAdressen(adressen : AdressenResponse) </td></tr>
+<tr><td align="left" balign="left"> + getRechten() : RechtenResponse </td></tr>
+<tr><td align="left" balign="left"> + setRechten(rechten : RechtenResponse) </td></tr>
+<tr><td align="left" balign="left"> + getRelaties() : RelatiesResponse </td></tr>
+<tr><td align="left" balign="left"> + setRelaties(relaties : RelatiesResponse) </td></tr>
+<tr><td align="left" balign="left"> + getRecord(id : Long, searchContext : Map&lt;String, Object&gt;) : KadOnrndZkInfoResponse </td></tr>
+		</table></td></tr>
+		</table>>, URL="./KadOnrndZkInfoResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse NAVASSOC nl.b3p.brmo.soap.brk.RechtenResponse
+	c1421:p -> c1417:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -9,11 +9,128 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.topnl.top250nl.SurfacePropertyType
+	c9605 [label=<<table title="nl.b3p.topnl.top250nl.SurfacePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SurfacePropertyType.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> SurfacePropertyType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # abstractSurface : AbstractSurfaceType </td></tr>
+<tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
+<tr><td align="left" balign="left"> # type : TypeType </td></tr>
+<tr><td align="left" balign="left"> # href : String </td></tr>
+<tr><td align="left" balign="left"> # role : String </td></tr>
+<tr><td align="left" balign="left"> # arcrole : String </td></tr>
+<tr><td align="left" balign="left"> # title : String </td></tr>
+<tr><td align="left" balign="left"> # show : ShowType </td></tr>
+<tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
+<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + SurfacePropertyType() </td></tr>
+<tr><td align="left" balign="left"> + getAbstractSurface() : AbstractSurfaceType </td></tr>
+<tr><td align="left" balign="left"> + setAbstractSurface(value : AbstractSurfaceType) </td></tr>
+<tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
+<tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : TypeType </td></tr>
+<tr><td align="left" balign="left"> + setType(value : TypeType) </td></tr>
+<tr><td align="left" balign="left"> + getHref() : String </td></tr>
+<tr><td align="left" balign="left"> + setHref(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getRole() : String </td></tr>
+<tr><td align="left" balign="left"> + setRole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getArcrole() : String </td></tr>
+<tr><td align="left" balign="left"> + setArcrole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTitle() : String </td></tr>
+<tr><td align="left" balign="left"> + setTitle(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getShow() : ShowType </td></tr>
+<tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
+<tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
+<tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
+<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./SurfacePropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BRTVlakOfLijnType
-	c9590 [label=<<table title="nl.b3p.topnl.top250nl.BRTVlakOfLijnType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BRTVlakOfLijnType.html">
+	c9610 [label=<<table title="nl.b3p.topnl.top250nl.BRTVlakOfLijnType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BRTVlakOfLijnType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTVlakOfLijnType </td></tr>
 		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vlakGeometrie : SurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> # lijnGeometrie : CurvePropertyType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRTVlakOfLijnType() </td></tr>
+<tr><td align="left" balign="left"> + getVlakGeometrie() : SurfacePropertyType </td></tr>
+<tr><td align="left" balign="left"> + setVlakGeometrie(value : SurfacePropertyType) </td></tr>
+<tr><td align="left" balign="left"> + getLijnGeometrie() : CurvePropertyType </td></tr>
+<tr><td align="left" balign="left"> + setLijnGeometrie(value : CurvePropertyType) </td></tr>
+		</table></td></tr>
 		</table>>, URL="./BRTVlakOfLijnType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.top250nl.CurvePropertyType
+	c9637 [label=<<table title="nl.b3p.topnl.top250nl.CurvePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CurvePropertyType.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> CurvePropertyType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # abstractCurve : AbstractCurveType </td></tr>
+<tr><td align="left" balign="left"> # owns : Boolean </td></tr>
+<tr><td align="left" balign="left"> # nilReason : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> # remoteSchema : String </td></tr>
+<tr><td align="left" balign="left"> # type : TypeType </td></tr>
+<tr><td align="left" balign="left"> # href : String </td></tr>
+<tr><td align="left" balign="left"> # role : String </td></tr>
+<tr><td align="left" balign="left"> # arcrole : String </td></tr>
+<tr><td align="left" balign="left"> # title : String </td></tr>
+<tr><td align="left" balign="left"> # show : ShowType </td></tr>
+<tr><td align="left" balign="left"> # actuate : ActuateType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + CurvePropertyType() </td></tr>
+<tr><td align="left" balign="left"> + getAbstractCurve() : AbstractCurveType </td></tr>
+<tr><td align="left" balign="left"> + setAbstractCurve(value : AbstractCurveType) </td></tr>
+<tr><td align="left" balign="left"> + isOwns() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOwns(value : Boolean) </td></tr>
+<tr><td align="left" balign="left"> + getNilReason() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getRemoteSchema() : String </td></tr>
+<tr><td align="left" balign="left"> + setRemoteSchema(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : TypeType </td></tr>
+<tr><td align="left" balign="left"> + setType(value : TypeType) </td></tr>
+<tr><td align="left" balign="left"> + getHref() : String </td></tr>
+<tr><td align="left" balign="left"> + setHref(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getRole() : String </td></tr>
+<tr><td align="left" balign="left"> + setRole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getArcrole() : String </td></tr>
+<tr><td align="left" balign="left"> + setArcrole(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getTitle() : String </td></tr>
+<tr><td align="left" balign="left"> + setTitle(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getShow() : ShowType </td></tr>
+<tr><td align="left" balign="left"> + setShow(value : ShowType) </td></tr>
+<tr><td align="left" balign="left"> + getActuate() : ActuateType </td></tr>
+<tr><td align="left" balign="left"> + setActuate(value : ActuateType) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./CurvePropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.top250nl.BRTVlakOfLijnPropertyType
+	c9652 [label=<<table title="nl.b3p.topnl.top250nl.BRTVlakOfLijnPropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRTVlakOfLijnPropertyType.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BRTVlakOfLijnPropertyType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # brtVlakOfLijn : BRTVlakOfLijnType </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRTVlakOfLijnPropertyType() </td></tr>
+<tr><td align="left" balign="left"> + getBRTVlakOfLijn() : BRTVlakOfLijnType </td></tr>
+<tr><td align="left" balign="left"> + setBRTVlakOfLijn(value : BRTVlakOfLijnType) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BRTVlakOfLijnPropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.topnl.top250nl.BRTVlakOfLijnType NAVASSOC nl.b3p.topnl.top250nl.SurfacePropertyType
+	c9610:p -> c9605:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BRTVlakOfLijnType NAVASSOC nl.b3p.topnl.top250nl.CurvePropertyType
+	c9610:p -> c9637:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.topnl.top250nl.BRTVlakOfLijnPropertyType NAVASSOC nl.b3p.topnl.top250nl.BRTVlakOfLijnType
+	c9652:p -> c9610:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 
