@@ -69,7 +69,6 @@ public interface GMLLightFeatureTransformer {
      * @param userDefinedPrimaryKey {@code true} als de identifier uit de bron
      * wordt geconstrueerd en in bestaand schema wordt geladen, {@code false} in
      * geval geotools gegenereerd schema met {@code fid} kolom
-     * @param bijwerkDatum metadata, de datum waarop een object is bijgewerkt
      *
      * @return de getransformeerde feature van het nieuwe type of null
      */
