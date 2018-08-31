@@ -33,9 +33,9 @@
 				<script>102_metagegevens_brondocument.sql</script>
 				<script>103_woz_waarde.sql</script>
 				<script>104_brondocument_indices.sql</script>
-				<script>105_appartements_rechten.sql</script>
-				<script>106_bag_views.sql</script>
-				<script>107_brk_views.sql</script>
+				<!--<script>105_appartements_rechten.sql</script>-->
+				<!--<script>106_bag_views.sql</script>-->
+				<!--<script>107_brk_views.sql</script>-->
 				<script>108_insert_aard_recht_verkort.sql</script>
 				<script>109_insert_aard_verkregen_recht.sql</script>
 				<script>110_gebruiksdoel_primary_key.sql</script>
@@ -50,6 +50,8 @@
 				<script>119_reisdocumentsoort.sql</script>
 				<script>120_increase_identifsize.sql</script>
 				<script>121_insert_nation.sql</script>
+				<script>206_bag_views.sql</script>
+				<script>207_brk_views.sql</script>
 			</extra-scripts>
 		</schema>
 	</xsl:template>
