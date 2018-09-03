@@ -1254,7 +1254,7 @@ SELECT
     koza.ks_meer_onroerendgoed     AS meer_onroerendgoed,
     koza.ks_valutasoort            AS valutasoort,
     koza.lo_loc__omschr            AS loc_omschr ,
-    kozhr.fk_sc_rh_koz_kad_identif AS overgegaan_in,
+    kozhr.fk_sc_lh_koz_kad_identif AS overgegaan_in,
     qry.begrenzing_perceel
 FROM
     (
@@ -1310,7 +1310,7 @@ AND nqry.bdate = koza.dat_beg_geldh
 LEFT JOIN
     kad_onrrnd_zk_his_rel kozhr
 ON
-    kozhr.fk_sc_lh_koz_kad_identif = koza.kad_identif
+    kozhr.fk_sc_rh_koz_kad_identif = koza.kad_identif
 -- ORDER BY bdate DESC
 -- want: [Code: 1033, SQL State: S1000]  The ORDER BY clause is invalid in views, inline functions, derived tables, subqueries, and common table expressions, unless TOP, OFFSET or FOR XML is also specified.
 -- niet duidelijk wat dit nog toevoegt, immers bdate is max(dat_beg_geldh)

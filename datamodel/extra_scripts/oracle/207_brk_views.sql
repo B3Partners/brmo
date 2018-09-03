@@ -1327,7 +1327,7 @@ SELECT
     koza.ks_meer_onroerendgoed     AS meer_onroerendgoed,
     koza.ks_valutasoort            AS valutasoort,
     koza.lo_loc__omschr            AS loc_omschr,
-    kozhr.fk_sc_rh_koz_kad_identif AS overgegaan_in,
+    kozhr.fk_sc_lh_koz_kad_identif AS overgegaan_in,
     qry.begrenzing_perceel
 FROM
     (
@@ -1383,12 +1383,27 @@ LEFT JOIN
     kad_onrrnd_zk_his_rel kozhr
 ON
     (
-        kozhr.fk_sc_lh_koz_kad_identif = koza.kad_identif)
+        kozhr.fk_sc_rh_koz_kad_identif = koza.kad_identif)
 ORDER BY
     bdate DESC ;
 
-COMMENT ON TABLE vb_kad_onrrnd_zk_archief
-IS   'commentaar view vb_kad_onrrnd_zk_adres:
+--drop materialized view MB_KAD_ONRRND_ZK_ARCHIEF cascade;
+CREATE MATERIALIZED VIEW MB_KAD_ONRRND_ZK_ARCHIEF 
+BUILD DEFERRED
+REFRESH ON DEMAND
+AS
+SELECT
+    *
+FROM
+    VB_KAD_ONRRND_ZK_ARCHIEF;
+CREATE UNIQUE INDEX MB_KAD_ONRRND_ZK_A_OBJIDX ON MB_KAD_ONRRND_ZK_ARCHIEF(OBJECTID ASC);
+CREATE INDEX MB_KAD_ONRRND_ZK_A_IDENTIF ON MB_KAD_ONRRND_ZK_ARCHIEF(KOZ_IDENTIF ASC);
+INSERT INTO USER_SDO_GEOM_METADATA VALUES ('MB_KAD_ONRRND_ZK_ARCHIEF', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+CREATE INDEX MB_KAD_ONRRND_ZK_A_BGRGPIDX ON MB_KAD_ONRRND_ZK_ARCHIEF (BEGRENZING_PERCEEL)  INDEXTYPE IS MDSYS.SPATIAL_INDEX;
+
+
+COMMENT ON MATERIALIZED VIEW MB_KAD_ONRRND_ZK_ARCHIEF
+IS   'commentaar materialized view MB_KAD_ONRRND_ZK_ARCHIEF:
 Nieuwste gearchiveerde versie van ieder kadastrale onroerende zaak (perceel en appartementsrecht) met objectid voor geoserver/arcgis en historische relatie
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
