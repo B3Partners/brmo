@@ -64,7 +64,7 @@ public abstract class AutomatischProces implements Serializable {
     //volgende annotatie wordt nu niet uitgevoerd, mogelijk volgende hibernate versie
     //dit is alleen nodig voor sql server, script faalt bij maken primary key
     @MapKeyJoinColumn(nullable=false)
-    // Element wrapper required because of http://opensource.atlassian.com/projects/hibernate/browse/JPA-11
+    // Element wrapper required because of https://hibernate.atlassian.net/browse/JPA-11
     private Map<String, ClobElement> config = new HashMap<String, ClobElement>();
 
     /**

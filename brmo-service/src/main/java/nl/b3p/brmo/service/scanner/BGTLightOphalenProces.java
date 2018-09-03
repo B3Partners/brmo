@@ -102,7 +102,7 @@ public class BGTLightOphalenProces extends AbstractExecutableProces {
             config.setLogfile(sb.toString());
             Set<Integer> ids = config.getGridIds();
             if (ids == null || ids.isEmpty()) {
-                msg = "Ophalen 'tileinfo.json' van pdok website en bepalen grid cellen";
+                msg = "Ophalen 'tileinfo.json' en bepalen grid cellen";
                 listener.updateStatus(msg);
                 String ophaalgebiedWKT = config.getOphaalgebied();
                 msg = "Ophaalgebied: " + ophaalgebiedWKT;
