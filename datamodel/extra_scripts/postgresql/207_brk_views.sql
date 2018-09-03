@@ -1342,7 +1342,7 @@ SELECT
     koza.ks_meer_onroerendgoed     AS meer_onroerendgoed,
     koza.ks_valutasoort            AS valutasoort,
     koza.lo_loc__omschr            AS loc_omschr,
-    kozhr.fk_sc_rh_koz_kad_identif AS overgegaan_in,
+    kozhr.fk_sc_lh_koz_kad_identif AS overgegaan_in,
     qry.begrenzing_perceel::geometry(MULTIPOLYGON,28992)
 FROM
     (
@@ -1398,12 +1398,12 @@ LEFT JOIN
     kad_onrrnd_zk_his_rel kozhr
 ON
     (
-        kozhr.fk_sc_lh_koz_kad_identif = koza.kad_identif)
+        kozhr.fk_sc_rh_koz_kad_identif = koza.kad_identif)
 ORDER BY
     bdate DESC ;
 COMMENT ON VIEW vb_kad_onrrnd_zk_archief
 IS
-    'commentaar view vb_kad_onrrnd_zk_adres:
+    'commentaar view vb_kad_onrrnd_zk_archief:
 Nieuwste gearchiveerde versie van ieder kadastrale onroerende zaak (perceel en appartementsrecht) met objectid voor geoserver/arcgis en historische relatie
 
 beschikbare kolommen:
@@ -1433,3 +1433,13 @@ beschikbare kolommen:
 * begrenzing_perceel: perceelvlak
 '
     ;
+
+--drop materialized view mb_kad_onrrnd_zk_archief cascade;
+CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_archief AS
+SELECT
+    *
+FROM
+    vb_kad_onrrnd_zk_archief WITH NO DATA;
+CREATE UNIQUE INDEX mb_kad_onrrnd_zk_archief_objectid ON mb_kad_onrrnd_zk_archief USING btree (objectid);
+CREATE INDEX mb_kad_onrrnd_zk_archief_identif ON mb_kad_onrrnd_zk_archief USING btree (koz_identif);
+CREATE INDEX mb_kad_onrrnd_zk_archief_begrenzing_perceel_idx ON mb_kad_onrrnd_zk_archief USING gist (begrenzing_perceel);
