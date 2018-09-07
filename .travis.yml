@@ -7,18 +7,17 @@ env:
     - secure: "mmLyX+VjQpLA7LQ79iIrBPjw/vnJC4Loda7BOyIy+H2seQJAwqDczG09aToTOkM/mmENAb08xv6JJ2PbsZqSZ3tTMXNxTOh4dGtR9DnTjtDzD4O6IHEDVOSbFndIsSEsQw4LXJWbbJwRJwF5Q+UPl+VLV+HyXbYOAmPAD96hXTA="
     - secure: "NynQI56H74dDi6sK4wxPawnLoLsrzADKmD8Jl7w3yQnYTfVU7zP07KeJKoIWhFaYB3GCKyG2qdeM1I5DOeim183c0h51WcQTVvHX3o1D3DyrdfuhqKTBXmAUXJObp/jUoABD2KKejSKZj+mkzqutITMUUbHDiMu5PD6WXEuCYT8="
     - PG_VERSION="9.6"
-
-services:
-    - postgresql
+    - PROFILE="postgresql"
+    - MVN_VERSION="3.5.4"
 
 addons:
-   # postgresql: "9.5"
-   # fix voor OpenJDK bufferoverflow, zie:
-   #  - https://docs.travis-ci.com/user/hostname
-   #  - https://github.com/travis-ci/travis-ci/issues/5227
-   #  - https://github.com/travis-ci/travis-ci/issues/5669
-   # hostname: travis-brmo
-   # hosts: travis-brmo
+  postgresql: 9.6
+  apt:
+    packages:
+      - postgresql-9.6-postgis-2.3
+      - graphviz
+  hostname: travis-brmo
+  hosts: travis-brmo
 
 jdk:
   - oraclejdk8
@@ -29,105 +28,124 @@ matrix:
   fast_finish: true
   allow_failures:
     # - jdk: oraclejdk9
+    # vanwege timeout
+    - name: "MS SQL server 2017"
   include:
-  - jdk: oraclejdk8
+  - name: "Oudste supported PostgreSQL"
+    jdk: oraclejdk8
     # EOL September 2018
     env: PG_VERSION="9.3"
+    addons:
+      postgresql: 9.3
+      apt:
+        packages:
+          - postgresql-9.3-postgis-2.3
+  - name: "MS SQL server 2017"
+    jdk: oraclejdk8
+    dist: xenial
+    sudo: required
+    env: 
+      - PG_VERSION=""
+      - PROFILE="mssql -Dmssql.instancename=''"
 
 cache:
   directories:
   - $HOME/.m2
+  - $HOME/downloads
 
 # before_cache:
 
 before_install:
   # installeer een up-2-date Maven versie
-  - wget https://www-eu.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.zip
-  - unzip -qq apache-maven-3.5.4-bin.zip
-  - export M2_HOME=$PWD/apache-maven-3.5.4
+  - wget -nc https://www-eu.apache.org/dist/maven/maven-3/$MVN_VERSION/binaries/apache-maven-$MVN_VERSION-bin.zip -P $HOME/downloads/
+  - unzip -qq $HOME/downloads/apache-maven-$MVN_VERSION-bin.zip
+  - export M2_HOME=$PWD/apache-maven-$MVN_VERSION
   - export PATH=$M2_HOME/bin:$PATH
   - mvn -v
-  # zie ook: https://docs.travis-ci.com/user/database-setup/
-  - sudo service postgresql stop
-  - sudo -E apt-get -qq update &>> ~/apt-get-update.log
-  - sudo apt-get -qq install postgis-2.3 gdal-bin graphviz
-  - sudo service postgresql stop
-  - sudo service postgresql start $PG_VERSION
   - export PAGER=cat
-  - psql --version
-  - psql -U postgres -d postgres -c 'SELECT Version();'
-  - psql -U postgres -a -c "CREATE ROLE staging LOGIN PASSWORD 'staging' SUPERUSER CREATEDB;"
-  - psql -U postgres -a -c "CREATE ROLE rsgb LOGIN PASSWORD 'rsgb' SUPERUSER CREATEDB;"
-  - psql -U postgres -a -c "CREATE ROLE rsgbbgt LOGIN PASSWORD 'rsgbbgt' SUPERUSER CREATEDB;"
-  - psql -U postgres -a -c "CREATE ROLE topnl LOGIN PASSWORD 'topnl' SUPERUSER CREATEDB;"
-  - psql -U postgres -c 'create database staging;'
-  - psql -U postgres -c 'create database rsgb;'
-  - psql -U postgres -d rsgb -c 'create extension postgis;'
-  - psql -U postgres -d rsgb -c 'SELECT PostGIS_full_version();'
-  - psql -U postgres -c 'create database rsgbbgt;'
-  - psql -U postgres -d rsgbbgt -c 'create extension postgis;'
-  - psql -U postgres -d rsgbbgt -c 'SELECT PostGIS_full_version();'
-  - psql -U postgres -c 'create database topnl;'
-  - psql -U postgres -d topnl -c 'create extension postgis;'
-  - psql -U postgres -d topnl -c 'SELECT PostGIS_full_version();'
+  - if [ "$PROFILE" == "postgresql" ]; then
+       sh ".travis/install-pgsql.sh";
+    else
+       sudo service postgresql stop;
+       sh ".travis/install-mssql.sh";
+    fi
+  # setup mssql
   - unset _JAVA_OPTIONS
   - ulimit -a
   - free -h
 
 install:
   # install all dependencies + artifacts and create any DB scripts without any testing
-  - travis_wait 20 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql
+  - travis_wait 20 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -P$PROFILE,standard-with-extra-repos
+  - projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
+  - echo $projectversion
+  - export PROJECTVERSION=$projectversion
+  - sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/05_create_brmo_metadata_postgresql.sql
+  - sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/05_create_brmo_metadata_sqlserver.sql
+  - cat ./brmo-persistence/db/05_create_brmo_metadata_postgresql.sql
 
 before_script:
   # dit dient na afloop van de 'install' gedaan te worden omdat (een deel van) de sql gegenereerd wordt
-  # set up staging db
-  - ls -l ./brmo-persistence/db/
-  - psql -U postgres -d staging -f ./brmo-persistence/db/create-brmo-persistence-postgresql.sql
-  - psql -U postgres -d staging -f ./brmo-persistence/db/01_create_indexes.sql
-  - psql -U postgres -d staging -f ./brmo-persistence/db/02_insert_default_user.sql
-  - projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
-  - sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/05_create_brmo_metadata_postgresql.sql
-  - psql -U postgres -d staging -f ./brmo-persistence/db/05_create_brmo_metadata_postgresql.sql
-  # set up rsgb tabellen
-  - ls -l ./datamodel/generated_scripts/
-  - travis_wait psql -U postgres -w -q -d rsgb -f ./datamodel/generated_scripts/datamodel_postgresql.sql
-  # geom van gemeente en wijk hebben we niet echt nodig, mogen evt. uit want duurt lang en veel log output
-  #- travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/111a_update_gemeente_geom.sql
-  #- travis_wait psql -U postgres -w -d rsgb -f ./datamodel/utility_scripts/postgresql/113a_update_wijk_geom.sql
-  # set up rsgbbgt tabellen
-  - psql -U postgres -w -q -d rsgbbgt -f ./bgt-gml-loader/target/generated-resources/ddl/postgresql/create_rsgb_bgt.sql
-  # set up topnl tabellen
-  - ls -l ./topparser/src/main/resources/nl/b3p/topnl/database
-  - psql -U postgres -w -q -d topnl -f ./topparser/src/main/resources/nl/b3p/topnl/database/postgres.sql
-  # ophalen topnl test data
-  - sh ".jenkins/data-prepare-topnl.sh"
+  - ls -l ./brmo-persistence/db/*.sql
+  - ls -l ./datamodel/generated_scripts/*.sql
+  - ls -l ./topparser/src/main/resources/nl/b3p/topnl/database/*.sql
+  - find ./bgt-gml-loader/target/generated-resources/ddl/ -name '*.sql' -print
+  # ophalen actuele topnl test data alleen voor postgres
+  - if [ "$PROFILE" == "postgresql" ]; then
+       sh ".travis/setup-pgsql.sh";
+       sh ".jenkins/data-prepare-topnl.sh";
+    else
+       sh ".travis/setup-mssql.sh";
+    fi
 
 script:
-  # run unit tests voor alle modules
-  - travis_wait 20 mvn --settings .travis/settings.xml -T4.2C -e test -B -Ppostgresql,standard-with-extra-repos -pl '!brmo-dist' -Dtest.onlyITs=false 
+  # run unit tests voor alle modules mits actuele postgresql
+  #- if [ "$PROFILE" == "postgresql" ] && [ "$PG_VERSION" != "9.3" ]; then
+  - travis_wait 20 mvn --settings .travis/settings.xml -e test -B -P$PROFILE,standard-with-extra-repos -pl '!brmo-dist' -Dtest.onlyITs=false;
+  #  fi
   # run integratie tests voor veschillende modules, per module
-  # run integratie tests voor bgt-gml-loader module
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
   # run integratie tests voor brmo-loader module
-  - travis_wait 30 mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader'
+  - echo 'integratie tests voor brmo-loader module'
+  - travis_wait 40 mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'brmo-loader'
+  # run integratie tests voor bgt-gml-loader module
+  - echo 'run integratie tests voor bgt-gml-loader module'
+  - mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'bgt-gml-loader'
   # run integratie tests voor brmo-service module
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service'
+  - echo 'run integratie tests voor brmo-service module'
+  - mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'brmo-service'
+  #
+  # andere modules alleen tegen pgsql testen, er draait ook nog een windows server met mssql versie ergens
+  #
   # run integratie tests voor brmo-soap module
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-soap'
-  # run integratie tests voor brmo-stufbg204 module
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-stufbg204'
-  # run integratie tests voor brmo-commandline module
-  - mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-commandline'
-
-after_failure:
-  - echo "Hmm... dat is vervelend!"
-
-after_success:
-  # test of de javadoc compliant is met java-8 strict checks
+  - if [ "$PROFILE" == "postgresql" ]; then
+        echo 'integratie tests voor brmo-soap module';
+        mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'brmo-soap';
+    fi
+  # run integratie tests voor brmo-stufbg204 module tegen pgsql
+  - if [ "$PROFILE" == "postgresql" ]; then
+        echo 'integratie tests voor brmo-stufbg204 module';
+        mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'brmo-stufbg204';
+    fi
+  # run integratie tests voor brmo-commandline module tegen pgsql
+  - if [ "$PROFILE" == "postgresql" ]; then
+        echo 'integratie tests voor brmo-commandline module';
+        mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'brmo-commandline';
+    fi
+  #
+  # Linting
+  # test of de javadoc compliant is met java-8 strict checks, noodzakelijk voor succesvolle release
+  #
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$PG_VERSION" == "9.6" ]; then
+         echo 'Javadoc checks';
          travis_wait 30 mvn javadoc:javadoc;
+    fi
+  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$PG_VERSION" == "9.6" ]; then
+         echo 'Test Javadoc checks';
          travis_wait 30 mvn javadoc:test-javadoc;
     fi
+
+# after_failure:
+# after_success:
 
 after_script:
   # deploy maven site van master branch als test succes
