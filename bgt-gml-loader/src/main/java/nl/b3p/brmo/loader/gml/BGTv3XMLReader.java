@@ -19,11 +19,8 @@ package nl.b3p.brmo.loader.gml;
 import java.io.File;
 import nl.b3p.brmo.loader.gml.bgt.BGTv3Object;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.Iterator;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.xml.stream.XMLInputFactory;
@@ -42,7 +39,7 @@ import org.apache.commons.lang.ArrayUtils;
  *
  * @author matthijsln
  */
-public class BGTv3XMLReader {
+public class BGTv3XMLReader implements Iterable<BGTv3Object> {
     private final XMLStreamReader streamReader;
     private final XMLStreamGMLParser xmlGmlParser;
 
@@ -95,19 +92,39 @@ public class BGTv3XMLReader {
         return mutaties;
     }
 
-    boolean checkedNext = false;
+    boolean checkedNext = false, finished = false;
     BGTv3Object theNext = null;
 
+    public Iterator<BGTv3Object> iterator() {
+        return new Iterator<BGTv3Object>() {
+            @Override
+            public boolean hasNext() {
+                if(finished) {
+                    return false;
+                }
 
-    public boolean hasNext() throws Exception {
-        if(!checkedNext) {
-            theNext = next();
-            checkedNext = true;
-        }
-        return theNext != null;
+                if(!checkedNext) {
+                    theNext = next();
+                    checkedNext = true;
+                }
+                return theNext != null;
+            }
+
+            @Override
+            public BGTv3Object next() {
+                try {
+                    return getNext();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        };
     }
 
-    public BGTv3Object next() throws Exception {
+    private BGTv3Object getNext() throws Exception {
+        if(finished) {
+            return null;
+        }
 
         if(theNext != null) {
             BGTv3Object r = theNext;
@@ -122,6 +139,7 @@ public class BGTv3XMLReader {
                 streamReader.next();
             }
             if(!streamReader.hasNext() || streamReader.getEventType() == END_DOCUMENT) {
+                finished = true;
                 return null;
             }
 
@@ -190,15 +208,14 @@ public class BGTv3XMLReader {
             //System.out.println("Mutaties: " + r.isMutaties());
             int i = 0;
             int toevoeging = 0, wijziging = 0, verwijdering = 0, metEindTijd = 0, metEindRegistratie = 0;
-            while(r.hasNext()) {
-                BGTv3Object o = r.next();
+            for(BGTv3Object o: r) {
                 //if(o.getObjectId().equals("G0344.40e978d267eb477789fa3a9e39574e88")) {
                 switch(o.getType()) {
                     case TOEVOEGING: toevoeging++; break;
                     case VERWIJDERING: verwijdering++; break;
                     case WIJZIGING: wijziging++; break;
                 }
-                //System.out.println(o);
+                System.out.println(o);
                 //}
                 if(o.getAttributes().containsKey("terminationDate")) {
                     metEindTijd++;
@@ -237,9 +254,9 @@ public class BGTv3XMLReader {
 
         for(File file : files) {
             if(file.isFile() && file.getName().endsWith(".zip")) {
-                //if(file.getName().equals("bgtv3_citygml_delta_5ded1a9e-5aed-42df-8d7a-4e204fcd8e91.zip")) {
+                if(file.getName().equals("bgtv3_citygml_delta_5ded1a9e-5aed-42df-8d7a-4e204fcd8e91.zip")) {
                     zip(file);
-                //}
+                }
             }
         }
     }
