@@ -16,13 +16,13 @@ Copyright (C) 2016 B3Partners B.V.
         <attribuut xslname="lod0Geometrie" sqlname="LOD0_GEOM_NAME" sqltype="point" />
     </objecttype>
 
-    <objecttype clazz="BegroeidTerreindeel" table="begroeid_terreindeel">
-        <attribuut xslname="opTalud" sqlname="optalud" sqltype="boolean" />
-        <attribuut xslname="bgt-fysiekVoorkomen" sqlname="bgt_fysiekvoorkomen" sqltype="varchar(255)" />
-        <attribuut xslname="plus-fysiekVoorkomen" sqlname="plus_fysiekvoorkomen" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
-        <attribuut xslname="lod0MultiSurface" sqlname="LOD0_GEOM_NAME" sqltype="multipolygon" />
-        <attribuut xslname="kruinlijn" sqlname="KRUINLIJN_GEOM_NAME" sqltype="geometry" />
+    <objecttype clazz="BegroeidTerreindeel" table="begroeid_terreindeel" bgtv3="true">
+        <attribuut xslname="opTalud"                xmlnamev3="begroeidTerreindeelOpTalud"      sqlname="optalud" sqltype="boolean" />
+        <attribuut xslname="bgt-fysiekVoorkomen"    xmlnamev3="class"                           sqlname="bgt_fysiekvoorkomen" sqltype="varchar(255)" />
+        <attribuut xslname="plus-fysiekVoorkomen"                                               sqlname="plus_fysiekvoorkomen" sqltype="varchar(255)" />
+        <attribuut xslname="geometrie2d"            xmlnamev3="geometrie2dBegroeidTerreindeel"  sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
+        <attribuut xslname="lod0MultiSurface"                                                   sqlname="LOD0_GEOM_NAME" sqltype="multipolygon" />
+        <attribuut xslname="kruinlijn"              xmlnamev3="kruinlijnBegroeidTerreindeel"    sqlname="KRUINLIJN_GEOM_NAME" sqltype="geometry" />
     </objecttype>
 
     <!-- TODO Komt niet als zelfstanding objecttype voor in RSGB 3.0 doc. -->
@@ -40,11 +40,11 @@ Copyright (C) 2016 B3Partners B.V.
         <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
     </objecttype>
 
-    <objecttype clazz="GebouwInstallatie" table="gebouw_installatie">
-        <attribuut xslname="bgt-type" sqlname="bgt_type" sqltype="varchar(255)" />
-        <attribuut xslname="plus-type" sqlname="plus_type" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
-        <attribuut xslname="lod0Geometry" sqlname="LOD0_GEOM_NAME" sqltype="polygon" />
+    <objecttype clazz="GebouwInstallatie" table="gebouw_installatie" bgtv3="true">
+        <attribuut xslname="bgt-type"                                                   sqlname="bgt_type" sqltype="varchar(255)" />
+        <attribuut xslname="plus-type"      xmlnamev3="plus-typeGebouwInstallatie"      sqlname="plus_type" sqltype="varchar(255)" />
+        <attribuut xslname="geometrie2d"    xmlnamev3="geometrie2dGebouwInstallatie"    sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
+        <attribuut xslname="lod0Geometry"                                               sqlname="LOD0_GEOM_NAME" sqltype="polygon" />
     </objecttype>
 
     <!-- TODO Komt niet als zelfstanding objecttype voor in RSGB 3.0 doc. -->
@@ -56,10 +56,10 @@ Copyright (C) 2016 B3Partners B.V.
     </objecttype>
 
     <!-- TODO Komt niet als zelfstanding objecttype voor in RSGB 3.0 doc. -->
-    <objecttype clazz="Kast" table="kast">
+    <objecttype clazz="Kast" table="kast" bgtv3="true">
         <attribuut xslname="bgt-type" sqlname="bgt_type" sqltype="varchar(255)" />
         <attribuut xslname="plus-type" sqlname="plus_type" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="point" />
+        <attribuut xslname="geometrie2d" xmlnamev3="geometrie2dKast" sqlname="DEFAULT_GEOM_NAME" sqltype="point" />
         <attribuut xslname="lod0Geometrie" sqlname="LOD0_GEOM_NAME" sqltype="point" />
     </objecttype>
 
@@ -72,31 +72,32 @@ Copyright (C) 2016 B3Partners B.V.
     </objecttype>
 
     <!-- TODO Komt niet als zelfstanding objecttype voor in RSGB 3.0 doc. -->
-    <objecttype clazz="Paal" table="paal">
+    <objecttype clazz="Paal" table="paal" bgtv3="true">
         <attribuut xslname="bgt-type" sqlname="bgt_type" sqltype="varchar(255)" />
         <attribuut xslname="plus-type" sqlname="plus_type" sqltype="varchar(255)" />
         <attribuut xslname="hectometeraanduiding" sqlname="hectometeraanduiding" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="point" />
+        <attribuut xslname="geometrie2d" xmlnamev3="" sqlname="DEFAULT_GEOM_NAME" sqltype="point" />
         <attribuut xslname="lod0Geometrie" sqlname="LOD0_GEOM_NAME" sqltype="point" />
     </objecttype>
 
     <!-- TODO Komt niet als zelfstanding objecttype voor in RSGB 3.0 doc. -->
-    <objecttype clazz="Put" table="put">
+    <objecttype clazz="Put" table="put" bgtv3="true">
         <attribuut xslname="bgt-type" sqlname="bgt_type" sqltype="varchar(255)" />
         <attribuut xslname="plus-type" sqlname="plus_type" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="point" />
+        <attribuut xslname="geometrie2d" xmlnamev3="geometrie2dPut" sqlname="DEFAULT_GEOM_NAME" sqltype="point" />
         <attribuut xslname="lod0Geometrie" sqlname="LOD0_GEOM_NAME" sqltype="point" />
     </objecttype>
 
     <!-- TODO Komt niet als zelfstanding objecttype voor in RSGB 3.0 doc. -->
-    <objecttype clazz="Sensor" table="sensor">
+    <objecttype clazz="Sensor" table="sensor" bgtv3="true">
         <attribuut xslname="bgt-type" sqlname="bgt_type" sqltype="varchar(255)" />
         <attribuut xslname="plus-type" sqlname="plus_type" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="geometry" />
+        <attribuut xslname="geometrie2d" xmlnamev3="geometrie2dSensor" sqlname="DEFAULT_GEOM_NAME" sqltype="geometry" />
         <attribuut xslname="lod0Geometrie" sqlname="LOD0_GEOM_NAME" sqltype="geometry" />
     </objecttype>
 
-    <objecttype clazz="OpenbareRuimteLabel" table="openbareruimtelabel">
+    <!-- XXX BGTv3: parse nested elements -->
+    <objecttype clazz="OpenbareRuimteLabel" table="openbareruimtelabel" bgtv3="false">
         <attribuut xslname="identificatieBAGOPR" sqlname="identif_bagopr" sqltype="varchar(255)" />
         <attribuut xslname="openbareRuimteNaam.tekst" sqlname="oprnm_tekst" sqltype="varchar(255)" />
 
@@ -110,80 +111,80 @@ Copyright (C) 2016 B3Partners B.V.
         <attribuut xslname="openbareRuimteType" sqlname="oprtype" sqltype="varchar(255)" />
     </objecttype>
 
-    <objecttype clazz="OverigeScheiding" table="overige_scheiding">
+    <objecttype clazz="OverigeScheiding" table="overige_scheiding" bgtv3="true">
         <attribuut xslname="plus-type" sqlname="plus_type" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="geometry" />
+        <attribuut xslname="geometrie2d" xmlnamev3="geometrie2dOverigeConstructie" sqlname="DEFAULT_GEOM_NAME" sqltype="geometry" />
     </objecttype>
 
-    <objecttype clazz="Scheiding" table="scheiding">
+    <objecttype clazz="Scheiding" table="scheiding" bgtv3="true">
         <attribuut xslname="bgt-type" sqlname="bgt_type" sqltype="varchar(255)" />
         <attribuut xslname="plus-type" sqlname="plus_type" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="geometry" />
+        <attribuut xslname="geometrie2d" xmlnamev3="geometrie2dOverigeConstructie" sqlname="DEFAULT_GEOM_NAME" sqltype="geometry" />
     </objecttype>
 
-    <objecttype clazz="OverigBouwwerk" table="overig_bouwwerk">
+    <objecttype clazz="OverigBouwwerk" table="overig_bouwwerk" bgtv3="true">
         <attribuut xslname="bgt-type" sqlname="bgt_type" sqltype="varchar(255)" />
         <attribuut xslname="plus-type" sqlname="plus_type" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="geometry" />
+        <attribuut xslname="geometrie2d" xmlnamev3="geometrie2dOverigeConstructie" sqlname="DEFAULT_GEOM_NAME" sqltype="geometry" />
         <!-- TODO verschillende LODx geometrieen (niet in simpel model, wel in doc...) -->
     </objecttype>
 
     <!-- TODO Komt niet als zelfstanding objecttype voor in RSGB 3.0 doc. -->
-    <objecttype clazz="OngeclassificeerdObject" table="ongeclassificeerdobject">
+    <objecttype clazz="OngeclassificeerdObject" table="ongeclassificeerdobject" bgtv3="true">
         <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
     </objecttype>
 
-    <objecttype clazz="Waterdeel" table="waterdeel">
+    <objecttype clazz="Waterdeel" table="waterdeel" bgtv3="true">
         <attribuut xslname="bgt-type" sqlname="bgt_type" sqltype="varchar(255)" />
         <attribuut xslname="plus-type" sqlname="plus_type" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
+        <attribuut xslname="geometrie2d" xmlnamev3="geometrie2dWaterdeel" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
     </objecttype>
 
-    <objecttype clazz="Kunstwerkdeel" table="kunstwerkdeel">
+    <objecttype clazz="Kunstwerkdeel" table="kunstwerkdeel" bgtv3="true">
         <attribuut xslname="bgt-type" sqlname="bgt_type" sqltype="varchar(255)" />
         <attribuut xslname="plus-type" sqlname="plus_type" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="geometry" />
+        <attribuut xslname="geometrie2d" xmlnamev3="geometrie2dOverigeConstructie" sqlname="DEFAULT_GEOM_NAME" sqltype="geometry" />
     </objecttype>
 
-    <objecttype clazz="OnbegroeidTerreindeel" table="onbegroeid_terreindeel">
-        <attribuut xslname="opTalud" sqlname="optalud" sqltype="boolean" />
-        <attribuut xslname="bgt-fysiekVoorkomen" sqlname="bgt_fysiekvoorkomen" sqltype="varchar(255)" />
-        <attribuut xslname="plus-fysiekVoorkomen" sqlname="plus_fysiekvoorkomen" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
-        <attribuut xslname="kruinlijn" sqlname="KRUINLIJN_GEOM_NAME" sqltype="geometry" />
+    <objecttype clazz="OnbegroeidTerreindeel" table="onbegroeid_terreindeel" bgtv3="true">
+        <attribuut xslname="opTalud"                xmlnamev3="onbegroeidTerreindeelOpTalud"        sqlname="optalud" sqltype="boolean" />
+        <attribuut xslname="bgt-fysiekVoorkomen"                                                    sqlname="bgt_fysiekvoorkomen" sqltype="varchar(255)" />
+        <attribuut xslname="plus-fysiekVoorkomen"                                                   sqlname="plus_fysiekvoorkomen" sqltype="varchar(255)" />
+        <attribuut xslname="geometrie2d"            xmlnamev3="geometrie2dOnbegroeidTerreindeel"    sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
+        <attribuut xslname="kruinlijn"              xmlnamev3="kruinlijnOnbegroeidTerreindeel"      sqlname="KRUINLIJN_GEOM_NAME" sqltype="geometry" />
     </objecttype>
 
-    <objecttype clazz="Overbruggingsdeel" table="overbruggingsdeel">
-        <attribuut xslname="typeOverbruggingsdeel" sqlname="otype" sqltype="varchar(255)" />
-        <attribuut xslname="hoortBijTypeOverbrugging" sqlname="hoortbijtype" sqltype="varchar(255)" />
-        <attribuut xslname="overbruggingIsBeweegbaar" sqlname="isbeweegbaar" sqltype="boolean" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
-        <attribuut xslname="lod0Geometrie" sqlname="LOD0_GEOM_NAME" sqltype="polygon" />
+    <objecttype clazz="Overbruggingsdeel" table="overbruggingsdeel" bgtv3="true">
+        <attribuut xslname="typeOverbruggingsdeel"      xmlnamev3="class"                           sqlname="otype" sqltype="varchar(255)" />
+        <attribuut xslname="hoortBijTypeOverbrugging"                                               sqlname="hoortbijtype" sqltype="varchar(255)" />
+        <attribuut xslname="overbruggingIsBeweegbaar"                                               sqlname="isbeweegbaar" sqltype="boolean" />
+        <attribuut xslname="geometrie2d"                xmlnamev3="geometrie2dOverbruggingsdeel"    sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
+        <attribuut xslname="lod0Geometrie"                                                          sqlname="LOD0_GEOM_NAME" sqltype="polygon" />
     </objecttype>
 
     <!-- TODO Komt niet als zelfstanding objecttype voor in RSGB 3.0 doc. -->
-    <objecttype clazz="Straatmeubilair" table="straatmeubilair">
+    <objecttype clazz="Straatmeubilair" table="straatmeubilair" bgtv3="true">
         <attribuut xslname="bgt-type" sqlname="bgt_type" sqltype="varchar(255)" />
         <attribuut xslname="plus-type" sqlname="plus_type" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="point" />
+        <attribuut xslname="geometrie2d" xmlnamev3="geometrie2dStraatmeubilair" sqlname="DEFAULT_GEOM_NAME" sqltype="point" />
         <attribuut xslname="lod0Geometrie" sqlname="LOD0_GEOM_NAME" sqltype="point" />
     </objecttype>
 
-    <objecttype clazz="OndersteunendWaterdeel" table="ondersteunend_waterdeel">
+    <objecttype clazz="OndersteunendWaterdeel" table="ondersteunend_waterdeel" bgtv3="true">
         <attribuut xslname="bgt-type" sqlname="bgt_type" sqltype="varchar(255)" />
         <attribuut xslname="plus-type" sqlname="plus_type" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
+        <attribuut xslname="geometrie2d" xmlnamev3="geometrie2dOndersteunendWaterdeel" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
     </objecttype>
 
-    <objecttype clazz="OndersteunendWegdeel" table="ondersteunend_wegdeel">
-        <attribuut xslname="opTalud" sqlname="optalud" sqltype="boolean" />
-        <attribuut xslname="bgt-functie" sqlname="bgtfunctie" sqltype="varchar(255)" />
-        <attribuut xslname="bgt-fysiekVoorkomen" sqlname="bgt_fysiekvoorkomen" sqltype="varchar(255)" />
-        <attribuut xslname="plus-functie" sqlname="plus_functie" sqltype="varchar(255)" />
-        <attribuut xslname="plus-fysiekVoorkomen" sqlname="plus_fysiekvoorkomen" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
-        <attribuut xslname="lod0Surface" sqlname="LOD0_GEOM_NAME" sqltype="polygon" />
-        <attribuut xslname="kruinlijn" sqlname="KRUINLIJN_GEOM_NAME" sqltype="geometry" />
+    <objecttype clazz="OndersteunendWegdeel" table="ondersteunend_wegdeel" bgtv3="true">
+        <attribuut xslname="opTalud"                xmlnamev3="ondersteunendWegdeelOpTalud"             sqlname="optalud" sqltype="boolean" />
+        <attribuut xslname="bgt-functie"            xmlnamev3="function"                                sqlname="bgtfunctie" sqltype="varchar(255)" />
+        <attribuut xslname="bgt-fysiekVoorkomen"    xmlnamev3="surfaceMaterial"                         sqlname="bgt_fysiekvoorkomen" sqltype="varchar(255)" />
+        <attribuut xslname="plus-functie"           xmlnamev3="plus-functieOndersteunendWegdeel"        sqlname="plus_functie" sqltype="varchar(255)" />
+        <attribuut xslname="plus-fysiekVoorkomen"   xmlamev3="plus-fysiekVoorkomenOndersteunendWegdeel" sqlname="plus_fysiekvoorkomen" sqltype="varchar(255)" />
+        <attribuut xslname="geometrie2d"            xmlnamev3="geometrie2dOndersteunendWegdeel"         sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
+        <attribuut xslname="lod0Surface"                                                                sqlname="LOD0_GEOM_NAME" sqltype="polygon" />
+        <attribuut xslname="kruinlijn"              xmlnamev3="kruinlijnOndersteunendWegdeel"           sqlname="KRUINLIJN_GEOM_NAME" sqltype="geometry" />
     </objecttype>
 
     <objecttype clazz="Spoor" table="spoor">
@@ -194,44 +195,45 @@ Copyright (C) 2016 B3Partners B.V.
     </objecttype>
 
     <!-- TODO Komt niet als zelfstanding objecttype voor in RSGB 3.0 doc. -->
-    <objecttype clazz="Weginrichtingselement" table="weginrichtingselement">
+    <objecttype clazz="Weginrichtingselement" table="weginrichtingselement" bgtv3="true">
         <attribuut xslname="bgt-type" sqlname="bgt_type" sqltype="varchar(255)" />
         <attribuut xslname="plus-type" sqlname="plus_type" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="geometry" />
+        <attribuut xslname="geometrie2d" xmlnamev3="geometrie2dWeginrichtingselement" sqlname="DEFAULT_GEOM_NAME" sqltype="geometry" />
         <attribuut xslname="lod0Geometrie" sqlname="LOD0_GEOM_NAME" sqltype="geometry" />
     </objecttype>
 
-    <objecttype clazz="VegetatieObject" table="vegetatieobject">
+    <objecttype clazz="VegetatieObject" table="vegetatieobject" bgtv3="true">
         <attribuut xslname="bgt-type" sqlname="bgt_type" sqltype="varchar(255)" />
         <attribuut xslname="plus-type" sqlname="plus_type" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="geometry" />
+        <attribuut xslname="geometrie2d" xmlnamev3="geometrie2dVegetatieObject" sqlname="DEFAULT_GEOM_NAME" sqltype="geometry" />
         <attribuut xslname="lod0Geometry" sqlname="LOD0_GEOM_NAME" sqltype="geometry" />
     </objecttype>
 
-    <objecttype clazz="Tunneldeel" table="tunneldeel">
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
+    <objecttype clazz="Tunneldeel" table="tunneldeel" bgtv3="true">
+        <attribuut xslname="geometrie2d" xmlnamev3="geometrie2dTunneldeel" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
         <attribuut xslname="lod0Geometrie" sqlname="LOD0_GEOM_NAME" sqltype="polygon" />
     </objecttype>
 
-    <objecttype clazz="Waterinrichtingselement" table="waterinrichtingselement">
+    <objecttype clazz="Waterinrichtingselement" table="waterinrichtingselement" bgtv3="true">
         <attribuut xslname="bgt-type" sqlname="bgt_type" sqltype="varchar(255)" />
         <attribuut xslname="plus-type" sqlname="plus_type" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="geometry" />
+        <attribuut xslname="geometrie2d" xmlnamev3="geometrie2dWaterinrichtingselement" sqlname="DEFAULT_GEOM_NAME" sqltype="geometry" />
         <attribuut xslname="lod0Geometrie" sqlname="LOD0_GEOM_NAME" sqltype="geometry" />
     </objecttype>
 
-    <objecttype clazz="Wegdeel" table="wegdeel">
-        <attribuut xslname="opTalud" sqlname="optalud" sqltype="boolean" />
-        <attribuut xslname="bgt-functie" sqlname="bgtfunctie" sqltype="varchar(255)" />
-        <attribuut xslname="plus-functie" sqlname="plus_functie" sqltype="varchar(255)" />
-        <attribuut xslname="bgt-fysiekVoorkomen" sqlname="bgt_fysiekvoorkomen" sqltype="varchar(255)" />
-        <attribuut xslname="plus-fysiekVoorkomen" sqlname="plus_fysiekvoorkomen" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
-        <attribuut xslname="lod0Surface" sqlname="LOD0_GEOM_NAME" sqltype="polygon" />
-        <attribuut xslname="kruinlijn" sqlname="KRUINLIJN_GEOM_NAME" sqltype="geometry" />
+    <objecttype clazz="Wegdeel" table="wegdeel" bgtv3="true">
+        <attribuut xslname="opTalud"                xmlnamev3="wegdeelOpTalud"              sqlname="optalud" sqltype="boolean" />
+        <attribuut xslname="bgt-functie"            xmlnamev3="function"                    sqlname="bgtfunctie" sqltype="varchar(255)" />
+        <attribuut xslname="plus-functie"           xmlnamev3="plus-functieWegdeel"         sqlname="plus_functie" sqltype="varchar(255)" />
+        <attribuut xslname="bgt-fysiekVoorkomen"    xmlnamev3="surfaceMaterial"             sqlname="bgt_fysiekvoorkomen" sqltype="varchar(255)" />
+        <attribuut xslname="plus-fysiekVoorkomen"   xmlnamev3="plus-fysiekVoorkomenWegdeel" sqlname="plus_fysiekvoorkomen" sqltype="varchar(255)" />
+        <attribuut xslname="geometrie2d"            xmlnamev3="geometrie2dWegdeel"          sqlname="DEFAULT_GEOM_NAME" sqltype="polygon" />
+        <attribuut xslname="lod0Surface"                                                    sqlname="LOD0_GEOM_NAME" sqltype="polygon" />
+        <attribuut xslname="kruinlijn"                                                      sqlname="KRUINLIJN_GEOM_NAME" sqltype="geometry" />
     </objecttype>
 
-    <objecttype clazz="Pand" table="pand">
+    <!-- XXX BGTv3: parse nested elements -->
+    <objecttype clazz="Pand" table="pand" bgtv3="false">
         <attribuut xslname="identificatieBAGPND" sqlname="identif_bagpnd" sqltype="varchar(255)" />
         <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="multipolygon" />
 

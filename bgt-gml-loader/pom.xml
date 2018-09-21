@@ -70,7 +70,7 @@
                 <configuration>
                     <transformationSets>
                         <transformationSet>
-                            <dir>src/main/xml</dir>
+                            <dir>src/main/resources/xml</dir>
                             <stylesheet>src/main/xsl/gmlight-transformers.xsl</stylesheet>
                             <outputDir>${project.build.directory}/generated-sources/xslt</outputDir>
                             <parameters>
@@ -81,7 +81,7 @@
                             </parameters>
                         </transformationSet>
                         <transformationSet>
-                            <dir>src/main/xml</dir>
+                            <dir>src/main/resources/xml</dir>
                             <stylesheet>src/main/xsl/ddl-oracle.xsl</stylesheet>
                             <parameters>
                                 <parameter>
@@ -97,7 +97,7 @@
                             </fileMappers>
                         </transformationSet>
                         <transformationSet>
-                            <dir>src/main/xml</dir>
+                            <dir>src/main/resources/xml</dir>
                             <stylesheet>src/main/xsl/ddl-sqlserver.xsl</stylesheet>
                             <parameters>
                                 <parameter>
@@ -113,7 +113,7 @@
                             </fileMappers>
                         </transformationSet>
                         <transformationSet>
-                            <dir>src/main/xml</dir>
+                            <dir>src/main/resources/xml</dir>
                             <stylesheet>src/main/xsl/ddl-postgresql.xsl</stylesheet>
                             <parameters>
                                 <parameter>
@@ -129,7 +129,7 @@
                             </fileMappers>
                         </transformationSet>
                         <transformationSet>
-                            <dir>src/main/xml</dir>
+                            <dir>src/main/resources/xml</dir>
                             <stylesheet>src/main/xsl/drop-sqlserver.xsl</stylesheet>
                             <outputDir>${project.build.directory}/generated-resources/ddl/sqlserver</outputDir>
                             <fileMappers>
@@ -139,7 +139,7 @@
                             </fileMappers>
                         </transformationSet>
                         <transformationSet>
-                            <dir>src/main/xml</dir>
+                            <dir>src/main/resources/xml</dir>
                             <stylesheet>src/main/xsl/drop-postgresql.xsl</stylesheet>
                             <outputDir>${project.build.directory}/generated-resources/ddl/postgresql</outputDir>
                             <fileMappers>
@@ -149,7 +149,7 @@
                             </fileMappers>
                         </transformationSet>
                         <transformationSet>
-                            <dir>src/main/xml</dir>
+                            <dir>src/main/resources/xml</dir>
                             <stylesheet>src/main/xsl/drop-oracle.xsl</stylesheet>
                             <outputDir>${project.build.directory}/generated-resources/ddl/oracle</outputDir>
                             <fileMappers>
