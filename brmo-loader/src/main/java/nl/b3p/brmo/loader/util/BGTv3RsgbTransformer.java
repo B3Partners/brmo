@@ -3,6 +3,9 @@ package nl.b3p.brmo.loader.util;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 import javax.sql.DataSource;
 import static nl.b3p.brmo.loader.BrmoFramework.BR_BGTV3;
@@ -28,13 +31,14 @@ public class BGTv3RsgbTransformer implements Runnable  {
     private final ProgressUpdateListener listener;
     private final long[] lpIDs;
     private final Properties params = new Properties();
-    private final BGTv3Loader gmlLoader = new BGTv3Loader();
+    private BGTv3Loader bgtv3Loader;
 
     public BGTv3RsgbTransformer(DataSource dataSourceRsgbBgt, StagingProxy stagingProxy, long[] lpIDs, ProgressUpdateListener listener) {
         this.stagingProxy = stagingProxy;
         this.dataSourceRsgbBgt = dataSourceRsgbBgt;
         this.lpIDs = lpIDs;
         this.listener = listener;
+
     }
 
     private void transform(long lpID) throws SQLException {
@@ -45,12 +49,12 @@ public class BGTv3RsgbTransformer implements Runnable  {
             stagingProxy.updateLaadProcesStatus(lp, LaadProces.STATUS.RSGB_BGT_WAITING, "Transformatie loopt...");
             try {
                 // het bestand aan de GML transformer geven om te transformeren
-                boolean ok = gmlLoader.processZipFile(zip);
+                boolean ok = bgtv3Loader.processZipFile(zip);
                 status = ok ? LaadProces.STATUS.RSGB_BGT_OK : LaadProces.STATUS.RSGB_BGT_NOK;
-                stagingProxy.updateLaadProcesStatus(lp, status, gmlLoader.getOpmerkingen());
+                stagingProxy.updateLaadProcesStatus(lp, status, bgtv3Loader.getOpmerkingen().toString());
             } catch(Exception ex) {
                 log.error("Laden van bestand " + zip + " is mislukt.", ex);
-                String opmerkingen = gmlLoader.getOpmerkingen()
+                String opmerkingen = bgtv3Loader.getOpmerkingen()
                         + "\nLaden van bestand " + zip + " is mislukt: " + ex.getLocalizedMessage();
                 stagingProxy.updateLaadProcesStatus(lp, LaadProces.STATUS.RSGB_BGT_NOK, opmerkingen);
             }
@@ -66,7 +70,7 @@ public class BGTv3RsgbTransformer implements Runnable  {
         params.put("dbtype", geomjdbc.getGeotoolsDBTypeName());
         params.put("schema", geomjdbc.getSchema());
 
-        gmlLoader.setDbConnProps(params);
+        bgtv3Loader = new BGTv3Loader(params);
         //gmlLoader.setIsOracle(geomjdbc.getGeotoolsDBTypeName().toLowerCase().contains("oracle"));
         //gmlLoader.setIsMSSQL(geomjdbc.getGeotoolsDBTypeName().toLowerCase().contains("sqlserver"));
     }
@@ -80,6 +84,7 @@ public class BGTv3RsgbTransformer implements Runnable  {
                 listener.total(lpIDs.length);
                 listener.progress(count);
             }
+            Arrays.sort(lpIDs);
             for (long id : lpIDs) {
                 this.transform(id);
                 count++;
