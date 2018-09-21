@@ -43,6 +43,10 @@ public class BGTv3Object {
     private String objectType;
     private String objectId;
 
+    public static final String ATTRIBUTE_TIJDSTIP_REGISTRATIE = "tijdstipRegistratie";
+    public static final String ATTRIBUTE_CREATION_DATE = "creationDate";
+    public static final String ATTRIBUTE_TERMINATION_DATE = "terminationDate";
+
     private Map<String,String> attributes = new HashMap();
 
     private Map<String,Object> geometries = new HashMap();
