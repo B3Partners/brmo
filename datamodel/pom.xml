@@ -10,7 +10,8 @@
         <artifactId>brmo</artifactId>
         <version>1.6.1-SNAPSHOT</version>
     </parent>
-    <name>BRMO rsgb datamodel</name>
+    <name>BRMO RSGB datamodel</name>
+    <description>Bevat de code voor het genereren van het RSGB datamodel.</description>
     <properties>
         <filename.base.201_update_wnplts_gemcode>201_update_wnplts_gemcode</filename.base.201_update_wnplts_gemcode>
         <filename.GEM-WPL-zipfile>GEM-WPL-RELATIE-08092018.zip</filename.GEM-WPL-zipfile>
