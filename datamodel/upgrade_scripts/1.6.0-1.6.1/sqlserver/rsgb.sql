@@ -1,6 +1,12 @@
 -- 
 -- upgrade SQLserver RSGB datamodel van 1.6.0 naar 1.6.1 
 --
+
+-- issue #510
+ALTER TABLE functionaris ALTER COLUMN functionaristypering varchar(255);
+
+GO
+
 DROP VIEW vb_kad_onrrnd_zk_archief;
 GO
 CREATE VIEW

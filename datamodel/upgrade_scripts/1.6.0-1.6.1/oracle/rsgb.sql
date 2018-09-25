@@ -2,6 +2,9 @@
 -- upgrade Oracle RSGB datamodel van 1.6.0 naar 1.6.1 
 --
 
+-- issue #510
+ALTER TABLE FUNCTIONARIS MODIFY (FUNCTIONARISTYPERING VARCHAR2(255));
+
 DROP VIEW vb_kad_onrrnd_zk_archief;
 CREATE OR REPLACE VIEW
     vb_kad_onrrnd_zk_archief
