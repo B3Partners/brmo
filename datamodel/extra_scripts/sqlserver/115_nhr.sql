@@ -1,5 +1,9 @@
 
-alter table sbi_activiteit alter column omschr varchar(255);
+ALTER TABLE functionaris ALTER COLUMN functionaristypering varchar(255);
+GO
+
+ALTER TABLE sbi_activiteit ALTER COLUMN omschr varchar(255);
+GO
 
 create table vestg_activiteit(
     fk_vestg_nummer varchar(32),
@@ -10,15 +14,12 @@ create table vestg_activiteit(
     constraint fkfk_sbi_activiteit_code foreign key (fk_sbi_activiteit_code) references sbi_activiteit(sbi_code)
 );
 
-ALTER TABLE vestg_naam
-  ALTER COLUMN naam varchar(500) NOT NULL;
-
+ALTER TABLE vestg_naam ALTER COLUMN naam varchar(500) NOT NULL;
 GO
 
-ALTER TABLE vestg_naam
-  ALTER COLUMN fk_ves_sc_identif varchar(32) NOT NULL;
-
+ALTER TABLE vestg_naam ALTER COLUMN fk_ves_sc_identif varchar(32) NOT NULL;
 GO
 
-ALTER TABLE vestg_naam
-  ADD CONSTRAINT pk_vestg_naam PRIMARY KEY (naam, fk_ves_sc_identif);
+ALTER TABLE vestg_naam ADD CONSTRAINT pk_vestg_naam PRIMARY KEY (naam, fk_ves_sc_identif);
+GO
+

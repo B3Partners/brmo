@@ -1,5 +1,5 @@
 
-
+alter table functionaris alter column functionaristypering type character varying(255);
 
 alter table sbi_activiteit alter column omschr type character varying(255);
 
