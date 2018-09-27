@@ -6,8 +6,8 @@ package nl.b3p.brmo.loader.gml;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.PrecisionModel;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.PrecisionModel;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;

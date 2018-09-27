@@ -16,7 +16,7 @@
  */
 package nl.b3p.topnl;
 
-import com.vividsolutions.jts.io.ParseException;
+import org.locationtech.jts.io.ParseException;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 import nl.b3p.loader.jdbc.GeometryJdbcConverter;

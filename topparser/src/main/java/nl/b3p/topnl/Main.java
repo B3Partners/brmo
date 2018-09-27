@@ -17,7 +17,7 @@
  */
 package nl.b3p.topnl;
 
-import com.vividsolutions.jts.io.ParseException;
+import org.locationtech.jts.io.ParseException;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;

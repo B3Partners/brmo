@@ -16,10 +16,10 @@
  */
 package nl.b3p.topnl;
 
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.LineString;
-import com.vividsolutions.jts.geom.Polygon;
-import com.vividsolutions.jts.io.WKTReader;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.LineString;
+import org.locationtech.jts.geom.Polygon;
+import org.locationtech.jts.io.WKTReader;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -88,7 +88,7 @@ public class DatabaseTest extends TestUtil {
     }
 
     @Test
-    public void testSaveHoogte() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+    public void testSaveHoogte() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         LOG.debug("save");
         Geometry p = wkt.read("POINT (1 2)");
         Hoogte e = new Hoogte();
@@ -113,7 +113,7 @@ public class DatabaseTest extends TestUtil {
     }
 
     @Test
-    public void testSavePlanTopografie() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+    public void testSavePlanTopografie() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         PlanTopografie e = new PlanTopografie();
         getStandardTestTopNLEntity(e, type);
@@ -134,7 +134,7 @@ public class DatabaseTest extends TestUtil {
     }
 
     @Test
-    public void testSaveGebouw() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+    public void testSaveGebouw() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         Gebouw e = new Gebouw();
         getStandardTestTopNLEntity(e, type);
@@ -168,7 +168,7 @@ public class DatabaseTest extends TestUtil {
     }
 
     @Test
-    public void testSaveGeografischGebied() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+    public void testSaveGeografischGebied() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         GeografischGebied e = new GeografischGebied();
         getStandardTestTopNLEntity(e, type);
@@ -192,7 +192,7 @@ public class DatabaseTest extends TestUtil {
     }
 
     @Test
-    public void testSaveInrichtingselement() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+    public void testSaveInrichtingselement() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         Inrichtingselement e = new Inrichtingselement();
         getStandardTestTopNLEntity(e, type);
@@ -218,7 +218,7 @@ public class DatabaseTest extends TestUtil {
     }
 
     @Test
-    public void testSavePlaats() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+    public void testSavePlaats() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         Plaats e = new Plaats();
         getStandardTestTopNLEntity(e, type);
@@ -245,7 +245,7 @@ public class DatabaseTest extends TestUtil {
     }
 
     @Test
-    public void testSaveRegistratiefGebied() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+    public void testSaveRegistratiefGebied() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         RegistratiefGebied e = new RegistratiefGebied();
         getStandardTestTopNLEntity(e, type);
@@ -272,7 +272,7 @@ public class DatabaseTest extends TestUtil {
     }
 
     @Test
-    public void testSaveRelief() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+    public void testSaveRelief() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         LineString p = (LineString) wkt.read("LineString(1 2, 3 4, 5 6)");
         Relief e = new Relief();
         getStandardTestTopNLEntity(e, type);
@@ -300,7 +300,7 @@ public class DatabaseTest extends TestUtil {
     }
 
     @Test
-    public void testSaveReliefEmptyTaludGeoms() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+    public void testSaveReliefEmptyTaludGeoms() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         LineString p = (LineString) wkt.read("LineString(1 2, 3 4, 5 6)");
         Relief e = new Relief();
         getStandardTestTopNLEntity(e, type);
@@ -328,7 +328,7 @@ public class DatabaseTest extends TestUtil {
     }
 
     @Test
-    public void testSaveReliefEmptyHoofdGeom() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+    public void testSaveReliefEmptyHoofdGeom() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         LineString p = (LineString) wkt.read("LineString(1 2, 3 4, 5 6)");
         Relief e = new Relief();
         getStandardTestTopNLEntity(e, type);
@@ -356,7 +356,7 @@ public class DatabaseTest extends TestUtil {
     }
 
     @Test
-    public void testSaveSpoorbaandeel() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+    public void testSaveSpoorbaandeel() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         LineString p = (LineString) wkt.read("LineString(1 2, 3 4, 5 6)");
         Spoorbaandeel e = new Spoorbaandeel();
         getStandardTestTopNLEntity(e, type);
@@ -398,7 +398,7 @@ public class DatabaseTest extends TestUtil {
     }
 
     @Test
-    public void testSaveTerrein() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+    public void testSaveTerrein() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Polygon p = (Polygon) wkt.read("Polygon((1 2, 3 4, 5 6, 1 2))");
         Terrein e = new Terrein();
         getStandardTestTopNLEntity(e, type);
@@ -420,7 +420,7 @@ public class DatabaseTest extends TestUtil {
     }
 
     @Test
-    public void testWaterdeel() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+    public void testWaterdeel() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Geometry p = wkt.read("Polygon((1 2, 3 4, 5 6, 1 2))");
         Waterdeel e = new Waterdeel();
         getStandardTestTopNLEntity(e, type);
@@ -467,7 +467,7 @@ public class DatabaseTest extends TestUtil {
     }
 
     @Test
-    public void testSaveFunctioneelgebied() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+    public void testSaveFunctioneelgebied() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         FunctioneelGebied e = new FunctioneelGebied();
         getStandardTestTopNLEntity(e, type);
@@ -493,7 +493,7 @@ public class DatabaseTest extends TestUtil {
     }
 
     @Test
-    public void testSaveWegdeel() throws SQLException, ParseException, com.vividsolutions.jts.io.ParseException {
+    public void testSaveWegdeel() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         Wegdeel e = new Wegdeel();
         getStandardTestTopNLEntity(e, type);

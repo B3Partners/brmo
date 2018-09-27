@@ -16,7 +16,7 @@
  */
 package nl.b3p.topnl.converters;
 
-import com.vividsolutions.jts.geom.Geometry;
+import org.locationtech.jts.geom.Geometry;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import nl.b3p.loader.jdbc.GeometryJdbcConverter;
