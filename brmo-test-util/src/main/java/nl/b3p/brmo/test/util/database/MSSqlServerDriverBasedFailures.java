@@ -18,7 +18,7 @@ package nl.b3p.brmo.test.util.database;
 
 /**
  * Een marker interface om integratie tests die mislukken vanwege manco's in de
- * Oracle driver aan te geven. Zie {@link JTDSDriverBasedFailures} voor
+ * MS SQL driver aan te geven. Zie {@link JTDSDriverBasedFailures} voor
  * gebruiksinstructie.
  *
  * @author mprins
