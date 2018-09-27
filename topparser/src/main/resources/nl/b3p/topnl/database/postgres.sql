@@ -1,4 +1,4 @@
-set session authorization topnl;
+-- set session authorization brmo;
 create schema top250nl;
 create schema top100nl;
 create schema top50nl;
