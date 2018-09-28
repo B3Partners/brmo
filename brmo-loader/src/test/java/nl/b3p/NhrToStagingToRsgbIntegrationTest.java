@@ -59,7 +59,7 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
     @Parameterized.Parameters(name = "{index}: bestand: {0}")
     public static Collection params() {
         return Arrays.asList(new Object[][]{
-            // {"filename", aantalBerichten, aantalProcessen, aantalPrs, aantalSubj, aantalNiet_nat_prs, aantalNat_prs, vestgID, aantalVestg_activiteit,aantal Subj, kvkNummer v MaatschAct},
+            // {"filename", aantalBerichten, aantalProcessen, aantalPrs, aantalSubj, aantalNiet_nat_prs, aantalNat_prs, hoofd vestgID, aantalVestg_activiteit,aantal Subj, kvkNummer v MaatschAct},
             {"/mantis10752/52019667.xml", 2, 1, 1,/*subj*/ 2, 1, 0, "nhr.comVestg.000021991235", 1, 52019667, new String[]{"86912"}, 0},
             /*Verhoef ortho*/
             {"/nhr-v3/52019667.anon.xml", 2, 1, 1,/*subj*/ 2, 1, 0, "nhr.comVestg.000021991235", 1, 52019667, new String[]{"86912"}, 0},
@@ -76,7 +76,10 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
             /* min EZ. (nietCommercieleVestiging) */
             {"/nhr-v3/52813150.anon.xml", 3, 1, 2, /*subj*/ 3, 2, 0, "nhr.nietComVestg.000022724362", 1, 52813150, new String[]{"8411"}, 0},
             /*sbb*/
-            {"/nhr-v3/30263544.anon.xml", 3, 1, 2, /*subj*/ 3, 2, 0, "nhr.comVestg.000012461547", 1, 30263544, new String[]{"91042"}, 0}
+            {"/nhr-v3/30263544.anon.xml", 3, 1, 2, /*subj*/ 3, 2, 0, "nhr.comVestg.000012461547", 1, 30263544, new String[]{"91042"}, 0},
+            // apart geval 1 functionaris heef 2 rollen: issue #521
+            // het lijkt dat ook niet alle vestigingen worden geladen, alleen de leidende Vestiging #522
+            {"/nhr-v3/33257455,23052007.anon.xml", 3, 1, 12, /*subj*/ 13, 3, 9, "nhr.comVestg.000019483104", 5, 33257455, new String[]{"8010", "4321", "4652", "85592", "6202"}, 10}
         });
     }
 
@@ -270,8 +273,11 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
 
         if (vestgID != null) {
             ITable vestg = rsgb.createDataSet().getTable("vestg");
-            assertEquals("De 'sc_identif' van vestiging klopt niet", vestgID, vestg.getValue(0, "sc_identif"));
+            assertEquals("De 'sc_identif' van hoofdvestiging klopt niet", vestgID, vestg.getValue(0, "sc_identif"));
         }
+        // TODO check aantal vestigingen, zie ook: #522, nu hooguit 1 hoofdVestg...
+        // assertEquals("het aantal 'vestg' records klopt niet", aantalVestg, vestg.getRowCount());
+
         ITable vestg_activiteit = rsgb.createDataSet().getTable("vestg_activiteit");
         assertEquals("Het aantal 'vestg_activiteit' records klopt niet", aantalVestg_activiteit, vestg_activiteit.getRowCount());
 
