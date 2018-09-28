@@ -1,7 +1,7 @@
 package nl.b3p.brmo.loader.gml.bgt;
 
 
-import com.vividsolutions.jts.geom.Geometry;
+import org.locationtech.jts.geom.Geometry;
 import java.util.HashMap;
 import java.util.Map;
 import javax.xml.stream.XMLStreamConstants;

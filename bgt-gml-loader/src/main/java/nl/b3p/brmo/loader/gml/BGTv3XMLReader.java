@@ -33,7 +33,7 @@ import nl.b3p.brmo.bgt.util.XMLStreamGMLParser;
 import nl.b3p.brmo.loader.gml.bgt.BGTv3Object.Type;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.input.CloseShieldInputStream;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  *
