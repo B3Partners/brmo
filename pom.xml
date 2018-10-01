@@ -84,7 +84,7 @@
         <javax.mail.version>1.6.2</javax.mail.version>
         <quartz.version>2.3.0</quartz.version>
         <!-- bij ophogen van tomcat versie evt. ook de .mvn/owasp-suppression.xml file bijwerken -->
-        <tomcat.version>7.0.90</tomcat.version>
+        <tomcat.version>7.0.91</tomcat.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- om unit tests met postgres te draaien gebruik je
