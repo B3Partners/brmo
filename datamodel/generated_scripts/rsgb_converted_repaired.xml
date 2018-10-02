@@ -20386,7 +20386,8 @@
                    typeName="OnvolledigeDatum"
                    visibility=""
                    association=""/>
-         <!--repair.xsl: EAID_dst56AD9F_136A_485a_93B1_7137FCC39416 N-N relatie verplaatst van BENOEMD OBJECT naar BENOEMD TERREIN, omdat hier archief pk wel in zit-->   <Property xmlns:fn="http://www.w3.org/2005/xpath-functions"
+         <!--repair.xsl: EAID_dst56AD9F_136A_485a_93B1_7137FCC39416 N-N relatie verplaatst van BENOEMD OBJECT naar BENOEMD TERREIN, omdat hier archief pk wel in zit-->
+         <Property xmlns:fn="http://www.w3.org/2005/xpath-functions"
                    elementType="Objecttype - Property"
                    id="EAID_dst56AD9F_136A_485a_93B1_7137FCC39416"
                    name=""
@@ -20420,7 +20421,8 @@
       <Class id="EAID_67CC2144_6B88_433c_853D_07379C66D6CF"
              name="BUURT"
              isAbstract="">
-         <!--repair.xsl: Buurtcode -  kolom vergroot van 2 naar 8--><Property typeName="N8"
+         <!--repair.xsl: Buurtcode -  kolom vergroot van 2 naar 8-->
+         <Property typeName="N8"
                    elementType="Objecttype - Property"
                    id="EAID_F0191663_C96D_45aa_8F58_78CF4C280F29"
                    name="Buurtcode"
@@ -20442,7 +20444,8 @@
                    typeName="GM_Surface"
                    visibility=""
                    association=""/>
-         <!--repair.xsl: Buurtnaam -  kolom vergroot van 40 naar 80--><Property typeName="AN80"
+         <!--repair.xsl: Buurtnaam -  kolom vergroot van 40 naar 80-->
+         <Property typeName="AN80"
                    elementType="Objecttype - Property"
                    id="EAID_824CBA3D_D469_49c8_949C_FFB30EF57C86"
                    name="Buurtnaam"
@@ -22034,7 +22037,8 @@
                    typeName="OnvolledigeDatum"
                    visibility=""
                    association=""/>
-         <!--repair.xsl: Kadaster identificatie aantekening -  kolom vergroot van 15 naar 255--><Property typeName="AN255"
+         <!--repair.xsl: Kadaster identificatie aantekening -  kolom vergroot van 15 naar 255-->
+         <Property typeName="AN255"
                    elementType="Objecttype - Property"
                    id="EAID_EEFE0F7E_DBED_4be9_B092_CFB8142FA6BE"
                    name="Kadaster identificatie aantekening"
@@ -22314,7 +22318,8 @@
                    typeName="Naam NATUURLIJK PERSOON"
                    visibility="private"
                    association=""/>
-         <!--repair.xsl: Naam aanschrijving  - type aangepast--><Property type="EAID_02601AC0_9F85_47e3_82AF_7E8D860559F7"
+         <!--repair.xsl: Naam aanschrijving  - type aangepast-->
+         <Property type="EAID_02601AC0_9F85_47e3_82AF_7E8D860559F7"
                    elementType="Objecttype - Property"
                    id="EAID_BB239C52_91CA_40b6_A253_819CCD5FE245"
                    name="Naam aanschrijving"
@@ -23723,7 +23728,8 @@
                    typeName="AN20"
                    visibility=""
                    association=""/>
-         <!--repair.xsl: Identificatie -  kolom vergroot van 17 naar 32--><Property typeName="AN32"
+         <!--repair.xsl: Identificatie -  kolom vergroot van 17 naar 32-->
+         <Property typeName="AN32"
                    elementType="Objecttype - Property"
                    id="EAID_103F3EF8_972C_403e_A83F_B4B9BF7DA6DB"
                    name="Identificatie"
@@ -23800,7 +23806,8 @@
                    typeName="AN20"
                    visibility=""
                    association=""/>
-         <!--repair.xsl: Verblijf buitenland  - type aangepast--><Property type="EAID_E3567219_5744_4b70_901D_BAEBD8FF4947"
+         <!--repair.xsl: Verblijf buitenland  - type aangepast-->
+         <Property type="EAID_E3567219_5744_4b70_901D_BAEBD8FF4947"
                    elementType="Objecttype - Property"
                    id="EAID_1DEA625F_DC14_439e_A5A7_32AB34C5EE39"
                    name="Verblijf buitenland"
@@ -24734,7 +24741,8 @@
                    typeName="A8"
                    visibility=""
                    association=""/>
-         <!--repair.xsl: Wijkcode -  kolom vergroot van 2 naar 6--><Property typeName="N6"
+         <!--repair.xsl: Wijkcode -  kolom vergroot van 2 naar 6-->
+         <Property typeName="N6"
                    elementType="Objecttype - Property"
                    id="EAID_FD278EEF_C833_4de3_A369_14F5310E9764"
                    name="Wijkcode"
@@ -24756,7 +24764,8 @@
                    typeName="GM_Surface"
                    visibility=""
                    association=""/>
-         <!--repair.xsl: Wijknaam -  kolom vergroot van 40 naar 80--><Property typeName="AN80"
+         <!--repair.xsl: Wijknaam -  kolom vergroot van 40 naar 80-->
+         <Property typeName="AN80"
                    elementType="Objecttype - Property"
                    id="EAID_7DEE95C6_32D0_4f59_8144_62AA14014261"
                    name="Wijknaam"
@@ -25462,7 +25471,8 @@
                 upperValueValue="*"
                 type="EAID_D872C213_09D7_4dca_A020_EA363480FC7D"
                 typeName="BEGROEID TERREINDEEL"/>
-      <!--repair.xsl: s ontstaan uit / overgegaan in -  omgezet van BENOEMD OBJECT naar BENOEMD TERREIN--><Property typeName="BENOEMD TERREIN"
+      <!--repair.xsl: s ontstaan uit / overgegaan in -  omgezet van BENOEMD OBJECT naar BENOEMD TERREIN-->
+      <Property typeName="BENOEMD TERREIN"
                 elementType="Objecttype - Association"
                 id="EAID_9A56AD9F_136A_485a_93B1_7137FCC39416"
                 name="is ontstaan uit / overgegaan in"
@@ -25729,7 +25739,8 @@
                 upperValueValue="*"
                 type="EAID_0BC18F79_3560_4e43_8154_7CCDC7D67A03"
                 typeName="KADASTRALE ONROERENDE ZAAK AANTEKENING"/>
-      <!--repair.xsl: heeft als nevenadressen -  many--><Property upperValueValue="*"
+      <!--repair.xsl: heeft als nevenadressen -  many-->
+      <Property upperValueValue="*"
                 elementType="Objecttype - Association"
                 id="EAID_0D466716_6612_4da4_80E0_09D64C1AA317"
                 name="heeft als nevenadressen"
@@ -25806,7 +25817,8 @@
                 upperValueValue="*"
                 type="EAID_E5E010C2_C1F3_4986_AA9A_C71C19263606"
                 typeName="Verblijfadres INGESCHREVEN NATUURLIJK PERSOON"/>
-      <!--repair.xsl: heeft als nevenadressen -  many--><Property upperValueValue="*"
+      <!--repair.xsl: heeft als nevenadressen -  many-->
+      <Property upperValueValue="*"
                 elementType="Objecttype - Association"
                 id="EAID_7536DECC_F165_4e1f_8CDC_01C980CE79F8"
                 name="heeft als nevenadres(sen)"
@@ -25815,7 +25827,8 @@
                 upperValueType=""
                 type="EAID_A33151CE_37B2_4026_B0AF_B541687B5B7C"
                 typeName="VERBLIJFSOBJECT"/>
-      <!--repair.xsl: heeft als nevenadressen -  many--><Property upperValueValue="*"
+      <!--repair.xsl: heeft als nevenadressen -  many-->
+      <Property upperValueValue="*"
                 elementType="Objecttype - Association"
                 id="EAID_9FC0B053_CBDE_4618_9502_C659CADEAA93"
                 name="heeft als nevenadressen"
@@ -26887,7 +26900,8 @@
                 upperValueValue="1"
                 type="EAJava_AN65"
                 typeName="AN65"/>
-      <!--repair.xsl: Locatie- omschrijving -  kolom vergroot van 40 naar 255--><Property typeName="AN255"
+      <!--repair.xsl: Locatie- omschrijving -  kolom vergroot van 40 naar 255-->
+      <Property typeName="AN255"
                 elementType="Objecttype/Groepattribuutsoort - Property"
                 classId="EAID_1ECAEB3C_EBE2_4afb_8D34_6AFEEFDF3FCA"
                 className="Locatie onroerende zaak KADASTRALE ONROERENDE ZAAK"
@@ -27316,7 +27330,8 @@
                 upperValueValue="1"
                 type="EAJava_AN1"
                 typeName="AN1"/>
-      <!--repair.xsl: Locatie beschrijving -  kolom vergroot van 35 naar 255--><Property typeName="AN255"
+      <!--repair.xsl: Locatie beschrijving -  kolom vergroot van 35 naar 255-->
+      <Property typeName="AN255"
                 elementType="Objecttype/Groepattribuutsoort - Property"
                 classId="EAID_E5E010C2_C1F3_4986_AA9A_C71C19263606"
                 className="Verblijfadres INGESCHREVEN NATUURLIJK PERSOON"

@@ -13,6 +13,9 @@
 /brmo-loader/src/test/resources/topnl/*.zip
 /brmo-service/src/test/resources/GH-287/gh-292-staging-flat-4242.xml
 
+/datamodel/referentiedata/*.zip
+/datamodel/referentiedata/*.qg*
+
 # maven release procedure files
 **/pom.xml.tag
 **/pom.xml.releaseBackup
