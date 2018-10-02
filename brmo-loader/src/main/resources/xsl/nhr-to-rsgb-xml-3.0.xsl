@@ -126,7 +126,7 @@
                             </xsl:for-each>
                         </xsl:when>
                         <xsl:when test="name(*[1]) = 'cat:rechtspersoon'">
-                            <xsl:variable name="class">'INGESCHREVEN NIET-NATUURLIJK PERSOON'</xsl:variable>
+                            <xsl:variable name="class">INGESCHREVEN NIET-NATUURLIJK PERSOON</xsl:variable>
                             <subject>
                                 <identif><xsl:value-of select="$key" /></identif>
                                 <clazz><xsl:value-of select="$class" /></clazz>
@@ -323,7 +323,7 @@
         <xsl:variable name="naam">
             <xsl:choose>
                 <xsl:when test="cat:eersteHandelsnaam"> <!-- commercieleVestiging -->
-                    <!-- NHR max lenghte 625 naar RSGB 500 -->
+                    <!-- NHR max lengte 625 naar RSGB 500 -->
                     <xsl:value-of select="substring(cat:eersteHandelsnaam,1,500)"/>
                 </xsl:when>
                 <xsl:when test="cat:naam"> <!-- nietCommercieleVestiging -->
