@@ -2,10 +2,10 @@
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
     <suppress>
         <notes><![CDATA[
-      Negeer melding mbt tomcat-catalina-7.0.88.jar omdat we geen tomcat mee leveren en deze 
+      Negeer melding mbt tomcat-catalina-7.0.91.jar omdat we geen tomcat mee leveren en deze 
       alleen voor bepaalde deployments geldt.
       ]]></notes>
-        <filePath regex="true">.*\btomcat-catalina-7\.0\.90\.jar</filePath>
+        <filePath regex="true">.*\btomcat-catalina-7\.0\.91\.jar</filePath>
         <cve>CVE-2016-5388</cve>
         <cve>CVE-2016-5425</cve>
         <cve>CVE-2016-6325</cve>
@@ -13,9 +13,9 @@
     </suppress>
     <suppress>
         <notes><![CDATA[
-      Negeer melding mbt postgresql-42.2.2.jar, false positive, CVE heeft betrekking op init scripts.
+      Negeer melding mbt postgresql-42.2.5.jar, false positive, CVE heeft betrekking op init scripts.
       ]]></notes>
-        <filePath regex="true">.*\bpostgresql-42.2.2\.jar</filePath>
+        <filePath regex="true">.*\bpostgresql-42.2.5\.jar</filePath>
         <cve>CVE-2017-14798</cve>
     </suppress>
     <suppress>
