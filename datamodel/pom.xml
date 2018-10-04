@@ -205,11 +205,11 @@
     <reporting>
         <plugins>
             <plugin>
-                <groupId>com.wakaleo.schemaspy</groupId>
+                <groupId>nl.geodienstencentrum.maven</groupId>
                 <artifactId>schemaspy-maven-plugin</artifactId>
                 <configuration>
                     <databaseType>pgsql</databaseType>
-                    <host>192.168.1.21</host>
+                    <host>127.0.0.1</host>
                     <port>5434</port>
                     <user>rsgb</user>
                     <password>rsgb</password>
@@ -217,9 +217,7 @@
                     <schema>public</schema>
                     <pathToDrivers>${settings.localRepository}/org/postgresql/postgresql/${postgresql.jdbc.version}/postgresql-${postgresql.jdbc.version}.jar</pathToDrivers>
                     <allowHtmlInComments>true</allowHtmlInComments>
-                    <schemaDescription>RSGB SchemaSpy</schemaDescription>
-                    <noLogo>true</noLogo>
-                    <noAds>true</noAds>
+                    <schemaDescription>SchemaSpy rapport BRMO RSGB datamodel</schemaDescription>
                     <highQuality>true</highQuality>
                 </configuration>
             </plugin>

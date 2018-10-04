@@ -885,13 +885,11 @@
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${jacoco-maven-plugin.version}</version>
                 </plugin>
-                <!--
                 <plugin>
-                    <groupId>com.wakaleo.schemaspy</groupId>
+                    <groupId>nl.geodienstencentrum.maven</groupId>
                     <artifactId>schemaspy-maven-plugin</artifactId>
-                    <version>5.0.4-SNAPSHOT</version>
+                    <version>5.1.0-rc1</version>
                 </plugin>
-                -->
                 <plugin>
                     <artifactId>maven-scm-publish-plugin</artifactId>
                     <version>3.0.0</version>
