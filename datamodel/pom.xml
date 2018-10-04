@@ -10,7 +10,8 @@
         <artifactId>brmo</artifactId>
         <version>1.6.1-SNAPSHOT</version>
     </parent>
-    <name>BRMO rsgb datamodel</name>
+    <name>BRMO RSGB datamodel</name>
+    <description>Bevat de code voor het genereren van het RSGB datamodel.</description>
     <properties>
         <filename.base.201_update_wnplts_gemcode>201_update_wnplts_gemcode</filename.base.201_update_wnplts_gemcode>
         <filename.GEM-WPL-zipfile>GEM-WPL-RELATIE-08092018.zip</filename.GEM-WPL-zipfile>
@@ -201,14 +202,14 @@
             -->
         </plugins>
     </build>
-    <!-- reporting>
+    <reporting>
         <plugins>
             <plugin>
-                <groupId>com.wakaleo.schemaspy</groupId>
+                <groupId>nl.geodienstencentrum.maven</groupId>
                 <artifactId>schemaspy-maven-plugin</artifactId>
                 <configuration>
                     <databaseType>pgsql</databaseType>
-                    <host>localhost</host>
+                    <host>127.0.0.1</host>
                     <port>5434</port>
                     <user>rsgb</user>
                     <password>rsgb</password>
@@ -216,20 +217,19 @@
                     <schema>public</schema>
                     <pathToDrivers>${settings.localRepository}/org/postgresql/postgresql/${postgresql.jdbc.version}/postgresql-${postgresql.jdbc.version}.jar</pathToDrivers>
                     <allowHtmlInComments>true</allowHtmlInComments>
-                    <schemaDescription>RSGB SchemaSpy</schemaDescription>
-                    <noLogo>true</noLogo>
-                    <noAds>true</noAds>
+                    <schemaDescription>SchemaSpy rapport BRMO RSGB datamodel</schemaDescription>
                     <highQuality>true</highQuality>
                 </configuration>
             </plugin>
         </plugins>
-    </reporting -->
+    </reporting>
     <profiles>
         <profile>
             <id>GEM-WPL-RELATIE</id>
             <activation>
                 <file>
-                    <!-- dit profiel wordt geactiveerd als dit bestand, dat de input is, bestaat -->
+                    <!-- dit profiel wordt geactiveerd als dit bestand, dat de
+                         input voor het proces is, bestaat -->
                     <exists>${bas$edir}/referentiedata/${filename.GEM-WPL-zipfile}</exists>
                 </file>
             </activation>

@@ -11,7 +11,9 @@
     <version>1.6.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>BRMO test-util</name>
-    <description>Test utilities voor de BRMO</description>
+    <description>Test utilities voor de BRMO. Deze module bevat gedeelde code
+        voor unit en integratie tests. Details staan in de gegenereerde Javadoc
+        te vinden onder de Project rapporten.</description>
     <inceptionYear>2016</inceptionYear>
     <dependencies>
         <dependency>

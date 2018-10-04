@@ -1,35 +1,43 @@
-<project xsi:schemaLocation="http://maven.apache.org/DECORATION/1.7.0 http://maven.apache.org/xsd/decoration-1.7.0.xsd" 
-         xmlns="http://maven.apache.org/DECORATION/1.7.0" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<project xsi:schemaLocation="http://maven.apache.org/DECORATION/1.7.0 http://maven.apache.org/xsd/decoration-1.7.0.xsd"
+         xmlns="http://maven.apache.org/DECORATION/1.7.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          name="${this.name} ${this.version}">
-  <publishDate position="left" format="dd-MMMM-yyyy" />
-  <version position="left" />
-  <skin>
-    <groupId>org.apache.maven.skins</groupId>
-    <artifactId>maven-fluido-skin</artifactId>
-    <version>1.7</version>
-  </skin>
-  <bannerLeft>
-    <name>${this.organization.name}</name>
-    <src>images/logo.png</src>
-    <href>${this.organization.url}</href>
-  </bannerLeft>
-  <bannerRight>
-    <name>${this.name}</name>
-    <href>${this.url}</href>
-  </bannerRight>
-  <body>
-    <head />
-    <links>
-      <item name="Wiki" href="https://github.com/B3Partners/brmo/wiki" />
-      <item name="Issues dashboard" href="${this.issueManagement.url}" />
-    </links>
-    <menu name="Informatie" inherit="top">
-      <item name="Home" href="/index.html" />
-      <item name="Developer Notes" href="/developer-notes.html" />
-    </menu>
-    <menu ref="modules" />
-    <menu ref="reports" />
-  </body>
-  <poweredBy />
+    <publishDate position="left" format="dd-MMMM-yyyy"/>
+    <version position="left"/>
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.7</version>
+    </skin>
+    <bannerLeft>
+        <name>${this.organization.name}</name>
+        <src>images/logo.png</src>
+        <href>${this.organization.url}</href>
+    </bannerLeft>
+    <bannerRight>
+        <name>${this.name}</name>
+        <href>${this.url}</href>
+    </bannerRight>
+    <body>
+        <head/>
+        <links>
+            <item name="Wiki" href="https://github.com/B3Partners/brmo/wiki"/>
+            <item name="Issues dashboard" href="${this.issueManagement.url}"/>
+        </links>
+        <menu name="Informatie" inherit="top">
+            <item name="Home" href="/index.html"/>
+            <item name="Wiki" href="https://github.com/B3Partners/brmo/wiki"/>
+            <item name="FAQ" href="https://github.com/B3Partners/brmo/wiki/FAQ-(veel-gestelde-vragen-en-bijzonderheden)"/>
+            <item name="Mapping basisregistraties" href="https://github.com/B3Partners/brmo/wiki/Mapping-basisregistraties"/>
+            <item name="Developer Notes" href="/developer-notes.html"/>
+        </menu>
+        <menu name="Handleidingen" inherit="top">
+            <item name="BRMO service installatie" href="https://github.com/B3Partners/brmo/wiki/Installatiehandleiding"/>
+            <item name="BRMO SOAP" href="https://github.com/B3Partners/brmo/wiki/BRMO-SOAP-handleiding"/>
+            <item name="Handleidingen" href="https://github.com/B3Partners/brmo/wiki/Handleidingen"/>
+        </menu>
+        <menu ref="modules"/>
+        <menu ref="reports"/>
+    </body>
+    <poweredBy/>
 </project>
