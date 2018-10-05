@@ -177,7 +177,7 @@ digraph G {
 	// nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader NAVASSOC nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader.MutatieGegevens
 	c100:p -> c132:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader.MutatieGegevens
-	c132 [label=<<table title="nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader.MutatieGegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c132 [label=<<table title="nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader.MutatieGegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader/MutatieGegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MutatieGegevens </td></tr>
 		</table></td></tr>
@@ -190,6 +190,6 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader/MutatieGegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

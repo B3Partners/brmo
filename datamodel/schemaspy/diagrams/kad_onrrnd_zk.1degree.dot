@@ -79,7 +79,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="datum_einde_geldh" COLSPAN="2" ALIGN="LEFT">datum_einde_geldh</TD><TD PORT="datum_einde_geldh.type" ALIGN="LEFT">varchar[19]</TD></TR>
       <TR><TD PORT="typering" COLSPAN="2" ALIGN="LEFT">typering</TD><TD PORT="typering.type" ALIGN="LEFT">varchar[1]</TD></TR>
       <TR><TD PORT="fk_7kdg_code" COLSPAN="2" ALIGN="LEFT">fk_7kdg_code</TD><TD PORT="fk_7kdg_code.type" ALIGN="LEFT">varchar[5]</TD></TR>
-      <TR><TD PORT="fk_10pes_sc_identif" COLSPAN="2" ALIGN="LEFT">fk_10pes_sc_identif</TD><TD PORT="fk_10pes_sc_identif.type" ALIGN="LEFT">varchar[32]</TD></TR>
+      <TR><TD PORT="fk_10pes_sc_identif" COLSPAN="2" ALIGN="LEFT">fk_10pes_sc_identif</TD><TD PORT="fk_10pes_sc_identif.type" ALIGN="LEFT">varchar[255]</TD></TR>
       <TR><TD PORT="cu_aard_bebouwing" COLSPAN="2" ALIGN="LEFT">cu_aard_bebouwing</TD><TD PORT="cu_aard_bebouwing.type" ALIGN="LEFT">varchar[255]</TD></TR>
       <TR><TD PORT="cu_aard_cultuur_onbebouwd" COLSPAN="2" ALIGN="LEFT">cu_aard_cultuur_onbebouwd</TD><TD PORT="cu_aard_cultuur_onbebouwd.type" ALIGN="LEFT">varchar[65]</TD></TR>
       <TR><TD PORT="cu_meer_culturen" COLSPAN="2" ALIGN="LEFT">cu_meer_culturen</TD><TD PORT="cu_meer_culturen.type" ALIGN="LEFT">bpchar[1]</TD></TR>
@@ -95,7 +95,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="lr_eindjaar" COLSPAN="2" ALIGN="LEFT">lr_eindjaar</TD><TD PORT="lr_eindjaar.type" ALIGN="LEFT">int4[10]</TD></TR>
       <TR><TD PORT="lr_valutasoort" COLSPAN="2" ALIGN="LEFT">lr_valutasoort</TD><TD PORT="lr_valutasoort.type" ALIGN="LEFT">varchar[3]</TD></TR>
       <TR><TD PORT="lo_cultuur_bebouwd" COLSPAN="2" ALIGN="LEFT">lo_cultuur_bebouwd</TD><TD PORT="lo_cultuur_bebouwd.type" ALIGN="LEFT">varchar[65]</TD></TR>
-      <TR><TD PORT="lo_loc__omschr" COLSPAN="2" ALIGN="LEFT">lo_loc__omschr</TD><TD PORT="lo_loc__omschr.type" ALIGN="LEFT">varchar[40]</TD></TR>
+      <TR><TD PORT="lo_loc__omschr" COLSPAN="2" ALIGN="LEFT">lo_loc__omschr</TD><TD PORT="lo_loc__omschr.type" ALIGN="LEFT">varchar[255]</TD></TR>
       <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">8 &gt;</TD></TR>
     </TABLE>>
     URL="kad_onrrnd_zk.html"
@@ -168,7 +168,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">prs</TD></TR>
       <TR><TD PORT="sc_identif" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">sc_identif</TD></TR>
       <TR><TD PORT="clazz" COLSPAN="3" ALIGN="LEFT">clazz</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">10 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">9 &gt;</TD></TR>
     </TABLE>>
     URL="prs.html"
     tooltip="prs"

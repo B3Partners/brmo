@@ -53,7 +53,7 @@ digraph "oneDegreeRelationshipsDiagram" {
     label=<
     <TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">vestg_benoemd_obj</TD></TR>
-      <TR><TD PORT="fk_nn_lh_ves_sc_identif" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">fk_nn_lh_ves_sc_identif</TD><TD PORT="fk_nn_lh_ves_sc_identif.type" ALIGN="LEFT">varchar[32]</TD></TR>
+      <TR><TD PORT="fk_nn_lh_ves_sc_identif" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">fk_nn_lh_ves_sc_identif</TD><TD PORT="fk_nn_lh_ves_sc_identif.type" ALIGN="LEFT">varchar[255]</TD></TR>
       <TR><TD PORT="fk_nn_rh_tgo_identif" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">fk_nn_rh_tgo_identif</TD><TD PORT="fk_nn_rh_tgo_identif.type" ALIGN="LEFT">varchar[16]</TD></TR>
       <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 &gt;</TD></TR>
     </TABLE>>

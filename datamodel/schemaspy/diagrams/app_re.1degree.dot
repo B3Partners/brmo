@@ -27,7 +27,7 @@ digraph "oneDegreeRelationshipsDiagram" {
     <TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">app_re</TD></TR>
       <TR><TD PORT="sc_kad_identif" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">sc_kad_identif</TD><TD PORT="sc_kad_identif.type" ALIGN="LEFT">numeric[15]</TD></TR>
-      <TR><TD PORT="fk_2nnp_sc_identif" COLSPAN="2" ALIGN="LEFT">fk_2nnp_sc_identif</TD><TD PORT="fk_2nnp_sc_identif.type" ALIGN="LEFT">varchar[32]</TD></TR>
+      <TR><TD PORT="fk_2nnp_sc_identif" COLSPAN="2" ALIGN="LEFT">fk_2nnp_sc_identif</TD><TD PORT="fk_2nnp_sc_identif.type" ALIGN="LEFT">varchar[255]</TD></TR>
       <TR><TD PORT="ka_appartementsindex" COLSPAN="2" ALIGN="LEFT">ka_appartementsindex</TD><TD PORT="ka_appartementsindex.type" ALIGN="LEFT">varchar[4]</TD></TR>
       <TR><TD PORT="ka_kad_gemeentecode" COLSPAN="2" ALIGN="LEFT">ka_kad_gemeentecode</TD><TD PORT="ka_kad_gemeentecode.type" ALIGN="LEFT">varchar[5]</TD></TR>
       <TR><TD PORT="ka_perceelnummer" COLSPAN="2" ALIGN="LEFT">ka_perceelnummer</TD><TD PORT="ka_perceelnummer.type" ALIGN="LEFT">varchar[15]</TD></TR>

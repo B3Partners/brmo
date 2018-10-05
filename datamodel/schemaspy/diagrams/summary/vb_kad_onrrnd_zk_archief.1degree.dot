@@ -1,0 +1,52 @@
+// dot 2.40.1 on Linux 4.15.0-36-generic
+// SchemaSpy rev Unknown
+digraph "vb_kad_onrrnd_zk_archief" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "vb_kad_onrrnd_zk_archief" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">vb_kad_onrrnd_zk_archief</TD></TR>
+      <TR><TD PORT="objectid" COLSPAN="3" ALIGN="LEFT">objectid</TD></TR>
+      <TR><TD PORT="koz_identif" COLSPAN="3" ALIGN="LEFT">koz_identif</TD></TR>
+      <TR><TD PORT="begin_geldigheid" COLSPAN="3" ALIGN="LEFT">begin_geldigheid</TD></TR>
+      <TR><TD PORT="eind_geldigheid" COLSPAN="3" ALIGN="LEFT">eind_geldigheid</TD></TR>
+      <TR><TD PORT="type" COLSPAN="3" ALIGN="LEFT">type</TD></TR>
+      <TR><TD PORT="aanduiding" COLSPAN="3" ALIGN="LEFT">aanduiding</TD></TR>
+      <TR><TD PORT="aanduiding2" COLSPAN="3" ALIGN="LEFT">aanduiding2</TD></TR>
+      <TR><TD PORT="sectie" COLSPAN="3" ALIGN="LEFT">sectie</TD></TR>
+      <TR><TD PORT="perceelnummer" COLSPAN="3" ALIGN="LEFT">perceelnummer</TD></TR>
+      <TR><TD PORT="appartementsindex" COLSPAN="3" ALIGN="LEFT">appartementsindex</TD></TR>
+      <TR><TD PORT="gemeentecode" COLSPAN="3" ALIGN="LEFT">gemeentecode</TD></TR>
+      <TR><TD PORT="aand_soort_grootte" COLSPAN="3" ALIGN="LEFT">aand_soort_grootte</TD></TR>
+      <TR><TD PORT="grootte_perceel" COLSPAN="3" ALIGN="LEFT">grootte_perceel</TD></TR>
+      <TR><TD PORT="deelperceelnummer" COLSPAN="3" ALIGN="LEFT">deelperceelnummer</TD></TR>
+      <TR><TD PORT="omschr_deelperceel" COLSPAN="3" ALIGN="LEFT">omschr_deelperceel</TD></TR>
+      <TR><TD PORT="aard_cultuur_onbebouwd" COLSPAN="3" ALIGN="LEFT">aard_cultuur_onbebouwd</TD></TR>
+      <TR><TD PORT="bedrag" COLSPAN="3" ALIGN="LEFT">bedrag</TD></TR>
+      <TR><TD PORT="koopjaar" COLSPAN="3" ALIGN="LEFT">koopjaar</TD></TR>
+      <TR><TD PORT="meer_onroerendgoed" COLSPAN="3" ALIGN="LEFT">meer_onroerendgoed</TD></TR>
+      <TR><TD PORT="valutasoort" COLSPAN="3" ALIGN="LEFT">valutasoort</TD></TR>
+      <TR><TD PORT="loc_omschr" COLSPAN="3" ALIGN="LEFT">loc_omschr</TD></TR>
+      <TR><TD PORT="overgegaan_in" COLSPAN="3" ALIGN="LEFT">overgegaan_in</TD></TR>
+      <TR><TD PORT="begrenzing_perceel" COLSPAN="3" ALIGN="LEFT">begrenzing_perceel</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">view</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/vb_kad_onrrnd_zk_archief.html"
+    tooltip="vb_kad_onrrnd_zk_archief"
+  ];
+}

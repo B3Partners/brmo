@@ -23,17 +23,11 @@ digraph "twoDegreesRelationshipsDiagram" {
   "functionaris":"elipses":w -> "prs":"sc_identif":e [arrowhead=none dir=back arrowtail=crowodot];
   "functionaris":"elipses":w -> "prs":"sc_identif":e [arrowhead=none dir=back arrowtail=crowodot];
   "huishoudenrel":"elipses":w -> "ingeschr_nat_prs":"sc_identif":e [arrowhead=none dir=back arrowtail=crowodot];
-  "huw_ger_partn":"elipses":w -> "land":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "huw_ger_partn":"elipses":w -> "land":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "huw_ger_partn":"elipses":w -> "ingeschr_nat_prs":"sc_identif":e [arrowhead=none dir=back arrowtail=crowodot];
   "huw_ger_partn":"elipses":w -> "ingeschr_nat_prs":"sc_identif":e [arrowhead=none dir=back arrowtail=crowodot];
-  "ingeschr_nat_prs":"fk_17lnd_code_iso":w -> "land":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "ingeschr_nat_prs":"fk_18lnd_code_iso":w -> "land":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "ingeschr_nat_prs":"fk_1rsd_nummer":w -> "rsdoc":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "ingeschr_nat_prs":"fk_3nat_code":w -> "nation":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "ingeschr_nat_prs":"fk_gb_lnd_code_iso":w -> "land":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "ingeschr_nat_prs":"fk_nt_nat_code":w -> "nation":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "ingeschr_nat_prs":"fk_ol_lnd_code_iso":w -> "land":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "ingeschr_nat_prs":"sc_identif":w -> "nat_prs":"sc_identif.type":e [arrowhead=none dir=back arrowtail=teeodot];
   "ingezetene":"elipses":w -> "ingeschr_nat_prs":"sc_identif":e [arrowhead=none dir=back arrowtail=teeodot];
   "kad_onrrnd_zk":"elipses":w -> "prs":"sc_identif":e [arrowhead=none dir=back arrowtail=crowodot];
@@ -47,10 +41,8 @@ digraph "twoDegreesRelationshipsDiagram" {
   "ouder_kind_rel":"elipses":w -> "ingeschr_nat_prs":"sc_identif":e [arrowhead=none dir=back arrowtail=crowodot];
   "ouder_kind_rel":"elipses":w -> "ingeschr_nat_prs":"sc_identif":e [arrowhead=none dir=back arrowtail=crowodot];
   "prs":"sc_identif":w -> "subject":"elipses":e [arrowhead=none dir=back arrowtail=teeodot];
-  "prs_eigendom":"elipses":w -> "prs":"sc_identif":e [arrowhead=none dir=back arrowtail=teeodot];
   "rsdoc_ingeschr_nat_prs":"elipses":w -> "rsdoc":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "rsdoc_ingeschr_nat_prs":"elipses":w -> "ingeschr_nat_prs":"sc_identif":e [arrowhead=none dir=back arrowtail=crowodot];
-  "subject":"elipses":w -> "land":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "zak_recht":"elipses":w -> "kad_onrrnd_zk":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "zak_recht":"elipses":w -> "prs":"sc_identif":e [arrowhead=none dir=back arrowtail=crowodot];
   "zak_recht_aantek":"elipses":w -> "zak_recht":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
@@ -161,7 +153,7 @@ digraph "twoDegreesRelationshipsDiagram" {
       <TR><TD PORT="fk_3nat_code" COLSPAN="3" ALIGN="LEFT">fk_3nat_code</TD></TR>
       <TR><TD PORT="fk_17lnd_code_iso" COLSPAN="3" ALIGN="LEFT">fk_17lnd_code_iso</TD></TR>
       <TR><TD PORT="fk_18lnd_code_iso" COLSPAN="3" ALIGN="LEFT">fk_18lnd_code_iso</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 8</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">8 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 4</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">8 &gt;</TD></TR>
     </TABLE>>
     URL="ingeschr_nat_prs.html"
     tooltip="ingeschr_nat_prs"
@@ -196,16 +188,6 @@ digraph "twoDegreesRelationshipsDiagram" {
     URL="kad_onrrnd_zk_aantek.html"
     tooltip="kad_onrrnd_zk_aantek"
   ];
-  "land" [
-    label=<
-    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">land</TD></TR>
-      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">7 &gt;</TD></TR>
-    </TABLE>>
-    URL="land.html"
-    tooltip="land"
-  ];
   "maatschapp_activiteit" [
     label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
@@ -220,7 +202,7 @@ digraph "twoDegreesRelationshipsDiagram" {
     label=<
     <TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">nat_prs</TD></TR>
-      <TR><TD PORT="sc_identif" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">sc_identif</TD><TD PORT="sc_identif.type" ALIGN="LEFT">varchar[32]</TD></TR>
+      <TR><TD PORT="sc_identif" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">sc_identif</TD><TD PORT="sc_identif.type" ALIGN="LEFT">varchar[255]</TD></TR>
       <TR><TD PORT="clazz" COLSPAN="2" ALIGN="LEFT">clazz</TD><TD PORT="clazz.type" ALIGN="LEFT">varchar[255]</TD></TR>
       <TR><TD PORT="aand_naamgebruik" COLSPAN="2" ALIGN="LEFT">aand_naamgebruik</TD><TD PORT="aand_naamgebruik.type" ALIGN="LEFT">varchar[1]</TD></TR>
       <TR><TD PORT="geslachtsaand" COLSPAN="2" ALIGN="LEFT">geslachtsaand</TD><TD PORT="geslachtsaand.type" ALIGN="LEFT">varchar[1]</TD></TR>
@@ -243,7 +225,7 @@ digraph "twoDegreesRelationshipsDiagram" {
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">nation</TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">215 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
     </TABLE>>
     URL="nation.html"
     tooltip="nation"
@@ -284,20 +266,10 @@ digraph "twoDegreesRelationshipsDiagram" {
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">prs</TD></TR>
       <TR><TD PORT="sc_identif" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">sc_identif</TD></TR>
       <TR><TD PORT="clazz" COLSPAN="3" ALIGN="LEFT">clazz</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">10 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">9 &gt;</TD></TR>
     </TABLE>>
     URL="prs.html"
     tooltip="prs"
-  ];
-  "prs_eigendom" [
-    label=<
-    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">prs_eigendom</TD></TR>
-      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
-    </TABLE>>
-    URL="prs_eigendom.html"
-    tooltip="prs_eigendom"
   ];
   "rsdoc" [
     label=<
@@ -324,7 +296,7 @@ digraph "twoDegreesRelationshipsDiagram" {
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">subject</TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
     </TABLE>>
     URL="subject.html"
     tooltip="subject"

@@ -99,7 +99,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="fk_3nat_code" COLSPAN="3" ALIGN="LEFT">fk_3nat_code</TD></TR>
       <TR><TD PORT="fk_17lnd_code_iso" COLSPAN="3" ALIGN="LEFT">fk_17lnd_code_iso</TD></TR>
       <TR><TD PORT="fk_18lnd_code_iso" COLSPAN="3" ALIGN="LEFT">fk_18lnd_code_iso</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 8</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">8 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 4</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">8 &gt;</TD></TR>
     </TABLE>>
     URL="ingeschr_nat_prs.html"
     tooltip="ingeschr_nat_prs"
@@ -108,7 +108,7 @@ digraph "oneDegreeRelationshipsDiagram" {
     label=<
     <TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">nat_prs</TD></TR>
-      <TR><TD PORT="sc_identif" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">sc_identif</TD><TD PORT="sc_identif.type" ALIGN="LEFT">varchar[32]</TD></TR>
+      <TR><TD PORT="sc_identif" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">sc_identif</TD><TD PORT="sc_identif.type" ALIGN="LEFT">varchar[255]</TD></TR>
       <TR><TD PORT="clazz" COLSPAN="2" ALIGN="LEFT">clazz</TD><TD PORT="clazz.type" ALIGN="LEFT">varchar[255]</TD></TR>
       <TR><TD PORT="aand_naamgebruik" COLSPAN="2" ALIGN="LEFT">aand_naamgebruik</TD><TD PORT="aand_naamgebruik.type" ALIGN="LEFT">varchar[1]</TD></TR>
       <TR><TD PORT="geslachtsaand" COLSPAN="2" ALIGN="LEFT">geslachtsaand</TD><TD PORT="geslachtsaand.type" ALIGN="LEFT">varchar[1]</TD></TR>
@@ -132,7 +132,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">prs</TD></TR>
       <TR><TD PORT="sc_identif" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">sc_identif</TD></TR>
       <TR><TD PORT="clazz" COLSPAN="3" ALIGN="LEFT">clazz</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">10 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">9 &gt;</TD></TR>
     </TABLE>>
     URL="prs.html"
     tooltip="prs"

@@ -20,29 +20,14 @@ digraph "oneDegreeRelationshipsDiagram" {
     arrowsize="0.8"
   ];
   "prs":"sc_identif":w -> "subject":"identif.type":e [arrowhead=none dir=back arrowtail=teeodot];
-  "subject":"fk_vb_lnd_code_iso":w -> "land":"code_iso":e [arrowhead=none dir=back arrowtail=crowodot];
   "woz_belang":"fk_sc_lh_sub_identif":w -> "subject":"identif.type":e [arrowhead=none dir=back arrowtail=crowodot];
-  "land" [
-    label=<
-    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">land</TD></TR>
-      <TR><TD PORT="eindd" COLSPAN="3" ALIGN="LEFT">eindd</TD></TR>
-      <TR><TD PORT="ingangsdatum" COLSPAN="3" ALIGN="LEFT">ingangsdatum</TD></TR>
-      <TR><TD PORT="code" COLSPAN="3" ALIGN="LEFT">code</TD></TR>
-      <TR><TD PORT="code_iso" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">code_iso</TD></TR>
-      <TR><TD PORT="naam" COLSPAN="3" ALIGN="LEFT">naam</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">7 &gt;</TD></TR>
-    </TABLE>>
-    URL="land.html"
-    tooltip="land"
-  ];
   "prs" [
     label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">prs</TD></TR>
       <TR><TD PORT="sc_identif" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">sc_identif</TD></TR>
       <TR><TD PORT="clazz" COLSPAN="3" ALIGN="LEFT">clazz</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">10 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">9 &gt;</TD></TR>
     </TABLE>>
     URL="prs.html"
     tooltip="prs"
@@ -51,7 +36,7 @@ digraph "oneDegreeRelationshipsDiagram" {
     label=<
     <TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">subject</TD></TR>
-      <TR><TD PORT="identif" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">identif</TD><TD PORT="identif.type" ALIGN="LEFT">varchar[32]</TD></TR>
+      <TR><TD PORT="identif" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">identif</TD><TD PORT="identif.type" ALIGN="LEFT">varchar[255]</TD></TR>
       <TR><TD PORT="clazz" COLSPAN="2" ALIGN="LEFT">clazz</TD><TD PORT="clazz.type" ALIGN="LEFT">varchar[255]</TD></TR>
       <TR><TD PORT="adres_binnenland" COLSPAN="2" ALIGN="LEFT">adres_binnenland</TD><TD PORT="adres_binnenland.type" ALIGN="LEFT">varchar[257]</TD></TR>
       <TR><TD PORT="adres_buitenland" COLSPAN="2" ALIGN="LEFT">adres_buitenland</TD><TD PORT="adres_buitenland.type" ALIGN="LEFT">varchar[149]</TD></TR>
@@ -76,7 +61,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="vb_adres_buitenland_2" COLSPAN="2" ALIGN="LEFT">vb_adres_buitenland_2</TD><TD PORT="vb_adres_buitenland_2.type" ALIGN="LEFT">varchar[35]</TD></TR>
       <TR><TD PORT="vb_adres_buitenland_3" COLSPAN="2" ALIGN="LEFT">vb_adres_buitenland_3</TD><TD PORT="vb_adres_buitenland_3.type" ALIGN="LEFT">varchar[35]</TD></TR>
       <TR><TD PORT="fk_vb_lnd_code_iso" COLSPAN="2" ALIGN="LEFT">fk_vb_lnd_code_iso</TD><TD PORT="fk_vb_lnd_code_iso.type" ALIGN="LEFT">varchar[2]</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 0</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
     </TABLE>>
     URL="subject.html"
     tooltip="subject"

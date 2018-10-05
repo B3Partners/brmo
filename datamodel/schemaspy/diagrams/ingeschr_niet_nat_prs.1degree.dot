@@ -24,7 +24,7 @@ digraph "oneDegreeRelationshipsDiagram" {
     label=<
     <TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">ingeschr_niet_nat_prs</TD></TR>
-      <TR><TD PORT="sc_identif" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">sc_identif</TD><TD PORT="sc_identif.type" ALIGN="LEFT">varchar[32]</TD></TR>
+      <TR><TD PORT="sc_identif" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">sc_identif</TD><TD PORT="sc_identif.type" ALIGN="LEFT">varchar[255]</TD></TR>
       <TR><TD PORT="typering" COLSPAN="2" ALIGN="LEFT">typering</TD><TD PORT="typering.type" ALIGN="LEFT">varchar[35]</TD></TR>
       <TR><TD PORT="ovrg_privaatr_rechtsvorm" COLSPAN="2" ALIGN="LEFT">ovrg_privaatr_rechtsvorm</TD><TD PORT="ovrg_privaatr_rechtsvorm.type" ALIGN="LEFT">varchar[200]</TD></TR>
       <TR><TD PORT="publiekrechtelijke_rechtsvorm" COLSPAN="2" ALIGN="LEFT">publiekrechtelijke_rechtsvorm</TD><TD PORT="publiekrechtelijke_rechtsvorm.type" ALIGN="LEFT">varchar[40]</TD></TR>

@@ -83,17 +83,17 @@
 </tr>
 </thead>
 <tbody valign='top'>
-<tr class='odd'>
+<tr class='even'>
  <td class='primaryKey' title='Primary Key'>fk_sc_lh_inp_sc_identif</td>
  <td class='detail'>varchar</td>
- <td class='detail' align='right'>32</td>
+ <td class='detail' align='right'>255</td>
  <td class='detail' align='center'></td>
  <td class='detail' align='center'></td>
  <td class='detail'></td>
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="huishoudenrel.fk_sc_lh_inp_sc_identif refs ingeschr_nat_prs.sc_identif via fk_huishoudenrel_sc_lh"><a href='ingeschr_nat_prs.html'>ingeschr_nat_prs</a><span class='relatedKey'>.sc_identif</span>
     </td>
     <td class='constraint detail'>fk_huishoudenrel_sc_lh<span title='Cascade on delete:
@@ -103,7 +103,7 @@
  </td>
  <td class='comment detail'>[FK] AN32, FK naar ingeschr_nat_prs.sc_identif (is FK naar superclass SUBJECT)</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='primaryKey' title='Primary Key'>fk_sc_rh_hhd_nummer</td>
  <td class='detail'>numeric</td>
  <td class='detail' align='right'>12</td>
@@ -113,7 +113,7 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="huishoudenrel.fk_sc_rh_hhd_nummer refs huishouden.nummer via fk_huishoudenrel_sc_rh"><a href='huishouden.html'>huishouden</a><span class='relatedKey'>.nummer</span>
     </td>
     <td class='constraint detail'>fk_huishoudenrel_sc_rh<span title='Cascade on delete:
@@ -123,7 +123,7 @@
  </td>
  <td class='comment detail'>[FK] N12, FK naar huishouden.nummer</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>huishoudenrelcode</td>
  <td class='detail'>numeric</td>
  <td class='detail' align='right'>1</td>
@@ -135,7 +135,7 @@
  <td class='comment detail'>N1 - Huishoudenrelatiecode</td>
 </tr>
 </table>
-<p title='3 columns'>Table contained 0 rows at vr okt 05 13:42 CEST 2018<p/>
+<p title='3 columns'>Table contained 0 rows at vr okt 05 14:13 CEST 2018<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>
@@ -161,24 +161,23 @@
 <br><form action='get'><b>Close relationships</b><span class='degrees' id='degrees' title='Detail diminishes with increased separation from huishoudenrel'>
 &nbsp;within <label for='oneDegree'><input type='radio' name='degrees' id='oneDegree' checked>one</label>  <label for='twoDegrees'><input type='radio' name='degrees' id='twoDegrees'>two degrees</label> of separation</span><b>:</b></form>
 <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="huishoudenrel.html" title="huishoudenrel" alt="" coords="288,581,555,717">
+<area shape="rect" id="node1" href="huishoudenrel.html" title="huishoudenrel" alt="" coords="288,581,560,717">
 <area shape="rect" id="node2" href="ingeschr_nat_prs.html" title="ingeschr_nat_prs" alt="" coords="5,5,244,1144">
 <area shape="rect" id="node3" href="huishouden.html" title="huishouden" alt="" coords="47,1161,203,1412">
 </map>
   <a name='diagram'><img id='oneDegreeImg' src='../diagrams/huishoudenrel.1degree.png' usemap='#oneDegreeRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>
 <map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
-<area shape="rect" id="node1" href="huishoudenrel.html" title="huishoudenrel" alt="" coords="464,44,731,180">
-<area shape="rect" id="node2" href="ingeschr_nat_prs.html" title="ingeschr_nat_prs" alt="" coords="181,325,420,1464">
-<area shape="rect" id="node3" href="huishouden.html" title="huishouden" alt="" coords="223,5,379,256">
-<area shape="rect" id="node5" href="land.html" title="land" alt="" coords="11,987,131,1069">
-<area shape="rect" id="node6" href="rsdoc.html" title="rsdoc" alt="" coords="5,1411,137,1493">
-<area shape="rect" id="node7" href="nation.html" title="nation" alt="" coords="11,1161,131,1244">
-<area shape="rect" id="node8" href="nat_prs.html" title="nat_prs" alt="" coords="5,325,137,408">
-<area shape="rect" id="node4" href="huw_ger_partn.html" title="huw_ger_partn" alt="" coords="534,237,661,320">
-<area shape="rect" id="node9" href="ingezetene.html" title="ingezetene" alt="" coords="537,337,657,420">
-<area shape="rect" id="node10" href="niet_ingezetene.html" title="niet_ingezetene" alt="" coords="532,437,663,520">
-<area shape="rect" id="node11" href="ouder_kind_rel.html" title="ouder_kind_rel" alt="" coords="535,537,660,620">
-<area shape="rect" id="node12" href="rsdoc_ingeschr_nat_prs.html" title="rsdoc_ingeschr_nat_prs" alt="" coords="506,1049,689,1132">
+<area shape="rect" id="node1" href="huishoudenrel.html" title="huishoudenrel" alt="" coords="468,5,740,141">
+<area shape="rect" id="node2" href="ingeschr_nat_prs.html" title="ingeschr_nat_prs" alt="" coords="185,359,424,1497">
+<area shape="rect" id="node3" href="huishouden.html" title="huishouden" alt="" coords="227,8,383,259">
+<area shape="rect" id="node5" href="rsdoc.html" title="rsdoc" alt="" coords="7,255,139,337">
+<area shape="rect" id="node6" href="nation.html" title="nation" alt="" coords="5,1211,141,1293">
+<area shape="rect" id="node7" href="nat_prs.html" title="nat_prs" alt="" coords="7,359,139,441">
+<area shape="rect" id="node4" href="huw_ger_partn.html" title="huw_ger_partn" alt="" coords="541,459,667,541">
+<area shape="rect" id="node8" href="ingezetene.html" title="ingezetene" alt="" coords="544,559,664,641">
+<area shape="rect" id="node9" href="niet_ingezetene.html" title="niet_ingezetene" alt="" coords="539,259,669,341">
+<area shape="rect" id="node10" href="ouder_kind_rel.html" title="ouder_kind_rel" alt="" coords="541,359,667,441">
+<area shape="rect" id="node11" href="rsdoc_ingeschr_nat_prs.html" title="rsdoc_ingeschr_nat_prs" alt="" coords="513,159,695,241">
 </map>
 
   <a name='diagram'><img id='twoDegreesImg' src='../diagrams/huishoudenrel.2degrees.png' usemap='#twoDegreesRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>

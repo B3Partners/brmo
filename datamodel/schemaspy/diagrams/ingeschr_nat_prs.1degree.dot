@@ -20,17 +20,11 @@ digraph "oneDegreeRelationshipsDiagram" {
     arrowsize="0.8"
   ];
   "huishoudenrel":"fk_sc_lh_inp_sc_identif":w -> "ingeschr_nat_prs":"sc_identif.type":e [arrowhead=none dir=back arrowtail=crowodot];
-  "huw_ger_partn":"fk_ho_lnd_code_iso":w -> "land":"code_iso":e [arrowhead=none dir=back arrowtail=crowodot];
-  "huw_ger_partn":"fk_hs_lnd_code_iso":w -> "land":"code_iso":e [arrowhead=none dir=back arrowtail=crowodot];
   "huw_ger_partn":"fk_sc_lh_inp_sc_identif":w -> "ingeschr_nat_prs":"sc_identif.type":e [arrowhead=none dir=back arrowtail=crowodot];
   "huw_ger_partn":"fk_sc_rh_inp_sc_identif":w -> "ingeschr_nat_prs":"sc_identif.type":e [arrowhead=none dir=back arrowtail=crowodot];
-  "ingeschr_nat_prs":"fk_17lnd_code_iso":w -> "land":"code_iso":e [arrowhead=none dir=back arrowtail=crowodot];
-  "ingeschr_nat_prs":"fk_18lnd_code_iso":w -> "land":"code_iso":e [arrowhead=none dir=back arrowtail=crowodot];
   "ingeschr_nat_prs":"fk_1rsd_nummer":w -> "rsdoc":"nummer":e [arrowhead=none dir=back arrowtail=crowodot];
   "ingeschr_nat_prs":"fk_3nat_code":w -> "nation":"code":e [arrowhead=none dir=back arrowtail=crowodot];
-  "ingeschr_nat_prs":"fk_gb_lnd_code_iso":w -> "land":"code_iso":e [arrowhead=none dir=back arrowtail=crowodot];
   "ingeschr_nat_prs":"fk_nt_nat_code":w -> "nation":"code":e [arrowhead=none dir=back arrowtail=crowodot];
-  "ingeschr_nat_prs":"fk_ol_lnd_code_iso":w -> "land":"code_iso":e [arrowhead=none dir=back arrowtail=crowodot];
   "ingeschr_nat_prs":"sc_identif":w -> "nat_prs":"sc_identif":e [arrowhead=none dir=back arrowtail=teeodot];
   "ingezetene":"sc_identif":w -> "ingeschr_nat_prs":"sc_identif.type":e [arrowhead=none dir=back arrowtail=teeodot];
   "niet_ingezetene":"sc_identif":w -> "ingeschr_nat_prs":"sc_identif.type":e [arrowhead=none dir=back arrowtail=teeodot];
@@ -73,7 +67,7 @@ digraph "oneDegreeRelationshipsDiagram" {
     label=<
     <TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">ingeschr_nat_prs</TD></TR>
-      <TR><TD PORT="sc_identif" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">sc_identif</TD><TD PORT="sc_identif.type" ALIGN="LEFT">varchar[32]</TD></TR>
+      <TR><TD PORT="sc_identif" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">sc_identif</TD><TD PORT="sc_identif.type" ALIGN="LEFT">varchar[255]</TD></TR>
       <TR><TD PORT="clazz" COLSPAN="2" ALIGN="LEFT">clazz</TD><TD PORT="clazz.type" ALIGN="LEFT">varchar[255]</TD></TR>
       <TR><TD PORT="a_nummer" COLSPAN="2" ALIGN="LEFT">a_nummer</TD><TD PORT="a_nummer.type" ALIGN="LEFT">numeric[10]</TD></TR>
       <TR><TD PORT="btnlnds_rsdoc" COLSPAN="2" ALIGN="LEFT">btnlnds_rsdoc</TD><TD PORT="btnlnds_rsdoc.type" ALIGN="LEFT">numeric[1]</TD></TR>
@@ -118,7 +112,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="fk_3nat_code" COLSPAN="2" ALIGN="LEFT">fk_3nat_code</TD><TD PORT="fk_3nat_code.type" ALIGN="LEFT">numeric[4]</TD></TR>
       <TR><TD PORT="fk_17lnd_code_iso" COLSPAN="2" ALIGN="LEFT">fk_17lnd_code_iso</TD><TD PORT="fk_17lnd_code_iso.type" ALIGN="LEFT">varchar[2]</TD></TR>
       <TR><TD PORT="fk_18lnd_code_iso" COLSPAN="2" ALIGN="LEFT">fk_18lnd_code_iso</TD><TD PORT="fk_18lnd_code_iso.type" ALIGN="LEFT">varchar[2]</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 8</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">8 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 4</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">8 &gt;</TD></TR>
     </TABLE>>
     URL="ingeschr_nat_prs.html"
     tooltip="ingeschr_nat_prs"
@@ -142,20 +136,6 @@ digraph "oneDegreeRelationshipsDiagram" {
     </TABLE>>
     URL="ingezetene.html"
     tooltip="ingezetene"
-  ];
-  "land" [
-    label=<
-    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">land</TD></TR>
-      <TR><TD PORT="eindd" COLSPAN="3" ALIGN="LEFT">eindd</TD></TR>
-      <TR><TD PORT="ingangsdatum" COLSPAN="3" ALIGN="LEFT">ingangsdatum</TD></TR>
-      <TR><TD PORT="code" COLSPAN="3" ALIGN="LEFT">code</TD></TR>
-      <TR><TD PORT="code_iso" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">code_iso</TD></TR>
-      <TR><TD PORT="naam" COLSPAN="3" ALIGN="LEFT">naam</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">7 &gt;</TD></TR>
-    </TABLE>>
-    URL="land.html"
-    tooltip="land"
   ];
   "nat_prs" [
     label=<
@@ -187,7 +167,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="eindd_geldh" COLSPAN="3" ALIGN="LEFT">eindd_geldh</TD></TR>
       <TR><TD PORT="code" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">code</TD></TR>
       <TR><TD PORT="omschr" COLSPAN="3" ALIGN="LEFT">omschr</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">215 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
     </TABLE>>
     URL="nation.html"
     tooltip="nation"
