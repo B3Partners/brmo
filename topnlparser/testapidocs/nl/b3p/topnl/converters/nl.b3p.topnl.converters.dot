@@ -129,7 +129,7 @@ digraph G {
 	// nl.b3p.topnl.converters.Top100NLConverterTest NAVASSOC nl.b3p.topnl.converters.Top100NLConverter
 	c23:p -> c27:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.converters.Top100NLConverter
-	c27 [label=<<table title="nl.b3p.topnl.converters.Top100NLConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c27 [label=<<table title="nl.b3p.topnl.converters.Top100NLConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/topnl/converters/Top100NLConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Top100NLConverter </td></tr>
 		</table></td></tr>
@@ -156,9 +156,9 @@ digraph G {
 <tr><td align="left" balign="left"> + convertWegdeel(arg0 : Object) : Wegdeel </td></tr>
 <tr><td align="left" balign="left"> + convertPlanTopografie(arg0 : Object) : PlanTopografie </td></tr>
 		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/topnl/converters/Top100NLConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.converters.Top250NLConverter
-	c26 [label=<<table title="nl.b3p.topnl.converters.Top250NLConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c26 [label=<<table title="nl.b3p.topnl.converters.Top250NLConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/topnl/converters/Top250NLConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Top250NLConverter </td></tr>
 		</table></td></tr>
@@ -186,9 +186,9 @@ digraph G {
 <tr><td align="left" balign="left"> + convertWegdeel(arg0 : Object) : Wegdeel </td></tr>
 <tr><td align="left" balign="left"> + convertPlanTopografie(arg0 : Object) : PlanTopografie </td></tr>
 		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/topnl/converters/Top250NLConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.converters.Top10NLConverter
-	c25 [label=<<table title="nl.b3p.topnl.converters.Top10NLConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c25 [label=<<table title="nl.b3p.topnl.converters.Top10NLConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/topnl/converters/Top10NLConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Top10NLConverter </td></tr>
 		</table></td></tr>
@@ -215,9 +215,9 @@ digraph G {
 <tr><td align="left" balign="left"> + convertWaterdeel(arg0 : Object) : Waterdeel </td></tr>
 <tr><td align="left" balign="left"> + convertWegdeel(arg0 : Object) : Wegdeel </td></tr>
 		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/topnl/converters/Top10NLConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.converters.Top50NLConverter
-	c24 [label=<<table title="nl.b3p.topnl.converters.Top50NLConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c24 [label=<<table title="nl.b3p.topnl.converters.Top50NLConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/topnl/converters/Top50NLConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Top50NLConverter </td></tr>
 		</table></td></tr>
@@ -244,6 +244,6 @@ digraph G {
 <tr><td align="left" balign="left"> + convertWegdeel(arg0 : Object) : Wegdeel </td></tr>
 <tr><td align="left" balign="left"> + convertPlanTopografie(arg0 : Object) : PlanTopografie </td></tr>
 		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/topnl/converters/Top50NLConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

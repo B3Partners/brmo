@@ -83,7 +83,7 @@
 </tr>
 </thead>
 <tbody valign='top'>
-<tr class='even'>
+<tr class='odd'>
  <td class='primaryKey' title='Primary Key'>sc_kad_identif</td>
  <td class='detail'>numeric</td>
  <td class='detail' align='right'>15</td>
@@ -92,13 +92,13 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="app_re_kad_perceel.fk_nn_rh_kdp_sc_kad_identif refs kad_perceel.sc_kad_identif via fk_apr_kdp_nn_rh"><a href='app_re_kad_perceel.html'>app_re_kad_perceel</a><span class='relatedKey'>.fk_nn_rh_kdp_sc_kad_identif</span>
     </td>
     <td class='constraint detail'>fk_apr_kdp_nn_rh<span title='Cascade on delete:
  Deletion of parent deletes child'>&nbsp;C</span></td>
    </tr>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="kad_perceel.fk_7kdp_sc_kad_identif refs kad_perceel.sc_kad_identif via fk_kdp_as_7"><a href='kad_perceel.html'>kad_perceel</a><span class='relatedKey'>.fk_7kdp_sc_kad_identif</span>
     </td>
     <td class='constraint detail'>fk_kdp_as_7<span title='Cascade on delete:
@@ -108,7 +108,7 @@
 </td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="kad_perceel.sc_kad_identif refs kad_onrrnd_zk.kad_identif via fk_kdp_sc"><a href='kad_onrrnd_zk.html'>kad_onrrnd_zk</a><span class='relatedKey'>.kad_identif</span>
     </td>
     <td class='constraint detail'>fk_kdp_sc<span title='Cascade on delete:
@@ -118,7 +118,7 @@
  </td>
  <td class='comment detail'>[PK] N15, FK naar kad_onrrnd_zk.kad_identif - Kadastrale identificatie</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>aand_soort_grootte</td>
  <td class='detail'>bpchar</td>
  <td class='detail' align='right'>1</td>
@@ -129,7 +129,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>boolean - Aanduiding soort grootte</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>grootte_perceel</td>
  <td class='detail'>numeric</td>
  <td class='detail' align='right'>8</td>
@@ -140,7 +140,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>N8 - Grootte perceel</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>omschr_deelperceel</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>1120</td>
@@ -151,7 +151,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>AN1120 - Omschrijving deelperceel</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>fk_7kdp_sc_kad_identif</td>
  <td class='detail'>numeric</td>
  <td class='detail' align='right'>15</td>
@@ -161,7 +161,7 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="kad_perceel.fk_7kdp_sc_kad_identif refs kad_perceel.sc_kad_identif via fk_kdp_as_7"><a href='kad_perceel.html'>kad_perceel</a><span class='relatedKey'>.sc_kad_identif</span>
     </td>
     <td class='constraint detail'>fk_kdp_as_7<span title='Cascade on delete:
@@ -171,7 +171,7 @@
  </td>
  <td class='comment detail'>[FK] N15, FK naar kad_perceel.sc_kad_identif (is FK naar superclass KADASTRALE ONROERENDE ZAAK): "ligt binnen"</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>ka_deelperceelnummer</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>4</td>
@@ -182,7 +182,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Groepsattribuut Kadastrale aanduiding KADASTRAAL PERCEEL.Deelperceelnummer - Deelperceelnummer</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='indexedColumn' title='Indexed'>ka_kad_gemeentecode</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>5</td>
@@ -193,7 +193,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Groepsattribuut Kadastrale aanduiding KADASTRAAL PERCEEL.Kadastrale gemeentecode - Kadastrale gemeentecode</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='indexedColumn' title='Indexed'>ka_perceelnummer</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>5</td>
@@ -204,7 +204,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Groepsattribuut Kadastrale aanduiding KADASTRAAL PERCEEL.Perceelnummer - Perceelnummer</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='indexedColumn' title='Indexed'>ka_sectie</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>255</td>
@@ -215,7 +215,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Groepsattribuut Kadastrale aanduiding KADASTRAAL PERCEEL.Sectie - Sectie</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='indexedColumn' title='Indexed'>begrenzing_perceel</td>
  <td class='detail'>geometry</td>
  <td class='detail' align='right'>2147483647</td>
@@ -226,7 +226,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>GM_Surface - Begrenzing perceel</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='indexedColumn' title='Indexed'>plaatscoordinaten_perceel</td>
  <td class='detail'>geometry</td>
  <td class='detail' align='right'>2147483647</td>
@@ -238,7 +238,7 @@
  <td class='comment detail'>GM_Point - Plaatsco�rdinaten perceel</td>
 </tr>
 </table>
-<p title='11 columns'>Table contained 0 rows at vr okt 05 09:17 CEST 2018<p/>
+<p title='11 columns'>Table contained 0 rows at vr okt 05 13:42 CEST 2018<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>
