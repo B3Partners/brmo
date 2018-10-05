@@ -1,13 +1,12 @@
 timestamps {
-    
     properties([
-        [$class: 'jenkins.model.BuildDiscarderProperty', strategy: [$class: 'LogRotator', 
-            artifactDaysToKeepStr: '8', 
-            artifactNumToKeepStr: '3', 
-            daysToKeepStr: '15', 
+        [$class: 'jenkins.model.BuildDiscarderProperty', strategy: [$class: 'LogRotator',
+            artifactDaysToKeepStr: '8',
+            artifactNumToKeepStr: '3',
+            daysToKeepStr: '15',
             numToKeepStr: '5']
         ]]);
-    
+
     node {
         withEnv(["JAVA_HOME=${ tool 'JDK8' }", "PATH+MAVEN=${tool 'Maven 3.5.4'}/bin:${env.JAVA_HOME}/bin"]) {
 
@@ -114,11 +113,12 @@ timestamps {
 
             stage('OWASP Dependency Check') {
                 echo "Uitvoeren OWASP dependency check"
-                // dependencyCheckAnalyzer datadir: '', hintsFile: '', includeCsvReports: false, includeHtmlReports: true, includeJsonReports: false, isAutoupdateDisabled: false, outdir: '', scanpath: '**/brmo-*.jar,**/brmo-*.war,**/brmo-*.zip', skipOnScmChange: false, skipOnUpstreamChange: false, suppressionFile: '.mvn/owasp-suppression.xml', zipExtensions: ''
                 sh "mvn org.owasp:dependency-check-maven:aggregate -Dformat=ALL -DsuppressionFile=./.mvn/owasp-suppression.xml"
 
                 dependencyCheckPublisher canComputeNew: false, defaultEncoding: '', healthy: '85', pattern: '**/dependency-check-report.xml', shouldDetectModules: true, unHealthy: ''
             }
+
+            cleanWs cleanWhenFailure: false, cleanWhenNotBuilt: false, cleanWhenUnstable: false, notFailBuild: true
         }
     }
 }
