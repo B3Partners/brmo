@@ -39,7 +39,7 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  @UrlBinding(<span class="jxr_string">"/post/{basisregistratie}"</span>)
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  @StrictBinding
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/service/stripes/BasisregistratieServiceActionBean.html">BasisregistratieServiceActionBean</a> <strong class="jxr_keyword">implements</strong> ActionBean {
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="BasisregistratieServiceActionBean" href="../../../../../nl/b3p/brmo/service/stripes/BasisregistratieServiceActionBean.html#BasisregistratieServiceActionBean">BasisregistratieServiceActionBean</a> <strong class="jxr_keyword">implements</strong> ActionBean {
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log log = LogFactory.getLog(BasisregistratieServiceActionBean.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">private</strong> ActionBeanContext context;
@@ -72,11 +72,11 @@
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>          HttpServletRequest req = getContext().getRequest();
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          <strong class="jxr_keyword">if</strong>(!req.getMethod().equals(<span class="jxr_string">"POST"</span>)) {
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/web/stripes/DirectResponseResolution.html">DirectResponseResolution</a>(405, <span class="jxr_string">"Only POST allowed\n"</span>);
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="DirectResponseResolution" href="../../../../../nl/b3p/web/stripes/DirectResponseResolution.html#DirectResponseResolution">DirectResponseResolution</a>(405, <span class="jxr_string">"Only POST allowed\n"</span>);
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          }
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          <strong class="jxr_keyword">if</strong>(req.getContentLength() &gt; ConfigUtil.MAX_UPLOAD_SIZE) {
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/web/stripes/DirectResponseResolution.html">DirectResponseResolution</a>(413, String.format(<span class="jxr_string">"Maximum upload size of %s exceeded\n"</span>, FileUtils.byteCountToDisplaySize(ConfigUtil.MAX_UPLOAD_SIZE)));
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="DirectResponseResolution" href="../../../../../nl/b3p/web/stripes/DirectResponseResolution.html#DirectResponseResolution">DirectResponseResolution</a>(413, String.format(<span class="jxr_string">"Maximum upload size of %s exceeded\n"</span>, FileUtils.byteCountToDisplaySize(ConfigUtil.MAX_UPLOAD_SIZE)));
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          }
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>          BrmoFramework brmo = <strong class="jxr_keyword">null</strong>;
@@ -117,11 +117,11 @@
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>             }
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>             log.info(String.format(<span class="jxr_string">"Stored %s data received via service endpoint"</span>, basisregistratie));
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/web/stripes/DirectResponseResolution.html">DirectResponseResolution</a>(200, <span class="jxr_string">"Data successfully received"</span> + (header == ZIP_HEADER ? <span class="jxr_string">", unzipped \&quot;"</span> + unzippedFile + <span class="jxr_string">"\&quot;"</span>: <span class="jxr_string">""</span>) + <span class="jxr_string">" and stored\n"</span>);
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="DirectResponseResolution" href="../../../../../nl/b3p/web/stripes/DirectResponseResolution.html#DirectResponseResolution">DirectResponseResolution</a>(200, <span class="jxr_string">"Data successfully received"</span> + (header == ZIP_HEADER ? <span class="jxr_string">", unzipped \&quot;"</span> + unzippedFile + <span class="jxr_string">"\&quot;"</span>: <span class="jxr_string">""</span>) + <span class="jxr_string">" and stored\n"</span>);
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>             } <strong class="jxr_keyword">catch</strong>(Exception e) {
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>             log.error(<span class="jxr_string">"Fout bij ontvangen basisregistratiegegevens via directe POST"</span>, e);
 <a class="jxr_linenumber" name="L115" href="#L115">115</a> 
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/web/stripes/DirectResponseResolution.html">DirectResponseResolution</a>(500, String.format(<span class="jxr_string">"Error receiving data: %s\n"</span>, ExceptionUtils.getRootCauseMessage(e)));
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="DirectResponseResolution" href="../../../../../nl/b3p/web/stripes/DirectResponseResolution.html#DirectResponseResolution">DirectResponseResolution</a>(500, String.format(<span class="jxr_string">"Error receiving data: %s\n"</span>, ExceptionUtils.getRootCauseMessage(e)));
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>         } <strong class="jxr_keyword">finally</strong> {
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>             <strong class="jxr_keyword">if</strong>(brmo != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>                 brmo.closeBrmoFramework();

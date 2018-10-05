@@ -47,7 +47,7 @@
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> * @author mprins</em>
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/service/jobs/GeplandeTakenInit.html">GeplandeTakenInit</a> <strong class="jxr_keyword">implements</strong> Servlet {
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="GeplandeTakenInit" href="../../../../../nl/b3p/brmo/service/jobs/GeplandeTakenInit.html#GeplandeTakenInit">GeplandeTakenInit</a> <strong class="jxr_keyword">implements</strong> Servlet {
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log log = LogFactory.getLog(GeplandeTakenInit.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Scheduler scheduler;
@@ -131,7 +131,7 @@
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>         cq.where(cb.isNotNull(from.get(<span class="jxr_string">"cronExpressie"</span>)));
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>         List&lt;AutomatischProces&gt; procList = entityManager.createQuery(cq).getResultList();
 <a class="jxr_linenumber" name="L125" href="#L125">125</a> 
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>         <strong class="jxr_keyword">for</strong> (AutomatischProces p : procList) {
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>         <strong class="jxr_keyword">for</strong> (<a name="AutomatischProces" href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html#AutomatischProces">AutomatischProces</a> p : procList) {
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>             addJobDetails(scheduler, p);
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>         }
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>         <strong class="jxr_keyword">this</strong>.getServletConfig().getServletContext().setAttribute(QUARTZ_FACTORY_KEY, factory);
@@ -144,7 +144,7 @@
 <a class="jxr_linenumber" name="L136" href="#L136">136</a> <em class="jxr_javadoccomment">     * @param p het te bewerken automatisch proces</em>
 <a class="jxr_linenumber" name="L137" href="#L137">137</a> <em class="jxr_javadoccomment">     * @throws SchedulerException als de bewerking mislukt</em>
 <a class="jxr_linenumber" name="L138" href="#L138">138</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> addJobDetails(Scheduler scheduler, <a href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html">AutomatischProces</a> p) <strong class="jxr_keyword">throws</strong> SchedulerException {
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> addJobDetails(Scheduler scheduler, <a name="AutomatischProces" href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html#AutomatischProces">AutomatischProces</a> p) <strong class="jxr_keyword">throws</strong> SchedulerException {
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L141" href="#L141">141</a>             CronExpression cron = <strong class="jxr_keyword">new</strong> CronExpression(p.getCronExpressie());
 <a class="jxr_linenumber" name="L142" href="#L142">142</a> 

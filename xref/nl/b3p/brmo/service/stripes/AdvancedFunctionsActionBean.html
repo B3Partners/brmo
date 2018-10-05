@@ -60,7 +60,7 @@
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment"> * @author Chris van Lith</em>
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  @StrictBinding
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/service/stripes/AdvancedFunctionsActionBean.html">AdvancedFunctionsActionBean</a> <strong class="jxr_keyword">implements</strong> ActionBean, <a href="../../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html">ProgressUpdateListener</a> {
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="AdvancedFunctionsActionBean" href="../../../../../nl/b3p/brmo/service/stripes/AdvancedFunctionsActionBean.html#AdvancedFunctionsActionBean">AdvancedFunctionsActionBean</a> <strong class="jxr_keyword">implements</strong> ActionBean, <a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a> {
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(AdvancedFunctionsActionBean.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  
@@ -210,15 +210,15 @@
 <a class="jxr_linenumber" name="L202" href="#L202">202</a> 
 <a class="jxr_linenumber" name="L203" href="#L203">203</a>         <em class="jxr_comment">// XXX move to configuration file</em>
 <a class="jxr_linenumber" name="L204" href="#L204">204</a>         <em class="jxr_comment">// bij een nieuw proces ook de wiki bijwerken: https://github.com/B3Partners/brmo/wiki/Geavanceerde-functies</em>
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>         advancedFunctionProcesses = Arrays.asList(<strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html">AdvancedFunctionProcess</a>[]{
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>             <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html">AdvancedFunctionProcess</a>(<span class="jxr_string">"Exporteren BRK mutaties"</span>, BrmoFramework.BR_BRK, brkExportDir == <strong class="jxr_keyword">null</strong> ? <span class="jxr_string">"/tmp/brkmutaties"</span> : brkExportDir),
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>             <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html">AdvancedFunctionProcess</a>(<span class="jxr_string">"Repareren BRK mutaties met status STAGING_NOK"</span>, BrmoFramework.BR_BRK, Bericht.STATUS.STAGING_NOK.toString()),
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>             <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html">AdvancedFunctionProcess</a>(<span class="jxr_string">"Repareren BAG mutaties met status STAGING_NOK"</span>, BrmoFramework.BR_BAG, Bericht.STATUS.STAGING_NOK.toString()),
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>             <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html">AdvancedFunctionProcess</a>(<span class="jxr_string">"Opschonen en archiveren van BRK berichten met status RSGB_OK, ouder dan 3 maanden"</span>, BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString()),
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>             <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html">AdvancedFunctionProcess</a>(<span class="jxr_string">"Opschonen en archiveren van BAG berichten met status RSGB_OK, ouder dan 3 maanden"</span>, BrmoFramework.BR_BAG, Bericht.STATUS.RSGB_OK.toString()),
-<a class="jxr_linenumber" name="L211" href="#L211">211</a>             <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html">AdvancedFunctionProcess</a>(<span class="jxr_string">"Verwijderen van BRK berichten met status ARCHIVE"</span>, BrmoFramework.BR_BRK, Bericht.STATUS.ARCHIVE.toString()),
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>             <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html">AdvancedFunctionProcess</a>(<span class="jxr_string">"Verwijderen van BAG berichten met status ARCHIVE"</span>, BrmoFramework.BR_BAG, Bericht.STATUS.ARCHIVE.toString()),
-<a class="jxr_linenumber" name="L213" href="#L213">213</a>             <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html">AdvancedFunctionProcess</a>(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN, BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString())
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>         advancedFunctionProcesses = Arrays.asList(<strong class="jxr_keyword">new</strong> <a name="AdvancedFunctionProcess" href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html#AdvancedFunctionProcess">AdvancedFunctionProcess</a>[]{
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>             <strong class="jxr_keyword">new</strong> <a name="AdvancedFunctionProcess" href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html#AdvancedFunctionProcess">AdvancedFunctionProcess</a>(<span class="jxr_string">"Exporteren BRK mutaties"</span>, BrmoFramework.BR_BRK, brkExportDir == <strong class="jxr_keyword">null</strong> ? <span class="jxr_string">"/tmp/brkmutaties"</span> : brkExportDir),
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>             <strong class="jxr_keyword">new</strong> <a name="AdvancedFunctionProcess" href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html#AdvancedFunctionProcess">AdvancedFunctionProcess</a>(<span class="jxr_string">"Repareren BRK mutaties met status STAGING_NOK"</span>, BrmoFramework.BR_BRK, Bericht.STATUS.STAGING_NOK.toString()),
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>             <strong class="jxr_keyword">new</strong> <a name="AdvancedFunctionProcess" href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html#AdvancedFunctionProcess">AdvancedFunctionProcess</a>(<span class="jxr_string">"Repareren BAG mutaties met status STAGING_NOK"</span>, BrmoFramework.BR_BAG, Bericht.STATUS.STAGING_NOK.toString()),
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>             <strong class="jxr_keyword">new</strong> <a name="AdvancedFunctionProcess" href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html#AdvancedFunctionProcess">AdvancedFunctionProcess</a>(<span class="jxr_string">"Opschonen en archiveren van BRK berichten met status RSGB_OK, ouder dan 3 maanden"</span>, BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString()),
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>             <strong class="jxr_keyword">new</strong> <a name="AdvancedFunctionProcess" href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html#AdvancedFunctionProcess">AdvancedFunctionProcess</a>(<span class="jxr_string">"Opschonen en archiveren van BAG berichten met status RSGB_OK, ouder dan 3 maanden"</span>, BrmoFramework.BR_BAG, Bericht.STATUS.RSGB_OK.toString()),
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>             <strong class="jxr_keyword">new</strong> <a name="AdvancedFunctionProcess" href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html#AdvancedFunctionProcess">AdvancedFunctionProcess</a>(<span class="jxr_string">"Verwijderen van BRK berichten met status ARCHIVE"</span>, BrmoFramework.BR_BRK, Bericht.STATUS.ARCHIVE.toString()),
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>             <strong class="jxr_keyword">new</strong> <a name="AdvancedFunctionProcess" href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html#AdvancedFunctionProcess">AdvancedFunctionProcess</a>(<span class="jxr_string">"Verwijderen van BAG berichten met status ARCHIVE"</span>, BrmoFramework.BR_BAG, Bericht.STATUS.ARCHIVE.toString()),
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>             <strong class="jxr_keyword">new</strong> <a name="AdvancedFunctionProcess" href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html#AdvancedFunctionProcess">AdvancedFunctionProcess</a>(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN, BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString())
 <a class="jxr_linenumber" name="L214" href="#L214">214</a>         });
 <a class="jxr_linenumber" name="L215" href="#L215">215</a>     }
 <a class="jxr_linenumber" name="L216" href="#L216">216</a> 
@@ -229,9 +229,9 @@
 <a class="jxr_linenumber" name="L221" href="#L221">221</a> 
 <a class="jxr_linenumber" name="L222" href="#L222">222</a>     @WaitPage(path = JSP_PROGRESS, delay = 1000, refresh = 1000)
 <a class="jxr_linenumber" name="L223" href="#L223">223</a>     <strong class="jxr_keyword">public</strong> Resolution perform() {
-<a class="jxr_linenumber" name="L224" href="#L224">224</a>         <a href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html">AdvancedFunctionProcess</a> process = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>         <a name="AdvancedFunctionProcess" href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html#AdvancedFunctionProcess">AdvancedFunctionProcess</a> process = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L225" href="#L225">225</a> 
-<a class="jxr_linenumber" name="L226" href="#L226">226</a>         <strong class="jxr_keyword">for</strong> (AdvancedFunctionProcess p : advancedFunctionProcesses) {
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>         <strong class="jxr_keyword">for</strong> (<a name="AdvancedFunctionProcess" href="../../../../../nl/b3p/brmo/loader/advancedfunctions/AdvancedFunctionProcess.html#AdvancedFunctionProcess">AdvancedFunctionProcess</a> p : advancedFunctionProcesses) {
 <a class="jxr_linenumber" name="L227" href="#L227">227</a>             <strong class="jxr_keyword">if</strong> (p.getName().equals(advancedFunctionProcessName)) {
 <a class="jxr_linenumber" name="L228" href="#L228">228</a>                 process = p;
 <a class="jxr_linenumber" name="L229" href="#L229">229</a>                 <strong class="jxr_keyword">break</strong>;
@@ -289,7 +289,7 @@
 <a class="jxr_linenumber" name="L281" href="#L281">281</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
 <a class="jxr_linenumber" name="L282" href="#L282">282</a>         <strong class="jxr_keyword">final</strong> Connection conn = dataSourceStaging.getConnection();
 <a class="jxr_linenumber" name="L283" href="#L283">283</a>         <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
-<a class="jxr_linenumber" name="L284" href="#L284">284</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>();
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> <a name="StagingRowHandler" href="../../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html#StagingRowHandler">StagingRowHandler</a>();
 <a class="jxr_linenumber" name="L285" href="#L285">285</a>         
 <a class="jxr_linenumber" name="L286" href="#L286">286</a>         <strong class="jxr_keyword">do</strong> {
 <a class="jxr_linenumber" name="L287" href="#L287">287</a>             LOG.debug(String.format(<span class="jxr_string">"Ophalen mutatieberichten batch met offset %d, limit %d"</span>, offset, batch));
@@ -309,7 +309,7 @@
 <a class="jxr_linenumber" name="L301" href="#L301">301</a> 
 <a class="jxr_linenumber" name="L302" href="#L302">302</a>                     <strong class="jxr_keyword">while</strong> (rs.next()) {
 <a class="jxr_linenumber" name="L303" href="#L303">303</a>                         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>                             <a href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> bericht = processor.toBean(rs, Bericht.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>                             <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> bericht = processor.toBean(rs, Bericht.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L305" href="#L305">305</a>                             StringBuilder message = <strong class="jxr_keyword">new</strong> StringBuilder();
 <a class="jxr_linenumber" name="L306" href="#L306">306</a>                             <strong class="jxr_keyword">if</strong> (bericht.getBrOrgineelXml() != <strong class="jxr_keyword">null</strong> &amp;&amp; !bericht.getBrOrgineelXml().isEmpty()) {
 <a class="jxr_linenumber" name="L307" href="#L307">307</a>                                 message.append(bericht.getBrOrgineelXml());
@@ -328,8 +328,8 @@
 <a class="jxr_linenumber" name="L320" href="#L320">320</a>                                 message.append(MUTCLOSE);
 <a class="jxr_linenumber" name="L321" href="#L321">321</a>                             }
 <a class="jxr_linenumber" name="L322" href="#L322">322</a> 
-<a class="jxr_linenumber" name="L323" href="#L323">323</a>                             <a href="../../../../../nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader.html">BrkSnapshotXMLReader</a> reader = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader.html">BrkSnapshotXMLReader</a>(<strong class="jxr_keyword">new</strong> ByteArrayInputStream(message.toString().getBytes(<span class="jxr_string">"UTF-8"</span>)));
-<a class="jxr_linenumber" name="L324" href="#L324">324</a>                             <a href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> brk = reader.next();
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>                             <a name="BrkSnapshotXMLReader" href="../../../../../nl/b3p/brmo/loader/<a name="BrkSnapshotXMLReader" href="../../../../../nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader.html#BrkSnapshotXMLReader">BrkSnapshotXMLReader</a>ader.html#BrkSnapshotXMLReader">BrkSnapshotXMLReader</a> reader = <strong class="jxr_keyword">new</strong> <a name="BrkSnapshotXMLReader" href="../../../../../nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader.html#BrkSnapshotXMLReader">BrkSnapshotXMLReader</a>(<strong class="jxr_keyword">new</strong> ByteArrayInputStream(message.toString().getBytes(<span class="jxr_string">"UTF-8"</span>)));
+<a class="jxr_linenumber" name="L324" href="#L324">324</a>                             <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> brk = reader.next();
 <a class="jxr_linenumber" name="L325" href="#L325">325</a>                             <strong class="jxr_keyword">if</strong> (brk != <strong class="jxr_keyword">null</strong> &amp;&amp; brk.getDatum() != <strong class="jxr_keyword">null</strong> &amp;&amp; brk.getObjectRef() != <strong class="jxr_keyword">null</strong> &amp;&amp; brk.getVolgordeNummer() != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L326" href="#L326">326</a>                                 bericht.setDatum(brk.getDatum());
 <a class="jxr_linenumber" name="L327" href="#L327">327</a>                                 bericht.setObjectRef(brk.getObjectRef());
@@ -375,7 +375,7 @@
 <a class="jxr_linenumber" name="L367" href="#L367">367</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
 <a class="jxr_linenumber" name="L368" href="#L368">368</a>         <strong class="jxr_keyword">final</strong> Connection conn = dataSourceStaging.getConnection();
 <a class="jxr_linenumber" name="L369" href="#L369">369</a>         <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
-<a class="jxr_linenumber" name="L370" href="#L370">370</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>();
+<a class="jxr_linenumber" name="L370" href="#L370">370</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> <a name="StagingRowHandler" href="../../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html#StagingRowHandler">StagingRowHandler</a>();
 <a class="jxr_linenumber" name="L371" href="#L371">371</a>         
 <a class="jxr_linenumber" name="L372" href="#L372">372</a>         <strong class="jxr_keyword">do</strong> {
 <a class="jxr_linenumber" name="L373" href="#L373">373</a>             LOG.debug(String.format(<span class="jxr_string">"Ophalen BAG mutatieberichten batch met offset %d, limit %d"</span>, offset, batch));
@@ -395,7 +395,7 @@
 <a class="jxr_linenumber" name="L387" href="#L387">387</a> 
 <a class="jxr_linenumber" name="L388" href="#L388">388</a>                     <strong class="jxr_keyword">while</strong> (rs.next()) {
 <a class="jxr_linenumber" name="L389" href="#L389">389</a>                         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L390" href="#L390">390</a>                             <a href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> bericht = processor.toBean(rs, Bericht.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L390" href="#L390">390</a>                             <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> bericht = processor.toBean(rs, Bericht.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L391" href="#L391">391</a> 
 <a class="jxr_linenumber" name="L392" href="#L392">392</a>                             StringBuilder message = <strong class="jxr_keyword">new</strong> StringBuilder();
 <a class="jxr_linenumber" name="L393" href="#L393">393</a>                             <strong class="jxr_keyword">if</strong> (bericht.getBrOrgineelXml() != <strong class="jxr_keyword">null</strong> &amp;&amp; !bericht.getBrOrgineelXml().isEmpty()) {
@@ -410,9 +410,9 @@
 <a class="jxr_linenumber" name="L402" href="#L402">402</a>                                 }
 <a class="jxr_linenumber" name="L403" href="#L403">403</a>                             }
 <a class="jxr_linenumber" name="L404" href="#L404">404</a> 
-<a class="jxr_linenumber" name="L405" href="#L405">405</a>                             <a href="../../../../../nl/b3p/brmo/loader/xml/BagXMLReader.html">BagXMLReader</a> reader = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/xml/BagXMLReader.html">BagXMLReader</a>(<strong class="jxr_keyword">new</strong> ByteArrayInputStream(message.toString().getBytes(<span class="jxr_string">"UTF-8"</span>)));
+<a class="jxr_linenumber" name="L405" href="#L405">405</a>                             <a name="BagXMLReader" href="../../../../../nl/b3p/brmo/loader/<a name="BagXMLReader" href="../../../../../nl/b3p/brmo/loader/xml/BagXMLReader.html#BagXMLReader">BagXMLReader</a>ader.html#BagXMLReader">BagXMLReader</a> reader = <strong class="jxr_keyword">new</strong> <a name="BagXMLReader" href="../../../../../nl/b3p/brmo/loader/xml/BagXMLReader.html#BagXMLReader">BagXMLReader</a>(<strong class="jxr_keyword">new</strong> ByteArrayInputStream(message.toString().getBytes(<span class="jxr_string">"UTF-8"</span>)));
 <a class="jxr_linenumber" name="L406" href="#L406">406</a>                             reader.hasNext();
-<a class="jxr_linenumber" name="L407" href="#L407">407</a>                             <a href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> bag = reader.next();
+<a class="jxr_linenumber" name="L407" href="#L407">407</a>                             <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> bag = reader.next();
 <a class="jxr_linenumber" name="L408" href="#L408">408</a>                             <strong class="jxr_keyword">if</strong> (bag != <strong class="jxr_keyword">null</strong> &amp;&amp; bag.getDatum() != <strong class="jxr_keyword">null</strong> &amp;&amp; bag.getObjectRef() != <strong class="jxr_keyword">null</strong> &amp;&amp; bag.getVolgordeNummer() != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L409" href="#L409">409</a>                                 bericht.setDatum(bag.getDatum());
 <a class="jxr_linenumber" name="L410" href="#L410">410</a>                                 bericht.setObjectRef(bag.getObjectRef());
@@ -462,7 +462,7 @@
 <a class="jxr_linenumber" name="L454" href="#L454">454</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
 <a class="jxr_linenumber" name="L455" href="#L455">455</a>         <strong class="jxr_keyword">final</strong> Connection conn = dataSourceStaging.getConnection();
 <a class="jxr_linenumber" name="L456" href="#L456">456</a>         <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
-<a class="jxr_linenumber" name="L457" href="#L457">457</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>();
+<a class="jxr_linenumber" name="L457" href="#L457">457</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> <a name="StagingRowHandler" href="../../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html#StagingRowHandler">StagingRowHandler</a>();
 <a class="jxr_linenumber" name="L458" href="#L458">458</a> 
 <a class="jxr_linenumber" name="L459" href="#L459">459</a>         <strong class="jxr_keyword">final</strong> File exportDir = <strong class="jxr_keyword">new</strong> File(locatie);
 <a class="jxr_linenumber" name="L460" href="#L460">460</a>         FileUtils.forceMkdir(exportDir);
@@ -486,12 +486,12 @@
 <a class="jxr_linenumber" name="L478" href="#L478">478</a> 
 <a class="jxr_linenumber" name="L479" href="#L479">479</a>                     <strong class="jxr_keyword">while</strong> (rs.next()) {
 <a class="jxr_linenumber" name="L480" href="#L480">480</a>                         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L481" href="#L481">481</a>                             <a href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> bericht = processor.toBean(rs, Bericht.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L481" href="#L481">481</a>                             <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> bericht = processor.toBean(rs, Bericht.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L482" href="#L482">482</a> 
 <a class="jxr_linenumber" name="L483" href="#L483">483</a>                             <strong class="jxr_keyword">boolean</strong> infoOK = <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L484" href="#L484">484</a>                             <strong class="jxr_keyword">if</strong> (bericht.getBrOrgineelXml() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L485" href="#L485">485</a>                                 <a href="../../../../../nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader.html">BrkSnapshotXMLReader</a> reader = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader.html">BrkSnapshotXMLReader</a>(<strong class="jxr_keyword">new</strong> ByteArrayInputStream(bericht.getBrOrgineelXml().getBytes(<span class="jxr_string">"UTF-8"</span>)));
-<a class="jxr_linenumber" name="L486" href="#L486">486</a>                                 <a href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> brk = reader.next();
+<a class="jxr_linenumber" name="L485" href="#L485">485</a>                                 <a name="BrkSnapshotXMLReader" href="../../../../../nl/b3p/brmo/loader/<a name="BrkSnapshotXMLReader" href="../../../../../nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader.html#BrkSnapshotXMLReader">BrkSnapshotXMLReader</a>ader.html#BrkSnapshotXMLReader">BrkSnapshotXMLReader</a> reader = <strong class="jxr_keyword">new</strong> <a name="BrkSnapshotXMLReader" href="../../../../../nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader.html#BrkSnapshotXMLReader">BrkSnapshotXMLReader</a>(<strong class="jxr_keyword">new</strong> ByteArrayInputStream(bericht.getBrOrgineelXml().getBytes(<span class="jxr_string">"UTF-8"</span>)));
+<a class="jxr_linenumber" name="L486" href="#L486">486</a>                                 <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> brk = reader.next();
 <a class="jxr_linenumber" name="L487" href="#L487">487</a>                                 <strong class="jxr_keyword">if</strong> (brk.getDatum() != <strong class="jxr_keyword">null</strong> &amp;&amp; brk.getObjectRef() != <strong class="jxr_keyword">null</strong> &amp;&amp; brk.getVolgordeNummer() != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L488" href="#L488">488</a>                                     bericht.setDatum(brk.getDatum());
 <a class="jxr_linenumber" name="L489" href="#L489">489</a>                                     bericht.setObjectRef(brk.getObjectRef());
@@ -571,7 +571,7 @@
 <a class="jxr_linenumber" name="L563" href="#L563">563</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
 <a class="jxr_linenumber" name="L564" href="#L564">564</a>         <strong class="jxr_keyword">final</strong> Connection conn = dataSourceStaging.getConnection();
 <a class="jxr_linenumber" name="L565" href="#L565">565</a>         <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
-<a class="jxr_linenumber" name="L566" href="#L566">566</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>();
+<a class="jxr_linenumber" name="L566" href="#L566">566</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> <a name="StagingRowHandler" href="../../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html#StagingRowHandler">StagingRowHandler</a>();
 <a class="jxr_linenumber" name="L567" href="#L567">567</a>         
 <a class="jxr_linenumber" name="L568" href="#L568">568</a>         Calendar c = Calendar.getInstance();
 <a class="jxr_linenumber" name="L569" href="#L569">569</a>         c.setTime(<strong class="jxr_keyword">new</strong> Date());
@@ -608,7 +608,7 @@
 <a class="jxr_linenumber" name="L600" href="#L600">600</a> 
 <a class="jxr_linenumber" name="L601" href="#L601">601</a>                     <strong class="jxr_keyword">while</strong> (rs.next()) {
 <a class="jxr_linenumber" name="L602" href="#L602">602</a>                         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L603" href="#L603">603</a>                             <a href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> bericht = processor.toBean(rs, Bericht.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L603" href="#L603">603</a>                             <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> bericht = processor.toBean(rs, Bericht.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L604" href="#L604">604</a> 
 <a class="jxr_linenumber" name="L605" href="#L605">605</a>                             bericht.setBrOrgineelXml(<span class="jxr_string">"opgeschoond"</span>);
 <a class="jxr_linenumber" name="L606" href="#L606">606</a>                             bericht.setBrXml(<span class="jxr_string">"opgeschoond"</span>);
@@ -695,7 +695,7 @@
 <a class="jxr_linenumber" name="L687" href="#L687">687</a>         <strong class="jxr_keyword">final</strong> DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();
 <a class="jxr_linenumber" name="L688" href="#L688">688</a>         <strong class="jxr_keyword">final</strong> Connection conn = dataSourceStaging.getConnection();
 <a class="jxr_linenumber" name="L689" href="#L689">689</a>         <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
-<a class="jxr_linenumber" name="L690" href="#L690">690</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>();
+<a class="jxr_linenumber" name="L690" href="#L690">690</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> <a name="StagingRowHandler" href="../../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html#StagingRowHandler">StagingRowHandler</a>();
 <a class="jxr_linenumber" name="L691" href="#L691">691</a> 
 <a class="jxr_linenumber" name="L692" href="#L692">692</a>         LOG.debug(<span class="jxr_string">"staging datasource: "</span> + dataSourceStaging);
 <a class="jxr_linenumber" name="L693" href="#L693">693</a>         LOG.debug(<span class="jxr_string">"rsgb datasource: "</span> + dataSourceRsgb);
@@ -719,8 +719,8 @@
 <a class="jxr_linenumber" name="L711" href="#L711">711</a>             total((Long) o);
 <a class="jxr_linenumber" name="L712" href="#L712">712</a>         }
 <a class="jxr_linenumber" name="L713" href="#L713">713</a> 
-<a class="jxr_linenumber" name="L714" href="#L714">714</a>         <a href="../../../../../nl/b3p/brmo/loader/StagingProxy.html">StagingProxy</a> staging = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/StagingProxy.html">StagingProxy</a>(dataSourceStaging);
-<a class="jxr_linenumber" name="L715" href="#L715">715</a>         <a href="../../../../../nl/b3p/brmo/loader/RsgbProxy.html">RsgbProxy</a> rsgb = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/RsgbProxy.html">RsgbProxy</a>(dataSourceRsgb, staging, Bericht.STATUS.RSGB_OK, <strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L714" href="#L714">714</a>         <a name="StagingProxy" href="../../../../../nl/b3p/brmo/loader/S<a name="StagingProxy" href="../../../../../nl/b3p/brmo/loader/StagingProxy.html#StagingProxy">StagingProxy</a>html#StagingProxy">StagingProxy</a> staging = <strong class="jxr_keyword">new</strong> <a name="StagingProxy" href="../../../../../nl/b3p/brmo/loader/StagingProxy.html#StagingProxy">StagingProxy</a>(dataSourceStaging);
+<a class="jxr_linenumber" name="L715" href="#L715">715</a>         <a name="RsgbProxy" href="../../../../../nl/b3p/brmo/loade<a name="RsgbProxy" href="../../../../../nl/b3p/brmo/loader/RsgbProxy.html#RsgbProxy">RsgbProxy</a>xy.html#RsgbProxy">RsgbProxy</a> rsgb = <strong class="jxr_keyword">new</strong> <a name="RsgbProxy" href="../../../../../nl/b3p/brmo/loader/RsgbProxy.html#RsgbProxy">RsgbProxy</a>(dataSourceRsgb, staging, Bericht.STATUS.RSGB_OK, <strong class="jxr_keyword">this</strong>);
 <a class="jxr_linenumber" name="L716" href="#L716">716</a>         rsgb.setOrderBerichten(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L717" href="#L717">717</a>         rsgb.init();
 <a class="jxr_linenumber" name="L718" href="#L718">718</a> 
@@ -740,7 +740,7 @@
 <a class="jxr_linenumber" name="L732" href="#L732">732</a>                 <strong class="jxr_keyword">public</strong> Exception handle(ResultSet rs) <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L733" href="#L733">733</a>                     <strong class="jxr_keyword">while</strong> (rs.next()) {
 <a class="jxr_linenumber" name="L734" href="#L734">734</a>                         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L735" href="#L735">735</a>                             <a href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> bericht = processor.toBean(rs, Bericht.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L735" href="#L735">735</a>                             <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> bericht = processor.toBean(rs, Bericht.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L736" href="#L736">736</a>                             LOG.debug(<span class="jxr_string">"Opnieuw verwerken van bericht: "</span> + bericht);
 <a class="jxr_linenumber" name="L737" href="#L737">737</a>                             <em class="jxr_comment">// bewaar oude log</em>
 <a class="jxr_linenumber" name="L738" href="#L738">738</a>                             String oudeOpmerkingen = bericht.getOpmerking();

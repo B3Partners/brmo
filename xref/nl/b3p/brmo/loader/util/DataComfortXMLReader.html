@@ -8,10 +8,10 @@
 <div id="overview"><a href="../../../../../../apidocs/nl/b3p/brmo/loader/util/DataComfortXMLReader.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> nl.b3p.brmo.loader.util;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> com.vividsolutions.jts.geom.Geometry;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> com.vividsolutions.jts.geom.GeometryFactory;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> com.vividsolutions.jts.geom.Polygon;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> com.vividsolutions.jts.geom.PrecisionModel;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> org.locationtech.jts.geom.Geometry;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> org.locationtech.jts.geom.GeometryFactory;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> org.locationtech.jts.geom.Polygon;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> org.locationtech.jts.geom.PrecisionModel;
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.io.IOException;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.io.StringReader;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.io.StringWriter;
@@ -38,7 +38,7 @@
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> * @author Boy de Wit</em>
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/loader/util/DataComfortXMLReader.html">DataComfortXMLReader</a> {
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="DataComfortXMLReader" href="../../../../../nl/b3p/brmo/loader/util/DataComfortXMLReader.html#DataComfortXMLReader">DataComfortXMLReader</a> {
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> LEVEL_ROOT = 0;
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> LEVEL_DATA = 1;
@@ -51,7 +51,7 @@
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> GeometryFactory gf;
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Parser gmlParser;
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/loader/util/DataComfortXMLReader.html">DataComfortXMLReader</a>() {
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">public</strong> <a name="DataComfortXMLReader" href="../../../../../nl/b3p/brmo/loader/util/DataComfortXMLReader.html#DataComfortXMLReader">DataComfortXMLReader</a>() {
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>          GMLConfiguration gml = <strong class="jxr_keyword">new</strong> org.geotools.gml3.GMLConfiguration();
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          gf = <strong class="jxr_keyword">new</strong> GeometryFactory(<strong class="jxr_keyword">new</strong> PrecisionModel(), 28992);
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          gml.getContext().registerComponentInstance(gf);
@@ -65,8 +65,8 @@
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>          <strong class="jxr_keyword">int</strong> level = LEVEL_ROOT;
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>          List&lt;TableData&gt; list = <strong class="jxr_keyword">new</strong> ArrayList();
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>          <a href="../../../../../nl/b3p/brmo/loader/util/TableData.html">TableData</a> data = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>          <a href="../../../../../nl/b3p/brmo/loader/util/TableRow.html">TableRow</a> row = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          <a name="TableData" href="../../../../../nl/b3p/brmo/loader/util/TableData.html#TableData">TableData</a> data = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>          <a name="TableRow" href="../../../../../nl/b3p/brmo/loader/util/TableRow.html#TableRow">TableRow</a> row = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>          <strong class="jxr_keyword">boolean</strong> inComfortData = false;
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          <strong class="jxr_keyword">boolean</strong> inDeleteData = false;
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
@@ -92,7 +92,7 @@
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>                          String comfortSearchValue = xer.getAttributeValue(<strong class="jxr_keyword">null</strong>, <span class="jxr_string">"search-value"</span>);
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>                          String snapshotDate = xer.getAttributeValue(<strong class="jxr_keyword">null</strong>, <span class="jxr_string">"snapshot-date"</span>);
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>                          data = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/TableData.html">TableData</a>(comfortSearchTable, comfortSearchColumn, comfortSearchValue, snapshotDate);
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>                          data = <strong class="jxr_keyword">new</strong> <a name="TableData" href="../../../../../nl/b3p/brmo/loader/util/TableData.html#TableData">TableData</a>(comfortSearchTable, comfortSearchColumn, comfortSearchValue, snapshotDate);
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>  
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>                          level = LEVEL_COMFORT;
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  
@@ -101,7 +101,7 @@
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>  
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>                      } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"delete"</span>.equals(tag)) {
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>      
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>                          data = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/TableData.html">TableData</a>();
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>                          data = <strong class="jxr_keyword">new</strong> <a name="TableData" href="../../../../../nl/b3p/brmo/loader/util/TableData.html#TableData">TableData</a>();
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>                          
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>                          level = LEVEL_DELETE;
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>                          
@@ -109,7 +109,7 @@
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>                         inDeleteData = <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>                         
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>                     } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>                         row = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/TableRow.html">TableRow</a>();
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>                         row = <strong class="jxr_keyword">new</strong> <a name="TableRow" href="../../../../../nl/b3p/brmo/loader/util/TableRow.html#TableRow">TableRow</a>();
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>                         row.setTable(tag);
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>                         row.setIgnoreDuplicates(<span class="jxr_string">"yes"</span>.equals(xer.getAttributeValue(<strong class="jxr_keyword">null</strong>, <span class="jxr_string">"ignore-duplicates"</span>)));
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> 
@@ -119,7 +119,7 @@
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>                         row.setColumnDatumBeginGeldigheid(beginDatumColumn);
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>                         row.setColumnDatumEindeGeldigheid(eindeDatumColumn);
 <a class="jxr_linenumber" name="L113" href="#L113">113</a> 
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>                         data = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/TableData.html">TableData</a>(row);
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>                         data = <strong class="jxr_keyword">new</strong> <a name="TableData" href="../../../../../nl/b3p/brmo/loader/util/TableData.html#TableData">TableData</a>(row);
 <a class="jxr_linenumber" name="L115" href="#L115">115</a> 
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>                         level = LEVEL_TABLE;
 <a class="jxr_linenumber" name="L117" href="#L117">117</a> 
@@ -136,7 +136,7 @@
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>                     <strong class="jxr_keyword">if</strong> (xer.isEndElement() &amp;&amp; <span class="jxr_string">"comfort"</span>.equals(tag)) {
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>                         level = LEVEL_DATA;
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>                     } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>                         row = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/TableRow.html">TableRow</a>();
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>                         row = <strong class="jxr_keyword">new</strong> <a name="TableRow" href="../../../../../nl/b3p/brmo/loader/util/TableRow.html#TableRow">TableRow</a>();
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>                         row.setTable(tag);
 <a class="jxr_linenumber" name="L133" href="#L133">133</a> 
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>                         data.addRow(row);
@@ -151,7 +151,7 @@
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>                     <strong class="jxr_keyword">if</strong> (xer.isEndElement() &amp;&amp; <span class="jxr_string">"delete"</span>.equals(tag)) {
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>                         level = LEVEL_DATA;
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>                     } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>                         row = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/TableRow.html">TableRow</a>();
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>                         row = <strong class="jxr_keyword">new</strong> <a name="TableRow" href="../../../../../nl/b3p/brmo/loader/util/TableRow.html#TableRow">TableRow</a>();
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>                         row.setTable(tag);
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> 
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>                         data.addRow(row);

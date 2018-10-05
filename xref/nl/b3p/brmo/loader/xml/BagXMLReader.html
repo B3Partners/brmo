@@ -50,7 +50,7 @@
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> * @author Boy de Wit</em>
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> * @author mprins</em>
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/loader/xml/BagXMLReader.html">BagXMLReader</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../nl/b3p/brmo/loader/xml/BrmoXMLReader.html">BrmoXMLReader</a> {
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="BagXMLReader" href="../../../../../nl/b3p/brmo/loader/xml/BagXMLReader.html#BagXMLReader">BagXMLReader</a> <strong class="jxr_keyword">extends</strong> <a name="BrmoXMLReader" href="../../../../../nl/b3p/brmo/loader/xml/BrmoXMLReader.html#BrmoXMLReader">BrmoXMLReader</a> {
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log log = LogFactory.getLog(BagXMLReader.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
@@ -67,7 +67,7 @@
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String STAND_PEILDATUM = <span class="jxr_string">"StandPeildatum"</span>;
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String STAND_TECHNISCHEDATUM = <span class="jxr_string">"StandTechnischeDatum"</span>;
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../nl/b3p/brmo/loader/entity/BagBericht.html">BagBericht</a> nextBericht = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">private</strong> <a name="BagBericht" href="../../../../../nl/b3p/brmo/loader/entity/BagBericht.html#BagBericht">BagBericht</a> nextBericht = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Map&lt;String,String&gt; lvcProductToObjectType;
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  
@@ -83,7 +83,7 @@
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>          lvcProductToObjectType = Collections.unmodifiableMap(m);
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>      }
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/loader/xml/BagXMLReader.html">BagXMLReader</a>(InputStream in)
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>      <strong class="jxr_keyword">public</strong> <a name="BagXMLReader" href="../../../../../nl/b3p/brmo/loader/xml/BagXMLReader.html#BagXMLReader">BagXMLReader</a>(InputStream in)
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>              <strong class="jxr_keyword">throws</strong> XMLStreamException,
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>              TransformerConfigurationException,
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>              ParserConfigurationException {
@@ -197,15 +197,15 @@
 <a class="jxr_linenumber" name="L189" href="#L189">189</a>     }
 <a class="jxr_linenumber" name="L190" href="#L190">190</a> 
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>     @Override
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/loader/entity/BagBericht.html">BagBericht</a> next() <strong class="jxr_keyword">throws</strong> TransformerException, XMLStreamException {
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>         <a href="../../../../../nl/b3p/brmo/loader/entity/BagBericht.html">BagBericht</a> b = nextBericht;
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>     <strong class="jxr_keyword">public</strong> <a name="BagBericht" href="../../../../../nl/b3p/brmo/loader/entity/BagBericht.html#BagBericht">BagBericht</a> next() <strong class="jxr_keyword">throws</strong> TransformerException, XMLStreamException {
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>         <a name="BagBericht" href="../../../../../nl/b3p/brmo/loader/entity/BagBericht.html#BagBericht">BagBericht</a> b = nextBericht;
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>         nextBericht = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>         <strong class="jxr_keyword">return</strong> b;
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>     }
 <a class="jxr_linenumber" name="L197" href="#L197">197</a>     
 <a class="jxr_linenumber" name="L198" href="#L198">198</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> createStandBagBericht(String brXml, Document d) {
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>         <strong class="jxr_keyword">if</strong> (gebruikStandBericht(d.getDocumentElement())) {
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>             nextBericht = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/entity/BagBericht.html">BagBericht</a>(brXml, d);
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>             nextBericht = <strong class="jxr_keyword">new</strong> <a name="BagBericht" href="../../../../../nl/b3p/brmo/loader/entity/BagBericht.html#BagBericht">BagBericht</a>(brXml, d);
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>             Date datBegGeld = getBerichtBeginGeldigheid(d.getDocumentElement());
 <a class="jxr_linenumber" name="L202" href="#L202">202</a>             <strong class="jxr_keyword">if</strong> (datBegGeld != <strong class="jxr_keyword">null</strong> &amp;&amp; getBestandsDatum().before(datBegGeld)) {
 <a class="jxr_linenumber" name="L203" href="#L203">203</a>                 <em class="jxr_comment">//uitzondering: begindatum in toekomst</em>
@@ -237,7 +237,7 @@
 <a class="jxr_linenumber" name="L229" href="#L229">229</a>                 <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> j = 0; j &lt; grandchildren.getLength(); j++) {
 <a class="jxr_linenumber" name="L230" href="#L230">230</a>                     Node grandchild = grandchildren.item(j);
 <a class="jxr_linenumber" name="L231" href="#L231">231</a>                     <strong class="jxr_keyword">if</strong> (grandchild.getNodeType() == Node.ELEMENT_NODE) {
-<a class="jxr_linenumber" name="L232" href="#L232">232</a>                         nextBericht = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/entity/BagBericht.html">BagBericht</a>(brXml, d);
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>                         nextBericht = <strong class="jxr_keyword">new</strong> <a name="BagBericht" href="../../../../../nl/b3p/brmo/loader/entity/BagBericht.html#BagBericht">BagBericht</a>(brXml, d);
 <a class="jxr_linenumber" name="L233" href="#L233">233</a>                         Date datBegGeld = getBerichtBeginGeldigheid(grandchild);
 <a class="jxr_linenumber" name="L234" href="#L234">234</a>                         <strong class="jxr_keyword">if</strong> (datBegGeld != <strong class="jxr_keyword">null</strong> &amp;&amp; getBestandsDatum().before(datBegGeld)) {
 <a class="jxr_linenumber" name="L235" href="#L235">235</a>                             <em class="jxr_comment">//uitzondering: begindatum in toekomst</em>

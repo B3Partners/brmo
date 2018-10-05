@@ -53,7 +53,7 @@
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>          wsdlLocation = <span class="jxr_string">"WEB-INF/wsdl/bg0204.wsdl"</span>
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  )
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  @HandlerChain(file = <span class="jxr_string">"/handler-chain.xml"</span>)
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../nl/b3p/brmo/stufbg204/StUFBGsynchroon.html">StUFBGsynchroon</a> {
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="StUFBGsynchroon" href="../../../../nl/b3p/brmo/stufbg204/StUFBGsynchroon.html#StUFBGsynchroon">StUFBGsynchroon</a> {
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(StUFBGsynchroon.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  
@@ -73,7 +73,7 @@
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>                  LOG.debug(<span class="jxr_string">"Cannot output vraag/antwoord:"</span>,ex);
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>              }
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>              <strong class="jxr_keyword">return</strong> antw;
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>          } <strong class="jxr_keyword">catch</strong> (SQLException | BrmoException e) {
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>          } <strong class="jxr_keyword">catch</strong> (SQLException | <a name="BrmoException" href="../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> e) {
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>              FoutBericht fout = StUFbg204Util.maakFout(<span class="jxr_string">"StUF011"</span>, e);
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> StUFFout(<span class="jxr_string">"Not implemented yet."</span>, fout, e);
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          } <strong class="jxr_keyword">catch</strong> (StUFFout e) {
@@ -120,7 +120,7 @@
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(<span class="jxr_string">"Entiteitstype niet ondersteund: "</span> + entiteitType);
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         }
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>         <em class="jxr_comment">// Haal op wat het criterium is</em>
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>         <a href="../../../../nl/b3p/brmo/stufbg204/CriteriaParser.html">CriteriaParser</a> cp = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/stufbg204/CriteriaParser.html">CriteriaParser</a>();
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>         <a name="CriteriaParser" href="../../../../nl/b3p/brmo/stufbg<a name="CriteriaParser" href="../../../../nl/b3p/brmo/stufbg204/CriteriaParser.html#CriteriaParser">CriteriaParser</a>rser.html#CriteriaParser">CriteriaParser</a> cp = <strong class="jxr_keyword">new</strong> <a name="CriteriaParser" href="../../../../nl/b3p/brmo/stufbg204/CriteriaParser.html#CriteriaParser">CriteriaParser</a>();
 <a class="jxr_linenumber" name="L116" href="#L116">116</a> 
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>         <em class="jxr_comment">// Stel query samen</em>
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>         String whereClause = cp.getCriteria(vraag);

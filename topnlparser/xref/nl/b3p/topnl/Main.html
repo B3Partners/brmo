@@ -21,11 +21,11 @@
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_comment"> * GNU Affero General Public License for more details.</em>
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_comment"> * You should have received a copy of the GNU Affero General Public License</em>
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_comment"> * along with this program.  If not, see &lt;<a href="http://www.gnu.org/licenses/&gt;" target="alexandria_uri">http://www.gnu.org/licenses/&gt;</a>.</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_comment"> * along with this program.  If not, see &lt;<a href="http://www.gnu.org/licenses/&gt;." target="alexandria_uri">http://www.gnu.org/licenses/&gt;.</a></em>
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">package</strong> nl.b3p.topnl;
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> com.vividsolutions.jts.io.ParseException;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> org.locationtech.jts.io.ParseException;
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> java.io.File;
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> java.io.FilenameFilter;
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> java.io.IOException;
@@ -44,7 +44,7 @@
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> * @author Meine Toonen meinetoonen@b3partners.nl</em>
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../nl/b3p/topnl/Main.html">Main</a> {
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="Main" href="../../../nl/b3p/topnl/Main.html#Main">Main</a> {
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">static</strong> Log log = LogFactory.getLog(Main.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> main (String[] args) <strong class="jxr_keyword">throws</strong> IOException, JAXBException, ParseException, SQLException, JDOMException{
@@ -60,7 +60,7 @@
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_comment">            ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");</em>
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_comment">            ds.setUsername("top50nl");</em>
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_comment">            ds.setPassword("top50nl");*/</em>
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>              <a href="../../../nl/b3p/topnl/Processor.html">Processor</a> p = <strong class="jxr_keyword">new</strong> <a href="../../../nl/b3p/topnl/Processor.html">Processor</a>(ds);
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>              <a name="Processor" href="../../../nl/b3p/topnl/Process<a name="Processor" href="../../../nl/b3p/topnl/Processor.html#Processor">Processor</a>rocessor">Processor</a> p = <strong class="jxr_keyword">new</strong> <a name="Processor" href="../../../nl/b3p/topnl/Processor.html#Processor">Processor</a>(ds);
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>           <em class="jxr_comment">//   loadtopnl("/mnt/data/Documents/TopNL/Top50NL/TOP50NL_GML_Filechunks_november_2016/TOP50NL_GML_Filechunks", p,  TopNLType.TOP50NL);</em>
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>              <em class="jxr_comment">//loadtopnl("/mnt/data/Documents/TopNL/Top10NL/TOP10NL_GML_Filechuncks_november_2016/TOP10NL_GML_Filechuncks", p,  TopNLType.TOP10NL);</em>
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>              loadtopnl(<span class="jxr_string">"/mnt/data/Documents/TopNL/Tynaarlo/Top10NL"</span>, p,  TopNLType.TOP10NL);
@@ -74,7 +74,7 @@
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          }
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>      }
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> loadtopnl(String dir, <a href="../../../nl/b3p/topnl/Processor.html">Processor</a> p, <a href="../../../nl/b3p/topnl/TopNLType.html">TopNLType</a> type)  <strong class="jxr_keyword">throws</strong> ParseException, IOException, SAXException, ParserConfigurationException, JAXBException, TransformerException, JDOMException {
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> loadtopnl(String dir, <a name="Processor" href="../../../nl/b3p/topnl/Processor.html#Processor">Processor</a> p, <a name="TopNLType" href="../../../nl/b3p/topnl/TopNLType.html#TopNLType">TopNLType</a> type)  <strong class="jxr_keyword">throws</strong> ParseException, IOException, SAXException, ParserConfigurationException, JAXBException, TransformerException, JDOMException {
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          File f = <strong class="jxr_keyword">new</strong> File (dir);
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          FilenameFilter filter = <strong class="jxr_keyword">new</strong>  FilenameFilter() {
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>              @Override
@@ -93,7 +93,7 @@
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>          }
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>      }
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> process(String file,  Processor p, TopNLType type) <strong class="jxr_keyword">throws</strong> ParseException, IOException, SAXException, ParserConfigurationException, JAXBException, TransformerException, JDOMException {
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> process(String file,  <a name="Processor" href="../../../nl/b3p/topnl/Processor.html#Processor">Processor</a> p, <a name="TopNLType" href="../../../nl/b3p/topnl/TopNLType.html#TopNLType">TopNLType</a> type) <strong class="jxr_keyword">throws</strong> ParseException, IOException, SAXException, ParserConfigurationException, JAXBException, TransformerException, JDOMException {
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>          URL in = Main.<strong class="jxr_keyword">class</strong>.getResource(file);
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>          p.importIntoDb(in, type);
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>         <em class="jxr_comment">/* List obj = p.parse(in, type);</em>

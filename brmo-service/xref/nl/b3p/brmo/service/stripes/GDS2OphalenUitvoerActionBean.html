@@ -39,7 +39,7 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> * @author Matthijs Laan</em>
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/service/stripes/GDS2OphalenUitvoerActionBean.html">GDS2OphalenUitvoerActionBean</a> <strong class="jxr_keyword">implements</strong> ActionBean, <a href="../../../../../nl/b3p/brmo/service/scanner/ProgressUpdateListener.html">ProgressUpdateListener</a> {
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="GDS2OphalenUitvoerActionBean" href="../../../../../nl/b3p/brmo/service/stripes/GDS2OphalenUitvoerActionBean.html#GDS2OphalenUitvoerActionBean">GDS2OphalenUitvoerActionBean</a> <strong class="jxr_keyword">implements</strong> ActionBean, <a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/service/scanner/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a> {
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String JSP = <span class="jxr_string">"/WEB-INF/jsp/beheer/gds2ophalenuitvoeren.jsp"</span>;
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
@@ -134,7 +134,7 @@
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>         }
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>         <em class="jxr_comment">// opnieuw laden van config omdat de waitpage de entity detached</em>
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>         proces = (GDS2OphaalProces) Stripersist.getEntityManager().find(AutomatischProces.<strong class="jxr_keyword">class</strong>, proces.getId());
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>         <a href="../../../../../nl/b3p/brmo/service/scanner/ProcesExecutable.html">ProcesExecutable</a> exeProces = AbstractExecutableProces.getProces(proces);
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>         <a name="ProcesExecutable" href="../../../../../nl/b3p/brmo/service/scanner/ProcesExecutable.html#ProcesExecutable">ProcesExecutable</a> exeProces = AbstractExecutableProces.getProces(proces);
 <a class="jxr_linenumber" name="L130" href="#L130">130</a> 
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>             exeProces.execute(<strong class="jxr_keyword">this</strong>);

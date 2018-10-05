@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.TestUtil
-	c71 [label=<<table title="nl.b3p.topnl.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestUtil.html">
+	c67 [label=<<table title="nl.b3p.topnl.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TestUtil </td></tr>
 		</table></td></tr>
@@ -29,7 +29,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.ErrorsTest
-	c75 [label=<<table title="nl.b3p.topnl.ErrorsTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ErrorsTest.html">
+	c71 [label=<<table title="nl.b3p.topnl.ErrorsTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ErrorsTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ErrorsTest </td></tr>
 		</table></td></tr>
@@ -45,11 +45,11 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ErrorsTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.ErrorsTest extends nl.b3p.topnl.TestUtil
-	c71:p -> c75:p [dir=back,arrowtail=empty];
+	c67:p -> c71:p [dir=back,arrowtail=empty];
 	// nl.b3p.topnl.ErrorsTest NAVASSOC nl.b3p.topnl.Processor
-	c75:p -> c82:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c71:p -> c78:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.Processor
-	c82 [label=<<table title="nl.b3p.topnl.Processor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c78 [label=<<table title="nl.b3p.topnl.Processor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Processor </td></tr>
 		</table></td></tr>

@@ -8,9 +8,9 @@
 <div id="overview"><a href="../../../../../../apidocs/nl/b3p/brmo/soap/db/BrkInfo.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> nl.b3p.brmo.soap.db;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> com.vividsolutions.jts.geom.Geometry;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> com.vividsolutions.jts.io.ParseException;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> com.vividsolutions.jts.io.WKTReader;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> org.locationtech.jts.geom.Geometry;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> org.locationtech.jts.io.ParseException;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> org.locationtech.jts.io.WKTReader;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> java.sql.Connection;
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.sql.PreparedStatement;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.sql.ResultSet;
@@ -38,7 +38,7 @@
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> * @author Chris</em>
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/soap/db/BrkInfo.html">BrkInfo</a> {
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="BrkInfo" href="../../../../../nl/b3p/brmo/soap/db/BrkInfo.html#BrkInfo">BrkInfo</a> {
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(BrkInfo.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
@@ -79,7 +79,7 @@
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">     * @throws javax.naming.NamingException als er een fout optreedt bij het</em>
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment">     * opzoeken van de JNDI naam</em>
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> ArrayList&lt;Long&gt; findKozIDs(Map&lt;String, Object&gt; searchContext) <strong class="jxr_keyword">throws</strong> SQLException, ParseException, NamingException, BrmoException {
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> ArrayList&lt;Long&gt; findKozIDs(Map&lt;String, Object&gt; searchContext) <strong class="jxr_keyword">throws</strong> SQLException, ParseException, NamingException, <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> {
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          DataSource ds = ConfigUtil.getDataSourceRsgb();
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>          PreparedStatement stm = <strong class="jxr_keyword">null</strong>;
@@ -473,7 +473,7 @@
 <a class="jxr_linenumber" name="L465" href="#L465">465</a>         }
 <a class="jxr_linenumber" name="L466" href="#L466">466</a>     }
 <a class="jxr_linenumber" name="L467" href="#L467">467</a> 
-<a class="jxr_linenumber" name="L468" href="#L468">468</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Map&lt;String, Object&gt; createSearchContext(<a href="../../../../../nl/b3p/brmo/soap/brk/BrkInfoRequest.html">BrkInfoRequest</a> request) {
+<a class="jxr_linenumber" name="L468" href="#L468">468</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Map&lt;String, Object&gt; createSearchContext(<a name="BrkInfoRequest" href="../../../../../nl/b3p/brmo/soap/brk/BrkInfoRequest.html#BrkInfoRequest">BrkInfoRequest</a> request) {
 <a class="jxr_linenumber" name="L469" href="#L469">469</a>         Map&lt;String, Object&gt; searchContext = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L470" href="#L470">470</a>         <strong class="jxr_keyword">if</strong> (request == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L471" href="#L471">471</a>             <strong class="jxr_keyword">return</strong> searchContext;
@@ -488,7 +488,7 @@
 <a class="jxr_linenumber" name="L480" href="#L480">480</a>             searchContext.put(BrkInfo.BUFFERLENGTE, request.getBufferAfstand());
 <a class="jxr_linenumber" name="L481" href="#L481">481</a>         }
 <a class="jxr_linenumber" name="L482" href="#L482">482</a> 
-<a class="jxr_linenumber" name="L483" href="#L483">483</a>         <a href="../../../../../nl/b3p/brmo/soap/brk/KadOnrndZkInfoRequest.html">KadOnrndZkInfoRequest</a> koz = request.getKadOnrndZk();
+<a class="jxr_linenumber" name="L483" href="#L483">483</a>         <a name="KadOnrndZkInfoRequest" href="../../../../../nl/b3p/brmo/soap/brk/KadOnrndZkInfoRequest.html#KadOnrndZkInfoRequest">KadOnrndZkInfoRequest</a> koz = request.getKadOnrndZk();
 <a class="jxr_linenumber" name="L484" href="#L484">484</a>         <strong class="jxr_keyword">if</strong> (koz != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L485" href="#L485">485</a>             <strong class="jxr_keyword">if</strong> (koz.getIdentificatie() != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L486" href="#L486">486</a>                 searchContext.put(BrkInfo.IDENTIFICATIE, Long.parseLong(koz.getIdentificatie()));
@@ -506,7 +506,7 @@
 <a class="jxr_linenumber" name="L498" href="#L498">498</a>                 searchContext.put(BrkInfo.SECTIE, koz.getSectie());
 <a class="jxr_linenumber" name="L499" href="#L499">499</a>             }
 <a class="jxr_linenumber" name="L500" href="#L500">500</a>         }
-<a class="jxr_linenumber" name="L501" href="#L501">501</a>         <a href="../../../../../nl/b3p/brmo/soap/brk/PerceelAdresInfoRequest.html">PerceelAdresInfoRequest</a> pa = request.getPerceelAdres();
+<a class="jxr_linenumber" name="L501" href="#L501">501</a>         <a name="PerceelAdresInfoRequest" href="../../../../../nl/b3p/brmo/soap/brk/PerceelAdresInfoRequest.html#PerceelAdresInfoRequest">PerceelAdresInfoRequest</a> pa = request.getPerceelAdres();
 <a class="jxr_linenumber" name="L502" href="#L502">502</a>         <strong class="jxr_keyword">if</strong> (pa != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L503" href="#L503">503</a>             <strong class="jxr_keyword">if</strong> (pa.getWoonplaatsNaam() != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L504" href="#L504">504</a>                 searchContext.put(BrkInfo.WOONPLAATS, pa.getWoonplaatsNaam());
@@ -538,9 +538,9 @@
 <a class="jxr_linenumber" name="L530" href="#L530">530</a>         <strong class="jxr_keyword">return</strong> searchContext;
 <a class="jxr_linenumber" name="L531" href="#L531">531</a>     }
 <a class="jxr_linenumber" name="L532" href="#L532">532</a> 
-<a class="jxr_linenumber" name="L533" href="#L533">533</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../nl/b3p/brmo/soap/brk/BrkInfoResponse.html">BrkInfoResponse</a> createResponse(List&lt;Long&gt; ids,
+<a class="jxr_linenumber" name="L533" href="#L533">533</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a name="BrkInfoResponse" href="../../../../../nl/b3p/brmo/soap/brk/BrkInfoResponse.html#BrkInfoResponse">BrkInfoResponse</a> createResponse(List&lt;Long&gt; ids,
 <a class="jxr_linenumber" name="L534" href="#L534">534</a>             Map&lt;String, Object&gt; searchContext) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L535" href="#L535">535</a>         <a href="../../../../../nl/b3p/brmo/soap/brk/BrkInfoResponse.html">BrkInfoResponse</a> result = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/brk/BrkInfoResponse.html">BrkInfoResponse</a>();
+<a class="jxr_linenumber" name="L535" href="#L535">535</a>         <a name="BrkInfoResponse" href="../../../../../nl/b3p/brmo/soap/br<a name="BrkInfoResponse" href="../../../../../nl/b3p/brmo/soap/brk/BrkInfoResponse.html#BrkInfoResponse">BrkInfoResponse</a>se.html#BrkInfoResponse">BrkInfoResponse</a> result = <strong class="jxr_keyword">new</strong> <a name="BrkInfoResponse" href="../../../../../nl/b3p/brmo/soap/brk/BrkInfoResponse.html#BrkInfoResponse">BrkInfoResponse</a>();
 <a class="jxr_linenumber" name="L536" href="#L536">536</a> 
 <a class="jxr_linenumber" name="L537" href="#L537">537</a>         Boolean at = (Boolean) searchContext.get(BrkInfo.SUBJECTSTOEVOEGEN);
 <a class="jxr_linenumber" name="L538" href="#L538">538</a>         <strong class="jxr_keyword">if</strong> (at != <strong class="jxr_keyword">null</strong> &amp;&amp; at) {
@@ -552,7 +552,7 @@
 <a class="jxr_linenumber" name="L544" href="#L544">544</a>         result.setTimestamp(<strong class="jxr_keyword">new</strong> Date());
 <a class="jxr_linenumber" name="L545" href="#L545">545</a> 
 <a class="jxr_linenumber" name="L546" href="#L546">546</a>         <strong class="jxr_keyword">for</strong> (Long id : ids) {
-<a class="jxr_linenumber" name="L547" href="#L547">547</a>             <a href="../../../../../nl/b3p/brmo/soap/brk/KadOnrndZkInfoResponse.html">KadOnrndZkInfoResponse</a> koz
+<a class="jxr_linenumber" name="L547" href="#L547">547</a>             <a name="KadOnrndZkInfoResponse" href="../../../../../nl/b3p/brmo/soap/brk/KadOnrndZkInfoResponse.html#KadOnrndZkInfoResponse">KadOnrndZkInfoResponse</a> koz
 <a class="jxr_linenumber" name="L548" href="#L548">548</a>                     = KadOnrndZkInfoResponse.getRecord(id, searchContext);
 <a class="jxr_linenumber" name="L549" href="#L549">549</a>             result.addKadOnrndZk(koz);
 <a class="jxr_linenumber" name="L550" href="#L550">550</a>         }

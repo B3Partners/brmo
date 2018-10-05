@@ -8,7 +8,7 @@
 <div id="overview"><a href="../../../../../../apidocs/nl/b3p/brmo/soap/db/EigendomInfo.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> nl.b3p.brmo.soap.db;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> com.vividsolutions.jts.io.ParseException;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> org.locationtech.jts.io.ParseException;
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> java.sql.Connection;
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> java.sql.PreparedStatement;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> java.sql.ResultSet;
@@ -46,7 +46,7 @@
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment"> * </em>
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment"> * @author Chris</em>
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/soap/db/EigendomInfo.html">EigendomInfo</a> {
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="EigendomInfo" href="../../../../../nl/b3p/brmo/soap/db/EigendomInfo.html#EigendomInfo">EigendomInfo</a> {
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(EigendomInfo.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
@@ -72,9 +72,9 @@
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">     * @return berekende antwoord op vraag in map met parameters</em>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment">     * @throws EigendomMutatieException if any</em>
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatieResponse.html">EigendomMutatieResponse</a> createEigendomMutatieResponse(Map&lt;String, Object&gt; eigendomMutatieContext) <strong class="jxr_keyword">throws</strong> EigendomMutatieException {
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EigendomMutatieResponse createEigendomMutatieResponse(Map&lt;String, Object&gt; eigendomMutatieContext) <strong class="jxr_keyword">throws</strong> <a name="EigendomMutatieException" href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatieException.html#EigendomMutatieException">EigendomMutatieException</a> {
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>          <a href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatieResponse.html">EigendomMutatieResponse</a> eir = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatieResponse.html">EigendomMutatieResponse</a>();
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>          EigendomMutatieResponse eir = <strong class="jxr_keyword">new</strong> EigendomMutatieResponse();
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          ArrayList&lt;EigendomMutatie&gt; entries;
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          <strong class="jxr_keyword">try</strong> {
@@ -107,9 +107,9 @@
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>  <em class="jxr_javadoccomment">     * @return berekende antwoord op vraag in map met parameters</em>
 <a class="jxr_linenumber" name="L100" href="#L100">100</a> <em class="jxr_javadoccomment">     * @throws EigendomMutatieException if any</em>
 <a class="jxr_linenumber" name="L101" href="#L101">101</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/MutatieListResponse.html">MutatieListResponse</a> createMutatieListResponse(Map&lt;String, Object&gt; mutatieListContext) <strong class="jxr_keyword">throws</strong> EigendomMutatieException {
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> MutatieListResponse createMutatieListResponse(Map&lt;String, Object&gt; mutatieListContext) <strong class="jxr_keyword">throws</strong> <a name="EigendomMutatieException" href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatieException.html#EigendomMutatieException">EigendomMutatieException</a> {
 <a class="jxr_linenumber" name="L103" href="#L103">103</a> 
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>         <a href="../../../../../nl/b3p/brmo/soap/eigendom/MutatieListResponse.html">MutatieListResponse</a> mlr = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/MutatieListResponse.html">MutatieListResponse</a>();
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>         MutatieListResponse mlr = <strong class="jxr_keyword">new</strong> MutatieListResponse();
 <a class="jxr_linenumber" name="L105" href="#L105">105</a> 
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>         ArrayList&lt;MutatieEntry&gt; entries;
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>         <strong class="jxr_keyword">try</strong> {
@@ -142,7 +142,7 @@
 <a class="jxr_linenumber" name="L134" href="#L134">134</a> <em class="jxr_javadoccomment">     * @return map met parameters</em>
 <a class="jxr_linenumber" name="L135" href="#L135">135</a> <em class="jxr_javadoccomment">     * @throws EigendomMutatieException if any</em>
 <a class="jxr_linenumber" name="L136" href="#L136">136</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Map&lt;String, Object&gt; createMutatieListContext(<a href="../../../../../nl/b3p/brmo/soap/eigendom/MutatieListRequest.html">MutatieListRequest</a> request) <strong class="jxr_keyword">throws</strong> EigendomMutatieException {
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Map&lt;String, Object&gt; createMutatieListContext(MutatieListRequest request) <strong class="jxr_keyword">throws</strong> <a name="EigendomMutatieException" href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatieException.html#EigendomMutatieException">EigendomMutatieException</a> {
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>         Map&lt;String, Object&gt; searchContext = <strong class="jxr_keyword">new</strong> HashMap&lt;String, Object&gt;();
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>         <strong class="jxr_keyword">if</strong> (request == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>             <strong class="jxr_keyword">return</strong> searchContext;
@@ -199,7 +199,7 @@
 <a class="jxr_linenumber" name="L191" href="#L191">191</a> <em class="jxr_javadoccomment">     * @return map met parameters</em>
 <a class="jxr_linenumber" name="L192" href="#L192">192</a> <em class="jxr_javadoccomment">     * @throws EigendomMutatieException if any</em>
 <a class="jxr_linenumber" name="L193" href="#L193">193</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Map&lt;String, Object&gt; createEigendomMutatieContext(<a href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatieRequest.html">EigendomMutatieRequest</a> request) <strong class="jxr_keyword">throws</strong> EigendomMutatieException {
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Map&lt;String, Object&gt; createEigendomMutatieContext(EigendomMutatieRequest request) <strong class="jxr_keyword">throws</strong> <a name="EigendomMutatieException" href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatieException.html#EigendomMutatieException">EigendomMutatieException</a> {
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>         Map&lt;String, Object&gt; searchContext = <strong class="jxr_keyword">new</strong> HashMap&lt;String, Object&gt;();
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>         <strong class="jxr_keyword">if</strong> (request == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L197" href="#L197">197</a>             <strong class="jxr_keyword">return</strong> searchContext;
@@ -208,22 +208,22 @@
 <a class="jxr_linenumber" name="L200" href="#L200">200</a>         <strong class="jxr_keyword">if</strong> (request.getIdentificatie() != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>             String[] sa = request.getIdentificatie().split(<span class="jxr_string">":"</span>);
 <a class="jxr_linenumber" name="L202" href="#L202">202</a>             <strong class="jxr_keyword">if</strong> (sa.length != 2) {
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatieException.html">EigendomMutatieException</a>(<span class="jxr_string">"Ongeldige invoer"</span>, <span class="jxr_string">"De identificatie moet bestaan uit een getal met een namespace gescheiden door ':', zoals VBO:0000001!"</span>);
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="EigendomMutatieException" href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatieException.html#EigendomMutatieException">EigendomMutatieException</a>(<span class="jxr_string">"Ongeldige invoer"</span>, <span class="jxr_string">"De identificatie moet bestaan uit een getal met een namespace gescheiden door ':', zoals VBO:0000001!"</span>);
 <a class="jxr_linenumber" name="L204" href="#L204">204</a>             }
 <a class="jxr_linenumber" name="L205" href="#L205">205</a>             <strong class="jxr_keyword">if</strong> (sa[0].equalsIgnoreCase(<span class="jxr_string">"VBO"</span>) || sa[0].equalsIgnoreCase(<span class="jxr_string">"NL.KAD.OnroerendeZaak"</span>)) {
 <a class="jxr_linenumber" name="L206" href="#L206">206</a>                 searchContext.put(EigendomInfo.NAMESPACE, sa[0]);
 <a class="jxr_linenumber" name="L207" href="#L207">207</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatieException.html">EigendomMutatieException</a>(<span class="jxr_string">"Ongeldige invoer"</span>, <span class="jxr_string">"Geldige namespaces zijn: VBO en NL.KAD.OnroerendeZaak"</span>);
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="EigendomMutatieException" href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatieException.html#EigendomMutatieException">EigendomMutatieException</a>(<span class="jxr_string">"Ongeldige invoer"</span>, <span class="jxr_string">"Geldige namespaces zijn: VBO en NL.KAD.OnroerendeZaak"</span>);
 <a class="jxr_linenumber" name="L209" href="#L209">209</a>             }
 <a class="jxr_linenumber" name="L210" href="#L210">210</a>             searchContext.put(EigendomInfo.IDENTIFICATIE, sa[1]);
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatieException.html">EigendomMutatieException</a>(<span class="jxr_string">"Ongeldige invoer"</span>, <span class="jxr_string">"Voor het opvragen is een identificatie vereist!"</span>);
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="EigendomMutatieException" href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatieException.html#EigendomMutatieException">EigendomMutatieException</a>(<span class="jxr_string">"Ongeldige invoer"</span>, <span class="jxr_string">"Voor het opvragen is een identificatie vereist!"</span>);
 <a class="jxr_linenumber" name="L213" href="#L213">213</a>         }
 <a class="jxr_linenumber" name="L214" href="#L214">214</a> 
 <a class="jxr_linenumber" name="L215" href="#L215">215</a>         <strong class="jxr_keyword">if</strong> (request.getMaxAantalResultaten() != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L216" href="#L216">216</a>             Integer maxNum = request.getMaxAantalResultaten();
 <a class="jxr_linenumber" name="L217" href="#L217">217</a>             <strong class="jxr_keyword">if</strong> (maxNum &gt; 100) {
-<a class="jxr_linenumber" name="L218" href="#L218">218</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatieException.html">EigendomMutatieException</a>(<span class="jxr_string">"Ongeldige invoer"</span>, <span class="jxr_string">"Er kunnen maximaal 100 objecten opgevraagd worden"</span>);
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="EigendomMutatieException" href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatieException.html#EigendomMutatieException">EigendomMutatieException</a>(<span class="jxr_string">"Ongeldige invoer"</span>, <span class="jxr_string">"Er kunnen maximaal 100 objecten opgevraagd worden"</span>);
 <a class="jxr_linenumber" name="L219" href="#L219">219</a>             }
 <a class="jxr_linenumber" name="L220" href="#L220">220</a>             searchContext.put(EigendomInfo.MAXAANTALRESULTATEN, maxNum);
 <a class="jxr_linenumber" name="L221" href="#L221">221</a>         }
@@ -248,7 +248,7 @@
 <a class="jxr_linenumber" name="L240" href="#L240">240</a> 
 <a class="jxr_linenumber" name="L241" href="#L241">241</a>             ArrayList&lt;MutatieEntry&gt; entries = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L242" href="#L242">242</a>             <strong class="jxr_keyword">while</strong> (rs.next()) {
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>                 <a href="../../../../../nl/b3p/brmo/soap/eigendom/MutatieEntry.html">MutatieEntry</a> entry = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/MutatieEntry.html">MutatieEntry</a>();
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>                 MutatieEntry entry = <strong class="jxr_keyword">new</strong> MutatieEntry();
 <a class="jxr_linenumber" name="L244" href="#L244">244</a>                 entry.setObjectRef(rs.getString(<span class="jxr_string">"object_ref"</span>));
 <a class="jxr_linenumber" name="L245" href="#L245">245</a>                 GregorianCalendar gcalendar = <strong class="jxr_keyword">new</strong> GregorianCalendar();
 <a class="jxr_linenumber" name="L246" href="#L246">246</a>                 gcalendar.setTime(rs.getTimestamp(<span class="jxr_string">"datum"</span>));
@@ -295,7 +295,7 @@
 <a class="jxr_linenumber" name="L287" href="#L287">287</a> 
 <a class="jxr_linenumber" name="L288" href="#L288">288</a>             ArrayList&lt;EigendomMutatie&gt; entries = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L289" href="#L289">289</a>             <strong class="jxr_keyword">while</strong> (rs.next()) {
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>                 <a href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatie.html">EigendomMutatie</a> entry = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatie.html">EigendomMutatie</a>();
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>                 EigendomMutatie entry = <strong class="jxr_keyword">new</strong> EigendomMutatie();
 <a class="jxr_linenumber" name="L291" href="#L291">291</a>                 <strong class="jxr_keyword">if</strong> (rs.getString(<span class="jxr_string">"app_appartementsindex"</span>) != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L292" href="#L292">292</a>                     entry.setAppartementsindex(rs.getString(<span class="jxr_string">"app_appartementsindex"</span>));
 <a class="jxr_linenumber" name="L293" href="#L293">293</a>                 }
@@ -330,13 +330,13 @@
 <a class="jxr_linenumber" name="L322" href="#L322">322</a>                     vo_id = rs.getString(<span class="jxr_string">"vo_identif"</span>);
 <a class="jxr_linenumber" name="L323" href="#L323">323</a>                 }
 <a class="jxr_linenumber" name="L324" href="#L324">324</a> 
-<a class="jxr_linenumber" name="L325" href="#L325">325</a>                 <a href="../../../../../nl/b3p/brmo/soap/eigendom/Brondocumenten.html">Brondocumenten</a> bdbo = findBrondocumenten(Long.toString(kad_id));
+<a class="jxr_linenumber" name="L325" href="#L325">325</a>                 Brondocumenten bdbo = findBrondocumenten(Long.toString(kad_id));
 <a class="jxr_linenumber" name="L326" href="#L326">326</a>                 entry.setBrondocumenten(bdbo);
-<a class="jxr_linenumber" name="L327" href="#L327">327</a>                 <a href="../../../../../nl/b3p/brmo/soap/eigendom/BenoemdObjecten.html">BenoemdObjecten</a> bon = findBenoemdObjecten(vo_id);
+<a class="jxr_linenumber" name="L327" href="#L327">327</a>                 BenoemdObjecten bon = findBenoemdObjecten(vo_id);
 <a class="jxr_linenumber" name="L328" href="#L328">328</a>                 entry.setBenoemdObjecten(bon);
-<a class="jxr_linenumber" name="L329" href="#L329">329</a>                 <a href="../../../../../nl/b3p/brmo/soap/eigendom/HistorischeRelaties.html">HistorischeRelaties</a> hrs = findHistorischeRelaties(kad_id);
+<a class="jxr_linenumber" name="L329" href="#L329">329</a>                 HistorischeRelaties hrs = findHistorischeRelaties(kad_id);
 <a class="jxr_linenumber" name="L330" href="#L330">330</a>                 entry.setHistorischeRelaties(hrs);
-<a class="jxr_linenumber" name="L331" href="#L331">331</a>                 <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkeRechten.html">ZakelijkeRechten</a> zrn = findZakelijkeRechten(kad_id);
+<a class="jxr_linenumber" name="L331" href="#L331">331</a>                 ZakelijkeRechten zrn = findZakelijkeRechten(kad_id);
 <a class="jxr_linenumber" name="L332" href="#L332">332</a>                 entry.setZakelijkeRechten(zrn);
 <a class="jxr_linenumber" name="L333" href="#L333">333</a> 
 <a class="jxr_linenumber" name="L334" href="#L334">334</a>                 entries.add(entry);
@@ -367,7 +367,7 @@
 <a class="jxr_linenumber" name="L359" href="#L359">359</a> <em class="jxr_javadoccomment">     * nummeraanduiding ZAK_RECHT woonplaats BRONDOCUMENT pand</em>
 <a class="jxr_linenumber" name="L360" href="#L360">360</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L361" href="#L361">361</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L362" href="#L362">362</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/Brondocumenten.html">Brondocumenten</a> findBrondocumenten(String value) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L362" href="#L362">362</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Brondocumenten findBrondocumenten(String value) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L363" href="#L363">363</a>         DataSource ds = ConfigUtil.getDataSourceRsgb();
 <a class="jxr_linenumber" name="L364" href="#L364">364</a>         StringBuilder sql = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L365" href="#L365">365</a>         PreparedStatement stm = <strong class="jxr_keyword">null</strong>;
@@ -393,9 +393,9 @@
 <a class="jxr_linenumber" name="L385" href="#L385">385</a>             stm.setString(1, value);
 <a class="jxr_linenumber" name="L386" href="#L386">386</a>             rs = stm.executeQuery();
 <a class="jxr_linenumber" name="L387" href="#L387">387</a> 
-<a class="jxr_linenumber" name="L388" href="#L388">388</a>             <a href="../../../../../nl/b3p/brmo/soap/eigendom/Brondocumenten.html">Brondocumenten</a> bdbo = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/Brondocumenten.html">Brondocumenten</a>();
+<a class="jxr_linenumber" name="L388" href="#L388">388</a>             Brondocumenten bdbo = <strong class="jxr_keyword">new</strong> Brondocumenten();
 <a class="jxr_linenumber" name="L389" href="#L389">389</a>             <strong class="jxr_keyword">while</strong> (rs.next()) {
-<a class="jxr_linenumber" name="L390" href="#L390">390</a>                 <a href="../../../../../nl/b3p/brmo/soap/eigendom/Document.html">Document</a> entry = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/Document.html">Document</a>();
+<a class="jxr_linenumber" name="L390" href="#L390">390</a>                 Document entry = <strong class="jxr_keyword">new</strong> Document();
 <a class="jxr_linenumber" name="L391" href="#L391">391</a>                 <strong class="jxr_keyword">if</strong> (rs.getString(<span class="jxr_string">"identificatie"</span>) != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L392" href="#L392">392</a>                     entry.setValue(rs.getString(<span class="jxr_string">"identificatie"</span>));
 <a class="jxr_linenumber" name="L393" href="#L393">393</a>                 }
@@ -419,7 +419,7 @@
 <a class="jxr_linenumber" name="L411" href="#L411">411</a>         }
 <a class="jxr_linenumber" name="L412" href="#L412">412</a>     }
 <a class="jxr_linenumber" name="L413" href="#L413">413</a> 
-<a class="jxr_linenumber" name="L414" href="#L414">414</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/BenoemdObjecten.html">BenoemdObjecten</a> findBenoemdObjecten(String vo_id) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L414" href="#L414">414</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> BenoemdObjecten findBenoemdObjecten(String vo_id) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L415" href="#L415">415</a>         DataSource ds = ConfigUtil.getDataSourceRsgb();
 <a class="jxr_linenumber" name="L416" href="#L416">416</a>         StringBuilder sql = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L417" href="#L417">417</a>         PreparedStatement stm = <strong class="jxr_keyword">null</strong>;
@@ -449,9 +449,9 @@
 <a class="jxr_linenumber" name="L441" href="#L441">441</a>             stm.setString(1, vo_id);
 <a class="jxr_linenumber" name="L442" href="#L442">442</a>             rs = stm.executeQuery();
 <a class="jxr_linenumber" name="L443" href="#L443">443</a> 
-<a class="jxr_linenumber" name="L444" href="#L444">444</a>             <a href="../../../../../nl/b3p/brmo/soap/eigendom/BenoemdObjecten.html">BenoemdObjecten</a> bon = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/BenoemdObjecten.html">BenoemdObjecten</a>();
+<a class="jxr_linenumber" name="L444" href="#L444">444</a>             BenoemdObjecten bon = <strong class="jxr_keyword">new</strong> BenoemdObjecten();
 <a class="jxr_linenumber" name="L445" href="#L445">445</a>             <strong class="jxr_keyword">while</strong> (rs.next()) {
-<a class="jxr_linenumber" name="L446" href="#L446">446</a>                 <a href="../../../../../nl/b3p/brmo/soap/eigendom/BenoemdObject.html">BenoemdObject</a> entry = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/BenoemdObject.html">BenoemdObject</a>();
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>                 BenoemdObject entry = <strong class="jxr_keyword">new</strong> BenoemdObject();
 <a class="jxr_linenumber" name="L447" href="#L447">447</a>                 <strong class="jxr_keyword">if</strong> (rs.getString(<span class="jxr_string">"gebruiksdoel"</span>) != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L448" href="#L448">448</a>                     entry.setGebouwdObjectGebruiksdoel(rs.getString(<span class="jxr_string">"gebruiksdoel"</span>));
 <a class="jxr_linenumber" name="L449" href="#L449">449</a>                 }
@@ -462,7 +462,7 @@
 <a class="jxr_linenumber" name="L454" href="#L454">454</a>                     entry.setIdentificatienummer(rs.getString(<span class="jxr_string">"identificatie"</span>));
 <a class="jxr_linenumber" name="L455" href="#L455">455</a>                 }
 <a class="jxr_linenumber" name="L456" href="#L456">456</a> 
-<a class="jxr_linenumber" name="L457" href="#L457">457</a>                 <a href="../../../../../nl/b3p/brmo/soap/eigendom/Brondocumenten.html">Brondocumenten</a> bdn = findBrondocumenten(vo_id);
+<a class="jxr_linenumber" name="L457" href="#L457">457</a>                 Brondocumenten bdn = findBrondocumenten(vo_id);
 <a class="jxr_linenumber" name="L458" href="#L458">458</a>                 entry.setBrondocumenten(bdn);
 <a class="jxr_linenumber" name="L459" href="#L459">459</a>                 bon.getBenoemdObject().add(entry);
 <a class="jxr_linenumber" name="L460" href="#L460">460</a>             }
@@ -481,7 +481,7 @@
 <a class="jxr_linenumber" name="L473" href="#L473">473</a>         }
 <a class="jxr_linenumber" name="L474" href="#L474">474</a>     }
 <a class="jxr_linenumber" name="L475" href="#L475">475</a> 
-<a class="jxr_linenumber" name="L476" href="#L476">476</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/HistorischeRelaties.html">HistorischeRelaties</a> findHistorischeRelaties(<strong class="jxr_keyword">long</strong> value) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L476" href="#L476">476</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> HistorischeRelaties findHistorischeRelaties(<strong class="jxr_keyword">long</strong> value) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L477" href="#L477">477</a>         DataSource ds = ConfigUtil.getDataSourceRsgb();
 <a class="jxr_linenumber" name="L478" href="#L478">478</a>         StringBuilder sql = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L479" href="#L479">479</a>         PreparedStatement stm = <strong class="jxr_keyword">null</strong>;
@@ -506,9 +506,9 @@
 <a class="jxr_linenumber" name="L498" href="#L498">498</a>             stm.setLong(1, value);
 <a class="jxr_linenumber" name="L499" href="#L499">499</a>             rs = stm.executeQuery();
 <a class="jxr_linenumber" name="L500" href="#L500">500</a> 
-<a class="jxr_linenumber" name="L501" href="#L501">501</a>             <a href="../../../../../nl/b3p/brmo/soap/eigendom/HistorischeRelaties.html">HistorischeRelaties</a> hrs = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/HistorischeRelaties.html">HistorischeRelaties</a>();
+<a class="jxr_linenumber" name="L501" href="#L501">501</a>             HistorischeRelaties hrs = <strong class="jxr_keyword">new</strong> HistorischeRelaties();
 <a class="jxr_linenumber" name="L502" href="#L502">502</a>             <strong class="jxr_keyword">while</strong> (rs.next()) {
-<a class="jxr_linenumber" name="L503" href="#L503">503</a>                 <a href="../../../../../nl/b3p/brmo/soap/eigendom/HistorischeRelatie.html">HistorischeRelatie</a> entry = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/HistorischeRelatie.html">HistorischeRelatie</a>();
+<a class="jxr_linenumber" name="L503" href="#L503">503</a>                 HistorischeRelatie entry = <strong class="jxr_keyword">new</strong> HistorischeRelatie();
 <a class="jxr_linenumber" name="L504" href="#L504">504</a>                 <strong class="jxr_keyword">if</strong> (rs.getString(<span class="jxr_string">"aard"</span>) != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L505" href="#L505">505</a>                     entry.setAard(rs.getString(<span class="jxr_string">"aard"</span>));
 <a class="jxr_linenumber" name="L506" href="#L506">506</a>                 }
@@ -536,9 +536,9 @@
 <a class="jxr_linenumber" name="L528" href="#L528">528</a> <em class="jxr_javadoccomment">     * grondperceel wordt verkregen via de view: v_bd_app_re_all_kad_perceel.</em>
 <a class="jxr_linenumber" name="L529" href="#L529">529</a> <em class="jxr_javadoccomment">     * </em>
 <a class="jxr_linenumber" name="L530" href="#L530">530</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L531" href="#L531">531</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkeRechten.html">ZakelijkeRechten</a> findZakelijkeRechten(<strong class="jxr_keyword">long</strong> kad_id) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L531" href="#L531">531</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> ZakelijkeRechten findZakelijkeRechten(<strong class="jxr_keyword">long</strong> kad_id) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L532" href="#L532">532</a> 
-<a class="jxr_linenumber" name="L533" href="#L533">533</a>         <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkeRechten.html">ZakelijkeRechten</a> zrn = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkeRechten.html">ZakelijkeRechten</a>();
+<a class="jxr_linenumber" name="L533" href="#L533">533</a>         ZakelijkeRechten zrn = <strong class="jxr_keyword">new</strong> ZakelijkeRechten();
 <a class="jxr_linenumber" name="L534" href="#L534">534</a>         addZakelijkeRechten(zrn, kad_id, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L535" href="#L535">535</a>         
 <a class="jxr_linenumber" name="L536" href="#L536">536</a>         <em class="jxr_comment">// zoek grondperceel grondperceel_kad_id</em>
@@ -587,7 +587,7 @@
 <a class="jxr_linenumber" name="L579" href="#L579">579</a>         <strong class="jxr_keyword">return</strong> zrn;
 <a class="jxr_linenumber" name="L580" href="#L580">580</a>     }
 <a class="jxr_linenumber" name="L581" href="#L581">581</a>     
-<a class="jxr_linenumber" name="L582" href="#L582">582</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkeRechten.html">ZakelijkeRechten</a> addZakelijkeRechten(<a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkeRechten.html">ZakelijkeRechten</a> zrn, <strong class="jxr_keyword">long</strong> kad_id, String type) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L582" href="#L582">582</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> ZakelijkeRechten addZakelijkeRechten(ZakelijkeRechten zrn, <strong class="jxr_keyword">long</strong> kad_id, String type) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L583" href="#L583">583</a>         DataSource ds = ConfigUtil.getDataSourceRsgb();
 <a class="jxr_linenumber" name="L584" href="#L584">584</a>         StringBuilder sql = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L585" href="#L585">585</a>         PreparedStatement stm = <strong class="jxr_keyword">null</strong>;
@@ -644,7 +644,7 @@
 <a class="jxr_linenumber" name="L636" href="#L636">636</a>             rs = stm.executeQuery();
 <a class="jxr_linenumber" name="L637" href="#L637">637</a> 
 <a class="jxr_linenumber" name="L638" href="#L638">638</a>             <strong class="jxr_keyword">while</strong> (rs.next()) {
-<a class="jxr_linenumber" name="L639" href="#L639">639</a>                 <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkRecht.html">ZakelijkRecht</a> entry = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkRecht.html">ZakelijkRecht</a>();
+<a class="jxr_linenumber" name="L639" href="#L639">639</a>                 ZakelijkRecht entry = <strong class="jxr_keyword">new</strong> ZakelijkRecht();
 <a class="jxr_linenumber" name="L640" href="#L640">640</a>                 <strong class="jxr_keyword">if</strong> (rs.getString(<span class="jxr_string">"identificatie"</span>) != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L641" href="#L641">641</a>                     entry.setIdentificatienummer(rs.getString(<span class="jxr_string">"identificatie"</span>));
 <a class="jxr_linenumber" name="L642" href="#L642">642</a>                 }

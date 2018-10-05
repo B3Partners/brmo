@@ -22,22 +22,22 @@
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> * @author meine</em>
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../nl/b3p/topnl/converters/ConverterFactory.html">ConverterFactory</a> {
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="ConverterFactory" href="../../../../nl/b3p/topnl/converters/ConverterFactory.html#ConverterFactory">ConverterFactory</a> {
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>      <em class="jxr_comment">/*protected final static Element STRI2006_ROOTELEMENT_MANIFEST = new Element("Manifest", Namespace.getNamespace("<a href="http://www.geonovum.nl/stri/2006/1" target="alexandria_uri">http://www.geonovum.nl/stri/2006/1</a>"));</em>
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_comment">    protected final static Element STRI2006_ROOTELEMENT_GELEIDEFORMULIER = new Element("GeleideFormulier", Namespace.getNamespace("<a href="http://www.geonovum.nl/stri/2006/1" target="alexandria_uri">http://www.geonovum.nl/stri/2006/1</a>"));</em>
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_comment"> */</em>
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../nl/b3p/topnl/converters/Converter.html">Converter</a> top250nlConverter = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/topnl/converters/Top250NLConverter.html">Top250NLConverter</a>();
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../nl/b3p/topnl/converters/Converter.html">Converter</a> top100nlConverter = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/topnl/converters/Top100NLConverter.html">Top100NLConverter</a>();
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../nl/b3p/topnl/converters/Converter.html">Converter</a> top50nlConverter = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/topnl/converters/Top50NLConverter.html">Top50NLConverter</a>();
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../nl/b3p/topnl/converters/Converter.html">Converter</a> top10nlConverter = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/topnl/converters/Top10NLConverter.html">Top10NLConverter</a>();
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="Converter" href="../../../../nl/b3p/topnl/converters/Converter.html#Converter">Converter</a> top250nlConverter = <strong class="jxr_keyword">new</strong> <a name="Top250NLConverter" href="../../../../nl/b3p/topnl/converters/Top250NLConverter.html#Top250NLConverter">Top250NLConverter</a>();
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="Converter" href="../../../../nl/b3p/topnl/converters/Converter.html#Converter">Converter</a> top100nlConverter = <strong class="jxr_keyword">new</strong> <a name="Top100NLConverter" href="../../../../nl/b3p/topnl/converters/Top100NLConverter.html#Top100NLConverter">Top100NLConverter</a>();
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="Converter" href="../../../../nl/b3p/topnl/converters/Converter.html#Converter">Converter</a> top50nlConverter = <strong class="jxr_keyword">new</strong> <a name="Top50NLConverter" href="../../../../nl/b3p/topnl/converters/Top50NLConverter.html#Top50NLConverter">Top50NLConverter</a>();
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="Converter" href="../../../../nl/b3p/topnl/converters/Converter.html#Converter">Converter</a> top10nlConverter = <strong class="jxr_keyword">new</strong> <a name="Top10NLConverter" href="../../../../nl/b3p/topnl/converters/Top10NLConverter.html#Top10NLConverter">Top10NLConverter</a>();
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">private</strong> JAXBContext context250nl = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>      <strong class="jxr_keyword">private</strong> JAXBContext context100nl = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      <strong class="jxr_keyword">private</strong> JAXBContext context50nl = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">private</strong> JAXBContext context10nl = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>      
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../nl/b3p/topnl/converters/ConverterFactory.html">ConverterFactory</a>() <strong class="jxr_keyword">throws</strong> JAXBException{
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">public</strong> <a name="ConverterFactory" href="../../../../nl/b3p/topnl/converters/ConverterFactory.html#ConverterFactory">ConverterFactory</a>() <strong class="jxr_keyword">throws</strong> JAXBException{
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>          
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>          context250nl = JAXBContext.newInstance(<span class="jxr_string">"nl.b3p.topnl.top250nl"</span>);
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>          context100nl = JAXBContext.newInstance(<span class="jxr_string">"nl.b3p.topnl.top100nl"</span>);
@@ -45,7 +45,7 @@
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>          context10nl = JAXBContext.newInstance(<span class="jxr_string">"nl.b3p.topnl.top10nl"</span>);
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>      }
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>      
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../nl/b3p/topnl/converters/Converter.html">Converter</a> getConverter(<a href="../../../../nl/b3p/topnl/TopNLType.html">TopNLType</a> type){
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">public</strong> <a name="Converter" href="../../../../nl/b3p/topnl/converters/Converter.html#Converter">Converter</a> getConverter(<a name="TopNLType" href="../../../../nl/b3p/topnl/TopNLType.html#TopNLType">TopNLType</a> type){
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>          <strong class="jxr_keyword">switch</strong>(type){
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>              <strong class="jxr_keyword">case</strong> TOP250NL:
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>                  <strong class="jxr_keyword">return</strong> top250nlConverter;
@@ -61,7 +61,7 @@
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>          }
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>      }
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>      
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">public</strong> JAXBContext getContext(<a href="../../../../nl/b3p/topnl/TopNLType.html">TopNLType</a> type) {
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">public</strong> JAXBContext getContext(<a name="TopNLType" href="../../../../nl/b3p/topnl/TopNLType.html#TopNLType">TopNLType</a> type) {
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>          <strong class="jxr_keyword">switch</strong> (type) {
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>              <strong class="jxr_keyword">case</strong> TOP10NL:
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>                  <strong class="jxr_keyword">return</strong> context10nl;

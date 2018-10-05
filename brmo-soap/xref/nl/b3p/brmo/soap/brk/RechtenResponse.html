@@ -25,7 +25,7 @@
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> * @author Chris</em>
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/soap/brk/RechtenResponse.html">RechtenResponse</a> {
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="RechtenResponse" href="../../../../../nl/b3p/brmo/soap/brk/RechtenResponse.html#RechtenResponse">RechtenResponse</a> {
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(RechtenResponse.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>      <strong class="jxr_keyword">private</strong> List&lt;ZakelijkRechtResponse&gt; zakelijkRecht = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
@@ -74,7 +74,7 @@
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          <strong class="jxr_keyword">return</strong> sql;
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>      }
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../nl/b3p/brmo/soap/brk/RechtenResponse.html">RechtenResponse</a> getRechtenByKoz(Long kozId,
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a name="RechtenResponse" href="../../../../../nl/b3p/brmo/soap/brk/RechtenResponse.html#RechtenResponse">RechtenResponse</a> getRechtenByKoz(Long kozId,
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>              Map&lt;String, Object&gt; searchContext) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          DataSource ds = ConfigUtil.getDataSourceRsgb();
@@ -97,16 +97,16 @@
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>              stm.setObject(1, kozId);
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>              rs = stm.executeQuery();
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>  
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>              <a href="../../../../../nl/b3p/brmo/soap/brk/RechtenResponse.html">RechtenResponse</a> rr = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>              <a name="RechtenResponse" href="../../../../../nl/b3p/brmo/soap/brk/RechtenResponse.html#RechtenResponse">RechtenResponse</a> rr = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>              List&lt;ZakelijkRechtResponse&gt; zrl = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>              <a href="../../../../../nl/b3p/brmo/soap/brk/ZakelijkRechtResponse.html">ZakelijkRechtResponse</a> zkRecht = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>              <a name="ZakelijkRechtResponse" href="../../../../../nl/b3p/brmo/soap/brk/ZakelijkRechtResponse.html#ZakelijkRechtResponse">ZakelijkRechtResponse</a> zkRecht = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>              <strong class="jxr_keyword">while</strong> (rs.next()) {
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>                  <strong class="jxr_keyword">if</strong> (rr == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>                      rr = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/brk/RechtenResponse.html">RechtenResponse</a>();
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>                      rr = <strong class="jxr_keyword">new</strong> <a name="RechtenResponse" href="../../../../../nl/b3p/brmo/soap/brk/RechtenResponse.html#RechtenResponse">RechtenResponse</a>();
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>                      zrl = <strong class="jxr_keyword">new</strong> ArrayList&lt;ZakelijkRechtResponse&gt;();
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>                      rr.setZakelijkRecht(zrl);
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>                 }
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>                 zkRecht = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/brk/ZakelijkRechtResponse.html">ZakelijkRechtResponse</a>();
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>                 zkRecht = <strong class="jxr_keyword">new</strong> <a name="ZakelijkRechtResponse" href="../../../../../nl/b3p/brmo/soap/brk/ZakelijkRechtResponse.html#ZakelijkRechtResponse">ZakelijkRechtResponse</a>();
 <a class="jxr_linenumber" name="L102" href="#L102">102</a> 
 <a class="jxr_linenumber" name="L103" href="#L103">103</a> <em class="jxr_comment">//                zkRecht.setAardVerkregenRecht(rs.getString("fk_3avr_aand"));</em>
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>                 zkRecht.setAardVerkregenRecht(rs.getString(<span class="jxr_string">"omschr"</span>));
@@ -119,11 +119,11 @@
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>                 Boolean st = (Boolean) searchContext.get(BrkInfo.SUBJECTSTOEVOEGEN);
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>                 <strong class="jxr_keyword">if</strong> (st != <strong class="jxr_keyword">null</strong> &amp;&amp; st) {
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>                     String pid = rs.getString(<span class="jxr_string">"fk_8pes_sc_identif"</span>);
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>                     <a href="../../../../../nl/b3p/brmo/soap/brk/NatuurlijkPersoonResponse.html">NatuurlijkPersoonResponse</a> np
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>                     <a name="NatuurlijkPersoonResponse" href="../../../../../nl/b3p/brmo/soap/brk/NatuurlijkPersoonResponse.html#NatuurlijkPersoonResponse">NatuurlijkPersoonResponse</a> np
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>                             = NatuurlijkPersoonResponse.getRecordById(pid, searchContext);
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>                     zkRecht.setNatuurlijkPersoon(np);
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>                     <strong class="jxr_keyword">if</strong> (np == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>                         <a href="../../../../../nl/b3p/brmo/soap/brk/NietNatuurlijkPersoonResponse.html">NietNatuurlijkPersoonResponse</a> nnp
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>                         <a name="NietNatuurlijkPersoonResponse" href="../../../../../nl/b3p/brmo/soap/brk/NietNatuurlijkPersoonResponse.html#NietNatuurlijkPersoonResponse">NietNatuurlijkPersoonResponse</a> nnp
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>                                 = NietNatuurlijkPersoonResponse.getRecordById(pid, searchContext);
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>                         zkRecht.setNietNatuurlijkPersoon(nnp);
 <a class="jxr_linenumber" name="L121" href="#L121">121</a>                     }

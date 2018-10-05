@@ -21,7 +21,7 @@
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.Log;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.LogFactory;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/service/util/ConfigUtil.html">ConfigUtil</a> <strong class="jxr_keyword">implements</strong> Servlet {
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="ConfigUtil" href="../../../../../nl/b3p/brmo/service/util/ConfigUtil.html#ConfigUtil">ConfigUtil</a> <strong class="jxr_keyword">implements</strong> Servlet {
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log log = LogFactory.getLog(ConfigUtil.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  
@@ -56,7 +56,7 @@
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          }        
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      }
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> DataSource getDataSourceStaging() <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> DataSource getDataSourceStaging() <strong class="jxr_keyword">throws</strong> <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> {
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>          <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>              <strong class="jxr_keyword">if</strong> (datasourceStaging == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>                  InitialContext ic = <strong class="jxr_keyword">new</strong> InitialContext();
@@ -65,13 +65,13 @@
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>              }
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>          } <strong class="jxr_keyword">catch</strong> (Exception ex) {
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>              log.error(<span class="jxr_string">"Fout verbinden naar staging db. "</span>, ex);
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a>(ex);
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>          }
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          <strong class="jxr_keyword">return</strong> datasourceStaging;
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      }
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> DataSource getDataSourceRsgb() <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> DataSource getDataSourceRsgb() <strong class="jxr_keyword">throws</strong> <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> {
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>              <strong class="jxr_keyword">if</strong> (datasourceRsgb == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>                  InitialContext ic = <strong class="jxr_keyword">new</strong> InitialContext();
@@ -80,13 +80,13 @@
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>              }
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>          } <strong class="jxr_keyword">catch</strong> (Exception ex) {
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>              log.error(<span class="jxr_string">"Fout verbinden naar rsgb db. "</span>, ex);
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a>(ex);
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          }
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>          <strong class="jxr_keyword">return</strong> datasourceRsgb;
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>      }
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>  
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> DataSource getDataSourceRsgbBgt() <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> DataSource getDataSourceRsgbBgt() <strong class="jxr_keyword">throws</strong> <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> {
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>          <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>              <strong class="jxr_keyword">if</strong> (datasourceRsgbbgt == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>                  InitialContext ic = <strong class="jxr_keyword">new</strong> InitialContext();
@@ -95,7 +95,7 @@
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>              }
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>          } <strong class="jxr_keyword">catch</strong> (Exception ex) {
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>              log.error(<span class="jxr_string">"Fout verbinden naar 'rsgbbgt' schema."</span>, ex);
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(<span class="jxr_string">"Fout verbinden naar 'rsgbbgt' schema."</span>, ex);
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a>(<span class="jxr_string">"Fout verbinden naar 'rsgbbgt' schema."</span>, ex);
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          }
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>          <strong class="jxr_keyword">return</strong> datasourceRsgbbgt;
@@ -107,7 +107,7 @@
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>  <em class="jxr_javadoccomment">     * @throws BrmoException als opzoeken van de datasource in de jndi context</em>
 <a class="jxr_linenumber" name="L100" href="#L100">100</a> <em class="jxr_javadoccomment">     * mislukt</em>
 <a class="jxr_linenumber" name="L101" href="#L101">101</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> DataSource getDataSourceTopNL() <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> DataSource getDataSourceTopNL() <strong class="jxr_keyword">throws</strong> <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> {
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>             <strong class="jxr_keyword">if</strong> (datasourceTopNL == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>                 InitialContext ic = <strong class="jxr_keyword">new</strong> InitialContext();
@@ -116,7 +116,7 @@
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>             }
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>         } <strong class="jxr_keyword">catch</strong> (Exception ex) {
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>             log.error(<span class="jxr_string">"Fout verbinden naar 'topnl' schema."</span>, ex);
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(<span class="jxr_string">"Fout verbinden naar 'topnl' schema."</span>, ex);
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a>(<span class="jxr_string">"Fout verbinden naar 'topnl' schema."</span>, ex);
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>         }
 <a class="jxr_linenumber" name="L113" href="#L113">113</a> 
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>         <strong class="jxr_keyword">return</strong> datasourceTopNL;

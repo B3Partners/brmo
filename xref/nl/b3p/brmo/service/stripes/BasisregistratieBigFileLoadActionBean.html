@@ -36,7 +36,7 @@
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> * @author Matthijs Laan</em>
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  @StrictBinding
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/service/stripes/BasisregistratieBigFileLoadActionBean.html">BasisregistratieBigFileLoadActionBean</a> <strong class="jxr_keyword">implements</strong> ActionBean, <a href="../../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html">ProgressUpdateListener</a> {
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="BasisregistratieBigFileLoadActionBean" href="../../../../../nl/b3p/brmo/service/stripes/BasisregistratieBigFileLoadActionBean.html#BasisregistratieBigFileLoadActionBean">BasisregistratieBigFileLoadActionBean</a> <strong class="jxr_keyword">implements</strong> ActionBean, <a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a> {
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log log = LogFactory.getLog(BasisregistratieBigFileLoadActionBean.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">private</strong> ActionBeanContext context;
@@ -82,7 +82,7 @@
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>      }
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>      @WaitPage(path=<span class="jxr_string">"/WEB-INF/jsp/bestand/bigfile.jsp"</span>, delay=1000, refresh=1000)
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>      <strong class="jxr_keyword">public</strong> Resolution load() <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>      <strong class="jxr_keyword">public</strong> Resolution load() <strong class="jxr_keyword">throws</strong> <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> {
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>          start = <strong class="jxr_keyword">new</strong> Date();
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>          <strong class="jxr_keyword">try</strong> {
@@ -93,8 +93,8 @@
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>              }
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>              DataSource ds = ConfigUtil.getDataSourceStaging();
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>              <a href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a> brmo = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>              brmo = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a>(ds, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>              <a name="BrmoFramework" href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a> brmo = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>              brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(ds, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>              brmo.loadFromFile(basisregistratie, filename, <strong class="jxr_keyword">this</strong>);
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  

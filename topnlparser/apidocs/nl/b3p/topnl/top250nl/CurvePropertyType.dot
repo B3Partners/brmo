@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top250nl.ActuateType
-	c13011 [label=<<table title="nl.b3p.topnl.top250nl.ActuateType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ActuateType.html">
+	c13008 [label=<<table title="nl.b3p.topnl.top250nl.ActuateType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ActuateType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> ActuateType </td></tr>
@@ -26,7 +26,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ActuateType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BRTVlakOfLijnType
-	c13012 [label=<<table title="nl.b3p.topnl.top250nl.BRTVlakOfLijnType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRTVlakOfLijnType.html">
+	c13009 [label=<<table title="nl.b3p.topnl.top250nl.BRTVlakOfLijnType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRTVlakOfLijnType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTVlakOfLijnType </td></tr>
 		</table></td></tr>
@@ -43,7 +43,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BRTVlakOfLijnType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.ShowType
-	c13013 [label=<<table title="nl.b3p.topnl.top250nl.ShowType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ShowType.html">
+	c13010 [label=<<table title="nl.b3p.topnl.top250nl.ShowType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ShowType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> ShowType </td></tr>
@@ -60,7 +60,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ShowType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.AbstractCurveType
-	c13026 [label=<<table title="nl.b3p.topnl.top250nl.AbstractCurveType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractCurveType.html">
+	c13023 [label=<<table title="nl.b3p.topnl.top250nl.AbstractCurveType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractCurveType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractCurveType </font></td></tr>
 		</table></td></tr>
@@ -72,7 +72,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AbstractCurveType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.CurvePropertyType
-	c13039 [label=<<table title="nl.b3p.topnl.top250nl.CurvePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./CurvePropertyType.html">
+	c13036 [label=<<table title="nl.b3p.topnl.top250nl.CurvePropertyType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./CurvePropertyType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CurvePropertyType </td></tr>
 		</table></td></tr>
@@ -115,7 +115,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./CurvePropertyType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BRTVlakLijnOfPuntType
-	c13061 [label=<<table title="nl.b3p.topnl.top250nl.BRTVlakLijnOfPuntType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRTVlakLijnOfPuntType.html">
+	c13058 [label=<<table title="nl.b3p.topnl.top250nl.BRTVlakLijnOfPuntType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRTVlakLijnOfPuntType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRTVlakLijnOfPuntType </td></tr>
 		</table></td></tr>
@@ -135,7 +135,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BRTVlakLijnOfPuntType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.TypeType
-	c13062 [label=<<table title="nl.b3p.topnl.top250nl.TypeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TypeType.html">
+	c13059 [label=<<table title="nl.b3p.topnl.top250nl.TypeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TypeType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> TypeType </td></tr>
@@ -153,16 +153,16 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TypeType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.BRTVlakOfLijnType NAVASSOC nl.b3p.topnl.top250nl.CurvePropertyType
-	c13012:p -> c13039:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c13009:p -> c13036:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.CurvePropertyType NAVASSOC nl.b3p.topnl.top250nl.AbstractCurveType
-	c13039:p -> c13026:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c13036:p -> c13023:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.CurvePropertyType NAVASSOC nl.b3p.topnl.top250nl.TypeType
-	c13039:p -> c13062:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c13036:p -> c13059:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.CurvePropertyType NAVASSOC nl.b3p.topnl.top250nl.ShowType
-	c13039:p -> c13013:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c13036:p -> c13010:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.CurvePropertyType NAVASSOC nl.b3p.topnl.top250nl.ActuateType
-	c13039:p -> c13011:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c13036:p -> c13008:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.BRTVlakLijnOfPuntType NAVASSOC nl.b3p.topnl.top250nl.CurvePropertyType
-	c13061:p -> c13039:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c13058:p -> c13036:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

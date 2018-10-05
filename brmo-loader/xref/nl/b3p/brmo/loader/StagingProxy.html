@@ -70,7 +70,7 @@
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment"> * @author Boy de Wit</em>
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../nl/b3p/brmo/loader/StagingProxy.html">StagingProxy</a> {
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="StagingProxy" href="../../../../nl/b3p/brmo/loader/StagingProxy.html#StagingProxy">StagingProxy</a> {
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log log = LogFactory.getLog(StagingProxy.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
@@ -80,7 +80,7 @@
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>      <strong class="jxr_keyword">private</strong> Integer batchCapacity = 150;
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      <strong class="jxr_keyword">private</strong> Integer limitStandBerichtenToTransform = -1;
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../nl/b3p/brmo/loader/StagingProxy.html">StagingProxy</a>(DataSource dataSourceStaging) <strong class="jxr_keyword">throws</strong> SQLException, BrmoException {
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>      <strong class="jxr_keyword">public</strong> <a name="StagingProxy" href="../../../../nl/b3p/brmo/loader/StagingProxy.html#StagingProxy">StagingProxy</a>(DataSource dataSourceStaging) <strong class="jxr_keyword">throws</strong> SQLException, <a name="BrmoException" href="../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> {
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          <strong class="jxr_keyword">this</strong>.dataSourceStaging = dataSourceStaging;
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>          <strong class="jxr_keyword">this</strong>.connStaging = getConnection();
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>          geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(connStaging);
@@ -100,11 +100,11 @@
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>          <strong class="jxr_keyword">return</strong> connStaging;
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>      }
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>  
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html">LaadProces</a> getLaadProcesById(Long id) <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>      <strong class="jxr_keyword">public</strong> <a name="LaadProces" href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html#LaadProces">LaadProces</a> getLaadProcesById(Long id) <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>          List&lt;LaadProces&gt; processen;
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>  
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>          ResultSetHandler&lt;List&lt;LaadProces&gt;&gt; h
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>                  = <strong class="jxr_keyword">new</strong> BeanListHandler(LaadProces.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>());
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>                  = <strong class="jxr_keyword">new</strong> BeanListHandler(LaadProces.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> <a name="StagingRowHandler" href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html#StagingRowHandler">StagingRowHandler</a>());
 <a class="jxr_linenumber" name="L100" href="#L100">100</a> 
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>         processen = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>                 <span class="jxr_string">"SELECT * FROM "</span> + BrmoFramework.LAADPROCES_TABEL + <span class="jxr_string">" WHERE id = ?"</span>, h, id);
@@ -116,10 +116,10 @@
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>     }
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> getBerichtById(Long id) <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>     <strong class="jxr_keyword">public</strong> <a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> getBerichtById(Long id) <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>         List&lt;Bericht&gt; berichten;
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         ResultSetHandler&lt;List&lt;Bericht&gt;&gt; h
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>                 = <strong class="jxr_keyword">new</strong> BeanListHandler(Bericht.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>());
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>                 = <strong class="jxr_keyword">new</strong> BeanListHandler(Bericht.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> <a name="StagingRowHandler" href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html#StagingRowHandler">StagingRowHandler</a>());
 <a class="jxr_linenumber" name="L115" href="#L115">115</a> 
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>         berichten = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>                 <span class="jxr_string">"SELECT * FROM "</span> + BrmoFramework.BERICHT_TABLE + <span class="jxr_string">" WHERE id = ?"</span>, h, id);
@@ -132,10 +132,10 @@
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>     }
 <a class="jxr_linenumber" name="L125" href="#L125">125</a> 
 <a class="jxr_linenumber" name="L126" href="#L126">126</a> 
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html">LaadProces</a> getLaadProcesByFileName(String name) <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>     <strong class="jxr_keyword">public</strong> <a name="LaadProces" href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html#LaadProces">LaadProces</a> getLaadProcesByFileName(String name) <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>         List&lt;LaadProces&gt; processen;
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>         ResultSetHandler&lt;List&lt;LaadProces&gt;&gt; h
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>                 = <strong class="jxr_keyword">new</strong> BeanListHandler(LaadProces.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>());
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>                 = <strong class="jxr_keyword">new</strong> BeanListHandler(LaadProces.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> <a name="StagingRowHandler" href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html#StagingRowHandler">StagingRowHandler</a>());
 <a class="jxr_linenumber" name="L131" href="#L131">131</a> 
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>         processen = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>                 <span class="jxr_string">"SELECT * FROM "</span> + BrmoFramework.LAADPROCES_TABEL + <span class="jxr_string">" WHERE bestand_naam = ?"</span>, h, name);
@@ -147,10 +147,10 @@
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>     }
 <a class="jxr_linenumber" name="L141" href="#L141">141</a> 
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html">LaadProces</a> getLaadProcesByNaturalKey(String name, <strong class="jxr_keyword">long</strong> date) <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>     <strong class="jxr_keyword">private</strong> <a name="LaadProces" href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html#LaadProces">LaadProces</a> getLaadProcesByNaturalKey(String name, <strong class="jxr_keyword">long</strong> date) <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>         List&lt;LaadProces&gt; processen;
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>         ResultSetHandler&lt;List&lt;LaadProces&gt;&gt; h
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>                 = <strong class="jxr_keyword">new</strong> BeanListHandler(LaadProces.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>());
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>                 = <strong class="jxr_keyword">new</strong> BeanListHandler(LaadProces.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> <a name="StagingRowHandler" href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html#StagingRowHandler">StagingRowHandler</a>());
 <a class="jxr_linenumber" name="L146" href="#L146">146</a> 
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>         processen = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>                 <span class="jxr_string">"SELECT * FROM "</span> + BrmoFramework.LAADPROCES_TABEL + <span class="jxr_string">" WHERE bestand_naam = ?"</span>
@@ -173,17 +173,17 @@
 <a class="jxr_linenumber" name="L165" href="#L165">165</a> <em class="jxr_javadoccomment">     * @return het bestaande bericht uit de database</em>
 <a class="jxr_linenumber" name="L166" href="#L166">166</a> <em class="jxr_javadoccomment">     * @throws SQLException if any</em>
 <a class="jxr_linenumber" name="L167" href="#L167">167</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> getExistingBericht(<a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> b) <strong class="jxr_keyword">throws</strong> SQLException {
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>         <a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> b2 = getBerichtByNaturalKey(b.getObjectRef(),
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>     <strong class="jxr_keyword">public</strong> <a name="Bericht" href="../<a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a>./nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> getExistingBericht(<a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> b) <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>         <a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> b2 = getBerichtByNaturalKey(b.getObjectRef(),
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>                 b.getDatum().getTime(),
 <a class="jxr_linenumber" name="L171" href="#L171">171</a>                 b.getVolgordeNummer());
 <a class="jxr_linenumber" name="L172" href="#L172">172</a>         <strong class="jxr_keyword">return</strong> b2;
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>     }
 <a class="jxr_linenumber" name="L174" href="#L174">174</a> 
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> getBerichtByNaturalKey(String object_ref, <strong class="jxr_keyword">long</strong> date, Integer volgnr) <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>     <strong class="jxr_keyword">private</strong> <a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> getBerichtByNaturalKey(String object_ref, <strong class="jxr_keyword">long</strong> date, Integer volgnr) <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>         List&lt;Bericht&gt; processen;
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>         ResultSetHandler&lt;List&lt;Bericht&gt;&gt; h
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>                 = <strong class="jxr_keyword">new</strong> BeanListHandler(Bericht.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>());
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>                 = <strong class="jxr_keyword">new</strong> BeanListHandler(Bericht.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> <a name="StagingRowHandler" href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html#StagingRowHandler">StagingRowHandler</a>());
 <a class="jxr_linenumber" name="L179" href="#L179">179</a> 
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>         processen = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>                 <span class="jxr_string">"SELECT * FROM "</span> + BrmoFramework.BERICHT_TABLE + <span class="jxr_string">" WHERE object_ref = ?"</span>
@@ -333,14 +333,14 @@
 <a class="jxr_linenumber" name="L325" href="#L325">325</a>                 .update(getConnection(), q.toString(), Bericht.STATUS.STAGING_OK.toString(), <strong class="jxr_keyword">new</strong> java.sql.Timestamp((<strong class="jxr_keyword">new</strong> Date()).getTime()));
 <a class="jxr_linenumber" name="L326" href="#L326">326</a>     }
 <a class="jxr_linenumber" name="L327" href="#L327">327</a> 
-<a class="jxr_linenumber" name="L328" href="#L328">328</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> handleBerichtenByJob(<strong class="jxr_keyword">long</strong> total, <strong class="jxr_keyword">final</strong> <a href="../../../../nl/b3p/brmo/loader/BerichtenHandler.html">BerichtenHandler</a> handler, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> enablePipeline, <strong class="jxr_keyword">int</strong> transformPipelineCapacity, <strong class="jxr_keyword">boolean</strong> orderBerichten) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L328" href="#L328">328</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> handleBerichtenByJob(<strong class="jxr_keyword">long</strong> total, <strong class="jxr_keyword">final</strong> <a name="BerichtenHandler" href="../../../../nl/b3p/brmo/loader/BerichtenHandler.html#BerichtenHandler">BerichtenHandler</a> handler, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> enablePipeline, <strong class="jxr_keyword">int</strong> transformPipelineCapacity, <strong class="jxr_keyword">boolean</strong> orderBerichten) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L329" href="#L329">329</a>         Split split = SimonManager.getStopwatch(<span class="jxr_string">"b3p.rsgb.job"</span>).start();
 <a class="jxr_linenumber" name="L330" href="#L330">330</a>         <strong class="jxr_keyword">final</strong> String dateTime = <strong class="jxr_keyword">new</strong> SimpleDateFormat(<span class="jxr_string">"yyyyMMdd_HHmmss"</span>).format(<strong class="jxr_keyword">new</strong> Date());
 <a class="jxr_linenumber" name="L331" href="#L331">331</a>         Split jobSplit = SimonManager.getStopwatch(<span class="jxr_string">"b3p.rsgb.job."</span> + dateTime).start();
-<a class="jxr_linenumber" name="L332" href="#L332">332</a>         ((<a href="../../../../nl/b3p/brmo/loader/RsgbProxy.html">RsgbProxy</a>)handler).setSimonNamePrefix(<span class="jxr_string">"b3p.rsgb.job."</span> + dateTime + <span class="jxr_string">"."</span>);
-<a class="jxr_linenumber" name="L333" href="#L333">333</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>();
+<a class="jxr_linenumber" name="L332" href="#L332">332</a>         ((<a name="RsgbProxy" href="../../../../nl/b3p/brmo/loader/RsgbProxy.html#RsgbProxy">RsgbProxy</a>)handler).setSimonNamePrefix(<span class="jxr_string">"b3p.rsgb.job."</span> + dateTime + <span class="jxr_string">"."</span>);
+<a class="jxr_linenumber" name="L333" href="#L333">333</a>         <strong class="jxr_keyword">final</strong> RowProcessor processor = <strong class="jxr_keyword">new</strong> <a name="StagingRowHandler" href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html#StagingRowHandler">StagingRowHandler</a>();
 <a class="jxr_linenumber" name="L334" href="#L334">334</a> 
-<a class="jxr_linenumber" name="L335" href="#L335">335</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../nl/b3p/brmo/loader/pipeline/ProcessDbXmlPipeline.html">ProcessDbXmlPipeline</a> processDbXmlPipeline = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/pipeline/ProcessDbXmlPipeline.html">ProcessDbXmlPipeline</a>(handler, transformPipelineCapacity, <span class="jxr_string">"b3p.rsgb.job."</span> + dateTime + <span class="jxr_string">".pipeline"</span>);
+<a class="jxr_linenumber" name="L335" href="#L335">335</a>         <strong class="jxr_keyword">final</strong> <a name="ProcessDbXmlPipeline" href="../../../../nl/b3p/brmo/loader/pipeline/ProcessD<a name="ProcessDbXmlPipeline" href="../../../../nl/b3p/brmo/loader/pipeline/ProcessDbXmlPipeline.html#ProcessDbXmlPipeline">ProcessDbXmlPipeline</a>ocessDbXmlPipeline">ProcessDbXmlPipeline</a> processDbXmlPipeline = <strong class="jxr_keyword">new</strong> <a name="ProcessDbXmlPipeline" href="../../../../nl/b3p/brmo/loader/pipeline/ProcessDbXmlPipeline.html#ProcessDbXmlPipeline">ProcessDbXmlPipeline</a>(handler, transformPipelineCapacity, <span class="jxr_string">"b3p.rsgb.job."</span> + dateTime + <span class="jxr_string">".pipeline"</span>);
 <a class="jxr_linenumber" name="L336" href="#L336">336</a>         <strong class="jxr_keyword">if</strong>(enablePipeline) {
 <a class="jxr_linenumber" name="L337" href="#L337">337</a>             processDbXmlPipeline.start();
 <a class="jxr_linenumber" name="L338" href="#L338">338</a>         }
@@ -368,12 +368,12 @@
 <a class="jxr_linenumber" name="L360" href="#L360">360</a> 
 <a class="jxr_linenumber" name="L361" href="#L361">361</a>                         <strong class="jxr_keyword">while</strong>(rs.next()) {
 <a class="jxr_linenumber" name="L362" href="#L362">362</a>                             <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L363" href="#L363">363</a>                                 <a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> bericht = processor.toBean(rs, Bericht.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L363" href="#L363">363</a>                                 <a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> bericht = processor.toBean(rs, Bericht.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L364" href="#L364">364</a>                                 <strong class="jxr_keyword">if</strong> (bericht.getVolgordeNummer() &gt;= 0  &amp;&amp; !doOrderBerichten) {
 <a class="jxr_linenumber" name="L365" href="#L365">365</a>                                     <em class="jxr_comment">// mutaties hebben volgnr &gt;=0 dan sortering verplicht</em>
 <a class="jxr_linenumber" name="L366" href="#L366">366</a>                                     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> Exception(String.format(<span class="jxr_string">"Het sorteren van berichten staat uit, terwijl bericht (id: %d) geen standbericht is (volgnummer &gt;=0)"</span>, bericht.getId()));
 <a class="jxr_linenumber" name="L367" href="#L367">367</a>                                 }
-<a class="jxr_linenumber" name="L368" href="#L368">368</a>                                 <strong class="jxr_keyword">final</strong> <a href="../../../../nl/b3p/brmo/loader/pipeline/BerichtWorkUnit.html">BerichtWorkUnit</a> workUnit = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/pipeline/BerichtWorkUnit.html">BerichtWorkUnit</a>(bericht);
+<a class="jxr_linenumber" name="L368" href="#L368">368</a>                                 <strong class="jxr_keyword">final</strong> <a name="BerichtWorkUnit" href="../../../../nl/b3p/brmo/loader/pipel<a name="BerichtWorkUnit" href="../../../../nl/b3p/brmo/loader/pipeline/BerichtWorkUnit.html#BerichtWorkUnit">BerichtWorkUnit</a>Unit.html#BerichtWorkUnit">BerichtWorkUnit</a> workUnit = <strong class="jxr_keyword">new</strong> <a name="BerichtWorkUnit" href="../../../../nl/b3p/brmo/loader/pipeline/BerichtWorkUnit.html#BerichtWorkUnit">BerichtWorkUnit</a>(bericht);
 <a class="jxr_linenumber" name="L369" href="#L369">369</a> 
 <a class="jxr_linenumber" name="L370" href="#L370">370</a>                                 handler.updateBerichtProcessing(bericht); <em class="jxr_comment">// op basis van id</em>
 <a class="jxr_linenumber" name="L371" href="#L371">371</a> 
@@ -441,8 +441,8 @@
 <a class="jxr_linenumber" name="L433" href="#L433">433</a>         split.stop();
 <a class="jxr_linenumber" name="L434" href="#L434">434</a>     }
 <a class="jxr_linenumber" name="L435" href="#L435">435</a> 
-<a class="jxr_linenumber" name="L436" href="#L436">436</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> updateBerichtenDbXml(List&lt;Bericht&gt; berichten, <a href="../../../../nl/b3p/brmo/loader/util/RsgbTransformer.html">RsgbTransformer</a> transformer) <strong class="jxr_keyword">throws</strong> SQLException, SAXException, IOException, TransformerException  {
-<a class="jxr_linenumber" name="L437" href="#L437">437</a>         <strong class="jxr_keyword">for</strong> (Bericht ber : berichten) {
+<a class="jxr_linenumber" name="L436" href="#L436">436</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> updateBerichtenDbXml(List&lt;Bericht&gt; berichten, <a name="RsgbTransformer" href="../../../../nl/b3p/brmo/loader/util/RsgbTransformer.html#RsgbTransformer">RsgbTransformer</a> transformer) <strong class="jxr_keyword">throws</strong> SQLException, SAXException, IOException, TransformerException  {
+<a class="jxr_linenumber" name="L437" href="#L437">437</a>         <strong class="jxr_keyword">for</strong> (<a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> ber : berichten) {
 <a class="jxr_linenumber" name="L438" href="#L438">438</a>             Split split = SimonManager.getStopwatch(<span class="jxr_string">"b3p.staging.bericht.dbxml.transform"</span>).start();
 <a class="jxr_linenumber" name="L439" href="#L439">439</a>             String dbxml = transformer.transformToDbXml(ber);
 <a class="jxr_linenumber" name="L440" href="#L440">440</a>             <em class="jxr_comment">// HACK vanwege Oracle 8000 karakters bug, zie brmo wiki: https://github.com/B3Partners/brmo/wiki/Oracle-8000-bytes-bug</em>
@@ -460,12 +460,12 @@
 <a class="jxr_linenumber" name="L452" href="#L452">452</a>     <strong class="jxr_keyword">private</strong> PreparedStatement getOldBerichtStatement;
 <a class="jxr_linenumber" name="L453" href="#L453">453</a>     <strong class="jxr_keyword">private</strong> PreparedStatement getOldBerichtStatementById;
 <a class="jxr_linenumber" name="L454" href="#L454">454</a> 
-<a class="jxr_linenumber" name="L455" href="#L455">455</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> getOldBericht(<a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> nieuwBericht, StringBuilder loadLog) <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>     <strong class="jxr_keyword">public</strong> <a name="Bericht" href<a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a>/../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> getOldBericht(<a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> nieuwBericht, StringBuilder loadLog) <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L456" href="#L456">456</a>         Split split = SimonManager.getStopwatch(<span class="jxr_string">"b3p.staging.bericht.getold"</span>).start();
 <a class="jxr_linenumber" name="L457" href="#L457">457</a> 
-<a class="jxr_linenumber" name="L458" href="#L458">458</a>         <a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> bericht = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L458" href="#L458">458</a>         <a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> bericht = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L459" href="#L459">459</a>         ResultSetHandler&lt;List&lt;Bericht&gt;&gt; h
-<a class="jxr_linenumber" name="L460" href="#L460">460</a>                 = <strong class="jxr_keyword">new</strong> BeanListHandler(Bericht.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>());
+<a class="jxr_linenumber" name="L460" href="#L460">460</a>                 = <strong class="jxr_keyword">new</strong> BeanListHandler(Bericht.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> <a name="StagingRowHandler" href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html#StagingRowHandler">StagingRowHandler</a>());
 <a class="jxr_linenumber" name="L461" href="#L461">461</a> 
 <a class="jxr_linenumber" name="L462" href="#L462">462</a>         <strong class="jxr_keyword">if</strong>(getOldBerichtStatement == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L463" href="#L463">463</a>             String sql = <span class="jxr_string">"SELECT id, object_ref, datum, volgordenummer, soort, status, job_id, status_datum FROM "</span>
@@ -487,7 +487,7 @@
 <a class="jxr_linenumber" name="L479" href="#L479">479</a> 
 <a class="jxr_linenumber" name="L480" href="#L480">480</a>         <strong class="jxr_keyword">if</strong>(!list.isEmpty()) {
 <a class="jxr_linenumber" name="L481" href="#L481">481</a>             loadLog.append(<span class="jxr_string">"Vorig bericht gevonden:\n"</span>);
-<a class="jxr_linenumber" name="L482" href="#L482">482</a>             <strong class="jxr_keyword">for</strong>(<a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> b: list) {
+<a class="jxr_linenumber" name="L482" href="#L482">482</a>             <strong class="jxr_keyword">for</strong>(<a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> b: list) {
 <a class="jxr_linenumber" name="L483" href="#L483">483</a>                 <strong class="jxr_keyword">if</strong>( (Bericht.STATUS.RSGB_OK.equals(b.getStatus()) 
 <a class="jxr_linenumber" name="L484" href="#L484">484</a>                      || Bericht.STATUS.ARCHIVE.equals(b.getStatus()) ) 
 <a class="jxr_linenumber" name="L485" href="#L485">485</a>                         &amp;&amp; bericht == <strong class="jxr_keyword">null</strong>) {
@@ -525,7 +525,7 @@
 <a class="jxr_linenumber" name="L517" href="#L517">517</a>         <strong class="jxr_keyword">return</strong> bericht;
 <a class="jxr_linenumber" name="L518" href="#L518">518</a>     }
 <a class="jxr_linenumber" name="L519" href="#L519">519</a> 
-<a class="jxr_linenumber" name="L520" href="#L520">520</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> updateBericht(<a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> b) <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L520" href="#L520">520</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> updateBericht(<a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> b) <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L521" href="#L521">521</a>         Split split = SimonManager.getStopwatch(<span class="jxr_string">"b3p.staging.bericht.update"</span>).start();
 <a class="jxr_linenumber" name="L522" href="#L522">522</a>         String brXML = b.getBrXml();
 <a class="jxr_linenumber" name="L523" href="#L523">523</a>         <em class="jxr_comment">// HACK vanwege Oracle 8000 karakters bug, zie brmo wiki: https://github.com/B3Partners/brmo/wiki/Oracle-8000-bytes-bug</em>
@@ -550,7 +550,7 @@
 <a class="jxr_linenumber" name="L542" href="#L542">542</a>         split.stop();
 <a class="jxr_linenumber" name="L543" href="#L543">543</a>     }
 <a class="jxr_linenumber" name="L544" href="#L544">544</a> 
-<a class="jxr_linenumber" name="L545" href="#L545">545</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> updateBerichtProcessing(<a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> b) <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L545" href="#L545">545</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> updateBerichtProcessing(<a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> b) <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L546" href="#L546">546</a>         Split split = SimonManager.getStopwatch(<span class="jxr_string">"b3p.staging.bericht.updateprocessing"</span>).start();
 <a class="jxr_linenumber" name="L547" href="#L547">547</a> 
 <a class="jxr_linenumber" name="L548" href="#L548">548</a>         <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
@@ -572,14 +572,14 @@
 <a class="jxr_linenumber" name="L564" href="#L564">564</a> 
 <a class="jxr_linenumber" name="L565" href="#L565">565</a>     <strong class="jxr_keyword">public</strong> List&lt;LaadProces&gt; getLaadProcessen() <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L566" href="#L566">566</a>         List&lt;LaadProces&gt; list;
-<a class="jxr_linenumber" name="L567" href="#L567">567</a>         ResultSetHandler&lt;List&lt;LaadProces&gt;&gt; h = <strong class="jxr_keyword">new</strong> BeanListHandler(LaadProces.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>());
+<a class="jxr_linenumber" name="L567" href="#L567">567</a>         ResultSetHandler&lt;List&lt;LaadProces&gt;&gt; h = <strong class="jxr_keyword">new</strong> BeanListHandler(LaadProces.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> <a name="StagingRowHandler" href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html#StagingRowHandler">StagingRowHandler</a>());
 <a class="jxr_linenumber" name="L568" href="#L568">568</a>         list = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), <span class="jxr_string">"select * from "</span> + BrmoFramework.LAADPROCES_TABEL, h);
 <a class="jxr_linenumber" name="L569" href="#L569">569</a>         <strong class="jxr_keyword">return</strong> list;
 <a class="jxr_linenumber" name="L570" href="#L570">570</a>     }
 <a class="jxr_linenumber" name="L571" href="#L571">571</a> 
 <a class="jxr_linenumber" name="L572" href="#L572">572</a>     <strong class="jxr_keyword">public</strong> List&lt;Bericht&gt; getBerichten() <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L573" href="#L573">573</a>         List&lt;Bericht&gt; berichten;
-<a class="jxr_linenumber" name="L574" href="#L574">574</a>         ResultSetHandler&lt;List&lt;Bericht&gt;&gt; h = <strong class="jxr_keyword">new</strong> BeanListHandler(Bericht.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html">StagingRowHandler</a>());
+<a class="jxr_linenumber" name="L574" href="#L574">574</a>         ResultSetHandler&lt;List&lt;Bericht&gt;&gt; h = <strong class="jxr_keyword">new</strong> BeanListHandler(Bericht.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> <a name="StagingRowHandler" href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html#StagingRowHandler">StagingRowHandler</a>());
 <a class="jxr_linenumber" name="L575" href="#L575">575</a>         berichten = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), <span class="jxr_string">"select * from "</span> + BrmoFramework.BERICHT_TABLE, h);
 <a class="jxr_linenumber" name="L576" href="#L576">576</a>         <strong class="jxr_keyword">return</strong> berichten;
 <a class="jxr_linenumber" name="L577" href="#L577">577</a>     }
@@ -593,34 +593,34 @@
 <a class="jxr_linenumber" name="L585" href="#L585">585</a> <em class="jxr_javadoccomment">     * @param listener progress listener</em>
 <a class="jxr_linenumber" name="L586" href="#L586">586</a> <em class="jxr_javadoccomment">     * @throws Exception if any</em>
 <a class="jxr_linenumber" name="L587" href="#L587">587</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L588" href="#L588">588</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> loadBr(InputStream stream, String type, String fileName, Date d, <a href="../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html">ProgressUpdateListener</a> listener) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L588" href="#L588">588</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> loadBr(InputStream stream, String type, String fileName, Date d, <a name="ProgressUpdateListener" href="../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a> listener) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L589" href="#L589">589</a> 
 <a class="jxr_linenumber" name="L590" href="#L590">590</a>         CountingInputStream cis = <strong class="jxr_keyword">new</strong> CountingInputStream(stream);
 <a class="jxr_linenumber" name="L591" href="#L591">591</a> 
-<a class="jxr_linenumber" name="L592" href="#L592">592</a>         <a href="../../../../nl/b3p/brmo/loader/xml/BrmoXMLReader.html">BrmoXMLReader</a> brmoXMLReader = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L592" href="#L592">592</a>         <a name="BrmoXMLReader" href="../../../../nl/b3p/brmo/loader/xml/BrmoXMLReader.html#BrmoXMLReader">BrmoXMLReader</a> brmoXMLReader = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L593" href="#L593">593</a>         <strong class="jxr_keyword">if</strong> (type.equals(BrmoFramework.BR_BRK)) {
-<a class="jxr_linenumber" name="L594" href="#L594">594</a>             brmoXMLReader = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader.html">BrkSnapshotXMLReader</a>(cis);
+<a class="jxr_linenumber" name="L594" href="#L594">594</a>             brmoXMLReader = <strong class="jxr_keyword">new</strong> <a name="BrkSnapshotXMLReader" href="../../../../nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader.html#BrkSnapshotXMLReader">BrkSnapshotXMLReader</a>(cis);
 <a class="jxr_linenumber" name="L595" href="#L595">595</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (type.equals(BrmoFramework.BR_BAG)) {
-<a class="jxr_linenumber" name="L596" href="#L596">596</a>             brmoXMLReader = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/xml/BagXMLReader.html">BagXMLReader</a>(cis);
+<a class="jxr_linenumber" name="L596" href="#L596">596</a>             brmoXMLReader = <strong class="jxr_keyword">new</strong> <a name="BagXMLReader" href="../../../../nl/b3p/brmo/loader/xml/BagXMLReader.html#BagXMLReader">BagXMLReader</a>(cis);
 <a class="jxr_linenumber" name="L597" href="#L597">597</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (type.equals(BrmoFramework.BR_NHR)) {
-<a class="jxr_linenumber" name="L598" href="#L598">598</a>             brmoXMLReader = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/xml/NhrXMLReader.html">NhrXMLReader</a>(cis);
+<a class="jxr_linenumber" name="L598" href="#L598">598</a>             brmoXMLReader = <strong class="jxr_keyword">new</strong> <a name="NhrXMLReader" href="../../../../nl/b3p/brmo/loader/xml/NhrXMLReader.html#NhrXMLReader">NhrXMLReader</a>(cis);
 <a class="jxr_linenumber" name="L599" href="#L599">599</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (type.equals(BrmoFramework.BR_BGTLIGHT)) {
-<a class="jxr_linenumber" name="L600" href="#L600">600</a>             brmoXMLReader = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/xml/BGTLightFileReader.html">BGTLightFileReader</a>(fileName);
+<a class="jxr_linenumber" name="L600" href="#L600">600</a>             brmoXMLReader = <strong class="jxr_keyword">new</strong> <a name="BGTLightFileReader" href="../../../../nl/b3p/brmo/loader/xml/BGTLightFileReader.html#BGTLightFileReader">BGTLightFileReader</a>(fileName);
 <a class="jxr_linenumber" name="L601" href="#L601">601</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (TopNLType.isTopNLType(type)) {
-<a class="jxr_linenumber" name="L602" href="#L602">602</a>             brmoXMLReader = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/xml/TopNLFileReader.html">TopNLFileReader</a>(fileName, type);
+<a class="jxr_linenumber" name="L602" href="#L602">602</a>             brmoXMLReader = <strong class="jxr_keyword">new</strong> <a name="TopNLFileReader" href="../../../../nl/b3p/brmo/loader/xml/TopNLFileReader.html#TopNLFileReader">TopNLFileReader</a>(fileName, type);
 <a class="jxr_linenumber" name="L603" href="#L603">603</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong>(type.equals(BrmoFramework.BR_BRP)){
-<a class="jxr_linenumber" name="L604" href="#L604">604</a>             brmoXMLReader = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/xml/BRPXMLReader.html">BRPXMLReader</a>(cis, d);
+<a class="jxr_linenumber" name="L604" href="#L604">604</a>             brmoXMLReader = <strong class="jxr_keyword">new</strong> <a name="BRPXMLReader" href="../../../../nl/b3p/brmo/loader/xml/BRPXMLReader.html#BRPXMLReader">BRPXMLReader</a>(cis, d);
 <a class="jxr_linenumber" name="L605" href="#L605">605</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (type.equals(BrmoFramework.BR_GBAV)) {
-<a class="jxr_linenumber" name="L606" href="#L606">606</a>             brmoXMLReader = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/xml/GbavXMLReader.html">GbavXMLReader</a>(cis);
+<a class="jxr_linenumber" name="L606" href="#L606">606</a>             brmoXMLReader = <strong class="jxr_keyword">new</strong> <a name="GbavXMLReader" href="../../../../nl/b3p/brmo/loader/xml/GbavXMLReader.html#GbavXMLReader">GbavXMLReader</a>(cis);
 <a class="jxr_linenumber" name="L607" href="#L607">607</a>         } <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L608" href="#L608">608</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException(<span class="jxr_string">"Ongeldige basisregistratie: "</span> + type);
 <a class="jxr_linenumber" name="L609" href="#L609">609</a>         }
 <a class="jxr_linenumber" name="L610" href="#L610">610</a> 
 <a class="jxr_linenumber" name="L611" href="#L611">611</a>         <strong class="jxr_keyword">if</strong> (brmoXMLReader.getBestandsDatum()==<strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L612" href="#L612">612</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(<span class="jxr_string">"Header van bestand bevat geen datum, verkeerd formaat?"</span>);
+<a class="jxr_linenumber" name="L612" href="#L612">612</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="BrmoException" href="../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a>(<span class="jxr_string">"Header van bestand bevat geen datum, verkeerd formaat?"</span>);
 <a class="jxr_linenumber" name="L613" href="#L613">613</a>         }
 <a class="jxr_linenumber" name="L614" href="#L614">614</a> 
-<a class="jxr_linenumber" name="L615" href="#L615">615</a>         <a href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html">LaadProces</a> lp = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html">LaadProces</a>();
+<a class="jxr_linenumber" name="L615" href="#L615">615</a>         <a name="LaadProces" href="../../../../nl/b3p/brmo/loader<a name="LaadProces" href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html#LaadProces">LaadProces</a>adProces.html#LaadProces">LaadProces</a> lp = <strong class="jxr_keyword">new</strong> <a name="LaadProces" href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html#LaadProces">LaadProces</a>();
 <a class="jxr_linenumber" name="L616" href="#L616">616</a>         lp.setBestandNaam(fileName);
 <a class="jxr_linenumber" name="L617" href="#L617">617</a>         lp.setBestandDatum(brmoXMLReader.getBestandsDatum());
 <a class="jxr_linenumber" name="L618" href="#L618">618</a>         lp.setSoort(type);
@@ -629,7 +629,7 @@
 <a class="jxr_linenumber" name="L621" href="#L621">621</a>         lp.setStatusDatum(<strong class="jxr_keyword">new</strong> Date());
 <a class="jxr_linenumber" name="L622" href="#L622">622</a> 
 <a class="jxr_linenumber" name="L623" href="#L623">623</a>         <strong class="jxr_keyword">if</strong> (laadProcesExists(lp)) {
-<a class="jxr_linenumber" name="L624" href="#L624">624</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoDuplicaatLaadprocesException.html">BrmoDuplicaatLaadprocesException</a>(<span class="jxr_string">"Laadproces al gerund voor bestand "</span>+ fileName);
+<a class="jxr_linenumber" name="L624" href="#L624">624</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="BrmoDuplicaatLaadprocesException" href="../../../../nl/b3p/brmo/loader/util/BrmoDuplicaatLaadprocesException.html#BrmoDuplicaatLaadprocesException">BrmoDuplicaatLaadprocesException</a>(<span class="jxr_string">"Laadproces al gerund voor bestand "</span>+ fileName);
 <a class="jxr_linenumber" name="L625" href="#L625">625</a>         }
 <a class="jxr_linenumber" name="L626" href="#L626">626</a>         lp = writeLaadProces(lp);
 <a class="jxr_linenumber" name="L627" href="#L627">627</a> 
@@ -637,19 +637,19 @@
 <a class="jxr_linenumber" name="L629" href="#L629">629</a>             <em class="jxr_comment">// van een BGT Light bestand maken we alleen een LP, geen bericht,</em>
 <a class="jxr_linenumber" name="L630" href="#L630">630</a>             <em class="jxr_comment">// de datum halen we van een GML uit het zip bestand</em>
 <a class="jxr_linenumber" name="L631" href="#L631">631</a>             <strong class="jxr_keyword">if</strong> (listener != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L632" href="#L632">632</a>                 listener.total(((BGTLightFileReader) brmoXMLReader).getFileSize());
-<a class="jxr_linenumber" name="L633" href="#L633">633</a>                 listener.progress(((BGTLightFileReader) brmoXMLReader).getFileSize());
+<a class="jxr_linenumber" name="L632" href="#L632">632</a>                 listener.total(((<a name="BGTLightFileReader" href="../../../../nl/b3p/brmo/loader/xml/BGTLightFileReader.html#BGTLightFileReader">BGTLightFileReader</a>) brmoXMLReader).getFileSize());
+<a class="jxr_linenumber" name="L633" href="#L633">633</a>                 listener.progress(((<a name="BGTLightFileReader" href="../../../../nl/b3p/brmo/loader/xml/BGTLightFileReader.html#BGTLightFileReader">BGTLightFileReader</a>) brmoXMLReader).getFileSize());
 <a class="jxr_linenumber" name="L634" href="#L634">634</a>             }
 <a class="jxr_linenumber" name="L635" href="#L635">635</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (TopNLType.isTopNLType(type)) {
 <a class="jxr_linenumber" name="L636" href="#L636">636</a>             <em class="jxr_comment">// van een TopNL GML bestand maken we alleen een LP, geen bericht,</em>
 <a class="jxr_linenumber" name="L637" href="#L637">637</a>             <em class="jxr_comment">// de datum halen we van het zip bestand</em>
 <a class="jxr_linenumber" name="L638" href="#L638">638</a>             <strong class="jxr_keyword">if</strong> (listener != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L639" href="#L639">639</a>                 listener.total(((TopNLFileReader) brmoXMLReader).getFileSize());
-<a class="jxr_linenumber" name="L640" href="#L640">640</a>                 listener.progress(((TopNLFileReader) brmoXMLReader).getFileSize());
+<a class="jxr_linenumber" name="L639" href="#L639">639</a>                 listener.total(((<a name="TopNLFileReader" href="../../../../nl/b3p/brmo/loader/xml/TopNLFileReader.html#TopNLFileReader">TopNLFileReader</a>) brmoXMLReader).getFileSize());
+<a class="jxr_linenumber" name="L640" href="#L640">640</a>                 listener.progress(((<a name="TopNLFileReader" href="../../../../nl/b3p/brmo/loader/xml/TopNLFileReader.html#TopNLFileReader">TopNLFileReader</a>) brmoXMLReader).getFileSize());
 <a class="jxr_linenumber" name="L641" href="#L641">641</a>             }
 <a class="jxr_linenumber" name="L642" href="#L642">642</a>         } <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L643" href="#L643">643</a>             <strong class="jxr_keyword">if</strong> (!brmoXMLReader.hasNext()) {
-<a class="jxr_linenumber" name="L644" href="#L644">644</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoLeegBestandException.html">BrmoLeegBestandException</a>(<span class="jxr_string">"Leeg bestand, geen berichten gevonden in "</span> + fileName);
+<a class="jxr_linenumber" name="L644" href="#L644">644</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="BrmoLeegBestandException" href="../../../../nl/b3p/brmo/loader/util/BrmoLeegBestandException.html#BrmoLeegBestandException">BrmoLeegBestandException</a>(<span class="jxr_string">"Leeg bestand, geen berichten gevonden in "</span> + fileName);
 <a class="jxr_linenumber" name="L645" href="#L645">645</a>             }
 <a class="jxr_linenumber" name="L646" href="#L646">646</a> 
 <a class="jxr_linenumber" name="L647" href="#L647">647</a>             <strong class="jxr_keyword">boolean</strong> isBerichtGeschreven = false;
@@ -658,7 +658,7 @@
 <a class="jxr_linenumber" name="L650" href="#L650">650</a>             String lastErrorMessage = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L651" href="#L651">651</a> 
 <a class="jxr_linenumber" name="L652" href="#L652">652</a>             <strong class="jxr_keyword">while</strong> (brmoXMLReader.hasNext()) {
-<a class="jxr_linenumber" name="L653" href="#L653">653</a>                 <a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> b = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L653" href="#L653">653</a>                 <a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> b = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L654" href="#L654">654</a>                 <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L655" href="#L655">655</a>                     b = brmoXMLReader.next();
 <a class="jxr_linenumber" name="L656" href="#L656">656</a>                     b.setLaadProcesId(lp.getId().intValue());
@@ -667,10 +667,10 @@
 <a class="jxr_linenumber" name="L659" href="#L659">659</a>                     b.setSoort(type);
 <a class="jxr_linenumber" name="L660" href="#L660">660</a> 
 <a class="jxr_linenumber" name="L661" href="#L661">661</a>                     <strong class="jxr_keyword">if</strong> (b.getDatum() == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L662" href="#L662">662</a>                         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(<span class="jxr_string">"Datum bericht is null"</span>);
+<a class="jxr_linenumber" name="L662" href="#L662">662</a>                         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="BrmoException" href="../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a>(<span class="jxr_string">"Datum bericht is null"</span>);
 <a class="jxr_linenumber" name="L663" href="#L663">663</a>                     }
 <a class="jxr_linenumber" name="L664" href="#L664">664</a> 
-<a class="jxr_linenumber" name="L665" href="#L665">665</a>                     <a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> existingBericht = getExistingBericht(b);
+<a class="jxr_linenumber" name="L665" href="#L665">665</a>                     <a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> existingBericht = getExistingBericht(b);
 <a class="jxr_linenumber" name="L666" href="#L666">666</a>                     <strong class="jxr_keyword">if</strong> (existingBericht == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L667" href="#L667">667</a>                         writeBericht(b);
 <a class="jxr_linenumber" name="L668" href="#L668">668</a>                         isBerichtGeschreven = <strong class="jxr_keyword">true</strong>;
@@ -712,7 +712,7 @@
 <a class="jxr_linenumber" name="L704" href="#L704">704</a>         }
 <a class="jxr_linenumber" name="L705" href="#L705">705</a>     }
 <a class="jxr_linenumber" name="L706" href="#L706">706</a> 
-<a class="jxr_linenumber" name="L707" href="#L707">707</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeBericht(<a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> b) <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L707" href="#L707">707</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeBericht(<a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> b) <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L708" href="#L708">708</a>         String brXML = b.getBrXml();
 <a class="jxr_linenumber" name="L709" href="#L709">709</a>         <em class="jxr_comment">// HACK vanwege Oracle 8000 karakters bug, zie brmo wiki: https://github.com/B3Partners/brmo/wiki/Oracle-8000-bytes-bug</em>
 <a class="jxr_linenumber" name="L710" href="#L710">710</a>         <strong class="jxr_keyword">if</strong> (geomToJdbc instanceof OracleJdbcConverter &amp;&amp; brXML != <strong class="jxr_keyword">null</strong> &amp;&amp; brXML.length() == 8000) {
@@ -741,7 +741,7 @@
 <a class="jxr_linenumber" name="L733" href="#L733">733</a> <em class="jxr_javadoccomment">     * @return</em>
 <a class="jxr_linenumber" name="L734" href="#L734">734</a> <em class="jxr_javadoccomment">     * @throws SQLException</em>
 <a class="jxr_linenumber" name="L735" href="#L735">735</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L736" href="#L736">736</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> laadProcesExists(<a href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html">LaadProces</a> lp) <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L736" href="#L736">736</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> laadProcesExists(<a name="LaadProces" href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html#LaadProces">LaadProces</a> lp) <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L737" href="#L737">737</a>         Object o = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
 <a class="jxr_linenumber" name="L738" href="#L738">738</a>                 <span class="jxr_string">"select 1 from laadproces where bestand_naam = ? and"</span>
 <a class="jxr_linenumber" name="L739" href="#L739">739</a>                 + <span class="jxr_string">" bestand_datum = ?"</span>, <strong class="jxr_keyword">new</strong> ScalarHandler(),
@@ -751,7 +751,7 @@
 <a class="jxr_linenumber" name="L743" href="#L743">743</a>         <strong class="jxr_keyword">return</strong> o != <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L744" href="#L744">744</a>     }
 <a class="jxr_linenumber" name="L745" href="#L745">745</a> 
-<a class="jxr_linenumber" name="L746" href="#L746">746</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html">LaadProces</a> writeLaadProces(<a href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html">LaadProces</a> lp) <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L746" href="#L746">746</a>     <strong class="jxr_keyword">private</strong> <a name="LaadProces" href="<a name="LaadProces" href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html#LaadProces">LaadProces</a>./nl/b3p/brmo/loader/entity/LaadProces.html#LaadProces">LaadProces</a> writeLaadProces(<a name="LaadProces" href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html#LaadProces">LaadProces</a> lp) <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L747" href="#L747">747</a>         <strong class="jxr_keyword">if</strong> (lp == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L748" href="#L748">748</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L749" href="#L749">749</a>         }
@@ -774,7 +774,7 @@
 <a class="jxr_linenumber" name="L766" href="#L766">766</a>          <strong class="jxr_keyword">return</strong> getLaadProcesByNaturalKey(lp.getBestandNaam(), lp.getBestandDatum().getTime());
 <a class="jxr_linenumber" name="L767" href="#L767">767</a>     }
 <a class="jxr_linenumber" name="L768" href="#L768">768</a> 
-<a class="jxr_linenumber" name="L769" href="#L769">769</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> updateLaadProcesStatus(<a href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html">LaadProces</a> lp, LaadProces.STATUS status, String opmerking) <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L769" href="#L769">769</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> updateLaadProcesStatus(<a name="LaadProces" href="../../../../nl/b3p/brmo/loader/entity/LaadProces.html#LaadProces">LaadProces</a> lp, LaadProces.STATUS status, String opmerking) <strong class="jxr_keyword">throws</strong> SQLException {
 <a class="jxr_linenumber" name="L770" href="#L770">770</a>         <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), <span class="jxr_string">"update "</span> + BrmoFramework.LAADPROCES_TABEL + <span class="jxr_string">" set status = ?, opmerking = ? where id = ?"</span>,
 <a class="jxr_linenumber" name="L771" href="#L771">771</a>                         status.toString(), opmerking, lp.getId());
 <a class="jxr_linenumber" name="L772" href="#L772">772</a>     }
@@ -799,7 +799,7 @@
 <a class="jxr_linenumber" name="L791" href="#L791">791</a> 
 <a class="jxr_linenumber" name="L792" href="#L792">792</a>         sql = geomToJdbc.buildPaginationSql(sql, start, limit);
 <a class="jxr_linenumber" name="L793" href="#L793">793</a> 
-<a class="jxr_linenumber" name="L794" href="#L794">794</a>         <strong class="jxr_keyword">return</strong> (List&lt;Bericht&gt;)<strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, <strong class="jxr_keyword">new</strong> BeanListHandler(Bericht.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> StagingRowHandler()), params.toArray());
+<a class="jxr_linenumber" name="L794" href="#L794">794</a>         <strong class="jxr_keyword">return</strong> (List&lt;Bericht&gt;)<strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, <strong class="jxr_keyword">new</strong> BeanListHandler(Bericht.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> <a name="StagingRowHandler" href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html#StagingRowHandler">StagingRowHandler</a>()), params.toArray());
 <a class="jxr_linenumber" name="L795" href="#L795">795</a>     }
 <a class="jxr_linenumber" name="L796" href="#L796">796</a> 
 <a class="jxr_linenumber" name="L797" href="#L797">797</a> 
@@ -941,7 +941,7 @@
 <a class="jxr_linenumber" name="L933" href="#L933">933</a> 
 <a class="jxr_linenumber" name="L934" href="#L934">934</a>         sql = geomToJdbc.buildPaginationSql(sql, start, limit);
 <a class="jxr_linenumber" name="L935" href="#L935">935</a> 
-<a class="jxr_linenumber" name="L936" href="#L936">936</a>         <strong class="jxr_keyword">return</strong> (List&lt;LaadProces&gt;)<strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, <strong class="jxr_keyword">new</strong> BeanListHandler(LaadProces.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> StagingRowHandler()), params.toArray());
+<a class="jxr_linenumber" name="L936" href="#L936">936</a>         <strong class="jxr_keyword">return</strong> (List&lt;LaadProces&gt;)<strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, <strong class="jxr_keyword">new</strong> BeanListHandler(LaadProces.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> <a name="StagingRowHandler" href="../../../../nl/b3p/brmo/loader/util/StagingRowHandler.html#StagingRowHandler">StagingRowHandler</a>()), params.toArray());
 <a class="jxr_linenumber" name="L937" href="#L937">937</a>     }
 <a class="jxr_linenumber" name="L938" href="#L938">938</a> 
 <a class="jxr_linenumber" name="L939" href="#L939">939</a>     <strong class="jxr_keyword">public</strong> Long[] getLaadProcessenIds(String sort, String dir, String filterSoort, String filterStatus) <strong class="jxr_keyword">throws</strong> SQLException {
@@ -957,7 +957,7 @@
 <a class="jxr_linenumber" name="L949" href="#L949">949</a>         <strong class="jxr_keyword">return</strong> ids.toArray(<strong class="jxr_keyword">new</strong> Long[ids.size()]);
 <a class="jxr_linenumber" name="L950" href="#L950">950</a>     }
 <a class="jxr_linenumber" name="L951" href="#L951">951</a> 
-<a class="jxr_linenumber" name="L952" href="#L952">952</a>     <a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> getOldBericht(<a href="../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> nieuwBericht) {
+<a class="jxr_linenumber" name="L952" href="#L952">952</a>     <a name="Bericht" href<a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a>/../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> getOldBericht(<a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> nieuwBericht) {
 <a class="jxr_linenumber" name="L953" href="#L953">953</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException(<span class="jxr_string">"Not supported yet."</span>);
 <a class="jxr_linenumber" name="L954" href="#L954">954</a>     }
 <a class="jxr_linenumber" name="L955" href="#L955">955</a> 

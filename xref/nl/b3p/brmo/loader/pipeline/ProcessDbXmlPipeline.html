@@ -14,14 +14,14 @@
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> * @author Matthijs Laan</em>
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/loader/pipeline/ProcessDbXmlPipeline.html">ProcessDbXmlPipeline</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../nl/b3p/brmo/loader/pipeline/BerichtPipelineThread.html">BerichtPipelineThread</a> {
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="ProcessDbXmlPipeline" href="../../../../../nl/b3p/brmo/loader/pipeline/ProcessDbXmlPipeline.html#ProcessDbXmlPipeline">ProcessDbXmlPipeline</a> <strong class="jxr_keyword">extends</strong> <a name="BerichtPipelineThread" href="../../../../../nl/b3p/brmo/loader/pipeline/BerichtPipelineThread.html#BerichtPipelineThread">BerichtPipelineThread</a> {
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/loader/pipeline/ProcessDbXmlPipeline.html">ProcessDbXmlPipeline</a>(<a href="../../../../../nl/b3p/brmo/loader/BerichtenHandler.html">BerichtenHandler</a> handler, <strong class="jxr_keyword">int</strong> capacity, String stopwatchPrefix) {
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>      <strong class="jxr_keyword">public</strong> <a name="ProcessDbXmlPipeline" href="../../../../../nl/b3p/brmo/loader/pipeline/ProcessDbXmlPipeline.html#ProcessDbXmlPipeline">ProcessDbXmlPipeline</a>(<a name="BerichtenHandler" href="../../../../../nl/b3p/brmo/loader/BerichtenHandler.html#BerichtenHandler">BerichtenHandler</a> handler, <strong class="jxr_keyword">int</strong> capacity, String stopwatchPrefix) {
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>          <strong class="jxr_keyword">super</strong>(handler, capacity, stopwatchPrefix + <span class="jxr_string">".processdbxml"</span>);
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>      }
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>      @Override
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>      <strong class="jxr_keyword">void</strong> work(<a href="../../../../../nl/b3p/brmo/loader/pipeline/BerichtWorkUnit.html">BerichtWorkUnit</a> workUnit) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>      <strong class="jxr_keyword">void</strong> work(<a name="BerichtWorkUnit" href="../../../../../nl/b3p/brmo/loader/pipeline/BerichtWorkUnit.html#BerichtWorkUnit">BerichtWorkUnit</a> workUnit) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>          handler.handle(workUnit.getBericht(), workUnit.getTableData(), <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      }
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  }

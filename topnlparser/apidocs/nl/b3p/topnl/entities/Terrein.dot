@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.entities.TopNLEntity
-	c34031 [label=<<table title="nl.b3p.topnl.entities.TopNLEntity" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLEntity.html">
+	c34009 [label=<<table title="nl.b3p.topnl.entities.TopNLEntity" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLEntity.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TopNLEntity </font></td></tr>
 		</table></td></tr>
@@ -42,7 +42,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TopNLEntity.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.entities.Terrein
-	c34034 [label=<<table title="nl.b3p.topnl.entities.Terrein" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Terrein.html">
+	c34012 [label=<<table title="nl.b3p.topnl.entities.Terrein" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Terrein.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Terrein </td></tr>
 		</table></td></tr>
@@ -60,49 +60,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Terrein.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.entities.Terrein extends nl.b3p.topnl.entities.TopNLEntity
-	c34031:p -> c34034:p [dir=back,arrowtail=empty];
-	// nl.b3p.topnl.entities.Terrein NAVASSOC com.vividsolutions.jts.geom.Polygon
-	c34034:p -> c34041:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.vividsolutions.jts.geom.Polygon
-	c34041 [label=<<table title="com.vividsolutions.jts.geom.Polygon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/vividsolutions/jts/geom/Polygon.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Polygon </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # shell : LinearRing </td></tr>
-<tr><td align="left" balign="left"> # holes : LinearRing[] </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Polygon(arg0 : LinearRing, arg1 : PrecisionModel, arg2 : int) </td></tr>
-<tr><td align="left" balign="left"> + Polygon(arg0 : LinearRing, arg1 : LinearRing[], arg2 : PrecisionModel, arg3 : int) </td></tr>
-<tr><td align="left" balign="left"> + Polygon(arg0 : LinearRing, arg1 : LinearRing[], arg2 : GeometryFactory) </td></tr>
-<tr><td align="left" balign="left"> + getCoordinate() : Coordinate </td></tr>
-<tr><td align="left" balign="left"> + getCoordinates() : Coordinate[] </td></tr>
-<tr><td align="left" balign="left"> + getNumPoints() : int </td></tr>
-<tr><td align="left" balign="left"> + getDimension() : int </td></tr>
-<tr><td align="left" balign="left"> + getBoundaryDimension() : int </td></tr>
-<tr><td align="left" balign="left"> + isEmpty() : boolean </td></tr>
-<tr><td align="left" balign="left"> + isRectangle() : boolean </td></tr>
-<tr><td align="left" balign="left"> + getExteriorRing() : LineString </td></tr>
-<tr><td align="left" balign="left"> + getNumInteriorRing() : int </td></tr>
-<tr><td align="left" balign="left"> + getInteriorRingN(arg0 : int) : LineString </td></tr>
-<tr><td align="left" balign="left"> + getGeometryType() : String </td></tr>
-<tr><td align="left" balign="left"> + getArea() : double </td></tr>
-<tr><td align="left" balign="left"> + getLength() : double </td></tr>
-<tr><td align="left" balign="left"> + getBoundary() : Geometry </td></tr>
-<tr><td align="left" balign="left"> # computeEnvelopeInternal() : Envelope </td></tr>
-<tr><td align="left" balign="left"> + equalsExact(arg0 : Geometry, arg1 : double) : boolean </td></tr>
-<tr><td align="left" balign="left"> + apply(arg0 : CoordinateFilter) </td></tr>
-<tr><td align="left" balign="left"> + apply(arg0 : CoordinateSequenceFilter) </td></tr>
-<tr><td align="left" balign="left"> + apply(arg0 : GeometryFilter) </td></tr>
-<tr><td align="left" balign="left"> + apply(arg0 : GeometryComponentFilter) </td></tr>
-<tr><td align="left" balign="left"> + clone() : Object </td></tr>
-<tr><td align="left" balign="left"> + convexHull() : Geometry </td></tr>
-<tr><td align="left" balign="left"> + normalize() </td></tr>
-<tr><td align="left" balign="left"> # compareToSameClass(arg0 : Object) : int </td></tr>
-<tr><td align="left" balign="left"> # compareToSameClass(arg0 : Object, arg1 : CoordinateSequenceComparator) : int </td></tr>
-<tr><td align="left" balign="left"> + reverse() : Geometry </td></tr>
-		</table></td></tr>
-		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/com/vividsolutions/jts/geom/Polygon.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	c34009:p -> c34012:p [dir=back,arrowtail=empty];
 }
 

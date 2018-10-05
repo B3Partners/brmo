@@ -1,0 +1,35 @@
+// dot 2.40.1 on Linux 4.15.0-36-generic
+// SchemaSpy rev Unknown
+digraph "gemeente_archief" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "gemeente_archief" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">gemeente_archief</TD></TR>
+      <TR><TD PORT="dat_beg_geldh" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">dat_beg_geldh</TD></TR>
+      <TR><TD PORT="code" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">code</TD></TR>
+      <TR><TD PORT="datum_einde_geldh" COLSPAN="3" ALIGN="LEFT">datum_einde_geldh</TD></TR>
+      <TR><TD PORT="naam" COLSPAN="3" ALIGN="LEFT">naam</TD></TR>
+      <TR><TD PORT="naam_nen" COLSPAN="3" ALIGN="LEFT">naam_nen</TD></TR>
+      <TR><TD PORT="geom" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">geom</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/gemeente_archief.html"
+    tooltip="gemeente_archief"
+  ];
+}

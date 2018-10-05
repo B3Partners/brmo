@@ -33,7 +33,7 @@
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> * @author Boy de Wit</em>
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/service/stripes/BerichtenActionBean.html">BerichtenActionBean</a> <strong class="jxr_keyword">implements</strong> ActionBean {
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="BerichtenActionBean" href="../../../../../nl/b3p/brmo/service/stripes/BerichtenActionBean.html#BerichtenActionBean">BerichtenActionBean</a> <strong class="jxr_keyword">implements</strong> ActionBean {
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log log = LogFactory.getLog(BerichtenActionBean.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
@@ -64,7 +64,7 @@
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ForwardResolution(<span class="jxr_string">"/WEB-INF/jsp/bericht/list.jsp"</span>);
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>      }
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">public</strong> Resolution getGridData() <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">public</strong> Resolution getGridData() <strong class="jxr_keyword">throws</strong> <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> {
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>          <em class="jxr_comment">// ophalen filters</em>
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>          String filterSoort = <span class="jxr_string">""</span>;
@@ -95,9 +95,9 @@
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>          DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>          <strong class="jxr_keyword">long</strong> count = 0l;
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>          JSONArray jsoNBerichten = <strong class="jxr_keyword">new</strong> JSONArray();
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>          <a href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a> brmo = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>          <a name="BrmoFramework" href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a> brmo = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>              brmo = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a>(dataSourceStaging, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>              brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(dataSourceStaging, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>  
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>              count = brmo.getCountBerichten(sort, dir, filterSoort, filterStatus);
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  
@@ -115,7 +115,7 @@
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>                 brmo.closeBrmoFramework();
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>             }
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>         }
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>         <strong class="jxr_keyword">for</strong> (Bericht b : berichten) {
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>         <strong class="jxr_keyword">for</strong> (<a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> b : berichten) {
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>             JSONObject jsonObject = bericht2Json(b);
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>             jsoNBerichten.put(jsonObject);
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         }
@@ -136,7 +136,7 @@
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>         };
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>     }
 <a class="jxr_linenumber" name="L130" href="#L130">130</a> 
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>     <strong class="jxr_keyword">private</strong> JSONObject bericht2Json(<a href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> ber) {
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>     <strong class="jxr_keyword">private</strong> JSONObject bericht2Json(<a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> ber) {
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>         JSONObject json = <strong class="jxr_keyword">new</strong> JSONObject();
 <a class="jxr_linenumber" name="L133" href="#L133">133</a> 
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>         json.put(<span class="jxr_string">"id"</span>, ber.getId());
@@ -170,13 +170,13 @@
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>         };
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>     }
 <a class="jxr_linenumber" name="L164" href="#L164">164</a> 
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>     <strong class="jxr_keyword">public</strong> Resolution log() <strong class="jxr_keyword">throws</strong> BrmoException{
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>     <strong class="jxr_keyword">public</strong> Resolution log() <strong class="jxr_keyword">throws</strong> <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a>{
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>         DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>         JSONObject jsonObj = <strong class="jxr_keyword">new</strong> JSONObject();
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>         jsonObj.put(<span class="jxr_string">"success"</span>, Boolean.FALSE);
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>         <a href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a>(dataSourceStaging, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>         <a name="BrmoFramework" href="../../../../../nl/b3p/brmo/loade<a name="BrmoFramework" href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>rk.html#BrmoFramework">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(dataSourceStaging, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>         <strong class="jxr_keyword">try</strong>{
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>             <a href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> bericht = brmo.getBerichtById(selectedIds[0]);
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>             <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> bericht = brmo.getBerichtById(selectedIds[0]);
 <a class="jxr_linenumber" name="L172" href="#L172">172</a>             jsonObj = bericht2Json(bericht);
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>             jsonObj.put(<span class="jxr_string">"opmerking"</span>, bericht.getOpmerking());
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>             jsonObj.put(<span class="jxr_string">"success"</span>, Boolean.TRUE);

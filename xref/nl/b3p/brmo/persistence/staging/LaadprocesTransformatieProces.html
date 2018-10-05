@@ -21,7 +21,7 @@
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> * @author mprins</em>
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  @Entity
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/persistence/staging/LaadprocesTransformatieProces.html">LaadprocesTransformatieProces</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html">AutomatischProces</a> {
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="LaadprocesTransformatieProces" href="../../../../../nl/b3p/brmo/persistence/staging/LaadprocesTransformatieProces.html#LaadprocesTransformatieProces">LaadprocesTransformatieProces</a> <strong class="jxr_keyword">extends</strong> <a name="AutomatischProces" href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html#AutomatischProces">AutomatischProces</a> {
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      <strong class="jxr_keyword">public</strong> String getSoort() {
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>          <strong class="jxr_keyword">return</strong> ClobElement.nullSafeGet(<strong class="jxr_keyword">this</strong>.getConfig().get(<span class="jxr_string">"laadprocessoort"</span>));
@@ -35,7 +35,7 @@
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment">     * soorten laadproces waar we iets mee kunnen.</em>
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">public</strong> enum <a href="../../../../../nl/b3p/brmo/persistence/staging/LaadprocesTransformatieProces.html">LaadprocesSoorten</a> {
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">public</strong> enum LaadprocesSoorten {
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>          <em class="jxr_comment">// zie ook: nl.b3p.brmo.loader.BrmoFramework#BR_BGTLIGHT</em>
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>          BR_BGTLIGHT(<span class="jxr_string">"bgtlight"</span>),
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>          BR_TOPNL(<span class="jxr_string">"topnl"</span>);
@@ -49,7 +49,7 @@
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>          }
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>          <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> String soort;
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>          <a href="../../../../../nl/b3p/brmo/persistence/staging/LaadprocesTransformatieProces.html">LaadprocesSoorten</a>(String soort) {
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>          LaadprocesSoorten(String soort) {
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>              <strong class="jxr_keyword">this</strong>.soort = soort;
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>          }
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  

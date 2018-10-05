@@ -11,11 +11,11 @@
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">package</strong> nl.b3p.brmo.loader.gml;
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> com.vividsolutions.jts.geom.Dimension;
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> com.vividsolutions.jts.geom.GeometryFactory;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> com.vividsolutions.jts.geom.PrecisionModel;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> com.vividsolutions.jts.geom.Geometry;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> com.vividsolutions.jts.geom.TopologyException;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> org.locationtech.jts.geom.Dimension;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.locationtech.jts.geom.GeometryFactory;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> org.locationtech.jts.geom.PrecisionModel;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> org.locationtech.jts.geom.Geometry;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> org.locationtech.jts.geom.TopologyException;
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.io.File;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.io.FileInputStream;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.io.FileNotFoundException;
@@ -70,7 +70,7 @@
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment"> * @author mprins</em>
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/loader/gml/BGTGMLLightLoader.html">BGTGMLLightLoader</a> {
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="BGTGMLLightLoader" href="../../../../../nl/b3p/brmo/loader/gml/BGTGMLLightLoader.html#BGTGMLLightLoader">BGTGMLLightLoader</a> {
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(BGTGMLLightLoader.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
@@ -109,12 +109,12 @@
 <a class="jxr_linenumber" name="L101" href="#L101">101</a> 
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> StringBuilder opmerkingen = <strong class="jxr_keyword">new</strong> StringBuilder();
 <a class="jxr_linenumber" name="L103" href="#L103">103</a> 
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../nl/b3p/brmo/loader/gml/BGTGMLLightLoader.html">STATUS</a> status = STATUS.OK;
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>     <strong class="jxr_keyword">private</strong> STATUS status = STATUS.OK;
 <a class="jxr_linenumber" name="L105" href="#L105">105</a> 
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> <em class="jxr_javadoccomment">     * Default constructor initaliseert de GML parser.</em>
 <a class="jxr_linenumber" name="L108" href="#L108">108</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/loader/gml/BGTGMLLightLoader.html">BGTGMLLightLoader</a>() {
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>     <strong class="jxr_keyword">public</strong> <a name="BGTGMLLightLoader" href="../../../../../nl/b3p/brmo/loader/gml/BGTGMLLightLoader.html#BGTGMLLightLoader">BGTGMLLightLoader</a>() {
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>         <strong class="jxr_keyword">final</strong> String schemaLocation = BGTGMLLightLoader.<strong class="jxr_keyword">class</strong>.getResource(<span class="jxr_string">"/imgeo-simple_resolved.xsd"</span>).toString();
 <a class="jxr_linenumber" name="L111" href="#L111">111</a> 
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>         Configuration configuration = <strong class="jxr_keyword">new</strong> ApplicationSchemaConfiguration(<span class="jxr_string">"http://www.geostandaarden.nl/imgeo/2.1/simple/gml31"</span>, schemaLocation);
@@ -135,7 +135,7 @@
 <a class="jxr_linenumber" name="L127" href="#L127">127</a> <em class="jxr_javadoccomment">     * @see #setScanDirectory(java.io.File)</em>
 <a class="jxr_linenumber" name="L128" href="#L128">128</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L129" href="#L129">129</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/loader/gml/BGTGMLLightLoader.html">BGTGMLLightLoader</a>(File scanDirectory, Properties dbConnProps) {
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>     <strong class="jxr_keyword">public</strong> <a name="BGTGMLLightLoader" href="../../../../../nl/b3p/brmo/loader/gml/BGTGMLLightLoader.html#BGTGMLLightLoader">BGTGMLLightLoader</a>(File scanDirectory, Properties dbConnProps) {
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>         <strong class="jxr_keyword">this</strong>.scanDirectory = scanDirectory;
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>         <strong class="jxr_keyword">this</strong>.dbConnProps = dbConnProps;
 <a class="jxr_linenumber" name="L133" href="#L133">133</a> 
@@ -279,7 +279,7 @@
 <a class="jxr_linenumber" name="L271" href="#L271">271</a>         }
 <a class="jxr_linenumber" name="L272" href="#L272">272</a> 
 <a class="jxr_linenumber" name="L273" href="#L273">273</a>         SimpleFeatureType sft = gmlFeatCollection.getSchema();
-<a class="jxr_linenumber" name="L274" href="#L274">274</a>         <a href="../../../../../nl/b3p/brmo/loader/gml/GMLLightFeatureTransformer.html">GMLLightFeatureTransformer</a> featTransformer = BGTGMLLightTransformerFactory.getTransformer(sft.getTypeName());
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>         <a name="GMLLightFeatureTransformer" href="../../../../../nl/b3p/brmo/loader/gml/GMLLightFeatureTransformer.html#GMLLightFeatureTransformer">GMLLightFeatureTransformer</a> featTransformer = BGTGMLLightTransformerFactory.getTransformer(sft.getTypeName());
 <a class="jxr_linenumber" name="L275" href="#L275">275</a>         <strong class="jxr_keyword">if</strong> (featTransformer == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L276" href="#L276">276</a>             LOG.error(<span class="jxr_string">"Opzoeken van FeatureTransformer voor "</span> + sft.getTypeName() + <span class="jxr_string">" is mislukt; er geen transformer beschikbaar voor dit bestand."</span>);
 <a class="jxr_linenumber" name="L277" href="#L277">277</a>             dataStore.dispose();
@@ -665,14 +665,14 @@
 <a class="jxr_linenumber" name="L657" href="#L657">657</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L658" href="#L658">658</a> <em class="jxr_javadoccomment">     * @return status van de verwerking</em>
 <a class="jxr_linenumber" name="L659" href="#L659">659</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L660" href="#L660">660</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/loader/gml/BGTGMLLightLoader.html">STATUS</a> getStatus() {
+<a class="jxr_linenumber" name="L660" href="#L660">660</a>     <strong class="jxr_keyword">public</strong> STATUS getStatus() {
 <a class="jxr_linenumber" name="L661" href="#L661">661</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.status;
 <a class="jxr_linenumber" name="L662" href="#L662">662</a>     }
 <a class="jxr_linenumber" name="L663" href="#L663">663</a> 
 <a class="jxr_linenumber" name="L664" href="#L664">664</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L665" href="#L665">665</a> <em class="jxr_javadoccomment">     * verwerkingsstatus</em>
 <a class="jxr_linenumber" name="L666" href="#L666">666</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L667" href="#L667">667</a>     <strong class="jxr_keyword">public</strong> enum <a href="../../../../../nl/b3p/brmo/loader/gml/BGTGMLLightLoader.html">STATUS</a> {
+<a class="jxr_linenumber" name="L667" href="#L667">667</a>     <strong class="jxr_keyword">public</strong> enum STATUS {
 <a class="jxr_linenumber" name="L668" href="#L668">668</a>         OK, NOK
 <a class="jxr_linenumber" name="L669" href="#L669">669</a>     }
 <a class="jxr_linenumber" name="L670" href="#L670">670</a> 

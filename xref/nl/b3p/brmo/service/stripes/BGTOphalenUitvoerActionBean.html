@@ -35,12 +35,12 @@
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> * @author mprins</em>
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/service/stripes/BGTOphalenUitvoerActionBean.html">BGTOphalenUitvoerActionBean</a> <strong class="jxr_keyword">implements</strong> ActionBean, <a href="../../../../../nl/b3p/brmo/service/scanner/ProgressUpdateListener.html">ProgressUpdateListener</a> {
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="BGTOphalenUitvoerActionBean" href="../../../../../nl/b3p/brmo/service/stripes/BGTOphalenUitvoerActionBean.html#BGTOphalenUitvoerActionBean">BGTOphalenUitvoerActionBean</a> <strong class="jxr_keyword">implements</strong> ActionBean, <a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/service/scanner/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a> {
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String JSP = <span class="jxr_string">"/WEB-INF/jsp/beheer/bgtdownloaduitvoeren.jsp"</span>;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      @Validate(converter = EntityTypeConverter.<strong class="jxr_keyword">class</strong>)
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html">AutomatischProces</a> proces;
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <a name="AutomatischProces" href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html#AutomatischProces">AutomatischProces</a> proces;
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">private</strong> ActionBeanContext context;
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  
@@ -76,7 +76,7 @@
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          }
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          <em class="jxr_comment">// opnieuw laden van config omdat de waitpage de entity detached</em>
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          proces = Stripersist.getEntityManager().find(AutomatischProces.<strong class="jxr_keyword">class</strong>, proces.getId());
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>          <a href="../../../../../nl/b3p/brmo/service/scanner/ProcesExecutable.html">ProcesExecutable</a> exeProces = AbstractExecutableProces.getProces(proces);
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          <a name="ProcesExecutable" href="../../../../../nl/b3p/brmo/service/scanner/ProcesExecutable.html#ProcesExecutable">ProcesExecutable</a> exeProces = AbstractExecutableProces.getProces(proces);
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>              exeProces.execute(<strong class="jxr_keyword">this</strong>);
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>              <strong class="jxr_keyword">this</strong>.proces.setStatus(AutomatischProces.ProcessingStatus.WAITING);
@@ -150,11 +150,11 @@
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>         <strong class="jxr_keyword">this</strong>.context = context;
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>     }
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> 
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html">AutomatischProces</a> getProces() {
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>     <strong class="jxr_keyword">public</strong> <a name="AutomatischProces" href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html#AutomatischProces">AutomatischProces</a> getProces() {
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>         <strong class="jxr_keyword">return</strong> proces;
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>     }
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> 
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setProces(<a href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html">AutomatischProces</a> proces) {
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setProces(<a name="AutomatischProces" href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html#AutomatischProces">AutomatischProces</a> proces) {
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>         <strong class="jxr_keyword">this</strong>.proces = proces;
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>     }
 <a class="jxr_linenumber" name="L152" href="#L152">152</a> 

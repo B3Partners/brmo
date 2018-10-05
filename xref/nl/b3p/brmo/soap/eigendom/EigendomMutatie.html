@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nl" lang="nl">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-<title>EigendomMutatie xref</title>
+<title>/mnt/tera1/home/mark/dev/projects/brmo/brmo-soap/src/main/java/nl/b3p/brmo/soap/eigendom/EigendomMutatie.java xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
 </head>
 <body>
-<div id="overview"><a href="../../../../../../apidocs/nl/b3p/brmo/soap/eigendom/EigendomMutatie.html">View Javadoc</a></div><pre>
+<div id="overview"><a href="../../../../../../apidocs/nl/b3p/brmo/soap/eigendom">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> nl.b3p.brmo.soap.eigendom;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> javax.xml.bind.annotation.XmlAccessType;
@@ -30,7 +30,7 @@
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>      <span class="jxr_string">"zakelijkeRechten"</span>,
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>      <span class="jxr_string">"benoemdObjecten"</span>
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  })
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatie.html">EigendomMutatie</a> {
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> EigendomMutatie {
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">protected</strong> String identificatienummer;
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>      @XmlElement(required = <strong class="jxr_keyword">true</strong>)
@@ -41,12 +41,12 @@
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      @XmlElement(required = <strong class="jxr_keyword">true</strong>)
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">protected</strong> String sectie;
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      @XmlElement(name = <span class="jxr_string">"historische_relaties"</span>)
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">protected</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/HistorischeRelaties.html">HistorischeRelaties</a> historischeRelaties;
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">protected</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/Brondocumenten.html">Brondocumenten</a> brondocumenten;
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">protected</strong> HistorischeRelaties historischeRelaties;
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">protected</strong> Brondocumenten brondocumenten;
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>      @XmlElement(name = <span class="jxr_string">"zakelijke_rechten"</span>)
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">protected</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkeRechten.html">ZakelijkeRechten</a> zakelijkeRechten;
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">protected</strong> ZakelijkeRechten zakelijkeRechten;
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>      @XmlElement(name = <span class="jxr_string">"benoemd_objecten"</span>)
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">protected</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/BenoemdObjecten.html">BenoemdObjecten</a> benoemdObjecten;
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">protected</strong> BenoemdObjecten benoemdObjecten;
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">     * Gets the value of the identificatienummer property.</em>
@@ -150,7 +150,7 @@
 <a class="jxr_linenumber" name="L142" href="#L142">142</a> <em class="jxr_javadoccomment">     * @return possible object is {@link HistorischeRelaties }</em>
 <a class="jxr_linenumber" name="L143" href="#L143">143</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/HistorischeRelaties.html">HistorischeRelaties</a> getHistorischeRelaties() {
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>     <strong class="jxr_keyword">public</strong> HistorischeRelaties getHistorischeRelaties() {
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>         <strong class="jxr_keyword">return</strong> historischeRelaties;
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>     }
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> 
@@ -160,7 +160,7 @@
 <a class="jxr_linenumber" name="L152" href="#L152">152</a> <em class="jxr_javadoccomment">     * @param value allowed object is {@link HistorischeRelaties }</em>
 <a class="jxr_linenumber" name="L153" href="#L153">153</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L154" href="#L154">154</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setHistorischeRelaties(<a href="../../../../../nl/b3p/brmo/soap/eigendom/HistorischeRelaties.html">HistorischeRelaties</a> value) {
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setHistorischeRelaties(HistorischeRelaties value) {
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>         <strong class="jxr_keyword">this</strong>.historischeRelaties = value;
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>     }
 <a class="jxr_linenumber" name="L158" href="#L158">158</a> 
@@ -170,7 +170,7 @@
 <a class="jxr_linenumber" name="L162" href="#L162">162</a> <em class="jxr_javadoccomment">     * @return possible object is {@link Brondocumenten }</em>
 <a class="jxr_linenumber" name="L163" href="#L163">163</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L164" href="#L164">164</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/Brondocumenten.html">Brondocumenten</a> getBrondocumenten() {
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>     <strong class="jxr_keyword">public</strong> Brondocumenten getBrondocumenten() {
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>         <strong class="jxr_keyword">return</strong> brondocumenten;
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>     }
 <a class="jxr_linenumber" name="L168" href="#L168">168</a> 
@@ -180,7 +180,7 @@
 <a class="jxr_linenumber" name="L172" href="#L172">172</a> <em class="jxr_javadoccomment">     * @param value allowed object is {@link Brondocumenten }</em>
 <a class="jxr_linenumber" name="L173" href="#L173">173</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L174" href="#L174">174</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setBrondocumenten(<a href="../../../../../nl/b3p/brmo/soap/eigendom/Brondocumenten.html">Brondocumenten</a> value) {
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setBrondocumenten(Brondocumenten value) {
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>         <strong class="jxr_keyword">this</strong>.brondocumenten = value;
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>     }
 <a class="jxr_linenumber" name="L178" href="#L178">178</a> 
@@ -190,7 +190,7 @@
 <a class="jxr_linenumber" name="L182" href="#L182">182</a> <em class="jxr_javadoccomment">     * @return possible object is {@link ZakelijkeRechten }</em>
 <a class="jxr_linenumber" name="L183" href="#L183">183</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L184" href="#L184">184</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkeRechten.html">ZakelijkeRechten</a> getZakelijkeRechten() {
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>     <strong class="jxr_keyword">public</strong> ZakelijkeRechten getZakelijkeRechten() {
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>         <strong class="jxr_keyword">return</strong> zakelijkeRechten;
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>     }
 <a class="jxr_linenumber" name="L188" href="#L188">188</a> 
@@ -200,7 +200,7 @@
 <a class="jxr_linenumber" name="L192" href="#L192">192</a> <em class="jxr_javadoccomment">     * @param value allowed object is {@link ZakelijkeRechten }</em>
 <a class="jxr_linenumber" name="L193" href="#L193">193</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L194" href="#L194">194</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L195" href="#L195">195</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setZakelijkeRechten(<a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkeRechten.html">ZakelijkeRechten</a> value) {
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setZakelijkeRechten(ZakelijkeRechten value) {
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>         <strong class="jxr_keyword">this</strong>.zakelijkeRechten = value;
 <a class="jxr_linenumber" name="L197" href="#L197">197</a>     }
 <a class="jxr_linenumber" name="L198" href="#L198">198</a> 
@@ -210,7 +210,7 @@
 <a class="jxr_linenumber" name="L202" href="#L202">202</a> <em class="jxr_javadoccomment">     * @return possible object is {@link BenoemdObjecten }</em>
 <a class="jxr_linenumber" name="L203" href="#L203">203</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L204" href="#L204">204</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/BenoemdObjecten.html">BenoemdObjecten</a> getBenoemdObjecten() {
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>     <strong class="jxr_keyword">public</strong> BenoemdObjecten getBenoemdObjecten() {
 <a class="jxr_linenumber" name="L206" href="#L206">206</a>         <strong class="jxr_keyword">return</strong> benoemdObjecten;
 <a class="jxr_linenumber" name="L207" href="#L207">207</a>     }
 <a class="jxr_linenumber" name="L208" href="#L208">208</a> 
@@ -220,16 +220,16 @@
 <a class="jxr_linenumber" name="L212" href="#L212">212</a> <em class="jxr_javadoccomment">     * @param value allowed object is {@link BenoemdObjecten }</em>
 <a class="jxr_linenumber" name="L213" href="#L213">213</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L214" href="#L214">214</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setBenoemdObjecten(<a href="../../../../../nl/b3p/brmo/soap/eigendom/BenoemdObjecten.html">BenoemdObjecten</a> value) {
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setBenoemdObjecten(BenoemdObjecten value) {
 <a class="jxr_linenumber" name="L216" href="#L216">216</a>         <strong class="jxr_keyword">this</strong>.benoemdObjecten = value;
 <a class="jxr_linenumber" name="L217" href="#L217">217</a>     }
 <a class="jxr_linenumber" name="L218" href="#L218">218</a> 
-<a class="jxr_linenumber" name="L219" href="#L219">219</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatie.html">EigendomMutatie</a> createDummy() {
-<a class="jxr_linenumber" name="L220" href="#L220">220</a>         <a href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatie.html">EigendomMutatie</a> em = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/EigendomMutatie.html">EigendomMutatie</a>();
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EigendomMutatie createDummy() {
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>         EigendomMutatie em = <strong class="jxr_keyword">new</strong> EigendomMutatie();
 <a class="jxr_linenumber" name="L221" href="#L221">221</a>         em.setAppartementsindex(<span class="jxr_string">"0001"</span>);
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>         <a href="../../../../../nl/b3p/brmo/soap/eigendom/BenoemdObject.html">BenoemdObject</a> bo = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/BenoemdObject.html">BenoemdObject</a>();
-<a class="jxr_linenumber" name="L223" href="#L223">223</a>         <a href="../../../../../nl/b3p/brmo/soap/eigendom/Brondocumenten.html">Brondocumenten</a> bdbo = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/Brondocumenten.html">Brondocumenten</a>();
-<a class="jxr_linenumber" name="L224" href="#L224">224</a>         <a href="../../../../../nl/b3p/brmo/soap/eigendom/Document.html">Document</a> d = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/Document.html">Document</a>();
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>         BenoemdObject bo = <strong class="jxr_keyword">new</strong> BenoemdObject();
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>         Brondocumenten bdbo = <strong class="jxr_keyword">new</strong> Brondocumenten();
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>         Document d = <strong class="jxr_keyword">new</strong> Document();
 <a class="jxr_linenumber" name="L225" href="#L225">225</a>         d.setDatum(<span class="jxr_string">"23-05-2016"</span>);
 <a class="jxr_linenumber" name="L226" href="#L226">226</a>         d.setValue(<span class="jxr_string">"GM/2006/3448"</span>);
 <a class="jxr_linenumber" name="L227" href="#L227">227</a>         bdbo.getDocument().add(d);
@@ -238,14 +238,14 @@
 <a class="jxr_linenumber" name="L230" href="#L230">230</a>         bo.setGebouwdObjectGebruiksdoel(<span class="jxr_string">"woonfunctie"</span>);
 <a class="jxr_linenumber" name="L231" href="#L231">231</a>         bo.setGebouwdObjectOppervlakte(<span class="jxr_string">"101"</span>);
 <a class="jxr_linenumber" name="L232" href="#L232">232</a>         bo.setIdentificatienummer(<span class="jxr_string">"0153010000393935"</span>);
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>         <a href="../../../../../nl/b3p/brmo/soap/eigendom/BenoemdObjecten.html">BenoemdObjecten</a> bon = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/BenoemdObjecten.html">BenoemdObjecten</a>();
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>         BenoemdObjecten bon = <strong class="jxr_keyword">new</strong> BenoemdObjecten();
 <a class="jxr_linenumber" name="L234" href="#L234">234</a>         bon.getBenoemdObject().add(bo);
 <a class="jxr_linenumber" name="L235" href="#L235">235</a>         bon.getBenoemdObject().add(bo);
 <a class="jxr_linenumber" name="L236" href="#L236">236</a>         em.setBenoemdObjecten(bon);
 <a class="jxr_linenumber" name="L237" href="#L237">237</a>         em.setBrondocumenten(bdbo);
 <a class="jxr_linenumber" name="L238" href="#L238">238</a>         em.setGemeentecode(<span class="jxr_string">"ANA02"</span>);
-<a class="jxr_linenumber" name="L239" href="#L239">239</a>         <a href="../../../../../nl/b3p/brmo/soap/eigendom/HistorischeRelaties.html">HistorischeRelaties</a> hrs = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/HistorischeRelaties.html">HistorischeRelaties</a>();
-<a class="jxr_linenumber" name="L240" href="#L240">240</a>         <a href="../../../../../nl/b3p/brmo/soap/eigendom/HistorischeRelatie.html">HistorischeRelatie</a> hr = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/HistorischeRelatie.html">HistorischeRelatie</a>();
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>         HistorischeRelaties hrs = <strong class="jxr_keyword">new</strong> HistorischeRelaties();
+<a class="jxr_linenumber" name="L240" href="#L240">240</a>         HistorischeRelatie hr = <strong class="jxr_keyword">new</strong> HistorischeRelatie();
 <a class="jxr_linenumber" name="L241" href="#L241">241</a>         hr.setAard(<span class="jxr_string">"Vernummering"</span>);
 <a class="jxr_linenumber" name="L242" href="#L242">242</a>         hr.setIdentificatienummer(<span class="jxr_string">"46750053540001"</span>);
 <a class="jxr_linenumber" name="L243" href="#L243">243</a>         hrs.getHistorischeRelatie().add(hr);
@@ -254,8 +254,8 @@
 <a class="jxr_linenumber" name="L246" href="#L246">246</a>         em.setIdentificatienummer(<span class="jxr_string">"55770450970000"</span>);
 <a class="jxr_linenumber" name="L247" href="#L247">247</a>         em.setPerceelnummer(<span class="jxr_string">"1755"</span>);
 <a class="jxr_linenumber" name="L248" href="#L248">248</a>         em.setSectie(<span class="jxr_string">"I"</span>);
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>         <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkeRechten.html">ZakelijkeRechten</a> zrn = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkeRechten.html">ZakelijkeRechten</a>();
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>         <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkRecht.html">ZakelijkRecht</a> zr = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkRecht.html">ZakelijkRecht</a>();
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>         ZakelijkeRechten zrn = <strong class="jxr_keyword">new</strong> ZakelijkeRechten();
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>         ZakelijkRecht zr = <strong class="jxr_keyword">new</strong> ZakelijkRecht();
 <a class="jxr_linenumber" name="L251" href="#L251">251</a>         zr.setAardRecht(<span class="jxr_string">"Eigendom (recht van)"</span>);
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>         zr.setBSN(<span class="jxr_string">"0000001"</span>);
 <a class="jxr_linenumber" name="L253" href="#L253">253</a>         zr.setIdentificatienummer(<span class="jxr_string">"NL.KAD.Tenaamstelling.AKR1.8683641"</span>);
@@ -268,63 +268,63 @@
 <a class="jxr_linenumber" name="L260" href="#L260">260</a>         zr.setNoemer(<span class="jxr_string">"2"</span>);
 <a class="jxr_linenumber" name="L261" href="#L261">261</a>         zr.setTeller(<span class="jxr_string">"1"</span>);
 <a class="jxr_linenumber" name="L262" href="#L262">262</a>         zrn.getZakelijkRecht().add(zr);
-<a class="jxr_linenumber" name="L263" href="#L263">263</a>         zr = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkRecht.html">ZakelijkRecht</a>();
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>         zr = <strong class="jxr_keyword">new</strong> ZakelijkRecht();
 <a class="jxr_linenumber" name="L264" href="#L264">264</a>         zr.setAardRecht(<span class="jxr_string">"Erfpacht (recht van)"</span>);
 <a class="jxr_linenumber" name="L265" href="#L265">265</a>         zr.setBSN(<span class="jxr_string">"0000002"</span>);
 <a class="jxr_linenumber" name="L266" href="#L266">266</a>         zr.setIdentificatienummer(<span class="jxr_string">"NL.KAD.Tenaamstelling.AKR1.8683642"</span>);
 <a class="jxr_linenumber" name="L267" href="#L267">267</a>         zr.setNoemer(<span class="jxr_string">"2"</span>);
 <a class="jxr_linenumber" name="L268" href="#L268">268</a>         zr.setTeller(<span class="jxr_string">"1"</span>);
 <a class="jxr_linenumber" name="L269" href="#L269">269</a>         zrn.getZakelijkRecht().add(zr);
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>         zr = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkRecht.html">ZakelijkRecht</a>();
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>         zr = <strong class="jxr_keyword">new</strong> ZakelijkRecht();
 <a class="jxr_linenumber" name="L271" href="#L271">271</a>         zr.setAardRecht(<span class="jxr_string">"Gebruik en bewoning (recht van)"</span>);
 <a class="jxr_linenumber" name="L272" href="#L272">272</a>         zr.setBSN(<span class="jxr_string">"0000003"</span>);
 <a class="jxr_linenumber" name="L273" href="#L273">273</a>         zr.setIdentificatienummer(<span class="jxr_string">"NL.KAD.Tenaamstelling.AKR1.8683643"</span>);
 <a class="jxr_linenumber" name="L274" href="#L274">274</a>         zr.setNoemer(<span class="jxr_string">"2"</span>);
 <a class="jxr_linenumber" name="L275" href="#L275">275</a>         zr.setTeller(<span class="jxr_string">"1"</span>);
 <a class="jxr_linenumber" name="L276" href="#L276">276</a>         zrn.getZakelijkRecht().add(zr);
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>         zr = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkRecht.html">ZakelijkRecht</a>();
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>         zr = <strong class="jxr_keyword">new</strong> ZakelijkRecht();
 <a class="jxr_linenumber" name="L278" href="#L278">278</a>         zr.setAardRecht(<span class="jxr_string">"Grondrente (recht van)"</span>);
 <a class="jxr_linenumber" name="L279" href="#L279">279</a>         zr.setBSN(<span class="jxr_string">"0000004"</span>);
 <a class="jxr_linenumber" name="L280" href="#L280">280</a>         zr.setIdentificatienummer(<span class="jxr_string">"NL.KAD.Tenaamstelling.AKR1.8683644"</span>);
 <a class="jxr_linenumber" name="L281" href="#L281">281</a>         zr.setNoemer(<span class="jxr_string">"2"</span>);
 <a class="jxr_linenumber" name="L282" href="#L282">282</a>         zr.setTeller(<span class="jxr_string">"1"</span>);
 <a class="jxr_linenumber" name="L283" href="#L283">283</a>         zrn.getZakelijkRecht().add(zr);
-<a class="jxr_linenumber" name="L284" href="#L284">284</a>         zr = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkRecht.html">ZakelijkRecht</a>();
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>         zr = <strong class="jxr_keyword">new</strong> ZakelijkRecht();
 <a class="jxr_linenumber" name="L285" href="#L285">285</a>         zr.setAardRecht(<span class="jxr_string">"Huurrecht (zakelijk)"</span>);
 <a class="jxr_linenumber" name="L286" href="#L286">286</a>         zr.setBSN(<span class="jxr_string">"0000005"</span>);
 <a class="jxr_linenumber" name="L287" href="#L287">287</a>         zr.setIdentificatienummer(<span class="jxr_string">"NL.KAD.Tenaamstelling.AKR1.8683645"</span>);
 <a class="jxr_linenumber" name="L288" href="#L288">288</a>         zr.setNoemer(<span class="jxr_string">"2"</span>);
 <a class="jxr_linenumber" name="L289" href="#L289">289</a>         zr.setTeller(<span class="jxr_string">"1"</span>);
 <a class="jxr_linenumber" name="L290" href="#L290">290</a>         zrn.getZakelijkRecht().add(zr);
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>         zr = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkRecht.html">ZakelijkRecht</a>();
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>         zr = <strong class="jxr_keyword">new</strong> ZakelijkRecht();
 <a class="jxr_linenumber" name="L292" href="#L292">292</a>         zr.setAardRecht(<span class="jxr_string">"Opstal (recht van)"</span>);
 <a class="jxr_linenumber" name="L293" href="#L293">293</a>         zr.setBSN(<span class="jxr_string">"0000006"</span>);
 <a class="jxr_linenumber" name="L294" href="#L294">294</a>         zr.setIdentificatienummer(<span class="jxr_string">"NL.KAD.Tenaamstelling.AKR1.8683646"</span>);
 <a class="jxr_linenumber" name="L295" href="#L295">295</a>         zr.setNoemer(<span class="jxr_string">"2"</span>);
 <a class="jxr_linenumber" name="L296" href="#L296">296</a>         zr.setTeller(<span class="jxr_string">"1"</span>);
 <a class="jxr_linenumber" name="L297" href="#L297">297</a>         zrn.getZakelijkRecht().add(zr);
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>         zr = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkRecht.html">ZakelijkRecht</a>();
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>         zr = <strong class="jxr_keyword">new</strong> ZakelijkRecht();
 <a class="jxr_linenumber" name="L299" href="#L299">299</a>         zr.setAardRecht(<span class="jxr_string">"Optierecht (zakelijk)"</span>);
 <a class="jxr_linenumber" name="L300" href="#L300">300</a>         zr.setBSN(<span class="jxr_string">"0000007"</span>);
 <a class="jxr_linenumber" name="L301" href="#L301">301</a>         zr.setIdentificatienummer(<span class="jxr_string">"NL.KAD.Tenaamstelling.AKR1.8683647"</span>);
 <a class="jxr_linenumber" name="L302" href="#L302">302</a>         zr.setNoemer(<span class="jxr_string">"2"</span>);
 <a class="jxr_linenumber" name="L303" href="#L303">303</a>         zr.setTeller(<span class="jxr_string">"1"</span>);
 <a class="jxr_linenumber" name="L304" href="#L304">304</a>         zrn.getZakelijkRecht().add(zr);
-<a class="jxr_linenumber" name="L305" href="#L305">305</a>         zr = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkRecht.html">ZakelijkRecht</a>();
+<a class="jxr_linenumber" name="L305" href="#L305">305</a>         zr = <strong class="jxr_keyword">new</strong> ZakelijkRecht();
 <a class="jxr_linenumber" name="L306" href="#L306">306</a>         zr.setAardRecht(<span class="jxr_string">"Vruchtgebruik (recht van)"</span>);
 <a class="jxr_linenumber" name="L307" href="#L307">307</a>         zr.setBSN(<span class="jxr_string">"0000008"</span>);
 <a class="jxr_linenumber" name="L308" href="#L308">308</a>         zr.setIdentificatienummer(<span class="jxr_string">"NL.KAD.Tenaamstelling.AKR1.8683648"</span>);
 <a class="jxr_linenumber" name="L309" href="#L309">309</a>         zr.setNoemer(<span class="jxr_string">"2"</span>);
 <a class="jxr_linenumber" name="L310" href="#L310">310</a>         zr.setTeller(<span class="jxr_string">"1"</span>);
 <a class="jxr_linenumber" name="L311" href="#L311">311</a>         zrn.getZakelijkRecht().add(zr);
-<a class="jxr_linenumber" name="L312" href="#L312">312</a>         zr = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkRecht.html">ZakelijkRecht</a>();
+<a class="jxr_linenumber" name="L312" href="#L312">312</a>         zr = <strong class="jxr_keyword">new</strong> ZakelijkRecht();
 <a class="jxr_linenumber" name="L313" href="#L313">313</a>         zr.setAardRecht(<span class="jxr_string">"Erfpacht en Opstal (recht van)"</span>);
 <a class="jxr_linenumber" name="L314" href="#L314">314</a>         zr.setBSN(<span class="jxr_string">"0000009"</span>);
 <a class="jxr_linenumber" name="L315" href="#L315">315</a>         zr.setIdentificatienummer(<span class="jxr_string">"NL.KAD.Tenaamstelling.AKR1.8683649"</span>);
 <a class="jxr_linenumber" name="L316" href="#L316">316</a>         zr.setNoemer(<span class="jxr_string">"2"</span>);
 <a class="jxr_linenumber" name="L317" href="#L317">317</a>         zr.setTeller(<span class="jxr_string">"1"</span>);
 <a class="jxr_linenumber" name="L318" href="#L318">318</a>         zrn.getZakelijkRecht().add(zr);
-<a class="jxr_linenumber" name="L319" href="#L319">319</a>         zr = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/ZakelijkRecht.html">ZakelijkRecht</a>();
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>         zr = <strong class="jxr_keyword">new</strong> ZakelijkRecht();
 <a class="jxr_linenumber" name="L320" href="#L320">320</a>         zr.setAardRecht(<span class="jxr_string">"Opstalrecht Nutsvoorzieningen"</span>);
 <a class="jxr_linenumber" name="L321" href="#L321">321</a>         zr.setBSN(<span class="jxr_string">"0000010"</span>);
 <a class="jxr_linenumber" name="L322" href="#L322">322</a>         zr.setIdentificatienummer(<span class="jxr_string">"NL.KAD.Tenaamstelling.AKR1.8683649"</span>);

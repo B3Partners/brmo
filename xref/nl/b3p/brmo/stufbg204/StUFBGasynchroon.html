@@ -66,7 +66,7 @@
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>          wsdlLocation = <span class="jxr_string">"WEB-INF/wsdl/bg0204.wsdl"</span>
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  )
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  @HandlerChain(file = <span class="jxr_string">"/handler-chain.xml"</span>)
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../nl/b3p/brmo/stufbg204/StUFBGasynchroon.html">StUFBGasynchroon</a> {
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="StUFBGasynchroon" href="../../../../nl/b3p/brmo/stufbg204/StUFBGasynchroon.html#StUFBGasynchroon">StUFBGasynchroon</a> {
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(StUFBGasynchroon.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
@@ -109,7 +109,7 @@
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> saveBericht(Object body, String datum) {
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>             DataSource ds = ConfigUtil.getDataSourceStaging();
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>             <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a>(ds, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>             <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/B<a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>html#BrmoFramework">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(ds, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>             InputStream in = getXml(body);
 <a class="jxr_linenumber" name="L106" href="#L106">106</a> 
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>             Date d = StUFbg204Util.sdf.parse(datum);
@@ -117,7 +117,7 @@
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> 
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>             brmo.loadFromStream(BrmoFramework.BR_BRP, in, name, d);
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>             brmo.closeBrmoFramework();
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>         } <strong class="jxr_keyword">catch</strong> (BrmoException ex) {
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>         } <strong class="jxr_keyword">catch</strong> (<a name="BrmoException" href="../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> ex) {
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>             LOG.error(<span class="jxr_string">"Cannot create BRMO Framework:"</span>, ex);
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>         } <strong class="jxr_keyword">catch</strong> (Exception ex) {
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>             LOG.error(<span class="jxr_string">"Cannot get datasource:"</span>, ex);

@@ -35,7 +35,7 @@
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> * @author mprins</em>
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/service/proxy/BerichtEndpointFileServletTest.html">BerichtEndpointFileServletTest</a> {
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="BerichtEndpointFileServletTest" href="../../../../../nl/b3p/brmo/service/proxy/BerichtEndpointFileServletTest.html#BerichtEndpointFileServletTest">BerichtEndpointFileServletTest</a> {
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">private</strong> String saveDir = <span class="jxr_string">"/bericht-post-test-"</span>;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      <strong class="jxr_keyword">private</strong> ServletUnitClient client;
@@ -88,9 +88,9 @@
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment">     * met de hand testen tegen draaiende servlet (met en zonder crompressie):</em>
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">     * &lt;ul&gt;</em>
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">     * &lt;li&gt;{@code</em>
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">     * curl -v -s --trace-ascii http_trace.log --data-binary @'brmo-loader/src/test/resources/verminderenstukdelen/MUTKX01-ASN00V2937-Bericht1.xml.gz' -H "Content-Type: text/xml" -H "Content-Encoding: gzip" -X POST <a href="http://localhost:8037/brmo-proxyservice/post/br" target="alexandria_uri">http://localhost:8037/brmo-proxyservice/post/br</a>k</em>
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">     * curl -v -s --trace-ascii http_trace.log --data-binary @'brmo-loader/src/test/resources/verminderenstukdelen/MUTKX01-ASN00V2937-Bericht1.xml.gz' -H "Content-Type: text/xml" -H "Content-Encoding: gzip" -X POST <a href="http://localhost:8037/brmo-proxyservice/post/brk" target="alexandria_uri">http://localhost:8037/brmo-proxyservice/post/brk</a></em>
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment">     * }&lt;/li&gt;</em>
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">     * &lt;li&gt;{@code curl -v -s --trace-ascii http_trace.log -d @'brmo-loader/src/test/resources/verminderenstukdelen/MUTKX01-ASN00V2937-Bericht1.xml' -H "Content-Type: application/xml" -X POST <a href="http://localhost:8037/brmo-proxyservice/post/br" target="alexandria_uri">http://localhost:8037/brmo-proxyservice/post/br</a>k</em>
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">     * &lt;li&gt;{@code curl -v -s --trace-ascii http_trace.log -d @'brmo-loader/src/test/resources/verminderenstukdelen/MUTKX01-ASN00V2937-Bericht1.xml' -H "Content-Type: application/xml" -X POST <a href="http://localhost:8037/brmo-proxyservice/post/brk" target="alexandria_uri">http://localhost:8037/brmo-proxyservice/post/brk</a></em>
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_javadoccomment">     * }&lt;/li&gt;</em>
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  <em class="jxr_javadoccomment">     * &lt;/ul&gt;</em>
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>  <em class="jxr_javadoccomment">     *</em>

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top50nl.TypeGeografischGebiedT50Type
-	c41090 [label=<<table title="nl.b3p.topnl.top50nl.TypeGeografischGebiedT50Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeGeografischGebiedT50Type.html">
+	c41065 [label=<<table title="nl.b3p.topnl.top50nl.TypeGeografischGebiedT50Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeGeografischGebiedT50Type.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> TypeGeografischGebiedT50Type </td></tr>
@@ -33,7 +33,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TypeGeografischGebiedT50Type.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top50nl.GeografischGebiedType
-	c41127 [label=<<table title="nl.b3p.topnl.top50nl.GeografischGebiedType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GeografischGebiedType.html">
+	c41102 [label=<<table title="nl.b3p.topnl.top50nl.GeografischGebiedType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GeografischGebiedType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GeografischGebiedType </td></tr>
 		</table></td></tr>
@@ -60,6 +60,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./GeografischGebiedType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top50nl.GeografischGebiedType NAVASSOC nl.b3p.topnl.top50nl.TypeGeografischGebiedT50Type
-	c41127:p -> c41090:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c41102:p -> c41065:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

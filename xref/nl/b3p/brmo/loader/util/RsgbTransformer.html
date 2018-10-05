@@ -37,12 +37,12 @@
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> * @author Boy de Wit</em>
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/loader/util/RsgbTransformer.html">RsgbTransformer</a> {
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="RsgbTransformer" href="../../../../../nl/b3p/brmo/loader/util/RsgbTransformer.html#RsgbTransformer">RsgbTransformer</a> {
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log log = LogFactory.getLog(RsgbTransformer.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Templates t;
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> DocumentBuilder db;
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/loader/util/RsgbTransformer.html">RsgbTransformer</a>(String pathToXsl)
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">public</strong> <a name="RsgbTransformer" href="../../../../../nl/b3p/brmo/loader/util/RsgbTransformer.html#RsgbTransformer">RsgbTransformer</a>(String pathToXsl)
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>              <strong class="jxr_keyword">throws</strong> TransformerConfigurationException, ParserConfigurationException {
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>          Source xsl = <strong class="jxr_keyword">new</strong> StreamSource(<strong class="jxr_keyword">this</strong>.getClass().getResourceAsStream(pathToXsl));
@@ -60,7 +60,7 @@
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>          <strong class="jxr_keyword">this</strong>.db = dbf.newDocumentBuilder();
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      }
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <strong class="jxr_keyword">public</strong> String transformToDbXml(<a href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> bericht) <strong class="jxr_keyword">throws</strong> SAXException, IOException, TransformerConfigurationException, TransformerException {
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <strong class="jxr_keyword">public</strong> String transformToDbXml(<a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> bericht) <strong class="jxr_keyword">throws</strong> SAXException, IOException, TransformerConfigurationException, TransformerException {
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>          StringWriter sw = <strong class="jxr_keyword">new</strong> StringWriter();
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>          Document d = db.parse( <strong class="jxr_keyword">new</strong> InputSource(<strong class="jxr_keyword">new</strong> StringReader(bericht.getBrXml())));
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>          Transformer transformer = t.newTransformer();
@@ -73,7 +73,7 @@
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">return</strong> sw.toString();
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      }
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">public</strong> Node transformToDbXmlNode(<a href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html">Bericht</a> bericht) <strong class="jxr_keyword">throws</strong> SAXException, IOException, TransformerConfigurationException, TransformerException {
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">public</strong> Node transformToDbXmlNode(<a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> bericht) <strong class="jxr_keyword">throws</strong> SAXException, IOException, TransformerConfigurationException, TransformerException {
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          Document d = db.parse( <strong class="jxr_keyword">new</strong> InputSource(<strong class="jxr_keyword">new</strong> StringReader(bericht.getBrXml())));
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          DOMResult r = <strong class="jxr_keyword">new</strong> DOMResult();
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          t.newTransformer().transform(<strong class="jxr_keyword">new</strong> DOMSource(d), r);

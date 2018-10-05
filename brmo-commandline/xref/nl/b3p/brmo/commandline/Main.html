@@ -63,7 +63,7 @@
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment"> * @author Boy de Wit</em>
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment"> * @author mprins</em>
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../nl/b3p/brmo/commandline/Main.html">Main</a> {
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="Main" href="../../../../nl/b3p/brmo/commandline/Main.html#Main">Main</a> {
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(Main.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  
@@ -627,12 +627,12 @@
 <a class="jxr_linenumber" name="L619" href="#L619">619</a>         }
 <a class="jxr_linenumber" name="L620" href="#L620">620</a>     }
 <a class="jxr_linenumber" name="L621" href="#L621">621</a> 
-<a class="jxr_linenumber" name="L622" href="#L622">622</a>     <strong class="jxr_keyword">static</strong> enum <a href="../../../../nl/b3p/brmo/commandline/Main.html">sysexits</a> {
+<a class="jxr_linenumber" name="L622" href="#L622">622</a>     <strong class="jxr_keyword">static</strong> enum sysexits {
 <a class="jxr_linenumber" name="L623" href="#L623">623</a>         <em class="jxr_comment">// zie: https://www.freebsd.org/cgi/man.cgi?query=sysexits&amp;apropos=0&amp;sektion=3&amp;manpath=OpenBSD+5.8&amp;arch=default&amp;format=html</em>
 <a class="jxr_linenumber" name="L624" href="#L624">624</a>         EX_USAGE(64), EX_DATAERR(65), EX_NOINPUT(66), EX_UNAVAILABLE(69), EX_CANTCREAT(73), EX_IOERR(74);
 <a class="jxr_linenumber" name="L625" href="#L625">625</a>         <strong class="jxr_keyword">int</strong> code;
 <a class="jxr_linenumber" name="L626" href="#L626">626</a> 
-<a class="jxr_linenumber" name="L627" href="#L627">627</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../nl/b3p/brmo/commandline/Main.html">sysexits</a>(<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> code) {
+<a class="jxr_linenumber" name="L627" href="#L627">627</a>         <strong class="jxr_keyword">private</strong> sysexits(<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> code) {
 <a class="jxr_linenumber" name="L628" href="#L628">628</a>             <strong class="jxr_keyword">this</strong>.code = code;
 <a class="jxr_linenumber" name="L629" href="#L629">629</a>         }
 <a class="jxr_linenumber" name="L630" href="#L630">630</a>     }

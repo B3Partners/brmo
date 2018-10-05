@@ -63,7 +63,7 @@
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment"> * @author Boy de Wit</em>
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment"> * @author mprins</em>
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../nl/b3p/brmo/commandline/Main.html">Main</a> {
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="Main" href="../../../../nl/b3p/brmo/commandline/Main.html#Main">Main</a> {
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(Main.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  
@@ -257,7 +257,7 @@
 <a class="jxr_linenumber" name="L249" href="#L249">249</a>             <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (cl.hasOption(<span class="jxr_string">"versieinfo"</span>)) {
 <a class="jxr_linenumber" name="L250" href="#L250">250</a>                 exitcode = versieInfo(dsStaging, dsRsgb, dsRsgbbgt, cl.getOptionValue(<span class="jxr_string">"versieinfo"</span>, <span class="jxr_string">"text"</span>));
 <a class="jxr_linenumber" name="L251" href="#L251">251</a>             }
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>         } <strong class="jxr_keyword">catch</strong> (BrmoException | InterruptedException ex) {
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>         } <strong class="jxr_keyword">catch</strong> (<a name="BrmoException" href="../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> | InterruptedException ex) {
 <a class="jxr_linenumber" name="L253" href="#L253">253</a>             LOG.error(<span class="jxr_string">"Fout tijdens uitvoeren met argumenten: "</span> + Arrays.toString(args), ex);
 <a class="jxr_linenumber" name="L254" href="#L254">254</a>             System.err.println(ex.getLocalizedMessage());
 <a class="jxr_linenumber" name="L255" href="#L255">255</a>             exitcode = 1;
@@ -289,7 +289,7 @@
 <a class="jxr_linenumber" name="L281" href="#L281">281</a> 
 <a class="jxr_linenumber" name="L282" href="#L282">282</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> toRsgb(DataSource dataSourceStaging, DataSource dataSourceRsgb, String errorState) <strong class="jxr_keyword">throws</strong> BrmoException, InterruptedException {
 <a class="jxr_linenumber" name="L283" href="#L283">283</a>         LOG.info(<span class="jxr_string">"Start staging naar rsgb transformatie."</span>);
-<a class="jxr_linenumber" name="L284" href="#L284">284</a>         <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a>(dataSourceStaging, dataSourceRsgb);
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>         <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/B<a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>html#BrmoFramework">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(dataSourceStaging, dataSourceRsgb);
 <a class="jxr_linenumber" name="L285" href="#L285">285</a>         brmo.setOrderBerichten(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L286" href="#L286">286</a>         brmo.setErrorState(errorState);
 <a class="jxr_linenumber" name="L287" href="#L287">287</a>         Thread t = brmo.toRsgb();
@@ -319,7 +319,7 @@
 <a class="jxr_linenumber" name="L311" href="#L311">311</a>             LOG.debug(<span class="jxr_string">"Er is iets misgegaan bij de GeoTools of JNDI initialisatie"</span>, ex);
 <a class="jxr_linenumber" name="L312" href="#L312">312</a>         }
 <a class="jxr_linenumber" name="L313" href="#L313">313</a> 
-<a class="jxr_linenumber" name="L314" href="#L314">314</a>         <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a>(dsStaging, <strong class="jxr_keyword">null</strong>, dsRsgbbgt);
+<a class="jxr_linenumber" name="L314" href="#L314">314</a>         <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/B<a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>html#BrmoFramework">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(dsStaging, <strong class="jxr_keyword">null</strong>, dsRsgbbgt);
 <a class="jxr_linenumber" name="L315" href="#L315">315</a>         <em class="jxr_comment">// bepaal welke bgtlight LP's er zijn om te transformeren</em>
 <a class="jxr_linenumber" name="L316" href="#L316">316</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong>[] lpIds = ArrayUtils.toPrimitive(brmo.getLaadProcessenIds(<span class="jxr_string">"bestand_datum"</span>, <span class="jxr_string">"ASC"</span>, BrmoFramework.BR_BGTLIGHT, Bericht.STATUS.STAGING_OK.name()));
 <a class="jxr_linenumber" name="L317" href="#L317">317</a>         brmo.setOrderBerichten(loadingUpdate.equalsIgnoreCase(<span class="jxr_string">"true"</span>));
@@ -330,8 +330,8 @@
 <a class="jxr_linenumber" name="L322" href="#L322">322</a>         <strong class="jxr_keyword">return</strong> 0;
 <a class="jxr_linenumber" name="L323" href="#L323">323</a>     }
 <a class="jxr_linenumber" name="L324" href="#L324">324</a> 
-<a class="jxr_linenumber" name="L325" href="#L325">325</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> versieInfo(DataSource dataSourceStaging, DataSource dataSourceRsgb, DataSource dataSourceRsgbBGT, String format) <strong class="jxr_keyword">throws</strong> BrmoException {
-<a class="jxr_linenumber" name="L326" href="#L326">326</a>         <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a>(dataSourceStaging, dataSourceRsgb, dataSourceRsgbBGT);
+<a class="jxr_linenumber" name="L325" href="#L325">325</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> versieInfo(DataSource dataSourceStaging, DataSource dataSourceRsgb, DataSource dataSourceRsgbBGT, String format) <strong class="jxr_keyword">throws</strong> <a name="BrmoException" href="../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> {
+<a class="jxr_linenumber" name="L326" href="#L326">326</a>         <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/B<a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>html#BrmoFramework">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(dataSourceStaging, dataSourceRsgb, dataSourceRsgbBGT);
 <a class="jxr_linenumber" name="L327" href="#L327">327</a>         <strong class="jxr_keyword">if</strong> (format.equalsIgnoreCase(<span class="jxr_string">"json"</span>)) {
 <a class="jxr_linenumber" name="L328" href="#L328">328</a>             StringBuilder sb = <strong class="jxr_keyword">new</strong> StringBuilder(<span class="jxr_string">"{"</span>);
 <a class="jxr_linenumber" name="L329" href="#L329">329</a>             sb.append(<span class="jxr_string">"\&quot;staging_versie\&quot;:\&quot;"</span>).append(brmo.getStagingVersion()).append(<span class="jxr_string">"\&quot;,"</span>)
@@ -354,9 +354,9 @@
 <a class="jxr_linenumber" name="L346" href="#L346">346</a> <em class="jxr_javadoccomment">     * @return exitcode {@code 0} als succesvol</em>
 <a class="jxr_linenumber" name="L347" href="#L347">347</a> <em class="jxr_javadoccomment">     * @throws BrmoException als er iets mis gaat in benaderen data</em>
 <a class="jxr_linenumber" name="L348" href="#L348">348</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L349" href="#L349">349</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> list(DataSource ds, String format) <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L349" href="#L349">349</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> list(DataSource ds, String format) <strong class="jxr_keyword">throws</strong> <a name="BrmoException" href="../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> {
 <a class="jxr_linenumber" name="L350" href="#L350">350</a>         LOG.info(<span class="jxr_string">"Ophalen laadproces informatie."</span>);
-<a class="jxr_linenumber" name="L351" href="#L351">351</a>         <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a>(ds, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L351" href="#L351">351</a>         <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/B<a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>html#BrmoFramework">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(ds, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L352" href="#L352">352</a>         List&lt;LaadProces&gt; processen = brmo.listLaadProcessen();
 <a class="jxr_linenumber" name="L353" href="#L353">353</a> 
 <a class="jxr_linenumber" name="L354" href="#L354">354</a>         <strong class="jxr_keyword">if</strong> (format.equalsIgnoreCase(<span class="jxr_string">"json"</span>)) {
@@ -398,9 +398,9 @@
 <a class="jxr_linenumber" name="L390" href="#L390">390</a>         <strong class="jxr_keyword">return</strong> 0;
 <a class="jxr_linenumber" name="L391" href="#L391">391</a>     }
 <a class="jxr_linenumber" name="L392" href="#L392">392</a> 
-<a class="jxr_linenumber" name="L393" href="#L393">393</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> berichtStatus(DataSource ds, String format) <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L393" href="#L393">393</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> berichtStatus(DataSource ds, String format) <strong class="jxr_keyword">throws</strong> <a name="BrmoException" href="../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> {
 <a class="jxr_linenumber" name="L394" href="#L394">394</a>         LOG.info(<span class="jxr_string">"Ophalen bericht status informatie."</span>);
-<a class="jxr_linenumber" name="L395" href="#L395">395</a>         <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a>(ds, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L395" href="#L395">395</a>         <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/B<a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>html#BrmoFramework">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(ds, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L396" href="#L396">396</a>         <strong class="jxr_keyword">long</strong> staging_ok = brmo.getCountBerichten(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, Bericht.STATUS.STAGING_OK.name());
 <a class="jxr_linenumber" name="L397" href="#L397">397</a>         <strong class="jxr_keyword">long</strong> staging_nok = brmo.getCountBerichten(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, Bericht.STATUS.STAGING_NOK.name());
 <a class="jxr_linenumber" name="L398" href="#L398">398</a>         <strong class="jxr_keyword">long</strong> rsgb_ok = brmo.getCountBerichten(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, Bericht.STATUS.RSGB_OK.name());
@@ -429,9 +429,9 @@
 <a class="jxr_linenumber" name="L421" href="#L421">421</a>         <strong class="jxr_keyword">return</strong> 0;
 <a class="jxr_linenumber" name="L422" href="#L422">422</a>     }
 <a class="jxr_linenumber" name="L423" href="#L423">423</a> 
-<a class="jxr_linenumber" name="L424" href="#L424">424</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> jobStatus(DataSource ds, String format) <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L424" href="#L424">424</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> jobStatus(DataSource ds, String format) <strong class="jxr_keyword">throws</strong> <a name="BrmoException" href="../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> {
 <a class="jxr_linenumber" name="L425" href="#L425">425</a>         LOG.info(<span class="jxr_string">"Ophalen staging job informatie."</span>);
-<a class="jxr_linenumber" name="L426" href="#L426">426</a>         <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a>(ds, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L426" href="#L426">426</a>         <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/B<a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>html#BrmoFramework">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(ds, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L427" href="#L427">427</a>         <strong class="jxr_keyword">long</strong> count = brmo.getCountJob();
 <a class="jxr_linenumber" name="L428" href="#L428">428</a> 
 <a class="jxr_linenumber" name="L429" href="#L429">429</a>         <strong class="jxr_keyword">if</strong> (format.equalsIgnoreCase(<span class="jxr_string">"json"</span>)) {
@@ -444,14 +444,14 @@
 <a class="jxr_linenumber" name="L436" href="#L436">436</a>         <strong class="jxr_keyword">return</strong> 0;
 <a class="jxr_linenumber" name="L437" href="#L437">437</a>     }
 <a class="jxr_linenumber" name="L438" href="#L438">438</a> 
-<a class="jxr_linenumber" name="L439" href="#L439">439</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> delete(DataSource ds, String id) <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L439" href="#L439">439</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> delete(DataSource ds, String id) <strong class="jxr_keyword">throws</strong> <a name="BrmoException" href="../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> {
 <a class="jxr_linenumber" name="L440" href="#L440">440</a>         LOG.info(<span class="jxr_string">"Verwijderen laadproces "</span> + id + <span class="jxr_string">" met aanhangende berichten uit staging."</span>);
 <a class="jxr_linenumber" name="L441" href="#L441">441</a>         <strong class="jxr_keyword">long</strong> laadProcesId = 0;
 <a class="jxr_linenumber" name="L442" href="#L442">442</a>         <strong class="jxr_keyword">if</strong> (id != <strong class="jxr_keyword">null</strong> &amp;&amp; !id.isEmpty()) {
 <a class="jxr_linenumber" name="L443" href="#L443">443</a>             laadProcesId = <strong class="jxr_keyword">new</strong> Long(id);
 <a class="jxr_linenumber" name="L444" href="#L444">444</a>         }
 <a class="jxr_linenumber" name="L445" href="#L445">445</a> 
-<a class="jxr_linenumber" name="L446" href="#L446">446</a>         <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a>(ds, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>         <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/B<a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>html#BrmoFramework">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(ds, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L447" href="#L447">447</a>         brmo.delete(laadProcesId);
 <a class="jxr_linenumber" name="L448" href="#L448">448</a>         brmo.closeBrmoFramework();
 <a class="jxr_linenumber" name="L449" href="#L449">449</a>         <strong class="jxr_keyword">return</strong> 0;
@@ -535,13 +535,13 @@
 <a class="jxr_linenumber" name="L527" href="#L527">527</a> <em class="jxr_javadoccomment">     * @return {@code 0} als succesvol</em>
 <a class="jxr_linenumber" name="L528" href="#L528">528</a> <em class="jxr_javadoccomment">     * @throws BrmoException in geval van niet laadfout</em>
 <a class="jxr_linenumber" name="L529" href="#L529">529</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L530" href="#L530">530</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> load(DataSource ds, String... opts) <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L530" href="#L530">530</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> load(DataSource ds, String... opts) <strong class="jxr_keyword">throws</strong> <a name="BrmoException" href="../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> {
 <a class="jxr_linenumber" name="L531" href="#L531">531</a>         String fileName = opts[0];
 <a class="jxr_linenumber" name="L532" href="#L532">532</a>         String brType = opts[1];
 <a class="jxr_linenumber" name="L533" href="#L533">533</a>         String archiefDir = opts.length == 3 ? opts[2] : <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L534" href="#L534">534</a> 
 <a class="jxr_linenumber" name="L535" href="#L535">535</a>         LOG.debug(String.format(<span class="jxr_string">"Begin laden van bestand: %s, type %s"</span>, fileName, brType));
-<a class="jxr_linenumber" name="L536" href="#L536">536</a>         <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a>(ds, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L536" href="#L536">536</a>         <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/B<a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>html#BrmoFramework">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(ds, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L537" href="#L537">537</a>         brmo.setOrderBerichten(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L538" href="#L538">538</a>         brmo.setErrorState(<span class="jxr_string">"ignore"</span>);
 <a class="jxr_linenumber" name="L539" href="#L539">539</a>         brmo.loadFromFile(brType, fileName);
@@ -560,7 +560,7 @@
 <a class="jxr_linenumber" name="L552" href="#L552">552</a> <em class="jxr_javadoccomment">     * waarschuwing</em>
 <a class="jxr_linenumber" name="L553" href="#L553">553</a> <em class="jxr_javadoccomment">     * @throws BrmoException in geval van niet herstalebare laadfout</em>
 <a class="jxr_linenumber" name="L554" href="#L554">554</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L555" href="#L555">555</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> loaddir(DataSource ds, String... opts) <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L555" href="#L555">555</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> loaddir(DataSource ds, String... opts) <strong class="jxr_keyword">throws</strong> <a name="BrmoException" href="../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> {
 <a class="jxr_linenumber" name="L556" href="#L556">556</a>         String scanDir = opts[0];
 <a class="jxr_linenumber" name="L557" href="#L557">557</a>         String brType = opts[1];
 <a class="jxr_linenumber" name="L558" href="#L558">558</a>         String archiefDir = opts.length == 3 ? opts[2] : <strong class="jxr_keyword">null</strong>;
@@ -577,7 +577,7 @@
 <a class="jxr_linenumber" name="L569" href="#L569">569</a>             String[] fNames = dir.list((File f, String name) -&gt; {
 <a class="jxr_linenumber" name="L570" href="#L570">570</a>                 <strong class="jxr_keyword">return</strong> (name.endsWith(<span class="jxr_string">".xml"</span>) || name.endsWith(<span class="jxr_string">".XML"</span>) || name.endsWith(<span class="jxr_string">".zip"</span>) || name.endsWith(<span class="jxr_string">".ZIP"</span>));
 <a class="jxr_linenumber" name="L571" href="#L571">571</a>             });
-<a class="jxr_linenumber" name="L572" href="#L572">572</a>             <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a>(ds, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L572" href="#L572">572</a>             <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/B<a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>html#BrmoFramework">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(ds, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L573" href="#L573">573</a>             brmo.setOrderBerichten(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L574" href="#L574">574</a>             brmo.setErrorState(<span class="jxr_string">"ignore"</span>);
 <a class="jxr_linenumber" name="L575" href="#L575">575</a> 
@@ -586,10 +586,10 @@
 <a class="jxr_linenumber" name="L578" href="#L578">578</a>                     LOG.debug(String.format(<span class="jxr_string">"Begin laden van bestand: %s, type %s"</span>, fName, brType));
 <a class="jxr_linenumber" name="L579" href="#L579">579</a>                     brmo.loadFromFile(brType, scanDir + fName);
 <a class="jxr_linenumber" name="L580" href="#L580">580</a>                     LOG.info(String.format(<span class="jxr_string">"Klaar met laden van bestand: %s, type %s"</span>, fName, brType));
-<a class="jxr_linenumber" name="L581" href="#L581">581</a>                 } <strong class="jxr_keyword">catch</strong> (BrmoDuplicaatLaadprocesException dup) {
+<a class="jxr_linenumber" name="L581" href="#L581">581</a>                 } <strong class="jxr_keyword">catch</strong> (<a name="BrmoDuplicaatLaadprocesException" href="../../../../nl/b3p/brmo/loader/util/BrmoDuplicaatLaadprocesException.html#BrmoDuplicaatLaadprocesException">BrmoDuplicaatLaadprocesException</a> dup) {
 <a class="jxr_linenumber" name="L582" href="#L582">582</a>                     LOG.warn(String.format(<span class="jxr_string">"Laden duplicaat bestand %s overgeslagen. Oorzaak: %s"</span>, fName, dup.getLocalizedMessage()));
 <a class="jxr_linenumber" name="L583" href="#L583">583</a>                     withWarnings = <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L584" href="#L584">584</a>                 } <strong class="jxr_keyword">catch</strong> (BrmoLeegBestandException leeg) {
+<a class="jxr_linenumber" name="L584" href="#L584">584</a>                 } <strong class="jxr_keyword">catch</strong> (<a name="BrmoLeegBestandException" href="../../../../nl/b3p/brmo/loader/util/BrmoLeegBestandException.html#BrmoLeegBestandException">BrmoLeegBestandException</a> leeg) {
 <a class="jxr_linenumber" name="L585" href="#L585">585</a>                     LOG.warn(String.format(<span class="jxr_string">"Laden 'leeg' bestand %s overgeslagen. Oorzaak: %s"</span>, fName, leeg.getLocalizedMessage()));
 <a class="jxr_linenumber" name="L586" href="#L586">586</a>                     withWarnings = <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L587" href="#L587">587</a>                 } <strong class="jxr_keyword">finally</strong> {
@@ -601,7 +601,7 @@
 <a class="jxr_linenumber" name="L593" href="#L593">593</a>                 exitcode = EX_DATAERR.code;
 <a class="jxr_linenumber" name="L594" href="#L594">594</a>             }
 <a class="jxr_linenumber" name="L595" href="#L595">595</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L596" href="#L596">596</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(<span class="jxr_string">"Opgegeven directory "</span> + scanDir + <span class="jxr_string">" is geen directory."</span>);
+<a class="jxr_linenumber" name="L596" href="#L596">596</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="BrmoException" href="../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a>(<span class="jxr_string">"Opgegeven directory "</span> + scanDir + <span class="jxr_string">" is geen directory."</span>);
 <a class="jxr_linenumber" name="L597" href="#L597">597</a>         }
 <a class="jxr_linenumber" name="L598" href="#L598">598</a>         LOG.info(String.format(<span class="jxr_string">"Klaar met laden van directory: %s, type %s"</span>, scanDir, brType));
 <a class="jxr_linenumber" name="L599" href="#L599">599</a>         <strong class="jxr_keyword">return</strong> exitcode;
@@ -627,12 +627,12 @@
 <a class="jxr_linenumber" name="L619" href="#L619">619</a>         }
 <a class="jxr_linenumber" name="L620" href="#L620">620</a>     }
 <a class="jxr_linenumber" name="L621" href="#L621">621</a> 
-<a class="jxr_linenumber" name="L622" href="#L622">622</a>     <strong class="jxr_keyword">static</strong> enum <a href="../../../../nl/b3p/brmo/commandline/Main.html">sysexits</a> {
+<a class="jxr_linenumber" name="L622" href="#L622">622</a>     <strong class="jxr_keyword">static</strong> enum sysexits {
 <a class="jxr_linenumber" name="L623" href="#L623">623</a>         <em class="jxr_comment">// zie: https://www.freebsd.org/cgi/man.cgi?query=sysexits&amp;apropos=0&amp;sektion=3&amp;manpath=OpenBSD+5.8&amp;arch=default&amp;format=html</em>
 <a class="jxr_linenumber" name="L624" href="#L624">624</a>         EX_USAGE(64), EX_DATAERR(65), EX_NOINPUT(66), EX_UNAVAILABLE(69), EX_CANTCREAT(73), EX_IOERR(74);
 <a class="jxr_linenumber" name="L625" href="#L625">625</a>         <strong class="jxr_keyword">int</strong> code;
 <a class="jxr_linenumber" name="L626" href="#L626">626</a> 
-<a class="jxr_linenumber" name="L627" href="#L627">627</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../nl/b3p/brmo/commandline/Main.html">sysexits</a>(<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> code) {
+<a class="jxr_linenumber" name="L627" href="#L627">627</a>         <strong class="jxr_keyword">private</strong> sysexits(<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> code) {
 <a class="jxr_linenumber" name="L628" href="#L628">628</a>             <strong class="jxr_keyword">this</strong>.code = code;
 <a class="jxr_linenumber" name="L629" href="#L629">629</a>         }
 <a class="jxr_linenumber" name="L630" href="#L630">630</a>     }

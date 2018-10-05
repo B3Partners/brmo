@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top250nl.InrichtingselementType
-	c23866 [label=<<table title="nl.b3p.topnl.top250nl.InrichtingselementType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./InrichtingselementType.html">
+	c23853 [label=<<table title="nl.b3p.topnl.top250nl.InrichtingselementType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./InrichtingselementType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> InrichtingselementType </td></tr>
 		</table></td></tr>
@@ -32,7 +32,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./InrichtingselementType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.Top250NlObjectType
-	c23870 [label=<<table title="nl.b3p.topnl.top250nl.Top250NlObjectType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Top250NlObjectType.html">
+	c23857 [label=<<table title="nl.b3p.topnl.top250nl.Top250NlObjectType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Top250NlObjectType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Top250NlObjectType </font></td></tr>
 		</table></td></tr>
@@ -67,7 +67,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Top250NlObjectType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.CodeType
-	c23879 [label=<<table title="nl.b3p.topnl.top250nl.CodeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CodeType.html">
+	c23866 [label=<<table title="nl.b3p.topnl.top250nl.CodeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CodeType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CodeType </td></tr>
 		</table></td></tr>
@@ -84,10 +84,10 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./CodeType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.top250nl.InrichtingselementType extends nl.b3p.topnl.top250nl.Top250NlObjectType
-	c23870:p -> c23866:p [dir=back,arrowtail=empty];
+	c23857:p -> c23853:p [dir=back,arrowtail=empty];
 	// nl.b3p.topnl.top250nl.InrichtingselementType NAVASSOC nl.b3p.topnl.top250nl.CodeType
-	c23866:p -> c23879:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c23853:p -> c23866:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.Top250NlObjectType NAVASSOC nl.b3p.topnl.top250nl.CodeType
-	c23870:p -> c23879:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c23857:p -> c23866:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

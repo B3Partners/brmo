@@ -96,14 +96,14 @@
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>  <em class="jxr_javadoccomment"> * @author Matthijs Laan</em>
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/service/scanner/GDS2OphalenProces.html">GDS2OphalenProces</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../nl/b3p/brmo/service/scanner/AbstractExecutableProces.html">AbstractExecutableProces</a> {
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="GDS2OphalenProces" href="../../../../../nl/b3p/brmo/service/scanner/GDS2OphalenProces.html#GDS2OphalenProces">GDS2OphalenProces</a> <strong class="jxr_keyword">extends</strong> <a name="AbstractExecutableProces" href="../../../../../nl/b3p/brmo/service/scanner/AbstractExecutableProces.html#AbstractExecutableProces">AbstractExecutableProces</a> {
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log log = LogFactory.getLog(GDS2OphalenProces.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>  
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../nl/b3p/brmo/persistence/staging/GDS2OphaalProces.html">GDS2OphaalProces</a> config;
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="GDS2OphaalProces" href="../../../../../nl/b3p/brmo/persistence/staging/GDS2OphaalProces.html#GDS2OphaalProces">GDS2OphaalProces</a> config;
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>      @Transient
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html">ProgressUpdateListener</a> l;
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>      <strong class="jxr_keyword">private</strong> <a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a> l;
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>  
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>     @Transient
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>     <strong class="jxr_keyword">private</strong> SSLContext context;
@@ -115,7 +115,7 @@
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> AFGIFTE_DOWNLOAD_ATTEMPTS = 5;
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> AFGIFTE_DOWNLOAD_RETRY_WAIT = 3000;
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> 
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/service/scanner/GDS2OphalenProces.html">GDS2OphalenProces</a>(<a href="../../../../../nl/b3p/brmo/persistence/staging/GDS2OphaalProces.html">GDS2OphaalProces</a> config) {
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>     <strong class="jxr_keyword">public</strong> <a name="GDS2OphalenProces" href="../../../../../nl/b3p/brmo/service/scanner/GDS2OphalenProces.html#GDS2OphalenProces">GDS2OphalenProces</a>(<a name="GDS2OphaalProces" href="../../../../../nl/b3p/brmo/persistence/staging/GDS2OphaalProces.html#GDS2OphaalProces">GDS2OphaalProces</a> config) {
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>         <strong class="jxr_keyword">this</strong>.config = config;
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>     }
 <a class="jxr_linenumber" name="L113" href="#L113">113</a> 
@@ -124,8 +124,8 @@
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>     }
 <a class="jxr_linenumber" name="L117" href="#L117">117</a> 
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>     @Override
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> execute() <strong class="jxr_keyword">throws</strong> BrmoException {
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>         <strong class="jxr_keyword">this</strong>.execute(<strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html">ProgressUpdateListener</a>() {
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> execute() <strong class="jxr_keyword">throws</strong> <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> {
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>         <strong class="jxr_keyword">this</strong>.execute(<strong class="jxr_keyword">new</strong> <a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a>() {
 <a class="jxr_linenumber" name="L121" href="#L121">121</a>             @Override
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> total(<strong class="jxr_keyword">long</strong> total) {
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>             }
@@ -151,7 +151,7 @@
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>     }
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> 
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>     @Override
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> execute(<a href="../../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html">ProgressUpdateListener</a> listener) {
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> execute(<a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a> listener) {
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>         <strong class="jxr_keyword">this</strong>.l = listener;
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> 
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>         <strong class="jxr_keyword">try</strong> {
@@ -499,7 +499,7 @@
 <a class="jxr_linenumber" name="L491" href="#L491">491</a>             }
 <a class="jxr_linenumber" name="L492" href="#L492">492</a>         }
 <a class="jxr_linenumber" name="L493" href="#L493">493</a> 
-<a class="jxr_linenumber" name="L494" href="#L494">494</a>         <a href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html">BrmoFramework</a>(ConfigUtil.getDataSourceStaging(), <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L494" href="#L494">494</a>         <a name="BrmoFramework" href="../../../../../nl/b3p/brmo/loade<a name="BrmoFramework" href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>rk.html#BrmoFramework">BrmoFramework</a> brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(ConfigUtil.getDataSourceStaging(), <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L495" href="#L495">495</a> 
 <a class="jxr_linenumber" name="L496" href="#L496">496</a>         ZipInputStream zip = <strong class="jxr_keyword">new</strong> ZipInputStream(input);
 <a class="jxr_linenumber" name="L497" href="#L497">497</a>         ZipEntry entry = zip.getNextEntry();
@@ -521,12 +521,12 @@
 <a class="jxr_linenumber" name="L513" href="#L513">513</a>                                     <strong class="jxr_keyword">new</strong> CloseShieldInputStream(innerzip),
 <a class="jxr_linenumber" name="L514" href="#L514">514</a>                                     getLaadprocesBestandsnaam(a) + <span class="jxr_string">"/"</span> + entry.getName() + <span class="jxr_string">"/"</span> + innerentry.getName()
 <a class="jxr_linenumber" name="L515" href="#L515">515</a>                             );
-<a class="jxr_linenumber" name="L516" href="#L516">516</a>                         } <strong class="jxr_keyword">catch</strong> (BrmoDuplicaatLaadprocesException d) {
+<a class="jxr_linenumber" name="L516" href="#L516">516</a>                         } <strong class="jxr_keyword">catch</strong> (<a name="BrmoDuplicaatLaadprocesException" href="../../../../../nl/b3p/brmo/loader/util/BrmoDuplicaatLaadprocesException.html#BrmoDuplicaatLaadprocesException">BrmoDuplicaatLaadprocesException</a> d) {
 <a class="jxr_linenumber" name="L517" href="#L517">517</a>                             msg = <span class="jxr_string">"Duplicaat laadproces. "</span> + d.getLocalizedMessage();
 <a class="jxr_linenumber" name="L518" href="#L518">518</a>                             l.updateStatus(msg);
 <a class="jxr_linenumber" name="L519" href="#L519">519</a>                             l.addLog(msg);
 <a class="jxr_linenumber" name="L520" href="#L520">520</a>                             log.warn(msg);
-<a class="jxr_linenumber" name="L521" href="#L521">521</a>                         } <strong class="jxr_keyword">catch</strong> (BrmoLeegBestandException e) {
+<a class="jxr_linenumber" name="L521" href="#L521">521</a>                         } <strong class="jxr_keyword">catch</strong> (<a name="BrmoLeegBestandException" href="../../../../../nl/b3p/brmo/loader/util/BrmoLeegBestandException.html#BrmoLeegBestandException">BrmoLeegBestandException</a> e) {
 <a class="jxr_linenumber" name="L522" href="#L522">522</a>                             msg = <span class="jxr_string">"Leeg bestand voor laadproces. "</span> + e.getLocalizedMessage();
 <a class="jxr_linenumber" name="L523" href="#L523">523</a>                             l.updateStatus(msg);
 <a class="jxr_linenumber" name="L524" href="#L524">524</a>                             l.addLog(msg);
@@ -544,7 +544,7 @@
 <a class="jxr_linenumber" name="L536" href="#L536">536</a>         brmo.closeBrmoFramework();
 <a class="jxr_linenumber" name="L537" href="#L537">537</a>     }
 <a class="jxr_linenumber" name="L538" href="#L538">538</a> 
-<a class="jxr_linenumber" name="L539" href="#L539">539</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../nl/b3p/brmo/persistence/staging/Bericht.html">Bericht</a> laadAfgifte(AfgifteGBType a, String url) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L539" href="#L539">539</a>     <strong class="jxr_keyword">private</strong> <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> laadAfgifte(AfgifteGBType a, String url) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L540" href="#L540">540</a>         EntityManager em = Stripersist.getEntityManager();
 <a class="jxr_linenumber" name="L541" href="#L541">541</a>         String msg = <span class="jxr_string">"Downloaden "</span> + url;
 <a class="jxr_linenumber" name="L542" href="#L542">542</a>         l.updateStatus(msg);
@@ -575,7 +575,7 @@
 <a class="jxr_linenumber" name="L567" href="#L567">567</a>             }
 <a class="jxr_linenumber" name="L568" href="#L568">568</a>         }
 <a class="jxr_linenumber" name="L569" href="#L569">569</a> 
-<a class="jxr_linenumber" name="L570" href="#L570">570</a>         <a href="../../../../../nl/b3p/brmo/persistence/staging/LaadProces.html">LaadProces</a> lp = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/persistence/staging/LaadProces.html">LaadProces</a>();
+<a class="jxr_linenumber" name="L570" href="#L570">570</a>         <a name="LaadProces" href="../../../../../nl/b3p/brmo/loa<a name="LaadProces" href="../../../../../nl/b3p/brmo/loader/entity/LaadProces.html#LaadProces">LaadProces</a>/LaadProces.html#LaadProces">LaadProces</a> lp = <strong class="jxr_keyword">new</strong> <a name="LaadProces" href="../../../../../nl/b3p/brmo/persistence/staging/LaadProces.html#LaadProces">LaadProces</a>();
 <a class="jxr_linenumber" name="L571" href="#L571">571</a>         lp.setBestand_naam(getLaadprocesBestandsnaam(a));
 <a class="jxr_linenumber" name="L572" href="#L572">572</a> 
 <a class="jxr_linenumber" name="L573" href="#L573">573</a>         <strong class="jxr_keyword">if</strong> (a.getDigikoppelingExternalDatareferences() != <strong class="jxr_keyword">null</strong>
@@ -591,7 +591,7 @@
 <a class="jxr_linenumber" name="L583" href="#L583">583</a>         lp.setOpmerking(<span class="jxr_string">"GDS2 download van "</span> + url + <span class="jxr_string">" op "</span> + sdf.format(<strong class="jxr_keyword">new</strong> Date()));
 <a class="jxr_linenumber" name="L584" href="#L584">584</a>         lp.setAutomatischProces(em.find(AutomatischProces.<strong class="jxr_keyword">class</strong>, config.getId()));
 <a class="jxr_linenumber" name="L585" href="#L585">585</a> 
-<a class="jxr_linenumber" name="L586" href="#L586">586</a>         <a href="../../../../../nl/b3p/brmo/persistence/staging/Bericht.html">Bericht</a> b = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/persistence/staging/Bericht.html">Bericht</a>();
+<a class="jxr_linenumber" name="L586" href="#L586">586</a>         <a name="Bericht" href="../../../../../nl/b3p/brmo/lo<a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a>tity/Bericht.html#Bericht">Bericht</a> b = <strong class="jxr_keyword">new</strong> <a name="Bericht" href="../../../../../nl/b3p/brmo/persistence/staging/Bericht.html#Bericht">Bericht</a>();
 <a class="jxr_linenumber" name="L587" href="#L587">587</a>         b.setLaadprocesid(lp);
 <a class="jxr_linenumber" name="L588" href="#L588">588</a>         b.setDatum(lp.getBestand_datum());
 <a class="jxr_linenumber" name="L589" href="#L589">589</a>         b.setSoort(<span class="jxr_string">"brk"</span>);
@@ -621,8 +621,8 @@
 <a class="jxr_linenumber" name="L613" href="#L613">613</a>         }
 <a class="jxr_linenumber" name="L614" href="#L614">614</a> 
 <a class="jxr_linenumber" name="L615" href="#L615">615</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L616" href="#L616">616</a>             <a href="../../../../../nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader.html">BrkSnapshotXMLReader</a> reader = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader.html">BrkSnapshotXMLReader</a>(<strong class="jxr_keyword">new</strong> ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(<span class="jxr_string">"UTF-8"</span>)));
-<a class="jxr_linenumber" name="L617" href="#L617">617</a>             <a href="../../../../../nl/b3p/brmo/loader/entity/BrkBericht.html">BrkBericht</a> bericht = reader.next();
+<a class="jxr_linenumber" name="L616" href="#L616">616</a>             <a name="BrkSnapshotXMLReader" href="../../../../../nl/b3p/brmo/loader/<a name="BrkSnapshotXMLReader" href="../../../../../nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader.html#BrkSnapshotXMLReader">BrkSnapshotXMLReader</a>ader.html#BrkSnapshotXMLReader">BrkSnapshotXMLReader</a> reader = <strong class="jxr_keyword">new</strong> <a name="BrkSnapshotXMLReader" href="../../../../../nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader.html#BrkSnapshotXMLReader">BrkSnapshotXMLReader</a>(<strong class="jxr_keyword">new</strong> ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(<span class="jxr_string">"UTF-8"</span>)));
+<a class="jxr_linenumber" name="L617" href="#L617">617</a>             <a name="BrkBericht" href="../../../../../nl/b3p/brmo/loader/entity/BrkBericht.html#BrkBericht">BrkBericht</a> bericht = reader.next();
 <a class="jxr_linenumber" name="L618" href="#L618">618</a> 
 <a class="jxr_linenumber" name="L619" href="#L619">619</a>             <strong class="jxr_keyword">if</strong> (bericht.getDatum() != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L620" href="#L620">620</a>                 b.setDatum(bericht.getDatum());
@@ -684,7 +684,7 @@
 <a class="jxr_linenumber" name="L676" href="#L676">676</a> <em class="jxr_javadoccomment">     * @param endpoint url waarnaartoe wordt gepost</em>
 <a class="jxr_linenumber" name="L677" href="#L677">677</a> <em class="jxr_javadoccomment">     * @return {@code true} als succesvol doorgestuurd</em>
 <a class="jxr_linenumber" name="L678" href="#L678">678</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L679" href="#L679">679</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> doorsturenBericht(<a href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html">AutomatischProces</a> proces, <a href="../../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html">ProgressUpdateListener</a> l, <a href="../../../../../nl/b3p/brmo/persistence/staging/Bericht.html">Bericht</a> b, String endpoint) {
+<a class="jxr_linenumber" name="L679" href="#L679">679</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> doorsturenBericht(<a name="AutomatischProces" href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html#AutomatischProces">AutomatischProces</a> proces, <a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a> l, <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> b, String endpoint) {
 <a class="jxr_linenumber" name="L680" href="#L680">680</a>         String msg;
 <a class="jxr_linenumber" name="L681" href="#L681">681</a>         SimpleDateFormat sdf = <strong class="jxr_keyword">new</strong> SimpleDateFormat(<span class="jxr_string">"dd-MM-yyyy HH:mm:ss"</span>);
 <a class="jxr_linenumber" name="L682" href="#L682">682</a>         <strong class="jxr_keyword">try</strong> {
@@ -791,7 +791,7 @@
 <a class="jxr_linenumber" name="L783" href="#L783">783</a>         <strong class="jxr_keyword">int</strong> progress = 0;
 <a class="jxr_linenumber" name="L784" href="#L784">784</a>         List&lt;Long&gt; geladenBerichtIds = <strong class="jxr_keyword">new</strong> ArrayList();
 <a class="jxr_linenumber" name="L785" href="#L785">785</a>         String doorsturenUrl = ClobElement.nullSafeGet(<strong class="jxr_keyword">this</strong>.config.getConfig().get(<span class="jxr_string">"delivery_endpoint"</span>));
-<a class="jxr_linenumber" name="L786" href="#L786">786</a>         <strong class="jxr_keyword">final</strong> String soort = <strong class="jxr_keyword">this</strong>.config.getConfig().getOrDefault(<span class="jxr_string">"gds2_br_soort"</span>, <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/persistence/staging/ClobElement.html">ClobElement</a>(<span class="jxr_string">"brk"</span>)).getValue();
+<a class="jxr_linenumber" name="L786" href="#L786">786</a>         <strong class="jxr_keyword">final</strong> String soort = <strong class="jxr_keyword">this</strong>.config.getConfig().getOrDefault(<span class="jxr_string">"gds2_br_soort"</span>, <strong class="jxr_keyword">new</strong> <a name="ClobElement" href="../../../../../nl/b3p/brmo/persistence/staging/ClobElement.html#ClobElement">ClobElement</a>(<span class="jxr_string">"brk"</span>)).getValue();
 <a class="jxr_linenumber" name="L787" href="#L787">787</a> 
 <a class="jxr_linenumber" name="L788" href="#L788">788</a>         <strong class="jxr_keyword">for</strong> (AfgifteGBType a : afgiftesGb) {
 <a class="jxr_linenumber" name="L789" href="#L789">789</a>             String url = <strong class="jxr_keyword">null</strong>;
@@ -809,7 +809,7 @@
 <a class="jxr_linenumber" name="L801" href="#L801">801</a>                     laadBagAfgifte(a, url);
 <a class="jxr_linenumber" name="L802" href="#L802">802</a>                     aantalGeladen++;
 <a class="jxr_linenumber" name="L803" href="#L803">803</a>                 } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L804" href="#L804">804</a>                     <a href="../../../../../nl/b3p/brmo/persistence/staging/Bericht.html">Bericht</a> b = laadAfgifte(a, url);
+<a class="jxr_linenumber" name="L804" href="#L804">804</a>                     <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> b = laadAfgifte(a, url);
 <a class="jxr_linenumber" name="L805" href="#L805">805</a>                     <strong class="jxr_keyword">if</strong> (b != <strong class="jxr_keyword">null</strong> &amp;&amp; doorsturenUrl != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L806" href="#L806">806</a>                         geladenBerichtIds.add(b.getId());
 <a class="jxr_linenumber" name="L807" href="#L807">807</a>                     }
@@ -819,7 +819,7 @@
 <a class="jxr_linenumber" name="L811" href="#L811">811</a>             l.progress(++progress);
 <a class="jxr_linenumber" name="L812" href="#L812">812</a>         }
 <a class="jxr_linenumber" name="L813" href="#L813">813</a> 
-<a class="jxr_linenumber" name="L814" href="#L814">814</a>         <a href="../../../../../nl/b3p/brmo/persistence/staging/Bericht.html">Bericht</a> b;
+<a class="jxr_linenumber" name="L814" href="#L814">814</a>         <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> b;
 <a class="jxr_linenumber" name="L815" href="#L815">815</a>         <strong class="jxr_keyword">if</strong> (doorsturenUrl != <strong class="jxr_keyword">null</strong> &amp;&amp; !geladenBerichtIds.isEmpty()) {
 <a class="jxr_linenumber" name="L816" href="#L816">816</a>             l.addLog(<span class="jxr_string">"Doorsturen van de opgehaalde berichten, in totaal "</span> + geladenBerichtIds.size());
 <a class="jxr_linenumber" name="L817" href="#L817">817</a>             l.total(geladenBerichtIds.size());
@@ -918,7 +918,7 @@
 <a class="jxr_linenumber" name="L910" href="#L910">910</a>         sslContext.init(
 <a class="jxr_linenumber" name="L911" href="#L911">911</a>                 kmf.getKeyManagers(),
 <a class="jxr_linenumber" name="L912" href="#L912">912</a>                 <strong class="jxr_keyword">new</strong> TrustManager[]{
-<a class="jxr_linenumber" name="L913" href="#L913">913</a>                     <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/service/util/TrustManagerDelegate.html">TrustManagerDelegate</a>(
+<a class="jxr_linenumber" name="L913" href="#L913">913</a>                     <strong class="jxr_keyword">new</strong> <a name="TrustManagerDelegate" href="../../../../../nl/b3p/brmo/service/util/TrustManagerDelegate.html#TrustManagerDelegate">TrustManagerDelegate</a>(
 <a class="jxr_linenumber" name="L914" href="#L914">914</a>                             <em class="jxr_comment">// customCaTrustManager is PKIX dus altijd X.509 (RFC3280)</em>
 <a class="jxr_linenumber" name="L915" href="#L915">915</a>                             (X509TrustManager) customCaTrustManager.getTrustManagers()[0],
 <a class="jxr_linenumber" name="L916" href="#L916">916</a>                             defaultX509TrustManager

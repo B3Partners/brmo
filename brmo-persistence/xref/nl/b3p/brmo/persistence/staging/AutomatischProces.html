@@ -41,7 +41,7 @@
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  @MappedSuperclass
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  @DiscriminatorColumn(name = <span class="jxr_string">"dtype"</span>, discriminatorType = DiscriminatorType.STRING, length = 255)
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html">AutomatischProces</a> <strong class="jxr_keyword">implements</strong> Serializable {
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">class</strong> <a name="AutomatischProces" href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html#AutomatischProces">AutomatischProces</a> <strong class="jxr_keyword">implements</strong> Serializable {
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment">     * newline string ({@value LOG_NEWLINE}) voor de logberichten en</em>
@@ -49,13 +49,13 @@
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String LOG_NEWLINE = <span class="jxr_string">"\n"</span>;
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">public</strong> enum <a href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html">ProcessingStatus</a> {
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">public</strong> enum ProcessingStatus {
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>          PROCESSING(<span class="jxr_string">"PROCESSING"</span>), WAITING(<span class="jxr_string">"WAITING"</span>), ONBEKEND(<span class="jxr_string">"ONBEKEND"</span>), ERROR(<span class="jxr_string">"ERROR"</span>);
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> String status;
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>          <a href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html">ProcessingStatus</a>(String status) {
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          ProcessingStatus(String status) {
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>              <strong class="jxr_keyword">this</strong>.status = status;
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>          }
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      }
@@ -72,7 +72,7 @@
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      <em class="jxr_comment">//volgende annotatie wordt nu niet uitgevoerd, mogelijk volgende hibernate versie</em>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      <em class="jxr_comment">//dit is alleen nodig voor sql server, script faalt bij maken primary key</em>
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      @MapKeyJoinColumn(nullable=false)
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <em class="jxr_comment">// Element wrapper required because of http://opensource.atlassian.com/projects/hibernate/browse/JPA-11</em>
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <em class="jxr_comment">// Element wrapper required because of https://hibernate.atlassian.net/browse/JPA-11</em>
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">private</strong> Map&lt;String, ClobElement&gt; config = <strong class="jxr_keyword">new</strong> HashMap&lt;String, ClobElement&gt;();
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>      <em class="jxr_javadoccomment">/**</em>
@@ -85,7 +85,7 @@
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_javadoccomment">     * status van de laatste run.</em>
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>      @Enumerated(EnumType.STRING)
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html">ProcessingStatus</a> status = ProcessingStatus.WAITING;
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>      <strong class="jxr_keyword">private</strong> ProcessingStatus status = ProcessingStatus.WAITING;
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">     * samenvatting van de laatste run.</em>
@@ -115,7 +115,7 @@
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> <em class="jxr_javadoccomment">     * DB_BLOCK_SIZE</em>
 <a class="jxr_linenumber" name="L108" href="#L108">108</a> <em class="jxr_javadoccomment">     * (<a href="http://docs.oracle.com/cd/B19306_01/server.102/b14237/limits001.htm" target="alexandria_uri">http://docs.oracle.com/cd/B19306_01/server.102/b14237/limits001.htm</a>#i287903)</em>
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> <em class="jxr_javadoccomment">     * ,posgres CLOB (text type) is maximaal limitless</em>
-<a class="jxr_linenumber" name="L110" href="#L110">110</a> <em class="jxr_javadoccomment">     * (<a href="http://www.postgresql.org/docs/9.3/static/datatype-character.html" target="alexandria_uri">http://www.postgresql.org/docs/9.3/static/datatype-character.html</a>)</em>
+<a class="jxr_linenumber" name="L110" href="#L110">110</a> <em class="jxr_javadoccomment">     * (<a href="http://www.postgresql.org/docs/9.3/static/datatype-character.html)" target="alexandria_uri">http://www.postgresql.org/docs/9.3/static/datatype-character.html)</a></em>
 <a class="jxr_linenumber" name="L111" href="#L111">111</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> updateSamenvattingEnLogfile(String samenvatting) {
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         <strong class="jxr_keyword">if</strong> (samenvatting == <strong class="jxr_keyword">null</strong>) {
@@ -163,11 +163,11 @@
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>         <strong class="jxr_keyword">this</strong>.lastrun = lastrun;
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>     }
 <a class="jxr_linenumber" name="L157" href="#L157">157</a> 
-<a class="jxr_linenumber" name="L158" href="#L158">158</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html">ProcessingStatus</a> getStatus() {
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>     <strong class="jxr_keyword">public</strong> ProcessingStatus getStatus() {
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>         <strong class="jxr_keyword">return</strong> status;
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>     }
 <a class="jxr_linenumber" name="L161" href="#L161">161</a> 
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setStatus(<a href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html">ProcessingStatus</a> status) {
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setStatus(ProcessingStatus status) {
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>         <strong class="jxr_keyword">this</strong>.status = status;
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>     }
 <a class="jxr_linenumber" name="L165" href="#L165">165</a> 

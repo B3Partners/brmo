@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top100nl.SpoorbaandeelType
-	c45015 [label=<<table title="nl.b3p.topnl.top100nl.SpoorbaandeelType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SpoorbaandeelType.html">
+	c44990 [label=<<table title="nl.b3p.topnl.top100nl.SpoorbaandeelType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SpoorbaandeelType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SpoorbaandeelType </td></tr>
 		</table></td></tr>
@@ -38,7 +38,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./SpoorbaandeelType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top100nl.TypeSpoorbaanT100Type
-	c45051 [label=<<table title="nl.b3p.topnl.top100nl.TypeSpoorbaanT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeSpoorbaanT100Type.html">
+	c45026 [label=<<table title="nl.b3p.topnl.top100nl.TypeSpoorbaanT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeSpoorbaanT100Type.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> TypeSpoorbaanT100Type </td></tr>
@@ -54,6 +54,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TypeSpoorbaanT100Type.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top100nl.SpoorbaandeelType NAVASSOC nl.b3p.topnl.top100nl.TypeSpoorbaanT100Type
-	c45015:p -> c45051:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c44990:p -> c45026:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

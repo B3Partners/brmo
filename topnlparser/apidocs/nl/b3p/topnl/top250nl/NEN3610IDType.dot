@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top250nl.Identificatie
-	c26649 [label=<<table title="nl.b3p.topnl.top250nl.Identificatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Identificatie.html">
+	c26636 [label=<<table title="nl.b3p.topnl.top250nl.Identificatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Identificatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Identificatie </td></tr>
 		</table></td></tr>
@@ -24,7 +24,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Identificatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.NEN3610IDType
-	c26652 [label=<<table title="nl.b3p.topnl.top250nl.NEN3610IDType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NEN3610IDType.html">
+	c26639 [label=<<table title="nl.b3p.topnl.top250nl.NEN3610IDType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NEN3610IDType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NEN3610IDType </td></tr>
 		</table></td></tr>
@@ -41,6 +41,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./NEN3610IDType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.Identificatie NAVASSOC nl.b3p.topnl.top250nl.NEN3610IDType
-	c26649:p -> c26652:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c26636:p -> c26639:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

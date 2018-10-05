@@ -39,7 +39,7 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> * @author mprins</em>
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/service/stripes/LaadprocesTransformatieUitvoerActionBean.html">LaadprocesTransformatieUitvoerActionBean</a> <strong class="jxr_keyword">implements</strong> ActionBean, <a href="../../../../../nl/b3p/brmo/service/scanner/ProgressUpdateListener.html">ProgressUpdateListener</a> {
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="LaadprocesTransformatieUitvoerActionBean" href="../../../../../nl/b3p/brmo/service/stripes/LaadprocesTransformatieUitvoerActionBean.html#LaadprocesTransformatieUitvoerActionBean">LaadprocesTransformatieUitvoerActionBean</a> <strong class="jxr_keyword">implements</strong> ActionBean, <a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/service/scanner/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a> {
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(LaadprocesTransformatieUitvoerActionBean.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
@@ -48,7 +48,7 @@
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">private</strong> ActionBeanContext context;
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>      @Validate(converter = EntityTypeConverter.<strong class="jxr_keyword">class</strong>)
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../nl/b3p/brmo/persistence/staging/LaadprocesTransformatieProces.html">LaadprocesTransformatieProces</a> proces;
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">private</strong> <a name="LaadprocesTransformatieProces" href="../../../../../nl/b3p/brmo/persistence/staging/LaadprocesTransformatieProces.html#LaadprocesTransformatieProces">LaadprocesTransformatieProces</a> proces;
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">double</strong> progress;
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
@@ -81,8 +81,8 @@
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ForwardResolution(JSP);
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>          }
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>          <em class="jxr_comment">// opnieuw laden van config omdat de waitpage de entity detached</em>
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>          proces = (LaadprocesTransformatieProces) Stripersist.getEntityManager().find(AutomatischProces.<strong class="jxr_keyword">class</strong>, proces.getId());
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>          <a href="../../../../../nl/b3p/brmo/service/scanner/ProcesExecutable.html">ProcesExecutable</a> exeProces = AbstractExecutableProces.getProces(proces);
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>          proces = (<a name="LaadprocesTransformatieProces" href="../../../../../nl/b3p/brmo/persistence/staging/LaadprocesTransformatieProces.html#LaadprocesTransformatieProces">LaadprocesTransformatieProces</a>) Stripersist.getEntityManager().find(AutomatischProces.<strong class="jxr_keyword">class</strong>, proces.getId());
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>          <a name="ProcesExecutable" href="../../../../../nl/b3p/brmo/service/scanner/ProcesExecutable.html#ProcesExecutable">ProcesExecutable</a> exeProces = AbstractExecutableProces.getProces(proces);
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>          <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>              exeProces.execute(<strong class="jxr_keyword">this</strong>);
@@ -227,11 +227,11 @@
 <a class="jxr_linenumber" name="L219" href="#L219">219</a>         <strong class="jxr_keyword">this</strong>.exceptionStacktrace = exceptionStacktrace;
 <a class="jxr_linenumber" name="L220" href="#L220">220</a>     }
 <a class="jxr_linenumber" name="L221" href="#L221">221</a> 
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/persistence/staging/LaadprocesTransformatieProces.html">LaadprocesTransformatieProces</a> getProces() {
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>     <strong class="jxr_keyword">public</strong> <a name="LaadprocesTransformatieProces" href="../../../../../nl/b3p/brmo/persistence/staging/LaadprocesTransformatieProces.html#LaadprocesTransformatieProces">LaadprocesTransformatieProces</a> getProces() {
 <a class="jxr_linenumber" name="L223" href="#L223">223</a>         <strong class="jxr_keyword">return</strong> proces;
 <a class="jxr_linenumber" name="L224" href="#L224">224</a>     }
 <a class="jxr_linenumber" name="L225" href="#L225">225</a> 
-<a class="jxr_linenumber" name="L226" href="#L226">226</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setProces(<a href="../../../../../nl/b3p/brmo/persistence/staging/LaadprocesTransformatieProces.html">LaadprocesTransformatieProces</a> proces) {
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setProces(<a name="LaadprocesTransformatieProces" href="../../../../../nl/b3p/brmo/persistence/staging/LaadprocesTransformatieProces.html#LaadprocesTransformatieProces">LaadprocesTransformatieProces</a> proces) {
 <a class="jxr_linenumber" name="L227" href="#L227">227</a>         <strong class="jxr_keyword">this</strong>.proces = proces;
 <a class="jxr_linenumber" name="L228" href="#L228">228</a>     }
 <a class="jxr_linenumber" name="L229" href="#L229">229</a> 

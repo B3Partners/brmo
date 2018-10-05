@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top100nl.WegdeelType
-	c45934 [label=<<table title="nl.b3p.topnl.top100nl.WegdeelType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WegdeelType.html">
+	c45909 [label=<<table title="nl.b3p.topnl.top100nl.WegdeelType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WegdeelType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WegdeelType </td></tr>
 		</table></td></tr>
@@ -70,7 +70,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./WegdeelType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top100nl.TypeVerhardingT100Type
-	c45945 [label=<<table title="nl.b3p.topnl.top100nl.TypeVerhardingT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeVerhardingT100Type.html">
+	c45920 [label=<<table title="nl.b3p.topnl.top100nl.TypeVerhardingT100Type" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TypeVerhardingT100Type.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> TypeVerhardingT100Type </td></tr>
@@ -86,6 +86,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TypeVerhardingT100Type.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top100nl.WegdeelType NAVASSOC nl.b3p.topnl.top100nl.TypeVerhardingT100Type
-	c45934:p -> c45945:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c45909:p -> c45920:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.topnl.top250nl.Top250NlObjectType
-	c20777 [label=<<table title="nl.b3p.topnl.top250nl.Top250NlObjectType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Top250NlObjectType.html">
+	c20767 [label=<<table title="nl.b3p.topnl.top250nl.Top250NlObjectType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Top250NlObjectType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Top250NlObjectType </font></td></tr>
 		</table></td></tr>
@@ -45,7 +45,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Top250NlObjectType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.CodeType
-	c20786 [label=<<table title="nl.b3p.topnl.top250nl.CodeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CodeType.html">
+	c20776 [label=<<table title="nl.b3p.topnl.top250nl.CodeType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CodeType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CodeType </td></tr>
 		</table></td></tr>
@@ -62,7 +62,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./CodeType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.top250nl.GeografischGebiedType
-	c20793 [label=<<table title="nl.b3p.topnl.top250nl.GeografischGebiedType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./GeografischGebiedType.html">
+	c20783 [label=<<table title="nl.b3p.topnl.top250nl.GeografischGebiedType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./GeografischGebiedType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GeografischGebiedType </td></tr>
 		</table></td></tr>
@@ -83,10 +83,10 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./GeografischGebiedType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.topnl.top250nl.GeografischGebiedType extends nl.b3p.topnl.top250nl.Top250NlObjectType
-	c20777:p -> c20793:p [dir=back,arrowtail=empty];
+	c20767:p -> c20783:p [dir=back,arrowtail=empty];
 	// nl.b3p.topnl.top250nl.Top250NlObjectType NAVASSOC nl.b3p.topnl.top250nl.CodeType
-	c20777:p -> c20786:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c20767:p -> c20776:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.top250nl.GeografischGebiedType NAVASSOC nl.b3p.topnl.top250nl.CodeType
-	c20793:p -> c20786:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c20783:p -> c20776:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -48,12 +48,12 @@
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment"> * @author mprins</em>
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/service/scanner/MailRapportage.html">MailRapportage</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../nl/b3p/brmo/service/scanner/AbstractExecutableProces.html">AbstractExecutableProces</a> {
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="MailRapportage" href="../../../../../nl/b3p/brmo/service/scanner/MailRapportage.html#MailRapportage">MailRapportage</a> <strong class="jxr_keyword">extends</strong> <a name="AbstractExecutableProces" href="../../../../../nl/b3p/brmo/service/scanner/AbstractExecutableProces.html#AbstractExecutableProces">AbstractExecutableProces</a> {
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log log = LogFactory.getLog(MailRapportage.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../nl/b3p/brmo/persistence/staging/MailRapportageProces.html">MailRapportageProces</a> config;
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">private</strong> <a name="MailRapportageProces" href="../../../../../nl/b3p/brmo/persistence/staging/MailRapportageProces.html#MailRapportageProces">MailRapportageProces</a> config;
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/service/scanner/MailRapportage.html">MailRapportage</a>(<a href="../../../../../nl/b3p/brmo/persistence/staging/MailRapportageProces.html">MailRapportageProces</a> config) {
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">public</strong> <a name="MailRapportage" href="../../../../../nl/b3p/brmo/service/scanner/MailRapportage.html#MailRapportage">MailRapportage</a>(<a name="MailRapportageProces" href="../../../../../nl/b3p/brmo/persistence/staging/MailRapportageProces.html#MailRapportageProces">MailRapportageProces</a> config) {
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          <strong class="jxr_keyword">this</strong>.config = config;
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>      }
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  
@@ -66,7 +66,7 @@
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment">     * mailserver (indi) of het versturen van de mail</em>
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      @Override
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> execute() <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> execute() <strong class="jxr_keyword">throws</strong> <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> {
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>          <strong class="jxr_keyword">this</strong>.active = <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          StringBuilder sb = <strong class="jxr_keyword">new</strong> StringBuilder();
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>          config.setStatus(PROCESSING);
@@ -99,7 +99,7 @@
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>              StringBuilder mailText = <strong class="jxr_keyword">new</strong> StringBuilder();
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>              List&lt;AutomatischProces&gt; processen = <strong class="jxr_keyword">this</strong>.getProcessen();
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>              <em class="jxr_comment">// bericht mailText samenstellen</em>
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>              <strong class="jxr_keyword">for</strong> (AutomatischProces p : processen) {
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>              <strong class="jxr_keyword">for</strong> (<a name="AutomatischProces" href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html#AutomatischProces">AutomatischProces</a> p : processen) {
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>                  logMsg = String.format(<span class="jxr_string">"Rapportage van taak %d met status: %s"</span>, p.getId(), p.getStatus());
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>                  log.info(logMsg);
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>                  sb.append(logMsg).append(LOG_NEWLINE);
@@ -129,11 +129,11 @@
 <a class="jxr_linenumber" name="L121" href="#L121">121</a>         } <strong class="jxr_keyword">catch</strong> (MessagingException ex) {
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>             log.error(ex);
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>             config.setStatus(ERROR);
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a>(ex);
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>         } <strong class="jxr_keyword">catch</strong> (NamingException ex) {
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>             log.error(ex);
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>             config.setStatus(ERROR);
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html">BrmoException</a>(ex);
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a>(ex);
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>         } <strong class="jxr_keyword">finally</strong> {
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>             <strong class="jxr_keyword">this</strong>.active = false;
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>         }
@@ -184,10 +184,10 @@
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>     }
 <a class="jxr_linenumber" name="L177" href="#L177">177</a> 
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>     @Override
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> execute(<a href="../../../../../nl/b3p/brmo/service/scanner/ProgressUpdateListener.html">ProgressUpdateListener</a> listener) {
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> execute(<a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/service/scanner/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a> listener) {
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>             <strong class="jxr_keyword">this</strong>.execute();
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>         } <strong class="jxr_keyword">catch</strong> (BrmoException ex) {
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>         } <strong class="jxr_keyword">catch</strong> (<a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> ex) {
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>             log.error(ex);
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>         }
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>     }

@@ -24,7 +24,7 @@
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> * @author Chris</em>
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  @XmlType
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/soap/brk/NietNatuurlijkPersoonResponse.html">NietNatuurlijkPersoonResponse</a> {
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="NietNatuurlijkPersoonResponse" href="../../../../../nl/b3p/brmo/soap/brk/NietNatuurlijkPersoonResponse.html#NietNatuurlijkPersoonResponse">NietNatuurlijkPersoonResponse</a> {
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(NietNatuurlijkPersoonResponse.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>      <strong class="jxr_keyword">private</strong> String identificatie;
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>      <strong class="jxr_keyword">private</strong> String rechtsvorm;
@@ -113,7 +113,7 @@
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>         <strong class="jxr_keyword">return</strong> sql;
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>     }
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> 
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../nl/b3p/brmo/soap/brk/NietNatuurlijkPersoonResponse.html">NietNatuurlijkPersoonResponse</a> getRecordById(String id,
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a name="NietNatuurlijkPersoonResponse" href="../../../../../nl/b3p/brmo/soap/brk/NietNatuurlijkPersoonResponse.html#NietNatuurlijkPersoonResponse">NietNatuurlijkPersoonResponse</a> getRecordById(String id,
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>             Map&lt;String, Object&gt; searchContext) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>         DataSource ds = ConfigUtil.getDataSourceRsgb();
@@ -136,7 +136,7 @@
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>             stm.setString(1, id);
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>             rs = stm.executeQuery();
 <a class="jxr_linenumber" name="L130" href="#L130">130</a> 
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>             <a href="../../../../../nl/b3p/brmo/soap/brk/NietNatuurlijkPersoonResponse.html">NietNatuurlijkPersoonResponse</a> nnp = <strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/soap/brk/NietNatuurlijkPersoonResponse.html">NietNatuurlijkPersoonResponse</a>();
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>             <a name="NietNatuurlijkPersoonResponse" href="../../../../../nl/b3p/brmo/soap<a name="NietNatuurlijkPersoonResponse" href="../../../../../nl/b3p/brmo/soap/brk/NietNatuurlijkPersoonResponse.html#NietNatuurlijkPersoonResponse">NietNatuurlijkPersoonResponse</a>ponse.html#NietNatuurlijkPersoonResponse">NietNatuurlijkPersoonResponse</a> nnp = <strong class="jxr_keyword">new</strong> <a name="NietNatuurlijkPersoonResponse" href="../../../../../nl/b3p/brmo/soap/brk/NietNatuurlijkPersoonResponse.html#NietNatuurlijkPersoonResponse">NietNatuurlijkPersoonResponse</a>();
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>             <strong class="jxr_keyword">if</strong> (rs.next()) {
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>                 nnp.setNaam(rs.getString(<span class="jxr_string">"naam"</span>));
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>                 nnp.setRechtsvorm(rs.getString(<span class="jxr_string">"rechtsvorm"</span>));

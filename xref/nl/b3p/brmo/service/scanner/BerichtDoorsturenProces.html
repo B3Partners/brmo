@@ -25,24 +25,24 @@
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> * @author Matthijs Laan</em>
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/service/scanner/BerichtDoorsturenProces.html">BerichtDoorsturenProces</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../nl/b3p/brmo/service/scanner/AbstractExecutableProces.html">AbstractExecutableProces</a> {
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="BerichtDoorsturenProces" href="../../../../../nl/b3p/brmo/service/scanner/BerichtDoorsturenProces.html#BerichtDoorsturenProces">BerichtDoorsturenProces</a> <strong class="jxr_keyword">extends</strong> <a name="AbstractExecutableProces" href="../../../../../nl/b3p/brmo/service/scanner/AbstractExecutableProces.html#AbstractExecutableProces">AbstractExecutableProces</a> {
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log log = LogFactory.getLog(BerichtDoorsturenProces.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../nl/b3p/brmo/persistence/staging/BerichtDoorstuurProces.html">BerichtDoorstuurProces</a> config;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="BerichtDoorstuurProces" href="../../../../../nl/b3p/brmo/persistence/staging/BerichtDoorstuurProces.html#BerichtDoorstuurProces">BerichtDoorstuurProces</a> config;
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> defaultCommitPageSize = 1000;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>      @Transient
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../nl/b3p/brmo/service/scanner/ProgressUpdateListener.html">ProgressUpdateListener</a> l;
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>      <strong class="jxr_keyword">private</strong> <a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/service/scanner/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a> l;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>      <a href="../../../../../nl/b3p/brmo/service/scanner/BerichtDoorsturenProces.html">BerichtDoorsturenProces</a>(<a href="../../../../../nl/b3p/brmo/persistence/staging/BerichtDoorstuurProces.html">BerichtDoorstuurProces</a> config) {
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      <a name="BerichtDoorsturenProces" href="../../../../../nl/b3p/brmo/service/scanner/BerichtDoorsturenProces.html#BerichtDoorsturenProces">BerichtDoorsturenProces</a>(<a name="BerichtDoorstuurProces" href="../../../../../nl/b3p/brmo/persistence/staging/BerichtDoorstuurProces.html#BerichtDoorstuurProces">BerichtDoorstuurProces</a> config) {
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>          <strong class="jxr_keyword">this</strong>.config = config;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      }
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      @Override
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> execute() <strong class="jxr_keyword">throws</strong> BrmoException {
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>          <strong class="jxr_keyword">this</strong>.execute(<strong class="jxr_keyword">new</strong> <a href="../../../../../nl/b3p/brmo/service/scanner/ProgressUpdateListener.html">ProgressUpdateListener</a>() {
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> execute() <strong class="jxr_keyword">throws</strong> <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> {
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>          <strong class="jxr_keyword">this</strong>.execute(<strong class="jxr_keyword">new</strong> <a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/service/scanner/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a>() {
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>              <em class="jxr_comment">/* doet bijna niks listener */</em>
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>              @Override
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>              <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> total(<strong class="jxr_keyword">long</strong> total) {
@@ -71,7 +71,7 @@
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      }
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      @Override
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> execute(<a href="../../../../../nl/b3p/brmo/service/scanner/ProgressUpdateListener.html">ProgressUpdateListener</a> listener) {
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> execute(<a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/service/scanner/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a> listener) {
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          <strong class="jxr_keyword">this</strong>.l = listener;
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>              l.updateStatus(<span class="jxr_string">"Laden berichten..."</span>);
@@ -80,7 +80,7 @@
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>              <strong class="jxr_keyword">int</strong> commitPageSize = <strong class="jxr_keyword">this</strong>.getCommitPageSize();
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>              String id = ClobElement.nullSafeGet(config.getConfig().get(<span class="jxr_string">"gds2_ophaalproces_id"</span>));
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>              <a href="../../../../../nl/b3p/brmo/persistence/staging/GDS2OphaalProces.html">GDS2OphaalProces</a> proces = Stripersist.getEntityManager().find(GDS2OphaalProces.<strong class="jxr_keyword">class</strong>, Long.parseLong(id));
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>              <a name="GDS2OphaalProces" href="../../../../../nl/b3p/brmo/persistence/staging/GDS2OphaalProces.html#GDS2OphaalProces">GDS2OphaalProces</a> proces = Stripersist.getEntityManager().find(GDS2OphaalProces.<strong class="jxr_keyword">class</strong>, Long.parseLong(id));
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>  
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>              List&lt;Long&gt; berichtIDs = Stripersist.getEntityManager().createQuery(<span class="jxr_string">"select b.id from Bericht b join b.laadprocesid l where b.status in ('STAGING_OK', 'STAGING_NOK') and l.automatischProces = :proces"</span>)
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>                      .setParameter(<span class="jxr_string">"proces"</span>, proces)
@@ -100,7 +100,7 @@
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>                  } <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>                      <strong class="jxr_keyword">int</strong> doorgestuurd = 0, fouten = 0, verwerkt = 0;
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>                      <strong class="jxr_keyword">for</strong> (Long pkid : berichtIDs) {
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>                          <a href="../../../../../nl/b3p/brmo/persistence/staging/Bericht.html">Bericht</a> b = Stripersist.getEntityManager().find(Bericht.<strong class="jxr_keyword">class</strong>, pkid);
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>                          <a name="Bericht" href="../../../../../nl/b3p/brmo/persistence/staging/Bericht.html#Bericht">Bericht</a> b = Stripersist.getEntityManager().find(Bericht.<strong class="jxr_keyword">class</strong>, pkid);
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>                          <strong class="jxr_keyword">if</strong> (GDS2OphalenProces.doorsturenBericht(proces, l, b, url)) {
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>                              doorgestuurd++;
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>                              <strong class="jxr_keyword">this</strong>.l.progress(doorgestuurd);

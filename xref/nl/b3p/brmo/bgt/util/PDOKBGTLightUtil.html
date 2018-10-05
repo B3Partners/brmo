@@ -11,8 +11,8 @@
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">package</strong> nl.b3p.brmo.bgt.util;
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> com.vividsolutions.jts.geom.Geometry;
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> com.vividsolutions.jts.io.WKTReader;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> org.locationtech.jts.geom.Geometry;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.locationtech.jts.io.WKTReader;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.io.IOException;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.net.URL;
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.Set;
@@ -34,7 +34,7 @@
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> * @author mprins</em>
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/bgt/util/PDOKBGTLightUtil.html">PDOKBGTLightUtil</a> {
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="PDOKBGTLightUtil" href="../../../../../nl/b3p/brmo/bgt/util/PDOKBGTLightUtil.html#PDOKBGTLightUtil">PDOKBGTLightUtil</a> {
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log LOG = LogFactory.getLog(PDOKBGTLightUtil.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      <em class="jxr_javadoccomment">/**</em>
@@ -50,14 +50,14 @@
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment">     * @param jsonUrl url naar de pdok bgt gml light index</em>
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">     * @return lijst met grid ids</em>
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment">     * @see #calculateGridIds(com.vividsolutions.jts.geom.Geometry,</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment">     * @see #calculateGridIds(org.locationtech.jts.geom.Geometry,</em>
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment">     * org.geotools.data.simple.SimpleFeatureCollection)</em>
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Set&lt;Integer&gt; calculateGridIds(String wktGeom, String jsonUrl) {
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          Geometry geometry = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>          SimpleFeatureCollection fc = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>          <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>              com.vividsolutions.jts.geom.GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory();
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>              org.locationtech.jts.geom.GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory();
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>              WKTReader reader = <strong class="jxr_keyword">new</strong> WKTReader(geometryFactory);
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>              geometry = reader.read(wktGeom);
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>              geometry.setSRID(28992);
@@ -73,7 +73,7 @@
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>                  LOG.warn(<span class="jxr_string">"Aanmaken van tileinfo featuretype is mislukt"</span>, se);
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>              }
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>              fc = (SimpleFeatureCollection) io.readFeatureCollection(json.toString());
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>          } <strong class="jxr_keyword">catch</strong> (com.vividsolutions.jts.io.ParseException ex) {
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>          } <strong class="jxr_keyword">catch</strong> (org.locationtech.jts.io.ParseException ex) {
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>              LOG.error(<span class="jxr_string">"Parsen van de WKT selectie geometrie is mislukt"</span>, ex);
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          } <strong class="jxr_keyword">catch</strong> (IOException | org.json.simple.parser.ParseException io) {
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>              LOG.error(<span class="jxr_string">"Ophalen of parsen van de geojson file met tiles is mislukt"</span>, io);
@@ -98,7 +98,7 @@
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>          <strong class="jxr_keyword">return</strong> ids;
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>      }
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../nl/b3p/brmo/bgt/util/PDOKBGTLightUtil.html">PDOKBGTLightUtil</a>() {
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">private</strong> <a name="PDOKBGTLightUtil" href="../../../../../nl/b3p/brmo/bgt/util/PDOKBGTLightUtil.html#PDOKBGTLightUtil">PDOKBGTLightUtil</a>() {
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>      }
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  }
 </pre>

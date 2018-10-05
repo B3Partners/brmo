@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nl" lang="nl">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-<title>BenoemdObject xref</title>
+<title>/mnt/tera1/home/mark/dev/projects/brmo/brmo-soap/src/main/java/nl/b3p/brmo/soap/eigendom/BenoemdObject.java xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
 </head>
 <body>
-<div id="overview"><a href="../../../../../../apidocs/nl/b3p/brmo/soap/eigendom/BenoemdObject.html">View Javadoc</a></div><pre>
+<div id="overview"><a href="../../../../../../apidocs/nl/b3p/brmo/soap/eigendom">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> nl.b3p.brmo.soap.eigendom;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> java.util.ArrayList;
@@ -27,7 +27,7 @@
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>      <span class="jxr_string">"addreseerbaarObjectAanduiding"</span>,
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>      <span class="jxr_string">"brondocumenten"</span>
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  })
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/BenoemdObject.html">BenoemdObject</a> {
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> BenoemdObject {
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>      @XmlElement(required = <strong class="jxr_keyword">true</strong>)
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">protected</strong> String identificatienummer;
@@ -37,7 +37,7 @@
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      <strong class="jxr_keyword">protected</strong> String gebouwdObjectGebruiksdoel;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>      @XmlElement(name = <span class="jxr_string">"addreseerbaar_object_aanduiding"</span>)
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">protected</strong> List&lt;AddreseerbaarObjectAanduiding&gt; addreseerbaarObjectAanduiding;
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">protected</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/Brondocumenten.html">Brondocumenten</a> brondocumenten;
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">protected</strong> Brondocumenten brondocumenten;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment">     * Gets the value of the identificatienummer property.</em>
@@ -136,7 +136,7 @@
 <a class="jxr_linenumber" name="L128" href="#L128">128</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L129" href="#L129">129</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L130" href="#L130">130</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../nl/b3p/brmo/soap/eigendom/Brondocumenten.html">Brondocumenten</a> getBrondocumenten() {
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>     <strong class="jxr_keyword">public</strong> Brondocumenten getBrondocumenten() {
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>         <strong class="jxr_keyword">return</strong> brondocumenten;
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>     }
 <a class="jxr_linenumber" name="L134" href="#L134">134</a> 
@@ -147,7 +147,7 @@
 <a class="jxr_linenumber" name="L139" href="#L139">139</a> <em class="jxr_javadoccomment">     *     {EigendomMutatie.BenoemdObjecten.BenoemdObject.Brondocumenten}</em>
 <a class="jxr_linenumber" name="L140" href="#L140">140</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L141" href="#L141">141</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setBrondocumenten(<a href="../../../../../nl/b3p/brmo/soap/eigendom/Brondocumenten.html">Brondocumenten</a> value) {
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setBrondocumenten(Brondocumenten value) {
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>         <strong class="jxr_keyword">this</strong>.brondocumenten = value;
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>     }
 <a class="jxr_linenumber" name="L145" href="#L145">145</a> 
