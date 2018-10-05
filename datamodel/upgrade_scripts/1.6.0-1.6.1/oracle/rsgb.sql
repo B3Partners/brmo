@@ -159,6 +159,9 @@ beschikbare kolommen:
 * overgegaan_in: natuurlijk id van kadastrale onroerende zaak waar dit object in is overgegaan,
 * begrenzing_perceel: perceelvlak';
 
+COMMENT ON TABLE herkomst_metadata IS 'BRMO bevat informatie over oorsprong van subject records';
+COMMENT ON TABLE brondocument IS 'BRMO bevat referenties naar de brondocumenten van de verschillende basis registraties';
+
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.6.0_naar_1.6.1','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';
 -- versienummer update

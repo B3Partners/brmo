@@ -8,3 +8,5 @@ create table herkomst_metadata (
 ) with (
   	OIDS = FALSE
 );
+
+COMMENT ON TABLE herkomst_metadata IS 'BRMO bevat informatie over oorsprong van subject records';

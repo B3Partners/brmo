@@ -9,6 +9,6 @@ CREATE TABLE brmo_metadata
 
 GO
 
-EXEC sys.sp_addextendedproperty @name=N'comment', @value=N'BRMO metadata en versie gegevens' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'brmo_metadata'
+EXEC sys.sp_addextendedproperty @name=N'comment', @value=N'BRMO systeem metadata en versie gegevens' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'brmo_metadata'
 
 GO

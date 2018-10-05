@@ -19,3 +19,4 @@ create table brondocument (
   primary key(tabel,tabel_identificatie,identificatie)
 );
   
+COMMENT ON TABLE brondocument IS 'BRMO bevat referenties naar de brondocumenten van de verschillende basis registraties';

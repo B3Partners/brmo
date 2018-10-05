@@ -8,3 +8,5 @@ create table herkomst_metadata (
     datum timestamp,
     primary key(tabel, kolom, waarde, herkomst_br, datum)
 );
+
+COMMENT ON TABLE herkomst_metadata IS 'BRMO bevat informatie over oorsprong van subject records';

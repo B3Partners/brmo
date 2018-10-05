@@ -6,4 +6,4 @@ CREATE TABLE brmo_metadata
         waarde CHARACTER VARYING(255),
         CONSTRAINT brmo_metadata_pk PRIMARY KEY (naam)
     );
-COMMENT ON TABLE brmo_metadata IS 'BRMO metadata en versie gegevens';
+COMMENT ON TABLE brmo_metadata IS 'BRMO systeem metadata en versie gegevens';
