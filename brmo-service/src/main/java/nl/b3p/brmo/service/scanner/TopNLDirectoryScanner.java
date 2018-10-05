@@ -160,9 +160,8 @@ public class TopNLDirectoryScanner extends AbstractExecutableProces {
      * verwerk een bestandenlijst.
      *
      * @param files array met xml bestanden
-     *
-     * @param scanDirectory
-     * @param archiefDirectory
+     * @param scanDirectory directory met xml bestanden
+     * @param soort aanduiding
      */
     private void processTopNLDirectory(List<File> files, File scanDirectory, String soort ) {
         StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE + config.getLogfile());

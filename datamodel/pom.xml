@@ -165,41 +165,6 @@
                     </transformationSets>
                 </configuration>
             </plugin>
-            <!-- alternatief voor gebruik van de schemaspy maven plugin in reporting
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                        <phase>site</phase>
-                    </execution>
-                </executions>
-                <configuration>
-                    <addResourcesToClasspath>true</addResourcesToClasspath>
-                    <includePluginDependencies>true</includePluginDependencies>
-                    <includeProjectDependencies>false</includeProjectDependencies>
-                    <mainClass>net.sourceforge.schemaspy.Main</mainClass>
-                    <commandlineArgs>-t=pgsql -host=localhost -db=itest_rsgb -s=public -u=rsgb -p=rsgb -o=${project.build.directory}/site/schemaspy -desc="RSGB SchemaSpy" -hq -dp=${settings.localRepository}/org/postgresql/postgresql/${postgresql.jdbc.version}/postgresql-${postgresql.jdbc.version}.jar</commandlineArgs>
-                    <systemProperties />
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.postgresql</groupId>
-                        <artifactId>postgresql</artifactId>
-                        <version>${postgresql.jdbc.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>net.sourceforge.schemaspy</groupId>
-                        <artifactId>schemaspy</artifactId>
-                        <version>5.0.0</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            -->
         </plugins>
     </build>
     <reporting>
@@ -217,7 +182,7 @@
                     <schema>public</schema>
                     <pathToDrivers>${settings.localRepository}/org/postgresql/postgresql/${postgresql.jdbc.version}/postgresql-${postgresql.jdbc.version}.jar</pathToDrivers>
                     <allowHtmlInComments>true</allowHtmlInComments>
-                    <schemaDescription>SchemaSpy rapport BRMO RSGB datamodel</schemaDescription>
+                    <schemaDescription>SchemaSpy rapport BRMO RSGB datamodel v${project.version}</schemaDescription>
                     <highQuality>true</highQuality>
                 </configuration>
             </plugin>
