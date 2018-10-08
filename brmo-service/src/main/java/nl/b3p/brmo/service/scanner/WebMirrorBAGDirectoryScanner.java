@@ -271,7 +271,7 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
                         public void exception(Throwable t) {
                             listener.exception(t);
                         }
-                    });
+                    }, config.getId());
                     this.aantalXMLGeladen++;
                 } catch (BrmoDuplicaatLaadprocesException dup) {
                     this.filterXMLAlVerwerkt++;

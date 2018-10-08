@@ -511,7 +511,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                         try {
                             brmo.loadFromStream(BrmoFramework.BR_BAG,
                                     new CloseShieldInputStream(innerzip),
-                                    getLaadprocesBestandsnaam(a) + "/" + entry.getName() + "/" + innerentry.getName()
+                                    getLaadprocesBestandsnaam(a) + "/" + entry.getName() + "/" + innerentry.getName(),
+                                    config.getId()
                             );
                         } catch (BrmoDuplicaatLaadprocesException d) {
                             msg = "Duplicaat laadproces. " + d.getLocalizedMessage();
@@ -772,9 +773,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     /**
      * verwerk de afgiftes in de response en stuur eventueel door.
      *
-     * @param responseGb
-     * @param afgiftesGb
-     * @throws Exception
+     * @param afgiftesGb lijst afgiftes
+     * @throws Exception if any
      */
     private void verwerkAfgiftes(List<AfgifteGBType> afgiftesGb) throws Exception {
         int filterAlVerwerkt = 0;

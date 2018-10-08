@@ -17,6 +17,7 @@ public class LaadProces {
     private LaadProces.STATUS status;
     private Date statusDatum;
     private String contactEmail;
+    private Long automatischProces;
 
     /**
      * see nl.b3p.brmo.persistence.staging.LaadProces
@@ -104,5 +105,24 @@ public class LaadProces {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    /**
+     * itt de hibernate variant geeft dit de id terug en niet het object.
+     *
+     * @return automatisch proces id
+     */
+    public Long getAutomatischProcesId() {
+        return automatischProces;
+    }
+
+    /**
+     * itt de hibernate variant neemt dit aan en niet het object, dat betaat
+     * niet in dit model.
+     *
+     * @param automatischProces automatisch proces id
+     */
+    public void setAutomatischProcesId(Long automatischProces) {
+        this.automatischProces = automatischProces;
     }
 }

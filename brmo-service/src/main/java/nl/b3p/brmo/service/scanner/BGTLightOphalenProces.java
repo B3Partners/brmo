@@ -154,7 +154,7 @@ public class BGTLightOphalenProces extends AbstractExecutableProces {
                     sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                     try {
                         brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
-                        brmo.loadFromFile(BrmoFramework.BR_BGTLIGHT, gmlZip.getAbsolutePath(), null);
+                        brmo.loadFromFile(BrmoFramework.BR_BGTLIGHT, gmlZip.getAbsolutePath(), config.getId());
                         aantalGeladen++;
                     } catch (BrmoException ex) {
                         msg = "GML Bestand kon niet worden geladen.";

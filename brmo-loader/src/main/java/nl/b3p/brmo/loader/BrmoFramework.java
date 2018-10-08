@@ -303,18 +303,33 @@ public class BrmoFramework {
     }
 
     /**
-     * @see #loadFromFile(java.lang.String, java.lang.String,
-     * nl.b3p.brmo.loader.ProgressUpdateListener)
      * @param type basis registratie type
      * @param fileName bestand
      * @throws BrmoException als er een fout optreed tijdens verwerking
+     * @deprecated gebruik van de variant met automatischProces ID heeft de
+     * voorkeur
+     * @see #loadFromFile(java.lang.String, java.lang.String, java.lang.Long)
      */
+    @Deprecated
     public void loadFromFile(String type, String fileName) throws BrmoException {
+        loadFromFile(type, fileName, null);
+    }
+
+    /**
+     * @see #loadFromFile(java.lang.String, java.lang.String,
+     * nl.b3p.brmo.loader.ProgressUpdateListener, Long)
+     * @param type basis registratie type
+     * @param fileName bestand
+     * @param automatischProces id van automatisch proces dat deze functie
+     * aanroept
+     * @throws BrmoException als er een fout optreed tijdens verwerking
+     */
+    public void loadFromFile(String type, String fileName, Long automatischProces) throws BrmoException {
         try {
-            loadFromFile(type, fileName, null);
-        } catch(Exception e) {
+            loadFromFile(type, fileName, null, automatischProces);
+        } catch (Exception e) {
             if (e instanceof BrmoException) {
-                throw (BrmoException)e;
+                throw (BrmoException) e;
             } else {
                 throw new BrmoException("Fout bij loaden basisregistratie gegevens", e);
             }
@@ -329,9 +344,10 @@ public class BrmoFramework {
      * @param type basis registratie type
      * @param fileName bestand
      * @param listener voortgangsmonitor
+     * @param automatischProces id van automatisch proces dat deze functie aanroept
      * @throws BrmoException als er een fout optreed tijdens verwerking
      */
-    public void loadFromFile(String type, String fileName, final ProgressUpdateListener listener) throws BrmoException {
+    public void loadFromFile(String type, String fileName, final ProgressUpdateListener listener, Long automatischProces) throws BrmoException {
         try {
             if (fileName.toLowerCase().endsWith(".zip") && !type.equalsIgnoreCase(BR_BGTLIGHT)) {
                 log.info("Openen ZIP bestand " + fileName);
@@ -400,11 +416,34 @@ public class BrmoFramework {
      * {@code fileName} al geladen is
      * @throws BrmoLeegBestandException als het "bestand" {@code fileName} leeg
      * is
+     * @deprecated probeer de variant met automatischProces argument te
+     * gebruiken
+     * @see #loadFromStream(String, InputStream, String, Long)
      */
+    @Deprecated
     public void loadFromStream(String type, InputStream stream, String fileName)
             throws BrmoException, BrmoDuplicaatLaadprocesException, BrmoLeegBestandException {
+        this.loadFromStream(type, stream, fileName, (Long) null);
+    }
+
+    /**
+     * laden van BR data uit een stream.
+     *
+     * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}
+     * @param stream datastream
+     * @param fileName te gebruiken bestandsnaam om laadproces te identificeren
+     * @param automatischProces id van automatisch proces dat deze functie
+     * aanroept
+     * @throws BrmoException als er een algemene fout optreed
+     * @throws BrmoDuplicaatLaadprocesException als het "bestand"
+     * {@code fileName} al geladen is
+     * @throws BrmoLeegBestandException als het "bestand" {@code fileName} leeg
+     * is
+     */
+    public void loadFromStream(String type, InputStream stream, String fileName, Long automatischProces)
+            throws BrmoException, BrmoDuplicaatLaadprocesException, BrmoLeegBestandException {
         try {
-            stagingProxy.loadBr(stream, type, fileName, null, null);
+            stagingProxy.loadBr(stream, type, fileName, null, null, automatischProces);
         } catch (Exception e) {
             if (e instanceof BrmoDuplicaatLaadprocesException) {
                 throw (BrmoDuplicaatLaadprocesException) e;
@@ -429,11 +468,35 @@ public class BrmoFramework {
      * {@code fileName} al geladen is
      * @throws BrmoLeegBestandException als het "bestand" {@code fileName} leeg
      * is
+     * @deprecated Gebruik
+     * {@link #loadFromStream(String, InputStream, String, Date, Long)}
      */
+    @Deprecated
     public void loadFromStream(String type, InputStream stream, String fileName, Date d)
             throws BrmoException, BrmoDuplicaatLaadprocesException, BrmoLeegBestandException {
+        loadFromStream(type, stream, fileName, d, null);
+    }
+
+    /**
+     * laden van BR data uit een stream.
+     *
+     * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}
+     * @param stream datastream
+     * @param fileName te gebruiken bestandsnaam om laadproces te identificeren
+     * @param d bestandsdatum
+     * @param automatischProces id van automatisch proces dat deze functie
+     * aanroept
+     *
+     * @throws BrmoException als er een algemene fout optreed
+     * @throws BrmoDuplicaatLaadprocesException als het "bestand"
+     * {@code fileName} al geladen is
+     * @throws BrmoLeegBestandException als het "bestand" {@code fileName} leeg
+     * is
+     */
+    public void loadFromStream(String type, InputStream stream, String fileName, Date d, Long automatischProces)
+            throws BrmoException, BrmoDuplicaatLaadprocesException, BrmoLeegBestandException {
         try {
-            stagingProxy.loadBr(stream, type, fileName, d, null);
+            stagingProxy.loadBr(stream, type, fileName, d, null, automatischProces);
         } catch (Exception e) {
             if (e instanceof BrmoDuplicaatLaadprocesException) {
                 throw (BrmoDuplicaatLaadprocesException) e;
@@ -452,22 +515,25 @@ public class BrmoFramework {
      * @param stream datastream
      * @param fileName te gebruiken bestandsnaam om laadproces te identificeren
      * @param listener mag {@code null} zijn
+     * @param automatischProces id van automatisch proces dat deze functie
+     * aanroept
+     *
      * @throws BrmoException als er een algemene fout optreed
      * @throws BrmoDuplicaatLaadprocesException als het "bestand"
      * {@code fileName} al geladen is
      * @throws BrmoLeegBestandException als het "bestand" {@code fileName} leeg
      * is
      */
-    public void loadFromStream(String type, InputStream stream, String fileName, ProgressUpdateListener listener)
+    public void loadFromStream(String type, InputStream stream, String fileName, ProgressUpdateListener listener, Long automatischProces)
             throws BrmoException, BrmoDuplicaatLaadprocesException, BrmoLeegBestandException {
         try {
-            stagingProxy.loadBr(stream, type, fileName, null, listener);
+            stagingProxy.loadBr(stream, type, fileName, null, listener, automatischProces);
         } catch (Exception e) {
             if (e instanceof BrmoDuplicaatLaadprocesException) {
-                throw (BrmoDuplicaatLaadprocesException)e;
+                throw (BrmoDuplicaatLaadprocesException) e;
             }
             if (e instanceof BrmoLeegBestandException) {
-                throw (BrmoLeegBestandException)e;
+                throw (BrmoLeegBestandException) e;
             }
             throw new BrmoException("Fout bij laden " + type + " berichten uit bestand " + fileName, e);
         }

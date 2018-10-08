@@ -17,7 +17,6 @@ import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.web.stripes.DirectResponseResolution;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -101,11 +100,11 @@ public class BasisregistratieServiceActionBean implements ActionBean {
                 }
                 log.debug("Lezen XML bestand uit zip: " + entry.getName());
                 unzippedFile = entry.getName();
-                brmo.loadFromStream(basisregistratie, zip, getUniqueFilename(brmo));
+                brmo.loadFromStream(basisregistratie, zip, getUniqueFilename(brmo), (Long) null);
 
             } else {
                 // Geen ZIP, direct BR XML laden
-                brmo.loadFromStream(basisregistratie, in, getUniqueFilename(brmo));
+                brmo.loadFromStream(basisregistratie, in, getUniqueFilename(brmo), (Long) null);
             }
 
             log.info(String.format("Stored %s data received via service endpoint", basisregistratie));

@@ -94,7 +94,7 @@ public class BasisregistratieFileUploadActionBean implements ActionBean {
                         } else {
                             log.debug("Lezen XML bestand uit zip: " + entry.getName());
                             try {
-                                brmo.loadFromStream(basisregistratie, new CloseShieldInputStream(zip), bestand.getFileName() + "/" + entry.getName(), totalAdder);
+                                brmo.loadFromStream(basisregistratie, new CloseShieldInputStream(zip), bestand.getFileName() + "/" + entry.getName(), totalAdder, null);
                             } catch(BrmoLeegBestandException e) {
                                 log.info("Negeer ZIP entry " + entry.getName() + ": " + e.getMessage());
                                 empty++;
@@ -117,7 +117,7 @@ public class BasisregistratieFileUploadActionBean implements ActionBean {
                 }
             } else {
                 // Geen ZIP, direct BR XML laden
-                brmo.loadFromStream(basisregistratie, in, bestand.getFileName(), totalAdder);
+                brmo.loadFromStream(basisregistratie, in, bestand.getFileName(), totalAdder, null);
             }
 
             List warnings = new ArrayList();
