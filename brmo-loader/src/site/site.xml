@@ -1,5 +1,5 @@
-<project xsi:schemaLocation="http://maven.apache.org/DECORATION/1.7.0 http://maven.apache.org/xsd/decoration-1.7.0.xsd" 
-         xmlns="http://maven.apache.org/DECORATION/1.7.0" 
+<project xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd" 
+         xmlns="http://maven.apache.org/DECORATION/1.8.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          name="${this.name} ${this.version}">
   <publishDate position="left" format="dd-MMMM-yyyy" />
