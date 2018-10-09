@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.2.xsd">
     <suppress>
         <notes><![CDATA[
-      Negeer melding mbt tomcat-catalina-7.0.91.jar omdat we geen tomcat mee leveren en deze 
+      Negeer meldingen mbt tomcat-catalina-7.0.91.jar omdat we geen tomcat mee leveren en deze
       alleen voor bepaalde deployments geldt.
       ]]></notes>
         <filePath regex="true">.*\btomcat-catalina-7\.0\.91\.jar</filePath>
@@ -10,13 +10,6 @@
         <cve>CVE-2016-5425</cve>
         <cve>CVE-2016-6325</cve>
         <cve>CVE-2017-6056</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-      Negeer melding mbt postgresql-42.2.5.jar, false positive, CVE heeft betrekking op init scripts.
-      ]]></notes>
-        <filePath regex="true">.*\bpostgresql-42.2.5\.jar</filePath>
-        <cve>CVE-2017-14798</cve>
     </suppress>
     <suppress>
         <notes><![CDATA[
@@ -30,7 +23,7 @@
         <notes><![CDATA[
       Negeer melding mbt log4j-1.2.17.jar, false positive, CVE heeft betrekking op versie 2 en hoger.
       ]]></notes>
-        <filePath regex="true">.*\blog4j-1.2.17\.jar</filePath>
+        <gav regex="true">^log4j:log4j:1\.2\.17$</gav>
         <cve>CVE-2017-5645</cve>
     </suppress>
     <suppress>
@@ -43,5 +36,13 @@
         <gav regex="true">^org\.apache\.poi:poi.*:3\.14$</gav>
         <cve>CVE-2017-12626</cve>
         <cve>CVE-2017-5644</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+      Deze kwetsbaarheid is niet van toepassing, er wordt geen gebruik gemaakt van RC4 voor TLS.
+        ]]></notes>
+        <gav regex="true">^org\.glassfish\.ha:ha-api:3\.1\.9$</gav>
+        <cve>CVE-2013-2566</cve>
+        <cve>CVE-2015-2808</cve>
     </suppress>
 </suppressions>
