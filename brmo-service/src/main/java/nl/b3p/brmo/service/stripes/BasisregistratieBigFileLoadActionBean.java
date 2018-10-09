@@ -88,7 +88,7 @@ public class BasisregistratieBigFileLoadActionBean implements ActionBean, Progre
             BrmoFramework brmo = null;
             brmo = new BrmoFramework(ds, null);
 
-            brmo.loadFromFile(basisregistratie, filename, this);
+            brmo.loadFromFile(basisregistratie, filename, this, null);
 
             getContext().getMessages().add(new SimpleMessage("Klaar met inladen"));
         } catch(Throwable t) {

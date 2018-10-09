@@ -582,10 +582,31 @@ public class StagingProxy {
      * @param stream input
      * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}
      * @param fileName naam van het bestand (ter identificatie)
+     * @param d bestandsdatum
+     * @param listener progress listener
+     * @throws Exception if any
+     * @deprecated gebruik de variant die een automatischProcesId als argument
+     * heeft
+     * @see #loadBr(InputStream, String, String, Date, ProgressUpdateListener,
+     * Long)
+     */
+    @Deprecated
+    public void loadBr(InputStream stream, String type, String fileName, Date d, ProgressUpdateListener listener) throws Exception {
+        this.loadBr(stream, type, fileName, d, listener, null);
+    }
+
+    /**
+     * Laadt het bestand uit de stream in de database.
+     *
+     * @param stream input
+     * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}
+     * @param fileName naam van het bestand (ter identificatie)
+     * @param d bestandsdatum
+     * @param automatischProces id van het automatisch proces
      * @param listener progress listener
      * @throws Exception if any
      */
-    public void loadBr(InputStream stream, String type, String fileName, Date d, ProgressUpdateListener listener) throws Exception {
+    public void loadBr(InputStream stream, String type, String fileName, Date d, ProgressUpdateListener listener, Long automatischProces) throws Exception {
 
         CountingInputStream cis = new CountingInputStream(stream);
 
@@ -619,6 +640,7 @@ public class StagingProxy {
         lp.setGebied(brmoXMLReader.getGebied());
         lp.setStatus(LaadProces.STATUS.STAGING_OK);
         lp.setStatusDatum(new Date());
+        lp.setAutomatischProcesId(automatischProces);
 
         if (laadProcesExists(lp)) {
             throw new BrmoDuplicaatLaadprocesException("Laadproces al gerund voor bestand "+ fileName);
@@ -750,8 +772,8 @@ public class StagingProxy {
 
         String sql = "INSERT INTO " + BrmoFramework.LAADPROCES_TABEL + "(bestand_naam,"
                 + "bestand_datum, soort, gebied, opmerking, status,"
-                + "status_datum, contact_email) VALUES"
-                + " (?,?,?,?,?,?,?,?)";
+                + "status_datum, contact_email, automatisch_proces) VALUES"
+                + " (?,?,?,?,?,?,?,?,?)";
         new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
                 sql,
                 lp.getBestandNaam(),
@@ -761,9 +783,11 @@ public class StagingProxy {
                 lp.getOpmerking(),
                 lp.getStatus().toString(),
                 new Timestamp(lp.getStatusDatum().getTime()),
-                lp.getContactEmail());
+                lp.getContactEmail(),
+                lp.getAutomatischProcesId()
+        );
 
-         return getLaadProcesByNaturalKey(lp.getBestandNaam(), lp.getBestandDatum().getTime());
+        return getLaadProcesByNaturalKey(lp.getBestandNaam(), lp.getBestandDatum().getTime());
     }
 
     public void updateLaadProcesStatus(LaadProces lp, LaadProces.STATUS status, String opmerking) throws SQLException {

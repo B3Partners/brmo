@@ -179,7 +179,7 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                     filterAlVerwerkt++;
                 } else {
                     brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
-                    brmo.loadFromFile(BrmoFramework.BR_BAG, getBestandsNaam(f));
+                    brmo.loadFromFile(BrmoFramework.BR_BAG, getBestandsNaam(f), config.getId());
                     msg = String.format("Bestand %s is geladen.", f);
                     LOG.info(msg);
                     sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
