@@ -41,6 +41,7 @@ matrix:
         packages:
           - postgresql-9.3-postgis-2.3
   - name: "MS SQL server 2017"
+    group: edge
     jdk: oraclejdk8
     dist: xenial
     sudo: required
