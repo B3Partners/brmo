@@ -72,7 +72,7 @@ public class BGTLightRsgbTransformer implements Runnable {
         }
     }
 
-    public void init() throws SQLException {
+    public void init() throws SQLException, IOException {
         geomjdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(dataSourceRsgbBgt.getConnection());
 
         params.put("jndiReferenceName", "java:comp/env/jdbc/brmo/rsgbbgt");
@@ -82,6 +82,9 @@ public class BGTLightRsgbTransformer implements Runnable {
         gmlLoader.setDbConnProps(params);
         gmlLoader.setIsOracle(geomjdbc.getGeotoolsDBTypeName().toLowerCase().contains("oracle"));
         gmlLoader.setIsMSSQL(geomjdbc.getGeotoolsDBTypeName().toLowerCase().contains("sqlserver"));
+
+        LOG.info(String.format("Alle BGT tabellen worden nu leeggemaakt voordat %d laadprocessen worden getransformeerd (Let op! Transformeer alle laadprocessen voor BGT kaartbladen tegelijkertijd)", lpIDs.length));
+        gmlLoader.truncateTables();
     }
 
     @Override

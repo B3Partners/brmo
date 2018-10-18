@@ -28,6 +28,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import javax.xml.parsers.ParserConfigurationException;
+import nl.b3p.brmo.bgt.util.JDBCDataStoreUtil;
 import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.BEGINTIJD_NAME;
 import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.DEFAULT_GEOM_NAME;
 import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.ID_NAME;
@@ -116,6 +117,28 @@ public class BGTGMLLightLoader {
         parser.setValidating(true);
         parser.setStrict(false);
         parser.setFailOnValidationError(false);
+    }
+
+    /** Maak alle tabellen in de database leeg, voordat alle BGT kaartbladen
+     * worden ingeladen. Let op! Ook zelfgemaakte extra tabellen worden geleegd, niet
+     * alleen BGT tabellen die door deze loader gevuld kunnen worden. Wordt aangeroepen
+     * voordat meerdere keren processZipFile() wordt aangeroepen voor alle nieuwe
+     * BGT kaartbladen.
+     */
+    public void truncateTables() throws SQLException, IOException {
+        JDBCDataStore dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(dbConnProps);
+        if (dataStore == null) {
+            throw new IllegalStateException("Datastore mag niet 'null' zijn voor opslaan van data.");
+        }
+
+        try {
+            String[] typeNames = dataStore.getTypeNames();
+            for (String name: typeNames) {
+                JDBCDataStoreUtil.truncateTable(dataStore, name, isOracle, LOG);
+            }
+        } finally {
+            dataStore.dispose();
+        }
     }
 
     /**
@@ -310,38 +333,6 @@ public class BGTGMLLightLoader {
         } else {
             // als tabel bestaat aannemen dat deze de juiste primary key heeft
             dataStore.setExposePrimaryKeyColumns(true);
-
-            // huidige records verwijderen
-            LOG.info("Probeer tabel leeg te maken: " + targetSchema.getTypeName());
-
-            try {
-                StringBuffer sql = new StringBuffer("TRUNCATE TABLE ");
-                Method encodeTableName = dataStore.getClass().getDeclaredMethod("encodeTableName", String.class, StringBuffer.class, Hints.class);
-                encodeTableName.setAccessible(true);
-                encodeTableName.invoke(dataStore, targetSchema.getTypeName(), sql, null);
-
-                if(this.isOracle) {
-                    sql.append(" PURGE MATERIALIZED VIEW LOG REUSE STORAGE");
-                }
-                LOG.debug("SQL: " + sql.toString());
-                new QueryRunner(dataStore.getDataSource()).update(sql.toString());
-                LOG.info("Tabel leeggemaakt");
-            } catch(Exception e) {
-                LOG.debug("Exception bij TRUNCATE", e);
-                LOG.error("Fout bij TRUNCATE, probeer met DELETE FROM: " + e.getClass() + ": " + e.getMessage());
-
-                try {
-                    StringBuffer sql = new StringBuffer("DELETE FROM ");
-                    Method encodeTableName = dataStore.getClass().getDeclaredMethod("encodeTableName", String.class, StringBuffer.class, Hints.class);
-                    encodeTableName.setAccessible(true);
-                    encodeTableName.invoke(dataStore, targetSchema.getTypeName(), sql, null);
-                    LOG.debug("SQL: " + sql.toString());
-                    new QueryRunner(dataStore.getDataSource()).update(sql.toString());
-                LOG.info("Tabel leeggemaakt met DELETE FROM");
-                } catch(Exception e2) {
-                    LOG.error("Fout bij DELETE FROM, tabel kon niet leeggemaakt worden! ", e2);
-                }
-            }
         }
 
         // Map om per ID bij te houden wat meest recente tijdstipRegistratie en beeindigd status is
