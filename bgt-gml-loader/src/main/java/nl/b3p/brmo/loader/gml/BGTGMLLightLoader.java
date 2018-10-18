@@ -99,7 +99,7 @@ public class BGTGMLLightLoader {
      */
     private Geometry omhullendeVanZipFile = null;
 
-    private StringBuilder opmerkingen;
+    private StringBuilder opmerkingen = new StringBuilder();
 
     private STATUS status = STATUS.OK;
 
@@ -127,7 +127,7 @@ public class BGTGMLLightLoader {
     public void truncateTables() throws SQLException, IOException {
         JDBCDataStore dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(dbConnProps);
         if (dataStore == null) {
-            throw new IllegalStateException("Datastore mag niet 'null' zijn voor opslaan van data.");
+            throw new IllegalStateException("Datastore mag niet 'null' zijn voor wissen van data.");
         }
 
         try {
