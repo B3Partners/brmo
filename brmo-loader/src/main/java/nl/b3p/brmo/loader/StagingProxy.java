@@ -791,8 +791,8 @@ public class StagingProxy {
     }
 
     public void updateLaadProcesStatus(LaadProces lp, LaadProces.STATUS status, String opmerking) throws SQLException {
-        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "update " + BrmoFramework.LAADPROCES_TABEL + " set status = ?, opmerking = ? where id = ?",
-                        status.toString(), opmerking, lp.getId());
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "update " + BrmoFramework.LAADPROCES_TABEL + " set status = ?, opmerking = ?, status_datum = ? where id = ?",
+                        status.toString(), opmerking, new Timestamp(new Date().getTime()), lp.getId());
     }
 
     public void emptyStagingDb() throws SQLException {
