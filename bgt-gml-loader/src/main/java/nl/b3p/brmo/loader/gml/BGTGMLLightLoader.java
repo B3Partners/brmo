@@ -131,8 +131,9 @@ public class BGTGMLLightLoader {
         }
 
         try {
-            String[] typeNames = dataStore.getTypeNames();
-            for (String name: typeNames) {
+            String name;
+            for (BGTGMLLightTransformerFactory t : BGTGMLLightTransformerFactory.values()){
+                name = isOracle ? t.name().toUpperCase() : t.name();
                 JDBCDataStoreUtil.truncateTable(dataStore, name, isOracle, LOG);
             }
         } finally {
