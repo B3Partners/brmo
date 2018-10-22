@@ -1,8 +1,13 @@
 -- 
 -- upgrade PostgreSQL RSGBBGT datamodel van 1.6.0 naar 1.6.1 
 --
+-- herstel brmo versie metadata, zie: #543
+INSERT INTO brmo_metadata (naam, waarde) SELECT 'brmoversie', '1.6.0'
+            WHERE NOT EXISTS (SELECT naam FROM brmo_metadata WHERE naam = 'brmoversie');
+COMMIT;
 
 -- voeg tabel voor klasse Stadsdeel toe
+-- #546
 CREATE TABLE stadsdeel (
         identif character varying(255) NOT NULL,
         dat_beg_geldh date,
