@@ -65,8 +65,8 @@ public class BGTLightZipsLoaderIntegrationTest extends TestingBase {
     }
 
     /**
-     * Test of een combi download van twee kaartbladen hetzelfde aantal features
-     * oplevert als twee losse zipfiles.
+     * Test of een combi download van twee kaartbladen dezlfde aantallen
+     * features oplevert als twee losse zipfiles.
      *
      * @throws Exception if any
      */
@@ -81,7 +81,7 @@ public class BGTLightZipsLoaderIntegrationTest extends TestingBase {
         int actualLos = 0;
 
         for (File zip : zips) {
-            // kaaartbladen combi laden
+            // kaaartbladen combi-zip laden
             if (zip.getName().contains("57830-57831.zip")) {
                 LOG.info("Laden van 'combi' zipfile/kaartbladen: " + zip.getName());
                 actualCombi = ldr.processZipFile(zip);
@@ -96,18 +96,43 @@ public class BGTLightZipsLoaderIntegrationTest extends TestingBase {
         ldr.truncateTables();
 
         for (File zip : zips) {
-            // losse kaart bladen laden
+            // losse kaart bladen laden uit de anadres 2 zips
             if (!zip.getName().contains("57830-57831.zip")) {
                 LOG.info("Laden van 'losse' zipfile/kaartblad: " + zip.getName());
                 // los is 345 + 54 = 399
                 actualLos += ldr.processZipFile(zip);
             }
         }
-
         final Map<String, Long> countsLos = countRows();
 
         assertEquals("Verwacht aantal geschreven features klopt niet", expected, actualCombi);
         assertEquals("Verwacht aantal geschreven features klopt niet", expected, actualLos);
         assertEquals("Gecombineerde kaartblad set komt niet overeen met losse geladen kaartbladen", countsCombi, countsLos);
     }
+
+    /**
+     * Laadt 2 kaartbladen, een keer uit een gecombineerde zip en ook als twee
+     * losse zips. Test of
+       *
+     * @throws Exception soms
+     */
+    @Test
+    public void testCombiKaartbladPlusLosseKaartbladenInZipFiles() throws Exception {
+        final int expected = 399;
+        ldr.setScanDirectory(BGTGMLLightLoaderIntegrationTest.class.getResource("/gmllight/schiermonnikoog/").getFile());
+        List<File> zips = ldr.scanDirectory();
+        assumeThat("Verwacht aantal zipfiles", zips.size(), equalTo(3));
+
+        for (File zip : zips) {
+            // alle kaartbladen  laden
+            LOG.info("Laden van 'combi' zipfile/kaartbladen: " + zip.getName());
+            ldr.processZipFile(zip);
+        }
+        final Map<String, Long> countsCombi = countRows();
+
+        long actual = 0;
+        actual = countsCombi.values().stream().map((count) -> count).reduce(actual, (accumulator, _item) -> accumulator + _item);
+        assertEquals("Verwacht aantal geschreven features klopt niet", expected, actual);
+    }
+
 }
