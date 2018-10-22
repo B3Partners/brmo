@@ -14,7 +14,9 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipOutputStream;
@@ -50,6 +52,7 @@ import org.stripesstuff.plugin.waitpage.WaitPage;
 /**
  *
  * @author Chris van Lith
+ * @author mprins
  */
 @StrictBinding
 public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateListener {
@@ -87,7 +90,8 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
     private String exceptionStacktrace;
 
     private final String BRK_VERWIJDEREN_NOGMAALS_UITVOEREN = "Herhaal transformatie BRK verwijderberichten, oplossen achtergebleven 'kad_onrrnd_zk' records";
-    
+    private final String NHR_FIX_TYPERING = "Fix 'typering' en 'clazz' van nHR persoon";
+
     private final boolean repairFirst = false;
 
     // <editor-fold defaultstate="collapsed" desc="getters en setters">
@@ -210,7 +214,8 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             new AdvancedFunctionProcess("Opschonen en archiveren van BAG berichten met status RSGB_OK, ouder dan 3 maanden", BrmoFramework.BR_BAG, Bericht.STATUS.RSGB_OK.toString()),
             new AdvancedFunctionProcess("Verwijderen van BRK berichten met status ARCHIVE", BrmoFramework.BR_BRK, Bericht.STATUS.ARCHIVE.toString()),
             new AdvancedFunctionProcess("Verwijderen van BAG berichten met status ARCHIVE", BrmoFramework.BR_BAG, Bericht.STATUS.ARCHIVE.toString()),
-            new AdvancedFunctionProcess(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN, BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString())
+            new AdvancedFunctionProcess(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN, BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString()),
+            new AdvancedFunctionProcess(NHR_FIX_TYPERING, BrmoFramework.BR_NHR, null)
         });
     }
 
@@ -235,7 +240,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         }
 
         start = new Date();
-        LOG.info("Start export process: " + process.getName());
+        LOG.info("Start process: " + process.getName());
         processed = 0;
 
         // Get berichten
@@ -256,6 +261,8 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                 deleteBerichten(process.getConfig(), "bag");
             } else if (process.getName().equals(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN)) {
                 replayBRKVerwijderBerichten(process.getSoort(), process.getConfig());
+            } else if (process.getName().equals(NHR_FIX_TYPERING)) {
+                fixNHRTypering(process.getSoort(), process.getConfig());
             }
             
             if (this.exceptionStacktrace == null) {
@@ -778,5 +785,98 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         } while (processed.intValue() > 0);
         DbUtils.closeQuietly(conn);
         rsgb.close();
+    }
+
+    /**
+     * Verwijderen van enkele aanhalingstekens van typering en clazz van sommige
+     * nHR persoon records dmv SQL update. fix voor issue #527, {@code 'INGESCHREVEN
+     * NIET-NATUURLIJK PERSOON'} moet worden {@code INGESCHREVEN NIET-NATUURLIJK
+     * PERSOON} (evt. afgekort op 35 char voor de 'ingeschr_niet_nat_prs'
+     * tabel/'typering' kolom)
+     *
+     * @param soort soort bericht
+     * @param status bericht status
+     * @throws SQLException if any
+     * @throws BrmoException if any
+     * @throws Exception if any
+     */
+    public void fixNHRTypering(String soort, String status) throws SQLException, BrmoException, Exception {
+
+        final MutableInt _processed = new MutableInt(0);
+        final DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();
+        final Connection conn = dataSourceRsgb.getConnection();
+        final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+
+        final String was = "'INGESCHREVEN NIET-NATUURLIJK PERSOON'";
+        final String wordt = was.replace("'", "");
+        // typering kolom is smaller dan clazz kolom
+        final int typeringColWidth = 35;
+
+        // betroffen tabel + kolom
+        final Map<String, String> tables = new HashMap<String, String>() {
+            {
+                put("subject", "clazz");
+                put("prs", "clazz");
+                put("niet_nat_prs", "clazz");
+                put("ingeschr_niet_nat_prs", "typering");
+            }
+        };
+
+        for (Map.Entry<String, String> table : tables.entrySet()) {
+            int offset = 0;
+            int batch = 1000;
+
+            final String _was = (table.getValue().equalsIgnoreCase("typering") ? "'" + was.substring(0, typeringColWidth) : "'" + was + "'");
+            final String _wordt = (table.getValue().equalsIgnoreCase("typering") ? wordt.substring(0, typeringColWidth) : wordt);
+
+            String countsql = "select count(*) from " + table.getKey() + " where " + table.getValue() + " = '" + _was + "'";
+            LOG.debug("SQL voor tellen van berichten batch: " + countsql);
+
+            Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, countsql, new ScalarHandler());
+            LOG.info("Totaal te bewerken records in tabel/kolom: " + table + " is: " + o);
+
+            if (o instanceof BigDecimal) {
+                total(this.total + ((Number) o).longValue());
+            } else if (o instanceof Integer) {
+                total(this.total + ((Number) o).longValue());
+            } else {
+                total(this.total + (Long) o);
+            }
+
+            do {
+                LOG.debug(String.format("Update berichten batch met offset %d, limit %d", offset, batch));
+                String sql = "select * from " + table.getKey() + " where " + table.getValue() + " = '" + _was + "'";
+                sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
+                LOG.trace("SQL voor ophalen berichten batch: " + sql);
+                _processed.setValue(0);
+
+                Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler<Exception>() {
+                    @Override
+                    public Exception handle(ResultSet rs) throws SQLException {
+                        while (rs.next()) {
+                            try {
+                                new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                        .update(conn,
+                                                "update " + table.getKey() + " set " + table.getValue() + " = '" + _wordt + "' where " + table.getValue() + " = '" + _was + "'"
+                                        );
+                            } catch (Exception e) {
+                                return e;
+                            }
+                            _processed.increment();
+                        }
+                        return null;
+                    }
+                });
+                offset += _processed.intValue();
+
+                progress(this.processed + _processed.intValue());
+
+                if (e != null) {
+                    DbUtils.closeQuietly(conn);
+                    throw e;
+                }
+            } while (_processed.intValue() > 0);
+        }
+        DbUtils.closeQuietly(conn);
     }
 }
