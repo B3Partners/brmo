@@ -99,7 +99,7 @@ public class BGTGMLLightLoaderIntegrationTest extends TestingBase {
     @Test
     public void testProcessStadsdeelGMLFile() throws Exception {
         File gml = new File(BGTGMLLightLoaderIntegrationTest.class.getResource("/gmllight/bgt_stadsdeel.gml").toURI());
-        assertEquals("Aantal geschreven features", 4, ldr.processGMLFile(gml));
+        assertEquals("Aantal geschreven features", 3, ldr.processGMLFile(gml));
     }
 
     /**
