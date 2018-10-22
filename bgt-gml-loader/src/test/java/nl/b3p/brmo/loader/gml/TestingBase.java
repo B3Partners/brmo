@@ -166,7 +166,7 @@ public abstract class TestingBase {
 
                 ResultSet res = connection.getMetaData().getTables(null, params.getProperty("schema"), tableName, new String[]{"TABLE"});
                 if (res.next()) {
-                    String sql = "DROP TABLE \"" + params.getProperty("schema") + "\".\"" + tableName + "\";";
+                    String sql = "DROP TABLE \"" + params.getProperty("schema") + "\".\"" + tableName + "\"";
                     LOG.info("Droppen tabel: " + tableName + " met sql: " + sql);
                     try {
                         connection.createStatement().executeUpdate(sql);
@@ -194,8 +194,8 @@ public abstract class TestingBase {
 
                 ResultSet res = connection.getMetaData().getTables(null, params.getProperty("schema"), tableName, new String[]{"TABLE"});
                 if (res.next()) {
-                    String sql = "SELECT COUNT(*) FROM \"" + params.getProperty("schema") + "\".\"" + tableName + "\";";
-                    LOG.trace("count tabel: " + tableName + " met sql: " + sql);
+                    String sql = "SELECT COUNT(*) FROM \"" + params.getProperty("schema") + "\".\"" + tableName + "\"";
+                    LOG.info("count tabel: " + tableName + " met sql: " + sql);
                     try (ResultSet c = connection.createStatement().executeQuery(sql)) {
                         c.next();
                         counts.put(tableName, c.getLong(1));
