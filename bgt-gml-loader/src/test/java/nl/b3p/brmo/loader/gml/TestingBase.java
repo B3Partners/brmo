@@ -8,7 +8,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.Properties;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.geotools.factory.GeoTools;
@@ -92,21 +95,25 @@ public abstract class TestingBase {
         } catch (IOException | NullPointerException e) {
             // negeren; het override bestand is normaal niet aanwezig
         }
+
         isOracle = "oracle".equalsIgnoreCase(params.getProperty("dbtype"));
         isMsSQL = "jtds-sqlserver".equalsIgnoreCase(params.getProperty("dbtype"));
-    }
 
-    /**
-     * Leeg alle database tabellen.
-     *
-     * @throws Exception if any
-     */
-    protected void clearTables() throws Exception {
         try {
             Class.forName(params.getProperty("jdbc.driverClassName"));
         } catch (ClassNotFoundException ex) {
             fail("Laden van database driver (" + params.getProperty("jdbc.driverClassName") + ") is mislukt.");
         }
+    }
+
+    /**
+     * Leeg bekende database tabellen.
+     *
+     * @see BGTGMLLightTransformerFactory#values()
+     *
+     * @throws Exception if any
+     */
+    protected void clearTables() throws Exception {
         try (Connection connection = DriverManager.getConnection(
                 params.getProperty("jdbc.url"),
                 params.getProperty("user"),
@@ -132,7 +139,6 @@ public abstract class TestingBase {
                 }
                 res.close();
             }
-            connection.close();
         }
     }
 
@@ -170,7 +176,37 @@ public abstract class TestingBase {
                 }
                 res.close();
             }
-            connection.close();
         }
+    }
+
+    protected SortedMap<String, Long> countRows() throws Exception {
+        SortedMap<String, Long> counts = new TreeMap<>();
+        try (Connection connection = DriverManager.getConnection(
+                params.getProperty("jdbc.url"),
+                params.getProperty("user"),
+                params.getProperty("passwd"))) {
+
+            connection.setAutoCommit(true);
+
+            String tableName;
+            for (BGTGMLLightTransformerFactory t : BGTGMLLightTransformerFactory.values()) {
+                tableName = isOracle ? t.name().toUpperCase() : t.name();
+
+                ResultSet res = connection.getMetaData().getTables(null, params.getProperty("schema"), tableName, new String[]{"TABLE"});
+                if (res.next()) {
+                    String sql = "SELECT COUNT(*) FROM \"" + params.getProperty("schema") + "\".\"" + tableName + "\";";
+                    LOG.trace("count tabel: " + tableName + " met sql: " + sql);
+                    try (ResultSet c = connection.createStatement().executeQuery(sql)) {
+                        c.next();
+                        counts.put(tableName, c.getLong(1));
+                    }
+                }
+                res.close();
+            }
+        }
+        for (Map.Entry<String, Long> count : counts.entrySet()) {
+            LOG.info("tabel: '" + count.getKey() + "', aantal geteld: " + count.getValue());
+        }
+        return counts;
     }
 }

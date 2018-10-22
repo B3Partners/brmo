@@ -118,21 +118,24 @@ public class BGTGMLLightLoader {
         parser.setFailOnValidationError(false);
     }
 
-    /** Maak alle tabellen in de database leeg, voordat alle BGT kaartbladen
-     * worden ingeladen. Let op! Ook zelfgemaakte extra tabellen worden geleegd, niet
-     * alleen BGT tabellen die door deze loader gevuld kunnen worden. Wordt aangeroepen
-     * voordat meerdere keren processZipFile() wordt aangeroepen voor alle nieuwe
-     * BGT kaartbladen.
+    /**
+     * Maak alle bekende tabellen in de database leeg, voordat alle BGT
+     * kaartbladen worden ingeladen. Wordt aangeroepen voordat meerdere keren
+     * processZipFile() wordt aangeroepen voor alle nieuwe BGT kaartbladen.
+     *
+     * @throws java.sql.SQLException als legen van de tabellen niet lukt
+     * @throws java.io.IOException als opzetten van database verbinding niet
+     * lukt
      */
     public void truncateTables() throws SQLException, IOException {
-        JDBCDataStore dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(dbConnProps);
+        final JDBCDataStore dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(dbConnProps);
         if (dataStore == null) {
             throw new IllegalStateException("Datastore mag niet 'null' zijn voor wissen van data.");
         }
 
         try {
             String name;
-            for (BGTGMLLightTransformerFactory t : BGTGMLLightTransformerFactory.values()){
+            for (BGTGMLLightTransformerFactory t : BGTGMLLightTransformerFactory.values()) {
                 name = isOracle ? t.name().toUpperCase() : t.name();
                 JDBCDataStoreUtil.truncateTable(dataStore, name, isOracle, LOG);
             }
@@ -175,9 +178,7 @@ public class BGTGMLLightLoader {
 
     private int getRecordsCacheSize() {
         int size = 0;
-        for(Map<String,Pair<Date,Boolean>> recordMap: allRecords.values()) {
-            size += recordMap.size();
-        }
+        size = allRecords.values().stream().map((recordMap) -> recordMap.size()).reduce(size, Integer::sum);
         return size;
     }
 
@@ -267,7 +268,7 @@ public class BGTGMLLightLoader {
     /**
      * transformeert de input en slaat op in database.
      *
-     * @param gmlFeatCollection te laden features
+     * @param in Stream met te laden features
      * @param gmlFileName naam input gml bestand
      * @return aantal geschreven features
      *
