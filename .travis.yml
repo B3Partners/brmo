@@ -57,6 +57,7 @@ cache:
 # before_cache:
 
 before_install:
+  - git lfs pull
   # installeer een up-2-date Maven versie
   - wget -nc https://www-eu.apache.org/dist/maven/maven-3/$MVN_VERSION/binaries/apache-maven-$MVN_VERSION-bin.zip -P $HOME/downloads/
   - unzip -qq $HOME/downloads/apache-maven-$MVN_VERSION-bin.zip

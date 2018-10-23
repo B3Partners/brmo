@@ -30,6 +30,7 @@ install:
   - cmd: echo %PATH%
   - cmd: java -version
   - cd C:\projects\brmo
+  - git lfs pull
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-http-proxy.ps1'))
   - ps: .\.appveyor\set-maven-proxy.ps1
   # initial build, no testing
