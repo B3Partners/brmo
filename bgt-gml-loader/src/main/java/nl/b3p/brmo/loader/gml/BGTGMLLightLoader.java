@@ -3,18 +3,15 @@
  */
 package nl.b3p.brmo.loader.gml;
 
-import org.locationtech.jts.geom.Dimension;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.PrecisionModel;
 import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.TopologyException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Arrays;
@@ -28,10 +25,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import javax.xml.parsers.ParserConfigurationException;
-import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.BEGINTIJD_NAME;
-import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.DEFAULT_GEOM_NAME;
+import nl.b3p.brmo.bgt.util.JDBCDataStoreUtil;
 import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.ID_NAME;
-import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.geotools.gml3.ApplicationSchemaConfiguration;
@@ -49,7 +44,6 @@ import org.geotools.data.FeatureStore;
 import org.geotools.data.Transaction;
 import org.geotools.data.simple.SimpleFeatureCollection;
 import org.geotools.factory.CommonFactoryFinder;
-import org.geotools.factory.Hints;
 import org.geotools.feature.FeatureIterator;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
@@ -87,6 +81,12 @@ public class BGTGMLLightLoader {
     private boolean isMSSQL = false;
 
     /**
+     * Bewaar voor elk BGT feature type een map met feature type ids nodig in
+     * storeFeatureCollection()
+     */
+    private final Map<String, Map<String,Pair<Date,Boolean>>> allRecords = new HashMap();
+
+    /**
      * Maak automatisch tabellen aan; normaal niet/default {@code false}.
      */
     private boolean createTables = false;
@@ -99,7 +99,7 @@ public class BGTGMLLightLoader {
      */
     private Geometry omhullendeVanZipFile = null;
 
-    private final StringBuilder opmerkingen = new StringBuilder();
+    private StringBuilder opmerkingen = new StringBuilder();
 
     private STATUS status = STATUS.OK;
 
@@ -116,6 +116,32 @@ public class BGTGMLLightLoader {
         parser.setValidating(true);
         parser.setStrict(false);
         parser.setFailOnValidationError(false);
+    }
+
+    /**
+     * Maak alle bekende tabellen in de database leeg, voordat alle BGT
+     * kaartbladen worden ingeladen. Wordt aangeroepen voordat meerdere keren
+     * processZipFile() wordt aangeroepen voor alle nieuwe BGT kaartbladen.
+     *
+     * @throws java.sql.SQLException als legen van de tabellen niet lukt
+     * @throws java.io.IOException als opzetten van database verbinding niet
+     * lukt
+     */
+    public void truncateTables() throws SQLException, IOException {
+        final JDBCDataStore dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(dbConnProps);
+        if (dataStore == null) {
+            throw new IllegalStateException("Datastore mag niet 'null' zijn voor wissen van data.");
+        }
+
+        try {
+            String name;
+            for (BGTGMLLightTransformerFactory t : BGTGMLLightTransformerFactory.values()) {
+                name = isOracle ? t.name().toUpperCase() : t.name();
+                JDBCDataStoreUtil.truncateTable(dataStore, name, isOracle, LOG);
+            }
+        } finally {
+            dataStore.dispose();
+        }
     }
 
     /**
@@ -150,6 +176,12 @@ public class BGTGMLLightLoader {
         }
     }
 
+    private int getRecordsCacheSize() {
+        int size = 0;
+        size = allRecords.values().stream().map((recordMap) -> recordMap.size()).reduce(size, Integer::sum);
+        return size;
+    }
+
     /**
      * Verwerk een gmllight extract zipfile.
      *
@@ -163,7 +195,7 @@ public class BGTGMLLightLoader {
     public int processZipFile(File zipExtract) throws FileNotFoundException, IOException {
         this.omhullendeVanZipFile = null;
         this.resetStatus();
-
+        LOG.info("Lezen van ZIP bestand " + zipExtract);
         int result = 0, total = 0;
         String eName = "";
         if (this.isValidZipFile(zipExtract)) {
@@ -172,23 +204,29 @@ public class BGTGMLLightLoader {
                 if (entry == null) {
                     LOG.error("Geen bestanden in zipfile (" + zipExtract + ") gevonden.");
                 }
+                int beforeRecords = getRecordsCacheSize();
                 // for each gml in zip
                 while (entry != null) {
                     if (!entry.getName().toLowerCase().endsWith(".gml")) {
                         LOG.warn("Overslaan zip entry geen GML bestand: " + entry.getName());
                     } else {
                         eName = entry.getName();
-                        LOG.info("Lezen GML bestand: " + eName + " uit zip file: " + zipExtract.getCanonicalPath());
+                        LOG.debug("Lezen GML bestand: " + eName + " uit zip file: " + zipExtract.getCanonicalPath());
                         result = storeFeatureCollection(new CloseShieldInputStream(zip), eName.toLowerCase());
-                        opmerkingen.append(result)
-                                .append(" features geladen uit: ")
-                                .append(eName).append(", zipfile: ")
-                                .append(zipExtract.getCanonicalPath())
-                                .append("\n");
+                        if(result != 0 ) {
+                            opmerkingen.append(result)
+                                    .append(" features geladen uit: ")
+                                    .append(eName).append(", zipfile: ")
+                                    .append(zipExtract.getCanonicalPath())
+                                    .append("\n");
+                        }
                         total += result;
+
                     }
                     entry = zip.getNextEntry();
                 }
+                int afterRecords = getRecordsCacheSize();
+                LOG.info(String.format("Aantal ID's van alle BGT feature types in geheugen: %d (verschil dit bestand: %+d)", afterRecords, afterRecords - beforeRecords));
 
             } catch (SAXException | ParserConfigurationException ex) {
                 LOG.error("Er is een parse fout opgetreden tijdens verwerken van " + eName + " uit " + zipExtract.getCanonicalPath(), ex);
@@ -230,7 +268,7 @@ public class BGTGMLLightLoader {
     /**
      * transformeert de input en slaat op in database.
      *
-     * @param gmlFeatCollection te laden features
+     * @param in Stream met te laden features
      * @param gmlFileName naam input gml bestand
      * @return aantal geschreven features
      *
@@ -264,10 +302,12 @@ public class BGTGMLLightLoader {
         }
 
         if (gmlFeatCollection.isEmpty()) {
-            opmerkingen.append("Geen features gevonden in bestand: ").append(gmlFileName).append("\n");
-            LOG.info("Geen features gevonden in bestand: " + gmlFileName);
+            //opmerkingen.append("Geen features gevonden in bestand: ").append(gmlFileName).append("\n");
+            LOG.debug("Geen features gevonden in bestand: " + gmlFileName);
             dataStore.dispose();
             return 0;
+        } else {
+            LOG.debug("Verwerken features uit GML bestand: " + gmlFileName);
         }
 
         SimpleFeatureType sft = gmlFeatCollection.getSchema();
@@ -310,45 +350,19 @@ public class BGTGMLLightLoader {
         } else {
             // als tabel bestaat aannemen dat deze de juiste primary key heeft
             dataStore.setExposePrimaryKeyColumns(true);
-
-            // huidige records verwijderen
-            LOG.info("Probeer tabel leeg te maken: " + targetSchema.getTypeName());
-
-            try {
-                StringBuffer sql = new StringBuffer("TRUNCATE TABLE ");
-                Method encodeTableName = dataStore.getClass().getDeclaredMethod("encodeTableName", String.class, StringBuffer.class, Hints.class);
-                encodeTableName.setAccessible(true);
-                encodeTableName.invoke(dataStore, targetSchema.getTypeName(), sql, null);
-
-                if(this.isOracle) {
-                    sql.append(" PURGE MATERIALIZED VIEW LOG REUSE STORAGE");
-                }
-                LOG.debug("SQL: " + sql.toString());
-                new QueryRunner(dataStore.getDataSource()).update(sql.toString());
-                LOG.info("Tabel leeggemaakt");
-            } catch(Exception e) {
-                LOG.debug("Exception bij TRUNCATE", e);
-                LOG.error("Fout bij TRUNCATE, probeer met DELETE FROM: " + e.getClass() + ": " + e.getMessage());
-
-                try {
-                    StringBuffer sql = new StringBuffer("DELETE FROM ");
-                    Method encodeTableName = dataStore.getClass().getDeclaredMethod("encodeTableName", String.class, StringBuffer.class, Hints.class);
-                    encodeTableName.setAccessible(true);
-                    encodeTableName.invoke(dataStore, targetSchema.getTypeName(), sql, null);
-                    LOG.debug("SQL: " + sql.toString());
-                    new QueryRunner(dataStore.getDataSource()).update(sql.toString());
-                LOG.info("Tabel leeggemaakt met DELETE FROM");
-                } catch(Exception e2) {
-                    LOG.error("Fout bij DELETE FROM, tabel kon niet leeggemaakt worden! ", e2);
-                }
-            }
         }
 
         // Map om per ID bij te houden wat meest recente tijdstipRegistratie en beeindigd status is
         // Niet in map: niet in tabel
         // TRUE: beeindigd en niet in tabel
         // FALSE: niet beeindigd, en in tabel
-        Map<String,Pair<Date,Boolean>> records = new HashMap();
+        Map<String,Pair<Date,Boolean>> records = allRecords.get(tableName);
+        if(records == null) {
+            records = new HashMap();
+            allRecords.put(tableName, records);
+        } else {
+            LOG.debug("Aantal ID's voor deze tabel al bekend in geheugen van vorige GML bestanden: " + records.size());
+        }
 
         Transaction transaction = new DefaultTransaction("add-bgt");
         Transaction updatetransaction = new DefaultTransaction("update-bgt");
@@ -448,11 +462,9 @@ public class BGTGMLLightLoader {
                     records.put(id, new ImmutablePair<>(tijdstipRegistratie, false));
                 }
             }
-            String s = String.format("Totaal verwerkte features voor %s: %d, inserts: %d, updates: %d, deletes: %d\n", gmlFileName, features, inserts, updates, deletes);
-            opmerkingen.append(s).append("\n");
-            LOG.info(s);
+            LOG.info(String.format("Totaal verwerkte features voor %s: %d, inserts: %d, updates: %d, deletes: %d", gmlFileName, features, inserts, updates, deletes));
         } catch (IOException ioe) {
-            String s = String.format("Fout opgetreden, hiervoor verwerkte features voor %s: %d, inserts: %d, updates: %d, deletes: %d\n", gmlFileName, features, inserts, updates, deletes);
+            String s = String.format("Fout opgetreden, hiervoor verwerkte features voor %s: %d, inserts: %d, updates: %d, deletes: %d", gmlFileName, features, inserts, updates, deletes);
             opmerkingen.append(s).append("\n");
             LOG.info(s);
 
@@ -670,5 +682,6 @@ public class BGTGMLLightLoader {
 
     public void resetStatus() {
         this.status = STATUS.OK;
+        opmerkingen = new StringBuilder();
     }
 }

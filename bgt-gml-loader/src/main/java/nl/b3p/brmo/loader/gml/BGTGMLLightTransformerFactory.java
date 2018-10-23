@@ -17,7 +17,7 @@ public enum BGTGMLLightTransformerFactory {
     // NB (mogelijk) geen geometrie,
     // TODO nog geen voorbeeld of bestand gezien...
     // zie: https://github.com/B3Partners/brmo/issues/324
-    inrichtingselement("", "Inrichtingselement"),
+    // inrichtingselement("", "Inrichtingselement"),
     // doen we niet/nooit
     // plaatsbepalingspunt("", ""),
     

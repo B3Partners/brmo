@@ -35,8 +35,6 @@
         <xsl:text>
 -- brmo versienummer
 INSERT INTO brmo_metadata (naam, waarde) VALUES ('brmoversie','</xsl:text><xsl:value-of select="$versie"/><xsl:text>');
--- gemeente data versie
-INSERT INTO brmo_metadata (naam, waarde) VALUES ('update_gem_tabel', '</xsl:text><xsl:value-of select="$versie"/><xsl:text>');
 </xsl:text>
     </xsl:template>
 

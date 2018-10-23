@@ -2,7 +2,14 @@
 -- upgrade SQLserver RSGBBGT datamodel van 1.6.0 naar 1.6.1 
 --
 
+-- herstel brmo versie metadata, zie: #543
+INSERT INTO brmo_metadata (naam, waarde) SELECT 'brmoversie', '1.6.0'
+            WHERE NOT EXISTS (SELECT naam FROM brmo_metadata WHERE naam = 'brmoversie');
+
+GO
+
 -- voeg tabel voor klasse Stadsdeel toe
+-- #546
 CREATE TABLE stadsdeel (
         identif varchar(255) NOT NULL,
         dat_beg_geldh date,
@@ -16,6 +23,8 @@ CREATE TABLE stadsdeel (
 );
 
 CREATE SPATIAL INDEX stadsdeel_geom2d_idx ON stadsdeel(geom2d) WITH ( BOUNDING_BOX = (12000,304000,280000,620000));
+
+GO
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.6.0_naar_1.6.1','vorige versie was ' + waarde FROM brmo_metadata WHERE naam='brmoversie';

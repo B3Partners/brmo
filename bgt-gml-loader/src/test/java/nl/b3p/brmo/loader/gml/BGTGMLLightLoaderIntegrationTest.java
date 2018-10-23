@@ -34,7 +34,7 @@ public class BGTGMLLightLoaderIntegrationTest extends TestingBase {
     private final Lock sequential = new ReentrantLock();
 
     /**
-     * set up test object.
+     * set up test object BGTGMLLightLoader.
      *
      * @throws IOException als laden van property file mislukt
      */
@@ -47,13 +47,12 @@ public class BGTGMLLightLoaderIntegrationTest extends TestingBase {
         ldr = new BGTGMLLightLoader();
         ldr.setDbConnProps(params);
         ldr.setCreateTables(false);
+        ldr.truncateTables();
 
-//        clearTables();
     }
 
     @After
     public void cleanUp() throws Exception {
-//        clearTables();
         sequential.unlock();
     }
 
