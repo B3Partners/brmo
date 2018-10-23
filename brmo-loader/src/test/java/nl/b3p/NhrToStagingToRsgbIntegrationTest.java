@@ -274,6 +274,8 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         if (vestgID != null) {
             ITable vestg = rsgb.createDataSet().getTable("vestg");
             assertEquals("De 'sc_identif' van hoofdvestiging klopt niet", vestgID, vestg.getValue(0, "sc_identif"));
+            assertEquals("De sbi code van (hoofd)vestiging klopt niet", sbiCodes[0], vestg.getValue(0, "fk_sa_sbi_activiteit_sbi_code"));
+            assertEquals("De 'sa_indic_hoofdactiviteit' van (hoofd)vestiging klopt niet", "Ja", vestg.getValue(0, "sa_indic_hoofdactiviteit"));
         }
         // TODO check aantal vestigingen, zie ook: #522, nu hooguit 1 hoofdVestg...
         // assertEquals("het aantal 'vestg' records klopt niet", aantalVestg, vestg.getRowCount());

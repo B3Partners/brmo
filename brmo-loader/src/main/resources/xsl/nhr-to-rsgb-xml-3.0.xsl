@@ -395,6 +395,11 @@
             <toevoeging_adres><xsl:value-of select="cat:bezoekLocatie/cat:toevoegingAdres"/></toevoeging_adres>
 
             <activiteit_omschr><xsl:value-of select="cat:activiteiten/cat:omschrijving"/></activiteit_omschr>
+
+            <xsl:if test="cat:activiteiten/cat:sbiActiviteit/cat:isHoofdactiviteit/cat:code = 'J'">
+                <fk_sa_sbi_activiteit_sbi_code><xsl:value-of select="cat:activiteiten/cat:sbiActiviteit/cat:sbiCode/cat:code"/></fk_sa_sbi_activiteit_sbi_code>
+                <sa_indic_hoofdactiviteit><xsl:value-of select="cat:activiteiten/cat:sbiActiviteit/cat:isHoofdactiviteit/cat:omschrijving"/></sa_indic_hoofdactiviteit>
+            </xsl:if>
         </vestg>
         <!--xsl:comment> Gaat uit van fixed issue #139, #140</xsl:comment-->
         <xsl:for-each select="cat:activiteiten/cat:hoofdSbiActiviteit | cat:activiteiten/cat:sbiActiviteit">
