@@ -97,6 +97,17 @@ public class BGTGMLLightLoaderIntegrationTest extends TestingBase {
      * @throws Exception if any
      */
     @Test
+    public void testProcessStadsdeelGMLFile() throws Exception {
+        File gml = new File(BGTGMLLightLoaderIntegrationTest.class.getResource("/gmllight/bgt_stadsdeel.gml").toURI());
+        assertEquals("Aantal geschreven features", 3, ldr.processGMLFile(gml));
+    }
+
+    /**
+     * test parsen en laden van 1 bestand in bestaande tabel.
+     *
+     * @throws Exception if any
+     */
+    @Test
     public void testProcessOpenbareRuimteGMLFile() throws Exception {
         File gml = new File(BGTGMLLightLoaderIntegrationTest.class.getResource("/gmllight/bgt_openbareruimte.gml").toURI());
         assertEquals("Aantal geschreven features", 26, ldr.processGMLFile(gml));
