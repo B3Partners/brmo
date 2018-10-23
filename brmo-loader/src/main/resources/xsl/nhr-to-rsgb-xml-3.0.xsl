@@ -157,6 +157,8 @@
                                 <fk_8aoa_identif>
                                     <xsl:value-of select="cat:bezoekLocatie/cat:adres/cat:binnenlandsAdres/cat:bagId/cat:identificatieAdresseerbaarObject" />
                                 </fk_8aoa_identif>
+                                <rechtsvorm><xsl:value-of select="cat:persoonRechtsvorm"/></rechtsvorm>
+                                <publiekrechtelijke_rechtsvorm><xsl:value-of select="cat:publiekrechtelijkeRechtsvorm/cat:omschrijving"/></publiekrechtelijke_rechtsvorm>
                             </ingeschr_niet_nat_prs>
                         </xsl:when>
                     </xsl:choose>
@@ -277,6 +279,7 @@
             <!--xsl:for-each select="cat:heeftAlsEigenaar/*">
                 <rsin><xsl:value-of select="cat:rsin"/></rsin>
                 <rechtsvorm><xsl:value-of select="cat:persoonRechtsvorm"/></rechtsvorm>
+                <publiekrechtelijke_rechtsvorm><xsl:value-of select="cat:publiekrechtelijkeRechtsvorm/cat:omschrijving"/></publiekrechtelijke_rechtsvorm>
                 <statutaire_zetel><xsl:value-of select="cat:statutaireZetel"/></statutaire_zetel>
 
                 <!- - TODO: rechtstoestand - ->
@@ -507,6 +510,7 @@
 
             <rsin><xsl:value-of select="cat:rsin"/></rsin>
             <rechtsvorm><xsl:value-of select="cat:persoonRechtsvorm"/></rechtsvorm>
+            <publiekrechtelijke_rechtsvorm><xsl:value-of select="cat:publiekrechtelijkeRechtsvorm/cat:omschrijving"/></publiekrechtelijke_rechtsvorm>
             <statutaire_zetel><xsl:value-of select="cat:statutaireZetel"/></statutaire_zetel>
 
             <!-- TODO heeft (comfortdata) -->
