@@ -28,12 +28,13 @@ matrix:
   fast_finish: true
   allow_failures:
     # - jdk: oraclejdk9
-    # vanwege timeout
+    # vanwege build timeout (soms)
     - name: "MS SQL server 2017"
   include:
   - name: "Oudste supported PostgreSQL"
     jdk: oraclejdk8
-    # EOL September 2018
+    # final release (==EOL): November 8, 2018
+    # https://www.postgresql.org/support/versioning/
     env: PG_VERSION="9.3"
     addons:
       postgresql: 9.3

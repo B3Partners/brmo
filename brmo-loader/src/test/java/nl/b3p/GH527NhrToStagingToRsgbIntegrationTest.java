@@ -123,9 +123,9 @@ public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
         assumeNotNull("Het test bestand moet er zijn.", GH527NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam));
 
         brmo.loadFromFile("nhr", GH527NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile());
-        LOG.debug("klaar met laden van berichten in staging DB.");
+        LOG.info("klaar met laden van berichten in staging DB.");
 
-        LOG.debug("Transformeren berichten naar rsgb DB.");
+        LOG.info("Transformeren berichten naar rsgb DB.");
         Thread t = brmo.toRsgb();
         t.join();
 
