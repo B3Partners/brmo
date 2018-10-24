@@ -34,7 +34,8 @@ import static org.junit.Assume.assumeTrue;
 
 /**
  * Integratie test om een nhr dataservice soap bericht te laden en te
- * transformeren, bevat een testcase voor testcase voor GH issue#527.
+ * transformeren, bevat een testcase voor GH issue#527 (Soms is de typering en class
+ * van een persoon uit de nHR voorzien van enkele quotes).
  * <br>Draaien met:
  * {@code mvn -Dit.test=GH527NhrToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
  * voor bijvoorbeeld PostgreSQL
