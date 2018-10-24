@@ -39,20 +39,20 @@ public class JDBCDataStoreUtil {
             if(isOracle) {
                 sql.append(" PURGE MATERIALIZED VIEW LOG REUSE STORAGE");
             }
-            log.debug("SQL: " + sql.toString());
+            log.trace("SQL: " + sql.toString());
             new QueryRunner(dataStore.getDataSource()).update(sql.toString());
             log.info("Tabel leeggemaakt");
             return true;
         } catch(Exception e) {
             log.debug("Exception bij TRUNCATE", e);
-            log.error("Fout bij TRUNCATE, probeer met DELETE FROM: " + e.getClass() + ": " + e.getMessage());
+            log.warn("Fout bij TRUNCATE, probeer met DELETE FROM: " + e.getClass() + ": " + e.getMessage());
 
             try {
                 StringBuffer sql = new StringBuffer("DELETE FROM ");
                 Method encodeTableName = dataStore.getClass().getDeclaredMethod("encodeTableName", String.class, StringBuffer.class, Hints.class);
                 encodeTableName.setAccessible(true);
                 encodeTableName.invoke(dataStore, typeName, sql, null);
-                log.debug("SQL: " + sql.toString());
+                log.trace("SQL: " + sql.toString());
                 new QueryRunner(dataStore.getDataSource()).update(sql.toString());
                 log.info("Tabel leeggemaakt met DELETE FROM");
                 return true;

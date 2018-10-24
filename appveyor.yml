@@ -2,6 +2,7 @@ version: "{build}-{branch}"
 clone_folder: c:\projects\brmo
 clone_depth: 5
 skip_tags: true
+max_jobs: 1
 
 init:
   - git config --global core.autocrlf input
@@ -9,37 +10,52 @@ init:
   - cmd: net start %SQL%
 
 environment:
-  # Microsoft SQL Server 2014 Service Pack 2 heeft een EOL van 9-7-2019
+  BGT_ONLY_ITESTS : false
   # Microsoft SQL Server 2016 Service Pack 1 heeft een EOL van 13-7-2021
-  # Microsoft SQL Server 2017 is de jongst-beschikbare release op AppVeyor, maar testen we op Travis-CI (sneller)
+  # Microsoft SQL Server 2017 is de jongst-beschikbare release op AppVeyor, maar testen we op Travis-CI (veel sneller)
+  # Microsoft SQL Server 2014 Service Pack 2 heeft een EOL van 9-7-2019
   matrix:
-    - SQL: MSSQL$SQL2014
-      INSTANCENAME: SQL2014
-      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
     - SQL: MSSQL$SQL2016
       INSTANCENAME: SQL2016
       JAVA_HOME: C:\Program Files\Java\jdk1.8.0
   #  - SQL: MSSQL$SQL2017
   #    INSTANCENAME: SQL2017
   #    JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+    - SQL: MSSQL$SQL2016
+      INSTANCENAME: SQL2016
+      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+      BGT_ONLY_ITESTS : true
+    - SQL: MSSQL$SQL2014
+      INSTANCENAME: SQL2014
+      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
 
 matrix:
   fast_finish: true
 
 install:
+
+  - ps: |
+      if (!(Test-Path("C:\Users\appveyor\downloads\maven-bin.zip"))) {
+        Add-Type -AssemblyName System.IO.Compression.FileSystem
+          (new-object System.Net.WebClient).DownloadFile('https://archive.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.zip', 'C:\Users\appveyor\downloads\maven-bin.zip')
+
+      }
+      [System.IO.Compression.ZipFile]::ExtractToDirectory("C:\Users\appveyor\downloads\maven-bin.zip", "C:\maven")
+  - cmd: SET PATH=C:\maven\apache-maven-3.5.4\bin;%PATH%
   - cmd: echo %PATH%
   - cmd: java -version
+  - cmd: mvn -v
   - cd C:\projects\brmo
   - git lfs pull
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-http-proxy.ps1'))
   - ps: .\.appveyor\set-maven-proxy.ps1
-  # initial build, no testing
+
+# initial build/code generation, no testing
+build_script:
   - mvn install -Dmaven.test.skip=true -B -V -fae -q -Pmssql -pl "!brmo-dist"
 
-build: off
-
-before_test:
 # services worden na install gestart en we hebben gegenereerde sql nodig
+after_build:
   - cmd: echo "aanmaken en opzetten STAGING DB"
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -Q "CREATE DATABASE staging" -d "master"
   - dir -w .\brmo-persistence\db\
@@ -79,18 +95,19 @@ test_script:
   # unit tests
   - mvn -e test -B -Pmssql -pl "!brmo-dist"
   # integratie tests
-  # run integratie tests voor bgt-gml-loader module
-  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-gml-loader" -Dmssql.instancename=%INSTANCENAME%
+  # run integratie tests voor bgt-gml-loader module (30min)
+  - if "%BGT_ONLY_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-gml-loader" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-loader module
-  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-loader" -Dmssql.instancename=%INSTANCENAME%
+  - if "%BGT_ONLY_ITESTS%"=="false" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-loader" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-service module
-  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-service" -Dmssql.instancename=%INSTANCENAME%
+  - if "%BGT_ONLY_ITESTS%"=="false" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-service" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-soap module
-  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-soap" -Dmssql.instancename=%INSTANCENAME%
+  - if "%BGT_ONLY_ITESTS%"=="false" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-soap" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-stufbg204 module
-  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-stufbg204" -Dmssql.instancename=%INSTANCENAME%
+  - if "%BGT_ONLY_ITESTS%"=="false" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-stufbg204" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-commandline module
-  - mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-commandline" -Dmssql.instancename=%INSTANCENAME%
+  - if "%BGT_ONLY_ITESTS%"=="false" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-commandline" -Dmssql.instancename=%INSTANCENAME%
 
 cache:
   - C:\Users\appveyor\.m2\repository -> pom.xml
+  - C:\Users\appveyor\downloads -> appveyor.yml

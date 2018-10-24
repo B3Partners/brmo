@@ -167,7 +167,7 @@ public abstract class TestingBase {
                 ResultSet res = connection.getMetaData().getTables(null, params.getProperty("schema"), tableName, new String[]{"TABLE"});
                 if (res.next()) {
                     String sql = "DROP TABLE \"" + params.getProperty("schema") + "\".\"" + tableName + "\"";
-                    LOG.info("Droppen tabel: " + tableName + " met sql: " + sql);
+                    LOG.trace("Droppen tabel: " + tableName + " met sql: " + sql);
                     try {
                         connection.createStatement().executeUpdate(sql);
                     } catch (SQLException se) {
@@ -195,7 +195,7 @@ public abstract class TestingBase {
                 ResultSet res = connection.getMetaData().getTables(null, params.getProperty("schema"), tableName, new String[]{"TABLE"});
                 if (res.next()) {
                     String sql = "SELECT COUNT(*) FROM \"" + params.getProperty("schema") + "\".\"" + tableName + "\"";
-                    LOG.info("count tabel: " + tableName + " met sql: " + sql);
+                    LOG.trace("count tabel: " + tableName + " met sql: " + sql);
                     try (ResultSet c = connection.createStatement().executeQuery(sql)) {
                         c.next();
                         counts.put(tableName, c.getLong(1));
@@ -205,7 +205,7 @@ public abstract class TestingBase {
             }
         }
         for (Map.Entry<String, Long> count : counts.entrySet()) {
-            LOG.info("tabel: '" + count.getKey() + "', aantal geteld: " + count.getValue());
+            LOG.info("tabel: '" + count.getKey() + "', aantal features geteld: " + count.getValue());
         }
         return counts;
     }

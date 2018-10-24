@@ -25,6 +25,9 @@ LEVELS: debug, info, warn, error, fatal en off, all -->
     <logger name="nl.b3p.brmo.loader.gml">
         <level value="info" />
     </logger>
+    <logger name="nl.b3p.brmo.bgt.util">
+        <level value="warn" />
+    </logger>
     <root>
         <level value="info" />
         <appender-ref ref="consoleAppender" />
