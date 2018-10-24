@@ -230,7 +230,7 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         assumeNotNull("Het test bestand moet er zijn.", NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam));
 
         brmo.loadFromFile(BESTANDTYPE, NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile());
-        LOG.debug("klaar met laden van berichten in staging DB.");
+        LOG.info("klaar met laden van berichten in staging DB.");
 
         List<Bericht> berichten = brmo.listBerichten();
         List<LaadProces> processen = brmo.listLaadProcessen();
@@ -239,7 +239,7 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         assertNotNull("De verzameling processen bestaat niet.", processen);
         assertEquals("Het aantal processen is niet als verwacht.", aantalProcessen, processen.size());
 
-        LOG.debug("Transformeren berichten naar rsgb DB.");
+        LOG.info("Transformeren berichten naar rsgb DB.");
         Thread t = brmo.toRsgb();
         t.join();
 
