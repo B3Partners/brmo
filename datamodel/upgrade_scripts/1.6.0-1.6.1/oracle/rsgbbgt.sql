@@ -6,6 +6,8 @@
 --
 -- LET OP: als de naam van het RSGBBGT schema anders is dan 'BRMO_RSGBBGT' dan moeten
 --         onderstaande inserts aangepast worden
+-- LET OP: Als er geen BGTlight is verwerkt met versie 1.6.0 dan zullen de meeste van onderstaande insert statements
+--         een "ORA-00001: unique constraint violation" opleveren omdat de inhoud van de tabellen dan niet gewist is
 -- zie #543
 INSERT INTO GT_PK_METADATA VALUES ('BRMO_RSGBBGT', 'BAK', 'IDENTIF', NULL, 'assigned', NULL);
 INSERT INTO GT_PK_METADATA VALUES ('BRMO_RSGBBGT', 'BEGROEID_TERREINDEEL', 'IDENTIF', NULL, 'assigned', NULL);
@@ -179,6 +181,9 @@ INSERT INTO GEOMETRY_COLUMNS (F_TABLE_SCHEMA, F_TABLE_NAME, F_GEOMETRY_COLUMN, C
 INSERT INTO brmo_metadata SELECT 'brmoversie', '1.6.0' FROM dual
             WHERE NOT EXISTS (SELECT naam FROM brmo_metadata WHERE naam = 'brmoversie');
 COMMIT;
+
+
+
 
 -- voeg tabel voor klasse Stadsdeel toe
 -- #546
