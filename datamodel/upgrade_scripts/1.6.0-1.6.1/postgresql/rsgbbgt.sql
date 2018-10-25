@@ -4,7 +4,6 @@
 -- herstel brmo versie metadata, zie: #543
 INSERT INTO brmo_metadata (naam, waarde) SELECT 'brmoversie', '1.6.0'
             WHERE NOT EXISTS (SELECT naam FROM brmo_metadata WHERE naam = 'brmoversie');
-COMMIT;
 
 -- voeg tabel voor klasse Stadsdeel toe
 -- #546
