@@ -16,7 +16,6 @@
       Negeer melding mbt gt-coverage jar, false positive mbt jpeg thumbnail disclosure.
       ]]></notes>
         <gav regex="true">^org\.geotools:gt-coverage:.*$</gav>
-        <!-- <cpe>cpe:/a:image_processing_software:image_processing_software</cpe> -->
         <cve>CVE-2005-0406</cve>
     </suppress>
     <suppress>
@@ -44,5 +43,12 @@
         <gav regex="true">^org\.glassfish\.ha:ha-api:3\.1\.9$</gav>
         <cve>CVE-2013-2566</cve>
         <cve>CVE-2015-2808</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+      Negeer melding mbt postgresql jdbc driver, deze CVE is voor een ander product
+        ]]></notes>
+        <filePath regex="true">.*\bpostgresql-42.2.5\.jar</filePath>
+        <cve>CVE-2016-7048</cve>
     </suppress>
 </suppressions>
