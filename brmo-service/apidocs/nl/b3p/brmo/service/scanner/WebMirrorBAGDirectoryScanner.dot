@@ -129,10 +129,13 @@ digraph G {
 <tr><td align="left" balign="left"> + listLaadProcessen() : List&lt;LaadProces&gt; </td></tr>
 <tr><td align="left" balign="left"> + listBerichten() : List&lt;Bericht&gt; </td></tr>
 <tr><td align="left" balign="left"> + loadFromFile(arg0 : String, arg1 : String) </td></tr>
-<tr><td align="left" balign="left"> + loadFromFile(arg0 : String, arg1 : String, arg2 : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + loadFromFile(arg0 : String, arg1 : String, arg2 : Long) </td></tr>
+<tr><td align="left" balign="left"> + loadFromFile(arg0 : String, arg1 : String, arg2 : ProgressUpdateListener, arg3 : Long) </td></tr>
 <tr><td align="left" balign="left"> + loadFromStream(arg0 : String, arg1 : InputStream, arg2 : String) </td></tr>
+<tr><td align="left" balign="left"> + loadFromStream(arg0 : String, arg1 : InputStream, arg2 : String, arg3 : Long) </td></tr>
 <tr><td align="left" balign="left"> + loadFromStream(arg0 : String, arg1 : InputStream, arg2 : String, arg3 : Date) </td></tr>
-<tr><td align="left" balign="left"> + loadFromStream(arg0 : String, arg1 : InputStream, arg2 : String, arg3 : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + loadFromStream(arg0 : String, arg1 : InputStream, arg2 : String, arg3 : Date, arg4 : Long) </td></tr>
+<tr><td align="left" balign="left"> + loadFromStream(arg0 : String, arg1 : InputStream, arg2 : String, arg3 : ProgressUpdateListener, arg4 : Long) </td></tr>
 <tr><td align="left" balign="left"> + emptyStagingDb() </td></tr>
 <tr><td align="left" balign="left"> + getLaadProcesIdByFileName(arg0 : String) : Long </td></tr>
 <tr><td align="left" balign="left"> + getBerichtById(arg0 : long) : Bericht </td></tr>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<database name="itest_rsgb" schema="public" type="PostgreSQL - 9.6.10">
+<database name="rsgb" schema="public" type="PostgreSQL - 9.4.19">
    <tables>
       <table name="aard_recht_verkort" numRows="24" remarks="RSGB referentielijst AARD RECHT VERKORT" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="aand" nullable="false" remarks="Referentielijst property AARD RECHT VERKORT.Aanduiding aard recht verkort - Aanduiding aard recht verkort" size="4" type="varchar">
@@ -312,7 +312,7 @@
             <column ascending="true" name="fk_nn_rh_btr_sc_identif"/>
          </index>
       </table>
-      <table name="brmo_metadata" numRows="1" remarks="BRMO metadata en versie gegevens" schema="public" type="TABLE">
+      <table name="brmo_metadata" numRows="1" remarks="BRMO systeem metadata en versie gegevens" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="naam" nullable="false" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="waarde" nullable="true" remarks="" size="255" type="varchar"/>
          <primaryKey column="naam" sequenceNumberInPK="1"/>
@@ -320,7 +320,7 @@
             <column ascending="true" name="naam"/>
          </index>
       </table>
-      <table name="brondocument" numRows="0" remarks="BRMO bevat referenties naar de brondocumenten uit de verschillende basis registraties" schema="public" type="TABLE">
+      <table name="brondocument" numRows="0" remarks="BRMO bevat referenties naar de brondocumenten van de verschillende basis registraties" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="tabel" nullable="false" remarks="" size="30" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="tabel_identificatie" nullable="false" remarks="" size="50" type="varchar"/>
          <column autoUpdated="false" digits="0" id="2" name="identificatie" nullable="false" remarks="" size="50" type="varchar"/>
@@ -688,7 +688,7 @@
          <column autoUpdated="false" digits="0" id="5" name="srid" nullable="true" remarks="" size="10" type="int4"/>
          <column autoUpdated="false" digits="0" id="6" name="type" nullable="true" remarks="" size="30" type="varchar"/>
       </table>
-      <table name="herkomst_metadata" numRows="0" remarks="" schema="public" type="TABLE">
+      <table name="herkomst_metadata" numRows="0" remarks="BRMO bevat informatie over oorsprong van subject records" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="tabel" nullable="false" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="kolom" nullable="false" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="2" name="waarde" nullable="false" remarks="" size="255" type="varchar"/>
@@ -1971,7 +1971,7 @@
             <column ascending="true" name="geom"/>
          </index>
       </table>
-      <table name="spatial_ref_sys" numRows="5435" remarks="" schema="public" type="TABLE">
+      <table name="spatial_ref_sys" numRows="5757" remarks="" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="srid" nullable="false" remarks="" size="10" type="int4"/>
          <column autoUpdated="false" digits="0" id="1" name="auth_name" nullable="true" remarks="" size="256" type="varchar"/>
          <column autoUpdated="false" digits="0" id="2" name="auth_srid" nullable="true" remarks="" size="10" type="int4"/>

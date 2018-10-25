@@ -19,6 +19,7 @@ digraph G {
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + PDOKBGTLightUtilTest() </td></tr>
+<tr><td align="left" balign="left"> + initGeotools() </td></tr>
 <tr><td align="left" balign="left"> + calculateGridIdsOfflineTest() </td></tr>
 <tr><td align="left" balign="left"> + calculateGridIdsOnlineTest() </td></tr>
 		</table></td></tr>

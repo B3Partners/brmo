@@ -9,8 +9,21 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.bgt.util.JDBCDataStoreUtil
+	c0 [label=<<table title="nl.b3p.brmo.bgt.util.JDBCDataStoreUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./JDBCDataStoreUtil.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> JDBCDataStoreUtil </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + JDBCDataStoreUtil() </td></tr>
+<tr><td align="left" balign="left"> + truncateTable(dataStore : JDBCDataStore, typeName : String, isOracle : boolean, log : Log) : boolean </td></tr>
+		</table></td></tr>
+		</table>>, URL="./JDBCDataStoreUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.bgt.util.PDOKBGTLightUtil
-	c0 [label=<<table title="nl.b3p.brmo.bgt.util.PDOKBGTLightUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PDOKBGTLightUtil.html">
+	c1 [label=<<table title="nl.b3p.brmo.bgt.util.PDOKBGTLightUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PDOKBGTLightUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PDOKBGTLightUtil </td></tr>
 		</table></td></tr>

@@ -162,7 +162,7 @@
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>                     sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>                     <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>                         brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(ConfigUtil.getDataSourceStaging(), <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>                         brmo.loadFromFile(BrmoFramework.BR_BGTLIGHT, gmlZip.getAbsolutePath(), <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>                         brmo.loadFromFile(BrmoFramework.BR_BGTLIGHT, gmlZip.getAbsolutePath(), config.getId());
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>                         aantalGeladen++;
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>                     } <strong class="jxr_keyword">catch</strong> (<a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> ex) {
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>                         msg = <span class="jxr_string">"GML Bestand kon niet worden geladen."</span>;

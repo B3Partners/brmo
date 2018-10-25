@@ -9,22 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.bgt.util.PDOKBGTLightUtilTest
-	c162 [label=<<table title="nl.b3p.brmo.bgt.util.PDOKBGTLightUtilTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../bgt/util/PDOKBGTLightUtilTest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PDOKBGTLightUtilTest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PDOKBGTLightUtilTest() </td></tr>
-<tr><td align="left" balign="left"> + calculateGridIdsOfflineTest() </td></tr>
-<tr><td align="left" balign="left"> + calculateGridIdsOnlineTest() </td></tr>
-		</table></td></tr>
-		</table>>, URL="../../bgt/util/PDOKBGTLightUtilTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest
-	c163 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoaderUpdateIntegrationTest.html">
+	c190 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoaderUpdateIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoaderUpdateIntegrationTest </td></tr>
 		</table></td></tr>
@@ -40,7 +26,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoaderUpdateIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.Mantis11620GmlLightLoaderIntegrationTest
-	c164 [label=<<table title="nl.b3p.brmo.loader.gml.Mantis11620GmlLightLoaderIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis11620GmlLightLoaderIntegrationTest.html">
+	c191 [label=<<table title="nl.b3p.brmo.loader.gml.Mantis11620GmlLightLoaderIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis11620GmlLightLoaderIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Mantis11620GmlLightLoaderIntegrationTest </td></tr>
 		</table></td></tr>
@@ -55,7 +41,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Mantis11620GmlLightLoaderIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTNullGeomIntegrationTest
-	c165 [label=<<table title="nl.b3p.brmo.loader.gml.BGTNullGeomIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTNullGeomIntegrationTest.html">
+	c192 [label=<<table title="nl.b3p.brmo.loader.gml.BGTNullGeomIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTNullGeomIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTNullGeomIntegrationTest </td></tr>
 		</table></td></tr>
@@ -71,7 +57,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTNullGeomIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderIntegrationTest
-	c166 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoaderIntegrationTest.html">
+	c193 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoaderIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoaderIntegrationTest </td></tr>
 		</table></td></tr>
@@ -85,6 +71,7 @@ digraph G {
 <tr><td align="left" balign="left"> + testProcessGMLFile() </td></tr>
 <tr><td align="left" balign="left"> + testProcessBuurtGMLFile() </td></tr>
 <tr><td align="left" balign="left"> + testProcessWijkGMLFile() </td></tr>
+<tr><td align="left" balign="left"> + testProcessStadsdeelGMLFile() </td></tr>
 <tr><td align="left" balign="left"> + testProcessOpenbareRuimteGMLFile() </td></tr>
 <tr><td align="left" balign="left"> + testProcessDuplicateGMLFile() </td></tr>
 <tr><td align="left" balign="left"> + testProcessOutOFTimeGMLFile() </td></tr>
@@ -93,7 +80,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoaderIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderCreateTablesIntegrationTest
-	c168 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderCreateTablesIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoaderCreateTablesIntegrationTest.html">
+	c195 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderCreateTablesIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoaderCreateTablesIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoaderCreateTablesIntegrationTest </td></tr>
 		</table></td></tr>
@@ -108,8 +95,24 @@ digraph G {
 <tr><td align="left" balign="left"> + testScanDirectory() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoaderCreateTablesIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.gml.BGTLightZipsLoaderIntegrationTest
+	c196 [label=<<table title="nl.b3p.brmo.loader.gml.BGTLightZipsLoaderIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightZipsLoaderIntegrationTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BGTLightZipsLoaderIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BGTLightZipsLoaderIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanUp() </td></tr>
+<tr><td align="left" balign="left"> + testCombiKaartbladTegenLosseKaartbladenInZipFiles() </td></tr>
+<tr><td align="left" balign="left"> + testCombiKaartbladPlusLosseKaartbladenInZipFiles() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BGTLightZipsLoaderIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTLightKruinlijnIntegrationTest
-	c169 [label=<<table title="nl.b3p.brmo.loader.gml.BGTLightKruinlijnIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightKruinlijnIntegrationTest.html">
+	c197 [label=<<table title="nl.b3p.brmo.loader.gml.BGTLightKruinlijnIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightKruinlijnIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTLightKruinlijnIntegrationTest </td></tr>
 		</table></td></tr>
@@ -125,7 +128,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTLightKruinlijnIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.TestingBase
-	c170 [label=<<table title="nl.b3p.brmo.loader.gml.TestingBase" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TestingBase.html">
+	c198 [label=<<table title="nl.b3p.brmo.loader.gml.TestingBase" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TestingBase.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestingBase </font></td></tr>
 		</table></td></tr>
@@ -143,10 +146,11 @@ digraph G {
 <tr><td align="left" balign="left"> # loadProps() </td></tr>
 <tr><td align="left" balign="left"> # clearTables() </td></tr>
 <tr><td align="left" balign="left"> # dropTables() </td></tr>
+<tr><td align="left" balign="left"> # countRows() : SortedMap&lt;String, Long&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TestingBase.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderNederlandIntegrationTest
-	c172 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderNederlandIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoaderNederlandIntegrationTest.html">
+	c200 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderNederlandIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoaderNederlandIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoaderNederlandIntegrationTest </td></tr>
 		</table></td></tr>
@@ -160,21 +164,21 @@ digraph G {
 <tr><td align="left" balign="left"> + testLaadNederlandMultiZip() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoaderNederlandIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//nl.b3p.brmo.bgt.util.PDOKBGTLightUtilTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c170:p -> c162:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c170:p -> c163:p [dir=back,arrowtail=empty];
+	c198:p -> c190:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.Mantis11620GmlLightLoaderIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c170:p -> c164:p [dir=back,arrowtail=empty];
+	c198:p -> c191:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.BGTNullGeomIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c170:p -> c165:p [dir=back,arrowtail=empty];
+	c198:p -> c192:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.BGTGMLLightLoaderIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c170:p -> c166:p [dir=back,arrowtail=empty];
+	c198:p -> c193:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.BGTGMLLightLoaderCreateTablesIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c170:p -> c168:p [dir=back,arrowtail=empty];
+	c198:p -> c195:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.loader.gml.BGTLightZipsLoaderIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
+	c198:p -> c196:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.BGTLightKruinlijnIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c170:p -> c169:p [dir=back,arrowtail=empty];
+	c198:p -> c197:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.BGTGMLLightLoaderNederlandIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c170:p -> c172:p [dir=back,arrowtail=empty];
+	c198:p -> c200:p [dir=back,arrowtail=empty];
 }
 

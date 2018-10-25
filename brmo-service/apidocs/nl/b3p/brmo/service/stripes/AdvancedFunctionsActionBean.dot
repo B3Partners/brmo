@@ -51,6 +51,7 @@ digraph G {
 <tr><td align="left" balign="left"> + cleanupBerichten(config : String, soort : String) </td></tr>
 <tr><td align="left" balign="left"> + deleteBerichten(config : String, soort : String) </td></tr>
 <tr><td align="left" balign="left"> + replayBRKVerwijderBerichten(soort : String, status : String) </td></tr>
+<tr><td align="left" balign="left"> + fixNHRTypering(soort : String, status : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AdvancedFunctionsActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean implements net.sourceforge.stripes.action.ActionBean

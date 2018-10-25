@@ -89,6 +89,7 @@ digraph G {
 <tr><td align="left" balign="left"> + cleanupBerichten(arg0 : String, arg1 : String) </td></tr>
 <tr><td align="left" balign="left"> + deleteBerichten(arg0 : String, arg1 : String) </td></tr>
 <tr><td align="left" balign="left"> + replayBRKVerwijderBerichten(arg0 : String, arg1 : String) </td></tr>
+<tr><td align="left" balign="left"> + fixNHRTypering(arg0 : String, arg1 : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

@@ -55,6 +55,7 @@ digraph G {
 <tr><td align="left" balign="left"> + getLaadProcessen() : List&lt;LaadProces&gt; </td></tr>
 <tr><td align="left" balign="left"> + getBerichten() : List&lt;Bericht&gt; </td></tr>
 <tr><td align="left" balign="left"> + loadBr(stream : InputStream, type : String, fileName : String, d : Date, listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + loadBr(stream : InputStream, type : String, fileName : String, d : Date, listener : ProgressUpdateListener, automatischProces : Long) </td></tr>
 <tr><td align="left" balign="left"> + writeBericht(b : Bericht) </td></tr>
 <tr><td align="left" balign="left"> + updateLaadProcesStatus(lp : LaadProces, status : LaadProces.STATUS, opmerking : String) </td></tr>
 <tr><td align="left" balign="left"> + emptyStagingDb() </td></tr>

@@ -238,7 +238,7 @@
 <a class="jxr_linenumber" name="L230" href="#L230">230</a>         assumeNotNull(<span class="jxr_string">"Het test bestand moet er zijn."</span>, NhrToStagingToRsgbIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam));
 <a class="jxr_linenumber" name="L231" href="#L231">231</a> 
 <a class="jxr_linenumber" name="L232" href="#L232">232</a>         brmo.loadFromFile(BESTANDTYPE, NhrToStagingToRsgbIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam).getFile());
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>         LOG.debug(<span class="jxr_string">"klaar met laden van berichten in staging DB."</span>);
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>         LOG.info(<span class="jxr_string">"klaar met laden van berichten in staging DB."</span>);
 <a class="jxr_linenumber" name="L234" href="#L234">234</a> 
 <a class="jxr_linenumber" name="L235" href="#L235">235</a>         List&lt;Bericht&gt; berichten = brmo.listBerichten();
 <a class="jxr_linenumber" name="L236" href="#L236">236</a>         List&lt;LaadProces&gt; processen = brmo.listLaadProcessen();
@@ -247,7 +247,7 @@
 <a class="jxr_linenumber" name="L239" href="#L239">239</a>         assertNotNull(<span class="jxr_string">"De verzameling processen bestaat niet."</span>, processen);
 <a class="jxr_linenumber" name="L240" href="#L240">240</a>         assertEquals(<span class="jxr_string">"Het aantal processen is niet als verwacht."</span>, aantalProcessen, processen.size());
 <a class="jxr_linenumber" name="L241" href="#L241">241</a> 
-<a class="jxr_linenumber" name="L242" href="#L242">242</a>         LOG.debug(<span class="jxr_string">"Transformeren berichten naar rsgb DB."</span>);
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>         LOG.info(<span class="jxr_string">"Transformeren berichten naar rsgb DB."</span>);
 <a class="jxr_linenumber" name="L243" href="#L243">243</a>         Thread t = brmo.toRsgb();
 <a class="jxr_linenumber" name="L244" href="#L244">244</a>         t.join();
 <a class="jxr_linenumber" name="L245" href="#L245">245</a> 
@@ -282,51 +282,53 @@
 <a class="jxr_linenumber" name="L274" href="#L274">274</a>         <strong class="jxr_keyword">if</strong> (vestgID != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L275" href="#L275">275</a>             ITable vestg = rsgb.createDataSet().getTable(<span class="jxr_string">"vestg"</span>);
 <a class="jxr_linenumber" name="L276" href="#L276">276</a>             assertEquals(<span class="jxr_string">"De 'sc_identif' van hoofdvestiging klopt niet"</span>, vestgID, vestg.getValue(0, <span class="jxr_string">"sc_identif"</span>));
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>         }
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>         <em class="jxr_comment">// TODO check aantal vestigingen, zie ook: #522, nu hooguit 1 hoofdVestg...</em>
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>         <em class="jxr_comment">// assertEquals("het aantal 'vestg' records klopt niet", aantalVestg, vestg.getRowCount());</em>
-<a class="jxr_linenumber" name="L280" href="#L280">280</a> 
-<a class="jxr_linenumber" name="L281" href="#L281">281</a>         ITable vestg_activiteit = rsgb.createDataSet().getTable(<span class="jxr_string">"vestg_activiteit"</span>);
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>         assertEquals(<span class="jxr_string">"Het aantal 'vestg_activiteit' records klopt niet"</span>, aantalVestg_activiteit, vestg_activiteit.getRowCount());
-<a class="jxr_linenumber" name="L283" href="#L283">283</a> 
-<a class="jxr_linenumber" name="L284" href="#L284">284</a>         ITable sbi_activiteit = rsgb.createDataSet().getTable(<span class="jxr_string">"sbi_activiteit"</span>);
-<a class="jxr_linenumber" name="L285" href="#L285">285</a>         ITable herkomst_metadata = rsgb.createDataSet().getTable(<span class="jxr_string">"herkomst_metadata"</span>);
-<a class="jxr_linenumber" name="L286" href="#L286">286</a>         <strong class="jxr_keyword">for</strong> (String sbiCode : sbiCodes) {
-<a class="jxr_linenumber" name="L287" href="#L287">287</a>             <strong class="jxr_keyword">boolean</strong> foundSbiCode = false;
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>             <strong class="jxr_keyword">boolean</strong> foundSbiCodeMeta = false;
-<a class="jxr_linenumber" name="L289" href="#L289">289</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; sbi_activiteit.getRowCount(); i++) {
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>                 <strong class="jxr_keyword">if</strong> (sbiCode.equals(sbi_activiteit.getValue(i, <span class="jxr_string">"sbi_code"</span>).toString())) {
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>                     LOG.debug(<span class="jxr_string">"SBI code "</span> + sbiCode + <span class="jxr_string">" gevonden in sbi_activiteit"</span>);
-<a class="jxr_linenumber" name="L292" href="#L292">292</a>                     foundSbiCode = <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>                     <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L294" href="#L294">294</a>                 }
-<a class="jxr_linenumber" name="L295" href="#L295">295</a>             }
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>             <strong class="jxr_keyword">if</strong> (!foundSbiCode) {
-<a class="jxr_linenumber" name="L297" href="#L297">297</a>                 fail(<span class="jxr_string">"SBI code niet gevonden in sbi_activiteit, verwacht te vinden: "</span> + sbiCode);
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>             }
-<a class="jxr_linenumber" name="L299" href="#L299">299</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; herkomst_metadata.getRowCount(); i++) {
-<a class="jxr_linenumber" name="L300" href="#L300">300</a>                 <strong class="jxr_keyword">if</strong> (sbiCode.equals(herkomst_metadata.getValue(i, <span class="jxr_string">"waarde"</span>).toString())) {
-<a class="jxr_linenumber" name="L301" href="#L301">301</a>                     LOG.debug(<span class="jxr_string">"SBI code "</span> + sbiCode + <span class="jxr_string">" gevonden in herkomst_metadata"</span>);
-<a class="jxr_linenumber" name="L302" href="#L302">302</a>                     foundSbiCodeMeta = <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L303" href="#L303">303</a>                     <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>                 }
-<a class="jxr_linenumber" name="L305" href="#L305">305</a>             }
-<a class="jxr_linenumber" name="L306" href="#L306">306</a>             <strong class="jxr_keyword">if</strong> (!foundSbiCodeMeta) {
-<a class="jxr_linenumber" name="L307" href="#L307">307</a>                 fail(<span class="jxr_string">"SBI code niet gevonden in herkomst_metadata, verwacht te vinden: "</span> + sbiCode);
-<a class="jxr_linenumber" name="L308" href="#L308">308</a>             }
-<a class="jxr_linenumber" name="L309" href="#L309">309</a>         }
-<a class="jxr_linenumber" name="L310" href="#L310">310</a> 
-<a class="jxr_linenumber" name="L311" href="#L311">311</a>         ITable functionaris = rsgb.createDataSet().getTable(<span class="jxr_string">"functionaris"</span>);
-<a class="jxr_linenumber" name="L312" href="#L312">312</a>         assertEquals(<span class="jxr_string">"Het aantal 'functionaris' records klopt niet"</span>, aantalFunctionarissen, functionaris.getRowCount());
-<a class="jxr_linenumber" name="L313" href="#L313">313</a>         <strong class="jxr_keyword">if</strong> (kvkNummer == 41177576) {
-<a class="jxr_linenumber" name="L314" href="#L314">314</a>             <em class="jxr_comment">// er is een Gevolmachtigde Directeur met beperkte volmacht in rij 2</em>
-<a class="jxr_linenumber" name="L315" href="#L315">315</a>             <em class="jxr_comment">// dit is fout gevoelig omdat de volgorde van de rijen anders kan zijn terwijl je dan toch dezelfde data hebt geladen</em>
-<a class="jxr_linenumber" name="L316" href="#L316">316</a>             assertEquals(<span class="jxr_string">"Gevolmachtigde"</span>, functionaris.getValue(1, <span class="jxr_string">"functie"</span>));
-<a class="jxr_linenumber" name="L317" href="#L317">317</a>             assertEquals(<span class="jxr_string">"Directeur"</span>, functionaris.getValue(1, <span class="jxr_string">"functionaristypering"</span>));
-<a class="jxr_linenumber" name="L318" href="#L318">318</a>             assertEquals(<span class="jxr_string">"B"</span>, functionaris.getValue(1, <span class="jxr_string">"volledig_beperkt_volmacht"</span>));
-<a class="jxr_linenumber" name="L319" href="#L319">319</a>         }
-<a class="jxr_linenumber" name="L320" href="#L320">320</a>     }
-<a class="jxr_linenumber" name="L321" href="#L321">321</a> }
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>             assertEquals(<span class="jxr_string">"De sbi code van (hoofd)vestiging klopt niet"</span>, sbiCodes[0], vestg.getValue(0, <span class="jxr_string">"fk_sa_sbi_activiteit_sbi_code"</span>));
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>             assertEquals(<span class="jxr_string">"De 'sa_indic_hoofdactiviteit' van (hoofd)vestiging klopt niet"</span>, <span class="jxr_string">"Ja"</span>, vestg.getValue(0, <span class="jxr_string">"sa_indic_hoofdactiviteit"</span>));
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>         }
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>         <em class="jxr_comment">// TODO check aantal vestigingen, zie ook: #522, nu hooguit 1 hoofdVestg...</em>
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>         <em class="jxr_comment">// assertEquals("het aantal 'vestg' records klopt niet", aantalVestg, vestg.getRowCount());</em>
+<a class="jxr_linenumber" name="L282" href="#L282">282</a> 
+<a class="jxr_linenumber" name="L283" href="#L283">283</a>         ITable vestg_activiteit = rsgb.createDataSet().getTable(<span class="jxr_string">"vestg_activiteit"</span>);
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>         assertEquals(<span class="jxr_string">"Het aantal 'vestg_activiteit' records klopt niet"</span>, aantalVestg_activiteit, vestg_activiteit.getRowCount());
+<a class="jxr_linenumber" name="L285" href="#L285">285</a> 
+<a class="jxr_linenumber" name="L286" href="#L286">286</a>         ITable sbi_activiteit = rsgb.createDataSet().getTable(<span class="jxr_string">"sbi_activiteit"</span>);
+<a class="jxr_linenumber" name="L287" href="#L287">287</a>         ITable herkomst_metadata = rsgb.createDataSet().getTable(<span class="jxr_string">"herkomst_metadata"</span>);
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>         <strong class="jxr_keyword">for</strong> (String sbiCode : sbiCodes) {
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>             <strong class="jxr_keyword">boolean</strong> foundSbiCode = false;
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>             <strong class="jxr_keyword">boolean</strong> foundSbiCodeMeta = false;
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; sbi_activiteit.getRowCount(); i++) {
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>                 <strong class="jxr_keyword">if</strong> (sbiCode.equals(sbi_activiteit.getValue(i, <span class="jxr_string">"sbi_code"</span>).toString())) {
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>                     LOG.debug(<span class="jxr_string">"SBI code "</span> + sbiCode + <span class="jxr_string">" gevonden in sbi_activiteit"</span>);
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>                     foundSbiCode = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>                     <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>                 }
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>             }
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>             <strong class="jxr_keyword">if</strong> (!foundSbiCode) {
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>                 fail(<span class="jxr_string">"SBI code niet gevonden in sbi_activiteit, verwacht te vinden: "</span> + sbiCode);
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>             }
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; herkomst_metadata.getRowCount(); i++) {
+<a class="jxr_linenumber" name="L302" href="#L302">302</a>                 <strong class="jxr_keyword">if</strong> (sbiCode.equals(herkomst_metadata.getValue(i, <span class="jxr_string">"waarde"</span>).toString())) {
+<a class="jxr_linenumber" name="L303" href="#L303">303</a>                     LOG.debug(<span class="jxr_string">"SBI code "</span> + sbiCode + <span class="jxr_string">" gevonden in herkomst_metadata"</span>);
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>                     foundSbiCodeMeta = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L305" href="#L305">305</a>                     <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L306" href="#L306">306</a>                 }
+<a class="jxr_linenumber" name="L307" href="#L307">307</a>             }
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>             <strong class="jxr_keyword">if</strong> (!foundSbiCodeMeta) {
+<a class="jxr_linenumber" name="L309" href="#L309">309</a>                 fail(<span class="jxr_string">"SBI code niet gevonden in herkomst_metadata, verwacht te vinden: "</span> + sbiCode);
+<a class="jxr_linenumber" name="L310" href="#L310">310</a>             }
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>         }
+<a class="jxr_linenumber" name="L312" href="#L312">312</a> 
+<a class="jxr_linenumber" name="L313" href="#L313">313</a>         ITable functionaris = rsgb.createDataSet().getTable(<span class="jxr_string">"functionaris"</span>);
+<a class="jxr_linenumber" name="L314" href="#L314">314</a>         assertEquals(<span class="jxr_string">"Het aantal 'functionaris' records klopt niet"</span>, aantalFunctionarissen, functionaris.getRowCount());
+<a class="jxr_linenumber" name="L315" href="#L315">315</a>         <strong class="jxr_keyword">if</strong> (kvkNummer == 41177576) {
+<a class="jxr_linenumber" name="L316" href="#L316">316</a>             <em class="jxr_comment">// er is een Gevolmachtigde Directeur met beperkte volmacht in rij 2</em>
+<a class="jxr_linenumber" name="L317" href="#L317">317</a>             <em class="jxr_comment">// dit is fout gevoelig omdat de volgorde van de rijen anders kan zijn terwijl je dan toch dezelfde data hebt geladen</em>
+<a class="jxr_linenumber" name="L318" href="#L318">318</a>             assertEquals(<span class="jxr_string">"Gevolmachtigde"</span>, functionaris.getValue(1, <span class="jxr_string">"functie"</span>));
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>             assertEquals(<span class="jxr_string">"Directeur"</span>, functionaris.getValue(1, <span class="jxr_string">"functionaristypering"</span>));
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>             assertEquals(<span class="jxr_string">"B"</span>, functionaris.getValue(1, <span class="jxr_string">"volledig_beperkt_volmacht"</span>));
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>         }
+<a class="jxr_linenumber" name="L322" href="#L322">322</a>     }
+<a class="jxr_linenumber" name="L323" href="#L323">323</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014&#x2013;2018 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>

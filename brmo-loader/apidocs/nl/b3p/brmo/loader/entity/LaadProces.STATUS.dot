@@ -38,6 +38,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setStatusDatum(statusDatum : Date) </td></tr>
 <tr><td align="left" balign="left"> + getContactEmail() : String </td></tr>
 <tr><td align="left" balign="left"> + setContactEmail(contactEmail : String) </td></tr>
+<tr><td align="left" balign="left"> + getAutomatischProcesId() : Long </td></tr>
+<tr><td align="left" balign="left"> + setAutomatischProcesId(automatischProces : Long) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./LaadProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.LaadProces.STATUS

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest
-	c82 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTGMLLightLoaderUpdateIntegrationTest.html">
+	c89 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTGMLLightLoaderUpdateIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoaderUpdateIntegrationTest </td></tr>
 		</table></td></tr>
@@ -26,7 +26,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoaderUpdateIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.TestingBase
-	c89 [label=<<table title="nl.b3p.brmo.loader.gml.TestingBase" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestingBase.html">
+	c97 [label=<<table title="nl.b3p.brmo.loader.gml.TestingBase" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestingBase.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestingBase </font></td></tr>
 		</table></td></tr>
@@ -44,14 +44,15 @@ digraph G {
 <tr><td align="left" balign="left"> # loadProps() </td></tr>
 <tr><td align="left" balign="left"> # clearTables() </td></tr>
 <tr><td align="left" balign="left"> # dropTables() </td></tr>
+<tr><td align="left" balign="left"> # countRows() : SortedMap&lt;String, Long&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TestingBase.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c89:p -> c82:p [dir=back,arrowtail=empty];
+	c97:p -> c89:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
-	c82:p -> c92:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c89:p -> c100:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader
-	c92 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c100 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoader </td></tr>
 		</table></td></tr>
@@ -61,6 +62,7 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + BGTGMLLightLoader() </td></tr>
 <tr><td align="left" balign="left"> + BGTGMLLightLoader(arg0 : File, arg1 : Properties) </td></tr>
+<tr><td align="left" balign="left"> + truncateTables() </td></tr>
 <tr><td align="left" balign="left"> + processZipFiles(arg0 : List&lt;File&gt;) </td></tr>
 <tr><td align="left" balign="left"> + processZipFile(arg0 : File) : int </td></tr>
 <tr><td align="left" balign="left"> + processGMLFile(arg0 : File) : int </td></tr>

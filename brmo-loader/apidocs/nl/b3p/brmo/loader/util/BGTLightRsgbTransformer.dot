@@ -55,6 +55,7 @@ digraph G {
 <tr><td align="left" balign="left"> + getLaadProcessen() : List&lt;LaadProces&gt; </td></tr>
 <tr><td align="left" balign="left"> + getBerichten() : List&lt;Bericht&gt; </td></tr>
 <tr><td align="left" balign="left"> + loadBr(stream : InputStream, type : String, fileName : String, d : Date, listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + loadBr(stream : InputStream, type : String, fileName : String, d : Date, listener : ProgressUpdateListener, automatischProces : Long) </td></tr>
 <tr><td align="left" balign="left"> + writeBericht(b : Bericht) </td></tr>
 <tr><td align="left" balign="left"> + updateLaadProcesStatus(lp : LaadProces, status : LaadProces.STATUS, opmerking : String) </td></tr>
 <tr><td align="left" balign="left"> + emptyStagingDb() </td></tr>
@@ -134,6 +135,7 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + BGTGMLLightLoader() </td></tr>
 <tr><td align="left" balign="left"> + BGTGMLLightLoader(arg0 : File, arg1 : Properties) </td></tr>
+<tr><td align="left" balign="left"> + truncateTables() </td></tr>
 <tr><td align="left" balign="left"> + processZipFiles(arg0 : List&lt;File&gt;) </td></tr>
 <tr><td align="left" balign="left"> + processZipFile(arg0 : File) : int </td></tr>
 <tr><td align="left" balign="left"> + processGMLFile(arg0 : File) : int </td></tr>

@@ -296,6 +296,21 @@ digraph G {
 <tr><td align="left" balign="left"> + processTopNL() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TopNLIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.GH527NhrToStagingToRsgbIntegrationTest
+	c17 [label=<<table title="nl.b3p.GH527NhrToStagingToRsgbIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GH527NhrToStagingToRsgbIntegrationTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> GH527NhrToStagingToRsgbIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GH527NhrToStagingToRsgbIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testNhrXMLToStagingToRsgb() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./GH527NhrToStagingToRsgbIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.BAGXMLToStagingIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
 	c15:p -> c0:p [dir=back,arrowtail=empty];
 	//nl.b3p.BRKLocatiebeschrijvingIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
@@ -328,5 +343,7 @@ digraph G {
 	c15:p -> c14:p [dir=back,arrowtail=empty];
 	//nl.b3p.TopNLIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
 	c15:p -> c16:p [dir=back,arrowtail=empty];
+	//nl.b3p.GH527NhrToStagingToRsgbIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
+	c15:p -> c17:p [dir=back,arrowtail=empty];
 }
 

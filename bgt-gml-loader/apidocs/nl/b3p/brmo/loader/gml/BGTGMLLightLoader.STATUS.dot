@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader
-	c206 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoader.html">
+	c218 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoader </td></tr>
 		</table></td></tr>
@@ -20,6 +20,7 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + BGTGMLLightLoader() </td></tr>
 <tr><td align="left" balign="left"> + BGTGMLLightLoader(scanDirectory : File, dbConnProps : Properties) </td></tr>
+<tr><td align="left" balign="left"> + truncateTables() </td></tr>
 <tr><td align="left" balign="left"> + processZipFiles(zipFiles : List&lt;File&gt;) </td></tr>
 <tr><td align="left" balign="left"> + processZipFile(zipExtract : File) : int </td></tr>
 <tr><td align="left" balign="left"> + processGMLFile(gml : File) : int </td></tr>
@@ -37,7 +38,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS
-	c207 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTGMLLightLoader.STATUS.html">
+	c219 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTGMLLightLoader.STATUS.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> STATUS </td></tr>
@@ -51,6 +52,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoader.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS
-	c206:p -> c207:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c218:p -> c219:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

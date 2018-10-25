@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.BrkToStagingToRsgbIntegrationTest
-	c475 [label=<<table title="nl.b3p.BrkToStagingToRsgbIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BrkToStagingToRsgbIntegrationTest.html">
+	c491 [label=<<table title="nl.b3p.BrkToStagingToRsgbIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BrkToStagingToRsgbIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrkToStagingToRsgbIntegrationTest </td></tr>
 		</table></td></tr>
@@ -26,7 +26,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BrkToStagingToRsgbIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.AbstractDatabaseIntegrationTest
-	c488 [label=<<table title="nl.b3p.AbstractDatabaseIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractDatabaseIntegrationTest.html">
+	c504 [label=<<table title="nl.b3p.AbstractDatabaseIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractDatabaseIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractDatabaseIntegrationTest </font></td></tr>
 		</table></td></tr>
@@ -47,11 +47,11 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AbstractDatabaseIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.BrkToStagingToRsgbIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c488:p -> c475:p [dir=back,arrowtail=empty];
+	c504:p -> c491:p [dir=back,arrowtail=empty];
 	// nl.b3p.BrkToStagingToRsgbIntegrationTest NAVASSOC nl.b3p.brmo.loader.BrmoFramework
-	c475:p -> c501:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c491:p -> c518:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.BrmoFramework
-	c501 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/brmo/loader/BrmoFramework.html">
+	c518 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoFramework </td></tr>
 		</table></td></tr>
@@ -99,10 +99,13 @@ digraph G {
 <tr><td align="left" balign="left"> + listLaadProcessen() : List&lt;LaadProces&gt; </td></tr>
 <tr><td align="left" balign="left"> + listBerichten() : List&lt;Bericht&gt; </td></tr>
 <tr><td align="left" balign="left"> + loadFromFile(arg0 : String, arg1 : String) </td></tr>
-<tr><td align="left" balign="left"> + loadFromFile(arg0 : String, arg1 : String, arg2 : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + loadFromFile(arg0 : String, arg1 : String, arg2 : Long) </td></tr>
+<tr><td align="left" balign="left"> + loadFromFile(arg0 : String, arg1 : String, arg2 : ProgressUpdateListener, arg3 : Long) </td></tr>
 <tr><td align="left" balign="left"> + loadFromStream(arg0 : String, arg1 : InputStream, arg2 : String) </td></tr>
+<tr><td align="left" balign="left"> + loadFromStream(arg0 : String, arg1 : InputStream, arg2 : String, arg3 : Long) </td></tr>
 <tr><td align="left" balign="left"> + loadFromStream(arg0 : String, arg1 : InputStream, arg2 : String, arg3 : Date) </td></tr>
-<tr><td align="left" balign="left"> + loadFromStream(arg0 : String, arg1 : InputStream, arg2 : String, arg3 : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + loadFromStream(arg0 : String, arg1 : InputStream, arg2 : String, arg3 : Date, arg4 : Long) </td></tr>
+<tr><td align="left" balign="left"> + loadFromStream(arg0 : String, arg1 : InputStream, arg2 : String, arg3 : ProgressUpdateListener, arg4 : Long) </td></tr>
 <tr><td align="left" balign="left"> + emptyStagingDb() </td></tr>
 <tr><td align="left" balign="left"> + getLaadProcesIdByFileName(arg0 : String) : Long </td></tr>
 <tr><td align="left" balign="left"> + getBerichtById(arg0 : long) : Bericht </td></tr>
@@ -114,6 +117,6 @@ digraph G {
 <tr><td align="left" balign="left"> + getCountLaadProcessen(arg0 : String, arg1 : String, arg2 : String, arg3 : String) : long </td></tr>
 <tr><td align="left" balign="left"> + getCountJob() : long </td></tr>
 		</table></td></tr>
-		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/brmo/loader/BrmoFramework.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
