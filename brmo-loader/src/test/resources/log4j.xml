@@ -31,6 +31,9 @@
    <logger name="nl.b3p.topnl">
         <level value="info" />
     </logger>
+    <logger name="nl.b3p.brmo.loader.xml">
+        <level value="debug" />
+    </logger>
     <root>
         <level value="info" />
         <appender-ref ref="consoleAppender" />

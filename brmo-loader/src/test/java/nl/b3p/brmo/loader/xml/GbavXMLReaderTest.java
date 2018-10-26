@@ -63,4 +63,37 @@ public class GbavXMLReaderTest {
         assertEquals(1, total);
         assertArrayEquals(new String[]{GbavXMLReader.PREFIX + "b3e513383d0454de798b29c6900643130e3b2d6b",}, objectRefs.toArray(new String[]{}));
     }
+
+    @Test
+    public void meerderePersonenTest() throws Exception {
+        GbavXMLReader r;
+        GbavBericht b = null;
+
+        r = new GbavXMLReader(GbavXMLReader.class.getResourceAsStream("persoonslijst.xml"));
+        assertTrue(r.hasNext());
+        int total = 0;
+        List<String> objectRefs = new ArrayList();
+        while (r.hasNext()) {
+            b = r.next();
+            objectRefs.add(b.getObjectRef());
+            LOG.debug(String.format("Bericht #%d van %tF %2$tT, object ref %s",
+                    b.getVolgordeNummer(),
+                    b.getDatum(),
+                    b.getObjectRef()
+            ));
+            assertEquals("Soort komt niet overeen", BrmoFramework.BR_GBAV, b.getSoort());
+            assertEquals("Volgordenummer komt niet overeen", total, b.getVolgordeNummer().intValue());
+            total++;
+        }
+
+        assertEquals(4, total);
+        assertArrayEquals(new String[]{
+                GbavXMLReader.PREFIX + "17a75f5b058c2eea87562933e38f0fb31e15c75e",
+                        GbavXMLReader.PREFIX + "21dacf4cde5ac8d28fa6ffc822e22c47de1548d7",
+                        GbavXMLReader.PREFIX + "a8fb7604f3c56087872ca13fa143a9476fc651df",
+                        GbavXMLReader.PREFIX + "32e78a29de400910362d0ba45e315ffa5cc2ce60"
+                },
+                objectRefs.toArray(new String[]{})
+                );
+    }
 }
