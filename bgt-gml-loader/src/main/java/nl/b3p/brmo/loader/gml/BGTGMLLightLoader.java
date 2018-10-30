@@ -167,12 +167,12 @@ public class BGTGMLLightLoader {
      * @param zipFiles lijst met zipfiles met gml bestanden
      * @throws FileNotFoundException als zipExtract niet gevonden kan worden
      * @throws IOException als ophalen next zipentry mislukt
-     * @see #processZipFile(File)
+     * @see #processZipFile(File, boolean)
      */
     public void processZipFiles(List<File> zipFiles) throws FileNotFoundException, IOException {
         for (File zip : zipFiles) {
             LOG.debug("Verwerken zipfile: " + zip.getName());
-            processZipFile(zip);
+            processZipFile(zip, zipFiles.size()==1);
         }
     }
 
@@ -180,6 +180,10 @@ public class BGTGMLLightLoader {
         int size = 0;
         size = allRecords.values().stream().map((recordMap) -> recordMap.size()).reduce(size, Integer::sum);
         return size;
+    }
+
+    private void clearRecordsCache(){
+        allRecords.clear();
     }
 
     /**
@@ -192,7 +196,7 @@ public class BGTGMLLightLoader {
      * @throws IOException als ophalen next zipentry mislukt of als de database
      * verbinding wegvalt
      */
-    public int processZipFile(File zipExtract) throws FileNotFoundException, IOException {
+    public int processZipFile(File zipExtract, boolean singleLP) throws FileNotFoundException, IOException {
         this.omhullendeVanZipFile = null;
         this.resetStatus();
         LOG.info("Lezen van ZIP bestand " + zipExtract);
@@ -204,12 +208,13 @@ public class BGTGMLLightLoader {
                 if (entry == null) {
                     LOG.error("Geen bestanden in zipfile (" + zipExtract + ") gevonden.");
                 }
-                int beforeRecords = getRecordsCacheSize();
+
                 // for each gml in zip
                 while (entry != null) {
                     if (!entry.getName().toLowerCase().endsWith(".gml")) {
                         LOG.warn("Overslaan zip entry geen GML bestand: " + entry.getName());
                     } else {
+                        int beforeRecords = getRecordsCacheSize();
                         eName = entry.getName();
                         LOG.debug("Lezen GML bestand: " + eName + " uit zip file: " + zipExtract.getCanonicalPath());
                         result = storeFeatureCollection(new CloseShieldInputStream(zip), eName.toLowerCase());
@@ -219,14 +224,21 @@ public class BGTGMLLightLoader {
                                     .append(eName).append(", zipfile: ")
                                     .append(zipExtract.getCanonicalPath())
                                     .append("\n");
+                            int afterRecords = getRecordsCacheSize();
+
+                            if(singleLP){
+                                LOG.info(String.format("Aantal ID's in deze GML: %d", afterRecords));
+                                this.clearRecordsCache();
+                            } else{
+                                LOG.info(String.format("Aantal ID's van alle BGT feature types in geheugen: %d (verschil dit bestand: %+d)", afterRecords, afterRecords - beforeRecords));
+                            }
                         }
                         total += result;
-
                     }
                     entry = zip.getNextEntry();
                 }
-                int afterRecords = getRecordsCacheSize();
-                LOG.info(String.format("Aantal ID's van alle BGT feature types in geheugen: %d (verschil dit bestand: %+d)", afterRecords, afterRecords - beforeRecords));
+
+
 
             } catch (SAXException | ParserConfigurationException ex) {
                 LOG.error("Er is een parse fout opgetreden tijdens verwerken van " + eName + " uit " + zipExtract.getCanonicalPath(), ex);
@@ -392,10 +404,12 @@ public class BGTGMLLightLoader {
                 }
                 boolean beeindigd = gmlSF.getAttribute("objectEindTijd") != null;
                 if(LOG.isDebugEnabled()) {
-                    LOG.info(String.format("Object %s, beeindigd=%s, tijdstipRegistratie=%tc, eerder tijdstip %tc, eerder beeindigd %s", id, beeindigd ? "ja":"nee", tijdstipRegistratie, record != null ? record.getLeft() : null, record != null ? (record.getRight() ? "ja":"nee") : "-"));
+                    LOG.debug(String.format("Object %s, beeindigd=%s, tijdstipRegistratie=%tc, eerder tijdstip %tc, eerder beeindigd %s", id, beeindigd ? "ja":"nee", tijdstipRegistratie, record != null ? record.getLeft() : null, record != null ? (record.getRight() ? "ja":"nee") : "-"));
                 }
                 if(record != null && tijdstipRegistratie.before(record.getLeft())) {
-                    LOG.warn(String.format("Feature voor object %s gevonden met tijdstipRegistratie %tc eerder dan vorig record van %tc, genegeerd", id, tijdstipRegistratie, record.getLeft()));
+                    if(LOG.isDebugEnabled()) {
+                        LOG.debug(String.format("Feature voor object %s gevonden met tijdstipRegistratie %tc eerder dan vorig record van %tc, genegeerd", id, tijdstipRegistratie, record.getLeft()));
+                    }
                     continue;
                 }
 
@@ -408,7 +422,9 @@ public class BGTGMLLightLoader {
                     if(record != null) {
                         if(!record.getRight()) {
                             // Verwijder eerder geinsert record
-                            LOG.info(String.format("Object %s vervallen met tijdstipRegistratie %tc, verwijder eerder geinsert record met laatste tijdstipRegistratie %tc", id, tijdstipRegistratie, record.getLeft()));
+                            if(LOG.isDebugEnabled()) {
+                                LOG.debug(String.format("Object %s vervallen met tijdstipRegistratie %tc, verwijder eerder geinsert record met laatste tijdstipRegistratie %tc", id, tijdstipRegistratie, record.getLeft()));
+                            }
 
                             // bij mssql transactie sluiten ander blijft de boel hangen, voor orcl + pg ook
                             transaction.close();
@@ -445,7 +461,9 @@ public class BGTGMLLightLoader {
                                 }
                             }
                             updatetransaction.commit();
-                            LOG.info(String.format("Object %s geupdate van tijdstip %tc naar nieuw tijdstipRegistratie %tc", id, record.getLeft(), tijdstipRegistratie));
+                            if(LOG.isDebugEnabled()) {
+                                LOG.debug(String.format("Object %s geupdate van tijdstip %tc naar nieuw tijdstipRegistratie %tc", id, record.getLeft(), tijdstipRegistratie));
+                            }
                             bestaandeFeats.close();
                             // maak een nieuw transactie voor toevoegen, de eerdere is aborted
                             transaction = new DefaultTransaction("add-bgt");
@@ -457,7 +475,9 @@ public class BGTGMLLightLoader {
                         inserts++;
                         // commit per feature
                         transaction.commit();
-                        LOG.debug(String.format("Object toegevoegd in database met NEN3610ID: %s en tijdstipRegistratie %tc", id, tijdstipRegistratie));
+                        if(LOG.isDebugEnabled()) {
+                            LOG.debug(String.format("Object toegevoegd in database met NEN3610ID: %s en tijdstipRegistratie %tc", id, tijdstipRegistratie));
+                        }
                     }
                     records.put(id, new ImmutablePair<>(tijdstipRegistratie, false));
                 }

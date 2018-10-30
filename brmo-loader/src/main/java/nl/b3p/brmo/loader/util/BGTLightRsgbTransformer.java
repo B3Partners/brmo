@@ -42,7 +42,7 @@ public class BGTLightRsgbTransformer implements Runnable {
         this.listener = listener;
     }
 
-    private void transform(long lpID) throws SQLException {
+    private void transform(long lpID, boolean singleLP) throws SQLException {
         STATUS status;
         LaadProces lp = stagingProxy.getLaadProcesById(lpID);
         if (lp.getSoort().equalsIgnoreCase(BR_BGTLIGHT) && lp.getStatus() == STATUS.STAGING_OK) {
@@ -50,7 +50,7 @@ public class BGTLightRsgbTransformer implements Runnable {
             stagingProxy.updateLaadProcesStatus(lp, STATUS.RSGB_BGT_WAITING, "Transformatie loopt...");
             try {
                 // het bestand aan de GML transformer geven om te transformeren
-                int total = gmlLoader.processZipFile(zip);
+                int total = gmlLoader.processZipFile(zip, singleLP);
                 // dit is dubbelop: LOG.info(opmerking);
                 switch (gmlLoader.getStatus()) {
                     case OK:
@@ -70,6 +70,10 @@ public class BGTLightRsgbTransformer implements Runnable {
         } else {
             LOG.warn("LaadProces " + lp.getId() + " van soort " + lp.getSoort() + " met status: " + lp.getStatus() + " is overgeslagen.");
         }
+    }
+
+    private void transform(long lpID) throws SQLException {
+        this.transform(lpID, false);
     }
 
     public void init() throws SQLException, IOException {
@@ -97,7 +101,7 @@ public class BGTLightRsgbTransformer implements Runnable {
                 listener.progress(count);
             }
             for (long id : lpIDs) {
-                this.transform(id);
+                this.transform(id, lpIDs.length == 1);
                 count++;
                 if (listener != null) {
                     listener.progress(count);
