@@ -81,10 +81,10 @@ public class BGTLightZipsLoaderIntegrationTest extends TestingBase {
         int actualLos = 0;
 
         for (File zip : zips) {
-            // kaaartbladen combi-zip laden
+            // kaartbladen combi-zip laden
             if (zip.getName().contains("57830-57831.zip")) {
                 LOG.info("Laden van 'combi' zipfile/kaartbladen: " + zip.getName());
-                actualCombi = ldr.processZipFile(zip);
+                actualCombi = ldr.processZipFile(zip, true);
             }
         }
         final Map<String, Long> countsCombi = countRows();
@@ -96,11 +96,11 @@ public class BGTLightZipsLoaderIntegrationTest extends TestingBase {
         ldr.truncateTables();
 
         for (File zip : zips) {
-            // losse kaart bladen laden uit de anadres 2 zips
+            // losse kaart bladen laden uit de andere 2 zips
             if (!zip.getName().contains("57830-57831.zip")) {
                 LOG.info("Laden van 'losse' zipfile/kaartblad: " + zip.getName());
                 // los is 345 + 54 = 399
-                actualLos += ldr.processZipFile(zip);
+                actualLos += ldr.processZipFile(zip, false);
             }
         }
         final Map<String, Long> countsLos = countRows();
@@ -126,7 +126,7 @@ public class BGTLightZipsLoaderIntegrationTest extends TestingBase {
         for (File zip : zips) {
             // alle kaartbladen  laden
             LOG.info("Laden van 'combi' zipfile/kaartbladen: " + zip.getName());
-            ldr.processZipFile(zip);
+            ldr.processZipFile(zip, false);
         }
         final Map<String, Long> countsCombi = countRows();
 

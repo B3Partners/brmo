@@ -80,7 +80,7 @@ public class BGTGMLLightLoaderCreateTablesIntegrationTest extends TestingBase {
         List<File> zips = ldr.scanDirectory();
         assertEquals("Verwacht aantal zipfiles", 1, zips.size());
         for (File zip : zips) {
-            int actual = ldr.processZipFile(zip);
+            int actual = ldr.processZipFile(zip, false);
             assertTrue("Verwacht meer dan 1 geschreven feature", (actual > 1));
         }
     }

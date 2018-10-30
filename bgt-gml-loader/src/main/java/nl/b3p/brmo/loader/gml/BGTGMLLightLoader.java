@@ -195,6 +195,24 @@ public class BGTGMLLightLoader {
      * @throws FileNotFoundException als zipExtract niet gevonden kan worden
      * @throws IOException als ophalen next zipentry mislukt of als de database
      * verbinding wegvalt
+     *
+     * @deprecated gebruik {@link #processZipFile(File, boolean)}
+     */
+    @Deprecated
+    public int processZipFile(File zipExtract) throws FileNotFoundException, IOException{
+        return this.processZipFile(zipExtract,false);
+    }
+
+    /**
+     * Verwerk een gmllight extract zipfile.
+     *
+     * @param zipExtract zipfile met gml bestanden
+     * @param singleLP true als er een enkele zipfile wordt verwerkt, bijvoorbeeld heel nederland
+     * @return het aantal geschreven features voor de zipfile
+     *
+     * @throws FileNotFoundException als zipExtract niet gevonden kan worden
+     * @throws IOException als ophalen next zipentry mislukt of als de database
+     * verbinding wegvalt
      */
     public int processZipFile(File zipExtract, boolean singleLP) throws FileNotFoundException, IOException {
         this.omhullendeVanZipFile = null;

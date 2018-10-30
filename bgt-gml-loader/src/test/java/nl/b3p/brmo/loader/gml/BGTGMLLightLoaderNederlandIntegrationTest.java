@@ -53,7 +53,7 @@ public class BGTGMLLightLoaderNederlandIntegrationTest extends TestingBase {
         File zip = new File(zipUrl.getFile());
         assertNotNull("Zipfile is niet null", zip);
 
-        int actual = ldr.processZipFile(zip);
+        int actual = ldr.processZipFile(zip, true);
         assertTrue("Verwacht meer dan 1 geschreven feature", (actual > 1));
     }
 

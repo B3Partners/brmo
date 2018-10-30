@@ -82,7 +82,7 @@ public class BGTGMLLightLoaderUpdateIntegrationTest extends TestingBase {
         cal.add(Calendar.DATE, -21);
 
         for (File zip : zips) {
-            load_one = ldr.processZipFile(zip);
+            load_one = ldr.processZipFile(zip, false);
             LOG.info("Totaal aantal ingevoegde features voor: " + zip.getName() + " is: " + load_one);
             assertTrue("Verwacht meer dan 1 geschreven feature", (load_one > 1));
             if (zip.getName().equalsIgnoreCase("extract-gmllight.zip")) {
@@ -113,7 +113,7 @@ public class BGTGMLLightLoaderUpdateIntegrationTest extends TestingBase {
         // eerste set laden als stand met datum 7 dagen voor vandaag
         Calendar cal = Calendar.getInstance();
         cal.set(2015, 4, 22, 17, 32);
-        load_one = ldr.processZipFile(zip);
+        load_one = ldr.processZipFile(zip, false);
         assertTrue("Verwacht meer dan 1 geschreven feature", (load_one > 1));
     }
 }
