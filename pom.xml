@@ -501,19 +501,19 @@
         <repository>
             <id>repo.b3p.nl</id>
             <name>B3Partners releases repository</name>
-            <url>http://repo.b3p.nl/nexus/content/repositories/releases/</url>
+            <url>https://repo.b3p.nl/nexus/repository/releases/</url>
         </repository>
         <snapshotRepository>
             <id>repo.b3p.nl</id>
             <name>B3Partners snapshots repository</name>
-            <url>http://repo.b3p.nl/nexus/content/repositories/snapshots/</url>
+            <url>https://repo.b3p.nl/nexus/repository/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
     <repositories>
         <repository>
             <id>B3Partners</id>
             <name>Releases hosted by B3Partners</name>
-            <url>http://repo.b3p.nl/nexus/content/groups/public/</url>
+            <url>https://repo.b3p.nl/nexus/repository/public/</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
