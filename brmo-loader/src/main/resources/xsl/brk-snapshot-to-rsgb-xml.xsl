@@ -620,6 +620,37 @@
             <xsl:for-each select="nhr:KVKnummer">
                 <kvk_nummer><xsl:value-of select="."/></kvk_nummer>
             </xsl:for-each>
+			<!--257 char, vullen met woonadres -->
+			<adres_binnenland>
+				<xsl:if test="pers:woonlocatie/adres:KADBinnenlandsAdres" xmlns:adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20120201">
+					<xsl:for-each select="pers:woonlocatie">
+						<xsl:variable name="woonadres">
+							<xsl:call-template name="describe-locatie" />
+						</xsl:variable>
+						<xsl:value-of select="substring($woonadres,1,257)"/>
+					</xsl:for-each>
+				</xsl:if>
+			</adres_binnenland>
+			<!--
+			<adres_buitenland>149 char</adres_buitenland>
+			<vb_adres_buitenland_1>35 char</vb_adres_buitenland_1>
+			<vb_adres_buitenland_2>35 char</vb_adres_buitenland_2>
+			<vb_adres_buitenland_3>35 char</vb_adres_buitenland_3>
+			-->
+			<pa_postadres_postcode>
+				<xsl:value-of select="pers:postlocatie/adres:PostbusAdres/adres:postcode" xmlns:adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20120201"/>
+			</pa_postadres_postcode>
+			<!-- P voor postbus, antwoordnummers komen niet voor in ImkadAdres want
+				"Een locatie kan een binnenlandse locatie, een buitenlandse locatie of een postbusadres zijn." -->
+			<pa_postadrestype>
+				<xsl:if test="pers:postlocatie/adres:PostbusAdres/adres:postbusnummer" xmlns:adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20120201">
+					<xsl:text>P</xsl:text>
+				</xsl:if>
+			</pa_postadrestype>
+			<pa_postbus__of_antwoordnummer>
+				<xsl:value-of select="pers:postlocatie/adres:PostbusAdres/adres:postbusnummer" xmlns:adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20120201"/>
+			</pa_postbus__of_antwoordnummer>
+
         </subject>
 
         <prs>
