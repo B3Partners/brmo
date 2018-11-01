@@ -39,7 +39,7 @@ public class DBUnitExportStaging {
 
     // postgis
     private static final String _driverClass = "org.postgresql.Driver";
-    private static final String _jdbcConnection = "jdbc:postgresql://localhost:5432/mantis6380_staging";
+    private static final String _jdbcConnection = "jdbc:postgresql://localhost:5434/itest_staging";
     private static final String _user = "rsgb";
     private static final String _passwd = "rsgb";
     // ms sql
@@ -49,11 +49,10 @@ public class DBUnitExportStaging {
     // private static final String _passwd = "brmotest";
 
     // oracle
-//    private static final String _driverClass = "oracle.jdbc.OracleDriver";
-//    private static final String _jdbcConnection = "jdbc:oracle:thin:@192.168.1.40:1521:db01";
-//    private static final String _user = "stagingitest";
-//    private static final String _passwd = "stagingitest";
-
+    // private static final String _driverClass = "oracle.jdbc.OracleDriver";
+    // private static final String _jdbcConnection = "jdbc:oracle:thin:@192.168.1.40:1521:db01";
+    // private static final String _user = "stagingitest";
+    // private static final String _passwd = "stagingitest";
     // volgorde van tabellen belangrijk vanwege de constraint op laadproces-id
     private static final String[] _testTableNames = {"laadproces", "bericht"};
 

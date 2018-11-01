@@ -32,25 +32,25 @@ import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
  */
 public class DBUnitExportRSGB {
 
-    private static final String _testDir = "src/test/resources/";
+    private static final String _testDir = "target/";
     private static final String _dbFile = "rsgb-flat.xml";
     private static final String _dbFile2 = "rsgb.xml";
 
     // postgis
-    // private static final String _driverClass = "org.postgresql.Driver";
-    // private static final String _jdbcConnection = "jdbc:postgresql://localhost:5432/mantis6098_rsgb";
-    // private static final String _user = "rsgb";
-    // private static final String _passwd = "rsgb";
+    private static final String _driverClass = "org.postgresql.Driver";
+    private static final String _jdbcConnection = "jdbc:postgresql://localhost:5434/itest_rsgb";
+    private static final String _user = "rsgb";
+    private static final String _passwd = "rsgb";
     // ms sql
     // private static final String _driverClass = "net.sourceforge.jtds.jdbc.Driver";
     // private static final String _jdbcConnection = "jdbc:jtds:sqlserver://192.168.1.15:1433/itest_brmo_rsgb;instance=SQLEXPRESS";
     // private static final String _user = "brmotest";
     // private static final String _passwd = "brmotest";
     // oracle
-    private static final String _driverClass = "oracle.jdbc.OracleDriver";
-    private static final String _jdbcConnection = "jdbc:oracle:thin:@192.168.1.40:1521:db01";
-    private static final String _user = "rsgbitest";
-    private static final String _passwd = "rsgbitest";
+    // private static final String _driverClass = "oracle.jdbc.OracleDriver";
+    // private static final String _jdbcConnection = "jdbc:oracle:thin:@192.168.1.40:1521:db01";
+    // private static final String _user = "rsgbitest";
+    // private static final String _passwd = "rsgbitest";
 
     // volgorde van tabellen belangrijk vanwege de constraints
     private static final String[] _testTableNames = {
