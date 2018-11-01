@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <kad_onrrnd_zk dat_beg_geldh="2018-02-19" kad_identif="46790153170000" clazz="KADASTRAAL PERCEEL" ks_meer_onroerendgoed="N"/>
+  <kad_onrrnd_zk_archief/>
+  <kad_onrrnd_zk_his_rel fk_sc_lh_koz_kad_identif="46790153170000" fk_sc_rh_koz_kad_identif="46790133340036" aard="Vernummering" overgangsgrootte="7"/>
+  <kad_perceel sc_kad_identif="46790153170000" aand_soort_grootte="1" grootte_perceel="7" ka_kad_gemeentecode="AJM00" ka_perceelnummer="1531" ka_sectie="G"/>
+  <kad_perceel_archief/>
+  <subject identif="NL.KAD.Persoon.196686145" clazz="INGESCHREVEN NIET-NATUURLIJK PERSOON"/>
+  <subject identif="NL.KAD.Persoon.24046168" clazz="INGESCHREVEN NATUURLIJK PERSOON"/>
+  <subject identif="NL.KAD.Persoon.35174287" clazz="INGESCHREVEN NATUURLIJK PERSOON"/>
+  <subject identif="NL.KAD.Persoon.35400711" clazz="INGESCHREVEN NATUURLIJK PERSOON"/>
+  <prs sc_identif="NL.KAD.Persoon.196686145" clazz="INGESCHREVEN NIET-NATUURLIJK PERSOON"/>
+  <prs sc_identif="NL.KAD.Persoon.24046168" clazz="INGESCHREVEN NATUURLIJK PERSOON"/>
+  <prs sc_identif="NL.KAD.Persoon.35174287" clazz="INGESCHREVEN NATUURLIJK PERSOON"/>
+  <prs sc_identif="NL.KAD.Persoon.35400711" clazz="INGESCHREVEN NATUURLIJK PERSOON"/>
+  <niet_nat_prs sc_identif="NL.KAD.Persoon.196686145" clazz="INGESCHREVEN NIET-NATUURLIJK PERSOON" naam="Cooperatieve Vereniging &quot;Esonstad&quot;. U.A."/>
+  <ingeschr_niet_nat_prs sc_identif="NL.KAD.Persoon.196686145" rechtsvorm="Coöperatie" statutaire_zetel="ANJUM"/>
+  <herkomst_metadata tabel="subject" kolom="identif" waarde="NL.KAD.Persoon.196686145" herkomst_br="brk" datum="2018-02-19 00:00:00.0"/>
+  <herkomst_metadata tabel="subject" kolom="identif" waarde="NL.KAD.Persoon.24046168" herkomst_br="brk" datum="2018-02-19 00:00:00.0"/>
+  <herkomst_metadata tabel="subject" kolom="identif" waarde="NL.KAD.Persoon.35174287" herkomst_br="brk" datum="2018-02-19 00:00:00.0"/>
+  <herkomst_metadata tabel="subject" kolom="identif" waarde="NL.KAD.Persoon.35400711" herkomst_br="brk" datum="2018-02-19 00:00:00.0"/>
+  <kad_onrrnd_zk_aantek begindatum_aantek_kad_obj="2018-02-19" kadaster_identif_aantek="NL.KAD.Aantekening.AKR1.1548506" aard_aantek_kad_obj="Kwalitatieve verplichting" fk_4koz_kad_identif="46790153170000"/>
+  <kad_onrrnd_zk_aantek begindatum_aantek_kad_obj="2018-02-19" kadaster_identif_aantek="NL.KAD.Aantekening.AKR1.1548507" aard_aantek_kad_obj="Kwalitatieve verplichting" fk_4koz_kad_identif="46790153170000"/>
+  <kad_onrrnd_zk_aantek_archief/>
+  <brondocument tabel="BRONDOCUMENT" tabel_identificatie="NL.KAD.TIAStuk.20041228001888" identificatie="NL.KAD.Stukdeel.AKR1.10271911" omschrijving="NIL" datum="2004-12-28 00:00:00.0" ref_id="46790153170000"/>
+  <brondocument tabel="BRONDOCUMENT" tabel_identificatie="NL.KAD.Kadasterstuk.AKR1.9874770" identificatie="NL.KAD.Stukdeel.AKR1.10254808" omschrijving="NIL" ref_id="46790153170000"/>
+  <brondocument tabel="BRONDOCUMENT" tabel_identificatie="NL.KAD.TIAStuk.20050407002469" identificatie="NL.KAD.Stukdeel.AKR1.9853977" omschrijving="NIL" datum="2005-04-07 00:00:00.0" ref_id="46790153170000"/>
+  <brondocument tabel="BRONDOCUMENT" tabel_identificatie="NL.KAD.TIAStuk.20070326002085" identificatie="NL.KAD.Stukdeel.AKR1.100000000218887" omschrijving="Redresstuk" datum="2007-03-26 00:00:00.0" ref_id="46790153170000"/>
+  <brondocument tabel="BRONDOCUMENT" tabel_identificatie="NL.KAD.TIAStuk.20070326002085" identificatie="NL.KAD.Stukdeel.AKR1.9885845" omschrijving="NIL" datum="2007-03-26 00:00:00.0" ref_id="46790153170000"/>
+  <brondocument tabel="BRONDOCUMENT" tabel_identificatie="NL.KAD.TIAStuk.20180219002875" identificatie="NL.KAD.Stukdeel.AKR1.100000013388689" omschrijving="Akte van Koop en Verkoop" datum="2018-02-19 00:00:00.0" ref_id="46790153170000"/>
+  <brondocument tabel="BRONDOCUMENT" tabel_identificatie="NL.KAD.TIAStuk.20180219002875" identificatie="NL.KAD.Stukdeel.AKR1.100000013388690" omschrijving="Akte van Koop en Verkoop" datum="2018-02-19 00:00:00.0" ref_id="46790153170000"/>
+  <brondocument tabel="BRONDOCUMENT" tabel_identificatie="NL.KAD.TIAStuk.20180219002875" identificatie="NL.KAD.Stukdeel.AKR1.100000013388691" omschrijving="Akte van Koop en Verkoop" datum="2018-02-19 00:00:00.0" ref_id="46790153170000"/>
+  <brondocument tabel="BRONDOCUMENT" tabel_identificatie="NL.KAD.TIAStuk.20180219002875" identificatie="NL.KAD.Stukdeel.AKR1.100000013388773" omschrijving="Akte van Koop en Verkoop" datum="2018-02-19 00:00:00.0" ref_id="46790153170000"/>
+  <brondocument tabel="KAD_ONRRND_ZAAK_AANTEK" tabel_identificatie="NL.KAD.Aantekening.AKR1.1548506" identificatie="NL.KAD.Stukdeel.AKR1.10271911" omschrijving="isGebaseerdOp Aantekening" datum="2004-12-28 00:00:00.0" ref_id="46790153170000"/>
+  <brondocument tabel="KAD_ONRRND_ZAAK_AANTEK" tabel_identificatie="NL.KAD.Aantekening.AKR1.1548507" identificatie="NL.KAD.Stukdeel.AKR1.9853977" omschrijving="isGebaseerdOp Aantekening" datum="2005-04-07 00:00:00.0" ref_id="46790153170000"/>
+  <brondocument tabel="KAD_PERCEEL" tabel_identificatie="46790153170000" identificatie="NL.KAD.Kadasterstuk.AKR1.9874770" omschrijving="AKR Portefeuille Nr: 75 AJM0002006012" ref_id="46790153170000"/>
+  <brondocument tabel="KAD_PERCEEL" tabel_identificatie="46790153170000" identificatie="NL.KAD.TIAStuk.20041228001888" omschrijving="deel: 11113, nummer: 171, registercode: Hyp4, soortregister: Onroerende Zaken" datum="2004-12-28 00:00:00.0" ref_id="46790153170000"/>
+  <brondocument tabel="KAD_PERCEEL" tabel_identificatie="46790153170000" identificatie="NL.KAD.TIAStuk.20050407002469" omschrijving="deel: 11140, nummer: 119, registercode: Hyp4, soortregister: Onroerende Zaken" datum="2005-04-07 00:00:00.0" ref_id="46790153170000"/>
+  <brondocument tabel="KAD_PERCEEL" tabel_identificatie="46790153170000" identificatie="NL.KAD.TIAStuk.20070326002085" omschrijving="deel: 51904, nummer: 193, registercode: Hyp4, soortregister: Onroerende Zaken" datum="2007-03-26 00:00:00.0" ref_id="46790153170000"/>
+  <brondocument tabel="KAD_PERCEEL" tabel_identificatie="46790153170000" identificatie="NL.KAD.TIAStuk.20180219002875" omschrijving="deel: 72630, nummer: 97, registercode: Hyp4, soortregister: Onroerende Zaken" datum="2018-02-19 00:00:00.0" ref_id="46790153170000"/>
+  <brondocument tabel="ZAK_RECHT" tabel_identificatie="NL.KAD.Tenaamstelling.AKR1.100000014609270" identificatie="NL.KAD.Stukdeel.AKR1.100000013388773" omschrijving="isGebaseerdOp Tenaamstelling" datum="2018-02-19 00:00:00.0" ref_id="46790153170000"/>
+  <brondocument tabel="ZAK_RECHT" tabel_identificatie="NL.KAD.Tenaamstelling.AKR1.8681129" identificatie="NL.KAD.Stukdeel.AKR1.10254808" omschrijving="isGebaseerdOp Tenaamstelling" ref_id="46790153170000"/>
+  <brondocument tabel="ZAK_RECHT" tabel_identificatie="NL.KAD.Tenaamstelling.AKR1.8967864" identificatie="NL.KAD.Stukdeel.AKR1.9885845" omschrijving="isGebaseerdOp Tenaamstelling" datum="2007-03-26 00:00:00.0" ref_id="46790153170000"/>
+  <brondocument tabel="ZAK_RECHT" tabel_identificatie="NL.KAD.Tenaamstelling.AKR1.9190253" identificatie="NL.KAD.Stukdeel.AKR1.10254808" omschrijving="isGebaseerdOp Tenaamstelling" ref_id="46790153170000"/>
+  <zak_recht kadaster_identif="NL.KAD.Tenaamstelling.AKR1.100000014609270" indic_betrokken_in_splitsing="Nee" fk_7koz_kad_identif="46790153170000" fk_8pes_sc_identif="NL.KAD.Persoon.24046168" ar_noemer="2" ar_teller="1" fk_3avr_aand="7"/>
+  <zak_recht kadaster_identif="NL.KAD.Tenaamstelling.AKR1.8681129" indic_betrokken_in_splitsing="Nee" fk_7koz_kad_identif="46790153170000" fk_8pes_sc_identif="NL.KAD.Persoon.35400711" ar_noemer="4" ar_teller="1" fk_3avr_aand="7"/>
+  <zak_recht kadaster_identif="NL.KAD.Tenaamstelling.AKR1.8967864" indic_betrokken_in_splitsing="Nee" fk_7koz_kad_identif="46790153170000" fk_8pes_sc_identif="NL.KAD.Persoon.196686145" ar_noemer="1" ar_teller="1" fk_3avr_aand="2"/>
+  <zak_recht kadaster_identif="NL.KAD.Tenaamstelling.AKR1.9190253" indic_betrokken_in_splitsing="Nee" fk_7koz_kad_identif="46790153170000" fk_8pes_sc_identif="NL.KAD.Persoon.35174287" ar_noemer="4" ar_teller="1" fk_3avr_aand="7"/>
+  <zak_recht kadaster_identif="NL.KAD.ZakelijkRecht.AKR1.8681129" indic_betrokken_in_splitsing="Nee" fk_7koz_kad_identif="46790153170000" fk_3avr_aand="7"/>
+  <zak_recht kadaster_identif="NL.KAD.ZakelijkRecht.AKR1.8967864" indic_betrokken_in_splitsing="Nee" fk_7koz_kad_identif="46790153170000" fk_3avr_aand="2"/>
+</dataset>
