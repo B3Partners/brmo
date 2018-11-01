@@ -83,7 +83,7 @@
 </tr>
 </thead>
 <tbody valign='top'>
-<tr class='even'>
+<tr class='odd'>
  <td class='primaryKey' title='Primary Key'>fk_sc_lh_inp_sc_identif</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>255</td>
@@ -93,7 +93,7 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="huw_ger_partn.fk_sc_lh_inp_sc_identif refs ingeschr_nat_prs.sc_identif via fk_huw_ger_partn_sc_lh"><a href='ingeschr_nat_prs.html'>ingeschr_nat_prs</a><span class='relatedKey'>.sc_identif</span>
     </td>
     <td class='constraint detail'>fk_huw_ger_partn_sc_lh<span title='Cascade on delete:
@@ -103,7 +103,7 @@
  </td>
  <td class='comment detail'>[FK] AN32, FK naar ingeschr_nat_prs.sc_identif (is FK naar superclass SUBJECT)</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='primaryKey' title='Primary Key'>fk_sc_rh_inp_sc_identif</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>255</td>
@@ -113,7 +113,7 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="huw_ger_partn.fk_sc_rh_inp_sc_identif refs ingeschr_nat_prs.sc_identif via fk_huw_ger_partn_sc_rh"><a href='ingeschr_nat_prs.html'>ingeschr_nat_prs</a><span class='relatedKey'>.sc_identif</span>
     </td>
     <td class='constraint detail'>fk_huw_ger_partn_sc_rh<span title='Cascade on delete:
@@ -123,7 +123,7 @@
  </td>
  <td class='comment detail'>[FK] AN32, FK naar ingeschr_nat_prs.sc_identif (is FK naar superclass SUBJECT)</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>hs_datum_aangaan</td>
  <td class='detail'>numeric</td>
  <td class='detail' align='right'>8</td>
@@ -134,7 +134,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Groepsattribuut Sluiting/aangaan HUWELIJK/GEREGISTREERD PARTNERSCHAP.Datum huwelijkssluiting/aangaan geregistreerd partnerschap - Datum huwelijkssluiting/aangaan geregistreerd partnerschap</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>fk_hs_lnd_code_iso</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>2</td>
@@ -144,7 +144,7 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="huw_ger_partn.fk_hs_lnd_code_iso refs land.code_iso via fk_huw_ger_partn_hs_2"><a href='land.html'>land</a><span class='relatedKey'>.code_iso</span>
     </td>
     <td class='constraint detail'>fk_huw_ger_partn_hs_2<span title='Cascade on delete:
@@ -154,7 +154,7 @@
  </td>
  <td class='comment detail'>[FK] A2, FK naar land.code_iso: "Groepsattribuut referentielijst Land huwelijkssluiting/aangaan geregistreerd partnerschap"</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>hs_plaats</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>40</td>
@@ -165,7 +165,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Groepsattribuut Sluiting/aangaan HUWELIJK/GEREGISTREERD PARTNERSCHAP.Plaats huwelijkssluiting/aangaan geregistreerd partnerschap - Plaats huwelijkssluiting/aangaan geregistreerd partnerschap</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>ho_datum_ontb_huw_ger_partn</td>
  <td class='detail'>numeric</td>
  <td class='detail' align='right'>8</td>
@@ -176,7 +176,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Groepsattribuut Ontbinding HUWELIJK/GEREGISTREERD PARTNERSCHAP.Datum ontbinding huwelijk/geregistreerd partnerschap - Datum ontbinding huwelijk/geregistreerd partnerschap</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>fk_ho_lnd_code_iso</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>2</td>
@@ -186,7 +186,7 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="huw_ger_partn.fk_ho_lnd_code_iso refs land.code_iso via fk_huw_ger_partn_ho_2"><a href='land.html'>land</a><span class='relatedKey'>.code_iso</span>
     </td>
     <td class='constraint detail'>fk_huw_ger_partn_ho_2<span title='Cascade on delete:
@@ -196,7 +196,7 @@
  </td>
  <td class='comment detail'>[FK] A2, FK naar land.code_iso: "Groepsattribuut referentielijst Land ontbinding huwelijk/geregistreerd partnerschap"</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>ho_plaats_ontb_huw_ger_partn</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>40</td>
@@ -207,7 +207,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Groepsattribuut Ontbinding HUWELIJK/GEREGISTREERD PARTNERSCHAP.Plaats ontbinding huwelijk/geregistreerd partnerschap - Plaats ontbinding huwelijk/geregistreerd partnerschap</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>ho_reden_ontb_huw_ger_partn</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>1</td>
@@ -218,7 +218,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Groepsattribuut Ontbinding HUWELIJK/GEREGISTREERD PARTNERSCHAP.Reden ontbinding huwelijk/geregistreerd partnerschap - Reden ontbinding huwelijk/geregistreerd partnerschap</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>soort_verbintenis</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>1</td>
@@ -230,7 +230,7 @@
  <td class='comment detail'>AN1 - Soort verbintenis</td>
 </tr>
 </table>
-<p title='10 columns'>Table contained 0 rows at do okt 25 17:48 CEST 2018<p/>
+<p title='10 columns'>Table contained 0 rows at do nov 01 18:16 CET 2018<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>

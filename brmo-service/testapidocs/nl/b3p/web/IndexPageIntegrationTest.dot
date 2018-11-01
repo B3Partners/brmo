@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.web.WebTestUtil
-	c90 [label=<<table title="nl.b3p.web.WebTestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebTestUtil.html">
+	c112 [label=<<table title="nl.b3p.web.WebTestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebTestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> WebTestUtil </font></td></tr>
 		</table></td></tr>
@@ -25,7 +25,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./WebTestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.IndexPageIntegrationTest
-	c92 [label=<<table title="nl.b3p.web.IndexPageIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./IndexPageIntegrationTest.html">
+	c114 [label=<<table title="nl.b3p.web.IndexPageIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./IndexPageIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> IndexPageIntegrationTest </td></tr>
 		</table></td></tr>
@@ -41,6 +41,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./IndexPageIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.web.IndexPageIntegrationTest extends nl.b3p.web.WebTestUtil
-	c90:p -> c92:p [dir=back,arrowtail=empty];
+	c112:p -> c114:p [dir=back,arrowtail=empty];
 }
 

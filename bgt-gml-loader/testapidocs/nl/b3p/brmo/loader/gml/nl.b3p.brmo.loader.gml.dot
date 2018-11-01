@@ -226,7 +226,7 @@ digraph G {
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderNederlandIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
 	c23:p -> c24:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader
-	c24 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c24 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/brmo/loader/gml/BGTGMLLightLoader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoader </td></tr>
 		</table></td></tr>
@@ -252,6 +252,6 @@ digraph G {
 <tr><td align="left" balign="left"> + getStatus() : BGTGMLLightLoader.STATUS </td></tr>
 <tr><td align="left" balign="left"> + resetStatus() </td></tr>
 		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/brmo/loader/gml/BGTGMLLightLoader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

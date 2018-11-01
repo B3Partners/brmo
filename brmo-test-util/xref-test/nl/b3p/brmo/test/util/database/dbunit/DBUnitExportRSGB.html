@@ -40,25 +40,25 @@
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="DBUnitExportRSGB" href="../../../../../../../nl/b3p/brmo/test/util/database/dbunit/DBUnitExportRSGB.html#DBUnitExportRSGB">DBUnitExportRSGB</a> {
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String _testDir = <span class="jxr_string">"src/test/resources/"</span>;
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String _testDir = <span class="jxr_string">"target/"</span>;
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String _dbFile = <span class="jxr_string">"rsgb-flat.xml"</span>;
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String _dbFile2 = <span class="jxr_string">"rsgb.xml"</span>;
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>      <em class="jxr_comment">// postgis</em>
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>      <em class="jxr_comment">// private static final String _driverClass = "org.postgresql.Driver";</em>
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <em class="jxr_comment">// private static final String _jdbcConnection = "jdbc:postgresql://localhost:5432/mantis6098_rsgb";</em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <em class="jxr_comment">// private static final String _user = "rsgb";</em>
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>      <em class="jxr_comment">// private static final String _passwd = "rsgb";</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String _driverClass = <span class="jxr_string">"org.postgresql.Driver"</span>;
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String _jdbcConnection = <span class="jxr_string">"jdbc:postgresql://localhost:5434/itest_rsgb"</span>;
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String _user = <span class="jxr_string">"rsgb"</span>;
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String _passwd = <span class="jxr_string">"rsgb"</span>;
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>      <em class="jxr_comment">// ms sql</em>
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      <em class="jxr_comment">// private static final String _driverClass = "net.sourceforge.jtds.jdbc.Driver";</em>
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>      <em class="jxr_comment">// private static final String _jdbcConnection = "jdbc:jtds:sqlserver://192.168.1.15:1433/itest_brmo_rsgb;instance=SQLEXPRESS";</em>
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      <em class="jxr_comment">// private static final String _user = "brmotest";</em>
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      <em class="jxr_comment">// private static final String _passwd = "brmotest";</em>
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      <em class="jxr_comment">// oracle</em>
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String _driverClass = <span class="jxr_string">"oracle.jdbc.OracleDriver"</span>;
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String _jdbcConnection = <span class="jxr_string">"jdbc:oracle:thin:@192.168.1.40:1521:db01"</span>;
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String _user = <span class="jxr_string">"rsgbitest"</span>;
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String _passwd = <span class="jxr_string">"rsgbitest"</span>;
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      <em class="jxr_comment">// private static final String _driverClass = "oracle.jdbc.OracleDriver";</em>
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <em class="jxr_comment">// private static final String _jdbcConnection = "jdbc:oracle:thin:@192.168.1.40:1521:db01";</em>
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <em class="jxr_comment">// private static final String _user = "rsgbitest";</em>
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <em class="jxr_comment">// private static final String _passwd = "rsgbitest";</em>
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>      <em class="jxr_comment">// volgorde van tabellen belangrijk vanwege de constraints</em>
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String[] _testTableNames = {

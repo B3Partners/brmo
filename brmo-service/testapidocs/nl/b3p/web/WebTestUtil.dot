@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.testutil.TestUtil
-	c121 [label=<<table title="nl.b3p.brmo.service.testutil.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../brmo/service/testutil/TestUtil.html">
+	c147 [label=<<table title="nl.b3p.brmo.service.testutil.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../brmo/service/testutil/TestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestUtil </font></td></tr>
 		</table></td></tr>
@@ -32,7 +32,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../brmo/service/testutil/TestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.DownloadLogIntegrationTest
-	c122 [label=<<table title="nl.b3p.web.DownloadLogIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DownloadLogIntegrationTest.html">
+	c148 [label=<<table title="nl.b3p.web.DownloadLogIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DownloadLogIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DownloadLogIntegrationTest </td></tr>
 		</table></td></tr>
@@ -46,7 +46,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./DownloadLogIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.WebTestUtil
-	c123 [label=<<table title="nl.b3p.web.WebTestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WebTestUtil.html">
+	c149 [label=<<table title="nl.b3p.web.WebTestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WebTestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> WebTestUtil </font></td></tr>
 		</table></td></tr>
@@ -61,7 +61,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./WebTestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.LogsPageIntegrationTest
-	c124 [label=<<table title="nl.b3p.web.LogsPageIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LogsPageIntegrationTest.html">
+	c150 [label=<<table title="nl.b3p.web.LogsPageIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LogsPageIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LogsPageIntegrationTest </td></tr>
 		</table></td></tr>
@@ -75,7 +75,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./LogsPageIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.IndexPageIntegrationTest
-	c125 [label=<<table title="nl.b3p.web.IndexPageIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IndexPageIntegrationTest.html">
+	c151 [label=<<table title="nl.b3p.web.IndexPageIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IndexPageIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> IndexPageIntegrationTest </td></tr>
 		</table></td></tr>
@@ -91,12 +91,12 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./IndexPageIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.web.DownloadLogIntegrationTest extends nl.b3p.web.WebTestUtil
-	c123:p -> c122:p [dir=back,arrowtail=empty];
+	c149:p -> c148:p [dir=back,arrowtail=empty];
 	//nl.b3p.web.WebTestUtil extends nl.b3p.brmo.service.testutil.TestUtil
-	c121:p -> c123:p [dir=back,arrowtail=empty];
+	c147:p -> c149:p [dir=back,arrowtail=empty];
 	//nl.b3p.web.LogsPageIntegrationTest extends nl.b3p.web.WebTestUtil
-	c123:p -> c124:p [dir=back,arrowtail=empty];
+	c149:p -> c150:p [dir=back,arrowtail=empty];
 	//nl.b3p.web.IndexPageIntegrationTest extends nl.b3p.web.WebTestUtil
-	c123:p -> c125:p [dir=back,arrowtail=empty];
+	c149:p -> c151:p [dir=back,arrowtail=empty];
 }
 

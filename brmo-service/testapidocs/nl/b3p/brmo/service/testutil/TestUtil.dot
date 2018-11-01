@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.zip.NestedZipIntegrationTest
-	c110 [label=<<table title="nl.b3p.brmo.zip.NestedZipIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../zip/NestedZipIntegrationTest.html">
+	c134 [label=<<table title="nl.b3p.brmo.zip.NestedZipIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../zip/NestedZipIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NestedZipIntegrationTest </td></tr>
 		</table></td></tr>
@@ -25,7 +25,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../zip/NestedZipIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest
-	c111 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/AdvancedFunctionsActionBeanIntegrationTest.html">
+	c135 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/AdvancedFunctionsActionBeanIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AdvancedFunctionsActionBeanIntegrationTest </td></tr>
 		</table></td></tr>
@@ -41,7 +41,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../stripes/AdvancedFunctionsActionBeanIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanCleanupIntegrationTest
-	c112 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanCleanupIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/AdvancedFunctionsActionBeanCleanupIntegrationTest.html">
+	c136 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanCleanupIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/AdvancedFunctionsActionBeanCleanupIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AdvancedFunctionsActionBeanCleanupIntegrationTest </td></tr>
 		</table></td></tr>
@@ -58,8 +58,24 @@ digraph G {
 <tr><td align="left" balign="left"> + testCleanupAndDeleteBerichten() </td></tr>
 		</table></td></tr>
 		</table>>, URL="../stripes/AdvancedFunctionsActionBeanCleanupIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.BRKComfortAdresUpdatesIntegrationTest
+	c137 [label=<<table title="nl.b3p.brmo.service.stripes.BRKComfortAdresUpdatesIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../stripes/BRKComfortAdresUpdatesIntegrationTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BRKComfortAdresUpdatesIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRKComfortAdresUpdatesIntegrationTest(sStagingBestand : String, sRsgbBestand : String) </td></tr>
+<tr><td align="left" balign="left"> + params() : Collection&lt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testSnelleUpdate() </td></tr>
+		</table></td></tr>
+		</table>>, URL="../stripes/BRKComfortAdresUpdatesIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.testutil.TestUtil
-	c113 [label=<<table title="nl.b3p.brmo.service.testutil.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TestUtil.html">
+	c138 [label=<<table title="nl.b3p.brmo.service.testutil.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestUtil </font></td></tr>
 		</table></td></tr>
@@ -81,7 +97,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.WebTestUtil
-	c115 [label=<<table title="nl.b3p.web.WebTestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../web/WebTestUtil.html">
+	c140 [label=<<table title="nl.b3p.web.WebTestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../web/WebTestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> WebTestUtil </font></td></tr>
 		</table></td></tr>
@@ -96,12 +112,14 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../web/WebTestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.zip.NestedZipIntegrationTest extends nl.b3p.brmo.service.testutil.TestUtil
-	c113:p -> c110:p [dir=back,arrowtail=empty];
+	c138:p -> c134:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest extends nl.b3p.brmo.service.testutil.TestUtil
-	c113:p -> c111:p [dir=back,arrowtail=empty];
+	c138:p -> c135:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanCleanupIntegrationTest extends nl.b3p.brmo.service.testutil.TestUtil
-	c113:p -> c112:p [dir=back,arrowtail=empty];
+	c138:p -> c136:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.service.stripes.BRKComfortAdresUpdatesIntegrationTest extends nl.b3p.brmo.service.testutil.TestUtil
+	c138:p -> c137:p [dir=back,arrowtail=empty];
 	//nl.b3p.web.WebTestUtil extends nl.b3p.brmo.service.testutil.TestUtil
-	c113:p -> c115:p [dir=back,arrowtail=empty];
+	c138:p -> c140:p [dir=back,arrowtail=empty];
 }
 
