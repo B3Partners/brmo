@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo-loader</artifactId>
-    <version>1.6.2-SNAPSHOT</version>
+    <version>1.6.2-rc1</version>
     <packaging>jar</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
-        <version>1.6.2-SNAPSHOT</version>
+        <version>1.6.2-rc1</version>
     </parent>
     <name>BRMO loader</name>
     <description>BRMO data loader module.</description>
@@ -107,7 +107,7 @@
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>bgt-gml-loader</artifactId>
-            <version>1.6.2-SNAPSHOT</version>
+            <version>1.6.2-rc1</version>
             <exclusions>
                 <exclusion>
                     <groupId>${oracle.jdbc.groupId}</groupId>
@@ -135,7 +135,7 @@
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>brmo-test-util</artifactId>
-            <version>1.6.2-SNAPSHOT</version>
+            <version>1.6.2-rc1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
