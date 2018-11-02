@@ -1,10 +1,10 @@
 #!/usr/bin/python
 # coding=utf-8
-import os, sys, re, logging
+import os, sys, re, logging, csv
 from collections import defaultdict
 
 logging.basicConfig(
-    #level=logging.DEBUG,
+    # level=logging.DEBUG,
     level=logging.INFO,
     filename='vo107-to-pl.log',
     format='%(asctime)-15s %(levelname)-6s %(message)s'
@@ -18,10 +18,20 @@ vo107gemcode = re.compile(u"[\s][0-9]{4}[\s]")
 # afkorting code ergens op de regel
 vo107afkcode = re.compile(u"[\s][A-Z]{1}[\s]{3}")
 
+# WPL tabel uit de bag, maar dan andersom (gemeentecode:naam:code)
+_bagWoonplaatsen = {}
+
+def lookupWPL(gemcode, plaats):
+    logging.debug("opzoeken gemeente: " + gemcode + ", plaatsnaam: " + plaats)
+    try:
+        return _bagWoonplaatsen[gemcode][plaats]
+    except KeyError:
+        return ""
 
 def parse_block(lines, outFile):
     logging.debug('verwerken BLOK\n' + ''.join(lines))
     pl = defaultdict(dict)
+    gemcode = ""
     for line in lines:
         logging.debug("verwerken regel: " + line)
         key = vo107key.search(line).group()
@@ -30,11 +40,15 @@ def parse_block(lines, outFile):
         waarde = vo107value.search(line).group()[1:].strip()
         # gemeente code
         if rubriekNummer == '0910':
-            code = vo107gemcode.search(line).group()
-            waarde = waarde + '#' + code.strip()
+            code = vo107gemcode.search(line).group().strip().lstrip('0')
+            gemcode = code
+            waarde = waarde + '#' + code
         if rubriekNummer in {'0410', '1010'}:
-            code = vo107afkcode.search(line).group()
-            waarde = waarde + '#' + code.strip()
+            code = vo107afkcode.search(line).group().strip()
+            waarde = waarde + '#' + code
+        if rubriekNummer in {'1170'}:
+            code = lookupWPL(gemcode, waarde)
+            waarde = waarde + '#' + str(code)
 
         logging.debug(
             "verwerken key: " + key
@@ -69,10 +83,10 @@ def parse_block(lines, outFile):
             # outFile.write('<naam />')
             outFile.write('<waarde>')
             # TODO mogelijk moet waarde nog escaped worden
-            if rubr in {'0410', '1010', '0910'}:
+            if rubr in {'0410', '1010', '0910', '1170'}:
                 waarde, code = waarde.split('#')
                 # voorloop 0 gemeentecode verwijderen
-                outFile.write(code.lstrip('0'))
+                outFile.write(code)
             else:
                 outFile.write(waarde)
             outFile.write('</waarde>')
@@ -127,6 +141,15 @@ def main(*args, **kwargs):
     if not os.path.exists(inputFileName):
         logging.error("Bestand '%(fn)s' bestaat niet" % {'fn': inputFileName})
         exit(-1)
+
+
+    logging.info("Laden woonplaatsentabel")
+    with open("plaatsnamen.csv", 'r') as data_file:
+        data = csv.DictReader(data_file, delimiter=",")
+        for row in data:
+            item = _bagWoonplaatsen.get(row["GEMCODE"], dict())
+            item[row["NAAM"]] = int(row["PLAATSCODE"])
+            _bagWoonplaatsen[row["GEMCODE"]] = item
 
     logging.info("Begin verwerken bestand '%(fn)s'." % {'fn': inputFileName})
     _outFile = open(inputFileName + ".xml", 'w')
