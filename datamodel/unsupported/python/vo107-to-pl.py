@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # coding=utf-8
-import os, sys, re, logging, csv
+import os, sys, re, logging, csv, datetime
 from collections import defaultdict
 
 logging.basicConfig(
@@ -21,6 +21,7 @@ vo107afkcode = re.compile(u"[\s][A-Z]{1}[\s]{3}")
 # WPL tabel uit de bag, maar dan andersom (gemeentecode:naam:code)
 _bagWoonplaatsen = {}
 
+'''zoekt BAG woonplaats code op in het csv bestand'''
 def lookupWPL(gemcode, plaats):
     logging.debug("opzoeken gemeente: " + gemcode + ", plaatsnaam: " + plaats)
     try:
@@ -28,6 +29,7 @@ def lookupWPL(gemcode, plaats):
     except KeyError:
         return ""
 
+'''verwerkt een peroon blok uit vo107'''
 def parse_block(lines, outFile):
     logging.debug('verwerken BLOK\n' + ''.join(lines))
     pl = defaultdict(dict)
@@ -153,12 +155,18 @@ def main(*args, **kwargs):
 
     logging.info("Begin verwerken bestand '%(fn)s'." % {'fn': inputFileName})
     _outFile = open(inputFileName + ".xml", 'w')
+
     _outFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+    _outFile.write('<persoonlijsten>\n<metadata>\n')
+    _outFile.write('  <desc>vo107 naar PL conversie</desc>\n')
+    _outFile.write('  <bronbestand>' + inputFileName + '</bronbestand>\n')
+    _outFile.write('  <datum>' + str(datetime.datetime.now()) + '</datum>\n')
+    _outFile.write('</metadata>\n')
     _outFile.write('<resultaten>\n')
 
     parse_file(inputFileName, _outFile)
 
-    _outFile.write('</resultaten>\n')
+    _outFile.write('</resultaten>\n</persoonlijsten>')
     _outFile.close()
 
     logging.info("Verwerken bestand '%(fn)s' is afgerond." % {'fn': inputFileName})
