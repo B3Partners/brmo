@@ -16,14 +16,14 @@
         </layout>
     </appender>
 
-    <!-- deze appender schrijft naar de genoemde logfile welke tot maximaal 5x wordt geroteerd bij 5MB -->
+    <!-- deze appender schrijft naar de genoemde logfile welke tot maximaal 10x wordt geroteerd bij 10MB -->
     <appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
         <!-- NB het directory pad is relatief aan de directory waaruit het programma gestart wordt -->
         <param name="File" value="logs/brmo-commandline.log"/>
         <param name="Threshold" value="debug" />
         <param name="Append" value="true" />
-        <param name="maxBackupIndex" value="5" />
-        <param name="maxFileSize" value="5MB" />
+        <param name="maxBackupIndex" value="10" />
+        <param name="maxFileSize" value="10MB" />
         <layout class="org.apache.log4j.EnhancedPatternLayout">
             <!-- voor debug met regelnummers/functie naam uit de broncode:
             <param name="ConversionPattern" value="%5p %d{HH:mm:ss} (%C{1.}#%M:%L) - %m%n" / -->
@@ -33,7 +33,7 @@
 
     <logger name="nl.b3p.brmo">
         <!-- mogelijke values voor level zijn (in volgorde van verbositeit) trace,debug,info,warn,error,fatal -->
-        <level value="debug" />
+        <level value="info" />
     </logger>
     <logger name="org.geotools">
         <level value="info" />
