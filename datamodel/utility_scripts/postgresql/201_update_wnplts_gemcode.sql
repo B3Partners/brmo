@@ -1,6 +1,6 @@
 -- Update gemeente/woonplaats relatie koppelscript
--- Gegenereerd op: 2018-01-16T17:28:55.268+01:00
--- StandTechnischeDatum van bronbestand: 20180108
+-- Gegenereerd op: 2018-11-06T14:31:45.546+01:00
+-- StandTechnischeDatum van bronbestand: 20181008
 UPDATE wnplts SET fk_7gem_code = 3 WHERE identif = '3386';
 UPDATE wnplts SET fk_7gem_code = 5 WHERE identif = '2829';
 UPDATE wnplts SET fk_7gem_code = 5 WHERE identif = '2830';
