@@ -14,7 +14,7 @@
     <description>Bevat de code voor het genereren van het RSGB datamodel.</description>
     <properties>
         <filename.base.201_update_wnplts_gemcode>201_update_wnplts_gemcode</filename.base.201_update_wnplts_gemcode>
-        <filename.GEM-WPL-zipfile>GEM-WPL-RELATIE-08092018.zip</filename.GEM-WPL-zipfile>
+        <filename.GEM-WPL-zipfile>GEM-WPL-RELATIE-08102018.zip</filename.GEM-WPL-zipfile>
     </properties>
     <build>
         <defaultGoal>process-resources</defaultGoal>
@@ -223,7 +223,7 @@
                 <file>
                     <!-- dit profiel wordt geactiveerd als dit bestand, dat de
                          input voor het proces is, bestaat -->
-                    <exists>${bas$edir}/referentiedata/${filename.GEM-WPL-zipfile}</exists>
+                    <exists>${basedir}/referentiedata/${filename.GEM-WPL-zipfile}</exists>
                 </file>
             </activation>
             <build>
