@@ -15,7 +15,7 @@ import nl.b3p.loader.jdbc.OracleJdbcConverter;
 import oracle.jdbc.OracleConnection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.geotools.factory.GeoTools;
+import org.geotools.util.factory.GeoTools;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;

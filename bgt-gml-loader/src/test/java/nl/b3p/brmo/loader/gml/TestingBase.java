@@ -14,7 +14,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.geotools.factory.GeoTools;
+import org.geotools.util.factory.GeoTools;
 import org.junit.After;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeNotNull;

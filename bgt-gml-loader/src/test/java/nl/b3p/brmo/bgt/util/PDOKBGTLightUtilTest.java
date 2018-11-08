@@ -10,7 +10,7 @@ import org.apache.commons.logging.LogFactory;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.geotools.factory.GeoTools;
+import org.geotools.util.factory.GeoTools;
 import org.junit.*;
 
 /**

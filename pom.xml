@@ -60,7 +60,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <netbeans.hint.license>gpl30</netbeans.hint.license>
         <hibernate.version>3.6.10.Final</hibernate.version>
-        <geotools.version>20.3</geotools.version>
+        <geotools.version>21-M0</geotools.version>
         <jts.version>1.16.1</jts.version>
         <postgresql.jdbc.version>42.2.6</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2.3.0</postgresql.postgis-jdbc.version>
@@ -83,6 +83,9 @@
         <javasimon.version>4.1.4</javasimon.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <quartz.version>2.3.1</quartz.version>
+        <jaxb.api.version>2.3.1</jaxb.api.version>
+        <jaxb.impl.version>2.3.2</jaxb.impl.version>
+        <activation.api.version>1.2.0</activation.api.version>
         <!-- bij ophogen van tomcat versie evt. ook de .mvn/owasp-suppression.xml file bijwerken -->
         <tomcat.version>7.0.94</tomcat.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -283,9 +286,22 @@
                 <version>3.2.2</version>
             </dependency>
             <dependency>
+                <!-- override verouderde versie die met hibernate meekomt -->
+                <groupId>org.javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>3.24.1-GA</version>
+            </dependency>
+            <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
                 <version>${hibernate.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <!-- exclude oude javassist zodat we de actule versie van herboven kunnen gebruiken -->
+                        <groupId>org.javassist</groupId>
+                        <artifactId>javassist</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>commons-dbutils</groupId>
@@ -886,9 +902,9 @@
                     <version>3.0.0-M2</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.jvnet.jax-ws-commons</groupId>
+                    <groupId>com.sun.xml.ws</groupId>
                     <artifactId>jaxws-maven-plugin</artifactId>
-                    <version>2.3.1-b20150201.1248</version>
+                    <version>2.3.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.owasp</groupId>
@@ -1088,6 +1104,34 @@
                     <exists>pom.xml</exists>
                 </file>
             </activation>
+        </profile>
+        <profile>
+            <id>jdk11+</id>
+            <activation>
+                <jdk>[11,)</jdk>
+            </activation>
+            <properties>
+                <java.version>11</java.version>
+            </properties>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
+                        <version>${jaxb.api.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.glassfish.jaxb</groupId>
+                        <artifactId>jaxb-runtime</artifactId>
+                        <version>${jaxb.impl.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>javax.activation</groupId>
+                        <artifactId>javax.activation-api</artifactId>
+                        <version>${activation.api.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
         </profile>
     </profiles>
 </project>
