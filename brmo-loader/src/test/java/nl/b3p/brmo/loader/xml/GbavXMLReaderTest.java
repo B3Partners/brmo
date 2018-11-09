@@ -19,13 +19,17 @@ package nl.b3p.brmo.loader.xml;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.GbavBericht;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeNotNull;
+
 import org.junit.Test;
 
 /**
@@ -41,7 +45,7 @@ public class GbavXMLReaderTest {
     public void berichtTest() throws Exception {
         GbavXMLReader r;
         GbavBericht b = null;
-
+        assumeNotNull("testdata moet aanwezig zijn", GbavXMLReaderTest.class.getResourceAsStream("gbav-voorbeeld.xml"));
         r = new GbavXMLReader(GbavXMLReader.class.getResourceAsStream("gbav-voorbeeld.xml"));
         assertTrue(r.hasNext());
         int total = 0;
@@ -69,7 +73,8 @@ public class GbavXMLReaderTest {
         GbavXMLReader r;
         GbavBericht b = null;
 
-        r = new GbavXMLReader(GbavXMLReader.class.getResourceAsStream("persoonslijst.xml"));
+        assumeNotNull("testdata moet aanwezig zijn", GbavXMLReaderTest.class.getResourceAsStream("persoonslijst.xml"));
+        r = new GbavXMLReader(GbavXMLReaderTest.class.getResourceAsStream("persoonslijst.xml"));
         assertTrue(r.hasNext());
         int total = 0;
         List<String> objectRefs = new ArrayList();
@@ -88,12 +93,12 @@ public class GbavXMLReaderTest {
 
         assertEquals(4, total);
         assertArrayEquals(new String[]{
-                GbavXMLReader.PREFIX + "17a75f5b058c2eea87562933e38f0fb31e15c75e",
-                        GbavXMLReader.PREFIX + "21dacf4cde5ac8d28fa6ffc822e22c47de1548d7",
-                        GbavXMLReader.PREFIX + "a8fb7604f3c56087872ca13fa143a9476fc651df",
-                        GbavXMLReader.PREFIX + "32e78a29de400910362d0ba45e315ffa5cc2ce60"
+                        GbavXMLReader.PREFIX + "a1672c578792e79cadd113ae5ccfd3a867dde805",
+                        GbavXMLReader.PREFIX + "200ba4cd285de672506eea37179f25e988511188",
+                        GbavXMLReader.PREFIX + "b8600b644b291dd67909c54ac87b46e6c1a38a1f",
+                        GbavXMLReader.PREFIX + "9d0ca6e9a6d67bf098ffa88d2df6281805b5b0a0"
                 },
                 objectRefs.toArray(new String[]{})
-                );
+        );
     }
 }

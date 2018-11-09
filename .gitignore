@@ -43,3 +43,6 @@ nb-configuration.xml
 .idea/
 *.iml
 temp/
+
+# python virtualenv voor de pythonscripts in unsupported
+/datamodel/.python/
