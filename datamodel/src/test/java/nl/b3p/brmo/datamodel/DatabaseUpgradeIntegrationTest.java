@@ -1,0 +1,184 @@
+/*
+ * Copyright (C) 2018 B3Partners B.V.
+ */
+package nl.b3p.brmo.datamodel;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Properties;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.dbunit.database.DatabaseDataSourceConnection;
+import org.junit.After;
+import static org.junit.Assume.assumeNotNull;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestName;
+import org.apache.commons.dbcp.BasicDataSource;
+import org.dbunit.database.DatabaseConfig;
+import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.dataset.ITable;
+import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
+import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
+import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+/**
+ *
+ * @author Mark Prins
+ */
+@RunWith(Parameterized.class)
+public class DatabaseUpgradeIntegrationTest {
+
+    @Parameterized.Parameters(name = "{index}: testen database: {0}")
+    public static Collection params() {
+        return Arrays.asList(new Object[][]{
+            {"staging"}, {"rsgb"}, {"rsgbbgt"}
+        });
+    }
+
+    private String dbName;
+
+    public DatabaseUpgradeIntegrationTest(String dbName) {
+        this.dbName = dbName;
+    }
+
+    private IDatabaseConnection db;
+
+    private static String currentVersion;
+    private static String previousVersion;
+    private static final Log LOG = LogFactory.getLog(DatabaseUpgradeIntegrationTest.class);
+
+    @BeforeClass
+    public static void getEnvironment() {
+        currentVersion = System.getProperty("project.version").replace("-SNAPSHOT", "");
+        //  Semantic Versioning scheme (MAJOR.MINOR.PATCH)
+        previousVersion = currentVersion;
+        int patch = Integer.parseInt(currentVersion.substring(currentVersion.lastIndexOf("."), currentVersion.length() - 1));
+        previousVersion = currentVersion.substring(0, currentVersion.lastIndexOf(".")) + "." + (patch - 1);
+    }
+
+    /**
+     * test of de database properties zijn aangegeven, zo niet dan skippen we
+     * alle tests in deze test.
+     */
+    @BeforeClass
+    public static void checkDatabaseIsProvided() {
+        assumeNotNull("Verwacht database omgeving te zijn aangegeven.", System.getProperty("database.properties.file"));
+    }
+
+    /**
+     * properties uit {@code <DB smaak>.properties} en
+     * {@code local.<DB smaak>.properties}.
+     *
+     * @see #loadProps()
+     */
+    protected final Properties params = new Properties();
+
+    /**
+     * {@code true} als we met een Oracle database bezig zijn.
+     */
+    protected boolean isOracle;
+
+    /**
+     * {@code true} als we met een MS SQL Server database bezig zijn.
+     */
+    protected boolean isMsSQL;
+
+    /**
+     * {@code true} als we met een Postgis database bezig zijn.
+     */
+    protected boolean isPostgis;
+
+    @Before
+    public void setUpDB() throws Exception {
+        this.loadProps();
+        BasicDataSource ds = new BasicDataSource();
+        ds.setUrl(params.getProperty(this.dbName + ".url"));
+        ds.setUsername(params.getProperty(this.dbName + ".username"));
+        ds.setPassword(params.getProperty(this.dbName + ".password"));
+        ds.setAccessToUnderlyingConnectionAllowed(true);
+        db = new DatabaseDataSourceConnection(ds);
+
+        if (this.isMsSQL) {
+            db.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
+        } else if (this.isOracle) {
+            // db = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(db.getConnection()), params.getProperty(this.dbName + ".user").toUpperCase());
+            db.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
+            db.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+        } else if (this.isPostgis) {
+            db.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+
+        } else {
+            fail("Geen ondersteunde database aangegegeven.");
+        }
+
+    }
+
+    @Test
+    public void testCurrentVersion() throws Exception {
+        ITable metadata = db.createTable("brmo_metadata");
+
+        String waarde, naam;
+        boolean foundVersion = false, foundUpdate = false;
+
+        for (int i = 0; i < metadata.getRowCount(); i++) {
+            waarde = metadata.getValue(i, "waarde").toString();
+            naam = metadata.getValue(i, "naam").toString();
+            if (currentVersion.equalsIgnoreCase(waarde)
+                    && "brmoversie".equalsIgnoreCase(naam)) {
+                foundVersion = true;
+
+            }
+            if ("vorige versie was 1.6.0".equalsIgnoreCase(waarde)
+                    && "upgrade_1.6.0_naar_1.6.1".equalsIgnoreCase(naam)) {
+                foundUpdate = true;
+            }
+        }
+        assertTrue("Update versienummer niet correct", foundVersion);
+        assertTrue("Update text niet gevonden", foundUpdate);
+    }
+
+    @After
+    public void cleanup() throws SQLException {
+        db.close();
+    }
+
+    /**
+     * Laadt de database propery file en eventuele overrides.
+     *
+     * @throws IOException als laden van property file mislukt
+     * @todo evt naar superklasse extraheren
+     */
+    public void loadProps() throws IOException {
+        // de `database.properties.file` is in de pom.xml of via commandline ingesteld
+        params.load(DatabaseUpgradeIntegrationTest.class.getClassLoader()
+                .getResourceAsStream(System.getProperty("database.properties.file")));
+        try {
+            // probeer een local (override) versie te laden als die bestaat
+            params.load(DatabaseUpgradeIntegrationTest.class.getClassLoader()
+                    .getResourceAsStream("local." + System.getProperty("database.properties.file")));
+        } catch (IOException | NullPointerException e) {
+            // negeren; het override bestand is normaal niet aanwezig
+        }
+        isOracle = "oracle".equalsIgnoreCase(params.getProperty("dbtype"));
+        isMsSQL = "jtds-sqlserver".equalsIgnoreCase(params.getProperty("dbtype"));
+        isPostgis = "postgis".equalsIgnoreCase(params.getProperty("dbtype"));
+
+        try {
+            Class stagingDriverClass = Class.forName(params.getProperty("jdbc.driverClassName"));
+        } catch (ClassNotFoundException ex) {
+            LOG.error("Database driver niet gevonden.", ex);
+        }
+    }
+
+}
