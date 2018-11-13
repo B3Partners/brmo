@@ -14,11 +14,9 @@ WITH NO DATA;
 COMMENT ON VIEW mb_util_app_re_kad_perceel
 IS 'commentaar view mb_util_app_re_kad_perceel:
 utility view, niet bedoeld voor direct gebruik, met lijst van appartementsrechten met bijbehorend grondperceel
-
 beschikbare kolommen:
-* app_re_identif: natuurlijk is van appartementsrecht,
-* perceel_identif: natuurlijk id van grondperceel
-';
+* app_re_identif: natuurlijk id van appartementsrecht,
+* perceel_identif: natuurlijk id van grondperceel';
 CREATE INDEX mb_util_app_re_kad_perceel_identif ON mb_util_app_re_kad_perceel USING btree (app_re_identif);
 
 

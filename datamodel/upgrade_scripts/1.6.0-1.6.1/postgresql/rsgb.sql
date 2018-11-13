@@ -5,6 +5,7 @@
 -- issue #510
 alter table functionaris alter column functionaristypering type character varying(255);
 
+DROP MATERIALIZED VIEW IF EXISTS mb_kad_onrrnd_zk_archief;
 DROP VIEW vb_kad_onrrnd_zk_archief;
 CREATE OR REPLACE VIEW
     vb_kad_onrrnd_zk_archief

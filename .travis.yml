@@ -49,6 +49,11 @@ matrix:
     env: 
       - PG_VERSION=""
       - PROFILE="mssql -Dmssql.instancename=''"
+  - name: "database upgrades"
+    jdk: oraclejdk8
+    sudo: required
+    env: 
+      - PROFILE="postgresql -Dupgrade=true"
 
 cache:
   directories:
@@ -97,6 +102,8 @@ before_script:
   - if [ "$PROFILE" == "postgresql" ]; then
        sh ".travis/setup-pgsql.sh";
        sh ".jenkins/data-prepare-topnl.sh";
+    elif  [ "$PROFILE" == "postgresql -Dupgrade=true" ]; then
+       sh ".travis/setup-old-pgsql.sh";
     else
        sh ".travis/setup-mssql.sh";
     fi
