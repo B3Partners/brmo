@@ -503,8 +503,11 @@
                     <xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='1190']/waarde" />
                 </fk_va_5_nra_sc_identif>
                 <fk_va_6_wpl_identif>
-                    <!--  [FK] AN4, FK naar wnplts.identif: "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.woonplaats" -->
+                    <!--  [FK] AN4, FK naar wnplts.identif: "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.woonplaats"
+                    PROBLEEM: de idetif in wnplts is de VARCHAR(4) woonplaats code; niet de BAG identif van WPL -->
+                    <!-- 1180: Identificatiecode verblijfsplaats BAG id -->
                     <!-- BAG id <xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='1180']/waarde" />-->
+                    <!-- 1170: Woonplaatsnaam -->
                     <xsl:value-of select="../categorie[nummer='08']/rubrieken/rubriek[nummer='1170']/waarde" />
                 </fk_va_6_wpl_identif>
                 <gemeente_van_inschrijving>

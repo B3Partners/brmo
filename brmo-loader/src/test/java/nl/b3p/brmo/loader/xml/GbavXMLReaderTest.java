@@ -19,13 +19,17 @@ package nl.b3p.brmo.loader.xml;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.GbavBericht;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeNotNull;
+
 import org.junit.Test;
 
 /**
@@ -41,7 +45,7 @@ public class GbavXMLReaderTest {
     public void berichtTest() throws Exception {
         GbavXMLReader r;
         GbavBericht b = null;
-
+        assumeNotNull("testdata moet aanwezig zijn", GbavXMLReaderTest.class.getResourceAsStream("gbav-voorbeeld.xml"));
         r = new GbavXMLReader(GbavXMLReader.class.getResourceAsStream("gbav-voorbeeld.xml"));
         assertTrue(r.hasNext());
         int total = 0;
@@ -62,5 +66,39 @@ public class GbavXMLReaderTest {
 
         assertEquals(1, total);
         assertArrayEquals(new String[]{GbavXMLReader.PREFIX + "b3e513383d0454de798b29c6900643130e3b2d6b",}, objectRefs.toArray(new String[]{}));
+    }
+
+    @Test
+    public void meerderePersonenTest() throws Exception {
+        GbavXMLReader r;
+        GbavBericht b = null;
+
+        assumeNotNull("testdata moet aanwezig zijn", GbavXMLReaderTest.class.getResourceAsStream("persoonslijst.xml"));
+        r = new GbavXMLReader(GbavXMLReaderTest.class.getResourceAsStream("persoonslijst.xml"));
+        assertTrue(r.hasNext());
+        int total = 0;
+        List<String> objectRefs = new ArrayList();
+        while (r.hasNext()) {
+            b = r.next();
+            objectRefs.add(b.getObjectRef());
+            LOG.debug(String.format("Bericht #%d van %tF %2$tT, object ref %s",
+                    b.getVolgordeNummer(),
+                    b.getDatum(),
+                    b.getObjectRef()
+            ));
+            assertEquals("Soort komt niet overeen", BrmoFramework.BR_GBAV, b.getSoort());
+            assertEquals("Volgordenummer komt niet overeen", total, b.getVolgordeNummer().intValue());
+            total++;
+        }
+
+        assertEquals(4, total);
+        assertArrayEquals(new String[]{
+                        GbavXMLReader.PREFIX + "a1672c578792e79cadd113ae5ccfd3a867dde805",
+                        GbavXMLReader.PREFIX + "200ba4cd285de672506eea37179f25e988511188",
+                        GbavXMLReader.PREFIX + "b8600b644b291dd67909c54ac87b46e6c1a38a1f",
+                        GbavXMLReader.PREFIX + "9d0ca6e9a6d67bf098ffa88d2df6281805b5b0a0"
+                },
+                objectRefs.toArray(new String[]{})
+        );
     }
 }

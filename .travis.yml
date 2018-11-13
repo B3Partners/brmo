@@ -156,3 +156,7 @@ after_script:
          travis_wait 50 mvn -B -e -T1 site site:stage --settings .travis/settings.xml;
          mvn scm-publish:publish-scm --settings .travis/settings.xml;
     fi
+
+notifications:
+  slack:
+    secure: C6gBHY3vYCn80KOvZhTeoJWbSy22PWdq8+fQtd32v/9/ZhsIxbeN7tHQE0IE/MKp/bQ0YijTeLr4LFQfOAozxM3qwyP7fTNfu0MZG2J/tvReMoJnylQ8pdFIsHlTTXD8RicfhjP+6pRjorctK11htC+uE+aN0TzdprNeSnsdNvk=
