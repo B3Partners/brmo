@@ -375,9 +375,10 @@
         <profile>
             <id>postgresql</id>
             <build>
+                <defaultGoal>testCompile</defaultGoal>
                 <plugins>
                     <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
                                 <database.properties.file>postgis.properties</database.properties.file>

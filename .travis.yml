@@ -14,7 +14,7 @@ addons:
   postgresql: 9.6
   apt:
     packages:
-      - postgresql-9.6-postgis-2.4
+      - postgresql-9.6-postgis-2.3
       - graphviz
   hostname: travis-brmo
   hosts: travis-brmo
@@ -73,6 +73,7 @@ before_install:
   - if [ "$PROFILE" == "postgresql" ]; then
        sh ".travis/install-pgsql.sh";
     elif  [ "$PROFILE" == "postgresql -Dupgrade=true" ]; then
+       sh ".travis/getlastRelease.sh";
        sh ".travis/install-pgsql.sh";
     else
        sudo service postgresql stop;
@@ -115,6 +116,12 @@ script:
   - travis_wait 20 mvn --settings .travis/settings.xml -e test -B -Pstandard-with-extra-repos,$PROFILE -pl '!brmo-dist' -Dtest.onlyITs=false;
   #  fi
   # run integratie tests voor veschillende modules, per module
+  - if  [ "$PROFILE" == "postgresql -Dupgrade=true" ]; then
+      sh ".travis/execute-upgrades-pgsql.sh staging";
+      sh ".travis/execute-upgrades-pgsql.sh rsgb";
+      sh ".travis/execute-upgrades-pgsql.sh rsgbbgt";
+      mvn -e -B -P$PROFILE -pl 'datamodel' resources:testResources compiler:testCompile surefire:test;
+    fi
   # run integratie tests voor brmo-loader module
   - echo 'integratie tests voor brmo-loader module'
   - travis_wait 40 mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'brmo-loader'
