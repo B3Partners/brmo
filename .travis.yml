@@ -14,7 +14,7 @@ addons:
   postgresql: 9.6
   apt:
     packages:
-      - postgresql-9.6-postgis-2.3
+      - postgresql-9.6-postgis-2.4
       - graphviz
   hostname: travis-brmo
   hosts: travis-brmo
@@ -50,8 +50,7 @@ matrix:
       - PG_VERSION=""
       - PROFILE="mssql -Dmssql.instancename=''"
   - name: "database upgrades"
-    jdk: oraclejdk8
-    sudo: required
+    jdk: openjdk8
     env: 
       - PROFILE="postgresql -Dupgrade=true"
 
@@ -73,6 +72,8 @@ before_install:
   - export PAGER=cat
   - if [ "$PROFILE" == "postgresql" ]; then
        sh ".travis/install-pgsql.sh";
+    elif  [ "$PROFILE" == "postgresql -Dupgrade=true" ]; then
+       sh ".travis/install-pgsql.sh";
     else
        sudo service postgresql stop;
        sh ".travis/install-mssql.sh";
@@ -84,7 +85,7 @@ before_install:
 
 install:
   # install all dependencies + artifacts and create any DB scripts without any testing
-  - travis_wait 20 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -P$PROFILE,standard-with-extra-repos
+  - travis_wait 20 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Pstandard-with-extra-repos,$PROFILE
   - projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
   - echo $projectversion
   - export PROJECTVERSION=$projectversion
@@ -111,7 +112,7 @@ before_script:
 script:
   # run unit tests voor alle modules mits actuele postgresql
   #- if [ "$PROFILE" == "postgresql" ] && [ "$PG_VERSION" != "9.3" ]; then
-  - travis_wait 20 mvn --settings .travis/settings.xml -e test -B -P$PROFILE,standard-with-extra-repos -pl '!brmo-dist' -Dtest.onlyITs=false;
+  - travis_wait 20 mvn --settings .travis/settings.xml -e test -B -Pstandard-with-extra-repos,$PROFILE -pl '!brmo-dist' -Dtest.onlyITs=false;
   #  fi
   # run integratie tests voor veschillende modules, per module
   # run integratie tests voor brmo-loader module
