@@ -8,4 +8,4 @@ PREVRELEASE=$MAJOR.$PREVMINOR
 
 echo "Huidige snapshot:" $CURSNAPSHOT", vorige release: "$PREVRELEASE", komende release: "$NEXTRELEASE
 
-psql -U postgres -d $1 -f ./old/db//upgrade_scripts/$PREVRELEASE-$NEXTRELEASE/postgresql/$1.sql
+psql -U postgres -d $1 -f ./datamodel/upgrade_scripts/$PREVRELEASE-$NEXTRELEASE/postgresql/$1.sql

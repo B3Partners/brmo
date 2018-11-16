@@ -1166,14 +1166,125 @@ ON
             zrr.koz_identif = koz.koz_identif)));
 
 --drop materialized view mb_koz_rechth cascade;
-CREATE MATERIALIZED VIEW mb_koz_rechth 
-BUILD DEFERRED
-REFRESH ON DEMAND
-AS
+CREATE MATERIALIZED VIEW mb_koz_rechth
+    (
+        objectid,
+        koz_identif,
+        begin_geldigheid,
+        type,
+        aanduiding,
+        aanduiding2,
+        sectie,
+        perceelnummer,
+        appartementsindex,
+        gemeentecode,
+        aand_soort_grootte,
+        grootte_perceel,
+        oppervlakte_geom,
+        deelperceelnummer,
+        omschr_deelperceel,
+        verkoop_datum,
+        aard_cultuur_onbebouwd,
+        bedrag,
+        koopjaar,
+        meer_onroerendgoed,
+        valutasoort,
+        loc_omschr,
+        zr_identif,
+        subject_identif,
+        aandeel,
+        omschr_aard_verkregenr_recht,
+        indic_betrokken_in_splitsing,
+        soort,
+        geslachtsnaam,
+        voorvoegsel,
+        voornamen,
+        aand_naamgebruik,
+        geslachtsaand,
+        naam,
+        woonadres,
+        geboortedatum,
+        geboorteplaats,
+        overlijdensdatum,
+        bsn,
+        organisatie_naam,
+        rechtsvorm,
+        statutaire_zetel,
+        rsin,
+        kvk_nummer,
+        gemeente,
+        woonplaats,
+        straatnaam,
+        huisnummer,
+        huisletter,
+        huisnummer_toev,
+        postcode,
+        lon,
+        lat,
+        begrenzing_perceel
+    )
+BUILD DEFERRED REFRESH ON DEMAND AS
 SELECT
-    *
+    CAST(ROWNUM AS INTEGER) AS objectid,
+    koz.koz_identif,
+    koz.begin_geldigheid,
+    koz.type,
+    COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') AS aanduiding,
+    COALESCE(koz.gemeentecode, '') || ' ' || COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') || ' ' || COALESCE(koz.appartementsindex, '') AS aanduiding2,
+    koz.sectie,
+    koz.perceelnummer,
+    koz.appartementsindex,
+    koz.gemeentecode,
+    koz.aand_soort_grootte,
+    koz.grootte_perceel,
+    koz.oppervlakte_geom as oppervlakte_geom,
+    koz.deelperceelnummer,
+    koz.omschr_deelperceel,
+    koz.verkoop_datum,
+    koz.aard_cultuur_onbebouwd,
+    koz.bedrag,
+    koz.koopjaar,
+    koz.meer_onroerendgoed,
+    koz.valutasoort,
+    koz.loc_omschr,
+    zrr.zr_identif,
+    zrr.subject_identif,
+    zrr.aandeel,
+    zrr.omschr_aard_verkregenr_recht,
+    zrr.indic_betrokken_in_splitsing,
+    zrr.soort,
+    zrr.geslachtsnaam,
+    zrr.voorvoegsel,
+    zrr.voornamen,
+    zrr.aand_naamgebruik,
+    zrr.geslachtsaand,
+    zrr.naam,
+    zrr.woonadres,
+    zrr.geboortedatum,
+    zrr.geboorteplaats,
+    zrr.overlijdensdatum,
+    zrr.bsn,
+    zrr.organisatie_naam,
+    zrr.rechtsvorm,
+    zrr.statutaire_zetel,
+    zrr.rsin,
+    zrr.kvk_nummer,
+    koz.gemeente,
+    koz.woonplaats,
+    koz.straatnaam,
+    koz.huisnummer,
+    koz.huisletter,
+    koz.huisnummer_toev,
+    koz.postcode,
+    koz.lon,
+    koz.lat,
+    koz.begrenzing_perceel
 FROM
-    vb_koz_rechth;
+    vb_zr_rechth zrr
+RIGHT JOIN
+    mb_kad_onrrnd_zk_adres koz
+ON
+    zrr.koz_identif = koz.koz_identif;
 CREATE UNIQUE INDEX MB_KOZ_RECHTH_OBJECTID ON MB_KOZ_RECHTH(OBJECTID ASC);
 CREATE INDEX MB_KOZ_RECHTH_IDENTIF ON MB_KOZ_RECHTH(KOZ_IDENTIF ASC);
 INSERT INTO USER_SDO_GEOM_METADATA VALUES ('MB_KOZ_RECHTH', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);

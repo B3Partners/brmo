@@ -1171,10 +1171,65 @@ beschikbare kolommen:
     ;
 --drop materialized view mb_koz_rechth cascade;
 CREATE MATERIALIZED VIEW mb_koz_rechth AS
-SELECT
-    *
-FROM
-    vb_koz_rechth WITH NO DATA;
+ SELECT
+    row_number() OVER()::integer AS objectid,
+    koz.koz_identif,
+    koz.begin_geldigheid,
+    koz.type,
+    (COALESCE(koz.sectie, ''::character varying)::text || ' '::text) || COALESCE(koz.perceelnummer, ''::character varying)::text AS aanduiding,
+    (((((COALESCE(koz.gemeentecode, ''::character varying)::text || ' '::text) || COALESCE(koz.sectie, ''::character varying)::text) || ' '::text) || COALESCE(koz.perceelnummer, ''::character varying)::text) || ' '::text) || COALESCE(koz.appartementsindex, ''::character varying)::text AS aanduiding2,
+    koz.sectie,
+    koz.perceelnummer,
+    koz.appartementsindex,
+    koz.gemeentecode,
+    koz.aand_soort_grootte,
+    koz.grootte_perceel,
+    koz.oppervlakte_geom,
+    koz.deelperceelnummer,
+    koz.omschr_deelperceel,
+    koz.verkoop_datum,
+    koz.aard_cultuur_onbebouwd,
+    koz.bedrag,
+    koz.koopjaar,
+    koz.meer_onroerendgoed,
+    koz.valutasoort,
+    koz.loc_omschr,
+    zrr.zr_identif,
+    zrr.subject_identif,
+    zrr.aandeel,
+    zrr.omschr_aard_verkregenr_recht,
+    zrr.indic_betrokken_in_splitsing,
+    zrr.soort,
+    zrr.geslachtsnaam,
+    zrr.voorvoegsel,
+    zrr.voornamen,
+    zrr.aand_naamgebruik,
+    zrr.geslachtsaand,
+    zrr.naam,
+    zrr.woonadres,
+    zrr.geboortedatum,
+    zrr.geboorteplaats,
+    zrr.overlijdensdatum,
+    zrr.bsn,
+    zrr.organisatie_naam,
+    zrr.rechtsvorm,
+    zrr.statutaire_zetel,
+    zrr.rsin,
+    zrr.kvk_nummer,
+    koz.gemeente,
+    koz.woonplaats,
+    koz.straatnaam,
+    koz.huisnummer,
+    koz.huisletter,
+    koz.huisnummer_toev,
+    koz.postcode,
+    koz.lon,
+    koz.lat,
+    koz.begrenzing_perceel
+   FROM vb_zr_rechth zrr
+     RIGHT JOIN mb_kad_onrrnd_zk_adres koz ON zrr.koz_identif = koz.koz_identif
+WITH NO DATA;
+
 CREATE UNIQUE INDEX mb_koz_rechth_objectid ON mb_koz_rechth USING btree (objectid);
 CREATE INDEX mb_koz_rechth_identif ON mb_koz_rechth USING btree (koz_identif);
 CREATE INDEX mb_koz_rechth_begrenzing_perceel_idx ON mb_koz_rechth USING gist (begrenzing_perceel);

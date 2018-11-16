@@ -112,15 +112,15 @@ before_script:
 
 script:
   # run unit tests voor alle modules mits actuele postgresql
-  #- if [ "$PROFILE" == "postgresql" ] && [ "$PG_VERSION" != "9.3" ]; then
-  - travis_wait 20 mvn --settings .travis/settings.xml -e test -B -Pstandard-with-extra-repos,$PROFILE -pl '!brmo-dist' -Dtest.onlyITs=false;
-  #  fi
+  - if [ "$PROFILE" != "postgresql -Dupgrade=true" ]; then
+       travis_wait 20 mvn --settings .travis/settings.xml -e test -B -Pstandard-with-extra-repos,$PROFILE -pl '!brmo-dist' -Dtest.onlyITs=false;
+    fi
   # run integratie tests voor veschillende modules, per module
   - if  [ "$PROFILE" == "postgresql -Dupgrade=true" ]; then
-      sh ".travis/execute-upgrades-pgsql.sh staging";
-      sh ".travis/execute-upgrades-pgsql.sh rsgb";
-      sh ".travis/execute-upgrades-pgsql.sh rsgbbgt";
-      mvn -e -B -P$PROFILE -pl 'datamodel' resources:testResources compiler:testCompile surefire:test;
+        .travis/execute-upgrades-pgsql.sh staging;
+        .travis/execute-upgrades-pgsql.sh rsgb;
+        .travis/execute-upgrades-pgsql.sh rsgbbgt;
+        mvn -e -B -P$PROFILE -pl 'datamodel' resources:testResources compiler:testCompile surefire:test;
     fi
   # run integratie tests voor brmo-loader module
   - echo 'integratie tests voor brmo-loader module'
