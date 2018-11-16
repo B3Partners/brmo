@@ -52,7 +52,7 @@ matrix:
   - name: "database upgrades"
     jdk: openjdk8
     env: 
-      - PROFILE="postgresql -Dupgrade=true"
+      - PROFILE="postgresql -Ddatabase.upgrade=true"
 
 cache:
   directories:
@@ -72,7 +72,7 @@ before_install:
   - export PAGER=cat
   - if [ "$PROFILE" == "postgresql" ]; then
        sh ".travis/install-pgsql.sh";
-    elif  [ "$PROFILE" == "postgresql -Dupgrade=true" ]; then
+    elif  [ "$PROFILE" == "postgresql -Ddatabase.upgrade=true" ]; then
        sh ".travis/getlastRelease.sh";
        sh ".travis/install-pgsql.sh";
     else
@@ -104,7 +104,7 @@ before_script:
   - if [ "$PROFILE" == "postgresql" ]; then
        sh ".travis/setup-pgsql.sh";
        sh ".jenkins/data-prepare-topnl.sh";
-    elif  [ "$PROFILE" == "postgresql -Dupgrade=true" ]; then
+    elif  [ "$PROFILE" == "postgresql -Ddatabase.upgrade=true" ]; then
        sh ".travis/setup-old-pgsql.sh";
     else
        sh ".travis/setup-mssql.sh";
@@ -112,11 +112,11 @@ before_script:
 
 script:
   # run unit tests voor alle modules mits actuele postgresql
-  - if [ "$PROFILE" != "postgresql -Dupgrade=true" ]; then
+  - if [ "$PROFILE" != "postgresql -Ddatabase.upgrade=true" ]; then
        travis_wait 20 mvn --settings .travis/settings.xml -e test -B -Pstandard-with-extra-repos,$PROFILE -pl '!brmo-dist' -Dtest.onlyITs=false;
     fi
   # run integratie tests voor veschillende modules, per module
-  - if  [ "$PROFILE" == "postgresql -Dupgrade=true" ]; then
+  - if  [ "$PROFILE" == "postgresql -Ddatabase.upgrade=true" ]; then
         .travis/execute-upgrades-pgsql.sh staging;
         .travis/execute-upgrades-pgsql.sh rsgb;
         .travis/execute-upgrades-pgsql.sh rsgbbgt;

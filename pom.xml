@@ -104,6 +104,9 @@
         <maven-jxr-plugin.version>3.0.0</maven-jxr-plugin.version>
         <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
         <taglist-maven-plugin.version>2.4</taglist-maven-plugin.version>
+        <!-- deze property wordt gebruikt om tijdens tests te bepalen of we met een geupgraded
+        release database werken of een ontwikkel versie -->
+        <database.upgrade/>
     </properties>
     <dependencyManagement>
         <!--
