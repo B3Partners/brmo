@@ -30,17 +30,17 @@ environment:
       JAVA_HOME: C:\Program Files\Java\jdk1.8.0
 
 matrix:
-  fast_finish: true
+  fast_finish: false
 
 install:
 
   - ps: |
       Add-Type -AssemblyName System.IO.Compression.FileSystem
       if (!(Test-Path("C:\Users\appveyor\downloads\maven-bin.zip"))) {
-          (new-object System.Net.WebClient).DownloadFile('https://archive.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.zip', 'C:\Users\appveyor\downloads\maven-bin.zip')
+          (new-object System.Net.WebClient).DownloadFile('https://archive.apache.org/dist/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.zip', 'C:\Users\appveyor\downloads\maven-bin.zip')
       }
       [System.IO.Compression.ZipFile]::ExtractToDirectory("C:\Users\appveyor\downloads\maven-bin.zip", "C:\maven")
-  - cmd: SET PATH=C:\maven\apache-maven-3.5.4\bin;%PATH%
+  - cmd: SET PATH=C:\maven\apache-maven-3.6.0\bin;%PATH%
   - cmd: echo %PATH%
   - cmd: java -version
   - cmd: mvn -v
@@ -92,7 +92,7 @@ after_build:
 
 test_script:
   # unit tests
-  - mvn -e test -B -Pmssql -pl "!brmo-dist"
+  - mvn -e test -fae -B -Pmssql -pl "!brmo-dist"
   # integratie tests
   # run integratie tests voor bgt-gml-loader module (30min)
   - if "%BGT_ONLY_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-gml-loader" -Dmssql.instancename=%INSTANCENAME%

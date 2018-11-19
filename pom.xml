@@ -618,7 +618,7 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven.surefire.version}</version>
                     <configuration>
-                        <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
+                        <!--<argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>-->
                         <trimStackTrace>false</trimStackTrace>
                         <useFile>false</useFile>
                         <excludes>
@@ -631,7 +631,7 @@
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>${maven.surefire.version}</version>
                     <configuration>
-                        <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
+                        <!--<argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>-->
                         <trimStackTrace>false</trimStackTrace>
                         <useFile>false</useFile>
                         <includes>

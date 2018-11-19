@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<settings xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
+<settings xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 https://maven.apache.org/xsd/settings-1.1.0.xsd">
     <servers>
         <server>
             <id>gh-pages</id>
@@ -23,19 +22,33 @@
                     <snapshots>
                         <enabled>true</enabled>
                     </snapshots>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
                     <id>boundless</id>
                     <name>Boundless Maven Repository</name>
-                    <url>https://repo.boundlessgeo.com/main</url>
+                    <url>https://repo.boundlessgeo.com/artifactory/main/</url>
+                </repository>
+                <repository>
+                    <id>repo.b3p.nl</id>
+                    <name>B3P Repository</name>
+                    <url>https://repo.b3p.nl/nexus/repository/public/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <repository>
+                        <id>B3Partners</id>
+                        <name>Releases hosted by B3Partners</name>
+                        <url>https://repo.b3p.nl/nexus/repository/public/</url>
+                        <snapshots>
+                            <enabled>true</enabled>
+                        </snapshots>
+                    </repository>
                 </repository>
             </repositories>
-            <repository>
-                <id>B3Partners</id>
-                <name>Releases hosted by B3Partners</name>
-                <url>https://repo.b3p.nl/nexus/repository/public/</url>
-                <snapshots>
-                    <enabled>true</enabled>
-                </snapshots>
-            </repository>
         </profile>
         <profile>
             <id>standard-with-extra-repos</id>
@@ -46,7 +59,7 @@
                 <repository>
                     <id>central</id>
                     <name>Central Repository</name>
-                    <url>http://repo.maven.apache.org/maven2</url>
+                    <url>https://repo.maven.apache.org/maven2/</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
@@ -97,7 +110,7 @@
                         <updatePolicy>never</updatePolicy>
                         <checksumPolicy>fail</checksumPolicy>
                     </snapshots>
-                    <url>https://repository.apache.org/releases/</url>
+                    <url>https://repository.apache.org/content/repositories/releases/</url>
                 </repository>
                 <repository>
                     <id>apache-snapshots</id>
@@ -112,7 +125,7 @@
                         <updatePolicy>always</updatePolicy>
                         <checksumPolicy>fail</checksumPolicy>
                     </snapshots>
-                    <url>https://repository.apache.org/snapshots/</url>
+                    <url>https://repository.apache.org/content/repositories/snapshots/</url>
                 </repository>
                 <repository>
                     <id>osgeo</id>
@@ -128,7 +141,18 @@
                 <repository>
                     <id>boundless</id>
                     <name>Boundless Maven Repository</name>
-                    <url>https://repo.boundlessgeo.com/main</url>
+                    <url>https://repo.boundlessgeo.com/artifactory/main/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>repo.b3p.nl</id>
+                    <name>B3P Repository</name>
+                    <url>https://repo.b3p.nl/nexus/repository/public/</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>

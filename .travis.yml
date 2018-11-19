@@ -8,7 +8,7 @@ env:
     - secure: "NynQI56H74dDi6sK4wxPawnLoLsrzADKmD8Jl7w3yQnYTfVU7zP07KeJKoIWhFaYB3GCKyG2qdeM1I5DOeim183c0h51WcQTVvHX3o1D3DyrdfuhqKTBXmAUXJObp/jUoABD2KKejSKZj+mkzqutITMUUbHDiMu5PD6WXEuCYT8="
     - PG_VERSION="9.6"
     - PROFILE="postgresql"
-    - MVN_VERSION="3.5.4"
+    - MVN_VERSION="3.6.0"
 
 addons:
   postgresql: 9.6
@@ -43,9 +43,12 @@ matrix:
           - postgresql-9.3-postgis-2.3
   - name: "MS SQL server 2017"
     group: edge
-    jdk: oraclejdk8
+    jdk: openjdk8
     dist: xenial
     sudo: required
+    apt:
+      packages:
+        - openjdk8
     env: 
       - PG_VERSION=""
       - PROFILE="mssql -Dmssql.instancename=''"
@@ -63,6 +66,10 @@ cache:
 
 before_install:
   - git lfs pull
+  - if [ "$PG_VERSION" == "" ]; then
+       PATH=$(echo "$PATH" | sed -e 's/:\/usr\/local\/lib\/jvm\/openjdk11\/bin//');
+       JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64;
+    fi
   # installeer een up-2-date Maven versie
   - wget -nc https://www-eu.apache.org/dist/maven/maven-3/$MVN_VERSION/binaries/apache-maven-$MVN_VERSION-bin.zip -P $HOME/downloads/
   - unzip -qq $HOME/downloads/apache-maven-$MVN_VERSION-bin.zip
@@ -125,15 +132,18 @@ script:
   # run integratie tests voor brmo-loader module
   - echo 'integratie tests voor brmo-loader module'
   - travis_wait 40 mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'brmo-loader'
-  # run integratie tests voor bgt-gml-loader module
-  - echo 'run integratie tests voor bgt-gml-loader module'
-  - mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'bgt-gml-loader'
   # run integratie tests voor brmo-service module
   - echo 'run integratie tests voor brmo-service module'
   - mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'brmo-service'
   #
-  # andere modules alleen tegen pgsql testen, er draait ook nog een windows server met mssql versie ergens
+  # andere modules alleen tegen pgsql testen want dat kost te veel tijd op dit systeem
+  #  er draait ook nog een windows server met mssql versie ergens
   #
+  # run integratie tests voor bgt-gml-loader module
+  - if [ "$PROFILE" == "postgresql" ]; then
+        echo 'run integratie tests voor bgt-gml-loader module';
+        mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'bgt-gml-loader';
+    fi
   # run integratie tests voor brmo-soap module
   - if [ "$PROFILE" == "postgresql" ]; then
         echo 'integratie tests voor brmo-soap module';
@@ -168,7 +178,7 @@ script:
 after_script:
   # deploy maven site van master branch als test succes
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_TEST_RESULT" == 0 ]; then
-         travis_wait 50 mvn -B -e -T1 site site:stage --settings .travis/settings.xml;
+         travis_wait 30 mvn -B -e -T1 site site:stage --settings .travis/settings.xml;
          mvn scm-publish:publish-scm --settings .travis/settings.xml;
     fi
 
