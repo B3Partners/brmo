@@ -71,7 +71,7 @@ SELECT
     koz.dat_beg_geldh        AS begin_geldigheid,
     bok.fk_nn_lh_tgo_identif AS benoemdobj_identif,
     qry.type,
-    COALESCE(qry.ka_sectie, '') || ' ' || COALESCE(qry.ka_perceelnummer, '')                                                                                                  AS aanduiding,
+    COALESCE(qry.ka_sectie, '') || ' ' || COALESCE(qry.ka_perceelnummer, '') AS aanduiding,
     COALESCE(qry.ka_kad_gemeentecode, '') || ' ' || COALESCE(qry.ka_sectie, '') || ' ' || COALESCE(qry.ka_perceelnummer, '') || ' ' || COALESCE(qry.ka_appartementsindex, '') AS aanduiding2,
     qry.ka_sectie,
     qry.ka_perceelnummer,
@@ -102,12 +102,12 @@ SELECT
     bola.postcode,
     CASE
         WHEN qry.begrenzing_perceel.get_gtype() IS NOT NULL
-        THEN SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326) .sdo_point.x
+        THEN SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326).sdo_point.x
         ELSE NULL
     END AS lon,
     CASE
         WHEN qry.begrenzing_perceel.get_gtype() IS NOT NULL
-        THEN SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326) .sdo_point.y
+        THEN SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326).sdo_point.y
     END AS lat,
     qry.begrenzing_perceel
 FROM

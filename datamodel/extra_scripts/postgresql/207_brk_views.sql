@@ -648,7 +648,7 @@ beschikbare kolommen:
 * begrenzing_perceel: perceelvlak
 '
     ;
-DROP MATERIALIZED VIEW mb_kad_onrrnd_zk_adres;
+-- DROP MATERIALIZED VIEW mb_kad_onrrnd_zk_adres;
 CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_adres AS
  SELECT row_number() OVER ()::integer AS objectid,
     qry.identif AS koz_identif,
