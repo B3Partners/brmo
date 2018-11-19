@@ -11,7 +11,7 @@ JOIN kad_perceel kp ON u1.parent_identif = kp.sc_kad_identif::text
 GROUP BY u1.app_re_identif, kp.sc_kad_identif
 WITH NO DATA;
 
-COMMENT ON VIEW mb_util_app_re_kad_perceel
+COMMENT ON MATERIALIZED VIEW mb_util_app_re_kad_perceel
 IS 'commentaar view mb_util_app_re_kad_perceel:
 utility view, niet bedoeld voor direct gebruik, met lijst van appartementsrechten met bijbehorend grondperceel
 beschikbare kolommen:

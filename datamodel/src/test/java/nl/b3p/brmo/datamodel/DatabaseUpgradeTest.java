@@ -8,14 +8,10 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Properties;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.junit.After;
-
-import static org.junit.Assume.assumeNotNull;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,50 +22,46 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeNotNull;
+import static org.junit.Assume.assumeTrue;
 
 /**
- * Een testcase om te kijken of het upgrade script correct is verwerkt
+ * Een testcase om te kijken of het upgrade script correct is verwerkt. De
+ * database upgrade wordt met behulp van shell scripts gedaan, deze testcase
+ * checked alleen de waarden in de metadata tabel.
+ *
  * @author Mark Prins
  */
 @RunWith(Parameterized.class)
 public class DatabaseUpgradeTest {
 
-    @Parameterized.Parameters(name = "{index}: testen database: {0}")
-    public static Collection params() {
-        return Arrays.asList(new Object[][]{
-                {"staging"}, {"rsgb"}, {"rsgbbgt"}
-        });
-    }
-
-    private String dbName;
-
-    public DatabaseUpgradeTest(String dbName) {
-        this.dbName = dbName;
-    }
-
-    private IDatabaseConnection db;
-
     private static String nextRelease;
     private static String previousRelease;
     private static final Log LOG = LogFactory.getLog(DatabaseUpgradeTest.class);
+
+    @Parameterized.Parameters(name = "{index}: testen database: {0}")
+    public static Collection params() {
+        return Arrays.asList(new Object[][]{
+            {"staging"}, {"rsgb"}, {"rsgbbgt"}
+        });
+    }
 
     @BeforeClass
     public static void getEnvironment() {
         nextRelease = System.getProperty("project.version").replace("-SNAPSHOT", "");
         LOG.debug("komende release is: " + nextRelease);
-        //  Semantic Versioning scheme (MAJOR.MINOR.PATCH)
+        //  Semantic versioning scheme (MAJOR.MINOR.PATCH)
         previousRelease = nextRelease;
         int patch = Integer.parseInt(nextRelease.substring(nextRelease.lastIndexOf(".") + 1));
         LOG.debug("release patch is: " + patch);
         previousRelease = nextRelease.substring(0, nextRelease.lastIndexOf(".")) + "." + (patch - 1);
         LOG.debug("vorige release is: " + previousRelease);
+
+        assumeTrue(previousRelease.matches("(\\d+\\.)(\\d+\\.)(\\d)"));
     }
 
     /**
@@ -80,6 +72,8 @@ public class DatabaseUpgradeTest {
     public static void checkDatabaseIsProvided() {
         assumeNotNull("Verwacht database omgeving te zijn aangegeven.", System.getProperty("database.properties.file"));
     }
+    private final String dbName;
+    private IDatabaseConnection db;
 
     /**
      * properties uit {@code <DB smaak>.properties} en
@@ -104,6 +98,10 @@ public class DatabaseUpgradeTest {
      */
     protected boolean isPostgis;
 
+    public DatabaseUpgradeTest(String dbName) {
+        this.dbName = dbName;
+    }
+
     @Before
     public void setUpDB() throws Exception {
         this.loadProps();
@@ -122,7 +120,6 @@ public class DatabaseUpgradeTest {
             db.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
             db.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
-
         } else {
             fail("Geen ondersteunde database aangegegeven.");
         }
@@ -136,11 +133,14 @@ public class DatabaseUpgradeTest {
         String waarde, naam;
         boolean foundVersion = false, foundUpdate = false;
 
-        for (int i = 0; i < metadata.getRowCount(); i++) {
+        int rowCount = metadata.getRowCount();
+        assertTrue("Verwacht tenminste twee records.", (rowCount >= 2));
+
+        for (int i = 0; i < rowCount; i++) {
             waarde = metadata.getValue(i, "waarde").toString();
             naam = metadata.getValue(i, "naam").toString();
 
-            LOG.debug(String.format("database %s, metadata tabel record: %d: naam: %s, waarde: %s",this.dbName,i,naam, waarde));
+            LOG.debug(String.format("database %s, metadata tabel record: %d: naam: %s, waarde: %s", this.dbName, i, naam, waarde));
 
             if (nextRelease.equalsIgnoreCase(waarde)
                     && "brmoversie".equalsIgnoreCase(naam)) {
@@ -152,8 +152,8 @@ public class DatabaseUpgradeTest {
                 foundUpdate = true;
             }
         }
-        assertTrue("Update versienummer niet correct voor "+this.dbName, foundVersion);
-        assertTrue("Update text niet gevonden voor "+this.dbName, foundUpdate);
+        assertTrue("Update versienummer niet correct voor " + this.dbName, foundVersion);
+        assertTrue("Update text niet gevonden voor " + this.dbName, foundUpdate);
     }
 
     @After
