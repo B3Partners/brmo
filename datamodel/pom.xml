@@ -16,6 +16,43 @@
         <filename.base.201_update_wnplts_gemcode>201_update_wnplts_gemcode</filename.base.201_update_wnplts_gemcode>
         <filename.GEM-WPL-zipfile>GEM-WPL-RELATIE-08112018.zip</filename.GEM-WPL-zipfile>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>brmo-test-util</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>${oracle.jdbc.groupId}</groupId>
+            <artifactId>${oracle.jdbc.artifactId}</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.jtds</groupId>
+            <artifactId>jtds</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- <dependency>
+            <groupId>net.postgis</groupId>
+            <artifactId>postgis-jdbc</artifactId>
+            <scope>test</scope>
+        </dependency>  -->
+    </dependencies>
     <build>
         <defaultGoal>process-resources</defaultGoal>
         <plugins>
@@ -222,7 +259,7 @@
             <activation>
                 <file>
                     <!-- dit profiel wordt geactiveerd als dit bestand, dat de
-                         input voor het proces is, bestaat -->
+                    input voor het proces is, bestaat -->
                     <exists>${basedir}/referentiedata/${filename.GEM-WPL-zipfile}</exists>
                 </file>
             </activation>
@@ -330,6 +367,24 @@
                                     <followSymlinks>false</followSymlinks>
                                 </fileset>
                             </filesets>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>postgresql</id>
+            <build>
+                <defaultGoal>testCompile</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <database.properties.file>postgis.properties</database.properties.file>
+                                <project.version>${project.version}</project.version>
+                                <database.upgrade>${database.upgrade}</database.upgrade>
+                            </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>

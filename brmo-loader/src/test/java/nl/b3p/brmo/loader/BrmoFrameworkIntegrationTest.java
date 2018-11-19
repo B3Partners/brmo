@@ -26,6 +26,9 @@ public class BrmoFrameworkIntegrationTest extends AbstractDatabaseIntegrationTes
     @BeforeClass
     public static void getEnvironment() {
         currentVersion = System.getProperty("project.version");
+        if ("true".equalsIgnoreCase(System.getProperty("database.upgrade"))) {
+            currentVersion = currentVersion.replace("-SNAPSHOT", "");
+        }
     }
 
     private BrmoFramework brmo;

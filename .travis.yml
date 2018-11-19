@@ -49,6 +49,10 @@ matrix:
     env: 
       - PG_VERSION=""
       - PROFILE="mssql -Dmssql.instancename=''"
+  - name: "database upgrades"
+    jdk: openjdk8
+    env: 
+      - PROFILE="postgresql -Ddatabase.upgrade=true"
 
 cache:
   directories:
@@ -68,6 +72,9 @@ before_install:
   - export PAGER=cat
   - if [ "$PROFILE" == "postgresql" ]; then
        sh ".travis/install-pgsql.sh";
+    elif  [ "$PROFILE" == "postgresql -Ddatabase.upgrade=true" ]; then
+       sh ".travis/getlastRelease.sh";
+       sh ".travis/install-pgsql.sh";
     else
        sudo service postgresql stop;
        sh ".travis/install-mssql.sh";
@@ -79,7 +86,7 @@ before_install:
 
 install:
   # install all dependencies + artifacts and create any DB scripts without any testing
-  - travis_wait 20 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -P$PROFILE,standard-with-extra-repos
+  - travis_wait 20 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Pstandard-with-extra-repos,$PROFILE
   - projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
   - echo $projectversion
   - export PROJECTVERSION=$projectversion
@@ -97,16 +104,24 @@ before_script:
   - if [ "$PROFILE" == "postgresql" ]; then
        sh ".travis/setup-pgsql.sh";
        sh ".jenkins/data-prepare-topnl.sh";
+    elif  [ "$PROFILE" == "postgresql -Ddatabase.upgrade=true" ]; then
+       sh ".travis/setup-old-pgsql.sh";
     else
        sh ".travis/setup-mssql.sh";
     fi
 
 script:
   # run unit tests voor alle modules mits actuele postgresql
-  #- if [ "$PROFILE" == "postgresql" ] && [ "$PG_VERSION" != "9.3" ]; then
-  - travis_wait 20 mvn --settings .travis/settings.xml -e test -B -P$PROFILE,standard-with-extra-repos -pl '!brmo-dist' -Dtest.onlyITs=false;
-  #  fi
+  - if [ "$PROFILE" != "postgresql -Ddatabase.upgrade=true" ]; then
+       travis_wait 20 mvn --settings .travis/settings.xml -e test -B -Pstandard-with-extra-repos,$PROFILE -pl '!brmo-dist' -Dtest.onlyITs=false;
+    fi
   # run integratie tests voor veschillende modules, per module
+  - if  [ "$PROFILE" == "postgresql -Ddatabase.upgrade=true" ]; then
+        .travis/execute-upgrades-pgsql.sh staging;
+        .travis/execute-upgrades-pgsql.sh rsgb;
+        .travis/execute-upgrades-pgsql.sh rsgbbgt;
+        mvn -e -B -P$PROFILE -pl 'datamodel' resources:testResources compiler:testCompile surefire:test;
+    fi
   # run integratie tests voor brmo-loader module
   - echo 'integratie tests voor brmo-loader module'
   - travis_wait 40 mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'brmo-loader'
