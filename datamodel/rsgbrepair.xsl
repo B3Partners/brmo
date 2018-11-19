@@ -251,4 +251,14 @@
 			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
 		</xsl:copy>
 	</xsl:template>
+	<xsl:template match="*[@elementType='Objecttype - Property' and @id='EAID_531227ED_1F06_47ad_8585_15EA78553E5C']">
+		<xsl:comment>
+			<xsl:text>repair.xsl: Aanduiding soort grootte - type aangepast van boolean naar string(2), zie: https://github.com/B3Partners/brmo/issues/565</xsl:text>
+		</xsl:comment>
+		<xsl:copy>
+			<xsl:attribute name="type" select="'EAJava_AN2'"/>
+			<xsl:attribute name="typeName" select="'AN2'"/>
+			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
+		</xsl:copy>
+	</xsl:template>
 </xsl:stylesheet>

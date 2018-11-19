@@ -21734,15 +21734,16 @@
              isAbstract=""
              superclassId="EAID_9775E778_DBF8_4122_94CE_551466B62F46"
              superclass="KADASTRALE ONROERENDE ZAAK">
-         <Property elementType="Objecttype - Property"
+         <!--repair.xsl: Aanduiding soort grootte - type aangepast van boolean naar string(2), zie: https://github.com/B3Partners/brmo/issues/565-->
+         <Property type="EAJava_boolean"
+                   typeName="AN2"
+                   elementType="Objecttype - Property"
                    id="EAID_531227ED_1F06_47ad_8585_15EA78553E5C"
                    name="Aanduiding soort grootte"
                    lowerValueType="uml:LiteralInteger"
                    lowerValueValue="0"
                    upperValueType="uml:LiteralUnlimitedNatural"
                    upperValueValue="1"
-                   type="EAJava_boolean"
-                   typeName="boolean"
                    visibility=""
                    association=""/>
          <Property elementType="Objecttype - Property"
