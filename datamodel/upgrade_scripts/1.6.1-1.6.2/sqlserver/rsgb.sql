@@ -2,6 +2,11 @@
 -- upgrade SQLserver RSGB datamodel van 1.6.1 naar 1.6.2 
 --
 
+-- issue #565
+ALTER TABLE kad_perceel ALTER COLUMN aand_soort_grootte varchar(2);
+ALTER TABLE kad_perceel_archief ALTER COLUMN aand_soort_grootte varchar(2);
+
+GO
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.6.1_naar_1.6.2','vorige versie was ' + waarde FROM brmo_metadata WHERE naam='brmoversie';

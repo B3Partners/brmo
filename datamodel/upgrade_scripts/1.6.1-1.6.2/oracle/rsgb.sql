@@ -2,6 +2,10 @@
 -- upgrade Oracle RSGB datamodel van 1.6.1 naar 1.6.2 
 --
 
+-- issue #565
+ALTER TABLE KAD_PERCEEL MODIFY (AAND_SOORT_GROOTTE VARCHAR2(2));
+ALTER TABLE KAD_PERCEEL_ARCHIEF MODIFY (AAND_SOORT_GROOTTE VARCHAR2(2));
+
 CREATE MATERIALIZED VIEW mb_util_app_re_kad_perceel
     BUILD DEFERRED REFRESH ON DEMAND AS
 SELECT
@@ -130,7 +134,7 @@ FROM
             ar.ka_perceelnummer,
             ar.ka_appartementsindex,
             ar.ka_kad_gemeentecode,
-            CAST(NULL AS CHARACTER VARYING(1))    AS aand_soort_grootte,
+            CAST(NULL AS CHARACTER VARYING(2))    AS aand_soort_grootte,
             CAST(NULL AS NUMERIC(8, 0))           AS grootte_perceel,
             CAST(NULL AS CHARACTER VARYING(4))    AS ka_deelperceelnummer,
             CAST(NULL AS CHARACTER VARYING(1120)) AS omschr_deelperceel,
