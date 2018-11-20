@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo</artifactId>
-    <version>1.6.2-SNAPSHOT</version>
+    <version>1.6.2</version>
     <packaging>pom</packaging>
     <modules>
         <module>brmo-test-util</module>
@@ -42,7 +42,7 @@
         <developerConnection>scm:git:git@github.com:B3Partners/brmo.git</developerConnection>
         <connection>scm:git:git@github.com:B3Partners/brmo.git</connection>
         <url>https://github.com/B3Partners/brmo/</url>
-        <tag>HEAD</tag>
+        <tag>v1.6.2</tag>
     </scm>
     <issueManagement>
         <system>Github</system>
@@ -106,7 +106,7 @@
         <taglist-maven-plugin.version>2.4</taglist-maven-plugin.version>
         <!-- deze property wordt gebruikt om tijdens tests te bepalen of we met een geupgraded
         release database werken of een ontwikkel versie -->
-        <database.upgrade/>
+        <database.upgrade />
     </properties>
     <dependencyManagement>
         <!--
@@ -465,7 +465,7 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-test-util</artifactId>
-                <version>1.6.2-SNAPSHOT</version>
+                <version>1.6.2</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
