@@ -2,6 +2,10 @@
 -- upgrade Oracle RSGB datamodel van 1.6.1 naar 1.6.2 
 --
 
+-- issue #565
+ALTER TABLE KAD_PERCEEL MODIFY (AAND_SOORT_GROOTTE VARCHAR2(2));
+ALTER TABLE KAD_PERCEEL_ARCHIEF MODIFY (AAND_SOORT_GROOTTE VARCHAR2(2));
+
 CREATE MATERIALIZED VIEW mb_util_app_re_kad_perceel
     BUILD DEFERRED REFRESH ON DEMAND AS
 SELECT
@@ -67,7 +71,7 @@ SELECT
     koz.dat_beg_geldh        AS begin_geldigheid,
     bok.fk_nn_lh_tgo_identif AS benoemdobj_identif,
     qry.type,
-    COALESCE(qry.ka_sectie, '') || ' ' || COALESCE(qry.ka_perceelnummer, '')                                                                                                  AS aanduiding,
+    COALESCE(qry.ka_sectie, '') || ' ' || COALESCE(qry.ka_perceelnummer, '') AS aanduiding,
     COALESCE(qry.ka_kad_gemeentecode, '') || ' ' || COALESCE(qry.ka_sectie, '') || ' ' || COALESCE(qry.ka_perceelnummer, '') || ' ' || COALESCE(qry.ka_appartementsindex, '') AS aanduiding2,
     qry.ka_sectie,
     qry.ka_perceelnummer,
@@ -98,12 +102,12 @@ SELECT
     bola.postcode,
     CASE
         WHEN qry.begrenzing_perceel.get_gtype() IS NOT NULL
-        THEN SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326) .sdo_point.x
+        THEN SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326).sdo_point.x
         ELSE NULL
     END AS lon,
     CASE
         WHEN qry.begrenzing_perceel.get_gtype() IS NOT NULL
-        THEN SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326) .sdo_point.y
+        THEN SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326).sdo_point.y
     END AS lat,
     qry.begrenzing_perceel
 FROM
@@ -130,7 +134,7 @@ FROM
             ar.ka_perceelnummer,
             ar.ka_appartementsindex,
             ar.ka_kad_gemeentecode,
-            CAST(NULL AS CHARACTER VARYING(1))    AS aand_soort_grootte,
+            CAST(NULL AS CHARACTER VARYING(2))    AS aand_soort_grootte,
             CAST(NULL AS NUMERIC(8, 0))           AS grootte_perceel,
             CAST(NULL AS CHARACTER VARYING(4))    AS ka_deelperceelnummer,
             CAST(NULL AS CHARACTER VARYING(1120)) AS omschr_deelperceel,

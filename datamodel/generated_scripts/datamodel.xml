@@ -1223,8 +1223,8 @@
       <!-- Simple properties -->
       <column name="aand_soort_grootte"
               fullname="Aanduiding soort grootte"
-              type="char(1)"
-              desc="boolean"/>
+              type="varchar(2)"
+              desc="AN2"/>
       <column name="begrenzing_perceel"
               fullname="Begrenzing perceel"
               type="multipolygon"
