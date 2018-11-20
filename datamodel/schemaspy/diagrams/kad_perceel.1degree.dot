@@ -1,4 +1,4 @@
-// dot 2.40.1 on Linux 4.18.0-10-generic
+// dot 2.40.1 on Linux 4.18.0-11-generic
 // SchemaSpy rev Unknown
 digraph "oneDegreeRelationshipsDiagram" {
   graph [
@@ -71,7 +71,7 @@ digraph "oneDegreeRelationshipsDiagram" {
     <TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">kad_perceel</TD></TR>
       <TR><TD PORT="sc_kad_identif" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">sc_kad_identif</TD><TD PORT="sc_kad_identif.type" ALIGN="LEFT">numeric[15]</TD></TR>
-      <TR><TD PORT="aand_soort_grootte" COLSPAN="2" ALIGN="LEFT">aand_soort_grootte</TD><TD PORT="aand_soort_grootte.type" ALIGN="LEFT">bpchar[1]</TD></TR>
+      <TR><TD PORT="aand_soort_grootte" COLSPAN="2" ALIGN="LEFT">aand_soort_grootte</TD><TD PORT="aand_soort_grootte.type" ALIGN="LEFT">varchar[2]</TD></TR>
       <TR><TD PORT="grootte_perceel" COLSPAN="2" ALIGN="LEFT">grootte_perceel</TD><TD PORT="grootte_perceel.type" ALIGN="LEFT">numeric[8]</TD></TR>
       <TR><TD PORT="omschr_deelperceel" COLSPAN="2" ALIGN="LEFT">omschr_deelperceel</TD><TD PORT="omschr_deelperceel.type" ALIGN="LEFT">varchar[1120]</TD></TR>
       <TR><TD PORT="fk_7kdp_sc_kad_identif" COLSPAN="2" ALIGN="LEFT">fk_7kdp_sc_kad_identif</TD><TD PORT="fk_7kdp_sc_kad_identif.type" ALIGN="LEFT">numeric[15]</TD></TR>

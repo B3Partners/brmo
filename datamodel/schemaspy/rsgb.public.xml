@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<database name="rsgb" schema="public" type="PostgreSQL - 9.4.19">
+<database name="rsgb" schema="public" type="PostgreSQL - 9.4.20">
    <tables>
       <table name="aard_recht_verkort" numRows="24" remarks="RSGB referentielijst AARD RECHT VERKORT" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="aand" nullable="false" remarks="Referentielijst property AARD RECHT VERKORT.Aanduiding aard recht verkort - Aanduiding aard recht verkort" size="4" type="varchar">

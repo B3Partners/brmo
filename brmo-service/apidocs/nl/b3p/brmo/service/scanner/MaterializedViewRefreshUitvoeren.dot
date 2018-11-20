@@ -68,7 +68,7 @@ digraph G {
 	// nl.b3p.brmo.service.scanner.MaterializedViewRefreshUitvoeren NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
 	c1767:p -> c1768:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.persistence.staging.MaterializedViewRefresh
-	c1782 [label=<<table title="nl.b3p.brmo.persistence.staging.MaterializedViewRefresh" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/brmo/persistence/staging/MaterializedViewRefresh.html">
+	c1782 [label=<<table title="nl.b3p.brmo.persistence.staging.MaterializedViewRefresh" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MaterializedViewRefresh </td></tr>
 		</table></td></tr>
@@ -79,6 +79,6 @@ digraph G {
 <tr><td align="left" balign="left"> + MaterializedViewRefresh() </td></tr>
 <tr><td align="left" balign="left"> + getMView() : String </td></tr>
 		</table></td></tr>
-		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/brmo/persistence/staging/MaterializedViewRefresh.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
