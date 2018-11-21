@@ -8,8 +8,8 @@ PREVRELEASE=$MAJOR.$PREVMINOR
 
 echo "Huidige snapshot:" $CURSNAPSHOT", vorige, te downloaden, release: "$PREVRELEASE", komende release: "$NEXTRELEASE
 
-REMOTE_FILE="https://repo.b3p.nl/nexus/repository/releases/nl/b3p/brmo-dist/$PREVRELEASE/brmo-dist-$PREVRELEASE-bin.zip"
-LOCAL_FILE="$HOME/downloads/brmo-dist-old.zip"
+REMOTE_FILE="https://repo.b3p.nl/nexus/repository/releases/nl/b3p/brmo-dist/${PREVRELEASE}/brmo-dist-${PREVRELEASE}-bin.zip"
+LOCAL_FILE="${HOME}/downloads/brmo-dist-old.zip"
 #local_file="/tmp/downloads/brmo-dist-old.zip"
 
 #modified=$(curl --silent --head $remote_file | awk '/^Last-Modified/{print $0}' | sed 's/^Last-Modified: //')
@@ -33,4 +33,4 @@ else
     echo "Same size, not downloading."
 fi
 
-unzip -o $local_file -d ./old *.sql
+unzip -o $LOCAL_FILE -d ./old *.sql
