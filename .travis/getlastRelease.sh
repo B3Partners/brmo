@@ -1,18 +1,36 @@
 #!/usr/bin/env bash
 CURSNAPSHOT=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
-
 NEXTRELEASE="${CURSNAPSHOT%-SNAPSHOT}"
-
 MAJOR="${CURSNAPSHOT%.*}"
-
 MINOR="${NEXTRELEASE##*.}"
-
 PREVMINOR=$(($MINOR-1))
-
 PREVRELEASE=$MAJOR.$PREVMINOR
 
-echo "Huidige snapshot:" $CURSNAPSHOT", vorige release: "$PREVRELEASE", komende release: "$NEXTRELEASE
+echo "Huidige snapshot:" $CURSNAPSHOT", vorige, te downloaden, release: "$PREVRELEASE", komende release: "$NEXTRELEASE
 
-wget -nc --no-verbose --tries=5 --timeout=60 --waitretry=300 --user-agent="" "https://repo.b3p.nl/nexus/repository/releases/nl/b3p/brmo-dist/$PREVRELEASE/brmo-dist-$PREVRELEASE-bin.zip"  --output-document="$HOME/downloads/brmo-dist-old.zip"
+REMOTE_FILE="https://repo.b3p.nl/nexus/repository/releases/nl/b3p/brmo-dist/$PREVRELEASE/brmo-dist-$PREVRELEASE-bin.zip"
+LOCAL_FILE="$HOME/downloads/brmo-dist-old.zip"
+#local_file="/tmp/downloads/brmo-dist-old.zip"
 
-unzip -o $HOME/downloads/brmo-dist-old.zip -d ./old *.sql
+#modified=$(curl --silent --head $remote_file | awk '/^Last-Modified/{print $0}' | sed 's/^Last-Modified: //')
+#remote_ctime=$(date --date="$modified" +%s)
+#local_ctime=$(stat -c %z "$local_file")
+#local_ctime=$(date --date="$local_ctime" +%s)
+#echo "remote_ctime: "$remote_ctime" local_ctime: "$local_ctime
+
+#[ $local_ctime -lt $remote_ctime ] && curl --create-dirs -o $local_file $remote_file
+#wget -N -nc --tries=5 --timeout=60 --waitretry=300 --user-agent="" "https://repo.b3p.nl/nexus/repository/releases/nl/b3p/brmo-dist/$PREVRELEASE/brmo-dist-$PREVRELEASE-bin.zip"  --output-document="/tmp/downloads/brmo-dist-old.zip"
+
+LOCAL_SIZE=$(wc -c < $LOCAL_FILE)
+REMOTE_SIZE=$(curl -sI $REMOTE_FILE | awk '/Content-Length/ {sub("\r",""); print $2}')
+
+echo "remote size: "$REMOTE_SIZE", local size: "$LOCAL_SIZE
+
+if [ $LOCAL_SIZE != $REMOTE_SIZE ]; then
+    echo "Size differs, downloading."
+    curl --create-dirs -o $LOCAL_FILE $REMOTE_FILE
+else
+    echo "Same size, not downloading."
+fi
+
+unzip -o $local_file -d ./old *.sql
