@@ -55,10 +55,18 @@
 
     create table laadproces (
         id number(19,0) not null,
+        afgifteid varchar2(255 char),
+        afgiftereferentie varchar2(255 char),
+        artikelnummer varchar2(255 char),
+        beschikbaar_tot timestamp,
         bestand_datum timestamp,
         bestand_naam varchar2(255 char),
+        bestandsreferentie varchar2(255 char),
         contact_email varchar2(255 char),
+        contractafgiftenummer number(19,2),
+        contractnummer varchar2(255 char),
         gebied varchar2(255 char),
+        klantafgiftenummer number(19,2),
         opmerking clob,
         soort varchar2(255 char),
         status varchar2(255 char),

@@ -64,6 +64,10 @@
         </dependency>
         <dependency>
             <groupId>nl.b3p</groupId>
+            <artifactId>kadaster-gds2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
             <artifactId>brmo-loader</artifactId>
             <exclusions>
                 <exclusion>

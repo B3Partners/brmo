@@ -55,10 +55,18 @@
 
     create table laadproces (
         id  bigserial not null,
+        afgifteid varchar(255),
+        afgiftereferentie varchar(255),
+        artikelnummer varchar(255),
+        beschikbaar_tot timestamp,
         bestand_datum timestamp,
         bestand_naam varchar(255),
+        bestandsreferentie varchar(255),
         contact_email varchar(255),
+        contractafgiftenummer numeric(19, 2),
+        contractnummer varchar(255),
         gebied varchar(255),
+        klantafgiftenummer numeric(19, 2),
         opmerking text,
         soort varchar(255),
         status varchar(255),
