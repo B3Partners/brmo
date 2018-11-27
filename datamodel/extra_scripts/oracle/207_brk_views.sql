@@ -606,7 +606,7 @@ ON
         koz.kad_identif = b.ref_id);
 
 --drop materialized view mb_kad_onrrnd_zk_adres cascade;
-CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_adres(
+CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_adres (
     objectid,
     koz_identif,
     begin_geldigheid,
@@ -639,123 +639,128 @@ CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_adres(
     postcode,
     lon,
     lat,
-    begrenzing_perceel) 
-BUILD DEFERRED REFRESH ON DEMAND AS
-SELECT
-    CAST(ROWNUM AS INTEGER)  AS objectid,
-    qry.identif              AS koz_identif,
-    koz.dat_beg_geldh        AS begin_geldigheid,
-    bok.fk_nn_lh_tgo_identif AS benoemdobj_identif,
-    qry.type,
-    COALESCE(qry.ka_sectie, '') || ' ' || COALESCE(qry.ka_perceelnummer, '')                                                                                                  AS aanduiding,
-    COALESCE(qry.ka_kad_gemeentecode, '') || ' ' || COALESCE(qry.ka_sectie, '') || ' ' || COALESCE(qry.ka_perceelnummer, '') || ' ' || COALESCE(qry.ka_appartementsindex, '') AS aanduiding2,
-    qry.ka_sectie,
-    qry.ka_perceelnummer,
-    qry.ka_appartementsindex,
-    qry.ka_kad_gemeentecode,
-    qry.aand_soort_grootte,
-    qry.grootte_perceel,
-    CASE
-        WHEN qry.begrenzing_perceel.get_gtype() IS NOT NULL
-        THEN SDO_GEOM.SDO_AREA(qry.BEGRENZING_PERCEEL, 0.1)
-        ELSE NULL
-    END AS oppervlakte_geom,
-    qry.ka_deelperceelnummer,
-    qry.omschr_deelperceel,
-    b.datum,
-    koz.cu_aard_cultuur_onbebouwd,
-    koz.ks_bedrag,
-    koz.ks_koopjaar,
-    koz.ks_meer_onroerendgoed,
-    koz.ks_valutasoort,
-    koz.lo_loc__omschr,
-    bola.gemeente,
-    bola.woonplaats,
-    bola.straatnaam,
-    bola.huisnummer,
-    bola.huisletter,
-    bola.huisnummer_toev,
-    bola.postcode,
-    CASE
---        WHEN qry.begrenzing_perceel.get_gtype() is not null
---        THEN SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1).sdo_point.x
--- https://docs.oracle.com/cd/E11882_01/appdev.112/e11830/sdo_locator.htm#CFACCEEG stelt dat SDO_CS functies in Locator zitten
-        WHEN qry.begrenzing_perceel.get_gtype() IS NOT NULL
-        THEN SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326) .sdo_point.x
-        ELSE NULL
-    END AS lon,
-    CASE
---        WHEN qry.begrenzing_perceel.get_gtype() is not null
---        THEN SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1).sdo_point.x
--- https://docs.oracle.com/cd/E11882_01/appdev.112/e11830/sdo_locator.htm#CFACCEEG stelt dat SDO_CS functies in Locator zitten
-        WHEN qry.begrenzing_perceel.get_gtype() IS NOT NULL
-        THEN SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326) .sdo_point.y
-    END AS lat,
-    qry.begrenzing_perceel
-FROM
-    (
-        SELECT
-            p.sc_kad_identif AS identif,
-            'perceel'        AS type,
-            p.ka_sectie,
-            p.ka_perceelnummer,
-            CAST(NULL AS CHARACTER VARYING(4)) AS ka_appartementsindex,
-            p.ka_kad_gemeentecode,
-            p.aand_soort_grootte,
-            p.grootte_perceel,
-            p.ka_deelperceelnummer,
-            p.omschr_deelperceel,
-            p.BEGRENZING_PERCEEL AS begrenzing_perceel
-        FROM
-            kad_perceel p
-        UNION ALL
-        SELECT
-            ar.sc_kad_identif AS identif,
-            'appartement'     AS type,
-            ar.ka_sectie,
-            ar.ka_perceelnummer,
-            ar.ka_appartementsindex,
-            ar.ka_kad_gemeentecode,
-            CAST(NULL AS CHARACTER VARYING(2))    AS aand_soort_grootte,
-            CAST(NULL AS NUMERIC(8, 0))           AS grootte_perceel,
-            CAST(NULL AS CHARACTER VARYING(4))    AS ka_deelperceelnummer,
-            CAST(NULL AS CHARACTER VARYING(1120)) AS omschr_deelperceel,
-            kp.BEGRENZING_PERCEEL                 AS begrenzing_perceel
-        FROM
-            mb_util_app_re_kad_perceel v
-        JOIN
-            kad_perceel kp
-        ON
-            CAST(v.perceel_identif AS NUMERIC) = kp.sc_kad_identif
-        JOIN
-            app_re ar
-        ON
-            CAST(v.app_re_identif AS NUMERIC) = ar.sc_kad_identif) qry
-JOIN
-    kad_onrrnd_zk koz
-ON
-    koz.kad_identif = qry.identif
-LEFT JOIN
-    benoemd_obj_kad_onrrnd_zk bok
-ON
-    bok.fk_nn_rh_koz_kad_identif = qry.identif
-LEFT JOIN
-    vb_benoemd_obj_adres bola
-ON
-    bok.fk_nn_lh_tgo_identif = bola.benoemdobj_identif
-LEFT JOIN
-    (
-        SELECT
-            brondocument.ref_id,
-            MAX(brondocument.datum) AS datum
-        FROM
-            brondocument
-        WHERE
-            brondocument.omschrijving = 'Akte van Koop en Verkoop'
-        GROUP BY
-            brondocument.ref_id) b
-ON
-    koz.kad_identif = b.ref_id;
+    begrenzing_perceel
+)
+    BUILD DEFERRED
+    REFRESH
+        ON DEMAND
+AS
+    SELECT
+        CAST(ROWNUM AS INTEGER) AS objectid,
+        qry.identif                AS koz_identif,
+        koz.dat_beg_geldh          AS begin_geldigheid,
+        bok.fk_nn_lh_tgo_identif   AS benoemdobj_identif,
+        qry.type,
+        coalesce(qry.ka_sectie,'')
+        || ' '
+        || coalesce(qry.ka_perceelnummer,'') AS aanduiding,
+        coalesce(qry.ka_kad_gemeentecode,'')
+        || ' '
+        || coalesce(qry.ka_sectie,'')
+        || ' '
+        || coalesce(qry.ka_perceelnummer,'')
+        || ' '
+        || coalesce(qry.ka_appartementsindex,'') AS aanduiding2,
+        qry.ka_sectie,
+        qry.ka_perceelnummer,
+        qry.ka_appartementsindex,
+        qry.ka_kad_gemeentecode,
+        qry.aand_soort_grootte,
+        qry.grootte_perceel,
+        qry.oppervlakte_geom,
+        qry.ka_deelperceelnummer,
+        qry.omschr_deelperceel,
+        b.datum,
+        koz.cu_aard_cultuur_onbebouwd,
+        koz.ks_bedrag,
+        koz.ks_koopjaar,
+        koz.ks_meer_onroerendgoed,
+        koz.ks_valutasoort,
+        koz.lo_loc__omschr,
+        bola.gemeente,
+        bola.woonplaats,
+        bola.straatnaam,
+        bola.huisnummer,
+        bola.huisletter,
+        bola.huisnummer_toev,
+        bola.postcode,
+        qry.lon,
+        qry.lat,
+        qry.begrenzing_perceel
+    FROM
+        (
+            SELECT
+                p.sc_kad_identif       AS identif,
+                'perceel' AS type,
+                p.ka_sectie,
+                p.ka_perceelnummer,
+                CAST(NULL AS CHARACTER VARYING(4) ) AS ka_appartementsindex,
+                p.ka_kad_gemeentecode,
+                p.aand_soort_grootte,
+                p.grootte_perceel,
+                p.ka_deelperceelnummer,
+                p.omschr_deelperceel,
+                p.begrenzing_perceel   AS begrenzing_perceel,
+                CASE
+                    WHEN p.begrenzing_perceel.get_gtype() IS NOT NULL THEN sdo_geom.sdo_area(p.begrenzing_perceel,0.1)
+                    ELSE NULL
+                END AS oppervlakte_geom,
+                CASE
+                    WHEN p.begrenzing_perceel.get_gtype() IS NOT NULL THEN sdo_cs.transform(sdo_geom.sdo_centroid(p.begrenzing_perceel
+                   ,0.1),4326).sdo_point.x
+                    ELSE NULL
+                END AS lon,
+                CASE
+                    WHEN p.begrenzing_perceel.get_gtype() IS NOT NULL THEN sdo_cs.transform(sdo_geom.sdo_centroid(p.begrenzing_perceel
+                   ,0.1),4326).sdo_point.y
+                END AS lat
+            FROM
+                kad_perceel p
+            UNION ALL
+            SELECT
+                ar.sc_kad_identif       AS identif,
+                'appartement' AS type,
+                ar.ka_sectie,
+                ar.ka_perceelnummer,
+                ar.ka_appartementsindex,
+                ar.ka_kad_gemeentecode,
+                CAST(NULL AS CHARACTER VARYING(2) ) AS aand_soort_grootte,
+                CAST(NULL AS NUMERIC(8,0) ) AS grootte_perceel,
+                CAST(NULL AS CHARACTER VARYING(4) ) AS ka_deelperceelnummer,
+                CAST(NULL AS CHARACTER VARYING(1120) ) AS omschr_deelperceel,
+                kp.begrenzing_perceel   AS begrenzing_perceel,
+                CASE
+                    WHEN kp.begrenzing_perceel.get_gtype() IS NOT NULL THEN sdo_geom.sdo_area(kp.begrenzing_perceel,0.1)
+                    ELSE NULL
+                END AS oppervlakte_geom,
+                CASE
+                    WHEN kp.begrenzing_perceel.get_gtype() IS NOT NULL THEN sdo_cs.transform(sdo_geom.sdo_centroid(kp.begrenzing_perceel
+                   ,0.1),4326).sdo_point.x
+                    ELSE NULL
+                END AS lon,
+                CASE
+                    WHEN kp.begrenzing_perceel.get_gtype() IS NOT NULL THEN sdo_cs.transform(sdo_geom.sdo_centroid(kp.begrenzing_perceel
+                   ,0.1),4326).sdo_point.y
+                END AS lat
+            FROM
+                mb_util_app_re_kad_perceel v
+                JOIN kad_perceel kp ON CAST(v.perceel_identif AS NUMERIC) = kp.sc_kad_identif
+                JOIN app_re ar ON CAST(v.app_re_identif AS NUMERIC) = ar.sc_kad_identif
+        ) qry
+        JOIN kad_onrrnd_zk koz ON ( koz.kad_identif = qry.identif )
+        LEFT JOIN benoemd_obj_kad_onrrnd_zk bok ON ( bok.fk_nn_rh_koz_kad_identif = qry.identif )
+        LEFT JOIN vb_benoemd_obj_adres bola ON ( bok.fk_nn_lh_tgo_identif = bola.benoemdobj_identif )
+        LEFT JOIN (
+            SELECT
+                bd.ref_id,
+                MAX(bd.datum) AS datum
+            FROM
+                brondocument bd
+            WHERE
+                ( ( bd.omschrijving ) = 'Akte van Koop en Verkoop' )
+            GROUP BY
+                bd.ref_id
+        ) b ON ( koz.kad_identif = b.ref_id );
     
 CREATE UNIQUE INDEX MB_KAD_ONRRND_ZK_ADRES_OBJIDX ON MB_KAD_ONRRND_ZK_ADRES(OBJECTID ASC);
 CREATE INDEX MB_KAD_ONRRND_ZK_ADRES_IDENTIF ON MB_KAD_ONRRND_ZK_ADRES(KOZ_IDENTIF ASC);
@@ -1773,7 +1778,7 @@ ON
     (
         kozhr.fk_sc_rh_koz_kad_identif = koza.kad_identif)
 ORDER BY
-    bdate DESC ;
+    bdate DESC;
 
 --drop materialized view MB_KAD_ONRRND_ZK_ARCHIEF cascade;
 CREATE MATERIALIZED VIEW MB_KAD_ONRRND_ZK_ARCHIEF 

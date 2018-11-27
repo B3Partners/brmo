@@ -10,7 +10,7 @@ echo "Huidige snapshot:" $CURSNAPSHOT", vorige, te downloaden, release: "$PREVRE
 
 REMOTE_FILE="https://repo.b3p.nl/nexus/repository/releases/nl/b3p/brmo-dist/${PREVRELEASE}/brmo-dist-${PREVRELEASE}-bin.zip"
 LOCAL_FILE="${HOME}/downloads/brmo-dist-old.zip"
-#local_file="/tmp/downloads/brmo-dist-old.zip"
+#LOCAL_FILE="/tmp/downloads/brmo-dist-old.zip"
 
 #modified=$(curl --silent --head $remote_file | awk '/^Last-Modified/{print $0}' | sed 's/^Last-Modified: //')
 #remote_ctime=$(date --date="$modified" +%s)
@@ -21,7 +21,11 @@ LOCAL_FILE="${HOME}/downloads/brmo-dist-old.zip"
 #[ $local_ctime -lt $remote_ctime ] && curl --create-dirs -o $local_file $remote_file
 #wget -N -nc --tries=5 --timeout=60 --waitretry=300 --user-agent="" "https://repo.b3p.nl/nexus/repository/releases/nl/b3p/brmo-dist/$PREVRELEASE/brmo-dist-$PREVRELEASE-bin.zip"  --output-document="/tmp/downloads/brmo-dist-old.zip"
 
-LOCAL_SIZE=$(wc -c < $LOCAL_FILE)
+if [ -f "$LOCAL_FILE" ]; then
+    LOCAL_SIZE=$(wc -c < $LOCAL_FILE)
+else
+    LOCAL_SIZE=0
+fi
 REMOTE_SIZE=$(curl -sI $REMOTE_FILE | awk '/Content-Length/ {sub("\r",""); print $2}')
 
 echo "remote size: "$REMOTE_SIZE", local size: "$LOCAL_SIZE
