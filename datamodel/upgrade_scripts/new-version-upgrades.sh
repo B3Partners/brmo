@@ -29,6 +29,10 @@ do
       echo Bestand $DIR/$b.sql bestaal al.
     else
       echo -- $'\n'-- upgrade $DB ${b^^} datamodel van $PREVRELEASE naar $NEXTRELEASE $n $'\n'-- > $DIR/$b.sql
+      if [ "$DB" == "Oracle" ]
+      then
+        echo $'\n'  WHENEVER SQLERROR EXIT SQL.SQLCODE
+      fi
       echo $'\n\n'-- onderstaande dienen als laatste stappen van een upgrade uitgevoerd >> $DIR/$b.sql
       if [ "${DB}" == "SQLserver" ]
       then

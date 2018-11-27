@@ -1,6 +1,7 @@
 -- 
 -- upgrade Oracle RSGB datamodel van 1.6.1 naar 1.6.2 
 --
+WHENEVER SQLERROR EXIT SQL.SQLCODE
 
 -- issue #565
 ALTER TABLE KAD_PERCEEL MODIFY (AAND_SOORT_GROOTTE VARCHAR2(2));
