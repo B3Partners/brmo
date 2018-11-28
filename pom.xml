@@ -63,7 +63,7 @@
         <geotools.version>20.0</geotools.version>
         <jts.version>1.16.0</jts.version>
         <postgresql.jdbc.version>42.2.5</postgresql.jdbc.version>
-        <postgresql.postgis-jdbc.version>2.2.1</postgresql.postgis-jdbc.version>
+        <postgresql.postgis-jdbc.version>2.3.0</postgresql.postgis-jdbc.version>
         <!--
         https://blogs.oracle.com/dev2dev/get-oracle-jdbc-drivers-and-ucp-from-oracle-maven-repository-without-ides
         <oracle.jdbc.artifactId>ojdbc8</oracle.jdbc.artifactId>
