@@ -31,6 +31,16 @@ matrix:
     # WIP..
     - name: "PostgreSQL 11"
   include:
+  - name: "Oudste supported PostgreSQL"
+    jdk: oraclejdk8
+    # final release (==EOL): Feb 13, 2020
+    # https://www.postgresql.org/support/versioning/
+    env: PG_VERSION="9.4"
+    addons:
+      postgresql: 9.4
+      apt:
+        packages:
+          - postgresql-9.4-postgis-2.3
   - name: "PostgreSQL 11"
     group: edge
     dist: xenial
@@ -82,6 +92,7 @@ cache:
 
 before_install:
   - git lfs pull
+  # hack voor travis xenial images, zie: https://github.com/travis-ci/travis-ci/issues/10290
   - if [ "$PG_VERSION" == "" ] || [ "$PG_VERSION" == "10" ] || [ "$PG_VERSION" == "11" ]; then
        PATH=$(echo "$PATH" | sed -e 's/:\/usr\/local\/lib\/jvm\/openjdk11\/bin//');
        JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64;
@@ -123,13 +134,6 @@ install:
   - cat ./brmo-persistence/db/05_create_brmo_metadata_postgresql.sql
 
 before_script:
-  # start PG{10,11}
-  #- if [ "$PG_VERSION" == "10" ]; then
-  #     sudo sed -i 's/port = 5433/port = 5432/' /etc/postgresql/10/main/postgresql.conf;
-  #     sudo cp /etc/postgresql/{9.6,10}/main/pg_hba.conf;
-  #     sudo service postgresql restart;
-  #  fi
-
   # dit dient na afloop van de 'install' gedaan te worden omdat (een deel van) de sql gegenereerd wordt
   - ls -l ./brmo-persistence/db/*.sql
   - ls -l ./datamodel/generated_scripts/*.sql
