@@ -209,7 +209,7 @@ script:
 
 after_script:
   # deploy maven site van master branch als test succes
-  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_TEST_RESULT" == 0 ]; then
+  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_TEST_RESULT" == 0 ] && [ "$PG_VERSION" == "9.6" ]; then
          travis_wait 30 mvn -B -e -T1 site site:stage --settings .travis/settings.xml;
          mvn scm-publish:publish-scm --settings .travis/settings.xml;
     fi
