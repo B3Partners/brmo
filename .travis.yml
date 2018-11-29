@@ -22,33 +22,59 @@ addons:
 jdk:
   - oraclejdk8
   - openjdk8
-#  - oraclejdk9
 
 matrix:
   fast_finish: true
   allow_failures:
-    # - jdk: oraclejdk9
     # vanwege build timeout (soms)
-    - name: "MS SQL server 2017"
+    #- name: "MS SQL server 2017"
+    # WIP..
+    - name: "PostgreSQL 11"
   include:
   - name: "Oudste supported PostgreSQL"
     jdk: oraclejdk8
-    # final release (==EOL): November 8, 2018
+    # final release (==EOL): Feb 13, 2020
     # https://www.postgresql.org/support/versioning/
-    env: PG_VERSION="9.3"
+    env: PG_VERSION="9.4"
     addons:
-      postgresql: 9.3
+      postgresql: 9.4
       apt:
         packages:
-          - postgresql-9.3-postgis-2.3
+          - postgresql-9.4-postgis-2.3
+  - name: "PostgreSQL 11"
+    group: edge
+    dist: xenial
+    jdk: openjdk8
+    env: PG_VERSION="11"
+    addons:
+      postgresql: 11
+      apt:
+        packages:
+          - postgresql-11
+          - postgresql-client-11
+          - postgresql-11-postgis-2.5
+  - name: "PostgreSQL 10"
+    group: edge
+    dist: xenial
+    jdk: openjdk8
+    env: PG_VERSION="10"
+    addons:
+      postgresql: 10
+      apt:
+        packages:
+          - postgresql-10
+          - postgresql-client-10
+          - postgresql-10-postgis-2.4
+ #         - openjdk-8-jdk
   - name: "MS SQL server 2017"
     group: edge
     jdk: openjdk8
     dist: xenial
     sudo: required
-    apt:
-      packages:
-        - openjdk8
+#    addons:
+#      apt:
+#        packages:
+#          - openjdk-8-jdk
     env: 
       - PG_VERSION=""
       - PROFILE="mssql -Dmssql.instancename=''"
@@ -66,7 +92,8 @@ cache:
 
 before_install:
   - git lfs pull
-  - if [ "$PG_VERSION" == "" ]; then
+  # hack voor travis xenial images, zie: https://github.com/travis-ci/travis-ci/issues/10290
+  - if [ "$PG_VERSION" == "" ] || [ "$PG_VERSION" == "10" ] || [ "$PG_VERSION" == "11" ]; then
        PATH=$(echo "$PATH" | sed -e 's/:\/usr\/local\/lib\/jvm\/openjdk11\/bin//');
        JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64;
     fi
@@ -77,6 +104,11 @@ before_install:
   - export PATH=$M2_HOME/bin:$PATH
   - mvn -v
   - export PAGER=cat
+  - if [ "$PG_VERSION" == "11" ]; then
+       sudo sed -i 's/port = 5433/port = 5432/' /etc/postgresql/11/main/postgresql.conf;
+       sudo cp /etc/postgresql/{9.5,11}/main/pg_hba.conf;
+       sudo service postgresql restart;
+    fi
   - if [ "$PROFILE" == "postgresql" ]; then
        sh ".travis/install-pgsql.sh";
     elif  [ "$PROFILE" == "postgresql -Ddatabase.upgrade=true" ]; then
