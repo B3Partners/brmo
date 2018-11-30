@@ -229,7 +229,7 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
     public void testNhrXMLToStagingToRsgb() throws Exception {
         assumeNotNull("Het test bestand moet er zijn.", NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam));
 
-        brmo.loadFromFile(BESTANDTYPE, NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile());
+        brmo.loadFromFile(BESTANDTYPE, NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile(), 1L);
         LOG.info("klaar met laden van berichten in staging DB.");
 
         List<Bericht> berichten = brmo.listBerichten();
@@ -238,6 +238,12 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         assertEquals("Het aantal berichten is niet als verwacht.", aantalBerichten, berichten.size());
         assertNotNull("De verzameling processen bestaat niet.", processen);
         assertEquals("Het aantal processen is niet als verwacht.", aantalProcessen, processen.size());
+
+        ITable bericht = staging.createDataSet().getTable("bericht");
+        for (int i = 0; i < bericht.getRowCount(); i++) {
+            LOG.debug("\n\n" + bericht.getValue(i, "br_orgineel_xml") + "\n\n");
+            assertNotNull("BR origineel xml is null", bericht.getValue(i, "br_orgineel_xml"));
+        }
 
         LOG.info("Transformeren berichten naar rsgb DB.");
         Thread t = brmo.toRsgb();

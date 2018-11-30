@@ -154,6 +154,6 @@ public class Bericht {
 
     @Override
     public String toString() {
-        return "Bericht{" + "id=" + id + ", objectRef=" + objectRef + ", datum=" + datum + ", volgordeNummer=" + volgordeNummer + ", soort=" + soort + ", status=" + status + ", jobId=" + jobId + ", statusDatum=" + statusDatum + '}';
+        return "Bericht{" + "id=" + id + ", objectRef=" + objectRef + ", datum=" + datum + ", volgordeNummer=" + volgordeNummer + ", soort=" + soort + ", status=" + status + ", jobId=" + jobId + ", statusDatum=" + statusDatum + " (lengte br origineel=" + (brOrgineelXml == null ? null : brOrgineelXml.length()) + '}';
     }
 }

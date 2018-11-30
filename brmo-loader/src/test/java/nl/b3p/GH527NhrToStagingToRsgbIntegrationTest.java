@@ -122,8 +122,14 @@ public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
         final String bestandNaam = "/nhr-v3/33257455,23052007.anon.xml";
         assumeNotNull("Het test bestand moet er zijn.", GH527NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam));
 
-        brmo.loadFromFile("nhr", GH527NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile());
+        brmo.loadFromFile("nhr", GH527NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile(), 1L);
         LOG.info("klaar met laden van berichten in staging DB.");
+
+        ITable bericht = staging.createDataSet().getTable("bericht");
+        for (int i = 0; i < bericht.getRowCount(); i++) {
+            LOG.debug("\n\n" + bericht.getValue(i, "br_orgineel_xml") + "\n\n");
+            assertNotNull("BR origineel xml is null", bericht.getValue(i, "br_orgineel_xml"));
+        }
 
         LOG.info("Transformeren berichten naar rsgb DB.");
         Thread t = brmo.toRsgb();
