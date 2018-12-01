@@ -39,14 +39,6 @@
                     <snapshots>
                         <enabled>true</enabled>
                     </snapshots>
-                    <repository>
-                        <id>B3Partners</id>
-                        <name>Releases hosted by B3Partners</name>
-                        <url>https://repo.b3p.nl/nexus/repository/public/</url>
-                        <snapshots>
-                            <enabled>true</enabled>
-                        </snapshots>
-                    </repository>
                 </repository>
             </repositories>
         </profile>
