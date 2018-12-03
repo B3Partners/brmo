@@ -53,7 +53,7 @@ public class NhrXMLReader extends BrmoXMLReader {
 
     private int volgorde = 0;
 
-    private String brXML = null;
+    private String brOrigXML = null;
 
     public NhrXMLReader(InputStream in) throws Exception {
         initTemplates();
@@ -80,8 +80,8 @@ public class NhrXMLReader extends BrmoXMLReader {
 
         iterator = b.berichten.iterator();
 
-        brXML = bos.toString(StandardCharsets.UTF_8.name());
-        LOG.debug("Originele nHR xml is: \n" + brXML);
+        brOrigXML = bos.toString(StandardCharsets.UTF_8.name());
+        LOG.debug("Originele nHR xml is: \n" + brOrigXML);
 
         init();
     }
@@ -126,8 +126,13 @@ public class NhrXMLReader extends BrmoXMLReader {
         xml.insert(xml.lastIndexOf("</"), bsns);
 
         b.setBrXml(xml.toString());
+
+        // we willen alleen bij het eerst geparsede nhr bericht de originele soap hebben
+        if (volgorde == 0) {
+            b.setBrOrgineelXml(brOrigXML);
+        }
+
         b.setVolgordeNummer(volgorde++);
-        b.setBrOrgineelXml(brXML);
         return b;
     }
 
