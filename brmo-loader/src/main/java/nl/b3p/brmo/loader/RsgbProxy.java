@@ -326,7 +326,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
         ber.setStatusDatum(new Date());
         try {
-            stagingProxy.updateBericht(ber);
+            stagingProxy.updateBerichtProcessing(ber);
         } catch (SQLException ex) {
             log.error("Kan status niet updaten", ex);
         }
