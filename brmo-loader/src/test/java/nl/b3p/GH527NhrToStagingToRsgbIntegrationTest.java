@@ -135,6 +135,12 @@ public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
         Thread t = brmo.toRsgb();
         t.join();
 
+        // na de verwerking moet soap payload er ook nog zijn
+        bericht = staging.createDataSet().getTable("bericht");
+        for (int i = 0; i < bericht.getRowCount(); i++) {
+            assertNotNull("BR origineel xml is null na transformatie", bericht.getValue(i, "br_orgineel_xml"));
+        }
+
         checkWaarde("subject", "clazz");
         checkWaarde("subject", "typering");
         checkWaarde("prs", "clazz");

@@ -249,6 +249,12 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         Thread t = brmo.toRsgb();
         t.join();
 
+        // na de verwerking moet soap payload er ook nog zijn
+        bericht = staging.createDataSet().getTable("bericht");
+        for (int i = 0; i < bericht.getRowCount(); i++) {
+            assertNotNull("BR origineel xml is null na transformatie", bericht.getValue(i, "br_orgineel_xml"));
+        }
+
         assertEquals("Niet alle berichten zijn OK getransformeerd", aantalBerichten, brmo.getCountBerichten(null, null, "nhr", "RSGB_OK"));
         berichten = brmo.listBerichten();
         for (Bericht b : berichten) {
