@@ -76,11 +76,12 @@ public class NhrXMLReader extends BrmoXMLReader {
 
         if(!b.berichten.isEmpty()) {
             setBestandsDatum(b.berichten.get(0).getDatum());
-            brXML = bos.toString(StandardCharsets.UTF_8.name());
-            LOG.debug("Originele nHR xml is: \n" + brXML);
         }
 
         iterator = b.berichten.iterator();
+
+        brXML = bos.toString(StandardCharsets.UTF_8.name());
+        LOG.debug("Originele nHR xml is: \n" + brXML);
 
         init();
     }
