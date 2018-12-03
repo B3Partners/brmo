@@ -91,6 +91,8 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
     private final String BRK_VERWIJDEREN_NOGMAALS_UITVOEREN = "Herhaal transformatie BRK verwijderberichten, oplossen achtergebleven 'kad_onrrnd_zk' records";
     private final String NHR_FIX_TYPERING = "Fix 'typering' en 'clazz' van nHR persoon";
+    private final String NHR_ARCHIVING = "Opschonen en archiveren van nHR berichten met status RSGB_OK, ouder dan 3 maanden";
+    private final String NHR_REMOVAL = "Verwijderen van nHR berichten met status ARCHIVE";
 
     private final boolean repairFirst = false;
 
@@ -212,8 +214,10 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             new AdvancedFunctionProcess("Repareren BAG mutaties met status STAGING_NOK", BrmoFramework.BR_BAG, Bericht.STATUS.STAGING_NOK.toString()),
             new AdvancedFunctionProcess("Opschonen en archiveren van BRK berichten met status RSGB_OK, ouder dan 3 maanden", BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString()),
             new AdvancedFunctionProcess("Opschonen en archiveren van BAG berichten met status RSGB_OK, ouder dan 3 maanden", BrmoFramework.BR_BAG, Bericht.STATUS.RSGB_OK.toString()),
+            new AdvancedFunctionProcess(NHR_ARCHIVING, BrmoFramework.BR_NHR, Bericht.STATUS.RSGB_OK.toString()),
             new AdvancedFunctionProcess("Verwijderen van BRK berichten met status ARCHIVE", BrmoFramework.BR_BRK, Bericht.STATUS.ARCHIVE.toString()),
             new AdvancedFunctionProcess("Verwijderen van BAG berichten met status ARCHIVE", BrmoFramework.BR_BAG, Bericht.STATUS.ARCHIVE.toString()),
+            new AdvancedFunctionProcess(NHR_REMOVAL, BrmoFramework.BR_NHR, Bericht.STATUS.ARCHIVE.toString()),
             new AdvancedFunctionProcess(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN, BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString()),
             new AdvancedFunctionProcess(NHR_FIX_TYPERING, BrmoFramework.BR_NHR, null)
         });
@@ -255,10 +259,14 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                 cleanupBerichten(process.getConfig(), "brk");
             } else if (process.getName().equals("Opschonen en archiveren van BAG berichten met status RSGB_OK, ouder dan 3 maanden")) {
                 cleanupBerichten(process.getConfig(), "bag");
+            } else if (process.getName().equals(NHR_ARCHIVING)) {
+                cleanupBerichten(process.getConfig(), BrmoFramework.BR_NHR);
             } else if (process.getName().equals("Verwijderen van BRK berichten met status ARCHIVE")) {
                 deleteBerichten(process.getConfig(), "brk");
             } else if (process.getName().equals("Verwijderen van BAG berichten met status ARCHIVE")) {
                 deleteBerichten(process.getConfig(), "bag");
+            } else if (process.getName().equals(NHR_REMOVAL)) {
+                deleteBerichten(process.getConfig(), BrmoFramework.BR_NHR);
             } else if (process.getName().equals(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN)) {
                 replayBRKVerwijderBerichten(process.getSoort(), process.getConfig());
             } else if (process.getName().equals(NHR_FIX_TYPERING)) {
@@ -575,7 +583,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
         c.add(Calendar.MONTH, -3);
-     
+
         String countsql = "select count(*) from " + BrmoFramework.BERICHT_TABLE 
                     + " where soort='" + soort + "' "
                     + " and status='" + config + "'"
