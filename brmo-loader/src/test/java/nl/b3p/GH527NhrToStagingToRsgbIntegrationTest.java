@@ -122,12 +122,25 @@ public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
         final String bestandNaam = "/nhr-v3/33257455,23052007.anon.xml";
         assumeNotNull("Het test bestand moet er zijn.", GH527NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam));
 
-        brmo.loadFromFile("nhr", GH527NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile());
+        brmo.loadFromFile("nhr", GH527NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile(), 1L);
         LOG.info("klaar met laden van berichten in staging DB.");
+
+        // alleen het eerste bericht heeft br_orgineel_xml, de rest niet
+        ITable bericht = staging.createQueryTable("bericht", "select * from bericht where volgordenummer=0");
+        assertEquals("Er zijn meer of minder dan 1 rij", 1, bericht.getRowCount());
+        LOG.debug("\n\n" + bericht.getValue(0, "br_orgineel_xml") + "\n\n");
+        assertNotNull("BR origineel xml is null", bericht.getValue(0, "br_orgineel_xml"));
+        Object berichtId = bericht.getValue(0, "id");
 
         LOG.info("Transformeren berichten naar rsgb DB.");
         Thread t = brmo.toRsgb();
         t.join();
+
+        // na de verwerking moet soap payload er ook nog zijn
+        bericht = staging.createQueryTable("bericht", "select * from bericht where br_orgineel_xml is not null");
+        assertEquals("Er zijn meer of minder dan 1 rij", 1, bericht.getRowCount());
+        assertNotNull("BR origineel xml is null na transformatie", bericht.getValue(0, "br_orgineel_xml"));
+        assertEquals("bericht met br_orgineel_xml moet hetzelfde id hebben na transformatie", berichtId, bericht.getValue(0, "id"));
 
         checkWaarde("subject", "clazz");
         checkWaarde("subject", "typering");

@@ -517,6 +517,14 @@ public class StagingProxy {
         return bericht;
     }
 
+    /**
+     * Update (overschrijft) een bericht in job tabel. (object_ref, datum,
+     * volgordenummer, soort, opmerking, status, status_datum, br_xml,
+     * br_orgineel_xml, db_xml, xsl_version)
+     *
+     * @param b
+     * @throws SQLException
+     */
     public void updateBericht(Bericht b) throws SQLException {
         Split split = SimonManager.getStopwatch("b3p.staging.bericht.update").start();
         String brXML = b.getBrXml();
@@ -528,30 +536,55 @@ public class StagingProxy {
         }
 
         new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
-                "UPDATE " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?,"
-                + " datum = ?, volgordenummer = ?, soort = ?, opmerking = ?,"
-                + " status = ?, status_datum = ?, br_xml = ?,"
-                + " br_orgineel_xml = ?, db_xml = ?, xsl_version = ?"
-                + " WHERE id = ?",
+                "UPDATE " + BrmoFramework.BERICHT_TABLE + " set "
+                + "object_ref = ?, "
+                + "datum = ?, "
+                + "volgordenummer = ?, "
+                + "soort = ?, "
+                + "opmerking = ?, "
+                + "status = ?, "
+                + "status_datum = ?, "
+                + "br_xml = ?, "
+                + "br_orgineel_xml = ?, "
+                + "db_xml = ?, "
+                + "xsl_version = ? "
+                + "WHERE id = ?",
                 b.getObjectRef(),
-                new Timestamp(b.getDatum().getTime()), b.getVolgordeNummer(),
-                b.getSoort(), b.getOpmerking(), b.getStatus().toString(),
+                new Timestamp(b.getDatum().getTime()),
+                b.getVolgordeNummer(),
+                b.getSoort(),
+                b.getOpmerking(),
+                b.getStatus().toString(),
                 new Timestamp(b.getStatusDatum().getTime()), brXML,
-                b.getBrOrgineelXml(), b.getDbXml(), b.getXslVersion(),
+                b.getBrOrgineelXml(),
+                b.getDbXml(),
+                b.getXslVersion(),
                 b.getId());
         split.stop();
     }
 
+    /**
+     * Update een bericht in job tabel met processing status. (opmerking,
+     * status, status_datum, db_xml)
+     *
+     * @param b updatebericht
+     * @throws SQLException als de update mislukt
+     */
     public void updateBerichtProcessing(Bericht b) throws SQLException {
         Split split = SimonManager.getStopwatch("b3p.staging.bericht.updateprocessing").start();
 
         new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
-                "UPDATE " + BrmoFramework.BERICHT_TABLE + " set opmerking = ?,"
-                + " status = ?, status_datum = ?, db_xml = ?"
-                + " WHERE id = ?",
-                b.getOpmerking(), b.getStatus().toString(),
-                new Timestamp(b.getStatusDatum().getTime()), b.getDbXml(),
-                b.getId());
+                "UPDATE " + BrmoFramework.BERICHT_TABLE + " set "
+                + "opmerking = ?, "
+                + "status = ?, "
+                + "status_datum = ?, "
+                + "db_xml = ? " + " WHERE id = ?",
+                b.getOpmerking(),
+                b.getStatus().toString(),
+                new Timestamp(b.getStatusDatum().getTime()),
+                b.getDbXml(),
+                b.getId()
+        );
         split.stop();
     }
 
@@ -683,6 +716,7 @@ public class StagingProxy {
                     if (b.getDatum() == null) {
                         throw new BrmoException("Datum bericht is null");
                     }
+                    log.debug(b);
 
                     Bericht existingBericht = getExistingBericht(b);
                     if (existingBericht == null) {
@@ -695,7 +729,7 @@ public class StagingProxy {
                         //moeten worden, door overschrijven wordt dit bericht inactief
                         //en zal nooit getransformeerd worden.
                         b.setId(existingBericht.getId());
-                        updateBericht(b);
+                        this.updateBericht(b);
                     }
                     if (listener != null) {
                         listener.progress(cis.getByteCount());
@@ -735,16 +769,31 @@ public class StagingProxy {
             log.debug("BR XML is nu " + brXML.length() + " bytes.");
         }
         new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
-                "INSERT INTO " + BrmoFramework.BERICHT_TABLE + "(laadprocesid, object_ref,"
-                + " datum, volgordenummer, soort, opmerking, status,"
-                + " status_datum, br_xml, br_orgineel_xml, db_xml,"
-                + " xsl_version)"
-                + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
-                b.getLaadProcesId(), b.getObjectRef(),
-                new Timestamp(b.getDatum().getTime()), b.getVolgordeNummer(),
-                b.getSoort(), b.getOpmerking(), b.getStatus().toString(),
-                new Timestamp(b.getStatusDatum().getTime()), brXML,
-                b.getBrOrgineelXml(), b.getDbXml(), b.getXslVersion());
+                "INSERT INTO " + BrmoFramework.BERICHT_TABLE + " (laadprocesid, "
+                + "object_ref, "
+                + "datum, "
+                + "volgordenummer, "
+                + "soort, "
+                + "opmerking, "
+                + "status, "
+                + "status_datum, "
+                + "br_xml, "
+                + "br_orgineel_xml, "
+                + "db_xml, "
+                + "xsl_version) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                b.getLaadProcesId(),
+                b.getObjectRef(),
+                new Timestamp(b.getDatum().getTime()),
+                b.getVolgordeNummer(),
+                b.getSoort(),
+                b.getOpmerking(),
+                b.getStatus().toString(),
+                new Timestamp(b.getStatusDatum().getTime()),
+                brXML,
+                b.getBrOrgineelXml(),
+                b.getDbXml(),
+                b.getXslVersion()
+        );
      }
 
     /**

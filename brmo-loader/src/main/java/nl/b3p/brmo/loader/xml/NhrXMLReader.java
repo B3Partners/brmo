@@ -1,9 +1,7 @@
 package nl.b3p.brmo.loader.xml;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -27,6 +25,7 @@ import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.NhrBericht;
 import nl.b3p.brmo.loader.entity.NhrBerichten;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
+import org.apache.commons.io.input.TeeInputStream;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
@@ -35,10 +34,14 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
+ * Deze reader splitst een nHR soap response in berichten.
  *
  * @author Matthijs Laan
+ * @author mprins
  */
 public class NhrXMLReader extends BrmoXMLReader {
+
+    public static final String PREFIX = "nhr.bsn.natPers.";
 
     private static final Log LOG = LogFactory.getLog(NhrXMLReader.class);
 
@@ -46,13 +49,17 @@ public class NhrXMLReader extends BrmoXMLReader {
 
     private static Transformer t;
 
-    Iterator<NhrBericht> iterator;
-    int volgorde = 0;
+    private Iterator<NhrBericht> iterator;
 
-    public static final String PREFIX = "nhr.bsn.natPers.";
+    private int volgorde = 0;
+
+    private String brOrigXML = null;
 
     public NhrXMLReader(InputStream in) throws Exception {
         initTemplates();
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        in = new TeeInputStream(in, bos, true);
 
         // Split input naar multiple berichten
         DOMResult r = new DOMResult();
@@ -72,6 +79,9 @@ public class NhrXMLReader extends BrmoXMLReader {
         }
 
         iterator = b.berichten.iterator();
+
+        brOrigXML = bos.toString(StandardCharsets.UTF_8.name());
+        LOG.debug("Originele nHR xml is: \n" + brOrigXML);
 
         init();
     }
@@ -116,6 +126,12 @@ public class NhrXMLReader extends BrmoXMLReader {
         xml.insert(xml.lastIndexOf("</"), bsns);
 
         b.setBrXml(xml.toString());
+
+        // we willen alleen bij het eerst geparsede nhr bericht de originele soap hebben
+        if (volgorde == 0) {
+            b.setBrOrgineelXml(brOrigXML);
+        }
+
         b.setVolgordeNummer(volgorde++);
         return b;
     }
