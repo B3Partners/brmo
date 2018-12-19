@@ -35,8 +35,20 @@
     <logger name="org.apache.http.impl">
         <level value="info" />
     </logger>
+   <logger name="nl.b3p">
+        <level value="info" />
+    </logger>
     <logger name="nl.b3p.brmo">
         <level value="debug" />
+    </logger>
+   <logger name="nl.b3p.topnl">
+        <level value="info" />
+    </logger>
+    <logger name="nl.b3p.brmo.loader">
+        <level value="info" />
+    </logger>
+    <logger name="nl.b3p.brmo.loader.xml">
+        <level value="info" />
     </logger>
     <root>
         <level value="info" />
