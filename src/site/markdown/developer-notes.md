@@ -61,7 +61,9 @@ tevens kan daarmee de juiste configuratie worden geladen.
 |Zelfstandige tests, zonder runtime omgeving benodigdheden, eventueel voorzien van een data bestand, maar zonder verdere afhankelijkheden.  |Tests die een database omgeving en/of servlet container nodig hebben.  |
 |Unit tests worden onafhankelijk van het gebruikte Maven profiel uitgevoerd, in principe tijdens iedere full build, tenzij er een `skip` optie voor het overslaan van de tests wordt meegegeven.  |Unit tests worden afhankelijk van het gebruikte Maven profiel uitgevoerd.  |
 
-Bekijk de `.travis.yml` en `appveyor.yml` hoe de integratie tests worden gestart.
+Het is mogelijk om bepaalde tests uit te sluiten voor een bepaalde omgeving, dat kan mbv. de marker interfaces in de [`brmo-test-util` module](/brmo/brmo-test-util/index.html).
+
+Bekijk de `.travis.yml`, `appveyor.yml` en `Jenkinsfile` hoe de integratie tests worden gestart.
 
 ### database configuratie
 
@@ -78,7 +80,7 @@ module of via commandline ingesteld.
 | ------------------- | ----------- | ------------------------- |
 |postgres.properties  |Travis-CI    |local.postgres.properties  |
 |sqlserver.properties |AppVeyor     |local.sqlserver.properties |
-|oracle.properties    | **TODO**    |local.oracle.properties    |
+|oracle.properties    |Jenkins      |local.oracle.properties    |
 
 Voor gebruik van de propertyfile in een integratie test kun je overerven van een
 abstracte klasse in verschillende modules.
@@ -88,6 +90,8 @@ abstracte klasse in verschillende modules.
 |bgt-gml-loader  |`nl.b3p.brmo.loader.gml.TestingBase`     |
 |brmo-loader     |`nl.b3p.AbstractDatabaseIntegrationTest` |
 |brmo-service    |`nl.b3p.web.TestUtil`                    |
+|brmo-soap       |`nl.b3p.brmo.soap.db.TestUtil`           |
+|brmo-stufbg204  |`nl.b3p.brmo.stufbg204.TestStub`         |
 
 
 ### servlet container configuratie
