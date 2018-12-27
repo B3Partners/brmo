@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,16 +64,15 @@ public class StUFBGasynchroon {
     private static final Log LOG = LogFactory.getLog(StUFBGasynchroon.class);
 
     public BevestigingsBericht ontvangAsynchroneVraag(VraagBericht vraag) {
-        // LOG.debug("Er is vraag ontvangen van soort: " + vraag.getStuurgegevens().getBerichtsoort());
-
+        LOG.debug("Er is een vraag ontvangen van soort: " + vraag.getStuurgegevens().getBerichtsoort());
         BevestigingsBericht b = new BevestigingsBericht();
         b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(vraag.getStuurgegevens()));
+
         return b;
     }
 
     public BevestigingsBericht ontvangAsynchroonAntwoord(AsynchroonAntwoordBericht asynchroonAntwoord) {
-        //    LOG.debug("Er is antwoord ontvangen van soort: " + asynchroonAntwoord.getStuurgegevens().getBerichtsoort());
-
+        LOG.debug("Er is een antwoord ontvangen van soort: " + asynchroonAntwoord.getStuurgegevens().getBerichtsoort());
         BevestigingsBericht b = new BevestigingsBericht();
         b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(asynchroonAntwoord.getStuurgegevens()));
 
@@ -80,20 +80,84 @@ public class StUFBGasynchroon {
     }
 
     public BevestigingsBericht ontvangFout(FoutBericht fout) {
-        //  LOG.debug("Er is fout ontvangen van soort: " + fout.getStuurgegevens().getBerichtsoort());
-
+        LOG.debug("Er is een fout ontvangen van soort: " + fout.getStuurgegevens().getBerichtsoort());
         BevestigingsBericht b = new BevestigingsBericht();
         b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(fout.getStuurgegevens()));
 
         return b;
     }
 
+    /**
+     *
+     * 4.2 Stuurgegevens voor kennisgevingberichten. In paragraaf 2.3 zijn vier
+     * varianten binnen een kennisgevingbericht onderkend:
+     *
+     * <h3>Toevoeging</h3>
+     * Bij een toevoeging is in het zendende systeem een occurrence toegevoegd,
+     * omdat is vastgesteld dat in de werkelijkheid een voor het zendende
+     * systeem relevant object bestaat.
+     *
+     * <h3>Wijziging</h3>
+     * Bij een wijziging is in het zendende systeem een occurrence gewijzigd,
+     * omdat is vastgesteld dat er in de werkelijkheid eigenschappen (gegevens)
+     * zijn veranderd van het object waar naar die occurrence verwijst.
+     *
+     * <h3>Verwijdering</h3>
+     * Bij een verwijdering is in het zendende systeem een occurrence
+     * verwijderd, omdat is vastgesteld dat in de werkelijkheid het object
+     * waarnaar de occurrence verwijst, niet meer bestaat of niet meer relevant
+     * is voor het zendende systeem.
+     *
+     * <h3>Correctie</h3>
+     * Bij een correctie is in het zendende systeem een occurrence gewijzigd,
+     * omdat is vastgesteld dat de vastgelegde waarden niet correct waren. Bij
+     * een correctie is het object in de werkelijkheid waarnaar de occurrence
+     * verwijst, zelf niet gewijzigd. Deze verschillende varianten worden als
+     * volgt gecodeerd in het stuurgegeven mutatiesoort:
+     * <ul>
+     * <li>‘T’: Toevoeging
+     * <li>‘W’: Wijziging
+     * <li>‘V’: Verwijdering
+     * <li>‘C’: Correctie
+     * </ul>
+     * Het is aan het ontvangende systeem om te interpreteren in hoeverre een
+     * kennisgeving relevant is en of de kennisgeving het gevolg is van het
+     * ontstaan of verdwijnen van een object c.q. van het relevant worden of
+     * niet meer relevant zijn van het object voor het zendende systeem. Het
+     * kennisgevingbericht bevat geen aanduiding van de gebeurtenis die
+     * aanleiding gaf tot de wijziging van de gegevens (zie paragraaf 2.3).
+     *
+     * <br/>
+     * Naast de mutatiesoort is in een kennisgevingbericht ook relevant hoe het
+     * ontvangende systeem geacht wordt te reageren op het bericht. Een
+     * kennisgevingbericht kan puur informatief bedoeld zijn: het ontvangende
+     * systeem mag zelf beslissen of de kennisgeving al dan niet wordt verwerkt
+     * in de eigen gegevens. Daarnaast kan het verplicht zijn voor het
+     * ontvangende systeem om de gegevens over te nemen. Of een
+     * kennisgevingbericht informatief is of verplicht over te nemen geeft het
+     * stuurgegeven indicator overname aan met 'I' (informatief) respectievelijk
+     * 'V' (verplicht). Aanvullende afspraken over de omgang met deze rubriek
+     * kunnen worden vastgelegd in het sectormodel.
+     *
+     * @param kennisgeving te verwerken kennisgevingsbericht
+     * @return een bevestiging van de kennisgeving
+     */
     public BevestigingsBericht ontvangKennisgeving(KennisgevingsBericht kennisgeving) {
-        //  LOG.debug("Er is kennisgeving ontvangen van soort: " + kennisgeving.getStuurgegevens().getBerichtsoort());
+        LOG.debug("Er is een kennisgeving ontvangen van soort: " + kennisgeving.getStuurgegevens().getBerichtsoort()
+                + " en mutatiesoort " + kennisgeving.getStuurgegevens().getKennisgeving().getMutatiesoort());
         BevestigingsBericht b = new BevestigingsBericht();
         b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(kennisgeving.getStuurgegevens()));
-        if(kennisgeving.getStuurgegevens().getKennisgeving().getMutatiesoort().equals(Mutatiesoort.T)){
-            saveBericht(kennisgeving, kennisgeving.getStuurgegevens().getTijdstipBericht());
+
+        switch (kennisgeving.getStuurgegevens().getKennisgeving().getMutatiesoort()) {
+            case T:
+                saveBericht(kennisgeving, kennisgeving.getStuurgegevens().getTijdstipBericht());
+                break;
+            case W:
+            case V:
+            case C:
+            default:
+                LOG.warn("Onbekende mutatiesoort wordt niet verwerkt.");
+                break;
         }
         return b;
     }
@@ -107,11 +171,11 @@ public class StUFBGasynchroon {
             Date d = StUFbg204Util.sdf.parse(datum);
             String name = "Upload op " + StUFbg204Util.sdf.format(new Date());
 
-            brmo.loadFromStream(BrmoFramework.BR_BRP, in, name, d);
+            brmo.loadFromStream(BrmoFramework.BR_BRP, in, name, d, null);
             brmo.closeBrmoFramework();
         } catch (BrmoException ex) {
             LOG.error("Cannot create BRMO Framework:", ex);
-        } catch (Exception ex) {
+        } catch (JAXBException | ParseException ex) {
             LOG.error("Cannot get datasource:", ex);
         }
 
@@ -130,9 +194,9 @@ public class StUFBGasynchroon {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setNamespaceAware(true);
             DocumentBuilder builder = factory.newDocumentBuilder();
-            
+
             Document doc = builder.parse(in);
-            List<SimpleEntry<String,String>> prefixes = new ArrayList<>();
+            List<SimpleEntry<String, String>> prefixes = new ArrayList<>();
             getPrefixesRecursive(doc.getDocumentElement(), prefixes);
             //haal de body eruit met xpath
             XPathFactory xPathfactory = XPathFactory.newInstance();
@@ -162,7 +226,7 @@ public class StUFBGasynchroon {
 
     private static final String XMLNAMESPACE = "xmlns";
 
-    public static void getPrefixesRecursive(Element element, List<SimpleEntry<String,String>> prefixes) {
+    public static void getPrefixesRecursive(Element element, List<SimpleEntry<String, String>> prefixes) {
         getPrefixes(element, prefixes);
         Node parent = element.getParentNode();
         if (parent instanceof Element) {
@@ -177,7 +241,7 @@ public class StUFBGasynchroon {
      * @param namespaceUri
      * @param prefixes
      */
-    public static void getPrefixes(Element element, List<SimpleEntry<String,String>> prefixes) {
+    public static void getPrefixes(Element element, List<SimpleEntry<String, String>> prefixes) {
         NamedNodeMap atts = element.getAttributes();
         for (int i = 0; i < atts.getLength(); i++) {
             Node node = atts.item(i);
