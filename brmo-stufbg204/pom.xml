@@ -33,6 +33,18 @@
             <artifactId>brmo-init-util</artifactId>
         </dependency>
         <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>jdbc-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>brmo-taglib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbutils</groupId>
+            <artifactId>commons-dbutils</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-rt</artifactId>
         </dependency>
@@ -52,10 +64,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>commons-dbutils</groupId>
-            <artifactId>commons-dbutils</artifactId>
-        </dependency>
-        <dependency>
             <groupId>${oracle.jdbc.groupId}</groupId>
             <artifactId>${oracle.jdbc.artifactId}</artifactId>
             <scope>provided</scope>
@@ -65,14 +73,20 @@
             <artifactId>brmo-test-util</artifactId>
             <scope>test</scope>
         </dependency>
-       <dependency>
+        <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-catalina</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>nl.b3p</groupId>
-            <artifactId>jdbc-util</artifactId>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
