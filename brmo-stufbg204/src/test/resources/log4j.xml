@@ -39,11 +39,14 @@
     <logger name="nl.b3p.brmo">
         <level value="trace" />
     </logger>
+    <logger name="nl.b3p.brmo.soap.util">
+        <level value="trace" />
+    </logger>
     <logger name="nl.b3p.brmo.stufbg204">
         <level value="trace" />
     </logger>
     <logger name="nl.b3p.brmo.loader">
-        <level value="info" />
+        <level value="debug" />
     </logger>
     <logger name="nl.b3p.brmo.loader.xml">
         <level value="info" />
