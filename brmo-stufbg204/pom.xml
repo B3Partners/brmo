@@ -197,7 +197,80 @@
                 </dependency>
             </dependencies>
             <build>
+                <filters>
+                    <filter>${project.basedir}/src/test/resources/postgres.properties</filter>
+                </filters>
+                <testResources>
+                    <testResource>
+                        <directory>${project.basedir}/src/test/tomcatconf/</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                    <testResource>
+                        <directory>${project.basedir}/src/test/resources/</directory>
+                    </testResource>
+                </testResources>
                 <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>properties-maven-plugin</artifactId>
+                        <configuration>
+                            <files>
+                                <file>${project.basedir}/src/test/resources/postgres.properties</file>
+                                <file>${project.basedir}/src/test/resources/local.postgres.properties</file>
+                            </files>
+                            <quiet>true</quiet>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>read-project-properties</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <configuration>
+                            <port>9090</port>
+                            <!-- Note: dit bestand wordt neergezet tijdens 'test' phase.
+                            Om Tomcat standalone te draaien gebruik je
+                            'mvn clean test tomcat7:run -Ppostgresql' -->
+                            <contextFile>${project.build.directory}/test-classes/testcontext.xml</contextFile>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>tomcat-run</id>
+                                <goals>
+                                    <goal>run-war-only</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <fork>true</fork>
+                                    <skip>${maven.test.skip}</skip>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>tomcat-shutdown</id>
+                                <goals>
+                                    <goal>shutdown</goal>
+                                </goals>
+                                <phase>post-integration-test</phase>
+                                <configuration>
+                                    <skip>${maven.test.skip}</skip>
+                                    <skipErrorOnShutdown>true</skipErrorOnShutdown>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.postgresql</groupId>
+                                <artifactId>postgresql</artifactId>
+                                <version>${postgresql.jdbc.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
@@ -223,7 +296,80 @@
                 </dependency>
             </dependencies>
             <build>
+                <filters>
+                    <filter>${project.basedir}/src/test/resources/oracle.properties</filter>
+                </filters>
+                <testResources>
+                    <testResource>
+                        <directory>${project.basedir}/src/test/tomcatconf/</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                    <testResource>
+                        <directory>${project.basedir}/src/test/resources/</directory>
+                    </testResource>
+                </testResources>
                 <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>properties-maven-plugin</artifactId>
+                        <configuration>
+                            <files>
+                                <file>${project.basedir}/src/test/resources/oracle.properties</file>
+                                <file>${project.basedir}/src/test/resources/local.oracle.properties</file>
+                            </files>
+                            <quiet>true</quiet>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>read-project-properties</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <configuration>
+                            <port>9090</port>
+                            <!-- Note: dit bestand wordt neergezet tijdens 'test' phase.
+                            Om Tomcat standalone te draaien gebruik je
+                            'mvn clean test tomcat7:run -Poracle' -->
+                            <contextFile>${project.build.directory}/test-classes/testcontext.oracle.xml</contextFile>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>tomcat-run</id>
+                                <goals>
+                                    <goal>run-war-only</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <fork>true</fork>
+                                    <skip>${maven.test.skip}</skip>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>tomcat-shutdown</id>
+                                <goals>
+                                    <goal>shutdown</goal>
+                                </goals>
+                                <phase>post-integration-test</phase>
+                                <configuration>
+                                    <skip>${maven.test.skip}</skip>
+                                    <skipErrorOnShutdown>true</skipErrorOnShutdown>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>${oracle.jdbc.groupId}</groupId>
+                                <artifactId>${oracle.jdbc.artifactId}</artifactId>
+                                <version>${oracle.jdbc.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
@@ -249,7 +395,81 @@
                 </dependency>
             </dependencies>
             <build>
+                <filters>
+                    <filter>${project.basedir}/src/test/resources/sqlserver.properties</filter>
+                </filters>
+                <testResources>
+                    <testResource>
+                        <directory>${project.basedir}/src/test/tomcatconf/</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                    <testResource>
+                        <directory>${project.basedir}/src/test/resources/</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                </testResources>
                 <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>properties-maven-plugin</artifactId>
+                        <configuration>
+                            <files>
+                                <file>${project.basedir}/src/test/resources/sqlserver.properties</file>
+                                <file>${project.basedir}/src/test/resources/local.sqlserver.properties</file>
+                            </files>
+                            <quiet>true</quiet>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>read-project-properties</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <configuration>
+                            <port>9090</port>
+                            <!-- Note: dit bestand wordt neergezet tijdens 'test' phase.
+                            Om Tomcat standalone te draaien gebruik je
+                            'mvn clean test tomcat7:run -Pmssql' -->
+                            <contextFile>${project.build.directory}/test-classes/testcontext.xml</contextFile>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>tomcat-run</id>
+                                <goals>
+                                    <goal>run-war-only</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <fork>true</fork>
+                                    <skip>${maven.test.skip}</skip>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>tomcat-shutdown</id>
+                                <goals>
+                                    <goal>shutdown</goal>
+                                </goals>
+                                <phase>post-integration-test</phase>
+                                <configuration>
+                                    <skip>${maven.test.skip}</skip>
+                                    <skipErrorOnShutdown>true</skipErrorOnShutdown>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>net.sourceforge.jtds</groupId>
+                                <artifactId>jtds</artifactId>
+                                <version>${sqlserver.jtds.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
