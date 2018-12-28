@@ -83,10 +83,10 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
     public static Collection params() {
         return Arrays.asList(new Object[][]{
             // {"bestandType","filename", aantalBerichten, aantalProcessen, "lpGebied"},
-            // {TopNLType.TOP250NL, "/topnl/top250nl.gml", 0, 1, "Nederland"},
-            //{TopNLType.TOP100NL, "/topnl/Top100NL_000001.gml", 0, 1, "Top100NL blad 000001"},
-            {TopNLType.TOP50NL, "/topnl/Top50NL_07West.gml", 0, 1, "Top50NL blad 07West"},
- // {TopNLType.TOP10NL, "/topnl/TOP10NL_07W.gml", 0, 1, "TOP10NL blad 07W"}
+            {TopNLType.TOP250NL, "/topnl/TOP250NL.gml", 0, 1, "Nederland"},
+            {TopNLType.TOP100NL, "/topnl/Top100NL_000001.gml", 0, 1, "Top100NL blad 000001"},
+            {TopNLType.TOP50NL, "/topnl/Top50NL_07W.gml", 0, 1, "Top50NL blad 07W"},
+            {TopNLType.TOP10NL, "/topnl/TOP10NL_07W.gml", 0, 1, "TOP10NL blad 07W"}
         });
     }
 
@@ -170,7 +170,9 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
         assumeTrue("Er zijn STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, null, "STAGING_OK"));
         assumeTrue("Er zijn STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, null, "STAGING_OK"));
 
-        assumeNotNull("Het test bestand moet er zijn.", BrkToStagingToRsgbIntegrationTest.class.getResource(bestandNaam));
+        // omdat soms de bestandsnaam wordt aangepast moet dit een harde test fout zijn, dus geen assumeNotNull
+        assertNotNull("Het test bestand moet er zijn.", TopNLIntegrationTest.class.getResource(bestandNaam));
+
     }
 
     @After
@@ -191,7 +193,7 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     @Test
     public void loadTopNLInStaging() throws BrmoException {
-        brmo.loadFromFile(bestandType.getType(), TopNLIntegrationTest.class.getResource(bestandNaam).getFile());
+        brmo.loadFromFile(bestandType.getType(), TopNLIntegrationTest.class.getResource(bestandNaam).getFile(), null);
 
         final List<LaadProces> processen = brmo.listLaadProcessen();
         final List<Bericht> berichten = brmo.listBerichten();
@@ -200,14 +202,12 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
         assertEquals("Het aantal berichten is niet als verwacht.", aantalBerichten, berichten.size());
         assertNotNull("De verzameling processen bestaat niet.", processen);
         assertEquals("Het aantal processen is niet als verwacht.", aantalProcessen, processen.size());
-
         assertEquals("Het gebied moet als verwacht zijn.", lpGebied, processen.get(0).getGebied());
     }
 
     @Test
     public void processTopNL() throws BrmoException, InterruptedException, SQLException, DataSetException {
-
-        brmo.loadFromFile(bestandType.getType(), TopNLIntegrationTest.class.getResource(bestandNaam).getFile());
+        brmo.loadFromFile(bestandType.getType(), TopNLIntegrationTest.class.getResource(bestandNaam).getFile(), null);
         final List<LaadProces> processen = brmo.listLaadProcessen();
         assertEquals("Er is 1 laadproces.", aantalProcessen, processen.size());
 
@@ -233,7 +233,7 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
             @Override
             public void exception(Throwable t) {
                 LOG.error(t);
-                fail(t.getLocalizedMessage());
+                fail("Fout tijdens verwerken. " + t.getLocalizedMessage());
             }
         });
         t.join();
