@@ -151,6 +151,9 @@ public class StUFBGasynchroon {
                 saveBericht(kennisgeving, kennisgeving.getStuurgegevens().getTijdstipBericht());
                 break;
             case W:
+                // dit werkt -nog- niet omdat dit 2 PRS nodes bevat, een was en een wordt...
+                saveBericht(kennisgeving, kennisgeving.getStuurgegevens().getKennisgeving().getTijdstipMutatie());
+                break;
             case V:
             case C:
             default:

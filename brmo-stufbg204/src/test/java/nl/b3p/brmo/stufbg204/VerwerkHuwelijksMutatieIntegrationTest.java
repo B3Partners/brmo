@@ -41,7 +41,7 @@ import static org.junit.Assume.assumeTrue;
  * Deze testcase verwerkt een soap bericht uit een bestand als kennisgeving. Het
  * bestand bevat een HuwelijksMutatie welke naar de stufbg204 async service
  * wordt gepost, hierna wordt in de staging gechecked voor laadproces en bericht
- * en wordt na trasformatie in de rsgb gechecked.
+ * en wordt na trasnformatie in de rsgb gechecked.
  * @code mvn -Dit.test=VerwerkHuwelijksMutatieIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
  *
  * @author Mark Prins
