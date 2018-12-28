@@ -34,11 +34,9 @@ import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.brmo.stufbg204.util.StUFbg204Util;
 import nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht;
 import nl.egem.stuf.sector.bg._0204.KennisgevingsBericht;
-import nl.egem.stuf.sector.bg._0204.StUFFout;
 import nl.egem.stuf.sector.bg._0204.VraagBericht;
 import nl.egem.stuf.stuf0204.BevestigingsBericht;
 import nl.egem.stuf.stuf0204.FoutBericht;
-import nl.egem.stuf.stuf0204.Mutatiesoort;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
@@ -169,14 +167,14 @@ public class StUFBGasynchroon {
             InputStream in = getXml(body);
 
             Date d = StUFbg204Util.sdf.parse(datum);
-            String name = "Upload op " + StUFbg204Util.sdf.format(new Date());
+            String bestand_naam = "StUF-BG upload op " + StUFbg204Util.sdf.format(new Date());
 
-            brmo.loadFromStream(BrmoFramework.BR_BRP, in, name, d, null);
+            brmo.loadFromStream(BrmoFramework.BR_BRP, in, bestand_naam, d, null);
             brmo.closeBrmoFramework();
         } catch (BrmoException ex) {
-            LOG.error("Cannot create BRMO Framework:", ex);
+            LOG.error("Fout tijdens laden van StUF-BG bericht", ex);
         } catch (JAXBException | ParseException ex) {
-            LOG.error("Cannot get datasource:", ex);
+            LOG.error("Fout tijdens parsen van bericht", ex);
         }
 
     }
@@ -237,9 +235,8 @@ public class StUFBGasynchroon {
     /**
      * Get all prefixes defined on this element for the specified namespace.
      *
-     * @param element
-     * @param namespaceUri
-     * @param prefixes
+     * @param element dom element
+     * @param prefixes lijst van namespace prefixes
      */
     public static void getPrefixes(Element element, List<SimpleEntry<String, String>> prefixes) {
         NamedNodeMap atts = element.getAttributes();
