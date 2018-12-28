@@ -35,7 +35,7 @@
 
 	<xsl:template match="ns2:PRS">
 		<xsl:variable name="objRef"><xsl:value-of select="$objectRef"/></xsl:variable>
-		<xsl:variable name="class">NATUURLIJK PERSOON</xsl:variable>
+		<xsl:variable name="class">INGESCHREVEN NATUURLIJK PERSOON</xsl:variable>
 		<xsl:call-template name="persoon">
             <xsl:with-param name="key" select="$objRef"/>
             <xsl:with-param name="class" select="$class"/>
