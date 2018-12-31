@@ -11,7 +11,7 @@
     <stripes:layout-component name="contents">
         <h1>BRMO Service logfile</h1>
 
-        <p>ververst op: <script>document.write(moment(Date.now()).format('YYYY-MM-DD hh:mm:ss'));</script></p>
+        <p>ververst op: <script>document.write(moment().format('YYYY-MM-DD hh:mm:ss'));</script></p>
 
         <p>Download <stripes:link href="/downloadlog.jsp">hele logfile</stripes:link>.</p>
 
