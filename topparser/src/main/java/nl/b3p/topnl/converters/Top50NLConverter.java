@@ -73,7 +73,7 @@ public class Top50NLConverter extends Converter {
         List<TopNLEntity> entities = new ArrayList<>();
 
         for (Object fm : jaxbFeatureCollection) {
-            FeatureCollectionTop50Type.FeatureMember featureMember = (FeatureCollectionTop50Type.FeatureMember)fm;
+            FeatureMemberType featureMember = (FeatureMemberType)fm;
             JAXBElement jaxbObject = featureMember.getTop50NlObject();
             Object obj = jaxbObject.getValue();
             TopNLEntity entity = convertObject(obj);
@@ -87,8 +87,8 @@ public class Top50NLConverter extends Converter {
     public TopNLEntity convertObject(Object featureMember) throws IOException, SAXException, ParserConfigurationException, TransformerException {
         TopNLEntity entity = null;
 
-         if(featureMember instanceof FeatureCollectionTop50Type.FeatureMember){
-             FeatureCollectionTop50Type.FeatureMember fm = (FeatureCollectionTop50Type.FeatureMember)featureMember;
+         if(featureMember instanceof FeatureMemberType){
+             FeatureMemberType fm = (FeatureMemberType)featureMember;
             JAXBElement jaxbObject = fm.getTop50NlObject();
             return convertObject(jaxbObject.getValue());
         }else if (featureMember instanceof HoogteType) {

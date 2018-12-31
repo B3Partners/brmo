@@ -10,29 +10,29 @@ package nl.b3p.topnl.top50nl;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * gml:ReferenceType is intended to be used in application schemas directly, if a property element shall use a "by-reference only" encoding.
- * 
- * <p>Java class for ReferenceType complex type.
+ * <p>Java class for FeatureMemberType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ReferenceType">
+ * &lt;complexType name="FeatureMemberType">
  *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
+ *     &lt;extension base="{http://www.opengis.net/gml/3.2}AbstractFeatureMemberType">
+ *       &lt;sequence minOccurs="0">
+ *         &lt;element ref="{http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1}_Top50nlObject"/>
  *       &lt;/sequence>
  *       &lt;attGroup ref="{http://www.opengis.net/gml/3.2}AssociationAttributeGroup"/>
- *       &lt;attGroup ref="{http://www.opengis.net/gml/3.2}OwnershipAttributeGroup"/>
- *     &lt;/restriction>
+ *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -40,9 +40,15 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ReferenceType")
-public class ReferenceType {
+@XmlType(name = "FeatureMemberType", namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1", propOrder = {
+    "top50NlObject"
+})
+public class FeatureMemberType
+    extends AbstractFeatureMemberType
+{
 
+    @XmlElementRef(name = "_Top50nlObject", namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1", type = JAXBElement.class, required = false)
+    protected JAXBElement<? extends Top50NlObjectType> top50NlObject;
     @XmlAttribute(name = "nilReason")
     protected List<String> nilReason;
     @XmlAttribute(name = "remoteSchema", namespace = "http://www.opengis.net/gml/3.2")
@@ -65,8 +71,52 @@ public class ReferenceType {
     protected String show;
     @XmlAttribute(name = "actuate", namespace = "http://www.w3.org/1999/xlink")
     protected String actuate;
-    @XmlAttribute(name = "owns")
-    protected Boolean owns;
+
+    /**
+     * Gets the value of the top50NlObject property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link SpoorbaandeelType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link HoogteType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link InrichtingselementType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TerreinType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WegdeelType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link FunctioneelGebiedType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterdeelType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RegistratiefGebiedType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GebouwType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GeografischGebiedType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link Top50NlObjectType }{@code >}
+     *     
+     */
+    public JAXBElement<? extends Top50NlObjectType> getTop50NlObject() {
+        return top50NlObject;
+    }
+
+    /**
+     * Sets the value of the top50NlObject property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link SpoorbaandeelType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link HoogteType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link InrichtingselementType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link TerreinType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WegdeelType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ReliefType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link FunctioneelGebiedType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link WaterdeelType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link RegistratiefGebiedType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GebouwType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link GeografischGebiedType }{@code >}
+     *     {@link JAXBElement }{@code <}{@link Top50NlObjectType }{@code >}
+     *     
+     */
+    public void setTop50NlObject(JAXBElement<? extends Top50NlObjectType> value) {
+        this.top50NlObject = value;
+    }
 
     /**
      * Gets the value of the nilReason property.
@@ -291,34 +341,6 @@ public class ReferenceType {
      */
     public void setActuate(String value) {
         this.actuate = value;
-    }
-
-    /**
-     * Gets the value of the owns property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
-    public boolean isOwns() {
-        if (owns == null) {
-            return false;
-        } else {
-            return owns;
-        }
-    }
-
-    /**
-     * Sets the value of the owns property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
-    public void setOwns(Boolean value) {
-        this.owns = value;
     }
 
 }
