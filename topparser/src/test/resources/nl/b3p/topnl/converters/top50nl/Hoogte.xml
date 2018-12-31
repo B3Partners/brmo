@@ -1,27 +1,40 @@
-<top50nl:FeatureMember xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:gsr="http://www.isotc211.org/2005/gsr" xmlns:gss="http://www.isotc211.org/2005/gss" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:top50nl="http://www.kadaster.nl/top50nl/1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.kadaster.nl/top50nl/1.1 top50nl_1_1.xsd">
-	<top50nl:Hoogte gml:id="NL.TOP50NL.16R11-0004176412">
-		<top50nl:identificatie>
-			<top50nl:NEN3610ID>
-				<top50nl:namespace>NL.TOP50NL</top50nl:namespace>
-				<top50nl:lokaalID>16R11-0004176412</top50nl:lokaalID>
-			</top50nl:NEN3610ID>
-		</top50nl:identificatie>
-		<top50nl:objectBeginTijd>2016-11-01T00:00:00.000</top50nl:objectBeginTijd>
-		<top50nl:brontype>TOP10NL</top50nl:brontype>
-		<top50nl:bronbeschrijving>Automatische generalisatie vanuit TOP10NL</top50nl:bronbeschrijving>
-		<top50nl:bronactualiteit>2016-11-01</top50nl:bronactualiteit>
-		<top50nl:tdnCode>1730</top50nl:tdnCode>
-		<top50nl:visualisatieCode>17300</top50nl:visualisatieCode>
-		<top50nl:geometrie>
-			<top50nl:LijnOfPunt>
-				<top50nl:lijnGeometrie>
-					<gml:LineString gml:id="LOCAL_ID_865494" srsName="urn:ogc:def:crs:EPSG::28992">
-						<gml:posList count="26" srsDimension="2">212730.451000001 431361.427000001 212772.881999999 431364.491999999 212835.578000002 431371.807999998 212863.511 431378.131000001 212910.076000001 431394.175000001 212932.346999999 431404.493999999 212943.535999998 431413.171999998 212951.875999998 431426.431000002 212953.638999999 431438.079999998 212952.607999999 431443.826000001 212944.129000001 431457.280000001 212933.620999999 431464.129000001 212926.614999998 431466.763 212899.109000001 431472.670000002 212875.434999999 431472.829999998 212848.916999999 431469.431000002 212808.791000001 431458.212000001 212729.539000001 431432.219000001 212715.960999999 431426.077 212698.074000001 431415.177999999 212689.596000001 431402.546999998 212687.379000001 431389.041000001 212690.473999999 431377.456999999 212702.022 431368.008000001 212713.434 431363.289000001 212730.451000001 431361.427000001</gml:posList>
-					</gml:LineString>
-				</top50nl:lijnGeometrie>
-			</top50nl:LijnOfPunt>
-		</top50nl:geometrie>
-		<top50nl:hoogte>15</top50nl:hoogte>
-		<top50nl:typeHoogte>hoogtelijn</top50nl:typeHoogte>
-	</top50nl:Hoogte>
-</top50nl:FeatureMember>
+<?xml version="1.0" encoding="UTF-8"?>
+<top50nl:FeatureCollectionTop50 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:top50nl="http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1"
+                                xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                xmlns:gmd="http://www.isotc211.org/2005/gmd"
+                                xmlns:gco="http://www.isotc211.org/2005/gco"
+                                xmlns:gss="http://www.isotc211.org/2005/gss"
+                                xmlns:gts="http://www.isotc211.org/2005/gts"
+                                xmlns:gsr="http://www.isotc211.org/2005/gsr"
+                                xsi:schemaLocation="http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1 http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1/top50nl.xsd"
+                                gml:id="Top50NL_201406">
+    <top50nl:FeatureMember>
+        <top50nl:Hoogte gml:id="NL.TOP50NL.18R11-0004284128">
+            <top50nl:identificatie>
+                <top50nl:NEN3610ID>
+                    <top50nl:namespace>NL.TOP50NL</top50nl:namespace>
+                    <top50nl:lokaalID>18R11-0004284128</top50nl:lokaalID>
+                </top50nl:NEN3610ID>
+            </top50nl:identificatie>
+            <top50nl:objectBeginTijd>2018-11-01T00:00:00.000</top50nl:objectBeginTijd>
+            <top50nl:brontype>TOP10NL</top50nl:brontype>
+            <top50nl:bronbeschrijving>Automatische generalisatie vanuit TOP10NL</top50nl:bronbeschrijving>
+            <top50nl:bronactualiteit>2018-11-01</top50nl:bronactualiteit>
+            <top50nl:tdnCode>1732</top50nl:tdnCode>
+            <top50nl:visualisatieCode>17320</top50nl:visualisatieCode>
+            <top50nl:geometrie>
+                <top50nl:LijnOfPunt>
+                    <top50nl:lijnGeometrie>
+                        <gml:LineString srsName="urn:ogc:def:crs:EPSG::28992" gml:id="LOCAL_ID_10108">
+                            <gml:posList srsDimension="2" count="34">238698.440000001 579307.671 238687.469000001 579308.958000001 238679.785999998 579313.063000001 238670.521000002 579322.022 238650.936999999 579336.221000001 238644.550999999 579344.813000001 238645.395 579350.329 238650.044 579357.817000002 238707.263999999 579409.022999998 238712.960999999 579420.879999999 238712.259 579427.506999999 238708.469000001 579435.239999998 238683.995000001 579462.758000001 238679.629999999 579472.166000001 238676.929000001 579489.795000002 238679.842999999 579512.467 238683.895 579522.741 238690.322000001 579532.598999999 238705.386 579547.302000001 238717.447000001 579556.276000001 238748.210999999 579571.594999999 238755.605999999 579573.776000001 238762.094000001 579573.476 238765.477000002 579570.557 238761.421999998 579542.188999999 238761.578000002 579517.493000001 238778.857000001 579411.749000002 238778.241999999 579378.502999999 238776.420000002 579366.853999998 238773.109000001 579355.568999998 238766.546999998 579344.011999998 238750.118999999 579328.237 238723.653000001 579314.274999999 238698.440000001 579307.671</gml:posList>
+                        </gml:LineString>
+                    </top50nl:lijnGeometrie>
+                </top50nl:LijnOfPunt>
+            </top50nl:geometrie>
+            <top50nl:hoogte>0</top50nl:hoogte>
+            <top50nl:typeHoogte>hoogtelijn</top50nl:typeHoogte>
+        </top50nl:Hoogte>
+    </top50nl:FeatureMember>
+</top50nl:FeatureCollectionTop50>
