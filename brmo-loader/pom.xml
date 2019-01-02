@@ -200,6 +200,9 @@
                                 <database.upgrade>${database.upgrade}</database.upgrade>
                             </systemPropertyVariables>
                             <excludedGroups>nl.b3p.brmo.test.util.database.PostgreSQLDriverBasedFailures</excludedGroups>
+                            <excludes>
+                                <exclude>nl.b3p.TopNLIntegrationTest</exclude>
+                            </excludes>
                         </configuration>
                     </plugin>
                 </plugins>

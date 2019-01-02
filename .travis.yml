@@ -82,6 +82,19 @@ matrix:
     jdk: openjdk8
     env: 
       - PROFILE="postgresql -Ddatabase.upgrade=true"
+  - name: "TopNL tests"
+    dist: xenial
+    jdk: openjdk8
+    env: PG_VERSION="10"
+    addons:
+      postgresql: 10
+      apt:
+        packages:
+          - postgresql-10
+          - postgresql-client-10
+          - postgresql-10-postgis-2.4
+    env:
+      - PROFILE="postgresql -Dit.test=TopNLIntegrationTest"
 
 cache:
   directories:
@@ -106,13 +119,16 @@ before_install:
   - export PAGER=cat
   - if [ "$PG_VERSION" == "11" ]; then
        sudo sed -i 's/port = 5433/port = 5432/' /etc/postgresql/11/main/postgresql.conf;
-       sudo cp /etc/postgresql/{9.5,11}/main/pg_hba.conf;
+       sudo cp /etc/postgresql/{9.6,11}/main/pg_hba.conf;
        sudo service postgresql restart;
     fi
   - if [ "$PROFILE" == "postgresql" ]; then
        sh ".travis/install-pgsql.sh";
     elif  [ "$PROFILE" == "postgresql -Ddatabase.upgrade=true" ]; then
        sh ".travis/getlastRelease.sh";
+       sh ".travis/install-pgsql.sh";
+    elif  [ "$PROFILE" == "postgresql -Dit.test=TopNLIntegrationTest" ]; then
+       sh ".jenkins/data-prepare-topnl.sh";
        sh ".travis/install-pgsql.sh";
     else
        sudo service postgresql stop;
@@ -142,9 +158,10 @@ before_script:
   # ophalen actuele topnl test data alleen voor postgres
   - if [ "$PROFILE" == "postgresql" ]; then
        sh ".travis/setup-pgsql.sh";
-       sh ".jenkins/data-prepare-topnl.sh";
     elif  [ "$PROFILE" == "postgresql -Ddatabase.upgrade=true" ]; then
        sh ".travis/setup-old-pgsql.sh";
+    elif  [ "$PROFILE" == "postgresql -Dit.test=TopNLIntegrationTest" ]; then
+       sh ".travis/setup-pgsql.sh";
     else
        sh ".travis/setup-mssql.sh";
     fi
@@ -154,14 +171,14 @@ script:
   - if [ "$PROFILE" != "postgresql -Ddatabase.upgrade=true" ]; then
        travis_wait 20 mvn --settings .travis/settings.xml -e test -B -Pstandard-with-extra-repos,$PROFILE -pl '!brmo-dist' -Dtest.onlyITs=false;
     fi
-  # run integratie tests voor veschillende modules, per module
+  # test upgrade script
   - if  [ "$PROFILE" == "postgresql -Ddatabase.upgrade=true" ]; then
         .travis/execute-upgrades-pgsql.sh staging;
         .travis/execute-upgrades-pgsql.sh rsgb;
         .travis/execute-upgrades-pgsql.sh rsgbbgt;
         mvn -e -B -P$PROFILE -pl 'datamodel' resources:testResources compiler:testCompile surefire:test;
     fi
-  # run integratie tests voor brmo-loader module
+  # run integratie tests voor brmo-loader module of alleen topnl
   - echo 'integratie tests voor brmo-loader module'
   - travis_wait 40 mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'brmo-loader'
   # run integratie tests voor brmo-service module
