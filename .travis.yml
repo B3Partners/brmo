@@ -10,6 +10,7 @@ env:
     - PROFILE="postgresql"
     - MVN_VERSION="3.6.0"
     - MVN_ARGS="-Dit.test=!TopNLIntegrationTest"
+    - PGPORT=5432
 
 addons:
   postgresql: 9.6
@@ -54,7 +55,9 @@ matrix:
           - postgresql-11
           - postgresql-client-11
           - postgresql-11-postgis-2.5
+          - postgresql-11-postgis-2.5-scripts
   - name: "PostgreSQL 10"
+    group: edge
     dist: xenial
     jdk: openjdk8
     env: PG_VERSION="10"
@@ -67,6 +70,7 @@ matrix:
           - postgresql-10-postgis-2.4
   - name: "MS SQL server 2017"
     jdk: openjdk8
+    group: edge
     dist: xenial
     sudo: required
     env: 
@@ -79,6 +83,7 @@ matrix:
       - PROFILE="postgresql"
       - MVN_ARGS="-Ddatabase.upgrade=true -Dit.test=!TopNLIntegrationTest"
   - name: "TopNL tests"
+    group: edge
     dist: xenial
     jdk: openjdk8
     env: PG_VERSION="10"
@@ -116,7 +121,7 @@ before_install:
   - export PAGER=cat
   - if [ "$PG_VERSION" == "11" ]; then
        sudo sed -i 's/port = 5433/port = 5432/' /etc/postgresql/11/main/postgresql.conf;
-       sudo cp /etc/postgresql/{9.6,11}/main/pg_hba.conf;
+       sudo cp /etc/postgresql/{10,11}/main/pg_hba.conf;
        sudo service postgresql restart;
     fi
   - if [ "$PROFILE" == "postgresql" ]; then
