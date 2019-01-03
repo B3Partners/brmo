@@ -889,6 +889,14 @@
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
                     <version>4.0.2</version>
+                    <configuration>
+                        <enableExperimental>true</enableExperimental>
+                        <retirejs>
+                            <filterNonVulnerable>false</filterNonVulnerable>
+                        </retirejs>
+                        <suppressionFile>${project.basedir}/.mvn/owasp-suppression.xml</suppressionFile>
+                        <format>ALL</format>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.jacoco</groupId>

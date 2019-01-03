@@ -22,7 +22,7 @@ timestamps {
 
             stage('Build') {
                 echo "Building branch: ${env.BRANCH_NAME}"
-                sh "mvn clean install -Dmaven.test.skip=true -B -V -e -fae  -q -Poracle -pl '!brmo-dist'"
+                sh "mvn clean install -Dmaven.test.skip=true -B -V -e -fae -q -Poracle -pl '!brmo-dist'"
             }
 
             stage('Test') {
@@ -129,7 +129,7 @@ timestamps {
 
             stage('OWASP Dependency Check') {
                 echo "Uitvoeren OWASP dependency check"
-                sh "mvn org.owasp:dependency-check-maven:aggregate -Dformat=ALL -DsuppressionFile=./.mvn/owasp-suppression.xml"
+                sh "mvn org.owasp:dependency-check-maven:aggregate"
 
                 dependencyCheckPublisher canComputeNew: false, defaultEncoding: '', healthy: '85', pattern: '**/dependency-check-report.xml', shouldDetectModules: true, unHealthy: ''
             }
