@@ -9,6 +9,8 @@ env:
     - PG_VERSION="9.6"
     - PROFILE="postgresql"
     - MVN_VERSION="3.6.0"
+    - MVN_ARGS="-Dit.test=!TopNLIntegrationTest"
+    - PGPORT=5432
 
 addons:
   postgresql: 9.6
@@ -33,7 +35,7 @@ matrix:
   include:
   - name: "Oudste supported PostgreSQL"
     jdk: oraclejdk8
-    # final release (==EOL): Feb 13, 2020
+    # final release van 9.4 (==EOL): Feb 13, 2020
     # https://www.postgresql.org/support/versioning/
     env: PG_VERSION="9.4"
     addons:
@@ -53,6 +55,7 @@ matrix:
           - postgresql-11
           - postgresql-client-11
           - postgresql-11-postgis-2.5
+          - postgresql-11-postgis-2.5-scripts
   - name: "PostgreSQL 10"
     group: edge
     dist: xenial
@@ -65,23 +68,35 @@ matrix:
           - postgresql-10
           - postgresql-client-10
           - postgresql-10-postgis-2.4
- #         - openjdk-8-jdk
   - name: "MS SQL server 2017"
-    group: edge
     jdk: openjdk8
+    group: edge
     dist: xenial
     sudo: required
-#    addons:
-#      apt:
-#        packages:
-#          - openjdk-8-jdk
     env: 
       - PG_VERSION=""
-      - PROFILE="mssql -Dmssql.instancename=''"
+      - PROFILE="mssql"
+      - MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest"
   - name: "database upgrades"
     jdk: openjdk8
     env: 
-      - PROFILE="postgresql -Ddatabase.upgrade=true"
+      - PROFILE="postgresql"
+      - MVN_ARGS="-Ddatabase.upgrade=true -Dit.test=!TopNLIntegrationTest"
+  - name: "TopNL tests"
+    group: edge
+    dist: xenial
+    jdk: openjdk8
+    env: PG_VERSION="10"
+    addons:
+      postgresql: 10
+      apt:
+        packages:
+          - postgresql-10
+          - postgresql-client-10
+          - postgresql-10-postgis-2.4
+    env:
+      - PROFILE="postgresql"
+      - MVN_ARGS="-Dit.test=TopNLIntegrationTest"
 
 cache:
   directories:
@@ -106,18 +121,23 @@ before_install:
   - export PAGER=cat
   - if [ "$PG_VERSION" == "11" ]; then
        sudo sed -i 's/port = 5433/port = 5432/' /etc/postgresql/11/main/postgresql.conf;
-       sudo cp /etc/postgresql/{9.5,11}/main/pg_hba.conf;
+       sudo cp /etc/postgresql/{10,11}/main/pg_hba.conf;
        sudo service postgresql restart;
     fi
   - if [ "$PROFILE" == "postgresql" ]; then
        sh ".travis/install-pgsql.sh";
-    elif  [ "$PROFILE" == "postgresql -Ddatabase.upgrade=true" ]; then
-       sh ".travis/getlastRelease.sh";
-       sh ".travis/install-pgsql.sh";
-    else
+    elif [ "$PROFILE" == "mssql" ]; then
        sudo service postgresql stop;
        sh ".travis/install-mssql.sh";
     fi
+  - if  [ "$TRAVIS_JOB_NAME" == "database upgrades" ]; then
+       sh ".travis/getlastRelease.sh";
+    fi
+    # ophalen actuele topnl test data alleen voor postgres
+  - if  [ "$TRAVIS_JOB_NAME" == "TopNL tests" ]; then
+       sh ".jenkins/data-prepare-topnl.sh";
+    fi
+
   # setup mssql
   - unset _JAVA_OPTIONS
   - ulimit -a
@@ -139,57 +159,55 @@ before_script:
   - ls -l ./datamodel/generated_scripts/*.sql
   - ls -l ./topparser/src/main/resources/nl/b3p/topnl/database/*.sql
   - find ./bgt-gml-loader/target/generated-resources/ddl/ -name '*.sql' -print
-  # ophalen actuele topnl test data alleen voor postgres
-  - if [ "$PROFILE" == "postgresql" ]; then
+  - if [ "$PROFILE" == "postgresql" ] && [ "$TRAVIS_JOB_NAME" != "database upgrades" ]; then
        sh ".travis/setup-pgsql.sh";
-       sh ".jenkins/data-prepare-topnl.sh";
-    elif  [ "$PROFILE" == "postgresql -Ddatabase.upgrade=true" ]; then
+    elif [ "$PROFILE" == "postgresql" ] && [ "$TRAVIS_JOB_NAME" == "database upgrades" ]; then
        sh ".travis/setup-old-pgsql.sh";
-    else
+    elif [ "$PROFILE" == "mssql" ]; then
        sh ".travis/setup-mssql.sh";
     fi
 
 script:
   # run unit tests voor alle modules mits actuele postgresql
-  - if [ "$PROFILE" != "postgresql -Ddatabase.upgrade=true" ]; then
+  - if [ "$TRAVIS_JOB_NAME" != "database upgrades" ]; then
        travis_wait 20 mvn --settings .travis/settings.xml -e test -B -Pstandard-with-extra-repos,$PROFILE -pl '!brmo-dist' -Dtest.onlyITs=false;
     fi
-  # run integratie tests voor veschillende modules, per module
-  - if  [ "$PROFILE" == "postgresql -Ddatabase.upgrade=true" ]; then
+  # test upgrade script
+  - if  [ "$TRAVIS_JOB_NAME" == "database upgrades" ]; then
         .travis/execute-upgrades-pgsql.sh staging;
         .travis/execute-upgrades-pgsql.sh rsgb;
         .travis/execute-upgrades-pgsql.sh rsgbbgt;
-        mvn -e -B -P$PROFILE -pl 'datamodel' resources:testResources compiler:testCompile surefire:test;
+        mvn -e -B -P$PROFILE $MVN_ARGS -pl 'datamodel' resources:testResources compiler:testCompile surefire:test;
     fi
-  # run integratie tests voor brmo-loader module
+  # run integratie tests voor brmo-loader module of alleen topnl
   - echo 'integratie tests voor brmo-loader module'
-  - travis_wait 40 mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'brmo-loader'
+  - travis_wait 40 mvn -e verify -B -P$PROFILE $MVN_ARGS -Dtest.onlyITs=true -pl 'brmo-loader'
   # run integratie tests voor brmo-service module
   - echo 'run integratie tests voor brmo-service module'
-  - mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'brmo-service'
+  - mvn -e verify -B -P$PROFILE $MVN_ARGS -Dtest.onlyITs=true -pl 'brmo-service'
   #
   # andere modules alleen tegen pgsql testen want dat kost te veel tijd op dit systeem
   #  er draait ook nog een windows server met mssql versie ergens
   #
   # run integratie tests voor bgt-gml-loader module
-  - if [ "$PROFILE" == "postgresql" ]; then
+  - if [ "$PROFILE" == "postgresql" ] && [ "$TRAVIS_JOB_NAME" != "TopNL tests" ]; then
         echo 'run integratie tests voor bgt-gml-loader module';
-        mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'bgt-gml-loader';
+        mvn -e verify -B -P$PROFILE $MVN_ARGS -Dtest.onlyITs=true -pl 'bgt-gml-loader';
     fi
   # run integratie tests voor brmo-soap module
-  - if [ "$PROFILE" == "postgresql" ]; then
+  - if [ "$PROFILE" == "postgresql" ] && [ "$TRAVIS_JOB_NAME" != "TopNL tests" ]; then
         echo 'integratie tests voor brmo-soap module';
-        mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'brmo-soap';
+        mvn -e verify -B -P$PROFILE $MVN_ARGS -Dtest.onlyITs=true -pl 'brmo-soap';
     fi
   # run integratie tests voor brmo-stufbg204 module tegen pgsql
-  - if [ "$PROFILE" == "postgresql" ]; then
+  - if [ "$PROFILE" == "postgresql" ] && [ "$TRAVIS_JOB_NAME" != "TopNL tests" ]; then
         echo 'integratie tests voor brmo-stufbg204 module';
-        mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'brmo-stufbg204';
+        mvn -e verify -B -P$PROFILE $MVN_ARGS -Dtest.onlyITs=true -pl 'brmo-stufbg204';
     fi
   # run integratie tests voor brmo-commandline module tegen pgsql
-  - if [ "$PROFILE" == "postgresql" ]; then
+  - if [ "$PROFILE" == "postgresql" ] && [ "$TRAVIS_JOB_NAME" != "TopNL tests" ]; then
         echo 'integratie tests voor brmo-commandline module';
-        mvn -e verify -B -P$PROFILE -Dtest.onlyITs=true -pl 'brmo-commandline';
+        mvn -e verify -B -P$PROFILE $MVN_ARGS -Dtest.onlyITs=true -pl 'brmo-commandline';
     fi
   #
   # Linting
