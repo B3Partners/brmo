@@ -134,7 +134,7 @@ before_install:
        sh ".travis/getlastRelease.sh";
     fi
     # ophalen actuele topnl test data alleen voor postgres
-  - if  [ "$TRAVIS_JOB_NAME" == "TopNL tests" ]; then
+  - if  [ "$PROFILE" == "postgresql" ]; then
        sh ".jenkins/data-prepare-topnl.sh";
     fi
 
