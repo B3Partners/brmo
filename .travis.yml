@@ -11,7 +11,7 @@ env:
     - MVN_VERSION="3.6.0"
     - MVN_ARGS="-Dit.test=!TopNLIntegrationTest"
     - PGPORT=5432
-    - MAVEN_OPTS=-Djava.awt.headless=true -Xms8G -Xmx10G
+    - MAVEN_OPTS=-Djava.awt.headless=true -Xms8G -Xmx12G
 
 addons:
   postgresql: 9.6
