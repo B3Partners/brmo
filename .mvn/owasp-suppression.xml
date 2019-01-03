@@ -20,21 +20,24 @@
     </suppress>
     <suppress>
         <notes><![CDATA[
-      Negeer melding mbt log4j-1.2.17.jar, false positive, CVE heeft betrekking op versie 2 en hoger.
+      Negeer melding mbt gt-main jar, false positive mbt integer overflow in data-tools
       ]]></notes>
-        <gav regex="true">^log4j:log4j:1\.2\.17$</gav>
-        <cve>CVE-2017-5645</cve>
+        <gav regex="true">^org\.geotools:gt-main:.*$</gav>
+        <cpe>cpe:/a:data-tools_project:data_tools</cpe>
     </suppress>
     <suppress>
         <notes><![CDATA[
-      Negeer melding mbt poi-XXXX.3.14.jar, deze aanvalsvector (parsen van bepaalde documenten) speelt niet in de BRMO.
-      POI komt mee met een test dependency (org.dbunit:dbunit:2.5.4) en zit dus niet in de producten;
-      de aanvalsvector speelt ook niet in de testcases.
-      Na een upgrade van dbunit zou deze onderdrukking geen probleem meer moeten zijn.
+      Negeer melding mbt gt-data jar, false positive mbt integer overflow in data-tools
         ]]></notes>
-        <gav regex="true">^org\.apache\.poi:poi.*:3\.14$</gav>
-        <cve>CVE-2017-12626</cve>
-        <cve>CVE-2017-5644</cve>
+        <gav regex="true">^org\.geotools:gt-data:.*$</gav>
+        <cpe>cpe:/a:data-tools_project:data_tools</cpe>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+      Negeer melding mbt log4j-1.2.17.jar, false positive, CVE heeft betrekking op versie 2 en hoger.
+        ]]></notes>
+        <gav regex="true">^log4j:log4j:1\.2\.17$</gav>
+        <cve>CVE-2017-5645</cve>
     </suppress>
     <suppress>
         <notes><![CDATA[
@@ -46,9 +49,47 @@
     </suppress>
     <suppress>
         <notes><![CDATA[
-      Negeer melding mbt postgresql jdbc driver, deze CVE is voor een ander product
+      Negeer meldingen mbt postgis-jdbc jar, hebben allemaal betrekking op de database engine
         ]]></notes>
-        <filePath regex="true">.*\bpostgresql-42.2.5\.jar</filePath>
-        <cve>CVE-2016-7048</cve>
+        <gav regex="true">^net\.postgis:postgis-jdbc:.*$</gav>
+        <cpe>cpe:/a:postgresql:postgresql</cpe>
+        <cpe>cpe:/a:postgresql:postgresql_jdbc_driver</cpe>
+        <!--<cve>CVE-2007-2138</cve>-->
+        <!--<cve>CVE-2010-0733</cve>-->
+        <!--<cve>CVE-2014-0060</cve>-->
+        <!--<cve>CVE-2014-0061</cve>-->
+        <!--<cve>CVE-2014-0062</cve>-->
+        <!--<cve>CVE-2014-0063</cve>-->
+        <!--<cve>CVE-2014-0064</cve>-->
+        <!--<cve>CVE-2014-0065</cve>-->
+        <!--<cve>CVE-2014-0066</cve>-->
+        <!--<cve>CVE-2014-0067</cve>-->
+        <!--<cve>CVE-2015-5288</cve>-->
+        <!--<cve>CVE-2015-5289</cve>-->
+        <!--<cve>CVE-2016-0766</cve>-->
+        <!--<cve>CVE-2016-0768</cve>-->
+        <!--<cve>CVE-2016-0773</cve>-->
+        <!--<cve>CVE-2016-5423</cve>-->
+        <!--<cve>CVE-2016-5424</cve>-->
+        <!--<cve>CVE-2016-7048</cve>-->
+        <!--<cve>CVE-2017-14798</cve>-->
+        <!--<cve>CVE-2017-7484</cve>-->
+        <!--<cve>CVE-2017-8806</cve>-->
+        <!--<cve>CVE-2017-1115</cve>-->
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+        Negeer meldingen mbt jtds jar, hebben allemaal betrekking op de database engine
+        ]]></notes>
+        <gav regex="true">^net\.sourceforge\.jtds:jtds:.*$</gav>
+        <cpe>cpe:/a:microsoft:sql_server</cpe>
+        <!--CVE-2001-0509-->
+        <!--CVE-2007-5090-->
+        <!--CVE-2012-1856-->
+        <!--CVE-2012-2552-->
+        <!--CVE-2014-4061-->
+        <!--CVE-2015-1761-->
+        <!--CVE-2015-1762-->
+        <!--CVE-2015-1763-->
     </suppress>
 </suppressions>
