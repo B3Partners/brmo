@@ -19,6 +19,7 @@ addons:
     packages:
       - postgresql-9.6-postgis-2.3
       - graphviz
+      - xmlstarlet
   hostname: travis-brmo
   hosts: travis-brmo
 
@@ -87,7 +88,6 @@ matrix:
     group: edge
     dist: xenial
     jdk: openjdk8
-    env: PG_VERSION="10"
     addons:
       postgresql: 10
       apt:
@@ -96,7 +96,7 @@ matrix:
           - postgresql-client-10
           - postgresql-10-postgis-2.4
     env:
-      - PROFILE="postgresql"
+      - PG_VERSION="10"
       - MVN_ARGS="-Dit.test=TopNLIntegrationTest"
 
 cache:
@@ -123,7 +123,6 @@ before_install:
   - if [ "$PG_VERSION" == "11" ]; then
        sudo sed -i 's/port = 5433/port = 5432/' /etc/postgresql/11/main/postgresql.conf;
        sudo cp /etc/postgresql/{10,11}/main/pg_hba.conf;
-       sudo service postgresql restart;
     fi
   - if [ "$PROFILE" == "postgresql" ]; then
        sh ".travis/install-pgsql.sh";
