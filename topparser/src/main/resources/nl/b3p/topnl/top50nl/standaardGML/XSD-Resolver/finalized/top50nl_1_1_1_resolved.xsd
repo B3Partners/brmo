@@ -3,10 +3,10 @@
         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
         xmlns="http://www.w3.org/2001/XMLSchema"
         xmlns:gml="http://www.opengis.net/gml/3.2"
-        xmlns:top50nl="http://www.kadaster.nl/top50nl/1.1"
+        xmlns:top50nl="http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1"
         elementFormDefault="qualified"
-        targetNamespace="http://www.kadaster.nl/top50nl/1.1"
-        version="1.1">
+        targetNamespace="http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1"
+        version="1.1.1">
    <import namespace="http://www.opengis.net/gml/3.2"
            schemaLocation="gml_resolved.xsd"/>
    <simpleType name="BreedteklasseWaterT50Type">
@@ -16,17 +16,19 @@
          <enumeration value="&gt; 6 meter"/>
       </restriction>
   </simpleType>
-   <element name="FeatureMember" type="top50nl:FeatureMemberType"/>
+
+   <element name="FeatureMember" type="top50nl:FeatureMemberType" />
    <complexType name="FeatureMemberType">
-     <complexContent>
-        <extension base="gml:AbstractFeatureMemberType">
-           <sequence minOccurs="0">
-              <element ref="top50nl:_Top50nlObject"/>
-           </sequence>
-           <attributeGroup ref="gml:AssociationAttributeGroup"/>
-        </extension>
-     </complexContent>
+      <complexContent>
+         <extension base="gml:AbstractFeatureMemberType">
+            <sequence minOccurs="0">
+               <element ref="top50nl:_Top50nlObject"/>
+            </sequence>
+            <attributeGroup ref="gml:AssociationAttributeGroup"/>
+         </extension>
+      </complexContent>
    </complexType>
+
    <element name="FeatureCollectionTop50"
             substitutionGroup="gml:AbstractGML"
             type="top50nl:FeatureCollectionTop50Type"/>
@@ -34,7 +36,7 @@
       <complexContent>
          <extension base="gml:AbstractGMLType">
             <sequence>
-               <element maxOccurs="unbounded" minOccurs="0" name="FeatureMember"/>
+               <element maxOccurs="unbounded" minOccurs="0" name="FeatureMember" />
             </sequence>
          </extension>
       </complexContent>

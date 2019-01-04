@@ -80,15 +80,15 @@ public class Top50NLConverterTest extends TestUtil{
     }
 
     /**
-     * Test of convertHoogte method, of class Top250NLConverter.
+     * Test of convertHoogte method, of class Top50NLConverter.
      */
     @Test
     public void testConvertHoogte() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
         TopNLEntity expected = getStandardTestTopNLEntity();
 
-        expected.setVisualisatieCode(new Long("17300"));
+        expected.setVisualisatieCode(new Long("17320"));
 
-        expected.setIdentificatie("NL.TOP50NL.16R11-0004176412");
+        expected.setIdentificatie("NL.TOP50NL.18R11-0004284128");
         TopNLEntity entity = getEntity("top50nl/Hoogte.xml");
 
         assertNotNull(entity);
@@ -98,7 +98,7 @@ public class Top50NLConverterTest extends TestUtil{
         Hoogte h = (Hoogte) entity;
 
         assertEquals("hoogtelijn", h.getTypeHoogte());
-        assertEquals(new Double(15.0), h.getHoogte());
+        assertEquals(new Double(0), h.getHoogte());
         assertNotNull(h.getGeometrie());
         assertEquals(LineString.class, h.getGeometrie().getClass());
     }
@@ -108,7 +108,7 @@ public class Top50NLConverterTest extends TestUtil{
         TopNLEntity entity = getEntity("top50nl/FunctioneelGebied.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
-        expected.setIdentificatie("NL.TOP50NL.16R11-0000135253");
+        expected.setIdentificatie("NL.TOP50NL.18R11-0000140177");
 
         expected.setVisualisatieCode(new Long("15300"));
 
@@ -149,8 +149,8 @@ public class Top50NLConverterTest extends TestUtil{
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
-        expected.setIdentificatie("NL.TOP50NL.16R11-0005050691");
-        expected.setVisualisatieCode(new Long("11700"));
+        expected.setIdentificatie("NL.TOP50NL.18R11-0005220160");
+        expected.setVisualisatieCode(new Long("0"));
 
         assertNotNull(entity);
         assertTrue(entity instanceof Gebouw);
@@ -159,7 +159,7 @@ public class Top50NLConverterTest extends TestUtil{
 
         testTopNLEntity(expected, real);
         assertEquals(Point.class, real.getGeometrie().getClass());
-        assertEquals( "religieus gebouw", real.getTypeGebouw());
+        assertEquals( "overig", real.getTypeGebouw());
         assertEquals( "laagbouw", real.getHoogteklasse());
     }
     
@@ -170,8 +170,8 @@ public class Top50NLConverterTest extends TestUtil{
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
-        expected.setIdentificatie("NL.TOP50NL.16R11-0005066880");
-        expected.setVisualisatieCode(new Long("15110"));
+        expected.setIdentificatie("NL.TOP50NL.18R11-0005378256");
+        expected.setVisualisatieCode(new Long("14810"));
 
         assertNotNull(entity);
         assertTrue(entity instanceof Inrichtingselement);
@@ -180,7 +180,7 @@ public class Top50NLConverterTest extends TestUtil{
 
         testTopNLEntity(expected, real);
         assertEquals(LineString.class, real.getGeometrie().getClass());
-        assertEquals( "heg, haag", real.getTypeInrichtingselement());
+        assertEquals( "hoogspanningsleiding", real.getTypeInrichtingselement());
         assertEquals( "onbekend", real.getStatus());
         assertEquals(new Long("0"), real.getHoogteniveau());
     }
@@ -212,8 +212,8 @@ public class Top50NLConverterTest extends TestUtil{
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
-        expected.setIdentificatie("NL.TOP50NL.16R11-0000136731");
-        expected.setVisualisatieCode(new Long("18100"));
+        expected.setIdentificatie("NL.TOP50NL.18R11-0000150727");
+        expected.setVisualisatieCode(new Long("18040"));
 
         assertNotNull(entity);
         assertTrue(entity instanceof RegistratiefGebied);
@@ -222,7 +222,7 @@ public class Top50NLConverterTest extends TestUtil{
 
         testTopNLEntity(expected, real);
         assertEquals(Polygon.class, real.getGeometrie().getClass());
-        assertEquals( "enclave", real.getTypeRegistratiefGebied());
+        assertEquals( "provincie", real.getTypeRegistratiefGebied());
     }
 
     @Test
@@ -231,7 +231,7 @@ public class Top50NLConverterTest extends TestUtil{
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
-        expected.setIdentificatie("NL.TOP50NL.16R11-0006344548");
+        expected.setIdentificatie("NL.TOP50NL.18R11-0006900882");
         expected.setVisualisatieCode(new Long("17220"));
 
         assertNotNull(entity);
@@ -251,7 +251,7 @@ public class Top50NLConverterTest extends TestUtil{
         TopNLEntity entity = getEntity("top50nl/Spoorbaandeel.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
-        expected.setIdentificatie("NL.TOP50NL.16R11-0006728647");
+        expected.setIdentificatie("NL.TOP50NL.18R11-0007042323");
 
         expected.setVisualisatieCode(new Long("14000"));
 
@@ -266,7 +266,7 @@ public class Top50NLConverterTest extends TestUtil{
         assertEquals("in gebruik", real.getStatus());
         assertEquals("1", real.getAantalSporen());
         assertEquals(new Long("0"), real.getHoogteniveau());
-        assertEquals("op vast deel van brug", real.getFysiekVoorkomen());
+        // assertEquals("op vast deel van brug", real.getFysiekVoorkomen());
     }
     
     @Test
@@ -275,7 +275,7 @@ public class Top50NLConverterTest extends TestUtil{
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
-        expected.setIdentificatie("NL.TOP50NL.16R11-0005413060");
+        expected.setIdentificatie("NL.TOP50NL.18R11-0006219447");
         expected.setVisualisatieCode(new Long("15260"));
 
         assertNotNull(entity);
@@ -294,7 +294,7 @@ public class Top50NLConverterTest extends TestUtil{
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
-        expected.setIdentificatie("NL.TOP50NL.16R11-0006808510");
+        expected.setIdentificatie("NL.TOP50NL.18R11-0008340134");
         expected.setVisualisatieCode(new Long("16010"));
 
         assertNotNull(entity);
@@ -315,8 +315,8 @@ public class Top50NLConverterTest extends TestUtil{
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
-        expected.setIdentificatie("NL.TOP50NL.16R11-0006742357");
-        expected.setVisualisatieCode(new Long("13830"));
+        expected.setIdentificatie("NL.TOP50NL.18R11-0002239389");
+        expected.setVisualisatieCode(new Long("13300"));
 
         assertNotNull(entity);
         assertTrue(entity instanceof Wegdeel);
@@ -324,9 +324,9 @@ public class Top50NLConverterTest extends TestUtil{
         Wegdeel real = (Wegdeel) entity;
 
         testTopNLEntity(expected, real);
-        assertEquals(Polygon.class, real.getGeometrie().getClass());
-        assertEquals("overig verkeersgebied", real.getTypeInfrastructuur());
-        assertEquals("parkeerplaats", real.getTypeWeg());
+        assertEquals(LineString.class, real.getGeometrie().getClass());
+        assertEquals("verbinding", real.getTypeInfrastructuur());
+        assertEquals("regionale weg", real.getTypeWeg());
         assertEquals("gemengd verkeer", real.getHoofdverkeersgebruik());
         assertEquals(false, real.getGescheidenRijbaan());
         assertEquals("verhard", real.getVerhardingstype());
@@ -376,9 +376,9 @@ public class Top50NLConverterTest extends TestUtil{
 
         expected.setTopnltype(TopNLType.TOP50NL.getType());
         expected.setBrontype("TOP10NL");
-        expected.setBronactualiteit(sdf.parse("2016-11-01"));
+        expected.setBronactualiteit(sdf.parse("2018-11-01"));
         expected.setBronbeschrijving("Automatische generalisatie vanuit TOP10NL");
-        expected.setObjectBeginTijd(sdf.parse("2016-11-01"));
+        expected.setObjectBeginTijd(sdf.parse("2018-11-01"));
         
         return expected;
     }

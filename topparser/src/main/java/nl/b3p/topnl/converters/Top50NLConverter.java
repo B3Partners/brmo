@@ -16,6 +16,7 @@
  */
 package nl.b3p.topnl.converters;
 
+import nl.b3p.topnl.top50nl.*;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.Polygon;
@@ -41,25 +42,8 @@ import nl.b3p.topnl.entities.TopNLEntity;
 import nl.b3p.topnl.entities.Waterdeel;
 import nl.b3p.topnl.entities.Wegdeel;
 
-import nl.b3p.topnl.top50nl.FeatureMemberType;
-import nl.b3p.topnl.top50nl.FunctioneelGebiedType;
-import nl.b3p.topnl.top50nl.FysiekVoorkomenSpoorT50Type;
-import nl.b3p.topnl.top50nl.FysiekVoorkomenWaterT50Type;
-import nl.b3p.topnl.top50nl.FysiekVoorkomenWegT50Type;
-import nl.b3p.topnl.top50nl.GebouwType;
-import nl.b3p.topnl.top50nl.GeografischGebiedType;
-import nl.b3p.topnl.top50nl.HoogteType;
-import nl.b3p.topnl.top50nl.InrichtingselementType;
-import nl.b3p.topnl.top50nl.JaNeeType;
-import nl.b3p.topnl.top50nl.RegistratiefGebiedType;
-import nl.b3p.topnl.top50nl.ReliefType;
-import nl.b3p.topnl.top50nl.SpoorbaandeelType;
-import nl.b3p.topnl.top50nl.TerreinType;
-import nl.b3p.topnl.top50nl.Top50NlObjectType;
+
 import nl.b3p.topnl.top50nl.Top50NlObjectType.Identificatie;
-import nl.b3p.topnl.top50nl.TypeGebouwT50Type;
-import nl.b3p.topnl.top50nl.WaterdeelType;
-import nl.b3p.topnl.top50nl.WegdeelType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Element;
@@ -104,7 +88,7 @@ public class Top50NLConverter extends Converter {
         TopNLEntity entity = null;
 
          if(featureMember instanceof FeatureMemberType){
-            FeatureMemberType fm = (FeatureMemberType)featureMember;
+             FeatureMemberType fm = (FeatureMemberType)featureMember;
             JAXBElement jaxbObject = fm.getTop50NlObject();
             return convertObject(jaxbObject.getValue());
         }else if (featureMember instanceof HoogteType) {

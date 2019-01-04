@@ -18,7 +18,7 @@
 				'true'						zal alle 'xs:restriction' constructies oplossen.
 				'false'					zal alle 'xs:restriction' constructies intact laten. In dit geval worden alleen de 'xs:include' opgelost. -->
 		<application:restrictionMode>true</application:restrictionMode>
-		<application:path>/home/meine/dev/topparser/src/main/resources/nl/b3p/topnl/top50nl/standaardGML/XSD-Resolver</application:path>
+		<application:path>/home/mark/dev/projects/brmo/topparser/src/main/resources/nl/b3p/topnl/top50nl/standaardGML/XSD-Resolver</application:path>
 	</application:processingParameters>
 	<!-- Standaard worden alleen de berichten meegenomen die gedefinieerd zijn in het mainschema van de te verwerken berichtencatalogus of koppelvlak.
 		  Daarnaast kunnen ook berichten in andere namespaces gewenst zijn.
@@ -230,10 +230,10 @@
 		<!-- ===== Basis folder van het sectormodel ========================================== -->
 		<!-- In het 'path' element moet het path vermeld worden waar het te converteren sectormodel te vinden is.
 			  Evt. backslashes worden geconverteerd naar gewone slashes. -->
-		<application:pathSectormodel>/home/meine/dev/topparser/src/main/resources/nl/b3p/topnl/top50nl/standaardGML</application:pathSectormodel>
+		<application:pathSectormodel>/home/mark/dev/projects/brmo/topparser/src/main/resources/nl/b3p/topnl/top50nl/standaardGML</application:pathSectormodel>
 		<application:resolve>
 			<application:schema>
-				<application:schemaName>top50nl_1_1.xsd</application:schemaName>
+				<application:schemaName>top50nl_1_1_1.xsd</application:schemaName>
 			</application:schema>
 		</application:resolve>
 		<!--<application:doNotResolve>
