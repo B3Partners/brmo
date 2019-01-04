@@ -36,7 +36,9 @@ matrix:
     - name: "PostgreSQL 11"
   include:
   - name: "Oudste supported PostgreSQL"
-    jdk: oraclejdk8
+    dist: trusty
+    jdk: openjdk8
+    sudo: required
     # final release van 9.4 (==EOL): Feb 13, 2020
     # https://www.postgresql.org/support/versioning/
     env: PG_VERSION="9.4"
@@ -45,10 +47,12 @@ matrix:
       apt:
         packages:
           - postgresql-9.4-postgis-2.3
+          - xmlstarlet
   - name: "PostgreSQL 11"
     group: edge
     dist: xenial
     jdk: openjdk8
+    sudo: required
     env: PG_VERSION="11"
     addons:
       postgresql: 11
@@ -58,6 +62,7 @@ matrix:
           - postgresql-client-11
           - postgresql-11-postgis-2.5
           - postgresql-11-postgis-2.5-scripts
+          - xmlstarlet
   - name: "PostgreSQL 10"
     group: edge
     dist: xenial
@@ -70,6 +75,7 @@ matrix:
           - postgresql-10
           - postgresql-client-10
           - postgresql-10-postgis-2.4
+          - xmlstarlet
   - name: "MS SQL server 2017"
     jdk: openjdk8
     group: edge
@@ -81,13 +87,21 @@ matrix:
       - MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest"
   - name: "database upgrades"
     jdk: openjdk8
+    sudo: required
     env: 
       - PROFILE="postgresql"
       - MVN_ARGS="-Ddatabase.upgrade=true -Dit.test=!TopNLIntegrationTest"
+    addons:
+      postgresql: 9.6
+      apt:
+        packages:
+          - xmlstarlet
+          - postgresql-9.6-postgis-2.3
   - name: "TopNL tests"
     group: edge
     dist: xenial
     jdk: openjdk8
+    sudo: required
     addons:
       postgresql: 10
       apt:
@@ -95,6 +109,7 @@ matrix:
           - postgresql-10
           - postgresql-client-10
           - postgresql-10-postgis-2.4
+          - xmlstarlet
     env:
       - PG_VERSION="10"
       - MVN_ARGS="-Dit.test=TopNLIntegrationTest"
@@ -133,18 +148,17 @@ before_install:
   - if  [ "$TRAVIS_JOB_NAME" == "database upgrades" ]; then
        sh ".travis/getlastRelease.sh";
     fi
-    # ophalen actuele topnl test data alleen voor postgres
-  - if  [ "$PROFILE" == "postgresql" ]; then
+    # ophalen actuele topnl test data alleen voor postgresql
+  - if  [ "$PROFILE" == "postgresql" ] && [ "$TRAVIS_JOB_NAME" != "database upgrades" ]; then
        sh ".jenkins/data-prepare-topnl.sh";
     fi
 
-  # setup mssql
   - unset _JAVA_OPTIONS
   - ulimit -a
   - free -h
 
 install:
-  # install all dependencies + artifacts and create any DB scripts without any testing
+  # installeer dependencies + artifacts en maak DB scripts, zonder testen
   - travis_wait 20 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Pstandard-with-extra-repos,$PROFILE
   - projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
   - echo $projectversion
@@ -168,45 +182,49 @@ before_script:
     fi
 
 script:
-  # run unit tests voor alle modules mits actuele postgresql
+  # run unit tests voor alle modules
   - if [ "$TRAVIS_JOB_NAME" != "database upgrades" ]; then
        travis_wait 20 mvn --settings .travis/settings.xml -e test -B -Pstandard-with-extra-repos,$PROFILE -pl '!brmo-dist' -Dtest.onlyITs=false;
     fi
-  # test upgrade script
+  # test upgrade script voor postgresql
   - if  [ "$TRAVIS_JOB_NAME" == "database upgrades" ]; then
         .travis/execute-upgrades-pgsql.sh staging;
         .travis/execute-upgrades-pgsql.sh rsgb;
         .travis/execute-upgrades-pgsql.sh rsgbbgt;
         mvn -e -B -P$PROFILE $MVN_ARGS -pl 'datamodel' resources:testResources compiler:testCompile surefire:test;
     fi
-  # run integratie tests voor brmo-loader module of alleen topnl
-  - echo 'integratie tests voor brmo-loader module'
+  #
+  # run integratie tests voor brmo-loader module of alleen topnl, afhankelijk van $MVN_ARGS
+  - printf %'s\n\n' 'start integratie tests voor brmo-loader module'
   - travis_wait 40 mvn -e verify -B -P$PROFILE $MVN_ARGS -Dtest.onlyITs=true -pl 'brmo-loader'
+  #
   # run integratie tests voor brmo-service module
-  - echo 'run integratie tests voor brmo-service module'
-  - mvn -e verify -B -P$PROFILE $MVN_ARGS -Dtest.onlyITs=true -pl 'brmo-service'
+  - if [ "$TRAVIS_JOB_NAME" != "TopNL tests" ]; then
+        printf %'s\n\n'  'start integratie tests voor brmo-service module';
+        mvn -e verify -B -P$PROFILE $MVN_ARGS -Dtest.onlyITs=true -pl 'brmo-service';
+    fi
   #
   # andere modules alleen tegen pgsql testen want dat kost te veel tijd op dit systeem
   #  er draait ook nog een windows server met mssql versie ergens
   #
   # run integratie tests voor bgt-gml-loader module
   - if [ "$PROFILE" == "postgresql" ] && [ "$TRAVIS_JOB_NAME" != "TopNL tests" ]; then
-        echo 'run integratie tests voor bgt-gml-loader module';
+        printf %'s\n\n' 'start integratie tests voor bgt-gml-loader module';
         mvn -e verify -B -P$PROFILE $MVN_ARGS -Dtest.onlyITs=true -pl 'bgt-gml-loader';
     fi
   # run integratie tests voor brmo-soap module
   - if [ "$PROFILE" == "postgresql" ] && [ "$TRAVIS_JOB_NAME" != "TopNL tests" ]; then
-        echo 'integratie tests voor brmo-soap module';
+        printf %'s\n\n' 'start integratie tests voor brmo-soap module';
         mvn -e verify -B -P$PROFILE $MVN_ARGS -Dtest.onlyITs=true -pl 'brmo-soap';
     fi
-  # run integratie tests voor brmo-stufbg204 module tegen pgsql
+  # run integratie tests voor brmo-stufbg204 module
   - if [ "$PROFILE" == "postgresql" ] && [ "$TRAVIS_JOB_NAME" != "TopNL tests" ]; then
-        echo 'integratie tests voor brmo-stufbg204 module';
+        printf %'s\n\n' 'start integratie tests voor brmo-stufbg204 module';
         mvn -e verify -B -P$PROFILE $MVN_ARGS -Dtest.onlyITs=true -pl 'brmo-stufbg204';
     fi
-  # run integratie tests voor brmo-commandline module tegen pgsql
+  # run integratie tests voor brmo-commandline module
   - if [ "$PROFILE" == "postgresql" ] && [ "$TRAVIS_JOB_NAME" != "TopNL tests" ]; then
-        echo 'integratie tests voor brmo-commandline module';
+        printf %'s\n\n' 'start integratie tests voor brmo-commandline module';
         mvn -e verify -B -P$PROFILE $MVN_ARGS -Dtest.onlyITs=true -pl 'brmo-commandline';
     fi
   #
@@ -214,12 +232,12 @@ script:
   # test of de javadoc compliant is met java-8 strict checks, noodzakelijk voor succesvolle release
   #
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$PG_VERSION" == "9.6" ]; then
-         echo 'Javadoc checks';
-         travis_wait 30 mvn javadoc:javadoc;
+        printf %'s\n\n' 'Javadoc checks';
+        travis_wait 30 mvn javadoc:javadoc;
     fi
   - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$PG_VERSION" == "9.6" ]; then
-         echo 'Test Javadoc checks';
-         travis_wait 30 mvn javadoc:test-javadoc;
+        printf %'s\n\n' 'Test Javadoc checks';
+        travis_wait 30 mvn javadoc:test-javadoc;
     fi
 
 # after_failure:
