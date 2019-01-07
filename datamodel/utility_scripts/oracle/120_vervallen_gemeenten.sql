@@ -245,3 +245,131 @@ INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1950, 'We
 INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1952, 'Midden-Groningen');
 UPDATE brmo_metadata SET waarde = '2018' WHERE naam = 'update_gem_tabel';
 COMMIT;
+
+
+
+
+SET TRANSACTION NAME 'jan2019';
+-- vervallen gemeenten per 1 jan 2019
+-- Op 1 januari 2019 is het aantal gemeenten afgenomen met vijfentwintig, zodat het aantal gemeenten in Nederland 355 bedraagt.
+-- zie: https://www.cbs.nl/nl-nl/onze-diensten/methoden/classificaties/overig/gemeentelijke-indelingen-per-jaar/indeling%20per%20jaar/gemeentelijke-indeling-op-1-januari-2019
+UPDATE gemeente SET datum_einde_geldh = '2019-01-01', dat_beg_geldh = '2009-01-01' WHERE code IN (
+-- Bedum (0005), Eemsmond (1651), De Marne (0053) en een deel van Winsum (0053) komen te vervallen
+5, 1651, 53,
+-- Ten Boer (0009) en Haren (0017) komen te vervallen
+9, 17,
+-- Grootegast (0015), Leek (0022), Marum (0025), Zuidhorn (0056) en een deel van Winsum (0053) komen te vervallen
+15, 22, 25, 56,
+-- 53,
+-- Dongeradeel (0058), Kollumerland en Nieuwkruisland (0079) en Ferwerderadiel (1722) komen te vervallen
+58, 79, 1722,
+-- Geldermalsen (0236), Neerijnen (0304) en Lingewaal (0733) komen te vervallen en
+236, 304, 733,
+-- Haarlemmerliede en Spaarnwoude (0393) komt te vervallen
+393,
+-- Leerdam (0545), Vianen (0620) en Zederik (0707) komen te vervallen
+545, 620, 707,
+-- Noordwijkerhout (0576) komt te vervallen
+576,
+-- Oud-Beijerland (0584), Binnenmaas (0585), Korendijk (0588), Cromstrijen (0611) en Strijen (0617) komen te vervallen
+584, 585, 588, 611, 617,
+-- Giessenlanden (0689) en Molenwaard (1927) komen te vervallen
+589, 1927,
+-- Aalburg (0738), Werkendam (0870) en Woudrichem (0874) komen te vervallen
+738, 870, 874,
+-- Onderbanken (0881), Nuth (0951) en Schinnen (0962) komen te vervallen
+881, 951, 962
+);
+INSERT INTO gemeente_archief SELECT * FROM gemeente WHERE code IN (
+-- Bedum (0005), Eemsmond (1651), De Marne (0053) en een deel van Winsum (0053) komen te vervallen
+5, 1651, 53,
+-- Ten Boer (0009) en Haren (0017) komen te vervallen
+9, 17,
+-- Grootegast (0015), Leek (0022), Marum (0025), Zuidhorn (0056) en een deel van Winsum (0053) komen te vervallen
+15, 22, 25, 56,
+-- 53,
+-- Dongeradeel (0058), Kollumerland en Nieuwkruisland (0079) en Ferwerderadiel (1722) komen te vervallen
+58, 79, 1722,
+-- Geldermalsen (0236), Neerijnen (0304) en Lingewaal (0733) komen te vervallen en
+236, 304, 733,
+-- Haarlemmerliede en Spaarnwoude (0393) komt te vervallen
+393,
+-- Leerdam (0545), Vianen (0620) en Zederik (0707) komen te vervallen
+545, 620, 707,
+-- Noordwijkerhout (0576) komt te vervallen
+576,
+-- Oud-Beijerland (0584), Binnenmaas (0585), Korendijk (0588), Cromstrijen (0611) en Strijen (0617) komen te vervallen
+584, 585, 588, 611, 617,
+-- Giessenlanden (0689) en Molenwaard (1927) komen te vervallen
+589, 1927,
+-- Aalburg (0738), Werkendam (0870) en Woudrichem (0874) komen te vervallen
+738, 870, 874,
+-- Onderbanken (0881), Nuth (0951) en Schinnen (0962) komen te vervallen
+881, 951, 962
+);
+UPDATE wnplts SET fk_7gem_code=null WHERE fk_7gem_code IN (
+-- Bedum (0005), Eemsmond (1651), De Marne (0053) en een deel van Winsum (0053) komen te vervallen
+5, 1651, 53,
+-- Ten Boer (0009) en Haren (0017) komen te vervallen
+9, 17,
+-- Grootegast (0015), Leek (0022), Marum (0025), Zuidhorn (0056) en een deel van Winsum (0053) komen te vervallen
+15, 22, 25, 56,
+-- 53,
+-- Dongeradeel (0058), Kollumerland en Nieuwkruisland (0079) en Ferwerderadiel (1722) komen te vervallen
+58, 79, 1722,
+-- Geldermalsen (0236), Neerijnen (0304) en Lingewaal (0733) komen te vervallen en
+236, 304, 733,
+-- Haarlemmerliede en Spaarnwoude (0393) komt te vervallen
+393,
+-- Leerdam (0545), Vianen (0620) en Zederik (0707) komen te vervallen
+545, 620, 707,
+-- Noordwijkerhout (0576) komt te vervallen
+576,
+-- Oud-Beijerland (0584), Binnenmaas (0585), Korendijk (0588), Cromstrijen (0611) en Strijen (0617) komen te vervallen
+584, 585, 588, 611, 617,
+-- Giessenlanden (0689) en Molenwaard (1927) komen te vervallen
+589, 1927,
+-- Aalburg (0738), Werkendam (0870) en Woudrichem (0874) komen te vervallen
+738, 870, 874,
+-- Onderbanken (0881), Nuth (0951) en Schinnen (0962) komen te vervallen
+881, 951, 962
+);
+DELETE FROM gemeente WHERE code IN (
+-- Bedum (0005), Eemsmond (1651), De Marne (0053) en een deel van Winsum (0053) komen te vervallen
+5, 1651, 53,
+-- Ten Boer (0009) en Haren (0017) komen te vervallen
+9, 17,
+-- Grootegast (0015), Leek (0022), Marum (0025), Zuidhorn (0056) en een deel van Winsum (0053) komen te vervallen
+15, 22, 25, 56,
+-- 53,
+-- Dongeradeel (0058), Kollumerland en Nieuwkruisland (0079) en Ferwerderadiel (1722) komen te vervallen
+58, 79, 1722,
+-- Geldermalsen (0236), Neerijnen (0304) en Lingewaal (0733) komen te vervallen en
+236, 304, 733,
+-- Haarlemmerliede en Spaarnwoude (0393) komt te vervallen
+393,
+-- Leerdam (0545), Vianen (0620) en Zederik (0707) komen te vervallen
+545, 620, 707,
+-- Noordwijkerhout (0576) komt te vervallen
+576,
+-- Oud-Beijerland (0584), Binnenmaas (0585), Korendijk (0588), Cromstrijen (0611) en Strijen (0617) komen te vervallen
+584, 585, 588, 611, 617,
+-- Giessenlanden (0689) en Molenwaard (1927) komen te vervallen
+589, 1927,
+-- Aalburg (0738), Werkendam (0870) en Woudrichem (0874) komen te vervallen
+738, 870, 874,
+-- Onderbanken (0881), Nuth (0951) en Schinnen (0962) komen te vervallen
+881, 951, 962
+);
+
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1954, 'Beekdaelen');
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1959, 'Altena');
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1960, 'West Betuwe');
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1961, 'Vijfheerenlanden');
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1963, 'Hoeksche Waard');
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1966, 'Het Hogeland');
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1969, 'Westerkwartier');
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1970, 'Noardeast-Fryslân');
+INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1978, 'Molenlanden');
+UPDATE brmo_metadata SET waarde = '2019' WHERE naam = 'update_gem_tabel';
+COMMIT;
