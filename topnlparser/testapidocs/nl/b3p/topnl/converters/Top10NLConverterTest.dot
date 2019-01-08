@@ -64,7 +64,7 @@ digraph G {
 	// nl.b3p.topnl.converters.Top10NLConverterTest NAVASSOC nl.b3p.topnl.Processor
 	c130:p -> c134:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.converters.Top10NLConverter
-	c133 [label=<<table title="nl.b3p.topnl.converters.Top10NLConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c133 [label=<<table title="nl.b3p.topnl.converters.Top10NLConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/topnl/converters/Top10NLConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Top10NLConverter </td></tr>
 		</table></td></tr>
@@ -91,9 +91,9 @@ digraph G {
 <tr><td align="left" balign="left"> + convertWaterdeel(arg0 : Object) : Waterdeel </td></tr>
 <tr><td align="left" balign="left"> + convertWegdeel(arg0 : Object) : Wegdeel </td></tr>
 		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/topnl/converters/Top10NLConverter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.topnl.Processor
-	c134 [label=<<table title="nl.b3p.topnl.Processor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c134 [label=<<table title="nl.b3p.topnl.Processor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/topnl/Processor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Processor </td></tr>
 		</table></td></tr>
@@ -110,6 +110,6 @@ digraph G {
 <tr><td align="left" balign="left"> + getStatus() : Processor.STATUS </td></tr>
 <tr><td align="left" balign="left"> + resetStatus() </td></tr>
 		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/nl/b3p/topnl/Processor.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

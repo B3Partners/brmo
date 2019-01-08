@@ -91,10 +91,10 @@
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Collection params() {
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>          <strong class="jxr_keyword">return</strong> Arrays.asList(<strong class="jxr_keyword">new</strong> Object[][]{
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>              <em class="jxr_comment">// {"bestandType","filename", aantalBerichten, aantalProcessen, "lpGebied"},</em>
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>              <em class="jxr_comment">// {TopNLType.TOP250NL, "/topnl/top250nl.gml", 0, 1, "Nederland"},</em>
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>              <em class="jxr_comment">//{TopNLType.TOP100NL, "/topnl/Top100NL_000001.gml", 0, 1, "Top100NL blad 000001"},</em>
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>              {TopNLType.TOP50NL, <span class="jxr_string">"/topnl/Top50NL_07West.gml"</span>, 0, 1, <span class="jxr_string">"Top50NL blad 07West"</span>},
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>   <em class="jxr_comment">// {TopNLType.TOP10NL, "/topnl/TOP10NL_07W.gml", 0, 1, "TOP10NL blad 07W"}</em>
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>              {TopNLType.TOP250NL, <span class="jxr_string">"/topnl/TOP250NL.gml"</span>, 0, 1, <span class="jxr_string">"Nederland"</span>},
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>              {TopNLType.TOP100NL, <span class="jxr_string">"/topnl/Top100NL_000001.gml"</span>, 0, 1, <span class="jxr_string">"Top100NL blad 000001"</span>},
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>              {TopNLType.TOP50NL, <span class="jxr_string">"/topnl/Top50NL_07W.gml"</span>, 0, 1, <span class="jxr_string">"Top50NL blad 07W"</span>},
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>              {TopNLType.TOP10NL, <span class="jxr_string">"/topnl/TOP10NL_07W.gml"</span>, 0, 1, <span class="jxr_string">"TOP10NL blad 07W"</span>}
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>          });
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>      }
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  
@@ -178,44 +178,44 @@
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>         assumeTrue(<span class="jxr_string">"Er zijn STAGING_OK berichten"</span>, 0l == brmo.getCountBerichten(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"STAGING_OK"</span>));
 <a class="jxr_linenumber" name="L171" href="#L171">171</a>         assumeTrue(<span class="jxr_string">"Er zijn STAGING_OK laadprocessen"</span>, 0l == brmo.getCountLaadProcessen(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"STAGING_OK"</span>));
 <a class="jxr_linenumber" name="L172" href="#L172">172</a> 
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>         assumeNotNull(<span class="jxr_string">"Het test bestand moet er zijn."</span>, BrkToStagingToRsgbIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam));
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>     }
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>         <em class="jxr_comment">// omdat soms de bestandsnaam wordt aangepast moet dit een harde test fout zijn, dus geen assumeNotNull</em>
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>         assertNotNull(<span class="jxr_string">"Het test bestand moet er zijn."</span>, TopNLIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam));
 <a class="jxr_linenumber" name="L175" href="#L175">175</a> 
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>     @After
-<a class="jxr_linenumber" name="L177" href="#L177">177</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> cleanup() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>         brmo.closeBrmoFramework();
-<a class="jxr_linenumber" name="L179" href="#L179">179</a> 
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>         CleanUtil.cleanSTAGING(staging);
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>         staging.close();
-<a class="jxr_linenumber" name="L182" href="#L182">182</a> 
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>         topnl.close();
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>             sequential.unlock();
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>         } <strong class="jxr_keyword">catch</strong> (IllegalMonitorStateException e) {
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>             <em class="jxr_comment">// in geval van niet waar gemaakte assumptions</em>
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>             LOG.debug(<span class="jxr_string">"unlock van thread is mislukt, mogelijk niet ge-lock-ed of test overgeslagen."</span>);
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>         }
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>     }
-<a class="jxr_linenumber" name="L191" href="#L191">191</a> 
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>     @Test
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> loadTopNLInStaging() <strong class="jxr_keyword">throws</strong> BrmoException {
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>         brmo.loadFromFile(bestandType.getType(), TopNLIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam).getFile());
-<a class="jxr_linenumber" name="L195" href="#L195">195</a> 
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>         <strong class="jxr_keyword">final</strong> List&lt;LaadProces&gt; processen = brmo.listLaadProcessen();
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>         <strong class="jxr_keyword">final</strong> List&lt;Bericht&gt; berichten = brmo.listBerichten();
-<a class="jxr_linenumber" name="L198" href="#L198">198</a> 
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>         assertNotNull(<span class="jxr_string">"De verzameling berichten bestaat niet."</span>, berichten);
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>         assertEquals(<span class="jxr_string">"Het aantal berichten is niet als verwacht."</span>, aantalBerichten, berichten.size());
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>         assertNotNull(<span class="jxr_string">"De verzameling processen bestaat niet."</span>, processen);
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>         assertEquals(<span class="jxr_string">"Het aantal processen is niet als verwacht."</span>, aantalProcessen, processen.size());
-<a class="jxr_linenumber" name="L203" href="#L203">203</a> 
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>         assertEquals(<span class="jxr_string">"Het gebied moet als verwacht zijn."</span>, lpGebied, processen.get(0).getGebied());
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>     }
-<a class="jxr_linenumber" name="L206" href="#L206">206</a> 
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>     @Test
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> processTopNL() <strong class="jxr_keyword">throws</strong> BrmoException, InterruptedException, SQLException, DataSetException {
-<a class="jxr_linenumber" name="L209" href="#L209">209</a> 
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>         brmo.loadFromFile(bestandType.getType(), TopNLIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam).getFile());
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>     }
+<a class="jxr_linenumber" name="L177" href="#L177">177</a> 
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>     @After
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> cleanup() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>         brmo.closeBrmoFramework();
+<a class="jxr_linenumber" name="L181" href="#L181">181</a> 
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>         CleanUtil.cleanSTAGING(staging);
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>         staging.close();
+<a class="jxr_linenumber" name="L184" href="#L184">184</a> 
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>         topnl.close();
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>             sequential.unlock();
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>         } <strong class="jxr_keyword">catch</strong> (IllegalMonitorStateException e) {
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>             <em class="jxr_comment">// in geval van niet waar gemaakte assumptions</em>
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>             LOG.debug(<span class="jxr_string">"unlock van thread is mislukt, mogelijk niet ge-lock-ed of test overgeslagen."</span>);
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>         }
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>     }
+<a class="jxr_linenumber" name="L193" href="#L193">193</a> 
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>     @Test
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> loadTopNLInStaging() <strong class="jxr_keyword">throws</strong> BrmoException {
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>         brmo.loadFromFile(bestandType.getType(), TopNLIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam).getFile(), <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L197" href="#L197">197</a> 
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>         <strong class="jxr_keyword">final</strong> List&lt;LaadProces&gt; processen = brmo.listLaadProcessen();
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>         <strong class="jxr_keyword">final</strong> List&lt;Bericht&gt; berichten = brmo.listBerichten();
+<a class="jxr_linenumber" name="L200" href="#L200">200</a> 
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>         assertNotNull(<span class="jxr_string">"De verzameling berichten bestaat niet."</span>, berichten);
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>         assertEquals(<span class="jxr_string">"Het aantal berichten is niet als verwacht."</span>, aantalBerichten, berichten.size());
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>         assertNotNull(<span class="jxr_string">"De verzameling processen bestaat niet."</span>, processen);
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>         assertEquals(<span class="jxr_string">"Het aantal processen is niet als verwacht."</span>, aantalProcessen, processen.size());
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>         assertEquals(<span class="jxr_string">"Het gebied moet als verwacht zijn."</span>, lpGebied, processen.get(0).getGebied());
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>     }
+<a class="jxr_linenumber" name="L207" href="#L207">207</a> 
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>     @Test
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> processTopNL() <strong class="jxr_keyword">throws</strong> BrmoException, InterruptedException, SQLException, DataSetException {
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>         brmo.loadFromFile(bestandType.getType(), TopNLIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam).getFile(), <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>         <strong class="jxr_keyword">final</strong> List&lt;LaadProces&gt; processen = brmo.listLaadProcessen();
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>         assertEquals(<span class="jxr_string">"Er is 1 laadproces."</span>, aantalProcessen, processen.size());
 <a class="jxr_linenumber" name="L213" href="#L213">213</a> 
@@ -241,7 +241,7 @@
 <a class="jxr_linenumber" name="L233" href="#L233">233</a>             @Override
 <a class="jxr_linenumber" name="L234" href="#L234">234</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> exception(Throwable t) {
 <a class="jxr_linenumber" name="L235" href="#L235">235</a>                 LOG.error(t);
-<a class="jxr_linenumber" name="L236" href="#L236">236</a>                 fail(t.getLocalizedMessage());
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>                 fail(<span class="jxr_string">"Fout tijdens verwerken. "</span> + t.getLocalizedMessage());
 <a class="jxr_linenumber" name="L237" href="#L237">237</a>             }
 <a class="jxr_linenumber" name="L238" href="#L238">238</a>         });
 <a class="jxr_linenumber" name="L239" href="#L239">239</a>         t.join();
@@ -251,6 +251,6 @@
 <a class="jxr_linenumber" name="L243" href="#L243">243</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2018 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2019 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

@@ -237,7 +237,7 @@
 <a class="jxr_linenumber" name="L229" href="#L229">229</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testNhrXMLToStagingToRsgb() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L230" href="#L230">230</a>         assumeNotNull(<span class="jxr_string">"Het test bestand moet er zijn."</span>, NhrToStagingToRsgbIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam));
 <a class="jxr_linenumber" name="L231" href="#L231">231</a> 
-<a class="jxr_linenumber" name="L232" href="#L232">232</a>         brmo.loadFromFile(BESTANDTYPE, NhrToStagingToRsgbIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam).getFile());
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>         brmo.loadFromFile(BESTANDTYPE, NhrToStagingToRsgbIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam).getFile(), 1L);
 <a class="jxr_linenumber" name="L233" href="#L233">233</a>         LOG.info(<span class="jxr_string">"klaar met laden van berichten in staging DB."</span>);
 <a class="jxr_linenumber" name="L234" href="#L234">234</a> 
 <a class="jxr_linenumber" name="L235" href="#L235">235</a>         List&lt;Bericht&gt; berichten = brmo.listBerichten();
@@ -247,90 +247,103 @@
 <a class="jxr_linenumber" name="L239" href="#L239">239</a>         assertNotNull(<span class="jxr_string">"De verzameling processen bestaat niet."</span>, processen);
 <a class="jxr_linenumber" name="L240" href="#L240">240</a>         assertEquals(<span class="jxr_string">"Het aantal processen is niet als verwacht."</span>, aantalProcessen, processen.size());
 <a class="jxr_linenumber" name="L241" href="#L241">241</a> 
-<a class="jxr_linenumber" name="L242" href="#L242">242</a>         LOG.info(<span class="jxr_string">"Transformeren berichten naar rsgb DB."</span>);
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>         Thread t = brmo.toRsgb();
-<a class="jxr_linenumber" name="L244" href="#L244">244</a>         t.join();
-<a class="jxr_linenumber" name="L245" href="#L245">245</a> 
-<a class="jxr_linenumber" name="L246" href="#L246">246</a>         assertEquals(<span class="jxr_string">"Niet alle berichten zijn OK getransformeerd"</span>, aantalBerichten, brmo.getCountBerichten(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"nhr"</span>, <span class="jxr_string">"RSGB_OK"</span>));
-<a class="jxr_linenumber" name="L247" href="#L247">247</a>         berichten = brmo.listBerichten();
-<a class="jxr_linenumber" name="L248" href="#L248">248</a>         <strong class="jxr_keyword">for</strong> (Bericht b : berichten) {
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>             assertNotNull(<span class="jxr_string">"Bericht is 'null'"</span>, b);
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>             assertNotNull(<span class="jxr_string">"'db-xml' van bericht is 'null'"</span>, b.getDbXml());
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>         }
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>         <em class="jxr_comment">// alleen het eerste bericht heeft br_orgineel_xml, de rest niet</em>
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>         ITable bericht = staging.createQueryTable(<span class="jxr_string">"bericht"</span>, <span class="jxr_string">"select * from bericht where volgordenummer=0"</span>);
+<a class="jxr_linenumber" name="L244" href="#L244">244</a>         assertEquals(<span class="jxr_string">"Er zijn meer of minder dan 1 rij"</span>, 1, bericht.getRowCount());
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>         LOG.debug(<span class="jxr_string">"\n\n"</span> + bericht.getValue(0, <span class="jxr_string">"br_orgineel_xml"</span>) + <span class="jxr_string">"\n\n"</span>);
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>         assertNotNull(<span class="jxr_string">"BR origineel xml is null"</span>, bericht.getValue(0, <span class="jxr_string">"br_orgineel_xml"</span>));
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>         Object berichtId = bericht.getValue(0, <span class="jxr_string">"id"</span>);
+<a class="jxr_linenumber" name="L248" href="#L248">248</a> 
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>         LOG.info(<span class="jxr_string">"Transformeren berichten naar rsgb DB."</span>);
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>         Thread t = brmo.toRsgb();
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>         t.join();
 <a class="jxr_linenumber" name="L252" href="#L252">252</a> 
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>         ITable prs = rsgb.createDataSet().getTable(<span class="jxr_string">"prs"</span>);
-<a class="jxr_linenumber" name="L254" href="#L254">254</a>         ITable niet_nat_prs = rsgb.createDataSet().getTable(<span class="jxr_string">"niet_nat_prs"</span>);
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>         ITable nat_prs = rsgb.createDataSet().getTable(<span class="jxr_string">"nat_prs"</span>);
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>         ITable subject = rsgb.createDataSet().getTable(<span class="jxr_string">"subject"</span>);
-<a class="jxr_linenumber" name="L257" href="#L257">257</a> 
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>         assertEquals(<span class="jxr_string">"Het aantal 'prs' records klopt niet"</span>, aantalPrs, prs.getRowCount());
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>         assertEquals(<span class="jxr_string">"Het aantal 'niet_nat_prs' records klopt niet"</span>, aantalNiet_nat_prs, niet_nat_prs.getRowCount());
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>         assertEquals(<span class="jxr_string">"Het aantal 'nat_prs' records klopt niet"</span>, aantalNat_prs, nat_prs.getRowCount());
-<a class="jxr_linenumber" name="L261" href="#L261">261</a>         assertEquals(<span class="jxr_string">"het aantal 'subject' records klopt niet"</span>, aantalSubj, subject.getRowCount());
-<a class="jxr_linenumber" name="L262" href="#L262">262</a> 
-<a class="jxr_linenumber" name="L263" href="#L263">263</a>         <strong class="jxr_keyword">boolean</strong> foundKvk = false;
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; subject.getRowCount(); i++) {
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>             <strong class="jxr_keyword">if</strong> (subject.getValue(i, <span class="jxr_string">"identif"</span>).toString().contains(<span class="jxr_string">"nhr.maatschAct.kvk"</span>)) {
-<a class="jxr_linenumber" name="L266" href="#L266">266</a>                 assertEquals(<span class="jxr_string">"KVK nummer klopt niet"</span>, kvkNummer + <span class="jxr_string">""</span>, subject.getValue(i, <span class="jxr_string">"kvk_nummer"</span>) + <span class="jxr_string">""</span>);
-<a class="jxr_linenumber" name="L267" href="#L267">267</a>                 foundKvk = <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L268" href="#L268">268</a>             }
-<a class="jxr_linenumber" name="L269" href="#L269">269</a>         }
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>         <strong class="jxr_keyword">if</strong> (!foundKvk) {
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>             fail(<span class="jxr_string">"KVK nummer maatschappelijke activiteit klopt niet, verwacht te vinden: "</span> + kvkNummer);
-<a class="jxr_linenumber" name="L272" href="#L272">272</a>         }
-<a class="jxr_linenumber" name="L273" href="#L273">273</a> 
-<a class="jxr_linenumber" name="L274" href="#L274">274</a>         <strong class="jxr_keyword">if</strong> (vestgID != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>             ITable vestg = rsgb.createDataSet().getTable(<span class="jxr_string">"vestg"</span>);
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>             assertEquals(<span class="jxr_string">"De 'sc_identif' van hoofdvestiging klopt niet"</span>, vestgID, vestg.getValue(0, <span class="jxr_string">"sc_identif"</span>));
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>             assertEquals(<span class="jxr_string">"De sbi code van (hoofd)vestiging klopt niet"</span>, sbiCodes[0], vestg.getValue(0, <span class="jxr_string">"fk_sa_sbi_activiteit_sbi_code"</span>));
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>             assertEquals(<span class="jxr_string">"De 'sa_indic_hoofdactiviteit' van (hoofd)vestiging klopt niet"</span>, <span class="jxr_string">"Ja"</span>, vestg.getValue(0, <span class="jxr_string">"sa_indic_hoofdactiviteit"</span>));
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>         }
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>         <em class="jxr_comment">// TODO check aantal vestigingen, zie ook: #522, nu hooguit 1 hoofdVestg...</em>
-<a class="jxr_linenumber" name="L281" href="#L281">281</a>         <em class="jxr_comment">// assertEquals("het aantal 'vestg' records klopt niet", aantalVestg, vestg.getRowCount());</em>
-<a class="jxr_linenumber" name="L282" href="#L282">282</a> 
-<a class="jxr_linenumber" name="L283" href="#L283">283</a>         ITable vestg_activiteit = rsgb.createDataSet().getTable(<span class="jxr_string">"vestg_activiteit"</span>);
-<a class="jxr_linenumber" name="L284" href="#L284">284</a>         assertEquals(<span class="jxr_string">"Het aantal 'vestg_activiteit' records klopt niet"</span>, aantalVestg_activiteit, vestg_activiteit.getRowCount());
-<a class="jxr_linenumber" name="L285" href="#L285">285</a> 
-<a class="jxr_linenumber" name="L286" href="#L286">286</a>         ITable sbi_activiteit = rsgb.createDataSet().getTable(<span class="jxr_string">"sbi_activiteit"</span>);
-<a class="jxr_linenumber" name="L287" href="#L287">287</a>         ITable herkomst_metadata = rsgb.createDataSet().getTable(<span class="jxr_string">"herkomst_metadata"</span>);
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>         <strong class="jxr_keyword">for</strong> (String sbiCode : sbiCodes) {
-<a class="jxr_linenumber" name="L289" href="#L289">289</a>             <strong class="jxr_keyword">boolean</strong> foundSbiCode = false;
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>             <strong class="jxr_keyword">boolean</strong> foundSbiCodeMeta = false;
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; sbi_activiteit.getRowCount(); i++) {
-<a class="jxr_linenumber" name="L292" href="#L292">292</a>                 <strong class="jxr_keyword">if</strong> (sbiCode.equals(sbi_activiteit.getValue(i, <span class="jxr_string">"sbi_code"</span>).toString())) {
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>                     LOG.debug(<span class="jxr_string">"SBI code "</span> + sbiCode + <span class="jxr_string">" gevonden in sbi_activiteit"</span>);
-<a class="jxr_linenumber" name="L294" href="#L294">294</a>                     foundSbiCode = <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L295" href="#L295">295</a>                     <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>                 }
-<a class="jxr_linenumber" name="L297" href="#L297">297</a>             }
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>             <strong class="jxr_keyword">if</strong> (!foundSbiCode) {
-<a class="jxr_linenumber" name="L299" href="#L299">299</a>                 fail(<span class="jxr_string">"SBI code niet gevonden in sbi_activiteit, verwacht te vinden: "</span> + sbiCode);
-<a class="jxr_linenumber" name="L300" href="#L300">300</a>             }
-<a class="jxr_linenumber" name="L301" href="#L301">301</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; herkomst_metadata.getRowCount(); i++) {
-<a class="jxr_linenumber" name="L302" href="#L302">302</a>                 <strong class="jxr_keyword">if</strong> (sbiCode.equals(herkomst_metadata.getValue(i, <span class="jxr_string">"waarde"</span>).toString())) {
-<a class="jxr_linenumber" name="L303" href="#L303">303</a>                     LOG.debug(<span class="jxr_string">"SBI code "</span> + sbiCode + <span class="jxr_string">" gevonden in herkomst_metadata"</span>);
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>                     foundSbiCodeMeta = <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L305" href="#L305">305</a>                     <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L306" href="#L306">306</a>                 }
-<a class="jxr_linenumber" name="L307" href="#L307">307</a>             }
-<a class="jxr_linenumber" name="L308" href="#L308">308</a>             <strong class="jxr_keyword">if</strong> (!foundSbiCodeMeta) {
-<a class="jxr_linenumber" name="L309" href="#L309">309</a>                 fail(<span class="jxr_string">"SBI code niet gevonden in herkomst_metadata, verwacht te vinden: "</span> + sbiCode);
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>         <em class="jxr_comment">// na de verwerking moet soap payload er ook nog zijn</em>
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>         bericht = staging.createQueryTable(<span class="jxr_string">"bericht"</span>, <span class="jxr_string">"select * from bericht where br_orgineel_xml is not null"</span>);
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>         assertEquals(<span class="jxr_string">"Er zijn meer of minder dan 1 rij"</span>, 1, bericht.getRowCount());
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>         assertNotNull(<span class="jxr_string">"BR origineel xml is null na transformatie"</span>, bericht.getValue(0, <span class="jxr_string">"br_orgineel_xml"</span>));
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>         assertEquals(<span class="jxr_string">"bericht met br_orgineel_xml moet hetzelfde id hebben na transformatie"</span>, berichtId, bericht.getValue(0, <span class="jxr_string">"id"</span>));
+<a class="jxr_linenumber" name="L258" href="#L258">258</a> 
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>         assertEquals(<span class="jxr_string">"Niet alle berichten zijn OK getransformeerd"</span>, aantalBerichten, brmo.getCountBerichten(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"nhr"</span>, <span class="jxr_string">"RSGB_OK"</span>));
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>         berichten = brmo.listBerichten();
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>         <strong class="jxr_keyword">for</strong> (Bericht b : berichten) {
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>             assertNotNull(<span class="jxr_string">"Bericht is 'null'"</span>, b);
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>             assertNotNull(<span class="jxr_string">"'db-xml' van bericht is 'null'"</span>, b.getDbXml());
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>         }
+<a class="jxr_linenumber" name="L265" href="#L265">265</a> 
+<a class="jxr_linenumber" name="L266" href="#L266">266</a>         ITable prs = rsgb.createDataSet().getTable(<span class="jxr_string">"prs"</span>);
+<a class="jxr_linenumber" name="L267" href="#L267">267</a>         ITable niet_nat_prs = rsgb.createDataSet().getTable(<span class="jxr_string">"niet_nat_prs"</span>);
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>         ITable nat_prs = rsgb.createDataSet().getTable(<span class="jxr_string">"nat_prs"</span>);
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>         ITable subject = rsgb.createDataSet().getTable(<span class="jxr_string">"subject"</span>);
+<a class="jxr_linenumber" name="L270" href="#L270">270</a> 
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>         assertEquals(<span class="jxr_string">"Het aantal 'prs' records klopt niet"</span>, aantalPrs, prs.getRowCount());
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>         assertEquals(<span class="jxr_string">"Het aantal 'niet_nat_prs' records klopt niet"</span>, aantalNiet_nat_prs, niet_nat_prs.getRowCount());
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>         assertEquals(<span class="jxr_string">"Het aantal 'nat_prs' records klopt niet"</span>, aantalNat_prs, nat_prs.getRowCount());
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>         assertEquals(<span class="jxr_string">"het aantal 'subject' records klopt niet"</span>, aantalSubj, subject.getRowCount());
+<a class="jxr_linenumber" name="L275" href="#L275">275</a> 
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>         <strong class="jxr_keyword">boolean</strong> foundKvk = false;
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; subject.getRowCount(); i++) {
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>             <strong class="jxr_keyword">if</strong> (subject.getValue(i, <span class="jxr_string">"identif"</span>).toString().contains(<span class="jxr_string">"nhr.maatschAct.kvk"</span>)) {
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>                 assertEquals(<span class="jxr_string">"KVK nummer klopt niet"</span>, kvkNummer + <span class="jxr_string">""</span>, subject.getValue(i, <span class="jxr_string">"kvk_nummer"</span>) + <span class="jxr_string">""</span>);
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>                 foundKvk = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>             }
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>         }
+<a class="jxr_linenumber" name="L283" href="#L283">283</a>         <strong class="jxr_keyword">if</strong> (!foundKvk) {
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>             fail(<span class="jxr_string">"KVK nummer maatschappelijke activiteit klopt niet, verwacht te vinden: "</span> + kvkNummer);
+<a class="jxr_linenumber" name="L285" href="#L285">285</a>         }
+<a class="jxr_linenumber" name="L286" href="#L286">286</a> 
+<a class="jxr_linenumber" name="L287" href="#L287">287</a>         <strong class="jxr_keyword">if</strong> (vestgID != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>             ITable vestg = rsgb.createDataSet().getTable(<span class="jxr_string">"vestg"</span>);
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>             assertEquals(<span class="jxr_string">"De 'sc_identif' van hoofdvestiging klopt niet"</span>, vestgID, vestg.getValue(0, <span class="jxr_string">"sc_identif"</span>));
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>             assertEquals(<span class="jxr_string">"De sbi code van (hoofd)vestiging klopt niet"</span>, sbiCodes[0], vestg.getValue(0, <span class="jxr_string">"fk_sa_sbi_activiteit_sbi_code"</span>));
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>             assertEquals(<span class="jxr_string">"De 'sa_indic_hoofdactiviteit' van (hoofd)vestiging klopt niet"</span>, <span class="jxr_string">"Ja"</span>, vestg.getValue(0, <span class="jxr_string">"sa_indic_hoofdactiviteit"</span>));
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>         }
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>         <em class="jxr_comment">// TODO check aantal vestigingen, zie ook: #522, nu hooguit 1 hoofdVestg...</em>
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>         <em class="jxr_comment">// assertEquals("het aantal 'vestg' records klopt niet", aantalVestg, vestg.getRowCount());</em>
+<a class="jxr_linenumber" name="L295" href="#L295">295</a> 
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>         ITable vestg_activiteit = rsgb.createDataSet().getTable(<span class="jxr_string">"vestg_activiteit"</span>);
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>         assertEquals(<span class="jxr_string">"Het aantal 'vestg_activiteit' records klopt niet"</span>, aantalVestg_activiteit, vestg_activiteit.getRowCount());
+<a class="jxr_linenumber" name="L298" href="#L298">298</a> 
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>         ITable sbi_activiteit = rsgb.createDataSet().getTable(<span class="jxr_string">"sbi_activiteit"</span>);
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>         ITable herkomst_metadata = rsgb.createDataSet().getTable(<span class="jxr_string">"herkomst_metadata"</span>);
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>         <strong class="jxr_keyword">for</strong> (String sbiCode : sbiCodes) {
+<a class="jxr_linenumber" name="L302" href="#L302">302</a>             <strong class="jxr_keyword">boolean</strong> foundSbiCode = false;
+<a class="jxr_linenumber" name="L303" href="#L303">303</a>             <strong class="jxr_keyword">boolean</strong> foundSbiCodeMeta = false;
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; sbi_activiteit.getRowCount(); i++) {
+<a class="jxr_linenumber" name="L305" href="#L305">305</a>                 <strong class="jxr_keyword">if</strong> (sbiCode.equals(sbi_activiteit.getValue(i, <span class="jxr_string">"sbi_code"</span>).toString())) {
+<a class="jxr_linenumber" name="L306" href="#L306">306</a>                     LOG.debug(<span class="jxr_string">"SBI code "</span> + sbiCode + <span class="jxr_string">" gevonden in sbi_activiteit"</span>);
+<a class="jxr_linenumber" name="L307" href="#L307">307</a>                     foundSbiCode = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>                     <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L309" href="#L309">309</a>                 }
 <a class="jxr_linenumber" name="L310" href="#L310">310</a>             }
-<a class="jxr_linenumber" name="L311" href="#L311">311</a>         }
-<a class="jxr_linenumber" name="L312" href="#L312">312</a> 
-<a class="jxr_linenumber" name="L313" href="#L313">313</a>         ITable functionaris = rsgb.createDataSet().getTable(<span class="jxr_string">"functionaris"</span>);
-<a class="jxr_linenumber" name="L314" href="#L314">314</a>         assertEquals(<span class="jxr_string">"Het aantal 'functionaris' records klopt niet"</span>, aantalFunctionarissen, functionaris.getRowCount());
-<a class="jxr_linenumber" name="L315" href="#L315">315</a>         <strong class="jxr_keyword">if</strong> (kvkNummer == 41177576) {
-<a class="jxr_linenumber" name="L316" href="#L316">316</a>             <em class="jxr_comment">// er is een Gevolmachtigde Directeur met beperkte volmacht in rij 2</em>
-<a class="jxr_linenumber" name="L317" href="#L317">317</a>             <em class="jxr_comment">// dit is fout gevoelig omdat de volgorde van de rijen anders kan zijn terwijl je dan toch dezelfde data hebt geladen</em>
-<a class="jxr_linenumber" name="L318" href="#L318">318</a>             assertEquals(<span class="jxr_string">"Gevolmachtigde"</span>, functionaris.getValue(1, <span class="jxr_string">"functie"</span>));
-<a class="jxr_linenumber" name="L319" href="#L319">319</a>             assertEquals(<span class="jxr_string">"Directeur"</span>, functionaris.getValue(1, <span class="jxr_string">"functionaristypering"</span>));
-<a class="jxr_linenumber" name="L320" href="#L320">320</a>             assertEquals(<span class="jxr_string">"B"</span>, functionaris.getValue(1, <span class="jxr_string">"volledig_beperkt_volmacht"</span>));
-<a class="jxr_linenumber" name="L321" href="#L321">321</a>         }
-<a class="jxr_linenumber" name="L322" href="#L322">322</a>     }
-<a class="jxr_linenumber" name="L323" href="#L323">323</a> }
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>             <strong class="jxr_keyword">if</strong> (!foundSbiCode) {
+<a class="jxr_linenumber" name="L312" href="#L312">312</a>                 fail(<span class="jxr_string">"SBI code niet gevonden in sbi_activiteit, verwacht te vinden: "</span> + sbiCode);
+<a class="jxr_linenumber" name="L313" href="#L313">313</a>             }
+<a class="jxr_linenumber" name="L314" href="#L314">314</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; herkomst_metadata.getRowCount(); i++) {
+<a class="jxr_linenumber" name="L315" href="#L315">315</a>                 <strong class="jxr_keyword">if</strong> (sbiCode.equals(herkomst_metadata.getValue(i, <span class="jxr_string">"waarde"</span>).toString())) {
+<a class="jxr_linenumber" name="L316" href="#L316">316</a>                     LOG.debug(<span class="jxr_string">"SBI code "</span> + sbiCode + <span class="jxr_string">" gevonden in herkomst_metadata"</span>);
+<a class="jxr_linenumber" name="L317" href="#L317">317</a>                     foundSbiCodeMeta = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L318" href="#L318">318</a>                     <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>                 }
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>             }
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>             <strong class="jxr_keyword">if</strong> (!foundSbiCodeMeta) {
+<a class="jxr_linenumber" name="L322" href="#L322">322</a>                 fail(<span class="jxr_string">"SBI code niet gevonden in herkomst_metadata, verwacht te vinden: "</span> + sbiCode);
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>             }
+<a class="jxr_linenumber" name="L324" href="#L324">324</a>         }
+<a class="jxr_linenumber" name="L325" href="#L325">325</a> 
+<a class="jxr_linenumber" name="L326" href="#L326">326</a>         ITable functionaris = rsgb.createDataSet().getTable(<span class="jxr_string">"functionaris"</span>);
+<a class="jxr_linenumber" name="L327" href="#L327">327</a>         assertEquals(<span class="jxr_string">"Het aantal 'functionaris' records klopt niet"</span>, aantalFunctionarissen, functionaris.getRowCount());
+<a class="jxr_linenumber" name="L328" href="#L328">328</a>         <strong class="jxr_keyword">if</strong> (kvkNummer == 41177576) {
+<a class="jxr_linenumber" name="L329" href="#L329">329</a>             <em class="jxr_comment">// er is een Gevolmachtigde Directeur met beperkte volmacht in rij 2</em>
+<a class="jxr_linenumber" name="L330" href="#L330">330</a>             <em class="jxr_comment">// dit is fout gevoelig omdat de volgorde van de rijen anders kan zijn terwijl je dan toch dezelfde data hebt geladen</em>
+<a class="jxr_linenumber" name="L331" href="#L331">331</a>             assertEquals(<span class="jxr_string">"Gevolmachtigde"</span>, functionaris.getValue(1, <span class="jxr_string">"functie"</span>));
+<a class="jxr_linenumber" name="L332" href="#L332">332</a>             assertEquals(<span class="jxr_string">"Directeur"</span>, functionaris.getValue(1, <span class="jxr_string">"functionaristypering"</span>));
+<a class="jxr_linenumber" name="L333" href="#L333">333</a>             assertEquals(<span class="jxr_string">"B"</span>, functionaris.getValue(1, <span class="jxr_string">"volledig_beperkt_volmacht"</span>));
+<a class="jxr_linenumber" name="L334" href="#L334">334</a>         }
+<a class="jxr_linenumber" name="L335" href="#L335">335</a>     }
+<a class="jxr_linenumber" name="L336" href="#L336">336</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2018 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2019 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

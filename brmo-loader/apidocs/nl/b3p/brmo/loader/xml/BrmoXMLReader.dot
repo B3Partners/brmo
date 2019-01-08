@@ -100,8 +100,6 @@ digraph G {
 <tr><td align="center" balign="center"> NhrXMLReader </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> ~ iterator : Iterator&lt;NhrBericht&gt; </td></tr>
-<tr><td align="left" balign="left"> ~ volgorde : int </td></tr>
 <tr><td align="left" balign="left"> + PREFIX : String </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">

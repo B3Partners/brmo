@@ -130,29 +130,42 @@
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>         <strong class="jxr_keyword">final</strong> String bestandNaam = <span class="jxr_string">"/nhr-v3/33257455,23052007.anon.xml"</span>;
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>         assumeNotNull(<span class="jxr_string">"Het test bestand moet er zijn."</span>, GH527NhrToStagingToRsgbIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam));
 <a class="jxr_linenumber" name="L124" href="#L124">124</a> 
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>         brmo.loadFromFile(<span class="jxr_string">"nhr"</span>, GH527NhrToStagingToRsgbIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam).getFile());
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>         brmo.loadFromFile(<span class="jxr_string">"nhr"</span>, GH527NhrToStagingToRsgbIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam).getFile(), 1L);
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>         LOG.info(<span class="jxr_string">"klaar met laden van berichten in staging DB."</span>);
 <a class="jxr_linenumber" name="L127" href="#L127">127</a> 
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>         LOG.info(<span class="jxr_string">"Transformeren berichten naar rsgb DB."</span>);
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>         Thread t = brmo.toRsgb();
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>         t.join();
-<a class="jxr_linenumber" name="L131" href="#L131">131</a> 
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>         checkWaarde(<span class="jxr_string">"subject"</span>, <span class="jxr_string">"clazz"</span>);
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>         checkWaarde(<span class="jxr_string">"subject"</span>, <span class="jxr_string">"typering"</span>);
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>         checkWaarde(<span class="jxr_string">"prs"</span>, <span class="jxr_string">"clazz"</span>);
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>         checkWaarde(<span class="jxr_string">"niet_nat_prs"</span>, <span class="jxr_string">"clazz"</span>);
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>         checkWaarde(<span class="jxr_string">"ingeschr_niet_nat_prs"</span>, <span class="jxr_string">"typering"</span>);
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>     }
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>         <em class="jxr_comment">// alleen het eerste bericht heeft br_orgineel_xml, de rest niet</em>
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>         ITable bericht = staging.createQueryTable(<span class="jxr_string">"bericht"</span>, <span class="jxr_string">"select * from bericht where volgordenummer=0"</span>);
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>         assertEquals(<span class="jxr_string">"Er zijn meer of minder dan 1 rij"</span>, 1, bericht.getRowCount());
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>         LOG.debug(<span class="jxr_string">"\n\n"</span> + bericht.getValue(0, <span class="jxr_string">"br_orgineel_xml"</span>) + <span class="jxr_string">"\n\n"</span>);
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>         assertNotNull(<span class="jxr_string">"BR origineel xml is null"</span>, bericht.getValue(0, <span class="jxr_string">"br_orgineel_xml"</span>));
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>         Object berichtId = bericht.getValue(0, <span class="jxr_string">"id"</span>);
+<a class="jxr_linenumber" name="L134" href="#L134">134</a> 
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>         LOG.info(<span class="jxr_string">"Transformeren berichten naar rsgb DB."</span>);
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>         Thread t = brmo.toRsgb();
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>         t.join();
 <a class="jxr_linenumber" name="L138" href="#L138">138</a> 
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> checkWaarde(String tabelNaam, String kolom) <strong class="jxr_keyword">throws</strong> DataSetException, SQLException {
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>         ITable tabel = rsgb.createDataSet().getTable(tabelNaam);
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; tabel.getRowCount(); i++) {
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>             assertFalse(<span class="jxr_string">"kolom "</span> + kolom + <span class="jxr_string">" van tabel "</span> + tabelNaam + <span class="jxr_string">" bevat quote"</span>, tabel.getValue(i, kolom).toString().contains(<span class="jxr_string">"'"</span>));
-<a class="jxr_linenumber" name="L143" href="#L143">143</a>         }
-<a class="jxr_linenumber" name="L144" href="#L144">144</a>     }
-<a class="jxr_linenumber" name="L145" href="#L145">145</a> }
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>         <em class="jxr_comment">// na de verwerking moet soap payload er ook nog zijn</em>
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>         bericht = staging.createQueryTable(<span class="jxr_string">"bericht"</span>, <span class="jxr_string">"select * from bericht where br_orgineel_xml is not null"</span>);
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>         assertEquals(<span class="jxr_string">"Er zijn meer of minder dan 1 rij"</span>, 1, bericht.getRowCount());
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>         assertNotNull(<span class="jxr_string">"BR origineel xml is null na transformatie"</span>, bericht.getValue(0, <span class="jxr_string">"br_orgineel_xml"</span>));
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>         assertEquals(<span class="jxr_string">"bericht met br_orgineel_xml moet hetzelfde id hebben na transformatie"</span>, berichtId, bericht.getValue(0, <span class="jxr_string">"id"</span>));
+<a class="jxr_linenumber" name="L144" href="#L144">144</a> 
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>         checkWaarde(<span class="jxr_string">"subject"</span>, <span class="jxr_string">"clazz"</span>);
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>         checkWaarde(<span class="jxr_string">"subject"</span>, <span class="jxr_string">"typering"</span>);
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>         checkWaarde(<span class="jxr_string">"prs"</span>, <span class="jxr_string">"clazz"</span>);
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>         checkWaarde(<span class="jxr_string">"niet_nat_prs"</span>, <span class="jxr_string">"clazz"</span>);
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>         checkWaarde(<span class="jxr_string">"ingeschr_niet_nat_prs"</span>, <span class="jxr_string">"typering"</span>);
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>     }
+<a class="jxr_linenumber" name="L151" href="#L151">151</a> 
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> checkWaarde(String tabelNaam, String kolom) <strong class="jxr_keyword">throws</strong> DataSetException, SQLException {
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>         ITable tabel = rsgb.createDataSet().getTable(tabelNaam);
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; tabel.getRowCount(); i++) {
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>             assertFalse(<span class="jxr_string">"kolom "</span> + kolom + <span class="jxr_string">" van tabel "</span> + tabelNaam + <span class="jxr_string">" bevat quote"</span>, tabel.getValue(i, kolom).toString().contains(<span class="jxr_string">"'"</span>));
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>         }
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>     }
+<a class="jxr_linenumber" name="L158" href="#L158">158</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2018 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2019 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

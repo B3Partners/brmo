@@ -30,7 +30,7 @@ digraph G {
 	// nl.b3p.brmo.service.proxy.BerichtEndpointFileServletTest NAVASSOC com.meterware.servletunit.ServletRunner
 	c5:p -> c11:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.meterware.servletunit.ServletUnitClient
-	c8 [label=<<table title="com.meterware.servletunit.ServletUnitClient" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c8 [label=<<table title="com.meterware.servletunit.ServletUnitClient" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/meterware/servletunit/ServletUnitClient.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ServletUnitClient </td></tr>
 		</table></td></tr>
@@ -48,9 +48,9 @@ digraph G {
 <tr><td align="left" balign="left"> + getSession(arg0 : boolean) : HttpSession </td></tr>
 <tr><td align="left" balign="left"> # newResponse(arg0 : WebRequest, arg1 : FrameSelector) : WebResponse </td></tr>
 		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/com/meterware/servletunit/ServletUnitClient.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.meterware.servletunit.ServletRunner
-	c11 [label=<<table title="com.meterware.servletunit.ServletRunner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c11 [label=<<table title="com.meterware.servletunit.ServletRunner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/meterware/servletunit/ServletRunner.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ServletRunner </td></tr>
 		</table></td></tr>
@@ -78,6 +78,6 @@ digraph G {
 <tr><td align="left" balign="left"> ~ getContext() : ServletUnitContext </td></tr>
 <tr><td align="left" balign="left"> ~ getApplication() : WebApplication </td></tr>
 		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/com/meterware/servletunit/ServletRunner.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
