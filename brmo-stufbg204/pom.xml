@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo-stufbg204</artifactId>
-    <version>1.6.3-SNAPSHOT</version>
+    <version>1.6.3</version>
     <packaging>war</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
-        <version>1.6.3-SNAPSHOT</version>
+        <version>1.6.3</version>
     </parent>
     <name>BRMO STUF BG 204</name>
     <description>StufBG2.04 soap service voor de BRMO applicatie</description>
