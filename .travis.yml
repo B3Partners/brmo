@@ -32,8 +32,7 @@ matrix:
   allow_failures:
     # vanwege build timeout (soms)
     #- name: "MS SQL server 2017"
-    # WIP..
-    - name: "PostgreSQL 11"
+    # - name: "PostgreSQL 11"
   include:
   - name: "Oudste supported PostgreSQL"
     dist: trusty
