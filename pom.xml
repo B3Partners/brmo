@@ -60,7 +60,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <netbeans.hint.license>gpl30</netbeans.hint.license>
         <hibernate.version>3.6.10.Final</hibernate.version>
-        <geotools.version>20.1</geotools.version>
+        <geotools.version>20.2</geotools.version>
         <jts.version>1.16.0</jts.version>
         <postgresql.jdbc.version>42.2.5</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2.3.0</postgresql.postgis-jdbc.version>
