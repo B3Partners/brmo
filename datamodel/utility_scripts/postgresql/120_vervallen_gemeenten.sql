@@ -240,7 +240,7 @@ INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1949, 'Wa
 INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1950, 'Westerwolde');
 INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1952, 'Midden-Groningen');
 UPDATE brmo_metadata SET waarde = '2018' WHERE naam = 'update_gem_tabel';
-
+COMMIT;
 
 
 
