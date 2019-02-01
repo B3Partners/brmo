@@ -254,8 +254,8 @@ SET TRANSACTION NAME 'jan2019';
 -- Op 1 januari 2019 is het aantal gemeenten afgenomen met vijfentwintig, zodat het aantal gemeenten in Nederland 355 bedraagt.
 -- zie: https://www.cbs.nl/nl-nl/onze-diensten/methoden/classificaties/overig/gemeentelijke-indelingen-per-jaar/indeling%20per%20jaar/gemeentelijke-indeling-op-1-januari-2019
 UPDATE gemeente SET datum_einde_geldh = '2019-01-01', dat_beg_geldh = '2009-01-01' WHERE code IN (
--- Bedum (0005), Eemsmond (1651), De Marne (0053) en een deel van Winsum (0053) komen te vervallen
-5, 1651, 53,
+-- Bedum (0005), Eemsmond (1651), De Marne (1663) en een deel van Winsum (0053) komen te vervallen
+5, 1651, 1663, 53,
 -- Ten Boer (0009) en Haren (0017) komen te vervallen
 9, 17,
 -- Grootegast (0015), Leek (0022), Marum (0025), Zuidhorn (0056) en een deel van Winsum (0053) komen te vervallen
@@ -281,8 +281,8 @@ UPDATE gemeente SET datum_einde_geldh = '2019-01-01', dat_beg_geldh = '2009-01-0
 881, 951, 962
 );
 INSERT INTO gemeente_archief SELECT * FROM gemeente WHERE code IN (
--- Bedum (0005), Eemsmond (1651), De Marne (0053) en een deel van Winsum (0053) komen te vervallen
-5, 1651, 53,
+-- Bedum (0005), Eemsmond (1651), De Marne (1663) en een deel van Winsum (0053) komen te vervallen
+5, 1651, 1663, 53,
 -- Ten Boer (0009) en Haren (0017) komen te vervallen
 9, 17,
 -- Grootegast (0015), Leek (0022), Marum (0025), Zuidhorn (0056) en een deel van Winsum (0053) komen te vervallen
@@ -308,8 +308,8 @@ INSERT INTO gemeente_archief SELECT * FROM gemeente WHERE code IN (
 881, 951, 962
 );
 UPDATE wnplts SET fk_7gem_code=null WHERE fk_7gem_code IN (
--- Bedum (0005), Eemsmond (1651), De Marne (0053) en een deel van Winsum (0053) komen te vervallen
-5, 1651, 53,
+-- Bedum (0005), Eemsmond (1651), De Marne (1663) en een deel van Winsum (0053) komen te vervallen
+5, 1651, 1663, 53,
 -- Ten Boer (0009) en Haren (0017) komen te vervallen
 9, 17,
 -- Grootegast (0015), Leek (0022), Marum (0025), Zuidhorn (0056) en een deel van Winsum (0053) komen te vervallen
@@ -335,8 +335,8 @@ UPDATE wnplts SET fk_7gem_code=null WHERE fk_7gem_code IN (
 881, 951, 962
 );
 DELETE FROM gemeente WHERE code IN (
--- Bedum (0005), Eemsmond (1651), De Marne (0053) en een deel van Winsum (0053) komen te vervallen
-5, 1651, 53,
+-- Bedum (0005), Eemsmond (1651), De Marne (1663) en een deel van Winsum (0053) komen te vervallen
+5, 1651, 1663, 53,
 -- Ten Boer (0009) en Haren (0017) komen te vervallen
 9, 17,
 -- Grootegast (0015), Leek (0022), Marum (0025), Zuidhorn (0056) en een deel van Winsum (0053) komen te vervallen
