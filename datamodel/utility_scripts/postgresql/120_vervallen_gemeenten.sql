@@ -249,8 +249,8 @@ BEGIN TRANSACTION;
 -- Op 1 januari 2019 is het aantal gemeenten afgenomen met vijfentwintig, zodat het aantal gemeenten in Nederland 355 bedraagt.
 -- zie: https://www.cbs.nl/nl-nl/onze-diensten/methoden/classificaties/overig/gemeentelijke-indelingen-per-jaar/indeling%20per%20jaar/gemeentelijke-indeling-op-1-januari-2019
 UPDATE gemeente SET datum_einde_geldh = '2019-01-01', dat_beg_geldh = '2009-01-01' WHERE code IN (
--- Bedum (0005), Eemsmond (1651), De Marne (0053) en een deel van Winsum (0053) komen te vervallen
-5, 1651, 53,
+-- Bedum (0005), Eemsmond (1651), De Marne (1663) en een deel van Winsum (0053) komen te vervallen
+5, 1651, 1663, 53,
 -- Ten Boer (0009) en Haren (0017) komen te vervallen
 9, 17,
 -- Grootegast (0015), Leek (0022), Marum (0025), Zuidhorn (0056) en een deel van Winsum (0053) komen te vervallen
@@ -269,15 +269,15 @@ UPDATE gemeente SET datum_einde_geldh = '2019-01-01', dat_beg_geldh = '2009-01-0
 -- Oud-Beijerland (0584), Binnenmaas (0585), Korendijk (0588), Cromstrijen (0611) en Strijen (0617) komen te vervallen
 584, 585, 588, 611, 617,
 -- Giessenlanden (0689) en Molenwaard (1927) komen te vervallen
-589, 1927,
+689, 1927,
 -- Aalburg (0738), Werkendam (0870) en Woudrichem (0874) komen te vervallen
 738, 870, 874,
 -- Onderbanken (0881), Nuth (0951) en Schinnen (0962) komen te vervallen
 881, 951, 962
 );
 INSERT INTO gemeente_archief SELECT * FROM gemeente WHERE code IN (
--- Bedum (0005), Eemsmond (1651), De Marne (0053) en een deel van Winsum (0053) komen te vervallen
-5, 1651, 53,
+-- Bedum (0005), Eemsmond (1651), De Marne (1663) en een deel van Winsum (0053) komen te vervallen
+5, 1651, 1663, 53,
 -- Ten Boer (0009) en Haren (0017) komen te vervallen
 9, 17,
 -- Grootegast (0015), Leek (0022), Marum (0025), Zuidhorn (0056) en een deel van Winsum (0053) komen te vervallen
@@ -296,15 +296,15 @@ INSERT INTO gemeente_archief SELECT * FROM gemeente WHERE code IN (
 -- Oud-Beijerland (0584), Binnenmaas (0585), Korendijk (0588), Cromstrijen (0611) en Strijen (0617) komen te vervallen
 584, 585, 588, 611, 617,
 -- Giessenlanden (0689) en Molenwaard (1927) komen te vervallen
-589, 1927,
+689, 1927,
 -- Aalburg (0738), Werkendam (0870) en Woudrichem (0874) komen te vervallen
 738, 870, 874,
 -- Onderbanken (0881), Nuth (0951) en Schinnen (0962) komen te vervallen
 881, 951, 962
 );
 UPDATE wnplts SET fk_7gem_code=null WHERE fk_7gem_code IN (
--- Bedum (0005), Eemsmond (1651), De Marne (0053) en een deel van Winsum (0053) komen te vervallen
-5, 1651, 53,
+-- Bedum (0005), Eemsmond (1651), De Marne (1663) en een deel van Winsum (0053) komen te vervallen
+5, 1651, 1663, 53,
 -- Ten Boer (0009) en Haren (0017) komen te vervallen
 9, 17,
 -- Grootegast (0015), Leek (0022), Marum (0025), Zuidhorn (0056) en een deel van Winsum (0053) komen te vervallen
@@ -323,15 +323,15 @@ UPDATE wnplts SET fk_7gem_code=null WHERE fk_7gem_code IN (
 -- Oud-Beijerland (0584), Binnenmaas (0585), Korendijk (0588), Cromstrijen (0611) en Strijen (0617) komen te vervallen
 584, 585, 588, 611, 617,
 -- Giessenlanden (0689) en Molenwaard (1927) komen te vervallen
-589, 1927,
+689, 1927,
 -- Aalburg (0738), Werkendam (0870) en Woudrichem (0874) komen te vervallen
 738, 870, 874,
 -- Onderbanken (0881), Nuth (0951) en Schinnen (0962) komen te vervallen
 881, 951, 962
 );
 DELETE FROM gemeente WHERE code IN (
--- Bedum (0005), Eemsmond (1651), De Marne (0053) en een deel van Winsum (0053) komen te vervallen
-5, 1651, 53,
+-- Bedum (0005), Eemsmond (1651), De Marne (1663) en een deel van Winsum (0053) komen te vervallen
+5, 1651, 1663, 53,
 -- Ten Boer (0009) en Haren (0017) komen te vervallen
 9, 17,
 -- Grootegast (0015), Leek (0022), Marum (0025), Zuidhorn (0056) en een deel van Winsum (0053) komen te vervallen
@@ -350,7 +350,7 @@ DELETE FROM gemeente WHERE code IN (
 -- Oud-Beijerland (0584), Binnenmaas (0585), Korendijk (0588), Cromstrijen (0611) en Strijen (0617) komen te vervallen
 584, 585, 588, 611, 617,
 -- Giessenlanden (0689) en Molenwaard (1927) komen te vervallen
-589, 1927,
+689, 1927,
 -- Aalburg (0738), Werkendam (0870) en Woudrichem (0874) komen te vervallen
 738, 870, 874,
 -- Onderbanken (0881), Nuth (0951) en Schinnen (0962) komen te vervallen
@@ -366,5 +366,9 @@ INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1966, 'He
 INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1969, 'Westerkwartier');
 INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1970, 'Noardeast-Fryslân');
 INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1978, 'Molenlanden');
-UPDATE brmo_metadata SET waarde = '2019' WHERE naam = 'update_gem_tabel';
+
+-- herstel onterecht verwijderde gemeente Oudewater die in bestand van 8 jan 2019 is geslopen (update_gem_tabel=2019)
+INSERT INTO gemeente (code, naam) SELECT 589, 'Oudewater' WHERE NOT EXISTS (SELECT code FROM gemeente WHERE code = 589);
+
+UPDATE brmo_metadata SET waarde = '2019.1' WHERE naam = 'update_gem_tabel';
 COMMIT;
