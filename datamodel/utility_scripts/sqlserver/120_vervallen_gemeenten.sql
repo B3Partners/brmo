@@ -1,7 +1,8 @@
 INSERT INTO brmo_metadata (naam, waarde)
-  SELECT 'update_gem_tabel',(SELECT waarde FROM brmo_metadata WHERE naam = 'brmoversie') FROM DUAL
+  SELECT 'update_gem_tabel',(SELECT waarde FROM brmo_metadata WHERE naam = 'brmoversie')
   WHERE NOT EXISTS (SELECT naam FROM brmo_metadata WHERE naam = 'update_gem_tabel');
 
+/*
 BEGIN TRANSACTION;
 -- vervallen gemeenten per 1 jan 2014
 -- https://www.cbs.nl/nl-nl/onze-diensten/methoden/classificaties/overig/gemeentelijke-indelingen-per-jaar/indeling%20per%20jaar/gemeentelijke-indeling-op-1-januari-2014
@@ -36,7 +37,7 @@ COMMIT;
 
 
 
-/*
+
 BEGIN TRANSACTION;
 -- vervallen gemeenten per 1 jan 2015
 -- https://www.cbs.nl/nl-nl/onze-diensten/methoden/classificaties/overig/gemeentelijke-indelingen-per-jaar/indeling%20per%20jaar/gemeentelijke-indeling-op-1-januari-2015
@@ -81,7 +82,7 @@ INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2015-01-01', 1930, 'Ni
 INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2015-01-01', 1931, 'Krimpenerwaard');
 UPDATE brmo_metadata SET waarde = 'jan2015' WHERE naam = 'update_gem_tabel';
 COMMIT;
-*/
+
 
 BEGIN TRANSACTION;
 -- vervallen gemeenten per 1 juli 2015
@@ -104,7 +105,7 @@ DELETE FROM gemeente WHERE code IN (
 INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2015-07-01', 1940, 'De Fryske Marren');
 UPDATE brmo_metadata SET waarde = 'jul2015' WHERE naam = 'update_gem_tabel';
 COMMIT;
-
+*/
 
 
 
@@ -145,8 +146,10 @@ DELETE FROM gemeente WHERE code IN (
 -- Zeevang (0478) komt te vervallen
    478
 );
-INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2016-01-01', 1945, 'Berg en Dal');
-INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2016-01-01', 1942, 'Gooise Meren');
+
+IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1945) INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2016-01-01', 1945, 'Berg en Dal');
+IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1942) INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2016-01-01', 1942, 'Gooise Meren');
+
 UPDATE brmo_metadata SET waarde = '2016' WHERE naam = 'update_gem_tabel';
 COMMIT;
 
@@ -172,7 +175,7 @@ DELETE FROM gemeente WHERE code IN (
 -- Schijndel (0844), Sint-Oedenrode (0846) en Veghel (0860) komen te vervallen
    844,846,860
 );
-INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1948, 'Meierijstad');
+IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1948) INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1948, 'Meierijstad');
 UPDATE brmo_metadata SET waarde = '2017' WHERE naam = 'update_gem_tabel';
 COMMIT;
 
@@ -238,9 +241,9 @@ DELETE FROM gemeente WHERE code IN (
 -- Rijnwaarden (0196) gaat op in Zevenaar
    196
 );
-INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1949, 'Waadhoeke');
-INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1950, 'Westerwolde');
-INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1952, 'Midden-Groningen');
+IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1949) INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1949, 'Waadhoeke');
+IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1950) INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1950, 'Westerwolde');
+IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1952) INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2017-01-01', 1952, 'Midden-Groningen');
 UPDATE brmo_metadata SET waarde = '2018' WHERE naam = 'update_gem_tabel';
 COMMIT;
 
@@ -358,18 +361,19 @@ DELETE FROM gemeente WHERE code IN (
 881, 951, 962
 );
 
-INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1954, 'Beekdaelen');
-INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1959, 'Altena');
-INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1960, 'West Betuwe');
-INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1961, 'Vijfheerenlanden');
-INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1963, 'Hoeksche Waard');
-INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1966, 'Het Hogeland');
-INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1969, 'Westerkwartier');
-INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1970, 'Noardeast-Fryslân');
-INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1978, 'Molenlanden');
+IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1954) INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1954, 'Beekdaelen');
+IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1959) INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1959, 'Altena');
+IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1960) INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1960, 'West Betuwe');
+IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1961) INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1961, 'Vijfheerenlanden');
+IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1963) INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1963, 'Hoeksche Waard');
+IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1966) INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1966, 'Het Hogeland');
+IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1969) INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1969, 'Westerkwartier');
+IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1970) INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1970, 'Noardeast-Fryslân');
+IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1978) INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2019-01-01', 1978, 'Molenlanden');
 
 -- herstel onterecht verwijderde gemeente Oudewater die in bestand van 8 jan 2019 is geslopen (update_gem_tabel=2019)
 IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 589) INSERT INTO gemeente (code, naam) VALUES (589, 'Oudewater');
+DELETE FROM gemeente_archief WHERE code = 589;
 
 UPDATE brmo_metadata SET waarde = '2019.1' WHERE naam = 'update_gem_tabel';
 COMMIT;
