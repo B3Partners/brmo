@@ -61,7 +61,7 @@
         <netbeans.hint.license>gpl30</netbeans.hint.license>
         <hibernate.version>3.6.10.Final</hibernate.version>
         <geotools.version>20.2</geotools.version>
-        <jts.version>1.16.0</jts.version>
+        <jts.version>1.16.1</jts.version>
         <postgresql.jdbc.version>42.2.5</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2.3.0</postgresql.postgis-jdbc.version>
         <!--
@@ -124,12 +124,12 @@
                 <!-- oa. nodig voor hibernate, dbunit, cronparser -->
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.7.25</version>
+                <version>1.7.26</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.25</version>
+                <version>1.7.26</version>
             </dependency>
             <dependency>
                 <groupId>log4j</groupId>
@@ -169,7 +169,7 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>jdbc-util</artifactId>
-                <version>2.0</version>
+                <version>2.1</version>
             </dependency>
 
             <dependency>
@@ -496,7 +496,7 @@
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
-                <version>2.24.0</version>
+                <version>2.24.5</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
