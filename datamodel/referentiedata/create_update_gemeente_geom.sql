@@ -9,13 +9,13 @@ SELECT
 -- postgis blok
 -- 'UPDATE gemeente SET geom = ST_GeomFromEWKT(''' || ST_AsEWKT(wkb_geometry) || ''') WHERE code = ' || trim(leading '0' FROM code) || ';
 -- ' || 'INSERT INTO gemeente (code,naam,geom) SELECT '|| trim(leading '0' FROM code) ||','''|| gemeentenaam ||''',ST_GeomFromEWKT(''' || ST_AsEWKT(wkb_geometry) || ''') WHERE NOT EXISTS (SELECT 1 FROM gemeente WHERE code='||trim(leading '0' FROM code)||');'
---  as "--postgis gemeente 2018 geometrie update"
+--  as "--postgis gemeente 2019 geometrie update"
 
 -- mssql blok
 -- 'MERGE gemeente AS target USING (VALUES (geometry::STGeomFromText(''' || ST_AsText(wkb_geometry) || ''',28992))) AS source (geom) ON target.code = ' || trim(leading '0' FROM code) || '
 --   WHEN MATCHED THEN UPDATE SET geom = source.geom
 --   WHEN NOT MATCHED THEN INSERT (code,naam,geom) VALUES (' || trim(leading '0' FROM code) ||','''|| gemeentenaam ||''', source.geom);'
---as "--mssql gemeente 2018 geometrie update"
+--as "--mssql gemeente 2019 geometrie update"
 
 -- oracle blok
 -- NB. Oracle heeft handwerk nodig! 
@@ -42,9 +42,9 @@ SELECT
   MERGE INTO gemeente USING dual ON (CODE=' || trim(leading '0' FROM code) || ')
     WHEN MATCHED THEN UPDATE SET GEOM=SDO_GEOMETRY(wktA,28992)
     WHEN NOT MATCHED THEN INSERT (CODE,NAAM,GEOM) VALUES (' || trim(leading '0' FROM code) || ','''|| gemeentenaam ||''', SDO_GEOMETRY(wktA,28992));'
-as "--oracle gemeente 2018 geometrie update"
+as "--oracle gemeente 2019 geometrie update"
 
-FROM gemeenten2018
+FROM gemeenten2019
 --WHERE code IN ('0003','0584','0448','0289')
 ORDER BY code;
 
