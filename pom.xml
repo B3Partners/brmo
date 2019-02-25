@@ -94,7 +94,7 @@
         de schema's voor posgresql en oracle worden niet automatisch aangemaakt.
         -->
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
-        <test.h2.version>1.4.197</test.h2.version>
+        <test.h2.version>1.4.198</test.h2.version>
         <test.hsqldb.version>2.4.1</test.hsqldb.version>
         <test.onlyITs>false</test.onlyITs>
         <maven.surefire.version>3.0.0-M3</maven.surefire.version>
