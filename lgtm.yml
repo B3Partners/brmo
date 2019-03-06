@@ -1,0 +1,13 @@
+extraction:
+  python:
+    python_setup:
+      version: 2.7
+  javascript:
+    index:
+      filters:
+      - exclude: "**/ext-all.js"
+  java:
+    index:
+      maven:
+        settings_file: .lgtm/settings.xml
+        version: 3.6.0
