@@ -85,11 +85,11 @@ public class BerichtEndpointFileServletTest {
      * <li>{@code curl -v -s --trace-ascii http_trace.log -d @'brmo-loader/src/test/resources/verminderenstukdelen/MUTKX01-ASN00V2937-Bericht1.xml' -H "Content-Type: application/xml" -X POST http://localhost:8037/brmo-proxyservice/post/brk
      * }</li>
      * </ul>
-     *
+     * @todo dit werkt niet zo, nog eens uitzoeken hoe dit moet met httpunit... (Not in GZIP format melding)
      * @throws Exception if any
      */
     @Test
-    @Ignore("dit werkt niet zo, nog eens uitzoeken hoe dit moet met httpunit... (Not in GZIP format)")
+    @Ignore("dit werkt niet zo, nog eens uitzoeken hoe dit moet met httpunit... (Not in GZIP format melding)")
     public void testPostGzippedBRK() throws Exception {
         WebRequest p = new PostMethodWebRequest(
                 "http://localhost:8080/post/brk",

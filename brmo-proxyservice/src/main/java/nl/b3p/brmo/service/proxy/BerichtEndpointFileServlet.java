@@ -40,7 +40,7 @@ public class BerichtEndpointFileServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         String _saveDir = this.getInitParameter(SAVE_DIR);
-        if (_saveDir == null && !_saveDir.isEmpty()) {
+        if (_saveDir == null || _saveDir.isEmpty()) {
             throw new ServletException("De parameter '" + SAVE_DIR + "' is benodigd.");
         }
         this.saveDir = new File(_saveDir);
