@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Mutatie:Mutatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:Mutatie="http://www.kadaster.nl/schemas/brk-levering/product-mutatie/v20120901" xmlns:Snapshot="http://www.kadaster.nl/schemas/brk-levering/snapshot/v20120901" xmlns:GbaPersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-gba-persoon/v20120901" xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20120201" xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201" xmlns:Persoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon/v20120201" xmlns:NEN3610="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-NEN3610-2011/v20120201" xmlns:BagAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-bag-adres/v20120201" xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20120701" xmlns:InOnderzoek="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-inonderzoek/v20120201" xmlns:KadastraalObjectRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject-ref/v20120201" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml" xmlns:NhrRechtspersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-nhr-rechtspersoon/v20120201" xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20120201" xmlns:GbaPersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-gba-persoon-ref/v20120201" xmlns:PersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20120201" xmlns:NhrRechtspersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-nhr-rechtspersoon-ref/v20120201" xmlns:RechtRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20120201" xmlns:StukRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20120201" xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20120201" xsi:schemaLocation="http://www.kadaster.nl/schemas/brk-levering/product-mutatie/v20120901 http://www.kadaster.nl/schemas/brk-levering/product-mutatie/v20120901/BRKLeveringMutatie_v1_1_4.xsd http://www.opengis.net/gml http://www.kadaster.nl/schemas/gml/3.1.1/base/gml.xsd http://www.w3.org/1999/xlink http://www.kadaster.nl/schemas/xlink/1.0.0/xlinks.xsd">
+  <Mutatie:aardStukdeel>
+    <Typen:code>179</Typen:code>
+    <Typen:waarde>Toevoegen titels met behulp van Tr. 34</Typen:waarde>
+  </Mutatie:aardStukdeel>
+  <Mutatie:BRKDatum>2017-08-02</Mutatie:BRKDatum>
+  <Mutatie:volgnummerKadastraalObjectDatum>1</Mutatie:volgnummerKadastraalObjectDatum>
+  <Mutatie:ingeschrevenStuk>
+    <Mutatie:AanduidingKadasterstuk>
+      <Mutatie:stuk>
+        <StukRef:KadasterstukRef xlink:href="NL.KAD.KadasterStuk.AKR1.100000003758678" />
+      </Mutatie:stuk>
+      <Mutatie:AKRPortefeuilleNr>ACG75271     GNG</Mutatie:AKRPortefeuilleNr>
+    </Mutatie:AanduidingKadasterstuk>
+  </Mutatie:ingeschrevenStuk>
+  <Mutatie:kadastraalObject>
+    <Mutatie:AanduidingKadastraalObject>
+      <Mutatie:indicatieDeelperceel>false</Mutatie:indicatieDeelperceel>
+      <Mutatie:kadastraleAanduiding>
+        <KadastraalObject:AKRKadastraleGemeenteCode>
+          <Typen:code>386</Typen:code>
+          <Typen:waarde>GNG00</Typen:waarde>
+        </KadastraalObject:AKRKadastraleGemeenteCode>
+        <KadastraalObject:naamKadastraleGemeente>
+          <Typen:code>339</Typen:code>
+          <Typen:waarde>Groningen</Typen:waarde>
+        </KadastraalObject:naamKadastraleGemeente>
+        <KadastraalObject:sectie>C</KadastraalObject:sectie>
+        <KadastraalObject:perceelnummer>9442</KadastraalObject:perceelnummer>
+      </Mutatie:kadastraleAanduiding>
+      <Mutatie:kadastraalObject>
+        <KadastraalObjectRef:PerceelRef xlink:href="NL.KAD.OnroerendeZaak.58930944270000" />
+      </Mutatie:kadastraalObject>
+    </Mutatie:AanduidingKadastraalObject>
+  </Mutatie:kadastraalObject>
+  <Mutatie:was>
+    <Snapshot:KadastraalObjectSnapshot>
+      <Snapshot:referentie>3598EDFFDEB0-1D4B50B2144</Snapshot:referentie>
+      <Snapshot:toestandsdatum>2013-08-21</Snapshot:toestandsdatum><KadastraalObject:Perceel id="ID.2313021871">
+  <KadastraalObject:identificatie>
+    <NEN3610:namespace>NL.KAD.OnroerendeZaak</NEN3610:namespace>
+    <NEN3610:lokaalId>58930944270000</NEN3610:lokaalId>
+  </KadastraalObject:identificatie>
+  <KadastraalObject:heeftLocatie>
+    <KadastraalObject:LocatieKadastraalObject>
+      <KadastraalObject:cultuurBebouwd>
+        <Typen:code>18</Typen:code>
+        <Typen:waarde>Berging - Stalling (garage-schuur)</Typen:waarde>
+      </KadastraalObject:cultuurBebouwd>
+      <KadastraalObject:adres>
+        <Adres:KADBinnenlandsAdres>
+          <Adres:openbareRuimteNaam>HOORNSEDIEP</Adres:openbareRuimteNaam>
+          <Adres:woonplaatsNaam>GRONINGEN</Adres:woonplaatsNaam>
+        </Adres:KADBinnenlandsAdres>
+      </KadastraalObject:adres>
+    </KadastraalObject:LocatieKadastraalObject>
+  </KadastraalObject:heeftLocatie>
+  <KadastraalObject:kadastraleAanduiding>
+    <KadastraalObject:AKRKadastraleGemeenteCode>
+      <Typen:code>386</Typen:code>
+      <Typen:waarde>GNG00</Typen:waarde>
+    </KadastraalObject:AKRKadastraleGemeenteCode>
+    <KadastraalObject:naamKadastraleGemeente>
+      <Typen:code>339</Typen:code>
+      <Typen:waarde>Groningen</Typen:waarde>
+    </KadastraalObject:naamKadastraleGemeente>
+    <KadastraalObject:sectie>C</KadastraalObject:sectie>
+    <KadastraalObject:perceelnummer>9442</KadastraalObject:perceelnummer>
+  </KadastraalObject:kadastraleAanduiding>
+  <KadastraalObject:begrenzingPerceel><gml:Surface srsName="urn:ogc:def:crs:EPSG::28992">
+  <gml:patches>
+    <gml:PolygonPatch>
+      <gml:exterior>
+        <gml:LinearRing>
+          <gml:posList srsDimension="2" count="7">233417.686 580684.44 233412.82 580682.193 233413.695 580679.293 233416.247 580680.022 233415.81 580681.473 233418.361 580682.201 233417.686 580684.44</gml:posList>
+        </gml:LinearRing>
+      </gml:exterior>
+    </gml:PolygonPatch>
+  </gml:patches>
+</gml:Surface></KadastraalObject:begrenzingPerceel>
+  <KadastraalObject:indicatieDeelperceel>false</KadastraalObject:indicatieDeelperceel>
+  <KadastraalObject:kadastraleGrootte>
+    <KadastraalObject:waarde>14</KadastraalObject:waarde>
+  </KadastraalObject:kadastraleGrootte>
+  <KadastraalObject:soortGrootte>
+    <Typen:code>1</Typen:code>
+    <Typen:waarde>Vastgesteld</Typen:waarde>
+  </KadastraalObject:soortGrootte>
+  <KadastraalObject:perceelnummerVerschuiving>
+    <KadastraalObject:deltaX>-17.645</KadastraalObject:deltaX>
+    <KadastraalObject:deltaY>10.078</KadastraalObject:deltaY>
+  </KadastraalObject:perceelnummerVerschuiving>
+  <KadastraalObject:plaatscoordinaten><gml:Point srsName="urn:ogc:def:crs:EPSG::28992">
+  <gml:pos>233416.795 580683.025</gml:pos>
+</gml:Point></KadastraalObject:plaatscoordinaten>
+</KadastraalObject:Perceel><Recht:ZakelijkRecht id="ID.2313021875">
+  <Recht:identificatie>
+    <NEN3610:namespace>NL.KAD.ZakelijkRecht</NEN3610:namespace>
+    <NEN3610:lokaalId>AKR1.9934028</NEN3610:lokaalId>
+  </Recht:identificatie>
+  <Recht:aard>
+    <Typen:code>2</Typen:code>
+    <Typen:waarde>Eigendom (recht van)</Typen:waarde>
+  </Recht:aard>
+  <Recht:rustOp>
+    <KadastraalObjectRef:PerceelRef xlink:href="#ID.2313021871" />
+  </Recht:rustOp>
+  <Recht:betrokkenBij>
+    <Recht:HoofdSplitsing>
+      <Recht:verenigingVanEigenaren>
+        <PersoonRef:KADNietNatuurlijkPersoonRef xlink:href="#ID.2313021877" />
+      </Recht:verenigingVanEigenaren>
+      <Recht:isGebaseerdOp>
+        <StukRef:StukdeelRef xlink:href="#ID.2313021881" />
+      </Recht:isGebaseerdOp>
+    </Recht:HoofdSplitsing>
+  </Recht:betrokkenBij>
+</Recht:ZakelijkRecht><Persoon:KADNietNatuurlijkPersoon id="ID.2313021877">
+  <Persoon:identificatie>
+    <NEN3610:namespace>NL.KAD.Persoon</NEN3610:namespace>
+    <NEN3610:lokaalId>47050190</NEN3610:lokaalId>
+  </Persoon:identificatie>
+  <Persoon:naam>Vereniging Van Eigenaars Flat-Hoornsediep 71, 71a En 71b</Persoon:naam>
+  <Persoon:rechtsvorm>
+    <Typen:code>13</Typen:code>
+    <Typen:waarde>Vereniging van eigenaren</Typen:waarde>
+  </Persoon:rechtsvorm>
+  <Persoon:statutaireZetel>GRONINGEN</Persoon:statutaireZetel>
+</Persoon:KADNietNatuurlijkPersoon><Stuk:Kadasterstuk id="ID.2313021879">
+  <Stuk:identificatie>
+    <NEN3610:namespace>NL.KAD.Kadasterstuk</NEN3610:namespace>
+    <NEN3610:lokaalId>AKR1.11306674</NEN3610:lokaalId>
+  </Stuk:identificatie>
+  <Stuk:omvat>
+    <Stuk:Stukdeel id="ID.2313021881">
+      <Stuk:identificatie>
+        <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+        <NEN3610:lokaalId>AKR1.11102558</NEN3610:lokaalId>
+      </Stuk:identificatie>
+      <Stuk:aardStukdeel nilReason="waardeOnbekend">
+        <Typen:code>NIL</Typen:code>
+        <Typen:waarde>NIL</Typen:waarde>
+      </Stuk:aardStukdeel>
+    </Stuk:Stukdeel>
+  </Stuk:omvat>
+  <Stuk:AKRPortefeuilleNr>84 GNG0059310GNG</Stuk:AKRPortefeuilleNr>
+</Stuk:Kadasterstuk>
+    </Snapshot:KadastraalObjectSnapshot>
+  </Mutatie:was>
+  <Mutatie:wordt>
+    <Snapshot:KadastraalObjectSnapshot>
+      <Snapshot:referentie>3598EDFFDEB0-1D5A3594B6D</Snapshot:referentie>
+      <Snapshot:toestandsdatum>2017-08-02</Snapshot:toestandsdatum><KadastraalObject:Perceel id="ID.5668233245">
+  <KadastraalObject:identificatie>
+    <NEN3610:namespace>NL.KAD.OnroerendeZaak</NEN3610:namespace>
+    <NEN3610:lokaalId>58930944270000</NEN3610:lokaalId>
+  </KadastraalObject:identificatie>
+  <KadastraalObject:heeftLocatie>
+    <KadastraalObject:LocatieKadastraalObject>
+      <KadastraalObject:cultuurBebouwd>
+        <Typen:code>18</Typen:code>
+        <Typen:waarde>Berging - Stalling (garage-schuur)</Typen:waarde>
+      </KadastraalObject:cultuurBebouwd>
+    </KadastraalObject:LocatieKadastraalObject>
+  </KadastraalObject:heeftLocatie>
+  <KadastraalObject:kadastraleAanduiding>
+    <KadastraalObject:AKRKadastraleGemeenteCode>
+      <Typen:code>386</Typen:code>
+      <Typen:waarde>GNG00</Typen:waarde>
+    </KadastraalObject:AKRKadastraleGemeenteCode>
+    <KadastraalObject:naamKadastraleGemeente>
+      <Typen:code>339</Typen:code>
+      <Typen:waarde>Groningen</Typen:waarde>
+    </KadastraalObject:naamKadastraleGemeente>
+    <KadastraalObject:sectie>C</KadastraalObject:sectie>
+    <KadastraalObject:perceelnummer>9442</KadastraalObject:perceelnummer>
+  </KadastraalObject:kadastraleAanduiding>
+  <KadastraalObject:begrenzingPerceel><gml:Surface srsName="urn:ogc:def:crs:EPSG::28992">
+  <gml:patches>
+    <gml:PolygonPatch>
+      <gml:exterior>
+        <gml:LinearRing>
+          <gml:posList srsDimension="2" count="7">233417.686 580684.44 233412.82 580682.193 233413.695 580679.293 233416.247 580680.022 233415.81 580681.473 233418.361 580682.201 233417.686 580684.44</gml:posList>
+        </gml:LinearRing>
+      </gml:exterior>
+    </gml:PolygonPatch>
+  </gml:patches>
+</gml:Surface></KadastraalObject:begrenzingPerceel>
+  <KadastraalObject:indicatieDeelperceel>false</KadastraalObject:indicatieDeelperceel>
+  <KadastraalObject:kadastraleGrootte>
+    <KadastraalObject:waarde>14</KadastraalObject:waarde>
+  </KadastraalObject:kadastraleGrootte>
+  <KadastraalObject:soortGrootte>
+    <Typen:code>1</Typen:code>
+    <Typen:waarde>Vastgesteld</Typen:waarde>
+  </KadastraalObject:soortGrootte>
+  <KadastraalObject:perceelnummerVerschuiving>
+    <KadastraalObject:deltaX>-17.645</KadastraalObject:deltaX>
+    <KadastraalObject:deltaY>10.078</KadastraalObject:deltaY>
+  </KadastraalObject:perceelnummerVerschuiving>
+  <KadastraalObject:plaatscoordinaten><gml:Point srsName="urn:ogc:def:crs:EPSG::28992">
+  <gml:pos>233416.795 580683.025</gml:pos>
+</gml:Point></KadastraalObject:plaatscoordinaten>
+</KadastraalObject:Perceel><Recht:ZakelijkRecht id="ID.5668233247">
+  <Recht:identificatie>
+    <NEN3610:namespace>NL.KAD.ZakelijkRecht</NEN3610:namespace>
+    <NEN3610:lokaalId>AKR1.9934028</NEN3610:lokaalId>
+  </Recht:identificatie>
+  <Recht:aard>
+    <Typen:code>2</Typen:code>
+    <Typen:waarde>Eigendom (recht van)</Typen:waarde>
+  </Recht:aard>
+  <Recht:rustOp>
+    <KadastraalObjectRef:PerceelRef xlink:href="#ID.5668233245" />
+  </Recht:rustOp>
+  <Recht:betrokkenBij>
+    <Recht:HoofdSplitsing>
+      <Recht:verenigingVanEigenaren>
+        <PersoonRef:KADNietNatuurlijkPersoonRef xlink:href="#ID.5668233248" />
+      </Recht:verenigingVanEigenaren>
+      <Recht:isGebaseerdOp>
+        <StukRef:StukdeelRef xlink:href="#ID.5668233250" />
+      </Recht:isGebaseerdOp>
+    </Recht:HoofdSplitsing>
+  </Recht:betrokkenBij>
+</Recht:ZakelijkRecht><Persoon:KADNietNatuurlijkPersoon id="ID.5668233248">
+  <Persoon:identificatie>
+    <NEN3610:namespace>NL.KAD.Persoon</NEN3610:namespace>
+    <NEN3610:lokaalId>47050190</NEN3610:lokaalId>
+  </Persoon:identificatie>
+  <Persoon:naam>Vereniging Van Eigenaars Flat-Hoornsediep 71, 71a En 71b</Persoon:naam>
+  <Persoon:rechtsvorm>
+    <Typen:code>21</Typen:code>
+    <Typen:waarde>Vereniging van eigenaars</Typen:waarde>
+  </Persoon:rechtsvorm>
+  <Persoon:statutaireZetel>GRONINGEN</Persoon:statutaireZetel>
+</Persoon:KADNietNatuurlijkPersoon><Stuk:Kadasterstuk id="ID.5668233249">
+  <Stuk:identificatie>
+    <NEN3610:namespace>NL.KAD.Kadasterstuk</NEN3610:namespace>
+    <NEN3610:lokaalId>AKR1.11306674</NEN3610:lokaalId>
+  </Stuk:identificatie>
+  <Stuk:omvat>
+    <Stuk:Stukdeel id="ID.5668233250">
+      <Stuk:identificatie>
+        <NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+        <NEN3610:lokaalId>AKR1.11102558</NEN3610:lokaalId>
+      </Stuk:identificatie>
+      <Stuk:aardStukdeel nilReason="waardeOnbekend">
+        <Typen:code>NIL</Typen:code>
+        <Typen:waarde>NIL</Typen:waarde>
+      </Stuk:aardStukdeel>
+    </Stuk:Stukdeel>
+  </Stuk:omvat>
+  <Stuk:AKRPortefeuilleNr>84 GNG0059310GNG</Stuk:AKRPortefeuilleNr>
+</Stuk:Kadasterstuk>
+    </Snapshot:KadastraalObjectSnapshot>
+  </Mutatie:wordt>
+</Mutatie:Mutatie>

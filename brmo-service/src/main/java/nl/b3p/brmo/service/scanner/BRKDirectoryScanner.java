@@ -5,15 +5,19 @@ package nl.b3p.brmo.service.scanner;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import javax.persistence.Transient;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.transform.TransformerException;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.BrkBericht;
 import nl.b3p.brmo.loader.util.BrmoException;
@@ -24,7 +28,6 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
 import nl.b3p.brmo.persistence.staging.Bericht;
-import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.persistence.staging.LaadProces;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.comparator.NameFileComparator;
@@ -42,8 +45,6 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
     private static final Log log = LogFactory.getLog(BRKDirectoryScanner.class);
 
     private final BRKScannerProces config;
-
-    private final int defaultCommitPageSize = 1000;
 
     @Transient
     private ProgressUpdateListener listener;
@@ -87,6 +88,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
 
     @Override
     public void execute(ProgressUpdateListener listener) {
+        final EntityManager em = Stripersist.getEntityManager();
         this.listener = listener;
         config.setStatus(PROCESSING);
         StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE);
@@ -143,37 +145,32 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
         }
         config.setLogfile(sb.toString());
 
-        File files[] = scanDirectory.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.toLowerCase().endsWith(".xml");
-            }
-        });
+        File files[] = scanDirectory.listFiles((File dir, String name) -> name.toLowerCase().endsWith(".xml"));
         Arrays.sort(files, NameFileComparator.NAME_COMPARATOR);
 
-        processXMLFiles(files, scanDirectory, archiefDirectory);
+        processXMLFiles(files, scanDirectory, archiefDirectory, em);
 
-        Stripersist.getEntityManager().flush();
-        Stripersist.getEntityManager().getTransaction().commit();
-        Stripersist.getEntityManager().clear();
+        em.flush();
+        em.getTransaction().commit();
+        em.clear();
     }
 
     /**
      * verwerk een bestandenlijst.
      *
      * @param files array met xml bestanden
-     *
-     * @param scanDirectory
-     * @param archiefDirectory
+     * @param scanDirectory te scannen directory
+     * @param archiefDirectory waar de gescande files worden neergezet als de
+     * archief optie actief is
+     * @param em de te gebruiken EntityManager
      */
-    private void processXMLFiles(File[] files, File scanDirectory, File archiefDirectory) {
+    private void processXMLFiles(File[] files, File scanDirectory, File archiefDirectory, EntityManager em) {
         StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE + config.getLogfile());
         String msg;
         int filterAlVerwerkt = 0;
         int aantalGeladen = 0;
         int progress = 0;
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        int commitPageSize = this.getCommitPageSize();
 
         listener.total(files.length);
         for (File f : files) {
@@ -231,7 +228,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                             b.setStatus(Bericht.STATUS.STAGING_NOK);
                             b.setOpmerking("Object Ref niet gevonden in bericht-xml, neem contact op met leverancier.");
                         }
-                    } catch (Exception e) {
+                    } catch (UnsupportedEncodingException | XMLStreamException | TransformerException e) {
                         b.setStatus(Bericht.STATUS.STAGING_NOK);
                         StringWriter sw = new StringWriter();
                         e.printStackTrace(new PrintWriter(sw));
@@ -239,23 +236,38 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                         b.setOpmerking(msg);
                         log.warn(msg);
                     }
-
-                    Stripersist.getEntityManager().persist(lp);
-                    Stripersist.getEntityManager().persist(b);
-                    Stripersist.getEntityManager().merge(this.config);
-
-                    aantalGeladen++;
-                    msg = String.format("  Bestand %s is geladen en heeft status: %s. (Leverde bericht id: %s, met status: %s.)", f, lp.getStatus(), b.getId(), b.getStatus());
+                    try {
+                        em.persist(lp);
+                        em.persist(b);
+                        em.merge(this.config);
+                        em.flush();
+                        em.getTransaction().commit();
+                        em.clear();
+                        aantalGeladen++;
+                        msg = String.format("  Bestand %s is geladen en heeft status: %s. (Leverde bericht id: %s, met status: %s.)", f, lp.getStatus(), b.getId(), b.getStatus());
+                    } catch (PersistenceException pe) {
+                        // insert van bericht of lp is mislukt, waarschijnlijk duplicaat bericht
+                        // een laadproces maken met duplicaat status en de xml van het bericht in de opmerking stoppen
+                        if (!em.getTransaction().isActive()) {
+                            em.getTransaction().begin();
+                        }
+                        em.getTransaction().rollback();
+                        em.getTransaction().begin();
+                        lp.setId(null);
+                        log.warn("Opslaan van bericht uit laadproces " + lp.getBestand_naam() + " is mislukt. Object referentie is: " + b.getObject_ref(), pe);
+                        log.debug("Duplicaat bericht: " + b.getObject_ref() + ":" + b.getBr_orgineel_xml());
+                        lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);
+                        lp.setOpmerking(lp.getOpmerking() + ": Fout, duplicaat bericht. Inhoud: \n" + b.getBr_xml());
+                        b = null;
+                        em.merge(this.config);
+                        em.persist(lp);
+                        em.flush();
+                        em.getTransaction().commit();
+                        em.clear();
+                    }
                     log.info(msg);
                     this.listener.addLog(msg);
                     sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
-
-                    if (aantalGeladen % commitPageSize == 0) {
-                        log.info("Tussentijds opslaan van berichten, 'commitPageSize' is bereikt");
-                        Stripersist.getEntityManager().flush();
-                        Stripersist.getEntityManager().getTransaction().commit();
-                        Stripersist.getEntityManager().clear();
-                    }
 
                 } catch (IOException io) {
                     // mogelijk bij openen en lezen xml bestand
@@ -301,22 +313,6 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
         config.updateSamenvattingEnLogfile("Aantal bestanden die al waren verwerkt: "
                 + filterAlVerwerkt + AutomatischProces.LOG_NEWLINE
                 + "Aantal bestanden geladen: " + aantalGeladen + AutomatischProces.LOG_NEWLINE);
-        Stripersist.getEntityManager().merge(config);
-    }
-
-    private int getCommitPageSize() {
-        int commitPageSize;
-        try {
-            String s = ClobElement.nullSafeGet(config.getConfig().get("commitPageSize"));
-            commitPageSize = Integer.parseInt(s);
-            if (commitPageSize < 1 || commitPageSize > defaultCommitPageSize) {
-                commitPageSize = defaultCommitPageSize;
-            }
-        } catch (NumberFormatException nfe) {
-            commitPageSize = defaultCommitPageSize;
-        }
-
-        log.debug("Instellen van commit page size op: " + commitPageSize);
-        return commitPageSize;
+        em.merge(config);
     }
 }
