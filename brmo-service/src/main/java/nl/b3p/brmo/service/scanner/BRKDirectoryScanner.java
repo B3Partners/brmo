@@ -149,10 +149,6 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
         Arrays.sort(files, NameFileComparator.NAME_COMPARATOR);
 
         processXMLFiles(files, scanDirectory, archiefDirectory, em);
-
-        em.flush();
-        em.getTransaction().commit();
-        em.clear();
     }
 
     /**
