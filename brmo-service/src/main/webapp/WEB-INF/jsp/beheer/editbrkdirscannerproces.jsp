@@ -19,8 +19,4 @@
             <brmo:formatCron cronExpression="${actionBean.proces.cronExpressie}" />
         </td>
     </tr>
-    <tr>
-        <td><stripes:label name="">Commit page size (leeg voor default)</stripes:label></td>
-        <td><stripes:text name="config['commitPageSize']"/></td>
-    </tr>
 </table>
