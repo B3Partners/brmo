@@ -168,6 +168,16 @@
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
+                <artifactId>bgt-gml-loader</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>nl.b3p</groupId>
+                <artifactId>brmo-test-util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>nl.b3p</groupId>
                 <artifactId>jdbc-util</artifactId>
                 <version>2.1</version>
             </dependency>

@@ -107,7 +107,6 @@
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>bgt-gml-loader</artifactId>
-            <version>1.6.4-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
                     <groupId>${oracle.jdbc.groupId}</groupId>
@@ -135,7 +134,6 @@
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>brmo-test-util</artifactId>
-            <version>1.6.4-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
