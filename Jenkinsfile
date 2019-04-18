@@ -26,7 +26,7 @@ timestamps {
 
             withEnv(["JAVA_HOME=${ tool jdkTestName }", "PATH+MAVEN=${tool 'Maven 3.6.1'}/bin:${env.JAVA_HOME}/bin"]) {
 
-                echo "Using JDK: ${jdkTestName}"
+                echo "Using JDK: ${jdkTestName} at ${env.JAVA_HOME}"
 
                 stage("Build: ${jdkTestName}") {
                     echo "Building branch: ${env.BRANCH_NAME}"
@@ -103,8 +103,12 @@ timestamps {
                     }
 
                     stage("brmo-commandline Integration Test: ${jdkTestName}") {
-                        echo "run integratie tests voor brmo-commandline module"
-                        sh "mvn -Djava.security.egd=file:/dev/./urandom -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-commandline'"
+                        if(jdkTestName == 'JDK8') {
+                            echo "run integratie tests voor brmo-commandline module"
+                            sh "mvn -Djava.security.egd=file:/dev/./urandom -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-commandline'"
+                        } else {
+                            echo "skip integratie tests voor brmo-commandline module"
+                        }
                     }
 
                     stage("Cleanup Database: ${indexOfJdk}") {
@@ -117,14 +121,15 @@ timestamps {
                         sh "sqlplus -l -S top250nl/top250nl@192.168.1.11:1521/ORCL < ./.jenkins/clear-schema.sql"
                     }
 
-                    stage("Upgrade Database Test: ${indexOfJdk}") {
-                        sh ".travis/getlastRelease.sh"
-                        sh ".jenkins/setup-old.sh"
-                        sh "\".jenkins/execute-upgrades-oracle.sh\" staging"
-                        sh "\".jenkins/execute-upgrades-oracle.sh\" rsgb"
-                        sh "\".jenkins/execute-upgrades-oracle.sh\" rsgbbgt"
-                        sh "mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test"
-                    }
+                    if(jdkTestName == 'JDK8') {
+                        stage("Upgrade Database Test: ${indexOfJdk}") {
+                            sh ".travis/getlastRelease.sh"
+                            sh ".jenkins/setup-old.sh"
+                            sh "\".jenkins/execute-upgrades-oracle.sh\" staging"
+                            sh "\".jenkins/execute-upgrades-oracle.sh\" rsgb"
+                            sh "\".jenkins/execute-upgrades-oracle.sh\" rsgbbgt"
+                            sh "mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test"
+                        }
 
                     stage("Cleanup Database 2: ${indexOfJdk}") {
                         sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.11:1521/ORCL < ./bgt-gml-loader/target/generated-resources/ddl/oracle/drop_rsgb_bgt.sql"
