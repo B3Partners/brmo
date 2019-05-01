@@ -426,7 +426,7 @@
             <dependency>
                 <groupId>net.redhogs.cronparser</groupId>
                 <artifactId>cron-parser-core</artifactId>
-                <version>3.4</version>
+                <version>3.5</version>
             </dependency>
             <!-- parsing ed. -->
             <dependency>
