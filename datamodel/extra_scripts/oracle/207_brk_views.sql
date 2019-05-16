@@ -1,49 +1,44 @@
 /*
 Views for visualizing the BRK data.
-versie 2
-28-8-2018
+versie 2.2
+16-5-2019
 */
---drop view vb_subject cascade;
---drop view vb_avg_subject cascade;
---drop view vb_util_app_re_splitsing cascade;
---drop view vb_util_app_re_parent_3 cascade;
---drop view vb_util_app_re_parent_2 cascade;
---drop view vb_util_app_re_parent cascade;
---drop view vb_util_app_re_kad_perceel cascade;
---drop view vb_kad_onrrnd_zk_adres cascade;
---drop view vb_subject;
---drop view vb_util_zk_recht cascade;
---drop view vb_zr_rechth cascade;
---drop view vb_avg_zr_rechth cascade;
---drop view vb_koz_rechth cascade;
---drop view vb_avg_koz_rechth cascade;
---drop view vb_kad_onrrnd_zk_archief cascade;
+--drop view vb_util_app_re_parent;
+--drop view vb_util_app_re_parent_2;
+--drop view vb_util_app_re_parent_3;
+--drop view vb_util_app_re_splitsing;
+--drop view vb_util_zk_recht;
 
---drop materialized view mb_kad_onrrnd_zk_adres cascade;
---drop materialized view mb_koz_rechth cascade;
---drop materialized view mb_avg_koz_rechth cascade;
---drop materialized view mb_subject cascade;
---drop materialized view mb_avg_subject cascade;
---drop materialized view mb_zr_rechth cascade;
---drop materialized view mb_avg_zr_rechth cascade;
+--drop materialized view mb_kad_onrrnd_zk_archief;
+--drop materialized view mb_avg_subject;
+--drop materialized view mb_avg_zr_rechth;
+--drop materialized view mb_kad_onrrnd_zk_adres;
+--drop materialized view mb_koz_rechth;
+--drop materialized view mb_subject;
+--drop materialized view mb_zr_rechth;
+--drop materialized view mb_util_app_re_kad_perceel;
 
---DROP INDEX mb_avg_koz_rechth_objectid cascade;
---DROP INDEX mb_avg_koz_rechth_identif cascade;
---DROP INDEX mb_avg_koz_rechth_begrenzing_perceel_idx cascade;
---DROP INDEX mb_koz_rechth_objectid cascade;
---DROP INDEX mb_koz_rechth_identif cascade;
---DROP INDEX mb_koz_rechth_begrenzing_perceel_idx cascade;
---DROP INDEX mb_avg_zr_rechth_objectid cascade;
---DROP INDEX mb_avg_zr_rechth_identif cascade;
---DROP INDEX mb_zr_rechth_objectid cascade;
---DROP INDEX mb_zr_rechth_identif cascade;
---DROP INDEX mb_kad_onrrnd_zk_adres_objectid cascade;
---DROP INDEX mb_kad_onrrnd_zk_adres_identif cascade;
---DROP INDEX mb_kad_onrrnd_zk_adres_begrenzing_perceel_idx cascade;
---DROP INDEX mb_avg_subject_objectid cascade;
---DROP INDEX mb_avg_subject_identif cascade;
---DROP INDEX mb_subject_objectid cascade;
---DROP INDEX mb_subject_identif cascade;
+--DROP INDEX MB_AVG_KOZ_RECHTH_BEGR_P_IDX;
+--DROP INDEX MB_AVG_KOZ_RECHTH_IDENTIF;
+--DROP INDEX MB_KAD_ONRRND_ZK_ADRES_IDENTIF;
+--DROP INDEX MB_KAD_ONRRND_ZK_ADR_BGRGPIDX;
+--DROP INDEX MB_KAD_ONRRND_ZK_A_BGRGPIDX;
+--DROP INDEX MB_KAD_ONRRND_ZK_A_IDENTIF;
+--DROP INDEX MB_KOZ_RECHTH_BEGR_PRCL_IDX;
+--DROP INDEX MB_KOZ_RECHTH_IDENTIF;
+--DROP INDEX MB_ZR_RECHTH_IDENTIF;
+--DROP INDEX mb_avg_subject_identif;
+--DROP INDEX mb_avg_zr_rechth_identif;
+--DROP INDEX mb_subject_identif;
+--DROP INDEX mb_util_app_re_kad_perceel_id;
+--DROP INDEX MB_AVG_KOZ_RECHTH_OBJECTID;
+--DROP INDEX MB_KAD_ONRRND_ZK_ADRES_OBJIDX;
+--DROP INDEX MB_KAD_ONRRND_ZK_A_OBJIDX;
+--DROP INDEX MB_KOZ_RECHTH_OBJECTID;
+--DROP INDEX MB_ZR_RECHTH_OBJECTID;
+--DROP INDEX mb_avg_subject_objectid;
+--DROP INDEX mb_avg_zr_rechth_objectid;
+--DROP INDEX mb_subject_objectid;
 
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_kad_onrrnd_zk_adres', 'objectid', 'assigned');
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_koz_rechth', 'objectid', 'assigned');
@@ -63,6 +58,7 @@ versie 2
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_avg_subject', 'objectid', 'assigned');
 
 --BEGIN
+--DBMS_SNAPSHOT.REFRESH( 'mb_util_app_re_kad_perceel','c'); 
 --DBMS_SNAPSHOT.REFRESH( 'mb_subject','c'); 
 --DBMS_SNAPSHOT.REFRESH( 'mb_avg_subject','c'); 
 --DBMS_SNAPSHOT.REFRESH( 'mb_kad_onrrnd_zk_adres','c'); 
@@ -74,9 +70,8 @@ versie 2
 
 alter session set query_rewrite_integrity=stale_tolerated;
 
---drop view vb_subject cascade;
-CREATE OR REPLACE VIEW
-    vb_subject
+--drop materialized view mb_subject cascade;
+CREATE MATERIALIZED VIEW mb_subject 
     (
         objectid,
         subject_identif,
@@ -97,7 +92,10 @@ CREATE OR REPLACE VIEW
         statutaire_zetel,
         rsin,
         kvk_nummer
-    ) AS
+    )
+BUILD DEFERRED
+REFRESH ON DEMAND
+AS
 SELECT
     CAST(ROWNUM AS INTEGER)         AS objectid,
     s.identif                       AS subject_identif,
@@ -207,20 +205,11 @@ ON
     (((
                 innp.sc_identif) = (nnp.sc_identif))));
 
---drop materialized view mb_subject cascade;
-CREATE MATERIALIZED VIEW mb_subject 
-BUILD DEFERRED
-REFRESH ON DEMAND
-AS
-SELECT
-    *
-FROM
-    vb_subject;
 CREATE UNIQUE INDEX mb_subject_objectid ON mb_subject (objectid ASC);
 CREATE INDEX mb_subject_identif ON mb_subject (subject_identif ASC);
 
 COMMENT ON MATERIALIZED VIEW mb_subject
-IS 'commentaar view vb_subject:
+IS 'commentaar view mb_subject:
 samenvoeging alle soorten subjecten: natuurlijk en niet-natuurlijk.
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
@@ -247,9 +236,8 @@ beschikbare kolommen:
 * rsin: -        
 * kvk_nummer: -';
 
---drop view vb_avg_subject cascade;
-CREATE OR REPLACE VIEW
-    vb_avg_subject
+--drop materialized view mb_avg_subject cascade;
+CREATE MATERIALIZED VIEW mb_avg_subject 
     (
         objectid,
         subject_identif,
@@ -270,7 +258,10 @@ CREATE OR REPLACE VIEW
         statutaire_zetel,
         rsin,
         kvk_nummer
-    ) AS
+    ) 
+BUILD DEFERRED
+REFRESH ON DEMAND
+AS
 SELECT
     s.objectid,
     s.subject_identif as subject_identif,
@@ -292,22 +283,13 @@ SELECT
     s.rsin,
     s.kvk_nummer
 FROM
-    vb_subject s;
+    mb_subject s;
 
---drop materialized view mb_avg_subject cascade;
-CREATE MATERIALIZED VIEW mb_avg_subject 
-BUILD DEFERRED
-REFRESH ON DEMAND
-AS
-SELECT
-    *
-FROM
-    vb_avg_subject;
 CREATE UNIQUE INDEX mb_avg_subject_objectid ON mb_avg_subject (objectid ASC);
 CREATE INDEX mb_avg_subject_identif ON mb_avg_subject (subject_identif ASC);
 
 COMMENT ON MATERIALIZED VIEW mb_avg_subject
-IS 'commentaar view vb_avg_subject:
+IS 'commentaar view mb_avg_subject:
 volledig subject (natuurlijk en niet natuurlijk) geschoond voor avg
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
@@ -360,7 +342,7 @@ CREATE OR REPLACE VIEW
     vb_util_app_re_parent_3 AS
 SELECT
     cast(re.sc_kad_identif AS CHARACTER VARYING(50)) AS app_re_identif,
-    sp.parent_identif
+    min(sp.parent_identif) as parent_identif
 FROM
     app_re re
 LEFT JOIN
@@ -368,8 +350,7 @@ LEFT JOIN
 ON
     cast(re.sc_kad_identif AS CHARACTER VARYING(50)) = sp.child_identif
 GROUP BY
-    re.sc_kad_identif,
-    sp.parent_identif;
+    re.sc_kad_identif;
 
 --drop view vb_util_app_re_parent_2 cascade;
 CREATE OR REPLACE VIEW
@@ -405,22 +386,7 @@ LEFT JOIN
 ON
     u2.parent_identif = sp.child_identif;
 
---drop view vb_util_app_re_kad_perceel cascade;
-CREATE OR REPLACE VIEW
-    vb_util_app_re_kad_perceel AS
-SELECT
-    u1.app_re_identif,
-    kp.sc_kad_identif AS perceel_identif
-FROM
-    vb_util_app_re_parent u1
-JOIN
-    kad_perceel kp
-ON
-    u1.parent_identif = cast(kp.sc_kad_identif AS CHARACTER VARYING(50))
-GROUP BY
-    u1.app_re_identif,
-    kp.sc_kad_identif;
-    
+--drop materialized view mb_util_app_re_kad_perceel cascade;
 CREATE MATERIALIZED VIEW mb_util_app_re_kad_perceel
     BUILD DEFERRED REFRESH ON DEMAND AS
 SELECT
@@ -436,175 +402,15 @@ GROUP BY
     u1.app_re_identif,
     kp.sc_kad_identif;
     
+CREATE INDEX mb_util_app_re_kad_perceel_id ON mb_util_app_re_kad_perceel(app_re_identif);
+    
 COMMENT ON MATERIALIZED VIEW mb_util_app_re_kad_perceel
 IS 'commentaar view mb_util_app_re_kad_perceel:
 utility view, niet bedoeld voor direct gebruik, met lijst van appartementsrechten met bijbehorend grondperceel
 beschikbare kolommen:
 * app_re_identif: natuurlijk id van appartementsrecht,
 * perceel_identif: natuurlijk id van grondperceel';
-CREATE INDEX mb_util_app_re_kad_perceel_id ON mb_util_app_re_kad_perceel(app_re_identif);
         
---drop view vb_kad_onrrnd_zk_adres cascade;
-CREATE OR REPLACE VIEW
-    vb_kad_onrrnd_zk_adres
-    (
-        objectid,
-        koz_identif,
-        begin_geldigheid,
-        benoemdobj_identif,
-        type,
-        aanduiding,
-        aanduiding2,
-        sectie,
-        perceelnummer,
-        appartementsindex,
-        gemeentecode,
-        aand_soort_grootte,
-        grootte_perceel,
-        oppervlakte_geom,
-        deelperceelnummer,
-        omschr_deelperceel,
-        verkoop_datum,
-        aard_cultuur_onbebouwd,
-        bedrag,
-        koopjaar,
-        meer_onroerendgoed,
-        valutasoort,
-        loc_omschr,
-        gemeente,
-        woonplaats,
-        straatnaam,
-        huisnummer,
-        huisletter,
-        huisnummer_toev,
-        postcode,
-        lon,
-        lat,
-        begrenzing_perceel
-    ) AS
-SELECT
-    CAST(ROWNUM AS INTEGER) AS objectid,
-    qry.identif             AS koz_identif,
-    koz.dat_beg_geldh AS begin_geldigheid,
-    bok.fk_nn_lh_tgo_identif                       AS benoemdobj_identif,
-    qry.type,
-    COALESCE(qry.ka_sectie, '') || ' ' || COALESCE(qry.ka_perceelnummer, '') AS aanduiding,
-    COALESCE(qry.ka_kad_gemeentecode, '') || ' ' || COALESCE(qry.ka_sectie, '') || ' ' || COALESCE
-    (qry.ka_perceelnummer, '') || ' ' || COALESCE(qry.ka_appartementsindex, '') AS aanduiding2,
-    qry.ka_sectie,
-    qry.ka_perceelnummer,
-    qry.ka_appartementsindex,
-    qry.ka_kad_gemeentecode,
-    qry.aand_soort_grootte,
-    qry.grootte_perceel,
-    CASE 
-        WHEN qry.begrenzing_perceel.get_gtype() is not null
-        THEN SDO_GEOM.SDO_AREA(qry.BEGRENZING_PERCEEL, 0.1)
-        ELSE NULL
-    END AS oppervlakte_geom,
-    qry.ka_deelperceelnummer,
-    qry.omschr_deelperceel,
-    b.datum,
-    koz.cu_aard_cultuur_onbebouwd,
-    koz.ks_bedrag,
-    koz.ks_koopjaar,
-    koz.ks_meer_onroerendgoed,
-    koz.ks_valutasoort,
-    koz.lo_loc__omschr,
-    bola.gemeente,
-    bola.woonplaats,
-    bola.straatnaam,
-    bola.huisnummer,
-    bola.huisletter,
-    bola.huisnummer_toev,
-    bola.postcode,
-    CASE 
---        WHEN qry.begrenzing_perceel.get_gtype() is not null
---        THEN SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1).sdo_point.x
--- https://docs.oracle.com/cd/E11882_01/appdev.112/e11830/sdo_locator.htm#CFACCEEG stelt dat SDO_CS functies in Locator zitten
-        WHEN qry.begrenzing_perceel.get_gtype() is not null
-        THEN SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326 ).sdo_point.x
-        ELSE NULL
-    END AS lon,
-    CASE 
---        WHEN qry.begrenzing_perceel.get_gtype() is not null
---        THEN SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1).sdo_point.y
--- https://docs.oracle.com/cd/E11882_01/appdev.112/e11830/sdo_locator.htm#CFACCEEG stelt dat SDO_CS functies in Locator zitten
-        WHEN qry.begrenzing_perceel.get_gtype() is not null
-        THEN SDO_CS.TRANSFORM(SDO_GEOM.SDO_CENTROID(qry.begrenzing_perceel, 0.1), 4326 ).sdo_point.y
-    END AS lat,
-    qry.begrenzing_perceel
-FROM
-    (
-        SELECT
-            p.sc_kad_identif AS identif,
-            'perceel'        AS type,
-            p.ka_sectie,
-            p.ka_perceelnummer,
-            CAST(NULL AS CHARACTER VARYING(4)) AS ka_appartementsindex,
-            p.ka_kad_gemeentecode,
-            p.aand_soort_grootte,
-            p.grootte_perceel,
-            p.ka_deelperceelnummer,
-            p.omschr_deelperceel,
-            p.BEGRENZING_PERCEEL as begrenzing_perceel
-        FROM
-            kad_perceel p
-        UNION ALL
-        SELECT
-            ar.sc_kad_identif AS identif,
-            'appartement'     AS type,
-            ar.ka_sectie,
-            ar.ka_perceelnummer,
-            ar.ka_appartementsindex,
-            ar.ka_kad_gemeentecode,
-            CAST(NULL AS CHARACTER VARYING(2))    AS aand_soort_grootte,
-            CAST(NULL AS NUMERIC(8,0))            AS grootte_perceel,
-            CAST(NULL AS CHARACTER VARYING(4))    AS ka_deelperceelnummer,
-            CAST(NULL AS CHARACTER VARYING(1120)) AS omschr_deelperceel,
-            kp.BEGRENZING_PERCEEL as begrenzing_perceel
-        FROM
-            ((vb_util_app_re_kad_perceel v
-        JOIN
-            kad_perceel kp
-        ON
-            ((
-                    CAST(v.perceel_identif AS NUMERIC) = kp.sc_kad_identif)))
-        JOIN
-            app_re ar
-        ON
-            ((
-                    CAST(v.app_re_identif AS NUMERIC) = ar.sc_kad_identif)))) qry
-JOIN
-    kad_onrrnd_zk koz
-ON
-    (
-        koz.kad_identif = qry.identif)
-LEFT JOIN
-    benoemd_obj_kad_onrrnd_zk bok
-ON
-    (
-        bok.fk_nn_rh_koz_kad_identif = qry.identif)
-LEFT JOIN
-    vb_benoemd_obj_adres bola
-ON
-    bok.fk_nn_lh_tgo_identif = bola.benoemdobj_identif
-LEFT JOIN
-    (
-        SELECT
-            brondocument.ref_id,
-            MAX(brondocument.datum) AS datum
-        FROM
-            brondocument
-        WHERE
-            ((
-                    brondocument.omschrijving) = 'Akte van Koop en Verkoop')
-        GROUP BY
-            brondocument.ref_id) b
-ON
-    (
-        koz.kad_identif = b.ref_id);
-
 --drop materialized view mb_kad_onrrnd_zk_adres cascade;
 CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_adres (
     objectid,
@@ -749,7 +555,7 @@ AS
         ) qry
         JOIN kad_onrrnd_zk koz ON ( koz.kad_identif = qry.identif )
         LEFT JOIN benoemd_obj_kad_onrrnd_zk bok ON ( bok.fk_nn_rh_koz_kad_identif = qry.identif )
-        LEFT JOIN vb_benoemd_obj_adres bola ON ( bok.fk_nn_lh_tgo_identif = bola.benoemdobj_identif )
+        LEFT JOIN mb_benoemd_obj_adres bola ON ( bok.fk_nn_lh_tgo_identif = bola.benoemdobj_identif )
         LEFT JOIN (
             SELECT
                 bd.ref_id,
@@ -838,9 +644,8 @@ ON
     (((
                 zr.fk_3avr_aand) = (avr.aand))));
     
---drop view vb_zr_rechth cascade;
-CREATE OR REPLACE VIEW
-    vb_zr_rechth
+--drop materialized view mb_zr_rechth cascade;
+CREATE MATERIALIZED VIEW mb_zr_rechth 
     (
         objectid,
         zr_identif,
@@ -866,7 +671,10 @@ CREATE OR REPLACE VIEW
         statutaire_zetel,
         rsin,
         kvk_nummer
-    ) AS
+    ) 
+BUILD DEFERRED
+REFRESH ON DEMAND
+AS
 SELECT
     CAST(ROWNUM AS INTEGER) AS objectid,
     uzr.zr_identif as zr_identif,
@@ -895,20 +703,11 @@ SELECT
 FROM
     (vb_util_zk_recht uzr
 JOIN
-    vb_subject vs
+    mb_subject vs
 ON
     (((
                 uzr.subject_identif) = (vs.subject_identif))));
 
---drop materialized view mb_zr_rechth cascade;
-CREATE MATERIALIZED VIEW mb_zr_rechth 
-BUILD DEFERRED
-REFRESH ON DEMAND
-AS
-SELECT
-    *
-FROM
-    vb_zr_rechth;
 CREATE UNIQUE INDEX MB_ZR_RECHTH_OBJECTID ON MB_ZR_RECHTH(OBJECTID ASC);
 CREATE INDEX MB_ZR_RECHTH_IDENTIF ON MB_ZR_RECHTH(ZR_IDENTIF ASC);
 
@@ -945,9 +744,8 @@ beschikbare kolommen:
 * rsin: -        
 * kvk_nummer: -';
 
---drop view vb_avg_zr_rechth cascade;
-CREATE OR REPLACE VIEW
-    vb_avg_zr_rechth
+--drop materialized view mb_avg_zr_rechth cascade;
+CREATE MATERIALIZED VIEW mb_avg_zr_rechth 
     (
         objectid,
         zr_identif,
@@ -973,7 +771,10 @@ CREATE OR REPLACE VIEW
         statutaire_zetel,
         rsin,
         kvk_nummer
-    ) AS
+    ) 
+BUILD DEFERRED
+REFRESH ON DEMAND
+AS
 SELECT
     CAST(ROWNUM AS INTEGER) AS objectid,
     uzr.zr_identif as zr_identif,
@@ -1002,20 +803,11 @@ SELECT
 FROM
     (vb_util_zk_recht uzr
 JOIN
-    vb_avg_subject vs
+    mb_avg_subject vs
 ON
     (((
                 uzr.subject_identif) = (vs.subject_identif))));
 
---drop materialized view mb_avg_zr_rechth cascade;
-CREATE MATERIALIZED VIEW mb_avg_zr_rechth 
-BUILD DEFERRED
-REFRESH ON DEMAND
-AS
-SELECT
-    *
-FROM
-    vb_avg_zr_rechth;
 CREATE UNIQUE INDEX mb_avg_zr_rechth_objectid ON mb_avg_zr_rechth(objectid ASC);
 CREATE INDEX mb_avg_zr_rechth_identif ON mb_avg_zr_rechth(zr_identif ASC);
 
@@ -1047,128 +839,6 @@ beschikbare kolommen:
 * statutaire_zetel: -      
 * rsin: -        
 * kvk_nummer: -';
-
---drop view vb_koz_rechth cascade;
-CREATE OR REPLACE VIEW
-    vb_koz_rechth
-    (
-        objectid,
-        koz_identif,
-        begin_geldigheid,
-        type,
-        aanduiding,
-        aanduiding2,
-        sectie,
-        perceelnummer,
-        appartementsindex,
-        gemeentecode,
-        aand_soort_grootte,
-        grootte_perceel,
-        oppervlakte_geom,
-        deelperceelnummer,
-        omschr_deelperceel,
-        verkoop_datum,
-        aard_cultuur_onbebouwd,
-        bedrag,
-        koopjaar,
-        meer_onroerendgoed,
-        valutasoort,
-        loc_omschr,
-        zr_identif,
-        subject_identif,
-        aandeel,
-        omschr_aard_verkregenr_recht,
-        indic_betrokken_in_splitsing,
-        soort,
-        geslachtsnaam,
-        voorvoegsel,
-        voornamen,
-        aand_naamgebruik,
-        geslachtsaand,
-        naam,
-        woonadres,
-        geboortedatum,
-        geboorteplaats,
-        overlijdensdatum,
-        bsn,
-        organisatie_naam,
-        rechtsvorm,
-        statutaire_zetel,
-        rsin,
-        kvk_nummer,
-        gemeente,
-        woonplaats,
-        straatnaam,
-        huisnummer,
-        huisletter,
-        huisnummer_toev,
-        postcode,
-        lon,
-        lat,
-        begrenzing_perceel
-    ) AS
-SELECT
-    CAST(ROWNUM AS INTEGER) AS objectid,
-    koz.koz_identif,
-    koz.begin_geldigheid,
-    koz.type,
-    COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') AS aanduiding,
-    COALESCE(koz.gemeentecode, '') || ' ' || COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') || ' ' || COALESCE(koz.appartementsindex, '') AS aanduiding2,
-    koz.sectie,
-    koz.perceelnummer,
-    koz.appartementsindex,
-    koz.gemeentecode,
-    koz.aand_soort_grootte,
-    koz.grootte_perceel,
-    koz.oppervlakte_geom as oppervlakte_geom,
-    koz.deelperceelnummer,
-    koz.omschr_deelperceel,
-    koz.verkoop_datum,
-    koz.aard_cultuur_onbebouwd,
-    koz.bedrag,
-    koz.koopjaar,
-    koz.meer_onroerendgoed,
-    koz.valutasoort,
-    koz.loc_omschr,
-    zrr.zr_identif,
-    zrr.subject_identif,
-    zrr.aandeel,
-    zrr.omschr_aard_verkregenr_recht,
-    zrr.indic_betrokken_in_splitsing,
-    zrr.soort,
-    zrr.geslachtsnaam,
-    zrr.voorvoegsel,
-    zrr.voornamen,
-    zrr.aand_naamgebruik,
-    zrr.geslachtsaand,
-    zrr.naam,
-    zrr.woonadres,
-    zrr.geboortedatum,
-    zrr.geboorteplaats,
-    zrr.overlijdensdatum,
-    zrr.bsn,
-    zrr.organisatie_naam,
-    zrr.rechtsvorm,
-    zrr.statutaire_zetel,
-    zrr.rsin,
-    zrr.kvk_nummer,
-    koz.gemeente,
-    koz.woonplaats,
-    koz.straatnaam,
-    koz.huisnummer,
-    koz.huisletter,
-    koz.huisnummer_toev,
-    koz.postcode,
-    koz.lon,
-    koz.lat,
-    koz.begrenzing_perceel
-FROM
-    (vb_zr_rechth zrr
-RIGHT JOIN
-    vb_kad_onrrnd_zk_adres koz
-ON
-    ((
-            zrr.koz_identif = koz.koz_identif)));
 
 --drop materialized view mb_koz_rechth cascade;
 CREATE MATERIALIZED VIEW mb_koz_rechth
@@ -1285,7 +955,7 @@ SELECT
     koz.lat,
     koz.begrenzing_perceel
 FROM
-    vb_zr_rechth zrr
+    mb_zr_rechth zrr
 RIGHT JOIN
     mb_kad_onrrnd_zk_adres koz
 ON
@@ -1358,128 +1028,6 @@ beschikbare kolommen:
 * lon: coordinaat als WSG84,
 * lon: coordinaat als WSG84,
 * begrenzing_perceel: perceelvlak';
-
---drop view vb_avg_koz_rechth cascade;
-CREATE OR REPLACE VIEW
-    vb_avg_koz_rechth
-    (
-        objectid,
-        koz_identif,
-        begin_geldigheid,
-        type,
-        aanduiding,
-        aanduiding2,
-        sectie,
-        perceelnummer,
-        appartementsindex,
-        gemeentecode,
-        aand_soort_grootte,
-        grootte_perceel,
-        oppervlakte_geom,
-        deelperceelnummer,
-        omschr_deelperceel,
-        verkoop_datum,
-        aard_cultuur_onbebouwd,
-        bedrag,
-        koopjaar,
-        meer_onroerendgoed,
-        valutasoort,
-        loc_omschr,
-        zr_identif,
-        subject_identif,
-        aandeel,
-        omschr_aard_verkregenr_recht,
-        indic_betrokken_in_splitsing,
-        soort,
-        geslachtsnaam,
-        voorvoegsel,
-        voornamen,
-        aand_naamgebruik,
-        geslachtsaand,
-        naam,
-        woonadres,
-        geboortedatum,
-        geboorteplaats,
-        overlijdensdatum,
-        bsn,
-        organisatie_naam,
-        rechtsvorm,
-        statutaire_zetel,
-        rsin,
-        kvk_nummer,
-        gemeente,
-        woonplaats,
-        straatnaam,
-        huisnummer,
-        huisletter,
-        huisnummer_toev,
-        postcode,
-        lon,
-        lat,
-        begrenzing_perceel
-    ) AS
-SELECT
-    CAST(ROWNUM AS INTEGER) AS objectid,
-    koz.koz_identif as koz_identif,
-    koz.begin_geldigheid,
-    koz.type,
-    COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') AS aanduiding,
-    COALESCE(koz.gemeentecode, '') || ' ' || COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') || ' ' || COALESCE(koz.appartementsindex, '') AS aanduiding2,
-    koz.sectie,
-    koz.perceelnummer,
-    koz.appartementsindex,
-    koz.gemeentecode,
-    koz.aand_soort_grootte,
-    koz.grootte_perceel,
-    koz.oppervlakte_geom,
-    koz.deelperceelnummer,
-    koz.omschr_deelperceel,
-    koz.verkoop_datum,
-    koz.aard_cultuur_onbebouwd,
-    koz.bedrag,
-    koz.koopjaar,
-    koz.meer_onroerendgoed,
-    koz.valutasoort,
-    koz.loc_omschr,
-    zrr.zr_identif,
-    zrr.subject_identif,
-    zrr.aandeel,
-    zrr.omschr_aard_verkregenr_recht,
-    zrr.indic_betrokken_in_splitsing,
-    zrr.soort,
-    zrr.geslachtsnaam,
-    zrr.voorvoegsel,
-    zrr.voornamen,
-    zrr.aand_naamgebruik,
-    zrr.geslachtsaand,
-    zrr.naam,
-    zrr.woonadres,
-    zrr.geboortedatum,
-    zrr.geboorteplaats,
-    zrr.overlijdensdatum,
-    zrr.bsn,
-    zrr.organisatie_naam,
-    zrr.rechtsvorm,
-    zrr.statutaire_zetel,
-    zrr.rsin,
-    zrr.kvk_nummer,
-    koz.gemeente,
-    koz.woonplaats,
-    koz.straatnaam,
-    koz.huisnummer,
-    koz.huisletter,
-    koz.huisnummer_toev,
-    koz.postcode,
-    koz.lon,
-    koz.lat,
-    koz.begrenzing_perceel
-FROM
-    (vb_avg_zr_rechth zrr
-RIGHT JOIN
-    vb_kad_onrrnd_zk_adres koz
-ON
-    ((
-            zrr.koz_identif = koz.koz_identif)));
 
 --DROP MATERIALIZED VIEW mb_avg_koz_rechth;
 CREATE MATERIALIZED VIEW mb_avg_koz_rechth (
@@ -1596,7 +1144,7 @@ SELECT
     koz.lat,
     koz.begrenzing_perceel
 FROM
-    vb_avg_zr_rechth zrr
+    mb_avg_zr_rechth zrr
 RIGHT JOIN
     mb_kad_onrrnd_zk_adres koz
 ON  zrr.koz_identif = koz.koz_identif;
@@ -1666,9 +1214,8 @@ beschikbare kolommen:
 * lat: coordinaat als WSG84,
 * begrenzing_perceel: perceelvlak';
 
---drop view vb_kad_onrrnd_zk_archief; 
-CREATE OR REPLACE VIEW
-    vb_kad_onrrnd_zk_archief
+--drop materialized view MB_KAD_ONRRND_ZK_ARCHIEF cascade;
+CREATE MATERIALIZED VIEW MB_KAD_ONRRND_ZK_ARCHIEF 
     (
         objectid,
         koz_identif,
@@ -1693,7 +1240,8 @@ CREATE OR REPLACE VIEW
         loc_omschr,
         overgegaan_in,
         begrenzing_perceel
-    ) AS
+    ) 
+BUILD DEFERRED REFRESH ON DEMAND AS
 SELECT
     CAST(ROWNUM AS INTEGER) AS objectid,
     qry.identif as koz_identif,
@@ -1780,15 +1328,6 @@ ON
 ORDER BY
     bdate DESC;
 
---drop materialized view MB_KAD_ONRRND_ZK_ARCHIEF cascade;
-CREATE MATERIALIZED VIEW MB_KAD_ONRRND_ZK_ARCHIEF 
-BUILD DEFERRED
-REFRESH ON DEMAND
-AS
-SELECT
-    *
-FROM
-    VB_KAD_ONRRND_ZK_ARCHIEF;
 CREATE UNIQUE INDEX MB_KAD_ONRRND_ZK_A_OBJIDX ON MB_KAD_ONRRND_ZK_ARCHIEF(OBJECTID ASC);
 CREATE INDEX MB_KAD_ONRRND_ZK_A_IDENTIF ON MB_KAD_ONRRND_ZK_ARCHIEF(KOZ_IDENTIF ASC);
 INSERT INTO USER_SDO_GEOM_METADATA VALUES ('MB_KAD_ONRRND_ZK_ARCHIEF', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
