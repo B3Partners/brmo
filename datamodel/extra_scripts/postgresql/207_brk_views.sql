@@ -332,7 +332,7 @@ CREATE OR REPLACE VIEW
     vb_util_app_re_splitsing AS
 SELECT
     b1.ref_id AS child_identif,
-    b2.ref_id AS parent_identif
+    min(b2.ref_id) AS parent_identif
 FROM
     brondocument b1
 JOIN
@@ -347,8 +347,7 @@ AND (
         b1.omschrijving = 'ontstaanUit Ondersplitsing'
     OR  b1.omschrijving = 'ontstaanUit HoofdSplitsing')
 GROUP BY
-    b1.ref_id,
-    b2.ref_id;
+    b1.ref_id;
     
 COMMENT ON VIEW vb_util_app_re_splitsing
 IS
