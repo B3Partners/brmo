@@ -1788,9 +1788,8 @@ LEFT JOIN
     kad_onrrnd_zk_his_rel kozhr
 ON
     (
-        kozhr.fk_sc_rh_koz_kad_identif = koza.kad_identif)
-ORDER BY
-    bdate DESC ;
+        kozhr.fk_sc_rh_koz_kad_identif = koza.kad_identif);
+        
 COMMENT ON VIEW vb_kad_onrrnd_zk_archief
 IS
     'commentaar view vb_kad_onrrnd_zk_archief:

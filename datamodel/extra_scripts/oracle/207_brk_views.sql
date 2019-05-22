@@ -1323,9 +1323,7 @@ LEFT JOIN
     kad_onrrnd_zk_his_rel kozhr
 ON
     (
-        kozhr.fk_sc_rh_koz_kad_identif = koza.kad_identif)
-ORDER BY
-    bdate DESC;
+        kozhr.fk_sc_rh_koz_kad_identif = koza.kad_identif);
 
 CREATE UNIQUE INDEX MB_KAD_ONRRND_ZK_A_OBJIDX ON MB_KAD_ONRRND_ZK_ARCHIEF(OBJECTID ASC);
 CREATE INDEX MB_KAD_ONRRND_ZK_A_IDENTIF ON MB_KAD_ONRRND_ZK_ARCHIEF(KOZ_IDENTIF ASC);
