@@ -32,8 +32,10 @@ versie 2
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_adres', 'objectid', 'assigned');
 
 --BEGIN
+-- run 1
 --DBMS_SNAPSHOT.REFRESH( 'mb_adres','c');
 --DBMS_SNAPSHOT.REFRESH( 'mb_pand','c');
+-- run 2
 --DBMS_SNAPSHOT.REFRESH( 'mb_benoemd_obj_adres','c');
 --DBMS_SNAPSHOT.REFRESH( 'mb_ben_obj_nevenadres','c');
 --END

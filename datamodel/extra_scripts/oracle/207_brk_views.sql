@@ -56,16 +56,24 @@ versie 2.2
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_zr_rechth', 'objectid', 'assigned');
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_subject', 'objectid', 'assigned');
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_avg_subject', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_kad_onrrnd_zk_archief', 'objectid', 'assigned');
+
 
 --BEGIN
---DBMS_SNAPSHOT.REFRESH( 'mb_subject','c'); 
---DBMS_SNAPSHOT.REFRESH( 'mb_avg_subject','c'); 
---DBMS_SNAPSHOT.REFRESH( 'mb_util_app_re_kad_perceel','c'); 
---DBMS_SNAPSHOT.REFRESH( 'mb_kad_onrrnd_zk_adres','c'); 
---DBMS_SNAPSHOT.REFRESH( 'mb_zr_rechth','c'); 
---DBMS_SNAPSHOT.REFRESH( 'mb_avg_zr_rechth','c'); 
---DBMS_SNAPSHOT.REFRESH( 'mb_koz_rechth','c'); 
---DBMS_SNAPSHOT.REFRESH( 'mb_avg_koz_rechth','c'); 
+-- run 1
+--DBMS_SNAPSHOT.REFRESH( 'mb_subject','c');
+--DBMS_SNAPSHOT.REFRESH( 'mb_util_app_re_kad_perceel','c');
+--DBMS_SNAPSHOT.REFRESH( 'mb_kad_onrrnd_zk_archief','c');
+-- run 2
+--DBMS_SNAPSHOT.REFRESH( 'mb_avg_subject','c');
+--DBMS_SNAPSHOT.REFRESH( 'mb_zr_rechth','c');
+-- run 3
+--DBMS_SNAPSHOT.REFRESH( 'mb_kad_onrrnd_zk_adres','c');
+--DBMS_SNAPSHOT.REFRESH( 'mb_avg_zr_rechth','c');
+-- run 4
+--DBMS_SNAPSHOT.REFRESH( 'mb_koz_rechth','c');
+--DBMS_SNAPSHOT.REFRESH( 'mb_avg_koz_rechth','c');
+--DBMS_SNAPSHOT.REFRESH( 'mb_koz_rechth','c');
 --END
 
 alter session set query_rewrite_integrity=stale_tolerated;
