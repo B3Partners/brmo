@@ -95,7 +95,7 @@
         -->
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
         <test.h2.version>1.4.199</test.h2.version>
-        <test.hsqldb.version>2.4.1</test.hsqldb.version>
+        <test.hsqldb.version>2.5.0</test.hsqldb.version>
         <test.onlyITs>false</test.onlyITs>
         <maven.surefire.version>3.0.0-M3</maven.surefire.version>
         <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
