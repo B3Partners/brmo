@@ -1,197 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Geanonimiseerd door B3Partners BV op 2019-02-14+01:00, zie commentaar in bericht.-->
-<ns2:kennisgevingsBericht xmlns:ns1="http://www.egem.nl/StUF/StUF0204"
-                          xmlns:ns2="http://www.egem.nl/StUF/sector/bg/0204">
-   <ns1:stuurgegevens>
-      <ns1:berichtsoort>Lk01</ns1:berichtsoort>
-      <ns1:entiteittype>PRS</ns1:entiteittype>
-      <ns1:sectormodel>BG</ns1:sectormodel>
-      <ns1:versieStUF>0204</ns1:versieStUF>
-      <ns1:versieSectormodel>0204</ns1:versieSectormodel>
-      <ns1:zender>
-         <ns1:organisatie>tent</ns1:organisatie>
-         <ns1:applicatie>Competent-StUF</ns1:applicatie>
-      </ns1:zender>
-      <ns1:ontvanger>
-         <ns1:organisatie>DeDommel</ns1:organisatie>
-         <ns1:applicatie>B3Partners</ns1:applicatie>
-      </ns1:ontvanger>
-      <ns1:referentienummer>201900000047</ns1:referentienummer>
-      <ns1:tijdstipBericht>2019011417263000</ns1:tijdstipBericht>
-      <ns1:kennisgeving>
-         <ns1:mutatiesoort>W</ns1:mutatiesoort>
-         <ns1:indicatorOvername>I</ns1:indicatorOvername>
-         <ns1:tijdstipMutatie>2019011417263000</ns1:tijdstipMutatie>
-      </ns1:kennisgeving>
-   </ns1:stuurgegevens>
-   <ns2:body>
-      <ns2:PRS soortEntiteit="F" ns1:sleutelVerzendend="9427086242" ns1:verwerkingssoort="I">
-         <ns2:a-nummer kerngegeven="true">3056876036</ns2:a-nummer>
-         <!--Anonimisatie 'ns2:a-nummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><ns2:bsn-nummer kerngegeven="true">902215443</ns2:bsn-nummer>
-         <!--Anonimisatie 'ns2:bsn-nummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><ns2:voornamen kerngegeven="true" gegevengroep="PRS1">7f74d7</ns2:voornamen>
-         <!--Anonimisatie 'ns2:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><ns2:voorletters kerngegeven="true" gegevengroep="PRS1">5</ns2:voorletters>
-         <!--Anonimisatie 'ns2:voorletters': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><ns2:voorvoegselGeslachtsnaam xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                       gegevengroep="PRS1"
-                                       ns1:noValue="geenWaarde"
-                                       xsi:nil="true"/>
-         <!--Anonimisatie 'ns2:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><ns2:geslachtsnaam kerngegeven="true" gegevengroep="PRS1">568cf</ns2:geslachtsnaam>
-         <!--Anonimisatie 'ns2:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><ns2:geboortedatum kerngegeven="true">2003-01-15</ns2:geboortedatum>
-         <!--Anonimisatie 'ns2:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:geslachtsaanduiding kerngegeven="true">M</ns2:geslachtsaanduiding>
-         <ns2:PRSADRVBL soortEntiteit="R" ns1:verwerkingssoort="I">
-            <ns2:tijdvakRelatie>
-               <ns1:begindatumRelatie>19410723</ns1:begindatumRelatie>
-               <!--Anonimisatie 'ns1:begindatumRelatie': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns1:einddatumRelatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ns1:noValue="geenWaarde"
-                                     xsi:nil="true">19600509</ns1:einddatumRelatie>
-               <!--Anonimisatie 'ns1:einddatumRelatie': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></ns2:tijdvakRelatie>
-            <ns2:ADR soortEntiteit="F" ns1:verwerkingssoort="I">
-               <ns2:postcode kerngegeven="true" gegevengroep="ADR1">2753WG</ns2:postcode>
-               <ns2:woonplaatsnaam xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                   ns1:noValue="geenWaarde"
-                                   xsi:nil="true"/>
-               <ns2:straatnaam kerngegeven="true" gegevengroep="ADR1">Wilgenlaan</ns2:straatnaam>
-               <ns2:huisnummer kerngegeven="true" gegevengroep="ADR1">4</ns2:huisnummer>
-               <ns2:huisletter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                               gegevengroep="ADR1"
-                               ns1:noValue="geenWaarde"
-                               xsi:nil="true"/>
-               <ns2:huisnummertoevoeging xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                         gegevengroep="ADR1"
-                                         ns1:noValue="geenWaarde"
-                                         xsi:nil="true"/>
-               <ns2:aanduidingBijHuisnummer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                            gegevengroep="ADR1"
-                                            ns1:noValue="geenWaarde"
-                                            xsi:nil="true"/>
-               <ns2:locatieomschrijving xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                        gegevengroep="ADR1"
-                                        ns1:noValue="geenWaarde"
-                                        xsi:nil="true"/>
-               <ns2:locatieadresnummer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                       ns1:noValue="nietOndersteund"
-                                       xsi:nil="true"/>
-               <ns2:gemeentecode kerngegeven="true">1801</ns2:gemeentecode>
-            </ns2:ADR>
-         </ns2:PRSADRVBL>
-         <ns2:PRSPRSHUW soortEntiteit="R" ns1:verwerkingssoort="W">
-            <ns2:datumSluiting>20110609</ns2:datumSluiting>
-            <ns2:datumOntbinding xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ns1:noValue="geenWaarde"
-                                 xsi:nil="true">19600509</ns2:datumOntbinding>
-            <!--Anonimisatie 'ns2:datumOntbinding': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:tijdvakRelatie>
-               <ns1:begindatumRelatie>19410723</ns1:begindatumRelatie>
-               <!--Anonimisatie 'ns1:begindatumRelatie': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns1:einddatumRelatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ns1:noValue="geenWaarde"
-                                     xsi:nil="true">19600509</ns1:einddatumRelatie>
-               <!--Anonimisatie 'ns1:einddatumRelatie': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></ns2:tijdvakRelatie>
-            <ns2:PRS soortEntiteit="F" ns1:verwerkingssoort="I">
-               <ns2:a-nummer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                             ns1:noValue="geenWaarde"
-                             xsi:nil="true"/>
-               <!--Anonimisatie 'ns2:a-nummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><ns2:bsn-nummer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                               ns1:noValue="geenWaarde"
-                               xsi:nil="true"/>
-               <!--Anonimisatie 'ns2:bsn-nummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><ns2:voornamen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                              gegevengroep="PRS1"
-                              ns1:noValue="nietGeautoriseerd"
-                              xsi:nil="true"/>
-               <!--Anonimisatie 'ns2:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><ns2:voorletters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                gegevengroep="PRS1"
-                                ns1:noValue="nietGeautoriseerd"
-                                xsi:nil="true"/>
-               <!--Anonimisatie 'ns2:voorletters': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><ns2:voorvoegselGeslachtsnaam xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                             gegevengroep="PRS1"
-                                             ns1:noValue="geenWaarde"
-                                             xsi:nil="true"/>
-               <!--Anonimisatie 'ns2:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><ns2:geslachtsnaam kerngegeven="true" gegevengroep="PRS1">0f2</ns2:geslachtsnaam>
-               <!--Anonimisatie 'ns2:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><ns2:geboortedatum xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                  ns1:noValue="nietGeautoriseerd"
-                                  xsi:nil="true">1960-05-09</ns2:geboortedatum>
-               <!--Anonimisatie 'ns2:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:geslachtsaanduiding xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                        ns1:noValue="nietGeautoriseerd"
-                                        xsi:nil="true"/>
+<!--Geanonimiseerd door B3Partners BV op 2019-06-11+02:00, zie commentaar in bericht.-->
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+   <s:Header/>
+   <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <ns2:kennisgevingsBericht xmlns:ns1="http://www.egem.nl/StUF/StUF0204"
+                                xmlns:ns2="http://www.egem.nl/StUF/sector/bg/0204">
+         <ns1:stuurgegevens>
+            <ns1:berichtsoort>Lk01</ns1:berichtsoort>
+            <ns1:entiteittype>PRS</ns1:entiteittype>
+            <ns1:sectormodel>BG</ns1:sectormodel>
+            <ns1:versieStUF>0204</ns1:versieStUF>
+            <ns1:versieSectormodel>0204</ns1:versieSectormodel>
+            <ns1:zender>
+               <ns1:organisatie>tent</ns1:organisatie>
+               <ns1:applicatie>Competent-StUF</ns1:applicatie>
+            </ns1:zender>
+            <ns1:ontvanger>
+               <ns1:organisatie>DeDommel</ns1:organisatie>
+               <ns1:applicatie>B3Partners</ns1:applicatie>
+            </ns1:ontvanger>
+            <ns1:referentienummer>201900000047</ns1:referentienummer>
+            <ns1:tijdstipBericht>2019011417263000</ns1:tijdstipBericht>
+            <ns1:kennisgeving>
+               <ns1:mutatiesoort>W</ns1:mutatiesoort>
+               <ns1:indicatorOvername>I</ns1:indicatorOvername>
+               <ns1:tijdstipMutatie>2019011417263000</ns1:tijdstipMutatie>
+            </ns1:kennisgeving>
+         </ns1:stuurgegevens>
+         <ns2:body>
+            <ns2:PRS soortEntiteit="F" ns1:sleutelVerzendend="9427086242" ns1:verwerkingssoort="I">
+               <ns2:a-nummer kerngegeven="true">3056876036</ns2:a-nummer>
+               <ns2:bsn-nummer kerngegeven="true">902215443</ns2:bsn-nummer>
+               <ns2:voornamen kerngegeven="true" gegevengroep="PRS1">7f74d7</ns2:voornamen>
+               <ns2:voorletters kerngegeven="true" gegevengroep="PRS1">5</ns2:voorletters>
+               <ns2:voorvoegselGeslachtsnaam kerngegeven="true" gegevengroep="PRS1" ns1:noValue="geenWaarde" xsi:nil="true"/>
+               <ns2:geslachtsnaam kerngegeven="true" gegevengroep="PRS1">568cf</ns2:geslachtsnaam>
+               <ns2:geboortedatum kerngegeven="true">2003-01-15</ns2:geboortedatum>
+               <ns2:geslachtsaanduiding kerngegeven="true">M</ns2:geslachtsaanduiding>
+               <ns2:PRSADRVBL soortEntiteit="R" ns1:verwerkingssoort="I">
+                  <ns2:tijdvakRelatie>
+                     <ns1:begindatumRelatie>19410723</ns1:begindatumRelatie>
+                     <ns1:einddatumRelatie ns1:noValue="geenWaarde" xsi:nil="true">19600509</ns1:einddatumRelatie>
+                  </ns2:tijdvakRelatie>
+                  <ns2:ADR soortEntiteit="F" ns1:verwerkingssoort="I">
+                     <ns2:postcode kerngegeven="true" gegevengroep="ADR1">2753WG</ns2:postcode>
+                     <ns2:woonplaatsnaam kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                     <ns2:straatnaam kerngegeven="true" gegevengroep="ADR1">Wilgenlaan</ns2:straatnaam>
+                     <ns2:huisnummer kerngegeven="true" gegevengroep="ADR1">4</ns2:huisnummer>
+                     <ns2:huisletter kerngegeven="true" gegevengroep="ADR1" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                     <ns2:huisnummertoevoeging kerngegeven="true" gegevengroep="ADR1" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                     <ns2:aanduidingBijHuisnummer kerngegeven="true" gegevengroep="ADR1" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                     <ns2:locatieomschrijving kerngegeven="true" gegevengroep="ADR1" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                     <ns2:locatieadresnummer kerngegeven="true" ns1:noValue="nietOndersteund" xsi:nil="true"/>
+                     <ns2:gemeentecode kerngegeven="true">1801</ns2:gemeentecode>
+                  </ns2:ADR>
+               </ns2:PRSADRVBL>
+               <ns2:PRSPRSHUW soortEntiteit="R" ns1:verwerkingssoort="W">
+                  <ns2:datumSluiting>20110609</ns2:datumSluiting>
+                  <ns2:datumOntbinding ns1:noValue="geenWaarde" xsi:nil="true">19600509</ns2:datumOntbinding>
+                  <ns2:tijdvakRelatie>
+                     <ns1:begindatumRelatie>19410723</ns1:begindatumRelatie>
+                     <ns1:einddatumRelatie ns1:noValue="geenWaarde" xsi:nil="true">19600509</ns1:einddatumRelatie>
+                  </ns2:tijdvakRelatie>
+                  <ns2:PRS soortEntiteit="F" ns1:verwerkingssoort="I">
+                     <ns2:a-nummer kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                     <ns2:bsn-nummer kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                     <ns2:voornamen kerngegeven="true" gegevengroep="PRS1" ns1:noValue="nietGeautoriseerd"
+                                    xsi:nil="true"/>
+                     <ns2:voorletters kerngegeven="true" gegevengroep="PRS1" ns1:noValue="nietGeautoriseerd"
+                                      xsi:nil="true"/>
+                     <ns2:voorvoegselGeslachtsnaam kerngegeven="true" gegevengroep="PRS1" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                     <ns2:geslachtsnaam kerngegeven="true" gegevengroep="PRS1">0f2</ns2:geslachtsnaam>
+                     <ns2:geboortedatum kerngegeven="true" ns1:noValue="nietGeautoriseerd" xsi:nil="true">1960-05-09</ns2:geboortedatum>
+                     <ns2:geslachtsaanduiding kerngegeven="true" ns1:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                  </ns2:PRS>
+               </ns2:PRSPRSHUW>
             </ns2:PRS>
-         </ns2:PRSPRSHUW>
-      </ns2:PRS>
-      <ns2:PRS soortEntiteit="F" ns1:sleutelVerzendend="9427086242" ns1:verwerkingssoort="I">
-         <ns2:a-nummer kerngegeven="true">3056876036</ns2:a-nummer>
-         <!--Anonimisatie 'ns2:a-nummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><ns2:bsn-nummer kerngegeven="true">902215443</ns2:bsn-nummer>
-         <!--Anonimisatie 'ns2:bsn-nummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><ns2:voornamen kerngegeven="true" gegevengroep="PRS1">7f74d7</ns2:voornamen>
-         <!--Anonimisatie 'ns2:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><ns2:voorletters kerngegeven="true" gegevengroep="PRS1">5</ns2:voorletters>
-         <!--Anonimisatie 'ns2:voorletters': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><ns2:voorvoegselGeslachtsnaam xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                       gegevengroep="PRS1"
-                                       ns1:noValue="geenWaarde"
-                                       xsi:nil="true"/>
-         <!--Anonimisatie 'ns2:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><ns2:geslachtsnaam kerngegeven="true" gegevengroep="PRS1">568cf</ns2:geslachtsnaam>
-         <!--Anonimisatie 'ns2:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><ns2:geboortedatum kerngegeven="true">2003-01-15</ns2:geboortedatum>
-         <!--Anonimisatie 'ns2:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:geslachtsaanduiding kerngegeven="true">M</ns2:geslachtsaanduiding>
-         <ns2:PRSADRVBL soortEntiteit="R" ns1:verwerkingssoort="I">
-            <ns2:tijdvakRelatie>
-               <ns1:begindatumRelatie>19410723</ns1:begindatumRelatie>
-               <!--Anonimisatie 'ns1:begindatumRelatie': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns1:einddatumRelatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ns1:noValue="geenWaarde"
-                                     xsi:nil="true">19600509</ns1:einddatumRelatie>
-               <!--Anonimisatie 'ns1:einddatumRelatie': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></ns2:tijdvakRelatie>
-            <ns2:ADR soortEntiteit="F" ns1:verwerkingssoort="I">
-               <ns2:postcode kerngegeven="true" gegevengroep="ADR1">2753WG</ns2:postcode>
-               <ns2:woonplaatsnaam xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                   ns1:noValue="geenWaarde"
-                                   xsi:nil="true"/>
-               <ns2:straatnaam kerngegeven="true" gegevengroep="ADR1">Wilgenlaan</ns2:straatnaam>
-               <ns2:huisnummer kerngegeven="true" gegevengroep="ADR1">4</ns2:huisnummer>
-               <ns2:huisletter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                               gegevengroep="ADR1"
-                               ns1:noValue="geenWaarde"
-                               xsi:nil="true"/>
-               <ns2:huisnummertoevoeging xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                         gegevengroep="ADR1"
-                                         ns1:noValue="geenWaarde"
-                                         xsi:nil="true"/>
-               <ns2:aanduidingBijHuisnummer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                            gegevengroep="ADR1"
-                                            ns1:noValue="geenWaarde"
-                                            xsi:nil="true"/>
-               <ns2:locatieomschrijving xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                        gegevengroep="ADR1"
-                                        ns1:noValue="geenWaarde"
-                                        xsi:nil="true"/>
-               <ns2:locatieadresnummer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                       ns1:noValue="nietOndersteund"
-                                       xsi:nil="true"/>
-               <ns2:gemeentecode kerngegeven="true">1801</ns2:gemeentecode>
-            </ns2:ADR>
-         </ns2:PRSADRVBL>
-         <ns2:PRSPRSHUW soortEntiteit="R" ns1:verwerkingssoort="W">
-            <ns2:datumSluiting>20110609</ns2:datumSluiting>
-            <ns2:datumOntbinding>19410723</ns2:datumOntbinding>
-            <!--Anonimisatie 'ns2:datumOntbinding': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:tijdvakRelatie>
-               <ns1:begindatumRelatie>19410723</ns1:begindatumRelatie>
-               <!--Anonimisatie 'ns1:begindatumRelatie': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns1:einddatumRelatie>19410723</ns1:einddatumRelatie>
-               <!--Anonimisatie 'ns1:einddatumRelatie': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></ns2:tijdvakRelatie>
-            <ns2:PRS soortEntiteit="F" ns1:verwerkingssoort="I">
-               <ns2:a-nummer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                             ns1:noValue="geenWaarde"
-                             xsi:nil="true"/>
-               <!--Anonimisatie 'ns2:a-nummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><ns2:bsn-nummer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                               ns1:noValue="geenWaarde"
-                               xsi:nil="true"/>
-               <!--Anonimisatie 'ns2:bsn-nummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><ns2:voornamen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                              gegevengroep="PRS1"
-                              ns1:noValue="nietGeautoriseerd"
-                              xsi:nil="true"/>
-               <!--Anonimisatie 'ns2:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><ns2:voorletters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                gegevengroep="PRS1"
-                                ns1:noValue="nietGeautoriseerd"
-                                xsi:nil="true"/>
-               <!--Anonimisatie 'ns2:voorletters': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><ns2:voorvoegselGeslachtsnaam xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                             gegevengroep="PRS1"
-                                             ns1:noValue="geenWaarde"
-                                             xsi:nil="true"/>
-               <!--Anonimisatie 'ns2:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><ns2:geslachtsnaam kerngegeven="true" gegevengroep="PRS1">0f2</ns2:geslachtsnaam>
-               <!--Anonimisatie 'ns2:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><ns2:geboortedatum xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                  ns1:noValue="nietGeautoriseerd"
-                                  xsi:nil="true">1960-05-09</ns2:geboortedatum>
-               <!--Anonimisatie 'ns2:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:geslachtsaanduiding xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true"
-                                        ns1:noValue="nietGeautoriseerd"
-                                        xsi:nil="true"/>
+            <ns2:PRS soortEntiteit="F" ns1:sleutelVerzendend="9427086242" ns1:verwerkingssoort="I">
+               <ns2:a-nummer kerngegeven="true">3056876036</ns2:a-nummer>
+               <ns2:bsn-nummer kerngegeven="true">902215443</ns2:bsn-nummer>
+               <ns2:voornamen kerngegeven="true" gegevengroep="PRS1">7f74d7</ns2:voornamen>
+               <ns2:voorletters kerngegeven="true" gegevengroep="PRS1">5</ns2:voorletters>
+               <ns2:voorvoegselGeslachtsnaam kerngegeven="true" gegevengroep="PRS1" ns1:noValue="geenWaarde" xsi:nil="true"/>
+               <ns2:geslachtsnaam kerngegeven="true" gegevengroep="PRS1">568cf</ns2:geslachtsnaam>
+               <ns2:geboortedatum kerngegeven="true">2003-01-15</ns2:geboortedatum>
+               <ns2:geslachtsaanduiding kerngegeven="true">M</ns2:geslachtsaanduiding>
+               <ns2:PRSADRVBL soortEntiteit="R" ns1:verwerkingssoort="I">
+                  <ns2:tijdvakRelatie>
+                     <ns1:begindatumRelatie>19410723</ns1:begindatumRelatie>
+                     <ns1:einddatumRelatie ns1:noValue="geenWaarde" xsi:nil="true">19600509</ns1:einddatumRelatie>
+                  </ns2:tijdvakRelatie>
+                  <ns2:ADR soortEntiteit="F" ns1:verwerkingssoort="I">
+                     <ns2:postcode kerngegeven="true" gegevengroep="ADR1">2753WG</ns2:postcode>
+                     <ns2:woonplaatsnaam kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                     <ns2:straatnaam kerngegeven="true" gegevengroep="ADR1">Wilgenlaan</ns2:straatnaam>
+                     <ns2:huisnummer kerngegeven="true" gegevengroep="ADR1">4</ns2:huisnummer>
+                     <ns2:huisletter kerngegeven="true" gegevengroep="ADR1" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                     <ns2:huisnummertoevoeging kerngegeven="true" gegevengroep="ADR1" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                     <ns2:aanduidingBijHuisnummer kerngegeven="true" gegevengroep="ADR1" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                     <ns2:locatieomschrijving kerngegeven="true" gegevengroep="ADR1" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                     <ns2:locatieadresnummer kerngegeven="true" ns1:noValue="nietOndersteund" xsi:nil="true"/>
+                     <ns2:gemeentecode kerngegeven="true">1801</ns2:gemeentecode>
+                  </ns2:ADR>
+               </ns2:PRSADRVBL>
+               <ns2:PRSPRSHUW soortEntiteit="R" ns1:verwerkingssoort="W">
+                  <ns2:datumSluiting>20110609</ns2:datumSluiting>
+                  <ns2:datumOntbinding>19410723</ns2:datumOntbinding>
+                  <ns2:tijdvakRelatie>
+                     <ns1:begindatumRelatie>19410723</ns1:begindatumRelatie>
+                     <ns1:einddatumRelatie>19410723</ns1:einddatumRelatie>
+                  </ns2:tijdvakRelatie>
+                  <ns2:PRS soortEntiteit="F" ns1:verwerkingssoort="I">
+                     <ns2:a-nummer kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                     <ns2:bsn-nummer kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                     <ns2:voornamen kerngegeven="true" gegevengroep="PRS1" ns1:noValue="nietGeautoriseerd"
+                                    xsi:nil="true"/>
+                     <ns2:voorletters kerngegeven="true" gegevengroep="PRS1" ns1:noValue="nietGeautoriseerd"
+                                      xsi:nil="true"/>
+                     <ns2:voorvoegselGeslachtsnaam kerngegeven="true" gegevengroep="PRS1" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                     <ns2:geslachtsnaam kerngegeven="true" gegevengroep="PRS1">0f2</ns2:geslachtsnaam>
+                     <ns2:geboortedatum kerngegeven="true" ns1:noValue="nietGeautoriseerd" xsi:nil="true">1960-05-09</ns2:geboortedatum>
+                     <ns2:geslachtsaanduiding kerngegeven="true" ns1:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                  </ns2:PRS>
+               </ns2:PRSPRSHUW>
             </ns2:PRS>
-         </ns2:PRSPRSHUW>
-      </ns2:PRS>
-   </ns2:body>
-</ns2:kennisgevingsBericht>
+         </ns2:body>
+      </ns2:kennisgevingsBericht>
+   </s:Body>
+</s:Envelope>
