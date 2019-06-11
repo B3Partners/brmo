@@ -31,8 +31,8 @@ import org.xml.sax.SAXException;
  */
 public class RsgbTransformer {
     private static final Log log = LogFactory.getLog(RsgbTransformer.class);
-    private final Templates t;
-    private final DocumentBuilder db;
+    protected final Templates t;
+    protected final DocumentBuilder db;
 
     public RsgbTransformer(String pathToXsl)
             throws TransformerConfigurationException, ParserConfigurationException {

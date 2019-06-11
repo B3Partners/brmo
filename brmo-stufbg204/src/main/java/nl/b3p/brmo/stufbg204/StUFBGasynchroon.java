@@ -148,14 +148,14 @@ public class StUFBGasynchroon {
 
         switch (kennisgeving.getStuurgegevens().getKennisgeving().getMutatiesoort()) {
             case T:
-                saveBericht(kennisgeving, kennisgeving.getStuurgegevens().getTijdstipBericht());
+                saveBericht(kennisgeving, kennisgeving.getStuurgegevens().getKennisgeving().getTijdstipMutatie());
                 break;
             case W:
+            case C:
                 // dit werkt -nog- niet omdat dit 2 PRS nodes bevat, een was en een wordt...
                 saveBericht(kennisgeving, kennisgeving.getStuurgegevens().getKennisgeving().getTijdstipMutatie());
                 break;
             case V:
-            case C:
             default:
                 LOG.warn("Onbekende mutatiesoort wordt niet verwerkt.");
                 break;
@@ -204,11 +204,14 @@ public class StUFBGasynchroon {
             XPath xpath = xPathfactory.newXPath();
             XPathExpression expr = xpath.compile("//*[local-name() = 'body']/*");
             NodeList nodelist = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
-            Node root = doc.createElement("root");
+            
+            Document newDoc = builder.newDocument();
+            Node root = newDoc.createElement("root");
 
             for (int i = 0; i < nodelist.getLength(); i++) {
                 Node n = nodelist.item(i);
-                root.appendChild(n);
+                Node newNode = newDoc.importNode(n, true);
+                root.appendChild(newNode);
             }
 
             // Vertaal xml naar inputstream voor verwerking in brmo framework
