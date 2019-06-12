@@ -116,20 +116,20 @@ public class RsgbBRPTransformer extends RsgbTransformer {
     
     private static void merge(Document base, Node newNode, Element old, boolean first/*, Node merge*/){
         while (newNode.hasChildNodes()) {
-            Node mergeChild = newNode.getFirstChild();
-            newNode.removeChild(mergeChild);
-            String name = mergeChild.getNodeName();
+            Node newChild = newNode.getFirstChild();
+            newNode.removeChild(newChild);
+            String name = newChild.getNodeName();
             NodeList nl = old.getElementsByTagName(name);
-            if(nl.getLength() == 0){
-                mergeChild = base.importNode(mergeChild, true);
-                old.appendChild(mergeChild);
+            if(nl.getLength() == 0){ // Geen oude data gevonden voor huidige node
+                newChild = base.importNode(newChild, true);
+                old.appendChild(newChild);
             }else{
                 Element oldItem = (Element) nl.item(0);
                 if(first){
-                    merge(base, mergeChild, oldItem, false);
+                    merge(base, newChild, oldItem, false);
                 }else{
-                    if(!mergeChild.getTextContent().equalsIgnoreCase("")){
-                        oldItem.setTextContent(mergeChild.getTextContent());
+                    if(!newChild.getTextContent().equalsIgnoreCase("")){
+                        oldItem.setTextContent(newChild.getTextContent());
                     }
                 }
             }
