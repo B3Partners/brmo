@@ -32,7 +32,7 @@
             </data>
         </root>
     </xsl:template>
-
+    
 	<xsl:template match="ns2:PRS">
 		<xsl:variable name="objRef"><xsl:value-of select="$objectRef"/></xsl:variable>
 		<xsl:variable name="class">INGESCHREVEN NATUURLIJK PERSOON</xsl:variable>
@@ -223,7 +223,7 @@
     <xsl:template name="getHash">
         <xsl:param name="bsn"/>
         <xsl:variable name="bsnwithprefix"><xsl:value-of select="'NL.BRP.Persoon.'"/><xsl:value-of select="$bsn"/></xsl:variable>
-        <xsl:variable name="hashedbsn"><xsl:value-of select="/root/bsnhashes/*[name() =$bsnwithprefix]"/></xsl:variable>
+        <xsl:variable name="hashedbsn"><xsl:value-of select="'NL.BRP.Persoon.'"/><xsl:value-of select="/root/bsnhashes/*[name() =$bsnwithprefix]"/></xsl:variable>
         <xsl:value-of select="$hashedbsn"/>
     </xsl:template>
 

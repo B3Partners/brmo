@@ -112,7 +112,7 @@ public class BRPXMLReader extends BrmoXMLReader {
                 break;
             }
         }
-        return hash;
+        return PREFIX + hash;
     }
 
     /**
