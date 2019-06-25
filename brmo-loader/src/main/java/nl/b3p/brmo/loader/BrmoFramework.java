@@ -2,6 +2,7 @@ package nl.b3p.brmo.loader;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.sql.DataSource;
 import javax.xml.bind.JAXBException;
+import nl.b3p.brmo.loader.checks.AfgifteChecker;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.updates.UpdateProcess;
@@ -654,5 +656,12 @@ public class BrmoFramework {
         } catch (SQLException ex) {
             throw new BrmoException(ex);
         }
+    }
+
+    public String checkAfgiftelijst(String bestand) throws IOException{
+        AfgifteChecker checker = new AfgifteChecker();
+        checker.init(bestand,stagingProxy);
+        checker.check();
+        return checker.getResults();
     }
 }

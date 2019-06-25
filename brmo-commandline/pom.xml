@@ -124,7 +124,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <classpathPrefix>../lib/</classpathPrefix>
+                            <classpathPrefix>./lib/</classpathPrefix>
                             <mainClass>nl.b3p.brmo.commandline.Main</mainClass>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>

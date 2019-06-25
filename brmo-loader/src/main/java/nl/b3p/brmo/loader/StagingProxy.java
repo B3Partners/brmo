@@ -16,8 +16,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sql.DataSource;
 import javax.xml.transform.TransformerException;
+import nl.b3p.brmo.loader.checks.AfgifteChecker;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.BerichtenSorter;
 import nl.b3p.brmo.loader.entity.LaadProces;
@@ -124,6 +127,16 @@ public class StagingProxy {
         return null;
     }
 
+    public List<Bericht> getBerichtByLaadProces(LaadProces lp) throws SQLException {
+        List<Bericht> berichten;
+        ResultSetHandler<List<Bericht>> h
+                = new BeanListHandler(Bericht.class, new StagingRowHandler());
+
+        berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
+                "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE laadprocesid = ?", h, lp.getId());
+        return berichten;
+    }
+
 
     public LaadProces getLaadProcesByFileName(String name) throws SQLException {
         List<LaadProces> processen;
@@ -132,6 +145,21 @@ public class StagingProxy {
 
         processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + " WHERE bestand_naam = ?", h, name);
+
+        if (processen != null && processen.size() == 1) {
+            return processen.get(0);
+        }
+
+        return null;
+    }
+
+    public LaadProces getLaadProcesByApproximateFileName(String name) throws SQLException {
+        List<LaadProces> processen;
+        ResultSetHandler<List<LaadProces>> h
+                = new BeanListHandler(LaadProces.class, new StagingRowHandler());
+
+        processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
+                "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + " WHERE bestand_naam like ?", h, "%" + name + "%");
 
         if (processen != null && processen.size() == 1) {
             return processen.get(0);
@@ -1085,4 +1113,5 @@ public class StagingProxy {
     public void setLimitStandBerichtenToTransform(Integer limitStandBerichtenToTransform) {
         this.limitStandBerichtenToTransform = limitStandBerichtenToTransform;
     }
+
 }

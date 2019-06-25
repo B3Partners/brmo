@@ -17,6 +17,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -99,7 +101,11 @@ public class Main {
             .longOpt("torsgbbgt").optionalArg(true).numberOfArgs(1).argName("[loadingUpdate]").build(),
             // export
             Option.builder("e").desc("Maak van berichten uit staging gezipte xml-files in de opgegeven directory. Dit zijn alleen BRK mutaties van GDS2 processen.")
-            .longOpt("exportgds").hasArg().numberOfArgs(1).type(File.class).argName("output-directory").build()
+            .longOpt("exportgds").hasArg().numberOfArgs(1).type(File.class).argName("output-directory").build(),
+            // 
+            Option.builder("al").desc("Controleer of de berichtin in de opgegeven afgiftelijst in de staging staan.")
+            .longOpt("afgiftelijst").hasArg().numberOfArgs(1).type(File.class).argName("afgiftelijst").build()
+            
         });
 
         Options options = new Options();
@@ -156,7 +162,7 @@ public class Main {
         System.err.println(sw.toString());
     }
 
-    public static void main(String... args) {
+    public static void main(String[] args) {
         Options options = buildOptions();
         CommandLine cl = null;
         try {
@@ -236,7 +242,10 @@ public class Main {
                 exitcode = delete(dsStaging, cl.getOptionValue("delete"));
             } else if (cl.hasOption("exportgds")) {
                 exitcode = getMutations(dsStaging, cl.getOptionValues("exportgds"));
-            } // ----------------
+            } else if(cl.hasOption("afgiftelijst")){
+                exitcode = checkAfgiftelijst(dsStaging, cl.getOptionValue("afgiftelijst"));
+            }
+            // ----------------
             // rsgb commando's
             else if (cl.hasOption("torsgb")) {
                 exitcode = toRsgb(dsStaging, dsRsgb, cl.getOptionValue("berichtstatus", "ignore"));
@@ -388,6 +397,30 @@ public class Main {
         }
         brmo.closeBrmoFramework();
         return 0;
+    }
+    
+    private static int checkAfgiftelijst(DataSource ds, String input) throws BrmoException {
+        BrmoFramework brmo = new BrmoFramework(ds, null);
+        try {
+            LOG.info("Afgiftelijst controleren.");
+            File f = new File (input);
+
+            if(!f.exists()){
+                throw new IOException ("bestand niet gevonden: " + input);
+            }
+            if(!f.canRead()){
+                throw new IOException ("bestand niet leesbaar: " + input);
+            }
+            String response = brmo.checkAfgiftelijst(input);
+            System.out.print("Afgifte gecontroleerd:");
+            System.out.println(response);
+            brmo.closeBrmoFramework();
+            return 0;
+        } catch (Exception ex) {
+            System.err.println("Error reading afgiftelijst: " + ex.getLocalizedMessage());
+            brmo.closeBrmoFramework();
+            return 1;
+        }
     }
 
     private static int berichtStatus(DataSource ds, String format) throws BrmoException {
