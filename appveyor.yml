@@ -1,8 +1,8 @@
 version: "{build}-{branch}"
 clone_folder: c:\projects\brmo
-clone_depth: 5
+clone_script: echo skip
 skip_tags: true
-max_jobs: 1
+max_jobs: 2
 
 init:
   - git config --global core.autocrlf input
@@ -45,6 +45,13 @@ install:
   - cmd: java -version
   - cmd: mvn -v
   - cd C:\projects\brmo
+  - git init %APPVEYOR_BUILD_FOLDER%
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - git remote add origin https://github.com/%APPVEYOR_REPO_NAME%.git
+  # the APPVEYOR_REPO_BRANCH and tags will be updated even if it does not fast-forward, because it is prefixed with a plus sign
+  - git fetch -qfup --depth=5 origin +%APPVEYOR_REPO_BRANCH% +refs/tags/*:refs/tags/*
+  # default AppVeyor checkout
+  - git checkout -qf %APPVEYOR_REPO_COMMIT%
   - git lfs pull
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-http-proxy.ps1'))
   - ps: .\.appveyor\set-maven-proxy.ps1
@@ -110,3 +117,4 @@ test_script:
 cache:
   - C:\Users\appveyor\.m2\repository -> pom.xml
   - C:\Users\appveyor\downloads -> appveyor.yml
+  - '.git\lfs'
