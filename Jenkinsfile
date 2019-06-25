@@ -13,7 +13,8 @@ timestamps {
             stage('Prepare') {
                 sh "ulimit -a"
                 sh "free -h"
-                // checkout scm
+                checkout scm
+                /*
                 checkout([
                     $class: 'GitSCM', 
                     branches: [[name: '**']], 
@@ -25,6 +26,7 @@ timestamps {
                         [credentialsId: '824987a7-c70c-45ce-ac42-147969e3ed51', url: 'https://github.com/B3Partners/brmo.git']
                     ]
                 ])
+                */
             }
 
             stage('Prepare data') {
