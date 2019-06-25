@@ -2,6 +2,7 @@ package nl.b3p.brmo.loader;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -630,5 +631,9 @@ public class BrmoFramework {
         } catch (SQLException ex) {
             throw new BrmoException(ex);
         }
+    }
+    
+    public String checkAfgiftelijst(String bestand) throws IOException{
+        return stagingProxy.checkAfgifteLijst(bestand);
     }
 }

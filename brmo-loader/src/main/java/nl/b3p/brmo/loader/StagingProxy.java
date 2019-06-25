@@ -15,8 +15,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sql.DataSource;
 import javax.xml.transform.TransformerException;
+import nl.b3p.brmo.loader.checks.AfgifteChecker;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.BerichtenSorter;
 import nl.b3p.brmo.loader.entity.LaadProces;
@@ -1035,5 +1038,12 @@ public class StagingProxy {
 
     public void setLimitStandBerichtenToTransform(Integer limitStandBerichtenToTransform) {
         this.limitStandBerichtenToTransform = limitStandBerichtenToTransform;
+    }
+
+    public String checkAfgifteLijst(String bestand) throws IOException {
+        AfgifteChecker checker = new AfgifteChecker();
+        checker.init(bestand);
+        checker.check();
+        return checker.getResults();
     }
 }
