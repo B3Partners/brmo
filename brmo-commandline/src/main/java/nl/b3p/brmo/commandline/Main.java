@@ -162,7 +162,7 @@ public class Main {
         System.err.println(sw.toString());
     }
 
-    public static void main(String... args) {
+    public static void main(String[] args) {
         Options options = buildOptions();
         CommandLine cl = null;
         try {
@@ -402,6 +402,13 @@ public class Main {
     private static int checkAfgiftelijst(DataSource ds, String input) throws BrmoException {
         try {
             LOG.info("Afgiftelijst controleren.");
+            File f = new File (input);
+            if(!f.exists()){
+                throw new IOException ("bestand niet gevonden: " + input);
+            }
+            if(!f.canRead()){
+                throw new IOException ("bestand niet leesbaar: " + input);
+            }
             BrmoFramework brmo = new BrmoFramework(ds, null);
             String response = brmo.checkAfgiftelijst(input);
             System.out.print("Afgifte gecontroleerd:");

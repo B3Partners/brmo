@@ -152,7 +152,52 @@
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
+        <!--resources>
+            <resource>
+                <directory>src/test/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>nl/b3/brmo/loader/checks/*.xlsx</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources-->
         <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>compile</phase> 
+                        <goals>
+                            <goal>testResources</goal>
+                        </goals>		
+                        <configuration>
+                            <encoding>UTF-8</encoding>  
+                            <nonFilteredFileExtensions>
+                                <nonFilteredFileExtension>docx</nonFilteredFileExtension>
+                                <nonFilteredFileExtension>xlsx</nonFilteredFileExtension>
+                            </nonFilteredFileExtensions>
+                            <resources>
+                                <resource>
+                                    <directory>src/test/resources</directory>
+                                    <filtering>false</filtering>
+                                    <includes>
+                                        <include>**/*.xlsx</include>
+                                    </includes>
+                                </resource>          	                
+                            </resources>
+                        </configuration>           
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>

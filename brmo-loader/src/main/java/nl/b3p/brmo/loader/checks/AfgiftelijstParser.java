@@ -57,7 +57,7 @@ public class AfgiftelijstParser {
                 System.out.println(text);
 
                 // Alternatively, get the value and format it yourself
-                switch (cell.getCellType()) {
+              /*  switch (cell.getCellType()) {
                     case STRING:
                         System.out.println(cell.getRichStringCellValue().getString());
                         break;
@@ -79,7 +79,7 @@ public class AfgiftelijstParser {
                         break;
                     default:
                         System.out.println();
-                }
+                }*/
             }
         }
 
