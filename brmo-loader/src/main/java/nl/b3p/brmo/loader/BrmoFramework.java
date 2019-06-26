@@ -12,6 +12,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.sql.DataSource;
 import javax.xml.bind.JAXBException;
+import nl.b3p.brmo.loader.checks.AfgifteChecker;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.updates.UpdateProcess;
@@ -634,6 +635,9 @@ public class BrmoFramework {
     }
     
     public String checkAfgiftelijst(String bestand) throws IOException{
-        return stagingProxy.checkAfgifteLijst(bestand);
+        AfgifteChecker checker = new AfgifteChecker();
+        checker.init(bestand,stagingProxy);
+        checker.check();
+        return checker.getResults();
     }
 }

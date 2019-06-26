@@ -400,24 +400,25 @@ public class Main {
     }
     
     private static int checkAfgiftelijst(DataSource ds, String input) throws BrmoException {
+        BrmoFramework brmo = new BrmoFramework(ds, null);
         try {
             LOG.info("Afgiftelijst controleren.");
             File f = new File (input);
+
             if(!f.exists()){
                 throw new IOException ("bestand niet gevonden: " + input);
             }
             if(!f.canRead()){
                 throw new IOException ("bestand niet leesbaar: " + input);
             }
-            BrmoFramework brmo = new BrmoFramework(ds, null);
             String response = brmo.checkAfgiftelijst(input);
             System.out.print("Afgifte gecontroleerd:");
             System.out.println(response);
-            
             brmo.closeBrmoFramework();
             return 0;
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             System.err.println("Error reading afgiftelijst: " + ex.getLocalizedMessage());
+            brmo.closeBrmoFramework();
             return 1;
         }
     }

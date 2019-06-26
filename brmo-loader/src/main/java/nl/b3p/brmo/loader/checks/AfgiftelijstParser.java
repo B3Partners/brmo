@@ -21,14 +21,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.ss.util.CellReference;
 
 /**
  *
@@ -41,48 +37,30 @@ public class AfgiftelijstParser {
     }
 
     private List<Afgifte> parseExcel(String input) throws IOException {
-
+        List<Afgifte> afgiftes = new ArrayList<>();
         Workbook wb = WorkbookFactory.create(new File(input));
 
-        DataFormatter formatter = new DataFormatter();
-        Sheet sheet1 = wb.getSheetAt(0);
-        for (Row row : sheet1) {
-            for (Cell cell : row) {
-                CellReference cellRef = new CellReference(row.getRowNum(), cell.getColumnIndex());
-                System.out.print(cellRef.formatAsString());
-                System.out.print(" - ");
-
-                // get the text that appears in the cell by getting the cell value and applying any data formats (Date, 0.00, 1.23e9, $1.23, etc)
-                String text = formatter.formatCellValue(cell);
-                System.out.println(text);
-
-                // Alternatively, get the value and format it yourself
-              /*  switch (cell.getCellType()) {
-                    case STRING:
-                        System.out.println(cell.getRichStringCellValue().getString());
-                        break;
-                    case NUMERIC:
-                        if (DateUtil.isCellDateFormatted(cell)) {
-                            System.out.println(cell.getDateCellValue());
-                        } else {
-                            System.out.println(cell.getNumericCellValue());
-                        }
-                        break;
-                    case BOOLEAN:
-                        System.out.println(cell.getBooleanCellValue());
-                        break;
-                    case FORMULA:
-                        System.out.println(cell.getCellFormula());
-                        break;
-                    case BLANK:
-                        System.out.println();
-                        break;
-                    default:
-                        System.out.println();
-                }*/
+        Sheet sheet = wb.getSheetAt(0);
+        boolean first = true;
+        for (Row row : sheet) {
+            if(first){
+                first = false;
+                continue;
             }
+            Cell c = row.getCell(0);
+            if(c == null){
+                break;
+            }
+            Afgifte afgifte = new Afgifte();
+            afgiftes.add(afgifte);
+            afgifte.setKlantnummer("" + row.getCell(0).getNumericCellValue());
+            afgifte.setContractnummer(""+row.getCell(1).getNumericCellValue());
+            afgifte.setDatum(row.getCell(2).getStringCellValue());
+            afgifte.setBestandsnaam(row.getCell(3).getStringCellValue());
+            afgifte.setRapport(row.getCell(4).getStringCellValue().equals("J"));
+            afgifte.setGeleverd(row.getCell(5).getStringCellValue().equals("J"));
         }
 
-        return new ArrayList<>();
+        return afgiftes;
     }
 }

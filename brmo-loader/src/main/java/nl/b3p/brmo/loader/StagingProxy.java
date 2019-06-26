@@ -126,6 +126,16 @@ public class StagingProxy {
         return null;
     }
 
+    public List<Bericht> getBerichtByLaadProces(LaadProces lp) throws SQLException {
+        List<Bericht> berichten;
+        ResultSetHandler<List<Bericht>> h
+                = new BeanListHandler(Bericht.class, new StagingRowHandler());
+
+        berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
+                "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE laadprocesid = ?", h, lp.getId());
+        return berichten;
+    }
+
 
     public LaadProces getLaadProcesByFileName(String name) throws SQLException {
         List<LaadProces> processen;
@@ -134,6 +144,21 @@ public class StagingProxy {
 
         processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + " WHERE bestand_naam = ?", h, name);
+
+        if (processen != null && processen.size() == 1) {
+            return processen.get(0);
+        }
+
+        return null;
+    }
+
+    public LaadProces getLaadProcesByApproximateFileName(String name) throws SQLException {
+        List<LaadProces> processen;
+        ResultSetHandler<List<LaadProces>> h
+                = new BeanListHandler(LaadProces.class, new StagingRowHandler());
+
+        processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
+                "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + " WHERE bestand_naam like ?", h, "%" + name + "%");
 
         if (processen != null && processen.size() == 1) {
             return processen.get(0);
@@ -1040,10 +1065,4 @@ public class StagingProxy {
         this.limitStandBerichtenToTransform = limitStandBerichtenToTransform;
     }
 
-    public String checkAfgifteLijst(String bestand) throws IOException {
-        AfgifteChecker checker = new AfgifteChecker();
-        checker.init(bestand);
-        checker.check();
-        return checker.getResults();
-    }
 }
