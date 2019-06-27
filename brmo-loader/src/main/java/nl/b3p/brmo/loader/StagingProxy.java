@@ -16,13 +16,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sql.DataSource;
 import javax.xml.transform.TransformerException;
-import nl.b3p.brmo.loader.checks.AfgifteChecker;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.BerichtenSorter;
+import nl.b3p.brmo.loader.entity.BrkBericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork;
 import nl.b3p.brmo.loader.pipeline.BerichtWorkUnit;
@@ -749,6 +747,13 @@ public class StagingProxy {
                     log.debug(b);
 
                     Bericht existingBericht = getExistingBericht(b);
+                    if(type.equals(BrmoFramework.BR_BRK) && !isBerichtGeschreven){
+                        // haal alleen voor eerste 
+                        BrkBericht brkBericht = (BrkBericht)b;
+                        lp.setBestandNaamHersteld(brkBericht.getRestoredFileName(lp.getBestandDatum(), b.getVolgordeNummer()));
+                        updateLaadProcesBestandNaamHersteld(lp);
+                    }
+                    
                     if (existingBericht == null) {
                         writeBericht(b);
                         isBerichtGeschreven = true;
@@ -920,6 +925,12 @@ public class StagingProxy {
                 klantafgiftenummer,
                 lpId);
     }
+
+    public void updateLaadProcesBestandNaamHersteld(LaadProces lp) throws SQLException {
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "update " + BrmoFramework.LAADPROCES_TABEL + " set bestand_naam_hersteld = ? where id = ?",
+                        lp.getBestandNaamHersteld(), lp.getId());
+    }
+
 
     public void emptyStagingDb() throws SQLException {
         new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "DELETE FROM " + BrmoFramework.BERICHT_TABLE);

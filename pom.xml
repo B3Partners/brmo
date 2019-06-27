@@ -673,7 +673,7 @@
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>3.1.0</version>
                     <configuration>
-                        <nonFilteredFileExtensions>zip,gml,md,json,geojson,txt,sql</nonFilteredFileExtensions>
+                        <nonFilteredFileExtensions>zip,gml,md,json,geojson,txt,sql,xlsx</nonFilteredFileExtensions>
                     </configuration>
                 </plugin>
                 <plugin>

@@ -11,6 +11,7 @@ public class LaadProces {
 
     private Long id;
     private String bestandNaam;
+    private String bestandNaamHersteld;
     private Date bestandDatum;
     private String soort;
     private String gebied;
@@ -142,6 +143,14 @@ public class LaadProces {
      */
     public void setAutomatischProcesId(Long automatischProces) {
         this.automatischProces = automatischProces;
+    }
+
+    public String getBestandNaamHersteld() {
+        return bestandNaamHersteld;
+    }
+
+    public void setBestandNaamHersteld(String bestandNaamHersteld) {
+        this.bestandNaamHersteld = bestandNaamHersteld;
     }
 
     public BigInteger getKlantafgiftenummer() {
