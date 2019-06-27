@@ -121,7 +121,7 @@ public class BagXMLReaderTest {
      *
      * @throws Exception if any
      */
-    @Test
+    //@Test
     public void mutTestZipFile() throws Exception {
         ZipInputStream zis = new ZipInputStream(
                 BagXMLReaderTest.class.getResourceAsStream(mutZipName));
