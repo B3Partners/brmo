@@ -4,19 +4,19 @@ versie 2
 26-6-2018
 */
 --drop view vb_subject cascade;
---drop view vb_avg_subject cascade;
---drop view vb_util_app_re_splitsing cascade;
---drop view vb_util_app_re_parent_3 cascade;
---drop view vb_util_app_re_parent_2 cascade;
---drop view vb_util_app_re_parent cascade;
---drop view vb_util_app_re_kad_perceel cascade;
---drop view vb_kad_onrrnd_zk_adres cascade;
---drop view vb_subject;
---drop view vb_util_zk_recht cascade;
---drop view vb_zr_rechth cascade;
---drop view vb_avg_zr_rechth cascade;
---drop view vb_koz_rechth cascade;
---drop view vb_avg_koz_rechth cascade;
+--drop view mb_avg_subject cascade;
+--drop view mb_util_app_re_splitsing cascade;
+--drop view mb_util_app_re_parent_3 cascade;
+--drop view mb_util_app_re_parent_2 cascade;
+--drop view mb_util_app_re_parent cascade;
+--drop view mb_util_app_re_kad_perceel cascade;
+--drop view mb_kad_onrrnd_zk_adres cascade;
+--drop view mb_subject;
+--drop view mb_util_zk_recht cascade;
+--drop view mb_zr_rechth cascade;
+--drop view mb_avg_zr_rechth cascade;
+--drop view mb_koz_rechth cascade;
+--drop view mb_avg_koz_rechth cascade;
 --drop view vb_kad_onrrnd_zk_archief cascade;
 
 --drop materialized view mb_kad_onrrnd_zk_adres cascade;
