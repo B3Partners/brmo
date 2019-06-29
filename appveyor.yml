@@ -52,6 +52,11 @@ install:
   - git fetch -qfup --depth=5 origin +%APPVEYOR_REPO_BRANCH% +refs/tags/*:refs/tags/*
   # default AppVeyor checkout
   - git checkout -qf %APPVEYOR_REPO_COMMIT%
+  # in geval van PR build
+  - echo %APPVEYOR_PULL_REQUEST_NUMBER%
+  - echo %APPVEYOR_PULL_REQUEST_HEAD_COMMIT%
+  # git fetch -q origin +refs/pull/655/merge:
+  # git checkout -qf FETCH_HEAD
   - git lfs pull
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-http-proxy.ps1'))
   - ps: .\.appveyor\set-maven-proxy.ps1
