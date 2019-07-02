@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Mutatie:Mutatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:Mutatie="http://www.kadaster.nl/schemas/brk-levering/product-mutatie/v20120901" xmlns:Snapshot="http://www.kadaster.nl/schemas/brk-levering/snapshot/v20120901" xmlns:GbaPersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-gba-persoon/v20120901" xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20120201" xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20120201" xmlns:Persoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon/v20120201" xmlns:NEN3610="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-NEN3610-2011/v20120201" xmlns:BagAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-bag-adres/v20120201" xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20120701" xmlns:InOnderzoek="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-inonderzoek/v20120201" xmlns:KadastraalObjectRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject-ref/v20120201" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml" xmlns:NhrRechtspersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-nhr-rechtspersoon/v20120201" xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20120201" xmlns:GbaPersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-gba-persoon-ref/v20120201" xmlns:PersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20120201" xmlns:NhrRechtspersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-nhr-rechtspersoon-ref/v20120201" xmlns:RechtRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20120201" xmlns:StukRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20120201" xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20120201" xsi:schemaLocation="http://www.kadaster.nl/schemas/brk-levering/product-mutatie/v20120901 http://www.kadaster.nl/schemas/brk-levering/product-mutatie/v20120901/BRKLeveringMutatie_v1_1_4.xsd http://www.opengis.net/gml http://www.kadaster.nl/schemas/gml/3.1.1/base/gml.xsd http://www.w3.org/1999/xlink http://www.kadaster.nl/schemas/xlink/1.0.0/xlinks.xsd">
+	<Mutatie:aardStukdeel>
+		<Typen:code>004</Typen:code>
+		<Typen:waarde>Akte van Scheiding huwelijksgoederengemeenschap</Typen:waarde>
+	</Mutatie:aardStukdeel>
+	<Mutatie:aardStukdeel>
+		<Typen:code>003</Typen:code>
+		<Typen:waarde>Akte van Scheiding onverdeeldheid</Typen:waarde>
+	</Mutatie:aardStukdeel>
+	<Mutatie:BRKDatum>2018-10-11</Mutatie:BRKDatum>
+	<Mutatie:volgnummerKadastraalObjectDatum>1</Mutatie:volgnummerKadastraalObjectDatum>
+	<Mutatie:ingeschrevenStuk>
+		<Mutatie:AanduidingTerInschrijvingAangebodenStuk>
+			<Mutatie:stuk>
+				<StukRef:TerInschrijvingAangebodenStukRef xlink:href="NL.KAD.TIAStuk.20181011001384"/>
+			</Mutatie:stuk>
+			<Mutatie:deelEnNummer>
+				<Stuk:deel>74169</Stuk:deel>
+				<Stuk:nummer>53</Stuk:nummer>
+				<Stuk:registercode>
+					<Typen:code>2</Typen:code>
+					<Typen:waarde>Hyp4</Typen:waarde>
+				</Stuk:registercode>
+				<Stuk:soortRegister>
+					<Typen:code>2</Typen:code>
+					<Typen:waarde>Onroerende Zaken</Typen:waarde>
+				</Stuk:soortRegister>
+			</Mutatie:deelEnNummer>
+		</Mutatie:AanduidingTerInschrijvingAangebodenStuk>
+	</Mutatie:ingeschrevenStuk>
+	<Mutatie:kadastraalObject>
+		<Mutatie:AanduidingKadastraalObject>
+			<Mutatie:indicatieDeelperceel>false</Mutatie:indicatieDeelperceel>
+			<Mutatie:kadastraleAanduiding>
+				<KadastraalObject:AKRKadastraleGemeenteCode>
+					<Typen:code>53</Typen:code>
+					<Typen:waarde>ASD13</Typen:waarde>
+				</KadastraalObject:AKRKadastraleGemeenteCode>
+				<KadastraalObject:naamKadastraleGemeente>
+					<Typen:code>42</Typen:code>
+					<Typen:waarde>Amsterdam</Typen:waarde>
+				</KadastraalObject:naamKadastraleGemeente>
+				<KadastraalObject:sectie>Q</KadastraalObject:sectie>
+				<KadastraalObject:perceelnummer>7456</KadastraalObject:perceelnummer>
+				<KadastraalObject:appartementsrechtVolgnummer>18</KadastraalObject:appartementsrechtVolgnummer>
+			</Mutatie:kadastraleAanduiding>
+			<Mutatie:kadastraalObject>
+				<KadastraalObjectRef:AppartementsrechtRef xlink:href="NL.KAD.OnroerendeZaak.11540745610018"/>
+			</Mutatie:kadastraalObject>
+		</Mutatie:AanduidingKadastraalObject>
+	</Mutatie:kadastraalObject>
+	<Mutatie:was>
+		<Snapshot:KadastraalObjectSnapshot>
+			<Snapshot:referentie>A7F0A0AE322-1D5DC23DE38</Snapshot:referentie>
+			<Snapshot:toestandsdatum>2018-03-29</Snapshot:toestandsdatum>
+			<KadastraalObject:Appartementsrecht id="ID.6106640595">
+				<KadastraalObject:identificatie>
+					<NEN3610:namespace>NL.KAD.OnroerendeZaak</NEN3610:namespace>
+					<NEN3610:lokaalId>11540745610018</NEN3610:lokaalId>
+				</KadastraalObject:identificatie>
+				<KadastraalObject:koopsom>
+					<KadastraalObject:bedrag>
+						<Typen:som>264100</Typen:som>
+						<Typen:valuta>
+							<Typen:code>EUR</Typen:code>
+							<Typen:waarde>Euro</Typen:waarde>
+						</Typen:valuta>
+					</KadastraalObject:bedrag>
+					<KadastraalObject:koopjaar>1999</KadastraalObject:koopjaar>
+					<KadastraalObject:indicatieMeerObjecten>false</KadastraalObject:indicatieMeerObjecten>
+				</KadastraalObject:koopsom>
+				<KadastraalObject:kadastraleAanduiding>
+					<KadastraalObject:AKRKadastraleGemeenteCode>
+						<Typen:code>53</Typen:code>
+						<Typen:waarde>ASD13</Typen:waarde>
+					</KadastraalObject:AKRKadastraleGemeenteCode>
+					<KadastraalObject:naamKadastraleGemeente>
+						<Typen:code>42</Typen:code>
+						<Typen:waarde>Amsterdam</Typen:waarde>
+					</KadastraalObject:naamKadastraleGemeente>
+					<KadastraalObject:sectie>Q</KadastraalObject:sectie>
+					<KadastraalObject:perceelnummer>7456</KadastraalObject:perceelnummer>
+					<KadastraalObject:appartementsrechtVolgnummer>18</KadastraalObject:appartementsrechtVolgnummer>
+				</KadastraalObject:kadastraleAanduiding>
+			</KadastraalObject:Appartementsrecht>
+			<Recht:ZakelijkRecht id="ID.6106640598">
+				<Recht:identificatie>
+					<NEN3610:namespace>NL.KAD.ZakelijkRecht</NEN3610:namespace>
+					<NEN3610:lokaalId>AKR1.1447782</NEN3610:lokaalId>
+				</Recht:identificatie>
+				<Recht:aard>
+					<Typen:code>2</Typen:code>
+					<Typen:waarde>Eigendom (recht van)</Typen:waarde>
+				</Recht:aard>
+				<Recht:rustOp>
+					<KadastraalObjectRef:AppartementsrechtRef xlink:href="#ID.6106640595"/>
+				</Recht:rustOp>
+				<Recht:ontstaanUit>
+					<Recht:Ondersplitsing>
+						<Recht:verenigingVanEigenaren>
+							<NhrRechtspersoonRef:RechtspersoonRef xlink:href="#ID.6106640601"/>
+						</Recht:verenigingVanEigenaren>
+						<Recht:isGebaseerdOp>
+							<StukRef:StukdeelRef xlink:href="#ID.6106640600"/>
+						</Recht:isGebaseerdOp>
+					</Recht:Ondersplitsing>
+				</Recht:ontstaanUit>
+			</Recht:ZakelijkRecht>
+			<Recht:Tenaamstelling id="ID.6106640607">
+				<Recht:identificatie>
+					<NEN3610:namespace>NL.KAD.Tenaamstelling</NEN3610:namespace>
+					<NEN3610:lokaalId>AKR1.1447782</NEN3610:lokaalId>
+				</Recht:identificatie>
+				<Recht:isGebaseerdOp>
+					<StukRef:StukdeelRef xlink:href="#ID.6106640606"/>
+				</Recht:isGebaseerdOp>
+				<Recht:vanPersoon>
+					<GbaPersoonRef:IngezeteneRef xlink:href="#ID.6106640603"/>
+				</Recht:vanPersoon>
+				<Recht:aandeel>
+					<Recht:teller>1</Recht:teller>
+					<Recht:noemer>2</Recht:noemer>
+				</Recht:aandeel>
+				<Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+					<Typen:code>1</Typen:code>
+					<Typen:waarde>Gehuwd</Typen:waarde>
+				</Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+				<Recht:betrokkenBijVerkrijging>
+					<GbaPersoonRef:NietIngezeteneRef xlink:href="#ID.6106640608"/>
+				</Recht:betrokkenBijVerkrijging>
+				<Recht:van>
+					<RechtRef:ZakelijkRechtRef xlink:href="#ID.6106640598"/>
+				</Recht:van>
+			</Recht:Tenaamstelling>
+			<Recht:Tenaamstelling id="ID.6106640611">
+				<Recht:identificatie>
+					<NEN3610:namespace>NL.KAD.Tenaamstelling</NEN3610:namespace>
+					<NEN3610:lokaalId>AKR1.2401980</NEN3610:lokaalId>
+				</Recht:identificatie>
+				<Recht:isGebaseerdOp>
+					<StukRef:StukdeelRef xlink:href="#ID.6106640606"/>
+				</Recht:isGebaseerdOp>
+				<Recht:vanPersoon>
+					<GbaPersoonRef:NietIngezeteneRef xlink:href="#ID.6106640608"/>
+				</Recht:vanPersoon>
+				<Recht:aandeel>
+					<Recht:teller>1</Recht:teller>
+					<Recht:noemer>2</Recht:noemer>
+				</Recht:aandeel>
+				<Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+					<Typen:code>1</Typen:code>
+					<Typen:waarde>Gehuwd</Typen:waarde>
+				</Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+				<Recht:betrokkenBijVerkrijging>
+					<GbaPersoonRef:IngezeteneRef xlink:href="#ID.6106640603"/>
+				</Recht:betrokkenBijVerkrijging>
+				<Recht:van>
+					<RechtRef:ZakelijkRechtRef xlink:href="#ID.6106640598"/>
+				</Recht:van>
+			</Recht:Tenaamstelling>
+			<Recht:Aantekening id="ID.6106640618">
+				<Recht:identificatie>
+					<NEN3610:namespace>NL.KAD.Aantekening</NEN3610:namespace>
+					<NEN3610:lokaalId>AKR1.225365</NEN3610:lokaalId>
+				</Recht:identificatie>
+				<Recht:aard>
+					<Typen:code>173</Typen:code>
+					<Typen:waarde>Besluit op basis van Monumentenwet 1988</Typen:waarde>
+				</Recht:aard>
+				<Recht:betreftAantekeningKadastraalObject>
+					<Recht:AantekeningKadastraalObject>
+						<Recht:heeftBetrekkingOp>
+							<KadastraalObjectRef:AppartementsrechtRef xlink:href="#ID.6106640595"/>
+						</Recht:heeftBetrekkingOp>
+					</Recht:AantekeningKadastraalObject>
+				</Recht:betreftAantekeningKadastraalObject>
+				<Recht:isGebaseerdOp>
+					<StukRef:StukdeelRef xlink:href="#ID.6106640617"/>
+				</Recht:isGebaseerdOp>
+				<Recht:betrokkenPersoon>
+					<PersoonRef:KADNietNatuurlijkPersoonRef xlink:href="#ID.6106640613"/>
+				</Recht:betrokkenPersoon>
+			</Recht:Aantekening>
+			<GbaPersoon:Ingezetene id="ID.6106640603">
+				<Persoon:identificatie>
+					<NEN3610:namespace>NL.KAD.Persoon</NEN3610:namespace>
+					<NEN3610:lokaalId>888888888888888</NEN3610:lokaalId>
+				</Persoon:identificatie>
+				<GbaPersoon:BSN nilReason="nietGeauthoriseerd" xsi:nill="true">999999990</GbaPersoon:BSN>
+				<GbaPersoon:naam>
+					<GbaPersoon:geslachtsnaam>Dit is afgeschermde informatie. Verstrekking is alleen mogelijk op grond van artikel 37a Kadasterbesluit. Neem contact op met het Kadaster via (088) 183 22 43 of APGloket@kadaster.nl</GbaPersoon:geslachtsnaam>
+				</GbaPersoon:naam>
+				<GbaPersoon:geslacht>
+					<GbaPersoon:geslachtsaanduiding>
+						<Typen:code>O</Typen:code>
+						<Typen:waarde>Onbekend</Typen:waarde>
+					</GbaPersoon:geslachtsaanduiding>
+				</GbaPersoon:geslacht>
+			</GbaPersoon:Ingezetene>
+			<GbaPersoon:Ingezetene id="ID.6106640608">
+				<Persoon:identificatie>
+					<NEN3610:namespace>NL.KAD.Persoon</NEN3610:namespace>
+					<NEN3610:lokaalId>888888888888888</NEN3610:lokaalId>
+				</Persoon:identificatie>
+				<GbaPersoon:BSN nilReason="nietGeauthoriseerd" xsi:nill="true">999999990</GbaPersoon:BSN>
+				<GbaPersoon:naam>
+					<GbaPersoon:geslachtsnaam>Dit is afgeschermde informatie. Verstrekking is alleen mogelijk op grond van artikel 37a Kadasterbesluit. Neem contact op met het Kadaster via (088) 183 22 43 of APGloket@kadaster.nl</GbaPersoon:geslachtsnaam>
+				</GbaPersoon:naam>
+				<GbaPersoon:geslacht>
+					<GbaPersoon:geslachtsaanduiding>
+						<Typen:code>O</Typen:code>
+						<Typen:waarde>Onbekend</Typen:waarde>
+					</GbaPersoon:geslachtsaanduiding>
+				</GbaPersoon:geslacht>
+			</GbaPersoon:Ingezetene>
+			<GbaPersoon:Ingezetene id="ID.6106640613">
+				<Persoon:identificatie>
+					<NEN3610:namespace>NL.KAD.Persoon</NEN3610:namespace>
+					<NEN3610:lokaalId>888888888888888</NEN3610:lokaalId>
+				</Persoon:identificatie>
+				<GbaPersoon:BSN nilReason="nietGeauthoriseerd" xsi:nill="true">999999990</GbaPersoon:BSN>
+				<GbaPersoon:naam>
+					<GbaPersoon:geslachtsnaam>Dit is afgeschermde informatie. Verstrekking is alleen mogelijk op grond van artikel 37a Kadasterbesluit. Neem contact op met het Kadaster via (088) 183 22 43 of APGloket@kadaster.nl</GbaPersoon:geslachtsnaam>
+				</GbaPersoon:naam>
+				<GbaPersoon:geslacht>
+					<GbaPersoon:geslachtsaanduiding>
+						<Typen:code>O</Typen:code>
+						<Typen:waarde>Onbekend</Typen:waarde>
+					</GbaPersoon:geslachtsaanduiding>
+				</GbaPersoon:geslacht>
+			</GbaPersoon:Ingezetene>
+			<NhrRechtspersoon:Rechtspersoon id="ID.6106640601">
+				<Persoon:identificatie>
+					<NEN3610:namespace>NL.KAD.Persoon</NEN3610:namespace>
+					<NEN3610:lokaalId>172059846</NEN3610:lokaalId>
+				</Persoon:identificatie>
+				<Persoon:woonlocatie>
+					<Adres:KADBinnenlandsAdres>
+						<Adres:openbareRuimteNaam>Helmersplantsoen</Adres:openbareRuimteNaam>
+						<Adres:huisNummer>1</Adres:huisNummer>
+						<Adres:postcode>1054RZ</Adres:postcode>
+						<Adres:woonplaatsNaam>AMSTERDAM</Adres:woonplaatsNaam>
+					</Adres:KADBinnenlandsAdres>
+				</Persoon:woonlocatie>
+				<NhrRechtspersoon:RSIN>822292543</NhrRechtspersoon:RSIN>
+				<NhrRechtspersoon:KVKnummer>34388946</NhrRechtspersoon:KVKnummer>
+				<NhrRechtspersoon:rechtsvorm>
+					<Typen:code>21</Typen:code>
+					<Typen:waarde>Vereniging van eigenaars</Typen:waarde>
+				</NhrRechtspersoon:rechtsvorm>
+				<NhrRechtspersoon:statutaireNaam>Vereniging Van Eigenaars Willemina</NhrRechtspersoon:statutaireNaam>
+				<NhrRechtspersoon:statutaireZetel>AMSTERDAM</NhrRechtspersoon:statutaireZetel>
+			</NhrRechtspersoon:Rechtspersoon>
+			<Stuk:TerInschrijvingAangebodenStuk id="ID.6106640605">
+				<Stuk:identificatie>
+					<NEN3610:namespace>NL.KAD.TIAStuk</NEN3610:namespace>
+					<NEN3610:lokaalId>17990729011399</NEN3610:lokaalId>
+				</Stuk:identificatie>
+				<Stuk:omvat>
+					<Stuk:Stukdeel id="ID.6106640606">
+						<Stuk:identificatie>
+							<NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+							<NEN3610:lokaalId>AKR1.2628625</NEN3610:lokaalId>
+						</Stuk:identificatie>
+						<Stuk:aardStukdeel nilReason="waardeOnbekend">
+							<Typen:code>NIL</Typen:code>
+							<Typen:waarde>NIL</Typen:waarde>
+						</Stuk:aardStukdeel>
+					</Stuk:Stukdeel>
+				</Stuk:omvat>
+				<Stuk:tijdstipAanbieding>1999-03-30T00:00:00</Stuk:tijdstipAanbieding>
+				<Stuk:deelEnNummer>
+					<Stuk:deel>15727</Stuk:deel>
+					<Stuk:nummer>61</Stuk:nummer>
+					<Stuk:reeks>
+						<Typen:code>ASD</Typen:code>
+						<Typen:waarde>Amsterdam</Typen:waarde>
+					</Stuk:reeks>
+					<Stuk:registercode>
+						<Typen:code>2</Typen:code>
+						<Typen:waarde>Hyp4</Typen:waarde>
+					</Stuk:registercode>
+					<Stuk:soortRegister>
+						<Typen:code>2</Typen:code>
+						<Typen:waarde>Onroerende Zaken</Typen:waarde>
+					</Stuk:soortRegister>
+				</Stuk:deelEnNummer>
+			</Stuk:TerInschrijvingAangebodenStuk>
+			<Stuk:TerInschrijvingAangebodenStuk id="ID.6106640599">
+				<Stuk:identificatie>
+					<NEN3610:namespace>NL.KAD.TIAStuk</NEN3610:namespace>
+					<NEN3610:lokaalId>18010227002422</NEN3610:lokaalId>
+				</Stuk:identificatie>
+				<Stuk:omvat>
+					<Stuk:Stukdeel id="ID.6106640600">
+						<Stuk:identificatie>
+							<NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+							<NEN3610:lokaalId>AKR1.1659815</NEN3610:lokaalId>
+						</Stuk:identificatie>
+						<Stuk:aardStukdeel nilReason="waardeOnbekend">
+							<Typen:code>NIL</Typen:code>
+							<Typen:waarde>NIL</Typen:waarde>
+						</Stuk:aardStukdeel>
+					</Stuk:Stukdeel>
+				</Stuk:omvat>
+				<Stuk:tijdstipAanbieding>1987-01-08T00:00:00</Stuk:tijdstipAanbieding>
+				<Stuk:deelEnNummer>
+					<Stuk:deel>8569</Stuk:deel>
+					<Stuk:nummer>79</Stuk:nummer>
+					<Stuk:reeks>
+						<Typen:code>ASD</Typen:code>
+						<Typen:waarde>Amsterdam</Typen:waarde>
+					</Stuk:reeks>
+					<Stuk:registercode>
+						<Typen:code>2</Typen:code>
+						<Typen:waarde>Hyp4</Typen:waarde>
+					</Stuk:registercode>
+					<Stuk:soortRegister>
+						<Typen:code>2</Typen:code>
+						<Typen:waarde>Onroerende Zaken</Typen:waarde>
+					</Stuk:soortRegister>
+				</Stuk:deelEnNummer>
+			</Stuk:TerInschrijvingAangebodenStuk>
+			<Stuk:TerInschrijvingAangebodenStuk id="ID.6106640616">
+				<Stuk:identificatie>
+					<NEN3610:namespace>NL.KAD.TIAStuk</NEN3610:namespace>
+					<NEN3610:lokaalId>20021104006232</NEN3610:lokaalId>
+				</Stuk:identificatie>
+				<Stuk:omvat>
+					<Stuk:Stukdeel id="ID.6106640617">
+						<Stuk:identificatie>
+							<NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+							<NEN3610:lokaalId>AKR1.2964605</NEN3610:lokaalId>
+						</Stuk:identificatie>
+						<Stuk:aardStukdeel nilReason="waardeOnbekend">
+							<Typen:code>NIL</Typen:code>
+							<Typen:waarde>NIL</Typen:waarde>
+						</Stuk:aardStukdeel>
+					</Stuk:Stukdeel>
+				</Stuk:omvat>
+				<Stuk:tijdstipAanbieding>2002-11-04T09:00:00</Stuk:tijdstipAanbieding>
+				<Stuk:deelEnNummer>
+					<Stuk:deel>18611</Stuk:deel>
+					<Stuk:nummer>17</Stuk:nummer>
+					<Stuk:reeks>
+						<Typen:code>ASD</Typen:code>
+						<Typen:waarde>Amsterdam</Typen:waarde>
+					</Stuk:reeks>
+					<Stuk:registercode>
+						<Typen:code>2</Typen:code>
+						<Typen:waarde>Hyp4</Typen:waarde>
+					</Stuk:registercode>
+					<Stuk:soortRegister>
+						<Typen:code>2</Typen:code>
+						<Typen:waarde>Onroerende Zaken</Typen:waarde>
+					</Stuk:soortRegister>
+				</Stuk:deelEnNummer>
+			</Stuk:TerInschrijvingAangebodenStuk>
+		</Snapshot:KadastraalObjectSnapshot>
+	</Mutatie:was>
+	<Mutatie:wordt>
+		<Snapshot:KadastraalObjectSnapshot>
+			<Snapshot:referentie>A7F0A0AE322-6D4DD2783028</Snapshot:referentie>
+			<Snapshot:toestandsdatum>2018-10-11</Snapshot:toestandsdatum>
+			<KadastraalObject:Appartementsrecht id="ID.6796499793">
+				<KadastraalObject:identificatie>
+					<NEN3610:namespace>NL.KAD.OnroerendeZaak</NEN3610:namespace>
+					<NEN3610:lokaalId>11540745610018</NEN3610:lokaalId>
+				</KadastraalObject:identificatie>
+				<KadastraalObject:koopsom>
+					<KadastraalObject:bedrag>
+						<Typen:som>264100</Typen:som>
+						<Typen:valuta>
+							<Typen:code>EUR</Typen:code>
+							<Typen:waarde>EUR Euro</Typen:waarde>
+						</Typen:valuta>
+					</KadastraalObject:bedrag>
+					<KadastraalObject:koopjaar>2018</KadastraalObject:koopjaar>
+					<KadastraalObject:indicatieMeerObjecten>false</KadastraalObject:indicatieMeerObjecten>
+				</KadastraalObject:koopsom>
+				<KadastraalObject:kadastraleAanduiding>
+					<KadastraalObject:AKRKadastraleGemeenteCode>
+						<Typen:code>53</Typen:code>
+						<Typen:waarde>ASD13</Typen:waarde>
+					</KadastraalObject:AKRKadastraleGemeenteCode>
+					<KadastraalObject:naamKadastraleGemeente>
+						<Typen:code>42</Typen:code>
+						<Typen:waarde>Amsterdam</Typen:waarde>
+					</KadastraalObject:naamKadastraleGemeente>
+					<KadastraalObject:sectie>Q</KadastraalObject:sectie>
+					<KadastraalObject:perceelnummer>7456</KadastraalObject:perceelnummer>
+					<KadastraalObject:appartementsrechtVolgnummer>18</KadastraalObject:appartementsrechtVolgnummer>
+				</KadastraalObject:kadastraleAanduiding>
+			</KadastraalObject:Appartementsrecht>
+			<Recht:ZakelijkRecht id="ID.6796499791">
+				<Recht:identificatie>
+					<NEN3610:namespace>NL.KAD.ZakelijkRecht</NEN3610:namespace>
+					<NEN3610:lokaalId>AKR1.1447782</NEN3610:lokaalId>
+				</Recht:identificatie>
+				<Recht:aard>
+					<Typen:code>2</Typen:code>
+					<Typen:waarde>Eigendom (recht van)</Typen:waarde>
+				</Recht:aard>
+				<Recht:rustOp>
+					<KadastraalObjectRef:AppartementsrechtRef xlink:href="#ID.6796499793"/>
+				</Recht:rustOp>
+				<Recht:ontstaanUit>
+					<Recht:Ondersplitsing>
+						<Recht:verenigingVanEigenaren>
+							<NhrRechtspersoonRef:RechtspersoonRef xlink:href="#ID.6796499781"/>
+						</Recht:verenigingVanEigenaren>
+						<Recht:isGebaseerdOp>
+							<StukRef:StukdeelRef xlink:href="#ID.6796499790"/>
+						</Recht:isGebaseerdOp>
+					</Recht:Ondersplitsing>
+				</Recht:ontstaanUit>
+			</Recht:ZakelijkRecht>
+			<Recht:Tenaamstelling id="ID.6796499787">
+				<Recht:identificatie>
+					<NEN3610:namespace>NL.KAD.Tenaamstelling</NEN3610:namespace>
+					<NEN3610:lokaalId>1000020370</NEN3610:lokaalId>
+				</Recht:identificatie>
+				<Recht:isGebaseerdOp>
+					<StukRef:StukdeelRef xlink:href="#ID.6796499770"/>
+				</Recht:isGebaseerdOp>
+				<Recht:vanPersoon>
+					<GbaPersoonRef:IngezeteneRef xlink:href="#ID.6796499783"/>
+				</Recht:vanPersoon>
+				<Recht:aandeel>
+					<Recht:teller>1</Recht:teller>
+					<Recht:noemer>1</Recht:noemer>
+				</Recht:aandeel>
+				<Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+					<Typen:code>1</Typen:code>
+					<Typen:waarde>Gehuwd</Typen:waarde>
+				</Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+				<Recht:betrokkenBijVerkrijging>
+					<GbaPersoonRef:NietIngezeteneRef xlink:href="#ID.6796499785"/>
+				</Recht:betrokkenBijVerkrijging>
+				<Recht:van>
+					<RechtRef:ZakelijkRechtRef xlink:href="#ID.6796499791"/>
+				</Recht:van>
+			</Recht:Tenaamstelling>
+			<Recht:Aantekening id="ID.6796499760">
+				<Recht:identificatie>
+					<NEN3610:namespace>NL.KAD.Aantekening</NEN3610:namespace>
+					<NEN3610:lokaalId>AKR1.225365</NEN3610:lokaalId>
+				</Recht:identificatie>
+				<Recht:aard>
+					<Typen:code>173</Typen:code>
+					<Typen:waarde>Besluit op basis van Monumentenwet 1988</Typen:waarde>
+				</Recht:aard>
+				<Recht:betreftAantekeningKadastraalObject>
+					<Recht:AantekeningKadastraalObject>
+						<Recht:heeftBetrekkingOp>
+							<KadastraalObjectRef:AppartementsrechtRef xlink:href="#ID.6796499793"/>
+						</Recht:heeftBetrekkingOp>
+					</Recht:AantekeningKadastraalObject>
+				</Recht:betreftAantekeningKadastraalObject>
+				<Recht:isGebaseerdOp>
+					<StukRef:StukdeelRef xlink:href="#ID.6796499761"/>
+				</Recht:isGebaseerdOp>
+				<Recht:betrokkenPersoon>
+					<PersoonRef:KADNietNatuurlijkPersoonRef xlink:href="#ID.6796499764"/>
+				</Recht:betrokkenPersoon>
+			</Recht:Aantekening>
+			<Recht:Aantekening id="ID.6796499767">
+				<Recht:identificatie>
+					<NEN3610:namespace>NL.KAD.Aantekening</NEN3610:namespace>
+					<NEN3610:lokaalId>KRS2.1000000046</NEN3610:lokaalId>
+				</Recht:identificatie>
+				<Recht:aard>
+					<Typen:code>60</Typen:code>
+					<Typen:waarde>Wijziging t.a.v. de erfpachtvoorwaarden en/of -canon</Typen:waarde>
+				</Recht:aard>
+				<Recht:omschrijving>28245.55 EUR PER JAAR</Recht:omschrijving>
+				<Recht:betreftAantekeningRecht>
+					<Recht:AantekeningRecht>
+						<Recht:heeftBetrekkingOp>
+							<RechtRef:TenaamstellingRef xlink:href="#ID.6796499787"/>
+						</Recht:heeftBetrekkingOp>
+					</Recht:AantekeningRecht>
+				</Recht:betreftAantekeningRecht>
+				<Recht:isGebaseerdOp>
+					<StukRef:StukdeelRef xlink:href="#ID.6796499768"/>
+				</Recht:isGebaseerdOp>
+			</Recht:Aantekening>
+			<GbaPersoon:Ingezetene id="ID.6796499783">
+				<Persoon:identificatie>
+					<NEN3610:namespace>NL.KAD.Persoon</NEN3610:namespace>
+					<NEN3610:lokaalId>888888888888888</NEN3610:lokaalId>
+				</Persoon:identificatie>
+				<GbaPersoon:BSN nilReason="nietGeauthoriseerd" xsi:nill="true">999999990</GbaPersoon:BSN>
+				<GbaPersoon:naam>
+					<GbaPersoon:geslachtsnaam>Dit is afgeschermde informatie. Verstrekking is alleen mogelijk op grond van artikel 37a Kadasterbesluit. Neem contact op met het Kadaster via (088) 183 22 43 of APGloket@kadaster.nl</GbaPersoon:geslachtsnaam>
+				</GbaPersoon:naam>
+				<GbaPersoon:geslacht>
+					<GbaPersoon:geslachtsaanduiding>
+						<Typen:code>O</Typen:code>
+						<Typen:waarde>Onbekend</Typen:waarde>
+					</GbaPersoon:geslachtsaanduiding>
+				</GbaPersoon:geslacht>
+			</GbaPersoon:Ingezetene>
+			<GbaPersoon:Ingezetene id="ID.6796499785">
+				<Persoon:identificatie>
+					<NEN3610:namespace>NL.KAD.Persoon</NEN3610:namespace>
+					<NEN3610:lokaalId>888888888888888</NEN3610:lokaalId>
+				</Persoon:identificatie>
+				<GbaPersoon:BSN nilReason="nietGeauthoriseerd" xsi:nill="true">999999990</GbaPersoon:BSN>
+				<GbaPersoon:naam>
+					<GbaPersoon:geslachtsnaam>Dit is afgeschermde informatie. Verstrekking is alleen mogelijk op grond van artikel 37a Kadasterbesluit. Neem contact op met het Kadaster via (088) 183 22 43 of APGloket@kadaster.nl</GbaPersoon:geslachtsnaam>
+				</GbaPersoon:naam>
+				<GbaPersoon:geslacht>
+					<GbaPersoon:geslachtsaanduiding>
+						<Typen:code>O</Typen:code>
+						<Typen:waarde>Onbekend</Typen:waarde>
+					</GbaPersoon:geslachtsaanduiding>
+				</GbaPersoon:geslacht>
+			</GbaPersoon:Ingezetene>
+			<GbaPersoon:Ingezetene id="ID.6796499764">
+				<Persoon:identificatie>
+					<NEN3610:namespace>NL.KAD.Persoon</NEN3610:namespace>
+					<NEN3610:lokaalId>888888888888888</NEN3610:lokaalId>
+				</Persoon:identificatie>
+				<GbaPersoon:BSN nilReason="nietGeauthoriseerd" xsi:nill="true">999999990</GbaPersoon:BSN>
+				<GbaPersoon:naam>
+					<GbaPersoon:geslachtsnaam>Dit is afgeschermde informatie. Verstrekking is alleen mogelijk op grond van artikel 37a Kadasterbesluit. Neem contact op met het Kadaster via (088) 183 22 43 of APGloket@kadaster.nl</GbaPersoon:geslachtsnaam>
+				</GbaPersoon:naam>
+				<GbaPersoon:geslacht>
+					<GbaPersoon:geslachtsaanduiding>
+						<Typen:code>O</Typen:code>
+						<Typen:waarde>Onbekend</Typen:waarde>
+					</GbaPersoon:geslachtsaanduiding>
+				</GbaPersoon:geslacht>
+			</GbaPersoon:Ingezetene>
+			<NhrRechtspersoon:Rechtspersoon id="ID.6796499781">
+				<Persoon:identificatie>
+					<NEN3610:namespace>NL.KAD.Persoon</NEN3610:namespace>
+					<NEN3610:lokaalId>172059846</NEN3610:lokaalId>
+				</Persoon:identificatie>
+				<Persoon:woonlocatie>
+					<Adres:KADBinnenlandsAdres>
+						<Adres:openbareRuimteNaam>Helmersplantsoen</Adres:openbareRuimteNaam>
+						<Adres:huisNummer>1</Adres:huisNummer>
+						<Adres:postcode>1054RZ</Adres:postcode>
+						<Adres:woonplaatsNaam>AMSTERDAM</Adres:woonplaatsNaam>
+					</Adres:KADBinnenlandsAdres>
+				</Persoon:woonlocatie>
+				<NhrRechtspersoon:RSIN>822292543</NhrRechtspersoon:RSIN>
+				<NhrRechtspersoon:KVKnummer>34388946</NhrRechtspersoon:KVKnummer>
+				<NhrRechtspersoon:rechtsvorm>
+					<Typen:code>21</Typen:code>
+					<Typen:waarde>Vereniging van eigenaars</Typen:waarde>
+				</NhrRechtspersoon:rechtsvorm>
+				<NhrRechtspersoon:statutaireNaam>Vereniging Van Eigenaars Willemina</NhrRechtspersoon:statutaireNaam>
+				<NhrRechtspersoon:statutaireZetel>AMSTERDAM</NhrRechtspersoon:statutaireZetel>
+			</NhrRechtspersoon:Rechtspersoon>
+			<Stuk:TerInschrijvingAangebodenStuk id="ID.6796499789">
+				<Stuk:identificatie>
+					<NEN3610:namespace>NL.KAD.TIAStuk</NEN3610:namespace>
+					<NEN3610:lokaalId>18010227002422</NEN3610:lokaalId>
+				</Stuk:identificatie>
+				<Stuk:omvat>
+					<Stuk:Stukdeel id="ID.6796499790">
+						<Stuk:identificatie>
+							<NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+							<NEN3610:lokaalId>AKR1.1659815</NEN3610:lokaalId>
+						</Stuk:identificatie>
+						<Stuk:aardStukdeel nilReason="waardeOnbekend">
+							<Typen:code>NIL</Typen:code>
+							<Typen:waarde>NIL</Typen:waarde>
+						</Stuk:aardStukdeel>
+					</Stuk:Stukdeel>
+				</Stuk:omvat>
+				<Stuk:tijdstipAanbieding>1987-01-08T00:00:00</Stuk:tijdstipAanbieding>
+				<Stuk:deelEnNummer>
+					<Stuk:deel>8569</Stuk:deel>
+					<Stuk:nummer>79</Stuk:nummer>
+					<Stuk:reeks>
+						<Typen:code>ASD</Typen:code>
+						<Typen:waarde>Amsterdam</Typen:waarde>
+					</Stuk:reeks>
+					<Stuk:registercode>
+						<Typen:code>2</Typen:code>
+						<Typen:waarde>Hyp4</Typen:waarde>
+					</Stuk:registercode>
+					<Stuk:soortRegister>
+						<Typen:code>2</Typen:code>
+						<Typen:waarde>Onroerende Zaken</Typen:waarde>
+					</Stuk:soortRegister>
+				</Stuk:deelEnNummer>
+			</Stuk:TerInschrijvingAangebodenStuk>
+			<Stuk:TerInschrijvingAangebodenStuk id="ID.6796499762">
+				<Stuk:identificatie>
+					<NEN3610:namespace>NL.KAD.TIAStuk</NEN3610:namespace>
+					<NEN3610:lokaalId>20021104006232</NEN3610:lokaalId>
+				</Stuk:identificatie>
+				<Stuk:omvat>
+					<Stuk:Stukdeel id="ID.6796499761">
+						<Stuk:identificatie>
+							<NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+							<NEN3610:lokaalId>AKR1.2964605</NEN3610:lokaalId>
+						</Stuk:identificatie>
+						<Stuk:aardStukdeel nilReason="waardeOnbekend">
+							<Typen:code>NIL</Typen:code>
+							<Typen:waarde>NIL</Typen:waarde>
+						</Stuk:aardStukdeel>
+					</Stuk:Stukdeel>
+				</Stuk:omvat>
+				<Stuk:tijdstipAanbieding>2002-11-04T09:00:00</Stuk:tijdstipAanbieding>
+				<Stuk:deelEnNummer>
+					<Stuk:deel>18611</Stuk:deel>
+					<Stuk:nummer>17</Stuk:nummer>
+					<Stuk:reeks>
+						<Typen:code>ASD</Typen:code>
+						<Typen:waarde>Amsterdam</Typen:waarde>
+					</Stuk:reeks>
+					<Stuk:registercode>
+						<Typen:code>2</Typen:code>
+						<Typen:waarde>Hyp4</Typen:waarde>
+					</Stuk:registercode>
+					<Stuk:soortRegister>
+						<Typen:code>2</Typen:code>
+						<Typen:waarde>Onroerende Zaken</Typen:waarde>
+					</Stuk:soortRegister>
+				</Stuk:deelEnNummer>
+			</Stuk:TerInschrijvingAangebodenStuk>
+			<Stuk:TerInschrijvingAangebodenStuk id="ID.6796499769">
+				<Stuk:identificatie>
+					<NEN3610:namespace>NL.KAD.TIAStuk</NEN3610:namespace>
+					<NEN3610:lokaalId>20181011001384</NEN3610:lokaalId>
+				</Stuk:identificatie>
+				<Stuk:omvat>
+					<Stuk:Stukdeel id="ID.6796499768">
+						<Stuk:identificatie>
+							<NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+							<NEN3610:lokaalId>500000002040</NEN3610:lokaalId>
+						</Stuk:identificatie>
+						<Stuk:aardStukdeel>
+							<Typen:code>004</Typen:code>
+							<Typen:waarde>Akte van Scheiding huwelijksgoederengemeenschap</Typen:waarde>
+						</Stuk:aardStukdeel>
+					</Stuk:Stukdeel>
+					<Stuk:Stukdeel id="ID.6796499770">
+						<Stuk:identificatie>
+							<NEN3610:namespace>NL.KAD.Stukdeel</NEN3610:namespace>
+							<NEN3610:lokaalId>500000014048</NEN3610:lokaalId>
+						</Stuk:identificatie>
+						<Stuk:aardStukdeel>
+							<Typen:code>003</Typen:code>
+							<Typen:waarde>Akte van Scheiding onverdeeldheid</Typen:waarde>
+						</Stuk:aardStukdeel>
+					</Stuk:Stukdeel>
+				</Stuk:omvat>
+				<Stuk:tijdstipAanbieding>2018-10-11T12:07:00</Stuk:tijdstipAanbieding>
+				<Stuk:deelEnNummer>
+					<Stuk:deel>74169</Stuk:deel>
+					<Stuk:nummer>53</Stuk:nummer>
+					<Stuk:registercode>
+						<Typen:code>2</Typen:code>
+						<Typen:waarde>Hyp4</Typen:waarde>
+					</Stuk:registercode>
+					<Stuk:soortRegister>
+						<Typen:code>2</Typen:code>
+						<Typen:waarde>Onroerende Zaken</Typen:waarde>
+					</Stuk:soortRegister>
+				</Stuk:deelEnNummer>
+			</Stuk:TerInschrijvingAangebodenStuk>
+		</Snapshot:KadastraalObjectSnapshot>
+	</Mutatie:wordt>
+</Mutatie:Mutatie>
