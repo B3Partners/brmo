@@ -8,12 +8,25 @@ timestamps {
         ]]);
 
     node {
-        withEnv(["JAVA_HOME=${ tool 'JDK8' }", "PATH+MAVEN=${tool 'Maven 3.6.0'}/bin:${env.JAVA_HOME}/bin"]) {
+        withEnv(["JAVA_HOME=${ tool 'JDK8' }", "PATH+MAVEN=${tool 'Maven 3.6.1'}/bin:${env.JAVA_HOME}/bin"]) {
 
             stage('Prepare') {
                 sh "ulimit -a"
                 sh "free -h"
                 checkout scm
+                /*
+                checkout([
+                    $class: 'GitSCM', 
+                    branches: [[name: '**']], 
+                    extensions: [
+                        [$class: 'CloneOption', reference: '/opt/git-mirrors/brmo.git'], 
+                        [$class: 'GitLFSPull']
+                    ], 
+                    userRemoteConfigs: [
+                        [credentialsId: '824987a7-c70c-45ce-ac42-147969e3ed51', url: 'https://github.com/B3Partners/brmo.git']
+                    ]
+                ])
+                */
             }
 
             stage('Prepare data') {
