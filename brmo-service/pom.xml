@@ -423,8 +423,8 @@
                         <dependencies>
                             <dependency>
                                 <groupId>com.sun.mail</groupId>
-                                <artifactId>javax.mail</artifactId>
-                                <version>${javax.mail.version}</version>
+                                <artifactId>jakarta.mail</artifactId>
+                                <version>${jakarta.mail.version}</version>
                             </dependency>
                             <dependency>
                                 <groupId>${oracle.jdbc.groupId}</groupId>
@@ -528,8 +528,8 @@
                         <dependencies>
                             <dependency>
                                 <groupId>com.sun.mail</groupId>
-                                <artifactId>javax.mail</artifactId>
-                                <version>${javax.mail.version}</version>
+                                <artifactId>jakarta.mail</artifactId>
+                                <version>${jakarta.mail.version}</version>
                             </dependency>
                             <dependency>
                                 <groupId>net.sourceforge.jtds</groupId>

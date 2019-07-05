@@ -64,7 +64,7 @@
             </includes>
             <outputFileNameMapping>${artifact.artifactId}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>
-        <dependencySet>
+        <!-- dependencySet>
             <useTransitiveDependencies>false</useTransitiveDependencies>
             <outputDirectory>drivers/java11-libs/</outputDirectory>
             <unpack>false</unpack>
@@ -73,7 +73,7 @@
                 <include>org.glassfish.jaxb</include>
             </includes>
             <outputFileNameMapping>${artifact.artifactId}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
-        </dependencySet>
+        </dependencySet -->
     </dependencySets>
     <fileSets>
         <fileSet>

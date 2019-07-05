@@ -86,14 +86,17 @@
             <groupId>net.sourceforge.jtds</groupId>
             <artifactId>jtds</artifactId>
         </dependency>
-        <!-- mogelijk niet nodig; check de webapps -->
+        <!-- niet nodig; zitten in de webapps 
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>${jaxb.api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
+            <version>${jaxb.impl.version}</version>
         </dependency>
+        -->
     </dependencies>
 </project>
