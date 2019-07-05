@@ -93,9 +93,9 @@
             <artifactId>javasimon-console-embed</artifactId>
         </dependency>
         <dependency>
-            <!-- de volledige mail api dient door de servlet container te worden geleverd. -->
-            <groupId>javax.mail</groupId>
-            <artifactId>javax.mail-api</artifactId>
+            <!-- de volledige mail implementatie dient door de servlet container te worden geleverd. -->
+            <groupId>jakarta.mail</groupId>
+            <artifactId>jakarta.mail-api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -315,8 +315,8 @@
                         <dependencies>
                             <dependency>
                                 <groupId>com.sun.mail</groupId>
-                                <artifactId>javax.mail</artifactId>
-                                <version>${javax.mail.version}</version>
+                                <artifactId>jakarta.mail</artifactId>
+                                <version>${jakarta.mail.version}</version>
                             </dependency>
                             <dependency>
                                 <groupId>org.postgresql</groupId>
