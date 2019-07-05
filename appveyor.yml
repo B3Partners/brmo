@@ -13,7 +13,6 @@ environment:
   BGT_ONLY_ITESTS : false
   # Microsoft SQL Server 2016 Service Pack 1 heeft een EOL van 13-7-2021
   # Microsoft SQL Server 2017 is de jongst-beschikbare release op AppVeyor, maar testen we op Travis-CI (veel sneller)
-  # Microsoft SQL Server 2014 Service Pack 2 heeft een EOL van 9-7-2019
   matrix:
     - SQL: MSSQL$SQL2016
       INSTANCENAME: SQL2016
@@ -25,9 +24,11 @@ environment:
       INSTANCENAME: SQL2016
       JAVA_HOME: C:\Program Files\Java\jdk1.8.0
       BGT_ONLY_ITESTS : true
-    - SQL: MSSQL$SQL2014
-      INSTANCENAME: SQL2014
-      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+  # Microsoft SQL Server 2014 Service Pack 2 heeft een EOL van 9-7-2019
+  # https://support.microsoft.com/en-us/lifecycle/search/17645
+  #  - SQL: MSSQL$SQL2014
+  #    INSTANCENAME: SQL2014
+  #    JAVA_HOME: C:\Program Files\Java\jdk1.8.0
 
 matrix:
   fast_finish: false
@@ -35,12 +36,12 @@ matrix:
 install:
 
   - ps: |
-      Add-Type -AssemblyName System.IO.Compression.FileSystem
-      if (!(Test-Path("C:\Users\appveyor\downloads\maven-bin.zip"))) {
-          (new-object System.Net.WebClient).DownloadFile('https://archive.apache.org/dist/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.zip', 'C:\Users\appveyor\downloads\maven-bin.zip')
-      }
-      [System.IO.Compression.ZipFile]::ExtractToDirectory("C:\Users\appveyor\downloads\maven-bin.zip", "C:\maven")
-  - cmd: SET PATH=C:\maven\apache-maven-3.6.0\bin;%PATH%
+        Add-Type -AssemblyName System.IO.Compression.FileSystem
+        if (!(Test-Path("C:\Users\appveyor\downloads\maven-bin.zip"))) {
+            (new-object System.Net.WebClient).DownloadFile('https://archive.apache.org/dist/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.zip', 'C:\Users\appveyor\downloads\maven-bin.zip')
+        }
+        [System.IO.Compression.ZipFile]::ExtractToDirectory("C:\Users\appveyor\downloads\maven-bin.zip", "C:\maven")
+  - cmd: SET PATH=C:\maven\apache-maven-3.6.1\bin;%PATH%
   - cmd: echo %PATH%
   - cmd: java -version
   - cmd: mvn -v
@@ -48,15 +49,14 @@ install:
   - git init %APPVEYOR_BUILD_FOLDER%
   - cd %APPVEYOR_BUILD_FOLDER%
   - git remote add origin https://github.com/%APPVEYOR_REPO_NAME%.git
-  # the APPVEYOR_REPO_BRANCH and tags will be updated even if it does not fast-forward, because it is prefixed with a plus sign
-  - git fetch -qfup --depth=5 origin +%APPVEYOR_REPO_BRANCH% +refs/tags/*:refs/tags/*
-  # default AppVeyor checkout
-  - git checkout -qf %APPVEYOR_REPO_COMMIT%
-  # in geval van PR build
-  - echo %APPVEYOR_PULL_REQUEST_NUMBER%
-  - echo %APPVEYOR_PULL_REQUEST_HEAD_COMMIT%
-  # git fetch -q origin +refs/pull/655/merge:
-  # git checkout -qf FETCH_HEAD
+  - ps: |
+        if ($Env:APPVEYOR_PULL_REQUEST_NUMBER -eq $null) {
+           git fetch -qfup --depth=5 origin +$Env:APPVEYOR_REPO_BRANCH +refs/tags/*:refs/tags/*
+           git checkout -qf $Env:APPVEYOR_REPO_COMMIT
+        } else {
+           git fetch -q origin +refs/pull/$Env:APPVEYOR_PULL_REQUEST_NUMBER/merge:
+           git checkout -qf FETCH_HEAD
+        }
   - git lfs pull
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-http-proxy.ps1'))
   - ps: .\.appveyor\set-maven-proxy.ps1
