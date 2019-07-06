@@ -1,3 +1,13 @@
+---
+name: Bug rapport
+about: Maak een bug rapport
+title: ''
+labels: 'bug :bomb:'
+assignees: ''
+
+---
+
+
 ### Probleem
 XXXXXXX
 
@@ -14,3 +24,4 @@ DUBBELCLICK_en_PLAK_hier_stacktrace
 ```
 
 </details>
+  
