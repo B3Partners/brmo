@@ -7,7 +7,6 @@ assignees: ''
 
 ---
 
-
 ### Probleem
 XXXXXXX
 
@@ -24,4 +23,3 @@ DUBBELCLICK_en_PLAK_hier_stacktrace
 ```
 
 </details>
-  
