@@ -68,12 +68,11 @@
         </dependency>
         <dependency>
             <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>${javax.mail.version}</version>
+            <artifactId>jakarta.mail</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.activation</groupId>
-            <artifactId>activation</artifactId>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -87,5 +86,17 @@
             <groupId>net.sourceforge.jtds</groupId>
             <artifactId>jtds</artifactId>
         </dependency>
+        <!-- niet nodig; zitten in de webapps 
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>${jaxb.api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>${jaxb.impl.version}</version>
+        </dependency>
+        -->
     </dependencies>
 </project>

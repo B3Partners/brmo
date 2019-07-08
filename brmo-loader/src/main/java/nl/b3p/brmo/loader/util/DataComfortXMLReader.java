@@ -21,7 +21,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stax.StAXSource;
 import javax.xml.transform.stream.StreamResult;
 import org.geotools.gml3.GMLConfiguration;
-import org.geotools.xml.Parser;
+import org.geotools.xsd.Parser;
 import org.javasimon.SimonManager;
 import org.javasimon.Split;
 import org.xml.sax.SAXException;

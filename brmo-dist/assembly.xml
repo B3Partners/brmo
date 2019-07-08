@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 https://maven.apache.org/xsd/assembly-2.0.0.xsd">
     <id>bin</id>
     <formats>
         <format>zip</format>
@@ -34,8 +34,8 @@
             <outputDirectory>drivers/pgsql/</outputDirectory>
             <unpack>false</unpack>
             <includes>
-                <include>com.sun.mail:javax.mail</include>
-                <include>javax.activation:activation</include>
+                <include>com.sun.mail:jakarta.mail</include>
+                <include>jakarta.activation:jakarta.activation-api</include>
                 <include>org.postgresql:postgresql</include>
                 <include>net.postgis:postgis-jdbc</include>
             </includes>
@@ -47,8 +47,8 @@
             <outputDirectory>drivers/mssql/</outputDirectory>
             <unpack>false</unpack>
             <includes>
-                <include>com.sun.mail:javax.mail</include>
-                <include>javax.activation:activation</include>
+                <include>com.sun.mail:jakarta.mail</include>
+                <include>jakarta.activation:jakarta.activation-api</include>
                 <include>net.sourceforge.jtds:jtds</include>
             </includes>
             <outputFileNameMapping>${artifact.artifactId}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
@@ -59,11 +59,21 @@
             <outputDirectory>drivers/oracle/</outputDirectory>
             <unpack>false</unpack>
             <includes>
-                <include>com.sun.mail:javax.mail</include>
-                <include>javax.activation:activation</include>
+                <include>com.sun.mail:jakarta.mail</include>
+                <include>jakarta.activation:jakarta.activation-api</include>
             </includes>
             <outputFileNameMapping>${artifact.artifactId}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>
+        <!-- dependencySet>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <outputDirectory>drivers/java11-libs/</outputDirectory>
+            <unpack>false</unpack>
+            <includes>
+                <include>jakarta.xml.bind</include>
+                <include>org.glassfish.jaxb</include>
+            </includes>
+            <outputFileNameMapping>${artifact.artifactId}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
+        </dependencySet -->
     </dependencySets>
     <fileSets>
         <fileSet>
