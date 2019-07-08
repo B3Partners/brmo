@@ -1,4 +1,4 @@
-package nl.b3p.brmo;
+package nl.b3p.brmo.oracle;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
