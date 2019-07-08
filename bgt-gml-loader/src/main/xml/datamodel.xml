@@ -309,7 +309,13 @@ Copyright (C) 2016 B3Partners B.V.
         <attribuut xslname="naamEnIdOpenbareRuimte" sqlname="naam_id_opr" sqltype="varchar(255)" />
         <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="multipolygon" />
     </objecttype>
-    
+
+    <objecttype clazz="Waterschap" table="waterschap">
+        <attribuut xslname="naam" sqlname="naam" sqltype="varchar(255)" />
+        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="multipolygon" />
+    </objecttype>
+
+
 <!-- geen transformatie of tabel van onderstaande.
 
 doen we niet: plaatsbepalingspunt
@@ -319,14 +325,6 @@ nog geen gml bestand van inrichtingselement gezien
     <objecttype clazz="Inrichtingselement" table="inrichtingselement">
         <attribuut xslname="bgt-type" sqlname="bgt_type" sqltype="varchar(255)" />
     </objecttype>
-
-nog geen gml bestand van waterschap gezien
-
-    <objecttype clazz="Waterschap" table="waterschap">
-        <attribuut xslname="naam" sqlname="naam" sqltype="varchar(255)" />
-        <attribuut xslname="geometrie2d" sqlname="DEFAULT_GEOM_NAME" sqltype="multipolygon" />
-    </objecttype>
-
     -->
 
 </datamodel>
